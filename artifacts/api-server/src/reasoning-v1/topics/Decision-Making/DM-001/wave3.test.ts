@@ -1,0 +1,56 @@
+import assert from "node:assert/strict";
+import { generateDmQuestion } from "./generator.ts";
+import { DM_001_QL_REGISTRY, assertContinuousDmQlIds, dmQlIdsForCheckpoint } from "./ql-registry.ts";
+import { DM_001_SCENARIO_LIBRARY, dmScenariosForCheckpoint } from "./scenario-library.ts";
+import { solveDmSituation } from "./situational-engine.ts";
+import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
+
+assert.equal(DM_001_CHECKPOINT_IDS.length, 16);
+assert.equal(DM_001_QL_IDS.length, 48);
+assert.equal(DM_001_QL_REGISTRY.length, 48);
+assert.equal(DM_001_SCENARIO_LIBRARY.length, 550);
+assertContinuousDmQlIds();
+
+const waveThreeCheckpoints = DM_001_CHECKPOINT_IDS.slice(10);
+for (const checkpointId of waveThreeCheckpoints) {
+  const scenarios = dmScenariosForCheckpoint(checkpointId);
+  assert.equal(scenarios.length, 50, checkpointId + " must expose 50 situational seeds");
+  assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
+  assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 50);
+  assert.equal(new Set(scenarios.map((scenario) => scenario.situational!.situation.en)).size, 50);
+
+  for (const scenario of scenarios) {
+    assert.ok(scenario.situational);
+    const solved = solveDmSituation(scenario.situational!);
+    assert.equal(solved.choice.admissible, true);
+    assert.equal(solved.choice.errors.length, 0);
+    assert.equal(scenario.situational!.choices.length, 4);
+    assert.equal(scenario.situational!.choices.filter((choice) => choice.admissible).length, 1);
+    assert.ok(scenario.situational!.choices.slice(1).every((choice) => choice.errors.length > 0));
+  }
+
+  for (const locale of ["en", "hi", "pa"] as const) {
+    const scenario = scenarios[0]!;
+    const stems = new Set(Array.from({ length: 18 }, (_, seed) =>
+      generateDmQuestion({ scenario, locale, seed, mode: "ALL_PASS" }).stem.split("\n").at(-1),
+    ));
+    assert.equal(stems.size, 18, checkpointId + " " + locale + " must expose 18 stem forms");
+    for (const difficultyCase of [
+      ["ALL_PASS", "EASY"], ["SINGLE_FAIL", "MEDIUM"], ["MULTIPLE_FAIL", "HARD"],
+    ] as const) {
+      const question = generateDmQuestion({ scenario, locale, seed: 47, mode: difficultyCase[0] });
+      assert.equal(question.answerMode, "SITUATIONAL_ACTION");
+      assert.equal(question.difficulty, difficultyCase[1]);
+      assert.equal(question.options.length, 4);
+      assert.equal(new Set(question.options).size, 4);
+      assert.equal(question.options[question.correctIndex], solveDmSituation(scenario.situational!).choice.text[locale]);
+      assert.match(question.explanation, locale === "en" ? /Situation:.*Relevant principle:.*Why this comes first:.*Conclusion:/s : locale === "hi" ? /स्थिति:.*संबंधित सिद्धांत:.*यह पहले क्यों:.*निष्कर्ष:/s : /ਸਥਿਤੀ:.*ਸੰਬੰਧਤ ਸਿਧਾਂਤ:.*ਇਹ ਪਹਿਲਾਂ ਕਿਉਂ:.*ਨਤੀਜਾ:/s);
+    }
+  }
+}
+
+assert.ok(dmScenariosForCheckpoint("DM-CP-012").every((scenario) => scenario.situational?.focus === "FIRST_ACTION"));
+assert.ok(dmScenariosForCheckpoint("DM-CP-016").every((scenario) => scenario.situational?.focus === "RESOURCE_PRIORITY"));
+assert.ok(dmScenariosForCheckpoint("DM-CP-016").every((scenario) => scenario.situational?.choices.slice(1).every((choice) => choice.errors.includes("IGNORE_PRIORITY") || choice.errors.includes("UNJUSTIFIED_DELAY"))));
+
+console.log("DM-001 Wave 3 checks passed: DM-011–016, 300 situational seeds, 18 QLs, three locales, deterministic action sequencing and resource priorities.");

@@ -9,6 +9,12 @@ export const DM_001_CHECKPOINT_IDS = [
   "DM-CP-008",
   "DM-CP-009",
   "DM-CP-010",
+  "DM-CP-011",
+  "DM-CP-012",
+  "DM-CP-013",
+  "DM-CP-014",
+  "DM-CP-015",
+  "DM-CP-016",
 ] as const;
 
 export const DM_001_QL_IDS = [
@@ -22,6 +28,12 @@ export const DM_001_QL_IDS = [
   "DM-QL-022", "DM-QL-023", "DM-QL-024",
   "DM-QL-025", "DM-QL-026", "DM-QL-027",
   "DM-QL-028", "DM-QL-029", "DM-QL-030",
+  "DM-QL-031", "DM-QL-032", "DM-QL-033",
+  "DM-QL-034", "DM-QL-035", "DM-QL-036",
+  "DM-QL-037", "DM-QL-038", "DM-QL-039",
+  "DM-QL-040", "DM-QL-041", "DM-QL-042",
+  "DM-QL-043", "DM-QL-044", "DM-QL-045",
+  "DM-QL-046", "DM-QL-047", "DM-QL-048",
 ] as const;
 
 export type DmCheckpointId = (typeof DM_001_CHECKPOINT_IDS)[number];
@@ -34,7 +46,8 @@ export type DmOutcome =
   | "REFER_TO_MANAGER"
   | "REFER_TO_DIRECTOR"
   | "REFER_TO_COMMITTEE"
-  | "INFORMATION_REQUIRED";
+  | "INFORMATION_REQUIRED"
+  | "TAKE_ACTION";
 export type DmField =
   | "age"
   | "ageAtDate"
@@ -74,6 +87,42 @@ export type DmCandidateMode =
   | "BOTH_RELAXATION";
 
 export type LocalizedText = Readonly<Record<DmLocale, string>>;
+
+export type DmSituationalPrinciple =
+  | "VERIFY_FACTS"
+  | "FOLLOW_PROCEDURE"
+  | "ESCALATE_AUTHORIZED"
+  | "DOCUMENT_ACTION"
+  | "PROTECT_CONFIDENTIALITY"
+  | "PRIORITIZE_URGENCY"
+  | "PRIORITIZE_DEADLINE"
+  | "SERVE_FAIRLY";
+
+export type DmSituationalError =
+  | "ACT_WITHOUT_VERIFICATION"
+  | "BYPASS_PROCEDURE"
+  | "UNNECESSARY_ESCALATION"
+  | "UNJUSTIFIED_DELAY"
+  | "ASSUME_FACTS"
+  | "IRREVERSIBLE_ACTION_TOO_EARLY"
+  | "BREACH_CONFIDENTIALITY"
+  | "IGNORE_PRIORITY";
+
+export type DmSituationalChoice = Readonly<{
+  choiceId: string;
+  text: LocalizedText;
+  principle: DmSituationalPrinciple;
+  stage: number;
+  admissible: boolean;
+  errors: readonly DmSituationalError[];
+}>;
+
+export type DmSituationalSpec = Readonly<{
+  situation: LocalizedText;
+  focus: "BEST_ACTION" | "FIRST_ACTION" | "RESOURCE_PRIORITY";
+  policyOrder: readonly DmSituationalPrinciple[];
+  choices: readonly DmSituationalChoice[];
+}>;
 
 export type DmRuleCondition = Readonly<{
   id: string;
@@ -131,6 +180,7 @@ export type DmScenario = Readonly<{
   referenceDate?: string;
   experienceAreaForBase?: string;
   ranking?: DmRankingSpec;
+  situational?: DmSituationalSpec;
 }>;
 
 export type DmConditionCheck = Readonly<{
@@ -156,7 +206,7 @@ export type DmGeneratedQuestion = Readonly<{
   locale: DmLocale;
   difficulty: DmDifficulty;
   candidate: DmCandidateProfile;
-  answerMode: "ELIGIBILITY_OUTCOME" | "RANKED_CANDIDATE_SET";
+  answerMode: "ELIGIBILITY_OUTCOME" | "RANKED_CANDIDATE_SET" | "SITUATIONAL_ACTION";
   candidateGroup?: readonly DmCandidateProfile[];
   selectedCandidates?: readonly string[];
   stem: string;

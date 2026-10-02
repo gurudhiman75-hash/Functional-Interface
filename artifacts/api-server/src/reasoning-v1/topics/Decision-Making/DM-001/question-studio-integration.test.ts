@@ -6,7 +6,7 @@ const registered = reasoningV1QuestionStudioAdapter.listPackages().find((entry) 
 assert.ok(registered, "DM-001 must be discoverable through the shared Question Studio registry");
 assert.equal(registered.engineId, "reasoning-v1");
 assert.deepEqual(registered.supportedLanguages, ["en", "hi", "pa"]);
-assert.deepEqual(registered.cpIds, ["DM-CP-001", "DM-CP-002", "DM-CP-003", "DM-CP-004", "DM-CP-005", "DM-CP-006", "DM-CP-007", "DM-CP-008", "DM-CP-009", "DM-CP-010"]);
+assert.deepEqual(registered.cpIds, Array.from({ length: 16 }, (_, index) => "DM-CP-" + String(index + 1).padStart(3, "0")));
 assert.equal(registered.lifecycleStage, "REVIEW_ONLY");
 assert.equal(registered.questionBankWritable, false);
 assert.equal(registered.testEligible, false);
@@ -75,4 +75,18 @@ assert.ok(ranked.questions.every((question) => Array.isArray(question.selectedCa
 assert.ok(ranked.questions.every((question) => question.answer === question.canonicalAnswer));
 assert.ok(ranked.questions.every((question) => String(question.stem).includes("ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ")));
 
-console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–2 selectors, locale, difficulty and review-only lifecycle checks.");
+const immediate = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1", patternId: "DM-012", language: "hi", difficulty: "Medium", count: 8, seed: "dm001-immediate-action",
+});
+assert.ok(immediate.questions.every((question) => question.checkpointId === "DM-CP-012"));
+assert.ok(immediate.questions.every((question) => question.answerMode === "SITUATIONAL_ACTION"));
+assert.ok(immediate.questions.every((question) => question.answer === question.canonicalAnswer));
+assert.ok(immediate.questions.every((question) => String(question.explanation).includes("यह पहले क्यों")));
+
+const resources = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1", patternId: "DM-QL-046", language: "en", difficulty: "Hard", count: 8, seed: "dm001-resource-priority",
+});
+assert.ok(resources.questions.every((question) => question.checkpointId === "DM-CP-016"));
+assert.ok(resources.questions.every((question) => question.answerMode === "SITUATIONAL_ACTION"));
+
+console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–3 selectors, locale, difficulty and review-only lifecycle checks.");

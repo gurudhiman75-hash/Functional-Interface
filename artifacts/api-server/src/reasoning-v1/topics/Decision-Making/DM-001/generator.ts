@@ -1,5 +1,6 @@
 import { calculateDmAgeOnDate, evaluateDmDecision, rankDmCandidates } from "./decision-engine.ts";
 import { formatDmDate } from "./scenario-library.ts";
+import { solveDmSituation } from "./situational-engine.ts";
 import type {
   DmCandidateMode,
   DmCandidateProfile,
@@ -80,16 +81,19 @@ const OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, strin
     SELECT: "Eligible for selection", REJECT: "Not eligible", REFER_TO_MANAGER: "Refer the case to the Manager",
     REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
     INFORMATION_REQUIRED: "Decision cannot be made; information is required",
+    TAKE_ACTION: "Take the identified action",
   },
   hi: {
     SELECT: "चयन के लिए पात्र", REJECT: "अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
     REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें",
     INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
+    TAKE_ACTION: "निर्धारित कार्रवाई करें",
   },
   pa: {
     SELECT: "ਚੋਣ ਲਈ ਯੋਗ", REJECT: "ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
     REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ",
     INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+    TAKE_ACTION: "ਪਛਾਣੀ ਕਾਰਵਾਈ ਕਰੋ",
   },
 });
 
@@ -126,6 +130,33 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਮਗਰੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ?", "ਚੋਣ ਅਧਿਕਾਰੀ ਨੂੰ ਇਸ ਮਾਮਲੇ ਵਿੱਚ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
     "{name} ਦੇ ਮਾਮਲੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਫੈਸਲਾ ਚੁਣੋ।", "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠ {name}...",
     "ਬਿਨੈਕਾਰ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਲਾਗੂ ਹੁੰਦੀ ਹੈ?", "{name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਫੈਸਲੇ ਵਜੋਂ ਕੀ ਦਰਜ ਕੀਤਾ ਜਾਵੇ?",
+  ],
+});
+
+const SITUATIONAL_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: [
+    "Which is the most appropriate action?", "What should the responsible officer do?", "Which course of action should be followed?",
+    "What is the best defensible response?", "Which step follows sound administrative procedure?", "How should this matter be handled?",
+    "Which action should be taken first?", "What is the most appropriate next step?", "Which response correctly applies the stated priorities?",
+    "What should be done before any consequential action?", "Which option gives the correct sequence?", "Which action best protects the process?",
+    "Which response is both practical and procedurally sound?", "How should the authority proceed?", "Which action avoids premature escalation?",
+    "What is the proper immediate response?", "Which option should be implemented?", "Which choice best follows verification and procedure?",
+  ],
+  hi: [
+    "सबसे उपयुक्त कार्रवाई कौन-सी है?", "जिम्मेदार अधिकारी को क्या करना चाहिए?", "कौन-सा कार्य-मार्ग अपनाया जाना चाहिए?",
+    "सबसे उचित और बचाव योग्य प्रतिक्रिया कौन-सी है?", "कौन-सा कदम सही प्रशासनिक प्रक्रिया के अनुरूप है?", "इस मामले को कैसे निपटाया जाना चाहिए?",
+    "सबसे पहले कौन-सी कार्रवाई करनी चाहिए?", "अगला सबसे उपयुक्त कदम क्या है?", "कौन-सी प्रतिक्रिया दी गई प्राथमिकताओं को सही लागू करती है?",
+    "किसी निर्णायक कार्रवाई से पहले क्या करना चाहिए?", "कौन-सा विकल्प सही क्रम बताता है?", "कौन-सी कार्रवाई प्रक्रिया की सबसे अच्छी रक्षा करती है?",
+    "कौन-सी प्रतिक्रिया व्यावहारिक और प्रक्रियागत रूप से सही है?", "प्राधिकारी को कैसे आगे बढ़ना चाहिए?", "कौन-सी कार्रवाई समय से पहले मामले को ऊपर भेजने से बचाती है?",
+    "उचित तत्काल प्रतिक्रिया क्या है?", "कौन-सा विकल्प लागू किया जाना चाहिए?", "कौन-सा विकल्प सत्यापन और प्रक्रिया का सबसे अच्छा पालन करता है?",
+  ],
+  pa: [
+    "ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?", "ਜ਼ਿੰਮੇਵਾਰ ਅਧਿਕਾਰੀ ਨੂੰ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜਾ ਕਾਰਵਾਈ ਰਾਹ ਅਪਣਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?",
+    "ਸਭ ਤੋਂ ਠੀਕ ਅਤੇ ਬਚਾਅਯੋਗ ਜਵਾਬ ਕਿਹੜਾ ਹੈ?", "ਕਿਹੜਾ ਕਦਮ ਠੀਕ ਪ੍ਰਸ਼ਾਸਕੀ ਪ੍ਰਕਿਰਿਆ ਅਨੁਸਾਰ ਹੈ?", "ਇਸ ਮਾਮਲੇ ਨੂੰ ਕਿਵੇਂ ਨਿਪਟਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?",
+    "ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਕਾਰਵਾਈ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ?", "ਅਗਲਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਕਦਮ ਕੀ ਹੈ?", "ਕਿਹੜਾ ਜਵਾਬ ਦਿੱਤੀਆਂ ਤਰਜੀਹਾਂ ਠੀਕ ਲਾਗੂ ਕਰਦਾ ਹੈ?",
+    "ਕਿਸੇ ਨਤੀਜਾਕਾਰੀ ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਕ੍ਰਮ ਦੱਸਦਾ ਹੈ?", "ਕਿਹੜੀ ਕਾਰਵਾਈ ਪ੍ਰਕਿਰਿਆ ਦੀ ਸਭ ਤੋਂ ਵਧੀਆ ਰੱਖਿਆ ਕਰਦੀ ਹੈ?",
+    "ਕਿਹੜਾ ਜਵਾਬ ਵਿਹਾਰਕ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਅਨੁਸਾਰ ਠੀਕ ਹੈ?", "ਅਧਿਕਾਰੀ ਨੂੰ ਕਿਵੇਂ ਅੱਗੇ ਵਧਣਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜੀ ਕਾਰਵਾਈ ਬੇਲੋੜੀ ਉੱਚ ਪੱਧਰੀ ਭੇਜਣ ਤੋਂ ਬਚਾਉਂਦੀ ਹੈ?",
+    "ਢੁੱਕਵਾਂ ਤੁਰੰਤ ਜਵਾਬ ਕੀ ਹੈ?", "ਕਿਹੜਾ ਵਿਕਲਪ ਲਾਗੂ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜਾ ਵਿਕਲਪ ਤਸਦੀਕ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਦੀ ਸਭ ਤੋਂ ਵਧੀਆ ਪਾਲਣਾ ਕਰਦਾ ਹੈ?",
   ],
 });
 
@@ -206,6 +237,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_DIRECTOR: "The listed rule assigns this case to the Director for a decision.",
     REFER_TO_COMMITTEE: "The listed rule assigns this case to the Review Committee.",
     INFORMATION_REQUIRED: "A required detail is missing or an exception cannot be checked, so a final decision cannot yet be made.",
+    TAKE_ACTION: "The action follows the applicable administrative principle.",
   },
   hi: {
     SELECT: "सभी अनिवार्य शर्तें पूरी हैं, इसलिए आवेदक चयन के लिए पात्र है।",
@@ -214,6 +246,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_DIRECTOR: "दिए गए नियम के अनुसार इस मामले का निर्णय निदेशक को करना है।",
     REFER_TO_COMMITTEE: "दिए गए नियम के अनुसार इस मामले को समीक्षा समिति के पास भेजना है।",
     INFORMATION_REQUIRED: "एक आवश्यक विवरण उपलब्ध नहीं है या अपवाद की जाँच संभव नहीं है, इसलिए अभी अंतिम निर्णय नहीं लिया जा सकता।",
+    TAKE_ACTION: "यह कार्रवाई लागू प्रशासनिक सिद्धांत का पालन करती है।",
   },
   pa: {
     SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਬਿਨੈਕਾਰ ਚੋਣ ਲਈ ਯੋਗ ਹੈ।",
@@ -222,6 +255,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_DIRECTOR: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਇਸ ਮਾਮਲੇ ਦਾ ਫੈਸਲਾ ਡਾਇਰੈਕਟਰ ਨੇ ਕਰਨਾ ਹੈ।",
     REFER_TO_COMMITTEE: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਇਸ ਮਾਮਲੇ ਨੂੰ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਣਾ ਹੈ।",
     INFORMATION_REQUIRED: "ਇੱਕ ਲਾਜ਼ਮੀ ਵੇਰਵਾ ਉਪਲਬਧ ਨਹੀਂ ਜਾਂ ਅਪਵਾਦ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਇਸ ਲਈ ਹਾਲੇ ਅੰਤਿਮ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।",
+    TAKE_ACTION: "ਇਹ ਕਾਰਵਾਈ ਲਾਗੂ ਪ੍ਰਸ਼ਾਸਕੀ ਸਿਧਾਂਤ ਦੀ ਪਾਲਣਾ ਕਰਦੀ ਹੈ।",
   },
 });
 
@@ -683,6 +717,7 @@ function distractors(correct: DmOutcome): readonly DmOutcome[] {
     REFER_TO_DIRECTOR: ["SELECT", "REJECT", "REFER_TO_MANAGER"],
     REFER_TO_COMMITTEE: ["SELECT", "REJECT", "REFER_TO_MANAGER"],
     INFORMATION_REQUIRED: ["SELECT", "REJECT", "REFER_TO_MANAGER"],
+    TAKE_ACTION: ["SELECT", "REJECT", "INFORMATION_REQUIRED"],
   };
   return preferred[correct];
 }
@@ -698,6 +733,37 @@ function orderedOptions(correct: DmOutcome, locale: DmLocale, seed: number): { o
   const options = keys.map((key) => OUTCOME_LABELS[locale][key]);
   if (new Set(options).size !== 4) throw new Error("DM-001 option labels must be unique in every supported locale.");
   return Object.freeze({ options: Object.freeze(options), correctIndex: keys.indexOf(correct) });
+}
+
+const PRINCIPLE_LABELS = Object.freeze({
+  en: { VERIFY_FACTS: "verify the relevant facts before acting", FOLLOW_PROCEDURE: "follow the prescribed procedure", ESCALATE_AUTHORIZED: "escalate only to the competent authority", DOCUMENT_ACTION: "keep an auditable record", PROTECT_CONFIDENTIALITY: "protect confidential information", PRIORITIZE_URGENCY: "give verified emergencies first priority", PRIORITIZE_DEADLINE: "give time-bound work priority over routine work", SERVE_FAIRLY: "apply a transparent and equal service rule" },
+  hi: { VERIFY_FACTS: "कार्रवाई से पहले संबंधित तथ्यों का सत्यापन", FOLLOW_PROCEDURE: "निर्धारित प्रक्रिया का पालन", ESCALATE_AUTHORIZED: "केवल सक्षम प्राधिकारी को मामला भेजना", DOCUMENT_ACTION: "जाँच योग्य अभिलेख रखना", PROTECT_CONFIDENTIALITY: "गोपनीय जानकारी की रक्षा", PRIORITIZE_URGENCY: "सत्यापित आपात मामलों को पहली प्राथमिकता", PRIORITIZE_DEADLINE: "नियमित कार्य से पहले समयबद्ध कार्य", SERVE_FAIRLY: "पारदर्शी और समान सेवा नियम" },
+  pa: { VERIFY_FACTS: "ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਸੰਬੰਧਤ ਤੱਥਾਂ ਦੀ ਤਸਦੀਕ", FOLLOW_PROCEDURE: "ਨਿਰਧਾਰਤ ਪ੍ਰਕਿਰਿਆ ਦੀ ਪਾਲਣਾ", ESCALATE_AUTHORIZED: "ਸਿਰਫ਼ ਸਮਰੱਥ ਅਧਿਕਾਰੀ ਕੋਲ ਮਾਮਲਾ ਭੇਜਣਾ", DOCUMENT_ACTION: "ਜਾਂਚਯੋਗ ਰਿਕਾਰਡ ਰੱਖਣਾ", PROTECT_CONFIDENTIALITY: "ਗੁਪਤ ਜਾਣਕਾਰੀ ਦੀ ਰੱਖਿਆ", PRIORITIZE_URGENCY: "ਤਸਦੀਕਸ਼ੁਦਾ ਐਮਰਜੈਂਸੀ ਨੂੰ ਪਹਿਲੀ ਤਰਜੀਹ", PRIORITIZE_DEADLINE: "ਰੁਟੀਨੀ ਕੰਮ ਤੋਂ ਪਹਿਲਾਂ ਮਿਆਦਬੱਧ ਕੰਮ", SERVE_FAIRLY: "ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਇੱਕਸਾਰ ਸੇਵਾ ਨਿਯਮ" },
+} as const);
+
+function generateSituationalQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
+  const spec = scenario.situational!;
+  const decision = solveDmSituation(spec);
+  const choices = [...spec.choices];
+  for (let index = choices.length - 1; index > 0; index -= 1) {
+    const swap = hash(scenario.scenarioId + ":situational:" + String(seed) + ":" + String(index)) % (index + 1);
+    [choices[index], choices[swap]] = [choices[swap]!, choices[index]!];
+  }
+  const correctIndex = choices.findIndex((choice) => choice.choiceId === decision.choice.choiceId);
+  const stem = spec.situation[locale] + "\n" + SITUATIONAL_STEMS[locale][seed % SITUATIONAL_STEMS[locale].length]!;
+  const principle = PRINCIPLE_LABELS[locale][decision.choice.principle];
+  const explanation = locale === "en"
+    ? "Situation: " + spec.situation.en + "\nRelevant principle: " + principle + ".\nWhy this comes first: it is the earliest admissible step and avoids acting on assumptions, bypassing procedure, or taking irreversible action prematurely.\nConclusion: " + decision.choice.text.en
+    : locale === "hi"
+      ? "स्थिति: " + spec.situation.hi + "\nसंबंधित सिद्धांत: " + principle + "।\nयह पहले क्यों: यह पहला स्वीकार्य कदम है और अनुमान, प्रक्रिया उल्लंघन या समय से पहले निर्णायक कार्रवाई से बचाता है।\nनिष्कर्ष: " + decision.choice.text.hi
+      : "ਸਥਿਤੀ: " + spec.situation.pa + "\nਸੰਬੰਧਤ ਸਿਧਾਂਤ: " + principle + "।\nਇਹ ਪਹਿਲਾਂ ਕਿਉਂ: ਇਹ ਪਹਿਲਾ ਮਨਜ਼ੂਰਯੋਗ ਕਦਮ ਹੈ ਅਤੇ ਅਨੁਮਾਨ, ਪ੍ਰਕਿਰਿਆ ਉਲੰਘਣਾ ਜਾਂ ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਨਤੀਜਾਕਾਰੀ ਕਾਰਵਾਈ ਤੋਂ ਬਚਾਉਂਦਾ ਹੈ।\nਨਤੀਜਾ: " + decision.choice.text.pa;
+  return Object.freeze({
+    chapterId: "DM-001", checkpointId: scenario.checkpointId, blueprintCheckpointId: scenario.blueprintCheckpointId,
+    qlId: scenario.qlId, scenarioId: scenario.scenarioId, seed, locale,
+    difficulty: dmDifficultyForMode(scenario.checkpointId, mode), candidate: Object.freeze({ name: "Administrative case" }),
+    answerMode: "SITUATIONAL_ACTION", stem, options: Object.freeze(choices.map((choice) => choice.text[locale])),
+    correctIndex, outcome: "TAKE_ACTION", explanation, explanationRows: Object.freeze([]),
+  });
 }
 
 export function dmDifficultyForMode(checkpointId: DmScenario["checkpointId"], mode: DmCandidateMode): DmDifficulty {
@@ -744,6 +810,7 @@ export function generateDmQuestion(input: {
   mode: DmCandidateMode;
 }): DmGeneratedQuestion {
   const { scenario, locale, seed, mode } = input;
+  if (scenario.situational) return generateSituationalQuestion(scenario, locale, seed, mode);
   if (scenario.ranking) return generateRankedQuestion(scenario, locale, seed, mode);
   const candidate = buildDmCandidate(scenario, mode, seed, locale);
   const result = evaluateDmDecision(candidate, scenario);

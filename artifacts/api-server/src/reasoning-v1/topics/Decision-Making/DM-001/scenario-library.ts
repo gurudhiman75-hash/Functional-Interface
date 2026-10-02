@@ -11,12 +11,13 @@ import type {
 } from "./types.ts";
 import { dmQlIdsForCheckpoint } from "./ql-registry.ts";
 import { DM_001_CHECKPOINT_IDS } from "./types.ts";
+import { buildDmSituationalScenarios } from "./situational-library.ts";
 
 const text = (en: string, hi: string, pa: string): LocalizedText => Object.freeze({ en, hi, pa });
 const condition = (id: string, field: DmField, operator: DmRuleCondition["operator"], value: DmRuleCondition["value"]): DmRuleCondition =>
   Object.freeze({ id, field, operator, value });
 
-const CONTEXTS: Readonly<Record<DmCheckpointId, readonly LocalizedText[]>> = Object.freeze({
+const CONTEXTS: Readonly<Partial<Record<DmCheckpointId, readonly LocalizedText[]>>> = Object.freeze({
   "DM-CP-001": [
     text("Junior clerk recruitment", "कनिष्ठ लिपिक भर्ती", "ਜੂਨੀਅਰ ਕਲਰਕ ਦੀ ਭਰਤੀ"),
     text("ITI apprentice intake", "आईटीआई प्रशिक्षु चयन", "ਆਈਟੀਆਈ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
@@ -429,10 +430,10 @@ function rulesFor(checkpointId: DmCheckpointId, policy: number, variant: number)
 }
 
 export function buildDmScenarioLibrary(): readonly DmScenario[] {
-  const checkpoints = [...DM_001_CHECKPOINT_IDS];
+  const checkpoints = DM_001_CHECKPOINT_IDS.filter((checkpointId) => Number(checkpointId.slice(-3)) <= 10);
   const scenarios: DmScenario[] = [];
   for (const checkpointId of checkpoints) {
-    const contexts = CONTEXTS[checkpointId];
+    const contexts = CONTEXTS[checkpointId]!;
     for (let contextIndex = 0; contextIndex < contexts.length; contextIndex += 1) {
       for (let policy = 0; policy < 5; policy += 1) {
         const variant = (contextIndex + policy) % 3;
@@ -454,6 +455,7 @@ export function buildDmScenarioLibrary(): readonly DmScenario[] {
       }
     }
   }
+  scenarios.push(...buildDmSituationalScenarios());
   return Object.freeze(scenarios);
 }
 

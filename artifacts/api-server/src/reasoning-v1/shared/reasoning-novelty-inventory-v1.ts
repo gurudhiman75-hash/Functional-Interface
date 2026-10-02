@@ -9,7 +9,8 @@ export type ReasoningNoveltyAuditStatusV1 =
   | 'NOVELTY_GATE_PRESENT_NEEDS_EXPANSION'
   | 'DIVERSITY_PROVEN_NOVELTY_NOT_YET_PROVEN'
   | 'NOVELTY_SIGNAL_PRESENT_NEEDS_SEMANTIC_AUDIT'
-  | 'DEDICATED_NOVELTY_AUDIT_PENDING';
+  | 'DEDICATED_NOVELTY_AUDIT_PENDING'
+  | 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER';
 
 export interface ReasoningNoveltyInventoryEntryV1 {
   readonly topicDirectory: string;
@@ -37,10 +38,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Analogy',
     chapterId: 'ANA-001',
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'Final ANA anti-inflation authority classifies multi-reference and inverse forms as presentation, not new solve contracts.',
+      'CP008 already owns mixed analogy completion and odd-pair selection.',
+      'CP009 conditional-branch grammar remains source-gapped with zero admitted QLs.',
+      'The coupled-invariant pilot remains quarantined because the recoverable rule permits multiple valid outputs.',
+      'ANA-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261002.md records the dedicated novelty decision.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit relation-composition novelty separately from pair-bank breadth.',
+    nextGate: 'Re-open only on recurring source evidence for a meta-analogy grammar or a new solver-backed composition that changes learner reasoning structure.',
   },
   {
     topicDirectory: 'Blood-Relations',

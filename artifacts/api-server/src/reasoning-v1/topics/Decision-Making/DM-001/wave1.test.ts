@@ -6,9 +6,11 @@ import { DM_001_SCENARIO_LIBRARY, dmScenariosForCheckpoint } from "./scenario-li
 import { DM_001_CHECKPOINT_IDS } from "./types.ts";
 
 assertContinuousDmQlIds();
-assert.equal(DM_001_QL_REGISTRY.length, 30);
-assert.equal(DM_001_SCENARIO_LIBRARY.length, 250);
-for (const checkpointId of DM_001_CHECKPOINT_IDS) {
+const legacyCheckpoints = DM_001_CHECKPOINT_IDS.slice(0, 10);
+const legacyScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 10);
+assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 10).length, 30);
+assert.equal(legacyScenarios.length, 250);
+for (const checkpointId of legacyCheckpoints) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
   assert.equal(scenarios.length, 25, checkpointId + " scenario coverage");
   assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 25);
@@ -23,8 +25,8 @@ assert.equal(calculateDmAgeOnDate("2000-03-02", "2026-03-01"), 25);
 assert.equal(calculateDmAgeOnDate("2000-03-01", "2026-03-01"), 26);
 assert.equal(calculateDmAgeOnDate("2000-02-29", "2026-02-28"), 25);
 
-const observedOutcomes = new Map<string, Set<string>>(DM_001_CHECKPOINT_IDS.map((id) => [id, new Set<string>()]));
-for (const scenario of DM_001_SCENARIO_LIBRARY) {
+const observedOutcomes = new Map<string, Set<string>>(legacyCheckpoints.map((id) => [id, new Set<string>()]));
+for (const scenario of legacyScenarios) {
   for (const locale of ["en", "hi", "pa"] as const) {
     for (const difficulty of ["EASY", "MEDIUM", "HARD"] as const) {
       for (let seed = 0; seed < 12; seed += 1) {
@@ -85,4 +87,4 @@ assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outc
 assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_DIRECTOR")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
-console.log("DM-001 Waves 1–2 checks passed: 250 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");
+console.log("DM-001 Waves 1–2 regression checks passed: 250 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");

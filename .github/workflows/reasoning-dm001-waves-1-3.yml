@@ -1,4 +1,4 @@
-name: Reasoning DM-001 Waves 1 and 2
+name: Reasoning DM-001 Waves 1 to 3
 
 on:
   pull_request:
@@ -19,11 +19,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: reasoning-dm001-waves-1-2-${{ github.ref }}
+  group: reasoning-dm001-waves-1-3-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-waves-1-2:
+  validate-waves-1-3:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -43,6 +43,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave1.test.ts
       - name: Validate Wave 2 boundary rules, relaxations and ranking
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave2.test.ts
+      - name: Validate Wave 3 situational sequencing and resource priorities
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave3.test.ts
       - name: Validate shared Question Studio routing and review-only lifecycle
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.test.ts
       - name: Build API server

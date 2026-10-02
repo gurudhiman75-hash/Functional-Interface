@@ -13,7 +13,7 @@ import type { DmCheckpointId, DmDifficulty, DmLocale, DmQlId } from "./types.ts"
 
 export const DM001_QUESTION_STUDIO_PACKAGE_ID_V1 = "DM-001" as const;
 export const DM001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
-export const DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 = "DM-001-WAVES-1-2-DETERMINISTIC-ELIGIBILITY-V1" as const;
+export const DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 = "DM-001-WAVES-1-3-DETERMINISTIC-DECISIONS-V1" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const qlIds = DM_001_QL_REGISTRY.map((entry) => entry.qlId);
@@ -29,6 +29,12 @@ const blueprintCpAliases: Readonly<Record<string, DmCheckpointId>> = Object.free
   "DM-008": "DM-CP-008",
   "DM-009": "DM-CP-009",
   "DM-010": "DM-CP-010",
+  "DM-011": "DM-CP-011",
+  "DM-012": "DM-CP-012",
+  "DM-013": "DM-CP-013",
+  "DM-014": "DM-CP-014",
+  "DM-015": "DM-CP-015",
+  "DM-016": "DM-CP-016",
 });
 
 type DisplayDifficulty = "Easy" | "Medium" | "Hard";
@@ -150,7 +156,7 @@ export const DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinit
   metadata: {
     registrationAuthorityId: DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     semanticQlCount: DM_001_MANIFEST.semanticQlCount,
-  permanentQlRange: "DM-QL-001..DM-QL-030",
+    permanentQlRange: "DM-QL-001..DM-QL-048",
     checkpointCount: cpIds.length,
     deterministicGeneration: true,
     multilingualParityVerified: true,
@@ -168,8 +174,14 @@ export const DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinit
       "DM-CP-008": "Cut-offs and Minimum Scores · DM-008",
       "DM-CP-009": "Dependent Relaxations · DM-009",
       "DM-CP-010": "Priority Based Seat Selection · DM-010",
+      "DM-CP-011": "Administrative Course of Action · DM-011",
+      "DM-CP-012": "Best Immediate Action · DM-012",
+      "DM-CP-013": "Complaint and Grievance Handling · DM-013",
+      "DM-CP-014": "Workplace Decisions · DM-014",
+      "DM-CP-015": "Public-Service Situations · DM-015",
+      "DM-CP-016": "Resource Allocation · DM-016",
     },
-    chapterBlueprintStatus: "WAVES_1_AND_2_IMPLEMENTED",
+    chapterBlueprintStatus: "WAVES_1_TO_3_IMPLEMENTED",
     questionBankWritesEnabled: false,
     testActivationEnabled: false,
     mockActivationEnabled: false,
@@ -188,7 +200,7 @@ export async function generateDm001QuestionStudioBatch(
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
   const qlPool = resolveQlPool(request);
-  const seedText = text(request.seed) || "dm001-wave1-2-review-v1";
+  const seedText = text(request.seed) || "dm001-waves-1-3-review-v1";
   const start = hash(seedText + ":ql-start") % qlPool.length;
   const questions: Record<string, unknown>[] = [];
 
@@ -234,7 +246,7 @@ export async function generateDm001QuestionStudioBatch(
       options,
       correctIndex: generated.correctIndex,
       correct: generated.correctIndex,
-      answer: generated.selectedCandidates ? options[generated.correctIndex] : generated.outcome,
+      answer: generated.answerMode === "ELIGIBILITY_OUTCOME" ? generated.outcome : options[generated.correctIndex],
       canonicalAnswer: options[generated.correctIndex],
       explanation: generated.explanation,
       explanationRows: generated.explanationRows,
@@ -291,7 +303,8 @@ export async function generateDm001QuestionStudioBatch(
       permanentQlIds: [...qlIds],
       cpIds: [...cpIds],
       scenarioCount: DM_001_SCENARIO_LIBRARY.length,
-      scenarioCountPerCheckpoint: 25,
+      ruleBasedScenarioCountPerCheckpoint: 25,
+      situationalScenarioCountPerCheckpoint: 50,
       language,
       requestedDifficulty: requestedDifficulty ? displayDifficulty(requestedDifficulty) : "Mixed",
       difficultyDistributionTarget: "30% Easy / 45% Medium / 25% Hard",
