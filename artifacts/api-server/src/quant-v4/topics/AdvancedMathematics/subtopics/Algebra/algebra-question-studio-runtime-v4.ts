@@ -450,8 +450,8 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   if (typeof answer === "string") return relationOptions(language);
   const kind = String(answer?.kind ?? "");
   if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) return numericCandidates(answer.value);
-  if (kind === "POLYNOMIAL") return polynomialCandidates(correct);
-  if (["FACTORIZATION", "INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
+  if (kind === "POLYNOMIAL" || kind === "FACTORIZATION") return polynomialCandidates(correct);
+  if (["INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
     const extra = kind === "INTERVAL_SET" ? [
       phrase(language, "All real numbers", "सभी वास्तविक संख्याएँ", "ਸਾਰੀਆਂ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ"),
       phrase(language, "Empty set", "रिक्त समुच्चय", "ਖਾਲੀ ਸਮੂਹ"),
