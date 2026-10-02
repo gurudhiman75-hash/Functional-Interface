@@ -15,6 +15,14 @@ const MODIFIERS = [
   text("An earlier entry about the matter is available in the official log.", "मामले की एक पुरानी प्रविष्टि आधिकारिक लॉग में उपलब्ध है।", "ਮਾਮਲੇ ਬਾਰੇ ਪਹਿਲੀ ਐਂਟਰੀ ਸਰਕਾਰੀ ਲਾਗ ਵਿੱਚ ਉਪਲਬਧ ਹੈ।"),
 ] as const;
 
+const RESOURCE_MODIFIERS = [
+  text("All three requests have been verified and no additional resource is available.", "तीनों अनुरोध सत्यापित हैं और कोई अतिरिक्त संसाधन उपलब्ध नहीं है।", "ਤਿੰਨਾਂ ਬੇਨਤੀਆਂ ਦੀ ਤਸਦੀਕ ਹੋ ਚੁੱਕੀ ਹੈ ਅਤੇ ਹੋਰ ਕੋਈ ਸਰੋਤ ਉਪਲਬਧ ਨਹੀਂ।"),
+  text("The allocation must be made now under the published priority rule.", "आवंटन अभी प्रकाशित प्राथमिकता नियम के अनुसार करना है।", "ਵੰਡ ਹੁਣੇ ਜਾਰੀ ਤਰਜੀਹ ਨਿਯਮ ਅਨੁਸਾਰ ਕਰਨੀ ਹੈ।"),
+  text("Delaying the allocation would prevent at least one time-sensitive task from being completed.", "आवंटन में देरी से कम-से-कम एक समयबद्ध कार्य पूरा नहीं हो पाएगा।", "ਵੰਡ ਵਿੱਚ ਦੇਰੀ ਨਾਲ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੇਂ-ਬੱਧ ਕੰਮ ਪੂਰਾ ਨਹੀਂ ਹੋ ਸਕੇਗਾ।"),
+  text("The decision-maker must record the reason for giving one request priority.", "निर्णयकर्ता को किसी एक अनुरोध को प्राथमिकता देने का कारण दर्ज करना होगा।", "ਫੈਸਲਾ ਕਰਨ ਵਾਲੇ ਨੂੰ ਇੱਕ ਬੇਨਤੀ ਨੂੰ ਤਰਜੀਹ ਦੇਣ ਦਾ ਕਾਰਨ ਦਰਜ ਕਰਨਾ ਲਾਜ਼ਮੀ ਹੈ।"),
+  text("Each request is genuine, but their urgency and deadlines are different.", "हर अनुरोध वास्तविक है, पर उनकी तात्कालिकता और समय-सीमाएँ अलग हैं।", "ਹਰ ਬੇਨਤੀ ਅਸਲ ਹੈ, ਪਰ ਉਹਨਾਂ ਦੀ ਤੁਰੰਤਤਾ ਅਤੇ ਮਿਆਦ ਵੱਖ-ਵੱਖ ਹੈ।"),
+] as const;
+
 const SEEDS: Readonly<Record<Extract<DmCheckpointId, "DM-CP-011" | "DM-CP-012" | "DM-CP-013" | "DM-CP-014" | "DM-CP-015" | "DM-CP-016">, readonly Seed[]>> = Object.freeze({
   "DM-CP-011": [
     { situation: text("A required register page is missing from a case file.", "मामले की फाइल से रजिस्टर का आवश्यक पृष्ठ गायब है।", "ਕੇਸ ਫਾਈਲ ਵਿੱਚੋਂ ਰਜਿਸਟਰ ਦਾ ਲਾਜ਼ਮੀ ਸਫ਼ਾ ਗੁੰਮ ਹੈ।"), action: text("Check the register trail, obtain the missing record through the prescribed channel, and note the action.", "रजिस्टर की कड़ी जाँचें, निर्धारित माध्यम से गायब अभिलेख प्राप्त करें और कार्रवाई दर्ज करें।", "ਰਜਿਸਟਰ ਦੀ ਕੜੀ ਜਾਂਚੋ, ਨਿਰਧਾਰਤ ਰਾਹੀਂ ਗੁੰਮ ਰਿਕਾਰਡ ਲਵੋ ਅਤੇ ਕਾਰਵਾਈ ਦਰਜ ਕਰੋ।"), principle: "VERIFY_FACTS" },
@@ -90,16 +98,62 @@ const SEEDS: Readonly<Record<Extract<DmCheckpointId, "DM-CP-011" | "DM-CP-012" |
   ],
 });
 
-const GENERIC_ERRORS: readonly Readonly<{ text: LocalizedText; principle: DmSituationalPrinciple; error: DmSituationalError }>[] = Object.freeze([
-  { text: text("Take a final adverse action immediately without checking the record.", "अभिलेख जाँचे बिना तुरंत अंतिम प्रतिकूल कार्रवाई करें।", "ਰਿਕਾਰਡ ਜਾਂਚੇ ਬਿਨਾਂ ਤੁਰੰਤ ਅੰਤਿਮ ਨੁਕਸਾਨਦਾਇਕ ਕਾਰਵਾਈ ਕਰੋ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
-  { text: text("Ignore the matter and wait without recording any reason.", "मामले को अनदेखा कर बिना कारण दर्ज किए प्रतीक्षा करें।", "ਮਾਮਲਾ ਅਣਡਿੱਠਾ ਕਰਕੇ ਬਿਨਾਂ ਕਾਰਨ ਦਰਜ ਕੀਤੇ ਉਡੀਕ ਕਰੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
-  { text: text("Bypass the prescribed process and act only on an assumption.", "निर्धारित प्रक्रिया छोड़कर केवल अनुमान पर कार्रवाई करें।", "ਨਿਰਧਾਰਤ ਪ੍ਰਕਿਰਿਆ ਛੱਡ ਕੇ ਸਿਰਫ਼ ਅਨੁਮਾਨ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰੋ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+type ErrorChoice = Readonly<{ text: LocalizedText; principle: DmSituationalPrinciple; error: DmSituationalError }>;
+
+const GENERIC_ERROR_SETS: readonly (readonly ErrorChoice[])[] = Object.freeze([
+  Object.freeze([
+    { text: text("Reject the claim on the initial report alone, without checking the supporting record.", "सहायक अभिलेख जाँचे बिना केवल प्रारंभिक सूचना के आधार पर दावा अस्वीकार कर दें।", "ਸਹਾਇਕ ਰਿਕਾਰਡ ਜਾਂਚੇ ਬਿਨਾਂ ਸਿਰਫ਼ ਮੁੱਢਲੀ ਸੂਚਨਾ ਦੇ ਆਧਾਰ ਤੇ ਦਾਅਵਾ ਰੱਦ ਕਰ ਦਿਓ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
+    { text: text("Leave the matter pending until someone raises it again, without making an entry.", "कोई दोबारा मुद्दा उठाए तब तक मामला बिना प्रविष्टि के लंबित छोड़ दें।", "ਕੋਈ ਮੁੜ ਮਾਮਲਾ ਉਠਾਏ ਤਦ ਤੱਕ ਇਸਨੂੰ ਬਿਨਾਂ ਐਂਟਰੀ ਲੰਬਿਤ ਛੱਡ ਦਿਓ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+    { text: text("Settle the matter informally outside the prescribed channel.", "मामले को निर्धारित माध्यम से बाहर अनौपचारिक रूप से निपटा दें।", "ਮਾਮਲੇ ਨੂੰ ਨਿਰਧਾਰਤ ਰਾਹ ਤੋਂ ਬਾਹਰ ਗੈਰ-ਰਸਮੀ ਢੰਗ ਨਾਲ ਨਿਪਟਾ ਦਿਓ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+  ]),
+  Object.freeze([
+    { text: text("Treat the first version received as conclusive and issue the final decision at once.", "पहले मिले विवरण को अंतिम मानकर तुरंत निर्णय जारी कर दें।", "ਪਹਿਲਾਂ ਮਿਲੇ ਵੇਰਵੇ ਨੂੰ ਅੰਤਿਮ ਮੰਨ ਕੇ ਤੁਰੰਤ ਫੈਸਲਾ ਜਾਰੀ ਕਰ ਦਿਓ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
+    { text: text("Wait for the ordinary review cycle even if the present issue requires action now.", "मौजूदा समस्या पर अभी कार्रवाई आवश्यक होने पर भी सामान्य समीक्षा चक्र की प्रतीक्षा करें।", "ਮੌਜੂਦਾ ਮਸਲੇ ਉੱਤੇ ਹੁਣ ਕਾਰਵਾਈ ਲੋੜੀਂਦੀ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਆਮ ਸਮੀਖਿਆ ਚੱਕਰ ਦੀ ਉਡੀਕ ਕਰੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+    { text: text("Ask an available colleague to decide verbally and omit the official record.", "किसी उपलब्ध सहकर्मी से मौखिक निर्णय करा लें और आधिकारिक अभिलेख न बनाएँ।", "ਕਿਸੇ ਉਪਲਬਧ ਸਾਥੀ ਤੋਂ ਮੌਖਿਕ ਫੈਸਲਾ ਕਰਵਾ ਲਵੋ ਅਤੇ ਸਰਕਾਰੀ ਰਿਕਾਰਡ ਨਾ ਬਣਾਓ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+  ]),
+  Object.freeze([
+    { text: text("Apply the harshest outcome before authenticating the disputed information.", "विवादित जानकारी का सत्यापन किए बिना सबसे कठोर परिणाम लागू कर दें।", "ਵਿਵਾਦਿਤ ਜਾਣਕਾਰੀ ਦੀ ਤਸਦੀਕ ਤੋਂ ਪਹਿਲਾਂ ਸਭ ਤੋਂ ਸਖ਼ਤ ਨਤੀਜਾ ਲਾਗੂ ਕਰ ਦਿਓ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
+    { text: text("Put the file aside without a deadline, reason, or follow-up entry.", "फाइल को बिना समय-सीमा, कारण या अनुवर्ती प्रविष्टि के अलग रख दें।", "ਫਾਈਲ ਨੂੰ ਬਿਨਾਂ ਮਿਆਦ, ਕਾਰਨ ਜਾਂ ਅਗਲੀ ਐਂਟਰੀ ਦੇ ਪਾਸੇ ਰੱਖ ਦਿਓ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+    { text: text("Use a convenient shortcut even though the written procedure provides the next step.", "लिखित प्रक्रिया में अगला कदम दिया होने पर भी सुविधाजनक छोटा रास्ता अपनाएँ।", "ਲਿਖਤੀ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਅਗਲਾ ਕਦਮ ਦਿੱਤਾ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਸੌਖਾ ਛੋਟਾ ਰਾਹ ਅਪਣਾਓ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+  ]),
+  Object.freeze([
+    { text: text("Act on the allegation as though it were proved and close the case immediately.", "आरोप को सिद्ध मानकर तुरंत मामला बंद कर दें।", "ਦੋਸ਼ ਨੂੰ ਸਾਬਤ ਮੰਨ ਕੇ ਤੁਰੰਤ ਮਾਮਲਾ ਬੰਦ ਕਰ ਦਿਓ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
+    { text: text("Take no step until the entire monthly workload has been cleared.", "महीने का पूरा लंबित कार्य समाप्त होने तक कोई कदम न उठाएँ।", "ਮਹੀਨੇ ਦਾ ਸਾਰਾ ਬਕਾਇਆ ਕੰਮ ਮੁੱਕਣ ਤੱਕ ਕੋਈ ਕਦਮ ਨਾ ਚੁੱਕੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+    { text: text("Let the affected person choose the outcome instead of applying the governing rule.", "लागू नियम के बजाय प्रभावित व्यक्ति को परिणाम चुनने दें।", "ਲਾਗੂ ਨਿਯਮ ਦੀ ਥਾਂ ਪ੍ਰਭਾਵਿਤ ਵਿਅਕਤੀ ਨੂੰ ਨਤੀਜਾ ਚੁਣਨ ਦਿਓ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+  ]),
+  Object.freeze([
+    { text: text("Make the adverse decision first and verify the facts only if it is challenged.", "पहले प्रतिकूल निर्णय लें और चुनौती मिलने पर ही तथ्य जाँचें।", "ਪਹਿਲਾਂ ਨੁਕਸਾਨਦਾਇਕ ਫੈਸਲਾ ਕਰੋ ਅਤੇ ਇਤਰਾਜ਼ ਆਉਣ ਤੇ ਹੀ ਤੱਥ ਜਾਂਚੋ।"), principle: "VERIFY_FACTS", error: "IRREVERSIBLE_ACTION_TOO_EARLY" },
+    { text: text("Forward the file repeatedly without assigning responsibility or recording a reason.", "जिम्मेदारी तय किए या कारण दर्ज किए बिना फाइल बार-बार आगे भेजते रहें।", "ਜ਼ਿੰਮੇਵਾਰੀ ਤੈਅ ਕੀਤੇ ਜਾਂ ਕਾਰਨ ਦਰਜ ਕੀਤੇ ਬਿਨਾਂ ਫਾਈਲ ਵਾਰ-ਵਾਰ ਅੱਗੇ ਭੇਜਦੇ ਰਹੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+    { text: text("Replace the prescribed approval with an undocumented personal judgment.", "निर्धारित अनुमोदन के स्थान पर बिना अभिलेख वाला निजी निर्णय लागू करें।", "ਨਿਰਧਾਰਤ ਮਨਜ਼ੂਰੀ ਦੀ ਥਾਂ ਬਿਨਾਂ ਰਿਕਾਰਡ ਵਾਲਾ ਨਿੱਜੀ ਫੈਸਲਾ ਲਾਗੂ ਕਰੋ।"), principle: "FOLLOW_PROCEDURE", error: "BYPASS_PROCEDURE" },
+  ]),
 ]);
 
-const RESOURCE_ERRORS: typeof GENERIC_ERRORS = Object.freeze([
-  { text: text("Give the resource to the routine request received first, regardless of urgency.", "तात्कालिकता की परवाह किए बिना संसाधन पहले आए नियमित अनुरोध को दें।", "ਤੁਰੰਤਤਾ ਦੀ ਪਰਵਾਹ ਬਿਨਾਂ ਸਰੋਤ ਪਹਿਲਾਂ ਆਈ ਰੁਟੀਨੀ ਬੇਨਤੀ ਨੂੰ ਦਿਓ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
-  { text: text("Divide the resource equally even though none of the tasks can then be completed.", "संसाधन बराबर बाँटें, भले ही कोई कार्य पूरा न हो सके।", "ਸਰੋਤ ਬਰਾਬਰ ਵੰਡੋ ਭਾਵੇਂ ਫਿਰ ਕੋਈ ਕੰਮ ਪੂਰਾ ਨਾ ਹੋ ਸਕੇ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
-  { text: text("Hold the resource until every routine request has been reconsidered.", "हर नियमित अनुरोध पर पुनर्विचार होने तक संसाधन रोकें।", "ਹਰ ਰੁਟੀਨੀ ਬੇਨਤੀ ਮੁੜ ਵਿਚਾਰੇ ਜਾਣ ਤੱਕ ਸਰੋਤ ਰੋਕੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+const RESOURCE_ERROR_SETS: readonly (readonly ErrorChoice[])[] = Object.freeze([
+  Object.freeze([
+    { text: text("Give the resource to the routine request received first, regardless of urgency.", "तात्कालिकता की परवाह किए बिना संसाधन पहले आए नियमित अनुरोध को दें।", "ਤੁਰੰਤਤਾ ਦੀ ਪਰਵਾਹ ਬਿਨਾਂ ਸਰੋਤ ਪਹਿਲਾਂ ਆਈ ਰੁਟੀਨੀ ਬੇਨਤੀ ਨੂੰ ਦਿਓ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Divide the resource equally even though none of the tasks can then be completed.", "संसाधन बराबर बाँटें, भले ही कोई कार्य पूरा न हो सके।", "ਸਰੋਤ ਬਰਾਬਰ ਵੰਡੋ ਭਾਵੇਂ ਫਿਰ ਕੋਈ ਕੰਮ ਪੂਰਾ ਨਾ ਹੋ ਸਕੇ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Hold the resource until every routine request has been reconsidered.", "हर नियमित अनुरोध पर पुनर्विचार होने तक संसाधन रोकें।", "ਹਰ ਰੁਟੀਨੀ ਬੇਨਤੀ ਮੁੜ ਵਿਚਾਰੇ ਜਾਣ ਤੱਕ ਸਰੋਤ ਰੋਕੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+  ]),
+  Object.freeze([
+    { text: text("Reserve the resource for the easiest routine task, although a verified urgent need is waiting.", "सत्यापित तात्कालिक आवश्यकता लंबित होने पर भी संसाधन सबसे आसान नियमित कार्य के लिए रखें।", "ਤਸਦੀਕਸ਼ੁਦਾ ਤੁਰੰਤ ਲੋੜ ਉਡੀਕ ਰਹੀ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਸਰੋਤ ਸਭ ਤੋਂ ਸੌਖੇ ਰੁਟੀਨੀ ਕੰਮ ਲਈ ਰੱਖੋ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Allocate the resource by a random draw without considering urgency or deadlines.", "तात्कालिकता या समय-सीमा देखे बिना पर्ची निकालकर संसाधन बाँटें।", "ਤੁਰੰਤਤਾ ਜਾਂ ਮਿਆਦ ਵੇਖੇ ਬਿਨਾਂ ਪਰਚੀ ਰਾਹੀਂ ਸਰੋਤ ਵੰਡੋ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Keep the resource unused until every requester submits a fresh application.", "हर माँगकर्ता के नया आवेदन देने तक संसाधन उपयोग न करें।", "ਹਰ ਮੰਗਕਰਤਾ ਵੱਲੋਂ ਨਵੀਂ ਅਰਜ਼ੀ ਦੇਣ ਤੱਕ ਸਰੋਤ ਨਾ ਵਰਤੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+  ]),
+  Object.freeze([
+    { text: text("Give priority to the request that is most convenient to handle, not the one with the greatest urgency.", "सबसे तात्कालिक आवश्यकता के बजाय उस अनुरोध को प्राथमिकता दें जिसे पूरा करना सबसे सुविधाजनक है।", "ਸਭ ਤੋਂ ਤੁਰੰਤ ਲੋੜ ਦੀ ਥਾਂ ਉਸ ਬੇਨਤੀ ਨੂੰ ਤਰਜੀਹ ਦਿਓ ਜਿਸਨੂੰ ਨਿਭਾਉਣਾ ਸਭ ਤੋਂ ਸੌਖਾ ਹੈ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Split the resource into unusable shares merely to give every request the same amount.", "केवल सबको बराबर हिस्सा देने के लिए संसाधन को अनुपयोगी भागों में बाँट दें।", "ਸਿਰਫ਼ ਸਭ ਨੂੰ ਬਰਾਬਰ ਹਿੱਸਾ ਦੇਣ ਲਈ ਸਰੋਤ ਨੂੰ ਬੇਕਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡ ਦਿਓ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Postpone allocation until all non-urgent requests have also been reviewed.", "सभी गैर-तात्कालिक अनुरोधों की जाँच होने तक आवंटन टालें।", "ਸਾਰੀਆਂ ਗੈਰ-ਤੁਰੰਤ ਬੇਨਤੀਆਂ ਦੀ ਜਾਂਚ ਹੋਣ ਤੱਕ ਵੰਡ ਟਾਲ ਦਿਓ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+  ]),
+  Object.freeze([
+    { text: text("Assign the scarce resource to the most senior requester without comparing the stated needs.", "बताई गई आवश्यकताओं की तुलना किए बिना दुर्लभ संसाधन सबसे वरिष्ठ माँगकर्ता को दें।", "ਦੱਸੀਆਂ ਲੋੜਾਂ ਦੀ ਤੁਲਨਾ ਕੀਤੇ ਬਿਨਾਂ ਘੱਟ ਸਰੋਤ ਸਭ ਤੋਂ ਸੀਨੀਅਰ ਮੰਗਕਰਤਾ ਨੂੰ ਦਿਓ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Use the resource for routine work first because it was scheduled earlier.", "संसाधन पहले नियमित कार्य में लगाएँ क्योंकि उसकी योजना पहले बनी थी।", "ਸਰੋਤ ਪਹਿਲਾਂ ਰੁਟੀਨੀ ਕੰਮ ਲਈ ਵਰਤੋ ਕਿਉਂਕਿ ਉਹ ਪਹਿਲਾਂ ਤੈਅ ਹੋਇਆ ਸੀ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Delay every request until another resource becomes available.", "दूसरा संसाधन उपलब्ध होने तक सभी अनुरोध रोक दें।", "ਹੋਰ ਸਰੋਤ ਮਿਲਣ ਤੱਕ ਸਾਰੀਆਂ ਬੇਨਤੀਆਂ ਰੋਕ ਦਿਓ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+  ]),
+  Object.freeze([
+    { text: text("Use the resource for the request with the loudest support, regardless of verified priority.", "सत्यापित प्राथमिकता की परवाह किए बिना सबसे अधिक दबाव वाले अनुरोध को संसाधन दें।", "ਤਸਦੀਕਸ਼ੁਦਾ ਤਰਜੀਹ ਦੀ ਪਰਵਾਹ ਬਿਨਾਂ ਸਭ ਤੋਂ ਵੱਧ ਦਬਾਅ ਵਾਲੀ ਬੇਨਤੀ ਨੂੰ ਸਰੋਤ ਦਿਓ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Rotate the resource briefly among all tasks even though no task can be completed that way.", "संसाधन को सभी कार्यों में थोड़े-थोड़े समय के लिए घुमाएँ, भले ही इस तरह कोई कार्य पूरा न हो।", "ਸਰੋਤ ਨੂੰ ਸਾਰੇ ਕੰਮਾਂ ਵਿੱਚ ਥੋੜ੍ਹੇ-ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਘੁਮਾਓ, ਭਾਵੇਂ ਇਸ ਤਰ੍ਹਾਂ ਕੋਈ ਕੰਮ ਪੂਰਾ ਨਾ ਹੋਵੇ।"), principle: "SERVE_FAIRLY", error: "IGNORE_PRIORITY" },
+    { text: text("Wait for unanimous agreement from every requester before making any allocation.", "कोई आवंटन करने से पहले हर माँगकर्ता की सर्वसम्मति की प्रतीक्षा करें।", "ਕੋਈ ਵੰਡ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਹਰ ਮੰਗਕਰਤਾ ਦੀ ਸਰਬਸੰਮਤੀ ਦੀ ਉਡੀਕ ਕਰੋ।"), principle: "DOCUMENT_ACTION", error: "UNJUSTIFIED_DELAY" },
+  ]),
 ]);
 
 const FOCUS: Readonly<Record<string, "BEST_ACTION" | "FIRST_ACTION" | "RESOURCE_PRIORITY">> = Object.freeze({
@@ -111,9 +165,13 @@ export function buildDmSituationalScenarios(): readonly DmScenario[] {
   const scenarios: DmScenario[] = [];
   for (const [checkpointId, seeds] of Object.entries(SEEDS) as [keyof typeof SEEDS, readonly Seed[]][]) {
     const qls = dmQlIdsForCheckpoint(checkpointId);
-    seeds.forEach((seed, seedIndex) => MODIFIERS.forEach((modifier, modifierIndex) => {
+    const checkpointOffset = Number(checkpointId.slice(-3)) - 11;
+    seeds.forEach((seed, seedIndex) => MODIFIERS.forEach((_, modifierIndex) => {
+      const modifierPool = checkpointId === "DM-CP-016" ? RESOURCE_MODIFIERS : MODIFIERS;
+      const modifier = modifierPool[(modifierIndex + checkpointOffset) % modifierPool.length]!;
       const ordinal = seedIndex * MODIFIERS.length + modifierIndex + 1;
-      const errors = checkpointId === "DM-CP-016" ? RESOURCE_ERRORS : GENERIC_ERRORS;
+      const errorSets = checkpointId === "DM-CP-016" ? RESOURCE_ERROR_SETS : GENERIC_ERROR_SETS;
+      const errors = errorSets[(seedIndex + modifierIndex + checkpointOffset) % errorSets.length]!;
       const choices: DmSituationalChoice[] = [
         Object.freeze({ choiceId: "CORRECT", text: seed.action, principle: seed.principle, stage: 1, admissible: true, errors: Object.freeze([]) }),
         ...errors.map((item, index) => Object.freeze({ choiceId: "DISTRACTOR_" + String(index + 1), text: item.text, principle: item.principle, stage: index + 1, admissible: false, errors: Object.freeze([item.error]) })),
