@@ -63,13 +63,17 @@ for (const qlId of SAP_CP003_PERMANENT_QL_IDS) {
 const ql050 = rows.find((row) => row.qlId === "SAP-QL-050");
 assert.deepEqual(
   ql050.answers,
-  ["<", "=", ">"].sort(),
-  "SAP-QL-050: comparison authority must retain exactly <, = and >",
+  ["A < B", "A = B", "A > B", "Cannot be determined"].sort(),
+  "SAP-QL-050: comparison authority must retain its four exact semantic outcomes",
 );
 assert.equal(ql050.answerPositionCount, 4, "SAP-QL-050: comparison authority must exercise all answer positions");
 
 const ql052 = rows.find((row) => row.qlId === "SAP-QL-052");
-assert.ok(ql052.answerCount >= 2, "SAP-QL-052: diagnostic answer space collapsed below two");
+assert.deepEqual(
+  ql052.answers,
+  ["Step 1", "Step 2", "Step 3", "No error"].sort(),
+  "SAP-QL-052: diagnostic authority must retain Step 1/2/3 and No error",
+);
 assert.equal(ql052.answerPositionCount, 4, "SAP-QL-052: diagnostic authority must exercise all answer positions");
 
 for (const row of rows) {
