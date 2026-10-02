@@ -238,6 +238,8 @@ export type DmGeneratedQuestion = Readonly<{
   selectedCandidates?: readonly string[];
   setQuestionKind?: DmSetQuestionKind;
   setQuestionNumber?: number;
+  setId?: string;
+  setSize?: number;
   stem: string;
   options: readonly string[];
   correctIndex: number;
@@ -249,4 +251,19 @@ export type DmGeneratedQuestion = Readonly<{
     requirement: string;
     result: "PASS" | "FAIL" | "UNKNOWN";
   }>[];
+}>;
+
+export type DmGeneratedQuestionSet = Readonly<{
+  setId: string;
+  chapterId: "DM-001";
+  checkpointId: "DM-CP-020";
+  blueprintCheckpointId: "DM-020";
+  qlId: DmQlId;
+  scenarioId: string;
+  seed: number;
+  locale: DmLocale;
+  difficulty: DmDifficulty;
+  sharedStimulus: string;
+  candidateGroup: readonly DmCandidateProfile[];
+  questions: readonly DmGeneratedQuestion[];
 }>;
