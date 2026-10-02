@@ -1,0 +1,31 @@
+name: Validate ANA-001 controlled novelty audit closure
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/**"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/ana-001-controlled-novelty-audit-closure-20261002.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: ana-001-controlled-novelty-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/ana-001-controlled-novelty-audit-closure-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/ana-001-controlled-novelty-audit-closure-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/ana-001-controlled-novelty-audit-closure-20261002.test.mjs
