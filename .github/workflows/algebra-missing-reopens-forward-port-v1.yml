@@ -12,12 +12,21 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp008.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp011.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp014.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp013.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp012.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp009.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp007.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp002.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp003.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp004.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp008.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp011.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp014.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp013.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-batch-readiness.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp012.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp009.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp007.test.ts
   workflow_dispatch:
 
 concurrency:
@@ -47,12 +56,17 @@ jobs:
       - name: Bundle V4 reopen proofs
         run: |
           mkdir -p artifacts/api-server/dist/quant-v4/algebra
-          for cp in 002 003 004 008 011 014; do
+          for cp in 002 003 004 007 008 009 011 012 013 014; do
             pnpm --dir artifacts/api-server exec esbuild               src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp${cp}.test.ts               --bundle --platform=node --format=esm               --outfile=dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
           done
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-batch-readiness.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs
       - name: Run V4 reopen proofs
         run: |
           cd artifacts/api-server
-          for cp in 002 003 004 008 011 014; do
+          for cp in 002 003 004 007 008 009 011 012 013 014; do
             node dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
           done
+          node dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs
