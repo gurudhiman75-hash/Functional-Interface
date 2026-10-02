@@ -1,0 +1,40 @@
+name: Validate Spatial Family Current-Head Deep Audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/**'
+      - 'artifacts/api-server/src/reasoning-v1/tests/spatial-family-current-head-deep-audit-20261002.test.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spatial-family-current-head-deep-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build production API
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle current-head spatial family audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/tests/spatial-family-current-head-deep-audit-20261002.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/spatial/spatial-family-current-head-deep-audit-20261002.test.mjs
+      - name: Run current-head spatial family audit
+        run: node artifacts/api-server/dist/reasoning-v1/spatial/spatial-family-current-head-deep-audit-20261002.test.mjs
