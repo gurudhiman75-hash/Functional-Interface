@@ -5,9 +5,9 @@ import { generateReasoningNoveltyReviewBatchV1 } from "../shared/reasoning-novel
 import { buildReasoningNoveltyReviewPackV1 } from "../shared/reasoning-novelty-review-pack-v1";
 
 const providers = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
-  (provider) => provider.status === "DISCOVERY_REVIEW_ONLY",
+  (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(providers.length, 8);
+assert.equal(providers.length, 5);
 
 const forbiddenLearnerTokens = [
   "controlled-novel",
@@ -25,7 +25,7 @@ let reviewed = 0;
 
 for (const provider of providers) {
   assert.equal(provider.questionStudioNoveltyMixActivated, false);
-  assert.equal(provider.humanReviewRequired, true);
+  assert.equal(provider.humanReviewRequired, false);
   assert.equal(provider.countsTowardAssemblyNoveltyNow, false);
 
   const language = provider.supportedLanguages.includes("en")
@@ -104,5 +104,5 @@ console.log(JSON.stringify({
   providerCount: providers.length,
   generatedCandidatesReviewed: reviewed,
   reviewPackSamples: providers.length * 3,
-  productionMixingActivated: false,
+  productionMixingActivatedForTheseProviders: false,
 }, null, 2));
