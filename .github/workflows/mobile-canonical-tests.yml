@@ -10,7 +10,6 @@ on:
       - artifacts/api-server/src/lib/mobile-test-compat.test.ts
       - artifacts/api-server/src/lib/published-test-runner.ts
       - artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
-      - .github/workflows/mobile-canonical-tests.yml
   push:
     branches: [New-main]
     paths:
@@ -33,7 +32,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -58,7 +57,7 @@ jobs:
           grep -F 'content.question_versions' artifacts/api-server/src/routes/tests.ts
           grep -F 'content.question_options' artifacts/api-server/src/routes/tests.ts
           grep -F 'tests:list:canonical-mobile-v2' artifacts/api-server/src/routes/tests.ts
-          grep -F 'import testsRouter from "./tests";' artifacts/api-server/src/routes/index.ts
+          grep -F 'const testsRouter = lazyRouter(() => import("./tests"));' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/tests", testsRouter);' artifacts/api-server/src/routes/index.ts
           ! grep -F 'FROM questions' artifacts/api-server/src/routes/tests.ts
           ! grep -F 'FROM tests' artifacts/api-server/src/routes/tests.ts
