@@ -70,6 +70,61 @@ function engineForPackage(packageId: string | undefined) {
   return packageForId(packageId)?.engineId;
 }
 
+function validatePackageLanguage(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const requested = asString(value).toLowerCase() || pkg.supportedLanguages[0];
+  if (!requested || !pkg.supportedLanguages.includes(requested as "en" | "hi" | "pa")) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support language ${requested || "<missing>"}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_LANGUAGE" },
+    );
+  }
+  return requested as "en" | "hi" | "pa";
+}
+
+function validatePackageDifficulty(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const raw = asString(value);
+  if (pkg.difficultyFilterSupported === false) {
+    if (!raw || raw === "Mixed") return undefined;
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support difficulty filtering`),
+      { statusCode: 400, code: "DIFFICULTY_FILTER_UNSUPPORTED" },
+    );
+  }
+
+  const normalized = raw.toLowerCase() === "moderate" ? "Medium" : (raw || "Medium");
+  if (!pkg.supportedDifficulties?.includes(normalized as "Easy" | "Medium" | "Hard")) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support difficulty ${normalized}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_DIFFICULTY" },
+    );
+  }
+  return normalized;
+}
+
+function validatePackageRuntimeMode(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const requested = asString(value) || pkg.runtimeMode;
+  if (
+    requested
+    && (pkg.supportedRuntimeModes?.length ?? 0) > 0
+    && !pkg.supportedRuntimeModes!.includes(requested)
+  ) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support runtime mode ${requested}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_RUNTIME_MODE" },
+    );
+  }
+  return requested;
+}
+
 function packageSubjectLabel(pkg: ReturnType<typeof listQuestionStudioPackages>[number]) {
   const explicit = asString(pkg.subject);
   if (explicit) return explicit;
@@ -369,6 +424,12 @@ router.post(
       return;
     }
 
+    const selectedPackage = packageId ? packageForId(packageId) : undefined;
+    if (packageId && !selectedPackage) {
+      res.status(400).json({ error: `Question Studio package ${packageId} is not registered` });
+      return;
+    }
+
     if (requestedEngineId && packageEngineId && requestedEngineId !== packageEngineId) {
       res.status(400).json({
         error: `Package ${packageId} belongs to ${packageEngineId}, not ${requestedEngineId}`,
@@ -380,18 +441,30 @@ router.post(
     const patternId = asString(req.body?.patternId) || undefined;
     const rawTopic = asString(req.body?.topic) || undefined;
     const rawSubtopic = asString(req.body?.subtopic) || undefined;
-    const topic = rawTopic ?? (selectedEngineId === "quant-v4" ? "Arithmetic" : undefined);
-    const subtopic = rawSubtopic ?? (selectedEngineId === "quant-v4" ? "Percentage" : undefined);
+    const topic = selectedPackage?.topic
+      ?? rawTopic
+      ?? (selectedEngineId === "quant-v4" ? "Arithmetic" : undefined);
+    const subtopic = selectedPackage?.subtopic
+      ?? rawSubtopic
+      ?? (selectedEngineId === "quant-v4" ? "Percentage" : undefined);
     const exam = asString(req.body?.exam)
       || (selectedEngineId === "quant-v4" ? "SSC CGL Tier 1" : "SSC CGL");
-    const subject = asString(req.body?.subject)
-      || (selectedEngineId === "quant-v4" ? "Quantitative Aptitude" : undefined);
-    const language = normalizeLanguage(req.body?.language);
-    const difficulty = selectedEngineId === "quant-v4"
-      ? (asString(req.body?.difficulty) || "Medium")
-      : difficultyForRequest(req.body?.difficulty, packageId);
+    const subject = selectedPackage
+      ? packageSubjectLabel(selectedPackage)
+      : asString(req.body?.subject)
+        || (selectedEngineId === "quant-v4" ? "Quantitative Aptitude" : undefined);
+    const language = selectedPackage
+      ? validatePackageLanguage(selectedPackage, req.body?.language)
+      : normalizeLanguage(req.body?.language);
+    const difficulty = selectedPackage
+      ? validatePackageDifficulty(selectedPackage, req.body?.difficulty)
+      : selectedEngineId === "quant-v4"
+        ? (asString(req.body?.difficulty) || "Medium")
+        : difficultyForRequest(req.body?.difficulty, packageId);
     const seed = asString(req.body?.seed) || undefined;
-    const runtimeMode = asString(req.body?.runtimeMode) || undefined;
+    const runtimeMode = selectedPackage
+      ? validatePackageRuntimeMode(selectedPackage, req.body?.runtimeMode)
+      : asString(req.body?.runtimeMode) || undefined;
     const canonicalProblemId =
       asString(req.body?.canonicalProblemId)
       || asString(req.body?.cpId)
