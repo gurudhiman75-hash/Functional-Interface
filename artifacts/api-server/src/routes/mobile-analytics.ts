@@ -5,7 +5,7 @@ import { sqlClient } from "../lib/db";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
 
 const router=Router();
-const EVENTS=new Set(["app_open","home_view","hero_impression","hero_click","promotion_impression","promotion_click","content_plan_impression","content_plan_click","notification_open","feature_used"]);
+const EVENTS=new Set(["app_open","home_view","hero_impression","hero_click","promotion_impression","promotion_click","promotion_dismiss","content_plan_impression","content_plan_click","notification_open","feature_used"]);
 const PLATFORMS=new Set(["android","ios","web"]);
 function text(value:unknown,max=500){return typeof value==="string"?value.trim().slice(0,max):"";}
 async function canonicalUserId(firebaseUid:string|undefined){

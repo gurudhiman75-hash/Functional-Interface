@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Home, Megaphone, Plus, RefreshCw, Save, Sparkles, Target, Trash2 } from 'lucide-react';
+import { Copy, Eye, Home, Megaphone, Pause, Play, Plus, RefreshCw, Save, Sparkles, Target, Trash2, X } from 'lucide-react';
 
 import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -21,6 +21,7 @@ type Promotion={
   id:string;title:string;subtitle:string;ctaLabel:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
   campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;repeatOnEveryOpen:boolean;audience:Audience;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;createdAt?:string;updatedAt?:string;
+  impressions?:number;clicks?:number;dismissals?:number;
 };
 type Exam={id:string;code:string;name:string;familyName:string};
 type TestSeries={id:string;code:string;name:string;examName:string};
@@ -42,6 +43,34 @@ function frequencyLabel(promotion:Promotion){
   if(mode==='custom_daily')return`${promotion.frequencyCapPerDay}× per day`;
   return'No daily cap';
 }
+type CampaignStatus='live'|'scheduled'|'ended'|'inactive';
+function statusOf(promotion:Promotion):CampaignStatus{
+  if(!promotion.isActive)return'inactive';
+  const now=Date.now();
+  const starts=promotion.startAt?new Date(promotion.startAt).getTime():null;
+  const ends=promotion.endAt?new Date(promotion.endAt).getTime():null;
+  if(starts!==null&&Number.isFinite(starts)&&starts>now)return'scheduled';
+  if(ends!==null&&Number.isFinite(ends)&&ends<now)return'ended';
+  return'live';
+}
+function statusMeta(status:CampaignStatus){
+  if(status==='live')return{label:'Live',className:'bg-success/10 text-success'};
+  if(status==='scheduled')return{label:'Scheduled',className:'bg-blue-500/10 text-blue-700'};
+  if(status==='ended')return{label:'Ended',className:'bg-amber-500/10 text-amber-700'};
+  return{label:'Inactive',className:'bg-muted text-muted-foreground'};
+}
+function scheduleErrorOf(promotion:Promotion){
+  if(!promotion.startAt||!promotion.endAt)return'';
+  const start=new Date(promotion.startAt).getTime();
+  const end=new Date(promotion.endAt).getTime();
+  if(!Number.isFinite(start)||!Number.isFinite(end))return'Enter a valid start and end time.';
+  if(end<=start)return'End time must be later than start time.';
+  return'';
+}
+function ctrOf(promotion:Promotion){
+  const impressions=promotion.impressions??0;
+  return impressions>0?`${(((promotion.clicks??0)/impressions)*100).toFixed(1)}%`:'—';
+}
 
 function localDateTime(value:string|null){
   if(!value)return '';
@@ -50,7 +79,7 @@ function localDateTime(value:string|null){
   return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
-function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,repeatOnEveryOpen:false,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,repeatOnEveryOpen:false,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1,impressions:0,clicks:0,dismissals:0};}
 function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
 function preset(kind:'popup'|'home'|'targeted'):Promotion{
   const base={...blank(),isActive:false};
@@ -76,6 +105,7 @@ export function MobilePromotionsPage(){
   const[managedPages,setManagedPages]=useState<ManagedPage[]>([]);
   const[loading,setLoading]=useState(true);
   const[editing,setEditing]=useState<Promotion|null>(null);
+  const[previewing,setPreviewing]=useState<Promotion|null>(null);
   const[saving,setSaving]=useState(false);
 
   const refresh=async()=>{setLoading(true);try{
@@ -97,6 +127,8 @@ export function MobilePromotionsPage(){
   const save=async()=>{
     if(!editing)return;
     if(editing.title.trim().length<2){showToast.error('Title required','Enter a campaign title.');return;}
+    const scheduleError=scheduleErrorOf(editing);
+    if(scheduleError){showToast.error('Invalid schedule',scheduleError);return;}
     setSaving(true);
     try{
       const path=editing.id?`/admin/mobile/promotions/${editing.id}`:'/admin/mobile/promotions';
@@ -108,6 +140,22 @@ export function MobilePromotionsPage(){
   };
 
   const remove=async()=>{if(!editing?.id)return;if(!window.confirm(`Delete "${editing.title}"? This removes it from all mobile placements.`))return;setSaving(true);try{await call(`/admin/mobile/promotions/${editing.id}`,{method:'DELETE'});showToast.success('Promotion deleted','The campaign has been removed.');setEditing(null);await refresh();}catch(error){showToast.error('Unable to delete promotion',error instanceof Error?error.message:'Request failed.');}finally{setSaving(false);}};
+
+  const duplicate=(promotion:Promotion)=>{
+    setEditing({...promotion,id:'',title:`${promotion.title} (copy)`,isActive:false,createdAt:undefined,updatedAt:undefined,impressions:0,clicks:0,dismissals:0});
+    showToast.success('Promotion duplicated','The copy is inactive until you save and publish it.');
+  };
+
+  const toggleActive=async(promotion:Promotion)=>{
+    setSaving(true);
+    try{
+      await call(`/admin/mobile/promotions/${promotion.id}`,{method:'PUT',body:JSON.stringify({...promotion,isActive:!promotion.isActive})});
+      showToast.success(promotion.isActive?'Promotion paused':'Promotion resumed',promotion.isActive?'Learners will no longer receive this campaign.':'The campaign is eligible for delivery inside its schedule.');
+      if(editing?.id===promotion.id)setEditing({...editing,isActive:!promotion.isActive});
+      await refresh();
+    }catch(error){showToast.error('Unable to update promotion',error instanceof Error?error.message:'Request failed.');}
+    finally{setSaving(false);}
+  };
 
   return <div className="space-y-5">
     <PageHeader title="Mobile App · Promotions & Ads" description="Schedule mobile promotional placements without duplicating the shared exam, test-series or Learn content they point to." icon={<Megaphone className="h-5 w-5"/>} actions={<div className="flex gap-2"><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button onClick={()=>setEditing(blank())}><Plus className="mr-1.5 h-4 w-4"/>New promotion</Button></div>}/>
@@ -129,11 +177,29 @@ export function MobilePromotionsPage(){
 
     <Card><CardHeader><CardTitle className="text-base">Campaigns</CardTitle></CardHeader><CardContent className="space-y-3">
       {items.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No mobile promotions configured.</div>}
-      {items.map(item=><button key={item.id} onClick={()=>setEditing({...item})} className="flex w-full items-center justify-between rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
-        <div><div className="flex items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${item.isActive?'bg-success/10 text-success':'bg-muted text-muted-foreground'}`}>{item.isActive?'Active':'Off'}</span></div><p className="mt-1 text-xs text-muted-foreground">{item.placement} · {frequencyLabel(item)} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}</p></div>
-        <span className="text-xs text-muted-foreground">Edit</span>
-      </button>)}
+      {items.map(item=>{const status=statusMeta(statusOf(item));return <div key={item.id} className="rounded-xl border p-4">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+          <button type="button" onClick={()=>setEditing({...item})} className="min-w-0 flex-1 text-left">
+            <div className="flex flex-wrap items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${status.className}`}>{status.label}</span></div>
+            <p className="mt-1 text-xs text-muted-foreground">{item.placement} · {frequencyLabel(item)} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}{item.endAt?` · ends ${new Date(item.endAt).toLocaleString('en-IN')}`:''}</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground">
+              <span><strong className="text-foreground">{item.impressions??0}</strong> impressions</span>
+              <span><strong className="text-foreground">{item.clicks??0}</strong> clicks</span>
+              <span><strong className="text-foreground">{item.dismissals??0}</strong> dismissals</span>
+              <span><strong className="text-foreground">{ctrOf(item)}</strong> CTR</span>
+              <span className="text-[11px]">Last 30 days</span>
+            </div>
+          </button>
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" size="sm" variant="outline" onClick={()=>setPreviewing(item)}><Eye className="mr-1.5 h-3.5 w-3.5"/>Preview</Button>
+            <Button type="button" size="sm" variant="outline" onClick={()=>duplicate(item)}><Copy className="mr-1.5 h-3.5 w-3.5"/>Duplicate</Button>
+            <Button type="button" size="sm" variant="outline" disabled={saving} onClick={()=>void toggleActive(item)}>{item.isActive?<Pause className="mr-1.5 h-3.5 w-3.5"/>:<Play className="mr-1.5 h-3.5 w-3.5"/>}{item.isActive?'Pause':'Resume'}</Button>
+          </div>
+        </div>
+      </div>})}
     </CardContent></Card>
+
+    {previewing&&<Card><CardHeader className="flex-row items-center justify-between space-y-0"><div><CardTitle className="text-base">Placement preview</CardTitle><p className="mt-1 text-sm text-muted-foreground">Rendered to match the current mobile treatment for {previewing.placement}.</p></div><Button type="button" variant="ghost" size="sm" onClick={()=>setPreviewing(null)}><X className="h-4 w-4"/></Button></CardHeader><CardContent><PromotionPreview promotion={previewing}/></CardContent></Card>}
 
     {editing&&<Card><CardHeader className="flex-row items-center justify-between space-y-0"><div><CardTitle className="text-base">{editing.id?'Edit promotion':'Create promotion'}</CardTitle><p className="mt-1 text-sm text-muted-foreground">Changes affect only this campaign.</p></div>{editing.id&&<Button variant="ghost" size="sm" onClick={()=>void remove()} disabled={saving}><Trash2 className="mr-1.5 h-4 w-4"/>Delete</Button>}</CardHeader><CardContent className="grid gap-4 md:grid-cols-2">
       <Field label="Title"><Input value={editing.title} onChange={e=>setEditing({...editing,title:e.target.value})} placeholder="New Punjab test series"/></Field>
@@ -150,6 +216,7 @@ export function MobilePromotionsPage(){
       {editing.destinationType==='url'&&<Field label="Destination URL"><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder="https://…"/></Field>}
       <Field label="Start"><Input type="datetime-local" value={localDateTime(editing.startAt)} onChange={e=>setEditing({...editing,startAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="End"><Input type="datetime-local" value={localDateTime(editing.endAt)} onChange={e=>setEditing({...editing,endAt:isoOrNull(e.target.value)})}/></Field>
+      {scheduleErrorOf(editing)&&<div className="md:col-span-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">{scheduleErrorOf(editing)}</div>}
       <Field label="Order"><Input type="number" min="0" max="999" value={editing.sortOrder} onChange={e=>setEditing({...editing,sortOrder:Number(e.target.value)})}/></Field>
       <Field label="Delivery frequency">
         <Select value={frequencyModeOf(editing)} onValueChange={(value)=>{
@@ -181,20 +248,55 @@ export function MobilePromotionsPage(){
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Dismissible</p><p className="text-xs text-muted-foreground">Learner can hide this promotion.</p></div><Switch checked={editing.isDismissible} onCheckedChange={checked=>setEditing({...editing,isDismissible:checked})}/></div>
       {editing.placement==='login_popup'&&frequencyModeOf(editing)==='every_open'&&<div className="md:col-span-2 rounded-lg border px-3 py-3"><p className="text-sm font-medium">Every app open is enabled</p><p className="text-xs text-muted-foreground">This ignores saved impressions and dismissals for this popup. It still appears only once during a single running app session.</p></div>}
       <div className="md:col-span-2 rounded-xl border p-4">
-        <p className="text-sm font-semibold">Preview</p>
-        <div className="mt-3 mx-auto max-w-sm overflow-hidden rounded-2xl border bg-white shadow-sm">
-          {editing.imageUrl&&<img src={editing.imageUrl} alt="" className="h-40 w-full object-cover"/>}
-          <div className="p-4">
-            <p className="font-semibold">{editing.title||'Promotion title'}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{editing.subtitle||'Promotion message appears here.'}</p>
-            {editing.destinationType!=='none'&&<Button className="mt-4 w-full" size="sm">{editing.ctaLabel||'Explore'}</Button>}
-            {editing.isDismissible&&<p className="mt-2 text-center text-xs text-muted-foreground">Learner can close/hide this promotion</p>}
-          </div>
-        </div>
+        <div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Live mobile preview</p><p className="mt-1 text-xs text-muted-foreground">Uses the current rendering rules for this placement.</p></div>{editing.id&&<div className="text-right text-xs text-muted-foreground"><div><strong className="text-foreground">{editing.impressions??0}</strong> impressions · <strong className="text-foreground">{editing.clicks??0}</strong> clicks</div><div>{editing.dismissals??0} dismissals · {ctrOf(editing)} CTR · last 30 days</div></div>}</div>
+        <div className="mt-4"><PromotionPreview promotion={editing}/></div>
       </div>
       <div className="md:col-span-2 flex justify-end gap-2"><Button variant="outline" onClick={()=>setEditing(null)} disabled={saving}>Cancel</Button><Button onClick={()=>void save()} disabled={saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Saving…':'Save promotion'}</Button></div>
     </CardContent></Card>}
   </div>;
 }
+function PromotionPreview({promotion}:{promotion:Promotion}){
+  const hasAction=promotion.destinationType!=='none';
+  const title=promotion.title||'Promotion title';
+  const subtitle=promotion.subtitle||'Promotion message appears here.';
+  if(promotion.placement==='login_popup'){
+    return <div className="mx-auto max-w-[420px] rounded-[28px] bg-slate-950/70 p-5 shadow-inner">
+      <div className="relative mx-auto max-w-[360px]">
+        {promotion.imageUrl?<>
+          <div className="overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <img src={promotion.imageUrl} alt="" className="block max-h-[520px] w-full object-contain"/>
+          </div>
+          {promotion.isDismissible&&<div className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow"><X className="h-4 w-4 text-slate-700"/></div>}
+        </>:<div className="relative rounded-3xl bg-white p-5 shadow-2xl">
+          {promotion.isDismissible&&<div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"><X className="h-4 w-4 text-slate-700"/></div>}
+          <p className="pr-10 text-lg font-extrabold text-slate-900">{title}</p>
+          <p className="mt-2 text-sm leading-5 text-slate-600">{subtitle}</p>
+          {hasAction&&<div className="mt-4 rounded-xl bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">{promotion.ctaLabel||'Explore'}</div>}
+        </div>}
+      </div>
+      <p className="mt-3 text-center text-[11px] text-white/70">{promotion.imageUrl?'Image-led app-open campaign: the creative itself is the tappable surface.':'Text-led app-open modal.'}</p>
+    </div>;
+  }
+  return <div className="mx-auto max-w-[390px]">
+    <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{promotion.placement} placement</div>
+    <div className="relative h-44 overflow-hidden rounded-3xl border bg-primary/10 shadow-sm">
+      <div className="absolute -right-8 -top-10 h-36 w-36 rounded-full bg-primary/10"/>
+      {promotion.imageUrl&&<img src={promotion.imageUrl} alt="" className="absolute bottom-0 right-0 top-0 h-full w-[132px] object-cover"/>}
+      <div className="relative flex h-full">
+        <div className="flex min-w-0 flex-1 flex-col p-4 pr-3">
+          <div className="w-fit rounded-full bg-white/80 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.12em] text-primary">EXAMTREE</div>
+          <div className="mt-auto max-w-[230px]">
+            <p className="line-clamp-2 text-lg font-extrabold leading-tight text-slate-900">{title}</p>
+            <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-600">{subtitle}</p>
+            {hasAction&&<div className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-primary">{promotion.ctaLabel||'Explore'} <span aria-hidden="true">→</span></div>}
+          </div>
+        </div>
+        {promotion.imageUrl&&<div className="w-[132px] shrink-0"/>}
+      </div>
+      {promotion.isDismissible&&<div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow"><X className="h-4 w-4 text-slate-700"/></div>}
+    </div>
+  </div>;
+}
+
 function Field({label,children}:{label:string;children:React.ReactNode}){return <div className="space-y-1.5"><Label>{label}</Label>{children}</div>}
 export default MobilePromotionsPage;

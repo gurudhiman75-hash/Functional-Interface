@@ -47,7 +47,8 @@ router.get("/",requireAdminPermission("content.taxonomy.read"),async(req,res)=>{
       sqlClient`
         SELECT entity_type AS "entityType",entity_id AS "entityId",placement,
           COUNT(*) FILTER (WHERE event_name LIKE '%impression')::int AS impressions,
-          COUNT(*) FILTER (WHERE event_name LIKE '%click')::int AS clicks
+          COUNT(*) FILTER (WHERE event_name LIKE '%click')::int AS clicks,
+          COUNT(*) FILTER (WHERE event_name='promotion_dismiss')::int AS dismissals
         FROM platform.mobile_analytics_events
         WHERE occurred_at>=now()-make_interval(days=>${days})
           AND entity_id<>''
@@ -67,7 +68,8 @@ router.get("/",requireAdminPermission("content.taxonomy.read"),async(req,res)=>{
       sqlClient`
         SELECT
           COUNT(*) FILTER (WHERE event_name='promotion_impression')::int AS impressions,
-          COUNT(*) FILTER (WHERE event_name='promotion_click')::int AS clicks
+          COUNT(*) FILTER (WHERE event_name='promotion_click')::int AS clicks,
+          COUNT(*) FILTER (WHERE event_name='promotion_dismiss')::int AS dismissals
         FROM platform.mobile_analytics_events
         WHERE occurred_at>=now()-make_interval(days=>${days})
       `
