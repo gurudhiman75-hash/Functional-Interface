@@ -9,8 +9,8 @@ import {
 import type {
   QuestionStudioGenerationRequest,
   QuestionStudioPackageDefinition,
-} from "../../../question-studio/engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
+} from "../../../../question-studio/engine-types";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 
 export const CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDefinition = {
   engineId: "reasoning-v1",
