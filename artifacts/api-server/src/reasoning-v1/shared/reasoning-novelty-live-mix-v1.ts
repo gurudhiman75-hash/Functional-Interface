@@ -14,15 +14,17 @@ import { generateDirControlledNovelGraphRelativePathCandidateV1 } from "../topic
 import { generateClockControlledNovelAngleCandidateV1 } from "../topics/Clocks/CLK-001/clk-001-controlled-novelty-discovery-v1";
 import { generateAlpControlledNovelTransformedGapCandidateV1 } from "../topics/Alphabet-Test/ALP-001/alp-001-controlled-novelty-discovery-v1";
 import { generateCalControlledNovelImplicitRangeFrequencyCandidateV1 } from "../topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1";
+import { generateBlrControlledNovelCodedCountCandidateV1 } from "../topics/Blood-Relations/BLR-001/blr-001-controlled-novelty-discovery-v1";
 
 export const REASONING_V1_LIVE_NOVELTY_MIX_VERSION =
   "REASONING_V1_LIVE_NOVELTY_MIX_2026_10_02_V1" as const;
 
 type LiveActivation = Readonly<{
-  packageId: "ALP-001" | "CAL-001" | "OPS-001" | "DIR-001" | "CLK-001";
+  packageId: "ALP-001" | "CAL-001" | "BLR-001" | "OPS-001" | "DIR-001" | "CLK-001";
   providerId:
     | "ALP-001-TRANSFORMED-GAP"
     | "CAL-001-IMPLICIT-RANGE-FREQUENCY"
+    | "BLR-001-CODED-FILTERED-COUNT"
     | "OPS-001-INFER-THEN-FILL"
     | "DIR-001-GRAPH-RELATIVE-PATH"
     | "CLK-001-FAULTY-TIME-ANGLE";
@@ -38,6 +40,11 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
   {
     packageId: "CAL-001",
     providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    calibratedDifficulty: "Medium",
+  },
+  {
+    packageId: "BLR-001",
+    providerId: "BLR-001-CODED-FILTERED-COUNT",
     calibratedDifficulty: "Medium",
   },
   {
@@ -109,6 +116,9 @@ function candidateFor(providerId: LiveActivation["providerId"], seed: number) {
   }
   if (providerId === "CAL-001-IMPLICIT-RANGE-FREQUENCY") {
     return generateCalControlledNovelImplicitRangeFrequencyCandidateV1(seed);
+  }
+  if (providerId === "BLR-001-CODED-FILTERED-COUNT") {
+    return generateBlrControlledNovelCodedCountCandidateV1(seed);
   }
   if (providerId === "OPS-001-INFER-THEN-FILL") {
     return generateOpsControlledNovelInferThenFillCandidateV1(seed);
