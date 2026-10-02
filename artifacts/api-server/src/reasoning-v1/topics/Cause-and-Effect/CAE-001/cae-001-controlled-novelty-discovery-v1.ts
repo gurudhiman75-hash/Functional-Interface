@@ -75,6 +75,35 @@ function validateGeneratedQuestion(question: GeneratedCaeQuestion): void {
   }
 }
 
+function contentWords(value: string): Set<string> {
+  const stop = new Set(["the", "a", "an", "to", "of", "in", "at", "for", "and", "on", "one", "after", "earlier", "usual"]);
+  return new Set(
+    value
+      .toLocaleLowerCase("en-IN")
+      .replace(/[^a-z0-9 ]+/g, " ")
+      .split(/\s+/)
+      .filter((word) => word.length >= 3 && !stop.has(word)),
+  );
+}
+
+function simpleEventDistractorsAreDistinct(question: GeneratedCaeQuestion): boolean {
+  if (question.qlId !== "CAE-QL-009") return true;
+  const correct = question.options[question.correctIndex]!;
+  if (correct.includes("→")) return true;
+  const correctWords = contentWords(correct);
+  for (let index = 0; index < question.options.length; index += 1) {
+    if (index === question.correctIndex) continue;
+    const option = question.options[index]!;
+    if (option.includes("→")) continue;
+    const words = contentWords(option);
+    const intersection = [...correctWords].filter((word) => words.has(word)).length;
+    const union = new Set([...correctWords, ...words]).size;
+    const overlap = union === 0 ? 0 : intersection / union;
+    if (overlap > 0.33) return false;
+  }
+  return true;
+}
+
 export function generateCaeControlledNovelCandidateV1(input: {
   qlId: CaeControlledNovelQlV1;
   locale: CaeLocale;
@@ -84,13 +113,22 @@ export function generateCaeControlledNovelCandidateV1(input: {
     throw new Error('CAE controlled-novel seed must be a safe integer.');
   }
 
-  const question = generateReviewedCaeQuestion({
-    qlId: input.qlId,
-    locale: input.locale,
-    seed: input.seed,
-    questionProfile: 'FOUR_WAY',
-  });
-  validateGeneratedQuestion(question);
+  let question: GeneratedCaeQuestion | null = null;
+  for (let offset = 0; offset < 32; offset += 1) {
+    const candidate = generateReviewedCaeQuestion({
+      qlId: input.qlId,
+      locale: input.locale,
+      seed: input.seed + offset,
+      questionProfile: 'FOUR_WAY',
+    });
+    validateGeneratedQuestion(candidate);
+    if (!simpleEventDistractorsAreDistinct(candidate)) continue;
+    question = candidate;
+    break;
+  }
+  if (!question) {
+    throw new Error(input.qlId + ' controlled-novel candidate could not find a distinct distractor set.');
+  }
 
   const noveltyAxes = axesFor(question);
   const candidateId =

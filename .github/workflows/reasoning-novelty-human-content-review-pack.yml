@@ -1,0 +1,36 @@
+name: Export Reasoning novelty human content review pack
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/tests/export-reasoning-novelty-human-review-pack-20261002.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-review-pack-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-review-runtime-v1.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-novelty-human-content-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/export-reasoning-novelty-human-review-pack-20261002.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-reasoning-novelty-human-review-pack-20261002.mjs
+          node artifacts/api-server/dist/reasoning-v1/export-reasoning-novelty-human-review-pack-20261002.mjs | tee /tmp/reasoning-novelty-human-review-pack.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reasoning-novelty-human-review-pack
+          path: /tmp/reasoning-novelty-human-review-pack.md
+          retention-days: 14

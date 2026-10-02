@@ -141,13 +141,39 @@ export function generateRnkControlledNovelCaseletV1(
     string, string, string, string, string, string,
   ];
 
-  const constraints: readonly Constraint[] = [
-    { kind: 'ENDPOINT_FIRST', entity: first },
-    { kind: 'EXACT_RANK_GAP', higher: first, lower: third, gap: 2 },
-    { kind: 'IMMEDIATE_ABOVE', higher: second, lower: third },
-    { kind: 'ABOVE', higher: fourth, lower: sixth },
-    { kind: 'IMMEDIATE_ABOVE', higher: fourth, lower: fifth },
-  ];
+  const pattern = Math.abs(seed) % 4;
+  const constraints: readonly Constraint[] =
+    pattern === 0
+      ? [
+          { kind: 'ENDPOINT_FIRST', entity: first },
+          { kind: 'EXACT_RANK_GAP', higher: first, lower: third, gap: 2 },
+          { kind: 'IMMEDIATE_ABOVE', higher: second, lower: third },
+          { kind: 'ABOVE', higher: fourth, lower: sixth },
+          { kind: 'IMMEDIATE_ABOVE', higher: fourth, lower: fifth },
+        ]
+      : pattern === 1
+        ? [
+            { kind: 'ENDPOINT_FIRST', entity: first },
+            { kind: 'EXACT_RANK_GAP', higher: first, lower: fourth, gap: 3 },
+            { kind: 'IMMEDIATE_ABOVE', higher: third, lower: fourth },
+            { kind: 'ABOVE', higher: second, lower: fifth },
+            { kind: 'IMMEDIATE_ABOVE', higher: fifth, lower: sixth },
+          ]
+        : pattern === 2
+          ? [
+              { kind: 'ENDPOINT_FIRST', entity: first },
+              { kind: 'EXACT_RANK_GAP', higher: first, lower: fifth, gap: 4 },
+              { kind: 'IMMEDIATE_ABOVE', higher: fourth, lower: fifth },
+              { kind: 'IMMEDIATE_ABOVE', higher: second, lower: third },
+              { kind: 'ABOVE', higher: third, lower: sixth },
+            ]
+          : [
+              { kind: 'ENDPOINT_FIRST', entity: first },
+              { kind: 'EXACT_RANK_GAP', higher: first, lower: sixth, gap: 5 },
+              { kind: 'IMMEDIATE_ABOVE', higher: second, lower: third },
+              { kind: 'IMMEDIATE_ABOVE', higher: fourth, lower: fifth },
+              { kind: 'ABOVE', higher: second, lower: fourth },
+            ];
 
   const solutions = solveRnkControlledNovelCaseletV1(hiddenOrder, constraints);
   if (solutions.length !== 1) {
@@ -160,17 +186,20 @@ export function generateRnkControlledNovelCaseletV1(
   const clueTexts = constraints.map(clueText);
   const sharedPrompt =
     "Six persons are ranked from first to sixth. " + clueTexts.join(" ");
-  const correctAnswer = fourth;
-  const options = rotate([correctAnswer, second, fifth, sixth], Math.abs(seed) % 4);
+  const targetRank = 2 + (Math.abs(seed) % 5);
+  const correctAnswer = hiddenOrder[targetRank - 1]!;
+  const distractorPool = hiddenOrder.filter((name) => name !== correctAnswer);
+  const distractors = rotate(distractorPool, Math.floor(Math.abs(seed) / 5)).slice(0, 3);
+  const options = rotate([correctAnswer, ...distractors], Math.abs(seed) % 4);
   const correctIndex = options.indexOf(correctAnswer);
   if (correctIndex < 0 || new Set(options).size !== 4) {
     throw new Error("RNK controlled-novel MCQ options must contain four distinct persons.");
   }
-  const stem = "Who is ranked fourth?";
+  const stem = `Who is ranked ${targetRank === 2 ? "second" : targetRank === 3 ? "third" : targetRank === 4 ? "fourth" : targetRank === 5 ? "fifth" : "sixth"}?`;
   const explanation =
     "Combining the clues gives the unique order " +
     solutions[0]!.map((name, index) => `${index + 1}. ${name}`).join(", ") +
-    `. Therefore, ${correctAnswer} is ranked fourth.`;
+    `. Therefore, ${correctAnswer} is ranked ${targetRank === 2 ? "second" : targetRank === 3 ? "third" : targetRank === 4 ? "fourth" : targetRank === 5 ? "fifth" : "sixth"}.`;
 
   const noveltyAxes = [
     'CONSTRAINT_INTERACTION',
