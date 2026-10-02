@@ -77,11 +77,14 @@ export function validateQuestionStudioPackage(
   const declaresManagedLifecycle =
     Boolean(pkg.lifecycleId)
     || Boolean(pkg.lifecycleStage)
-    || Boolean(pkg.runtimeMode)
-    || (pkg.supportedRuntimeModes?.length ?? 0) > 0;
+    || pkg.questionBankWritable !== undefined
+    || pkg.testEligible !== undefined
+    || pkg.mockTestEligible !== undefined
+    || pkg.publiclyPublishable !== undefined
+    || pkg.productionReleaseAuthorized !== undefined;
 
   if (declaresManagedLifecycle && !pkg.lifecycleStage) {
-    fail("managed runtime packages must declare lifecycleStage.");
+    fail("packages that declare lifecycle gates must declare lifecycleStage.");
   }
 
   if (pkg.lifecycleStage === "REVIEW_ONLY") {
