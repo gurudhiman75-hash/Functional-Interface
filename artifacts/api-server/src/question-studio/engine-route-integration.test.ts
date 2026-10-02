@@ -209,6 +209,9 @@ assert.match(bulkHardeningRoute, /INVALID_GENERATION_ITEM_ID/);
 assert.match(regenerationRoute, /MAX_REGENERATION_ITEMS = 50/);
 assert.match(regenerationRoute, /TOO_MANY_REGENERATION_ITEMS/);
 assert.match(regenerationRoute, /INVALID_GENERATION_ITEM_ID/);
+assert.match(bulkHardeningRoute, /GENERATION_RUN_CANCELLED/);
+assert.match(qualityRoute, /GENERATION_RUN_CANCELLED/);
+assert.match(regenerationRoute, /GENERATION_RUN_CANCELLED/);
 assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
 assert.match(
   bulkHardeningRoute,
