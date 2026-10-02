@@ -16,17 +16,19 @@ import { generateAlpControlledNovelTransformedGapCandidateV1 } from "../topics/A
 import { generateCalControlledNovelImplicitRangeFrequencyCandidateV1 } from "../topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1";
 import { generateCaeControlledNovelCandidateV1 } from "../topics/Cause-and-Effect/CAE-001/cae-001-controlled-novelty-discovery-v1";
 import { generateBlrControlledNovelCodedCountCandidateV1 } from "../topics/Blood-Relations/BLR-001/blr-001-controlled-novelty-discovery-v1";
+import { generateRnkControlledNovelCaseletV1 } from "../topics/Ranking-and-Order/RNK-001/rnk-001-controlled-novelty-discovery-v1";
 
 export const REASONING_V1_LIVE_NOVELTY_MIX_VERSION =
   "REASONING_V1_LIVE_NOVELTY_MIX_2026_10_02_V1" as const;
 
 type LiveActivation = Readonly<{
-  packageId: "ALP-001" | "BLR-001" | "CAE-001" | "CAL-001" | "OPS-001" | "DIR-001" | "CLK-001";
+  packageId: "ALP-001" | "BLR-001" | "CAE-001" | "CAL-001" | "RNK-CP-004" | "OPS-001" | "DIR-001" | "CLK-001";
   providerId:
     | "ALP-001-TRANSFORMED-GAP"
     | "BLR-001-CODED-FILTERED-COUNT"
     | "CAE-001-EDGE-FAMILIES"
     | "CAL-001-IMPLICIT-RANGE-FREQUENCY"
+    | "RNK-001-CROSS-FAMILY-CASELET"
     | "OPS-001-INFER-THEN-FILL"
     | "DIR-001-GRAPH-RELATIVE-PATH"
     | "CLK-001-FAULTY-TIME-ANGLE";
@@ -37,7 +39,7 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
   {
     packageId: "BLR-001",
     providerId: "BLR-001-CODED-FILTERED-COUNT",
-    calibratedDifficulty: "Medium",
+    calibratedDifficulty: "Hard",
   },
   {
     packageId: "CAE-001",
@@ -52,6 +54,11 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
   {
     packageId: "CAL-001",
     providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    calibratedDifficulty: "Medium",
+  },
+  {
+    packageId: "RNK-CP-004",
+    providerId: "RNK-001-CROSS-FAMILY-CASELET",
     calibratedDifficulty: "Medium",
   },
   {
@@ -118,6 +125,9 @@ function activationFor(
 }
 
 function candidateFor(providerId: LiveActivation["providerId"], seed: number) {
+  if (providerId === "RNK-001-CROSS-FAMILY-CASELET") {
+    return generateRnkControlledNovelCaseletV1(seed);
+  }
   if (providerId === "BLR-001-CODED-FILTERED-COUNT") {
     return generateBlrControlledNovelCodedCountCandidateV1(seed);
   }
