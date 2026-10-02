@@ -230,7 +230,9 @@ function hash(value: string) {
 }
 
 function numericSeed(seed: string, qlId: string, attempt: number) {
-  return (hash(`${seed}:${qlId}:${attempt}`) % 100) + 1;
+  // Keep deterministic positive integer source seeds while avoiding the severe
+  // birthday-collision rate caused by the previous 1..100 compression.
+  return (hash(`${seed}:${qlId}:${attempt}`) % 1_000_000) + 1;
 }
 
 function weightedPick(list: readonly SapQuestionStudioQlDescriptor[], seed: string, attempt: number) {
@@ -260,6 +262,8 @@ function normalizePackage(
   sourceSeed: number,
 ) {
   const pkg = record(source);
+  const generatedSeed = Number(pkg.seed);
+  const actualSourceSeed = Number.isInteger(generatedSeed) && generatedSeed > 0 ? generatedSeed : sourceSeed;
   const rawOptions = Array.isArray(pkg.options) ? pkg.options : [];
   const sourceCorrectIndex = Number(pkg.correctIndex);
   const optionRows = rawOptions.map((item, index) => {
@@ -304,7 +308,7 @@ function normalizePackage(
   ].filter(Boolean);
 
   const identity = createHash("sha256")
-    .update(JSON.stringify({ qlId: descriptor.qlId, seed, sourceSeed, stem: pkg.stem, options, answer }))
+    .update(JSON.stringify({ qlId: descriptor.qlId, seed, sourceSeed: actualSourceSeed, stem: pkg.stem, options, answer }))
     .digest("hex")
     .slice(0, 20);
   const questionId = `SAP-${descriptor.qlId.slice(-3)}-${identity}`;
@@ -338,7 +342,7 @@ function normalizePackage(
       checkpointId: descriptor.checkpointId,
       sourceIdentity: descriptor.sourceIdentity,
       qlTitle: descriptor.title,
-      sourceSeed,
+      sourceSeed: actualSourceSeed,
       specialist: descriptor.specialist,
       questionBankWritable: true,
       testEligible: true,

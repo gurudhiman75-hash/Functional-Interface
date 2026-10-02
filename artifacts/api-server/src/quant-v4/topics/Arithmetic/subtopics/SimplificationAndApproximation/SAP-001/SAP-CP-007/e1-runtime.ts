@@ -38,7 +38,11 @@ function truncateState(coefficient: number, scale: number, significantFigures: n
 
 export function generateSapCp007E1SignificantFigures(seed: number): SapE1CandidatePackage {
   if (!Number.isInteger(seed) || seed < 1) throw new Error("Seed must be a positive integer.");
-  const i = seed - 1;
+  // Keep the generated coefficient inside the intended five-digit authority
+  // for every positive seed. The source seed may be large in Question Studio,
+  // but the learner state cycles deterministically through the certified
+  // five-digit significant-figure domain.
+  const i = (seed - 1) % 575;
   const coefficient = 21357 + 137 * i;
   const significantFigures = 2 + (i % 3);
   const drop = String(coefficient).length - significantFigures;

@@ -42,6 +42,18 @@ const PRODUCT_CASES = Object.freeze([
   Object.freeze({ left: "0.625", right: "3.2" }),
   Object.freeze({ left: "7.5", right: "0.48" }),
   Object.freeze({ left: "0.875", right: "1.6" }),
+  Object.freeze({ left: "3.75", right: "2.4" }),
+  Object.freeze({ left: "1.875", right: "3.2" }),
+  Object.freeze({ left: "0.24", right: "12.5" }),
+  Object.freeze({ left: "0.48", right: "6.25" }),
+  Object.freeze({ left: "2.75", right: "1.2" }),
+  Object.freeze({ left: "1.44", right: "2.5" }),
+  Object.freeze({ left: "0.225", right: "8" }),
+  Object.freeze({ left: "3.125", right: "1.6" }),
+  Object.freeze({ left: "5.6", right: "1.25" }),
+  Object.freeze({ left: "0.72", right: "3.75" }),
+  Object.freeze({ left: "2.25", right: "0.8" }),
+  Object.freeze({ left: "1.28", right: "3.125" }),
 ] as const);
 
 const DIVISION_CASES = Object.freeze([
