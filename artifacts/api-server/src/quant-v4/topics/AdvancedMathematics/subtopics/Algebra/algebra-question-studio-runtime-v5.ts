@@ -74,37 +74,44 @@ function mutateLastInteger(text: string, delta: number): string | null {
 
 function extraWrongCandidates(
   question: ReturnType<typeof generateAlgebraStudioQuestionV4>,
-): string[] {
+): readonly { text: string; misconceptionId: string }[] {
   const language = question.language;
-  const none = phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ");
-  const cannot = phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ");
-  const noSolution = phrase(language, "No solution", "कोई हल नहीं", "ਕੋਈ ਹੱਲ ਨਹੀਂ");
-  const oneSolution = phrase(language, "Exactly one solution", "ठीक एक हल", "ਠੀਕ ਇੱਕ ਹੱਲ");
-  const twoSolutions = phrase(language, "Two solutions", "दो हल", "ਦੋ ਹੱਲ");
-  const infiniteSolutions = phrase(language, "Infinitely many solutions", "अनंत हल", "ਅਨੰਤ ਹੱਲ");
-  const noRealRoots = phrase(language, "No real roots", "कोई वास्तविक मूल नहीं", "ਕੋਈ ਵਾਸਤਵਿਕ ਮੂਲ ਨਹੀਂ");
-  const allReal = phrase(language, "All real numbers", "सभी वास्तविक संख्याएँ", "ਸਾਰੀਆਂ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ");
-  const emptySet = phrase(language, "Empty set", "रिक्त समुच्चय", "ਖਾਲੀ ਸਮੂਹ");
+  const item = (text: string, misconceptionId: string) => ({ text, misconceptionId });
+  const none = item(phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"), "NONE_OF_THESE");
+  const cannot = item(phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ"), "FALSE_UNDERDETERMINED");
+  const noSolution = item(phrase(language, "No solution", "कोई हल नहीं", "ਕੋਈ ਹੱਲ ਨਹੀਂ"), "FALSE_NO_SOLUTION");
+  const oneSolution = item(phrase(language, "Exactly one solution", "ठीक एक हल", "ਠੀਕ ਇੱਕ ਹੱਲ"), "FALSE_ONE_SOLUTION");
+  const twoSolutions = item(phrase(language, "Two solutions", "दो हल", "ਦੋ ਹੱਲ"), "FALSE_TWO_SOLUTIONS");
+  const infiniteSolutions = item(phrase(language, "Infinitely many solutions", "अनंत हल", "ਅਨੰਤ ਹੱਲ"), "FALSE_INFINITE_SOLUTIONS");
+  const noRealRoots = item(phrase(language, "No real roots", "कोई वास्तविक मूल नहीं", "ਕੋਈ ਵਾਸਤਵਿਕ ਮੂਲ ਨਹੀਂ"), "FALSE_NO_REAL_ROOTS");
+  const allReal = item(phrase(language, "All real numbers", "सभी वास्तविक संख्याएँ", "ਸਾਰੀਆਂ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ"), "FALSE_ALL_REAL_NUMBERS");
+  const emptySet = item(phrase(language, "Empty set", "रिक्त समुच्चय", "ਖਾਲੀ ਸਮੂਹ"), "FALSE_EMPTY_SET");
   const ds = [
-    phrase(language, "Statement I alone is sufficient", "केवल कथन I पर्याप्त है", "ਕੇਵਲ ਕਥਨ I ਕਾਫ਼ੀ ਹੈ"),
-    phrase(language, "Statement II alone is sufficient", "केवल कथन II पर्याप्त है", "ਕੇਵਲ ਕਥਨ II ਕਾਫ਼ੀ ਹੈ"),
-    phrase(language, "Either statement alone is sufficient", "कोई भी एक कथन अकेले पर्याप्त है", "ਕੋਈ ਵੀ ਇੱਕ ਕਥਨ ਇਕੱਲਾ ਕਾਫ਼ੀ ਹੈ"),
-    phrase(language, "Both statements together are sufficient, but neither alone is sufficient", "दोनों कथन मिलकर पर्याप्त हैं, पर कोई भी अकेला पर्याप्त नहीं है", "ਦੋਵੇਂ ਕਥਨ ਮਿਲ ਕੇ ਕਾਫ਼ੀ ਹਨ, ਪਰ ਕੋਈ ਵੀ ਇਕੱਲਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ"),
-    phrase(language, "Even both statements together are not sufficient", "दोनों कथन मिलकर भी पर्याप्त नहीं हैं", "ਦੋਵੇਂ ਕਥਨ ਮਿਲ ਕੇ ਵੀ ਕਾਫ਼ੀ ਨਹੀਂ ਹਨ"),
+    item(phrase(language, "Statement I alone is sufficient", "केवल कथन I पर्याप्त है", "ਕੇਵਲ ਕਥਨ I ਕਾਫ਼ੀ ਹੈ"), "DS_I_ALONE"),
+    item(phrase(language, "Statement II alone is sufficient", "केवल कथन II पर्याप्त है", "ਕੇਵਲ ਕਥਨ II ਕਾਫ਼ੀ ਹੈ"), "DS_II_ALONE"),
+    item(phrase(language, "Either statement alone is sufficient", "कोई भी एक कथन अकेले पर्याप्त है", "ਕੋਈ ਵੀ ਇੱਕ ਕਥਨ ਇਕੱਲਾ ਕਾਫ਼ੀ ਹੈ"), "DS_EITHER_ALONE"),
+    item(phrase(language, "Both statements together are sufficient, but neither alone is sufficient", "दोनों कथन मिलकर पर्याप्त हैं, पर कोई भी अकेला पर्याप्त नहीं है", "ਦੋਵੇਂ ਕਥਨ ਮਿਲ ਕੇ ਕਾਫ਼ੀ ਹਨ, ਪਰ ਕੋਈ ਵੀ ਇਕੱਲਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ"), "DS_BOTH_TOGETHER"),
+    item(phrase(language, "Even both statements together are not sufficient", "दोनों कथन मिलकर भी पर्याप्त नहीं हैं", "ਦੋਵੇਂ ਕਥਨ ਮਿਲ ਕੇ ਵੀ ਕਾਫ਼ੀ ਨਹੀਂ ਹਨ"), "DS_EVEN_TOGETHER_INSUFFICIENT"),
   ];
   const canonical = question.canonicalAnswer as { kind?: string } | string | null;
   const kind = typeof canonical === "object" && canonical ? String(canonical.kind ?? "") : "";
   const semantic = kind === "DATA_SUFFICIENCY"
     ? ds
     : [none, cannot, noSolution, oneSolution, twoSolutions, infiniteSolutions, noRealRoots, allReal, emptySet];
+  const numeric = [
+    [mutateLastInteger(question.answer, 1), "OFF_BY_ONE_HIGH"],
+    [mutateLastInteger(question.answer, -1), "OFF_BY_ONE_LOW"],
+    [mutateLastInteger(question.answer, 2), "OFF_BY_TWO_HIGH"],
+  ] as const;
+  const operator = [
+    [question.answer.includes(" + ") ? question.answer.replace(" + ", " - ") : null, "ADDITION_AS_SUBTRACTION"],
+    [question.answer.includes(" - ") ? question.answer.replace(" - ", " + ") : null, "SUBTRACTION_AS_ADDITION"],
+  ] as const;
   return [
     ...semantic,
-    mutateLastInteger(question.answer, 1),
-    mutateLastInteger(question.answer, -1),
-    mutateLastInteger(question.answer, 2),
-    question.answer.includes(" + ") ? question.answer.replace(" + ", " - ") : null,
-    question.answer.includes(" - ") ? question.answer.replace(" - ", " + ") : null,
-  ].filter((value): value is string => Boolean(value?.trim()));
+    ...numeric.filter((row): row is readonly [string, string] => Boolean(row[0]?.trim())).map(([text, misconceptionId]) => item(text, misconceptionId)),
+    ...operator.filter((row): row is readonly [string, string] => Boolean(row[0]?.trim())).map(([text, misconceptionId]) => item(text, misconceptionId)),
+  ];
 }
 
 function expandOptionsForProfile(
@@ -127,7 +134,7 @@ function expandOptionsForProfile(
 
   const existing = new Set(base.options.map((value) => value.trim()));
   const extra = extraWrongCandidates(base).find((candidate) => {
-    const normalized = candidate.trim();
+    const normalized = candidate.text.trim();
     return normalized && normalized !== base.answer.trim() && !existing.has(normalized);
   });
   if (!extra) {
@@ -135,20 +142,23 @@ function expandOptionsForProfile(
   }
 
   const wrongs = [
-    ...base.optionDetails.filter((option) => !option.isCorrect).map((option) => option.text),
+    ...base.optionDetails
+      .filter((option) => !option.isCorrect)
+      .map((option) => ({ text: option.text, misconceptionId: option.misconceptionId ?? "SOURCE_MISCONCEPTION" })),
     extra,
   ];
-  if (new Set(wrongs).size !== 4 || wrongs.includes(base.answer)) {
+  if (new Set(wrongs.map((wrong) => wrong.text)).size !== 4 || wrongs.some((wrong) => wrong.text === base.answer)) {
     throw new Error(`${base.qlId}/${base.prototypeId}: banking distractor expansion is not unique.`);
   }
   const correctIndex = hashText(`${base.seed}:${base.prototypeId}:${profile}:v5-answer-position`) % 5;
-  const options = [...wrongs];
+  const options = wrongs.map((wrong) => wrong.text);
   options.splice(correctIndex, 0, base.answer);
+  const misconceptionByText = new Map(wrongs.map((wrong) => [wrong.text, wrong.misconceptionId]));
   const optionDetails = options.map((text, index) => ({
     label: LABELS[index]!,
     text,
     isCorrect: index === correctIndex,
-    misconceptionId: index === correctIndex ? null : `ALG-DIST-V5-M${index + 1}`,
+    misconceptionId: index === correctIndex ? null : misconceptionByText.get(text) ?? "UNBOUND_DISTRACTOR",
   }));
   assertQuantV4OptionCount(centralProfile, options.length, "Algebra Question Studio V5");
   return { options, correctIndex, answer: base.answer, optionDetails, optionCount, centralProfile };
