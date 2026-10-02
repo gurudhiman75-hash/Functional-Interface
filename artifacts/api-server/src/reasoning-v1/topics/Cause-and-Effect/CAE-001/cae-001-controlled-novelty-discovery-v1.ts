@@ -17,6 +17,7 @@ export interface CaeControlledNovelCandidateV1 {
   readonly checkpointId: 'CAE-CP-008' | 'CAE-CP-009';
   readonly locale: CaeLocale;
   readonly seed: number;
+  readonly difficultyBand: "Easy" | "Medium" | "Hard";
   readonly noveltyAxes: readonly ReasoningNoveltyAxisV1[];
   readonly causalStructure: string;
   readonly stem: string;
@@ -155,6 +156,7 @@ export function generateCaeControlledNovelCandidateV1(input: {
     checkpointId: input.qlId === 'CAE-QL-008' ? 'CAE-CP-008' : 'CAE-CP-009',
     locale: input.locale,
     seed: input.seed,
+    difficultyBand: question.difficulty === "EASY" ? "Easy" : question.difficulty === "HARD" ? "Hard" : "Medium",
     noveltyAxes,
     causalStructure: question.causalStructure,
     stem: question.stem,
