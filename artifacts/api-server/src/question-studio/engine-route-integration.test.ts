@@ -50,6 +50,8 @@ assert.match(engineRoute, /DIFFICULTY_FILTER_UNSUPPORTED/);
 assert.match(engineRoute, /UNSUPPORTED_PACKAGE_DIFFICULTY/);
 assert.match(engineRoute, /validatePackageRuntimeMode/);
 assert.match(engineRoute, /UNSUPPORTED_PACKAGE_RUNTIME_MODE/);
+assert.match(engineRoute, /supportedRuntimeModes\.includes\(requested\)/);
+assert.match(engineRoute, /requested === pkg\.runtimeMode/);
 assert.match(engineRoute, /INVALID_GENERATION_COUNT/);
 assert.match(engineRoute, /TOO_MANY_SELECTED_CPS/);
 assert.doesNotMatch(engineRoute, /slice\(0, 50\)/);
