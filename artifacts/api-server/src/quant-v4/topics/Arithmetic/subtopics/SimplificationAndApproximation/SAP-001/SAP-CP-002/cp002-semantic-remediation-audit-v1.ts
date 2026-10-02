@@ -82,8 +82,8 @@ assert.ok(ql033.answerCount >= 2, "SAP-QL-033: first-incorrect-step answer space
 assert.ok(ql033.mathematicalStateCount >= 24, "SAP-QL-033: diagnostic state breadth below 24");
 assert.equal(
   ql033.optionSurfaceCount,
-  3,
-  "SAP-QL-033: fixed Step 1..4 diagnostic authority should retain exactly three meaningful option-order surfaces",
+  6,
+  "SAP-QL-033: fixed Step 1..4 diagnostic authority should retain exactly six meaningful option-order surfaces",
 );
 
 for (const row of rows) {
