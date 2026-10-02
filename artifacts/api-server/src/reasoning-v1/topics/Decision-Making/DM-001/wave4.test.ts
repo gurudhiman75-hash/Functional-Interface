@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { evaluateDmDecision, rankDmCandidates } from "./decision-engine.ts";
-import { buildDmCandidate, generateDmQuestion } from "./generator.ts";
+import { buildDmCandidate, generateDm020QuestionSet, generateDmQuestion } from "./generator.ts";
 import { DM_001_QL_REGISTRY, assertContinuousDmQlIds, dmQlIdsForCheckpoint } from "./ql-registry.ts";
 import { DM_001_SCENARIO_LIBRARY, dmScenariosForCheckpoint } from "./scenario-library.ts";
 import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
@@ -69,5 +69,19 @@ const mixed = dmScenariosForCheckpoint("DM-CP-020")[0]!;
 const mixedKinds = new Set(Array.from({ length: 5 }, (_, seed) => generateDmQuestion({ scenario: mixed, locale: "en", seed, mode: "SINGLE_FAIL" }).setQuestionKind));
 assert.deepEqual(mixedKinds, new Set(["COUNT_SELECTED", "IDENTIFY_REJECTED", "IDENTIFY_REFERRED", "SAME_DECISION_PAIR", "INFORMATION_REQUIRED"]));
 assert.ok(mixed.decisionRules.some((rule) => rule.ruleId === "BOTH_RELAXATIONS_REFER_COMMITTEE" && rule.priority === 1));
+
+for (const locale of ["en", "hi", "pa"] as const) {
+  const set = generateDm020QuestionSet({ scenario: mixed, locale, seed: 83, mode: "MULTIPLE_FAIL" });
+  assert.equal(set.questions.length, 5);
+  assert.equal(set.candidateGroup.length, 5);
+  assert.equal(new Set(set.questions.map((question) => question.setId)).size, 1);
+  assert.equal(new Set(set.questions.map((question) => question.scenarioId)).size, 1);
+  assert.equal(new Set(set.questions.map((question) => JSON.stringify(question.candidateGroup))).size, 1);
+  assert.deepEqual(set.questions.map((question) => question.setQuestionNumber), [1, 2, 3, 4, 5]);
+  assert.deepEqual(new Set(set.questions.map((question) => question.setQuestionKind)), new Set(["COUNT_SELECTED", "IDENTIFY_REJECTED", "IDENTIFY_REFERRED", "SAME_DECISION_PAIR", "INFORMATION_REQUIRED"]));
+  assert.ok(set.questions.every((question) => question.stem.startsWith(set.sharedStimulus + "\n")));
+  assert.ok(set.questions.every((question) => question.options[question.correctIndex]));
+  assert.deepEqual(generateDm020QuestionSet({ scenario: mixed, locale, seed: 83, mode: "MULTIPLE_FAIL" }), set);
+}
 
 console.log("DM-001 Wave 4 checks passed: DM-017–020, 100 advanced structures, 12 QLs, explicit precedence, three-valued information logic and computed multi-person sets.");
