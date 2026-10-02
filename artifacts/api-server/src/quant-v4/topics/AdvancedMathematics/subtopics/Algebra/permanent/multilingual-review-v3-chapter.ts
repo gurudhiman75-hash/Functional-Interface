@@ -70,7 +70,7 @@ function polishV4Explanation(text: string, locale: AlgReviewLocale): string {
 }
 
 function localizeCp003Target(english: any, locale: AlgReviewLocale) {
-  const state = english.state ?? {};
+  const state = english.v4RawCandidate?.state ?? english.state ?? {};
   const frame = ((Number(english.seed) % 4) + 4) % 4;
 
   if (english.prototypeId === "ALG-CP003-CAND-004" && state.kind === "ZERO_SUM_PAIRWISE") {
