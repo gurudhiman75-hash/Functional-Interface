@@ -12,11 +12,19 @@ const STATUSES=new Set(["draft","scheduled","cancelled"]);
 
 function text(value:unknown,max=1000){return typeof value==="string"?value.trim().slice(0,max):"";}
 function dateOrNull(value:unknown):string|null{const raw=text(value,80);if(!raw)return null;const d=new Date(raw);return Number.isNaN(d.getTime())?null:d.toISOString();}
+function stringList(value:unknown,maxItems=100):string[]{if(!Array.isArray(value))return[];return[...new Set(value.map(item=>text(item,100)).filter(Boolean))].slice(0,maxItems);}
+function normalizeAudience(value:unknown){
+  const raw=value&&typeof value==="object"&&!Array.isArray(value)?value as Record<string,unknown>:{};
+  const languageCodes=stringList(raw.languageCodes,3).map(value=>value.toLowerCase()).filter(value=>["en","hi","pa"].includes(value));
+  const examIds=stringList(raw.examIds,100).filter(value=>/^[0-9a-f-]{36}$/i.test(value));
+  return{languageCodes,examIds};
+}
+function isHttpUrl(value:string){try{const parsed=new URL(value);return parsed.protocol==="https:"||parsed.protocol==="http:";}catch{return false;}}
 function normalize(input:unknown){
   const raw=input&&typeof input==="object"?input as Record<string,unknown>:{};
   const destinationType=text(raw.destinationType,40)||"none";
   const status=text(raw.status,40)||"draft";
-  const audience=raw.audience&&typeof raw.audience==="object"&&!Array.isArray(raw.audience)?raw.audience as Record<string,unknown>:{};
+  const audience=normalizeAudience(raw.audience);
   return {
     title:text(raw.title,120),
     body:text(raw.body,500),
@@ -32,6 +40,9 @@ function validate(input:ReturnType<typeof normalize>){
   if(input.title.length<2)throw Object.assign(new Error("Notification title must contain at least 2 characters."),{statusCode:400,code:"MOBILE_NOTIFICATION_TITLE_INVALID"});
   if(input.body.length<2)throw Object.assign(new Error("Notification body must contain at least 2 characters."),{statusCode:400,code:"MOBILE_NOTIFICATION_BODY_INVALID"});
   if(input.status==="scheduled"&&!input.scheduledAt)throw Object.assign(new Error("Scheduled notifications require a date and time."),{statusCode:400,code:"MOBILE_NOTIFICATION_SCHEDULE_REQUIRED"});
+  if(input.status==="scheduled"&&input.scheduledAt&&new Date(input.scheduledAt).getTime()<=Date.now())throw Object.assign(new Error("Scheduled notifications must use a future date and time. Use Send now for immediate delivery."),{statusCode:400,code:"MOBILE_NOTIFICATION_SCHEDULE_PAST"});
+  if(["exam","test_series","page"].includes(input.destinationType)&&!input.destinationValue)throw Object.assign(new Error("This notification destination requires a selected target."),{statusCode:400,code:"MOBILE_NOTIFICATION_DESTINATION_REQUIRED"});
+  if(input.destinationType==="url"&&!isHttpUrl(input.destinationValue))throw Object.assign(new Error("Notification URL destinations must use http:// or https://."),{statusCode:400,code:"MOBILE_NOTIFICATION_URL_INVALID"});
 }
 
 router.use(authenticate);
