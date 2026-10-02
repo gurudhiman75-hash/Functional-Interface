@@ -70,6 +70,8 @@ const footerColumns = [
       { label: "SSC CPO", href: "/ssc-cpo" },
       { label: "IBPS PO", href: "/ibps-po" },
       { label: "IBPS Clerk / CSA", href: "/ibps-clerk" },
+      { label: "IBPS RRB PO", href: "/ibps-rrb-po" },
+      { label: "IBPS RRB Office Assistant", href: "/ibps-rrb-office-assistant" },
       { label: "Free Resources", href: "/resources" },
       { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },
