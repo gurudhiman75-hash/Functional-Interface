@@ -1,10 +1,14 @@
 import { buildRnkCp001LocalizedReviewBankV4 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-localization-review-v4";
 import { buildRnkCp002LocalizedReviewBankV2 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-localization-review-v2";
 import { buildRnkCp003LocalizedReviewBankV4 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-localization-review-v4";
-import { buildRnkCp004LocalizedReviewBankV6 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v6";
-import { buildRnkCp005LocalizedReviewBankV3 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3";
-import { buildRnkCp006LocalizedReviewBankV1 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1";
-import { buildRnkCp007LocalizedReviewBank } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v1";
+import { localizeRnkCp004PermanentQuestionV6 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-localization-review-v6";
+import { buildRnkCp004PermanentRuntime } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1";
+import { localizeRnkCp005PermanentQuestionV3 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-localization-review-v3";
+import { buildRnkCp005PermanentRuntime } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1";
+import { localizeRnkCp006PermanentQuestionV1 } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-localization-review-v1";
+import { buildRnkCp006PermanentRuntime } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-006/cp006-permanent-runtime-v1";
+import { localizeRnkCp007PermanentQuestion } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-localization-review-v1";
+import { buildRnkCp007PermanentRuntime } from "../topics/Ranking-and-Order/RNK-001/RNK-CP-007/cp007-permanent-runtime-v1";
 
 type AnyQuestion = Record<string, any>;
 type Locale = "hi-IN" | "pa-IN";
@@ -72,14 +76,44 @@ function representative<T>(bank: readonly T[]): readonly T[] {
   return [bank[firstIndex]!, bank[Math.min(secondIndex, bank.length - 1)]!];
 }
 
+function localizeRepresentative<T>(
+  canonical: readonly T[],
+  locale: Locale,
+  localize: (question: T, locale: Locale) => AnyQuestion,
+): readonly AnyQuestion[] {
+  return representative(canonical).map((question) => localize(question, locale));
+}
+
 function bank(cp: number, locale: Locale): readonly AnyQuestion[] {
   if (cp === 1) return buildRnkCp001LocalizedReviewBankV4(locale, 4) as readonly AnyQuestion[];
   if (cp === 2) return buildRnkCp002LocalizedReviewBankV2(locale, 4) as readonly AnyQuestion[];
   if (cp === 3) return buildRnkCp003LocalizedReviewBankV4(locale, 4) as readonly AnyQuestion[];
-  if (cp === 4) return buildRnkCp004LocalizedReviewBankV6(locale) as readonly AnyQuestion[];
-  if (cp === 5) return buildRnkCp005LocalizedReviewBankV3(locale) as readonly AnyQuestion[];
-  if (cp === 6) return buildRnkCp006LocalizedReviewBankV1(locale) as readonly AnyQuestion[];
-  return buildRnkCp007LocalizedReviewBank(locale) as readonly AnyQuestion[];
+  if (cp === 4) {
+    return localizeRepresentative(
+      buildRnkCp004PermanentRuntime(),
+      locale,
+      localizeRnkCp004PermanentQuestionV6 as any,
+    );
+  }
+  if (cp === 5) {
+    return localizeRepresentative(
+      buildRnkCp005PermanentRuntime(),
+      locale,
+      localizeRnkCp005PermanentQuestionV3 as any,
+    );
+  }
+  if (cp === 6) {
+    return localizeRepresentative(
+      buildRnkCp006PermanentRuntime(),
+      locale,
+      localizeRnkCp006PermanentQuestionV1 as any,
+    );
+  }
+  return localizeRepresentative(
+    buildRnkCp007PermanentRuntime(),
+    locale,
+    localizeRnkCp007PermanentQuestion as any,
+  );
 }
 
 const lines: string[] = [
@@ -99,7 +133,7 @@ for (let cp = 1; cp <= 7; cp += 1) {
   for (const locale of ["hi-IN", "pa-IN"] as const) {
     lines.push(locale === "hi-IN" ? "### Hindi" : "### Punjabi", "");
     const source = bank(cp, locale);
-    const samples = representative(source);
+    const samples = cp <= 3 ? representative(source) : source;
     for (let index = 0; index < samples.length; index += 1) {
       const question = samples[index]!;
       sampleCount += 1;
