@@ -69,6 +69,73 @@ function polishV4Explanation(text: string, locale: AlgReviewLocale): string {
   return localizeAlgLearnerTextV2Draft(value, locale);
 }
 
+function localizeCp003Target(english: any, locale: AlgReviewLocale) {
+  const state = english.state ?? {};
+  const frame = ((Number(english.seed) % 4) + 4) % 4;
+
+  if (english.prototypeId === "ALG-CP003-CAND-004" && state.kind === "ZERO_SUM_PAIRWISE") {
+    const s = String(state.squareSum);
+    const questionFrames = locale === "hi-IN"
+      ? [
+          `यदि a + b + c = 0 तथा a² + b² + c² = ${s}, तो ab + bc + ca ज्ञात कीजिए।`,
+          `a + b + c = 0 और a² + b² + c² = ${s} दिया है। ab + bc + ca का मान क्या है?`,
+          `a + b + c = 0 तथा a² + b² + c² = ${s} के लिए ab + bc + ca ज्ञात कीजिए।`,
+          `चर a, b और c के लिए a + b + c = 0 तथा a² + b² + c² = ${s} है। ab + bc + ca का मान ज्ञात कीजिए।`,
+        ]
+      : [
+          `ਜੇ a + b + c = 0 ਅਤੇ a² + b² + c² = ${s}, ਤਾਂ ab + bc + ca ਪਤਾ ਕਰੋ।`,
+          `a + b + c = 0 ਅਤੇ a² + b² + c² = ${s} ਦਿੱਤਾ ਹੈ। ab + bc + ca ਦਾ ਮਾਨ ਕੀ ਹੈ?`,
+          `a + b + c = 0 ਅਤੇ a² + b² + c² = ${s} ਲਈ ab + bc + ca ਪਤਾ ਕਰੋ।`,
+          `ਚਰ a, b ਅਤੇ c ਲਈ a + b + c = 0 ਅਤੇ a² + b² + c² = ${s} ਹੈ। ab + bc + ca ਦਾ ਮਾਨ ਪਤਾ ਕਰੋ।`,
+        ];
+    const answer = String(english.answerText ?? english.canonicalAnswer ?? "");
+    const explanation = locale === "hi-IN"
+      ? [
+          "सर्वसमिका (a + b + c)² = a² + b² + c² + 2(ab + bc + ca) का उपयोग करें।",
+          `यहाँ a + b + c = 0 है, इसलिए बायाँ पक्ष 0 है। अतः 0 = ${s} + 2(ab + bc + ca)।`,
+          `इससे 2(ab + bc + ca) = -${s} और ab + bc + ca = ${answer}।`,
+        ].join(" ")
+      : [
+          "ਸਰਵਸਮਿਕਾ (a + b + c)² = a² + b² + c² + 2(ab + bc + ca) ਵਰਤੋ।",
+          `ਇੱਥੇ a + b + c = 0 ਹੈ, ਇਸ ਲਈ ਖੱਬਾ ਪਾਸਾ 0 ਹੈ। ਇਸ ਕਰਕੇ 0 = ${s} + 2(ab + bc + ca)।`,
+          `ਇਸ ਤੋਂ 2(ab + bc + ca) = -${s} ਅਤੇ ab + bc + ca = ${answer}।`,
+        ].join(" ");
+    return { question: questionFrames[frame]!, explanation };
+  }
+
+  if (english.prototypeId === "ALG-CP003-CAND-006" && state.kind === "CYCLIC_RECIPROCAL") {
+    const q = String(state.q);
+    const k = String(state.squareCoefficient);
+    const questionFrames = locale === "hi-IN"
+      ? [
+          `यदि a + ${k}/b = ${q} तथा b + ${k}/c = ${q}, तो c + ${k}/a ज्ञात कीजिए।`,
+          `a + ${k}/b = ${q} और b + ${k}/c = ${q} दिया है। c + ${k}/a का मान ज्ञात कीजिए।`,
+          `संबंध a + ${k}/b = ${q} तथा b + ${k}/c = ${q} सत्य हैं। c + ${k}/a का मान क्या है?`,
+          `a, b और c शून्येतर हैं तथा a + ${k}/b = ${q}, b + ${k}/c = ${q}। c + ${k}/a ज्ञात कीजिए।`,
+        ]
+      : [
+          `ਜੇ a + ${k}/b = ${q} ਅਤੇ b + ${k}/c = ${q}, ਤਾਂ c + ${k}/a ਪਤਾ ਕਰੋ।`,
+          `a + ${k}/b = ${q} ਅਤੇ b + ${k}/c = ${q} ਦਿੱਤਾ ਹੈ। c + ${k}/a ਦਾ ਮਾਨ ਪਤਾ ਕਰੋ।`,
+          `ਸੰਬੰਧ a + ${k}/b = ${q} ਅਤੇ b + ${k}/c = ${q} ਸਹੀ ਹਨ। c + ${k}/a ਦਾ ਮਾਨ ਕੀ ਹੈ?`,
+          `a, b ਅਤੇ c ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਹਨ ਅਤੇ a + ${k}/b = ${q}, b + ${k}/c = ${q}। c + ${k}/a ਪਤਾ ਕਰੋ।`,
+        ];
+    const explanation = locale === "hi-IN"
+      ? [
+          `पहले संबंध a + ${k}/b = ${q} से b = ${k}/(${q} - a) मिलता है।`,
+          `इस मान को b + ${k}/c = ${q} में रखने और सरल करने पर c = ${q} - ${k}/a मिलता है।`,
+          `अतः c + ${k}/a = ${q}।`,
+        ].join(" ")
+      : [
+          `ਪਹਿਲੇ ਸੰਬੰਧ a + ${k}/b = ${q} ਤੋਂ b = ${k}/(${q} - a) ਮਿਲਦਾ ਹੈ।`,
+          `ਇਸ ਮਾਨ ਨੂੰ b + ${k}/c = ${q} ਵਿੱਚ ਰੱਖ ਕੇ ਸਰਲ ਕਰਨ ਤੇ c = ${q} - ${k}/a ਮਿਲਦਾ ਹੈ।`,
+          `ਇਸ ਲਈ c + ${k}/a = ${q}।`,
+        ].join(" ");
+    return { question: questionFrames[frame]!, explanation };
+  }
+
+  return null;
+}
+
 function localeToLanguage(locale: AlgReviewLocale) {
   return locale === "hi-IN" ? "hi" as const : "pa" as const;
 }
@@ -100,8 +167,9 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
     });
   }
 
-  const question = localizeV4Question(english.question, locale);
-  const explanation = english.explanation
+  const cp003 = localizeCp003Target(english, locale);
+  const question = cp003?.question ?? localizeV4Question(english.question, locale);
+  const explanation = cp003?.explanation ?? english.explanation
     .split(/\n+/)
     .map((line) => polishV4Explanation(line, locale))
     .join("\n");
