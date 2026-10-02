@@ -38,6 +38,11 @@ assert(
   "Question Studio generation summary must expose the active package lifecycle stage.",
 );
 
+assert(
+  source.includes("reopeningApproved"),
+  "Question Studio cockpit must require a reason before reopening an approved review-only item.",
+);
+
 const apiSource = readFileSync(
   resolve(process.cwd(), "artifacts/admin-app/src/features/question-studio/api.ts"),
   "utf8",
