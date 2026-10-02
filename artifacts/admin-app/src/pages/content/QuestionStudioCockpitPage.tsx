@@ -711,7 +711,7 @@ export function QuestionStudioCockpitPage() {
                 <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Difficulty</p>
                 <p className="mt-1 text-xs font-medium">Engine managed / not classified</p>
               </div>
-            )
+            )}
             <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
