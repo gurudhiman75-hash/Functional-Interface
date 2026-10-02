@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { reasoningV1QuestionStudioAdapter } from "../../question-studio/engines/reasoning-v1-adapter";
 
 const cases = [
-  { packageId: "OPS-001", difficulty: "Medium" as const },
+  { packageId: "OPS-001", difficulty: "Hard" as const },
   { packageId: "DIR-001", difficulty: "Medium" as const },
   { packageId: "CLK-001", difficulty: "Hard" as const },
 ] as const;
@@ -40,7 +40,7 @@ const scoped = await reasoningV1QuestionStudioAdapter.generate({
   packageId: "OPS-001",
   patternId: "OPS-QL-008",
   language: "en",
-  difficulty: "Medium",
+  difficulty: "Hard",
   count: 10,
   seed: "live-adapter-scoped-proof",
 });
