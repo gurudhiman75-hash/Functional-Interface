@@ -1,0 +1,40 @@
+name: Validate MIS-001 Final Deep Audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Missing-Number/MIS-001/**'
+      - '.github/workflows/mis-001-final-deep-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mis-001-final-deep-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mis-final-deep-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build production API
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle MIS final deep audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Missing-Number/MIS-001/mis-001-final-deep-audit-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/mis-001-final-deep-audit-v1.test.mjs
+      - name: Run MIS final deep audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001-final-deep-audit-v1.test.mjs
