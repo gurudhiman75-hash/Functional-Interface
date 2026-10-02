@@ -21,7 +21,7 @@ assert.equal(reviewOnly.mockTestEligible, false);
 assert.equal(reviewOnly.publiclyPublishable, false);
 assert.deepEqual(getGeneratedItemApprovalDisposition(reviewOnly), {
   mode: "review_only",
-  reason: "Payload explicitly disables Question Bank storage",
+  reason: "Question Bank storage is disabled for this generated item",
 });
 
 const bankOnly = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
