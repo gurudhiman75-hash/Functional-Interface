@@ -87,6 +87,12 @@ import {
 } from "../../reasoning-v1/topics/Calendar/CAL-001/question-studio-integration";
 
 import {
+  RNK001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+  generateRnk001QuestionStudioBatch,
+  isRnk001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-integration";
+
+import {
   WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   generateWfm001QuestionStudioBatch,
   isWfm001QuestionStudioRequest,
@@ -432,6 +438,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+      RNK001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
@@ -460,6 +467,10 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isRnk001QuestionStudioRequest(request)) {
+      const source = await generateRnk001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isBlr001ChapterQuestionStudioRequest(request)) {
       const source = await generateBlr001ChapterQuestionStudioBatch(request);
