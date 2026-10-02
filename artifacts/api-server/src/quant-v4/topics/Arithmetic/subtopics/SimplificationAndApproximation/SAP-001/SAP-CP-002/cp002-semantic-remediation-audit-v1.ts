@@ -31,7 +31,7 @@ for (const qlId of SAP_CP002_PERMANENT_QL_IDS) {
     assert.equal(q.options[q.correctIndex]?.value, q.canonicalAnswer, qlId + ": answer/index drift");
 
     const stem = String(q.stem).trim().replace(/\s+/gu, " ");
-    const fingerprint = String(q.technicalDetails.mathematicalFingerprint);
+    const fingerprint = String(q.mathematicalFingerprint);
     const explanation = [
       q.explanation.coreConcept,
       q.explanation.givenDataAndStrategy,
