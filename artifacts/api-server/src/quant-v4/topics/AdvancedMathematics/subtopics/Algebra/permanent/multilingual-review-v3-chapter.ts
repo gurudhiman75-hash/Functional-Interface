@@ -137,6 +137,35 @@ function localizeCp003Target(english: any, locale: AlgReviewLocale) {
   return null;
 }
 
+function localizeCp009Target(english: any, locale: AlgReviewLocale) {
+  if (english.prototypeId !== "ALG-CP009-CAND-005") return null;
+  const raw = english.v4RawCandidate ?? {};
+  const equation = raw.equation;
+  if (!equation) return null;
+
+  const a = formatRational(equation.a);
+  const b = formatRational(equation.b);
+  const cTerm = formatRational(equation.c);
+  const parameterValue = String(raw.answerText ?? "");
+  const question = locale === "hi-IN"
+    ? `k के किस मान पर ${a}x² + ${b}x + ${cTerm} = 0 के समान मूल होंगे?`
+    : `k ਦੇ ਕਿਹੜੇ ਮਾਨ ਲਈ ${a}x² + ${b}x + ${cTerm} = 0 ਦੇ ਬਰਾਬਰ ਮੂਲ ਹੋਣਗੇ?`;
+
+  const explanation = locale === "hi-IN"
+    ? [
+        "समान मूलों के लिए विविक्तकर शून्य होना चाहिए: D = b² - 4ac = 0।",
+        `दिए गए द्विघात में a = ${a} और b = ${b} है। विविक्तकर में मान रखने पर k के लिए एक रैखिक समीकरण प्राप्त होता है।`,
+        `इसे हल करने पर k = ${parameterValue} मिलता है। यही समान मूलों की शर्त को संतुष्ट करता है।`,
+      ].join(" ")
+    : [
+        "ਬਰਾਬਰ ਮੂਲਾਂ ਲਈ ਵਿਭੇਦਕ ਸਿਫ਼ਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ: D = b² - 4ac = 0।",
+        `ਦਿੱਤੇ ਦੋ-ਘਾਤੀ ਵਿੱਚ a = ${a} ਅਤੇ b = ${b} ਹੈ। ਵਿਭੇਦਕ ਵਿੱਚ ਮਾਨ ਰੱਖਣ ਤੇ k ਲਈ ਇੱਕ ਰੇਖੀ ਸਮੀਕਰਨ ਮਿਲਦਾ ਹੈ।`,
+        `ਇਸ ਨੂੰ ਹੱਲ ਕਰਨ ਤੇ k = ${parameterValue} ਮਿਲਦਾ ਹੈ। ਇਹੀ ਬਰਾਬਰ ਮੂਲਾਂ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਕਰਦਾ ਹੈ।`,
+      ].join(" ");
+
+  return { question, explanation };
+}
+
 function localizeCp007Target(english: any, locale: AlgReviewLocale) {
   const raw = english.v4RawCandidate ?? {};
   const system = raw.system;
@@ -193,8 +222,9 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
 
   const cp003 = localizeCp003Target(english, locale);
   const cp007 = localizeCp007Target(english, locale);
-  const question = cp003?.question ?? cp007?.question ?? localizeV4Question(english.question, locale);
-  const explanation = cp003?.explanation ?? cp007?.explanation ?? english.explanation
+  const cp009 = localizeCp009Target(english, locale);
+  const question = cp003?.question ?? cp007?.question ?? cp009?.question ?? localizeV4Question(english.question, locale);
+  const explanation = cp003?.explanation ?? cp007?.explanation ?? cp009?.explanation ?? english.explanation
     .split(/\n+/)
     .map((line) => polishV4Explanation(line, locale))
     .join("\n");
