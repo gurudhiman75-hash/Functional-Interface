@@ -1,3 +1,7 @@
+import {
+  ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+  ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+} from "./permanent";
 import assert from "node:assert/strict";
 
 import {
@@ -59,6 +63,7 @@ for (const pattern of firstPatternByQl) {
       assert.equal(question.validation.valid, true);
       assert.equal(question.validation.questionBankLocked, true, "Frozen Algebra source lifecycle must remain locked");
       assert.equal(payload.bankActivationAuthority, ALGEBRA_QUESTION_BANK_ACTIVATION_V1_AUTHORITY);
+      assert.equal(payload.sourceAuthority, language === "en" ? ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY : ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY);
       assert.equal(payload.lifecycleId, lifecycle.lifecycleId);
       assert.equal(payload.lifecycleStage, "BANK_ONLY");
       assert.equal(payload.questionBankStatus, "READY_FOR_STORAGE");
