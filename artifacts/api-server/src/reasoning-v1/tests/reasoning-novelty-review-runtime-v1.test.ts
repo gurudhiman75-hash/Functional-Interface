@@ -5,11 +5,9 @@ import { generateReasoningNoveltyReviewBatchV1 } from "../shared/reasoning-novel
 
 test("diagnostic sampler remains available for content-approved providers awaiting a live route", async () => {
   const requests = [
-    { providerId: "ALP-001-TRANSFORMED-GAP", language: "en" as const },
     { providerId: "RNK-001-CROSS-FAMILY-CASELET", language: "en" as const },
     { providerId: "CAE-001-EDGE-FAMILIES", language: "pa" as const },
     { providerId: "BLR-001-CODED-FILTERED-COUNT", language: "en" as const },
-    { providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY", language: "en" as const },
   ];
 
   for (let index = 0; index < requests.length; index += 1) {
@@ -37,6 +35,8 @@ test("diagnostic sampler remains available for content-approved providers awaiti
 test("approved runtime providers are not routed through the diagnostic review sampler", async () => {
   for (const providerId of [
     "PFC-001-CONTROLLED-NOVEL",
+    "ALP-001-TRANSFORMED-GAP",
+    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
@@ -55,7 +55,7 @@ test("approved runtime providers are not routed through the diagnostic review sa
 test("diagnostic sampler rejects unsupported language rather than silently translating", async () => {
   await assert.rejects(
     () => generateReasoningNoveltyReviewBatchV1({
-      providerId: "ALP-001-TRANSFORMED-GAP",
+      providerId: "RNK-001-CROSS-FAMILY-CASELET",
       language: "hi",
       count: 1,
       seed: 1,

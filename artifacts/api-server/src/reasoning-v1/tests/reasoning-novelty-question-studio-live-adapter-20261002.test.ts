@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { reasoningV1QuestionStudioAdapter } from "../../question-studio/engines/reasoning-v1-adapter";
 
 const cases = [
+  { packageId: "ALP-001", difficulty: "Medium" as const },
+  { packageId: "CAL-001", difficulty: "Medium" as const },
   { packageId: "OPS-001", difficulty: "Hard" as const },
   { packageId: "DIR-001", difficulty: "Medium" as const },
   { packageId: "CLK-001", difficulty: "Hard" as const },

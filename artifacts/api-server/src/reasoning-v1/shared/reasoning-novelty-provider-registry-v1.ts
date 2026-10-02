@@ -47,7 +47,7 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     providerId: "ALP-001-TRANSFORMED-GAP",
     chapterId: "ALP-001",
     topicDirectory: "Alphabet-Test",
-    status: "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
+    status: "APPROVED_RUNTIME",
     parentQlIds: [
       "ALP-QL-031",
       "ALP-QL-049", "ALP-QL-051", "ALP-QL-053", "ALP-QL-055",
@@ -64,9 +64,9 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     generatorExport: "generateAlpControlledNovelTransformedGapCandidateV1",
     supportedLanguages: ["en"],
     permanentQlAllocationRequired: false,
-    questionStudioNoveltyMixActivated: false,
+    questionStudioNoveltyMixActivated: true,
     humanReviewRequired: false,
-    countsTowardAssemblyNoveltyNow: false,
+    countsTowardAssemblyNoveltyNow: true,
   },
   {
     providerId: "OPS-001-INFER-THEN-FILL",
@@ -173,7 +173,7 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     chapterId: "CAL-001",
     topicDirectory: "Calendar",
-    status: "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
+    status: "APPROVED_RUNTIME",
     parentQlIds: ["CAL-QL-005", "CAL-QL-035"],
     noveltyAxes: [
       "INFORMATION_DISTRIBUTION",
@@ -185,9 +185,9 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     generatorExport: "generateCalControlledNovelImplicitRangeFrequencyCandidateV1",
     supportedLanguages: ["en"],
     permanentQlAllocationRequired: false,
-    questionStudioNoveltyMixActivated: false,
+    questionStudioNoveltyMixActivated: true,
     humanReviewRequired: false,
-    countsTowardAssemblyNoveltyNow: false,
+    countsTowardAssemblyNoveltyNow: true,
   },
   {
     providerId: "BLR-001-CODED-FILTERED-COUNT",
