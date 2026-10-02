@@ -73,6 +73,15 @@ function semanticForToken(mapping: OperatorMapping, token: string): ArithmeticOp
   return found.semanticOperator as ArithmeticOperator;
 }
 
+function operatorDisplay(operator: ArithmeticOperator): string {
+  switch (operator) {
+    case "ADD": return "+";
+    case "SUBTRACT": return "−";
+    case "MULTIPLY": return "×";
+    case "DIVIDE": return "÷";
+  }
+}
+
 function integerResult(source: string, mapping: OperatorMapping): number {
   const solved = solveWithMapping(source, mapping);
   const value = solved.evaluation.arithmeticValue;
@@ -99,6 +108,7 @@ export interface OpsControlledNovelInferThenFillCandidateV1 {
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answer: string;
+  readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly solverVerified: true;
@@ -190,6 +200,11 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
   const evidenceText = evidence.map((item) => item.statement);
   const stem =
     `M, N, P and Q each represent one of +, −, × and ÷, with no operation repeated. Given ${evidenceText.join("; ")}, which symbol should replace ? in ${targetExpression}?`;
+  const mappingText = TOKENS
+    .map((token) => `${token} = ${operatorDisplay(semanticForToken(inferredMapping, token))}`)
+    .join(", ");
+  const explanation =
+    `The given equations determine one unique operation mapping: ${mappingText}. In ${targetExpression}, the required operation is ${operatorDisplay(targetOperator)}, which is represented by ${correctToken}. Hence the correct answer is ${correctToken}.`;
 
   const noveltyAxes = [
     "MULTI_STAGE_COMPOSITION",
@@ -223,6 +238,7 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
     options,
     correctIndex,
     answer: options[correctIndex]!,
+    explanation,
     semanticFingerprint: [
       OPS_001_CONTROLLED_NOVELTY_DISCOVERY_V1,
       hiddenFingerprint,
