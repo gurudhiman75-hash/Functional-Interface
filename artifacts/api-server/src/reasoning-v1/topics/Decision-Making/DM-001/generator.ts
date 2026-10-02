@@ -785,14 +785,8 @@ function setOptions(kind: DmSetQuestionKind, answer: string, cohort: readonly Dm
   return { options: Object.freeze(options), correctIndex: options.indexOf(answer) };
 }
 
-function generateSetQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
-  const spec = scenario.setSpec!;
-  const kindIndex = seed % spec.questionKinds.length;
-  const kind = spec.questionKinds[kindIndex]!;
-  const requestedDifficulty = dmDifficultyForMode(scenario.checkpointId, mode);
-  const count = kind === "SAME_DECISION_PAIR" ? 5 : requestedDifficulty === "EASY" ? spec.minimumProfiles : requestedDifficulty === "HARD" ? spec.maximumProfiles : 5;
-  const modes = setProfileModes(scenario, kind, count, seed);
-  const cohort = Object.freeze(modes.map((profileMode, index) => {
+function buildSetCohort(scenario: DmScenario, locale: DmLocale, seed: number, modes: readonly DmCandidateMode[]): readonly DmCandidateProfile[] {
+  return Object.freeze(modes.map((profileMode, index) => {
     const built = buildDmCandidate(scenario, profileMode, seed + index * 19, locale);
     return Object.freeze({
       ...built,
@@ -800,16 +794,35 @@ function generateSetQuestion(scenario: DmScenario, locale: DmLocale, seed: numbe
       name: NAMES[locale][(seed + index) % NAMES[locale].length]!,
     });
   }));
-  const results = cohort.map((candidate) => evaluateDmDecision(candidate, scenario));
-  const answer = setAnswer(kind, cohort, results, locale);
-  const options = setOptions(kind, answer.label, cohort, locale, seed);
+}
+
+function sharedSetStimulus(scenario: DmScenario, cohort: readonly DmCandidateProfile[], locale: DmLocale): string {
   const intro = PROMPTS[locale].intro.replaceAll("{context}", scenario.context[locale]);
   const ruleLines = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
   const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + note[locale])] : [];
   const applicants = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
+  return [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale))].join("\n");
+}
+
+function generateSetQuestionFromCohort(
+  scenario: DmScenario,
+  locale: DmLocale,
+  seed: number,
+  mode: DmCandidateMode,
+  kind: DmSetQuestionKind,
+  questionNumber: number,
+  cohort: readonly DmCandidateProfile[],
+  sharedStimulus: string,
+  setId?: string,
+): DmGeneratedQuestion {
+  const spec = scenario.setSpec!;
+  const requestedDifficulty = dmDifficultyForMode(scenario.checkpointId, mode);
+  const results = cohort.map((candidate) => evaluateDmDecision(candidate, scenario));
+  const answer = setAnswer(kind, cohort, results, locale);
+  const options = setOptions(kind, answer.label, cohort, locale, seed + questionNumber * 101);
   const question = SET_QUESTIONS[locale][kind];
-  const prompt = SET_STEM_WRAPPERS[locale][seed % SET_STEM_WRAPPERS[locale].length]!.replace("{q}", question);
-  const stem = [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale)), prompt].join("\n");
+  const prompt = SET_STEM_WRAPPERS[locale][(seed + questionNumber - 1) % SET_STEM_WRAPPERS[locale].length]!.replace("{q}", question);
+  const stem = sharedStimulus + "\n" + prompt;
   const resultRows = cohort.map((candidate, index) => candidate.name + " — " + OUTCOME_LABELS[locale][results[index]!.outcome]);
   const explanation = (locale === "en" ? "Each profile is decided independently" : locale === "hi" ? "हर प्रोफाइल का स्वतंत्र निर्णय" : "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ") + ":\n" + resultRows.join("\n") + "\n\n" + (locale === "en" ? "Therefore: " : locale === "hi" ? "अतः: " : "ਇਸ ਲਈ: ") + answer.label + ".";
   const rows = results.flatMap((result, index) => result.checks.map((check) => Object.freeze({
@@ -822,8 +835,52 @@ function generateSetQuestion(scenario: DmScenario, locale: DmLocale, seed: numbe
     qlId: scenario.qlId, scenarioId: scenario.scenarioId, seed, locale, difficulty: requestedDifficulty,
     candidate: cohort[0]!, candidateGroup: cohort, selectedCandidates: Object.freeze(answer.names),
     answerMode: spec.setFamily === "MIXED_ADVANCED" ? "MIXED_DECISION_SET" : "MULTI_PERSON_DECISION_SET",
-    setQuestionKind: kind, setQuestionNumber: kindIndex + 1, stem, options: options.options, correctIndex: options.correctIndex,
+    setQuestionKind: kind, setQuestionNumber: questionNumber, ...(setId ? { setId, setSize: spec.questionKinds.length } : {}),
+    stem, options: options.options, correctIndex: options.correctIndex,
     outcome: "SET_RESULT", explanation, explanationRows: Object.freeze(rows),
+  });
+}
+
+function generateSetQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
+  const spec = scenario.setSpec!;
+  const kindIndex = seed % spec.questionKinds.length;
+  const kind = spec.questionKinds[kindIndex]!;
+  const requestedDifficulty = dmDifficultyForMode(scenario.checkpointId, mode);
+  const count = kind === "SAME_DECISION_PAIR" ? 5 : requestedDifficulty === "EASY" ? spec.minimumProfiles : requestedDifficulty === "HARD" ? spec.maximumProfiles : 5;
+  const cohort = buildSetCohort(scenario, locale, seed, setProfileModes(scenario, kind, count, seed));
+  return generateSetQuestionFromCohort(scenario, locale, seed, mode, kind, kindIndex + 1, cohort, sharedSetStimulus(scenario, cohort, locale));
+}
+
+export function generateDm020QuestionSet(input: {
+  scenario: DmScenario;
+  locale: DmLocale;
+  seed: number;
+  mode: DmCandidateMode;
+}): import("./types.ts").DmGeneratedQuestionSet {
+  const { scenario, locale, seed, mode } = input;
+  if (scenario.checkpointId !== "DM-CP-020" || scenario.setSpec?.setFamily !== "MIXED_ADVANCED") {
+    throw new Error("A cohesive DM-020 set requires a DM-CP-020 mixed-set scenario.");
+  }
+  const referralMode = scenario.setSpec.referralModes[seed % scenario.setSpec.referralModes.length]!;
+  const cohort = buildSetCohort(scenario, locale, seed, ["ALL_PASS", "BOUNDARY_PASS", "SINGLE_FAIL", referralMode, "MISSING_REQUIRED"]);
+  const stimulus = sharedSetStimulus(scenario, cohort, locale);
+  const setId = scenario.scenarioId + ":SET:" + String(seed) + ":" + locale;
+  const questions = Object.freeze(scenario.setSpec.questionKinds.map((kind, index) =>
+    generateSetQuestionFromCohort(scenario, locale, seed, mode, kind, index + 1, cohort, stimulus, setId),
+  ));
+  return Object.freeze({
+    setId,
+    chapterId: "DM-001",
+    checkpointId: "DM-CP-020",
+    blueprintCheckpointId: "DM-020",
+    qlId: scenario.qlId,
+    scenarioId: scenario.scenarioId,
+    seed,
+    locale,
+    difficulty: dmDifficultyForMode(scenario.checkpointId, mode),
+    sharedStimulus: stimulus,
+    candidateGroup: cohort,
+    questions,
   });
 }
 
