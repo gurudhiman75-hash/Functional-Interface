@@ -137,6 +137,10 @@ const SSC_GD_TOPICS: SeoPracticeTopic[] = SSC_CGL_TOPICS.filter((topic) =>
   ["percentage", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "coding-decoding", "indian-polity"].includes(topic.slug),
 );
 
+const BANKING_PRACTICE_TOPICS: SeoPracticeTopic[] = SSC_CGL_TOPICS.filter((topic) =>
+  ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding"].includes(topic.slug),
+);
+
 export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
   "ssc-cgl": {
     slug: "ssc-cgl",
@@ -490,6 +494,124 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       verificationNote: "SSC's 2026-27 calendar places the next Constable (GD) cycle as the 2027 examination, with advertisement planned in September 2026 and CBE tentatively in January-March 2027. Verify the issued notice for exact pattern, dates, vacancies, physical standards, and eligibility.",
     },
     topics: SSC_GD_TOPICS,
+  },
+  "ibps-po": {
+    slug: "ibps-po",
+    name: "IBPS PO",
+    yearLabel: "2026",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.ibps.in/index.php/management-trainees-xvi/",
+    officialLabel: "ibps.in",
+    meta: {
+      hubTitle: "IBPS PO 2026 Preparation, Syllabus, Mock Tests & Free Questions",
+      hubDescription: "Prepare for IBPS PO/MT XVI with prelims and mains guidance, mock tests, and free topic-wise banking questions on ExamTree.",
+      preparationTitle: "How to Prepare for IBPS PO 2026",
+      preparationDescription: "A practical IBPS PO 2026 preparation guide covering prelims speed, mains depth, banking awareness, descriptive readiness, and mock analysis.",
+      syllabusTitle: "IBPS PO 2026 Syllabus & Exam Pattern",
+      syllabusDescription: "IBPS PO/MT XVI 2026 syllabus and exam-stage overview covering the preliminary examination, main examination, and later selection stages.",
+    },
+    hub: {
+      title: "IBPS PO 2026 preparation hub",
+      description: "Use one place for IBPS PO prelims and mains strategy, syllabus guidance, mock tests, and free topic-wise banking practice.",
+      preparationSummary: "Build prelims speed in English, Quantitative Aptitude, and Reasoning, then deepen preparation for the main examination.",
+      syllabusSummary: "Review the preliminary and main examination stages before deciding how to split your daily practice.",
+      mockSummary: "Move from topic practice to separately timed banking mocks and review speed, accuracy, and question selection after every attempt.",
+    },
+    preparation: {
+      eyebrow: "IBPS PO preparation",
+      title: "How to prepare for IBPS PO 2026",
+      description: "Treat prelims as a speed-and-selection stage while building mains-level reasoning, data analysis, awareness, and English in parallel.",
+      cards: [
+        { title: "1. Build prelims speed", text: "Practise English, Quantitative Aptitude, and Reasoning in separately timed blocks so accuracy remains stable under section pressure." },
+        { title: "2. Prepare mains in parallel", text: "Do not wait for the prelims result to begin higher-level reasoning, data analysis, banking awareness, and deeper English practice." },
+        { title: "3. Review every mock", text: "Track skipped questions, slow questions, guesses, and avoidable errors; banking exams reward question selection as much as raw solving speed." },
+      ],
+      weeklyCycle: [
+        "Take short separately timed prelims section tests.",
+        "Practise arithmetic and data-oriented Quant topics with calculation-speed drills.",
+        "Rotate puzzles, syllogism, coding-decoding, and other Reasoning sets.",
+        "Practise reading, grammar, vocabulary, and comprehension in English every day.",
+        "Revise banking, financial, and current awareness regularly for mains.",
+        "Take a full mock and analyse attempts, accuracy, time spent, and questions left unattempted.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "IBPS PO syllabus",
+      title: "IBPS PO/MT XVI syllabus and exam pattern 2026",
+      description: "A learner-friendly overview of the current IBPS PO/MT XVI cycle. Verify detailed marks, timings, and later-stage rules in the latest official IBPS notification and information handouts.",
+      sections: [
+        { title: "English Language", summary: "Preliminary examination core section" },
+        { title: "Quantitative Aptitude", summary: "Preliminary examination core section" },
+        { title: "Reasoning Ability", summary: "Preliminary examination core section" },
+        { title: "Main examination", summary: "Higher-level reasoning/data analysis, awareness, English, and the current main-stage components prescribed by IBPS" },
+      ],
+      patternCards: [
+        { title: "Preliminary examination", text: "The PO/MT recruitment process begins with an online preliminary examination using separately timed sections, followed by shortlisting for the main examination." },
+        { title: "Main examination", text: "The main stage requires deeper reasoning and data-analysis ability together with banking/economy awareness and English. Use the current information handout for exact section structure." },
+        { title: "Current 2026 cycle", text: "IBPS scheduled PO/MT XVI prelims for 22-23 August 2026 and the main examination for 4 October 2026 in its 2026-27 calendar." },
+      ],
+      verificationNote: "The CRP PO/MT-XVI cycle is active in 2026. Check the official IBPS PO/MT XVI page, notification, call-letter information handouts, and any corrigenda for exact pattern, marks, timings, vacancies, eligibility, and later selection-stage rules.",
+    },
+    topics: BANKING_PRACTICE_TOPICS,
+  },
+  "ibps-clerk": {
+    slug: "ibps-clerk",
+    name: "IBPS Clerk / CSA",
+    yearLabel: "2026",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.ibps.in/index.php/clerical-cadre-xvi/",
+    officialLabel: "ibps.in",
+    meta: {
+      hubTitle: "IBPS Clerk / CSA 2026 Preparation, Syllabus, Mock Tests & Free Questions",
+      hubDescription: "Prepare for IBPS Customer Service Associate (commonly searched as IBPS Clerk) 2026 with prelims and mains guidance, mock tests, and free questions.",
+      preparationTitle: "How to Prepare for IBPS Clerk / CSA 2026",
+      preparationDescription: "A practical IBPS CSA XVI preparation guide covering prelims speed, mains banking awareness, Quant, Reasoning, English, and mock analysis.",
+      syllabusTitle: "IBPS Clerk / CSA 2026 Syllabus & Exam Pattern",
+      syllabusDescription: "IBPS CSA XVI 2026 syllabus and exam-pattern overview covering the preliminary and main online examinations.",
+    },
+    hub: {
+      title: "IBPS Clerk / CSA 2026 preparation hub",
+      description: "Prepare for the current Customer Service Associate recruitment with prelims and mains guidance, mock tests, and free topic-wise banking questions.",
+      preparationSummary: "Build separately timed prelims speed in English, Numerical Ability, and Reasoning, then extend into mains-level Quant, Reasoning, English, and financial awareness.",
+      syllabusSummary: "Understand the two-tier online process and the different demands of prelims and mains before scheduling practice.",
+      mockSummary: "Use short topic sets first, then separately timed banking mocks to improve question selection and accuracy.",
+    },
+    preparation: {
+      eyebrow: "IBPS Clerk / CSA preparation",
+      title: "How to prepare for IBPS Clerk / CSA 2026",
+      description: "Build speed for the three prelims sections while preparing General/Financial Awareness and higher-level Reasoning and Quant for mains in parallel.",
+      cards: [
+        { title: "1. Master prelims timing", text: "Practise English, Numerical Ability, and Reasoning as separately timed sections instead of relying only on untimed topic sets." },
+        { title: "2. Start mains early", text: "Keep General/Financial Awareness, stronger Reasoning, Quantitative Aptitude, and English in your weekly plan before prelims are over." },
+        { title: "3. Improve selection", text: "Use mock analysis to identify which question types should be attempted immediately, postponed, or skipped under pressure." },
+      ],
+      weeklyCycle: [
+        "Practise one Numerical Ability topic with calculation-speed drills.",
+        "Rotate Reasoning sets including syllogism, coding-decoding, and arrangement-based practice.",
+        "Practise English grammar, vocabulary, and reading every day.",
+        "Revise General and Financial Awareness in short recurring sessions.",
+        "Take separately timed prelims sectional tests.",
+        "Take a full mock regularly and review accuracy, pace, and skipped-question quality.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "IBPS Clerk / CSA syllabus",
+      title: "IBPS Customer Service Associate XVI syllabus and exam pattern 2026",
+      description: "IBPS now uses the title Customer Service Associate (CSA) for this recruitment, although many learners still search for it as IBPS Clerk.",
+      sections: [
+        { title: "English Language", summary: "Prelims: 30 questions · 30 marks · 20 minutes" },
+        { title: "Numerical Ability", summary: "Prelims: 35 questions · 35 marks · 20 minutes" },
+        { title: "Reasoning Ability", summary: "Prelims: 35 questions · 35 marks · 20 minutes" },
+        { title: "Main examination", summary: "General/Financial Awareness, General English, Reasoning Ability, and Quantitative Aptitude" },
+      ],
+      patternCards: [
+        { title: "Preliminary examination", text: "The familiar three-section prelims format totals 100 questions and 100 marks in 60 minutes, with each test separately timed." },
+        { title: "Main examination", text: "The main examination expands to General/Financial Awareness, General English, Reasoning Ability, and Quantitative Aptitude with separately timed sections." },
+        { title: "Current 2026 cycle", text: "IBPS scheduled CSA XVI prelims for 10-11 October 2026 and the main examination for 27 December 2026 in its 2026-27 calendar." },
+      ],
+      verificationNote: "CRP CSA-XVI is the current official name of the recruitment commonly called IBPS Clerk. Check the official IBPS CSA XVI page, notification, information handouts, and corrigenda for exact 2026 rules, languages, vacancies, eligibility, negative marking, and examination instructions.",
+    },
+    topics: BANKING_PRACTICE_TOPICS,
   },
 };
 
