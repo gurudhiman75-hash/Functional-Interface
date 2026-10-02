@@ -33,7 +33,7 @@ assert.equal(
 
 assert.ok(routeIndexSource.includes('const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));'));
 assert.ok(routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);'));
-assert.ok(registrySource.includes('import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";'));
+assert.ok(registrySource.includes('const adminQuestionStudioAlgebraRouter = lazyRouter(() => import("./admin-question-studio-algebra"));'));
 assert.ok(registrySource.includes("router.use(adminQuestionStudioAlgebraRouter);"));
 
 for (const fragment of [
