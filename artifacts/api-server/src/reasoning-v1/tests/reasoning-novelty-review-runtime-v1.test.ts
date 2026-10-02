@@ -5,6 +5,7 @@ import { generateReasoningNoveltyReviewBatchV1 } from "../shared/reasoning-novel
 
 test("shared novelty review runtime samples every discovery provider without activating production mixing", async () => {
   const requests = [
+    { providerId: "ALP-001-TRANSFORMED-GAP", language: "en" as const },
     { providerId: "RNK-001-CROSS-FAMILY-CASELET", language: "en" as const },
     { providerId: "CLK-001-FAULTY-TIME-ANGLE", language: "en" as const },
     { providerId: "CAE-001-EDGE-FAMILIES", language: "pa" as const },
