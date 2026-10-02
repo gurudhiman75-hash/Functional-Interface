@@ -9,6 +9,7 @@ import { knowledgeV1QuestionStudioAdapter } from "./engines/knowledge-v1-adapter
 import { languageV1QuestionStudioAdapter } from "./engines/language-v1-adapter";
 import { quantV4QuestionStudioAdapter } from "./engines/quant-v4-adapter";
 import { reasoningV1QuestionStudioAdapter } from "./engines/reasoning-v1-adapter";
+import { enrichQuestionStudioPackageCpTitles } from "./package-metadata";
 
 const adapters = new Map<QuestionStudioEngineId, QuestionStudioEngineAdapter>([
   [quantV4QuestionStudioAdapter.engineId, quantV4QuestionStudioAdapter],
@@ -34,6 +35,7 @@ export function getQuestionStudioEngine(
 export function listQuestionStudioPackages(): QuestionStudioPackageDefinition[] {
   return [...adapters.values()]
     .flatMap((adapter) => adapter.listPackages())
+    .map(enrichQuestionStudioPackageCpTitles)
     .sort((left, right) =>
       left.packageId.localeCompare(right.packageId),
     );
