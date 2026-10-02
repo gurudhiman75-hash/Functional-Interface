@@ -20,7 +20,12 @@ const EVIDENCE_PAIRS = [
   [18, 6],
   [35, 5],
 ] as const;
-const TARGET_PAIR = [24, 6] as const;
+const TARGET_PAIRS = [
+  [24, 6],
+  [18, 3],
+  [20, 4],
+  [35, 5],
+] as const;
 
 function permutations<T>(values: readonly T[]): T[][] {
   if (values.length === 0) return [[]];
@@ -176,8 +181,9 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
     throw new Error("OPS controlled-novel inferred mapping does not match hidden mapping.");
   }
 
-  const correctToken = TOKENS[Math.floor(Math.abs(seed) / 5) % TOKENS.length]!;
-  const [targetLeft, targetRight] = TARGET_PAIR;
+  const correctToken = TOKENS[Math.abs(seed) % TOKENS.length]!;
+  const [targetLeft, targetRight] =
+    TARGET_PAIRS[Math.floor(Math.abs(seed) / TOKENS.length) % TARGET_PAIRS.length]!;
   const targetOperator = semanticForToken(hiddenMapping, correctToken);
   const targetResult = applyIntegerOperator(targetLeft, targetOperator, targetRight);
   const targetExpression = `${targetLeft} ? ${targetRight} = ${targetResult}`;
