@@ -81,6 +81,9 @@ for (const locale of ["en", "hi", "pa"] as const) {
   assert.deepEqual(new Set(set.questions.map((question) => question.setQuestionKind)), new Set(["COUNT_SELECTED", "IDENTIFY_REJECTED", "IDENTIFY_REFERRED", "SAME_DECISION_PAIR", "INFORMATION_REQUIRED"]));
   assert.ok(set.questions.every((question) => question.stem.startsWith(set.sharedStimulus + "\n")));
   assert.ok(set.questions.every((question) => question.options[question.correctIndex]));
+  assert.ok(!set.sharedStimulus.includes("For Final recruitment"));
+  assert.ok(!set.sharedStimulus.includes("वाला अंतिम भर्ती सेट के लिए"));
+  assert.ok(!set.sharedStimulus.includes("ਵਾਲਾ ਅੰਤਿਮ ਭਰਤੀ ਸੈੱਟ ਲਈ"));
   assert.deepEqual(generateDm020QuestionSet({ scenario: mixed, locale, seed: 83, mode: "MULTIPLE_FAIL" }), set);
 }
 
