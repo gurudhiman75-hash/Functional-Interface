@@ -8,7 +8,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(sitemapResponse.ok()).toBe(true);
     const sitemap = await sitemapResponse.text();
 
-    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/refund-policy"]) {
+    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility"]) {
       expect(sitemap).toContain(`<loc>${DEFAULT_ORIGIN}${path === "/" ? "/" : path}</loc>`);
     }
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/pyqs`);
