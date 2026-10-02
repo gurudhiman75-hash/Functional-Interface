@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
-      - ".github/workflows/sap-systematic-audit-v1.yml"
   workflow_dispatch:
 
 concurrency:
@@ -45,6 +44,7 @@ jobs:
             2>&1 | tee artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
           grep -q "PASS_SAP_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
       - name: Upload SAP systematic audit evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sap-systematic-audit-v1
