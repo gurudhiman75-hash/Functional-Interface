@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, Send, ShieldCheck } from "lucide-react";
 import { PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,11 +77,12 @@ export default function Contact() {
             </div>
             <p className="mt-2">Typical response time: 24-48 working hours. Include screenshots for rendering or payment issues.</p>
           </PublicCard>
-          <PublicCard title="Future channels">
+          <PublicCard title="What to include">
             <div className="flex items-center gap-2 font-semibold text-slate-950">
-              <MessageCircle className="h-4 w-4 text-indigo-700" />
-              WhatsApp, Telegram, and Discord support are planned.
+              <ShieldCheck className="h-4 w-4 text-indigo-700" />
+              Share only the details needed to identify the issue.
             </div>
+            <p className="mt-2">For payments include the provider reference, date, and amount. Never send passwords, OTPs, UPI PINs, full card numbers, or CVV codes.</p>
           </PublicCard>
         </div>
       </div>
