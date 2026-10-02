@@ -20,7 +20,7 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
 const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(awaitingRouteProviders.length, 1);
+assert.equal(awaitingRouteProviders.length, 0);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -99,10 +99,8 @@ const reviewPack = await buildReasoningNoveltyReviewPackV1({
   samplesPerProvider: 3,
   seed: 9400,
 });
-for (const provider of awaitingRouteProviders) {
-  assert.ok(reviewPack.includes(`## ${provider.chapterId} — ${provider.providerId}`));
-}
-assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, awaitingRouteProviders.length * 3);
+assert.equal(awaitingRouteProviders.length, 0);
+assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, 0);
 assert.equal(reviewPack.includes("CAE-001-EDGE-FAMILIES"), false);
 assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
 assert.equal(reviewPack.includes("ALP-001-TRANSFORMED-GAP"), false);
@@ -125,6 +123,7 @@ assert.deepEqual(
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "BLR-001-CODED-FILTERED-COUNT",
+    "RNK-001-CROSS-FAMILY-CASELET",
   ],
 );
 assert.deepEqual(
