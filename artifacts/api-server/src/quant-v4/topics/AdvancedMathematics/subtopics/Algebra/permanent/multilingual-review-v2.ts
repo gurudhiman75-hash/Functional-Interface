@@ -212,6 +212,13 @@ function polishV2(item: AlgPermanentMultilingualReviewV1Item): Pick<AlgPermanent
   return { question, explanation };
 }
 
+export function localizeAlgLearnerTextV2Draft(
+  text: string,
+  locale: AlgReviewLocale,
+): string {
+  return removeResidualEnglish(locale, text);
+}
+
 export function generateAlgPermanentMultilingualReviewV2(
   qlId: AlgPermanentQlId,
   seed: number,
