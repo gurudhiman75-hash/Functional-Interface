@@ -5,7 +5,7 @@ import {
 import { generateGeometryPermanentEnglishFrozenV1 } from "./permanent-review/geometry-permanent-english-freeze-v1";
 import { generateGeometryPermanentMultilingualFrozenV1 } from "./permanent-review/geometry-permanent-multilingual-freeze-v1";
 import { GEO_PERMANENT_MULTILINGUAL_FREEZE_PROOF_V1 } from "./permanent-review/geometry-permanent-multilingual-freeze-proof-v1";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../../question-studio/standard-lifecycle";
 
 export type Geo001QuestionStudioLanguage = "en" | "hi" | "pa";
 export type Geo001QuestionStudioCpId = `GEO-CP-${string}`;
