@@ -56,6 +56,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert.equal(question.options[question.correctIndex], question.answer);
       assert.equal(question.optionDetails.filter((option) => option.isCorrect).length, 1);
       assert.equal(question.optionDetails.length, question.optionCount);
+      assert.ok(question.optionDetails.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && !/^ALG-DIST-V5-M/.test(option.misconceptionId ?? "") && option.misconceptionId !== "UNBOUND_DISTRACTOR"), `${pattern.prototypeId}/${examProfile}/${language}: distractor provenance is generic or unbound`);
       assert.equal(question.questionId.startsWith("ALG-QS5-"), true);
       assert.equal(question.centralExamProfile, centralProfileForAlgebraV5(examProfile));
       JSON.stringify(question);
