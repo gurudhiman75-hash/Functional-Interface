@@ -14,19 +14,17 @@ import { generateDirControlledNovelGraphRelativePathCandidateV1 } from "../topic
 import { generateClockControlledNovelAngleCandidateV1 } from "../topics/Clocks/CLK-001/clk-001-controlled-novelty-discovery-v1";
 import { generateAlpControlledNovelTransformedGapCandidateV1 } from "../topics/Alphabet-Test/ALP-001/alp-001-controlled-novelty-discovery-v1";
 import { generateCalControlledNovelImplicitRangeFrequencyCandidateV1 } from "../topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1";
-import { generateCaeControlledNovelCandidateV1 } from "../topics/Cause-and-Effect/CAE-001/cae-001-controlled-novelty-discovery-v1";
 import { generateBlrControlledNovelCodedCountCandidateV1 } from "../topics/Blood-Relations/BLR-001/blr-001-controlled-novelty-discovery-v1";
 
 export const REASONING_V1_LIVE_NOVELTY_MIX_VERSION =
   "REASONING_V1_LIVE_NOVELTY_MIX_2026_10_02_V1" as const;
 
 type LiveActivation = Readonly<{
-  packageId: "ALP-001" | "BLR-001" | "CAE-001" | "CAL-001" | "OPS-001" | "DIR-001" | "CLK-001";
+  packageId: "ALP-001" | "CAL-001" | "BLR-001" | "OPS-001" | "DIR-001" | "CLK-001";
   providerId:
     | "ALP-001-TRANSFORMED-GAP"
-    | "BLR-001-CODED-FILTERED-COUNT"
-    | "CAE-001-EDGE-FAMILIES"
     | "CAL-001-IMPLICIT-RANGE-FREQUENCY"
+    | "BLR-001-CODED-FILTERED-COUNT"
     | "OPS-001-INFER-THEN-FILL"
     | "DIR-001-GRAPH-RELATIVE-PATH"
     | "CLK-001-FAULTY-TIME-ANGLE";
@@ -35,16 +33,6 @@ type LiveActivation = Readonly<{
 
 export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = [
   {
-    packageId: "BLR-001",
-    providerId: "BLR-001-CODED-FILTERED-COUNT",
-    calibratedDifficulty: "Medium",
-  },
-  {
-    packageId: "CAE-001",
-    providerId: "CAE-001-EDGE-FAMILIES",
-    calibratedDifficulty: "Medium",
-  },
-  {
     packageId: "ALP-001",
     providerId: "ALP-001-TRANSFORMED-GAP",
     calibratedDifficulty: "Medium",
@@ -52,6 +40,11 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
   {
     packageId: "CAL-001",
     providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    calibratedDifficulty: "Medium",
+  },
+  {
+    packageId: "BLR-001",
+    providerId: "BLR-001-CODED-FILTERED-COUNT",
     calibratedDifficulty: "Medium",
   },
   {
@@ -118,26 +111,14 @@ function activationFor(
 }
 
 function candidateFor(providerId: LiveActivation["providerId"], seed: number) {
-  if (providerId === "BLR-001-CODED-FILTERED-COUNT") {
-    return generateBlrControlledNovelCodedCountCandidateV1(seed);
-  }
-  if (providerId === "CAE-001-EDGE-FAMILIES") {
-    for (let offset = 0; offset < 64; offset += 1) {
-      const qlId = ((seed + offset) & 1) === 0 ? "CAE-QL-008" : "CAE-QL-009";
-      const candidate = generateCaeControlledNovelCandidateV1({
-        qlId,
-        locale: "en-IN",
-        seed: seed + offset,
-      });
-      if (candidate.difficultyBand === "Medium") return candidate;
-    }
-    throw new Error("CAE-001 live novelty mixer could not find a Medium reviewed candidate.");
-  }
   if (providerId === "ALP-001-TRANSFORMED-GAP") {
     return generateAlpControlledNovelTransformedGapCandidateV1(seed);
   }
   if (providerId === "CAL-001-IMPLICIT-RANGE-FREQUENCY") {
     return generateCalControlledNovelImplicitRangeFrequencyCandidateV1(seed);
+  }
+  if (providerId === "BLR-001-CODED-FILTERED-COUNT") {
+    return generateBlrControlledNovelCodedCountCandidateV1(seed);
   }
   if (providerId === "OPS-001-INFER-THEN-FILL") {
     return generateOpsControlledNovelInferThenFillCandidateV1(seed);
