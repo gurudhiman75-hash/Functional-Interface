@@ -180,7 +180,7 @@ for (const pkg of sweep) {
   assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4);
   assert.equal(pkg.options.filter((option) => option.isCorrect).length, 1);
   assert.equal(pkg.options[pkg.correctIndex]?.value, pkg.canonicalAnswer);
-  assert.ok(pkg.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && option.analysis.length >= 30));
+  assert.ok(pkg.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && option.analysis.length >= 30));\n  assert.ok(pkg.options.filter((option) => !option.isCorrect).every((option) => !BANNED_GENERIC_DISTRACTOR_IDS.has(option.misconceptionId ?? "")), `${pkg.prototypeId}/${pkg.seed}: generic fallback distractor leaked into final surface.`);
   assert.ok(pkg.explanation.coreConcept.length >= 35);
   assert.ok(pkg.explanation.steps.length >= 2);
   assert.ok(pkg.explanation.finalAnswer.includes(pkg.canonicalAnswer));
