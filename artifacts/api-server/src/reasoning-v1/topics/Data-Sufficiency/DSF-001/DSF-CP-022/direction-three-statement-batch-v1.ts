@@ -53,10 +53,19 @@ function enumerateWorlds():readonly World[]{
 }
 const WORLDS=enumerateWorlds();
 
+function exactDistanceText(x:number,y:number):string{
+  const squared=x*x+y*y,whole=Math.sqrt(squared);
+  if(Number.isInteger(whole))return `${whole} m`;
+  let squareFactor=1;
+  for(let factor=2;factor*factor<=squared;factor++)if(squared%(factor*factor)===0)squareFactor=factor*factor;
+  const coefficient=Math.sqrt(squareFactor),remainder=squared/squareFactor;
+  return coefficient===1?`√${remainder} m`:`${coefficient}√${remainder} m`;
+}
+
 function target(mode:SolveMode,w:World):string{
   if(mode==="DSF-SM-DIR-FINAL-FACING")return w.finalFacing;
   if(mode==="DSF-SM-DIR-FINAL-COORDINATES")return `(${w.finalX},${w.finalY})`;
-  return `${w.shortestDistance} m`;
+  return exactDistanceText(w.finalX,w.finalY);
 }
 const adapter={
   adapterId:"DSF-CP022-DIRECTION-THREE-STATEMENT-V1",
@@ -69,8 +78,18 @@ const adapter={
 };
 function st(id:string,family:string,complexity:1|2|3,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
 function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
-function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
-function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Taking the starting point as (0, 0), what are the final coordinates?":"What is the shortest distance from the final point to the starting point?";}
+function horizontalPositionClue(value:number):string{
+  if(value===0)return "The final point lies on the same north-south line as the starting point.";
+  return `The final point is ${Math.abs(value)} m ${value>0?"east":"west"} of the starting point.`;
+}
+function verticalPositionClue(value:number):string{
+  if(value===0)return "The final point lies on the same east-west line as the starting point.";
+  return `The final point is ${Math.abs(value)} m ${value>0?"north":"south"} of the starting point.`;
+}
+function horizontalSideClue(value:number):string{return value===0?"The final point is neither east nor west of the starting point.":`The final point is ${value>0?"east":"west"} of the starting point.`;}
+function verticalSideClue(value:number):string{return value===0?"The final point is neither north nor south of the starting point.":`The final point is ${value>0?"north":"south"} of the starting point.`;}
+function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates from the starting point":"shortest distance from the starting point";}
+function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"What are the coordinates of the final point, taking the starting point as (0, 0)?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
   WALKING_ROUTE:"A person moves in three successive stages.",
   DELIVERY_ROUTE:"A delivery worker moves in three successive stages.",
@@ -92,13 +111,13 @@ function pool(problem:Problem):readonly Statement[]{
     st(`D2_${a.secondDistance}`,"SECOND_DISTANCE_EXACT",1,`The second movement is ${a.secondDistance} m.`,w=>w.secondDistance===a.secondDistance),
     st(`D3_${a.thirdDistance}`,"THIRD_DISTANCE_EXACT",1,`The third movement is ${a.thirdDistance} m.`,w=>w.thirdDistance===a.thirdDistance),
     st(`D12_${a.firstDistance}_${a.secondDistance}`,"DISTANCE_PAIR",2,`The first two movement lengths are ${a.firstDistance} m and ${a.secondDistance} m respectively.`,w=>w.firstDistance===a.firstDistance&&w.secondDistance===a.secondDistance),
-    st(`X_${a.finalX}`,"FINAL_X_EXACT",2,`The net east-west displacement is ${Math.abs(a.finalX)} m ${a.finalX===0?"with no east-west shift":a.finalX>0?"to the east":"to the west"}.`,w=>w.finalX===a.finalX),
-    st(`Y_${a.finalY}`,"FINAL_Y_EXACT",2,`The net north-south displacement is ${Math.abs(a.finalY)} m ${a.finalY===0?"with no north-south shift":a.finalY>0?"to the north":"to the south"}.`,w=>w.finalY===a.finalY),
-    st(`XY_${a.finalX}_${a.finalY}`,"FINAL_COMPONENT_PAIR",3,`The net displacement components are ${a.finalX} m east-west and ${a.finalY} m north-south.`,w=>w.finalX===a.finalX&&w.finalY===a.finalY),
+    st(`X_${a.finalX}`,"FINAL_X_EXACT",2,horizontalPositionClue(a.finalX),w=>w.finalX===a.finalX),
+    st(`Y_${a.finalY}`,"FINAL_Y_EXACT",2,verticalPositionClue(a.finalY),w=>w.finalY===a.finalY),
+    st(`XY_${a.finalX}_${a.finalY}`,"FINAL_COMPONENT_PAIR",3,`The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`,w=>w.finalX===a.finalX&&w.finalY===a.finalY),
     st(`FACING_${a.finalFacing}`,"FINAL_FACING_EXACT",1,`After all movements, the person is facing ${a.finalFacing}.`,w=>w.finalFacing===a.finalFacing),
     st(`PATH_${a.totalPath}`,"TOTAL_PATH_EXACT",2,`The total path length is ${a.totalPath} m.`,w=>w.totalPath===a.totalPath),
-    st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,`The final east-west coordinate is ${sign(a.finalX)}.`,w=>sign(w.finalX)===sign(a.finalX)),
-    st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
+    st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,horizontalSideClue(a.finalX),w=>sign(w.finalX)===sign(a.finalX)),
+    st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,verticalSideClue(a.finalY),w=>sign(w.finalY)===sign(a.finalY)),
   ];
   return Object.freeze(statements.filter((statement) => {
     if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;

@@ -14,7 +14,6 @@ export const DSF_CP027_CALENDAR_QL002_RUNTIME_VERSION="DSF_CP027_CALENDAR_QL002_
 export const DSF_CP027_CALENDAR_SOLVE_MODES=[
   "DSF-SM-CAL-RESULT-WEEKDAY",
   "DSF-SM-CAL-START-WEEKDAY",
-  "DSF-SM-CAL-SHIFT-REMAINDER",
 ] as const;
 type SolveMode=(typeof DSF_CP027_CALENDAR_SOLVE_MODES)[number];
 type ContextId="CALENDAR_NOTE"|"DELIVERY_SCHEDULE"|"TRAINING_PLAN"|"SHIFT_ROSTER"|"EVENT_PLANNER"|"JOURNAL_ENTRY";
@@ -28,27 +27,28 @@ const CONTEXTS:readonly ContextId[]=["CALENDAR_NOTE","DELIVERY_SCHEDULE","TRAINI
 function hash(t:string){let h=2166136261;for(const ch of t){h^=ch.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
 function pick(seed:string,n:number){if(!n)throw new Error("CP027 empty set");return hash(seed)%n;}
 function name(d:Weekday){return NAMES[d];}
+function dayCountForRemainder(remainder:Weekday,cycleOffset=1){return remainder===0?7*cycleOffset:remainder+7*cycleOffset;}
 const WORLDS:readonly World[]=Object.freeze(WEEKDAY_ORDER.flatMap(start=>WEEKDAY_ORDER.map(shiftRemainder=>Object.freeze({start,shiftRemainder,end:weekdayShift(start,shiftRemainder)}))));
 if(WORLDS.length!==49)throw new Error("CP027 calendar universe must have 49 states");
 for(const w of WORLDS){if(weekdayShift(w.end,-w.shiftRemainder)!==w.start||mod7(w.end-w.start)!==w.shiftRemainder)throw new Error("CP027 CAL-001 parity failed");}
-function target(mode:SolveMode,w:World){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?name(weekdayShift(w.start,w.shiftRemainder)):mode==="DSF-SM-CAL-START-WEEKDAY"?name(weekdayShift(w.end,-w.shiftRemainder)):String(mod7(w.end-w.start));}
+function target(mode:SolveMode,w:World){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?name(weekdayShift(w.start,w.shiftRemainder)):name(weekdayShift(w.end,-w.shiftRemainder));}
 const adapter={adapterId:"DSF-CP027-CAL-THREE-STATEMENT-V1",domainFamily:"REASONING" as const,sourceChapterId:"CAL-001",enumerateBaseWorlds:(_p:Problem)=>WORLDS,statementHolds:(_p:Problem,w:World,s:Statement)=>s.test(w),evaluateTarget:(p:Problem,w:World)=>target(p.solveMode,w),normalizeAnswer:(a:string)=>a};
 function st(id:string,family:string,complexity:1|2,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
-function prompt(mode:SolveMode){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?"What is the resulting weekday?":mode==="DSF-SM-CAL-START-WEEKDAY"?"What was the starting weekday?":"What remainder does the number of moved days leave when divided by 7?";}
-function label(mode:SolveMode){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?"the resulting weekday":mode==="DSF-SM-CAL-START-WEEKDAY"?"the starting weekday":"the remainder of the day count modulo 7";}
+function prompt(mode:SolveMode){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?"What is the resulting weekday?":"What was the starting weekday?";}
+function label(mode:SolveMode){return mode==="DSF-SM-CAL-RESULT-WEEKDAY"?"the resulting weekday":"the starting weekday";}
 function lead(c:ContextId){return ({CALENDAR_NOTE:"A date is moved forward by a whole number of days from a starting weekday.",DELIVERY_SCHEDULE:"A delivery schedule is moved forward by a whole number of days from a starting weekday.",TRAINING_PLAN:"A training plan is moved forward by a whole number of days from a starting weekday.",SHIFT_ROSTER:"A shift roster is moved forward by a whole number of days from a starting weekday.",EVENT_PLANNER:"An event is moved forward by a whole number of days from a starting weekday.",JOURNAL_ENTRY:"A journal date is moved forward by a whole number of days from a starting weekday."} as const)[c];}
 
 function pool(p:Problem):readonly Statement[]{
  const {start,shiftRemainder,end}=p.anchor,nextStart=mod7(start+1),nextShift=mod7(shiftRemainder+1),nextEnd=mod7(end+1);
  return Object.freeze([
   st(`START_${start}`,"START_EXACT",1,`The starting day is ${name(start)}.`,w=>w.start===start),
-  st(`SHIFT_${shiftRemainder}`,"SHIFT_EXACT",1,`The day count leaves remainder ${shiftRemainder} when divided by 7.`,w=>w.shiftRemainder===shiftRemainder),
+  st(`SHIFT_${shiftRemainder}`,"SHIFT_EXACT",1,`The date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`,w=>w.shiftRemainder===shiftRemainder),
   st(`END_${end}`,"END_EXACT",1,`The resulting day is ${name(end)}.`,w=>w.end===end),
-  st(`START_SHIFT_${start}_${shiftRemainder}`,"START_SHIFT_PAIR",2,`The starting day is ${name(start)}, and the day count leaves remainder ${shiftRemainder} on division by 7.`,w=>w.start===start&&w.shiftRemainder===shiftRemainder),
-  st(`END_SHIFT_${end}_${shiftRemainder}`,"END_SHIFT_PAIR",2,`The resulting day is ${name(end)}, and the day count leaves remainder ${shiftRemainder} on division by 7.`,w=>w.end===end&&w.shiftRemainder===shiftRemainder),
+  st(`START_SHIFT_${start}_${shiftRemainder}`,"START_SHIFT_PAIR",2,`The starting day is ${name(start)}, and the date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`,w=>w.start===start&&w.shiftRemainder===shiftRemainder),
+  st(`END_SHIFT_${end}_${shiftRemainder}`,"END_SHIFT_PAIR",2,`The resulting day is ${name(end)}, and the date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`,w=>w.end===end&&w.shiftRemainder===shiftRemainder),
   st(`START_END_${start}_${end}`,"START_END_PAIR",2,`The movement starts on ${name(start)} and ends on ${name(end)}.`,w=>w.start===start&&w.end===end),
   st(`START_TWO_${start}_${nextStart}`,"START_TWO_SET",2,`The starting day is either ${name(start)} or ${name(nextStart)}.`,w=>w.start===start||w.start===nextStart),
-  st(`SHIFT_TWO_${shiftRemainder}_${nextShift}`,"SHIFT_TWO_SET",2,`The remainder is either ${shiftRemainder} or ${nextShift}.`,w=>w.shiftRemainder===shiftRemainder||w.shiftRemainder===nextShift),
+  st(`SHIFT_TWO_${shiftRemainder}_${nextShift}`,"SHIFT_TWO_SET",2,`The date is moved forward by either ${dayCountForRemainder(shiftRemainder)} or ${dayCountForRemainder(nextShift,2)} days.`,w=>w.shiftRemainder===shiftRemainder||w.shiftRemainder===nextShift),
   st(`END_TWO_${end}_${nextEnd}`,"END_TWO_SET",2,`The resulting day is either ${name(end)} or ${name(nextEnd)}.`,w=>w.end===end||w.end===nextEnd),
  ]);
 }
@@ -63,7 +63,7 @@ function candidates(p:Problem):readonly Candidate[]{
  }
  const r=Object.freeze(out);if(!r.length)throw new Error(`CP027 no triples ${key}`);CACHE.set(key,r);return r;
 }
-function problem(seed:string,attempt:number):Problem{const solveMode=DSF_CP027_CALENDAR_SOLVE_MODES[pick(`${seed}:mode:${attempt}`,3)]!,anchor=WORLDS[pick(`${seed}:anchor:${attempt}`,WORLDS.length)]!,contextId=CONTEXTS[pick(`${seed}:context:${attempt}`,CONTEXTS.length)]!;return Object.freeze({solveMode,anchor,contextId});}
+function problem(seed:string,attempt:number):Problem{const solveMode=DSF_CP027_CALENDAR_SOLVE_MODES[pick(`${seed}:mode:${attempt}`,DSF_CP027_CALENDAR_SOLVE_MODES.length)]!,anchor=WORLDS[pick(`${seed}:anchor:${attempt}`,WORLDS.length)]!,contextId=CONTEXTS[pick(`${seed}:context:${attempt}`,CONTEXTS.length)]!;return Object.freeze({solveMode,anchor,contextId});}
 function select(seed:string){let fb:{p:Problem;l:readonly Candidate[];b:number}|undefined;for(let a=0;a<30;a++){const p=problem(seed,a),l=candidates(p),keys=[...new Set(l.map(x=>x.semanticKey))].sort();if(!fb||keys.length>fb.b)fb={p,l,b:keys.length};if(keys.length>=6){const sem=keys[pick(`${seed}:sem:${a}`,keys.length)]!,m=l.filter(x=>x.semanticKey===sem),top=Math.max(...m.map(x=>x.quality)),short=m.filter(x=>x.quality>=top-2);return {p,c:short[pick(`${seed}:triple:${a}`,short.length)]!};}}if(!fb)throw new Error("CP027 synthesis failed");const top=Math.max(...fb.l.map(x=>x.quality)),short=fb.l.filter(x=>x.quality>=top-2);return {p:fb.p,c:short[pick(`${seed}:fallback`,short.length)]!};}
 function explanation(p:Problem,c:Candidate){
   return renderThreeStatementEditorialExplanation(c.evaluation, label(p.solveMode), c.semanticKey);

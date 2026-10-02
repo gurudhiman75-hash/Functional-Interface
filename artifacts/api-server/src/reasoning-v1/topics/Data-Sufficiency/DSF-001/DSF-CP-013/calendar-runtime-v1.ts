@@ -14,7 +14,6 @@ export const DSF_CP013_CALENDAR_RUNTIME_VERSION = "DSF_CP013_CALENDAR_RUNTIME_V1
 export const DSF_CP013_CALENDAR_SOLVE_MODES = [
   "DSF-SM-CAL-RESULT-WEEKDAY",
   "DSF-SM-CAL-START-WEEKDAY",
-  "DSF-SM-CAL-SHIFT-REMAINDER",
 ] as const;
 
 export type DsfCp013CalendarSolveMode = (typeof DSF_CP013_CALENDAR_SOLVE_MODES)[number];
@@ -141,6 +140,10 @@ function weekdayName(day: Weekday): string {
   return WEEKDAY_NAMES[day];
 }
 
+function dayCountForRemainder(remainder: Weekday, cycleOffset = 1): number {
+  return remainder === 0 ? 7 * cycleOffset : remainder + 7 * cycleOffset;
+}
+
 const CALENDAR_WORLDS: readonly CalendarWorld[] = Object.freeze(
   WEEKDAY_ORDER.flatMap((start) => WEEKDAY_ORDER.map((shiftRemainder) => Object.freeze({
     start,
@@ -166,8 +169,6 @@ function sourceTargetAnswer(problem: CalendarProblem, world: CalendarWorld): str
       return weekdayName(weekdayShift(world.start, world.shiftRemainder));
     case "DSF-SM-CAL-START-WEEKDAY":
       return weekdayName(weekdayShift(world.end, -world.shiftRemainder));
-    case "DSF-SM-CAL-SHIFT-REMAINDER":
-      return String(mod7(world.end - world.start));
   }
 }
 
@@ -231,20 +232,20 @@ function buildStatementPool(problem: CalendarProblem): readonly CalendarStatemen
   const nextEnd = mod7(end + 1);
   return [
     statement(`START_${start}`, "START_EXACT", 1, `The starting day is ${weekdayName(start)}.`, (world) => world.start === start),
-    statement(`SHIFT_${shiftRemainder}`, "SHIFT_EXACT", 1, `The number of days leaves remainder ${shiftRemainder} when divided by 7.`, (world) => world.shiftRemainder === shiftRemainder),
+    statement(`SHIFT_${shiftRemainder}`, "SHIFT_EXACT", 1, `The date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`, (world) => world.shiftRemainder === shiftRemainder),
     statement(`END_${end}`, "END_EXACT", 1, `The resulting day is ${weekdayName(end)}.`, (world) => world.end === end),
     statement(
       `START_SHIFT_${start}_${shiftRemainder}`,
       "START_SHIFT_PAIR",
       2,
-      `The starting day is ${weekdayName(start)}, and the day count leaves remainder ${shiftRemainder} on division by 7.`,
+      `The starting day is ${weekdayName(start)}, and the date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`,
       (world) => world.start === start && world.shiftRemainder === shiftRemainder,
     ),
     statement(
       `END_SHIFT_${end}_${shiftRemainder}`,
       "END_SHIFT_PAIR",
       2,
-      `The resulting day is ${weekdayName(end)}, and the day count leaves remainder ${shiftRemainder} on division by 7.`,
+      `The resulting day is ${weekdayName(end)}, and the date is moved forward by ${dayCountForRemainder(shiftRemainder)} days.`,
       (world) => world.end === end && world.shiftRemainder === shiftRemainder,
     ),
     statement(
@@ -265,7 +266,7 @@ function buildStatementPool(problem: CalendarProblem): readonly CalendarStatemen
       `SHIFT_TWO_${shiftRemainder}_${nextShift}`,
       "SHIFT_TWO_SET",
       2,
-      `The remainder on division of the day count by 7 is either ${shiftRemainder} or ${nextShift}.`,
+      `The date is moved forward by either ${dayCountForRemainder(shiftRemainder)} or ${dayCountForRemainder(nextShift, 2)} days.`,
       (world) => world.shiftRemainder === shiftRemainder || world.shiftRemainder === nextShift,
     ),
     statement(
@@ -309,7 +310,6 @@ function targetPrompt(mode: DsfCp013CalendarSolveMode): string {
   switch (mode) {
     case "DSF-SM-CAL-RESULT-WEEKDAY": return "What is the resulting weekday?";
     case "DSF-SM-CAL-START-WEEKDAY": return "What was the starting weekday?";
-    case "DSF-SM-CAL-SHIFT-REMAINDER": return "What remainder does the number of moved days leave when divided by 7?";
   }
 }
 
@@ -317,7 +317,6 @@ function targetLabel(mode: DsfCp013CalendarSolveMode): string {
   switch (mode) {
     case "DSF-SM-CAL-RESULT-WEEKDAY": return "the resulting weekday";
     case "DSF-SM-CAL-START-WEEKDAY": return "the starting weekday";
-    case "DSF-SM-CAL-SHIFT-REMAINDER": return "the remainder of the day count modulo 7";
   }
 }
 
@@ -377,8 +376,7 @@ export function generateDsfCp013CalendarQuestion(seed: number) {
   const problem: CalendarProblem = { solveMode, anchor, context, intro };
   const pair = synthesizePair(problem, seed, desiredClass);
   const prompt = targetPrompt(solveMode);
-  const premise = "Only the remainder after division of the forward day count by 7 affects the weekday.";
-  const stem = `${intro} ${premise} ${prompt}\n\nStatement I: ${pair.statementI.text}\nStatement II: ${pair.statementII.text}`;
+  const stem = `${intro} ${prompt}\n\nStatement I: ${pair.statementI.text}\nStatement II: ${pair.statementII.text}`;
   const correct = optionForClass(DS_STANDARD_5_EN, pair.evaluation.classification);
   const generationIdentity = createHash("sha256")
     .update(`${DSF_CP013_CALENDAR_RUNTIME_VERSION}|${seed}|${solveMode}|${context.id}|${anchor.start}|${anchor.shiftRemainder}|${pair.statementI.id}|${pair.statementII.id}`)
@@ -404,9 +402,7 @@ export function generateDsfCp013CalendarQuestion(seed: number) {
     solveModeId: solveMode,
     targetKind: solveMode === "DSF-SM-CAL-RESULT-WEEKDAY"
       ? "RESULT_WEEKDAY" as const
-      : solveMode === "DSF-SM-CAL-START-WEEKDAY"
-        ? "START_WEEKDAY" as const
-        : "SHIFT_MOD7_REMAINDER" as const,
+      : "START_WEEKDAY" as const,
     contextId: context.id,
     answerContractId: "DS_STANDARD_5" as const,
     taskDirection: "DATA_SUFFICIENCY" as const,

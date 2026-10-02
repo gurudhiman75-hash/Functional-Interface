@@ -2,7 +2,7 @@
 
 Implementation root for ExamTree `REAS-DSF`.
 
-Current status: **QL001 production history preserved; QL002 Reasoning Question Studio review runtime at CP033 freeze candidate**. Permanent QLs: **`DSF-QL-001`** and **`DSF-QL-002`**.
+Current status: **CP034 conventional deep-audit closed; QL001 + QL002 Question Studio review runtime integrated**. Permanent QLs: **`DSF-QL-001`** and **`DSF-QL-002`**.
 
 Core rule:
 
@@ -33,3 +33,8 @@ Permanent identities:
 - next available identity: `DSF-QL-003`
 
 QL002 is review-enabled but not release-enabled. Question Bank writes, scored tests, mock tests, public publication and automatic learner publication remain locked for QL002. Historical CP000/CP001 snapshots are intentionally preserved as records of the earlier state.
+
+
+## Final deep-audit closure
+
+See `DSF-001-FINAL-DEEP-AUDIT-CLOSURE-20261001.md` and `DSF-CP-034/`. Controlled novelty remains deferred to the shared final Reasoning novelty pass; downstream learner-release gates remain separate.

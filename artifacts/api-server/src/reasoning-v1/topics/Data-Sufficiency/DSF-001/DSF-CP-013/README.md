@@ -110,16 +110,17 @@ Finite domain:
 - starting weekday is recovered by source reverse shift
 - shift remainder is recovered by source `mod7`
 
-Targets:
+Learner-facing targets:
 
 1. resulting weekday
 2. starting weekday
-3. day-count remainder modulo 7
+
+The modulo-7 remainder remains internal solver state only. Learner statements now use concrete forward day counts (for example, 9 days or 14 days) rather than asking about or teaching remainder arithmetic.
 
 Deterministic finite-domain proof:
 
-- every one of the 49 anchors realizes all five canonical DS classes in all three modes
-- 300-question allocation: 100/mode, 60/class
+- the full 49-state weekday/remainder universe remains the internal truth model;
+- both learner-facing modes retain canonical DS-class synthesis;
 - every mode uses all six contexts
 - private structural replay: 298 distinct fingerprints, maximum cluster 2
 
@@ -154,3 +155,8 @@ Frozen DSF `evaluateFiniteDomainPair` remains responsible for:
 ## CI note
 
 The first Seating-only CP013 run completed successfully. On the later Coding head, CP013 and many unrelated workflows began terminating within seconds with no job steps and no downloadable job log. Until a runner executes the combined gate, Coding and Calendar must remain `EXECUTABLE-PENDING` rather than green or red.
+
+
+## 2026-10-01 deep-audit remediation
+
+The final DSF deep-audit pass removed the learner-facing modulo target and the explicit modulo-solving premise. This does not change the CAL-001 solver authority; it only prevents internal modular arithmetic from being presented as an exam stem or clue.

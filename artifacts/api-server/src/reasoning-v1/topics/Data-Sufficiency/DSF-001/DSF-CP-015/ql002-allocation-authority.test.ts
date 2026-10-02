@@ -28,7 +28,7 @@ assert.equal(historicalCandidate.taskContract, "THREE_STATEMENT_MINIMAL_SUFFICIE
 assert.equal(historicalCandidate.ruleId, "INFORMATION_SUFFICIENCY_SUBSET_LATTICE");
 assert.equal(historicalCandidate.answerSemantic, "MINIMAL_SUFFICIENT_STATEMENT_SUBSET");
 
-// Current registry layers CP015 allocation on top of that immutable snapshot.
+// Current registry layers CP015 allocation plus later reviewed runtime expansion on top of that immutable snapshot.
 assert.equal(DSF_CURRENT_PERMANENT_QL_REGISTRY.length, 2);
 assert.deepEqual(DSF_CURRENT_PERMANENT_QL_REGISTRY.map((entry) => entry.qlId), ["DSF-QL-001", "DSF-QL-002"]);
 assert.equal(new Set(DSF_CURRENT_PERMANENT_QL_REGISTRY.map((entry) => entry.qlId)).size, 2);
@@ -43,12 +43,14 @@ assert.equal(DSF_QL_002_PERMANENT_ENTRY.semanticStateCount, 19);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.taskContract, historicalCandidate.taskContract);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.ruleId, historicalCandidate.ruleId);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.answerSemantic, historicalCandidate.answerSemantic);
-assert.deepEqual(DSF_QL_002_PERMANENT_ENTRY.lifecycle.sourceBackedPrototypeChapters, ["NUM-001"]);
-assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.questionStudioDiscoverable, false);
+assert.deepEqual(DSF_QL_002_PERMANENT_ENTRY.lifecycle.sourceBackedPrototypeChapters, ["NUM-001", "RNK-001", "REAS-DIR", "BLR-001", "REAS-INEQ", "SEA-001", "COD-001", "CAL-001"]);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.questionStudioDiscoverable, true);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.reviewRuntimeScope, "REASONING_ONLY_EN_HI_PA");
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.questionBankWritable, false);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.testEligible, false);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.mockTestEligible, false);
 assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.publiclyPublishable, false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.automaticStudentPublication, false);
 
 assert.equal(DSF_CP015_QL002_ALLOCATION_AUTHORITY.currentStatus, "PERMANENTLY_ALLOCATED_CP015");
 assert.equal(DSF_CP015_QL002_ALLOCATION_AUTHORITY.historicalCp000Status, "DEFERRED_FUTURE_CONTRACT");

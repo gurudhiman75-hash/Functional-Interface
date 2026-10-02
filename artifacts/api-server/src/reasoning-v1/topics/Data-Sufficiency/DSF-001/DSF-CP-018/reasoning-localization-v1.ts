@@ -52,6 +52,8 @@ function targetPrompt(laneId: string, q: AnyQuestion, language: DsfReasoningLoca
 
   const prompt = String(q.questionPrompt ?? "");
   if (/which direction/i.test(prompt)) return t(language, "पूछी गई दिशा क्या है?", "ਪੁੱਛੀ ਗਈ ਦਿਸ਼ਾ ਕੀ ਹੈ?");
+  if (/coordinates of the final point/i.test(prompt)) return t(language, "आरंभिक बिंदु को (0, 0) मानकर अंतिम बिंदु के निर्देशांक क्या हैं?", "ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਨੂੰ (0, 0) ਮੰਨ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੇ ਕੋਆਰਡੀਨੇਟ ਕੀ ਹਨ?");
+  if (/where is the final point/i.test(prompt)) return t(language, "अंतिम बिंदु आरंभिक बिंदु के सापेक्ष कहाँ है?", "ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਮੁਕਾਬਲੇ ਕਿੱਥੇ ਹੈ?");
   if (/related|relationship/i.test(prompt)) return t(language, "पूछा गया पारिवारिक संबंध क्या है?", "ਪੁੱਛਿਆ ਗਿਆ ਪਰਿਵਾਰਕ ਸੰਬੰਧ ਕੀ ਹੈ?");
   if (/inequal|greater|smaller|relation/i.test(prompt) && laneId.includes("INEQUALITY")) return t(language, "पूछा गया संबंध क्या है?", "ਪੁੱਛਿਆ ਗਿਆ ਸੰਬੰਧ ਕੀ ਹੈ?");
   if (/seat|position|sits|middle/i.test(prompt) && laneId.includes("SEATING")) return t(language, "पूछा गया बैठने का स्थान कौन-सा है?", "ਪੁੱਛਿਆ ਗਿਆ ਬੈਠਣ ਦਾ ਸਥਾਨ ਕਿਹੜਾ ਹੈ?");
@@ -200,6 +202,8 @@ function localizeDirectionValue(value: string, language: DsfReasoningLocalizedLa
 
 function localizeDirectionStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
   let m: RegExpMatchArray | null;
+  m=text.match(/^The final point has coordinates \((-?\d+), (-?\d+)\) when the starting point is \(0, 0\)\.$/i);
+  if(m) return t(language,`आरंभिक बिंदु को (0, 0) मानने पर अंतिम बिंदु के निर्देशांक (${m[1]}, ${m[2]}) हैं।`,`ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਨੂੰ (0, 0) ਮੰਨਣ 'ਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੇ ਕੋਆਰਡੀਨੇਟ (${m[1]}, ${m[2]}) ਹਨ।`);
   m=text.match(/^The (final facing direction|final coordinates from the starting point|shortest distance from the starting point) is (.+)\.$/i);
   if(m){
     const label: Record<string,[string,string]>={
@@ -226,6 +230,18 @@ function localizeDirectionStatement(text: string, language: DsfReasoningLocalize
   }
   m=text.match(/^The first two movement lengths are ([\d.]+) m and ([\d.]+) m respectively\.$/i);
   if(m) return t(language,`पहली दो चालों की लंबाई क्रमशः ${m[1]} मीटर और ${m[2]} मीटर है।`,`ਪਹਿਲੀਆਂ ਦੋ ਚਾਲਾਂ ਦੀ ਲੰਬਾਈ ਕ੍ਰਮਵਾਰ ${m[1]} ਮੀਟਰ ਅਤੇ ${m[2]} ਮੀਟਰ ਹੈ।`);
+  m=text.match(/^The final point is ([\d.]+) m (east|west) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The final point is ([\d.]+) m (north|south) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The final point is (east|west) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु के ${localizeDirectionValue(m[1]!,language)} में है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਹੈ।`);
+  m=text.match(/^The final point is (north|south) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु के ${localizeDirectionValue(m[1]!,language)} में है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਹੈ।`);
+  if(/^The final point is neither east nor west of the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु के न पूर्व में है, न पश्चिम में।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਨਾ ਪੂਰਬ ਵੱਲ ਹੈ, ਨਾ ਪੱਛਮ ਵੱਲ।");
+  if(/^The final point is neither north nor south of the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु के न उत्तर में है, न दक्षिण में।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਨਾ ਉੱਤਰ ਵੱਲ ਹੈ, ਨਾ ਦੱਖਣ ਵੱਲ।");
+  if(/^The final point lies on the same north-south line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी उत्तर-दक्षिण रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਉੱਤਰ-ਦੱਖਣ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
+  if(/^The final point lies on the same east-west line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी पूर्व-पश्चिम रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਪੂਰਬ-ਪੱਛਮ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
   m=text.match(/^The net (east-west|north-south) displacement is ([\d.]+) m (with no east-west shift|with no north-south shift|to the east|to the west|to the north|to the south)\.$/i);
   if(m){
     const axis=m[1]!.toLowerCase()==="east-west" ? t(language,"पूर्व-पश्चिम","ਪੂਰਬ-ਪੱਛਮ") : t(language,"उत्तर-दक्षिण","ਉੱਤਰ-ਦੱਖਣ");
@@ -355,6 +371,14 @@ function localizeCalendarStatement(text:string, language:DsfReasoningLocalizedLa
   let m:RegExpMatchArray|null;
   m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
   if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ।`);
+  m=text.match(/^The date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`तिथि को ${m[1]} दिन आगे बढ़ाया गया है।`,`ਤਾਰੀਖ ਨੂੰ ${m[1]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है और तिथि को ${m[2]} दिन आगे बढ़ाया गया है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਤਾਰੀਖ ਨੂੰ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} है और तिथि को ${m[2]} दिन आगे बढ़ाया गया है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਤਾਰੀਖ ਨੂੰ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The date is moved forward by either (\d+) or (\d+) days\.$/i);
+  if(m) return t(language,`तिथि को ${m[1]} या ${m[2]} दिन आगे बढ़ाया गया है।`,`ਤਾਰੀਖ ਨੂੰ ${m[1]} ਜਾਂ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
   m=text.match(/^The number of days leaves remainder (\d+) when divided by 7\.$/i);
   if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਹੈ।`);
   m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);

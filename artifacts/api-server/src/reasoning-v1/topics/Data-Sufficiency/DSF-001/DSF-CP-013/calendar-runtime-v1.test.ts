@@ -18,9 +18,11 @@ assert.deepEqual(new Set(questions.map((question) => question.difficulty)), new 
 const expectedContexts = new Set(["CALENDAR_NOTE", "DELIVERY_SCHEDULE", "TRAINING_PLAN", "SHIFT_ROSTER", "EVENT_PLANNER", "JOURNAL_ENTRY"]);
 assert.deepEqual(new Set(questions.map((question) => question.contextId)), expectedContexts);
 
+const expectedQuestionsPerMode = questions.length / DSF_CP013_CALENDAR_SOLVE_MODES.length;
+assert.equal(Number.isInteger(expectedQuestionsPerMode), true);
 for (const mode of DSF_CP013_CALENDAR_SOLVE_MODES) {
   const modeQuestions = questions.filter((question) => question.solveModeId === mode);
-  assert.equal(modeQuestions.length, 100, `${mode} must contribute exactly 100 questions`);
+  assert.equal(modeQuestions.length, expectedQuestionsPerMode, `${mode} must contribute exactly ${expectedQuestionsPerMode} questions`);
   assert.deepEqual(new Set(modeQuestions.map((question) => question.canonicalAnswer)), new Set(SUFFICIENCY_CLASSES), `${mode} must realize all five canonical DS classes`);
   assert.deepEqual(new Set(modeQuestions.map((question) => question.contextId)), expectedContexts, `${mode} must use all six Calendar contexts`);
 }

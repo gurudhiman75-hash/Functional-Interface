@@ -126,7 +126,7 @@ export function generateDsfCp024InequalityQuestion(seed:string|number){
     language:"en" as const,locale:"en-IN" as const,domainFamily:"REASONING" as const,sourceChapterId:"REAS-INEQ" as const,
     sourceCapabilities:["lib/reasoning/inequality-foundation::resolveInequalityRelation"] as const,solveModeId:p.solveMode,contextId:p.contextId,
     statementCount:3 as const,taskContract:"THREE_STATEMENT_MINIMAL_SUFFICIENT_SUBSETS" as const,answerSemantic:"MINIMAL_SUFFICIENT_STATEMENT_SUBSET" as const,
-    stem:`${lead(p.contextId)} Equal values are allowed. ${prompt(p.solveMode)}`,questionPrompt:prompt(p.solveMode),
+    stem:`${lead(p.contextId)} ${prompt(p.solveMode)}`,questionPrompt:prompt(p.solveMode),
     statements:Object.freeze([
       Object.freeze({id:"I" as const,statementRuleId:c.i.id,statementFamily:c.i.family,text:c.i.text}),
       Object.freeze({id:"II" as const,statementRuleId:c.ii.id,statementFamily:c.ii.family,text:c.ii.text}),

@@ -191,7 +191,7 @@ export function generateDsfCp012InequalityQuestion(seed: number) {
   }
   if (!problem || !pair) throw lastError instanceof Error ? lastError : new Error(`Unable to synthesize CP012 Inequality DS seed ${seed}`);
   const prompt = promptFor(problem.solveMode);
-  const stem = `${problem.intro} Equal values are allowed. ${prompt}`;
+  const stem = `${problem.intro} ${prompt}`;
   const evaluation = pair.evaluation;
   const correct = optionForClass(DS_STANDARD_5_EN, evaluation.classification);
   const together = !evaluation.statementI.sufficient && !evaluation.statementII.sufficient
