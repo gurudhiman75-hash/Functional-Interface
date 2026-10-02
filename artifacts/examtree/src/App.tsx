@@ -47,6 +47,10 @@ const PYQHub = lazy(() => import("@/pages/pyqs"));
 const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
+const SscCglHub = lazy(() => import("@/pages/ssc-cgl"));
+const SscCglPreparation = lazy(() => import("@/pages/ssc-cgl-preparation"));
+const SscCglSyllabus = lazy(() => import("@/pages/ssc-cgl-syllabus"));
+const SscCglTopicQuestions = lazy(() => import("@/pages/ssc-cgl-topic-questions"));
 const UnavailableFeature = lazy(() => import("@/pages/unavailable-feature"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
@@ -221,6 +225,10 @@ function Router() {
           <Route path="/mock-tests" component={() => renderCatalogPublicRoute(MockTestsHub)} />
           <Route path="/pyqs" component={() => renderPublicRoute(PYQHub)} />
           <Route path="/blog" component={() => renderPublicRoute(Blog)} />
+          <Route path="/ssc-cgl" component={() => renderPublicRoute(SscCglHub)} />
+          <Route path="/ssc-cgl-preparation" component={() => renderPublicRoute(SscCglPreparation)} />
+          <Route path="/ssc-cgl-syllabus" component={() => renderPublicRoute(SscCglSyllabus)} />
+          <Route path="/ssc-cgl/questions/:topicSlug" component={() => renderPublicRoute(SscCglTopicQuestions)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />
