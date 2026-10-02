@@ -217,6 +217,8 @@ assert.match(regenerationRoute, /TOO_MANY_REGENERATION_ITEMS/);
 assert.match(regenerationRoute, /INVALID_GENERATION_ITEM_ID/);
 assert.match(bulkHardeningRoute, /GENERATION_RUN_CANCELLED/);
 assert.match(qualityRoute, /GENERATION_RUN_CANCELLED/);
+assert.match(qualityRoute, /GENERATION_ITEM_VERSION_CONFLICT/);
+assert.match(qualityRoute, /INVALID_EXPECTED_VERSION/);
 assert.match(regenerationRoute, /GENERATION_RUN_CANCELLED/);
 assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
 assert.match(
