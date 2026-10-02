@@ -926,9 +926,7 @@ export async function generateMis001QuestionStudioBatch(
       readOnly: true,
       productionReleased: false,
       groupCount: generated.groupCount,
-      operandCount: ['MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018','MIS-CP-019','MIS-CP-020','MIS-CP-021'].includes(generated.checkpointId)
-        ? generated.operandCount
-        : generated.checkpointId === 'MIS-CP-001' ? 2 : 3,
+      operandCount: 'operandCount' in generated ? generated.operandCount : 2,
       missingPosition: generated.missingPosition,
       forwardOrInverse: 'forwardOrInverse' in generated ? generated.forwardOrInverse : 'FORWARD',
       operationDepth: generated.operationDepth,
