@@ -92,7 +92,7 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     providerId: "RNK-001-CROSS-FAMILY-CASELET",
     chapterId: "RNK-001",
     topicDirectory: "Ranking-and-Order",
-    status: "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
+    status: "APPROVED_RUNTIME",
     parentQlIds: [
       "RNK-QL-027", "RNK-QL-028", "RNK-QL-029",
       "RNK-QL-031", "RNK-QL-032", "RNK-QL-033",
@@ -106,9 +106,9 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     generatorExport: "generateRnkControlledNovelCaseletV1",
     supportedLanguages: ["en"],
     permanentQlAllocationRequired: false,
-    questionStudioNoveltyMixActivated: false,
+    questionStudioNoveltyMixActivated: true,
     humanReviewRequired: false,
-    countsTowardAssemblyNoveltyNow: false,
+    countsTowardAssemblyNoveltyNow: true,
   },
   {
     providerId: "CLK-001-FAULTY-TIME-ANGLE",
