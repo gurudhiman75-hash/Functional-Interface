@@ -204,6 +204,10 @@ const probabilityRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-probability.ts"),
   "utf8",
 );
+const contentReviewRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-content-review.ts"),
+  "utf8",
+);
 
 assert.match(bulkHardeningRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
 assert.match(qualityRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
@@ -227,6 +231,9 @@ assert.match(qualityRoute, /INVALID_EXPECTED_VERSION/);
 assert.match(regenerationRoute, /GENERATION_RUN_CANCELLED/);
 assert.doesNotMatch(probabilityRoute, /native-review\/items\/:itemId\/decision/);
 assert.doesNotMatch(probabilityRoute, /reviewer_user_id/);
+assert.match(contentReviewRoute, /GENERATION_RUN_CANCELLED/);
+assert.match(contentReviewRoute, /GENERATION_ITEM_ALREADY_CONVERTED/);
+assert.match(contentReviewRoute, /r\.status <> 'cancelled'::generation_run_status/);
 assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
 assert.match(
   bulkHardeningRoute,
