@@ -6,15 +6,15 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
   operatingTarget: 0.20,
   acceptableBand: [0.15, 0.25] as const,
   liveQuestionStudioProviders: [
+    "ALP-001-TRANSFORMED-GAP",
+    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "OPS-001-INFER-THEN-FILL",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CLK-001-FAULTY-TIME-ANGLE",
   ] as const,
   contentApprovedAwaitingQuestionStudioRoute: [
-    "ALP-001-TRANSFORMED-GAP",
     "RNK-001-CROSS-FAMILY-CASELET",
     "CAE-001-EDGE-FAMILIES",
-    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "BLR-001-CODED-FILTERED-COUNT",
   ] as const,
   safeguards: Object.freeze({
