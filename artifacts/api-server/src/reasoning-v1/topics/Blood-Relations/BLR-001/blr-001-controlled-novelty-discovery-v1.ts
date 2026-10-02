@@ -81,6 +81,11 @@ export interface BlrControlledNovelCodedCountCandidateV1 {
   readonly answer: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly nextAvailableQl: "BLR-QL-036";
   readonly questionStudioNoveltyMixActivated: false;
@@ -206,6 +211,11 @@ export function generateBlrControlledNovelCodedCountCandidateV1(
       solverCount,
     ]),
     solverAgreement: true,
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     nextAvailableQl: "BLR-QL-036",
     questionStudioNoveltyMixActivated: false,

@@ -77,6 +77,11 @@ export interface CalControlledNovelImplicitRangeFrequencyCandidateV1 {
   readonly answer: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly nextAvailableQl: "CAL-QL-037";
   readonly questionStudioNoveltyMixActivated: false;
@@ -186,6 +191,11 @@ export function generateCalControlledNovelImplicitRangeFrequencyCandidateV1(
       count: primaryCount,
     }),
     solverAgreement: true,
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     nextAvailableQl: "CAL-QL-037",
     questionStudioNoveltyMixActivated: false,
