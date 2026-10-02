@@ -37,13 +37,13 @@ for (const entry of REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1) {
   assert.equal(entry.activationAuthorized, false);
 }
 
-assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.liveQuestionStudioProviders.length, 3);
-assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.contentApprovedAwaitingQuestionStudioRoute.length, 5);
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.liveQuestionStudioProviders.length, 5);
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.contentApprovedAwaitingQuestionStudioRoute.length, 3);
 
 console.log(JSON.stringify({
   status: "PASS_REASONING_NOVELTY_HUMAN_CONTENT_REVIEW_CLOSURE_20261002",
   reviewedProviders: 8,
   passedContentReview: 8,
-  laterLiveActivations: 3,
-  laterAwaitingRoutes: 5,
+  laterLiveActivations: 5,
+  laterAwaitingRoutes: 3,
 }, null, 2));
