@@ -106,19 +106,23 @@ assert.deepEqual(
   summary.approvedProviderIds,
   [
     "PFC-001-CONTROLLED-NOVEL",
+    "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
+    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 5);
+assert.equal(summary.awaitingRouteProviderIds.length, 3);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
     "PFC-001-CONTROLLED-NOVEL",
+    "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
+    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
   ],
 );
 assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.safeguards.questionBankReleaseChanged, false);
