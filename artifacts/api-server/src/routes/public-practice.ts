@@ -27,6 +27,8 @@ const PUBLIC_EXAM_MATCH_ALIASES: Record<string, string[]> = {
   "ssc-mts": ["ssc-mts", "multi-tasking-non-technical-staff", "multi-tasking-staff"],
   "ibps-po": ["ibps-po", "ibps-po-pre", "po-mt", "probationary-officers-management-trainees"],
   "ibps-clerk": ["ibps-clerk", "ibps-clerk-pre", "ibps-csa", "customer-service-associate", "crp-csa"],
+  "ibps-rrb-po": ["ibps-rrb-po", "rrb-po", "rrb-officer-scale-i", "officer-scale-i", "crp-rrbs"],
+  "ibps-rrb-office-assistant": ["ibps-rrb-office-assistant", "rrb-office-assistant", "office-assistant-multipurpose", "office-assistants-multipurpose", "crp-rrbs"],
 };
 
 function normalizeLanguage(value: unknown): "en" | "hi" | "pa" {

@@ -236,6 +236,42 @@ const routes = [
     heading: "IBPS Customer Service Associate XVI syllabus and exam pattern 2026",
     description: "Review the current IBPS CSA XVI preliminary and main examination structure and preparation priorities.",
   },
+  {
+    path: "/ibps-rrb-po",
+    title: "IBPS RRB PO 2026 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "IBPS RRB PO 2026 preparation hub",
+    description: "Prepare for CRP RRBs XV Officer Scale I with prelims, mains, interview guidance, mock tests, and free questions.",
+  },
+  {
+    path: "/ibps-rrb-po-preparation",
+    title: "How to Prepare for IBPS RRB PO 2026 | ExamTree",
+    heading: "How to prepare for IBPS RRB PO 2026",
+    description: "Build prelims speed while preparing RRB Officer Scale I mains, banking awareness, computer knowledge, and interview readiness.",
+  },
+  {
+    path: "/ibps-rrb-po-syllabus",
+    title: "IBPS RRB PO 2026 Syllabus & Exam Pattern | ExamTree",
+    heading: "IBPS RRB Officer Scale I syllabus and exam pattern 2026",
+    description: "Review CRP RRBs XV Officer Scale I prelims, mains, and interview stages.",
+  },
+  {
+    path: "/ibps-rrb-office-assistant",
+    title: "IBPS RRB Office Assistant 2026 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "IBPS RRB Office Assistant 2026 preparation hub",
+    description: "Prepare for CRP RRBs XV Office Assistant with prelims and mains guidance, mock tests, and free questions.",
+  },
+  {
+    path: "/ibps-rrb-office-assistant-preparation",
+    title: "How to Prepare for IBPS RRB Office Assistant 2026 | ExamTree",
+    heading: "How to prepare for IBPS RRB Office Assistant 2026",
+    description: "Build prelims speed while preparing mains awareness, computer knowledge, language, and banking aptitude.",
+  },
+  {
+    path: "/ibps-rrb-office-assistant-syllabus",
+    title: "IBPS RRB Office Assistant 2026 Syllabus & Exam Pattern | ExamTree",
+    heading: "IBPS RRB Office Assistant syllabus and exam pattern 2026",
+    description: "Review CRP RRBs XV Office Assistant prelims and mains preparation structure.",
+  },
 ];
 
 const sscPracticeTopics = [
@@ -310,6 +346,18 @@ routes.push(
     heading: `${name} questions for IBPS Clerk / CSA`,
     description: `Solve free ${name} questions for IBPS Clerk / CSA with answers and explanations.`,
   })),
+  ...bankingPracticeTopics.map(([slug, name]) => ({
+    path: `/ibps-rrb-po/questions/${slug}`,
+    title: `${name} Questions for IBPS RRB PO – Free Practice | ExamTree`,
+    heading: `${name} questions for IBPS RRB PO`,
+    description: `Solve free ${name} questions for IBPS RRB Officer Scale I with answers and explanations.`,
+  })),
+  ...bankingPracticeTopics.map(([slug, name]) => ({
+    path: `/ibps-rrb-office-assistant/questions/${slug}`,
+    title: `${name} Questions for IBPS RRB Office Assistant – Free Practice | ExamTree`,
+    heading: `${name} questions for IBPS RRB Office Assistant`,
+    description: `Solve free ${name} questions for IBPS RRB Office Assistant with answers and explanations.`,
+  })),
 );
 
 const discoveryLinks = [
@@ -322,6 +370,8 @@ const discoveryLinks = [
   ["SSC CPO", "/ssc-cpo"],
   ["IBPS PO", "/ibps-po"],
   ["IBPS Clerk / CSA", "/ibps-clerk"],
+  ["IBPS RRB PO", "/ibps-rrb-po"],
+  ["IBPS RRB Office Assistant", "/ibps-rrb-office-assistant"],
   ["FAQ", "/faq"],
   ["About", "/about"],
   ["Contact", "/contact"],
