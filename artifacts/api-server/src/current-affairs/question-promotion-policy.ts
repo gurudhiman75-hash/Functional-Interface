@@ -131,12 +131,18 @@ export function evaluateCurrentAffairsQuestionPromotionReadiness(
   const sourceRecord = record(input.sourcePayload);
   const generation = record(sourceRecord.generationContext);
   const acceptanceMode = text(generation.questionBankAcceptanceMode ?? sourceRecord.questionBankAcceptanceMode).toUpperCase();
+  const questionBankWritable = booleanValue(
+    generation.questionBankWritable ?? sourceRecord.questionBankWritable,
+  );
   const publiclyPublishable = booleanValue(generation.publiclyPublishable ?? sourceRecord.publiclyPublishable);
   const automaticStudentPublication = booleanValue(
     generation.automaticStudentPublication ?? sourceRecord.automaticStudentPublication,
   );
   if (acceptanceMode !== "BANK_ONLY") {
     blockers.push("CP015 only promotes Current Affairs questions using the BANK_ONLY lifecycle");
+  }
+  if (questionBankWritable !== true) {
+    blockers.push("CP015 source question must explicitly enable Question Bank writing");
   }
   if (publiclyPublishable !== false || automaticStudentPublication !== false) {
     blockers.push("CP015 source question must keep public and automatic student publication closed");
