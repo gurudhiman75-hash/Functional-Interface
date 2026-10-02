@@ -7,12 +7,10 @@ import {
   REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_STATE,
   REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1,
 } from "../shared/reasoning-novelty-human-content-review-v1";
+import {
+  REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1,
+} from "../shared/reasoning-novelty-runtime-activation-v1";
 
-const reviewOnly = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
-  (provider) => provider.status === "DISCOVERY_REVIEW_ONLY",
-);
-
-assert.equal(reviewOnly.length, 8);
 assert.equal(REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_STATE.reviewedProviderCount, 8);
 assert.equal(REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_STATE.passedProviderCount, 8);
 assert.equal(REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_STATE.activationAuthorizedProviderCount, 0);
@@ -21,7 +19,10 @@ assert.equal(REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_STATE.assemblyCreditChang
 
 assert.deepEqual(
   REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1.map((entry) => entry.providerId).sort(),
-  reviewOnly.map((provider) => provider.providerId).sort(),
+  REASONING_V1_NOVELTY_PROVIDERS_V1
+    .filter((provider) => provider.providerId !== "PFC-001-CONTROLLED-NOVEL")
+    .map((provider) => provider.providerId)
+    .sort(),
 );
 
 for (const entry of REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1) {
@@ -34,19 +35,15 @@ for (const entry of REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1) {
   assert.equal(entry.chapterOwnership, "PASS");
   assert.equal(entry.noveltySubstance, "PASS");
   assert.equal(entry.activationAuthorized, false);
-
-  const provider = reviewOnly.find((candidate) => candidate.providerId === entry.providerId);
-  assert.ok(provider, entry.providerId + ": missing review-only provider");
-  assert.equal(provider.status, "DISCOVERY_REVIEW_ONLY");
-  assert.equal(provider.questionStudioNoveltyMixActivated, false);
-  assert.equal(provider.humanReviewRequired, true);
-  assert.equal(provider.countsTowardAssemblyNoveltyNow, false);
 }
+
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.liveQuestionStudioProviders.length, 3);
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.contentApprovedAwaitingQuestionStudioRoute.length, 5);
 
 console.log(JSON.stringify({
   status: "PASS_REASONING_NOVELTY_HUMAN_CONTENT_REVIEW_CLOSURE_20261002",
   reviewedProviders: 8,
   passedContentReview: 8,
-  activatedProviders: 0,
-  productionMixingChanged: false,
+  laterLiveActivations: 3,
+  laterAwaitingRoutes: 5,
 }, null, 2));
