@@ -14,7 +14,8 @@ for (const qlId of NUM_CP014_PERMANENT_QL_IDS) {
   const prototypes = new Set<string>();
   const engineSets = new Set<string>();
   const answerPositions = new Set<number>();
-  let minExplanationLength = Number.POSITIVE_INFINITY;
+  let minFullDerivationCount = Number.POSITIVE_INFINITY;
+  let minExamShortcutCount = Number.POSITIVE_INFINITY;
 
   for (let seed = 1; seed <= SEEDS_PER_QL; seed += 1) {
     const q: any = generateNumCp014Permanent(qlId, seed);
@@ -24,7 +25,10 @@ for (const qlId of NUM_CP014_PERMANENT_QL_IDS) {
     assert.equal(new Set(q.options.map((o: any) => o.value)).size, 4, qlId + ": duplicate options");
     assert.equal(q.options[q.correctIndex]?.value, q.canonicalAnswer, qlId + ": answer/index drift");
     assert.equal(q.verifierAnswer, q.canonicalAnswer, qlId + ": verifier drift");
-    assert.ok(String(q.explanation.finalAnswer).includes(String(q.canonicalAnswer)), qlId + ": explanation answer drift");
+    assert.equal(q.explanation.standard, "FULL_DERIVATION_AND_EXAM_SHORTCUT_V1", qlId + ": explanation standard drift");
+    assert.ok(Array.isArray(q.explanation.fullDerivation) && q.explanation.fullDerivation.length >= 3, qlId + ": full derivation too thin");
+    assert.ok(Array.isArray(q.explanation.examShortcut) && q.explanation.examShortcut.length >= 1, qlId + ": exam shortcut missing");
+    assert.equal(String(q.explanation.finalAnswer), String(q.canonicalAnswer), qlId + ": explanation answer drift");
     assert.ok(Array.isArray(q.componentEngines) && q.componentEngines.length >= 2, qlId + ": multi-engine evidence missing");
     assert.ok(q.ablation, qlId + ": ablation evidence missing");
 
@@ -51,7 +55,8 @@ for (const qlId of NUM_CP014_PERMANENT_QL_IDS) {
     prototypes.add(String(q.sourcePrototypeId));
     engineSets.add([...q.componentEngines].sort().join("+"));
     answerPositions.add(Number(q.correctIndex));
-    minExplanationLength = Math.min(minExplanationLength, explanation.length);
+    minFullDerivationCount = Math.min(minFullDerivationCount, q.explanation.fullDerivation.length);
+    minExamShortcutCount = Math.min(minExamShortcutCount, q.explanation.examShortcut.length);
   }
 
   perQl.push({
@@ -65,7 +70,8 @@ for (const qlId of NUM_CP014_PERMANENT_QL_IDS) {
     prototypeCount: prototypes.size,
     engineSetCount: engineSets.size,
     answerPositionCount: answerPositions.size,
-    minExplanationLength,
+    minFullDerivationCount,
+    minExamShortcutCount,
   });
 }
 
@@ -75,7 +81,8 @@ for (const row of perQl) {
   assert.ok(row.explanationCount >= 8, row.qlId + ": explanation diversity below 8");
   assert.ok(row.optionSurfaceCount >= 16, row.qlId + ": option-state breadth below 16");
   assert.equal(row.answerPositionCount, 4, row.qlId + ": all four answer positions must be exercised");
-  assert.ok(row.minExplanationLength >= 700, row.qlId + ": synthesis explanation remains too thin");
+  assert.ok(row.minFullDerivationCount >= 3, row.qlId + ": full derivation count drift");
+  assert.ok(row.minExamShortcutCount >= 1, row.qlId + ": exam shortcut count drift");
 }
 
 const ql250 = perQl.find((row) => row.qlId === "NUM-QL-250");
