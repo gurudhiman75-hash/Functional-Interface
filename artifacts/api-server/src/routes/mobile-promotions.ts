@@ -10,7 +10,7 @@ router.get("/mobile/promotions",async(req,res)=>{
     const placement=typeof req.query.placement==="string"&&allowed.has(req.query.placement)?req.query.placement:"home";
     const rows=await sqlClient`
       SELECT
-        id::text AS id,title,subtitle,image_url AS "imageUrl",placement,
+        id::text AS id,title,subtitle,cta_label AS "ctaLabel",image_url AS "imageUrl",placement,
         destination_type AS "destinationType",destination_value AS "destinationValue",
         campaign_kind AS "campaignKind",is_dismissible AS "isDismissible",
         frequency_cap_per_day AS "frequencyCapPerDay",audience,sort_order AS "sortOrder"
