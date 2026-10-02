@@ -110,9 +110,27 @@ const routes = [
     heading: "SSC CGL syllabus and Tier-I pattern 2026",
     description: "Review the SSC CGL 2026 Tier-I subject structure, marks, timing, negative marking, and preparation links.",
   },
+  {
+    path: "/ssc-chsl",
+    title: "SSC CHSL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC CHSL preparation hub",
+    description: "Prepare for SSC CHSL with syllabus guidance, preparation strategy, mock tests, and free topic-wise questions with answers.",
+  },
+  {
+    path: "/ssc-chsl-preparation",
+    title: "How to Prepare for SSC CHSL 2026 | ExamTree",
+    heading: "How to prepare for SSC CHSL 2026",
+    description: "Build SSC CHSL Tier-I fundamentals, practise by topic, review timed mocks, and prepare for Tier-II computer and skill requirements.",
+  },
+  {
+    path: "/ssc-chsl-syllabus",
+    title: "SSC CHSL Syllabus & Exam Pattern 2026 | ExamTree",
+    heading: "SSC CHSL syllabus and exam pattern 2026",
+    description: "Review SSC CHSL Tier-I subjects, Tier-II modules, negative marking, and skill or typing requirements.",
+  },
 ];
 
-const sscCglPracticeTopics = [
+const sscPracticeTopics = [
   ["percentage", "Percentage"],
   ["profit-and-loss", "Profit and Loss"],
   ["average", "Average"],
@@ -126,11 +144,17 @@ const sscCglPracticeTopics = [
 ];
 
 routes.push(
-  ...sscCglPracticeTopics.map(([slug, name]) => ({
+  ...sscPracticeTopics.map(([slug, name]) => ({
     path: `/ssc-cgl/questions/${slug}`,
     title: `${name} Questions for SSC CGL – Free Practice | ExamTree`,
     heading: `${name} questions for SSC CGL`,
     description: `Solve free ${name} questions for SSC CGL with answers and explanations, then continue to timed mock tests.`,
+  })),
+  ...sscPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-chsl/questions/${slug}`,
+    title: `${name} Questions for SSC CHSL – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC CHSL`,
+    description: `Solve free ${name} questions for SSC CHSL with answers and explanations, then continue to timed mock tests.`,
   })),
 );
 
@@ -139,6 +163,7 @@ const discoveryLinks = [
   ["Mock tests", "/mock-tests"],
   ["Exams covered", "/exams-covered"],
   ["SSC CGL", "/ssc-cgl"],
+  ["SSC CHSL", "/ssc-chsl"],
   ["FAQ", "/faq"],
   ["About", "/about"],
   ["Contact", "/contact"],
