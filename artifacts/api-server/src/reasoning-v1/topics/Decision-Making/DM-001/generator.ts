@@ -54,7 +54,7 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
   en: {
     VALID: "valid", PENDING: "pending", INVALID: "invalid", MISMATCH: "does not match the record",
     HOME_STATE: "resident of the state", OTHER_STATE: "not a resident of the state",
-    STUDENT: "a student", UNEMPLOYED: "unemployed", CURRENT: "up to date", NOT_APPLICABLE: "not applicable", ACCEPTABLE: "acceptable", GENERAL: "General category", OBC: "OBC category", SC: "SC category", ST: "ST category", OTHER: "other",
+    STUDENT: "student", UNEMPLOYED: "unemployed", CURRENT: "up to date", NOT_APPLICABLE: "not applicable", ACCEPTABLE: "acceptable", GENERAL: "General category", OBC: "OBC category", SC: "SC category", ST: "ST category", OTHER: "other",
     TEACHING: "teaching", CLERICAL: "clerical work", BANKING: "banking", TECHNICAL: "technical work", FIELD: "field work", LABORATORY: "laboratory work",
   },
   hi: {
@@ -106,11 +106,11 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "What decision applies to {name}'s application?", "How should {name}'s application be dealt with under these conditions?",
     "Which outcome follows from the stated rules?", "What status should be recorded for {name}?",
     "Should {name} be selected under the notice?", "Which result is supported by the information given?",
-    "The application should be classified as...", "What is the correct decision on this application?",
+    "Which decision should be recorded for this application?", "What is the correct decision on this application?",
     "Which option reflects {name}'s position under the rules?", "Does {name} satisfy the stated conditions?",
-    "What action do the eligibility rules require?", "On the stated facts, {name} is...",
+    "What action do the eligibility rules require?", "Which decision follows in {name}'s case?",
     "Which result follows after each condition is checked?", "How should the selection authority treat this case?",
-    "Choose the decision that matches {name}'s case.", "Under the listed terms, {name} should be...",
+    "Choose the decision that matches {name}'s case.", "What should be the outcome of {name}'s application?",
     "Which status applies to the applicant?", "What should be recorded as the decision in {name}'s case?",
   ],
   hi: [
@@ -119,9 +119,9 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "क्या सूचना के अनुसार {name} का चयन होना चाहिए?", "दी गई जानकारी किस निर्णय का समर्थन करती है?",
     "आवेदन को किस श्रेणी में रखा जाना चाहिए?", "इस आवेदन पर सही निर्णय क्या है?",
     "नियमों के अनुसार {name} की स्थिति कौन-सा विकल्प बताता है?", "क्या {name} का आवेदन दी गई सभी शर्तों के अनुरूप है?",
-    "पात्रता के नियमों के अनुसार क्या किया जाना चाहिए?", "दी गई जानकारी के आधार पर {name}...",
+    "पात्रता के नियमों के अनुसार क्या किया जाना चाहिए?", "दी गई जानकारी के आधार पर {name} के मामले में कौन-सा निर्णय सही है?",
     "हर शर्त की जाँच के बाद कौन-सा परिणाम निकलता है?", "चयन अधिकारी को इस मामले में क्या करना चाहिए?",
-    "{name} के मामले से मेल खाने वाला निर्णय चुनें।", "दी गई शर्तों के तहत {name}...",
+    "{name} के मामले से मेल खाने वाला निर्णय चुनें।", "दी गई शर्तों के तहत {name} के आवेदन का क्या परिणाम होना चाहिए?",
     "आवेदक पर कौन-सी स्थिति लागू होती है?", "{name} के मामले में निर्णय के रूप में क्या दर्ज किया जाए?",
   ],
   pa: [
@@ -130,9 +130,9 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "ਨੋਟਿਸ ਦੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਕੀ {name} ਦੀ ਚੋਣ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?", "ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਕਿਹੜੇ ਫੈਸਲੇ ਦਾ ਆਧਾਰ ਬਣਦੀ ਹੈ?",
     "ਅਰਜ਼ੀ ਨੂੰ ਕਿਹੜੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਰੱਖਿਆ ਜਾਵੇ?", "ਇਸ ਅਰਜ਼ੀ ਬਾਰੇ ਸਹੀ ਫੈਸਲਾ ਕੀ ਹੈ?",
     "ਨਿਯਮਾਂ ਅਨੁਸਾਰ {name} ਦੀ ਸਥਿਤੀ ਕਿਹੜਾ ਵਿਕਲਪ ਦੱਸਦਾ ਹੈ?", "ਕੀ {name} ਦੀ ਅਰਜ਼ੀ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਦੇ ਅਨੁਸਾਰ ਹੈ?",
-    "ਯੋਗਤਾ ਦੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਕੀ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?", "ਦਿੱਤੇ ਤੱਥਾਂ ਦੇ ਆਧਾਰ ਤੇ {name}...",
+    "ਯੋਗਤਾ ਦੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਕੀ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?", "ਦਿੱਤੇ ਤੱਥਾਂ ਦੇ ਆਧਾਰ ਤੇ {name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਕਿਹੜਾ ਫੈਸਲਾ ਠੀਕ ਹੈ?",
     "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਮਗਰੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ?", "ਚੋਣ ਅਧਿਕਾਰੀ ਨੂੰ ਇਸ ਮਾਮਲੇ ਵਿੱਚ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
-    "{name} ਦੇ ਮਾਮਲੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਫੈਸਲਾ ਚੁਣੋ।", "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠ {name}...",
+    "{name} ਦੇ ਮਾਮਲੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਫੈਸਲਾ ਚੁਣੋ।", "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠ {name} ਦੀ ਅਰਜ਼ੀ ਦਾ ਕੀ ਨਤੀਜਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?",
     "ਬਿਨੈਕਾਰ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਲਾਗੂ ਹੁੰਦੀ ਹੈ?", "{name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਫੈਸਲੇ ਵਜੋਂ ਕੀ ਦਰਜ ਕੀਤਾ ਜਾਵੇ?",
   ],
 });
@@ -140,7 +140,7 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
 const SITUATIONAL_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
   en: [
     "Which is the most appropriate action?", "What should the responsible officer do?", "Which course of action should be followed?",
-    "What is the best defensible response?", "Which step follows sound administrative procedure?", "How should this matter be handled?",
+    "Which response is most appropriate in these circumstances?", "Which step follows sound administrative procedure?", "How should this matter be handled?",
     "Which action should be taken first?", "What is the most appropriate next step?", "Which response correctly applies the stated priorities?",
     "What should be done before any consequential action?", "Which option gives the correct sequence?", "Which action best protects the process?",
     "Which response is both practical and procedurally sound?", "How should the authority proceed?", "Which action avoids premature escalation?",
@@ -148,7 +148,7 @@ const SITUATIONAL_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.
   ],
   hi: [
     "सबसे उपयुक्त कार्रवाई कौन-सी है?", "जिम्मेदार अधिकारी को क्या करना चाहिए?", "कौन-सा कार्य-मार्ग अपनाया जाना चाहिए?",
-    "सबसे उचित और बचाव योग्य प्रतिक्रिया कौन-सी है?", "कौन-सा कदम सही प्रशासनिक प्रक्रिया के अनुरूप है?", "इस मामले को कैसे निपटाया जाना चाहिए?",
+    "इन परिस्थितियों में सबसे उचित प्रतिक्रिया कौन-सी है?", "कौन-सा कदम सही प्रशासनिक प्रक्रिया के अनुरूप है?", "इस मामले को कैसे निपटाया जाना चाहिए?",
     "सबसे पहले कौन-सी कार्रवाई करनी चाहिए?", "अगला सबसे उपयुक्त कदम क्या है?", "कौन-सी प्रतिक्रिया दी गई प्राथमिकताओं को सही लागू करती है?",
     "किसी निर्णायक कार्रवाई से पहले क्या करना चाहिए?", "कौन-सा विकल्प सही क्रम बताता है?", "कौन-सी कार्रवाई प्रक्रिया की सबसे अच्छी रक्षा करती है?",
     "कौन-सी प्रतिक्रिया व्यावहारिक और प्रक्रियागत रूप से सही है?", "प्राधिकारी को कैसे आगे बढ़ना चाहिए?", "कौन-सी कार्रवाई समय से पहले मामले को ऊपर भेजने से बचाती है?",
@@ -156,7 +156,7 @@ const SITUATIONAL_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.
   ],
   pa: [
     "ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?", "ਜ਼ਿੰਮੇਵਾਰ ਅਧਿਕਾਰੀ ਨੂੰ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜਾ ਕਾਰਵਾਈ ਰਾਹ ਅਪਣਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?",
-    "ਸਭ ਤੋਂ ਠੀਕ ਅਤੇ ਬਚਾਅਯੋਗ ਜਵਾਬ ਕਿਹੜਾ ਹੈ?", "ਕਿਹੜਾ ਕਦਮ ਠੀਕ ਪ੍ਰਸ਼ਾਸਕੀ ਪ੍ਰਕਿਰਿਆ ਅਨੁਸਾਰ ਹੈ?", "ਇਸ ਮਾਮਲੇ ਨੂੰ ਕਿਵੇਂ ਨਿਪਟਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?",
+    "ਇਨ੍ਹਾਂ ਹਾਲਾਤਾਂ ਵਿੱਚ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਜਵਾਬ ਕਿਹੜਾ ਹੈ?", "ਕਿਹੜਾ ਕਦਮ ਠੀਕ ਪ੍ਰਸ਼ਾਸਕੀ ਪ੍ਰਕਿਰਿਆ ਅਨੁਸਾਰ ਹੈ?", "ਇਸ ਮਾਮਲੇ ਨੂੰ ਕਿਵੇਂ ਨਿਪਟਾਇਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?",
     "ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਕਾਰਵਾਈ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ?", "ਅਗਲਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਕਦਮ ਕੀ ਹੈ?", "ਕਿਹੜਾ ਜਵਾਬ ਦਿੱਤੀਆਂ ਤਰਜੀਹਾਂ ਠੀਕ ਲਾਗੂ ਕਰਦਾ ਹੈ?",
     "ਕਿਸੇ ਨਤੀਜਾਕਾਰੀ ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਕ੍ਰਮ ਦੱਸਦਾ ਹੈ?", "ਕਿਹੜੀ ਕਾਰਵਾਈ ਪ੍ਰਕਿਰਿਆ ਦੀ ਸਭ ਤੋਂ ਵਧੀਆ ਰੱਖਿਆ ਕਰਦੀ ਹੈ?",
     "ਕਿਹੜਾ ਜਵਾਬ ਵਿਹਾਰਕ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਅਨੁਸਾਰ ਠੀਕ ਹੈ?", "ਅਧਿਕਾਰੀ ਨੂੰ ਕਿਵੇਂ ਅੱਗੇ ਵਧਣਾ ਚਾਹੀਦਾ ਹੈ?", "ਕਿਹੜੀ ਕਾਰਵਾਈ ਬੇਲੋੜੀ ਉੱਚ ਪੱਧਰੀ ਭੇਜਣ ਤੋਂ ਬਚਾਉਂਦੀ ਹੈ?",
@@ -228,9 +228,9 @@ const RANKING_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.free
 });
 
 const PROMPTS: Readonly<Record<DmLocale, Readonly<{ intro: string; conditions: string; applicant: string; additional: string; missing: string; pass: string; fail: string; unknown: string; result: string; }>>> = Object.freeze({
-  en: { intro: "For {context}, applicants must meet every condition listed:", conditions: "Conditions", applicant: "Applicant", additional: "Additional rule", missing: "not provided", pass: "met", fail: "not met", unknown: "cannot be checked", result: "Decision" },
-  hi: { intro: "{context} के लिए आवेदकों को नीचे दी गई सभी शर्तें पूरी करनी होंगी:", conditions: "शर्तें", applicant: "आवेदक", additional: "अतिरिक्त नियम", missing: "उपलब्ध नहीं", pass: "शर्त पूरी है", fail: "शर्त पूरी नहीं है", unknown: "जाँच संभव नहीं है", result: "निर्णय" },
-  pa: { intro: "{context} ਲਈ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਹੇਠ ਲਿਖੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨੀਆਂ ਲਾਜ਼ਮੀ ਹਨ:", conditions: "ਸ਼ਰਤਾਂ", applicant: "ਬਿਨੈਕਾਰ", additional: "ਵਾਧੂ ਨਿਯਮ", missing: "ਦਿੱਤੀ ਨਹੀਂ ਗਈ", pass: "ਸ਼ਰਤ ਪੂਰੀ ਹੈ", fail: "ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਹੈ", unknown: "ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕਦੀ", result: "ਫੈਸਲਾ" },
+  en: { intro: "Study the following conditions for {context} and decide the case.", conditions: "Eligibility conditions", applicant: "Details of", additional: "Special provisions", missing: "not provided", pass: "satisfied", fail: "not satisfied", unknown: "cannot be determined", result: "Decision" },
+  hi: { intro: "{context} के लिए दी गई शर्तों का अध्ययन करके मामले का निर्णय कीजिए।", conditions: "पात्रता शर्तें", applicant: "विवरण—", additional: "विशेष प्रावधान", missing: "उपलब्ध नहीं", pass: "पूरी", fail: "पूरी नहीं", unknown: "निर्धारित नहीं किया जा सकता", result: "निर्णय" },
+  pa: { intro: "{context} ਲਈ ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਪੜ੍ਹ ਕੇ ਮਾਮਲੇ ਦਾ ਫੈਸਲਾ ਕਰੋ।", conditions: "ਯੋਗਤਾ ਸ਼ਰਤਾਂ", applicant: "ਵੇਰਵਾ—", additional: "ਵਿਸ਼ੇਸ਼ ਪ੍ਰਬੰਧ", missing: "ਦਿੱਤੀ ਨਹੀਂ ਗਈ", pass: "ਪੂਰੀ", fail: "ਪੂਰੀ ਨਹੀਂ", unknown: "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ", result: "ਫੈਸਲਾ" },
 });
 
 const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>>> = Object.freeze({
@@ -477,7 +477,7 @@ export function formatDmRequirement(condition: DmRuleCondition, locale: DmLocale
     return label + ": ਘੱਟੋ-ਘੱਟ " + target;
   }
   if (condition.operator === "IN") {
-    if (locale === "en") return label + ": one of " + target;
+    if (locale === "en") return label + ": " + target;
     if (locale === "hi") return label + ": इनमें से एक — " + target;
     return label + ": ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇੱਕ — " + target;
   }
@@ -626,7 +626,9 @@ function buildRankingExplanation(
   const eligibleHeading = locale === "en" ? "Eligible ranking" : locale === "hi" ? "पात्रता के बाद वरीयता" : "ਯੋਗਤਾ ਮਗਰੋਂ ਦਰਜਾਬੰਦੀ";
   const excludedHeading = locale === "en" ? "Not eligible" : locale === "hi" ? "अपात्र" : "ਅਯੋਗ";
   const selectedLine = locale === "en"
-    ? "The first " + scenario.ranking!.seatCount + " eligible applicants receive the seats."
+    ? scenario.ranking!.seatCount === 1
+      ? "The highest-ranked eligible applicant receives the seat."
+      : "The first " + scenario.ranking!.seatCount + " eligible applicants receive the seats."
     : locale === "hi"
       ? "पहले " + scenario.ranking!.seatCount + " पात्र आवेदकों को सीटें मिलेंगी।"
       : "ਪਹਿਲੇ " + scenario.ranking!.seatCount + " ਯੋਗ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਸੀਟਾਂ ਮਿਲਣਗੀਆਂ।";
@@ -670,10 +672,13 @@ function profileFields(scenario: DmScenario): readonly DmField[] {
   return [...fields];
 }
 
-function formatApplicant(profile: DmCandidateProfile, scenario: DmScenario, locale: DmLocale): string {
+function formatApplicant(profile: DmCandidateProfile, scenario: DmScenario, locale: DmLocale, includeLabel = true): string {
   const label = PROMPTS[locale].applicant;
   const items = profileFields(scenario).map((field) => FIELD_LABELS[locale][field] + ": " + formatCandidateValue(field, profile, scenario, locale));
-  return label + " " + profile.name + ": " + items.join(locale === "en" ? "; " : "। ") + (locale === "en" ? "." : "।");
+  const name = includeLabel ? label + " " + profile.name : profile.name;
+  return locale === "en"
+    ? name + " — " + items.join("; ") + "."
+    : name + " — " + items.join("। ") + "।";
 }
 
 function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale: DmLocale, seed: number): string {
@@ -714,7 +719,10 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
   const prompt = PROMPTS[locale];
   const rows = result.checks.map((check) => {
     const observed = formatCandidateValue(check.condition.field, candidate, scenario, locale);
-    return "• " + FIELD_LABELS[locale][check.condition.field] + ": " + observed + "; " + formatDmRequirement(check.condition, locale) + " — " + statusLabel(check.status, locale) + ".";
+    const requirement = formatDmRequirement(check.condition, locale).replace(/^[^:]+:\s*/, "");
+    const separator = locale === "en" ? "; required: " : locale === "hi" ? "; अपेक्षित: " : "; ਲੋੜ: ";
+    const punctuation = locale === "en" ? "." : "।";
+    return "• " + FIELD_LABELS[locale][check.condition.field] + ": " + observed + separator + requirement + " — " + statusLabel(check.status, locale) + punctuation;
   });
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
   const ruleLine = matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome];
@@ -728,7 +736,7 @@ const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind
 });
 
 const SET_STEM_WRAPPERS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
-  en: ["According to the stated conditions, {q}", "After applying every rule, {q}", "On checking all the profiles, {q}", "Under the common rule block, {q}", "Which option correctly states {q}", "Based only on the information given, {q}", "After considering the applicable exception, {q}", "What follows from the rule-wise scrutiny: {q}", "Using the published conditions, {q}", "When each profile is decided independently, {q}", "After checking ordinary rules before exceptions, {q}", "Under the stated decision procedure, {q}", "From the complete set, {q}", "On a condition-by-condition check, {q}", "After resolving the referral rules in order, {q}", "For this group of applicants, {q}", "Which conclusion follows from the shared notice: {q}", "Applying the rules without adding assumptions, {q}"],
+  en: ["According to the stated conditions, {q}", "After applying every rule, {q}", "On checking all the profiles, {q}", "Under the common rule block, {q}", "Which option correctly states {q}", "Based only on the information given, {q}", "After considering the applicable exception, {q}", "What follows from the rule-wise scrutiny: {q}", "Using the published conditions, {q}", "When each profile is decided independently, {q}", "After checking ordinary rules before exceptions, {q}", "Under the stated decision procedure, {q}", "From the complete set, {q}", "On a condition-by-condition check, {q}", "After resolving the referral rules in order, {q}", "Considering this group of applicants, {q}", "Which conclusion follows from the shared notice: {q}", "Applying the rules without adding assumptions, {q}"],
   hi: ["दी गई शर्तों के अनुसार, {q}", "हर नियम लागू करने के बाद, {q}", "सभी प्रोफाइल जाँचने पर, {q}", "समान नियम-खंड के तहत, {q}", "कौन-सा विकल्प सही बताता है कि {q}", "केवल दी गई जानकारी के आधार पर, {q}", "लागू अपवाद पर विचार करने के बाद, {q}", "नियमवार जाँच से क्या निकलता है: {q}", "प्रकाशित शर्तों का उपयोग करते हुए, {q}", "हर प्रोफाइल का स्वतंत्र निर्णय करने पर, {q}", "अपवाद से पहले सामान्य नियम जाँचने के बाद, {q}", "दी गई निर्णय प्रक्रिया के तहत, {q}", "पूर्ण सेट के आधार पर, {q}", "हर शर्त की जाँच करने पर, {q}", "प्रेषण नियमों को क्रम से लागू करने के बाद, {q}", "इस आवेदक समूह के लिए, {q}", "समान सूचना से कौन-सा निष्कर्ष निकलता है: {q}", "बिना कोई अनुमान जोड़े नियम लागू करने पर, {q}"],
   pa: ["ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ, {q}", "ਹਰ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਸਾਰੀਆਂ ਪ੍ਰੋਫਾਈਲਾਂ ਜਾਂਚਣ ਤੇ, {q}", "ਸਾਂਝੇ ਨਿਯਮ-ਖੰਡ ਹੇਠ, {q}", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਦੱਸਦਾ ਹੈ ਕਿ {q}", "ਸਿਰਫ਼ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਲਾਗੂ ਅਪਵਾਦ ਵੇਖਣ ਮਗਰੋਂ, {q}", "ਨਿਯਮਵਾਰ ਜਾਂਚ ਤੋਂ ਕੀ ਨਿਕਲਦਾ ਹੈ: {q}", "ਜਾਰੀ ਸ਼ਰਤਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ, {q}", "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ ਕਰਨ ਤੇ, {q}", "ਅਪਵਾਦ ਤੋਂ ਪਹਿਲਾਂ ਆਮ ਨਿਯਮ ਜਾਂਚਣ ਮਗਰੋਂ, {q}", "ਦਿੱਤੀ ਫੈਸਲਾ ਪ੍ਰਕਿਰਿਆ ਹੇਠ, {q}", "ਪੂਰੇ ਸੈੱਟ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਕਰਨ ਤੇ, {q}", "ਰੈਫਰਲ ਨਿਯਮ ਕ੍ਰਮ ਨਾਲ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਇਸ ਬਿਨੈਕਾਰ ਸਮੂਹ ਲਈ, {q}", "ਸਾਂਝੀ ਸੂਚਨਾ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ: {q}", "ਬਿਨਾਂ ਕੋਈ ਅਨੁਮਾਨ ਜੋੜੇ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਤੇ, {q}"],
 });
@@ -767,7 +775,7 @@ function setAnswer(kind: DmSetQuestionKind, cohort: readonly DmCandidateProfile[
 
 function setOptions(kind: DmSetQuestionKind, answer: string, cohort: readonly DmCandidateProfile[], locale: DmLocale, seed: number): { options: readonly string[]; correctIndex: number } {
   let alternatives: string[];
-  if (kind === "COUNT_SELECTED") alternatives = ["0", "1", "2", "3", "4", "5", "6"].filter((value) => value !== answer);
+  if (kind === "COUNT_SELECTED") alternatives = Array.from({ length: cohort.length + 1 }, (_, index) => String(index)).filter((value) => value !== answer);
   else if (kind === "SAME_DECISION_PAIR") {
     alternatives = [];
     for (let left = 0; left < cohort.length; left += 1) for (let right = left + 1; right < cohort.length; right += 1) {
@@ -798,14 +806,14 @@ function buildSetCohort(scenario: DmScenario, locale: DmLocale, seed: number, mo
 
 function sharedSetStimulus(scenario: DmScenario, cohort: readonly DmCandidateProfile[], locale: DmLocale): string {
   const intro = locale === "en"
-    ? scenario.context.en + ": applicants must meet every condition listed."
+    ? "The following case concerns " + scenario.context.en.toLowerCase() + ". Study the eligibility conditions and applicant details, then answer the questions that follow."
     : locale === "hi"
-      ? scenario.context.hi + " के अंतर्गत आवेदकों को नीचे दी गई सभी शर्तें पूरी करनी होंगी।"
-      : scenario.context.pa + " ਅਧੀਨ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਹੇਠ ਲਿਖੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨੀਆਂ ਲਾਜ਼ਮੀ ਹਨ।";
+      ? "नीचे दिया गया मामला " + scenario.context.hi + " से संबंधित है। पात्रता शर्तों और आवेदकों के विवरण का अध्ययन करके आगे दिए गए प्रश्नों के उत्तर दीजिए।"
+      : "ਹੇਠਾਂ ਦਿੱਤਾ ਮਾਮਲਾ " + scenario.context.pa + " ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ। ਯੋਗਤਾ ਸ਼ਰਤਾਂ ਅਤੇ ਬਿਨੈਕਾਰਾਂ ਦੇ ਵੇਰਵੇ ਪੜ੍ਹ ਕੇ ਅਗਲੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।";
   const ruleLines = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
   const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + note[locale])] : [];
   const applicants = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
-  return [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale))].join("\n");
+  return [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale, false))].join("\n");
 }
 
 function generateSetQuestionFromCohort(
@@ -828,7 +836,8 @@ function generateSetQuestionFromCohort(
   const prompt = SET_STEM_WRAPPERS[locale][(seed + questionNumber - 1) % SET_STEM_WRAPPERS[locale].length]!.replace("{q}", question);
   const stem = sharedStimulus + "\n" + prompt;
   const resultRows = cohort.map((candidate, index) => candidate.name + " — " + OUTCOME_LABELS[locale][results[index]!.outcome]);
-  const explanation = (locale === "en" ? "Each profile is decided independently" : locale === "hi" ? "हर प्रोफाइल का स्वतंत्र निर्णय" : "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ") + ":\n" + resultRows.join("\n") + "\n\n" + (locale === "en" ? "Therefore: " : locale === "hi" ? "अतः: " : "ਇਸ ਲਈ: ") + answer.label + ".";
+  const finalPunctuation = locale === "en" ? "." : "।";
+  const explanation = (locale === "en" ? "Each profile is decided independently" : locale === "hi" ? "हर प्रोफाइल का स्वतंत्र निर्णय" : "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ") + ":\n" + resultRows.join("\n") + "\n\n" + (locale === "en" ? "Therefore: " : locale === "hi" ? "अतः " : "ਇਸ ਲਈ ") + answer.label + finalPunctuation;
   const rows = results.flatMap((result, index) => result.checks.map((check) => Object.freeze({
     condition: cohort[index]!.name + " — " + FIELD_LABELS[locale][check.condition.field],
     candidateValue: formatCandidateValue(check.condition.field, cohort[index]!, scenario, locale),
