@@ -25,10 +25,10 @@ type HeroSlide={
   destinationType:string;destinationValue:string;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;
 };
-type HomeCard={id:string;title:string;subtitle:string;badge:string;iconName:string;iconUrl:string;imageUrl:string;ctaLabel:string;destinationType:string;destinationValue:string;isActive:boolean;sortOrder:number};
-type CustomSection={id:string;title:string;subtitle:string;iconName:string;iconUrl:string;layout:string;isVisible:boolean;sortOrder:number;cards:HomeCard[]};
+type HomeCard={id:string;title:string;subtitle:string;badge:string;iconName:string;iconUrl:string;imageUrl:string;ctaLabel:string;destinationType:string;destinationValue:string;span:number;style:string;isActive:boolean;sortOrder:number};
+type CustomSection={id:string;title:string;subtitle:string;iconName:string;iconUrl:string;layout:string;columns:number;gap:string;style:string;isVisible:boolean;sortOrder:number;cards:HomeCard[]};
 type ItemOverride={title?:string;subtitle?:string;badge?:string;iconName?:string;iconUrl?:string;imageUrl?:string;hidden?:boolean};
-type SectionSetting={title?:string;subtitle?:string;iconName?:string;iconUrl?:string;layout?:string;isVisible?:boolean};
+type SectionSetting={title?:string;subtitle?:string;iconName?:string;iconUrl?:string;layout?:string;columns?:number;isVisible?:boolean};
 type Configuration={
   heroSlides:HeroSlide[];
   featuredExamFamilyIds:string[];
@@ -40,8 +40,9 @@ type Configuration={
 };
 type ExamFamily={id:string;code:string;name:string;description:string|null};
 type TestSeries={id:string;code:string;name:string;currentVersionNumber:number;examName:string};
+type Exam={id:string;code:string;name:string;familyName:string};
 type ManagedPage={id:string;slug:string;title:string;renderMode:string;isActive:boolean};
-type Data={configuration:Configuration;catalog:{examFamilies:ExamFamily[];testSeries:TestSeries[]};updatedAt:string|null;updatedBy:string|null};
+type Data={configuration:Configuration;catalog:{examFamilies:ExamFamily[];testSeries:TestSeries[];exams:Exam[]};updatedAt:string|null;updatedBy:string|null};
 
 const SECTION_LABELS:Record<string,string>={
   hero:'Hero banner',
@@ -173,7 +174,7 @@ export function MobileHomeManagementPage(){
   const addCustomSection=(layout='horizontal')=>{
     const id=`custom_${crypto.randomUUID()}`;
     const titleByLayout:Record<string,string>={horizontal:'New card row',grid:'New grid',list:'New list',banner:'New banner'};
-    const section:CustomSection={id,title:titleByLayout[layout]||'New section',subtitle:'',iconName:'',iconUrl:'',layout,isVisible:true,sortOrder:(config?.customSections.length||0)+1,cards:[]};
+    const section:CustomSection={id,title:titleByLayout[layout]||'New section',subtitle:'',iconName:'',iconUrl:'',layout,columns:2,gap:'normal',style:'default',isVisible:true,sortOrder:(config?.customSections.length||0)+1,cards:[]};
     setConfig(previous=>previous?({...previous,customSections:[...previous.customSections,section],sectionOrder:[...previous.sectionOrder,id]}):previous);
     setEditingCustomSectionId(id);
     setEditingBuilderSectionId(id);
@@ -200,7 +201,7 @@ export function MobileHomeManagementPage(){
   const addCustomCard=(sectionId:string)=>setConfig(previous=>{
     if(!previous)return previous;
     const section=previous.customSections.find(item=>item.id===sectionId); if(!section)return previous;
-    const card:HomeCard={id:crypto.randomUUID(),title:'New card',subtitle:'',badge:'',iconName:'',iconUrl:'',imageUrl:'',ctaLabel:'Open',destinationType:'none',destinationValue:'',isActive:true,sortOrder:section.cards.length+1};
+    const card:HomeCard={id:crypto.randomUUID(),title:'New card',subtitle:'',badge:'',iconName:'',iconUrl:'',imageUrl:'',ctaLabel:'Open',destinationType:'none',destinationValue:'',span:1,style:'default',isActive:true,sortOrder:section.cards.length+1};
     return {...previous,customSections:previous.customSections.map(item=>item.id===sectionId?{...item,cards:[...item.cards,card]}:item)};
   });
   const updateCustomCard=(sectionId:string,cardId:string,patch:Partial<HomeCard>)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===sectionId?{...section,cards:section.cards.map(card=>card.id===cardId?{...card,...patch}:card)}:section)}):previous);
@@ -250,6 +251,15 @@ export function MobileHomeManagementPage(){
     if(!config)return;
     const invalid=config.heroSlides.find(slide=>slide.title.trim().length<2);
     if(invalid){showToast.error('Hero slide needs a title','Every retained hero slide must have a title.');setEditingHeroId(invalid.id);return;}
+    const badSchedule=config.heroSlides.find(slide=>slide.startAt&&slide.endAt&&new Date(slide.startAt)>=new Date(slide.endAt));
+    if(badSchedule){showToast.error('Hero schedule is invalid',`"${badSchedule.title}" must end after it starts.`);setEditingHeroId(badSchedule.id);return;}
+    const badSection=config.customSections.find(section=>!section.title.trim()||section.cards.some(card=>!card.title.trim()));
+    if(badSection){showToast.error('Custom content needs titles','Every custom section and retained card needs a title.');setEditingCustomSectionId(badSection.id);return;}
+    const destinations=[...config.heroSlides.map(item=>({title:item.title,type:item.destinationType,value:item.destinationValue})),...config.customSections.flatMap(section=>section.cards.map(item=>({title:item.title,type:item.destinationType,value:item.destinationValue})))];
+    const missingDestination=destinations.find(item=>['exam','test_series','page'].includes(item.type)&&!item.value.trim());
+    if(missingDestination){showToast.error('Destination is required',`Choose where "${missingDestination.title||'Home item'}" should open.`);return;}
+    const invalidUrl=destinations.find(item=>item.type==='url'&&!isHttpUrl(item.value));
+    if(invalidUrl){showToast.error('URL is invalid',`"${invalidUrl.title||'Home item'}" needs a valid http/https URL.`);return;}
     setSaving(true);
     try{
       const result=await call<{configuration:Configuration;updatedAt:string}>('/admin/mobile/home',{method:'PUT',body:JSON.stringify({configuration:config})});
@@ -318,7 +328,9 @@ export function MobileHomeManagementPage(){
               </div>
               {editing&&<div className="grid gap-3 border-t bg-muted/20 p-3 md:grid-cols-2">
                 <Field label="Display title"><Input value={custom?custom.title:(setting.title||'')} onChange={e=>custom?updateCustomSection(section,{title:e.target.value}):setSectionSetting(section,{title:e.target.value})} placeholder={SECTION_LABELS[section]||'Section title'}/></Field>
-                {custom?<Field label="Content layout"><Select value={custom.layout} onValueChange={value=>updateCustomSection(section,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>:<div className="flex items-end"><p className="pb-2 text-xs text-muted-foreground">Built-in content keeps its native mobile layout.</p></div>}
+                {custom?<Field label="Content layout"><Select value={custom.layout} onValueChange={value=>updateCustomSection(section,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>:<div className="flex items-end"><p className="pb-2 text-xs text-muted-foreground">{section==='exam_categories'||section==='featured_test_series'?'Use Standard section appearance below for layout options.':'This data-driven section keeps its native mobile layout.'}</p></div>}
+                {custom&&<Field label="Card style"><StyleSelect value={custom.style} onChange={value=>updateCustomSection(section,{style:value})}/></Field>}
+                {custom&&custom.layout==='grid'&&<><Field label="Grid columns"><Select value={String(custom.columns)} onValueChange={value=>updateCustomSection(section,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="1">1 column</SelectItem><SelectItem value="2">2 columns</SelectItem><SelectItem value="3">3 columns</SelectItem><SelectItem value="4">4 columns</SelectItem></SelectContent></Select></Field><Field label="Spacing"><Select value={custom.gap} onValueChange={value=>updateCustomSection(section,{gap:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="compact">Compact</SelectItem><SelectItem value="normal">Normal</SelectItem><SelectItem value="relaxed">Relaxed</SelectItem></SelectContent></Select></Field></>}
                 <Field label="Built-in icon"><IconPicker value={custom?custom.iconName:(setting.iconName||'')} onChange={value=>custom?updateCustomSection(section,{iconName:value}):setSectionSetting(section,{iconName:value})}/></Field>
                 <Field label="Custom icon"><MediaAssetPicker value={custom?custom.iconUrl:(setting.iconUrl||'')} onChange={url=>custom?updateCustomSection(section,{iconUrl:url}):setSectionSetting(section,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
                 {custom&&<div className="md:col-span-2"><Button size="sm" variant="outline" onClick={()=>{setEditingCustomSectionId(section);setEditingBuilderSectionId(null);}}><Layers3 className="mr-1.5 h-4 w-4"/>Edit cards & destinations</Button></div>}
@@ -362,10 +374,14 @@ export function MobileHomeManagementPage(){
                 <div className="md:col-span-2"><Field label="Banner image"><MediaAssetPicker value={slide.imageUrl} onChange={url=>updateSlide(slide.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field></div>
                 <Field label="Built-in icon"><IconPicker value={slide.iconName} onChange={value=>updateSlide(slide.id,{iconName:value})}/></Field>
                 <Field label="Custom icon"><MediaAssetPicker value={slide.iconUrl} onChange={url=>updateSlide(slide.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
-                <Field label="Destination type"><Select value={slide.destinationType} onValueChange={value=>updateSlide(slide.id,{destinationType:value,destinationValue:value==='none'?'':slide.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field>
-                {slide.destinationType==='page'
-                  ?<Field label="Select page"><Select value={slide.destinationValue} onValueChange={value=>updateSlide(slide.id,{destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Screen Builder page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field>
-                  :<Field label="Destination / deep link"><Input value={slide.destinationValue} onChange={e=>updateSlide(slide.id,{destinationValue:e.target.value})} placeholder="Exam ID, series ID, Learn route or URL"/></Field>}
+                <DestinationEditor
+                  type={slide.destinationType}
+                  value={slide.destinationValue}
+                  pages={managedPages}
+                  exams={data?.catalog.exams||[]}
+                  testSeries={data?.catalog.testSeries||[]}
+                  onChange={(destinationType,destinationValue)=>updateSlide(slide.id,{destinationType,destinationValue})}
+                />
                 <Field label="Start"><Input type="datetime-local" value={localDateTime(slide.startAt)} onChange={e=>updateSlide(slide.id,{startAt:isoOrNull(e.target.value)})}/></Field>
                 <Field label="End"><Input type="datetime-local" value={localDateTime(slide.endAt)} onChange={e=>updateSlide(slide.id,{endAt:isoOrNull(e.target.value)})}/></Field>
               </div>
@@ -452,6 +468,8 @@ export function MobileHomeManagementPage(){
             <div className="grid gap-4 md:grid-cols-2">
               <Field label="Section title"><Input value={section.title} onChange={e=>updateCustomSection(section.id,{title:e.target.value})}/></Field>
               <Field label="Layout"><Select value={section.layout} onValueChange={value=>updateCustomSection(section.id,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>
+              <Field label="Card style"><StyleSelect value={section.style} onChange={value=>updateCustomSection(section.id,{style:value})}/></Field>
+              {section.layout==='grid'&&<><Field label="Grid columns"><Select value={String(section.columns)} onValueChange={value=>updateCustomSection(section.id,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="1">1 column</SelectItem><SelectItem value="2">2 columns</SelectItem><SelectItem value="3">3 columns</SelectItem><SelectItem value="4">4 columns</SelectItem></SelectContent></Select></Field><Field label="Spacing"><Select value={section.gap} onValueChange={value=>updateCustomSection(section.id,{gap:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="compact">Compact</SelectItem><SelectItem value="normal">Normal</SelectItem><SelectItem value="relaxed">Relaxed</SelectItem></SelectContent></Select></Field></>}
               <div className="md:col-span-2"><Field label="Subtitle"><Input value={section.subtitle} onChange={e=>updateCustomSection(section.id,{subtitle:e.target.value})}/></Field></div>
               <Field label="Section icon"><IconPicker value={section.iconName} onChange={value=>updateCustomSection(section.id,{iconName:value})}/></Field>
               <Field label="Section icon"><MediaAssetPicker value={section.iconUrl} onChange={url=>updateCustomSection(section.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
@@ -465,10 +483,17 @@ export function MobileHomeManagementPage(){
               <Field label="Built-in icon"><IconPicker value={card.iconName} onChange={value=>updateCustomCard(section.id,card.id,{iconName:value})}/></Field>
               <Field label="Custom icon"><MediaAssetPicker value={card.iconUrl} onChange={url=>updateCustomCard(section.id,card.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
               <Field label="Card image"><MediaAssetPicker value={card.imageUrl} onChange={url=>updateCustomCard(section.id,card.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field>
-              <Field label="Destination"><Select value={card.destinationType} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationType:value,destinationValue:value==='none'?'':card.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
-              <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1">{card.destinationType==='page'
-                ?<Field label="Select page"><Select value={card.destinationValue} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Screen Builder page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field>
-                :<Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field>}</div><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
+              <Field label="Card style"><StyleSelect value={card.style} onChange={value=>updateCustomCard(section.id,card.id,{style:value})}/></Field>
+              {section.layout==='grid'&&<Field label="Grid width"><SpanSelect value={card.span} columns={section.columns} onChange={span=>updateCustomCard(section.id,card.id,{span})}/></Field>}
+              <div className="md:col-span-2 grid gap-3 md:grid-cols-2"><DestinationEditor
+                type={card.destinationType}
+                value={card.destinationValue}
+                pages={managedPages}
+                exams={data?.catalog.exams||[]}
+                testSeries={data?.catalog.testSeries||[]}
+                onChange={(destinationType,destinationValue)=>updateCustomCard(section.id,card.id,{destinationType,destinationValue})}
+              /></div>
+              <div className="md:col-span-2 flex items-end justify-end gap-2"><Switch checked={card.isActive} onCheckedChange={isActive=>updateCustomCard(section.id,card.id,{isActive})} aria-label="Show card"/><span className="mr-auto text-xs text-muted-foreground">{card.isActive?'Shown':'Hidden'}</span><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
             </div>)}</div>
           </div>}
         </div>)}
@@ -476,12 +501,14 @@ export function MobileHomeManagementPage(){
     </Card>
 
     <Card>
-      <CardHeader><CardTitle className="text-base">Standard section appearance</CardTitle><p className="text-sm text-muted-foreground">Override section labels, icons and visibility without changing the underlying shared content. Custom sections provide the configurable grid, horizontal, list and banner layouts.</p></CardHeader>
+      <CardHeader><CardTitle className="text-base">Standard section appearance</CardTitle><p className="text-sm text-muted-foreground">Override labels, icons, visibility and supported native layouts without changing shared exam or learner data.</p></CardHeader>
       <CardContent className="grid gap-4 md:grid-cols-2">
         {Object.entries(SECTION_LABELS).map(([id,label])=>{const setting=config?.sectionSettings[id]||{};return <div key={id} className="space-y-3 rounded-xl border p-4">
           <div className="flex items-center justify-between"><p className="font-semibold">{label}</p><Switch checked={setting.isVisible!==false} onCheckedChange={checked=>setSectionSetting(id,{isVisible:checked})}/></div>
           <Field label="Display title"><Input value={setting.title||''} onChange={e=>setSectionSetting(id,{title:e.target.value})} placeholder={label}/></Field>
           <Field label="Subtitle"><Input value={setting.subtitle||''} onChange={e=>setSectionSetting(id,{subtitle:e.target.value})}/></Field>
+          {id==='exam_categories'&&<div className="grid gap-3 sm:grid-cols-2"><Field label="Layout"><Select value={setting.layout||'grid'} onValueChange={layout=>setSectionSetting(id,{layout})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="grid">Grid</SelectItem><SelectItem value="horizontal">Horizontal</SelectItem></SelectContent></Select></Field>{(setting.layout||'grid')==='grid'&&<Field label="Columns"><Select value={String(setting.columns||4)} onValueChange={value=>setSectionSetting(id,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="2">2 columns</SelectItem><SelectItem value="3">3 columns</SelectItem><SelectItem value="4">4 columns</SelectItem></SelectContent></Select></Field>}</div>}
+          {id==='featured_test_series'&&<div className="grid gap-3 sm:grid-cols-2"><Field label="Layout"><Select value={setting.layout||'horizontal'} onValueChange={layout=>setSectionSetting(id,{layout})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal rail</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem></SelectContent></Select></Field>{setting.layout==='grid'&&<Field label="Columns"><Select value={String(setting.columns||2)} onValueChange={value=>setSectionSetting(id,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="1">1 column</SelectItem><SelectItem value="2">2 columns</SelectItem></SelectContent></Select></Field>}</div>}
           <div className="grid gap-3 sm:grid-cols-2"><Field label="Built-in icon"><IconPicker value={setting.iconName||''} onChange={value=>setSectionSetting(id,{iconName:value})}/></Field><Field label="Custom icon"><MediaAssetPicker value={setting.iconUrl||''} onChange={url=>setSectionSetting(id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field></div>
         </div>})}
       </CardContent>
@@ -490,11 +517,14 @@ export function MobileHomeManagementPage(){
     <Card>
       <CardHeader><CardTitle className="text-base">Item icon & display overrides</CardTitle><p className="text-sm text-muted-foreground">Edit how selected exam categories and featured test series appear on Home while preserving their canonical names and data.</p></CardHeader>
       <CardContent className="space-y-3">
-        {[...selectedFamilyItems.map(item=>({id:item.id,label:item.name,type:'Exam category'})),...selectedSeriesItems.map(item=>({id:item.id,label:item.name,type:'Test series'}))].map(item=>{const override=config?.itemOverrides[item.id]||{};return <div key={item.id} className="grid gap-3 rounded-xl border p-4 md:grid-cols-4">
-          <div><p className="text-sm font-semibold">{item.label}</p><p className="text-xs text-muted-foreground">{item.type}</p></div>
+        {[...selectedFamilyItems.map(item=>({id:item.id,label:item.name,type:'Exam category'})),...selectedSeriesItems.map(item=>({id:item.id,label:item.name,type:'Test series'}))].map(item=>{const override=config?.itemOverrides[item.id]||{};return <div key={item.id} className="grid gap-3 rounded-xl border p-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="xl:col-span-4 flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">{item.label}</p><p className="text-xs text-muted-foreground">{item.type}</p></div><div className="flex items-center gap-2"><span className="text-xs text-muted-foreground">{override.hidden?'Hidden':'Shown'}</span><Switch checked={!override.hidden} onCheckedChange={shown=>setItemOverride(item.id,{hidden:!shown})}/></div></div>
           <Field label="Display title"><Input value={override.title||''} onChange={e=>setItemOverride(item.id,{title:e.target.value})} placeholder="Use canonical title"/></Field>
+          <Field label="Subtitle"><Input value={override.subtitle||''} onChange={e=>setItemOverride(item.id,{subtitle:e.target.value})} placeholder="Use canonical subtitle"/></Field>
+          <Field label="Badge"><Input value={override.badge||''} onChange={e=>setItemOverride(item.id,{badge:e.target.value})} placeholder="Popular / New / Free"/></Field>
           <Field label="Built-in icon"><IconPicker value={override.iconName||''} onChange={value=>setItemOverride(item.id,{iconName:value})}/></Field>
           <Field label="Custom icon"><MediaAssetPicker value={override.iconUrl||''} onChange={url=>setItemOverride(item.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
+          <Field label="Card image"><MediaAssetPicker value={override.imageUrl||''} onChange={url=>setItemOverride(item.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field>
         </div>})}
       </CardContent>
     </Card>
@@ -535,16 +565,20 @@ function PhonePreview({config,familyById,seriesById}:{config:Configuration;famil
               return <div key={id} className="relative min-h-28 overflow-hidden rounded-2xl bg-gradient-to-br from-slate-950 via-blue-950 to-blue-700 p-3 text-white">{slide?.imageUrl&&<img src={slide.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35"/>}<div className="relative"><p className="text-[9px] font-bold uppercase tracking-wider text-amber-300">Featured</p><p className="mt-1 text-sm font-black leading-tight">{slide?.title||'Hero banner'}</p><p className="mt-1 line-clamp-2 text-[9px] text-white/80">{slide?.subtitle||'Add a hero slide to preview it here.'}</p></div></div>;
             }
             if(id==='exam_categories'){
-              return <PreviewSection key={id} title={title(id)}><div className="grid grid-cols-4 gap-1">{config.featuredExamFamilyIds.slice(0,8).map(familyId=>{const family=familyById.get(familyId);const override=config.itemOverrides[familyId];return <div key={familyId} className="rounded-lg bg-slate-50 p-1.5 text-center"><div className="mx-auto mb-1 h-5 w-5 rounded-md bg-blue-100"/><p className="line-clamp-2 text-[7px] font-bold">{override?.title||family?.name||'Exam'}</p></div>})}</div></PreviewSection>;
+              const setting=config.sectionSettings[id]||{};const columns=setting.layout==='horizontal'?0:(setting.columns||4);
+              const cards=config.featuredExamFamilyIds.slice(0,8).filter(familyId=>!config.itemOverrides[familyId]?.hidden).map(familyId=>{const family=familyById.get(familyId);const override=config.itemOverrides[familyId];return <div key={familyId} className="min-w-[58px] rounded-lg bg-slate-50 p-1.5 text-center"><div className="mx-auto mb-1 h-5 w-5 rounded-md bg-blue-100"/><p className="line-clamp-2 text-[7px] font-bold">{override?.title||family?.name||'Exam'}</p>{override?.badge&&<span className="mt-1 inline-block rounded bg-blue-50 px-1 text-[6px] text-blue-700">{override.badge}</span>}</div>});
+              return <PreviewSection key={id} title={title(id)}><div className={setting.layout==='horizontal'?'flex gap-1 overflow-hidden':'grid gap-1'} style={setting.layout==='horizontal'?undefined:{gridTemplateColumns:`repeat(${columns},minmax(0,1fr))`}}>{cards}</div></PreviewSection>;
             }
             if(id==='featured_test_series'){
-              return <PreviewSection key={id} title={title(id)}><div className="flex gap-2 overflow-hidden">{config.featuredTestSeriesIds.slice(0,2).map(seriesId=>{const series=seriesById.get(seriesId);const override=config.itemOverrides[seriesId];return <div key={seriesId} className="min-w-32 rounded-xl bg-blue-950 p-2 text-white"><p className="text-[7px] font-bold text-amber-300">TEST SERIES</p><p className="mt-1 line-clamp-2 text-[9px] font-black">{override?.title||series?.name||'Test Series'}</p></div>})}</div></PreviewSection>;
+              const setting=config.sectionSettings[id]||{};const items=config.featuredTestSeriesIds.filter(seriesId=>!config.itemOverrides[seriesId]?.hidden).slice(0,4).map(seriesId=>{const series=seriesById.get(seriesId);const override=config.itemOverrides[seriesId];return <div key={seriesId} className="min-w-32 rounded-xl bg-blue-950 p-2 text-white"><p className="text-[7px] font-bold text-amber-300">{override?.badge||'TEST SERIES'}</p><p className="mt-1 line-clamp-2 text-[9px] font-black">{override?.title||series?.name||'Test Series'}</p></div>});
+              return <PreviewSection key={id} title={title(id)}><div className={setting.layout==='grid'?'grid gap-1':setting.layout==='list'?'space-y-1':'flex gap-2 overflow-hidden'} style={setting.layout==='grid'?{gridTemplateColumns:`repeat(${setting.columns||2},minmax(0,1fr))`}:undefined}>{items}</div></PreviewSection>;
             }
             if(id==='continue_learning')return <PreviewSection key={id} title={title(id)}><div className="rounded-xl border bg-slate-50 p-2"><div className="mb-1 h-2 w-1/2 rounded bg-slate-300"/><div className="h-1.5 rounded bg-blue-100"><div className="h-full w-2/3 rounded bg-blue-600"/></div></div></PreviewSection>;
             if(id==='recommended_learning'||id==='current_affairs'||id==='today_goal')return <PreviewSection key={id} title={title(id)}><div className="rounded-xl border bg-slate-50 p-2"><div className="h-2 w-2/3 rounded bg-slate-300"/><div className="mt-2 h-2 w-1/3 rounded bg-slate-200"/></div></PreviewSection>;
             const section=customById.get(id);
             if(!section)return null;
-            return <PreviewSection key={id} title={section.title}><div className={section.layout==='grid'?'grid grid-cols-2 gap-1':'flex gap-1 overflow-hidden'}>{section.cards.filter(card=>card.isActive).slice(0,4).map(card=><div key={card.id} className="min-w-24 rounded-lg border bg-white p-2"><p className="line-clamp-2 text-[8px] font-bold">{card.title}</p>{card.badge&&<span className="mt-1 inline-block rounded bg-blue-50 px-1 text-[6px] text-blue-700">{card.badge}</span>}</div>)}</div></PreviewSection>;
+            const cards=section.cards.filter(card=>card.isActive).slice(0,6);
+            return <PreviewSection key={id} title={section.title}><div className={section.layout==='grid'?'grid gap-1':section.layout==='list'?'space-y-1':'flex gap-1 overflow-hidden'} style={section.layout==='grid'?{gridTemplateColumns:`repeat(${Math.max(1,section.columns)},minmax(0,1fr))`}:undefined}>{cards.map(card=><div key={card.id} className="min-w-24 rounded-lg border bg-white p-2" style={section.layout==='grid'?{gridColumn:`span ${Math.min(Math.max(1,card.span),Math.max(1,section.columns))}`}:undefined}><p className="line-clamp-2 text-[8px] font-bold">{card.title}</p>{card.badge&&<span className="mt-1 inline-block rounded bg-blue-50 px-1 text-[6px] text-blue-700">{card.badge}</span>}</div>)}</div></PreviewSection>;
           })}
         </div>
       </div>
@@ -553,6 +587,14 @@ function PhonePreview({config,familyById,seriesById}:{config:Configuration;famil
 }
 
 function PreviewSection({title,children}:{title:string;children:React.ReactNode}){return <div><p className="mb-1.5 text-[10px] font-black text-slate-800">{title}</p>{children}</div>}
+
+function isHttpUrl(value:string){try{const url=new URL(value);return url.protocol==='https:'||url.protocol==='http:';}catch{return false;}}
+function DestinationEditor({type,value,pages,exams,testSeries,onChange}:{type:string;value:string;pages:ManagedPage[];exams:Exam[];testSeries:TestSeries[];onChange:(type:string,value:string)=>void}){
+  return <><Field label="Destination"><Select value={type||'none'} onValueChange={next=>onChange(next,next==='none'?'':value)}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field><Field label="Open">{type==='page'?<Select value={value} onValueChange={next=>onChange(type,next)}><SelectTrigger><SelectValue placeholder="Choose page"/></SelectTrigger><SelectContent>{pages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select>:type==='exam'?<CatalogSelect items={exams} value={value} onChange={next=>onChange(type,next)}/>:type==='test_series'?<CatalogSelect items={testSeries} value={value} onChange={next=>onChange(type,next)}/>:type==='learn'?<Input value={value} onChange={e=>onChange(type,e.target.value)} placeholder="/learn"/>:type==='url'?<Input value={value} onChange={e=>onChange(type,e.target.value)} placeholder="https://…"/>:<Input value="" disabled placeholder="No destination"/>}</Field></>;
+}
+function CatalogSelect({items,value,onChange}:{items:Array<{id:string;name:string;examName?:string;familyName?:string}>;value:string;onChange:(value:string)=>void}){return <Select value={value} onValueChange={onChange}><SelectTrigger><SelectValue placeholder="Choose item"/></SelectTrigger><SelectContent>{items.map(item=><SelectItem key={item.id} value={item.id}>{item.name}{item.examName?` · ${item.examName}`:item.familyName?` · ${item.familyName}`:''}</SelectItem>)}</SelectContent></Select>;}
+function StyleSelect({value,onChange}:{value:string;onChange:(value:string)=>void}){return <Select value={value||'default'} onValueChange={onChange}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="default">Default</SelectItem><SelectItem value="compact">Compact</SelectItem><SelectItem value="image">Image-led</SelectItem><SelectItem value="minimal">Minimal</SelectItem><SelectItem value="featured">Featured</SelectItem></SelectContent></Select>;}
+function SpanSelect({value,columns,onChange}:{value:number;columns:number;onChange:(value:number)=>void}){const max=Math.max(1,Math.min(4,columns||1));return <Select value={String(Math.min(Math.max(1,value||1),max))} onValueChange={next=>onChange(Number(next))}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent>{Array.from({length:max},(_,index)=>index+1).map(span=><SelectItem key={span} value={String(span)}>{span===max?'Full row':`${span} column${span===1?'':'s'}`}</SelectItem>)}</SelectContent></Select>;}
 
 function Field({label,children}:{label:string;children:React.ReactNode}){return <div className="space-y-1.5"><Label>{label}</Label>{children}</div>}
 export default MobileHomeManagementPage;
