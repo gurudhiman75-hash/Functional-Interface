@@ -42,6 +42,13 @@ assert.equal(bankOnly.automaticStudentPublication, false);
 assert.equal(bankOnly.productionReleaseAuthorized, false);
 assert.equal(getGeneratedQuestionBankAcceptanceMode(bankOnly), "BANK_ONLY");
 assert.equal(getGeneratedQuestionBankEligibilityIssue(bankOnly), null);
+assert.equal(
+  getGeneratedQuestionBankEligibilityIssue({
+    questionBankStatus: "READY_FOR_STORAGE",
+    questionBankAcceptanceMode: "BANK_ONLY",
+  }),
+  "questionBankWritable is not explicitly enabled",
+);
 assert.deepEqual(getGeneratedItemApprovalDisposition(bankOnly), {
   mode: "question_bank",
   reason: null,
