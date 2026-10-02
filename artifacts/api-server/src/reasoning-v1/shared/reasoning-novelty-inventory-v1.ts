@@ -23,11 +23,16 @@ export interface ReasoningNoveltyInventoryEntryV1 {
 export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInventoryEntryV1[] = [
   {
     topicDirectory: 'Alphabet-Test',
-    chapterId: null,
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    chapterId: 'ALP-001',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    evidence: [
+      'A full alphabet is explicitly rearranged by an existing CP004 transform, then an interval-gap query is solved in the transformed order.',
+      'The lane composes CP003 gap semantics with the exact CP004 transform authority selected for the seed.',
+      'The transformed positions are independently recomputed before the gap answer is emitted.',
+      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit semantic construction space beyond resampling and wording changes.',
+    nextGate: 'Human-review transformed-alphabet interval questions before any chapter-mix activation.',
   },
   {
     topicDirectory: 'Analogy',
