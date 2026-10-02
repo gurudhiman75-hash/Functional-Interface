@@ -32,14 +32,15 @@ function normalizeLimit(value: unknown): number {
 
 router.get("/public/practice/:topicSlug", async (req, res) => {
   const topicSlug = String(req.params.topicSlug ?? "").trim().toLowerCase() as PublicTopicSlug;
-  const tags = PUBLIC_TOPICS[topicSlug];
-  if (!tags) {
+  const topicTags = PUBLIC_TOPICS[topicSlug];
+  if (!topicTags) {
     return res.status(404).json({
       error: "Public practice topic not found",
       code: "PUBLIC_PRACTICE_TOPIC_NOT_FOUND",
     });
   }
 
+  const tags = [...topicTags];
   const language = normalizeLanguage(req.query.language);
   const limit = normalizeLimit(req.query.limit);
 
@@ -76,6 +77,10 @@ router.get("/public/practice/:topicSlug", async (req, res) => {
       FROM content.questions q
       JOIN content.question_versions v
         ON v.id = q.published_version_id
+      JOIN catalog.exam_versions ev
+        ON ev.id = v.exam_version_id
+      JOIN catalog.exams e
+        ON e.id = ev.exam_id
       LEFT JOIN catalog.languages lang
         ON lower(lang.code) = ${language}
       LEFT JOIN content.question_translations qt
@@ -90,6 +95,7 @@ router.get("/public/practice/:topicSlug", async (req, res) => {
       WHERE q.deleted_at IS NULL
         AND q.status = 'published'::question_status
         AND q.published_version_id IS NOT NULL
+        AND (lower(e.code) LIKE '%cgl%' OR lower(e.name) LIKE '%cgl%')
         AND (${language} = 'en' OR qt.id IS NOT NULL)
         AND EXISTS (
           SELECT 1
