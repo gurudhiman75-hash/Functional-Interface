@@ -528,6 +528,27 @@ router.post(
       return;
     }
 
+    const packageLifecycle = selectedPackage
+      ? Object.fromEntries(
+          Object.entries({
+            lifecycleId: selectedPackage.lifecycleId,
+            lifecycleStage: selectedPackage.lifecycleStage,
+            reviewSurfaceRequired: selectedPackage.reviewSurfaceRequired,
+            manualApprovalRequired: selectedPackage.manualApprovalRequired,
+            questionBankStatus: selectedPackage.questionBankStatus,
+            questionBankWritable: selectedPackage.questionBankWritable,
+            questionBankAcceptanceMode: selectedPackage.questionBankAcceptanceMode,
+            questionBankAcceptanceAuthority: selectedPackage.questionBankAcceptanceAuthority,
+            testEligibility: selectedPackage.testEligibility,
+            testEligible: selectedPackage.testEligible,
+            mockTestEligible: selectedPackage.mockTestEligible,
+            publiclyPublishable: selectedPackage.publiclyPublishable,
+            automaticStudentPublication: selectedPackage.automaticStudentPublication,
+            productionReleaseAuthorized: selectedPackage.productionReleaseAuthorized,
+          }).filter(([, value]) => value !== undefined),
+        )
+      : {};
+
     const generationRequest: QuestionStudioGenerationRequest = {
       engineId: selectedEngineId,
       exam,
@@ -659,6 +680,7 @@ router.post(
         canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,
         cpIds: selectedCpIds,
         engineId: selectedEngineId,
+        packageLifecycle,
         ...(quantPlan
           ? {
               difficultyPreset: quantPlan.difficultyPreset,
@@ -694,6 +716,7 @@ router.post(
           const question = generatedQuestions[index] as Record<string, unknown>;
           const payload = {
             ...question,
+            ...packageLifecycle,
             generationContexts,
             validationResult: "pending",
           };
