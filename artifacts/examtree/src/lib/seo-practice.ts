@@ -189,6 +189,65 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     },
     topics: SSC_CGL_TOPICS,
   },
+  "ssc-chsl": {
+    slug: "ssc-chsl",
+    name: "SSC CHSL",
+    yearLabel: "2026",
+    categoryHref: "/category/ssc",
+    officialUrl: "https://ssc.gov.in",
+    officialLabel: "ssc.gov.in",
+    meta: {
+      hubTitle: "SSC CHSL Preparation, Syllabus, Mock Tests & Free Questions",
+      hubDescription: "Prepare for SSC CHSL with exam guidance, syllabus and pattern overview, mock tests, and free topic-wise practice questions on ExamTree.",
+      preparationTitle: "How to Prepare for SSC CHSL 2026",
+      preparationDescription: "A practical SSC CHSL 2026 preparation guide covering Tier-I fundamentals, topic practice, revision, mocks, and Tier-II skill readiness.",
+      syllabusTitle: "SSC CHSL Syllabus & Exam Pattern 2026",
+      syllabusDescription: "SSC CHSL 2026 syllabus and exam-pattern overview covering Tier-I subjects, Tier-II modules, negative marking, and skill or typing requirements.",
+    },
+    hub: {
+      title: "SSC CHSL preparation hub",
+      description: "Use one place for preparation strategy, syllabus guidance, mock tests, and free topic-wise questions for SSC CHSL.",
+      preparationSummary: "Build speed and accuracy across English, General Intelligence, Quantitative Aptitude, and General Awareness, then prepare for Tier-II requirements.",
+      syllabusSummary: "Review the Tier-I subject structure, Tier-II modules, negative marking, and skill or typing stage before planning your preparation.",
+      mockSummary: "Move from focused topic practice to timed SSC-style attempts using the published ExamTree catalogue.",
+    },
+    preparation: {
+      eyebrow: "SSC CHSL preparation",
+      title: "How to prepare for SSC CHSL 2026",
+      description: "Build reliable Tier-I fundamentals first, then add timed practice, mock analysis, and the Tier-II computer and skill or typing requirements.",
+      cards: [
+        { title: "1. Secure Tier-I basics", text: "Build clean fundamentals in basic arithmetic, General Intelligence, English, and General Awareness before pushing speed." },
+        { title: "2. Practise in short timed blocks", text: "CHSL rewards quick, accurate decisions. Use focused sets to improve calculation speed, vocabulary, reasoning recognition, and recall." },
+        { title: "3. Prepare beyond Tier-I", text: "Keep Tier-II in view by practising computer knowledge and, where applicable, typing or data-entry skill alongside written preparation." },
+      ],
+      weeklyCycle: [
+        "Revise one Quant or Reasoning concept and solve a focused question set.",
+        "Practise English every day through grammar, vocabulary, comprehension, and error-based review.",
+        "Revise General Awareness in small recurring blocks instead of one large weekly session.",
+        "Use timed mixed sets to adapt to the current sectional-timer structure.",
+        "Take a full mock regularly and classify every error as concept, calculation, recall, reading, or time-management.",
+        "Keep computer knowledge and the relevant typing or data-entry skill in the weekly schedule for Tier-II.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "SSC CHSL syllabus",
+      title: "SSC CHSL syllabus and exam pattern 2026",
+      description: "A learner-friendly overview of the current SSC CHSL structure. Always verify time-sensitive rules and detailed provisions in the latest official SSC notice.",
+      sections: [
+        { title: "English Language", summary: "Tier-I: 25 questions · 50 marks" },
+        { title: "General Intelligence", summary: "Tier-I: 25 questions · 50 marks" },
+        { title: "Quantitative Aptitude", summary: "Tier-I: 25 questions · 50 marks" },
+        { title: "General Awareness", summary: "Tier-I: 25 questions · 50 marks" },
+      ],
+      patternCards: [
+        { title: "Tier-I", text: "The current 2026 pattern uses 100 objective questions for 200 marks across four parts, with a 15-minute timer for each part and 0.50 mark deducted for each wrong answer." },
+        { title: "Tier-II", text: "Tier-II covers Mathematical Abilities, Reasoning and General Intelligence, English Language and Comprehension, General Awareness, and a qualifying Computer Knowledge Test." },
+        { title: "Skill / Typing", text: "The final skill component is qualifying: a Data Entry Skill Test applies to DEO posts, while a Typing Test applies to LDC/JSA posts, subject to the official notice." },
+      ],
+      verificationNote: "Recruitment dates, vacancies, eligibility rules, language options, skill-test standards, and other detailed provisions can change. Check the latest Combined Higher Secondary Level notice on the official SSC website before relying on them.",
+    },
+    topics: SSC_CGL_TOPICS,
+  },
 };
 
 export const SSC_CGL_PRACTICE_TOPICS = EXAM_ACQUISITION_CONFIGS["ssc-cgl"].topics;
