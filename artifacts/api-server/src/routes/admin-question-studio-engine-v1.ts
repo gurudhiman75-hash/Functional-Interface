@@ -70,6 +70,23 @@ function engineForPackage(packageId: string | undefined) {
   return packageForId(packageId)?.engineId;
 }
 
+function packageSubjectLabel(pkg: ReturnType<typeof listQuestionStudioPackages>[number]) {
+  const explicit = asString(pkg.subject);
+  if (explicit) return explicit;
+  if (pkg.engineId === "quant-v4") return "Quantitative Aptitude";
+  if (pkg.engineId === "reasoning-v1") return "Reasoning Ability";
+  if (pkg.engineId === "language-v1") return "English";
+  if (pkg.engineId === "knowledge-v1") return "Static GK";
+  return "Other";
+}
+
+function packageChapterLabel(pkg: ReturnType<typeof listQuestionStudioPackages>[number]) {
+  if (pkg.engineId === "quant-v4") {
+    return asString(pkg.subtopic) || asString(pkg.topic) || pkg.label;
+  }
+  return asString(pkg.topic) || asString(pkg.subtopic) || pkg.label;
+}
+
 function difficultyForRequest(value: unknown, packageId: string | undefined) {
   const raw = asString(value);
   const pkg = packageForId(packageId);
@@ -270,7 +287,8 @@ router.get(
         return {
           engineId: pkg.engineId,
           packageId: pkg.packageId,
-          subject: pkg.subject,
+          subject: packageSubjectLabel(pkg),
+          chapter: packageChapterLabel(pkg),
           topic: pkg.topic,
           subtopic: pkg.subtopic,
           label: pkg.label,
