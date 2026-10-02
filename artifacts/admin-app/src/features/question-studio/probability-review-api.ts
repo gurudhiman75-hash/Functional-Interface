@@ -124,17 +124,6 @@ export interface ProbabilityReviewRunResult {
   releaseFreezeStatus: 'PENDING_HUMAN_REVIEW';
 }
 
-export interface ProbabilityReviewDecisionResult {
-  id: string;
-  generationRunId: string;
-  previousStatus: string;
-  status: string;
-  updatedAt: string | null;
-  convertedQuestion: null;
-  questionBankWritePerformed: false;
-  releaseFreezeStillRequired: true;
-}
-
 function paramsFor(input: ProbabilityReviewInput) {
   const params = new URLSearchParams({ language: input.language, count: String(input.count) });
   if (input.packageId) params.set('packageId', input.packageId);
@@ -142,16 +131,6 @@ function paramsFor(input: ProbabilityReviewInput) {
   if (input.difficulty) params.set('difficulty', input.difficulty);
   if (input.seed?.trim()) params.set('seed', input.seed.trim());
   return params;
-}
-
-export function isProbabilityNativeReviewPayload(value: Record<string, unknown> | null | undefined) {
-  if (!value) return false;
-  const generationContext = value.generationContext && typeof value.generationContext === 'object' && !Array.isArray(value.generationContext)
-    ? value.generationContext as Record<string, unknown>
-    : {};
-  return (value.integrationAuthority ?? generationContext.integrationAuthority) === PROBABILITY_NATIVE_REVIEW_AUTHORITY
-    && (value.reviewOnly ?? generationContext.reviewOnly) === true
-    && (value.questionBankWritable ?? generationContext.questionBankWritable) === false;
 }
 
 export function getProbabilityReviewPackage() {
@@ -191,22 +170,6 @@ export function createProbabilityReviewRun(input: ProbabilityReviewInput) {
     '/admin/question-studio/quant/probability/native-review/runs',
     { method: 'POST', body: JSON.stringify(input) },
     { fallbackMessage: 'Unable to create the Probability native review run.' },
-  );
-}
-
-export function updateProbabilityReviewItem(input: {
-  itemId: string;
-  status: 'unreviewed' | 'needs_fix' | 'approved' | 'rejected';
-  reason?: string;
-}) {
-  const { itemId, ...body } = input;
-  return adminRequest<ProbabilityReviewDecisionResult>(
-    `/admin/question-studio/quant/probability/native-review/items/${encodeURIComponent(itemId)}/decision`,
-    { method: 'PATCH', body: JSON.stringify(body) },
-    {
-      fallbackMessage: 'Unable to save the Probability native review decision.',
-      affectedRecord: itemId,
-    },
   );
 }
 
