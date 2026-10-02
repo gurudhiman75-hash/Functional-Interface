@@ -18,6 +18,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp007.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-chapter.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/multilingual-review-v3-chapter.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/multilingual-review-v2.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp002.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp003.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp004.test.ts
