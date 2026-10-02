@@ -46,7 +46,7 @@ test("awaiting-route providers are content-approved but production-mix disabled"
   }
 });
 
-test("seven reviewed chapter providers are live Question Studio runtimes", () => {
+test("eight reviewed chapter providers are live Question Studio runtimes", () => {
   for (const providerId of live.slice(1)) {
     const provider = reasoningNoveltyProviderByIdV1(providerId);
     assert.equal(provider.status, "APPROVED_RUNTIME");
