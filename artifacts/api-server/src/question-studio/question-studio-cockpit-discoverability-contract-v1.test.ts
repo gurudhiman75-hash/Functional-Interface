@@ -52,6 +52,16 @@ assert(
   "Question Studio client must forward the canonical generation input without package-specific runtime mutation.",
 );
 
+const hookSource = readFileSync(
+  resolve(process.cwd(), "artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts"),
+  "utf8",
+);
+
+assert(
+  hookSource.includes("notifyQuestionStudioRefresh();"),
+  "Successful generation must notify review consumers even when review filters do not change.",
+);
+
 console.log("[QUESTION-STUDIO-COCKPIT-DISCOVERABILITY-CONTRACT-V1]", {
   valid: true,
   cpSubsetSuppression: false,
