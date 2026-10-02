@@ -21,7 +21,7 @@ assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, false);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublication, false);
 assert.deepEqual(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, ["DSF-QL-001", "DSF-QL-002"]);
-assert.deepEqual(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.generatableQlIds, ["DSF-QL-001"]);
+assert.deepEqual(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.generatableQlIds, ["DSF-QL-001", "DSF-QL-002"]);
 assert.deepEqual(DSF_CP017_RUNTIME_DEFERRED_QL_IDS, []);
 assert.equal(DSF_CP017_LANES.length, 21);
 assert.equal(new Set(DSF_CP017_LANES.map((lane) => lane.laneId)).size, 21);
@@ -98,10 +98,25 @@ assert.equal(mixed.generationContext.mockTestEligible, false);
 assert.equal(mixed.generationContext.publiclyPublishable, false);
 assert.equal(mixed.generationContext.automaticStudentPublication, false);
 
+const ql002Ranking = previewDsf001NormalQuestionStudioReview({
+  qlId: "DSF-QL-002",
+  laneId: "DSF-QS-RANKING",
+  language: "en",
+  count: 2,
+  seed: "cp017-review:ql002-ranking",
+});
+assert.equal(ql002Ranking.questions.length, 2);
+assert.ok(ql002Ranking.questions.every((question) => question.qlId === "DSF-QL-002"));
+assert.ok(ql002Ranking.questions.every((question) => question.statements.length === 3));
 assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ patternId: "DSF-QL-002", count: 1 }),
-  /permanently allocated.*not exposed/i,
-  "QL002 must remain explicitly deferred until a real reviewed batch runtime exists",
+  () => previewDsf001NormalQuestionStudioReview({
+    qlId: "DSF-QL-002",
+    laneId: "DSF-QS-AVERAGE",
+    language: "en",
+    count: 1,
+  }),
+  /restricted to reasoning lanes|does not support DSF-QL-002/iu,
+  "QL002 normal review runtime remains restricted to reviewed Reasoning lanes",
 );
 assert.equal(
   previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-RANKING", language: "hi", count: 1 }).questions[0]?.language,
