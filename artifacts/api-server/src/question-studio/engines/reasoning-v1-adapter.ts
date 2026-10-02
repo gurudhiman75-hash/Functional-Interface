@@ -65,6 +65,17 @@ import {
 import { applyReasoningControlledNovelMixV1 } from "../../reasoning-v1/shared/reasoning-novelty-live-mix-v1";
 
 import {
+  ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
+  generateAlp001QuestionStudioBatch,
+  isAlp001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Alphabet-Test/ALP-001/question-studio-integration";
+import {
+  CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+  generateCal001StandardQuestionStudioBatch,
+  isCal001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Calendar/CAL-001/question-studio-integration";
+
+import {
   WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   generateWfm001QuestionStudioBatch,
   isWfm001QuestionStudioRequest,
@@ -407,6 +418,8 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+      ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
+      CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
@@ -434,6 +447,12 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isAlp001QuestionStudioRequest(request)) {
+      return generateAlp001QuestionStudioBatch(request);
+    }
+    if (isCal001QuestionStudioRequest(request)) {
+      return generateCal001StandardQuestionStudioBatch(request);
     }
     if (isClk001QuestionStudioRequest(request)) {
       const source = await generateClk001QuestionStudioBatch(request);
