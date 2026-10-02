@@ -29,7 +29,7 @@ function intValue(value: unknown, fallback = 0): number {
   return fallback;
 }
 
-async function loadCanonicalTestMetadata(identifier?: string) {
+async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound = false) {
   const normalized = identifier?.trim() || null;
   const uuidIdentifier = normalized && isUuid(normalized) ? normalized : null;
 
@@ -114,16 +114,19 @@ async function loadCanonicalTestMetadata(identifier?: string) {
     WHERE t.status = 'live'::test_status
       AND t.deleted_at IS NULL
       AND (publication."closesAt" IS NULL OR publication."closesAt" > now())
-      AND NOT EXISTS (
-        SELECT 1
-        FROM assessment.test_series series
-        JOIN assessment.test_series_versions series_version
-          ON series_version.series_id = series.id
-         AND series_version.version_number = series.current_version_number
-        JOIN assessment.test_series_items series_item
-          ON series_item.series_version_id = series_version.id
-         AND series_item.test_id = t.id
-        WHERE series.deleted_at IS NULL
+      AND (
+        ${allowSeriesBound}::boolean
+        OR NOT EXISTS (
+          SELECT 1
+          FROM assessment.test_series series
+          JOIN assessment.test_series_versions series_version
+            ON series_version.series_id = series.id
+           AND series_version.version_number = series.current_version_number
+          JOIN assessment.test_series_items series_item
+            ON series_item.series_version_id = series_version.id
+           AND series_item.test_id = t.id
+          WHERE series.deleted_at IS NULL
+        )
       )
       AND (
         ${normalized}::text IS NULL
@@ -252,7 +255,9 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
   if (!identifier) return res.status(400).json({ error: "Missing test id" });
 
   try {
-    const testRows = await loadCanonicalTestMetadata(identifier);
+    const seriesId =
+      typeof req.query.seriesId === "string" ? req.query.seriesId.trim() : "";
+    const testRows = await loadCanonicalTestMetadata(identifier, Boolean(seriesId));
     const rawTest = testRows[0];
     if (!rawTest) return res.status(404).json({ error: "Test not found" });
     const test = rawTest as JsonRecord;
