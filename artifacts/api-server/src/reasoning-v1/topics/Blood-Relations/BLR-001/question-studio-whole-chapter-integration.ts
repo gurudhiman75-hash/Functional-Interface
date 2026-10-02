@@ -133,23 +133,55 @@ export async function generateBlr001WholeChapterQuestionStudioBatch(
   const start = hash(baseSeed + ":ql-start") % pool.length;
   const questions: Record<string, unknown>[] = [];
 
+  const explicitQlScoped = pool.length === 1 && selectors(request).some((value) => value.startsWith("BLR-QL-"));
+
   for (let index = 0; index < count; index += 1) {
-    const authority = pool[(start + index) % pool.length]!;
-    const source = generateBlr001StandardQuestionStudioBatch({
-      packageId: authority.sourcePackageId,
-      canonicalProblemId: authority.qlId,
-      language,
-      difficulty: request.difficulty,
-      seed: baseSeed + ":" + authority.qlId + ":" + index,
-      count: 1,
-    });
-    const question = source.questions[0];
-    if (!question) {
-      throw new Error(
-        "BLR-001 source package " + authority.sourcePackageId + " returned no question for " + authority.qlId,
+    const candidateAuthorities = Array.from(
+      { length: pool.length },
+      (_, offset) => pool[(start + index + offset) % pool.length]!,
+    );
+
+    let resolved:
+      | {
+          authority: (typeof pool)[number];
+          question: Record<string, unknown>;
+        }
+      | undefined;
+    let lastFilterError: Error | undefined;
+
+    for (const authority of candidateAuthorities) {
+      try {
+        const source = generateBlr001StandardQuestionStudioBatch({
+          packageId: authority.sourcePackageId,
+          canonicalProblemId: authority.qlId,
+          language,
+          difficulty: request.difficulty,
+          seed: baseSeed + ":" + authority.qlId + ":" + index,
+          count: 1,
+        });
+        const question = source.questions[0] as Record<string, unknown> | undefined;
+        if (!question) {
+          throw new Error(
+            "BLR-001 source package " + authority.sourcePackageId + " returned no question for " + authority.qlId,
+          );
+        }
+        resolved = { authority, question };
+        break;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        const isDifficultyFilterMiss = /questions match the selected filters/i.test(message);
+        if (!isDifficultyFilterMiss || explicitQlScoped) throw error;
+        lastFilterError = error instanceof Error ? error : new Error(message);
+      }
+    }
+
+    if (!resolved) {
+      throw lastFilterError ?? new Error(
+        "BLR-001 could not resolve a source-backed question for the requested difficulty without relabelling.",
       );
     }
 
+    const { authority, question } = resolved;
     questions.push({
       ...QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1,
       ...question,
