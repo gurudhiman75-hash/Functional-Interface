@@ -28,6 +28,20 @@ type ManagedPage={id:string;slug:string;title:string;isActive:boolean};
 type Data={promotions:Promotion[];catalog?:{exams?:Exam[];testSeries?:TestSeries[]}};
 
 const LANGUAGES=[{code:'en',label:'English'},{code:'hi',label:'Hindi'},{code:'pa',label:'Punjabi'}];
+type FrequencyMode='every_open'|'once_daily'|'custom_daily'|'no_cap';
+function frequencyModeOf(promotion:Promotion):FrequencyMode{
+  if(promotion.placement==='login_popup'&&promotion.repeatOnEveryOpen)return'every_open';
+  if(promotion.frequencyCapPerDay===1)return'once_daily';
+  if((promotion.frequencyCapPerDay??0)>1)return'custom_daily';
+  return'no_cap';
+}
+function frequencyLabel(promotion:Promotion){
+  const mode=frequencyModeOf(promotion);
+  if(mode==='every_open')return'Every app open';
+  if(mode==='once_daily')return'Once per day';
+  if(mode==='custom_daily')return`${promotion.frequencyCapPerDay}× per day`;
+  return'No daily cap';
+}
 
 function localDateTime(value:string|null){
   if(!value)return '';
@@ -116,14 +130,14 @@ export function MobilePromotionsPage(){
     <Card><CardHeader><CardTitle className="text-base">Campaigns</CardTitle></CardHeader><CardContent className="space-y-3">
       {items.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No mobile promotions configured.</div>}
       {items.map(item=><button key={item.id} onClick={()=>setEditing({...item})} className="flex w-full items-center justify-between rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
-        <div><div className="flex items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${item.isActive?'bg-success/10 text-success':'bg-muted text-muted-foreground'}`}>{item.isActive?'Active':'Off'}</span></div><p className="mt-1 text-xs text-muted-foreground">{item.placement} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}</p></div>
+        <div><div className="flex items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${item.isActive?'bg-success/10 text-success':'bg-muted text-muted-foreground'}`}>{item.isActive?'Active':'Off'}</span></div><p className="mt-1 text-xs text-muted-foreground">{item.placement} · {frequencyLabel(item)} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}</p></div>
         <span className="text-xs text-muted-foreground">Edit</span>
       </button>)}
     </CardContent></Card>
 
     {editing&&<Card><CardHeader className="flex-row items-center justify-between space-y-0"><div><CardTitle className="text-base">{editing.id?'Edit promotion':'Create promotion'}</CardTitle><p className="mt-1 text-sm text-muted-foreground">Changes affect only this campaign.</p></div>{editing.id&&<Button variant="ghost" size="sm" onClick={()=>void remove()} disabled={saving}><Trash2 className="mr-1.5 h-4 w-4"/>Delete</Button>}</CardHeader><CardContent className="grid gap-4 md:grid-cols-2">
       <Field label="Title"><Input value={editing.title} onChange={e=>setEditing({...editing,title:e.target.value})} placeholder="New Punjab test series"/></Field>
-      <Field label="Placement"><Select value={editing.placement} onValueChange={value=>setEditing({...editing,placement:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="home">Home</SelectItem><SelectItem value="login_popup">Login / app-open popup</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="tests">Tests</SelectItem><SelectItem value="results">Results</SelectItem></SelectContent></Select></Field>
+      <Field label="Placement"><Select value={editing.placement} onValueChange={value=>setEditing({...editing,placement:value,repeatOnEveryOpen:value==='login_popup'?editing.repeatOnEveryOpen:false})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="home">Home</SelectItem><SelectItem value="login_popup">Login / app-open popup</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="tests">Tests</SelectItem><SelectItem value="results">Results</SelectItem></SelectContent></Select></Field>
       <div className="md:col-span-2"><Field label="Subtitle"><Textarea rows={2} value={editing.subtitle} onChange={e=>setEditing({...editing,subtitle:e.target.value})}/></Field></div>
       <div className="md:col-span-2"><Field label="Promotion image"><MediaAssetPicker value={editing.imageUrl} onChange={url=>setEditing({...editing,imageUrl:url})} preferredType="Promotion Image" label="Choose / Upload"/></Field></div>
       <Field label="Campaign type"><Select value={editing.campaignKind} onValueChange={value=>setEditing({...editing,campaignKind:value,destinationType:value==='external'?'url':editing.destinationType,destinationValue:value==='external'?'':editing.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="internal">Internal promotion</SelectItem><SelectItem value="external">External ad</SelectItem></SelectContent></Select></Field>
@@ -137,7 +151,24 @@ export function MobilePromotionsPage(){
       <Field label="Start"><Input type="datetime-local" value={localDateTime(editing.startAt)} onChange={e=>setEditing({...editing,startAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="End"><Input type="datetime-local" value={localDateTime(editing.endAt)} onChange={e=>setEditing({...editing,endAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="Order"><Input type="number" min="0" max="999" value={editing.sortOrder} onChange={e=>setEditing({...editing,sortOrder:Number(e.target.value)})}/></Field>
-      <Field label="Frequency cap / day"><Input type="number" min="1" max="50" disabled={editing.placement==='login_popup'&&editing.repeatOnEveryOpen} value={editing.frequencyCapPerDay??''} onChange={e=>setEditing({...editing,frequencyCapPerDay:e.target.value?Number(e.target.value):null})} placeholder={editing.placement==='login_popup'&&editing.repeatOnEveryOpen?'Ignored in every-open mode':'No cap'}/></Field>
+      <Field label="Delivery frequency">
+        <Select value={frequencyModeOf(editing)} onValueChange={(value)=>{
+          const mode=value as FrequencyMode;
+          if(mode==='every_open'){setEditing({...editing,repeatOnEveryOpen:true,frequencyCapPerDay:null});return;}
+          if(mode==='once_daily'){setEditing({...editing,repeatOnEveryOpen:false,frequencyCapPerDay:1});return;}
+          if(mode==='custom_daily'){setEditing({...editing,repeatOnEveryOpen:false,frequencyCapPerDay:(editing.frequencyCapPerDay??2)>1?(editing.frequencyCapPerDay??2):2});return;}
+          setEditing({...editing,repeatOnEveryOpen:false,frequencyCapPerDay:null});
+        }}>
+          <SelectTrigger><SelectValue/></SelectTrigger>
+          <SelectContent>
+            {editing.placement==='login_popup'&&<SelectItem value="every_open">Every app open</SelectItem>}
+            <SelectItem value="once_daily">Once per day</SelectItem>
+            <SelectItem value="custom_daily">Custom times per day</SelectItem>
+            <SelectItem value="no_cap">No daily cap</SelectItem>
+          </SelectContent>
+        </Select>
+      </Field>
+      {frequencyModeOf(editing)==='custom_daily'&&<Field label="Times per day"><Input type="number" min="2" max="50" value={editing.frequencyCapPerDay??2} onChange={e=>setEditing({...editing,frequencyCapPerDay:Math.max(2,Math.min(50,Number(e.target.value)||2))})}/></Field>}
       <div className="md:col-span-2 rounded-xl border p-4">
         <p className="text-sm font-semibold">Audience</p>
         <p className="mt-1 text-xs text-muted-foreground">Leave language and exam targeting empty to show this campaign to all eligible learners.</p>
@@ -148,7 +179,7 @@ export function MobilePromotionsPage(){
       </div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Active</p><p className="text-xs text-muted-foreground">Eligible for delivery inside its schedule.</p></div><Switch checked={editing.isActive} onCheckedChange={checked=>setEditing({...editing,isActive:checked})}/></div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Dismissible</p><p className="text-xs text-muted-foreground">Learner can hide this promotion.</p></div><Switch checked={editing.isDismissible} onCheckedChange={checked=>setEditing({...editing,isDismissible:checked})}/></div>
-      {editing.placement==='login_popup'&&<div className="md:col-span-2 flex items-center justify-between rounded-lg border px-3 py-3"><div><p className="text-sm font-medium">Show on every app open</p><p className="text-xs text-muted-foreground">Test mode: ignore saved impressions and dismissals for this app-open popup. It still shows only once per running app session.</p></div><Switch checked={editing.repeatOnEveryOpen} onCheckedChange={checked=>setEditing({...editing,repeatOnEveryOpen:checked,frequencyCapPerDay:checked?null:editing.frequencyCapPerDay})}/></div>}
+      {editing.placement==='login_popup'&&frequencyModeOf(editing)==='every_open'&&<div className="md:col-span-2 rounded-lg border px-3 py-3"><p className="text-sm font-medium">Every app open is enabled</p><p className="text-xs text-muted-foreground">This ignores saved impressions and dismissals for this popup. It still appears only once during a single running app session.</p></div>}
       <div className="md:col-span-2 rounded-xl border p-4">
         <p className="text-sm font-semibold">Preview</p>
         <div className="mt-3 mx-auto max-w-sm overflow-hidden rounded-2xl border bg-white shadow-sm">
