@@ -6,6 +6,7 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
   operatingTarget: 0.20,
   acceptableBand: [0.15, 0.25] as const,
   liveQuestionStudioProviders: [
+    "RNK-001-CROSS-FAMILY-CASELET",
     "BLR-001-CODED-FILTERED-COUNT",
     "CAE-001-EDGE-FAMILIES",
     "ALP-001-TRANSFORMED-GAP",
@@ -14,9 +15,7 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CLK-001-FAULTY-TIME-ANGLE",
   ] as const,
-  contentApprovedAwaitingQuestionStudioRoute: [
-    "RNK-001-CROSS-FAMILY-CASELET",
-  ] as const,
+  contentApprovedAwaitingQuestionStudioRoute: [] as const,
   safeguards: Object.freeze({
     explicitQlOrCpScopePreserved: true,
     reviewedLanguageOnly: true,
