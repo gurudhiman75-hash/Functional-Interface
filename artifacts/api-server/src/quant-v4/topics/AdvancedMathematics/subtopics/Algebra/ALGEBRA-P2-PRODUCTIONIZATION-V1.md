@@ -6,12 +6,13 @@ Status: IMPLEMENTED CANDIDATE / CI REQUIRED
 
 This checkpoint completes the next lifecycle step for the already-frozen Algebra chapter without changing the approved mathematical or multilingual source authorities.
 
-Source authority remains:
+Source authority now uses:
 - 43 permanent QLs (`ALG-QL-001..043`)
 - 109 mapped learner variants
-- English V3 frozen
-- Hindi/Punjabi V2 frozen
-- deterministic frozen solver/source state
+- English V4 chapter source: 31 targeted remediations over 78 unchanged V3 variants
+- Hindi/Punjabi V3 chapter source: the same 31 mathematical states localized over 78 unchanged V2 variants
+- canonical-answer parity locked across English/Hindi/Punjabi
+- deterministic solver/source state retained
 
 ## Delivery V5
 
@@ -28,7 +29,7 @@ V5 therefore maps Algebra delivery to the central option-count authority:
 
 The old `BANKING` request alias is accepted by the route and normalized to `BANKING_PRELIMS` for backward compatibility. It is not advertised as a current selectable profile.
 
-V5 does not mutate the frozen learner source. It reconstructs only the delivery option envelope. The canonical answer, source-state seed, source QL/prototype identity, frozen question/explanation and source lifecycle remain preserved.
+V5 reconstructs only the delivery option envelope. The active learner source is now the chapter-level English V4 / multilingual V3 source layer. Permanent QL/prototype identity, canonical-answer parity, source-state seed and lifecycle locks remain preserved.
 
 ## BANK_ONLY lifecycle
 
@@ -71,3 +72,19 @@ Before review-ready status:
 ## Next gate
 
 After this checkpoint, Algebra may populate Question Bank only by explicit manual approval of V5 BANK_ONLY review items. A later, separate checkpoint is required before any scored-test, mock-test or public release activation.
+
+
+## Source upgrade checkpoint
+
+Active Question Studio source authority:
+- English: `ALG-EN-v4-chapter-review-candidate`
+- Hindi/Punjabi: `ALG-ML-v3-chapter-review-candidate`
+
+The source upgrade changes learner content only for the 31 audited remediation variants. The other 78 mapped variants remain byte-for-byte on their prior frozen learner source.
+
+The Question Studio lifecycle remains `BANK_ONLY`:
+- manual approval required;
+- scored-test eligibility remains disabled;
+- mock-test eligibility remains disabled;
+- public/student publication remains disabled;
+- production release authorization remains disabled.

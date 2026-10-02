@@ -74,11 +74,13 @@ export interface BlrControlledNovelCodedCountCandidateV1 {
   readonly noveltyAxes: readonly ReasoningNoveltyAxisV1[];
   readonly parentQlIds: readonly ["BLR-QL-013", "BLR-QL-026"];
   readonly seed: number;
+  readonly difficultyBand: "Medium";
   readonly sharedPrompt: string;
   readonly stem: string;
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answer: string;
+  readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly solverVerified: true;
@@ -163,9 +165,9 @@ export function generateBlrControlledNovelCodedCountCandidateV1(
     .join(", ");
 
   const sharedPrompt =
-    "Use the following code key: " + keyText + ". The coded statements are: " + codedText + ".";
+    "In a family code, " + keyText + ". Consider the following statements: " + codedText + ".";
   const stem =
-    `How many granddaughters does ${reference} have according to these coded relations?`;
+    `Based on the coded relations, how many granddaughters does ${reference} have?`;
 
   const noveltyAxes = [
     "MULTI_STAGE_COMPOSITION",
@@ -192,17 +194,27 @@ export function generateBlrControlledNovelCodedCountCandidateV1(
     (personId) => genderOf(decoded.graph, personId) === "FEMALE",
   );
 
+  const explanation =
+    "After decoding the symbols: " +
+    decoded.decodedStatements.join(" ") +
+    " " +
+    `The grandchildren of ${reference} are ${[grandA, grandB, grandC].join(", ")}. ` +
+    `Among them, ${femaleGrandchildIds.join(", ")} ${femaleGrandchildIds.length === 1 ? "is" : "are"} female. ` +
+    `Therefore, ${reference} has ${solverCount} granddaughter${solverCount === 1 ? "" : "s"}.`;
+
   return {
     candidateId: "BLR-NOVEL-CODED-COUNT-" + seed,
     provenance: "CONTROLLED_NOVEL",
     noveltyAxes,
     parentQlIds: ["BLR-QL-013", "BLR-QL-026"],
     seed,
+    difficultyBand: "Medium",
     sharedPrompt,
     stem,
     options,
     correctIndex,
     answer: options[correctIndex]!,
+    explanation,
     semanticFingerprint: semanticFingerprint([
       BLR_001_CONTROLLED_NOVELTY_DISCOVERY_V1,
       ...codeKey.flatMap((entry) => [entry.token, entry.relationId]),

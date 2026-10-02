@@ -1,5 +1,7 @@
+import { execFile } from "node:child_process";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
@@ -9,6 +11,7 @@ import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
+const execFileAsync = promisify(execFile);
 
 async function buildAll() {
   const distDir = path.resolve(artifactDir, "dist");
@@ -117,6 +120,45 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     `,
     },
   };
+
+  // Generate Question Studio discovery data in an isolated build-time process.
+  // Runtime /capabilities must not import the complete generation/content graph
+  // inside the 512 MiB web process.
+  const capabilitiesBuilderPath = path.resolve(
+    distDir,
+    "build-question-studio-capabilities-manifest.mjs",
+  );
+  const capabilitiesManifestPath = path.resolve(
+    distDir,
+    "question-studio-capabilities.json",
+  );
+  await esbuild({
+    platform: "node",
+    bundle: true,
+    format: "esm",
+    logLevel: "info",
+    external: commonConfig.external,
+    sourcemap: false,
+    entryPoints: [
+      path.resolve(
+        artifactDir,
+        "src/question-studio/build-question-studio-capabilities-manifest.ts",
+      ),
+    ],
+    outfile: capabilitiesBuilderPath,
+  });
+  await execFileAsync(
+    process.execPath,
+    [capabilitiesBuilderPath],
+    {
+      cwd: artifactDir,
+      env: {
+        ...process.env,
+        QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT: capabilitiesManifestPath,
+      },
+      maxBuffer: 16 * 1024 * 1024,
+    },
+  );
 
   // Build main API server
   await esbuild({

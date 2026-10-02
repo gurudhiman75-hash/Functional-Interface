@@ -44,18 +44,8 @@ function buildOptions(answer: bigint, specs: readonly WrongSpec[], correctIndex:
     seen.add(value);
     wrong.push(spec);
   }
-  let offset = 1n;
-  while (wrong.length < 3) {
-    const value = answer + offset;
-    if (!seen.has(value.toString())) {
-      seen.add(value.toString());
-      wrong.push({
-        value,
-        misconceptionId: "NEARBY_SIGN_ARITHMETIC_SLIP",
-        analysis: "This nearby result reflects a small signed-arithmetic slip after the parity of the powered base is considered.",
-      });
-    }
-    offset += 1n;
+  if (wrong.length < 3) {
+    throw new Error(`Parity option construction produced only ${wrong.length} distinct misconception-based distractors for answer ${answer}.`);
   }
 
   const options: SapCp004Option[] = [];
@@ -106,6 +96,8 @@ function parityAware(pkg: SapCp004Package): SapCp004Package {
   const exactPowered = power(BigInt(-base), exponent);
   const oppositeParityPowered = -exactPowered;
   const multiplicationShortcut = BigInt(-base * exponent);
+  const exponentOffByOne = power(BigInt(-base), Math.max(1, exponent - 1));
+  const unpoweredBase = BigInt(-base);
   const answer = expressionValue(mode, exactPowered, add, multiplier);
   if (answer.toString() !== pkg.canonicalAnswer) {
     throw new Error(`${pkg.prototypeId}/${pkg.seed}: parity postprocessor disagrees with the canonical answer.`);
@@ -128,6 +120,16 @@ function parityAware(pkg: SapCp004Package): SapCp004Package {
       value: finalOperationAlternative(mode, exactPowered, add, multiplier),
       misconceptionId: "FINAL_OPERATION_SIGN_ERROR",
       analysis: "The powered negative base is evaluated correctly, but the final addition or subtraction is performed with the opposite sign.",
+    },
+    {
+      value: expressionValue(mode, exponentOffByOne, add, multiplier),
+      misconceptionId: "EXPONENT_REDUCED_BY_ONE",
+      analysis: "This uses one fewer repeated factor than the displayed exponent, changing both the magnitude and, for adjacent exponents, the sign pattern.",
+    },
+    {
+      value: expressionValue(mode, unpoweredBase, add, multiplier),
+      misconceptionId: "POWER_OPERATION_OMITTED",
+      analysis: "This keeps the signed base but omits the exponent operation before carrying out the remaining arithmetic.",
     },
   ], pkg.correctIndex);
 

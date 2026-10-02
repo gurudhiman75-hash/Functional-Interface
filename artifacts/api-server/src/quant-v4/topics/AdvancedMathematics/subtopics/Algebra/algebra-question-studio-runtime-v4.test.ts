@@ -1,4 +1,8 @@
 import {
+  ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+  ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+} from "./permanent";
+import {
   ALGEBRA_QUESTION_STUDIO_PATTERNS,
   ALGEBRA_QUESTION_STUDIO_LANGUAGES,
   ALGEBRA_QUESTION_STUDIO_EXAM_PROFILES,
@@ -49,6 +53,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       sampleCount += 1;
 
       assert(question.deliveryAuthority === ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY, `${pattern.prototypeId}/${language}/${seedIndex}: wrong V4 authority`);
+      assert(question.sourceAuthority === (language === "en" ? ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY : ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY), `${pattern.prototypeId}/${language}/${seedIndex}: wrong active source authority`);
       assert(question.validation.valid, `${pattern.prototypeId}/${language}/${seedIndex}: validation failed`);
       assert(question.validation.fourDistinctOptions, `${pattern.prototypeId}/${language}/${seedIndex}: options not distinct`);
       assert(question.validation.exactlyOneCorrect, `${pattern.prototypeId}/${language}/${seedIndex}: correct-option count invalid`);
@@ -59,6 +64,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert(question.validation.publicationLocked, `${pattern.prototypeId}/${language}/${seedIndex}: publication gate opened`);
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${pattern.prototypeId}/${language}/${seedIndex}: expected four unique options`);
       assert(question.options[question.correctIndex] === question.answer, `${pattern.prototypeId}/${language}/${seedIndex}: answer/index mismatch`);
+      assert(question.optionDetails.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && !/^ALG-DIST-V4-M/.test(option.misconceptionId ?? "")), `${pattern.prototypeId}/${language}/${seedIndex}: generic V4 distractor provenance leaked`);
       assert(question.explanation.steps.length > 0, `${pattern.prototypeId}/${language}/${seedIndex}: explanation missing`);
       assert(Number.isInteger(question.sourceStateSeed) && question.sourceStateSeed >= 0, `${pattern.prototypeId}/${language}/${seedIndex}: invalid source state seed`);
       JSON.stringify(question);

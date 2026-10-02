@@ -106,6 +106,15 @@ const QUESTION_REWRITES: Readonly<Record<string, { hi: RegExp; hiTo: string; pa:
 });
 
 const HI_PHRASES: readonly [RegExp, string][] = [
+  [/\btherefore\b/gi, "अतः"], [/\bhence\b/gi, "अतः"],
+  [/\bfind\b/gi, "ज्ञात करें"], [/\bdetermine\b/gi, "निर्धारित करें"], [/\bcalculate\b/gi, "गणना करें"], [/\bcompare\b/gi, "तुलना करें"],
+  [/\bsatisfies\b/gi, "संतुष्ट करता है"], [/\bsatisfy\b/gi, "संतुष्ट करते हैं"], [/\bfactorise\b/gi, "गुणनखंड करें"], [/\bfactorization\b/gi, "गुणनखंडन"],
+  [/\bdefined\b/gi, "परिभाषित"], [/\bpossible\b/gi, "संभव"], [/\brelation\b/gi, "संबंध"], [/\bequation\b/gi, "समीकरण"],
+  [/\bhere\b/gi, "यहाँ"], [/\bleft side\b/gi, "बायाँ पक्ष"], [/\bright side\b/gi, "दायाँ पक्ष"], [/\bsubstituting\b/gi, "मान रखने पर"],
+  [/\bmove\b/gi, "स्थानांतरित करें"], [/\bother side\b/gi, "दूसरे पक्ष"], [/\bgives\b/gi, "मिलता है"], [/\bgive\b/gi, "देता है"],
+  [/\buse\b/gi, "उपयोग करें"], [/\busing\b/gi, "उपयोग करके"], [/\bsame\b/gi, "समान"], [/\bmultiplier\b/gi, "गुणक"],
+  [/\brepresented\b/gi, "दर्शाते"], [/\brepresent\b/gi, "दर्शाते हैं"], [/\blines\b/gi, "रेखाएँ"], [/\bline\b/gi, "रेखा"],
+  [/\bsystem\b/gi, "समीकरण-तंत्र"], [/\bvariables\b/gi, "चर"], [/\bvariable\b/gi, "चर"], [/\binstead\b/gi, "इसके स्थान पर"],
   [/\band\b/g, "और"], [/\bor\b/g, "या"], [/\bso\b/g, "इसलिए"], [/\bthen\b/g, "तब"], [/\bbecause\b/g, "क्योंकि"],
   [/\bthe required value\b/gi, "आवश्यक मान"], [/\bthe required expression\b/gi, "आवश्यक व्यंजक"], [/\bthe original equation\b/gi, "मूल समीकरण"],
   [/\bthe original denominator\b/gi, "मूल हर"], [/\bthe original denominators\b/gi, "मूल हर"], [/\bthe original domain\b/gi, "मूल मान्य क्षेत्र"],
@@ -153,6 +162,15 @@ const HI_PHRASES: readonly [RegExp, string][] = [
 const PA_PHRASES: readonly [RegExp, string][] = HI_PHRASES.map(([pattern, replacement]) => [pattern, replacement] as [RegExp, string]);
 
 const PA_TOKEN_REPLACE: readonly [RegExp, string][] = [
+  [/अतः/g, "ਇਸ ਲਈ"],
+  [/ज्ञात करें/g, "ਪਤਾ ਕਰੋ"], [/निर्धारित करें/g, "ਨਿਰਧਾਰਤ ਕਰੋ"], [/तुलना करें/g, "ਤੁਲਨਾ ਕਰੋ"],
+  [/संतुष्ट करता है/g, "ਸੰਤੁਸ਼ਟ ਕਰਦਾ ਹੈ"], [/संतुष्ट करते हैं/g, "ਸੰਤੁਸ਼ਟ ਕਰਦੇ ਹਨ"], [/गुणनखंड करें/g, "ਗੁਣਨਖੰਡ ਕਰੋ"],
+  [/गुणनखंडन/g, "ਗੁਣਨਖੰਡਨ"], [/परिभाषित/g, "ਪਰਿਭਾਸ਼ਿਤ"], [/संभव/g, "ਸੰਭਵ"], [/यहाँ/g, "ਇੱਥੇ"],
+  [/बायाँ पक्ष/g, "ਖੱਬਾ ਪਾਸਾ"], [/दायाँ पक्ष/g, "ਸੱਜਾ ਪਾਸਾ"], [/मान रखने पर/g, "ਮਾਨ ਰੱਖਣ ਤੇ"],
+  [/स्थानांतरित करें/g, "ਦੂਜੇ ਪਾਸੇ ਲਿਜਾਓ"], [/दूसरे पक्ष/g, "ਦੂਜੇ ਪਾਸੇ"], [/मिलता है/g, "ਮਿਲਦਾ ਹੈ"], [/देता है/g, "ਦਿੰਦਾ ਹੈ"],
+  [/उपयोग करें/g, "ਵਰਤੋ"], [/उपयोग करके/g, "ਵਰਤ ਕੇ"], [/समान/g, "ਬਰਾਬਰ"], [/गुणक/g, "ਗੁਣਕ"],
+  [/दर्शाते हैं/g, "ਦਰਸਾਉਂਦੇ ਹਨ"], [/दर्शाते/g, "ਦਰਸਾਉਂਦੇ"], [/रेखाएँ/g, "ਰੇਖਾਵਾਂ"], [/रेखा/g, "ਰੇਖਾ"],
+  [/समीकरण-तंत्र/g, "ਸਮੀਕਰਨ-ਤੰਤਰ"], [/चर/g, "ਚਰ"], [/इसके स्थान पर/g, "ਇਸ ਦੀ ਥਾਂ"],
   [/और/g, "ਅਤੇ"], [/या/g, "ਜਾਂ"], [/इसलिए/g, "ਇਸ ਲਈ"], [/तब/g, "ਤਦ"], [/क्योंकि/g, "ਕਿਉਂਕਿ"], [/आवश्यक/g, "ਲੋੜੀਂਦਾ"],
   [/व्यंजक/g, "ਵਿਆੰਜਕ"], [/समीकरण/g, "ਸਮੀਕਰਨ"], [/असमानता/g, "ਅਸਮਾਨਤਾ"], [/बहुपद/g, "ਬਹੁਪਦ"], [/गुणनखंड/g, "ਗੁਣਨਖੰਡ"],
   [/शेषफल/g, "ਬਾਕੀ"], [/गुणांक/g, "ਗੁਣਾਂਕ"], [/अचर/g, "ਅਚਲ"], [/हर/g, "ਹਰ"], [/अंश/g, "ਅੰਸ਼"], [/मूल/g, "ਮੂਲ"],
@@ -210,6 +228,13 @@ function polishV2(item: AlgPermanentMultilingualReviewV1Item): Pick<AlgPermanent
   const reasoned = rewriteMethodReason(item.locale, item.prototypeId, item.explanation);
   const explanation = removeResidualEnglish(item.locale, reasoned);
   return { question, explanation };
+}
+
+export function localizeAlgLearnerTextV2Draft(
+  text: string,
+  locale: AlgReviewLocale,
+): string {
+  return removeResidualEnglish(locale, text);
 }
 
 export function generateAlgPermanentMultilingualReviewV2(

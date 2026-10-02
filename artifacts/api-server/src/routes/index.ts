@@ -10,6 +10,23 @@ function lazyRouter(loader: () => Promise<{ default: IRouter }>): RequestHandler
   };
 }
 
+function lazyExactRouter(
+  pathname: string,
+  loader: () => Promise<{ default: IRouter }>,
+): RequestHandler {
+  let routerPromise: Promise<IRouter> | null = null;
+  return (req, res, next) => {
+    if (req.path !== pathname) {
+      next();
+      return;
+    }
+    routerPromise ??= loader().then((module) => module.default);
+    void routerPromise
+      .then((loadedRouter) => loadedRouter(req, res, next))
+      .catch(next);
+  };
+}
+
 // Keep route modules out of the shared registry chunk. Each router is loaded
 // only when a request reaches its mount, preventing a public API request from
 // importing the entire admin / Question Studio / content-engine graph.
@@ -27,6 +44,7 @@ const mobileContentPlanningRouter = lazyRouter(() => import("./mobile-content-pl
 const mobileConfigurationRouter = lazyRouter(() => import("./mobile-configuration"));
 const mobileAnalyticsRouter = lazyRouter(() => import("./mobile-analytics"));
 const learnPracticeRouter = lazyRouter(() => import("./learn-practice"));
+const publicPracticeRouter = lazyRouter(() => import("./public-practice"));
 const adminLearningResourcesRouter = lazyRouter(() => import("./admin-learning-resources"));
 const adminLearningResourceEditorRouter = lazyRouter(() => import("./admin-learning-resource-editor"));
 const adminNotesStudioJobListRouter = lazyRouter(() => import("./admin-notes-studio-job-list"));
@@ -79,6 +97,8 @@ const adminTestAnalyticsQualityRouter = lazyRouter(() => import("./admin-test-an
 const adminTestAnalyticsRouter = lazyRouter(() => import("./admin-test-analytics"));
 const adminContentIntelligenceRouter = lazyRouter(() => import("./admin-content-intelligence"));
 const adminContentReviewRouter = lazyRouter(() => import("./admin-content-review"));
+const adminQuestionStudioCapabilitiesRouter = lazyExactRouter("/capabilities", () => import("./admin-question-studio-capabilities"));
+const adminQuestionStudioReviewPageRouter = lazyExactRouter("/review-page", () => import("./admin-question-studio"));
 const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));
 const adminQuestionBulkWorkflowRouter = lazyRouter(() => import("./admin-question-bulk-workflow"));
 const adminQuestionLifecycleHardeningRouter = lazyRouter(() => import("./admin-question-lifecycle-hardening"));
@@ -147,6 +167,7 @@ router.use(mobileContentPlanningRouter);
 router.use(mobileConfigurationRouter);
 router.use(mobileAnalyticsRouter);
 router.use(learnPracticeRouter);
+router.use(publicPracticeRouter);
 router.use(canonicalCommerceCheckoutRouter);
 router.use(canonicalCommercePurchasesRouter);
 router.use(canonicalCommerceAccessGuardRouter);
@@ -211,6 +232,11 @@ router.use("/admin/students", adminStudentActionsRouter);
 router.use("/admin/students", adminStudentsRouter);
 router.use("/admin/content-review", adminContentIntelligenceRouter);
 router.use("/admin/content-review", adminContentReviewRouter);
+// Keep read-only Question Studio bootstrap paths out of the chapter engine graph.
+// These two endpoints are used immediately on page load and must stay safe on
+// the 512 MiB production API process.
+router.use("/admin/question-studio", adminQuestionStudioCapabilitiesRouter);
+router.use("/admin/question-studio", adminQuestionStudioReviewPageRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
 router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);

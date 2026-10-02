@@ -20,7 +20,12 @@ const EVIDENCE_PAIRS = [
   [18, 6],
   [35, 5],
 ] as const;
-const TARGET_PAIR = [24, 6] as const;
+const TARGET_PAIRS = [
+  [24, 6],
+  [18, 3],
+  [20, 4],
+  [35, 5],
+] as const;
 
 function permutations<T>(values: readonly T[]): T[][] {
   if (values.length === 0) return [[]];
@@ -73,6 +78,15 @@ function semanticForToken(mapping: OperatorMapping, token: string): ArithmeticOp
   return found.semanticOperator as ArithmeticOperator;
 }
 
+function operatorDisplay(operator: ArithmeticOperator): string {
+  switch (operator) {
+    case "ADD": return "+";
+    case "SUBTRACT": return "−";
+    case "MULTIPLY": return "×";
+    case "DIVIDE": return "÷";
+  }
+}
+
 function integerResult(source: string, mapping: OperatorMapping): number {
   const solved = solveWithMapping(source, mapping);
   const value = solved.evaluation.arithmeticValue;
@@ -99,6 +113,7 @@ export interface OpsControlledNovelInferThenFillCandidateV1 {
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answer: string;
+  readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly solverVerified: true;
@@ -166,8 +181,9 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
     throw new Error("OPS controlled-novel inferred mapping does not match hidden mapping.");
   }
 
-  const correctToken = TOKENS[Math.floor(Math.abs(seed) / 5) % TOKENS.length]!;
-  const [targetLeft, targetRight] = TARGET_PAIR;
+  const correctToken = TOKENS[Math.abs(seed) % TOKENS.length]!;
+  const [targetLeft, targetRight] =
+    TARGET_PAIRS[Math.floor(Math.abs(seed) / TOKENS.length) % TARGET_PAIRS.length]!;
   const targetOperator = semanticForToken(hiddenMapping, correctToken);
   const targetResult = applyIntegerOperator(targetLeft, targetOperator, targetRight);
   const targetExpression = `${targetLeft} ? ${targetRight} = ${targetResult}`;
@@ -190,6 +206,11 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
   const evidenceText = evidence.map((item) => item.statement);
   const stem =
     `M, N, P and Q each represent one of +, −, × and ÷, with no operation repeated. Given ${evidenceText.join("; ")}, which symbol should replace ? in ${targetExpression}?`;
+  const mappingText = TOKENS
+    .map((token) => `${token} = ${operatorDisplay(semanticForToken(inferredMapping, token))}`)
+    .join(", ");
+  const explanation =
+    `The given equations determine one unique operation mapping: ${mappingText}. In ${targetExpression}, the required operation is ${operatorDisplay(targetOperator)}, which is represented by ${correctToken}. Hence the correct answer is ${correctToken}.`;
 
   const noveltyAxes = [
     "MULTI_STAGE_COMPOSITION",
@@ -223,6 +244,7 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
     options,
     correctIndex,
     answer: options[correctIndex]!,
+    explanation,
     semanticFingerprint: [
       OPS_001_CONTROLLED_NOVELTY_DISCOVERY_V1,
       hiddenFingerprint,

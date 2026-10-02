@@ -22,6 +22,7 @@ for (let index = 0; index < current.length; index += 1) {
   assert.deepEqual(now.options.map((option) => option.value), before.options.map((option) => option.value));
   assert.deepEqual(now.explanation.steps, before.explanation.steps);
   assert.equal(now.validation.ok, true, `${now.questionId}: ${now.validation.errors.join("; ")}`);
+  assert.ok(now.options.filter((option) => !option.isCorrect).every((option) => !/^(?:NEARBY_(?:LOW|HIGH|OPTION)|FINAL_VALUE_)/.test(option.misconceptionId ?? "")), `${now.questionId}: generic fallback distractor leaked into review surface.`);
   assert.ok(now.explanation.coreConcept.length >= 100);
   assert.equal(now.explanation.verification.length, 2);
   const studentText = JSON.stringify({ explanation: now.explanation, options: now.options });

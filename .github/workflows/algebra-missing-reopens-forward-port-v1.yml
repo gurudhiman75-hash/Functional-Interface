@@ -1,23 +1,49 @@
 name: Validate Algebra missing V4 reopens forward-port
 
 on:
+  push:
+    branches:
+      - New-main
   pull_request:
     branches:
       - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts
+      - artifacts/api-server/src/routes/admin-question-studio-algebra.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-bank-activation-v1.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALGEBRA-P2-PRODUCTIONIZATION-V1.md
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp002.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp003.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp004.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp008.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp011.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp014.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp013.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp012.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp009.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp007.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-chapter.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/multilingual-review-v3-chapter.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/multilingual-review-v2.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp002.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp003.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp004.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp008.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp011.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp014.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp013.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-batch-readiness.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-chapter-review.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-v3-chapter-review.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp012.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp009.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp007.test.ts
   workflow_dispatch:
 
 concurrency:
@@ -47,12 +73,63 @@ jobs:
       - name: Bundle V4 reopen proofs
         run: |
           mkdir -p artifacts/api-server/dist/quant-v4/algebra
-          for cp in 002 003 004 008 011 014; do
+          for cp in 002 003 004 007 008 009 011 012 013 014; do
             pnpm --dir artifacts/api-server exec esbuild               src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp${cp}.test.ts               --bundle --platform=node --format=esm               --outfile=dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
           done
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-batch-readiness.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-chapter-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-v3-chapter-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v4.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v5.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-bank-activation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
       - name: Run V4 reopen proofs
         run: |
           cd artifacts/api-server
-          for cp in 002 003 004 008 011 014; do
-            node dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
+          set +e
+          failures=0
+
+          run_proof() {
+            echo "::group::$1"
+            node "$1"
+            code=$?
+            echo "::endgroup::"
+            if [ "$code" -ne 0 ]; then
+              failures=1
+              echo "::error::Proof failed: $1"
+            fi
+          }
+
+          for cp in 002 003 004 007 008 009 011 012 013 014; do
+            run_proof "dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs"
           done
+          run_proof "dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs"
+          run_proof "dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs"
+          run_proof "dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-runtime-v4.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-runtime-v5.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs"
+
+          exit "$failures"

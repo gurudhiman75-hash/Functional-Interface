@@ -1,13 +1,16 @@
+import { execFile } from "node:child_process";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { mkdir } from "node:fs/promises";
+import { mkdir, rm } from "node:fs/promises";
+import { promisify } from "node:util";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 
 import { ensureCurrentAffairsFonts } from "./ensure-current-affairs-fonts.mjs";
 
 globalThis.require = createRequire(import.meta.url);
+const execFileAsync = promisify(execFile);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(artifactDir, "dist");
@@ -21,6 +24,55 @@ await mkdir(distDir, { recursive: true });
 await ensureCurrentAffairsFonts({
   copyToDir: path.join(distDir, "current-affairs-fonts"),
 });
+
+// Render uses this runtime-only builder, not build.mjs. Generate Question
+// Studio discovery data in a short-lived child process so the live 512 MiB
+// API can answer /capabilities without hydrating the generation graph.
+const capabilitiesBuilderPath = path.resolve(
+  distDir,
+  "build-question-studio-capabilities-manifest.mjs",
+);
+const capabilitiesManifestPath = path.resolve(
+  distDir,
+  "question-studio-capabilities.json",
+);
+await esbuild({
+  entryPoints: [
+    path.resolve(
+      artifactDir,
+      "src/question-studio/build-question-studio-capabilities-manifest.ts",
+    ),
+  ],
+  platform: "node",
+  bundle: true,
+  format: "esm",
+  outfile: capabilitiesBuilderPath,
+  logLevel: "info",
+  sourcemap: false,
+  external: [
+    "*.node",
+    "sharp",
+    "better-sqlite3",
+    "sqlite3",
+    "canvas",
+    "bcrypt",
+    "argon2",
+    "fsevents",
+    "postgres",
+  ],
+});
+try {
+  await execFileAsync(process.execPath, [capabilitiesBuilderPath], {
+    cwd: artifactDir,
+    env: {
+      ...process.env,
+      QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT: capabilitiesManifestPath,
+    },
+    maxBuffer: 16 * 1024 * 1024,
+  });
+} finally {
+  await rm(capabilitiesBuilderPath, { force: true });
+}
 
 await esbuild({
   entryPoints: [path.resolve(artifactDir, "src/index.ts")],

@@ -15,9 +15,12 @@ const promotionsV2MigrationPath = path.resolve(here, "../../docs/database-migrat
 const firstPromotionMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-first-live-promotion.sql");
 const repeatOnOpenMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-promotion-repeat-on-open.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
+const notificationsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-notifications-v2.sql");
+const notificationsV3MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-notifications-v3.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
+const analyticsPromotionDismissMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-analytics-promotion-dismiss.sql");
 const mediaMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-media-assets.sql");
 const pagesMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-pages.sql");
 const sql = postgres(databaseUrl, {
@@ -183,6 +186,65 @@ try {
     throw new Error("Mobile notifications migration completed without creating all required tables");
   }
   console.log("[render-build] mobile notifications schema verified");
+  const [notificationsV2Before] = await sql`
+    SELECT
+      EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema='platform'
+          AND table_name='mobile_notification_deliveries'
+          AND column_name='is_test'
+      ) AS has_is_test,
+      COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%page%'), false) AS has_page_destination
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_notification_campaigns'::regclass
+      AND c.contype='c'
+  `;
+  if (!notificationsV2Before?.has_is_test || !notificationsV2Before?.has_page_destination) {
+    console.log("[render-build] mobile notifications v2 schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(notificationsV2MigrationPath, "utf8"));
+  }
+  const [notificationsV2After] = await sql`
+    SELECT
+      EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema='platform'
+          AND table_name='mobile_notification_deliveries'
+          AND column_name='is_test'
+      ) AS has_is_test,
+      COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%page%'), false) AS has_page_destination
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_notification_campaigns'::regclass
+      AND c.contype='c'
+  `;
+  if (!notificationsV2After?.has_is_test || !notificationsV2After?.has_page_destination) {
+    throw new Error("Mobile notifications v2 migration verification failed");
+  }
+  console.log("[render-build] mobile notifications v2 schema verified");
+  const [notificationsV3Before] = await sql`
+    SELECT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_notification_deliveries'
+        AND column_name='read_at'
+    ) AS has_read_at
+  `;
+  if (!notificationsV3Before?.has_read_at) {
+    console.log("[render-build] mobile notifications v3 schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(notificationsV3MigrationPath, "utf8"));
+  }
+  const [notificationsV3After] = await sql`
+    SELECT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_notification_deliveries'
+        AND column_name='read_at'
+    ) AS has_read_at
+  `;
+  if (!notificationsV3After?.has_read_at) {
+    throw new Error("Mobile notifications v3 migration verification failed");
+  }
+  console.log("[render-build] mobile notifications v3 schema verified");
+
 
   const [contentPlanningBefore] = await sql`
     SELECT to_regclass('platform.mobile_content_plan_items')::text AS mobile_content_plan_items
@@ -231,6 +293,27 @@ try {
     throw new Error("Mobile analytics migration completed without creating platform.mobile_analytics_events");
   }
   console.log("[render-build] mobile analytics schema verified");
+  const [promotionDismissAnalyticsBefore] = await sql`
+    SELECT COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%promotion_dismiss%'), false) AS supported
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_analytics_events'::regclass
+      AND c.contype='c'
+  `;
+  if (!promotionDismissAnalyticsBefore?.supported) {
+    console.log("[render-build] promotion dismiss analytics support missing; applying checked-in migration");
+    await sql.unsafe(await readFile(analyticsPromotionDismissMigrationPath, "utf8"));
+  }
+  const [promotionDismissAnalyticsAfter] = await sql`
+    SELECT COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%promotion_dismiss%'), false) AS supported
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_analytics_events'::regclass
+      AND c.contype='c'
+  `;
+  if (!promotionDismissAnalyticsAfter?.supported) {
+    throw new Error("Mobile analytics promotion dismiss migration verification failed");
+  }
+  console.log("[render-build] promotion dismiss analytics verified");
+
 
   const [mediaBefore] = await sql`
     SELECT to_regclass('platform.media_assets')::text AS media_assets

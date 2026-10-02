@@ -87,28 +87,43 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
   try {
     const [rows, exams, testSeries] = await Promise.all([
       sqlClient`
+        WITH metrics AS (
+          SELECT
+            entity_id,
+            COUNT(*) FILTER (WHERE event_name='promotion_impression')::int AS impressions,
+            COUNT(*) FILTER (WHERE event_name='promotion_click')::int AS clicks,
+            COUNT(*) FILTER (WHERE event_name='promotion_dismiss')::int AS dismissals
+          FROM platform.mobile_analytics_events
+          WHERE entity_type='promotion'
+            AND occurred_at>=now()-interval '30 days'
+          GROUP BY entity_id
+        )
         SELECT
-          id::text AS id,
-          title,
-          subtitle,
-          cta_label AS "ctaLabel",
-          image_url AS "imageUrl",
-          placement,
-          destination_type AS "destinationType",
-          destination_value AS "destinationValue",
-          campaign_kind AS "campaignKind",
-          is_dismissible AS "isDismissible",
-          frequency_cap_per_day AS "frequencyCapPerDay",
-          repeat_on_every_open AS "repeatOnEveryOpen",
-          audience,
-          is_active AS "isActive",
-          start_at AS "startAt",
-          end_at AS "endAt",
-          sort_order AS "sortOrder",
-          created_at AS "createdAt",
-          updated_at AS "updatedAt"
-        FROM platform.mobile_promotions
-        ORDER BY placement, sort_order, updated_at DESC
+          p.id::text AS id,
+          p.title,
+          p.subtitle,
+          p.cta_label AS "ctaLabel",
+          p.image_url AS "imageUrl",
+          p.placement,
+          p.destination_type AS "destinationType",
+          p.destination_value AS "destinationValue",
+          p.campaign_kind AS "campaignKind",
+          p.is_dismissible AS "isDismissible",
+          p.frequency_cap_per_day AS "frequencyCapPerDay",
+          p.repeat_on_every_open AS "repeatOnEveryOpen",
+          p.audience,
+          p.is_active AS "isActive",
+          p.start_at AS "startAt",
+          p.end_at AS "endAt",
+          p.sort_order AS "sortOrder",
+          p.created_at AS "createdAt",
+          p.updated_at AS "updatedAt",
+          COALESCE(m.impressions,0)::int AS impressions,
+          COALESCE(m.clicks,0)::int AS clicks,
+          COALESCE(m.dismissals,0)::int AS dismissals
+        FROM platform.mobile_promotions p
+        LEFT JOIN metrics m ON m.entity_id=p.id::text
+        ORDER BY p.placement,p.sort_order,p.updated_at DESC
       `,
       sqlClient`
         SELECT e.id::text AS id, e.code, e.name, f.name AS "familyName"

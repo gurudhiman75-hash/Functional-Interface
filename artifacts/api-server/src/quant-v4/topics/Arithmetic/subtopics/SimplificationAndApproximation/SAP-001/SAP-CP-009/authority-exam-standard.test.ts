@@ -38,6 +38,7 @@ for (let seed = 1; seed <= 100; seed += 1) {
       `${prototypeId}:${seed}: raw floating-point value leaked into student content`,
     );
     assert.ok(q.stem.length <= 220, `${prototypeId}:${seed}: stem too long for exam presentation`);
+    assert.ok(q.options.filter((option) => !option.isCorrect).every((option) => !/^(?:NEARBY_(?:LOW|HIGH|OPTION)|FINAL_VALUE_)/.test(option.misconceptionId ?? "")), `${prototypeId}:${seed}: generic fallback distractor leaked into exam-standard surface.`);
   }
 
   const product = generateSapCp009(SAP_CP009_PROTOTYPE_IDS[0]!, seed);

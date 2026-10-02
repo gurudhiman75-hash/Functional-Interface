@@ -15,7 +15,6 @@ on:
       - pnpm-lock.yaml
       - firebase.json
       - scripts/assemble-hosting.mjs
-      - .github/workflows/vendor-admin-panel.yml
   pull_request:
     branches:
       - New-main
@@ -43,7 +42,6 @@ on:
       - pnpm-lock.yaml
       - firebase.json
       - scripts/assemble-hosting.mjs
-      - .github/workflows/vendor-admin-panel.yml
 
 permissions:
   contents: read
@@ -114,7 +112,7 @@ jobs:
           grep -F 'QuestionStudioOperationsPage' artifacts/admin-app/src/App.tsx
           grep -F 'QuestionStudioCockpitPage' artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
           grep -F 'QuestionStudioRecoveryDock' artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
-          grep -F 'Retry all needs fix' artifacts/admin-app/src/pages/content/QuestionStudioRecoveryDock.tsx
+          grep -F 'Retry needs fix on page' artifacts/admin-app/src/pages/content/QuestionStudioRecoveryDock.tsx
           grep -F 'findDuplicateMatches' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
           grep -F 'Create immutable revision' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
           grep -F 'QUESTION_STUDIO_QUALITY_BLOCKED' artifacts/api-server/src/routes/admin-question-studio-quality.ts

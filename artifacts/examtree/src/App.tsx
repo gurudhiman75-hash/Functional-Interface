@@ -47,6 +47,10 @@ const PYQHub = lazy(() => import("@/pages/pyqs"));
 const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
+const ConfiguredExamHub = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamHub })));
+const ConfiguredExamPreparation = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamPreparation })));
+const ConfiguredExamSyllabus = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamSyllabus })));
+const ConfiguredExamQuestions = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamQuestions })));
 const UnavailableFeature = lazy(() => import("@/pages/unavailable-feature"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
@@ -221,6 +225,46 @@ function Router() {
           <Route path="/mock-tests" component={() => renderCatalogPublicRoute(MockTestsHub)} />
           <Route path="/pyqs" component={() => renderPublicRoute(PYQHub)} />
           <Route path="/blog" component={() => renderPublicRoute(Blog)} />
+          <Route path="/ssc-cgl" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-cgl" />)} />
+          <Route path="/ssc-cgl-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-cgl" />)} />
+          <Route path="/ssc-cgl-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-cgl" />)} />
+          <Route path="/ssc-cgl/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-cgl" />)} />
+          <Route path="/ssc-chsl" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-mts" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-mts" />)} />
+          <Route path="/ssc-cpo" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-stenographer" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-gd" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-gd" />)} />
+          <Route path="/ibps-po" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-po" />)} />
+          <Route path="/ibps-po-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-po" />)} />
+          <Route path="/ibps-po-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-po" />)} />
+          <Route path="/ibps-po/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-po" />)} />
+          <Route path="/ibps-clerk" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-rrb-po" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-office-assistant" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-office-assistant" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />

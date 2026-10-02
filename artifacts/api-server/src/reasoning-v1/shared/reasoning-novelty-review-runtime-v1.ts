@@ -131,13 +131,16 @@ export async function generateReasoningNoveltyReviewBatchV1(
   request: ReasoningNoveltyReviewRequestV1,
 ): Promise<ReasoningNoveltyReviewResultV1> {
   const provider = reasoningNoveltyProviderByIdV1(request.providerId);
-  if (provider.status !== "DISCOVERY_REVIEW_ONLY") {
+  const diagnosticStatus =
+    provider.status === "DISCOVERY_REVIEW_ONLY"
+    || provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE";
+  if (!diagnosticStatus) {
     throw new Error(
       provider.providerId +
       " is already an approved runtime and is not served through the discovery-review sampler.",
     );
   }
-  if (provider.questionStudioNoveltyMixActivated || !provider.humanReviewRequired) {
+  if (provider.questionStudioNoveltyMixActivated) {
     throw new Error(
       provider.providerId +
       " violates the discovery-review activation boundary.",

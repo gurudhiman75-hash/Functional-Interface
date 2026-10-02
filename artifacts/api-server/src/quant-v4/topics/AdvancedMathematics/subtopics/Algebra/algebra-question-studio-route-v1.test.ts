@@ -31,9 +31,9 @@ assert.equal(
   "Algebra must use the shared approval/converter path instead of chapter-specific downstream routes",
 );
 
-assert.ok(routeIndexSource.includes('import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";'));
+assert.ok(routeIndexSource.includes('const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));'));
 assert.ok(routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);'));
-assert.ok(registrySource.includes('import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";'));
+assert.ok(registrySource.includes('const adminQuestionStudioAlgebraRouter = lazyRouter(() => import("./admin-question-studio-algebra"));'));
 assert.ok(registrySource.includes("router.use(adminQuestionStudioAlgebraRouter);"));
 
 for (const fragment of [
@@ -49,6 +49,7 @@ for (const fragment of [
   "mockTestEligible: false",
   "publiclyPublishable: false",
   "productionReleaseAuthorized: false",
+  "activeSourceAuthorityByLanguage",
 ] as const) {
   assert.ok(routeSource.includes(fragment), `Algebra BANK_ONLY route contract missing: ${fragment}`);
 }
@@ -60,6 +61,13 @@ assert.ok(routeSource.includes("INSERT INTO content.generation_runs"));
 assert.ok(routeSource.includes("INSERT INTO content.generation_run_items"));
 assert.ok(routeSource.includes("INSERT INTO content.generation_item_versions"));
 assert.ok(routeSource.includes("bankReadyItemCount"));
+assert.equal(routeSource.includes("generateAlgebraStudioQuestionV1"), false, "Active Algebra route must not call V1 generation");
+assert.equal(routeSource.includes("generateAlgebraStudioQuestionV2"), false, "Active Algebra route must not call V2 generation");
+assert.equal(routeSource.includes("generateAlgebraStudioQuestionV3"), false, "Active Algebra route must not call V3 generation");
+assert.equal(routeSource.includes("generateAlgebraStudioBatchV1"), false, "Active Algebra route must not call V1 batch generation");
+assert.equal(routeSource.includes("generateAlgebraStudioBatchV2"), false, "Active Algebra route must not call V2 batch generation");
+assert.equal(routeSource.includes("generateAlgebraStudioBatchV3"), false, "Active Algebra route must not call V3 batch generation");
+assert.ok(routeSource.includes("generateAlgebraStudioBatchV5"), "Active Algebra route must stay on V5 delivery");
 
 for (const apiFunction of [
   "getAlgebraReviewPackage",

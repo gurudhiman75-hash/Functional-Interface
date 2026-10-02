@@ -7,48 +7,52 @@ import {
   reasoningNoveltyProviderSummaryV1,
 } from "../shared/reasoning-novelty-provider-registry-v1";
 
+const live = [
+  "PFC-001-CONTROLLED-NOVEL",
+  "ALP-001-TRANSFORMED-GAP",
+  "OPS-001-INFER-THEN-FILL",
+  "CLK-001-FAULTY-TIME-ANGLE",
+  "CAE-001-EDGE-FAMILIES",
+  "DIR-001-GRAPH-RELATIVE-PATH",
+  "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+  "BLR-001-CODED-FILTERED-COUNT",
+] as const;
+const awaitingRoute = [
+  "RNK-001-CROSS-FAMILY-CASELET",
+] as const;
+
 test("novelty provider registry has unique provider identities", () => {
   const ids = REASONING_V1_NOVELTY_PROVIDERS_V1.map((entry) => entry.providerId);
   assert.equal(new Set(ids).size, ids.length);
-  assert.ok(ids.length >= 8);
+  assert.equal(ids.length, 9);
 });
 
-test("only explicitly approved Paper Folding runtime counts toward assembly novelty today", () => {
+test("approved runtime and assembly-credit state matches the authorized live set", () => {
   const summary = reasoningNoveltyProviderSummaryV1();
-  assert.deepEqual(summary.approvedProviderIds, ["PFC-001-CONTROLLED-NOVEL"]);
-  assert.deepEqual(summary.assemblyCreditedProviderIds, ["PFC-001-CONTROLLED-NOVEL"]);
+  assert.deepEqual(summary.approvedProviderIds, [...live]);
+  assert.deepEqual(summary.awaitingRouteProviderIds, [...awaitingRoute]);
+  assert.deepEqual(summary.assemblyCreditedProviderIds, [...live]);
+  assert.deepEqual(summary.reviewOnlyProviderIds, []);
 });
 
-test("all new reasoning novelty generators remain review-only and production-mix disabled", () => {
-  const reviewOnly = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
-    (entry) => entry.status === "DISCOVERY_REVIEW_ONLY",
-  );
-  assert.ok(reviewOnly.length >= 7);
-
-  for (const provider of reviewOnly) {
-    assert.equal(provider.questionStudioNoveltyMixActivated, false, provider.providerId);
-    assert.equal(provider.humanReviewRequired, true, provider.providerId);
-    assert.equal(provider.countsTowardAssemblyNoveltyNow, false, provider.providerId);
-    assert.equal(provider.permanentQlAllocationRequired, false, provider.providerId);
-    assert.ok(provider.parentQlIds.length >= 1, provider.providerId);
-    assert.ok(provider.noveltyAxes.length >= 2, provider.providerId);
-    assert.ok(provider.generatorModule.length > 10, provider.providerId);
-    assert.ok(provider.generatorExport.length > 5, provider.providerId);
+test("awaiting-route providers are content-approved but production-mix disabled", () => {
+  for (const providerId of awaitingRoute) {
+    const provider = reasoningNoveltyProviderByIdV1(providerId);
+    assert.equal(provider.status, "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE");
+    assert.equal(provider.questionStudioNoveltyMixActivated, false);
+    assert.equal(provider.humanReviewRequired, false);
+    assert.equal(provider.countsTowardAssemblyNoveltyNow, false);
+    assert.equal(provider.permanentQlAllocationRequired, false);
+    assert.ok(provider.parentQlIds.length >= 1);
   }
 });
 
-test("registered review lanes can be addressed deterministically by provider id", () => {
-  for (const providerId of [
-    "RNK-001-CROSS-FAMILY-CASELET",
-    "CLK-001-FAULTY-TIME-ANGLE",
-    "CAE-001-EDGE-FAMILIES",
-    "DIR-001-GRAPH-RELATIVE-PATH",
-    "BLR-001-CODED-FILTERED-COUNT",
-    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
-    "OPS-001-INFER-THEN-FILL",
-  ]) {
+test("seven reviewed chapter providers are live Question Studio runtimes", () => {
+  for (const providerId of live.slice(1)) {
     const provider = reasoningNoveltyProviderByIdV1(providerId);
-    assert.equal(provider.providerId, providerId);
-    assert.equal(provider.status, "DISCOVERY_REVIEW_ONLY");
+    assert.equal(provider.status, "APPROVED_RUNTIME");
+    assert.equal(provider.questionStudioNoveltyMixActivated, true);
+    assert.equal(provider.humanReviewRequired, false);
+    assert.equal(provider.countsTowardAssemblyNoveltyNow, true);
   }
 });

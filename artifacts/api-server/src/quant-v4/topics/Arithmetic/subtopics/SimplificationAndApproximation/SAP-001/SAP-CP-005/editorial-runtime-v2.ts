@@ -84,7 +84,15 @@ function diagnosisPackage(seed: number): SapCp005Package {
   const prototypeId = "SAP-CP005-PROT-ILLEGAL-CANCELLATION-DIAGNOSIS" as const;
   const pkg = generateSapCp005(prototypeId, seed);
   const d = pkg.oracle.data;
-  const stem = `A student writes (${d.x} + ${d.y})/${d.x} = 1 + ${d.y} by cancelling ${d.x}. Which statement correctly identifies the first error?`;
+  const expression = `(${d.x} + ${d.y})/${d.x}`;
+  const claimed = `1 + ${d.y}`;
+  const frames = [
+    `A student simplifies ${expression} as ${claimed} by cancelling ${d.x} from the numerator and denominator. What is the error?`,
+    `In the step ${expression} = ${claimed}, the factor ${d.x} has been cancelled through the addition in the numerator. Which statement is correct?`,
+    `Consider the simplification ${expression} = ${claimed}. Which rule has been applied incorrectly?`,
+    `A solution changes ${expression} directly to ${claimed}. Identify the error in this step.`,
+  ] as const;
+  const stem = frames[(seed - 1) % frames.length]!;
   const options = diagnosisOptions(pkg.correctIndex);
   const errors: string[] = [];
   if (new Set(options.map((option) => option.value)).size !== 4) errors.push("Diagnosis options are not distinct.");

@@ -34,6 +34,34 @@ export interface ClockControlledNovelAngleCandidateV1 {
   readonly falsePyqAttribution: false;
 }
 
+function examNaturalClockStem(source: string): string {
+  const match = source.match(/^At actual time (.+?), a clock that was (.+?) at actual 8:00 and runs at rate (\d+):(\d+) shows some reading\. What smaller angle do its displayed hands form\?$/);
+  if (!match) return source;
+  const target = match[1]!.replace(" (1 day later)", " the next day");
+  const offset = match[2]!;
+  const rateNumerator = match[3]!;
+  const rateDenominator = match[4]!;
+  return `At 8:00 a.m., a clock was ${offset}. Thereafter, it ran at ${rateNumerator}/${rateDenominator} of the correct rate. When the correct time is ${target}, what is the smaller angle between the hands of the clock?`;
+}
+
+function learnerClockExplanation(question: ReturnType<typeof generateClockQuestion>): string {
+  const displayedLine = question.explanation.working.find((line) => line.startsWith("Displayed reading ="));
+  const displayed = displayedLine?.replace(/^Displayed reading =\s*/, "").replace(/\.$/, "") ?? String(question.scenario.displayed ?? "the derived displayed time");
+  const timeMatch = displayed.match(/^(\d+):(\d+):(\d+)/);
+  if (!timeMatch) {
+    return `First find the time shown by the faulty clock at the stated correct time. It shows ${displayed}. Applying the standard clock-hand angle rule to that displayed time gives ${question.answer.display}. Hence the smaller angle is ${question.answer.display}.`;
+  }
+  const hour = Number(timeMatch[1]) % 12;
+  const minute = Number(timeMatch[2]);
+  const second = Number(timeMatch[3]);
+  const hourAngle = 30 * hour + 0.5 * minute + second / 120;
+  const minuteAngle = 6 * minute + second / 10;
+  const rawDifference = Math.abs(hourAngle - minuteAngle);
+  const smaller = Math.min(rawDifference, 360 - rawDifference);
+  const tidy = (value: number) => Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+  return `First find the time shown by the faulty clock at the stated correct time: ${displayed}. At this reading, the hour hand is at ${tidy(hourAngle)}° and the minute hand is at ${tidy(minuteAngle)}°. Their smaller difference is ${tidy(smaller)}°, i.e. ${question.answer.display}.`;
+}
+
 export function generateClockControlledNovelAngleCandidateV1(
   seed: number,
 ): ClockControlledNovelAngleCandidateV1 {
@@ -86,16 +114,11 @@ export function generateClockControlledNovelAngleCandidateV1(
     parentQlIds: ['CLK-QL-003', 'CLK-QL-010'],
     taskId: 'ANGLE_ON_FAULTY_CLOCK_AT_ACTUAL_TIME',
     seed,
-    stem: question.stem,
+    stem: examNaturalClockStem(question.stem),
     options,
     correctIndex: question.correctOptionIndex,
     answer: question.answer.display,
-    explanation: [
-      question.explanation.given,
-      question.explanation.rule,
-      ...question.explanation.working,
-      question.explanation.answer,
-    ].join('\n\n'),
+    explanation: learnerClockExplanation(question),
     semanticFingerprint: question.fingerprint,
     solverAgreement: true,
     candidateDisposition: question.discoveryAudit.candidateDisposition,

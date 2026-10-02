@@ -56,6 +56,13 @@ function run(items: QuestionStudioItem[]): QuestionStudioRun {
     updatedAt: new Date().toISOString(),
     requestSnapshot: {},
     recipeVersionId: null,
+    reviewSummary: {
+      total: items.length,
+      unreviewed: items.filter((entry) => entry.status === 'unreviewed').length,
+      needsFix: items.filter((entry) => entry.status === 'needs_fix').length,
+      approved: items.filter((entry) => entry.status === 'approved').length,
+      rejected: items.filter((entry) => entry.status === 'rejected').length,
+    },
     items,
   };
 }

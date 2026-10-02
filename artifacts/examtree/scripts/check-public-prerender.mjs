@@ -24,13 +24,20 @@ assert.match(generator, /process\.env\.RENDER_EXTERNAL_URL/);
 assert.match(generator, /url\.protocol !== "https:" && url\.protocol !== "http:"/);
 assert.match(generator, /url\.pathname !== "\/" \|\| url\.search \|\| url\.hash/);
 
-for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility"]) {
+for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-chsl", "/ssc-chsl-preparation", "/ssc-chsl-syllabus", "/ssc-mts", "/ssc-mts-preparation", "/ssc-mts-syllabus", "/ssc-cpo", "/ssc-cpo-preparation", "/ssc-cpo-syllabus", "/ssc-stenographer", "/ssc-stenographer-preparation", "/ssc-stenographer-syllabus", "/ssc-gd", "/ssc-gd-preparation", "/ssc-gd-syllabus", "/ibps-po", "/ibps-po-preparation", "/ibps-po-syllabus", "/ibps-clerk", "/ibps-clerk-preparation", "/ibps-clerk-syllabus", "/ibps-rrb-po", "/ibps-rrb-po-preparation", "/ibps-rrb-po-syllabus", "/ibps-rrb-office-assistant", "/ibps-rrb-office-assistant-preparation", "/ibps-rrb-office-assistant-syllabus"]) {
   assert.ok(generator.includes(`path: "${route}"`), `prerender route set must include ${route}`);
 }
 for (const route of ["/pyqs", "/blog", "/ssc-cgl-pyqs", "/punjab-police-mock-tests", "/ibps-clerk-syllabus", "/dashboard", "/test/"]) {
   assert.ok(!generator.includes(`path: "${route}"`), `prerender route set must exclude ${route}`);
 }
 
+for (const topic of ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding", "indian-polity"]) {
+  assert.ok(generator.includes(`["${topic}",`), `SSC public practice registry must include ${topic}`);
+}
+assert.match(generator, /routes\.push\([\s\S]*sscPracticeTopics\.map/, "SSC practice topic pages must be added to the crawlable route set");
+assert.match(generator, /stenographerPracticeTopics/, "Stenographer must use an exam-specific topic subset");
+assert.match(generator, /gdPracticeTopics/, "SSC GD must use an exam-specific topic subset");
+assert.match(generator, /bankingPracticeTopics/, "IBPS pages must use a banking-specific topic subset");
 assert.match(generator, /sitemap\.xml/);
 assert.match(generator, /Sitemap: \$\{publicOrigin\}\/sitemap\.xml/);
 assert.match(generator, /property="og:url"/);

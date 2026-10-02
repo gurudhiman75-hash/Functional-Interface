@@ -1,3 +1,7 @@
+import {
+  ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+  ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+} from "./permanent";
 import assert from "node:assert/strict";
 
 import { getQuantV4OptionCount } from "../../../../common/exam-profile";
@@ -56,6 +60,8 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert.equal(question.options[question.correctIndex], question.answer);
       assert.equal(question.optionDetails.filter((option) => option.isCorrect).length, 1);
       assert.equal(question.optionDetails.length, question.optionCount);
+      assert.equal(question.sourceAuthority, language === "en" ? ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY : ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY);
+      assert.ok(question.optionDetails.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && !/^ALG-DIST-V5-M/.test(option.misconceptionId ?? "") && option.misconceptionId !== "UNBOUND_DISTRACTOR"), `${pattern.prototypeId}/${examProfile}/${language}: distractor provenance is generic or unbound`);
       assert.equal(question.questionId.startsWith("ALG-QS5-"), true);
       assert.equal(question.centralExamProfile, centralProfileForAlgebraV5(examProfile));
       JSON.stringify(question);

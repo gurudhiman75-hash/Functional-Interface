@@ -27,6 +27,7 @@ assert.equal(SAP_FINAL_PRODUCT_OWNER_FREEZE.allocatedRange, "SAP-QL-166..SAP-QL-
 assert.equal(SAP_FINAL_PRODUCT_OWNER_FREEZE.allocatedCount, 46);
 assert.equal(SAP_FINAL_PRODUCT_OWNER_FREEZE.nextAvailableId, "SAP-QL-212");
 assert.equal(SAP_FINAL_PRODUCT_OWNER_FREEZE.mergeAuthorization, false);
+assert.equal(SAP_FINAL_PRODUCT_OWNER_FREEZE.translationStatus, "HINDI_PUNJABI_CONTENT_APPROVED");
 
 const entries = SAP_QL166_211_FINAL_FROZEN_ENTRIES;
 assert.equal(entries.length, 46);

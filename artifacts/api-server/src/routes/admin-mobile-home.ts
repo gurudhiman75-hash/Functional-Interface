@@ -17,6 +17,9 @@ const ALLOWED_SECTIONS = [
   "today_goal",
 ] as const;
 const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "page", "url", "none"]);
+const HOME_LAYOUTS = new Set(["grid", "horizontal", "list", "banner"]);
+const HOME_STYLES = new Set(["default", "compact", "image", "minimal", "featured"]);
+const HOME_GAPS = new Set(["compact", "normal", "relaxed"]);
 const MOBILE_HOME_AUDIT_ENTITY_ID = "00000000-0000-4000-8000-000000000101";
 
 type HeroSlide = {
@@ -37,6 +40,11 @@ type HeroSlide = {
 
 function text(value: unknown, max = 500): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+function integer(value: unknown, fallback: number, min: number, max: number): number {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.min(max, Math.max(min, Math.round(number))) : fallback;
 }
 
 function ids(value: unknown): string[] {
@@ -93,6 +101,8 @@ function normalizeCard(input: unknown, index: number) {
     ctaLabel: text(raw.ctaLabel, 60),
     destinationType: DESTINATION_TYPES.has(destinationType) ? destinationType : "none",
     destinationValue: text(raw.destinationValue, 1000),
+    span: integer(raw.span, 1, 1, 4),
+    style: HOME_STYLES.has(text(raw.style, 30)) ? text(raw.style, 30) : "default",
     isActive: raw.isActive !== false,
     sortOrder: Number.isFinite(Number(raw.sortOrder)) ? Math.max(0, Math.min(999, Number(raw.sortOrder))) : index + 1,
   };
@@ -105,7 +115,7 @@ function normalizeCustomSection(input: unknown, index: number) {
     ? raw.cards.slice(0, 40).map(normalizeCard).filter((card) => card.title.length >= 1)
     : [];
   const layoutRaw = text(raw.layout, 30);
-  const layout = ["grid", "horizontal", "list", "banner"].includes(layoutRaw) ? layoutRaw : "horizontal";
+  const layout = HOME_LAYOUTS.has(layoutRaw) ? layoutRaw : "horizontal";
   return {
     id,
     title: text(raw.title, 140),
@@ -113,6 +123,9 @@ function normalizeCustomSection(input: unknown, index: number) {
     iconName: text(raw.iconName, 80),
     iconUrl: text(raw.iconUrl, 1000),
     layout,
+    columns: integer(raw.columns, 2, 1, 4),
+    gap: HOME_GAPS.has(text(raw.gap, 30)) ? text(raw.gap, 30) : "normal",
+    style: HOME_STYLES.has(text(raw.style, 30)) ? text(raw.style, 30) : "default",
     isVisible: raw.isVisible !== false,
     sortOrder: Number.isFinite(Number(raw.sortOrder)) ? Math.max(0, Math.min(999, Number(raw.sortOrder))) : index + 1,
     cards: cards.sort((a, b) => a.sortOrder - b.sortOrder),
@@ -153,7 +166,8 @@ function normalizeSectionSettings(input: unknown) {
       subtitle: text(raw.subtitle, 280),
       iconName: text(raw.iconName, 80),
       iconUrl: text(raw.iconUrl, 1000),
-      layout: ["grid", "horizontal", "list", "banner"].includes(layoutRaw) ? layoutRaw : "",
+      layout: HOME_LAYOUTS.has(layoutRaw) ? layoutRaw : "",
+      columns: integer(raw.columns, 0, 0, 4),
       isVisible: raw.isVisible !== false,
     };
   }
@@ -202,6 +216,65 @@ async function ensureReferences(configuration: ReturnType<typeof normalizeConfig
     const missing = configuration.featuredTestSeriesIds.filter((id) => !found.has(id));
     if (missing.length > 0) throw Object.assign(new Error("One or more featured test series are unavailable."), { statusCode: 409, code: "MOBILE_HOME_SERIES_REFERENCE_INVALID" });
   }
+
+  for (const slide of configuration.heroSlides) {
+    if (slide.startAt && slide.endAt && new Date(slide.startAt).getTime() >= new Date(slide.endAt).getTime()) {
+      throw Object.assign(new Error(`Hero slide "${slide.title}" must end after it starts.`), { statusCode: 400, code: "MOBILE_HOME_HERO_SCHEDULE_INVALID" });
+    }
+  }
+
+  const destinations = [
+    ...configuration.heroSlides.map((item) => ({ type: item.destinationType, value: item.destinationValue, label: item.title })),
+    ...configuration.customSections.flatMap((section) => section.cards.map((item) => ({ type: item.destinationType, value: item.destinationValue, label: item.title }))),
+  ];
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const examIds = [...new Set(destinations.filter((item) => item.type === "exam").map((item) => item.value).filter(Boolean))];
+  const seriesIds = [...new Set(destinations.filter((item) => item.type === "test_series").map((item) => item.value).filter(Boolean))];
+  const pageSlugs = [...new Set(destinations.filter((item) => item.type === "page").map((item) => item.value).filter(Boolean))];
+
+  for (const item of destinations) {
+    if ((item.type === "exam" || item.type === "test_series" || item.type === "page") && !item.value) {
+      throw Object.assign(new Error(`"${item.label || "Home item"}" needs a destination.`), { statusCode: 400, code: "MOBILE_HOME_DESTINATION_REQUIRED" });
+    }
+    if ((item.type === "exam" || item.type === "test_series") && item.value && !uuidPattern.test(item.value)) {
+      throw Object.assign(new Error(`"${item.label || "Home item"}" has an invalid destination.`), { statusCode: 400, code: "MOBILE_HOME_DESTINATION_INVALID" });
+    }
+    if (item.type === "url" && item.value) {
+      try {
+        const uri = new URL(item.value);
+        if (uri.protocol !== "https:" && uri.protocol !== "http:") throw new Error("scheme");
+      } catch {
+        throw Object.assign(new Error(`"${item.label || "Home item"}" needs a valid http/https URL.`), { statusCode: 400, code: "MOBILE_HOME_URL_INVALID" });
+      }
+    }
+  }
+
+  const [examRows, seriesRows, pageRows] = await Promise.all([
+    examIds.length === 0 ? Promise.resolve([]) : sqlClient`
+      SELECT id::text AS id FROM catalog.exams
+      WHERE id = ANY(${examIds}::uuid[]) AND is_active=true
+    `,
+    seriesIds.length === 0 ? Promise.resolve([]) : sqlClient`
+      SELECT id::text AS id FROM assessment.test_series
+      WHERE id = ANY(${seriesIds}::uuid[]) AND deleted_at IS NULL
+    `,
+    pageSlugs.length === 0 ? Promise.resolve([]) : sqlClient`
+      SELECT slug FROM platform.mobile_pages
+      WHERE slug = ANY(${pageSlugs}::text[]) AND is_active=true
+    `,
+  ]);
+  const foundExams = new Set(examRows.map((row) => String(row.id)));
+  const foundSeries = new Set(seriesRows.map((row) => String(row.id)));
+  const foundPages = new Set(pageRows.map((row) => String(row.slug)));
+  if (examIds.some((id) => !foundExams.has(id))) {
+    throw Object.assign(new Error("One or more Home exam destinations are unavailable."), { statusCode: 409, code: "MOBILE_HOME_DESTINATION_EXAM_INVALID" });
+  }
+  if (seriesIds.some((id) => !foundSeries.has(id))) {
+    throw Object.assign(new Error("One or more Home test-series destinations are unavailable."), { statusCode: 409, code: "MOBILE_HOME_DESTINATION_SERIES_INVALID" });
+  }
+  if (pageSlugs.some((slug) => !foundPages.has(slug))) {
+    throw Object.assign(new Error("One or more Home managed-page destinations are unavailable."), { statusCode: 409, code: "MOBILE_HOME_DESTINATION_PAGE_INVALID" });
+  }
 }
 
 async function loadConfiguration() {
@@ -218,7 +291,7 @@ router.use(authenticate);
 
 router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, res) => {
   try {
-    const [record, examFamilies, testSeries] = await Promise.all([
+    const [record, examFamilies, testSeries, exams] = await Promise.all([
       loadConfiguration(),
       sqlClient`
         SELECT id::text AS id, code, name, description
@@ -240,10 +313,18 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
         ORDER BY s.updated_at DESC, s.name
         LIMIT 250
       `,
+      sqlClient`
+        SELECT e.id::text AS id,e.code,e.name,f.name AS "familyName"
+        FROM catalog.exams e
+        JOIN catalog.exam_families f ON f.id=e.family_id
+        WHERE e.is_active=true AND f.is_active=true
+        ORDER BY f.name,e.name
+        LIMIT 500
+      `,
     ]);
     res.json({
       configuration: normalizeConfiguration(record.configuration),
-      catalog: { examFamilies, testSeries },
+      catalog: { examFamilies, testSeries, exams },
       updatedAt: record.updatedAt,
       updatedBy: record.updatedBy,
       generatedAt: new Date().toISOString(),

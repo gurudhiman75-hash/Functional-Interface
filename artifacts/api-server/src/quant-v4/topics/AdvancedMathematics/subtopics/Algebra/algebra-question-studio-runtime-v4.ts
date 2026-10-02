@@ -1,7 +1,8 @@
 import {
-  ALG_MULTILINGUAL_V2_FREEZE_ID,
-  generateAlgPermanentEnglishV3Frozen,
-  generateAlgPermanentMultilingualV2Frozen,
+  ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+  ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+  generateAlgPermanentEnglishV4ChapterReview,
+  generateAlgPermanentMultilingualV3ChapterReview,
   type AlgReviewLocale,
 } from "./permanent";
 import {
@@ -18,8 +19,11 @@ import { ALGEBRA_QUESTION_STUDIO_PACKAGE_V2 } from "./algebra-question-studio-ru
 export const ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY =
   "ALGEBRA-FROZEN-QUESTION-STUDIO-DELIVERY-V4-SEED-DIVERSE" as const;
 
-export type AlgebraQuestionStudioQuestionV4 = AlgebraQuestionStudioQuestion & {
+export type AlgebraQuestionStudioQuestionV4 = Omit<AlgebraQuestionStudioQuestion, "sourceAuthority"> & {
   readonly deliveryAuthority: typeof ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY;
+  readonly sourceAuthority:
+    | typeof ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY
+    | typeof ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY;
   readonly sourceStateSeed: number;
 };
 
@@ -29,6 +33,11 @@ export const ALGEBRA_QUESTION_STUDIO_PACKAGE_V4 = Object.freeze({
   deliveryAuthority: ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY,
   reviewStatus: "QUESTION_STUDIO_REVIEW_CONNECTED_FULL_ANSWER_MATRIX_SEED_DIVERSE" as const,
   sourceStateSeedPolicy: "FULL_REQUEST_NAMESPACE_HASH_V1" as const,
+  activeSourceAuthorityByLanguage: Object.freeze({
+    en: ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+    hi: ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+    pa: ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+  }),
 });
 
 const LABELS = ["A", "B", "C", "D"] as const;
@@ -60,8 +69,10 @@ function phrase(language: AlgebraStudioLanguage, en: string, hi: string, pa: str
 }
 
 function frozenSource(pattern: AlgebraQuestionStudioPattern, seed: number, language: AlgebraStudioLanguage): any {
-  if (language === "en") return generateAlgPermanentEnglishV3Frozen(pattern.qlId, seed, pattern.variantIndex);
-  return generateAlgPermanentMultilingualV2Frozen(
+  if (language === "en") {
+    return generateAlgPermanentEnglishV4ChapterReview(pattern.qlId, seed, pattern.variantIndex);
+  }
+  return generateAlgPermanentMultilingualV3ChapterReview(
     pattern.qlId,
     seed,
     localeFor(language) as AlgReviewLocale,
@@ -195,6 +206,7 @@ function finiteAbsoluteText(values: any[], language: AlgebraStudioLanguage): str
 function renderAnswer(answer: any, language: AlgebraStudioLanguage): string {
   if (typeof answer === "string") return comparisonText(answer, language);
   if (!answer || typeof answer !== "object") return String(answer ?? "");
+  if (rationalParts(answer)) return rationalText(answer);
   const kind = String(answer.kind ?? "");
   switch (kind) {
     case "RATIONAL":
@@ -438,8 +450,8 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   if (typeof answer === "string") return relationOptions(language);
   const kind = String(answer?.kind ?? "");
   if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) return numericCandidates(answer.value);
-  if (kind === "POLYNOMIAL") return polynomialCandidates(correct);
-  if (["FACTORIZATION", "INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
+  if (kind === "POLYNOMIAL" || kind === "FACTORIZATION") return polynomialCandidates(correct);
+  if (["INTERVAL_SET", "INTEGER_COUNT", "PARAMETER_RANGE"].includes(kind)) {
     const extra = kind === "INTERVAL_SET" ? [
       phrase(language, "All real numbers", "सभी वास्तविक संख्याएँ", "ਸਾਰੀਆਂ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ"),
       phrase(language, "Empty set", "रिक्त समुच्चय", "ਖਾਲੀ ਸਮੂਹ"),
@@ -464,6 +476,53 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   return textMathMutations(correct);
 }
 
+function misconceptionIdFor(answer: any, correct: string, wrong: string, language: AlgebraStudioLanguage, prototypeId = ""): string {
+  const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
+  if (typeof answer === "string" && /^ALG-CP004-/.test(prototypeId)) return "ALGEBRAIC_FACTORIZATION_SIGN_OR_TERM_ERROR";
+
+  if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) {
+    const value = answer.value;
+    if (wrong === rationalNegate(value)) return "SIGN_FLIP";
+    if (wrong === rationalShift(value, 1n)) return "OFF_BY_ONE_HIGH";
+    if (wrong === rationalShift(value, -1n)) return "OFF_BY_ONE_LOW";
+    const parts = rationalParts(value);
+    if (parts) {
+      const [n, d] = parts;
+      const reciprocal = n === 0n ? "1" : `${d}/${n}`;
+      if (wrong === reciprocal) return "RECIPROCAL_USED";
+      const plusTwo = d === 1n ? String(n + 2n) : `${n + 2n * d}/${d}`;
+      if (wrong === plusTwo) return "OFF_BY_TWO_HIGH";
+    }
+    return "NUMERIC_TRANSFORMATION_ERROR";
+  }
+
+  if (typeof answer === "string") return "WRONG_ROOTSET_RELATION";
+  if (kind === "BOOLEAN") {
+    const yes = phrase(language, "Yes", "हाँ", "ਹਾਂ");
+    const no = phrase(language, "No", "नहीं", "ਨਹੀਂ");
+    if (wrong === yes || wrong === no) return "BOOLEAN_OPPOSITE";
+    return "BOOLEAN_INDETERMINATE";
+  }
+  if (["NO_SOLUTION", "INFINITE_SOLUTIONS", "NO_REAL_ROOTS", "INFINITE_ON_DOMAIN"].includes(kind)) return "WRONG_SOLUTION_STATE";
+  if (kind === "QUANTITY_RELATION") return "WRONG_QUANTITY_RELATION";
+  if (kind === "DATA_SUFFICIENCY") return "WRONG_DATA_SUFFICIENCY_VERDICT";
+  if (["ROOT_SET", "RATIONAL_ROOT_SET", "SURD_ROOT_SET"].includes(kind)) return "ROOT_SET_CONSTRUCTION_ERROR";
+  if (kind === "ABSOLUTE_SOLUTION") return "ABSOLUTE_VALUE_CASE_ERROR";
+  if (kind === "QUADRATIC_EQUATION") return "QUADRATIC_COEFFICIENT_TRANSFORMATION_ERROR";
+  if (["EXTREMUM", "SYMMETRIC_EXTREMUM"].includes(kind)) {
+    if (/Maximum|अधिकतम|ਵੱਧੋ-ਵੱਧ/.test(wrong) && /Minimum|न्यूनतम|ਘੱਟੋ-ਘੱਟ/.test(correct)) return "MINIMUM_MAXIMUM_CONFUSION";
+    if (/Minimum|न्यूनतम|ਘੱਟੋ-ਘੱਟ/.test(wrong) && /Maximum|अधिकतम|ਵੱਧੋ-ਵੱਧ/.test(correct)) return "MAXIMUM_MINIMUM_CONFUSION";
+    return "EXTREMUM_VALUE_OR_EQUALITY_CASE_ERROR";
+  }
+  if (["ORDERED_PAIR", "ORDERED_TRIPLE", "COEFFICIENT_PAIR", "PARAMETER_REMAINDER"].includes(kind)) return "COMPONENT_ORDER_OR_SIGN_ERROR";
+  if (["FACTORIZATION", "POLYNOMIAL"].includes(kind)) return "ALGEBRAIC_EXPANSION_OR_SIGN_ERROR";
+  if (kind === "INTERVAL_SET" || kind === "PARAMETER_RANGE") return "INEQUALITY_BOUNDARY_OR_DIRECTION_ERROR";
+  if (kind === "INTEGER_COUNT") return "COUNTING_BOUNDARY_ERROR";
+  if (wrong === phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ")) return "FALSE_UNDERDETERMINED";
+  if (wrong === phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ")) return "FALSE_NONE_OF_THESE";
+  return "ALGEBRAIC_OPERATOR_OR_SIGN_ERROR";
+}
+
 function uniqueWrongOptions(values: readonly string[], correct: string): string[] {
   return [...new Set(values.map((value) => String(value).trim()).filter((value) => value && value !== correct))];
 }
@@ -474,9 +533,13 @@ function selectSeededWindow(values: readonly string[], seed: string, count: numb
   return Array.from({ length: count }, (_unused, index) => values[(start + index) % values.length]!);
 }
 
-function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, _prototypeId: string) {
+function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, prototypeId: string) {
   const correct = renderAnswer(answer, language).trim();
-  const primary = uniqueWrongOptions(distractorCandidates(answer, correct, language), correct);
+  const algebraicTextAnswer = typeof answer === "string" && /^ALG-CP004-/.test(prototypeId);
+  const primary = uniqueWrongOptions(
+    algebraicTextAnswer ? polynomialCandidates(correct) : distractorCandidates(answer, correct, language),
+    correct,
+  );
   const fallback = uniqueWrongOptions([
     ...primary,
     ...textMathMutations(correct),
@@ -484,7 +547,7 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"),
   ], correct);
   const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
-  const fixedChoiceFamily = typeof answer === "string" || [
+  const fixedChoiceFamily = (typeof answer === "string" && !algebraicTextAnswer) || [
     "BOOLEAN",
     "NO_SOLUTION",
     "INFINITE_SOLUTIONS",
@@ -492,7 +555,9 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     "QUANTITY_RELATION",
     "DATA_SUFFICIENCY",
   ].includes(kind);
-  const selectionPool = primary.length >= 3 ? primary : fallback;
+  const selectionPool = fixedChoiceFamily
+    ? (primary.length >= 3 ? primary : fallback)
+    : fallback;
   const wrongs = fixedChoiceFamily
     ? selectionPool.slice(0, 3)
     : selectSeededWindow(selectionPool, seed, 3);
@@ -502,12 +567,11 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
   const correctIndex = hashText(`${seed}:answer-position`) % 4;
   const options = [...wrongs];
   options.splice(correctIndex, 0, correct);
-  let misconceptionIndex = 0;
   const optionDetails = options.map((text, index) => ({
     label: LABELS[index]!,
     text,
     isCorrect: index === correctIndex,
-    misconceptionId: index === correctIndex ? null : `ALG-DIST-V4-M${++misconceptionIndex}`,
+    misconceptionId: index === correctIndex ? null : misconceptionIdFor(answer, correct, text, language, prototypeId),
   }));
   return { correct, correctIndex, options, optionDetails };
 }
@@ -595,7 +659,9 @@ export function generateAlgebraStudioQuestionV4(input: {
     explanation: { steps, shortcut: "", traps: [] },
     solveMode: String(source.prototypeSolveMode),
     renderer: "TEXT_MATH",
-    sourceAuthority: language === "en" ? "ALG-EN-v3-frozen" : ALG_MULTILINGUAL_V2_FREEZE_ID,
+    sourceAuthority: language === "en"
+      ? ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY
+      : ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
     sourceMaturity: String(source.maturity),
     sourceReviewStatus: String(source.reviewStatus),
     integrationAuthority: ALGEBRA_QUESTION_STUDIO_INTEGRATION_AUTHORITY,

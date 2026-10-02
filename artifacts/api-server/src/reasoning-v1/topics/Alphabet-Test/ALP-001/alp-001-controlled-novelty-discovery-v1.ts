@@ -142,7 +142,7 @@ export function generateAlpControlledNovelTransformedGapCandidateV1(
   const parentTransformQlId = transformQlId(transformId);
   const transformDescription = describeTransformCore(transformId);
   const stem =
-    `The English alphabet is rearranged so that we ${transformDescription}. In the new order, how many letters are there between ${pair.first} and ${pair.second}?`;
+    `The English alphabet is rearranged as follows: ${transformDescription}. In the new order, how many letters are there between ${pair.first} and ${pair.second}?`;
   const explanation =
     `After the stated rearrangement, ${pair.first} is at position ${firstPosition} and ${pair.second} is at position ${secondPosition}. The number of letters between them is |${secondPosition} − ${firstPosition}| − 1 = ${pair.transformedGap}.`;
 

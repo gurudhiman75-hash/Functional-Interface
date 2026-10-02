@@ -7,12 +7,18 @@ on:
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/src/question-studio/build-question-studio-capabilities-manifest.ts'
+      - 'artifacts/api-server/src/question-studio/runtime-read-path-isolation.test.ts'
+      - 'artifacts/api-server/build.mjs'
       - '.github/workflows/question-studio-route-registry.yml'
   push:
     paths:
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/src/question-studio/build-question-studio-capabilities-manifest.ts'
+      - 'artifacts/api-server/src/question-studio/runtime-read-path-isolation.test.ts'
+      - 'artifacts/api-server/build.mjs'
       - '.github/workflows/question-studio-route-registry.yml'
   workflow_dispatch:
 
@@ -31,27 +37,35 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Verify global route index uses only the registry
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify global route index isolates read paths before the registry
         shell: bash
         run: |
           set -euo pipefail
           index='artifacts/api-server/src/routes/index.ts'
           registry='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
 
-          if ! grep -Fq 'import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";' "$index" \
-             && ! grep -Fq 'const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));' "$index"; then
-            echo 'Question Studio registry must be mounted through either the static or lazy registry import.' >&2
-            exit 1
-          fi
-          grep -Fq 'router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);' "$index"
+          grep -Fq 'const adminQuestionStudioCapabilitiesRouter = lazyExactRouter("/capabilities"' "$index"
+          grep -Fq 'const adminQuestionStudioReviewPageRouter = lazyExactRouter("/review-page"' "$index"
+          grep -Fq 'const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));' "$index"
 
-          if grep -Eq 'import adminQuestionStudio[^R].*from "\./admin-question-studio-' "$index"; then
-            echo 'Direct Question Studio router import found in routes/index.ts; mount packages through the registry instead.' >&2
+          capabilities_line=$(grep -nF 'router.use("/admin/question-studio", adminQuestionStudioCapabilitiesRouter);' "$index" | cut -d: -f1)
+          review_line=$(grep -nF 'router.use("/admin/question-studio", adminQuestionStudioReviewPageRouter);' "$index" | cut -d: -f1)
+          registry_line=$(grep -nF 'router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);' "$index" | cut -d: -f1)
+          test "$capabilities_line" -lt "$registry_line"
+          test "$review_line" -lt "$registry_line"
+
+          if grep -Eq '^import adminQuestionStudio.*from "\./admin-question-studio-' "$index"; then
+            echo 'Static Question Studio router import found in routes/index.ts; keep the fast paths dynamically loaded.' >&2
             exit 1
           fi
 
           direct_mounts=$(grep -Fc 'router.use("/admin/question-studio",' "$index" || true)
-          test "$direct_mounts" -eq 1
+          test "$direct_mounts" -eq 3
           test -s "$registry"
 
       - name: Verify legacy catch-all remains last in registry
@@ -62,5 +76,12 @@ jobs:
           last_mount=$(grep '^[[:space:]]*router.use(adminQuestionStudio' "$registry" | tail -n 1 | tr -d '[:space:]')
           test "$last_mount" = 'router.use(adminQuestionStudioRouter);'
 
+      - name: Validate runtime read-path isolation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd artifacts/api-server
+          node --experimental-strip-types src/question-studio/runtime-read-path-isolation.test.ts
+
       - name: Report focused CI contract
-        run: echo 'Question Studio route registry contract PASS'
+        run: echo 'Question Studio route registry + runtime read isolation PASS'

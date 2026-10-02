@@ -186,6 +186,19 @@ function generateIndeterminateSetComparison(seed: number): AlgCp014EnglishReview
   };
 }
 
+function dataSufficiencyStem(seed: number) {
+  switch (positiveMod(seed, 4)) {
+    case 0:
+      return "Is the value of x uniquely determined from the following statements?";
+    case 1:
+      return "Can the value of x be determined uniquely using the statements below?";
+    case 2:
+      return "Which of the following statements is sufficient to determine x uniquely?";
+    default:
+      return "Determine whether the given statements are sufficient to find a unique value of x.";
+  }
+}
+
 function verdictSentence(text: string) {
   const normalized = text.startsWith("Statement ")
     ? text
@@ -274,7 +287,7 @@ function generateDataSufficiencyReview(
   if (prototypeId === "ALG-CP014-CAND-006" && base.statements?.[0] === base.statements?.[1]) {
     throw new Error("CAND-006 review must not repeat the exact same sufficient statement twice");
   }
-  const question = [base.stem, ...(base.statements ?? [])].join("\n");
+  const question = [dataSufficiencyStem(seed), ...(base.statements ?? [])].join("\n");
 
   return {
     authority: ALG_CP014_ENGLISH_REVIEW_V4_AUTHORITY,
