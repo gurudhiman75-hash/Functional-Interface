@@ -20,7 +20,7 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
 const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(awaitingRouteProviders.length, 5);
+assert.equal(awaitingRouteProviders.length, 3);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -103,6 +103,8 @@ for (const provider of awaitingRouteProviders) {
   assert.ok(reviewPack.includes(`## ${provider.chapterId} — ${provider.providerId}`));
 }
 assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, awaitingRouteProviders.length * 3);
+assert.equal(reviewPack.includes("ALP-001-TRANSFORMED-GAP"), false);
+assert.equal(reviewPack.includes("CAL-001-IMPLICIT-RANGE-FREQUENCY"), false);
 assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
 assert.equal(reviewPack.includes("CLK-001-FAULTY-TIME-ANGLE"), false);
 assert.equal(reviewPack.includes("DIR-001-GRAPH-RELATIVE-PATH"), false);
@@ -114,9 +116,11 @@ assert.deepEqual(
   approvedProviders.map((provider) => provider.providerId),
   [
     "PFC-001-CONTROLLED-NOVEL",
+    "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
+    "CAL-001-IMPLICIT-RANGE-FREQUENCY",
   ],
 );
 assert.deepEqual(
