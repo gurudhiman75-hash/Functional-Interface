@@ -27,6 +27,7 @@ const mobileContentPlanningRouter = lazyRouter(() => import("./mobile-content-pl
 const mobileConfigurationRouter = lazyRouter(() => import("./mobile-configuration"));
 const mobileAnalyticsRouter = lazyRouter(() => import("./mobile-analytics"));
 const learnPracticeRouter = lazyRouter(() => import("./learn-practice"));
+const publicPracticeRouter = lazyRouter(() => import("./public-practice"));
 const adminLearningResourcesRouter = lazyRouter(() => import("./admin-learning-resources"));
 const adminLearningResourceEditorRouter = lazyRouter(() => import("./admin-learning-resource-editor"));
 const adminNotesStudioJobListRouter = lazyRouter(() => import("./admin-notes-studio-job-list"));
@@ -147,6 +148,7 @@ router.use(mobileContentPlanningRouter);
 router.use(mobileConfigurationRouter);
 router.use(mobileAnalyticsRouter);
 router.use(learnPracticeRouter);
+router.use(publicPracticeRouter);
 router.use(canonicalCommerceCheckoutRouter);
 router.use(canonicalCommercePurchasesRouter);
 router.use(canonicalCommerceAccessGuardRouter);
