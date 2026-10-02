@@ -183,13 +183,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Logic-Puzzles',
     chapterId: 'LP-001',
-    status: 'DIVERSITY_PROVEN_NOVELTY_NOT_YET_PROVEN',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'Unique-solution generation, clue-necessity checks and independent re-solving are already audited.',
-      'Scenario/object-pool breadth alone does not qualify as controlled novelty.',
+      'LP-001 already owns 47 permanent QLs including counterfactual/state-filter reasoning in QL047.',
+      'Apparent novelty candidates remain clue-topology, query-projection, scale or scenario variation inside existing puzzle solvers unless future evidence proves otherwise.',
+      'Target-exam source saturation remains explicitly false, so novelty is not used to bypass the independent source/production gate.',
+      'reasoning-novelty-final-three-closures-20261002.md records the dedicated novelty decision.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Define puzzle-structure novelty axes such as constraint topology and query interaction.',
+    nextGate: 'Complete LP target-exam source/freeze reconciliation and production-readiness source saturation separately; reopen novelty only on a materially distinct solver-backed contract.',
   },
   {
     topicDirectory: 'Mathematical-Operations',
@@ -271,14 +273,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Statement-and-Arguments',
     chapterId: 'ARG-001',
-    status: 'SEMANTIC_NOVELTY_PROVEN_NEEDS_STANDARDIZATION',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'Certified 1,000-question audit is exact-unique.',
-      'All 48 core templates are represented.',
-      'Semantic-archetype system explicitly supports novel combinations inside known exam logic.',
+      'ARG-001 already freezes six semantic QLs and eight semantic archetypes per QL.',
+      'The documented novel combinations are recombinations inside existing semantic authorities, so certified uniqueness/diversity is not a separate controlled-novel learner contract.',
+      'The final chapter audit found no additional QL justified and directs future expansion to recurring source evidence.',
+      'reasoning-novelty-final-three-closures-20261002.md records the dedicated novelty decision.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Classify archetype recombinations with shared provenance and verify a controlled-novel operating share.',
+    nextGate: 'Re-open only on recurring evidence or a solver-backed Statement-and-Arguments contract outside ARG-QL-001..006.',
   },
   {
     topicDirectory: 'Statement-and-Assumption',
@@ -309,13 +312,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Statement-and-Inference',
     chapterId: 'SIF-001',
-    status: 'NOVELTY_GATE_PRESENT_NEEDS_EXPANSION',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'Chapter validator already includes an explicit NOVELTY gate.',
-      'Chapter review boundary explicitly calls for novelty expansion before freeze.',
+      'SIF\'s former NOVELTY gate was deliberately renamed NOVELTY_READINESS because it proves fingerprint readiness only.',
+      'The Banking three-inference overlay is explicitly classified as a new presentation contract with novelty: NO.',
+      'Current structured-support mechanisms already own the inference answer semantics; no materially distinct controlled-novel contract is proven.',
+      'reasoning-novelty-final-three-closures-20261002.md records the dedicated novelty decision.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Bind the existing NOVELTY gate to shared semantic axes and prove controlled-novel families.',
+    nextGate: 'Re-open only on a solver-backed inference reasoning contract outside the current structured-support authority.',
   },
   {
     topicDirectory: 'Syllogism',
