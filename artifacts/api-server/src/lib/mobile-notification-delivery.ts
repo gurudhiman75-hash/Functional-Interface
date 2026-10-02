@@ -42,13 +42,30 @@ async function deliver(campaign:Campaign){
     await sqlClient`UPDATE platform.mobile_notification_campaigns SET status='scheduled',updated_at=now() WHERE id=${campaign.id}::uuid AND status='sending'`;
     return {status:"provider_unavailable" as const,count:0};
   }
-  const locale=typeof campaign.audience.locale==="string"?campaign.audience.locale.trim():"";
+  const languageCodes=Array.isArray(campaign.audience.languageCodes)
+    ? campaign.audience.languageCodes.map(value=>String(value).trim().toLowerCase()).filter(value=>["en","hi","pa"].includes(value))
+    : [];
+  const examIds=Array.isArray(campaign.audience.examIds)
+    ? campaign.audience.examIds.map(value=>String(value).trim()).filter(value=>/^[0-9a-f-]{36}$/i.test(value))
+    : [];
   const devices=await sqlClient`
-    SELECT id::text AS id,user_id::text AS "userId",token
-    FROM platform.mobile_push_devices
-    WHERE is_active=true
-      AND (${locale}='' OR locale=${locale})
-    ORDER BY updated_at DESC
+    SELECT d.id::text AS id,d.user_id::text AS "userId",d.token
+    FROM platform.mobile_push_devices d
+    WHERE d.is_active=true
+      AND (
+        ${languageCodes.length===0}
+        OR lower(split_part(replace(d.locale,'_','-'),'-',1)) = ANY(${languageCodes}::text[])
+      )
+      AND (
+        ${examIds.length===0}
+        OR EXISTS (
+          SELECT 1
+          FROM identity.student_exam_preferences preference
+          WHERE preference.user_id=d.user_id
+            AND preference.exam_id = ANY(${examIds}::uuid[])
+        )
+      )
+    ORDER BY d.updated_at DESC
     LIMIT 5000
   `;
   if(devices.length===0){
