@@ -150,6 +150,6 @@ export const SAP_FINAL_PRODUCT_OWNER_FREEZE = Object.freeze({
   questionBankWritableCount: 0,
   testEligibleCount: 0,
   publiclyPublishableCount: 0,
-  translationStatus: "NOT_STARTED",
+  translationStatus: "HINDI_PUNJABI_CONTENT_APPROVED",
   mergeAuthorization: false,
 });
