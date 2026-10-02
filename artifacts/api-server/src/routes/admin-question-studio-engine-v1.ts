@@ -523,6 +523,11 @@ router.post(
           }
 
           const questions = Array.isArray(result.questions) ? result.questions : [];
+          if (questions.length !== request.count) {
+            throw new Error(
+              `Question Studio package ${packageId ?? selectedEngineId} returned ${questions.length} question(s) for ${request.cpId ?? "chapter mix"}; expected exactly ${request.count}.`,
+            );
+          }
           generationContexts.push({
             cpId: request.cpId,
             context: {
