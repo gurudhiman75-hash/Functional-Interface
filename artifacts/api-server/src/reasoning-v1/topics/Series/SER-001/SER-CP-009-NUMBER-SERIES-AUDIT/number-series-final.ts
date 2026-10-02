@@ -286,11 +286,24 @@ function diversifyFactorialProgression(
   const visible = values.map((value, index) => index === target ? "?" : String(value));
   const previous = values[target - 1]!;
   const multiplier = startN + target;
-  const options: readonly SerCp009Option[] = Object.freeze([
-    { value: String(correct), errorLabel: null },
+  const wrongCandidates: readonly SerCp009Option[] = [
     { value: String(previous * (multiplier - 1)), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
     { value: String(previous * (multiplier + 1)), errorLabel: "SKIPPED_NEXT_MULTIPLIER" },
-    { value: String(correct + previous), errorLabel: "ADDED_PREVIOUS_TERM" },
+    { value: String(correct + multiplier), errorLabel: "ADDED_MULTIPLIER_INSTEAD_OF_MULTIPLYING" },
+    { value: String(correct - 1), errorLabel: "ARITHMETIC_SLIP_MINUS_ONE" },
+  ];
+  const seen = new Set<string>([String(correct)]);
+  const wrong = wrongCandidates.filter((option) => {
+    if (seen.has(option.value)) return false;
+    seen.add(option.value);
+    return true;
+  }).slice(0, 3);
+  if (wrong.length !== 3) {
+    throw new Error("SER-QL-035 factorial subtype could not build three unique distractors.");
+  }
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    ...wrong,
   ]);
   const taskKind = target === 5 ? "NEXT_TERM" : "MISSING_TERM";
   const prompt = taskKind === "NEXT_TERM"
