@@ -173,6 +173,7 @@ router.post("/:id/send-test-to-my-device",requireAdminPermission("content.taxono
           campaignId:id,
           destinationType:String(campaign.destinationType??"none"),
           destinationValue:String(campaign.destinationValue??""),
+          imageUrl:String(campaign.imageUrl??""),
           isTest:"true",
         },
         android:{priority:"high"},
