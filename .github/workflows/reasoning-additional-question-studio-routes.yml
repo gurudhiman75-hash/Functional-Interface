@@ -1,0 +1,31 @@
+name: Validate Reasoning additional Question Studio routes
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-additional-question-studio-routes-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-additional-question-studio-routes-20261002.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-additional-routes-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server build
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-additional-question-studio-routes-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-additional-question-studio-routes-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-additional-question-studio-routes-20261002.test.mjs
