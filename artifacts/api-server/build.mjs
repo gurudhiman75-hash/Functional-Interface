@@ -149,9 +149,13 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
   });
   await execFileAsync(
     process.execPath,
-    [capabilitiesBuilderPath, capabilitiesManifestPath],
+    [capabilitiesBuilderPath],
     {
       cwd: artifactDir,
+      env: {
+        ...process.env,
+        QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT: capabilitiesManifestPath,
+      },
       maxBuffer: 16 * 1024 * 1024,
     },
   );
