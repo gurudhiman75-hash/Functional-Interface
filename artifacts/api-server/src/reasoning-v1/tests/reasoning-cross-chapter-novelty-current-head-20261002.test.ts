@@ -120,7 +120,7 @@ assert.equal(mixAudit.withinOperatingBand, true);
 const pendingDedicated = REASONING_V1_NOVELTY_INVENTORY_V1.filter(
   (entry) => entry.status === "DEDICATED_NOVELTY_AUDIT_PENDING",
 );
-assert.ok(pendingDedicated.length > 0, "Current inventory unexpectedly claims all chapters have completed novelty audit.");
+assert.equal(pendingDedicated.length, 0, "Final dedicated novelty audit batch must leave no pending chapter audits.");
 
 console.log(JSON.stringify({
   status: "PASS_REASONING_CROSS_CHAPTER_NOVELTY_CURRENT_HEAD_20261002",
