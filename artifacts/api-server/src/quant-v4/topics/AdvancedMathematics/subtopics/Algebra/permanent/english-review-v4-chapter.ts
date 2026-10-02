@@ -124,10 +124,16 @@ export function generateAlgPermanentEnglishV4ChapterReview(
     throw new Error(`${baseline.prototypeId}: V4 chapter candidate crossed review-only lifecycle boundary`);
   }
 
+  const candidateCanonicalAnswer =
+    candidate.canonicalAnswer
+    ?? candidate.answer
+    ?? candidate.answerText;
+
   return Object.freeze({
     ...baseline,
     question: candidate.question,
     explanation: candidate.explanation,
+    canonicalAnswer: candidateCanonicalAnswer,
     chapterReviewAuthority: ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
     chapterReviewSource: "V4_CONTROLLED_REOPEN" as const,
     chapterReviewCandidate: true as const,
