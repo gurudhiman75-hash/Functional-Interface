@@ -84,6 +84,9 @@ for (const locale of ["en", "hi", "pa"] as const) {
   assert.ok(!set.sharedStimulus.includes("For Final recruitment"));
   assert.ok(!set.sharedStimulus.includes("वाला अंतिम भर्ती सेट के लिए"));
   assert.ok(!set.sharedStimulus.includes("ਵਾਲਾ ਅੰਤਿਮ ਭਰਤੀ ਸੈੱਟ ਲਈ"));
+  assert.ok(locale !== "en" || set.sharedStimulus.startsWith("The following case concerns"));
+  assert.ok(locale !== "hi" || set.sharedStimulus.includes("पात्रता शर्तों और आवेदकों के विवरण का अध्ययन"));
+  assert.ok(locale !== "pa" || set.sharedStimulus.includes("ਯੋਗਤਾ ਸ਼ਰਤਾਂ ਅਤੇ ਬਿਨੈਕਾਰਾਂ ਦੇ ਵੇਰਵੇ"));
   assert.deepEqual(generateDm020QuestionSet({ scenario: mixed, locale, seed: 83, mode: "MULTIPLE_FAIL" }), set);
 }
 
