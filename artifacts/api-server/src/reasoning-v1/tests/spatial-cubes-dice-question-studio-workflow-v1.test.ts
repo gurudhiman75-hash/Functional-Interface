@@ -11,6 +11,7 @@ const registry = readFileSync(resolve(cwd, "src/routes/admin-question-studio-reg
 const workflowRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cubes-dice-workflow.ts"), "utf8");
 const cndRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cubes-dice.ts"), "utf8");
 const sharedRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio.ts"), "utf8");
+const bulkRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-bulk-hardening.ts"), "utf8");
 const sharedApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-studio/api.ts"), "utf8");
 const cndApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-studio/cubes-dice-review-api.ts"), "utf8");
 const cockpitPage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioCockpitPage.tsx"), "utf8");
@@ -73,8 +74,9 @@ assert.match(operationsPage, /<QuestionStudioCubesDiceReviewPanel \/>/);
 
 assert.match(sharedRoute, /router\.get\("\/review-page"/);
 assert.match(sharedRoute, /accepted_question_id AS "acceptedQuestionId"/);
-assert.match(sharedRoute, /router\.patch\("\/items\/bulk"/);
-assert.match(sharedRoute, /convertApprovedGenerationItem/);
+assert.doesNotMatch(sharedRoute, /router\.patch\("\/items\/bulk"/);
+assert.match(bulkRoute, /router\.patch\("\/items\/bulk"/);
+assert.match(bulkRoute, /convertApprovedGenerationItem/);
 
 const evidence = {
   status: "PASS_CND_001_SHARED_QUESTION_STUDIO_WORKFLOW_V1",
