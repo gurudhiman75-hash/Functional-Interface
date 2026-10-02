@@ -190,6 +190,10 @@ const qualityRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-quality.ts"),
   "utf8",
 );
+const regenerationRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-regeneration.ts"),
+  "utf8",
+);
 
 assert.match(bulkHardeningRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
 assert.match(qualityRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
@@ -202,6 +206,10 @@ assert.match(qualityRoute, /QUESTION_STUDIO_DUPLICATE_BLOCKED/);
 assert.match(qualityRoute, /normalizedStem/);
 assert.match(qualityRoute, /contentFingerprint/);
 assert.match(bulkHardeningRoute, /INVALID_GENERATION_ITEM_ID/);
+assert.match(regenerationRoute, /MAX_REGENERATION_ITEMS = 50/);
+assert.match(regenerationRoute, /TOO_MANY_REGENERATION_ITEMS/);
+assert.match(regenerationRoute, /INVALID_GENERATION_ITEM_ID/);
+assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
 assert.match(
   bulkHardeningRoute,
   /Generated item is already converted to Question Bank; review the canonical question instead/,
