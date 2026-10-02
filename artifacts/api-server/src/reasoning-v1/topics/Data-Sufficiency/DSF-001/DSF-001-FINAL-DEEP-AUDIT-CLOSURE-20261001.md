@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 
-Status: **CLOSURE CANDIDATE — EXACT-HEAD CP034 VALIDATION REQUIRED**
+Status: **CLOSED — CONVENTIONAL DEEP AUDIT COMPLETE**
 
 ## Scope
 
@@ -112,4 +112,4 @@ It additionally checks:
 - exact non-decimal Direction shortest-distance targets;
 - downstream release locks.
 
-If CP034 and the production API build pass together, DSF-001 may be marked conventionally deep-audit closed.
+CP034 and the production API build passed together on the exact closure head; DSF-001 is conventionally deep-audit closed.
