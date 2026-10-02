@@ -137,9 +137,31 @@ export function buildRegenerationPayload(
     asString(sourcePayload.selectedCpId)
     || asString(sourcePayload.canonicalProblemId)
     || asString(sourcePayload.cpId);
+  const lifecycleKeys = [
+    "lifecycleId",
+    "lifecycleStage",
+    "reviewSurfaceRequired",
+    "manualApprovalRequired",
+    "questionBankStatus",
+    "questionBankWritable",
+    "questionBankAcceptanceMode",
+    "questionBankAcceptanceAuthority",
+    "testEligibility",
+    "testEligible",
+    "mockTestEligible",
+    "publiclyPublishable",
+    "automaticStudentPublication",
+    "productionReleaseAuthorized",
+  ] as const;
+  const preservedLifecycle = Object.fromEntries(
+    lifecycleKeys
+      .filter((key) => sourcePayload[key] !== undefined && generatedQuestion[key] === undefined)
+      .map((key) => [key, sourcePayload[key]]),
+  );
 
   return {
     ...generatedQuestion,
+    ...preservedLifecycle,
     ...(sourceCpId && !asString(generatedQuestion.selectedCpId)
       ? { selectedCpId: sourceCpId }
       : {}),
