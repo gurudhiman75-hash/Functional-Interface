@@ -120,7 +120,38 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         r.created_at AS "createdAt",
         r.updated_at AS "updatedAt",
         r.request_snapshot AS "requestSnapshot",
-        r.recipe_version_id AS "recipeVersionId"
+        r.recipe_version_id AS "recipeVersionId",
+        jsonb_build_object(
+          'total', (
+            SELECT COUNT(*)::int
+            FROM content.generation_run_items summary_item
+            WHERE summary_item.generation_run_id = r.id
+          ),
+          'unreviewed', (
+            SELECT COUNT(*)::int
+            FROM content.generation_run_items summary_item
+            WHERE summary_item.generation_run_id = r.id
+              AND summary_item.status = 'unreviewed'
+          ),
+          'needsFix', (
+            SELECT COUNT(*)::int
+            FROM content.generation_run_items summary_item
+            WHERE summary_item.generation_run_id = r.id
+              AND summary_item.status = 'needs_fix'
+          ),
+          'approved', (
+            SELECT COUNT(*)::int
+            FROM content.generation_run_items summary_item
+            WHERE summary_item.generation_run_id = r.id
+              AND summary_item.status = 'approved'
+          ),
+          'rejected', (
+            SELECT COUNT(*)::int
+            FROM content.generation_run_items summary_item
+            WHERE summary_item.generation_run_id = r.id
+              AND summary_item.status = 'rejected'
+          )
+        ) AS "reviewSummary"
       FROM content.generation_runs r
       WHERE
         (${subject}::text IS NULL OR r.request_snapshot ->> 'subject' = ${subject})
