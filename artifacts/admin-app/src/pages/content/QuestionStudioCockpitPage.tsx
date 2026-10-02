@@ -365,10 +365,24 @@ export function QuestionStudioCockpitPage() {
     () => activePackage?.supportedLanguages.length ? activePackage.supportedLanguages : ['en'],
     [activePackage],
   );
+  const difficultyFilterSupported = activePackage?.difficultyFilterSupported !== false;
+  const supportedDifficulties = useMemo(
+    () => activePackage?.supportedDifficulties?.length
+      ? activePackage.supportedDifficulties
+      : capabilities.difficulties,
+    [activePackage, capabilities.difficulties],
+  );
 
   useEffect(() => {
     if (!supportedLanguages.includes(language)) setLanguage(supportedLanguages[0] ?? 'en');
   }, [language, supportedLanguages]);
+
+  useEffect(() => {
+    if (!difficultyFilterSupported) return;
+    if (!supportedDifficulties.includes(difficulty)) {
+      setDifficulty(supportedDifficulties[0] ?? 'Medium');
+    }
+  }, [difficulty, difficultyFilterSupported, supportedDifficulties]);
 
   useEffect(() => {
     if (reviewRuns[0] && expandedRuns.size === 0) {
@@ -453,7 +467,7 @@ export function QuestionStudioCockpitPage() {
         exam: selectedExam?.name ?? exam,
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
-        difficulty,
+        difficulty: difficultyFilterSupported ? difficulty : 'Mixed',
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
         cpIds: cpIds.length > 0 ? cpIds : undefined,
@@ -697,7 +711,14 @@ export function QuestionStudioCockpitPage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <Field label="Exam profile"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{((activePackage?.supportedDifficulties?.length ? activePackage.supportedDifficulties : capabilities.difficulties)).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
+            {difficultyFilterSupported ? (
+              <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedDifficulties.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
+            ) : (
+              <div className="rounded-lg border bg-muted/20 px-3 py-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Difficulty</p>
+                <p className="mt-1 text-xs font-medium">Engine managed / not classified</p>
+              </div>
+            )
             <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
@@ -705,7 +726,7 @@ export function QuestionStudioCockpitPage() {
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
             <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
         </TabsContent>
