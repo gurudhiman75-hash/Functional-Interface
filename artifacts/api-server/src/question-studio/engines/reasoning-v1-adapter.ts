@@ -70,6 +70,17 @@ import {
   isAlp001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Alphabet-Test/ALP-001/question-studio-integration";
 import {
+  CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+  generateCae001QuestionStudioBatch,
+  isCae001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Cause-and-Effect/CAE-001/question-studio-integration";
+import {
+  BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+  generateBlr001ChapterQuestionStudioBatch,
+  isBlr001ChapterQuestionStudioRequest,
+} from "../../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-chapter-integration";
+
+import {
   CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
   generateCal001StandardQuestionStudioBatch,
   isCal001QuestionStudioRequest,
@@ -419,6 +430,8 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
+      BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+      CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
@@ -447,6 +460,12 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isBlr001ChapterQuestionStudioRequest(request)) {
+      return generateBlr001ChapterQuestionStudioBatch(request);
+    }
+    if (isCae001QuestionStudioRequest(request)) {
+      return generateCae001QuestionStudioBatch(request);
     }
     if (isAlp001QuestionStudioRequest(request)) {
       const source = await generateAlp001QuestionStudioBatch(request);
