@@ -30,9 +30,9 @@ assert.deepEqual(
   approvedProviders.map((provider) => provider.providerId),
   [
     "PFC-001-CONTROLLED-NOVEL",
-    "RNK-001-CROSS-FAMILY-CASELET",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "CLK-001-FAULTY-TIME-ANGLE",
     "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
