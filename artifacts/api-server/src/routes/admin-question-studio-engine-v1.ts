@@ -35,6 +35,18 @@ function asPositiveInteger(value: unknown, fallback: number, max: number) {
     : fallback;
 }
 
+function generationCount(value: unknown) {
+  if (value === undefined || value === null || value === "") return 5;
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 50) {
+    throw Object.assign(
+      new Error("Question count must be an integer between 1 and 50"),
+      { statusCode: 400, code: "INVALID_GENERATION_COUNT" },
+    );
+  }
+  return parsed;
+}
+
 function normalizeDifficulty(value: unknown) {
   const raw = asString(value);
   if (raw.toLowerCase() === "moderate") return "Medium";
@@ -68,6 +80,61 @@ function packageForId(packageId: string | undefined) {
 
 function engineForPackage(packageId: string | undefined) {
   return packageForId(packageId)?.engineId;
+}
+
+function validatePackageLanguage(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const requested = asString(value).toLowerCase() || pkg.supportedLanguages[0];
+  if (!requested || !pkg.supportedLanguages.includes(requested as "en" | "hi" | "pa")) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support language ${requested || "<missing>"}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_LANGUAGE" },
+    );
+  }
+  return requested as "en" | "hi" | "pa";
+}
+
+function validatePackageDifficulty(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const raw = asString(value);
+  if (pkg.difficultyFilterSupported === false) {
+    if (!raw || raw === "Mixed") return undefined;
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support difficulty filtering`),
+      { statusCode: 400, code: "DIFFICULTY_FILTER_UNSUPPORTED" },
+    );
+  }
+
+  const normalized = raw.toLowerCase() === "moderate" ? "Medium" : (raw || "Medium");
+  if (!pkg.supportedDifficulties?.includes(normalized as "Easy" | "Medium" | "Hard")) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support difficulty ${normalized}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_DIFFICULTY" },
+    );
+  }
+  return normalized;
+}
+
+function validatePackageRuntimeMode(
+  pkg: ReturnType<typeof listQuestionStudioPackages>[number],
+  value: unknown,
+) {
+  const requested = asString(value) || pkg.runtimeMode;
+  if (
+    requested
+    && (pkg.supportedRuntimeModes?.length ?? 0) > 0
+    && !pkg.supportedRuntimeModes!.includes(requested)
+  ) {
+    throw Object.assign(
+      new Error(`Package ${pkg.packageId} does not support runtime mode ${requested}`),
+      { statusCode: 400, code: "UNSUPPORTED_PACKAGE_RUNTIME_MODE" },
+    );
+  }
+  return requested;
 }
 
 function packageSubjectLabel(pkg: ReturnType<typeof listQuestionStudioPackages>[number]) {
@@ -355,9 +422,17 @@ router.post(
     }
 
     const packageId = asString(req.body?.packageId) || undefined;
-    const requestedCpIds = Array.isArray(req.body?.cpIds)
-      ? [...new Set(req.body.cpIds.map(asString).filter(Boolean))].slice(0, 50)
+    const rawCpIds = Array.isArray(req.body?.cpIds)
+      ? req.body.cpIds.map(asString).filter(Boolean)
       : [];
+    if (rawCpIds.length > 50) {
+      res.status(400).json({
+        error: "At most 50 CPs can be selected in one generation run",
+        code: "TOO_MANY_SELECTED_CPS",
+      });
+      return;
+    }
+    const requestedCpIds = [...new Set(rawCpIds)];
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId ?? "quant-v4";
 
@@ -369,6 +444,12 @@ router.post(
       return;
     }
 
+    const selectedPackage = packageId ? packageForId(packageId) : undefined;
+    if (packageId && !selectedPackage) {
+      res.status(400).json({ error: `Question Studio package ${packageId} is not registered` });
+      return;
+    }
+
     if (requestedEngineId && packageEngineId && requestedEngineId !== packageEngineId) {
       res.status(400).json({
         error: `Package ${packageId} belongs to ${packageEngineId}, not ${requestedEngineId}`,
@@ -376,22 +457,34 @@ router.post(
       return;
     }
 
-    const count = asPositiveInteger(req.body?.count, 5, 50);
+    const count = generationCount(req.body?.count);
     const patternId = asString(req.body?.patternId) || undefined;
     const rawTopic = asString(req.body?.topic) || undefined;
     const rawSubtopic = asString(req.body?.subtopic) || undefined;
-    const topic = rawTopic ?? (selectedEngineId === "quant-v4" ? "Arithmetic" : undefined);
-    const subtopic = rawSubtopic ?? (selectedEngineId === "quant-v4" ? "Percentage" : undefined);
+    const topic = selectedPackage?.topic
+      ?? rawTopic
+      ?? (selectedEngineId === "quant-v4" ? "Arithmetic" : undefined);
+    const subtopic = selectedPackage?.subtopic
+      ?? rawSubtopic
+      ?? (selectedEngineId === "quant-v4" ? "Percentage" : undefined);
     const exam = asString(req.body?.exam)
       || (selectedEngineId === "quant-v4" ? "SSC CGL Tier 1" : "SSC CGL");
-    const subject = asString(req.body?.subject)
-      || (selectedEngineId === "quant-v4" ? "Quantitative Aptitude" : undefined);
-    const language = normalizeLanguage(req.body?.language);
-    const difficulty = selectedEngineId === "quant-v4"
-      ? (asString(req.body?.difficulty) || "Medium")
-      : difficultyForRequest(req.body?.difficulty, packageId);
+    const subject = selectedPackage
+      ? packageSubjectLabel(selectedPackage)
+      : asString(req.body?.subject)
+        || (selectedEngineId === "quant-v4" ? "Quantitative Aptitude" : undefined);
+    const language = selectedPackage
+      ? validatePackageLanguage(selectedPackage, req.body?.language)
+      : normalizeLanguage(req.body?.language);
+    const difficulty = selectedPackage
+      ? validatePackageDifficulty(selectedPackage, req.body?.difficulty)
+      : selectedEngineId === "quant-v4"
+        ? (asString(req.body?.difficulty) || "Medium")
+        : difficultyForRequest(req.body?.difficulty, packageId);
     const seed = asString(req.body?.seed) || undefined;
-    const runtimeMode = asString(req.body?.runtimeMode) || undefined;
+    const runtimeMode = selectedPackage
+      ? validatePackageRuntimeMode(selectedPackage, req.body?.runtimeMode)
+      : asString(req.body?.runtimeMode) || undefined;
     const canonicalProblemId =
       asString(req.body?.canonicalProblemId)
       || asString(req.body?.cpId)

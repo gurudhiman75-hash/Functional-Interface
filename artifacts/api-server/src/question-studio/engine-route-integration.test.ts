@@ -43,6 +43,19 @@ assert.match(engineRoute, /defaultGenerationSystem:\s*"quant-v4"/);
 assert.match(engineRoute, /generationSystems/);
 assert.match(engineRoute, /listQuestionStudioPackages\(\)/);
 assert.match(engineRoute, /engineId:\s*pkg\.engineId/);
+assert.match(engineRoute, /validatePackageLanguage/);
+assert.match(engineRoute, /UNSUPPORTED_PACKAGE_LANGUAGE/);
+assert.match(engineRoute, /validatePackageDifficulty/);
+assert.match(engineRoute, /DIFFICULTY_FILTER_UNSUPPORTED/);
+assert.match(engineRoute, /UNSUPPORTED_PACKAGE_DIFFICULTY/);
+assert.match(engineRoute, /validatePackageRuntimeMode/);
+assert.match(engineRoute, /UNSUPPORTED_PACKAGE_RUNTIME_MODE/);
+assert.match(engineRoute, /INVALID_GENERATION_COUNT/);
+assert.match(engineRoute, /TOO_MANY_SELECTED_CPS/);
+assert.doesNotMatch(engineRoute, /slice\(0, 50\)/);
+assert.match(engineRoute, /subject = selectedPackage/);
+assert.match(engineRoute, /topic = selectedPackage\?\.topic/);
+assert.match(engineRoute, /subtopic = selectedPackage\?\.subtopic/);
 
 // Lifecycle is also package-generic; future engines must not need subject-specific capability fields.
 for (const field of [
