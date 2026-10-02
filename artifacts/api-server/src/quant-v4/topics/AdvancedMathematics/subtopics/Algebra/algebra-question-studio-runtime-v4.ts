@@ -33,6 +33,11 @@ export const ALGEBRA_QUESTION_STUDIO_PACKAGE_V4 = Object.freeze({
   deliveryAuthority: ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY,
   reviewStatus: "QUESTION_STUDIO_REVIEW_CONNECTED_FULL_ANSWER_MATRIX_SEED_DIVERSE" as const,
   sourceStateSeedPolicy: "FULL_REQUEST_NAMESPACE_HASH_V1" as const,
+  activeSourceAuthorityByLanguage: Object.freeze({
+    en: ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+    hi: ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+    pa: ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+  }),
 });
 
 const LABELS = ["A", "B", "C", "D"] as const;
