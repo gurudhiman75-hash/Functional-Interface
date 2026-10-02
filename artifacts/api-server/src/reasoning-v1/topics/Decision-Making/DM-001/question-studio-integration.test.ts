@@ -17,7 +17,7 @@ for (const language of ["en", "hi", "pa"] as const) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     const result = await generateQuestionStudioQuestions({
       engineId: "reasoning-v1",
-      packageId: "DM-001",
+      topic: "Decision Making / Eligibility",
       count: 10,
       language,
       difficulty,
@@ -35,7 +35,6 @@ for (const language of ["en", "hi", "pa"] as const) {
 
 const basic = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-001",
   count: 7,
   seed: "dm001-cp-alias",
@@ -44,7 +43,6 @@ assert.ok(basic.questions.every((question) => question.checkpointId === "DM-CP-0
 
 const dateProfile = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-QL-013",
   language: "pa",
   count: 5,
@@ -55,7 +53,6 @@ assert.ok(dateProfile.questions.every((question) => String(question.stem).includ
 
 const benefits = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-007",
   language: "en",
   count: 5,
@@ -66,7 +63,6 @@ assert.ok(benefits.questions.every((question) => String(question.stem).includes(
 
 const ranked = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-010",
   language: "pa",
   difficulty: "Hard",
