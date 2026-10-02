@@ -23,7 +23,7 @@ const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
 );
 
 assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 26);
-assert.equal(reviewProviders.length, 7);
+assert.equal(reviewProviders.length, 8);
 assert.equal(approvedProviders.length, 1);
 assert.equal(approvedProviders[0]?.providerId, "PFC-001-CONTROLLED-NOVEL");
 assert.equal(approvedProviders[0]?.countsTowardAssemblyNoveltyNow, true);
@@ -100,9 +100,9 @@ for (const provider of reviewProviders) {
 }
 
 const providerSummary = reasoningNoveltyProviderSummaryV1();
-assert.equal(providerSummary.providerCount, 8);
+assert.equal(providerSummary.providerCount, 9);
 assert.deepEqual(providerSummary.approvedProviderIds, ["PFC-001-CONTROLLED-NOVEL"]);
-assert.equal(providerSummary.reviewOnlyProviderIds.length, 7);
+assert.equal(providerSummary.reviewOnlyProviderIds.length, 8);
 assert.deepEqual(providerSummary.assemblyCreditedProviderIds, ["PFC-001-CONTROLLED-NOVEL"]);
 
 const inventorySummary = reasoningNoveltyInventorySummaryV1();
