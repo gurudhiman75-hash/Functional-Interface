@@ -476,8 +476,9 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   return textMathMutations(correct);
 }
 
-function misconceptionIdFor(answer: any, correct: string, wrong: string, language: AlgebraStudioLanguage): string {
+function misconceptionIdFor(answer: any, correct: string, wrong: string, language: AlgebraStudioLanguage, prototypeId = ""): string {
   const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
+  if (typeof answer === "string" && /^ALG-CP004-/.test(prototypeId)) return "ALGEBRAIC_FACTORIZATION_SIGN_OR_TERM_ERROR";
 
   if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) {
     const value = answer.value;
@@ -532,9 +533,13 @@ function selectSeededWindow(values: readonly string[], seed: string, count: numb
   return Array.from({ length: count }, (_unused, index) => values[(start + index) % values.length]!);
 }
 
-function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, _prototypeId: string) {
+function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string, prototypeId: string) {
   const correct = renderAnswer(answer, language).trim();
-  const primary = uniqueWrongOptions(distractorCandidates(answer, correct, language), correct);
+  const algebraicTextAnswer = typeof answer === "string" && /^ALG-CP004-/.test(prototypeId);
+  const primary = uniqueWrongOptions(
+    algebraicTextAnswer ? polynomialCandidates(correct) : distractorCandidates(answer, correct, language),
+    correct,
+  );
   const fallback = uniqueWrongOptions([
     ...primary,
     ...textMathMutations(correct),
@@ -542,7 +547,7 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"),
   ], correct);
   const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
-  const fixedChoiceFamily = typeof answer === "string" || [
+  const fixedChoiceFamily = (typeof answer === "string" && !algebraicTextAnswer) || [
     "BOOLEAN",
     "NO_SOLUTION",
     "INFINITE_SOLUTIONS",
@@ -566,7 +571,7 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     label: LABELS[index]!,
     text,
     isCorrect: index === correctIndex,
-    misconceptionId: index === correctIndex ? null : misconceptionIdFor(answer, correct, text, language),
+    misconceptionId: index === correctIndex ? null : misconceptionIdFor(answer, correct, text, language, prototypeId),
   }));
   return { correct, correctIndex, options, optionDetails };
 }
