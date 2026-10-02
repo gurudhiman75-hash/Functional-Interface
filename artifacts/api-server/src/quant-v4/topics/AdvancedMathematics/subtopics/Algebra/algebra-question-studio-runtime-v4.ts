@@ -464,6 +464,52 @@ function distractorCandidates(answer: any, correct: string, language: AlgebraStu
   return textMathMutations(correct);
 }
 
+function misconceptionIdFor(answer: any, correct: string, wrong: string, language: AlgebraStudioLanguage): string {
+  const kind = typeof answer === "object" && answer ? String(answer.kind ?? "") : "";
+
+  if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) {
+    const value = answer.value;
+    if (wrong === rationalNegate(value)) return "SIGN_FLIP";
+    if (wrong === rationalShift(value, 1n)) return "OFF_BY_ONE_HIGH";
+    if (wrong === rationalShift(value, -1n)) return "OFF_BY_ONE_LOW";
+    const parts = rationalParts(value);
+    if (parts) {
+      const [n, d] = parts;
+      const reciprocal = n === 0n ? "1" : `${d}/${n}`;
+      if (wrong === reciprocal) return "RECIPROCAL_USED";
+      const plusTwo = d === 1n ? String(n + 2n) : `${n + 2n * d}/${d}`;
+      if (wrong === plusTwo) return "OFF_BY_TWO_HIGH";
+    }
+    return "NUMERIC_TRANSFORMATION_ERROR";
+  }
+
+  if (typeof answer === "string") return "WRONG_ROOTSET_RELATION";
+  if (kind === "BOOLEAN") {
+    const yes = phrase(language, "Yes", "हाँ", "ਹਾਂ");
+    const no = phrase(language, "No", "नहीं", "ਨਹੀਂ");
+    if (wrong === yes || wrong === no) return "BOOLEAN_OPPOSITE";
+    return "BOOLEAN_INDETERMINATE";
+  }
+  if (["NO_SOLUTION", "INFINITE_SOLUTIONS", "NO_REAL_ROOTS", "INFINITE_ON_DOMAIN"].includes(kind)) return "WRONG_SOLUTION_STATE";
+  if (kind === "QUANTITY_RELATION") return "WRONG_QUANTITY_RELATION";
+  if (kind === "DATA_SUFFICIENCY") return "WRONG_DATA_SUFFICIENCY_VERDICT";
+  if (["ROOT_SET", "RATIONAL_ROOT_SET", "SURD_ROOT_SET"].includes(kind)) return "ROOT_SET_CONSTRUCTION_ERROR";
+  if (kind === "ABSOLUTE_SOLUTION") return "ABSOLUTE_VALUE_CASE_ERROR";
+  if (kind === "QUADRATIC_EQUATION") return "QUADRATIC_COEFFICIENT_TRANSFORMATION_ERROR";
+  if (["EXTREMUM", "SYMMETRIC_EXTREMUM"].includes(kind)) {
+    if (/Maximum|अधिकतम|ਵੱਧੋ-ਵੱਧ/.test(wrong) && /Minimum|न्यूनतम|ਘੱਟੋ-ਘੱਟ/.test(correct)) return "MINIMUM_MAXIMUM_CONFUSION";
+    if (/Minimum|न्यूनतम|ਘੱਟੋ-ਘੱਟ/.test(wrong) && /Maximum|अधिकतम|ਵੱਧੋ-ਵੱਧ/.test(correct)) return "MAXIMUM_MINIMUM_CONFUSION";
+    return "EXTREMUM_VALUE_OR_EQUALITY_CASE_ERROR";
+  }
+  if (["ORDERED_PAIR", "ORDERED_TRIPLE", "COEFFICIENT_PAIR", "PARAMETER_REMAINDER"].includes(kind)) return "COMPONENT_ORDER_OR_SIGN_ERROR";
+  if (["FACTORIZATION", "POLYNOMIAL"].includes(kind)) return "ALGEBRAIC_EXPANSION_OR_SIGN_ERROR";
+  if (kind === "INTERVAL_SET" || kind === "PARAMETER_RANGE") return "INEQUALITY_BOUNDARY_OR_DIRECTION_ERROR";
+  if (kind === "INTEGER_COUNT") return "COUNTING_BOUNDARY_ERROR";
+  if (wrong === phrase(language, "Cannot be determined", "निर्धारित नहीं किया जा सकता", "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ")) return "FALSE_UNDERDETERMINED";
+  if (wrong === phrase(language, "None of these", "इनमें से कोई नहीं", "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ")) return "FALSE_NONE_OF_THESE";
+  return "ALGEBRAIC_OPERATOR_OR_SIGN_ERROR";
+}
+
 function uniqueWrongOptions(values: readonly string[], correct: string): string[] {
   return [...new Set(values.map((value) => String(value).trim()).filter((value) => value && value !== correct))];
 }
@@ -502,12 +548,11 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
   const correctIndex = hashText(`${seed}:answer-position`) % 4;
   const options = [...wrongs];
   options.splice(correctIndex, 0, correct);
-  let misconceptionIndex = 0;
   const optionDetails = options.map((text, index) => ({
     label: LABELS[index]!,
     text,
     isCorrect: index === correctIndex,
-    misconceptionId: index === correctIndex ? null : `ALG-DIST-V4-M${++misconceptionIndex}`,
+    misconceptionId: index === correctIndex ? null : misconceptionIdFor(answer, correct, text, language),
   }));
   return { correct, correctIndex, options, optionDetails };
 }
