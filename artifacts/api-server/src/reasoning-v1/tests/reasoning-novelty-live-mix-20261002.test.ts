@@ -113,9 +113,11 @@ assert.deepEqual(
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "BLR-001-CODED-FILTERED-COUNT",
+    "RNK-001-CROSS-FAMILY-CASELET",
+    "RNK-001-CROSS-FAMILY-CASELET",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 1);
+assert.equal(summary.awaitingRouteProviderIds.length, 0);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
