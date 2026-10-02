@@ -81,11 +81,13 @@ function normalizeSelector(value: unknown): string {
     .trim();
 }
 
-function normalizeDifficulty(value: unknown): Geo001QuestionStudioDifficulty {
+function normalizeDifficulty(value: unknown): Geo001QuestionStudioDifficulty | undefined {
   const text = String(value ?? "").trim().toLowerCase();
+  if (!text || text === "mixed") return undefined;
   if (text === "easy") return "Easy";
+  if (text === "medium" || text === "moderate") return "Medium";
   if (text === "hard") return "Hard";
-  return "Medium";
+  throw new Error(`Unsupported GEO-001 difficulty '${String(value)}'.`);
 }
 
 function normalizeLanguage(value: unknown): Geo001QuestionStudioLanguage {
@@ -199,14 +201,17 @@ function generateFrozenGeometryItem(
   qlId: string,
   seed: string,
   language: Geo001QuestionStudioLanguage,
-  difficulty: Geo001QuestionStudioDifficulty,
+  difficulty?: Geo001QuestionStudioDifficulty,
 ) {
-  const matchingVariantIndexes = matchingVariantIndexesForDifficulty(qlId, seed, difficulty);
+  const definition = getGeometryPermanentEnglishRuntimeDefinitionV1(qlId);
+  const matchingVariantIndexes = difficulty
+    ? matchingVariantIndexesForDifficulty(qlId, seed, difficulty)
+    : definition.prototypeIds.map((_prototypeId, variantIndex) => variantIndex);
   if (matchingVariantIndexes.length === 0) {
-    throw new Error(`${qlId} has no ${difficulty} Geometry variant in the frozen source.`);
+    throw new Error(`${qlId} has no ${difficulty ?? "available"} Geometry variant in the frozen source.`);
   }
   const variantIndex =
-    matchingVariantIndexes[seededHash(`${qlId}:${seed}:${difficulty}:variant`) % matchingVariantIndexes.length]!;
+    matchingVariantIndexes[seededHash(`${qlId}:${seed}:${difficulty ?? "Mixed"}:variant`) % matchingVariantIndexes.length]!;
   if (language === "en") {
     return generateGeometryPermanentEnglishFrozenV1(qlId, seed, variantIndex);
   }
@@ -222,10 +227,10 @@ function buildQuestionStudioPackage(
   qlId: string,
   seed: string,
   language: Geo001QuestionStudioLanguage,
-  difficulty: Geo001QuestionStudioDifficulty,
+  difficulty?: Geo001QuestionStudioDifficulty,
 ) {
   const item = generateFrozenGeometryItem(qlId, seed, language, difficulty) as any;
-  if (item.difficulty !== difficulty) {
+  if (difficulty && item.difficulty !== difficulty) {
     throw new Error(`${qlId}: requested ${difficulty} but frozen source generated ${String(item.difficulty)}.`);
   }
   const questionId = `GEO-001:${item.qlId}:${item.prototypeId}:${seed}`;
@@ -266,7 +271,7 @@ function buildQuestionStudioPackage(
       theoremNames: Object.freeze([...item.theoremNames]),
     }),
     explanationText: item.explanation,
-    difficultyBand: difficulty,
+    difficultyBand: item.difficulty,
     language,
     stemSvg: item.stemSvg,
     diagramModel: item.diagramModel,
@@ -289,7 +294,7 @@ function buildQuestionStudioPackage(
       prototypeId: item.prototypeId,
       prototypeSolveMode: item.prototypeSolveMode,
       variantIndex: item.variantIndex,
-      difficultyRoutingMode: "FROZEN_SOURCE_DIFFICULTY_MATCH",
+      difficultyRoutingMode: difficulty ? "FROZEN_SOURCE_DIFFICULTY_MATCH" : "FROZEN_SOURCE_MIXED",
       sourceDifficulty: item.difficulty,
     }),
   });
@@ -443,14 +448,18 @@ export async function generateGeo001StandardQuestionStudioBatch(
         )
       : [...GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1];
 
-  const eligibilityProbeSeed = `geo-difficulty-eligibility:${difficulty}`;
-  const eligibleDefinitions = scopeDefinitions.filter((definition) =>
-    matchingVariantIndexesForDifficulty(definition.qlId, eligibilityProbeSeed, difficulty).length > 0,
-  );
+  const eligibilityProbeSeed = `geo-difficulty-eligibility:${difficulty ?? "Mixed"}`;
+  const eligibleDefinitions = difficulty
+    ? scopeDefinitions.filter((definition) =>
+        matchingVariantIndexesForDifficulty(definition.qlId, eligibilityProbeSeed, difficulty).length > 0,
+      )
+    : scopeDefinitions;
 
   if (eligibleDefinitions.length === 0) {
     throw new Error(
-      `GEO-001 has no ${difficulty} Question Studio QLs for ${fixedCp ?? explicitQl ?? "the selected scope"}.`,
+      difficulty
+        ? `GEO-001 has no ${difficulty} Question Studio QLs for ${fixedCp ?? explicitQl ?? "the selected scope"}.`
+        : `GEO-001 has no Question Studio QLs for ${fixedCp ?? explicitQl ?? "the selected scope"}.`,
     );
   }
 
