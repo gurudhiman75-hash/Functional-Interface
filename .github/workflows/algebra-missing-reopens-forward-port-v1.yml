@@ -1,6 +1,9 @@
 name: Validate Algebra missing V4 reopens forward-port
 
 on:
+  push:
+    branches:
+      - New-main
   pull_request:
     branches:
       - New-main
