@@ -6,6 +6,7 @@ import {
   listQuestionStudioEngines,
   listQuestionStudioPackages,
   resolveQuestionStudioEngine,
+  validateQuestionStudioPackage,
 } from "./engine-registry";
 import {
   QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1,
@@ -24,6 +25,74 @@ assert.equal(
   packages.length,
   "Question Studio package IDs must be globally unique across all registered engines.",
 );
+
+assert.throws(
+  () => validateQuestionStudioPackage({
+    engineId: "knowledge-v1",
+    packageId: "BROKEN-NO-CP",
+    topic: "Broken",
+    subtopic: "Broken",
+    label: "Broken",
+    enabled: true,
+    cpIds: [],
+    supportedLanguages: ["en"],
+    supportedDifficulties: ["Easy"],
+  }),
+  /at least one CP or dynamic candidate CP is required/,
+);
+
+assert.throws(
+  () => validateQuestionStudioPackage({
+    engineId: "knowledge-v1",
+    packageId: "BROKEN-DIFFICULTY",
+    topic: "Broken",
+    subtopic: "Broken",
+    label: "Broken",
+    enabled: true,
+    cpIds: ["BROKEN-CP-001"],
+    supportedLanguages: ["en"],
+    supportedDifficulties: [],
+  }),
+  /difficulty filtering is enabled but supportedDifficulties is empty/,
+);
+
+assert.throws(
+  () => validateQuestionStudioPackage({
+    engineId: "knowledge-v1",
+    packageId: "BROKEN-LIFECYCLE",
+    topic: "Broken",
+    subtopic: "Broken",
+    label: "Broken",
+    enabled: true,
+    cpIds: ["BROKEN-CP-001"],
+    supportedLanguages: ["en"],
+    supportedDifficulties: ["Easy"],
+    runtimeMode: "review-only",
+    lifecycleStage: "REVIEW_ONLY",
+    questionBankWritable: true,
+  }),
+  /REVIEW_ONLY cannot be Question Bank writable/,
+);
+
+assert.doesNotThrow(() => validateQuestionStudioPackage({
+  engineId: "knowledge-v1",
+  packageId: "VALID-REVIEW",
+  topic: "Valid",
+  subtopic: "Valid",
+  label: "Valid",
+  enabled: true,
+  cpIds: ["VALID-CP-001"],
+  supportedLanguages: ["en", "hi", "pa"],
+  supportedDifficulties: ["Easy", "Medium", "Hard"],
+  runtimeMode: "review-only",
+  supportedRuntimeModes: ["review-only"],
+  lifecycleStage: "REVIEW_ONLY",
+  questionBankWritable: false,
+  testEligible: false,
+  mockTestEligible: false,
+  publiclyPublishable: false,
+  productionReleaseAuthorized: false,
+}));
 
 const quantPackage = packages.find((pkg) => pkg.engineId === "quant-v4");
 assert.ok(quantPackage);
