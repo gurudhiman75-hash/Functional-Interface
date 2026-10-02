@@ -65,6 +65,11 @@ assert(
   source.includes("expectedVersionNumber: item.currentVersionNumber"),
   "Question Studio revision editor must submit the version it was opened against.",
 );
+
+assert(
+  source.includes("catch (caught) { await refreshReviewPage(); setEditingItemId(null);"),
+  "Question Studio cockpit must refresh the queue and close a stale editor after revision failure.",
+);
 assert(
   source.includes("summary.total"),
   "Question Studio run header must distinguish items in view from the full run total.",
