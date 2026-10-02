@@ -98,8 +98,8 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
     throw new Error("DIR controlled-novel seed must be a safe integer.");
   }
 
-  const pattern = PATTERNS[Math.abs(seed) % PATTERNS.length]!;
-  const quarterTurns = Math.floor(Math.abs(seed) / PATTERNS.length) % 4;
+  const pattern = PATTERNS[Math.floor(Math.abs(seed) / 4) % PATTERNS.length]!;
+  const quarterTurns = Math.abs(seed) % 4;
   const scale = 1 + (Math.floor(Math.abs(seed) / (PATTERNS.length * 4)) % 3);
   const turn: Exclude<AdvancedTurn, "NO_TURN" | "ABOUT"> = "LEFT";
 
