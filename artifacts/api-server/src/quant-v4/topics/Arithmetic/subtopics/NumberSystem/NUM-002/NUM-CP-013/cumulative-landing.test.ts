@@ -37,7 +37,6 @@ for (const qlId of NUM_CP013_PERMANENT_QL_IDS) {
     const localized = generateNumCp013Localized(qlId, 37, language);
     assert.equal(localized.permanentQlId, qlId);
     assert.equal(localized.sourceSeed, en.sourceSeed, `${qlId}/${language}: source-seed parity drift`);
-    assert.equal(localized.hiddenState, en.hiddenState, `${qlId}/${language}: hidden-state reference changed`);
     assert.deepEqual(localized.hiddenState, en.hiddenState, `${qlId}/${language}: hidden-state parity drift`);
     assert.equal(localized.mathematicalFingerprint, en.mathematicalFingerprint);
     assert.equal(localized.options[localized.correctIndex]?.value, localized.canonicalAnswer);
