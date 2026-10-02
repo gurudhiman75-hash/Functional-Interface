@@ -449,10 +449,12 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateSif001QuestionStudioBatch(request);
     }
     if (isAlp001QuestionStudioRequest(request)) {
-      return generateAlp001QuestionStudioBatch(request);
+      const source = await generateAlp001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isCal001QuestionStudioRequest(request)) {
-      return generateCal001StandardQuestionStudioBatch(request);
+      const source = await generateCal001StandardQuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isClk001QuestionStudioRequest(request)) {
       const source = await generateClk001QuestionStudioBatch(request);
