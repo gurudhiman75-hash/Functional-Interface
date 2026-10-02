@@ -236,14 +236,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Ranking-and-Order',
     chapterId: 'RNK-001',
-    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'Six-person multi-constraint caselets combine endpoint, exact-gap, neighbour and relative-order reasoning.',
       'All 6! orders are independently checked for one unique solution.',
       'Children map to existing RNK QLs; RNK-QL-043 remains unallocated.',
+      'A truthful English-only source-backed Question Studio route now exposes the complete frozen RNK-QL-001..042 inventory.',
+      'Human content review passed on 2026-10-02 and bounded Medium Question Studio novelty mixing is activated under the shared scope/language/difficulty safeguards.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor governed Question Studio novelty mix quality; keep Hindi/Punjabi novelty disabled until their human product review is frozen.',
   },
   {
     topicDirectory: 'SeatingArrangement',
