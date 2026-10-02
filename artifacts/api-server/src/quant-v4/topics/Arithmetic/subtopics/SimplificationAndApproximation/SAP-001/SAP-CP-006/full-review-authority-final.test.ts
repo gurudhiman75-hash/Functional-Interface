@@ -144,6 +144,7 @@ for (const [index, record] of records.entries()) {
   assert.ok(record.explanation.verification.length >= 2);
   assert.ok(record.explanation.finalAnswer.includes(record.canonicalAnswer));
   assert.ok(record.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && option.analysis.length >= 45));
+  assert.ok(record.options.filter((option) => !option.isCorrect).every((option) => !/^(?:NEARBY_(?:LOW|HIGH|OPTION)|FINAL_VALUE_)/.test(option.misconceptionId ?? "")), `${record.questionId}: generic fallback distractor leaked into review surface.`);
   assert.ok(!record.explanation.steps.some((step) => /^\s*(\d+)\s*=\s*\1[.!]?\s*$/.test(step)), `${record.questionId}: bare tautology.`);
 
   assert.equal(record.lifecycle.permanentQlId, null);
