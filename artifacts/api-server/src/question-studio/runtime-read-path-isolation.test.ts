@@ -30,4 +30,12 @@ assert.match(runtimeBuild, /question-studio-capabilities\.json/);
 assert.match(runtimeBuild, /QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT/);
 assert.match(runtimeBuild, /execFileAsync/);
 
+const manifestBuilder = readFileSync(
+  resolve(sourceRoot, "question-studio/build-question-studio-capabilities-manifest.ts"),
+  "utf8",
+);
+assert.match(manifestBuilder, /subject:\s*packageSubject\(pkg\)/);
+assert.match(manifestBuilder, /chapter:\s*packageChapter\(pkg\)/);
+assert.match(manifestBuilder, /return "Other"/);
+
 console.log("PASS_QUESTION_STUDIO_RUNTIME_READ_PATH_ISOLATION");
