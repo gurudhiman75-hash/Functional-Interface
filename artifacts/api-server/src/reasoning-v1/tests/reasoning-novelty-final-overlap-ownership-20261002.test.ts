@@ -109,6 +109,7 @@ assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
 assert.equal(reviewPack.includes("CLK-001-FAULTY-TIME-ANGLE"), false);
 assert.equal(reviewPack.includes("DIR-001-GRAPH-RELATIVE-PATH"), false);
 assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
+assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
 
 const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
