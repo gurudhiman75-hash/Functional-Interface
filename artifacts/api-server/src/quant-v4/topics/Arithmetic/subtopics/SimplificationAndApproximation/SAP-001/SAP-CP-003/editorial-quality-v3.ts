@@ -42,6 +42,18 @@ const PRODUCT_CASES = Object.freeze([
   Object.freeze({ left: "0.625", right: "3.2" }),
   Object.freeze({ left: "7.5", right: "0.48" }),
   Object.freeze({ left: "0.875", right: "1.6" }),
+  Object.freeze({ left: "3.75", right: "2.4" }),
+  Object.freeze({ left: "1.44", right: "2.5" }),
+  Object.freeze({ left: "0.48", right: "12.5" }),
+  Object.freeze({ left: "2.75", right: "0.8" }),
+  Object.freeze({ left: "5.6", right: "1.25" }),
+  Object.freeze({ left: "0.72", right: "2.5" }),
+  Object.freeze({ left: "8.4", right: "0.75" }),
+  Object.freeze({ left: "1.125", right: "3.2" }),
+  Object.freeze({ left: "0.96", right: "6.25" }),
+  Object.freeze({ left: "14.4", right: "0.125" }),
+  Object.freeze({ left: "2.25", right: "1.6" }),
+  Object.freeze({ left: "0.45", right: "4.8" }),
 ] as const);
 
 const DIVISION_CASES = Object.freeze([
@@ -51,6 +63,14 @@ const DIVISION_CASES = Object.freeze([
   Object.freeze({ divisor: "1.25", divisorValue: rat(5n, 4n) }),
   Object.freeze({ divisor: "2.5", divisorValue: rat(5n, 2n) }),
   Object.freeze({ divisor: "0.125", divisorValue: rat(1n, 8n) }),
+  Object.freeze({ divisor: "0.4", divisorValue: rat(2n, 5n) }),
+  Object.freeze({ divisor: "0.8", divisorValue: rat(4n, 5n) }),
+  Object.freeze({ divisor: "1.6", divisorValue: rat(8n, 5n) }),
+  Object.freeze({ divisor: "0.625", divisorValue: rat(5n, 8n) }),
+  Object.freeze({ divisor: "0.75", divisorValue: rat(3n, 4n) }),
+  Object.freeze({ divisor: "1.5", divisorValue: rat(3n, 2n) }),
+  Object.freeze({ divisor: "3.2", divisorValue: rat(16n, 5n) }),
+  Object.freeze({ divisor: "0.05", divisorValue: rat(1n, 20n) }),
 ] as const);
 
 const RATE_CASES = Object.freeze([
@@ -66,6 +86,18 @@ const RATE_CASES = Object.freeze([
   Object.freeze({ display: "87.5%", value: rat(7n, 8n) }),
   Object.freeze({ display: "112.5%", value: rat(9n, 8n) }),
   Object.freeze({ display: "150%", value: rat(3n, 2n) }),
+  Object.freeze({ display: "5%", value: rat(1n, 20n) }),
+  Object.freeze({ display: "10%", value: rat(1n, 10n) }),
+  Object.freeze({ display: "15%", value: rat(3n, 20n) }),
+  Object.freeze({ display: "16.67%", value: rat(1n, 6n) }),
+  Object.freeze({ display: "33.33%", value: rat(1n, 3n) }),
+  Object.freeze({ display: "45%", value: rat(9n, 20n) }),
+  Object.freeze({ display: "50%", value: rat(1n, 2n) }),
+  Object.freeze({ display: "55%", value: rat(11n, 20n) }),
+  Object.freeze({ display: "66.67%", value: rat(2n, 3n) }),
+  Object.freeze({ display: "80%", value: rat(4n, 5n) }),
+  Object.freeze({ display: "125%", value: rat(5n, 4n) }),
+  Object.freeze({ display: "175%", value: rat(7n, 4n) }),
 ] as const);
 
 function abs(value: bigint): bigint {
