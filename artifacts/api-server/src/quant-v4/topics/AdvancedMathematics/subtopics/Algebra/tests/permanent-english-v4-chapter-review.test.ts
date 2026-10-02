@@ -47,6 +47,9 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert.equal(review.reviewStatus, "CHAPTER_V4_REVIEW_REQUIRED");
       assert.ok(review.v4ReviewAuthority);
       assert.ok(review.v4RawCandidate);
+      const raw = review.v4RawCandidate as any;
+      const expectedCanonical = raw.canonicalAnswer ?? raw.answer ?? raw.answerText;
+      assert.deepEqual(review.canonicalAnswer, expectedCanonical, `${pattern.prototypeId}/${seed}: V4 candidate canonical answer drifted`);
     } else {
       untouched += 1;
       assert.equal(review.chapterReviewCandidate, false);
