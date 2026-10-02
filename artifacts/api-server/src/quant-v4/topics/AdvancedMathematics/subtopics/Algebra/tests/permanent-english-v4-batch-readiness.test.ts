@@ -56,23 +56,31 @@ type Family = {
   readonly generate: (prototypeId: any, seed: number) => ReviewItem;
   readonly minQuestions: number;
   readonly minExplanations: number;
+  readonly minFrames: number;
 };
 
 const families: readonly Family[] = [
-  { cpId: "ALG-CP-002", targets: ALG_CP002_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp002EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-003", targets: ALG_CP003_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp003EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-004", targets: ALG_CP004_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp004EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48 },
-  { cpId: "ALG-CP-007", targets: ALG_CP007_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp007EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48 },
-  { cpId: "ALG-CP-008", targets: ALG_CP008_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp008EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-009", targets: ["ALG-CP009-CAND-005"], generate: ((_prototypeId, seed) => generateAlgCp009EnglishReviewV4(seed)) as Family["generate"], minQuestions: 48, minExplanations: 48 },
+  { cpId: "ALG-CP-002", targets: ALG_CP002_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp002EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
+  { cpId: "ALG-CP-003", targets: ALG_CP003_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp003EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
+  { cpId: "ALG-CP-004", targets: ALG_CP004_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp004EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48, minFrames: 3 },
+  { cpId: "ALG-CP-007", targets: ALG_CP007_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp007EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48, minFrames: 3 },
+  { cpId: "ALG-CP-008", targets: ALG_CP008_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp008EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
+  { cpId: "ALG-CP-009", targets: ["ALG-CP009-CAND-005"], generate: ((_prototypeId, seed) => generateAlgCp009EnglishReviewV4(seed)) as Family["generate"], minQuestions: 48, minExplanations: 48, minFrames: 3 },
   { cpId: "ALG-CP-011", targets: Array.from({ length: ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_COUNT }, (_unused, index) => `ALG-CP011-VARIANT-${index}`), generate: ((prototypeId, seed) => {
       const variantIndex = Number(String(prototypeId).split("-").at(-1));
       return generateAlgCp011EnglishReviewV4(seed, variantIndex);
-    }) as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-012", targets: ALG_CP012_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp012EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-013", targets: ALG_CP013_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp013EnglishReviewV4 as Family["generate"], minQuestions: 24, minExplanations: 24 },
-  { cpId: "ALG-CP-014", targets: ALG_CP014_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp014EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
+    }) as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
+  { cpId: "ALG-CP-012", targets: ALG_CP012_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp012EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
+  { cpId: "ALG-CP-013", targets: ALG_CP013_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp013EnglishReviewV4 as Family["generate"], minQuestions: 24, minExplanations: 24, minFrames: 2 },
+  { cpId: "ALG-CP-014", targets: ALG_CP014_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp014EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32, minFrames: 3 },
 ];
+
+function normalizedFrame(text: string): string {
+  return text
+    .replace(/-?\d+(?:\.\d+)?(?:\/\d+)?/g, "<n>")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 let targetCount = 0;
 let sampleCount = 0;
@@ -84,6 +92,7 @@ for (const family of families) {
     targetCount += 1;
     const questions = new Set<string>();
     const explanations = new Set<string>();
+    const frames = new Set<string>();
     for (let seed = 1; seed <= 64; seed += 1) {
       const item = family.generate(prototypeId, seed);
       sampleCount += 1;
@@ -103,6 +112,7 @@ for (const family of families) {
       assert.doesNotMatch(item.explanation, /oracle|runtime|prototype|canonical|machine policy|TODO|TBD|undefined|NaN/i);
       questions.add(item.question);
       explanations.add(item.explanation);
+      frames.add(normalizedFrame(item.question));
     }
 
     assert.ok(
@@ -112,6 +122,10 @@ for (const family of families) {
     assert.ok(
       explanations.size >= family.minExplanations,
       `${prototypeId}: V4 candidate explanation diversity too low (${explanations.size}/64; need ${family.minExplanations})`,
+    );
+    assert.ok(
+      frames.size >= family.minFrames,
+      `${prototypeId}: V4 candidate stem-frame diversity too low (${frames.size}/64; need ${family.minFrames})`,
     );
   }
 }
