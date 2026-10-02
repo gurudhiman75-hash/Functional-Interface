@@ -15,6 +15,7 @@ const promotionsV2MigrationPath = path.resolve(here, "../../docs/database-migrat
 const firstPromotionMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-first-live-promotion.sql");
 const repeatOnOpenMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-promotion-repeat-on-open.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
+const notificationsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-notifications-v2.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
@@ -184,6 +185,41 @@ try {
     throw new Error("Mobile notifications migration completed without creating all required tables");
   }
   console.log("[render-build] mobile notifications schema verified");
+  const [notificationsV2Before] = await sql`
+    SELECT
+      EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema='platform'
+          AND table_name='mobile_notification_deliveries'
+          AND column_name='is_test'
+      ) AS has_is_test,
+      COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%page%'), false) AS has_page_destination
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_notification_campaigns'::regclass
+      AND c.contype='c'
+  `;
+  if (!notificationsV2Before?.has_is_test || !notificationsV2Before?.has_page_destination) {
+    console.log("[render-build] mobile notifications v2 schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(notificationsV2MigrationPath, "utf8"));
+  }
+  const [notificationsV2After] = await sql`
+    SELECT
+      EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema='platform'
+          AND table_name='mobile_notification_deliveries'
+          AND column_name='is_test'
+      ) AS has_is_test,
+      COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%page%'), false) AS has_page_destination
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_notification_campaigns'::regclass
+      AND c.contype='c'
+  `;
+  if (!notificationsV2After?.has_is_test || !notificationsV2After?.has_page_destination) {
+    throw new Error("Mobile notifications v2 migration verification failed");
+  }
+  console.log("[render-build] mobile notifications v2 schema verified");
+
 
   const [contentPlanningBefore] = await sql`
     SELECT to_regclass('platform.mobile_content_plan_items')::text AS mobile_content_plan_items
