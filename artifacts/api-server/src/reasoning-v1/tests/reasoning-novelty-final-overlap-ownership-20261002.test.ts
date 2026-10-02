@@ -20,7 +20,7 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
 const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(awaitingRouteProviders.length, 1);
+assert.equal(awaitingRouteProviders.length, 2);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -103,13 +103,12 @@ for (const provider of awaitingRouteProviders) {
   assert.ok(reviewPack.includes(`## ${provider.chapterId} — ${provider.providerId}`));
 }
 assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, awaitingRouteProviders.length * 3);
-assert.equal(reviewPack.includes("CAE-001-EDGE-FAMILIES"), false);
-assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
 assert.equal(reviewPack.includes("ALP-001-TRANSFORMED-GAP"), false);
 assert.equal(reviewPack.includes("CAL-001-IMPLICIT-RANGE-FREQUENCY"), false);
 assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
 assert.equal(reviewPack.includes("CLK-001-FAULTY-TIME-ANGLE"), false);
 assert.equal(reviewPack.includes("DIR-001-GRAPH-RELATIVE-PATH"), false);
+assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
 
 const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
@@ -121,7 +120,6 @@ assert.deepEqual(
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
-    "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "BLR-001-CODED-FILTERED-COUNT",
