@@ -1,8 +1,8 @@
 import type {
   QuestionStudioGenerationRequest,
   QuestionStudioPackageDefinition,
-} from "../../../question-studio/engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
+} from "../../../../question-studio/engine-types";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { CAE_001_MANIFEST } from "./chapter-manifest";
 import { generateReviewedCaeQuestion } from "./reviewed-generator";
 import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type CaeLocale } from "./types";
