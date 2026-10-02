@@ -1,7 +1,7 @@
 import { PublicPage, SeoRouteGrid, usePageMeta } from "@/components/PublicPage";
 
 const exams = [
-  { label: "SSC", href: "/category/ssc", description: "Browse published SSC mock tests and available practice pathways in the current ExamTree catalog." },
+  { label: "SSC", href: "/ssc-cgl", description: "Start with the SSC CGL preparation hub, syllabus guidance, free topic questions, and published SSC mock tests." },
   { label: "Punjab Government Exams", href: "/category/punjab", description: "Browse published Punjab government exam tests, including available reasoning, GK, Punjabi, and computer awareness practice." },
   { label: "PSSSB", href: "/category/punjab", description: "Open the Punjab catalog for published PSSSB and related state-exam preparation when available." },
   { label: "IBPS & Banking", href: "/category/banking", description: "Browse published banking mock tests and available reasoning, quant, and computer awareness practice." },

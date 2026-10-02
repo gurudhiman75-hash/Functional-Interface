@@ -14,6 +14,7 @@ const footerGroups = [
     title: "Resources",
     links: [
       { label: "Mock Tests", href: "/mock-tests" },
+      { label: "SSC CGL", href: "/ssc-cgl" },
       { label: "Exams Covered", href: "/exams-covered" },
     ],
   },

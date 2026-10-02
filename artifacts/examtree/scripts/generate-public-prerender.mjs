@@ -92,12 +92,53 @@ const routes = [
     heading: "Accessibility at ExamTree",
     description: "Read how ExamTree approaches keyboard access, readable interfaces, responsive layouts, zoom, and accessibility feedback.",
   },
+  {
+    path: "/ssc-cgl",
+    title: "SSC CGL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC CGL preparation hub",
+    description: "Prepare for SSC CGL with syllabus guidance, preparation strategy, mock tests, and free topic-wise questions with answers.",
+  },
+  {
+    path: "/ssc-cgl-preparation",
+    title: "How to Prepare for SSC CGL 2026 | ExamTree",
+    heading: "How to prepare for SSC CGL 2026",
+    description: "Use a practical SSC CGL preparation workflow built around concept coverage, focused question practice, timed mocks, and review.",
+  },
+  {
+    path: "/ssc-cgl-syllabus",
+    title: "SSC CGL Syllabus & Tier-I Exam Pattern 2026 | ExamTree",
+    heading: "SSC CGL syllabus and Tier-I pattern 2026",
+    description: "Review the SSC CGL 2026 Tier-I subject structure, marks, timing, negative marking, and preparation links.",
+  },
 ];
+
+const sscCglPracticeTopics = [
+  ["percentage", "Percentage"],
+  ["profit-and-loss", "Profit and Loss"],
+  ["average", "Average"],
+  ["ratio-and-proportion", "Ratio and Proportion"],
+  ["time-and-work", "Time and Work"],
+  ["time-speed-distance", "Time, Speed and Distance"],
+  ["number-system", "Number System"],
+  ["syllogism", "Syllogism"],
+  ["coding-decoding", "Coding-Decoding"],
+  ["indian-polity", "Indian Polity"],
+];
+
+routes.push(
+  ...sscCglPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-cgl/questions/${slug}`,
+    title: `${name} Questions for SSC CGL – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC CGL`,
+    description: `Solve free ${name} questions for SSC CGL with answers and explanations, then continue to timed mock tests.`,
+  })),
+);
 
 const discoveryLinks = [
   ["Browse tests", "/exams"],
   ["Mock tests", "/mock-tests"],
   ["Exams covered", "/exams-covered"],
+  ["SSC CGL", "/ssc-cgl"],
   ["FAQ", "/faq"],
   ["About", "/about"],
   ["Contact", "/contact"],
