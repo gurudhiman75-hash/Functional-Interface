@@ -100,6 +100,14 @@ assert.equal(resolveQuestionStudioEngine({ packageId: quantPackage.packageId }).
 assert.equal(resolveQuestionStudioEngine({ topic: "Arithmetic", subtopic: "Percentage" }).engineId, "quant-v4");
 assert.equal(getQuestionStudioEngine("quant-v4").engineId, "quant-v4");
 assert.equal(getQuestionStudioEngine("reasoning-v1").engineId, "reasoning-v1");
+assert.throws(
+  () => resolveQuestionStudioEngine({ packageId: "DOES-NOT-EXIST" }),
+  /package DOES-NOT-EXIST is not registered/,
+);
+assert.throws(
+  () => resolveQuestionStudioEngine({ packageId: "COM-001", engineId: "quant-v4" }),
+  /package COM-001 belongs to knowledge-v1, not quant-v4/,
+);
 
 const com001 = packages.find((pkg) => pkg.packageId === "COM-001");
 const bankLifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
