@@ -75,7 +75,7 @@ export default function Contact() {
               <Mail className="h-4 w-4 text-teal-600" />
               <a className="underline-offset-4 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
             </div>
-            <p className="mt-2">Typical response time: 24-48 working hours. Include screenshots for rendering or payment issues.</p>
+            <p className="mt-2">Include screenshots for rendering or payment issues when they help explain the problem, after redacting sensitive information.</p>
           </PublicCard>
           <PublicCard title="What to include">
             <div className="flex items-center gap-2 font-semibold text-slate-950">
