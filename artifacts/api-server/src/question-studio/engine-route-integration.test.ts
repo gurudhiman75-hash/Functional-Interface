@@ -218,6 +218,7 @@ assert.match(regenerationRoute, /INVALID_GENERATION_ITEM_ID/);
 assert.match(bulkHardeningRoute, /GENERATION_RUN_CANCELLED/);
 assert.match(qualityRoute, /GENERATION_RUN_CANCELLED/);
 assert.match(qualityRoute, /GENERATION_ITEM_VERSION_CONFLICT/);
+assert.match(qualityRoute, /delete nextPayload\.contentFingerprint/);
 assert.match(qualityRoute, /INVALID_EXPECTED_VERSION/);
 assert.match(regenerationRoute, /GENERATION_RUN_CANCELLED/);
 assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
