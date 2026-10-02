@@ -102,5 +102,17 @@ assert.ok(mixedSet.questions.every((question) => question.checkpointId === "DM-C
 assert.ok(mixedSet.questions.every((question) => question.answerMode === "MIXED_DECISION_SET"));
 assert.ok(mixedSet.questions.every((question) => question.answer === question.canonicalAnswer));
 assert.ok(mixedSet.questions.every((question) => Array.isArray(question.selectedCandidates)));
+assert.equal(new Set(mixedSet.questions.map((question) => question.id)).size, 10);
+assert.equal(new Set(mixedSet.questions.map((question) => question.setId)).size, 2);
+for (let offset = 0; offset < mixedSet.questions.length; offset += 5) {
+  const setQuestions = mixedSet.questions.slice(offset, offset + 5);
+  assert.equal(setQuestions.length, 5);
+  assert.equal(new Set(setQuestions.map((question) => question.setId)).size, 1);
+  assert.equal(new Set(setQuestions.map((question) => question.scenarioId)).size, 1);
+  assert.equal(new Set(setQuestions.map((question) => question.setSharedStimulus)).size, 1);
+  assert.equal(new Set(setQuestions.map((question) => JSON.stringify(question.setCandidateProfiles))).size, 1);
+  assert.deepEqual(setQuestions.map((question) => question.setQuestionNumber), [1, 2, 3, 4, 5]);
+  assert.deepEqual(new Set(setQuestions.map((question) => question.setQuestionKind)), new Set(["COUNT_SELECTED", "IDENTIFY_REJECTED", "IDENTIFY_REFERRED", "SAME_DECISION_PAIR", "INFORMATION_REQUIRED"]));
+}
 
 console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–4 selectors, locale, difficulty and review-only lifecycle checks.");
