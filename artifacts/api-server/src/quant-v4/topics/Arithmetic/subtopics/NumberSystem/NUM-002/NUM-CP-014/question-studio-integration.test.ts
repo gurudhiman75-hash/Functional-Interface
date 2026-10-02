@@ -103,7 +103,10 @@ const facadeSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/s
 const engineMount = "router.use(adminQuestionStudioEngineV1Router);";
 const cp014Mount = "router.use(adminQuestionStudioCp014Router);";
 const cp013Mount = "router.use(adminQuestionStudioCp013Router);";
-assert.ok(registrySource.includes('import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";'));
+assert.ok(
+  registrySource.includes('const adminQuestionStudioCp014Router = lazyRouter(() => import("./admin-question-studio-cp014"));'),
+  "CP014 lazy router registration is missing from the Question Studio registry",
+);
 assert.ok(!registrySource.includes("adminQuestionStudioTrigonometryRouter"), "Retired Trigonometry router must not remain mounted.");
 const engineMountIndex = registrySource.indexOf(engineMount);
 const cp014MountIndex = registrySource.indexOf(cp014Mount);
