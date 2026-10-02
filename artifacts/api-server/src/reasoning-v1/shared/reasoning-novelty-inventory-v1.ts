@@ -143,11 +143,17 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   },
   {
     topicDirectory: 'Data-Sufficiency',
-    chapterId: null,
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    chapterId: 'DSF-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'DSF-QL-001 already owns two-statement target determinacy.',
+      'DSF-QL-002 already owns three-statement minimal-sufficient-subset reasoning over the complete frozen 19-state semantic lattice.',
+      'All alternative singleton/pair/triple sufficient-subset structures are represented inside the existing seven-subset proof topology.',
+      'Geometry DS and generic floor/box/scheduling puzzle DS remain explicit solver-authority holds.',
+      'DSF-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261002.md records the dedicated novelty decision.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit statement-set construction novelty while preserving sufficiency semantics.',
+    nextGate: 'Re-open only on a canonical held-domain solver with a materially new DS contract or a statement-set structure outside the existing two-/three-statement sufficiency authorities.',
   },
   {
     topicDirectory: 'Direction-Sense',
