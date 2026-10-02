@@ -82,6 +82,7 @@ router.post(
           i.generation_run_id::text AS "generationRunId",
           i.item_number AS "itemNumber",
           r.public_code AS "runCode",
+          r.status::text AS "runStatus",
           r.request_snapshot AS "requestSnapshot",
           v.payload
         FROM content.generation_run_items i
@@ -107,6 +108,15 @@ router.post(
         const row = rowById.get(itemId);
         if (!row) {
           skipped.push({ itemId, code: "NOT_FOUND", message: "Generated item not found." });
+          continue;
+        }
+
+        if (String(row.runStatus) === "cancelled") {
+          skipped.push({
+            itemId,
+            code: "GENERATION_RUN_CANCELLED",
+            message: "Cancelled generation runs are immutable.",
+          });
           continue;
         }
 
@@ -214,12 +224,15 @@ router.post(
         for (const candidate of prepared) {
           const currentRows = await tx`
             SELECT
-              status,
-              current_version_number AS "currentVersionNumber",
-              accepted_question_id::text AS "acceptedQuestionId"
-            FROM content.generation_run_items
-            WHERE id = ${candidate.source.itemId}::uuid
-            FOR UPDATE
+              i.status,
+              i.current_version_number AS "currentVersionNumber",
+              i.accepted_question_id::text AS "acceptedQuestionId",
+              r.status::text AS "runStatus"
+            FROM content.generation_run_items i
+            INNER JOIN content.generation_runs r
+              ON r.id = i.generation_run_id
+            WHERE i.id = ${candidate.source.itemId}::uuid
+            FOR UPDATE OF i
           `;
           const current = currentRows[0];
           if (!current) {
@@ -227,6 +240,15 @@ router.post(
               itemId: candidate.source.itemId,
               code: "NOT_FOUND_DURING_WRITE",
               message: "Generated item disappeared before its replacement was saved.",
+            });
+            continue;
+          }
+
+          if (String(current.runStatus) === "cancelled") {
+            writeSkipped.push({
+              itemId: candidate.source.itemId,
+              code: "GENERATION_RUN_CANCELLED",
+              message: "Cancelled generation runs are immutable.",
             });
             continue;
           }
