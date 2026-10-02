@@ -73,11 +73,19 @@ const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
 
 function packageSubject(entry: GenerationPackage) {
-  return entry.subject.trim();
+  const subject = typeof entry.subject === 'string' ? entry.subject.trim() : '';
+  return subject || 'Other';
 }
 
 function packageChapter(entry: GenerationPackage) {
-  return entry.chapter.trim();
+  const chapter = typeof entry.chapter === 'string' ? entry.chapter.trim() : '';
+  if (chapter) return chapter;
+  const topic = typeof entry.topic === 'string' ? entry.topic.trim() : '';
+  if (topic) return topic;
+  const subtopic = typeof entry.subtopic === 'string' ? entry.subtopic.trim() : '';
+  if (subtopic) return subtopic;
+  const label = typeof entry.label === 'string' ? entry.label.trim() : '';
+  return label || entry.packageId || 'Other';
 }
 
 function packageCpIds(entry: GenerationPackage) {
