@@ -136,6 +136,29 @@ function localizeCp003Target(english: any, locale: AlgReviewLocale) {
   return null;
 }
 
+function localizeCp007Target(english: any, locale: AlgReviewLocale) {
+  const raw = english.v4RawCandidate ?? {};
+  const system = raw.system;
+  if (!system || !["ALG-CP007-CAND-005", "ALG-CP007-CAND-006"].includes(english.prototypeId)) return null;
+
+  const a1 = String(system.a1), b1 = String(system.b1), c1 = String(system.c1);
+  const a2 = String(system.a2), b2 = String(system.b2), c2 = String(system.c2);
+  const question = locale === "hi-IN"
+    ? `निम्न समीकरण-युग्म की प्रकृति बताइए: ${a1}x + ${b1}y = ${c1} और ${a2}x + ${b2}y = ${c2}।`
+    : `ਹੇਠਾਂ ਦਿੱਤੇ ਸਮੀਕਰਨ-ਜੋੜ ਦੀ ਪ੍ਰਕਿਰਤੀ ਦੱਸੋ: ${a1}x + ${b1}y = ${c1} ਅਤੇ ${a2}x + ${b2}y = ${c2}।`;
+
+  const noSolution = english.prototypeId === "ALG-CP007-CAND-005";
+  const explanation = locale === "hi-IN"
+    ? (noSolution
+        ? "दोनों समीकरणों में x और y के गुणांकों का अनुपात समान है, लेकिन नियत पदों का अनुपात समान नहीं है। इसलिए दोनों रेखाएँ समांतर और भिन्न हैं। अतः इस समीकरण-युग्म का कोई हल नहीं है।"
+        : "दोनों समीकरणों में x, y और नियत पद—तीनों के अनुपात समान हैं। इसलिए दोनों समीकरण एक ही रेखा को दर्शाते हैं। अतः इस समीकरण-युग्म के अनंत हल हैं।")
+    : (noSolution
+        ? "ਦੋਵੇਂ ਸਮੀਕਰਨਾਂ ਵਿੱਚ x ਅਤੇ y ਦੇ ਗੁਣਾਂਕਾਂ ਦਾ ਅਨੁਪਾਤ ਇੱਕੋ ਹੈ, ਪਰ ਅਚਲ ਪਦਾਂ ਦਾ ਅਨੁਪਾਤ ਇੱਕੋ ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਸਮਾਂਤਰ ਅਤੇ ਵੱਖਰੀਆਂ ਹਨ। ਇਸ ਕਰਕੇ ਇਸ ਸਮੀਕਰਨ-ਜੋੜ ਦਾ ਕੋਈ ਹੱਲ ਨਹੀਂ ਹੈ।"
+        : "ਦੋਵੇਂ ਸਮੀਕਰਨਾਂ ਵਿੱਚ x, y ਅਤੇ ਅਚਲ ਪਦ—ਤਿੰਨਾਂ ਦੇ ਅਨੁਪਾਤ ਇੱਕੋ ਹਨ। ਇਸ ਲਈ ਦੋਵੇਂ ਸਮੀਕਰਨ ਇੱਕੋ ਰੇਖਾ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ। ਇਸ ਕਰਕੇ ਇਸ ਸਮੀਕਰਨ-ਜੋੜ ਦੇ ਅਨੰਤ ਹੱਲ ਹਨ।");
+
+  return { question, explanation };
+}
+
 function localeToLanguage(locale: AlgReviewLocale) {
   return locale === "hi-IN" ? "hi" as const : "pa" as const;
 }
@@ -168,8 +191,9 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
   }
 
   const cp003 = localizeCp003Target(english, locale);
-  const question = cp003?.question ?? localizeV4Question(english.question, locale);
-  const explanation = cp003?.explanation ?? english.explanation
+  const cp007 = localizeCp007Target(english, locale);
+  const question = cp003?.question ?? cp007?.question ?? localizeV4Question(english.question, locale);
+  const explanation = cp003?.explanation ?? cp007?.explanation ?? english.explanation
     .split(/\n+/)
     .map((line) => polishV4Explanation(line, locale))
     .join("\n");
