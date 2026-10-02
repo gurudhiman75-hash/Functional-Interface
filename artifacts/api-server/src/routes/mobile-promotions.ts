@@ -13,7 +13,8 @@ router.get("/mobile/promotions",async(req,res)=>{
         id::text AS id,title,subtitle,cta_label AS "ctaLabel",image_url AS "imageUrl",placement,
         destination_type AS "destinationType",destination_value AS "destinationValue",
         campaign_kind AS "campaignKind",is_dismissible AS "isDismissible",
-        frequency_cap_per_day AS "frequencyCapPerDay",audience,sort_order AS "sortOrder"
+        frequency_cap_per_day AS "frequencyCapPerDay",repeat_on_every_open AS "repeatOnEveryOpen",
+        audience,sort_order AS "sortOrder"
       FROM platform.mobile_promotions
       WHERE placement=${placement}
         AND is_active=true
