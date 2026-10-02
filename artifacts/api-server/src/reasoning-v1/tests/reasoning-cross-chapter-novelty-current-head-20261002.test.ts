@@ -22,7 +22,7 @@ const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
 );
 
-assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 27);
+assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 26);
 assert.equal(reviewProviders.length, 7);
 assert.equal(approvedProviders.length, 1);
 assert.equal(approvedProviders[0]?.providerId, "PFC-001-CONTROLLED-NOVEL");
@@ -106,7 +106,7 @@ assert.equal(providerSummary.reviewOnlyProviderIds.length, 7);
 assert.deepEqual(providerSummary.assemblyCreditedProviderIds, ["PFC-001-CONTROLLED-NOVEL"]);
 
 const inventorySummary = reasoningNoveltyInventorySummaryV1();
-assert.equal(inventorySummary.topicCount, 27);
+assert.equal(inventorySummary.topicCount, 26);
 assert.deepEqual(inventorySummary.controlledNovelTargetCreditedTopics, ["Non-Verbal-Reasoning"]);
 
 const syntheticAssembly = [
