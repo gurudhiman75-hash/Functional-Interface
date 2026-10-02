@@ -17,15 +17,8 @@ const PUBLIC_TOPICS = Object.freeze({
   "indian-polity": ["indian-polity", "polity", "indian-constitution"],
 } as const);
 
-const PUBLIC_EXAMS = Object.freeze({
-  "ssc-cgl": {
-    codeTerms: ["cgl"],
-    nameTerms: ["cgl", "combined-graduate-level"],
-  },
-} as const);
-
 type PublicTopicSlug = keyof typeof PUBLIC_TOPICS;
-type PublicExamSlug = keyof typeof PUBLIC_EXAMS;
+type PublicExamSlug = string;
 
 function normalizeLanguage(value: unknown): "en" | "hi" | "pa" {
   const normalized = String(value ?? "en").trim().toLowerCase();
@@ -52,10 +45,8 @@ async function loadPublicPracticeQuestions(input: {
   language: "en" | "hi" | "pa";
   limit: number;
 }) {
-  const exam = PUBLIC_EXAMS[input.examSlug];
   const topicTags = PUBLIC_TOPICS[input.topicSlug];
-  const examCodeTerms = [...exam.codeTerms];
-  const examNameTerms = [...exam.nameTerms];
+  const examSlug = normalizeExamText(input.examSlug);
 
   const rows = await sqlClient`
     SELECT
@@ -108,16 +99,10 @@ async function loadPublicPracticeQuestions(input: {
       AND q.status = 'published'::question_status
       AND q.published_version_id IS NOT NULL
       AND (
-        EXISTS (
-          SELECT 1
-          FROM unnest(${examCodeTerms}::text[]) AS term
-          WHERE lower(e.code) LIKE ('%' || term || '%')
-        )
-        OR EXISTS (
-          SELECT 1
-          FROM unnest(${examNameTerms}::text[]) AS term
-          WHERE regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') LIKE ('%' || term || '%')
-        )
+        regexp_replace(lower(e.code), '[^a-z0-9]+', '-', 'g') = ${examSlug}
+        OR regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') = ${examSlug}
+        OR regexp_replace(lower(e.code), '[^a-z0-9]+', '-', 'g') LIKE ('%' || ${examSlug} || '%')
+        OR regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') LIKE ('%' || ${examSlug} || '%')
       )
       AND (${input.language} = 'en' OR qt.id IS NOT NULL)
       AND EXISTS (
@@ -174,7 +159,7 @@ async function loadPublicPracticeQuestions(input: {
 async function handlePublicPractice(req: any, res: any, examSlugValue: string, topicSlugValue: string) {
   const examSlug = normalizeExamText(examSlugValue) as PublicExamSlug;
   const topicSlug = normalizeExamText(topicSlugValue) as PublicTopicSlug;
-  if (!PUBLIC_EXAMS[examSlug]) {
+  if (!examSlug || examSlug.length > 80) {
     return res.status(404).json({
       error: "Public practice exam not found",
       code: "PUBLIC_PRACTICE_EXAM_NOT_FOUND",
