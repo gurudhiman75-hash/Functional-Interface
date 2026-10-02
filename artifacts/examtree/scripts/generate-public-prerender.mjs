@@ -128,6 +128,78 @@ const routes = [
     heading: "SSC CHSL syllabus and exam pattern 2026",
     description: "Review SSC CHSL Tier-I subjects, Tier-II modules, negative marking, and skill or typing requirements.",
   },
+  {
+    path: "/ssc-mts",
+    title: "SSC MTS Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC MTS preparation hub",
+    description: "Prepare for SSC MTS 2026 with session-based guidance, mock tests, and free topic-wise questions.",
+  },
+  {
+    path: "/ssc-mts-preparation",
+    title: "How to Prepare for SSC MTS 2026 | ExamTree",
+    heading: "How to prepare for SSC MTS 2026",
+    description: "Build SSC MTS numerical, reasoning, English, and General Awareness fundamentals and convert them into timed practice.",
+  },
+  {
+    path: "/ssc-mts-syllabus",
+    title: "SSC MTS Syllabus & Exam Pattern 2026 | ExamTree",
+    heading: "SSC MTS syllabus and exam pattern 2026",
+    description: "Review the SSC MTS and Havaldar preparation areas, session structure, and official verification guidance.",
+  },
+  {
+    path: "/ssc-cpo",
+    title: "SSC CPO Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC CPO preparation hub",
+    description: "Prepare for SSC CPO 2026 with Paper-I practice, physical-stage planning, mock tests, and free questions.",
+  },
+  {
+    path: "/ssc-cpo-preparation",
+    title: "How to Prepare for SSC CPO 2026 | ExamTree",
+    heading: "How to prepare for SSC CPO 2026",
+    description: "Prepare Paper-I, physical readiness, Paper-II English, and mock-test review as one SSC CPO plan.",
+  },
+  {
+    path: "/ssc-cpo-syllabus",
+    title: "SSC CPO Syllabus & Selection Pattern 2026 | ExamTree",
+    heading: "SSC CPO syllabus and selection pattern 2026",
+    description: "Review SSC CPO Paper-I subjects, PET/PST, Paper-II, and later selection stages.",
+  },
+  {
+    path: "/ssc-stenographer",
+    title: "SSC Stenographer Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC Stenographer preparation hub",
+    description: "Prepare for SSC Stenographer Grade C & D 2026 with CBE practice and stenography skill guidance.",
+  },
+  {
+    path: "/ssc-stenographer-preparation",
+    title: "How to Prepare for SSC Stenographer 2026 | ExamTree",
+    heading: "How to prepare for SSC Stenographer 2026",
+    description: "Balance English, Reasoning, General Awareness, sectional timing, and regular stenography skill practice.",
+  },
+  {
+    path: "/ssc-stenographer-syllabus",
+    title: "SSC Stenographer Syllabus & Exam Pattern 2026 | ExamTree",
+    heading: "SSC Stenographer Grade C & D syllabus and pattern 2026",
+    description: "Review the 2026 CBE structure and Grade C/Grade D stenography skill-test requirements.",
+  },
+  {
+    path: "/ssc-gd",
+    title: "SSC GD 2027 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "SSC GD 2027 preparation hub",
+    description: "Prepare for the next SSC GD cycle with CBE guidance, physical-stage planning, mock tests, and free questions.",
+  },
+  {
+    path: "/ssc-gd-preparation",
+    title: "How to Prepare for SSC GD 2027 | ExamTree",
+    heading: "How to prepare for SSC GD 2027",
+    description: "Prepare SSC GD written fundamentals and physical readiness together for the next recruitment cycle.",
+  },
+  {
+    path: "/ssc-gd-syllabus",
+    title: "SSC GD Syllabus & Selection Pattern 2027 | ExamTree",
+    heading: "SSC GD syllabus and selection pattern 2027",
+    description: "Review the SSC GD CBE subjects and later PET/PST, medical, and verification stages.",
+  },
 ];
 
 const sscPracticeTopics = [
@@ -143,6 +215,13 @@ const sscPracticeTopics = [
   ["indian-polity", "Indian Polity"],
 ];
 
+const stenographerPracticeTopics = sscPracticeTopics.filter(([slug]) =>
+  ["syllogism", "coding-decoding", "indian-polity"].includes(slug),
+);
+const gdPracticeTopics = sscPracticeTopics.filter(([slug]) =>
+  ["percentage", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "coding-decoding", "indian-polity"].includes(slug),
+);
+
 routes.push(
   ...sscPracticeTopics.map(([slug, name]) => ({
     path: `/ssc-cgl/questions/${slug}`,
@@ -156,6 +235,30 @@ routes.push(
     heading: `${name} questions for SSC CHSL`,
     description: `Solve free ${name} questions for SSC CHSL with answers and explanations, then continue to timed mock tests.`,
   })),
+  ...sscPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-mts/questions/${slug}`,
+    title: `${name} Questions for SSC MTS – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC MTS`,
+    description: `Solve free ${name} questions for SSC MTS with answers and explanations.`,
+  })),
+  ...sscPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-cpo/questions/${slug}`,
+    title: `${name} Questions for SSC CPO – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC CPO`,
+    description: `Solve free ${name} questions for SSC CPO with answers and explanations.`,
+  })),
+  ...stenographerPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-stenographer/questions/${slug}`,
+    title: `${name} Questions for SSC Stenographer – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC Stenographer`,
+    description: `Solve free ${name} questions for SSC Stenographer with answers and explanations.`,
+  })),
+  ...gdPracticeTopics.map(([slug, name]) => ({
+    path: `/ssc-gd/questions/${slug}`,
+    title: `${name} Questions for SSC GD – Free Practice | ExamTree`,
+    heading: `${name} questions for SSC GD`,
+    description: `Solve free ${name} questions for SSC GD with answers and explanations.`,
+  })),
 );
 
 const discoveryLinks = [
@@ -164,6 +267,8 @@ const discoveryLinks = [
   ["Exams covered", "/exams-covered"],
   ["SSC CGL", "/ssc-cgl"],
   ["SSC CHSL", "/ssc-chsl"],
+  ["SSC MTS", "/ssc-mts"],
+  ["SSC CPO", "/ssc-cpo"],
   ["FAQ", "/faq"],
   ["About", "/about"],
   ["Contact", "/contact"],
