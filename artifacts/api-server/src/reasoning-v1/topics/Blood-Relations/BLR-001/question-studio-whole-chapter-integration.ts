@@ -169,7 +169,7 @@ export async function generateBlr001WholeChapterQuestionStudioBatch(
         break;
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        const isDifficultyFilterMiss = /questions match the selected filters/i.test(message);
+        const isDifficultyFilterMiss = /questions match .*filters/i.test(message);
         if (!isDifficultyFilterMiss || explicitQlScoped) throw error;
         lastFilterError = error instanceof Error ? error : new Error(message);
       }
