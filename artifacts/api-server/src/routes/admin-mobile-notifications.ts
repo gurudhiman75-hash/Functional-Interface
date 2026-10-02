@@ -173,15 +173,16 @@ router.post("/:id/send-test-to-my-device",requireAdminPermission("content.taxono
           campaignId:id,
           destinationType:String(campaign.destinationType??"none"),
           destinationValue:String(campaign.destinationValue??""),
+          isTest:"true",
         },
         android:{priority:"high"},
       });
       await sqlClient.begin(async tx=>{
         await tx`
           INSERT INTO platform.mobile_notification_deliveries
-            (id,campaign_id,user_id,device_id,provider,provider_message_id,status,sent_at,created_at)
+            (id,campaign_id,user_id,device_id,provider,provider_message_id,status,sent_at,created_at,is_test)
           VALUES
-            (${randomUUID()}::uuid,${id}::uuid,${String(device.userId)}::uuid,${String(device.id)}::uuid,'fcm',${messageId},'sent',now(),now())
+            (${randomUUID()}::uuid,${id}::uuid,${String(device.userId)}::uuid,${String(device.id)}::uuid,'fcm',${messageId},'sent',now(),now(),true)
         `;
         await tx`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata)
           VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.notification.test_sent','mobile_notification_campaign',${id}::uuid,'Sent mobile notification test to administrator device','Admin requested a single-account test push',${tx.json({firebaseUid,deviceId:String(device.id)})})`;
