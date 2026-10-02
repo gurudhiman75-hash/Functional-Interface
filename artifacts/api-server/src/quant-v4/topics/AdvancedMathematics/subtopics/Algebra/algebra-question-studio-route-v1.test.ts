@@ -49,6 +49,7 @@ for (const fragment of [
   "mockTestEligible: false",
   "publiclyPublishable: false",
   "productionReleaseAuthorized: false",
+  "activeSourceAuthorityByLanguage",
 ] as const) {
   assert.ok(routeSource.includes(fragment), `Algebra BANK_ONLY route contract missing: ${fragment}`);
 }
