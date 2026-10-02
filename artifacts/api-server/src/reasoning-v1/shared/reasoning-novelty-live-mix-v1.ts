@@ -176,6 +176,11 @@ function activatedQuestion(input: {
     : [];
   const correctIndex = Number(candidate.correctIndex);
   const answer = String(candidate.answer ?? options[correctIndex] ?? "");
+  const parentQlIds = Array.isArray(candidate.parentQlIds)
+    ? candidate.parentQlIds
+    : Array.isArray(candidate.mappedQlIds)
+      ? candidate.mappedQlIds
+      : [];
   const questionId =
     input.activation.packageId +
     ":CONTROLLED-NOVEL:" +
@@ -205,7 +210,7 @@ function activatedQuestion(input: {
     provenance: "CONTROLLED_NOVEL",
     noveltyProviderId: input.activation.providerId,
     noveltyAxes: candidate.noveltyAxes,
-    parentQlIds: candidate.parentQlIds,
+    parentQlIds,
     semanticFingerprint: candidate.semanticFingerprint,
     solverVerified: candidate.solverVerified === true,
     uniqueCorrectAnswer: candidate.uniqueCorrectAnswer === true,
@@ -228,7 +233,7 @@ function activatedQuestion(input: {
         : {}),
       noveltyMixVersion: REASONING_V1_LIVE_NOVELTY_MIX_VERSION,
       noveltyProviderId: input.activation.providerId,
-      parentQlIds: candidate.parentQlIds,
+      parentQlIds,
       semanticFingerprint: candidate.semanticFingerprint,
       replacedSourceQlId: input.source.qlId ?? null,
       replacedSourceCpId: input.source.cpId ?? null,
