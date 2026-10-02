@@ -10,13 +10,12 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
     "CAE-001-EDGE-FAMILIES",
     "ALP-001-TRANSFORMED-GAP",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "OPS-001-INFER-THEN-FILL",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CLK-001-FAULTY-TIME-ANGLE",
   ] as const,
-  contentApprovedAwaitingQuestionStudioRoute: [
-    "RNK-001-CROSS-FAMILY-CASELET",
-  ] as const,
+  contentApprovedAwaitingQuestionStudioRoute: [] as const,
   safeguards: Object.freeze({
     explicitQlOrCpScopePreserved: true,
     reviewedLanguageOnly: true,
