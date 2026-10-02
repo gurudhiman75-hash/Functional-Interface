@@ -18,6 +18,94 @@ const adapters = new Map<QuestionStudioEngineId, QuestionStudioEngineAdapter>([
   [reasoningV1QuestionStudioAdapter.engineId, reasoningV1QuestionStudioAdapter],
 ]);
 
+const VALID_LANGUAGES = new Set(["en", "hi", "pa"]);
+const VALID_DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
+
+export function validateQuestionStudioPackage(
+  pkg: QuestionStudioPackageDefinition,
+): QuestionStudioPackageDefinition {
+  if (!pkg.enabled) return pkg;
+
+  const fail = (message: string): never => {
+    throw new Error(`Question Studio package ${pkg.packageId || "<missing>"} is invalid: ${message}`);
+  };
+
+  if (!pkg.packageId.trim()) fail("packageId is required.");
+  if (!pkg.label.trim()) fail("label is required.");
+  if (!pkg.topic.trim() && !pkg.subtopic.trim()) {
+    fail("topic or subtopic is required.");
+  }
+
+  const visibleCpIds = [
+    ...new Set([
+      ...pkg.cpIds.map((value) => value.trim()).filter(Boolean),
+      ...(pkg.dynamicCandidateCpIds ?? []).map((value) => value.trim()).filter(Boolean),
+    ]),
+  ];
+  if (visibleCpIds.length === 0) {
+    fail("at least one CP or dynamic candidate CP is required.");
+  }
+  if (new Set(pkg.cpIds).size !== pkg.cpIds.length) {
+    fail("cpIds must not contain duplicates.");
+  }
+
+  if (pkg.supportedLanguages.length === 0) {
+    fail("at least one supported language is required.");
+  }
+  const invalidLanguage = pkg.supportedLanguages.find(
+    (language) => !VALID_LANGUAGES.has(language),
+  );
+  if (invalidLanguage) fail(`unsupported language ${invalidLanguage}.`);
+
+  const supportsDifficultyFiltering = pkg.difficultyFilterSupported !== false;
+  if (supportsDifficultyFiltering && (pkg.supportedDifficulties?.length ?? 0) === 0) {
+    fail("difficulty filtering is enabled but supportedDifficulties is empty.");
+  }
+  const invalidDifficulty = pkg.supportedDifficulties?.find(
+    (difficulty) => !VALID_DIFFICULTIES.has(difficulty),
+  );
+  if (invalidDifficulty) fail(`unsupported difficulty ${invalidDifficulty}.`);
+
+  if (
+    pkg.runtimeMode
+    && (pkg.supportedRuntimeModes?.length ?? 0) > 0
+    && !pkg.supportedRuntimeModes!.includes(pkg.runtimeMode)
+  ) {
+    fail(`runtimeMode ${pkg.runtimeMode} is not listed in supportedRuntimeModes.`);
+  }
+
+  const declaresManagedLifecycle =
+    Boolean(pkg.lifecycleId)
+    || Boolean(pkg.lifecycleStage)
+    || Boolean(pkg.runtimeMode)
+    || (pkg.supportedRuntimeModes?.length ?? 0) > 0;
+
+  if (declaresManagedLifecycle && !pkg.lifecycleStage) {
+    fail("managed runtime packages must declare lifecycleStage.");
+  }
+
+  if (pkg.lifecycleStage === "REVIEW_ONLY") {
+    if (pkg.questionBankWritable === true) fail("REVIEW_ONLY cannot be Question Bank writable.");
+    if (pkg.testEligible === true) fail("REVIEW_ONLY cannot be test eligible.");
+    if (pkg.mockTestEligible === true) fail("REVIEW_ONLY cannot be mock-test eligible.");
+    if (pkg.publiclyPublishable === true) fail("REVIEW_ONLY cannot be publicly publishable.");
+    if (pkg.productionReleaseAuthorized === true) fail("REVIEW_ONLY cannot authorize production release.");
+  }
+
+  if (pkg.lifecycleStage === "BANK_ONLY") {
+    if (pkg.questionBankWritable !== true) fail("BANK_ONLY must be Question Bank writable.");
+    if (pkg.questionBankAcceptanceMode && pkg.questionBankAcceptanceMode !== "BANK_ONLY") {
+      fail("BANK_ONLY must use BANK_ONLY question-bank acceptance.");
+    }
+    if (pkg.testEligible === true) fail("BANK_ONLY cannot be test eligible.");
+    if (pkg.mockTestEligible === true) fail("BANK_ONLY cannot be mock-test eligible.");
+    if (pkg.publiclyPublishable === true) fail("BANK_ONLY cannot be publicly publishable.");
+    if (pkg.productionReleaseAuthorized === true) fail("BANK_ONLY cannot authorize production release.");
+  }
+
+  return pkg;
+}
+
 export function listQuestionStudioEngines(): QuestionStudioEngineId[] {
   return [...adapters.keys()];
 }
@@ -35,7 +123,8 @@ export function getQuestionStudioEngine(
 export function listQuestionStudioPackages(): QuestionStudioPackageDefinition[] {
   const packages = [...adapters.values()]
     .flatMap((adapter) => adapter.listPackages())
-    .map(enrichQuestionStudioPackageCpTitles);
+    .map(enrichQuestionStudioPackageCpTitles)
+    .map(validateQuestionStudioPackage);
 
   const owners = new Map<string, QuestionStudioEngineId[]>();
   for (const pkg of packages) {
