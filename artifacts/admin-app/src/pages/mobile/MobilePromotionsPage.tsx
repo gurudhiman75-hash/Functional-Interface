@@ -216,6 +216,7 @@ export function MobilePromotionsPage(){
       {editing.destinationType==='url'&&<Field label="Destination URL"><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder="https://…"/></Field>}
       <Field label="Start"><Input type="datetime-local" value={localDateTime(editing.startAt)} onChange={e=>setEditing({...editing,startAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="End"><Input type="datetime-local" value={localDateTime(editing.endAt)} onChange={e=>setEditing({...editing,endAt:isoOrNull(e.target.value)})}/></Field>
+      {scheduleErrorOf(editing)&&<div className="md:col-span-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">{scheduleErrorOf(editing)}</div>}
       <Field label="Order"><Input type="number" min="0" max="999" value={editing.sortOrder} onChange={e=>setEditing({...editing,sortOrder:Number(e.target.value)})}/></Field>
       <Field label="Delivery frequency">
         <Select value={frequencyModeOf(editing)} onValueChange={(value)=>{
@@ -247,16 +248,8 @@ export function MobilePromotionsPage(){
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Dismissible</p><p className="text-xs text-muted-foreground">Learner can hide this promotion.</p></div><Switch checked={editing.isDismissible} onCheckedChange={checked=>setEditing({...editing,isDismissible:checked})}/></div>
       {editing.placement==='login_popup'&&frequencyModeOf(editing)==='every_open'&&<div className="md:col-span-2 rounded-lg border px-3 py-3"><p className="text-sm font-medium">Every app open is enabled</p><p className="text-xs text-muted-foreground">This ignores saved impressions and dismissals for this popup. It still appears only once during a single running app session.</p></div>}
       <div className="md:col-span-2 rounded-xl border p-4">
-        <p className="text-sm font-semibold">Preview</p>
-        <div className="mt-3 mx-auto max-w-sm overflow-hidden rounded-2xl border bg-white shadow-sm">
-          {editing.imageUrl&&<img src={editing.imageUrl} alt="" className="h-40 w-full object-cover"/>}
-          <div className="p-4">
-            <p className="font-semibold">{editing.title||'Promotion title'}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{editing.subtitle||'Promotion message appears here.'}</p>
-            {editing.destinationType!=='none'&&<Button className="mt-4 w-full" size="sm">{editing.ctaLabel||'Explore'}</Button>}
-            {editing.isDismissible&&<p className="mt-2 text-center text-xs text-muted-foreground">Learner can close/hide this promotion</p>}
-          </div>
-        </div>
+        <div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Live mobile preview</p><p className="mt-1 text-xs text-muted-foreground">Uses the current rendering rules for this placement.</p></div>{editing.id&&<div className="text-right text-xs text-muted-foreground"><div><strong className="text-foreground">{editing.impressions??0}</strong> impressions · <strong className="text-foreground">{editing.clicks??0}</strong> clicks</div><div>{editing.dismissals??0} dismissals · {ctrOf(editing)} CTR · last 30 days</div></div>}</div>
+        <div className="mt-4"><PromotionPreview promotion={editing}/></div>
       </div>
       <div className="md:col-span-2 flex justify-end gap-2"><Button variant="outline" onClick={()=>setEditing(null)} disabled={saving}>Cancel</Button><Button onClick={()=>void save()} disabled={saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Saving…':'Save promotion'}</Button></div>
     </CardContent></Card>}
