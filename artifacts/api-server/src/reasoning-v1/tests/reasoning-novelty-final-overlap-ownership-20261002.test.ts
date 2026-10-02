@@ -121,9 +121,16 @@ for (const provider of reviewProviders) {
       candidate.semanticFingerprint
       ?? candidate.structuralFingerprint
       ?? candidate.contentFingerprint
-      ?? "",
+      ?? JSON.stringify([
+        candidate.sharedPrompt,
+        candidate.stem,
+        candidate.clueTexts,
+        candidate.options,
+        candidate.answer,
+        candidate.uniqueSolution,
+      ]),
     ).trim();
-    assert.ok(fingerprint, provider.providerId + ": semantic/structural fingerprint missing");
+    assert.ok(fingerprint && fingerprint !== "[]", provider.providerId + ": semantic/structural fingerprint missing");
     const priorFingerprintOwner = allFingerprints.get(fingerprint);
     assert.equal(
       priorFingerprintOwner,
