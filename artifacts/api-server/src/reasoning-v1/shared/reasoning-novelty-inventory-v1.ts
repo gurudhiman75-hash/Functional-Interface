@@ -116,10 +116,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Coding-Decoding',
     chapterId: 'COD-001',
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'COD-QL-200..203 already permanently own four infer-and-encode source-gap families.',
+      'CP009 already covers exact, possible, impossible, missing-member, resolved-composition and complete-domain artificial-language queries.',
+      'COD-QL-199 already owns explicit conditional-table forward coding; inverse and hidden-condition variants remain explicit source gaps.',
+      'Operator substitution, Input-Output, Data Sufficiency wrappers and relation puzzles remain outside COD ownership.',
+      'COD-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261002.md records the dedicated novelty decision.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit genuinely new rule compositions separately from code/value resampling.',
+    nextGate: 'Re-open only on recurring source evidence for a bounded Coding-Decoding solve contract not representable by COD-QL-001..203.',
   },
   {
     topicDirectory: 'Course-of-Action',
