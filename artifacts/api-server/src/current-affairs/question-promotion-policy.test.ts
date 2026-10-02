@@ -13,6 +13,7 @@ const sourcePayload = {
   language: "en",
   generationContext: {
     questionBankAcceptanceMode: "BANK_ONLY",
+    questionBankWritable: true,
     publiclyPublishable: false,
     automaticStudentPublication: false,
   },
@@ -99,6 +100,23 @@ const notBankOnly = evaluateCurrentAffairsQuestionPromotionReadiness({
 });
 assert.equal(notBankOnly.ready, false);
 assert.ok(notBankOnly.blockers.some((item) => item.includes("BANK_ONLY")));
+
+const missingWriteAuthority = evaluateCurrentAffairsQuestionPromotionReadiness({
+  ...base,
+  sourcePayload: {
+    ...sourcePayload,
+    generationContext: {
+      ...sourcePayload.generationContext,
+      questionBankWritable: undefined,
+    },
+  },
+});
+assert.equal(missingWriteAuthority.ready, false);
+assert.ok(
+  missingWriteAuthority.blockers.some((item) =>
+    item.includes("explicitly enable Question Bank writing"),
+  ),
+);
 
 const publicSource = evaluateCurrentAffairsQuestionPromotionReadiness({
   ...base,
