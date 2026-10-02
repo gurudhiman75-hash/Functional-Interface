@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Bell, CalendarClock, Plus, RefreshCw, Save, Send, Smartphone } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Bell, CalendarClock, Copy, Plus, RefreshCw, Save, Send, Smartphone, XCircle } from 'lucide-react';
 
 import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -13,11 +14,20 @@ import { Textarea } from '@/components/ui/textarea';
 import { getFirebaseAuth } from '@/integrations/firebase';
 
 const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api').replace(/\/$/,'');
-type Campaign={id:string;title:string;body:string;imageUrl:string;destinationType:string;destinationValue:string;audience:Record<string,unknown>;status:string;scheduledAt:string|null;sentAt:string|null;deliveryCount:number;sentCount:number;failedCount:number;openedCount:number;createdAt:string;updatedAt:string};
+type Audience={languageCodes:string[];examIds:string[]};
+type Campaign={id:string;title:string;body:string;imageUrl:string;destinationType:string;destinationValue:string;audience:Partial<Audience>;status:string;scheduledAt:string|null;sentAt:string|null;deliveryCount:number;sentCount:number;failedCount:number;openedCount:number;deliveredUsers:number;createdAt:string;updatedAt:string};
 type ManagedPage={id:string;slug:string;title:string;isActive:boolean};
-type Data={campaigns:Campaign[];deviceSummary:{activeDevices:number;reachableUsers:number}};
-type Draft={id?:string;title:string;body:string;imageUrl:string;destinationType:string;destinationValue:string;status:string;scheduledAt:string;locale:string};
-function blank():Draft{return{title:'',body:'',imageUrl:'',destinationType:'none',destinationValue:'',status:'draft',scheduledAt:'',locale:''};}
+type Exam={id:string;code:string;name:string;familyName:string};
+type TestSeries={id:string;code:string;name:string;examName:string};
+type Data={campaigns:Campaign[];deviceSummary:{activeDevices:number;reachableUsers:number};catalog?:{exams?:Exam[];testSeries?:TestSeries[]}};
+type Draft={id?:string;title:string;body:string;imageUrl:string;destinationType:string;destinationValue:string;status:string;scheduledAt:string;audience:Audience};
+const LANGUAGES=[{code:'en',label:'English'},{code:'hi',label:'Hindi'},{code:'pa',label:'Punjabi'}];
+function blank():Draft{return{title:'',body:'',imageUrl:'',destinationType:'none',destinationValue:'',status:'draft',scheduledAt:'',audience:{languageCodes:[],examIds:[]}};}
+function audienceOf(value:Partial<Audience>|undefined):Audience{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
+function openRate(c:Campaign){return c.deliveredUsers>0?((c.openedCount/c.deliveredUsers)*100).toFixed(1)+'%':'—';}
+function statusClass(status:string){if(status==='sent')return'bg-success/10 text-success';if(status==='scheduled')return'bg-blue-500/10 text-blue-700';if(status==='failed')return'bg-destructive/10 text-destructive';if(status==='sending')return'bg-amber-500/10 text-amber-700';return'bg-muted text-muted-foreground';}
+function audienceLabel(audience:Partial<Audience>|undefined){const a=audienceOf(audience);const parts:string[]=[];if(a.languageCodes.length)parts.push(a.languageCodes.map(code=>code.toUpperCase()).join('/'));if(a.examIds.length)parts.push(a.examIds.length+' exam'+(a.examIds.length===1?'':'s'));return parts.length?parts.join(' · '):'All learners';}
+function scheduleError(draft:Draft){if(draft.status!=='scheduled')return'';if(!draft.scheduledAt)return'Select a future date and time.';const at=new Date(draft.scheduledAt).getTime();if(!Number.isFinite(at)||at<=Date.now())return'Scheduled time must be in the future. Use Send now for immediate delivery.';return'';}
 function local(value:string|null){if(!value)return '';const d=new Date(value);if(Number.isNaN(d.getTime()))return '';const p=(n:number)=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;}
 async function call<T>(path:string,init?:RequestInit):Promise<T>{const user=getFirebaseAuth()?.currentUser;if(!user)throw new Error('Your administrator session has expired.');const response=await fetch(`${apiBase}${path}`,{...init,headers:{'Content-Type':'application/json',Authorization:`Bearer ${await user.getIdToken()}`,...init?.headers}});const body=await response.json().catch(()=>null) as (T&{error?:string})|null;if(!response.ok)throw new Error(body?.error||`Request failed (${response.status}).`);if(!body)throw new Error('Notifications API returned an empty response.');return body;}
 export function MobileNotificationsPage(){
