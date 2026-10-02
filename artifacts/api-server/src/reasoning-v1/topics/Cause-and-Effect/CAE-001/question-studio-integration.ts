@@ -127,14 +127,36 @@ export async function generateCae001QuestionStudioBatch(
   const banking = /bank|sbi|ibps|rrb|rbi/u.test(String(request.exam ?? "").toLowerCase());
 
   const questions = Array.from({ length: count }, (_, index) => {
-    const qlId = explicitQl ?? CAE_PROVISIONAL_QL_IDS[hashSeed(baseSeed + ":ql:" + index) % CAE_PROVISIONAL_QL_IDS.length]!;
-    const generated = generateOne({
-      qlId,
-      locale,
-      baseSeed: hashSeed(baseSeed + ":" + qlId + ":" + index),
-      targetDifficulty,
-      banking,
-    });
+    const generated = (() => {
+      if (explicitQl) {
+        return generateOne({
+          qlId: explicitQl,
+          locale,
+          baseSeed: hashSeed(baseSeed + ":" + explicitQl + ":" + index),
+          targetDifficulty,
+          banking,
+        });
+      }
+
+      const start = hashSeed(baseSeed + ":ql:" + index) % CAE_PROVISIONAL_QL_IDS.length;
+      for (let qlOffset = 0; qlOffset < CAE_PROVISIONAL_QL_IDS.length; qlOffset += 1) {
+        const qlId = CAE_PROVISIONAL_QL_IDS[(start + qlOffset) % CAE_PROVISIONAL_QL_IDS.length]!;
+        try {
+          return generateOne({
+            qlId,
+            locale,
+            baseSeed: hashSeed(baseSeed + ":" + qlId + ":" + index),
+            targetDifficulty,
+            banking,
+          });
+        } catch {
+          // Chapter-wide generation may skip a QL that has no instance in the requested difficulty band.
+        }
+      }
+      throw new Error(
+        "CAE-001 could not find any source-backed QL for the requested difficulty.",
+      );
+    })();
     const difficulty = difficultyLabel(generated.difficulty);
     const options = [...generated.options];
     const answer = options[generated.correctIndex]!;
