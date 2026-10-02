@@ -12,7 +12,7 @@ import {
   type QuestionStudioReviewQuery,
   type ReviseGenerationItemInput,
 } from './api';
-import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
+import { notifyQuestionStudioRefresh, QUESTION_STUDIO_REFRESH_EVENT } from './events';
 
 const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
   runs: [],
@@ -106,6 +106,7 @@ export function useQuestionStudio() {
       const result = await createGenerationRun(input);
       setGenerating(false);
       await refresh();
+      notifyQuestionStudioRefresh();
       return result;
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : 'Question generation failed.';
