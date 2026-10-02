@@ -43,6 +43,7 @@ const CREDITED_TOPICS = [
   'Direction-Sense',
   'Mathematical-Operations',
   'Non-Verbal-Reasoning',
+  'Ranking-and-Order',
 ] as const;
 
 test('novelty inventory covers every Reasoning V1 topic directory exactly once', () => {
@@ -61,7 +62,7 @@ test('only explicitly approved controlled-novel runtimes receive current target 
 });
 
 test('routable reviewed lanes are active while reviewed unrouted lanes stay uncredited', () => {
-  for (const topicDirectory of ['Alphabet-Test', 'Blood-Relations', 'Calendar', 'Cause-and-Effect', 'Clocks', 'Direction-Sense', 'Mathematical-Operations']) {
+  for (const topicDirectory of ['Alphabet-Test', 'Blood-Relations', 'Calendar', 'Cause-and-Effect', 'Clocks', 'Direction-Sense', 'Mathematical-Operations', 'Ranking-and-Order']) {
     const entry = REASONING_V1_NOVELTY_INVENTORY_V1.find(
       (candidate) => candidate.topicDirectory === topicDirectory,
     );
@@ -70,7 +71,7 @@ test('routable reviewed lanes are active while reviewed unrouted lanes stay uncr
     assert.equal(entry?.countsTowardControlledNovelTargetNow, true);
   }
 
-  for (const topicDirectory of ['Ranking-and-Order']) {
+  for (const topicDirectory of [] as string[]) {
     const entry = REASONING_V1_NOVELTY_INVENTORY_V1.find(
       (candidate) => candidate.topicDirectory === topicDirectory,
     );
