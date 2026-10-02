@@ -111,9 +111,10 @@ assert.deepEqual(
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 3);
+assert.equal(summary.awaitingRouteProviderIds.length, 2);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
