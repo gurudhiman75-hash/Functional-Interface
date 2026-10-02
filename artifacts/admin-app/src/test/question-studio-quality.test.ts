@@ -28,6 +28,13 @@ function runWithStems(...stems: string[]): QuestionStudioRun {
     updatedAt: new Date().toISOString(),
     requestSnapshot: {},
     recipeVersionId: null,
+    reviewSummary: {
+      total: stems.length,
+      unreviewed: stems.length,
+      needsFix: 0,
+      approved: 0,
+      rejected: 0,
+    },
     items: stems.map((stem, index) => ({
       id: `item-${index + 1}`,
       generationRunId: 'run-1',

@@ -160,6 +160,11 @@ test("normalizes generated questions before canonical conversion", () => {
     options: ["One", "Two", "Three"],
     correctIndex: 1,
     topic: "Arithmetic",
+    questionBankStatus: "STORED",
+    questionBankWritable: true,
+    questionBankAcceptanceMode: "FULL_RELEASE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
   }, { itemId: "item-1", generationRunCode: "GEN-1" });
 
   assert.equal(normalized.correctIndex, 1);
