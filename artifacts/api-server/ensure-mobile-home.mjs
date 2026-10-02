@@ -13,6 +13,7 @@ const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/202
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
 const promotionsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-promotions-v2.sql");
 const firstPromotionMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-first-live-promotion.sql");
+const repeatOnOpenMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-promotion-repeat-on-open.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
@@ -125,6 +126,35 @@ try {
     throw new Error("First live mobile promotion seed verification failed");
   }
   console.log("[render-build] first live mobile promotion verified");
+  const [repeatOnOpenBefore] = await sql`
+    SELECT
+      EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema='platform'
+          AND table_name='mobile_promotions'
+          AND column_name='repeat_on_every_open'
+      ) AS has_repeat_flag,
+      COALESCE((
+        SELECT repeat_on_every_open
+        FROM platform.mobile_promotions
+        WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
+      ), false) AS repeat_enabled
+  `;
+  if (!repeatOnOpenBefore?.has_repeat_flag || !repeatOnOpenBefore?.repeat_enabled) {
+    console.log("[render-build] promotion repeat-on-open test mode missing; applying checked-in migration");
+    await sql.unsafe(await readFile(repeatOnOpenMigrationPath, "utf8"));
+  }
+  const [repeatOnOpenAfter] = await sql`
+    SELECT repeat_on_every_open AS repeat_enabled,frequency_cap_per_day AS frequency_cap
+    FROM platform.mobile_promotions
+    WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
+  `;
+  if (!repeatOnOpenAfter?.repeat_enabled || repeatOnOpenAfter?.frequency_cap !== null) {
+    throw new Error("Promotion repeat-on-open test mode verification failed");
+  }
+  console.log("[render-build] promotion repeat-on-open test mode verified");
+
 
 
 
