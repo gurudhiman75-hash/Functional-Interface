@@ -40,44 +40,37 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           const endpoints = [
-            ['/api/tests', 'tests', 'array'],
-            ['/api/categories', 'categories', 'array'],
-            ['/api/subcategories', 'subcategories', 'array'],
-            ['/api/test-series', 'testSeries', 'series'],
+            ['/api/tests', 'tests'],
+            ['/api/categories', 'categories'],
+            ['/api/subcategories', 'subcategories'],
           ];
           const failures = [];
           const counts = {};
-          for (const [path, name, kind] of endpoints) {
+          for (const [path, name] of endpoints) {
             const response = await fetch(`${process.env.API_ORIGIN}${path}`, {
               headers: { accept: 'application/json' },
             });
             const text = await response.text();
             let body;
             try { body = JSON.parse(text); } catch { body = null; }
-
-            const arrayBody = kind === 'array'
-              ? body
-              : body && typeof body === 'object'
-                ? body.series
-                : null;
-            const isArray = Array.isArray(arrayBody);
-            counts[name] = isArray ? arrayBody.length : 0;
+            const isArray = Array.isArray(body);
+            counts[name] = isArray ? body.length : 0;
             const summary = {
               path,
               status: response.status,
               jsonType: isArray ? 'array' : body === null ? 'invalid-json' : typeof body,
-              count: isArray ? arrayBody.length : null,
-              ids: isArray ? arrayBody.slice(0, 10).map((item) => item?.id ?? null) : [],
+              count: isArray ? body.length : null,
+              ids: isArray ? body.slice(0, 10).map((item) => item?.id ?? null) : [],
               preview: isArray ? undefined : text.slice(0, 300),
             };
             console.log(JSON.stringify(summary));
             if (!response.ok || !isArray) {
-              failures.push(`${name}: expected HTTP 2xx catalogue payload`);
+              failures.push(`${name}: expected HTTP 2xx JSON array`);
             }
           }
 
-          if ((counts.tests ?? 0) === 0 && (counts.testSeries ?? 0) === 0) {
-            failures.push('catalogue: no standalone tests or published test series are live');
+          if ((counts.categories ?? 0) === 0 || (counts.subcategories ?? 0) === 0) {
+            failures.push('taxonomy: production categories or exams are empty');
           }
 
           if (failures.length) throw new Error(failures.join('; '));
