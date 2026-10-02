@@ -36,6 +36,10 @@ const Contact = lazy(() => import("@/pages/contact"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
 const TermsAndConditions = lazy(() => import("@/pages/terms-and-conditions"));
 const RefundPolicy = lazy(() => import("@/pages/refund-policy"));
+const Disclaimer = lazy(() => import("@/pages/disclaimer"));
+const BillingHelp = lazy(() => import("@/pages/billing-help"));
+const GrievanceRedressal = lazy(() => import("@/pages/grievance-redressal"));
+const Accessibility = lazy(() => import("@/pages/accessibility"));
 const FAQ = lazy(() => import("@/pages/faq"));
 const ExamsCovered = lazy(() => import("@/pages/exams-covered"));
 const MockTestsHub = lazy(() => import("@/pages/mock-tests"));
@@ -206,6 +210,12 @@ function Router() {
           <Route path="/privacy-policy" component={() => renderPublicRoute(PrivacyPolicy)} />
           <Route path="/terms-and-conditions" component={() => renderPublicRoute(TermsAndConditions)} />
           <Route path="/refund-policy" component={() => renderPublicRoute(RefundPolicy)} />
+          <Route path="/cancellation-policy" component={() => renderPublicRoute(RefundPolicy)} />
+          <Route path="/cancellation-refund-policy" component={() => renderPublicRoute(RefundPolicy)} />
+          <Route path="/disclaimer" component={() => renderPublicRoute(Disclaimer)} />
+          <Route path="/billing-help" component={() => renderPublicRoute(BillingHelp)} />
+          <Route path="/grievance-redressal" component={() => renderPublicRoute(GrievanceRedressal)} />
+          <Route path="/accessibility" component={() => renderPublicRoute(Accessibility)} />
           <Route path="/faq" component={() => renderPublicRoute(FAQ)} />
           <Route path="/exams-covered" component={() => renderPublicRoute(ExamsCovered)} />
           <Route path="/mock-tests" component={() => renderCatalogPublicRoute(MockTestsHub)} />

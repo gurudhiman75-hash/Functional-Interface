@@ -24,7 +24,7 @@ assert.match(generator, /process\.env\.RENDER_EXTERNAL_URL/);
 assert.match(generator, /url\.protocol !== "https:" && url\.protocol !== "http:"/);
 assert.match(generator, /url\.pathname !== "\/" \|\| url\.search \|\| url\.hash/);
 
-for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/refund-policy"]) {
+for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility"]) {
   assert.ok(generator.includes(`path: "${route}"`), `prerender route set must include ${route}`);
 }
 for (const route of ["/pyqs", "/blog", "/ssc-cgl-pyqs", "/punjab-police-mock-tests", "/ibps-clerk-syllabus", "/dashboard", "/test/"]) {

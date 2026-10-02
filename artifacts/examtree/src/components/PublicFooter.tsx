@@ -25,7 +25,9 @@ const footerGroups = [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Delete Account", href: "/account-deletion" },
       { label: "Terms & Conditions", href: "/terms-and-conditions" },
-      { label: "Refund Policy", href: "/refund-policy" },
+      { label: "Cancellation & Refund", href: "/cancellation-refund-policy" },
+      { label: "Disclaimer", href: "/disclaimer" },
+      { label: "Accessibility", href: "/accessibility" },
     ],
   },
   {
@@ -33,6 +35,8 @@ const footerGroups = [
     links: [
       { label: "Report Question", href: "/report-question" },
       { label: "Help / Support", href: "/contact" },
+      { label: "Payment & Billing", href: "/billing-help" },
+      { label: "Grievance Redressal", href: "/grievance-redressal" },
     ],
   },
 ];
