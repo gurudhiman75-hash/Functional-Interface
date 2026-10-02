@@ -187,6 +187,7 @@ export interface QuestionStudioQualityReport {
 
 export interface ReviseGenerationItemInput {
   itemId: string;
+  expectedVersionNumber: number;
   stem: string;
   explanation: string;
   options: string[];

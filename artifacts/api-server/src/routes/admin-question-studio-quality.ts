@@ -164,6 +164,7 @@ router.patch(
       ? req.body.options.map((entry: unknown) => String(entry ?? "").trim())
       : [];
     const correctIndex = Number(req.body?.correctIndex);
+    const expectedVersionNumber = Number(req.body?.expectedVersionNumber);
     const changeReason = asString(req.body?.changeReason);
 
     if (!itemId) {
@@ -172,6 +173,13 @@ router.patch(
     }
     if (!actorUserId) {
       res.status(403).json({ error: "Administrator session required" });
+      return;
+    }
+    if (!Number.isInteger(expectedVersionNumber) || expectedVersionNumber < 1) {
+      res.status(400).json({
+        error: "A valid expected generated-item version is required",
+        code: "INVALID_EXPECTED_VERSION",
+      });
       return;
     }
     if (!changeReason) {
@@ -209,6 +217,12 @@ router.patch(
         }
         if (current.acceptedQuestionId) {
           return { kind: "converted" as const };
+        }
+        if (Number(current.currentVersionNumber) !== expectedVersionNumber) {
+          return {
+            kind: "version_conflict" as const,
+            currentVersionNumber: Number(current.currentVersionNumber),
+          };
         }
 
         const previousPayload = asPayloadRecord(current.payload);
@@ -325,6 +339,14 @@ router.patch(
         res.status(409).json({
           error: "Cancelled generation runs are immutable.",
           code: "GENERATION_RUN_CANCELLED",
+        });
+        return;
+      }
+      if (result.kind === "version_conflict") {
+        res.status(409).json({
+          error: "This generated item changed after you opened the editor. Refresh and retry.",
+          code: "GENERATION_ITEM_VERSION_CONFLICT",
+          currentVersionNumber: result.currentVersionNumber,
         });
         return;
       }
