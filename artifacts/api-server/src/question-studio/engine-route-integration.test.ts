@@ -214,5 +214,6 @@ assert.match(
   bulkHardeningRoute,
   /Generated item is already converted to Question Bank; review the canonical question instead/,
 );
+assert.match(bulkHardeningRoute, /APPROVED_REOPEN_REASON_REQUIRED/);
 assert.match(engineRoute, /router\.post\(\s*"\/runs"/);
 assert.match(engineRoute, /generateProfiledQuantBatch/);

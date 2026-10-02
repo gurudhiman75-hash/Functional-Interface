@@ -484,8 +484,17 @@ export function QuestionStudioCockpitPage() {
       showToast.info('No items selected', 'Select one or more generated questions first.');
       return;
     }
-    if ((status === 'needs_fix' || status === 'rejected') && !reason.trim()) {
-      showToast.error('Reason required', 'Describe the issue before marking items needs-fix or rejected.');
+    const selectedStatusById = new Map(allItems.map(({ item }) => [item.id, item.status]));
+    const reopeningApproved = status !== 'approved'
+      && ids.some((id) => selectedStatusById.get(id) === 'approved');
+
+    if ((status === 'needs_fix' || status === 'rejected' || reopeningApproved) && !reason.trim()) {
+      showToast.error(
+        'Reason required',
+        reopeningApproved
+          ? 'Describe why the approved review-only item is being reopened.'
+          : 'Describe the issue before marking items needs-fix or rejected.',
+      );
       return;
     }
     if (status === 'approved') {

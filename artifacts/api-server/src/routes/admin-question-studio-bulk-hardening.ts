@@ -140,6 +140,13 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           );
         }
 
+        if (String(item.status) === "approved" && status !== "approved" && !reason) {
+          throw Object.assign(
+            new Error("A reason is required to reopen an approved review-only item"),
+            { code: "APPROVED_REOPEN_REASON_REQUIRED" },
+          );
+        }
+
         await tx`
           UPDATE content.generation_run_items
           SET status = ${status}::generation_item_status,
