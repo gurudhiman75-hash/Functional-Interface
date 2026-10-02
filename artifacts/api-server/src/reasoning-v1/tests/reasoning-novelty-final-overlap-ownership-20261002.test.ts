@@ -20,7 +20,7 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
 const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(awaitingRouteProviders.length, 1);
+assert.equal(awaitingRouteProviders.length, 0);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -105,6 +105,7 @@ for (const provider of awaitingRouteProviders) {
 assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, awaitingRouteProviders.length * 3);
 assert.equal(reviewPack.includes("CAE-001-EDGE-FAMILIES"), false);
 assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
+assert.equal(reviewPack.includes("RNK-001-CROSS-FAMILY-CASELET"), false);
 assert.equal(reviewPack.includes("ALP-001-TRANSFORMED-GAP"), false);
 assert.equal(reviewPack.includes("CAL-001-IMPLICIT-RANGE-FREQUENCY"), false);
 assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
@@ -118,6 +119,7 @@ assert.deepEqual(
   approvedProviders.map((provider) => provider.providerId),
   [
     "PFC-001-CONTROLLED-NOVEL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
