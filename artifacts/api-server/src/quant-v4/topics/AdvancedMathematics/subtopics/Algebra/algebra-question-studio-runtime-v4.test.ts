@@ -59,6 +59,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       assert(question.validation.publicationLocked, `${pattern.prototypeId}/${language}/${seedIndex}: publication gate opened`);
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${pattern.prototypeId}/${language}/${seedIndex}: expected four unique options`);
       assert(question.options[question.correctIndex] === question.answer, `${pattern.prototypeId}/${language}/${seedIndex}: answer/index mismatch`);
+      assert(question.optionDetails.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && !/^ALG-DIST-V4-M/.test(option.misconceptionId ?? "")), `${pattern.prototypeId}/${language}/${seedIndex}: generic V4 distractor provenance leaked`);
       assert(question.explanation.steps.length > 0, `${pattern.prototypeId}/${language}/${seedIndex}: explanation missing`);
       assert(Number.isInteger(question.sourceStateSeed) && question.sourceStateSeed >= 0, `${pattern.prototypeId}/${language}/${seedIndex}: invalid source state seed`);
       JSON.stringify(question);
