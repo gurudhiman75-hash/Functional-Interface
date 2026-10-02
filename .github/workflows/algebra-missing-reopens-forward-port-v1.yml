@@ -17,6 +17,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp009.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-cp007.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/english-review-v4-chapter.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/permanent/multilingual-review-v3-chapter.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp002.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp003.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp004.test.ts
@@ -26,6 +27,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp013.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-batch-readiness.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-chapter-review.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-v3-chapter-review.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp012.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp009.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-review-v4-cp007.test.ts
@@ -69,6 +71,10 @@ jobs:
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-english-v4-chapter-review.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/permanent-multilingual-v3-chapter-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs
       - name: Run V4 reopen proofs
         run: |
           cd artifacts/api-server
@@ -77,3 +83,4 @@ jobs:
           done
           node dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs
           node dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs
+          node dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs
