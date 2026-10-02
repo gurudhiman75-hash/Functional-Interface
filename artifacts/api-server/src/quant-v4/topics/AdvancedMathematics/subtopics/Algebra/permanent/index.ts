@@ -23,3 +23,4 @@ export {
 export { generateAlgPermanentMultilingualReviewV2HumanFinal as generateAlgPermanentMultilingualReviewV2 } from "./multilingual-review-v2-human-final";
 export * from "./multilingual-freeze-v2";
 export * from "./english-review-v4-chapter";
+export * from "./multilingual-review-v3-chapter";
