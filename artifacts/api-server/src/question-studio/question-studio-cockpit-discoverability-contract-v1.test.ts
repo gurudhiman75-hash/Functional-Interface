@@ -47,6 +47,19 @@ assert(
   source.includes("runReviewState(run)"),
   "Question Studio cockpit must derive editorial state from the full run review summary.",
 );
+
+assert(
+  source.includes("item.status === 'approved'"),
+  "Question Studio cockpit must disable redundant approval decisions.",
+);
+assert(
+  source.includes("item.status === 'needs_fix'"),
+  "Question Studio cockpit must disable redundant needs-fix decisions.",
+);
+assert(
+  source.includes("item.status === 'rejected'"),
+  "Question Studio cockpit must disable redundant rejection decisions.",
+);
 assert(
   source.includes("summary.total"),
   "Question Studio run header must distinguish items in view from the full run total.",
