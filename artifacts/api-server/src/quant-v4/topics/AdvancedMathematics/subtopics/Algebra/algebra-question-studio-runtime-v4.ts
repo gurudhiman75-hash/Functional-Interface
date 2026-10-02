@@ -206,6 +206,7 @@ function finiteAbsoluteText(values: any[], language: AlgebraStudioLanguage): str
 function renderAnswer(answer: any, language: AlgebraStudioLanguage): string {
   if (typeof answer === "string") return comparisonText(answer, language);
   if (!answer || typeof answer !== "object") return String(answer ?? "");
+  if (rationalParts(answer)) return rationalText(answer);
   const kind = String(answer.kind ?? "");
   switch (kind) {
     case "RATIONAL":
