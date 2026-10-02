@@ -10,6 +10,8 @@ assert.deepEqual(WFM_001_QL_IDS, [
   "WFM-QL-002",
   "WFM-QL-003",
   "WFM-QL-004",
+  "WFM-QL-005",
+  "WFM-QL-006",
 ]);
 
 assert.equal(ALP_WFM_OWNERSHIP_BOUNDARY_V2.alpPackageId, "ALP-001");
