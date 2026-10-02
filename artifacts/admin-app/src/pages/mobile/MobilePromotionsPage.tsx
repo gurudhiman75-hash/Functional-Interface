@@ -177,10 +177,26 @@ export function MobilePromotionsPage(){
 
     <Card><CardHeader><CardTitle className="text-base">Campaigns</CardTitle></CardHeader><CardContent className="space-y-3">
       {items.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No mobile promotions configured.</div>}
-      {items.map(item=><button key={item.id} onClick={()=>setEditing({...item})} className="flex w-full items-center justify-between rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
-        <div><div className="flex items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${item.isActive?'bg-success/10 text-success':'bg-muted text-muted-foreground'}`}>{item.isActive?'Active':'Off'}</span></div><p className="mt-1 text-xs text-muted-foreground">{item.placement} · {frequencyLabel(item)} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}</p></div>
-        <span className="text-xs text-muted-foreground">Edit</span>
-      </button>)}
+      {items.map(item=>{const status=statusMeta(statusOf(item));return <div key={item.id} className="rounded-xl border p-4">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+          <button type="button" onClick={()=>setEditing({...item})} className="min-w-0 flex-1 text-left">
+            <div className="flex flex-wrap items-center gap-2"><span className="font-medium">{item.title}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${status.className}`}>{status.label}</span></div>
+            <p className="mt-1 text-xs text-muted-foreground">{item.placement} · {frequencyLabel(item)} · {item.campaignKind} · order {item.sortOrder}{item.startAt?` · starts ${new Date(item.startAt).toLocaleString('en-IN')}`:''}{item.endAt?` · ends ${new Date(item.endAt).toLocaleString('en-IN')}`:''}</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground">
+              <span><strong className="text-foreground">{item.impressions??0}</strong> impressions</span>
+              <span><strong className="text-foreground">{item.clicks??0}</strong> clicks</span>
+              <span><strong className="text-foreground">{item.dismissals??0}</strong> dismissals</span>
+              <span><strong className="text-foreground">{ctrOf(item)}</strong> CTR</span>
+              <span className="text-[11px]">Last 30 days</span>
+            </div>
+          </button>
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" size="sm" variant="outline" onClick={()=>setPreviewing(item)}><Eye className="mr-1.5 h-3.5 w-3.5"/>Preview</Button>
+            <Button type="button" size="sm" variant="outline" onClick={()=>duplicate(item)}><Copy className="mr-1.5 h-3.5 w-3.5"/>Duplicate</Button>
+            <Button type="button" size="sm" variant="outline" disabled={saving} onClick={()=>void toggleActive(item)}>{item.isActive?<Pause className="mr-1.5 h-3.5 w-3.5"/>:<Play className="mr-1.5 h-3.5 w-3.5"/>}{item.isActive?'Pause':'Resume'}</Button>
+          </div>
+        </div>
+      </div>})}
     </CardContent></Card>
 
     {editing&&<Card><CardHeader className="flex-row items-center justify-between space-y-0"><div><CardTitle className="text-base">{editing.id?'Edit promotion':'Create promotion'}</CardTitle><p className="mt-1 text-sm text-muted-foreground">Changes affect only this campaign.</p></div>{editing.id&&<Button variant="ghost" size="sm" onClick={()=>void remove()} disabled={saving}><Trash2 className="mr-1.5 h-4 w-4"/>Delete</Button>}</CardHeader><CardContent className="grid gap-4 md:grid-cols-2">
