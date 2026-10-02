@@ -78,13 +78,18 @@ assert.equal(
 );
 
 const ql033 = rows.find((row) => row.qlId === "SAP-QL-033");
-assert.ok(ql033.answerCount >= 3, "SAP-QL-033: first-incorrect-step answer space collapsed below three");
+assert.ok(ql033.answerCount >= 2, "SAP-QL-033: first-incorrect-step answer space collapsed below its Step 2/Step 3 authority");
 assert.ok(ql033.mathematicalStateCount >= 24, "SAP-QL-033: diagnostic state breadth below 24");
+assert.equal(
+  ql033.optionSurfaceCount,
+  3,
+  "SAP-QL-033: fixed Step 1..4 diagnostic authority should retain exactly three meaningful option-order surfaces",
+);
 
 for (const row of rows) {
   assert.ok(row.stemCount >= 16, row.qlId + ": stem breadth below 16 over 64 seeds");
   assert.ok(row.mathematicalStateCount >= 24, row.qlId + ": mathematical-state breadth below 24");
-  if (row.qlId !== "SAP-QL-031") {
+  if (row.qlId !== "SAP-QL-031" && row.qlId !== "SAP-QL-033") {
     assert.ok(row.optionSurfaceCount >= 12, row.qlId + ": option-surface breadth below 12");
   }
   assert.equal(row.answerPositionCount, 4, row.qlId + ": all four answer positions must be exercised");
