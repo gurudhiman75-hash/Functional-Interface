@@ -23,6 +23,7 @@ export interface CaeControlledNovelCandidateV1 {
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answerId: string;
+  readonly answer: string;
   readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAuthority: string;
@@ -122,6 +123,7 @@ export function generateCaeControlledNovelCandidateV1(input: {
     options: question.options,
     correctIndex: question.correctIndex,
     answerId: question.answerId,
+    answer: question.options[question.correctIndex]!,
     explanation: question.explanation,
     semanticFingerprint: question.causalStateId,
     solverAuthority: String(question.metadata.solver),
