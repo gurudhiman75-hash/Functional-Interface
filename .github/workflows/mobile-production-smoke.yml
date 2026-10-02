@@ -10,7 +10,6 @@ on:
       - artifacts/api-server/src/routes/subcategories.ts
       - artifacts/api-server/src/routes/student-test-series.ts
       - artifacts/api-server/src/lib/cache.ts
-      - .github/workflows/mobile-production-smoke.yml
   push:
     branches: [New-main]
     paths:
@@ -27,6 +26,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: mobile-production-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   probe:
