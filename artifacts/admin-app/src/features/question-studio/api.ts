@@ -99,7 +99,8 @@ export interface QuestionStudioReviewPage {
 export interface GenerationPackage {
   engineId?: string;
   packageId: string;
-  subject?: string;
+  subject: string;
+  chapter: string;
   topic: string;
   subtopic: string;
   label: string;
