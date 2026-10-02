@@ -189,7 +189,8 @@ router.patch(
             i.current_version_number AS "currentVersionNumber",
             i.accepted_question_id AS "acceptedQuestionId",
             v.payload,
-            r.public_code AS "runCode"
+            r.public_code AS "runCode",
+            r.status::text AS "runStatus"
           FROM content.generation_run_items i
           INNER JOIN content.generation_runs r ON r.id = i.generation_run_id
           INNER JOIN content.generation_item_versions v
@@ -202,6 +203,9 @@ router.patch(
         const current = currentRows[0];
         if (!current) {
           return { kind: "missing" as const };
+        }
+        if (String(current.runStatus) === "cancelled") {
+          return { kind: "cancelled" as const };
         }
         if (current.acceptedQuestionId) {
           return { kind: "converted" as const };
@@ -315,6 +319,13 @@ router.patch(
 
       if (result.kind === "missing") {
         res.status(404).json({ error: "Generated item not found" });
+        return;
+      }
+      if (result.kind === "cancelled") {
+        res.status(409).json({
+          error: "Cancelled generation runs are immutable.",
+          code: "GENERATION_RUN_CANCELLED",
+        });
         return;
       }
       if (result.kind === "converted") {
