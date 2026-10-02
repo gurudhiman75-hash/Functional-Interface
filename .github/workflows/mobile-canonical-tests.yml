@@ -58,7 +58,7 @@ jobs:
           grep -F 'content.question_versions' artifacts/api-server/src/routes/tests.ts
           grep -F 'content.question_options' artifacts/api-server/src/routes/tests.ts
           grep -F 'tests:list:canonical-mobile-v2' artifacts/api-server/src/routes/tests.ts
-          grep -F 'import testsRouter from "./tests";' artifacts/api-server/src/routes/index.ts
+          grep -F 'const testsRouter = lazyRouter(() => import("./tests"));' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/tests", testsRouter);' artifacts/api-server/src/routes/index.ts
           ! grep -F 'FROM questions' artifacts/api-server/src/routes/tests.ts
           ! grep -F 'FROM tests' artifacts/api-server/src/routes/tests.ts
