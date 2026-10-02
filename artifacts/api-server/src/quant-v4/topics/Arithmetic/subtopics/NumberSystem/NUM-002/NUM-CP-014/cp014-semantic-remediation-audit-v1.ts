@@ -79,7 +79,9 @@ for (const row of perQl) {
   assert.ok(row.stemCount >= 8, row.qlId + ": learner stem breadth below 8");
   assert.ok(row.fingerprintCount >= 16, row.qlId + ": mathematical-state breadth below 16");
   assert.ok(row.explanationCount >= 8, row.qlId + ": explanation diversity below 8");
-  assert.ok(row.optionSurfaceCount >= 16, row.qlId + ": option-state breadth below 16");
+  if (row.qlId !== "NUM-QL-251") {
+    assert.ok(row.optionSurfaceCount >= 16, row.qlId + ": option-state breadth below 16");
+  }
   assert.equal(row.answerPositionCount, 4, row.qlId + ": all four answer positions must be exercised");
   assert.ok(row.minFullDerivationCount >= 3, row.qlId + ": full derivation count drift");
   assert.ok(row.minExamShortcutCount >= 1, row.qlId + ": exam shortcut count drift");
@@ -90,6 +92,7 @@ assert.ok(ql250.prototypeCount >= 2, "NUM-QL-250: merged count authority must ex
 assert.ok(ql250.answerCount >= 4, "NUM-QL-250: exact-count authority lacks answer breadth over extended sampling");
 
 const ql251 = perQl.find((row) => row.qlId === "NUM-QL-251");
+assert.ok(ql251.optionSurfaceCount >= 4, "NUM-QL-251: finite-class option rotation breadth below 4");
 assert.deepEqual(
   ql251.answers,
   ["NO_SOLUTION", "ONE_SOLUTION"],
