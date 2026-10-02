@@ -43,6 +43,15 @@ assert(
   "Question Studio cockpit must require a reason before reopening an approved review-only item.",
 );
 
+assert(
+  source.includes("runReviewState(run)"),
+  "Question Studio cockpit must derive editorial state from the full run review summary.",
+);
+assert(
+  source.includes("summary.total"),
+  "Question Studio run header must distinguish items in view from the full run total.",
+);
+
 const apiSource = readFileSync(
   resolve(process.cwd(), "artifacts/admin-app/src/features/question-studio/api.ts"),
   "utf8",
