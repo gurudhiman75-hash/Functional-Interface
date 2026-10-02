@@ -20,6 +20,13 @@ const PUBLIC_TOPICS = Object.freeze({
 type PublicTopicSlug = keyof typeof PUBLIC_TOPICS;
 type PublicExamSlug = string;
 
+const PUBLIC_EXAM_MATCH_ALIASES: Record<string, string[]> = {
+  "ssc-cpo": ["ssc-cpo", "sub-inspector-in-delhi-police-and-central-armed-police-forces", "sub-inspector-delhi-police-capfs"],
+  "ssc-gd": ["ssc-gd", "constable-gd", "constables-gd", "rifleman-gd"],
+  "ssc-stenographer": ["ssc-stenographer", "stenographer-grade-c-and-d", "stenographer"],
+  "ssc-mts": ["ssc-mts", "multi-tasking-non-technical-staff", "multi-tasking-staff"],
+};
+
 function normalizeLanguage(value: unknown): "en" | "hi" | "pa" {
   const normalized = String(value ?? "en").trim().toLowerCase();
   return normalized === "hi" || normalized === "pa" ? normalized : "en";
@@ -47,6 +54,7 @@ async function loadPublicPracticeQuestions(input: {
 }) {
   const topicTags = PUBLIC_TOPICS[input.topicSlug];
   const examSlug = normalizeExamText(input.examSlug);
+  const examTerms = PUBLIC_EXAM_MATCH_ALIASES[examSlug] ?? [examSlug];
 
   const rows = await sqlClient`
     SELECT
@@ -98,11 +106,11 @@ async function loadPublicPracticeQuestions(input: {
     WHERE q.deleted_at IS NULL
       AND q.status = 'published'::question_status
       AND q.published_version_id IS NOT NULL
-      AND (
-        regexp_replace(lower(e.code), '[^a-z0-9]+', '-', 'g') = ${examSlug}
-        OR regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') = ${examSlug}
-        OR regexp_replace(lower(e.code), '[^a-z0-9]+', '-', 'g') LIKE ('%' || ${examSlug} || '%')
-        OR regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') LIKE ('%' || ${examSlug} || '%')
+      AND EXISTS (
+        SELECT 1
+        FROM unnest(${examTerms}::text[]) AS term
+        WHERE regexp_replace(lower(e.code), '[^a-z0-9]+', '-', 'g') LIKE ('%' || term || '%')
+           OR regexp_replace(lower(e.name), '[^a-z0-9]+', '-', 'g') LIKE ('%' || term || '%')
       )
       AND (${input.language} = 'en' OR qt.id IS NOT NULL)
       AND EXISTS (

@@ -233,6 +233,22 @@ function Router() {
           <Route path="/ssc-chsl-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-chsl" />)} />
           <Route path="/ssc-chsl-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-chsl" />)} />
           <Route path="/ssc-chsl/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-mts" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-mts" />)} />
+          <Route path="/ssc-mts/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-mts" />)} />
+          <Route path="/ssc-cpo" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-cpo/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-cpo" />)} />
+          <Route path="/ssc-stenographer" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-stenographer/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-stenographer" />)} />
+          <Route path="/ssc-gd" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-gd" />)} />
+          <Route path="/ssc-gd/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-gd" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />

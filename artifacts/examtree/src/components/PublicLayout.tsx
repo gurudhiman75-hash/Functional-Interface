@@ -66,6 +66,8 @@ const footerColumns = [
       { label: "Mock Tests", href: "/mock-tests" },
       { label: "SSC CGL", href: "/ssc-cgl" },
       { label: "SSC CHSL", href: "/ssc-chsl" },
+      { label: "SSC MTS", href: "/ssc-mts" },
+      { label: "SSC CPO", href: "/ssc-cpo" },
       { label: "Free Resources", href: "/resources" },
       { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },

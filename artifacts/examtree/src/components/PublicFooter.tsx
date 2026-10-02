@@ -16,6 +16,8 @@ const footerGroups = [
       { label: "Mock Tests", href: "/mock-tests" },
       { label: "SSC CGL", href: "/ssc-cgl" },
       { label: "SSC CHSL", href: "/ssc-chsl" },
+      { label: "SSC MTS", href: "/ssc-mts" },
+      { label: "SSC CPO", href: "/ssc-cpo" },
       { label: "Exams Covered", href: "/exams-covered" },
     ],
   },
