@@ -26,15 +26,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Alphabet-Test',
     chapterId: 'ALP-001',
-    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'A full alphabet is explicitly rearranged by an existing CP004 transform, then an interval-gap query is solved in the transformed order.',
       'The lane composes CP003 gap semantics with the exact CP004 transform authority selected for the seed.',
       'The transformed positions are independently recomputed before the gap answer is emitted.',
       'Human content review passed on 2026-10-02; activation is held only because the chapter lacks a live source-backed multi-engine Question Studio route.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor governed Question Studio novelty mix quality and preserve explicit-scope/language/difficulty safeguards.',
   },
   {
     topicDirectory: 'Analogy',
@@ -66,15 +66,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Calendar',
     chapterId: 'CAL-001',
-    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'A duration-defined calendar span hides the end date, so the learner must derive the boundary before counting a named weekday.',
       'The lane composes existing CAL-QL-005 date-shift semantics with CAL-QL-035 named-weekday range counting.',
       'Closed-form frequency, enumerated-range frequency and day-by-day verification must agree exactly.',
       'CAL-QL-037 remains unallocated and Question Studio novelty mixing remains disabled.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor governed Question Studio novelty mix quality and preserve explicit-scope/language/difficulty safeguards.',
   },
   {
     topicDirectory: 'Cause-and-Effect',
