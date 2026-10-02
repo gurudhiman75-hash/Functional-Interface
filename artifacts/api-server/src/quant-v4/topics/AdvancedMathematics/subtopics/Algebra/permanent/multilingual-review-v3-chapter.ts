@@ -137,6 +137,27 @@ function localizeCp003Target(english: any, locale: AlgReviewLocale) {
   return null;
 }
 
+function localizeCp011Target(english: any, locale: AlgReviewLocale) {
+  if (english.prototypeId !== "ALG-CP011-CAND-005") return null;
+  const raw = english.v4RawCandidate ?? {};
+  const equationX = raw.equationX;
+  const equationY = raw.equationY;
+  if (!equationX || !equationY) return null;
+
+  const eq = (e: any, v: "x" | "y") =>
+    `${formatRational(e.a)}${v}² + ${formatRational(e.b)}${v} + ${formatRational(e.c)} = 0`;
+
+  const question = locale === "hi-IN"
+    ? `निम्न दोनों समीकरणों को हल करके x और y की तुलना कीजिए।\nसमीकरण I: ${eq(equationX, "x")}\nसमीकरण II: ${eq(equationY, "y")}`
+    : `ਹੇਠਾਂ ਦਿੱਤੇ ਦੋਵੇਂ ਸਮੀਕਰਨ ਹੱਲ ਕਰਕੇ x ਅਤੇ y ਦੀ ਤੁਲਨਾ ਕਰੋ।\nਸਮੀਕਰਨ I: ${eq(equationX, "x")}\nਸਮੀਕਰਨ II: ${eq(equationY, "y")}`;
+
+  const explanation = locale === "hi-IN"
+    ? "दोनों द्विघात समीकरण पूर्ण वर्ग हैं। समीकरण I से x का एक ही मूल मिलता है और समीकरण II से y का भी वही एकमात्र मूल मिलता है। इसलिए x = y।"
+    : "ਦੋਵੇਂ ਦੋ-ਘਾਤੀ ਸਮੀਕਰਨ ਪੂਰਨ ਵਰਗ ਹਨ। ਸਮੀਕਰਨ I ਤੋਂ x ਦਾ ਇਕੋ ਮੂਲ ਮਿਲਦਾ ਹੈ ਅਤੇ ਸਮੀਕਰਨ II ਤੋਂ y ਦਾ ਵੀ ਉਹੀ ਇਕੋ ਮੂਲ ਮਿਲਦਾ ਹੈ। ਇਸ ਲਈ x = y।";
+
+  return { question, explanation };
+}
+
 function localizeCp009Target(english: any, locale: AlgReviewLocale) {
   if (english.prototypeId !== "ALG-CP009-CAND-005") return null;
   const raw = english.v4RawCandidate ?? {};
@@ -223,8 +244,9 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
   const cp003 = localizeCp003Target(english, locale);
   const cp007 = localizeCp007Target(english, locale);
   const cp009 = localizeCp009Target(english, locale);
-  const question = cp003?.question ?? cp007?.question ?? cp009?.question ?? localizeV4Question(english.question, locale);
-  const explanation = cp003?.explanation ?? cp007?.explanation ?? cp009?.explanation ?? english.explanation
+  const cp011 = localizeCp011Target(english, locale);
+  const question = cp003?.question ?? cp007?.question ?? cp009?.question ?? cp011?.question ?? localizeV4Question(english.question, locale);
+  const explanation = cp003?.explanation ?? cp007?.explanation ?? cp009?.explanation ?? cp011?.explanation ?? english.explanation
     .split(/\n+/)
     .map((line) => polishV4Explanation(line, locale))
     .join("\n");
