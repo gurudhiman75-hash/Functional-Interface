@@ -35,7 +35,7 @@ export interface ClockControlledNovelAngleCandidateV1 {
 }
 
 function examNaturalClockStem(source: string): string {
-  const match = source.match(/^At actual time (.+?), a clock that was (.+?) at actual 8:00 and runs at rate (\\d+):(\\d+) shows some reading\\. What smaller angle do its displayed hands form\\?$/);
+  const match = source.match(/^At actual time (.+?), a clock that was (.+?) at actual 8:00 and runs at rate (\d+):(\d+) shows some reading\. What smaller angle do its displayed hands form\?$/);
   if (!match) return source;
   const target = match[1]!.replace(" (1 day later)", " the next day");
   const offset = match[2]!;
@@ -46,8 +46,8 @@ function examNaturalClockStem(source: string): string {
 
 function learnerClockExplanation(question: ReturnType<typeof generateClockQuestion>): string {
   const displayedLine = question.explanation.working.find((line) => line.startsWith("Displayed reading ="));
-  const displayed = displayedLine?.replace(/^Displayed reading =\\s*/, "").replace(/\\.$/, "") ?? String(question.scenario.displayed ?? "the derived displayed time");
-  const timeMatch = displayed.match(/^(\\d+):(\\d+):(\\d+)/);
+  const displayed = displayedLine?.replace(/^Displayed reading =\s*/, "").replace(/\.$/, "") ?? String(question.scenario.displayed ?? "the derived displayed time");
+  const timeMatch = displayed.match(/^(\d+):(\d+):(\d+)/);
   if (!timeMatch) {
     return `First find the time shown by the faulty clock at the stated correct time. It shows ${displayed}. Applying the standard clock-hand angle rule to that displayed time gives ${question.answer.display}. Hence the smaller angle is ${question.answer.display}.`;
   }
