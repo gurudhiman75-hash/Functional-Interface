@@ -40,6 +40,14 @@ function optionLines(candidate: Record<string, unknown>): string[] {
   return options.map((option, index) => `${String.fromCharCode(65 + index)}. ${option}`);
 }
 
+function explanationText(candidate: Record<string, unknown>): string {
+  const explanation = text(candidate.explanation);
+  if (explanation) return explanation;
+  const steps = arrayOfText(candidate.explanationSteps);
+  if (steps.length) return steps.join("\n");
+  return "(No learner explanation found.)";
+}
+
 function answerText(candidate: Record<string, unknown>): string {
   const direct = text(candidate.answer);
   if (direct) return direct;
@@ -115,6 +123,10 @@ export async function buildReasoningNoveltyReviewPackV1(
       if (options.length) lines.push(...options, "");
       lines.push(
         `**Answer:** ${answerText(candidate)}`,
+        "",
+        "**Explanation:**",
+        "",
+        explanationText(candidate),
         "",
         `**Semantic fingerprint:** \`${text(candidate.semanticFingerprint) || "(structured)"}\``,
         "",
