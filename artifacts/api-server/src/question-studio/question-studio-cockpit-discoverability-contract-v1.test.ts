@@ -38,6 +38,20 @@ assert(
   "Question Studio generation summary must expose the active package lifecycle stage.",
 );
 
+const apiSource = readFileSync(
+  resolve(process.cwd(), "artifacts/admin-app/src/features/question-studio/api.ts"),
+  "utf8",
+);
+
+assert(
+  !apiSource.includes("probabilityExamProfile"),
+  "Question Studio client must not overload runtimeMode with Probability exam-profile values.",
+);
+assert(
+  apiSource.includes("body: JSON.stringify(input)"),
+  "Question Studio client must forward the canonical generation input without package-specific runtime mutation.",
+);
+
 console.log("[QUESTION-STUDIO-COCKPIT-DISCOVERABILITY-CONTRACT-V1]", {
   valid: true,
   cpSubsetSuppression: false,
