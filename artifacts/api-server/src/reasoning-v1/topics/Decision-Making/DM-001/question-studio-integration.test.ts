@@ -78,6 +78,7 @@ const ranked = await generateQuestionStudioQuestions({
 assert.ok(ranked.questions.every((question) => question.checkpointId === "DM-CP-010"));
 assert.ok(ranked.questions.every((question) => question.answerMode === "RANKED_CANDIDATE_SET"));
 assert.ok(ranked.questions.every((question) => Array.isArray(question.selectedCandidates) && question.selectedCandidates.length > 0));
+assert.ok(ranked.questions.every((question) => question.answer === question.canonicalAnswer));
 assert.ok(ranked.questions.every((question) => String(question.stem).includes("ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ")));
 
 console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–2 selectors, locale, difficulty and review-only lifecycle checks.");

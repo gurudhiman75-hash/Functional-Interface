@@ -234,7 +234,7 @@ export async function generateDm001QuestionStudioBatch(
       options,
       correctIndex: generated.correctIndex,
       correct: generated.correctIndex,
-      answer: generated.selectedCandidates ? [...generated.selectedCandidates] : generated.outcome,
+      answer: generated.selectedCandidates ? options[generated.correctIndex] : generated.outcome,
       canonicalAnswer: options[generated.correctIndex],
       explanation: generated.explanation,
       explanationRows: generated.explanationRows,
