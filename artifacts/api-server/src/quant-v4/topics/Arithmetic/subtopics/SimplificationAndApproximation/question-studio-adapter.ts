@@ -262,6 +262,8 @@ function normalizePackage(
   sourceSeed: number,
 ) {
   const pkg = record(source);
+  const generatedSeed = Number(pkg.seed);
+  const actualSourceSeed = Number.isInteger(generatedSeed) && generatedSeed > 0 ? generatedSeed : sourceSeed;
   const rawOptions = Array.isArray(pkg.options) ? pkg.options : [];
   const sourceCorrectIndex = Number(pkg.correctIndex);
   const optionRows = rawOptions.map((item, index) => {
@@ -306,7 +308,7 @@ function normalizePackage(
   ].filter(Boolean);
 
   const identity = createHash("sha256")
-    .update(JSON.stringify({ qlId: descriptor.qlId, seed, sourceSeed, stem: pkg.stem, options, answer }))
+    .update(JSON.stringify({ qlId: descriptor.qlId, seed, sourceSeed: actualSourceSeed, stem: pkg.stem, options, answer }))
     .digest("hex")
     .slice(0, 20);
   const questionId = `SAP-${descriptor.qlId.slice(-3)}-${identity}`;
@@ -340,7 +342,7 @@ function normalizePackage(
       checkpointId: descriptor.checkpointId,
       sourceIdentity: descriptor.sourceIdentity,
       qlTitle: descriptor.title,
-      sourceSeed,
+      sourceSeed: actualSourceSeed,
       specialist: descriptor.specialist,
       questionBankWritable: true,
       testEligible: true,
