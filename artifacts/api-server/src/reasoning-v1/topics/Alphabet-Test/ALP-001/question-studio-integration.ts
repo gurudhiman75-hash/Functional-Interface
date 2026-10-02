@@ -1,5 +1,5 @@
-import type { QuestionStudioPackageDefinition } from "../../../question-studio/engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
+import type { QuestionStudioPackageDefinition } from "../../../../question-studio/engine-types";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import {
   ALP_001_CHECKPOINTS,
   ALP_001_QLS,
