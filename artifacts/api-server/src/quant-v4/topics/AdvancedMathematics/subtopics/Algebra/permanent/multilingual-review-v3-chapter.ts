@@ -59,6 +59,7 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
     explanation,
     englishQuestion: english.question,
     englishExplanation: english.explanation,
+    canonicalAnswer: english.canonicalAnswer,
     language: localeToLanguage(locale),
     locale,
     chapterReviewAuthority: ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
