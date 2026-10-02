@@ -7,6 +7,7 @@ import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality"
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
+const MAX_BULK_REVIEW_ITEMS = 500;
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -29,8 +30,17 @@ router.patch(
       return;
     }
 
-    const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds : [];
-    const itemIds = [...new Set(rawIds.map(asString).filter(Boolean))].slice(0, 100);
+    const rawIds = Array.isArray(req.body?.itemIds)
+      ? req.body.itemIds.map(asString).filter(Boolean)
+      : [];
+    if (rawIds.length > MAX_BULK_REVIEW_ITEMS) {
+      res.status(400).json({
+        error: `At most ${MAX_BULK_REVIEW_ITEMS} generated items can be approved in one request`,
+        code: "TOO_MANY_REVIEW_ITEMS",
+      });
+      return;
+    }
+    const itemIds = [...new Set(rawIds)];
     if (itemIds.length === 0) {
       next();
       return;
