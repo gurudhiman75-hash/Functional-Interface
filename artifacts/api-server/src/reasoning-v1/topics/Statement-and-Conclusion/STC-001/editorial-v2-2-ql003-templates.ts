@@ -13,7 +13,7 @@ export const STC_V22_QL003_TEMPLATES: readonly StcV22Template[] = [
       [T("22 years old with 78% marks", "22 वर्ष की आयु और 78% अंक", "22 ਸਾਲ ਉਮਰ ਅਤੇ 78% ਅੰਕ"), T("23 years old with 82% marks", "23 वर्ष की आयु और 82% अंक", "23 ਸਾਲ ਉਮਰ ਅਤੇ 82% ਅੰਕ"), T("24 years old with 86% marks", "24 वर्ष की आयु और 86% अंक", "24 ਸਾਲ ਉਮਰ ਅਤੇ 86% ਅੰਕ"), T("25 years old with 90% marks", "25 वर्ष की आयु और 90% अंक", "25 ਸਾਲ ਉਮਰ ਅਤੇ 90% ਅੰਕ")],
     ],
     statement: T("A candidate is eligible for {a} if the candidate has {b}. {c} is {d}.", "यदि किसी अभ्यर्थी के पास {b} है तो वह {a} के लिए पात्र है। {c} की आयु और अंक {d} हैं।", "ਜੇ ਕਿਸੇ ਉਮੀਦਵਾਰ ਕੋਲ {b} ਹੈ ਤਾਂ ਉਹ {a} ਲਈ ਯੋਗ ਹੈ। {c} ਦੀ ਉਮਰ ਅਤੇ ਅੰਕ {d} ਹਨ।"),
-    conclusions: [T("{c} satisfies the stated conditions for {a}.", "{c} {a} की बताई गई शर्तें पूरी करता/करती है।", "{c} {a} ਲਈ ਦੱਸੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ/ਕਰਦੀ ਹੈ।"), T("{c} has already been finally selected.", "{c} का अंतिम चयन हो चुका है।", "{c} ਦੀ ਅੰਤਿਮ ਚੋਣ ਹੋ ਚੁੱਕੀ ਹੈ।")],
+    conclusions: [T("{c} satisfies the stated conditions for {a}.", "{c} के मामले में {a} की बताई गई शर्तें पूरी हैं।", "{c} ਦੇ ਮਾਮਲੇ ਵਿੱਚ {a} ਲਈ ਦੱਸੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ।"), T("{c} has already been finally selected.", "{c} का अंतिम चयन हो चुका है।", "{c} ਦੀ ਅੰਤਿਮ ਚੋਣ ਹੋ ਚੁੱਕੀ ਹੈ।")],
     explanation: [T("Every permitted profile in {d} exceeds the marks threshold and stays below the age limit in {b}.", "{d} में दिए हर अनुमत विवरण के अंक {b} की सीमा से अधिक और आयु सीमा से कम हैं।", "{d} ਵਿੱਚ ਦਿੱਤਾ ਹਰ ਮਨਜ਼ੂਰ ਵੇਰਵਾ {b} ਦੀ ਅੰਕ ਸੀਮਾ ਤੋਂ ਵੱਧ ਅਤੇ ਉਮਰ ਸੀਮਾ ਤੋਂ ਘੱਟ ਹੈ।"), T("Eligibility for interview does not establish final selection.", "साक्षात्कार की पात्रता अंतिम चयन सिद्ध नहीं करती।", "ਇੰਟਰਵਿਊ ਯੋਗਤਾ ਅੰਤਿਮ ਚੋਣ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।")],
   },
   {
