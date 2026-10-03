@@ -72,4 +72,25 @@ assert.ok(dmScenariosForCheckpoint("DM-CP-012").every((scenario) => scenario.sit
 assert.ok(dmScenariosForCheckpoint("DM-CP-016").every((scenario) => scenario.situational?.focus === "RESOURCE_PRIORITY"));
 assert.ok(dmScenariosForCheckpoint("DM-CP-016").every((scenario) => scenario.situational?.choices.slice(1).every((choice) => choice.errors.includes("IGNORE_PRIORITY") || choice.errors.includes("UNJUSTIFIED_DELAY"))));
 
+const localizedSituationalCorpus = waveThreeCheckpoints.flatMap((checkpointId) =>
+  dmScenariosForCheckpoint(checkpointId).flatMap((scenario) => [
+    scenario.situational!.situation.hi,
+    scenario.situational!.situation.pa,
+    ...scenario.situational!.choices.flatMap((choice) => [choice.text.hi, choice.text.pa]),
+  ]),
+).join("\n");
+for (const malformedPhrase of [
+  "जाँच के बाद पर निर्णय से पहले",
+  "प्रमाणपत्र का जारीकर्ता अभिलेख",
+  "सत्यापन जारी रहते ही",
+  "निष्पक्ष बराबरी-निर्णय",
+  "ਸਰਟੀਫਿਕੇਟ ਦੀ ਜਾਰੀ ਰਿਕਾਰਡ",
+  "ਨਿਰਧਾਰਤ ਰਾਹੀਂ",
+  "ਤਸਦੀਕ ਜਾਰੀ ਹੋਣ ਦੌਰਾਨ ਹੀ",
+  "ਨਿਰਪੱਖ ਬਰਾਬਰੀ-ਫੈਸਲਾ",
+  "ਦਿੱਤੀ ਨਹੀਂ ਗਈ",
+] as const) {
+  assert.ok(!localizedSituationalCorpus.includes(malformedPhrase), "Malformed localized phrase returned: " + malformedPhrase);
+}
+
 console.log("DM-001 Wave 3 checks passed: DM-011–016, 300 situational seeds, 18 QLs, three locales, deterministic action sequencing and resource priorities.");
