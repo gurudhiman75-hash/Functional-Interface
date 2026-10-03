@@ -1,6 +1,7 @@
 import { getFirebaseAuth } from '@/integrations/firebase';
 
 export type SeriesProgressionMode = 'open' | 'sequential' | 'score_gated';
+export type SeriesLearnerVisibility = 'hidden' | 'coming_soon' | 'live';
 
 export interface SeriesCatalogExamVersion {
   id: string;
@@ -53,6 +54,8 @@ export interface TestSeriesSummary {
   completionThreshold: number | null;
   itemCount: number;
   memberStatuses: string[];
+  learnerVisibility: SeriesLearnerVisibility;
+  learnerMessage: string;
   readiness: SeriesReadiness;
 }
 
