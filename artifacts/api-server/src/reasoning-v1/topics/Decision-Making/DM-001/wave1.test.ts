@@ -68,7 +68,7 @@ for (const scenario of legacyScenarios) {
             }[locale][question.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]);
           }
           assert.doesNotMatch(
-            question.options.join("\n"),
+            question.options.join("\n") + "\n" + question.explanation,
             /Refer the case to the Manager|Refer the case to the Director|Refer the case to the Review Committee|मामला प्रबंधक को भेजें|मामला निदेशक को भेजें|मामला समीक्षा समिति को भेजें|ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ|ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ|ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ/,
             "legacy overused referral wording must not return",
           );
