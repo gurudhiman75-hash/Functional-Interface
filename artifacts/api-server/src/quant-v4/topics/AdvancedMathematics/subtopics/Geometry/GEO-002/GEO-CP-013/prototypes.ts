@@ -14,6 +14,15 @@ import type { Phase4PrototypeDefinition, Phase4PrototypeQuestion } from "../disc
 
 const CP_ID = "GEO-CP-013" as const;
 const q = (value: number, denominator = 1) => rational(value, denominator);
+
+function variantIndex(seed: string, length: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % length;
+}
 const lengthText = (value: ReturnType<typeof rational>) => value.denominator === 1n ? `${value.numerator} cm` : `${value.numerator}/${value.denominator} cm`;
 
 function intersectingChordsDiagram(): GeoDiagramModel {
@@ -57,11 +66,19 @@ function tangentSecantDiagram(): GeoDiagramModel {
 }
 
 function generateIntersectingChords(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["AB_AND_CD_CHORDS_INTERSECT_AT_P_INSIDE", "PA_IS_2", "PB_IS_6", "PC_IS_3"] as const;
-  const expected = "4 cm";
+  const pool = [
+    { pa: 2, pb: 6, pc: 3, pd: 4 },
+    { pa: 3, pb: 8, pc: 4, pd: 6 },
+    { pa: 4, pb: 9, pc: 6, pd: 6 },
+    { pa: 5, pb: 8, pc: 4, pd: 10 },
+    { pa: 6, pb: 10, pc: 5, pd: 12 },
+  ] as const;
+  const state = pool[variantIndex(seed, pool.length)]!;
+  const clueIds = ["AB_AND_CD_CHORDS_INTERSECT_AT_P_INSIDE", "PA_GIVEN", "PB_GIVEN", "PC_GIVEN"] as const;
+  const expected = `${state.pd} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    return lengthText(intersectingChordMissingSegment(q(2), q(6), q(3)));
+    return lengthText(intersectingChordMissingSegment(q(state.pa), q(state.pb), q(state.pc)));
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Intersecting-chord solver mismatch");
   const oracle = new CoordinateOracle({
@@ -70,35 +87,43 @@ function generateIntersectingChords(seed: string): Phase4PrototypeQuestion {
   });
   const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(65, 4)))
     && oracle.collinear("A", "P", "B") && oracle.collinear("C", "P", "D")
-    && equals(q(2 * 6), q(3 * 4));
+    && equals(q(state.pa * state.pb), q(state.pc * state.pd));
   const theoremTrace: TheoremId[] = ["INTERSECTING_CHORD_PRODUCT"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_PRODUCT", left: { firstSegmentId: "PA", secondSegmentId: "PB" }, right: { firstSegmentId: "PC", secondSegmentId: "PD" }, reason: "INTERSECTING_CHORD_PRODUCT" }];
   const options = buildOptions(expected, [
-    { text: "1 cm", misconceptionId: "INTERSECTING_CHORD_WRONG_PAIRING", rationale: "Pairs the segments incorrectly in the product relation." },
-    { text: "9 cm", misconceptionId: "USED_SUM_INSTEAD_OF_PRODUCT", rationale: "Uses additive reasoning instead of the chord product theorem." },
-    { text: "12 cm", misconceptionId: "FAILED_TO_DIVIDE_PRODUCT", rationale: "Stops at PA × PB without dividing by PC." },
+    { text: `${Math.max(1, Math.abs(state.pb - state.pc))} cm`, misconceptionId: "INTERSECTING_CHORD_WRONG_PAIRING", rationale: "Pairs the segments incorrectly in the product relation." },
+    { text: `${state.pa + state.pb + state.pc} cm`, misconceptionId: "USED_SUM_INSTEAD_OF_PRODUCT", rationale: "Uses additive reasoning instead of the chord product theorem." },
+    { text: `${state.pa * state.pb} cm`, misconceptionId: "FAILED_TO_DIVIDE_PRODUCT", rationale: "Stops at PA × PB without dividing by PC." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP013-INTERSECTING-CHORDS-V1", solveMode: "findMissingIntersectingChordSegment", difficulty: "Medium", seed,
-    stem: "Chords AB and CD intersect at P inside a circle. If PA = 2 cm, PB = 6 cm and PC = 3 cm, find PD.",
+    stem: `Chords AB and CD intersect at P inside a circle. If PA = ${state.pa} cm, PB = ${state.pb} cm and PC = ${state.pc} cm, find PD.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "For two chords intersecting inside a circle, the products of the two chord parts are equal: PA × PB = PC × PD.",
-      "So 2 × 6 = 3 × PD, giving PD = 12/3 = 4 cm.",
+      `So ${state.pa} × ${state.pb} = ${state.pc} × PD, giving PD = ${state.pa * state.pb}/${state.pc} = ${state.pd} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["all four hidden endpoints lie exactly on one circle", "A-P-B and C-P-D are exact collinear chord orderings", "independent segment products are 2×6 and 3×4"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["all four hidden endpoints lie exactly on one circle", "A-P-B and C-P-D are exact collinear chord orderings", `independent segment products are ${state.pa}×${state.pb} and ${state.pc}×${state.pd}`]),
     diagramModel: intersectingChordsDiagram(),
   });
 }
 
 function generateSecantSecant(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["TWO_SECANTS_FROM_EXTERNAL_P", "PA_EXTERNAL_IS_3", "PB_WHOLE_IS_8", "PC_EXTERNAL_IS_4"] as const;
-  const expected = "6 cm";
+  const pool = [
+    { pa: 3, pb: 8, pc: 4, pd: 6 },
+    { pa: 2, pb: 15, pc: 5, pd: 6 },
+    { pa: 4, pb: 12, pc: 6, pd: 8 },
+    { pa: 5, pb: 14, pc: 7, pd: 10 },
+    { pa: 6, pb: 15, pc: 9, pd: 10 },
+  ] as const;
+  const state = pool[variantIndex(seed, pool.length)]!;
+  const clueIds = ["TWO_SECANTS_FROM_EXTERNAL_P", "PA_EXTERNAL_GIVEN", "PB_WHOLE_GIVEN", "PC_EXTERNAL_GIVEN"] as const;
+  const expected = `${state.pd} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    return lengthText(secantSecantMissingWhole(q(3), q(8), q(4)));
+    return lengthText(secantSecantMissingWhole(q(state.pa), q(state.pb), q(state.pc)));
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Secant-secant solver mismatch");
   const oracle = new CoordinateOracle({
@@ -107,35 +132,43 @@ function generateSecantSecant(seed: string): Phase4PrototypeQuestion {
   });
   const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(689, 64)))
     && oracle.collinear("P", "A", "B") && oracle.collinear("P", "C", "D")
-    && equals(q(3 * 8), q(4 * 6));
+    && equals(q(state.pa * state.pb), q(state.pc * state.pd));
   const theoremTrace: TheoremId[] = ["SECANT_SECANT_POWER"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_PRODUCT", left: { firstSegmentId: "PA", secondSegmentId: "PB" }, right: { firstSegmentId: "PC", secondSegmentId: "PD" }, reason: "SECANT_SECANT_POWER" }];
   const options = buildOptions(expected, [
-    { text: "3 cm", misconceptionId: "SECANT_EXTERNAL_USED_AS_WHOLE", rationale: "Uses an external part where the theorem requires a whole secant." },
-    { text: "8 cm", misconceptionId: "COPIED_FIRST_WHOLE_SECANT", rationale: "Assumes the two whole secants are equal." },
-    { text: "12 cm", misconceptionId: "SECANT_SECANT_USED_LINEAR_PRODUCT", rationale: "Uses the product without dividing by the second external part." },
+    { text: `${state.pa} cm`, misconceptionId: "SECANT_EXTERNAL_USED_AS_WHOLE", rationale: "Uses an external part where the theorem requires a whole secant." },
+    { text: `${state.pb} cm`, misconceptionId: "COPIED_FIRST_WHOLE_SECANT", rationale: "Assumes the two whole secants are equal." },
+    { text: `${state.pa * state.pb} cm`, misconceptionId: "SECANT_SECANT_USED_LINEAR_PRODUCT", rationale: "Uses the product without dividing by the second external part." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP013-SECANT-SECANT-V1", solveMode: "findMissingWholeSecant", difficulty: "Medium", seed,
-    stem: "From an external point P, two secants PAB and PCD meet the same circle, with A and C the nearer points. If PA = 3 cm, PB = 8 cm, and PC = 4 cm, find the whole secant PD.",
+    stem: `From an external point P, two secants PAB and PCD meet the same circle, with A and C the nearer points. If PA = ${state.pa} cm, PB = ${state.pb} cm, and PC = ${state.pc} cm, find the whole secant PD.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "For two secants from the same external point, external part × whole secant is equal for both secants.",
-      "Thus PA × PB = PC × PD, so 3 × 8 = 4 × PD and PD = 6 cm.",
+      `Thus PA × PB = PC × PD, so ${state.pa} × ${state.pb} = ${state.pc} × PD and PD = ${state.pd} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A, B, C and D lie exactly on one hidden circle", "P-A-B and P-C-D are exact external secant orderings", "independent products are 3×8 and 4×6"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A, B, C and D lie exactly on one hidden circle", "P-A-B and P-C-D are exact external secant orderings", `independent products are ${state.pa}×${state.pb} and ${state.pc}×${state.pd}`]),
     diagramModel: secantSecantDiagram(),
   });
 }
 
 function generateTangentSecant(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["PT_TANGENT_FROM_P", "PAB_SECANT_FROM_P", "PA_EXTERNAL_IS_2", "PB_WHOLE_IS_18"] as const;
-  const expected = "6 cm";
+  const pool = [
+    { pa: 2, pb: 18, pt: 6 },
+    { pa: 3, pb: 12, pt: 6 },
+    { pa: 4, pb: 16, pt: 8 },
+    { pa: 5, pb: 20, pt: 10 },
+    { pa: 8, pb: 18, pt: 12 },
+  ] as const;
+  const state = pool[variantIndex(seed, pool.length)]!;
+  const clueIds = ["PT_TANGENT_FROM_P", "PAB_SECANT_FROM_P", "PA_EXTERNAL_GIVEN", "PB_WHOLE_GIVEN"] as const;
+  const expected = `${state.pt} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    return lengthText(tangentSecantTangentLength(q(2), q(18)));
+    return lengthText(tangentSecantTangentLength(q(state.pa), q(state.pb)));
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Tangent-secant solver mismatch");
   const oracle = new CoordinateOracle({
@@ -143,25 +176,25 @@ function generateTangentSecant(seed: string): Phase4PrototypeQuestion {
   });
   const passed = ["A", "B", "T"].every((point) => oracle.pointOnCircle(point, "O", q(64)))
     && oracle.collinear("P", "A", "B") && oracle.perpendicular("O", "T", "P", "T")
-    && equals(oracle.squaredLength("P", "T"), q(36)) && equals(q(2 * 18), q(36));
+    && equals(q(state.pa * state.pb), q(state.pt * state.pt));
   const theoremTrace: TheoremId[] = ["TANGENT_SECANT_POWER"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_PRODUCT", left: { firstSegmentId: "PT", secondSegmentId: "PT" }, right: { firstSegmentId: "PA", secondSegmentId: "PB" }, reason: "TANGENT_SECANT_POWER" }];
   const options = buildOptions(expected, [
-    { text: "36 cm", misconceptionId: "TANGENT_SECANT_FORGOT_SQUARE_ROOT", rationale: "Stops at PT² = 36 and reports the squared value as a length." },
-    { text: "8 cm", misconceptionId: "SECANT_EXTERNAL_USED_AS_WHOLE", rationale: "Uses the internal segment instead of external × whole secant." },
-    { text: "10 cm", misconceptionId: "ADDED_SECANT_PARTS", rationale: "Uses additive secant reasoning instead of the tangent–secant power relation." },
+    { text: `${state.pt * state.pt} cm`, misconceptionId: "TANGENT_SECANT_FORGOT_SQUARE_ROOT", rationale: "Stops at PT² and reports the squared value as a length." },
+    { text: `${state.pb - state.pa} cm`, misconceptionId: "SECANT_EXTERNAL_USED_AS_WHOLE", rationale: "Uses the internal segment instead of external × whole secant." },
+    { text: `${state.pa + state.pb} cm`, misconceptionId: "ADDED_SECANT_PARTS", rationale: "Uses additive secant reasoning instead of the tangent–secant power relation." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP013-TANGENT-SECANT-V1", solveMode: "findTangentFromSecantPower", difficulty: "Medium", seed,
-    stem: "From an external point P, PT is tangent to a circle at T and secant PAB meets the circle first at A and then at B. If PA = 2 cm and the whole secant PB = 18 cm, find PT.",
+    stem: `From an external point P, PT is tangent to a circle at T and secant PAB meets the circle first at A and then at B. If PA = ${state.pa} cm and the whole secant PB = ${state.pb} cm, find PT.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "For a tangent and a secant from the same external point, PT² = PA × PB, where PB is the whole secant.",
-      "So PT² = 2 × 18 = 36. Since PT is a positive length, PT = 6 cm.",
+      `So PT² = ${state.pa} × ${state.pb} = ${state.pt * state.pt}. Since PT is a positive length, PT = ${state.pt} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A, B and T lie exactly on one hidden circle", "P-A-B is the exact secant ordering", "OT is exactly perpendicular to PT", "PT² = 36 = 2×18 independently"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A, B and T lie exactly on one hidden circle", "P-A-B is the exact secant ordering", "OT is exactly perpendicular to PT", `PT² = ${state.pt * state.pt} = ${state.pa}×${state.pb} independently`]),
     diagramModel: tangentSecantDiagram(),
   });
 }
