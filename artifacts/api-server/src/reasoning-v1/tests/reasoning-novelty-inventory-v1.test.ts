@@ -18,6 +18,7 @@ const EXPECTED_TOPIC_DIRECTORIES = [
   'Course-of-Action',
   'Data-Sufficiency',
   'Direction-Sense',
+  'Floor-and-Flat-Arrangement',
   'InputOutput',
   'Inequality',
   'Logic-Puzzles',
