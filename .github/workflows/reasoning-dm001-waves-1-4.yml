@@ -1,0 +1,55 @@
+name: Reasoning DM-001 Waves 1 to 4
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/**"
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+  push:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/**"
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reasoning-dm001-waves-1-4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-waves-1-4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate Wave 1 and 2 rule engine, scenarios and explanations
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave1.test.ts
+      - name: Validate Wave 2 boundary rules, relaxations and ranking
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave2.test.ts
+      - name: Validate Wave 3 situational sequencing and resource priorities
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave3.test.ts
+      - name: Validate Wave 4 advanced precedence, incomplete information and decision sets
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave4.test.ts
+      - name: Validate final DM-001 deep-audit closure
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/dm-001-final-deep-audit.test.ts
+      - name: Validate shared Question Studio routing and review-only lifecycle
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

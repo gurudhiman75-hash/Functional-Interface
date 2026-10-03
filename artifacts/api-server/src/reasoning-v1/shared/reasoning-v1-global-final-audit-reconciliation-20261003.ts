@@ -102,6 +102,14 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
       {
+        topicDirectory: "Decision-Making",
+        chapterId: "DM-001",
+        closureAuthorityPath:
+          "topics/Decision-Making/DM-001/DM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
+        auditState: "PASS_WITH_REVIEW_GATE",
+        remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
+      },
+      {
         topicDirectory: "Direction-Sense",
         chapterId: "DIR-001",
         closureAuthorityPath:
@@ -270,7 +278,6 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
       blueprintOnlyOrNotYetStandaloneChaptersAreOutsideThisClosure: true,
     }),
     knownStandaloneBlueprintFrontier: Object.freeze([
-      "REAS-DCS",
       "REAS-GAM",
     ] as const),
   } as const);

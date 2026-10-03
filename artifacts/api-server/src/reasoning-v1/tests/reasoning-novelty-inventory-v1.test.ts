@@ -17,6 +17,7 @@ const EXPECTED_TOPIC_DIRECTORIES = [
   'Coding-Decoding',
   'Course-of-Action',
   'Data-Sufficiency',
+  'Decision-Making',
   'Direction-Sense',
   'Floor-and-Flat-Arrangement',
   'InputOutput',

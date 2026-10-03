@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V4' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V5' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -154,6 +154,19 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     ],
     countsTowardControlledNovelTargetNow: false,
     nextGate: 'Re-open only on a canonical held-domain solver with a materially new DS contract outside DSF-QL-001/002.',
+  },
+  {
+    topicDirectory: 'Decision-Making',
+    chapterId: 'DM-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'DM-001 freezes 60 permanent governed rule/action families across 20 checkpoints and 650 trilingual scenario authorities.',
+      'The chapter already includes conjunctive eligibility, exceptions/referrals, cut-off dates, relaxations, ranking, situational action, incomplete information, multi-person and mixed-set decision contracts.',
+      'Context, profile values, answer outcome, option order, language, wording and calibrated difficulty remain governed instance variation rather than new QLs.',
+      'DM-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the dedicated novelty decision.',
+    ],
+    countsTowardControlledNovelTargetNow: false,
+    nextGate: 'Re-open only for a materially different independently verified Decision-Making learner contract outside DM-QL-001..060.',
   },
   {
     topicDirectory: 'Direction-Sense',
