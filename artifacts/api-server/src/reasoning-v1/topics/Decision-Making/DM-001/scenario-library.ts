@@ -151,9 +151,9 @@ function exceptionRules(base: readonly DmRuleCondition[], ageLimit: number, mark
       ]),
       outcome: "REFER_TO_MANAGER",
       explanation: text(
-        "A candidate who is up to two years over the age limit and has at least five years of relevant experience must be referred to the Manager, provided all other conditions are met.",
-        "यदि अभ्यर्थी आयु-सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और वह बाकी सभी शर्तें पूरी करता है, तो मामला प्रबंधक को भेजा जाएगा।",
-        "ਜੇ ਉਮੀਦਵਾਰ ਦੀ ਉਮਰ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਦੋ ਸਾਲ ਤੱਕ ਵੱਧ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਉਹ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ ਹੈ, ਤਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "When the age excess is no more than two years and the applicant has at least five years of relevant experience, the ordinary rejection is not final; the Manager reviews the exception if every other condition is satisfied.",
+        "यदि आयु-सीमा अधिकतम दो वर्ष पार होती है और आवेदक के पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है, तो बाकी सभी शर्तें पूरी होने पर सामान्य अस्वीकृति अंतिम नहीं होगी; अपवाद की समीक्षा प्रबंधक करेगा।",
+        "ਜੇ ਉਮਰ ਦੀ ਹੱਦ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਪਾਰ ਹੁੰਦੀ ਹੈ ਅਤੇ ਬਿਨੈਕਾਰ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ, ਤਾਂ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ ਤੇ ਆਮ ਰੱਦਗੀ ਅੰਤਿਮ ਨਹੀਂ ਰਹੇਗੀ; ਅਪਵਾਦ ਦੀ ਸਮੀਖਿਆ ਮੈਨੇਜਰ ਕਰੇਗਾ।",
       ),
     }));
   }
@@ -199,9 +199,9 @@ function makeReferralRules(base: readonly DmRuleCondition[], policy: number, var
     conditions: Object.freeze([condition("certificate-mismatch", "certificateStatus", "EQ", "MISMATCH")]),
     outcome: "REFER_TO_MANAGER",
     explanation: text(
-      "The certificate details do not match the application, so the case must be checked by the Manager before a final decision.",
-      "प्रमाणपत्र का विवरण आवेदन से मेल नहीं खाता; अंतिम निर्णय से पहले मामला प्रबंधक से जाँचवाना होगा।",
-      "ਸਰਟੀਫਿਕੇਟ ਦਾ ਵੇਰਵਾ ਅਰਜ਼ੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ; ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਤੋਂ ਜਾਂਚਵਾਉਣਾ ਲਾਜ਼ਮੀ ਹੈ।",
+      "The certificate and application do not match. A final eligibility decision waits until the Manager reviews that discrepancy.",
+      "प्रमाणपत्र और आवेदन का विवरण मेल नहीं खाता। अंतिम पात्रता निर्णय से पहले इस अंतर की समीक्षा प्रबंधक करेगा।",
+      "ਸਰਟੀਫਿਕੇਟ ਅਤੇ ਅਰਜ਼ੀ ਦਾ ਵੇਰਵਾ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਅੰਤਿਮ ਯੋਗਤਾ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਫਰਕ ਦੀ ਸਮੀਖਿਆ ਮੈਨੇਜਰ ਕਰੇਗਾ।",
     ),
   })];
   if (variant !== 0) {
