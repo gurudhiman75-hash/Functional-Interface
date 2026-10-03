@@ -95,8 +95,16 @@ function locale(language: Sea003Language): Sea003GeneratedQuestion["locale"] {
 }
 
 function polishLearnerText(language: Sea003Language, value: string): string {
-  if (language === "hi") return value.replaceAll("बैठता/बैठती है", "है");
-  if (language === "pa") return value.replaceAll("ਬੈਠਦਾ/ਬੈਠਦੀ ਹੈ", "ਹੈ");
+  if (language === "hi") {
+    return value
+      .replaceAll("बैठता/बैठती है", "है")
+      .replaceAll("बैठता/बैठती", "है");
+  }
+  if (language === "pa") {
+    return value
+      .replaceAll("ਬੈਠਦਾ/ਬੈਠਦੀ ਹੈ", "ਹੈ")
+      .replaceAll("ਬੈਠਦਾ/ਬੈਠਦੀ", "ਹੈ");
+  }
   return value;
 }
 
