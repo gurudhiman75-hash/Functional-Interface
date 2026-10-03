@@ -20,7 +20,7 @@ import type { SriCheckpointId, SriDiscoveryQuestion, SriHumanExplanation } from 
 export const SRI_QUESTION_STUDIO_RELEASE_ID_V1 = "SRI-QS-MULTILINGUAL-FROZEN-V1" as const;
 export const SRI_QUESTION_STUDIO_LANGUAGES_V1 = ["en", "hi", "pa"] as const;
 export const SRI_QUESTION_STUDIO_DIFFICULTIES_V1 = ["Easy", "Medium", "Hard"] as const;
-export const SRI_QUESTION_STUDIO_DIFFICULTY_POLICY_V1 = "SRI-QS-CHECKPOINT-DIFFICULTY-V1" as const;
+export const SRI_QUESTION_STUDIO_DIFFICULTY_POLICY_V1 = "SRI-QS-PERMANENT-CONTRACT-DIFFICULTY-V2" as const;
 
 export type SriQuestionStudioLanguageV1 = typeof SRI_QUESTION_STUDIO_LANGUAGES_V1[number];
 export type SriQuestionStudioDifficultyV1 = typeof SRI_QUESTION_STUDIO_DIFFICULTIES_V1[number];
@@ -51,25 +51,31 @@ const PACKAGE_CHECKPOINTS: Readonly<Record<SriPermanentPackageId, readonly SriCh
 });
 
 /**
- * Difficulty is a Question Studio routing policy only. It does not mutate or
- * reinterpret the frozen SRI content authority. The permanent QL/checkpoint
- * remains the source of truth and the mapping merely groups checkpoints for
- * Studio filtering.
+ * Difficulty is a Question Studio routing policy only; it never mutates the
+ * frozen learner content. V2 routes by permanent learner contract rather than
+ * by checkpoint, because a single checkpoint may contain materially different
+ * burdens (for example direct-law evaluation and domain-proof tasks).
  */
-const DIFFICULTY_BY_CHECKPOINT: Readonly<Record<SriCheckpointId, SriQuestionStudioDifficultyV1>> = Object.freeze({
-  "SRI-CP-001": "Easy",
-  "SRI-CP-002": "Easy",
-  "SRI-CP-003": "Medium",
-  "SRI-CP-004": "Medium",
-  "SRI-CP-005": "Hard",
-  "SRI-CP-006": "Medium",
-  "SRI-CP-007": "Easy",
-  "SRI-CP-008": "Medium",
-  "SRI-CP-009": "Medium",
-  "SRI-CP-010": "Hard",
-  "SRI-CP-011": "Hard",
-  "SRI-CP-012": "Medium",
+const DIFFICULTY_BY_RETAINED_GROUP: Readonly<Record<string, SriQuestionStudioDifficultyV1>> = Object.freeze({
+  "SRI-RG-001": "Easy", "SRI-RG-002": "Easy", "SRI-RG-003": "Medium", "SRI-RG-004": "Easy", "SRI-RG-005": "Easy", "SRI-RG-006": "Medium",
+  "SRI-RG-007": "Easy", "SRI-RG-008": "Medium", "SRI-RG-009": "Medium", "SRI-RG-010": "Medium", "SRI-RG-011": "Medium", "SRI-RG-012": "Hard",
+  "SRI-RG-013": "Medium", "SRI-RG-014": "Medium", "SRI-RG-015": "Medium",
+  "SRI-RG-016": "Medium", "SRI-RG-017": "Medium", "SRI-RG-018": "Medium", "SRI-RG-019": "Hard",
+  "SRI-RG-020": "Medium", "SRI-RG-021": "Medium", "SRI-RG-022": "Hard", "SRI-RG-023": "Hard", "SRI-RG-024": "Hard", "SRI-RG-025": "Hard",
+  "SRI-RG-026": "Medium", "SRI-RG-027": "Hard", "SRI-RG-028": "Easy", "SRI-RG-029": "Medium",
+  "SRI-RG-030": "Easy", "SRI-RG-031": "Easy", "SRI-RG-032": "Medium", "SRI-RG-033": "Easy",
+  "SRI-RG-034": "Easy", "SRI-RG-035": "Medium", "SRI-RG-036": "Medium", "SRI-RG-037": "Easy", "SRI-RG-038": "Medium",
+  "SRI-RG-040": "Medium", "SRI-RG-041": "Medium", "SRI-RG-042": "Hard", "SRI-RG-043": "Hard",
+  "SRI-RG-044": "Hard", "SRI-RG-045": "Medium", "SRI-RG-046": "Hard", "SRI-RG-047": "Hard",
+  "SRI-RG-048": "Medium", "SRI-RG-049": "Hard", "SRI-RG-050": "Medium", "SRI-RG-051": "Hard", "SRI-RG-052": "Hard", "SRI-RG-053": "Hard", "SRI-RG-054": "Hard", "SRI-RG-055": "Hard",
+  "SRI-RG-056": "Medium", "SRI-RG-057": "Medium", "SRI-RG-058": "Hard", "SRI-RG-059": "Hard",
 });
+
+function difficultyForAllocation(allocation: SriPermanentAllocationEntryV1): SriQuestionStudioDifficultyV1 {
+  const difficulty = DIFFICULTY_BY_RETAINED_GROUP[allocation.retainedGroupId];
+  if (!difficulty) throw new Error(`Missing SRI difficulty policy for ${allocation.retainedGroupId} / ${allocation.qlId}.`);
+  return difficulty;
+}
 
 function normalizeSelector(value: unknown) {
   return String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -350,11 +356,18 @@ function toPreview(pkg: ReturnType<typeof normalizeFrozenQuestion>, index: numbe
 }
 
 function canonicalProblemsForPackage(packageId: SriPermanentPackageId) {
-  return PACKAGE_CHECKPOINTS[packageId].map((checkpointId) => Object.freeze({
-    id: checkpointId,
-    label: checkpointId,
-    difficulty: DIFFICULTY_BY_CHECKPOINT[checkpointId],
-  }));
+  return PACKAGE_CHECKPOINTS[packageId].map((checkpointId) => {
+    const difficulties = [...new Set(
+      SRI_PERMANENT_ALLOCATION_V1
+        .filter((entry) => entry.packageId === packageId && entry.checkpointId === checkpointId)
+        .map(difficultyForAllocation),
+    )];
+    return Object.freeze({
+      id: checkpointId,
+      label: checkpointId,
+      difficulties: Object.freeze(difficulties),
+    });
+  });
 }
 
 export function listSriQuestionStudioPackagesV1() {
@@ -421,7 +434,7 @@ function eligibleAllocations(request: SriQuestionStudioRequestV1, difficulty: Sr
     const allocation = getSriPermanentAllocationByQlId(explicitQl);
     if (packageId && allocation.packageId !== packageId) throw new Error(`${explicitQl} is not owned by ${packageId}.`);
     if (checkpointId && allocation.checkpointId !== checkpointId) throw new Error(`${explicitQl} is not owned by ${checkpointId}.`);
-    const qlDifficulty = DIFFICULTY_BY_CHECKPOINT[allocation.checkpointId];
+    const qlDifficulty = difficultyForAllocation(allocation);
     if (difficulty && qlDifficulty !== difficulty) throw new Error(`${explicitQl} is routed as ${qlDifficulty}, not ${difficulty}.`);
     return [allocation];
   }
@@ -429,7 +442,7 @@ function eligibleAllocations(request: SriQuestionStudioRequestV1, difficulty: Sr
   const matches = SRI_PERMANENT_ALLOCATION_V1.filter((entry) =>
     (!packageId || entry.packageId === packageId)
     && (!checkpointId || entry.checkpointId === checkpointId)
-    && (!difficulty || DIFFICULTY_BY_CHECKPOINT[entry.checkpointId] === difficulty));
+    && (!difficulty || difficultyForAllocation(entry) === difficulty));
   if (matches.length === 0) throw new Error("No permanent SRI QLs match the requested Question Studio filters.");
   return matches;
 }
@@ -448,7 +461,7 @@ export async function generateSriQuestionStudioBatchV1(request: SriQuestionStudi
   for (let index = 0; index < count; index += 1) {
     const allocation = allocations[(offset + index) % allocations.length]!;
     const itemSeed = `${batchSeed}:${allocation.qlId}:${index}`;
-    const difficulty = DIFFICULTY_BY_CHECKPOINT[allocation.checkpointId];
+    const difficulty = difficultyForAllocation(allocation);
     const authority = generateFrozenAuthority(allocation.qlId, itemSeed, language);
     const normalized = normalizeFrozenQuestion(authority, allocation, language, itemSeed, difficulty);
     questionPackages.push(normalized);
