@@ -269,7 +269,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     return Array.from(sections.values())
       .sort((left, right) => left.order - right.order || left.title.localeCompare(right.title))
       .map((section, index) => ({
-        id: "series-" + (section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 54) || String(index + 1)),
+        id: "series-" + String(index + 1) + "-" + (section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "row"),
         title: section.title,
         description: section.description,
         order: section.order,
