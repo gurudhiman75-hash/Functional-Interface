@@ -152,9 +152,9 @@ function ExamHubCatalogSection({
           <p className="mt-1 text-xs leading-5 text-slate-500">This section will appear automatically when matching catalogue content is published.</p>
         </div>
       ) : (
-        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div className="-mx-1 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]">
           {items.map((item) => (
-            <Link key={item.id} href={item.href} className="group flex min-h-[154px] flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm">
+            <Link key={item.id} href={item.href} className="group flex min-h-[164px] w-[84vw] max-w-[340px] shrink-0 snap-start flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm sm:w-[310px]">
               <div className="flex items-start gap-3">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
                   {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
@@ -207,34 +207,77 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     [seriesQuery.data, examCodes],
   );
 
-  const pyqTests = examTests.filter((test) => isPyqText(testSearchText(test)));
-  const regularTests = examTests.filter((test) => !isPyqText(testSearchText(test)));
-  const pyqSeries = examSeries.filter((series) => seriesHubType(series) === "pyq");
-  const fullLengthSeries = examSeries.filter((series) => seriesHubType(series) === "full-length");
-  const sectionalSeries = examSeries.filter((series) => seriesHubType(series) === "sectional");
-  const topicSeries = examSeries.filter((series) => seriesHubType(series) === "topic-wise");
+  const landingSections = useMemo(() => {
+    type SectionEntry = { order: number; item: ExamHubCatalogItem };
+    type SectionDraft = { title: string; description: string; order: number; entries: SectionEntry[] };
+    const sections = new Map<string, SectionDraft>();
 
-  const prelimsItems = [
-    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "prelims").map(seriesItem),
-    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "prelims").map(testItem),
-  ];
-  const mainsItems = [
-    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "mains").map(seriesItem),
-    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "mains").map(testItem),
-  ];
-  const pyqItems = [...pyqSeries.map(seriesItem), ...pyqTests.map(testItem)];
-  const sectionalItems = [
-    ...sectionalSeries.map(seriesItem),
-    ...regularTests.filter((test) => test.kind === "sectional").map(testItem),
-  ];
-  const topicItems = [
-    ...topicSeries.map(seriesItem),
-    ...regularTests.filter((test) => test.kind === "topic-wise").map(testItem),
-  ];
-  const fullLengthItems = [
-    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "general").map(seriesItem),
-    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "general").map(testItem),
-  ];
+    const asOrder = (value: unknown, fallback: number) => {
+      const number = Number(value);
+      return Number.isFinite(number) && number >= 0 ? number : fallback;
+    };
+    const addItem = (title: string, description: string, sectionOrder: number, itemOrder: number, item: ExamHubCatalogItem) => {
+      const key = title.trim().toLowerCase();
+      const existing = sections.get(key);
+      if (existing) {
+        existing.order = Math.min(existing.order, sectionOrder);
+        if (!existing.description && description) existing.description = description;
+        existing.entries.push({ order: itemOrder, item });
+        return;
+      }
+      sections.set(key, { title, description, order: sectionOrder, entries: [{ order: itemOrder, item }] });
+    };
+    const fallbackSeriesSection = (series: StudentSeriesSummary) => {
+      const type = seriesHubType(series);
+      const stage = seriesHubStage(series);
+      if (type === "pyq") return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
+      if (type === "sectional") return { title: "Sectional Tests", description: "Section-level series for focused timed practice.", order: 40 };
+      if (type === "topic-wise") return { title: "Topic-wise Tests", description: "Topic-focused practice series from the exam syllabus.", order: 50 };
+      if (stage === "prelims") return { title: "Prelims Test Series", description: "Full-length " + config.name + " preliminary-stage mock series.", order: 10 };
+      if (stage === "mains") return { title: "Mains Test Series", description: "Full-length " + config.name + " main-stage mock series.", order: 20 };
+      return { title: "More Test Series", description: "Additional test series published for this exam.", order: 60 };
+    };
+    const fallbackTestSection = (test: Test) => {
+      const text = testSearchText(test);
+      if (isPyqText(text)) return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
+      if (test.kind === "sectional") return { title: "Sectional Tests", description: "Focused tests for individual exam sections.", order: 40 };
+      if (test.kind === "topic-wise") return { title: "Topic-wise Tests", description: "Short tests focused on specific topics from this exam syllabus.", order: 50 };
+      const stage = stageFromText(text);
+      if (stage === "prelims") return { title: "Prelims Test Series", description: "Full-length " + config.name + " preliminary-stage mock tests and series.", order: 10 };
+      if (stage === "mains") return { title: "Mains Test Series", description: "Full-length " + config.name + " main-stage mock tests and series.", order: 20 };
+      return { title: "More Tests", description: "Additional published tests for this exam.", order: 60 };
+    };
+
+    examSeries.forEach((series) => {
+      const fallback = fallbackSeriesSection(series);
+      const title = compact(series.hubSectionTitle) || fallback.title;
+      const description = compact(series.hubSectionDescription) || fallback.description;
+      addItem(
+        title,
+        description,
+        asOrder(series.hubSectionOrder, fallback.order),
+        asOrder(series.hubSeriesOrder, 100),
+        seriesItem(series),
+      );
+    });
+
+    examTests.forEach((test, index) => {
+      const fallback = fallbackTestSection(test);
+      addItem(fallback.title, fallback.description, fallback.order, 1000 + index, testItem(test));
+    });
+
+    return Array.from(sections.values())
+      .sort((left, right) => left.order - right.order || left.title.localeCompare(right.title))
+      .map((section, index) => ({
+        id: "series-" + (section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 54) || String(index + 1)),
+        title: section.title,
+        description: section.description,
+        order: section.order,
+        items: section.entries
+          .sort((left, right) => left.order - right.order || left.item.title.localeCompare(right.item.title))
+          .map((entry) => entry.item),
+      }));
+  }, [examSeries, examTests, config.name]);
 
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
@@ -261,15 +304,11 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
             </div>
             <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
               {[
-                ["#prelims", "Prelims"],
-                ["#mains", "Mains"],
-                ["#pyq", "PYQs"],
-                ["#sectional", "Sectional"],
-                ["#topic-wise", "Topic-wise"],
+                ...landingSections.map((section) => ["#" + section.id, section.title]),
                 ["#syllabus", "Syllabus"],
                 ["#preparation", "Preparation"],
               ].map(([href, label]) => (
-                <a key={href} href={href} className="whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>
+                <a key={href} href={href} title={label} className="max-w-[190px] truncate whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>
               ))}
             </nav>
           </div>
@@ -290,29 +329,44 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
         </div>
       ) : null}
 
-      <div className="mt-7 grid gap-4 md:grid-cols-3">
-        <PublicCard title="Preparation guide">
-          {config.hub.preparationSummary}
-          <Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Detailed preparation strategy</Link>
-        </PublicCard>
-        <PublicCard title="Syllabus & pattern">
-          {config.hub.syllabusSummary}
-          <Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Full {config.name} syllabus</Link>
-        </PublicCard>
-        <PublicCard title="Official information">
-          Verify dates, eligibility, vacancies and current notices on the official exam authority website.
-          <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 block font-semibold text-indigo-700 hover:underline">Open {config.officialLabel}</a>
-        </PublicCard>
+      <div className="mt-8 space-y-10">
+        {landingSections.length > 0 ? landingSections.map((section) => (
+          <ExamHubCatalogSection
+            key={section.id}
+            id={section.id}
+            title={section.title}
+            description={section.description}
+            items={section.items}
+            emptyMessage="This series row is being prepared."
+          />
+        )) : (
+          <section className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
+            <h2 className="text-lg font-semibold text-slate-900">Test series are being prepared</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-500">Prelims, mains, sectional, topic-wise, PYQ, or any custom series row will appear here as soon as it is configured for this exam.</p>
+          </section>
+        )}
       </div>
 
-      <div className="mt-10 space-y-9">
-        <ExamHubCatalogSection id="prelims" title="Prelims Test Series" description={"Full-length " + config.name + " preliminary-stage mock tests and series."} items={prelimsItems} emptyMessage="Prelims series are being prepared." />
-        <ExamHubCatalogSection id="mains" title="Mains Test Series" description={"Full-length " + config.name + " main-stage mock tests and series."} items={mainsItems} emptyMessage="Mains series are being prepared." />
-        <ExamHubCatalogSection id="pyq" title="Previous Year Papers (PYQs)" description="Previous-year and memory-based papers published for this exam." items={pyqItems} emptyMessage="No previous-year papers are published for this exam yet." />
-        <ExamHubCatalogSection id="sectional" title="Sectional Tests" description="Focused tests for individual exam sections so you can practise under section-level timing and difficulty." items={sectionalItems} emptyMessage="Sectional tests are being prepared." />
-        <ExamHubCatalogSection id="topic-wise" title="Topic-wise Tests" description="Shorter tests focused on specific topics from this exam syllabus." items={topicItems} emptyMessage="Topic-wise tests are being prepared." />
-        {fullLengthItems.length > 0 ? <ExamHubCatalogSection id="full-length" title="More Full-length Tests & Series" description="Additional full-length catalogue content not restricted to a single exam stage." items={fullLengthItems} emptyMessage="No additional full-length tests are published." /> : null}
-      </div>
+      <section className="mt-12 border-t border-slate-200 pt-9" aria-labelledby="exam-information-heading">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Exam information</p>
+          <h2 id="exam-information-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">About {config.name} {config.yearLabel}</h2>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <PublicCard title="Preparation guide">
+            {config.hub.preparationSummary}
+            <Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Detailed preparation strategy</Link>
+          </PublicCard>
+          <PublicCard title="Syllabus & pattern">
+            {config.hub.syllabusSummary}
+            <Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Full {config.name} syllabus</Link>
+          </PublicCard>
+          <PublicCard title="Official information">
+            Verify dates, eligibility, vacancies and current notices on the official exam authority website.
+            <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 block font-semibold text-indigo-700 hover:underline">Open {config.officialLabel}</a>
+          </PublicCard>
+        </div>
+      </section>
 
       <section id="syllabus" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
         <div className="flex flex-wrap items-end justify-between gap-3">
