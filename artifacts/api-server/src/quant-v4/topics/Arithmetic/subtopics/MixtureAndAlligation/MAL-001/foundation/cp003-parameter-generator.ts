@@ -203,7 +203,7 @@ export function generateMalCp003Parameters(
     case "MAL-CP003-PROT-OPERATION-COUNT-FROM-FINAL": {
       const operationCase =
         OPERATION_COUNT_CASES[
-          hashSeed(`${prototypeId}:${seed}:operation-case`) %
+          hashSeed(`${prototypeId}:${seed}:answer-state`) %
             OPERATION_COUNT_CASES.length
         ]!;
       const operationScale =
