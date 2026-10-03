@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Archive, Clipboard, FileImage, Image as ImageIcon, RefreshCw, Search, Upload } from 'lucide-react';
+import { Archive, Clipboard, CloudDownload, FileImage, Image as ImageIcon, RefreshCw, Search, Upload } from 'lucide-react';
 
 import { EmptyState } from '@/components/shared/EmptyState';
+import { FirebaseStorageImportDialog } from '@/components/shared/FirebaseStorageImportDialog';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +25,7 @@ export function MediaLibraryPage(){
   const[status,setStatus]=useState<MediaAssetStatus|'all'>('active');
   const[preview,setPreview]=useState<LiveMediaAsset|null>(null);
   const[uploadOpen,setUploadOpen]=useState(false);
+  const[storageOpen,setStorageOpen]=useState(false);
   const[uploadType,setUploadType]=useState<MediaAssetType>('Home Banner');
   const[uploading,setUploading]=useState(false);
   const inputRef=useRef<HTMLInputElement|null>(null);
@@ -70,7 +72,7 @@ export function MediaLibraryPage(){
       title="Media Library"
       description="Persistent Firebase-backed image library shared across Mobile Home, promotions, notifications and content surfaces."
       icon={<ImageIcon className="h-5 w-5"/>}
-      actions={<div className="flex gap-2"><Button size="sm" variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button size="sm" onClick={()=>setUploadOpen(true)}><Upload className="mr-1.5 h-4 w-4"/>Upload</Button></div>}
+      actions={<div className="flex flex-wrap gap-2"><Button size="sm" variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button size="sm" variant="outline" onClick={()=>setStorageOpen(true)}><CloudDownload className="mr-1.5 h-4 w-4"/>Sync Firebase Storage</Button><Button size="sm" onClick={()=>setUploadOpen(true)}><Upload className="mr-1.5 h-4 w-4"/>Upload</Button></div>}
     />
 
     <div className="mb-4 flex flex-col gap-2 lg:flex-row">
@@ -104,6 +106,18 @@ export function MediaLibraryPage(){
         </SheetFooter></>}
       </SheetContent>
     </Sheet>
+
+    <FirebaseStorageImportDialog
+      open={storageOpen}
+      onOpenChange={setStorageOpen}
+      preferredType="Exam Icon"
+      onImported={(imported)=>{
+        setAssets(previous=>[
+          ...imported,
+          ...previous.filter(asset=>!imported.some(next=>next.id===asset.id)),
+        ]);
+      }}
+    />
 
     <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
       <DialogContent className="sm:max-w-lg">
