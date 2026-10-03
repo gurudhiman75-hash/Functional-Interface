@@ -23,6 +23,9 @@ export interface StudentSeriesSummary {
   attemptCount: number;
   learnerVisibility: StudentSeriesLearnerVisibility;
   learnerMessage: string;
+  hubStage?: "general" | "prelims" | "mains";
+  hubType?: "full-length" | "pyq" | "sectional" | "topic-wise";
+  examCycle?: string;
   iconUrl?: string;
 }
 
@@ -70,6 +73,9 @@ export interface StudentSeriesDetail {
     completionThreshold: number | null;
     learnerVisibility: StudentSeriesLearnerVisibility;
     learnerMessage: string;
+    hubStage?: "general" | "prelims" | "mains";
+    hubType?: "full-length" | "pyq" | "sectional" | "topic-wise";
+    examCycle?: string;
     iconUrl?: string;
   };
   eligibility: {
