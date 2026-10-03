@@ -284,7 +284,6 @@ type UncertainWorld={n:number;pos:Readonly<Record<string,number>>};
 function uncertainWorlds(ids:readonly string[],minN:number,maxN:number):UncertainWorld[] {
   const out:UncertainWorld[]=[];
   for(let n=minN;n<=maxN;n++) {
-    for(const positions of permutations(Array.from({length:n},(_,i)=>i)).slice(0,1)) { void positions; }
     const choose=(index:number,used:Set<number>,pos:Record<string,number>)=>{
       if(index===ids.length){out.push({n,pos:{...pos}});return;}
       for(let seat=0;seat<n;seat++) if(!used.has(seat)){
