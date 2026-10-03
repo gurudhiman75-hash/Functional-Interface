@@ -429,6 +429,13 @@ function buildPolygonQuestion(
     seed + ":clue-select",
     rectangle ? 6 : mixed ? 6 : 5,
   );
+  const anchorRoleClue: PolygonClue | null = rectangle
+    ? { kind: "ROLE", person: anchor, role: rectRole(polygonIndex(target, anchor)) }
+    : null;
+  const selectedClues = anchorRoleClue && !selected.clues.some((clue) =>
+    clue.kind === "ROLE" && clue.person === anchor)
+    ? [anchorRoleClue, ...selected.clues]
+    : selected.clues;
 
   const reference = people[hash(seed + ":query-reference") % people.length]!;
   const querySteps = (hash(seed + ":query-steps") % 2 + 1) as 1 | 2;
@@ -461,7 +468,7 @@ function buildPolygonQuestion(
         `ਛੇ ਵਿਅਕਤੀ—${personList(people, language)}—ਇੱਕ ਨਿਯਮਿਤ ਛੇਭੁਜੀ ਮੇਜ਼ ਦੇ ਛੇ ਕੋਨਿਆਂ 'ਤੇ ਬੈਠੇ ਹਨ। ${mixed ? "ਹਰ ਵਿਅਕਤੀ ਕੇਂਦਰ ਜਾਂ ਬਾਹਰ ਵੱਲ ਮੂੰਹ ਕਰ ਸਕਦਾ ਹੈ।" : mode === "UNIFORM_IN" ? "ਸਾਰੇ ਕੇਂਦਰ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਹਨ।" : "ਸਾਰੇ ਬਾਹਰ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਹਨ।"}`,
       );
 
-  const clueText = selected.clues.map((clue) => renderPolygonClue(clue, language)).join(" ");
+  const clueText = selectedClues.map((clue) => renderPolygonClue(clue, language)).join(" ");
   const side = queryLeft ? t(language, "left", "बाएँ", "ਖੱਬੇ") : t(language, "right", "दाएँ", "ਸੱਜੇ");
   const query = querySteps === 1
     ? t(language, `Who sits immediately to the ${side} of ${label(reference, language)}?`, `${label(reference, language)} के ठीक ${side} कौन बैठता/बैठती है?`, `${label(reference, language)} ਦੇ ਬਿਲਕੁਲ ${side} ਕੌਣ ਬੈਠਦਾ/ਬੈਠਦੀ ਹੈ?`)
@@ -491,7 +498,7 @@ function buildPolygonQuestion(
       worldCountBefore: worlds.length,
       worldCountAfter: 1 as const,
       uniqueSolution: true as const,
-      clueCount: selected.clues.length,
+      clueCount: selectedClues.length,
       targetFingerprint: polygonFingerprint(target, mixed),
       solvedFingerprint: polygonFingerprint(selected.solved, mixed),
       symmetryNormalization: "FIRST_SELECTED_PERSON_FIXED_AT_REFERENCE_POSITION_1",
@@ -540,15 +547,25 @@ function concentricWorlds(
 ): ConcentricWorld[] {
   const anchor = people[0]!;
   const worlds: ConcentricWorld[] = [];
-  const innerSets = fixedInner ? [fixedInner.slice()] : combinations(people.slice(1), ringSize);
+  const innerSets = fixedInner ? [fixedInner.slice()] : combinations(people, ringSize);
+
   for (const innerMembers of innerSets) {
-    if (innerMembers.includes(anchor)) continue;
     const outerMembers = people.filter((person) => !innerMembers.includes(person));
-    if (!outerMembers.includes(anchor) || outerMembers.length !== ringSize) continue;
-    for (const inner of permutations(innerMembers)) {
-      const outerRest = outerMembers.filter((person) => person !== anchor);
-      for (const rest of permutations(outerRest)) {
-        const outer = [anchor, ...rest];
+    if (innerMembers.length !== ringSize || outerMembers.length !== ringSize) continue;
+
+    const anchorInInner = innerMembers.includes(anchor);
+    const anchorInOuter = outerMembers.includes(anchor);
+    if (!anchorInInner && !anchorInOuter) continue;
+
+    const innerOrders = anchorInInner
+      ? permutations(innerMembers.filter((person) => person !== anchor)).map((rest) => [anchor, ...rest])
+      : permutations(innerMembers);
+    const outerOrders = anchorInOuter
+      ? permutations(outerMembers.filter((person) => person !== anchor)).map((rest) => [anchor, ...rest])
+      : permutations(outerMembers);
+
+    for (const inner of innerOrders) {
+      for (const outer of outerOrders) {
         if (!mixed) {
           worlds.push({ inner, outer });
           continue;
