@@ -760,12 +760,51 @@ function translateSourceLine(sourceLine: string, language: ProbabilityNativeLang
   return nativeLine;
 }
 
+function preserveNamedHumanContext(
+  source: ProbabilityQuestion,
+  language: ProbabilityNativeLanguage,
+  lines: string[],
+): string[] {
+  const next = [...lines];
+  const joined = next.join("\n");
+  const stem = source.stem;
+
+  if (/\bcandidates?\b/iu.test(stem)) {
+    const marker = language === "hi" ? /अभ्यर्थ/u : /ਉਮੀਦਵਾਰ/u;
+    if (!marker.test(joined)) {
+      next[0] = language === "hi"
+        ? `${next[0]} प्रश्न में दिए अभ्यर्थी/अभ्यर्थियों के संदर्भ को ही पूरे हल में बनाए रखें।`
+        : `${next[0]} ਹੱਲ ਵਿੱਚ ਸਵਾਲ ਵਾਲੇ ਉਮੀਦਵਾਰ/ਉਮੀਦਵਾਰਾਂ ਦਾ ਹੀ ਸੰਦਰਭ ਬਣਾਈ ਰੱਖੋ।`;
+    }
+  } else if (/\bstudents?\b/iu.test(stem)) {
+    const marker = language === "hi" ? /विद्यार्थ/u : /ਵਿਦਿਆਰਥ/u;
+    if (!marker.test(joined)) {
+      next[0] = language === "hi"
+        ? `${next[0]} प्रश्न में दिए विद्यार्थी/विद्यार्थियों के उसी समूह को आधार मानें।`
+        : `${next[0]} ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਵਿਦਿਆਰਥੀ/ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਉਸੇ ਸਮੂਹ ਨੂੰ ਆਧਾਰ ਮੰਨੋ।`;
+    }
+  } else if (/\bcommittee\b/iu.test(stem)) {
+    const marker = language === "hi" ? /समिति/u : /ਕਮੇਟੀ/u;
+    if (!marker.test(joined)) {
+      next[0] = language === "hi"
+        ? `${next[0]} सभी गणनाएँ इसी समिति-चयन के संदर्भ में हैं।`
+        : `${next[0]} ਸਾਰੀ ਗਿਣਤੀ ਇਸੇ ਕਮੇਟੀ-ਚੋਣ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਹੈ।`;
+    }
+  }
+
+  return next;
+}
+
 export function renderNativeSourceExplanationLines(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
 ): string[] {
   const english = [...source.explanation.lines];
-  const native = english.map((line) => translateSourceLine(line, language));
+  const native = preserveNamedHumanContext(
+    source,
+    language,
+    english.map((line) => translateSourceLine(line, language)),
+  );
   if (native.length !== english.length) {
     throw new Error(`${source.questionLanguageId}/${language}: native explanation line-count parity failed.`);
   }
