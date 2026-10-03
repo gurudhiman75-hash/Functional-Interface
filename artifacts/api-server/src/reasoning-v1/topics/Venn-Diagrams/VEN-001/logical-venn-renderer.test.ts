@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   getVennTopologyDescription,
+  getVennTopologyGeometry,
   renderVennTopologySvg,
   type VennTopologyId,
 } from "./logical-venn-renderer.ts";
@@ -134,3 +135,10 @@ assert.ok(distance(outerOnly[0]!, outerOnly[1]!) + outerOnly[1]!.r < outerOnly[0
 assert.ok(distance(outerOnly[0]!, outerOnly[2]!) < outerOnly[0]!.r + outerOnly[2]!.r);
 assert.ok(distance(outerOnly[1]!, outerOnly[2]!) > outerOnly[1]!.r + outerOnly[2]!.r);
 console.log("PASS_VEN_001_ACCESSIBLE_TOPOLOGY_RENDERER");
+
+
+const reusableGeometry = getVennTopologyGeometry("THREE_NESTED_PAIR_CROSSED_BY_THIRD");
+assert.equal(reusableGeometry.circles.length, 3);
+assert.equal(reusableGeometry.labelAnchors.length, 3);
+assert.ok(reusableGeometry.circles.every((circle) => circle.r > 0));
+assert.match(reusableGeometry.accessibleDescription, /inside|overlap/u);
