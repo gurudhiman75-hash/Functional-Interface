@@ -87,8 +87,8 @@ function isPyqText(value: string) {
 }
 
 function stageFromText(value: string): "prelims" | "mains" | "general" {
-  const prelims = /\bprelims?\b|\bpreliminary\b/.test(value);
-  const mains = /\bmains?\b|\bmain examination\b/.test(value);
+  const prelims = /\bprelims?\b|\bpreliminary\b|\bpre\b/.test(value);
+  const mains = /\bmains?\b|\bmain examination\b|\bmain\b/.test(value);
   if (prelims && !mains) return "prelims";
   if (mains && !prelims) return "mains";
   return "general";
