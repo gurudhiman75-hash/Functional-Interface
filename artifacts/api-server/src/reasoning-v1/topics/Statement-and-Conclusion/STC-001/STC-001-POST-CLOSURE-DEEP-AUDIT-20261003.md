@@ -32,9 +32,11 @@ The September closure was materially correct on scope and saturation, but the po
 
 `editorial-v2-2-independent-proof.ts` is now a separate 48-template semantic proof registry.
 
-- The registry does not read `template.answerClass`.
+- The registry does not read `template.answerClass` to decide the answer.
 - Generation asks the proof registry for the expected answer class.
 - Authored template metadata is checked against the independent proof and generation fails closed on disagreement.
+- Every reviewed English statement/conclusion/archetype skeleton is signature-locked to the proof authority, so semantic-text drift fails closed even if `answerClass` is left unchanged.
+- Numeric/order cross-product invariants are tested separately for variable families whose values could change entailment.
 - Conclusion reversal is applied only after the independent canonical answer is established.
 - Generated metadata records the independent proof authority and mechanism.
 
@@ -60,11 +62,12 @@ The V2.2 breadth model remains 8 templates × 256 variants = 2,048 semantic surf
 
 Remediated defects include:
 
-- notice continuation wording made sentence-safe and gender-neutral;
-- `afternoon refreshments continues` removed;
-- duplicated `surveyed ... surveyed` wording removed;
+- notice continuation wording made sentence-safe and localized through fixed visitor-entry/service constructions;
+- `afternoon refreshments continues` removed and the breakfast/meal family normalized to service nouns;
+- duplicated `surveyed ... surveyed` wording removed and Hindi/Punjabi survey case structure normalized through group/respondent constructions;
+- event/venue wording rewritten to avoid Hindi/Punjabi noun-gender variation;
 - Hindi/Punjabi `चुका/चुकी` / `ਚੁੱਕਾ/ਚੁੱਕੀ` placeholders removed;
-- variable-gender trend wording rewritten through stable `level/count` constructions;
+- variable-gender trend wording rewritten through stable `level/count/process` constructions;
 - `improved downward` / intransitive `reduced` English removed;
 - Hindi/Punjabi month/cycle oblique forms corrected where used with postpositions;
 - forecast wording rewritten to avoid variable gender/number agreement failures.
@@ -77,6 +80,7 @@ No semantic answer class or permanent QL contract was intentionally changed.
 
 - all 48 V2.2 templates have independent proof coverage;
 - deliberate answer-class drift fails closed;
+- deliberate semantic statement/conclusion/archetype drift fails closed even when the answer metadata is unchanged;
 - all 6 × 2,048 × 3 = **36,864** EN/HI/PA generated surfaces pass the known learner-surface regression gate;
 - answer authority metadata is present on every generated instance;
 - key numeric cross-product invariants cannot flip answer semantics;
