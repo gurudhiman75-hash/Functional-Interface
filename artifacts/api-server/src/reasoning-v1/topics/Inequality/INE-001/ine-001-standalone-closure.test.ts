@@ -4,6 +4,8 @@ import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/en
 import {
   INE_001_CONTENT_CLOSURE,
   INE_001_PERMANENT_QL_IDS,
+} from "./ine-001-authority";
+import {
   INE_001_QUESTION_STUDIO_PACKAGE,
   generateIne001QuestionStudioBatch,
 } from "./question-studio-integration";
