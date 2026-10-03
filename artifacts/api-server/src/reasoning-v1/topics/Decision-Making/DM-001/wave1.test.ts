@@ -44,17 +44,17 @@ for (const scenario of legacyScenarios) {
           assert.match(question.stem, /Priority order|प्राथमिकता क्रम|ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ/);
         } else assert.equal(question.options[question.correctIndex], {
           en: {
-            SELECT: "Eligible for selection", REJECT: "Not eligible", REFER_TO_MANAGER: "Refer the case to the Manager",
+            SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules", REFER_TO_MANAGER: "Refer the case to the Manager",
             REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
             INFORMATION_REQUIRED: "Decision cannot be made; information is required",
           },
           hi: {
-            SELECT: "चयन के लिए पात्र", REJECT: "अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
+            SELECT: "दिए गए नियमों के अनुसार पात्र", REJECT: "दिए गए नियमों के अनुसार अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
             REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें",
             INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
           },
           pa: {
-            SELECT: "ਚੋਣ ਲਈ ਯੋਗ", REJECT: "ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
+            SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
             REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ",
             INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
           },
@@ -81,6 +81,12 @@ for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(o
 for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-008")!.has(expected), "DM-CP-008 should cover " + expected);
 for (const expected of ["SELECT", "REFER_TO_COMMITTEE", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-009")!.has(expected), "DM-CP-009 should cover " + expected);
 assert.ok(DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === "DM-CP-010").every((scenario) => scenario.ranking?.priorityOrder.at(-1)?.field === "applicationOrder"));
+
+const distinctEnglishContexts = new Set(DM_001_SCENARIO_LIBRARY.map((scenario) => scenario.context.en));
+const domainMarkers = ["scholarship", "licence", "hostel", "certification", "admission", "grant", "benefit", "loan", "training", "fellowship", "accreditation", "promotion"];
+assert.ok(domainMarkers.filter((marker) => [...distinctEnglishContexts].some((context) => context.toLowerCase().includes(marker))).length >= 10, "scenario library must span at least ten decision domains");
+const recruitmentContexts = [...distinctEnglishContexts].filter((context) => /recruitment|appointment|vacanc(?:y|ies)/i.test(context));
+assert.ok(recruitmentContexts.length <= Math.ceil(distinctEnglishContexts.size * 0.1), "recruitment contexts must remain a small minority");
 
 const cp3 = dmScenariosForCheckpoint("DM-CP-003");
 const cp4 = dmScenariosForCheckpoint("DM-CP-004");
