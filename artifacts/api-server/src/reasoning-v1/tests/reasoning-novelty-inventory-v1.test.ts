@@ -8,6 +8,7 @@ import {
 const EXPECTED_TOPIC_DIRECTORIES = [
   'Alphabet-Test',
   'Analogy',
+  'Assertion-and-Reason',
   'Blood-Relations',
   'Calendar',
   'Cause-and-Effect',
