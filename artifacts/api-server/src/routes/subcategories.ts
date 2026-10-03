@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 
+import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { sqlClient } from "../lib/db";
 import { resolveSubcategoryIcon } from "../lib/subcategory-icons";
 
@@ -7,6 +8,7 @@ const router: IRouter = Router();
 
 router.get("/", async (_req, res) => {
   try {
+    await ensureCatalogBrandingSchema();
     const rows = await sqlClient`
       SELECT
         e.code AS id,
@@ -14,6 +16,7 @@ router.get("/", async (_req, res) => {
         ef.name AS "categoryName",
         e.name,
         COALESCE(e.description, 'Mock tests for ' || e.name) AS description,
+        branding.icon_url AS "iconUrl",
         COALESCE(
           array_agg(DISTINCT l.code ORDER BY l.code)
             FILTER (WHERE l.code IS NOT NULL),
@@ -21,6 +24,9 @@ router.get("/", async (_req, res) => {
         ) AS languages
       FROM catalog.exams e
       JOIN catalog.exam_families ef ON ef.id = e.family_id
+      LEFT JOIN platform.catalog_entity_branding branding
+        ON branding.entity_type = 'exam'
+       AND branding.entity_id = e.id
       LEFT JOIN catalog.exam_versions ev
         ON ev.exam_id = e.id
        AND ev.is_current = true
@@ -30,7 +36,7 @@ router.get("/", async (_req, res) => {
        AND l.is_active = true
       WHERE e.is_active = true
         AND ef.is_active = true
-      GROUP BY e.id, e.code, e.name, e.description, ef.code, ef.name
+      GROUP BY e.id, e.code, e.name, e.description, ef.code, ef.name, branding.icon_url
       ORDER BY ef.name, e.name
     `;
 
@@ -41,7 +47,7 @@ router.get("/", async (_req, res) => {
       name: String(row.name),
       description: String(row.description ?? ""),
       languages: Array.isArray(row.languages) ? row.languages.map(String) : ["en"],
-      icon: resolveSubcategoryIcon(String(row.categoryName), String(row.name)),
+      icon: String(row.iconUrl ?? "").trim() || resolveSubcategoryIcon(String(row.categoryName), String(row.name)),
     })));
   } catch (error) {
     console.error("Unable to load canonical subcategories", error);
