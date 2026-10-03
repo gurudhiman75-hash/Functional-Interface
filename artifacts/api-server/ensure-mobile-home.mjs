@@ -372,13 +372,16 @@ try {
           'code', series.code,
           'name', series.name,
           'examCode', exam.code,
-          'learnerVisibility', series.learner_visibility,
+          'learnerVisibility', COALESCE(NULLIF(current_version.configuration->>'learnerVisibility',''),'live'),
           'deleted', series.deleted_at IS NOT NULL,
           'updatedAt', series.updated_at
         ) ORDER BY series.updated_at DESC, series.name), '[]'::json)
         FROM assessment.test_series series
         JOIN catalog.exam_versions version ON version.id=series.exam_version_id
         JOIN catalog.exams exam ON exam.id=version.exam_id
+        JOIN assessment.test_series_versions current_version
+          ON current_version.series_id=series.id
+         AND current_version.version_number=series.current_version_number
       ),
       'homeConfig', (
         SELECT configuration
