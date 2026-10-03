@@ -10,6 +10,7 @@ import {
   PROBABILITY_NATIVE_PREVIEW_STATUS,
   runProbabilityNativePreview,
 } from "./multilingual-runtime";
+import { calibrateEntryDifficulty } from "./shared/difficulty-calibrator";
 import type {
   ProbabilityCanonicalProblemId,
   ProbabilityDifficulty,
@@ -46,13 +47,13 @@ const REVIEW_CATALOG: readonly CatalogEntry[] = Object.freeze([
     packageId: "PRB-001" as const,
     cpId: entry.cpId,
     qlId: entry.qlId,
-    difficulty: entry.difficulty,
+    difficulty: calibrateEntryDifficulty(entry),
   })),
   ...listPrb002QuestionEntries().map((entry) => ({
     packageId: "PRB-002" as const,
     cpId: entry.cpId,
     qlId: entry.qlId,
-    difficulty: entry.difficulty,
+    difficulty: calibrateEntryDifficulty(entry),
   })),
 ]);
 
