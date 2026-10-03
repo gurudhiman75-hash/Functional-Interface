@@ -104,6 +104,14 @@ for (const qlId of ["PRB-QL-706","PRB-QL-714","PRB-QL-722"]) {
   assert(source, `${qlId} missing from CP008 English source`);
   assert(/number/i.test(source.stemTemplate) && !/\bcode\b/i.test(source.stemTemplate), `${qlId} number-formation source is not aligned to the even-number event`);
 }
+const numberFormationRanges = ["PRB-QL-706","PRB-QL-714","PRB-QL-722"].map((qlId)=>{
+  const entry=entries.find((candidate)=>candidate.qlId===qlId);
+  assert(entry,`${qlId} missing from registry`);
+  const question=runPrb002Pipeline(entry.cpId as any,{questionLanguageId:qlId,seed:`PRB-002:cp008-range:${qlId}`});
+  return [Number(question.parameters.minDigit),Number(question.parameters.maxDigit)] as const;
+});
+assert(new Set(numberFormationRanges.map(([min,max])=>`${min}-${max}`)).size===3,`CP008 number-formation digit ranges did not diversify: ${JSON.stringify(numberFormationRanges)}`);
+assert(numberFormationRanges.some(([min])=>min>1),`CP008 number-formation lower bound is still hard-coded to 1`);
 
 const cp008DeepFamilies = {
   committeeSelection: surfaces(["PRB-QL-701","PRB-QL-709","PRB-QL-717","PRB-QL-725"]),
