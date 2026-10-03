@@ -49,6 +49,8 @@ export type Test = {
   sectionTimings?: { name: string; minutes: number }[];
   sectionSettings?: { name: string; locked: boolean }[];
   sections: TestSection[];
+  /** Canonical uploaded test icon/logo. */
+  iconUrl?: string | null;
   /** Languages available for this test, e.g. ["en"], ["en","hi"], ["en","pa"] */
   languages?: string[];
   /** Marks awarded per correct answer (defaults to 1 when absent) */
