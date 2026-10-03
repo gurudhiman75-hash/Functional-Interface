@@ -2,51 +2,755 @@
   "domains": {
     "family": {
       "entities": [
-        { "id": "father", "en": "father", "hi": "पिता", "pa": "ਪਿਤਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "mother", "en": "mother", "hi": "माता", "pa": "ਮਾਤਾ", "gender": "female", "numberType": "countable", "frequency": "common" },
-        { "id": "son", "en": "son", "hi": "बेटा", "pa": "ਬੇਟਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "daughter", "en": "daughter", "hi": "बेटी", "pa": "ਬੇਟੀ", "gender": "female", "numberType": "countable", "frequency": "common" },
-        { "id": "brother", "en": "brother", "hi": "भाई", "pa": "ਭਰਾ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "sister", "en": "sister", "hi": "बहन", "pa": "ਭੈਣ", "gender": "female", "numberType": "countable", "frequency": "common" }
+        {
+          "id": "father",
+          "en": "father",
+          "hi": "पिता",
+          "pa": "ਪਿਤਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "mother",
+          "en": "mother",
+          "hi": "माता",
+          "pa": "ਮਾਤਾ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "son",
+          "en": "son",
+          "hi": "बेटा",
+          "pa": "ਬੇਟਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "daughter",
+          "en": "daughter",
+          "hi": "बेटी",
+          "pa": "ਬੇਟੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "brother",
+          "en": "brother",
+          "hi": "भाई",
+          "pa": "ਭਰਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "sister",
+          "en": "sister",
+          "hi": "बहन",
+          "pa": "ਭੈਣ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandfather_paternal",
+          "en": "paternal grandfather",
+          "hi": "दादा",
+          "pa": "ਦਾਦਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandmother_paternal",
+          "en": "paternal grandmother",
+          "hi": "दादी",
+          "pa": "ਦਾਦੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandfather_maternal",
+          "en": "maternal grandfather",
+          "hi": "नाना",
+          "pa": "ਨਾਨਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandmother_maternal",
+          "en": "maternal grandmother",
+          "hi": "नानी",
+          "pa": "ਨਾਨੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "uncle_paternal",
+          "en": "paternal uncle",
+          "hi": "चाचा",
+          "pa": "ਚਾਚਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "aunt_paternal",
+          "en": "paternal aunt",
+          "hi": "चाची",
+          "pa": "ਚਾਚੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "uncle_maternal",
+          "en": "maternal uncle",
+          "hi": "मामा",
+          "pa": "ਮਾਮਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "aunt_maternal",
+          "en": "maternal aunt",
+          "hi": "मामी",
+          "pa": "ਮਾਮੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "husband",
+          "en": "husband",
+          "hi": "पति",
+          "pa": "ਪਤੀ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "wife",
+          "en": "wife",
+          "hi": "पत्नी",
+          "pa": "ਪਤਨੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandson",
+          "en": "grandson",
+          "hi": "पोता",
+          "pa": "ਪੋਤਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "granddaughter",
+          "en": "granddaughter",
+          "hi": "पोती",
+          "pa": "ਪੋਤੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "grandfather",
+          "en": "grandfather",
+          "hi": "दादा",
+          "pa": "ਦਾਦਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandmother",
+          "en": "grandmother",
+          "hi": "दादी",
+          "pa": "ਦਾਦੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "uncle",
+          "en": "uncle",
+          "hi": "चाचा",
+          "pa": "ਚਾਚਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "aunt",
+          "en": "aunt",
+          "hi": "बुआ",
+          "pa": "ਭੂਆ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        }
       ]
     },
     "school": {
       "entities": [
-        { "id": "boys", "en": "boys", "hi": "लड़के", "pa": "ਮੁੰਡੇ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "girls", "en": "girls", "hi": "लड़कियां", "pa": "ਕੁੜੀਆਂ", "gender": "female", "numberType": "countable", "frequency": "common" },
-        { "id": "students", "en": "students", "hi": "छात्र", "pa": "ਵਿਦਿਆਰਥੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "teachers", "en": "teachers", "hi": "शिक्षक", "pa": "ਅਧਿਆਪਕ", "gender": "male", "numberType": "countable", "frequency": "common" }
+        {
+          "id": "boys",
+          "en": "boys",
+          "hi": "लड़के",
+          "pa": "ਮੁੰਡੇ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "girls",
+          "en": "girls",
+          "hi": "लड़कियां",
+          "pa": "ਕੁੜੀਆਂ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "students",
+          "en": "students",
+          "hi": "छात्र",
+          "pa": "ਵਿਦਿਆਰਥੀ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "teachers",
+          "en": "teachers",
+          "hi": "शिक्षक",
+          "pa": "ਅਧਿਆਪਕ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "staff",
+          "en": "staff",
+          "hi": "कर्मचारी",
+          "pa": "ਸਟਾਫ਼",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "children",
+          "en": "children",
+          "hi": "बच्चे",
+          "pa": "ਬੱਚੇ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "candidates",
+          "en": "candidates",
+          "hi": "उम्मीदवार",
+          "pa": "ਉਮੀਦਵਾਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "members",
+          "en": "members",
+          "hi": "सदस्य",
+          "pa": "ਮੈਂਬਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "players",
+          "en": "players",
+          "hi": "खिलाड़ी",
+          "pa": "ਖਿਡਾਰੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "other_students",
+          "en": "other students",
+          "hi": "अन्य छात्र",
+          "pa": "ਹੋਰ ਵਿਦਿਆਰਥੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        }
       ]
     },
     "marks": {
       "entities": [
-        { "id": "mathematics", "en": "Mathematics", "hi": "गणित", "pa": "ਗਣਿਤ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
-        { "id": "english", "en": "English", "hi": "अंग्रेजी", "pa": "ਅੰਗਰੇਜ਼ੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
-        { "id": "science", "en": "Science", "hi": "विज्ञान", "pa": "ਵਿਗਿਆਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
-        { "id": "history", "en": "History", "hi": "इतिहास", "pa": "ਇਤਿਹਾਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+        {
+          "id": "mathematics",
+          "en": "Mathematics",
+          "hi": "गणित",
+          "pa": "ਗਣਿਤ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "english",
+          "en": "English",
+          "hi": "अंग्रेजी",
+          "pa": "ਅੰਗਰੇਜ਼ੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "science",
+          "en": "Science",
+          "hi": "विज्ञान",
+          "pa": "ਵਿਗਿਆਨ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "history",
+          "en": "History",
+          "hi": "इतिहास",
+          "pa": "ਇਤਿਹਾਸ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "hindi",
+          "en": "Hindi",
+          "hi": "हिंदी",
+          "pa": "ਹਿੰਦੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "punjabi",
+          "en": "Punjabi",
+          "hi": "पंजाबी",
+          "pa": "ਪੰਜਾਬੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "geography",
+          "en": "Geography",
+          "hi": "भूगोल",
+          "pa": "ਭੂਗੋਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "commerce",
+          "en": "Commerce",
+          "hi": "वाणिज्य",
+          "pa": "ਕਾਮਰਸ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "accounting",
+          "en": "Accounting",
+          "hi": "लेखांकन",
+          "pa": "ਲੇਖਾਕਾਰੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "banking",
+          "en": "Banking",
+          "hi": "बैंकिंग",
+          "pa": "ਬੈਂਕਿੰਗ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "it",
+          "en": "IT",
+          "hi": "आईटी",
+          "pa": "ਆਈਟੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "agriculture",
+          "en": "Agriculture",
+          "hi": "कृषि",
+          "pa": "ਖੇਤੀਬਾੜੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        }
       ]
     },
     "coins": {
       "entities": [
-        { "id": "coin_1", "en": "Rs. 1 coin", "hi": "1 रुपये का सिक्का", "pa": "1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
-        { "id": "coin_2", "en": "Rs. 2 coin", "hi": "2 रुपये का सिक्का", "pa": "2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
-        { "id": "coin_5", "en": "Rs. 5 coin", "hi": "5 रुपये का सिक्का", "pa": "5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" },
-        { "id": "coin_10", "en": "Rs. 10 coin", "hi": "10 रुपये का सिक्का", "pa": "10 ਰੁਪਏ ਦਾ ਸਿੱਕਾ", "gender": "neutral", "numberType": "countable", "frequency": "rare" }
+        {
+          "id": "coin_1",
+          "en": "Rs. 1 coin",
+          "hi": "1 रुपये का सिक्का",
+          "pa": "1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "coin_2",
+          "en": "Rs. 2 coin",
+          "hi": "2 रुपये का सिक्का",
+          "pa": "2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "coin_5",
+          "en": "Rs. 5 coin",
+          "hi": "5 रुपये का सिक्का",
+          "pa": "5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "coin_10",
+          "en": "Rs. 10 coin",
+          "hi": "10 रुपये का सिक्का",
+          "pa": "10 ਰੁਪਏ ਦਾ ਸਿੱਕਾ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "rare"
+        }
       ]
     },
     "workers": {
       "entities": [
-        { "id": "workers", "en": "workers", "hi": "मजदूर", "pa": "ਮਜ਼ਦੂਰ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "employees", "en": "employees", "hi": "कर्मचारी", "pa": "ਕਰਮਚਾਰੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "men", "en": "men", "hi": "पुरुष", "pa": "ਪੁਰਸ਼", "gender": "male", "numberType": "countable", "frequency": "common" },
-        { "id": "women", "en": "women", "hi": "महिलाएं", "pa": "ਔਰਤਾਂ", "gender": "female", "numberType": "countable", "frequency": "common" }
+        {
+          "id": "workers",
+          "en": "workers",
+          "hi": "मजदूर",
+          "pa": "ਮਜ਼ਦੂਰ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "employees",
+          "en": "employees",
+          "hi": "कर्मचारी",
+          "pa": "ਕਰਮਚਾਰੀ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "men",
+          "en": "men",
+          "hi": "पुरुष",
+          "pa": "ਪੁਰਸ਼",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "women",
+          "en": "women",
+          "hi": "महिलाएं",
+          "pa": "ਔਰਤਾਂ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "managers",
+          "en": "managers",
+          "hi": "प्रबंधक",
+          "pa": "ਪ੍ਰਬੰਧਕ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "supervisors",
+          "en": "supervisors",
+          "hi": "पर्यवेक्षक",
+          "pa": "ਸੁਪਰਵਾਈਜ਼ਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "clerks",
+          "en": "clerks",
+          "hi": "लिपिक",
+          "pa": "ਕਲਰਕ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "engineers",
+          "en": "engineers",
+          "hi": "इंजीनियर",
+          "pa": "ਇੰਜੀਨੀਅਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "drivers",
+          "en": "drivers",
+          "hi": "चालक",
+          "pa": "ਡਰਾਈਵਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "staff",
+          "en": "staff",
+          "hi": "कर्मचारी",
+          "pa": "ਸਟਾਫ਼",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "shopkeepers",
+          "en": "shopkeepers",
+          "hi": "दुकानदार",
+          "pa": "ਦੁਕਾਨਦਾਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "traders",
+          "en": "traders",
+          "hi": "व्यापारी",
+          "pa": "ਵਪਾਰੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "vendors",
+          "en": "vendors",
+          "hi": "विक्रेता",
+          "pa": "ਵਿਕਰੇਤਾ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "farmers",
+          "en": "farmers",
+          "hi": "किसान",
+          "pa": "ਕਿਸਾਨ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "customers",
+          "en": "customers",
+          "hi": "ग्राहक",
+          "pa": "ਗਾਹਕ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "members",
+          "en": "members",
+          "hi": "सदस्य",
+          "pa": "ਮੈਂਬਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "players",
+          "en": "players",
+          "hi": "खिलाड़ी",
+          "pa": "ਖਿਡਾਰੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "doctors",
+          "en": "doctors",
+          "hi": "डॉक्टर",
+          "pa": "ਡਾਕਟਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "nurses",
+          "en": "nurses",
+          "hi": "नर्स",
+          "pa": "ਨਰਸ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        }
       ]
     },
     "mixtures": {
       "entities": [
-        { "id": "milk", "en": "milk", "hi": "दूध", "pa": "ਦੁੱਧ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
-        { "id": "water", "en": "water", "hi": "पानी", "pa": "ਪਾਣੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
-        { "id": "juice", "en": "juice", "hi": "जूस", "pa": "ਜੂਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+        {
+          "id": "milk",
+          "en": "milk",
+          "hi": "दूध",
+          "pa": "ਦੁੱਧ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "water",
+          "en": "water",
+          "hi": "पानी",
+          "pa": "ਪਾਣੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "juice",
+          "en": "juice",
+          "hi": "जूस",
+          "pa": "ਜੂਸ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "petrol",
+          "en": "petrol",
+          "hi": "पेट्रोल",
+          "pa": "ਪੈਟਰੋਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "diesel",
+          "en": "diesel",
+          "hi": "डीजल",
+          "pa": "ਡੀਜ਼ਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "kerosene",
+          "en": "kerosene",
+          "hi": "मिट्टी का तेल",
+          "pa": "ਮਿੱਟੀ ਦਾ ਤੇਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "oil",
+          "en": "oil",
+          "hi": "तेल",
+          "pa": "ਤੇਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "syrup",
+          "en": "syrup",
+          "hi": "शरबत",
+          "pa": "ਸ਼ਰਬਤ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
+        },
+        {
+          "id": "vinegar",
+          "en": "vinegar",
+          "hi": "सिरका",
+          "pa": "ਸਿਰਕਾ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "paint",
+          "en": "paint",
+          "hi": "पेंट",
+          "pa": "ਪੇਂਟ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "ink",
+          "en": "ink",
+          "hi": "स्याही",
+          "pa": "ਸਿਆਹੀ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "mustard_oil",
+          "en": "mustard oil",
+          "hi": "सरसों का तेल",
+          "pa": "ਸਰ੍ਹੋਂ ਦਾ ਤੇਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "coconut_oil",
+          "en": "coconut oil",
+          "hi": "नारियल का तेल",
+          "pa": "ਨਾਰੀਅਲ ਦਾ ਤੇਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "honey",
+          "en": "honey",
+          "hi": "शहद",
+          "pa": "ਸ਼ਹਿਦ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        }
       ]
     }
   }
