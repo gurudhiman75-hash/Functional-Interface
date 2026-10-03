@@ -11,6 +11,20 @@ assert.equal(DM_001_QL_REGISTRY.length, 60);
 assert.equal(DM_001_SCENARIO_LIBRARY.length, 650);
 assertContinuousDmQlIds();
 
+const malformedAdvancedLocalization = [
+  "गायब अंक प्रविष्टि वाली पात्रता फाइल",
+  "प्रकाशित बराबरी-निर्णय क्रम",
+  "ਗੁੰਮ ਅੰਕ ਐਂਟਰੀ ਵਾਲੀ ਯੋਗਤਾ ਫਾਈਲ",
+  "ਨਾ ਦੱਸੀ ਤਜਰਬਾ ਮਿਆਦ",
+] as const;
+const advancedLocalizedCorpus = DM_001_SCENARIO_LIBRARY
+  .filter((scenario) => Number(scenario.checkpointId.slice(-3)) >= 17)
+  .flatMap((scenario) => [scenario.context.hi, scenario.context.pa])
+  .join("\n");
+for (const phrase of malformedAdvancedLocalization) {
+  assert.ok(!advancedLocalizedCorpus.includes(phrase), "Malformed advanced localization returned: " + phrase);
+}
+
 for (const checkpointId of DM_001_CHECKPOINT_IDS.slice(16)) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
   assert.equal(scenarios.length, 25, checkpointId + " must expose 25 advanced rule structures");
