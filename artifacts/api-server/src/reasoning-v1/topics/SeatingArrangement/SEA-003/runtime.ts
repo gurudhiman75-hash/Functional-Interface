@@ -94,6 +94,12 @@ function locale(language: Sea003Language): Sea003GeneratedQuestion["locale"] {
   return language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN";
 }
 
+function polishLearnerText(language: Sea003Language, value: string): string {
+  if (language === "hi") return value.replaceAll("बैठता/बैठती है", "है");
+  if (language === "pa") return value.replaceAll("ਬੈਠਦਾ/ਬੈਠਦੀ ਹੈ", "ਹੈ");
+  return value;
+}
+
 function person(id: string, language: Sea003Language): string {
   const found = PEOPLE.find((entry) => entry.id === id);
   if (!found) throw new Error("Unknown SEA-003 person " + id);
@@ -332,8 +338,8 @@ function buildExchange(seed:string,language:Sea003Language):Sea003GeneratedQuest
   const options=optionSet(answer,["1","2","3","4","5"].filter(x=>x!==answer),seed);
   const stem=t(language,
     `Five people—${listPeople(ids,language)}—sit in a row facing north. ${person(a!,language)} sits at the left end. ${person(b!,language)} sits immediately to the right of ${person(a!,language)}. ${person(c!,language)} sits in the middle. ${person(d!,language)} sits immediately to the left of ${person(e!,language)}, who is at the right end. After the arrangement is completed, ${person(b!,language)} and ${person(d!,language)} exchange their seats. What is ${person(b!,language)}'s position from the left after the exchange?`,
-    `पाँच व्यक्ति—${listPeople(ids,language)}—उत्तर की ओर मुख करके एक पंक्ति में बैठे हैं। ${person(a!,language)} बाएँ छोर पर है। ${person(b!,language)}, ${person(a!,language)} के ठीक दाएँ है। ${person(c!,language)} बीच में है। ${person(d!,language)}, ${person(e!,language)} के ठीक बाएँ है और ${person(e!,language)} दाएँ छोर पर है। व्यवस्था पूरी होने के बाद ${person(b!,language)} और ${person(d!,language)} अपनी सीटें बदलते हैं। अदला-बदली के बाद ${person(b!,language)} बाएँ से किस स्थान पर होगा/होगी?`,
-    `ਪੰਜ ਵਿਅਕਤੀ—${listPeople(ids,language)}—ਉੱਤਰ ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਇੱਕ ਕਤਾਰ ਵਿੱਚ ਬੈਠੇ ਹਨ। ${person(a!,language)} ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਹੈ। ${person(b!,language)}, ${person(a!,language)} ਦੇ ਬਿਲਕੁਲ ਸੱਜੇ ਹੈ। ${person(c!,language)} ਵਿਚਕਾਰ ਹੈ। ${person(d!,language)}, ${person(e!,language)} ਦੇ ਬਿਲਕੁਲ ਖੱਬੇ ਹੈ ਅਤੇ ${person(e!,language)} ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਹੈ। ਵਿਵਸਥਾ ਪੂਰੀ ਹੋਣ ਤੋਂ ਬਾਅਦ ${person(b!,language)} ਅਤੇ ${person(d!,language)} ਆਪਣੀਆਂ ਸੀਟਾਂ ਬਦਲਦੇ ਹਨ। ਅਦਲਾ-ਬਦਲੀ ਤੋਂ ਬਾਅਦ ${person(b!,language)} ਖੱਬੇ ਤੋਂ ਕਿਹੜੇ ਸਥਾਨ 'ਤੇ ਹੋਵੇਗਾ/ਹੋਵੇਗੀ?`);
+    `पाँच व्यक्ति—${listPeople(ids,language)}—उत्तर की ओर मुख करके एक पंक्ति में बैठे हैं। ${person(a!,language)} बाएँ छोर पर है। ${person(b!,language)}, ${person(a!,language)} के ठीक दाएँ है। ${person(c!,language)} बीच में है। ${person(d!,language)}, ${person(e!,language)} के ठीक बाएँ है और ${person(e!,language)} दाएँ छोर पर है। व्यवस्था पूरी होने के बाद ${person(b!,language)} और ${person(d!,language)} अपनी सीटें बदलते हैं। अदला-बदली के बाद ${person(b!,language)} का स्थान बाएँ से कौन-सा होगा?`,
+    `ਪੰਜ ਵਿਅਕਤੀ—${listPeople(ids,language)}—ਉੱਤਰ ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਇੱਕ ਕਤਾਰ ਵਿੱਚ ਬੈਠੇ ਹਨ। ${person(a!,language)} ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਹੈ। ${person(b!,language)}, ${person(a!,language)} ਦੇ ਬਿਲਕੁਲ ਸੱਜੇ ਹੈ। ${person(c!,language)} ਵਿਚਕਾਰ ਹੈ। ${person(d!,language)}, ${person(e!,language)} ਦੇ ਬਿਲਕੁਲ ਖੱਬੇ ਹੈ ਅਤੇ ${person(e!,language)} ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਹੈ। ਵਿਵਸਥਾ ਪੂਰੀ ਹੋਣ ਤੋਂ ਬਾਅਦ ${person(b!,language)} ਅਤੇ ${person(d!,language)} ਆਪਣੀਆਂ ਸੀਟਾਂ ਬਦਲਦੇ ਹਨ। ਅਦਲਾ-ਬਦਲੀ ਤੋਂ ਬਾਅਦ ${person(b!,language)} ਦਾ ਸਥਾਨ ਖੱਬੇ ਤੋਂ ਕਿਹੜਾ ਹੋਵੇਗਾ?`);
   const explanation=[
     t(language,"Solve the original arrangement first.","पहले मूल व्यवस्था हल करें।","ਪਹਿਲਾਂ ਮੂਲ ਵਿਵਸਥਾ ਹੱਲ ਕਰੋ।"),
     finalTable(base,language),
@@ -351,7 +357,9 @@ function make(
   extra?:{conditionEssential:true;baseWorldCountWithoutConditional:number},
 ):Sea003GeneratedQuestion {
   const authority=sea003Authority(qlId);
-  const correctIndex=options.indexOf(answer);
+  const polishedAnswer = polishLearnerText(language, answer);
+  const polishedOptions = options.map((option) => polishLearnerText(language, option));
+  const correctIndex=polishedOptions.indexOf(polishedAnswer);
   if(correctIndex<0) throw new Error(qlId+" answer missing from options.");
   return Object.freeze({
     packageId:"SEA-003" as const,
@@ -360,11 +368,11 @@ function make(
     language,
     locale:locale(language),
     difficulty,
-    stem,
-    options:Object.freeze([...options]),
+    stem:polishLearnerText(language, stem),
+    options:Object.freeze(polishedOptions),
     correctIndex,
-    answer,
-    explanation,
+    answer:polishedAnswer,
+    explanation:polishLearnerText(language, explanation),
     proof:Object.freeze({
       worldCountBefore,
       worldCountAfter:1 as const,
