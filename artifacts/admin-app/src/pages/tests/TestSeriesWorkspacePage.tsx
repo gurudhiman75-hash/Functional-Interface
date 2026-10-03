@@ -63,6 +63,10 @@ interface EditorDraft {
   learnerMessage: string;
   hubStage: SeriesHubStage;
   hubType: SeriesHubType;
+  hubSectionTitle: string;
+  hubSectionDescription: string;
+  hubSectionOrder: number;
+  hubSeriesOrder: number;
   examCycle: string;
   availabilityStartAt: string;
   availabilityEndAt: string;
@@ -110,6 +114,10 @@ function blankDraft(catalog: SeriesCatalog): EditorDraft {
     learnerMessage: 'Tests are being prepared. No questions are available yet.',
     hubStage: 'general',
     hubType: 'full-length',
+    hubSectionTitle: '',
+    hubSectionDescription: '',
+    hubSectionOrder: 100,
+    hubSeriesOrder: 100,
     examCycle: String(new Date().getFullYear()),
     availabilityStartAt: '',
     availabilityEndAt: '',
@@ -141,6 +149,14 @@ function detailDraft(detail: TestSeriesDetail): EditorDraft {
       const value = detail.currentVersion?.configuration?.hubType;
       return value === 'pyq' || value === 'sectional' || value === 'topic-wise' || value === 'full-length' ? value : 'full-length';
     })(),
+    hubSectionTitle: typeof detail.currentVersion?.configuration?.hubSectionTitle === 'string'
+      ? detail.currentVersion.configuration.hubSectionTitle
+      : '',
+    hubSectionDescription: typeof detail.currentVersion?.configuration?.hubSectionDescription === 'string'
+      ? detail.currentVersion.configuration.hubSectionDescription
+      : '',
+    hubSectionOrder: Number(detail.currentVersion?.configuration?.hubSectionOrder ?? 100),
+    hubSeriesOrder: Number(detail.currentVersion?.configuration?.hubSeriesOrder ?? 100),
     examCycle: typeof detail.currentVersion?.configuration?.examCycle === 'string'
       ? detail.currentVersion.configuration.examCycle
       : '',
@@ -291,6 +307,10 @@ export function TestSeriesWorkspacePage() {
         learnerMessage: draft.learnerMessage.trim(),
         hubStage: draft.hubStage,
         hubType: draft.hubType,
+        hubSectionTitle: draft.hubSectionTitle.trim(),
+        hubSectionDescription: draft.hubSectionDescription.trim(),
+        hubSectionOrder: Number.isFinite(draft.hubSectionOrder) ? Math.max(0, Math.round(draft.hubSectionOrder)) : 100,
+        hubSeriesOrder: Number.isFinite(draft.hubSeriesOrder) ? Math.max(0, Math.round(draft.hubSeriesOrder)) : 100,
         examCycle: draft.examCycle.trim(),
       },
       changeReason: draft.changeReason,
