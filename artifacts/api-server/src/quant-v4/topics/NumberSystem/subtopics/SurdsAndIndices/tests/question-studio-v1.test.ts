@@ -16,6 +16,18 @@ import {
   listQuestionStudioPackages,
 } from "../../../../../../question-studio/shared-generation-engine-sri";
 
+const ACTIVE_NATIVE_SCRIPT = {
+  hi: /\p{Script=Devanagari}/u,
+  pa: /\p{Script=Gurmukhi}/u,
+} as const;
+const ACTIVE_FOREIGN_SCRIPT = {
+  hi: /\p{Script=Gurmukhi}/u,
+  pa: /\p{Script=Devanagari}/u,
+} as const;
+const ACTIVE_BANNED_ENGLISH = /\b(?:simplify|evaluate|find|determine|which|what|write|reduce|expand|multiply|divide|compare|arrange|classify|choose|extract|given|using|from|when|value|values|expression|expressions|exponent|exponents|base|bases|root|roots|radical|radicals|surd|surds|rational|irrational|conjugate|coefficient|coefficients|equation|statement|statements|result|results|factor|factors|power|powers|positive|negative|real|true|false|defined|undefined|common|same|greater|smaller|larger|equal|exact|exactly|first|second|therefore|hence|thus|since|because|canonical|form|term|terms|law|laws|condition|conditions|solution|solutions|denominator|numerator|reciprocal|integer|normalize|rewrite|convert|substitute|apply|add|subtract|method)\b/giu;
+const ACTIVE_INTERNAL_LEAK = /SRI-(?:00[12]-)?(?:QL|SM|RG)-|PROVISIONAL_DISCOVERY|canonicalSolverKey|independentVerifierKey|solverVerifierAgree|proofEvents/iu;
+const MACHINE_STEM = /\b(?:to the nearest|do this first|first find|follow these steps|which of the following steps)\b/iu;
+
 const packages = listSriQuestionStudioPackagesV1();
 assert.equal(packages.length, 2);
 assert.deepEqual(packages.map((pkg) => pkg.packageId), ["SRI-001", "SRI-002"]);
@@ -99,6 +111,30 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
     assert.ok(question.explanation.length > 0);
     assert.ok(question.packageExplanation.method.length > 0);
     assert.ok(question.packageExplanation.working.length > 0);
+    assert.equal(new Set(question.options).size, 4, `${allocation.qlId}/${language}: visible options are not unique`);
+    assert.equal(MACHINE_STEM.test(question.stem), false, `${allocation.qlId}/${language}: machine-style learner stem`);
+    MACHINE_STEM.lastIndex = 0;
+
+    const activeLearnerText = [
+      question.stem,
+      ...question.options,
+      question.packageExplanation.given,
+      question.packageExplanation.asked,
+      question.packageExplanation.method,
+      ...question.packageExplanation.working,
+      question.packageExplanation.answer,
+    ].join("\n");
+    assert.equal(ACTIVE_INTERNAL_LEAK.test(activeLearnerText), false, `${allocation.qlId}/${language}: internal metadata leaked to active learner surface`);
+    ACTIVE_INTERNAL_LEAK.lastIndex = 0;
+    if (language === "hi" || language === "pa") {
+      assert.equal(ACTIVE_NATIVE_SCRIPT[language].test(question.stem), true, `${allocation.qlId}/${language}: active stem lacks native script`);
+      ACTIVE_NATIVE_SCRIPT[language].lastIndex = 0;
+      assert.equal(ACTIVE_FOREIGN_SCRIPT[language].test(activeLearnerText), false, `${allocation.qlId}/${language}: foreign Indic script leaked`);
+      ACTIVE_FOREIGN_SCRIPT[language].lastIndex = 0;
+      const residualEnglish = [...activeLearnerText.matchAll(ACTIVE_BANNED_ENGLISH)].map((match) => match[0]);
+      ACTIVE_BANNED_ENGLISH.lastIndex = 0;
+      assert.deepEqual(residualEnglish, [], `${allocation.qlId}/${language}: residual English leaked to active learner surface`);
+    }
     generated += 1;
   }
 }
