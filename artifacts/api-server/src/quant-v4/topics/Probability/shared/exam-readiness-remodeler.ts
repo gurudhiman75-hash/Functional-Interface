@@ -184,16 +184,16 @@ function reverseCommitteeCountExplanation(parameters: GeneratedParameters, solve
   const men = numberValue(parameters, "men");
   const women = numberValue(parameters, "women");
   const committeeSize = numberValue(parameters, "committeeSize");
-  const requiredWomen = numberValue(parameters, "requiredWomen", 1);
-  const requiredMen = committeeSize - requiredWomen;
-  const womenWays = choose(women, requiredWomen);
-  const menWays = choose(men, requiredMen);
+  const totalCommittees = choose(men + women, committeeSize);
+  const favourable = Number(solved.evidence.favourableOutcomeCount ?? 0n);
+  const totalEvidence = Number(solved.evidence.totalOutcomeCount ?? BigInt(totalCommittees));
+  const divisor = gcd(favourable, totalEvidence);
+  const probability = `${favourable / divisor}/${totalEvidence / divisor}`;
   return [
-    "Method — A committee is an unordered selection. Choose the required women and men separately with combinations, then multiply the independent choices.",
-    `Step 1 — Ways to choose ${requiredWomen} ${requiredWomen === 1 ? "woman" : "women"}: ${combinationExpansion(women, requiredWomen)}.`,
-    `Step 2 — Ways to choose ${requiredMen} ${requiredMen === 1 ? "man" : "men"}: ${combinationExpansion(men, requiredMen)}.`,
-    `Step 3 — Required committees = ${womenWays} × ${menWays} = ${solved.exactDisplay}.`,
-    "Key point — No division by the total number of committees is needed because the question asks for a count, not a probability.",
+    "Method — The stated probability is the fraction of all possible committees having the required composition. Find the total number of committees, then recover the favourable count.",
+    `Step 1 — Total committees = ${combinationExpansion(men + women, committeeSize)}.`,
+    `Step 2 — Required committees = ${totalCommittees} × ${probability} = ${solved.exactDisplay}.`,
+    "Key point — This is a reverse probability question: probability × total outcomes gives the favourable outcome count.",
     `Answer — The required number of committees is ${solved.exactDisplay}.`,
   ];
 }
@@ -203,20 +203,6 @@ export function remodelExamReadinessStem(
   parameters: GeneratedParameters,
   existingStem: string,
 ): string {
-  if (entry.qlId === "PRB-QL-708") {
-    const men = numberValue(parameters, "men");
-    const women = numberValue(parameters, "women");
-    const committeeSize = numberValue(parameters, "committeeSize");
-    const requiredWomen = numberValue(parameters, "requiredWomen", 1);
-    return `A ${committeeSize}-member committee is formed from ${men} men and ${women} women. How many committees contain exactly ${requiredWomen} ${requiredWomen === 1 ? "woman" : "women"}?`;
-  }
-
-  if (entry.qlId === "PRB-QL-802") {
-    const total = numberValue(parameters, "total");
-    const overlap = numberValue(parameters, "overlap");
-    return `In a group of ${total} students, ${overlap} students play both cricket and football. What is the probability that a randomly selected student plays both games?`;
-  }
-
   return existingStem;
 }
 
