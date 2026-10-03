@@ -89,7 +89,6 @@ assert.doesNotMatch(engineRoute, /nonQuantRunGate/);
 assert.match(engineRoute, /shouldDeferQuantCompatibilityRun/);
 assert.match(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES/);
 for (const packageId of [
-  "num 002",
   "sap",
 ]) {
   assert.equal(
@@ -113,12 +112,26 @@ const legacyQuantPackagesBlock = engineRoute.slice(
 assert.doesNotMatch(legacyQuantPackagesBlock, /"avg 001"/);
 assert.doesNotMatch(legacyQuantPackagesBlock, /"tmw 001"/);
 assert.doesNotMatch(legacyQuantPackagesBlock, /"num 001"/);
+assert.doesNotMatch(legacyQuantPackagesBlock, /"num 002"/);
 assert.match(engineRoute, /isNum001UnifiedRequest/);
 assert.match(engineRoute, /packageId === "num 001"/);
 assert.match(engineRoute, /isLegacyNum002QuestionLanguageId/);
 assert.match(engineRoute, /includesLegacyNum002CpIds/);
-assert.match(engineRoute, /"NUM-CP-008"/);
+assert.match(engineRoute, /"NUM-CP-013"/);
 assert.match(engineRoute, /"NUM-CP-014"/);
+assert.doesNotMatch(
+  engineRoute.slice(
+    engineRoute.indexOf("const LEGACY_NUMBER_SYSTEM_CPS"),
+    engineRoute.indexOf("]);", engineRoute.indexOf("const LEGACY_NUMBER_SYSTEM_CPS")) + 3,
+  ),
+  /"NUM-CP-008"/,
+);
+assert.match(engineRoute, /number >= 237 && number <= 253/);
+assert.match(engineRoute, /LEGACY_NUM002_CP_MIX_UNSUPPORTED/);
+assert.doesNotMatch(engineRoute, /patternId\.includes\("num cp 008"\)/);
+assert.doesNotMatch(engineRoute, /patternId\.includes\("num cp 012"\)/);
+assert.match(engineRoute, /patternId\.includes\("num cp 013"\)/);
+assert.match(engineRoute, /patternId\.includes\("num cp 014"\)/);
 assert.match(engineRoute, /packageId === "AVG-001"/);
 assert.match(engineRoute, /packageId === "TMW-001"/);
 assert.match(engineRoute, /isBankingSapCompatibilityRequest/);
