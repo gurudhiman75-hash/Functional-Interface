@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 
 import { REASONING_V1_NOVELTY_INVENTORY_V1 } from "../shared/reasoning-novelty-inventory-v1";
 import { REASONING_V1_NOVELTY_PROVIDERS_V1 } from "../shared/reasoning-novelty-provider-registry-v1";
+import {
+  SER_PERMANENT_QL_IDS_V4,
+  SER_PERMANENT_QL_REGISTRY_V4_STATE,
+} from "../topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY-V4";
 
 const closedTopics = [
   ["Data-Sufficiency", "DSF-001"],
@@ -51,9 +55,17 @@ for (const [topicDirectory, chapterId] of closedTopics) {
 const series = REASONING_V1_NOVELTY_INVENTORY_V1.find(
   (entry) => entry.topicDirectory === "Series",
 );
+assert.ok(series, "Series novelty inventory entry must exist.");
+assert.equal(SER_PERMANENT_QL_IDS_V4.length, 29);
+assert.equal(SER_PERMANENT_QL_REGISTRY_V4_STATE.allocatedRange, "SER-QL-001..SER-QL-029");
+assert.equal(SER_PERMANENT_QL_REGISTRY_V4_STATE.nextAvailableId, "SER-QL-030");
 assert.ok(
-  series?.nextGate.includes("source-backed promotion checkpoint"),
-  "Series source-backed CP008/CP009 promotion work must remain explicitly preserved.",
+  series?.evidence.some((line) => line.includes("SER-QL-014..029")),
+  "Series inventory must acknowledge the completed 16-QL source-backed promotion.",
+);
+assert.ok(
+  series?.nextGate.includes("Source-backed promotion is complete"),
+  "Series next gate must not claim that the already-completed promotion is still pending.",
 );
 
 console.log(JSON.stringify({
