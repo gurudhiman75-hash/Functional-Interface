@@ -47,10 +47,22 @@ async function main() {
     count: 10,
     seed: "question-studio:bank-hard",
   } as any);
+  const genericProbability = await generateQuestion({
+    topic: "Arithmetic",
+    subtopic: "Probability",
+    count: 6,
+    seed: "question-studio:probability-mixed",
+  } as any);
 
   assert(ssc.questionPackages.length === 3, "SSC Question Studio batch size is incorrect.");
   assert(bank.questionPackages.length === 3, "Banking Question Studio batch size is incorrect.");
   assert(bankHard.questionPackages.length === 10, "Banking Mains hard-pool batch size is incorrect.");
+  assert(genericProbability.questions.length === 6, "Generic Probability mixed batch size is incorrect.");
+  assert(genericProbability.generationContext.mixedChapterRouting === true, "Generic Probability request did not use mixed chapter routing.");
+  assert(
+    new Set(genericProbability.questions.map((item: any) => item.patternId ?? item.packageId)).size === 2,
+    "Generic Probability request must draw from both PRB-001 and PRB-002.",
+  );
   for (const [label, batch] of [["SSC", ssc], ["Banking", bank]] as const) {
     const context = batch.generationContext as any;
     assert(context.runtimeMode === "ENGLISH_MOCK_READY", `${label} generation context is not English mock-ready.`);
