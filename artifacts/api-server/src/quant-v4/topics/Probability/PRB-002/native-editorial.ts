@@ -241,10 +241,10 @@ const FAMILY_SPECS: Readonly<Record<string, NativeFamilySpec>> = {
   },
   "Number Formation": {
     stem: pair(
-      "{minDigit} से {maxDigit} तक के अंकों से बिना पुनरावृत्ति एक {length}-अंकीय कोड समान संभावना से बनाया जाता है। कोड के सम अंक पर समाप्त होने की प्रायिकता ज्ञात करें। {answerInstruction}",
-      "{minDigit} ਤੋਂ {maxDigit} ਤੱਕ ਦੇ ਅੰਕਾਂ ਨਾਲ ਬਿਨਾਂ ਦੁਹਰਾਵੇ ਇੱਕ {length}-ਅੰਕੀ ਕੋਡ ਇੱਕੋ ਸੰਭਾਵਨਾ ਨਾਲ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ। ਕੋਡ ਦੇ ਸਮ ਅੰਕ ਤੇ ਖਤਮ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੱਢੋ। {answerInstruction}",
+      "{minDigit} से {maxDigit} तक के अंकों से बिना पुनरावृत्ति एक {length}-अंकीय संख्या बनाई जाती है। उस संख्या के सम होने की प्रायिकता ज्ञात करें। {answerInstruction}",
+      "{minDigit} ਤੋਂ {maxDigit} ਤੱਕ ਦੇ ਅੰਕਾਂ ਨਾਲ ਬਿਨਾਂ ਦੁਹਰਾਵੇ ਇੱਕ {length}-ਅੰਕੀ ਸੰਖਿਆ ਬਣਾਈ ਜਾਂਦੀ ਹੈ। ਉਸ ਸੰਖਿਆ ਦੇ ਸਮ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੱਢੋ। {answerInstruction}",
     ),
-    eventWording: pair("अंक-कोड निर्माण", "ਅੰਕ-ਕੋਡ ਬਣਤਰ"),
+    eventWording: pair("संख्या निर्माण", "ਸੰਖਿਆ ਬਣਤਰ"),
     explanation: COUNTING_EXPLANATION,
   },
   "Restricted Selection": {
@@ -257,10 +257,10 @@ const FAMILY_SPECS: Readonly<Record<string, NativeFamilySpec>> = {
   },
   "Reverse Counting": {
     stem: pair(
-      "{men} पुरुष और {women} महिलाओं में से {committeeSize} सदस्यों की समिति चुनी जाती है। दी गई संरचना की प्रायिकता {probability} है। उस संरचना वाली समितियों की संख्या ज्ञात करें। {answerInstruction}",
-      "{men} ਪੁਰਸ਼ਾਂ ਅਤੇ {women} ਮਹਿਲਾਵਾਂ ਵਿੱਚੋਂ {committeeSize} ਮੈਂਬਰਾਂ ਦੀ ਕਮੇਟੀ ਚੁਣੀ ਜਾਂਦੀ ਹੈ। ਦਿੱਤੀ ਬਣਤਰ ਦੀ ਸੰਭਾਵਨਾ {probability} ਹੈ। ਉਸ ਬਣਤਰ ਵਾਲੀਆਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ। {answerInstruction}",
+      "{men} पुरुष और {women} महिलाओं में से {committeeSize} सदस्यों की समिति चुनी जाती है। समिति में ठीक एक महिला होने की प्रायिकता {probability} है। ऐसी समितियों की संख्या ज्ञात करें। {answerInstruction}",
+      "{men} ਪੁਰਸ਼ਾਂ ਅਤੇ {women} ਮਹਿਲਾਵਾਂ ਵਿੱਚੋਂ {committeeSize} ਮੈਂਬਰਾਂ ਦੀ ਕਮੇਟੀ ਚੁਣੀ ਜਾਂਦੀ ਹੈ। ਕਮੇਟੀ ਵਿੱਚ ਠੀਕ ਇੱਕ ਮਹਿਲਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ {probability} ਹੈ। ਅਜਿਹੀਆਂ ਕਮੇਟੀਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ। {answerInstruction}",
     ),
-    eventWording: pair("गणना की उलटी प्रायिकता", "ਗਿਣਤੀ ਦੀ ਉਲਟੀ ਸੰਭਾਵਨਾ"),
+    eventWording: pair("ठीक एक महिला वाली समिति की उलटी गणना", "ਠੀਕ ਇੱਕ ਮਹਿਲਾ ਵਾਲੀ ਕਮੇਟੀ ਦੀ ਉਲਟੀ ਗਿਣਤੀ"),
     explanation: COUNTING_EXPLANATION,
   },
   Union: {
