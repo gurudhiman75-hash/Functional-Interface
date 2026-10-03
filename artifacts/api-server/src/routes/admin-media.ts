@@ -146,7 +146,7 @@ router.post("/import-storage",requireAdminPermission("content.taxonomy.manage"),
     const bucket=storage.bucket();
     const existingRows=await sqlClient`
       SELECT storage_path AS "storagePath" FROM platform.media_assets
-      WHERE storage_path = ANY(${paths})
+      WHERE storage_path = ANY(${paths}::text[])
     `;
     const existing=new Set(existingRows.map(row=>String(row.storagePath)));
     const candidates:Array<{
