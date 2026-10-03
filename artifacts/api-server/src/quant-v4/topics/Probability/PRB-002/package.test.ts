@@ -86,7 +86,7 @@ console.log(JSON.stringify({
   ),
 }));
 
-const cp008Source = PRB_002_LIBRARIES.language.filter((entry)=>entry.cpId==="PRB-CP-008");
+const cp008Source = PRB_002_LIBRARIES.language.filter((entry)=>/^PRB-QL-7(?:0[1-9]|1[0-9]|2[0-6])$/.test(entry.qlId));
 assert(cp008Source.length===26,`Expected 26 CP008 English QLs, found ${cp008Source.length}`);
 for (const entry of cp008Source) {
   assert(
