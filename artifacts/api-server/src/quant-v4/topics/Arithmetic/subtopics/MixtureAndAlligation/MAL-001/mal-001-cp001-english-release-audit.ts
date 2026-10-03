@@ -34,8 +34,6 @@ function stable(value: unknown): string {
 
 const crossQlIds = new Set([
   "MAL-QL-001",
-  "MAL-QL-002",
-  "MAL-QL-003",
   "MAL-QL-005",
   "MAL-QL-006",
   "MAL-QL-007",
