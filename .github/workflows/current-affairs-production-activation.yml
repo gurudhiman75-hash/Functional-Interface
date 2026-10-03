@@ -93,7 +93,7 @@ jobs:
           test -f "$census"
           test -f "$opennews"
           test -f "$masterapproval"
-          grep -Fq 'pg_advisory_lock' "$runner"
+          grep -Fq 'pg_try_advisory_lock' "$runner"
           grep -Fq 'platform.current_affairs_schema_migrations' "$runner"
           grep -Fq '20260828_current_affairs_studio.sql' "$runner"
           grep -Fq '20260830_current_affairs_production_ops.sql' "$runner"
