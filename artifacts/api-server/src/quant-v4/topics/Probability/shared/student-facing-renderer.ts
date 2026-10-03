@@ -205,7 +205,21 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findDifferentTypesInSuccessiveDraws": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn successively without replacement. What is the probability that the two balls have different colours?`;
     case "findAtLeastOneAcrossIndependentStages": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn with replacement. What is the probability of drawing at least one red ball?`;
     case "findConditionalProbabilityByCounting":
-    case "findConditionalFromTwoWayTable": return `Of the ${num(p, "mathTotal")} students who passed Mathematics, ${num(p, "both")} also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?`;
+    case "findConditionalFromTwoWayTable": {
+      const total = num(p, "mathTotal"), both = num(p, "both");
+      const context = text(p, "conditionalContext", "STUDENT_SUBJECTS");
+      if (context === "CANDIDATE_STAGES") {
+        return `${total} candidates cleared the written test, and ${both} of them also qualified the interview. If one written-test qualifier is selected at random, what is the probability that the selected candidate also qualified the interview?`;
+      }
+      if (context === "COMMITTEE_MEMBERS") {
+        const condition = text(p, "conditionLabel", "are graduate members").replace(/^are\s+/i, "");
+        const target = text(p, "targetLabel", "are women").replace(/^are\s+/i, "");
+        return `A committee has ${total} members who are ${condition}; ${both} of them are ${target}. If one member is selected at random from this group, what is the probability that the selected member is ${target}?`;
+      }
+      const condition = text(p, "conditionLabel", "passed Mathematics").replace(/^passed\s+/i, "");
+      const target = text(p, "targetLabel", "passed English").replace(/^passed\s+/i, "");
+      return `Of the ${total} students who passed ${condition}, ${both} also passed ${target}. One of these students is selected at random. What is the probability that the selected student also passed ${target}?`;
+    }
     case "findConditionalCardProbability": {
       const form = qlSeriesVariant(entry, 6, 4);
       if (form === 0) return "A card drawn from a standard deck is known to be a face card. What is the probability that the card is a king?";
