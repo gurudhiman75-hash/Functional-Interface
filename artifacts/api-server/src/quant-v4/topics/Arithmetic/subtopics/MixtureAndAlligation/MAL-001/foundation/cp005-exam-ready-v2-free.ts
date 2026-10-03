@@ -134,8 +134,8 @@ export function freeProfitQuestionV2(input: {
         misconceptionId: "reported_revenue_percentage_instead_of_profit",
       },
       {
-        text: percentTextV2(inverseBase),
-        misconceptionId: "reversed_profit_fraction",
+        text: percentTextV2(addRational(profit, state.finalAdulterantPercent)),
+        misconceptionId: "added_profit_and_mixture_share",
       },
     ],
     `${input.selectedSeed}:options`,
