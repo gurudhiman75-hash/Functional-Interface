@@ -10,6 +10,12 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP003_COIN_HEAD_STATE_LANES: Readonly<Record<string, Readonly<{ tosses: number; heads: number }>>> = Object.freeze({
+  "PRB-QL-202": { tosses: 3, heads: 2 },
+  "PRB-QL-210": { tosses: 5, heads: 2 },
+  "PRB-QL-218": { tosses: 4, heads: 3 },
+});
+
 const CP002_COIN_STATE_LANES: Readonly<Record<string, Readonly<{ trials: number; k?: number }>>> = Object.freeze({
   "PRB-QL-102": { trials: 2 }, "PRB-QL-109": { trials: 3 }, "PRB-QL-116": { trials: 4 }, "PRB-QL-123": { trials: 5 },
   "PRB-QL-103": { trials: 2 }, "PRB-QL-110": { trials: 3 }, "PRB-QL-117": { trials: 4 }, "PRB-QL-124": { trials: 5 },
@@ -69,7 +75,12 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (mode === "findCoinPatternProbability") { const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4); const pattern = Array.from({ length: tosses }, () => random() < 0.5 ? "H" : "T").join(""); return { tosses, pattern }; }
-  if (mode === "findCoinHeadCountProbability") { const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4); return { tosses, heads: randomInt(random, 1, tosses - 1) }; }
+  if (mode === "findCoinHeadCountProbability") {
+    const lane = CP003_COIN_HEAD_STATE_LANES[entry.qlId];
+    if (lane) return { tosses: lane.tosses, heads: lane.heads };
+    const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4);
+    return { tosses, heads: randomInt(random, 1, tosses - 1) };
+  }
   if (mode === "findSingleDieEventProbability") { return { dieSides: 6, property: pickRandom(random, ["EVEN", "PRIME", "GREATER_THAN", "LESS_THAN"] as const), threshold: randomInt(random, 2, 4) }; }
   if (mode === "findTwoDiceSumProbability") { return { dieSides: 6, targetSum: randomInt(random, 4, 10) }; }
   if (mode === "findTwoDiceProductOrParityProbability") { return { dieSides: 6, eventType: pickRandom(random, ["PRODUCT", "SAME_PARITY", "DIFFERENT_PARITY"] as const), targetProduct: pickRandom(random, [6, 8, 10, 12] as const) }; }
