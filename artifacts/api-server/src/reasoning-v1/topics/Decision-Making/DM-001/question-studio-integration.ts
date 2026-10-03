@@ -92,27 +92,6 @@ function checkpointForSelector(selector: string): DmCheckpointId | undefined {
   return blueprintCpAliases[selector];
 }
 
-// Mixed review batches must expose the whole chapter early. A contiguous QL walk made
-// the first 15-30 questions look like one long recruitment/eligibility exercise even
-// though CP011-CP020 own materially different situational and advanced decision tasks.
-const DEFAULT_MIXED_CHECKPOINT_ORDER: readonly DmCheckpointId[] = Object.freeze([
-  "DM-CP-001", "DM-CP-011", "DM-CP-017", "DM-CP-006", "DM-CP-012",
-  "DM-CP-018", "DM-CP-002", "DM-CP-013", "DM-CP-019", "DM-CP-007",
-  "DM-CP-014", "DM-CP-020", "DM-CP-003", "DM-CP-015", "DM-CP-008",
-  "DM-CP-004", "DM-CP-016", "DM-CP-009", "DM-CP-005", "DM-CP-010",
-]);
-
-const DEFAULT_MIXED_QL_ORDER: readonly DmQlId[] = Object.freeze(
-  [0, 1, 2].flatMap((qlOffset) =>
-    DEFAULT_MIXED_CHECKPOINT_ORDER.map((checkpointId) => {
-      const owned = DM_001_QL_REGISTRY.filter((entry) => entry.checkpointId === checkpointId);
-      const entry = owned[qlOffset];
-      if (!entry) throw new Error(checkpointId + " does not expose the expected three DM QLs.");
-      return entry.qlId;
-    }),
-  ),
-);
-
 function resolveQlPool(request: QuestionStudioGenerationRequest): DmQlId[] {
   const selectors = [request.patternId, request.canonicalProblemId, request.questionLanguageId]
     .map((value) => text(value).toUpperCase())
@@ -132,7 +111,7 @@ function resolveQlPool(request: QuestionStudioGenerationRequest): DmQlId[] {
   }
   if (qlId) return [qlId];
   if (checkpointId) return DM_001_QL_REGISTRY.filter((entry) => entry.checkpointId === checkpointId).map((entry) => entry.qlId);
-  return [...DEFAULT_MIXED_QL_ORDER];
+  return [...qlIds];
 }
 
 export function isDm001QuestionStudioRequest(request: QuestionStudioGenerationRequest): boolean {

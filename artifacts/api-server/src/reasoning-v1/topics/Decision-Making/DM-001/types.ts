@@ -77,6 +77,15 @@ export type DmField =
   | "repaymentStatus"
   | "collateralStatus"
   | "category"
+  | "unitWeightGrams"
+  | "ripenessScore"
+  | "defectRatePercent"
+  | "moisturePercent"
+  | "storageTemperatureCelsius"
+  | "packageIntegrityStatus"
+  | "inspectionStatus"
+  | "contaminationStatus"
+  | "traceabilityStatus"
   | "applicationOrder";
 export type DmRankField = "qualificationRank" | "experienceYears" | "graduationMarks" | "writtenScore" | "sectionalScore" | "interviewScore" | "overallScore" | "age" | "applicationOrder";
 export type DmRankCriterion = Readonly<{ field: DmRankField; direction: "HIGHER_FIRST" | "LOWER_FIRST" }>;
@@ -186,6 +195,15 @@ export type DmCandidateProfile = Readonly<{
   repaymentStatus?: string;
   collateralStatus?: string;
   category?: string;
+  unitWeightGrams?: number;
+  ripenessScore?: number;
+  defectRatePercent?: number;
+  moisturePercent?: number;
+  storageTemperatureCelsius?: number;
+  packageIntegrityStatus?: string;
+  inspectionStatus?: string;
+  contaminationStatus?: string;
+  traceabilityStatus?: string;
   applicationOrder?: number;
 }>; 
 
@@ -200,6 +218,7 @@ export type DmScenario = Readonly<{
   blueprintCheckpointId: string;
   qlId: DmQlId;
   context: LocalizedText;
+  subjectKind?: "PERSON" | "PRODUCT_LOT";
   baseConditions: readonly DmRuleCondition[];
   decisionRules: readonly DmDecisionRule[];
   ruleNotes: readonly LocalizedText[];

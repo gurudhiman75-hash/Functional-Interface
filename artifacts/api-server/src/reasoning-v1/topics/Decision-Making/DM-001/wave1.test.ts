@@ -42,7 +42,11 @@ for (const scenario of legacyScenarios) {
           assert.deepEqual(question.selectedCandidates, ranked.selected.map((candidate) => candidate.name));
           assert.equal(question.options[question.correctIndex], question.selectedCandidates!.join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "));
           assert.match(question.stem, /Priority order|प्राथमिकता क्रम|ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ/);
-        } else assert.equal(question.options[question.correctIndex], {
+        } else assert.equal(question.options[question.correctIndex], scenario.subjectKind === "PRODUCT_LOT" ? {
+          en: { SELECT: "Accept the lot", REJECT: "Reject the lot", REFER_TO_MANAGER: "Refer the case to the Manager", REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee", INFORMATION_REQUIRED: "Hold the lot; required inspection information is missing" },
+          hi: { SELECT: "लॉट स्वीकार करें", REJECT: "लॉट अस्वीकार करें", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें", REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें", INFORMATION_REQUIRED: "लॉट रोकें; आवश्यक निरीक्षण जानकारी उपलब्ध नहीं है" },
+          pa: { SELECT: "ਲਾਟ ਮਨਜ਼ੂਰ ਕਰੋ", REJECT: "ਲਾਟ ਰੱਦ ਕਰੋ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ", REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ", INFORMATION_REQUIRED: "ਲਾਟ ਰੋਕੋ; ਲੋੜੀਂਦੀ ਜਾਂਚ ਜਾਣਕਾਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ" },
+        }[locale][question.outcome] : {
           en: {
             SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules", REFER_TO_MANAGER: "Refer the case to the Manager",
             REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
@@ -87,6 +91,9 @@ const domainMarkers = ["scholarship", "licence", "hostel", "certification", "adm
 assert.ok(domainMarkers.filter((marker) => [...distinctEnglishContexts].some((context) => context.toLowerCase().includes(marker))).length >= 10, "scenario library must span at least ten decision domains");
 const recruitmentContexts = [...distinctEnglishContexts].filter((context) => /recruitment|appointment|vacanc(?:y|ies)/i.test(context));
 assert.ok(recruitmentContexts.length <= Math.ceil(distinctEnglishContexts.size * 0.1), "recruitment contexts must remain a small minority");
+const productScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.subjectKind === "PRODUCT_LOT");
+assert.ok(productScenarios.length >= 70, "the library must contain substantial non-person product-quality decisions");
+assert.ok(productScenarios.every((scenario) => scenario.baseConditions.every((item) => !["age", "qualificationRank", "graduationMarks", "experienceYears"].includes(item.field))), "product grading must not reuse candidate-eligibility fields");
 
 const cp3 = dmScenariosForCheckpoint("DM-CP-003");
 const cp4 = dmScenariosForCheckpoint("DM-CP-004");

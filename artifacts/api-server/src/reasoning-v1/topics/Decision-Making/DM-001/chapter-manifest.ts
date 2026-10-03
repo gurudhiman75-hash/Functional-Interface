@@ -59,15 +59,13 @@ export const DM_001_MANIFEST = Object.freeze({
     freeFormScenarioGenerationAllowed: false,
   },
   lifecycle: {
-    status: "CONTENT_DEEP_AUDIT_CLOSED_REVIEW_ONLY",
+    status: "WAVES_1_TO_4_CHAPTER_COMPLETE_REVIEW_ONLY",
     questionStudioRegisteredReviewOnly: true,
     questionBankWritable: false,
     testEligible: false,
     mockEligible: false,
     publicEligible: false,
     automaticPublication: false,
-    finalDeepAuditAuthority: "DM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
-    controlledNoveltyAuthority: "DM-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md",
   },
   boundary: {
     recruitmentAdmissionEligibilityOwnedBy: "REAS-DCS",
