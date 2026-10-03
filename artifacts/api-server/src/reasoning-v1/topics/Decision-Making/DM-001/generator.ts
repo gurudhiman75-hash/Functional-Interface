@@ -681,6 +681,10 @@ function formatApplicant(profile: DmCandidateProfile, scenario: DmScenario, loca
     : name + " — " + items.join("। ") + "।";
 }
 
+function asSentence(value: string, locale: DmLocale): string {
+  return value.trim().replace(/[.!?।]+$/u, "") + (locale === "en" ? "." : "।");
+}
+
 function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale: DmLocale, seed: number): string {
   const prompt = PROMPTS[locale];
   const intro = prompt.intro.replaceAll("{context}", scenario.context[locale]);
@@ -692,7 +696,7 @@ function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale
   }
   if (scenario.ruleNotes.length > 0) {
     lines.push(prompt.additional + ":");
-    for (const note of scenario.ruleNotes) lines.push("• " + note[locale]);
+    for (const note of scenario.ruleNotes) lines.push("• " + asSentence(note[locale], locale));
   }
   lines.push(formatApplicant(profile, scenario, locale));
   lines.push(STEMS[locale][seed % STEMS[locale].length]!.replaceAll("{name}", profile.name));
@@ -725,7 +729,7 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
     return "• " + FIELD_LABELS[locale][check.condition.field] + ": " + observed + separator + requirement + " — " + statusLabel(check.status, locale) + punctuation;
   });
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
-  const ruleLine = matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome];
+  const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome], locale);
   const finalPunctuation = locale === "en" ? "." : "।";
   return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + OUTCOME_LABELS[locale][result.outcome] + finalPunctuation + "\n" + ruleLine;
 }
@@ -812,7 +816,7 @@ function sharedSetStimulus(scenario: DmScenario, cohort: readonly DmCandidatePro
       ? "नीचे दिया गया मामला " + scenario.context.hi + " से संबंधित है। पात्रता शर्तों और आवेदकों के विवरण का अध्ययन करके आगे दिए गए प्रश्नों के उत्तर दीजिए।"
       : "ਹੇਠਾਂ ਦਿੱਤਾ ਮਾਮਲਾ " + scenario.context.pa + " ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ। ਯੋਗਤਾ ਸ਼ਰਤਾਂ ਅਤੇ ਬਿਨੈਕਾਰਾਂ ਦੇ ਵੇਰਵੇ ਪੜ੍ਹ ਕੇ ਅਗਲੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।";
   const ruleLines = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
-  const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + note[locale])] : [];
+  const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + asSentence(note[locale], locale))] : [];
   const applicants = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
   return [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale, false))].join("\n");
 }
