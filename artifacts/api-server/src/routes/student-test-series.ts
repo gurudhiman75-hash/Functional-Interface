@@ -484,6 +484,11 @@ router.get("/test-series", async (_req, res) => {
             AND publication.published_at IS NOT NULL
             AND (publication.closes_at IS NULL OR publication.closes_at > now())
         ), 0)::int AS "durationSeconds",
+        COALESCE(SUM(published.total_marks) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::float8 AS "totalMarks",
         COALESCE(SUM((
           SELECT COUNT(*)::int
           FROM assessment.test_questions question
