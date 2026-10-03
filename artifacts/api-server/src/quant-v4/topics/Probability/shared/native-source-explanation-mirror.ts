@@ -760,6 +760,19 @@ function translateSourceLine(sourceLine: string, language: ProbabilityNativeLang
   return nativeLine;
 }
 
+function naturalizeFinalPunjabiSelectionPhrases(
+  language: ProbabilityNativeLanguage,
+  lines: string[],
+): string[] {
+  if (language !== "pa") return lines;
+  return lines.map((line) =>
+    line
+      .replace(/ਚੁਣੀਆਂ ਗੇਂਦਾਂ/gu, "ਕੱਢੀਆਂ ਗੇਂਦਾਂ")
+      .replace(/ਚੁਣੀ ਗੇਂਦ/gu, "ਕੱਢੀ ਗੇਂਦ")
+      .replace(/ਚੁਣੀਆਂ ਹੋਈਆਂ ਗੇਂਦਾਂ/gu, "ਕੱਢੀਆਂ ਗੇਂਦਾਂ")
+  );
+}
+
 function preserveNamedHumanContext(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
@@ -800,10 +813,13 @@ export function renderNativeSourceExplanationLines(
   language: ProbabilityNativeLanguage,
 ): string[] {
   const english = [...source.explanation.lines];
-  const native = preserveNamedHumanContext(
-    source,
+  const native = naturalizeFinalPunjabiSelectionPhrases(
     language,
-    english.map((line) => translateSourceLine(line, language)),
+    preserveNamedHumanContext(
+      source,
+      language,
+      english.map((line) => translateSourceLine(line, language)),
+    ),
   );
   if (native.length !== english.length) {
     throw new Error(`${source.questionLanguageId}/${language}: native explanation line-count parity failed.`);
