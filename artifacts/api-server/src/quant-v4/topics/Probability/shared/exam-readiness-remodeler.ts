@@ -190,10 +190,10 @@ function reverseCommitteeCountExplanation(parameters: GeneratedParameters, solve
   const divisor = gcd(favourable, totalEvidence);
   const probability = `${favourable / divisor}/${totalEvidence / divisor}`;
   return [
-    "Method — The stated probability is the fraction of all possible committees having the required composition. Find the total number of committees, then recover the favourable count.",
+    "Method — For a probability, divide the number of required committees by the total number of committees.",
     `Step 1 — Total committees = ${combinationExpansion(men + women, committeeSize)}.`,
-    `Step 2 — Required committees = ${totalCommittees} × ${probability} = ${solved.exactDisplay}.`,
-    "Key point — This is a reverse probability question: probability × total outcomes gives the favourable outcome count.",
+    `Step 2 — Required probability = ${probability}.`,
+    `Step 3 — Required committees = ${totalCommittees} × ${probability} = ${solved.exactDisplay}.`,
     `Answer — The required number of committees is ${solved.exactDisplay}.`,
   ];
 }
