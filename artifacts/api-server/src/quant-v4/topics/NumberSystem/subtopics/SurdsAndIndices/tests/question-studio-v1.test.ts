@@ -26,6 +26,9 @@ assert.equal(new Set(packages.flatMap((pkg) => pkg.permanentQlIds)).size, 58);
 
 for (const pkg of packages) {
   assert.equal(pkg.enabled, true);
+  assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
+  assert.equal(pkg.reviewSurfaceRequired, true);
+  assert.equal(pkg.manualApprovalRequired, true);
   assert.equal(pkg.runtimeMode, "QUESTION_STUDIO_ACTIVE");
   assert.equal(pkg.questionStudioDiscoverable, true);
   assert.equal(pkg.questionStudioGenerationEnabled, true);
@@ -124,6 +127,18 @@ for (const difficulty of SRI_QUESTION_STUDIO_DIFFICULTIES_V1) {
   assert.equal(result.questions.length, 12);
   assert.equal(result.questions.every((question) => question.difficulty === difficulty), true, `${difficulty} routing leaked another difficulty`);
 }
+
+const cp002Mixed = packages
+  .find((pkg) => pkg.packageId === "SRI-001")
+  ?.canonicalProblems.find((cp) => cp.id === "SRI-CP-002");
+assert.ok(cp002Mixed);
+assert.deepEqual(new Set(cp002Mixed.difficulties), new Set(["Easy", "Medium", "Hard"]));
+
+const cp011Mixed = packages
+  .find((pkg) => pkg.packageId === "SRI-002")
+  ?.canonicalProblems.find((cp) => cp.id === "SRI-CP-011");
+assert.ok(cp011Mixed);
+assert.deepEqual(new Set(cp011Mixed.difficulties), new Set(["Medium", "Hard"]));
 
 await assert.rejects(
   () => generateSriQuestionStudioBatchV1({ packageId: "SRI-001", questionLanguageId: "SRI-002-QL-001", seed: "ownership-mismatch" }),
