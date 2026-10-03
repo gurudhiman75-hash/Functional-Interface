@@ -62,6 +62,7 @@ for (const scenario of legacyScenarios) {
         assert.equal(evaluateDmDecision(question.candidate, scenario).outcome, question.outcome);
         assert.ok(question.explanationRows.length === scenario.baseConditions.length);
         assert.ok(question.stem.includes(scenario.context[locale]));
+        assert.doesNotMatch(question.stem + "\n" + question.explanation, /\.{2,}|।{2,}/, "generated text must not contain duplicated sentence punctuation");
         const repeat = generateDmQuestion({ scenario, locale, seed, mode });
         assert.deepEqual(repeat, question, "same scenario, locale and seed must be deterministic");
       }
