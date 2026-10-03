@@ -1,5 +1,6 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 
+import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { auth } from "../lib/firebase-admin";
 import { sqlClient } from "../lib/db";
 import { requireTestAccess } from "../lib/canonical-commerce-entitlements";
@@ -67,6 +68,7 @@ async function authenticateStudent(req: Request, res: Response): Promise<boolean
 }
 
 async function loadSeries(identifier: string) {
+  await ensureCatalogBrandingSchema();
   const rows = await sqlClient`
     SELECT
       s.id::text AS id,
@@ -82,6 +84,7 @@ async function loadSeries(identifier: string) {
       v.progression_mode AS "progressionMode",
       v.completion_threshold::float8 AS "completionThreshold",
       v.configuration,
+      branding.icon_url AS "iconUrl",
       e.code AS "examCode",
       e.name AS "examName",
       ef.code AS "examFamilyCode",
@@ -90,6 +93,9 @@ async function loadSeries(identifier: string) {
     JOIN assessment.test_series_versions v
       ON v.series_id = s.id
      AND v.version_number = s.current_version_number
+    LEFT JOIN platform.catalog_entity_branding branding
+      ON branding.entity_type = 'test_series'
+     AND branding.entity_id = s.id
     JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
     JOIN catalog.exams e ON e.id = ev.exam_id
     JOIN catalog.exam_families ef ON ef.id = e.family_id
@@ -387,6 +393,7 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       completionThreshold: series.completionThreshold == null ? null : Number(series.completionThreshold),
       learnerVisibility: visibility,
       learnerMessage: configuredMessage || (visibility === "coming_soon" ? DEFAULT_COMING_SOON_MESSAGE : ""),
+      iconUrl: asString(series.iconUrl),
     },
     eligibility: {
       ...effectiveEligibility,
@@ -435,6 +442,7 @@ async function findBoundSeries(testId: string) {
 
 router.get("/test-series", async (_req, res) => {
   try {
+    await ensureCatalogBrandingSchema();
     const rows = await sqlClient`
       SELECT
         s.id::text AS id,
@@ -445,6 +453,7 @@ router.get("/test-series", async (_req, res) => {
         version.availability_end_at AS "availabilityEndAt",
         version.progression_mode AS "progressionMode",
         version.completion_threshold::float8 AS "completionThreshold",
+        branding.icon_url AS "iconUrl",
         COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility",
         COALESCE(
           NULLIF(version.configuration->>'learnerMessage', ''),
@@ -498,6 +507,9 @@ router.get("/test-series", async (_req, res) => {
       JOIN assessment.test_series_versions version
         ON version.series_id = s.id
        AND version.version_number = s.current_version_number
+      LEFT JOIN platform.catalog_entity_branding branding
+        ON branding.entity_type = 'test_series'
+       AND branding.entity_id = s.id
       JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
       JOIN catalog.exams e ON e.id = ev.exam_id
       JOIN catalog.exam_families ef ON ef.id = e.family_id
@@ -516,7 +528,7 @@ router.get("/test-series", async (_req, res) => {
       WHERE s.deleted_at IS NULL
         AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
         AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
-      GROUP BY s.id, version.id, e.id, ef.id
+      GROUP BY s.id, version.id, e.id, ef.id, branding.icon_url
       HAVING
         COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
         OR (
