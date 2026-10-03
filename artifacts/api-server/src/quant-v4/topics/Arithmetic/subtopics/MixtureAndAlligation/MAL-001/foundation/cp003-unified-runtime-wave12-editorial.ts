@@ -32,19 +32,19 @@ const REMOVAL_INVERSE_OPENERS = [
 ] as const;
 
 const THRESHOLD_EDITORIAL_CASES = [
-  { vesselVolume: 40, removedQuantity: 20, original: "milk", refill: "water", container: "vessel" },
-  { vesselVolume: 40, removedQuantity: 10, original: "milk", refill: "water", container: "can" },
-  { vesselVolume: 50, removedQuantity: 10, original: "juice", refill: "water", container: "container" },
-  { vesselVolume: 64, removedQuantity: 8, original: "wine", refill: "water", container: "cask" },
-  { vesselVolume: 50, removedQuantity: 5, original: "solution", refill: "solvent", container: "tank" },
-  { vesselVolume: 80, removedQuantity: 20, original: "milk", refill: "water", container: "tank" },
-  { vesselVolume: 96, removedQuantity: 12, original: "fruit juice", refill: "water", container: "vessel" },
-  { vesselVolume: 100, removedQuantity: 10, original: "liquid A", refill: "liquid B", container: "container" },
-  { vesselVolume: 60, removedQuantity: 30, original: "milk", refill: "water", container: "drum" },
-  { vesselVolume: 72, removedQuantity: 18, original: "syrup", refill: "water", container: "tank" },
-  { vesselVolume: 100, removedQuantity: 20, original: "wine", refill: "water", container: "cask" },
-  { vesselVolume: 120, removedQuantity: 15, original: "juice", refill: "water", container: "vessel" },
-  { vesselVolume: 90, removedQuantity: 9, original: "oil", refill: "lighter oil", container: "drum" },
+  { vesselVolume: 120, removedQuantity: 36, original: "milk", refill: "water", container: "vessel" },
+  { vesselVolume: 120, removedQuantity: 25, original: "juice", refill: "water", container: "container" },
+  { vesselVolume: 120, removedQuantity: 20, original: "solution", refill: "solvent", container: "tank" },
+  { vesselVolume: 120, removedQuantity: 16, original: "syrup", refill: "water", container: "vessel" },
+  { vesselVolume: 120, removedQuantity: 14, original: "wine", refill: "water", container: "cask" },
+  { vesselVolume: 120, removedQuantity: 12, original: "liquid A", refill: "liquid B", container: "container" },
+  { vesselVolume: 120, removedQuantity: 10, original: "fruit juice", refill: "water", container: "tank" },
+  { vesselVolume: 120, removedQuantity: 9, original: "oil", refill: "lighter oil", container: "drum" },
+  { vesselVolume: 120, removedQuantity: 8, original: "milk", refill: "water", container: "tank" },
+  { vesselVolume: 120, removedQuantity: 7, original: "juice", refill: "water", container: "vessel" },
+  { vesselVolume: 120, removedQuantity: 6, original: "solution", refill: "solvent", container: "tank" },
+  { vesselVolume: 120, removedQuantity: 5, original: "milk", refill: "water", container: "can" },
+  { vesselVolume: 120, removedQuantity: 4, original: "syrup", refill: "water", container: "vessel" },
 ] as const;
 
 function hash(value: string): number {
@@ -102,7 +102,7 @@ function thresholdEditorialQuestion(
     initialOriginalQuantity: vesselVolume,
     removedQuantity,
     thresholdOriginalQuantity: threshold,
-    maximumOperations: 12,
+    maximumOperations: 24,
   });
   const answer = `${result.operations} operations`;
   const candidates = [
