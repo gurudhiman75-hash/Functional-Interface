@@ -23,6 +23,9 @@ import {
   type Mal001QuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 import {
+  generateMal001StandardQuestionStudioBatch,
+} from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-standard-integration";
+import {
   NUM_001_QUESTION_STUDIO_CP_IDS,
   NUM_001_QUESTION_STUDIO_LANGUAGES,
   runNum001QuestionStudioPipeline,
@@ -1012,7 +1015,9 @@ export async function generateQuestion(
     return generateSpecializedWithProfileDelivery(request, () => generateNumberSystemQuestion(request));
   }
   if (isMixtureAndAlligationRequest(request)) {
-    return generateSpecializedWithProfileDelivery(request, () => generateMixtureAndAlligationQuestion(request));
+    return generateSpecializedWithProfileDelivery(request, () =>
+      generateMal001StandardQuestionStudioBatch(request),
+    );
   }
   if (isAverageRequest(request)) {
     return generateSpecializedWithProfileDelivery(request, () => generateAverageQuestion(request));
