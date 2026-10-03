@@ -20,18 +20,18 @@ const condition = (id: string, field: DmField, operator: DmRuleCondition["operat
 
 const CONTEXTS: Readonly<Partial<Record<DmCheckpointId, readonly LocalizedText[]>>> = Object.freeze({
   "DM-CP-001": [
-    text("Merit scholarship eligibility", "मेधा छात्रवृत्ति पात्रता", "ਮੈਰਿਟ ਵਜ਼ੀਫ਼ੇ ਲਈ ਯੋਗਤਾ"),
-    text("Trade licence renewal", "व्यापार लाइसेंस का नवीनीकरण", "ਵਪਾਰ ਲਾਇਸੈਂਸ ਦਾ ਨਵੀਨੀਕਰਨ"),
-    text("Student hostel allotment", "छात्रावास आवंटन", "ਵਿਦਿਆਰਥੀ ਹੋਸਟਲ ਦੀ ਵੰਡ"),
-    text("First-aid certification", "प्राथमिक उपचार प्रमाणन", "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਸਰਟੀਫਿਕੇਸ਼ਨ"),
-    text("Diploma programme admission", "डिप्लोमा कार्यक्रम में प्रवेश", "ਡਿਪਲੋਮਾ ਪ੍ਰੋਗਰਾਮ ਵਿੱਚ ਦਾਖ਼ਲਾ"),
+    text("Grade-A apple lot inspection", "ग्रेड-A सेब लॉट की जाँच", "ਗ੍ਰੇਡ-A ਸੇਬਾਂ ਦੇ ਲਾਟ ਦੀ ਜਾਂਚ"),
+    text("Mango consignment grading", "आम की खेप का ग्रेड निर्धारण", "ਅੰਬਾਂ ਦੀ ਖੇਪ ਦੀ ਗ੍ਰੇਡਿੰਗ"),
+    text("Wheat procurement quality check", "गेहूँ खरीद की गुणवत्ता जाँच", "ਕਣਕ ਖਰੀਦ ਦੀ ਗੁਣਵੱਤਾ ਜਾਂਚ"),
+    text("Chilled milk batch acceptance", "ठंडे दूध के बैच की स्वीकृति", "ਠੰਢੇ ਦੁੱਧ ਦੇ ਬੈਚ ਦੀ ਮਨਜ਼ੂਰੀ"),
+    text("Packaged food lot acceptance", "पैक किए खाद्य लॉट की स्वीकृति", "ਪੈਕ ਕੀਤੇ ਖਾਧ ਪਦਾਰਥਾਂ ਦੇ ਲਾਟ ਦੀ ਮਨਜ਼ੂਰੀ"),
   ],
   "DM-CP-002": [
-    text("Polytechnic scholarship eligibility", "पॉलिटेक्निक छात्रवृत्ति पात्रता", "ਪੌਲੀਟੈਕਨਿਕ ਵਜ਼ੀਫ਼ੇ ਲਈ ਯੋਗਤਾ"),
-    text("Community health-volunteer certification", "सामुदायिक स्वास्थ्य स्वयंसेवक प्रमाणन", "ਕਮਿਊਨਿਟੀ ਸਿਹਤ ਸਵੈਸੇਵਕ ਸਰਟੀਫਿਕੇਸ਼ਨ"),
-    text("State sports-coaching accreditation", "राज्य खेल-प्रशिक्षण मान्यता", "ਰਾਜ ਖੇਡ ਕੋਚਿੰਗ ਮਾਨਤਾ"),
-    text("Technical course admission", "तकनीकी पाठ्यक्रम में प्रवेश", "ਤਕਨੀਕੀ ਕੋਰਸ ਵਿੱਚ ਦਾਖ਼ਲਾ"),
-    text("Professional register enrolment", "व्यावसायिक रजिस्टर में नामांकन", "ਪੇਸ਼ਾਵਰ ਰਜਿਸਟਰ ਵਿੱਚ ਨਾਮ ਦਰਜ ਕਰਨਾ"),
+    text("Orange export-consignment grading", "संतरे की निर्यात खेप का ग्रेड निर्धारण", "ਸੰਤਰੇ ਦੀ ਨਿਰਯਾਤ ਖੇਪ ਦੀ ਗ੍ਰੇਡਿੰਗ"),
+    text("Rice-mill lot acceptance", "चावल मिल के लॉट की स्वीकृति", "ਚੌਲ ਮਿੱਲ ਦੇ ਲਾਟ ਦੀ ਮਨਜ਼ੂਰੀ"),
+    text("Dairy cold-chain batch inspection", "डेयरी शीत-श्रृंखला बैच की जाँच", "ਡੇਅਰੀ ਕੋਲਡ-ਚੇਨ ਬੈਚ ਦੀ ਜਾਂਚ"),
+    text("Medicine-package compliance check", "दवा पैकेज अनुपालन जाँच", "ਦਵਾਈ ਪੈਕਿੰਗ ਦੀ ਪਾਲਣਾ ਜਾਂਚ"),
+    text("Warehouse electronics-lot acceptance", "गोदाम में इलेक्ट्रॉनिक सामान के लॉट की स्वीकृति", "ਗੋਦਾਮ ਵਿੱਚ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਦੇ ਲਾਟ ਦੀ ਮਨਜ਼ੂਰੀ"),
   ],
   "DM-CP-003": [
     text("Teaching fellowship eligibility", "शिक्षण फेलोशिप पात्रता", "ਅਧਿਆਪਨ ਫੈਲੋਸ਼ਿਪ ਲਈ ਯੋਗਤਾ"),
@@ -63,10 +63,10 @@ const CONTEXTS: Readonly<Partial<Record<DmCheckpointId, readonly LocalizedText[]
   ],
   "DM-CP-008": [
     text("a professional certification examination", "व्यावसायिक प्रमाणन परीक्षा", "ਪੇਸ਼ਾਵਰ ਸਰਟੀਫਿਕੇਸ਼ਨ ਪ੍ਰੀਖਿਆ"),
-    text("a scholarship aptitude assessment", "छात्रवृत्ति योग्यता आकलन", "ਵਜ਼ੀਫ਼ਾ ਯੋਗਤਾ ਮੁਲਾਂਕਣ"),
-    text("a coaching accreditation assessment", "प्रशिक्षण मान्यता आकलन", "ਕੋਚਿੰਗ ਮਾਨਤਾ ਮੁਲਾਂਕਣ"),
-    text("an advanced-course entrance assessment", "उन्नत पाठ्यक्रम प्रवेश आकलन", "ਉੱਚ ਕੋਰਸ ਦਾਖ਼ਲਾ ਮੁਲਾਂਕਣ"),
-    text("a departmental promotion examination", "विभागीय पदोन्नति परीक्षा", "ਵਿਭਾਗੀ ਤਰੱਕੀ ਪ੍ਰੀਖਿਆ"),
+    text("a premium-fruit quality assessment", "प्रीमियम फल गुणवत्ता आकलन", "ਪ੍ਰੀਮੀਅਮ ਫਲ ਗੁਣਵੱਤਾ ਮੁਲਾਂਕਣ"),
+    text("a grain-procurement threshold check", "अनाज खरीद सीमा-जाँच", "ਅਨਾਜ ਖਰੀਦ ਹੱਦ-ਜਾਂਚ"),
+    text("a cold-storage produce assessment", "शीत-भंडार उपज आकलन", "ਕੋਲਡ-ਸਟੋਰ ਉਪਜ ਮੁਲਾਂਕਣ"),
+    text("a packaged-product quality test", "पैक उत्पाद गुणवत्ता परीक्षण", "ਪੈਕ ਉਤਪਾਦ ਗੁਣਵੱਤਾ ਜਾਂਚ"),
   ],
   "DM-CP-009": [
     text("Professional licence with an experience-based age exception", "अनुभव-आधारित आयु छूट वाला व्यावसायिक लाइसेंस", "ਤਜਰਬੇ ਅਧਾਰਿਤ ਉਮਰ ਛੋਟ ਵਾਲਾ ਪੇਸ਼ਾਵਰ ਲਾਇਸੈਂਸ"),
@@ -343,6 +343,38 @@ function makeCutoffConditions(policy: number, variant: number): DmRuleCondition[
   ];
 }
 
+function makeProductConditions(checkpointId: DmCheckpointId, contextIndex: number, policy: number): DmRuleCondition[] {
+  const weight = 140 + policy * 5;
+  const ripeness = 6 + (policy % 2);
+  const defectLimit = 4 + (policy % 3);
+  const moistureLimit = 12 + (policy % 2);
+  const temperatureLimit = 4 + (policy % 2);
+  const compact: readonly DmRuleCondition[][] = [
+    [condition("fruit-weight", "unitWeightGrams", "GTE", weight), condition("fruit-ripeness", "ripenessScore", "GTE", ripeness), condition("fruit-defects", "defectRatePercent", "LTE", defectLimit)],
+    [condition("mango-ripeness", "ripenessScore", "GTE", ripeness), condition("mango-defects", "defectRatePercent", "LTE", defectLimit), condition("mango-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+    [condition("grain-moisture", "moisturePercent", "LTE", moistureLimit), condition("grain-contamination", "contaminationStatus", "EQ", "CLEAR"), condition("grain-inspection", "inspectionStatus", "EQ", "PASSED")],
+    [condition("milk-temperature", "storageTemperatureCelsius", "LTE", temperatureLimit), condition("milk-contamination", "contaminationStatus", "EQ", "CLEAR"), condition("milk-inspection", "inspectionStatus", "EQ", "PASSED")],
+    [condition("food-package", "packageIntegrityStatus", "EQ", "INTACT"), condition("food-inspection", "inspectionStatus", "EQ", "PASSED"), condition("food-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+  ];
+  if (checkpointId === "DM-CP-001") return [...compact[contextIndex]!];
+  const extended: readonly DmRuleCondition[][] = [
+    [...compact[0]!, condition("export-package", "packageIntegrityStatus", "EQ", "INTACT"), condition("export-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+    [...compact[2]!, condition("rice-defects", "defectRatePercent", "LTE", defectLimit), condition("rice-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+    [...compact[3]!, condition("dairy-package", "packageIntegrityStatus", "EQ", "INTACT"), condition("dairy-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+    [condition("medicine-package", "packageIntegrityStatus", "EQ", "INTACT"), condition("medicine-inspection", "inspectionStatus", "EQ", "PASSED"), condition("medicine-contamination", "contaminationStatus", "EQ", "CLEAR"), condition("medicine-defects", "defectRatePercent", "LTE", 2 + (policy % 2)), condition("medicine-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+    [condition("electronics-package", "packageIntegrityStatus", "EQ", "INTACT"), condition("electronics-inspection", "inspectionStatus", "EQ", "PASSED"), condition("electronics-defects", "defectRatePercent", "LTE", 3 + (policy % 2)), condition("electronics-moisture", "moisturePercent", "LTE", 8 + policy), condition("electronics-traceability", "traceabilityStatus", "EQ", "VERIFIED")],
+  ];
+  if (checkpointId === "DM-CP-002") return [...extended[contextIndex]!];
+  const thresholdSets: readonly DmRuleCondition[][] = [
+    [],
+    [condition("premium-weight", "unitWeightGrams", "GTE", weight + 20), condition("premium-ripeness", "ripenessScore", "GTE", ripeness), condition("premium-defects", "defectRatePercent", "LTE", defectLimit)],
+    [condition("procurement-moisture", "moisturePercent", "LTE", moistureLimit), condition("procurement-defects", "defectRatePercent", "LTE", defectLimit)],
+    [condition("cold-temperature", "storageTemperatureCelsius", "LTE", temperatureLimit), condition("cold-defects", "defectRatePercent", "LTE", defectLimit), condition("cold-ripeness", "ripenessScore", "GTE", ripeness)],
+    [condition("packaged-defects", "defectRatePercent", "LTE", 2 + (policy % 2)), condition("packaged-moisture", "moisturePercent", "LTE", 9 + policy), condition("packaged-integrity", "packageIntegrityStatus", "EQ", "INTACT")],
+  ];
+  return [...thresholdSets[contextIndex]!];
+}
+
 function makeRelaxationRules(policy: number): { base: DmRuleCondition[]; exceptions: DmDecisionRule[] } {
   const ageLimit = 30 + policy;
   const marksLimit = 60 + policy;
@@ -411,9 +443,8 @@ function makeRanking(policy: number): DmRankingSpec {
 
 const REFERENCE_DATES = ["2026-01-01", "2026-03-31", "2026-06-30", "2026-09-01", "2026-10-01"] as const;
 
-function rulesFor(checkpointId: DmCheckpointId, policy: number, variant: number): { base: DmRuleCondition[]; exceptions: DmDecisionRule[]; referenceDate?: string; ranking?: DmRankingSpec } {
-  if (checkpointId === "DM-CP-001") return { base: makeBasicConditions(policy, variant), exceptions: [] };
-  if (checkpointId === "DM-CP-002") return { base: makeMultipleConditions(policy, variant), exceptions: [] };
+function rulesFor(checkpointId: DmCheckpointId, policy: number, variant: number, contextIndex: number): { base: DmRuleCondition[]; exceptions: DmDecisionRule[]; referenceDate?: string; ranking?: DmRankingSpec } {
+  if (checkpointId === "DM-CP-001" || checkpointId === "DM-CP-002") return { base: makeProductConditions(checkpointId, contextIndex, policy), exceptions: [] };
   if (checkpointId === "DM-CP-003") {
     const base = makeExceptionConditions(policy);
     return { base, exceptions: exceptionRules(base, 29 + policy, 54 + policy * 2, variant) };
@@ -428,7 +459,7 @@ function rulesFor(checkpointId: DmCheckpointId, policy: number, variant: number)
   }
   if (checkpointId === "DM-CP-006") return { base: makeRecruitmentConditions(policy, variant), exceptions: [] };
   if (checkpointId === "DM-CP-007") return { base: makeBenefitConditions(policy, variant), exceptions: [] };
-  if (checkpointId === "DM-CP-008") return { base: makeCutoffConditions(policy, variant), exceptions: [] };
+  if (checkpointId === "DM-CP-008") return { base: contextIndex === 0 ? makeCutoffConditions(policy, variant) : makeProductConditions(checkpointId, contextIndex, policy), exceptions: [] };
   if (checkpointId === "DM-CP-009") return makeRelaxationRules(policy);
   return {
     base: [condition("priority-eligible-age", "age", "LTE", 45), condition("priority-eligible-qualification", "qualificationRank", "GTE", 2), condition("priority-eligible-registration", "registrationStatus", "EQ", "VALID")],
@@ -446,7 +477,7 @@ export function buildDmScenarioLibrary(): readonly DmScenario[] {
       for (let policy = 0; policy < 5; policy += 1) {
         const variant = (contextIndex + policy) % 3;
         const qlId = dmQlIdsForCheckpoint(checkpointId)[variant] as DmQlId;
-        const built = rulesFor(checkpointId, policy, variant);
+        const built = rulesFor(checkpointId, policy, variant, contextIndex);
         const notes = built.exceptions.map((rule) => rule.explanation);
         scenarios.push(Object.freeze({
           scenarioId: checkpointId + "-SC-" + String(contextIndex * 5 + policy + 1).padStart(3, "0"),
@@ -454,6 +485,7 @@ export function buildDmScenarioLibrary(): readonly DmScenario[] {
           blueprintCheckpointId: checkpointId.replace("DM-CP-", "DM-"),
           qlId,
           context: contexts[contextIndex]!,
+          ...((checkpointId === "DM-CP-001" || checkpointId === "DM-CP-002" || (checkpointId === "DM-CP-008" && contextIndex > 0)) ? { subjectKind: "PRODUCT_LOT" as const } : {}),
           baseConditions: Object.freeze(built.base),
           decisionRules: Object.freeze(built.exceptions),
           ruleNotes: Object.freeze(notes),
