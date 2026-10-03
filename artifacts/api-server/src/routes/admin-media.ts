@@ -212,15 +212,22 @@ router.post("/import-storage",requireAdminPermission("content.taxonomy.manage"),
           if(rows[0])imported.push({...rows[0],uploadedBy:"Current admin"});
         }
         if(imported.length>0){
+          const firstImportedId=String((imported[0] as {id?:unknown}|undefined)?.id||"");
           await tx`
             INSERT INTO platform.audit_events
               (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata)
             VALUES (
               ${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,
-              'media.storage.imported','media_asset_batch',NULL,
+              'media.storage.imported','media_asset',${firstImportedId}::uuid,
               ${"Imported "+imported.length+" Firebase Storage image(s) into Media Library"},
               'Admin imported existing Firebase Storage images',
-              ${tx.json({assetType,paths:paths.slice(0,100),importedCount:imported.length,skippedCount:skipped.length})}
+              ${tx.json({
+                assetType,
+                paths:paths.slice(0,100),
+                importedIds:imported.map(item=>String((item as {id?:unknown}).id||"")).filter(Boolean),
+                importedCount:imported.length,
+                skippedCount:skipped.length,
+              })}
             )
           `;
         }
