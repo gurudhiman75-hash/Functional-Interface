@@ -232,9 +232,21 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
     assert(preview.publiclyPublishable === false, `${allocation.qlId}: preview unexpectedly became publishable.`);
     assert(preview.questionBankStatus === "NOT_STORED", `${allocation.qlId}: preview unexpectedly became Question Bank writable.`);
     assert(preview.testEligibility === "INELIGIBLE", `${allocation.qlId}: preview unexpectedly became test eligible.`);
-    assert(typeof preview.explanation === "string" && preview.explanation.includes("Core Concept & Formula"), `${allocation.qlId}: preview explanation is incomplete.`);
-    assert(preview.explanation.includes(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX), `${allocation.qlId}: preview omitted the SVG directive.`);
-    assert(preview.packageExplanation?.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID, `${allocation.qlId}: preview package omitted structured visual data.`);
+    assert(
+      typeof preview.explanation === "string" &&
+        /(?:Simple Method|Method 1 — Simple Method)/u.test(preview.explanation),
+      `${allocation.qlId}: compact Question Studio explanation is incomplete.`,
+    );
+    if (crossQlIds.has(allocation.qlId)) {
+      assert(
+        preview.explanation.includes(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX),
+        `${allocation.qlId}: alligation-capable preview omitted the SVG directive.`,
+      );
+      assert(
+        preview.packageExplanation?.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID,
+        `${allocation.qlId}: alligation-capable preview omitted structured visual data.`,
+      );
+    }
     assert(preview.options.length === 4, `${allocation.qlId}: preview does not have four options.`);
     questionStudioPreviewCount += 1;
   }
