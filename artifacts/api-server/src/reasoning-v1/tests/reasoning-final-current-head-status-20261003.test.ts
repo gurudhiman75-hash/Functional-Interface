@@ -56,8 +56,8 @@ const lpSourceCeiling = readFileSync(
   ),
   "utf8",
 );
-assert.match(lpSourceCeiling, /SOURCE_SATURATED_FOR_TARGET_EXAMSs*=s*false/);
-assert.match(lpSourceCeiling, /PRODUCTION_ELIGIBLEs*=s*false/);
+assert.equal(lpSourceCeiling.includes("SOURCE_SATURATED_FOR_TARGET_EXAMS = false"), true);
+assert.equal(lpSourceCeiling.includes("PRODUCTION_ELIGIBLE = false"), true);
 assert.match(lpSourceCeiling, /FIRST-PARTY RETRIEVAL CEILING/i);
 
 assert.equal(SPATIAL_FAMILY_FREEZE_AUTHORITY_V1.permanentQlCount, 63);
