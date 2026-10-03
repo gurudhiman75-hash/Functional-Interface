@@ -87,6 +87,7 @@ for (const entry of catalog) {
 
     assert.equal(question.packageId, entry.packageId);
     assert.equal(question.qlId, entry.qlId);
+    assert.equal(question.difficultyBand, entry.difficulty, `${entry.qlId}/${language}: native catalog difficulty drifted from live source difficulty`);
     assert.equal(question.language, language);
     assert.equal(question.reviewStatus, "DRAFT_PARITY_PREVIEW_REQUIRES_HUMAN_REVIEW");
     assert.equal(question.integrationAuthority, PROBABILITY_NATIVE_REVIEW_AUTHORITY);
