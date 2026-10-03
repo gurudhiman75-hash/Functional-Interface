@@ -21,6 +21,7 @@ import { CategoryIcon, isImageIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { getAttempts } from "@/lib/storage";
 import { getRuntimeExamGroups } from "@/lib/test-bank";
+import { examHubHrefForCatalogExam } from "@/lib/seo-practice";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 const CARD_TONES = [
@@ -51,10 +52,11 @@ export default function CategoryPage() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
-  const category = categories.find((item) => item.id === id);
+  const category = categories.find((item) => item.id.toLowerCase() === String(id ?? "").toLowerCase());
+  const canonicalCategoryId = category?.id ?? id;
   const exams = useMemo(
-    () => (id ? getRuntimeExamGroups(id, categories, tests, subcategories) : []),
-    [id, categories, tests, subcategories],
+    () => (canonicalCategoryId ? getRuntimeExamGroups(canonicalCategoryId, categories, tests, subcategories) : []),
+    [canonicalCategoryId, categories, tests, subcategories],
   );
 
   const attempts = useMemo(() => getAttempts(), []);
@@ -264,7 +266,7 @@ export default function CategoryPage() {
                   <button
                     key={exam.id}
                     type="button"
-                    onClick={() => setLocation(`/subcategory/${exam.id}`)}
+                    onClick={() => setLocation(examHubHrefForCatalogExam(exam.id) ?? `/subcategory/${exam.id}`)}
                     className="group flex min-h-[236px] w-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-left shadow-[0_5px_20px_rgba(26,32,44,0.035)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_28px_rgba(26,32,44,0.07)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6c5cf1] focus-visible:ring-offset-2"
                     data-testid={`btn-open-exam-${exam.id}`}
                   >
@@ -366,7 +368,7 @@ export default function CategoryPage() {
                 <p className="mt-2 max-w-xl text-sm text-white/70">Open {featuredExam.name} and choose the test format that fits your preparation today.</p>
                 <button
                   type="button"
-                  onClick={() => setLocation(`/subcategory/${featuredExam.id}`)}
+                  onClick={() => setLocation(examHubHrefForCatalogExam(featuredExam.id) ?? `/subcategory/${featuredExam.id}`)}
                   className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-[#5e50df] shadow-sm transition hover:bg-white/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 >
                   Open {featuredExam.name}

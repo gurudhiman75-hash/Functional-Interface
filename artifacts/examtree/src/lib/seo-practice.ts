@@ -735,6 +735,36 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
 
 export const SSC_CGL_PRACTICE_TOPICS = EXAM_ACQUISITION_CONFIGS["ssc-cgl"].topics;
 
+
+const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
+  "ssc-cgl": ["SSC_CGL"],
+  "ssc-chsl": ["SSC_CHSL"],
+  "ssc-mts": ["SSC_MTS"],
+  "ssc-cpo": ["SSC_CPO"],
+  "ssc-stenographer": ["SSC_STENOGRAPHER"],
+  "ssc-gd": ["SSC_GD"],
+  "ibps-po": ["IBPS_PO"],
+  "ibps-clerk": ["IBPS_CLERK"],
+  "ibps-rrb-po": ["IBPS_RRB_PO"],
+  "ibps-rrb-office-assistant": ["IBPS_RRB_CLERK"],
+};
+
+const EXAM_SLUG_BY_CATALOG_CODE = Object.fromEntries(
+  Object.entries(CATALOG_EXAM_CODES_BY_SLUG).flatMap(([slug, codes]) =>
+    codes.map((code) => [code.toUpperCase(), slug]),
+  ),
+) as Record<string, string>;
+
+export function catalogExamCodesForSlug(slug: string) {
+  return CATALOG_EXAM_CODES_BY_SLUG[slug] ?? [];
+}
+
+export function examHubHrefForCatalogExam(codeOrName: string | undefined) {
+  const normalized = String(codeOrName ?? "").trim().toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+  const slug = EXAM_SLUG_BY_CATALOG_CODE[normalized];
+  return slug ? examHubHref(slug) : null;
+}
+
 export function getExamAcquisitionConfig(slug: string | undefined) {
   return slug ? EXAM_ACQUISITION_CONFIGS[slug] : undefined;
 }

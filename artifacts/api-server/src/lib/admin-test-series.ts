@@ -100,6 +100,36 @@ export function testSeriesLearnerVisibility(value: unknown): TestSeriesLearnerVi
   return raw as TestSeriesLearnerVisibility;
 }
 
+export type TestSeriesHubStage = "general" | "prelims" | "mains";
+export type TestSeriesHubType = "full-length" | "pyq" | "sectional" | "topic-wise";
+
+function testSeriesHubStage(value: unknown): TestSeriesHubStage {
+  const configuration = asRecord(value);
+  const raw = asString(configuration.hubStage).toLowerCase();
+  if (!raw) return "general";
+  if (!["general", "prelims", "mains"].includes(raw)) {
+    throw new TestSeriesError("TEST_SERIES_HUB_STAGE_INVALID", "Exam stage must be general, prelims or mains");
+  }
+  return raw as TestSeriesHubStage;
+}
+
+function testSeriesHubType(value: unknown): TestSeriesHubType {
+  const configuration = asRecord(value);
+  const raw = asString(configuration.hubType).toLowerCase();
+  if (!raw) return "full-length";
+  if (!["full-length", "pyq", "sectional", "topic-wise"].includes(raw)) {
+    throw new TestSeriesError("TEST_SERIES_HUB_TYPE_INVALID", "Hub section must be full length, PYQ, sectional or topic-wise");
+  }
+  return raw as TestSeriesHubType;
+}
+
+function testSeriesExamCycle(value: unknown): string {
+  const configuration = asRecord(value);
+  const raw = asString(configuration.examCycle);
+  if (raw.length > 40) throw new TestSeriesError("TEST_SERIES_EXAM_CYCLE_INVALID", "Exam cycle cannot exceed 40 characters");
+  return raw;
+}
+
 export function testSeriesLearnerMessage(value: unknown): string {
   const configuration = asRecord(value);
   const message = asString(configuration.learnerMessage);
@@ -164,6 +194,9 @@ export function normalizeTestSeriesInput(value: unknown): NormalizedTestSeriesIn
   const configuration = asRecord(input.configuration);
   const learnerVisibility = testSeriesLearnerVisibility(configuration);
   const learnerMessage = testSeriesLearnerMessage(configuration);
+  const hubStage = testSeriesHubStage(configuration);
+  const hubType = testSeriesHubType(configuration);
+  const examCycle = testSeriesExamCycle(configuration);
   const rawItems = Array.isArray(input.items) ? input.items : [];
   if (rawItems.length > 200 || (learnerVisibility === "live" && rawItems.length < 1)) {
     throw new TestSeriesError(
@@ -220,6 +253,9 @@ export function normalizeTestSeriesInput(value: unknown): NormalizedTestSeriesIn
       learnerMessage: learnerMessage || (
         learnerVisibility === "coming_soon" ? DEFAULT_TEST_SERIES_LEARNER_MESSAGE : ""
       ),
+      hubStage,
+      hubType,
+      examCycle,
     },
     changeReason,
     items,

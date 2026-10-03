@@ -50,6 +50,8 @@ import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
 type EditorMode = 'view' | 'new' | 'edit';
+type SeriesHubStage = 'general' | 'prelims' | 'mains';
+type SeriesHubType = 'full-length' | 'pyq' | 'sectional' | 'topic-wise';
 type EditableItem = TestSeriesItemInput & { clientId: string };
 
 interface EditorDraft {
@@ -59,6 +61,9 @@ interface EditorDraft {
   description: string;
   learnerVisibility: SeriesLearnerVisibility;
   learnerMessage: string;
+  hubStage: SeriesHubStage;
+  hubType: SeriesHubType;
+  examCycle: string;
   availabilityStartAt: string;
   availabilityEndAt: string;
   progressionMode: SeriesProgressionMode;
@@ -103,6 +108,9 @@ function blankDraft(catalog: SeriesCatalog): EditorDraft {
     description: '',
     learnerVisibility: 'coming_soon',
     learnerMessage: 'Tests are being prepared. No questions are available yet.',
+    hubStage: 'general',
+    hubType: 'full-length',
+    examCycle: String(new Date().getFullYear()),
     availabilityStartAt: '',
     availabilityEndAt: '',
     progressionMode: 'open',
@@ -124,6 +132,17 @@ function detailDraft(detail: TestSeriesDetail): EditorDraft {
     })(),
     learnerMessage: typeof detail.currentVersion?.configuration?.learnerMessage === 'string'
       ? detail.currentVersion.configuration.learnerMessage
+      : '',
+    hubStage: (() => {
+      const value = detail.currentVersion?.configuration?.hubStage;
+      return value === 'prelims' || value === 'mains' || value === 'general' ? value : 'general';
+    })(),
+    hubType: (() => {
+      const value = detail.currentVersion?.configuration?.hubType;
+      return value === 'pyq' || value === 'sectional' || value === 'topic-wise' || value === 'full-length' ? value : 'full-length';
+    })(),
+    examCycle: typeof detail.currentVersion?.configuration?.examCycle === 'string'
+      ? detail.currentVersion.configuration.examCycle
       : '',
     availabilityStartAt: localDateTime(detail.currentVersion?.availabilityStartAt),
     availabilityEndAt: localDateTime(detail.currentVersion?.availabilityEndAt),
@@ -270,6 +289,9 @@ export function TestSeriesWorkspacePage() {
         releasePolicySource: 'canonical_test_series_version',
         learnerVisibility: draft.learnerVisibility,
         learnerMessage: draft.learnerMessage.trim(),
+        hubStage: draft.hubStage,
+        hubType: draft.hubType,
+        examCycle: draft.examCycle.trim(),
       },
       changeReason: draft.changeReason,
       items: draft.items.map(({ clientId: _clientId, unlockAt, ...item }) => ({
@@ -429,6 +451,10 @@ function SeriesEditor(props: {
           <div className="space-y-2"><Label>Learner visibility</Label><Select value={draft.learnerVisibility} onValueChange={(value) => setDraft((current) => ({ ...current, learnerVisibility: value as SeriesLearnerVisibility, learnerMessage: value === 'coming_soon' && !current.learnerMessage.trim() ? 'Tests are being prepared. No questions are available yet.' : current.learnerMessage }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="hidden">Hidden · admin only</SelectItem><SelectItem value="coming_soon">Coming Soon · visible without tests</SelectItem><SelectItem value="live">Live · tests required</SelectItem></SelectContent></Select></div>
           <div className="space-y-2"><Label>Visibility meaning</Label><div className="min-h-10 rounded-md border bg-muted/30 px-3 py-2 text-sm text-muted-foreground">{draft.learnerVisibility === 'hidden' ? 'Not shown in web or app.' : draft.learnerVisibility === 'coming_soon' ? 'Shown in web and app. Learners can open the page, but cannot start a test.' : 'Shown as active. At least one canonical test is required.'}</div></div>
           {draft.learnerVisibility === 'coming_soon' && <div className="space-y-2 md:col-span-2"><Label>Coming Soon message</Label><Textarea value={draft.learnerMessage} onChange={(event) => setDraft((current) => ({ ...current, learnerMessage: event.target.value }))} rows={2} maxLength={500} placeholder="Tests are being prepared. No questions are available yet." /></div>}
+          <div className="space-y-2"><Label>Exam stage on web hub</Label><Select value={draft.hubStage} onValueChange={(value) => setDraft((current) => ({ ...current, hubStage: value as SeriesHubStage }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="general">General / not stage-specific</SelectItem><SelectItem value="prelims">Prelims</SelectItem><SelectItem value="mains">Mains</SelectItem></SelectContent></Select></div>
+          <div className="space-y-2"><Label>Web hub section</Label><Select value={draft.hubType} onValueChange={(value) => setDraft((current) => ({ ...current, hubType: value as SeriesHubType }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="full-length">Full-length series</SelectItem><SelectItem value="pyq">Previous Year Papers (PYQ)</SelectItem><SelectItem value="sectional">Sectional tests</SelectItem><SelectItem value="topic-wise">Topic-wise tests</SelectItem></SelectContent></Select></div>
+          <div className="space-y-2"><Label>Exam cycle / year</Label><Input value={draft.examCycle} maxLength={40} onChange={(event) => setDraft((current) => ({ ...current, examCycle: event.target.value }))} placeholder="2026" /></div>
+          <div className="space-y-2"><Label>Hub placement</Label><div className="min-h-10 rounded-md border bg-muted/30 px-3 py-2 text-sm text-muted-foreground">Shown under {draft.hubType === 'pyq' ? 'Previous Year Papers' : draft.hubType === 'sectional' ? 'Sectional Tests' : draft.hubType === 'topic-wise' ? 'Topic-wise Tests' : draft.hubStage === 'prelims' ? 'Prelims Test Series' : draft.hubStage === 'mains' ? 'Mains Test Series' : 'More Full-length Tests'} on the dedicated exam page.</div></div>
           <div className="space-y-2"><Label>Availability start</Label><Input type="datetime-local" value={draft.availabilityStartAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityStartAt: event.target.value }))} /></div>
           <div className="space-y-2"><Label>Availability end</Label><Input type="datetime-local" value={draft.availabilityEndAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityEndAt: event.target.value }))} /></div>
           <div className="space-y-2"><Label>Progression</Label><Select value={draft.progressionMode} onValueChange={(value) => setDraft((current) => ({ ...current, progressionMode: value as SeriesProgressionMode, completionThreshold: value === 'score_gated' ? current.completionThreshold ?? 40 : null }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="open">Open access</SelectItem><SelectItem value="sequential">Sequential completion</SelectItem><SelectItem value="score_gated">Score gated</SelectItem></SelectContent></Select></div>
@@ -466,7 +492,7 @@ function SeriesDetail(props: {
   const { detail } = props;
   const archived = Boolean(detail.series.deletedAt);
   return <>
-    <Card><CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><div className="flex items-center gap-2"><CardTitle>{detail.series.name}</CardTitle><Badge variant={detail.currentVersion?.configuration?.learnerVisibility === 'live' && detail.readiness.ready ? 'default' : 'outline'}>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' ? 'Coming Soon' : detail.currentVersion?.configuration?.learnerVisibility === 'hidden' ? 'Hidden' : detail.readiness.ready ? 'Release ready' : 'Blocked'}</Badge>{archived && <Badge variant="secondary">Archived</Badge>}</div><p className="mt-1 text-sm text-muted-foreground">{detail.series.code} · {detail.series.examFamilyName} · {detail.series.examName} · version {detail.series.currentVersionNumber}</p></div><div className="flex gap-2">{props.canUpdate && !archived && <Button variant="outline" onClick={props.onEdit}><Settings2 className="mr-2 h-4 w-4" />Edit</Button>}<Button variant="outline" onClick={props.onNew}><Plus className="mr-2 h-4 w-4" />New</Button></div></div></CardHeader><CardContent className="grid gap-4 md:grid-cols-3"><div><p className="text-xs text-muted-foreground">Progression</p><p className="font-medium capitalize">{detail.currentVersion?.progressionMode.replace('_', ' ')}</p></div><div><p className="text-xs text-muted-foreground">Availability</p><p className="font-medium">{detail.currentVersion?.availabilityStartAt ? new Date(detail.currentVersion.availabilityStartAt).toLocaleString() : 'Open start'} → {detail.currentVersion?.availabilityEndAt ? new Date(detail.currentVersion.availabilityEndAt).toLocaleString() : 'No end'}</p></div><div><p className="text-xs text-muted-foreground">Ordered tests</p><p className="font-medium">{detail.items.length}</p></div><div className="md:col-span-3"><p className="text-xs text-muted-foreground">Description</p><p className="mt-1 text-sm">{detail.currentVersion?.description || 'No description.'}</p></div>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' && <div className="md:col-span-3"><p className="text-xs text-muted-foreground">Learner message</p><p className="mt-1 text-sm">{typeof detail.currentVersion.configuration.learnerMessage === 'string' && detail.currentVersion.configuration.learnerMessage.trim() ? detail.currentVersion.configuration.learnerMessage : 'Tests are being prepared. No questions are available yet.'}</p></div>}</CardContent></Card>
+    <Card><CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><div className="flex items-center gap-2"><CardTitle>{detail.series.name}</CardTitle><Badge variant={detail.currentVersion?.configuration?.learnerVisibility === 'live' && detail.readiness.ready ? 'default' : 'outline'}>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' ? 'Coming Soon' : detail.currentVersion?.configuration?.learnerVisibility === 'hidden' ? 'Hidden' : detail.readiness.ready ? 'Release ready' : 'Blocked'}</Badge>{archived && <Badge variant="secondary">Archived</Badge>}</div><p className="mt-1 text-sm text-muted-foreground">{detail.series.code} · {detail.series.examFamilyName} · {detail.series.examName} · version {detail.series.currentVersionNumber}</p></div><div className="flex gap-2">{props.canUpdate && !archived && <Button variant="outline" onClick={props.onEdit}><Settings2 className="mr-2 h-4 w-4" />Edit</Button>}<Button variant="outline" onClick={props.onNew}><Plus className="mr-2 h-4 w-4" />New</Button></div></div></CardHeader><CardContent className="grid gap-4 md:grid-cols-3"><div><p className="text-xs text-muted-foreground">Progression</p><p className="font-medium capitalize">{detail.currentVersion?.progressionMode.replace('_', ' ')}</p></div><div><p className="text-xs text-muted-foreground">Web hub placement</p><p className="font-medium capitalize">{String(detail.currentVersion?.configuration?.hubStage ?? 'general').replace('_', ' ')} · {String(detail.currentVersion?.configuration?.hubType ?? 'full-length').replace('-', ' ')}</p><p className="text-xs text-muted-foreground">{String(detail.currentVersion?.configuration?.examCycle ?? '') || 'No cycle label'}</p></div><div><p className="text-xs text-muted-foreground">Availability</p><p className="font-medium">{detail.currentVersion?.availabilityStartAt ? new Date(detail.currentVersion.availabilityStartAt).toLocaleString() : 'Open start'} → {detail.currentVersion?.availabilityEndAt ? new Date(detail.currentVersion.availabilityEndAt).toLocaleString() : 'No end'}</p></div><div><p className="text-xs text-muted-foreground">Ordered tests</p><p className="font-medium">{detail.items.length}</p></div><div className="md:col-span-3"><p className="text-xs text-muted-foreground">Description</p><p className="mt-1 text-sm">{detail.currentVersion?.description || 'No description.'}</p></div>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' && <div className="md:col-span-3"><p className="text-xs text-muted-foreground">Learner message</p><p className="mt-1 text-sm">{typeof detail.currentVersion.configuration.learnerMessage === 'string' && detail.currentVersion.configuration.learnerMessage.trim() ? detail.currentVersion.configuration.learnerMessage : 'Tests are being prepared. No questions are available yet.'}</p></div>}</CardContent></Card>
 
     <CatalogBrandingEditor entityType="test_series" entityId={detail.series.id} title="Test series icon" />
 
