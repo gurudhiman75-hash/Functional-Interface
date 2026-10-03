@@ -26,6 +26,7 @@ Notable current counts retained by executable regression:
 - Inequality: **4 permanent QLs** across direct, conclusion-set, either/or and coded inequality;
 - Assertion and Reason: **1 permanent QL** with 20 curated trilingual scenario authorities across all five answer classes;
 - Floor and Flat Arrangement: **4 permanent QLs** spanning single-column floors, floor + variable, two-flat grids and shared-flat capacity;
+- Syllogism: **18 compatibility QLs / 4 canonical legacy mock archetypes**; V5 content logic closed, current Question Studio adapter migrated, and exact diagrams now reuse Logical Venn geometry where safe; source weighting, learner-data difficulty calibration and release remain separate gates;
 - Decision Making / Eligibility: **60 permanent QLs**, **20 checkpoints** and **650 trilingual scenario authorities**, with mixed review batches stratified across all checkpoint families;
 - Seating Arrangement: **40 permanent QLs** across SEA-001 (9), SEA-002 (22) and SEA-003 (9); the approved Seating package sequence is content-audit closed;
 - Spatial/non-verbal family: **63 permanent QLs**.
