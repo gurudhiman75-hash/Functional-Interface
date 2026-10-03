@@ -211,10 +211,40 @@ async function ensureReferences(configuration: ReturnType<typeof normalizeConfig
     if (missing.length > 0) throw Object.assign(new Error("One or more featured exam categories are unavailable."), { statusCode: 409, code: "MOBILE_HOME_EXAM_REFERENCE_INVALID" });
   }
   if (configuration.featuredTestSeriesIds.length > 0) {
-    const rows = await sqlClient`SELECT id::text AS id FROM assessment.test_series WHERE id = ANY(${configuration.featuredTestSeriesIds}::uuid[]) AND deleted_at IS NULL`;
+    const rows = await sqlClient`
+      SELECT s.id::text AS id
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions version
+        ON version.series_id = s.id
+       AND version.version_number = s.current_version_number
+      LEFT JOIN assessment.test_series_items item
+        ON item.series_version_id = version.id
+      LEFT JOIN assessment.tests test
+        ON test.id = item.test_id
+       AND test.deleted_at IS NULL
+      LEFT JOIN assessment.test_publications publication
+        ON publication.test_id = test.id
+       AND publication.test_version_id = test.published_version_id
+       AND publication.published_at IS NOT NULL
+      WHERE s.id = ANY(${configuration.featuredTestSeriesIds}::uuid[])
+        AND s.deleted_at IS NULL
+        AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+        AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
+      GROUP BY s.id, version.id
+      HAVING
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+        OR (
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+          AND COUNT(item.id) FILTER (
+            WHERE test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ) > 0
+        )
+    `;
     const found = new Set(rows.map((row) => String(row.id)));
     const missing = configuration.featuredTestSeriesIds.filter((id) => !found.has(id));
-    if (missing.length > 0) throw Object.assign(new Error("One or more featured test series are unavailable."), { statusCode: 409, code: "MOBILE_HOME_SERIES_REFERENCE_INVALID" });
+    if (missing.length > 0) throw Object.assign(new Error("One or more featured test series are not learner-visible."), { statusCode: 409, code: "MOBILE_HOME_SERIES_REFERENCE_INVALID" });
   }
 
   for (const slide of configuration.heroSlides) {
@@ -255,8 +285,35 @@ async function ensureReferences(configuration: ReturnType<typeof normalizeConfig
       WHERE id = ANY(${examIds}::uuid[]) AND is_active=true
     `,
     seriesIds.length === 0 ? Promise.resolve([]) : sqlClient`
-      SELECT id::text AS id FROM assessment.test_series
-      WHERE id = ANY(${seriesIds}::uuid[]) AND deleted_at IS NULL
+      SELECT s.id::text AS id
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions version
+        ON version.series_id = s.id
+       AND version.version_number = s.current_version_number
+      LEFT JOIN assessment.test_series_items item
+        ON item.series_version_id = version.id
+      LEFT JOIN assessment.tests test
+        ON test.id = item.test_id
+       AND test.deleted_at IS NULL
+      LEFT JOIN assessment.test_publications publication
+        ON publication.test_id = test.id
+       AND publication.test_version_id = test.published_version_id
+       AND publication.published_at IS NOT NULL
+      WHERE s.id = ANY(${seriesIds}::uuid[])
+        AND s.deleted_at IS NULL
+        AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+        AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
+      GROUP BY s.id, version.id
+      HAVING
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+        OR (
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+          AND COUNT(item.id) FILTER (
+            WHERE test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ) > 0
+        )
     `,
     pageSlugs.length === 0 ? Promise.resolve([]) : sqlClient`
       SELECT slug FROM platform.mobile_pages
@@ -305,11 +362,37 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
           s.code,
           s.name,
           s.current_version_number AS "currentVersionNumber",
-          e.name AS "examName"
+          e.name AS "examName",
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility"
         FROM assessment.test_series s
+        JOIN assessment.test_series_versions version
+          ON version.series_id = s.id
+         AND version.version_number = s.current_version_number
         JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
         JOIN catalog.exams e ON e.id = ev.exam_id
+        LEFT JOIN assessment.test_series_items item
+          ON item.series_version_id = version.id
+        LEFT JOIN assessment.tests test
+          ON test.id = item.test_id
+         AND test.deleted_at IS NULL
+        LEFT JOIN assessment.test_publications publication
+          ON publication.test_id = test.id
+         AND publication.test_version_id = test.published_version_id
+         AND publication.published_at IS NOT NULL
         WHERE s.deleted_at IS NULL
+          AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+          AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
+        GROUP BY s.id, version.id, e.id
+        HAVING
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+          OR (
+            COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+            AND COUNT(item.id) FILTER (
+              WHERE test.status = 'live'::test_status
+                AND publication.published_at IS NOT NULL
+                AND (publication.closes_at IS NULL OR publication.closes_at > now())
+            ) > 0
+          )
         ORDER BY s.updated_at DESC, s.name
         LIMIT 250
       `,
