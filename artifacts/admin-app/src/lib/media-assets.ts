@@ -9,6 +9,18 @@ export const MEDIA_TYPES=[
 
 export type MediaAssetType=typeof MEDIA_TYPES[number];
 export type MediaAssetStatus='active'|'archived';
+export type FirebaseStorageImage={
+  path:string;
+  name:string;
+  mimeType:string;
+  byteSize:number;
+  updatedAt:string;
+  url:string;
+  imported:boolean;
+  assetId:string;
+  assetType:string;
+  status:string;
+};
 
 export type LiveMediaAsset={
   id:string;
@@ -95,6 +107,22 @@ export async function uploadMediaAsset(file:File,type:MediaAssetType){
     }),
   });
   return result.asset;
+}
+
+
+export async function listFirebaseStorageImages(search?:string){
+  const params=new URLSearchParams();
+  if(search?.trim())params.set('search',search.trim());
+  const result=await api<{files:FirebaseStorageImage[];limit:number}>('/admin/media/storage-files'+(params.size?'?'+params.toString():''));
+  return result.files;
+}
+
+export async function importFirebaseStorageImages(paths:string[],type:MediaAssetType){
+  const result=await api<{assets:LiveMediaAsset[];skipped:string[]}>('/admin/media/import-storage',{
+    method:'POST',
+    body:JSON.stringify({paths,type}),
+  });
+  return result;
 }
 
 export async function setMediaAssetStatus(id:string,status:MediaAssetStatus){
