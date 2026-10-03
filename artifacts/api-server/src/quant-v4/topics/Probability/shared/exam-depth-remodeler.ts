@@ -284,7 +284,11 @@ export function remodelProbabilityStem(
 
   if (mode === "findTogetherOrApartProbability") {
     const people = numberValue(parameters, "people"), apart = textValue(parameters, "relation", "TOGETHER") === "APART";
-    return `${people} candidates stand in a queue in a random order. What is the probability that two specified candidates are ${apart ? "not adjacent" : "adjacent"}?`;
+    const relation = apart ? "not adjacent" : "adjacent";
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `${people} people are arranged at random in a line. What is the probability that two specified people are ${relation}?`;
+    if (form === 1) return `A random linear arrangement is formed from ${people} distinct people. Find the probability that two specified people are ${relation}.`;
+    return `${people} distinct people stand in a randomly ordered row. What is the probability that two specified people are ${relation}?`;
   }
 
   const eventModes = [
