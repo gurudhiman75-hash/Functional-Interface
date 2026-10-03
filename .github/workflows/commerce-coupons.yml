@@ -57,7 +57,7 @@ jobs:
           grep -F 'couponCode: coupon?.code' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
           grep -F 'INSERT INTO commerce.coupon_redemptions' artifacts/api-server/src/lib/canonical-commerce-payments.ts
           grep -F 'ON CONFLICT (order_id) DO NOTHING' artifacts/api-server/src/lib/canonical-commerce-payments.ts
-          grep -F "path: '/commerce/coupons'" artifacts/admin-app/src/App.tsx
+          grep -E "path:[[:space:]]*'/commerce/coupons'" artifacts/admin-app/src/App.tsx
           grep -F "permission: 'commerce.coupons.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "Intl.NumberFormat('en-GB'" artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
           ! grep -E '@/data/|demo coupon|prototype coupon' artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
