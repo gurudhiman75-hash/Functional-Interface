@@ -10,6 +10,38 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP005_URN_STATE_LANES: Readonly<Record<string, Readonly<{ red: number; blue: number; draw: number; exactRed?: number }>>> = Object.freeze({
+  "PRB-QL-401": { red: 4, blue: 5, draw: 1 },
+  "PRB-QL-402": { red: 5, blue: 7, draw: 2 },
+  "PRB-QL-403": { red: 8, blue: 11, draw: 3 },
+  "PRB-QL-404": { red: 6, blue: 8, draw: 2, exactRed: 1 },
+  "PRB-QL-405": { red: 4, blue: 7, draw: 2 },
+  "PRB-QL-406": { red: 9, blue: 10, draw: 3 },
+  "PRB-QL-407": { red: 5, blue: 8, draw: 1 },
+  "PRB-QL-408": { red: 6, blue: 5, draw: 2, exactRed: 1 },
+
+  "PRB-QL-409": { red: 6, blue: 7, draw: 1 },
+  "PRB-QL-410": { red: 10, blue: 7, draw: 3 },
+  "PRB-QL-411": { red: 7, blue: 9, draw: 2 },
+  "PRB-QL-412": { red: 5, blue: 9, draw: 2, exactRed: 1 },
+  "PRB-QL-413": { red: 11, blue: 8, draw: 3 },
+  "PRB-QL-414": { red: 8, blue: 6, draw: 2 },
+  "PRB-QL-415": { red: 7, blue: 5, draw: 1 },
+  "PRB-QL-416": { red: 8, blue: 5, draw: 2, exactRed: 1 },
+
+  "PRB-QL-417": { red: 8, blue: 9, draw: 1 },
+  "PRB-QL-418": { red: 9, blue: 6, draw: 2 },
+  "PRB-QL-419": { red: 5, blue: 6, draw: 2 },
+  "PRB-QL-420": { red: 12, blue: 9, draw: 3, exactRed: 2 },
+  "PRB-QL-421": { red: 6, blue: 9, draw: 2 },
+  "PRB-QL-422": { red: 9, blue: 5, draw: 2 },
+  "PRB-QL-423": { red: 8, blue: 7, draw: 1 },
+  "PRB-QL-424": { red: 10, blue: 8, draw: 3, exactRed: 2 },
+
+  "PRB-QL-425": { red: 9, blue: 8, draw: 1 },
+  "PRB-QL-426": { red: 7, blue: 10, draw: 2 },
+});
+
 const CP004_CARD_STATE_LANES: Readonly<Record<string, Readonly<{ rank: string; suit: string; colour: string }>>> = Object.freeze({
   "PRB-QL-301": { rank: "ace", suit: "hearts", colour: "red" },
   "PRB-QL-309": { rank: "king", suit: "clubs", colour: "black" },
@@ -205,6 +237,18 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (["findSingleDrawColourProbability", "findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability", "findNoObjectOfTypeProbability", "findAtLeastOneObjectOfType", "findMissingObjectCountFromProbability"].includes(mode) || (mode === "findSelectionProbabilityUsingCombination" && entry.cpId === "PRB-CP-005")) {
+    const lane = CP005_URN_STATE_LANES[entry.qlId];
+    if (lane) {
+      return {
+        red: lane.red,
+        blue: lane.blue,
+        total: lane.red + lane.blue,
+        draw: lane.draw,
+        targetColour: "red",
+        secondaryColour: "blue",
+        exactRed: lane.exactRed ?? Math.max(1, lane.draw - 1),
+      };
+    }
     const red = randomInt(random, 4, entry.difficulty === "Hard" ? 12 : 9), blue = randomInt(random, 4, entry.difficulty === "Hard" ? 12 : 9);
     const draw = mode === "findSingleDrawColourProbability" || mode === "findMissingObjectCountFromProbability" ? 1 : entry.difficulty === "Hard" ? 3 : 2;
     return { red, blue, total: red + blue, draw, targetColour: "red", secondaryColour: "blue", exactRed: Math.max(1, draw - 1) };
