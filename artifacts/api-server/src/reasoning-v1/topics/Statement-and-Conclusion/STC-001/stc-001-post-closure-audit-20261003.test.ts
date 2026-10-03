@@ -153,6 +153,8 @@ assert.ok(standardBatch.questions.every((question) => question.questionBankWrita
 assert.ok(standardBatch.questions.every((question) =>
   (question.validation as { independentProofVerified?: boolean } | undefined)?.independentProofVerified === true,
 ));
+assert.ok(standardBatch.questions.every((question) => String(question.stem).includes("ਕਥਨ:")));
+assert.ok(standardBatch.questions.every((question) => !String(question.stem).includes("Statement:")));
 
 const cpBatch = await reasoningV1QuestionStudioAdapter.generate({
   engineId: "reasoning-v1",
