@@ -10,6 +10,7 @@ import { REASONING_V1_NOVELTY_PROVIDERS_V1 } from "../shared/reasoning-novelty-p
 import { SPATIAL_FAMILY_FREEZE_AUTHORITY_V1 } from "../foundation/spatial/spatial-family-freeze-v1";
 
 const cwd = process.cwd();
+const reasoningRoot = resolve(cwd, "artifacts/api-server/src/reasoning-v1");
 
 assert.equal(REASONING_V1_FINAL_CURRENT_HEAD_STATUS_V1.topicDirectoryCount, 31);
 assert.equal(REASONING_V1_FINAL_CURRENT_HEAD_STATUS_V1.internalContentBlockerCount, 0);
@@ -32,7 +33,7 @@ for (const entry of REASONING_V1_FINAL_TOPIC_STATUS_V1) {
   assert.ok(entry.closureAuthorities.length >= 1, entry.topicDirectory + ": missing closure authorities");
 
   for (const relativePath of entry.closureAuthorities) {
-    const fullPath = resolve(cwd, "src/reasoning-v1", relativePath);
+    const fullPath = resolve(reasoningRoot, relativePath);
     assert.equal(
       existsSync(fullPath),
       true,
@@ -50,8 +51,8 @@ assert.ok(lp?.externalEvidenceHold?.includes("first-party") || lp?.externalEvide
 
 const lpSourceCeiling = readFileSync(
   resolve(
-    cwd,
-    "src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-001-011-SOURCE-PROVENANCE-WAVE04-RETRIEVAL-CEILING.md",
+    reasoningRoot,
+    "topics/Logic-Puzzles/LP-001/LP-001-011-SOURCE-PROVENANCE-WAVE04-RETRIEVAL-CEILING.md",
   ),
   "utf8",
 );
