@@ -930,6 +930,39 @@ const PRINCIPLE_LABELS = Object.freeze({
   pa: { VERIFY_FACTS: "ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਸੰਬੰਧਤ ਤੱਥਾਂ ਦੀ ਤਸਦੀਕ", FOLLOW_PROCEDURE: "ਨਿਰਧਾਰਤ ਪ੍ਰਕਿਰਿਆ ਦੀ ਪਾਲਣਾ", ESCALATE_AUTHORIZED: "ਸਿਰਫ਼ ਸਮਰੱਥ ਅਧਿਕਾਰੀ ਕੋਲ ਮਾਮਲਾ ਭੇਜਣਾ", DOCUMENT_ACTION: "ਜਾਂਚਯੋਗ ਰਿਕਾਰਡ ਰੱਖਣਾ", PROTECT_CONFIDENTIALITY: "ਗੁਪਤ ਜਾਣਕਾਰੀ ਦੀ ਰੱਖਿਆ", PRIORITIZE_URGENCY: "ਤਸਦੀਕਸ਼ੁਦਾ ਐਮਰਜੈਂਸੀ ਨੂੰ ਪਹਿਲੀ ਤਰਜੀਹ", PRIORITIZE_DEADLINE: "ਰੁਟੀਨੀ ਕੰਮ ਤੋਂ ਪਹਿਲਾਂ ਮਿਆਦਬੱਧ ਕੰਮ", SERVE_FAIRLY: "ਪਾਰਦਰਸ਼ੀ ਅਤੇ ਇੱਕਸਾਰ ਸੇਵਾ ਨਿਯਮ" },
 } as const);
 
+const WHY_FIRST = Object.freeze({
+  en: {
+    VERIFY_FACTS: "the disputed fact must be checked against the authoritative record before any final decision",
+    FOLLOW_PROCEDURE: "the prescribed route provides the authorized remedy and should be used before escalation or rejection",
+    ESCALATE_AUTHORIZED: "the designated authority must resolve the issue after the relevant record is placed before it",
+    DOCUMENT_ACTION: "the action, reason and responsible officer must remain traceable in the official record",
+    PROTECT_CONFIDENTIALITY: "identity and authorization must be verified before any protected information is disclosed",
+    PRIORITIZE_URGENCY: "a verified emergency takes precedence over deadline-bound and routine work",
+    PRIORITIZE_DEADLINE: "the time-bound task must be secured before resources return to routine work",
+    SERVE_FAIRLY: "the same published and transparent rule must be applied to every comparable case",
+  },
+  hi: {
+    VERIFY_FACTS: "अंतिम निर्णय से पहले विवादित तथ्य का प्रामाणिक अभिलेख से सत्यापन आवश्यक है",
+    FOLLOW_PROCEDURE: "निर्धारित प्रक्रिया अधिकृत समाधान देती है और प्रेषण या अस्वीकृति से पहले उसी का पालन होना चाहिए",
+    ESCALATE_AUTHORIZED: "संबंधित अभिलेख प्रस्तुत करने के बाद नामित प्राधिकारी को ही मामले का समाधान करना है",
+    DOCUMENT_ACTION: "कार्रवाई, कारण और जिम्मेदार अधिकारी का विवरण आधिकारिक अभिलेख में जाँच योग्य रहना चाहिए",
+    PROTECT_CONFIDENTIALITY: "संरक्षित जानकारी देने से पहले पहचान और प्राधिकरण का सत्यापन आवश्यक है",
+    PRIORITIZE_URGENCY: "सत्यापित आपात स्थिति को समयबद्ध और सामान्य कार्य से पहले लिया जाता है",
+    PRIORITIZE_DEADLINE: "सामान्य कार्य पर लौटने से पहले समयबद्ध कार्य पूरा करने की व्यवस्था आवश्यक है",
+    SERVE_FAIRLY: "समान मामलों पर एक ही प्रकाशित और पारदर्शी नियम लागू होना चाहिए",
+  },
+  pa: {
+    VERIFY_FACTS: "ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਵਿਵਾਦਿਤ ਤੱਥ ਦੀ ਅਧਿਕਾਰਤ ਰਿਕਾਰਡ ਨਾਲ ਤਸਦੀਕ ਲਾਜ਼ਮੀ ਹੈ",
+    FOLLOW_PROCEDURE: "ਨਿਰਧਾਰਤ ਪ੍ਰਕਿਰਿਆ ਅਧਿਕਾਰਤ ਹੱਲ ਦਿੰਦੀ ਹੈ ਅਤੇ ਰੈਫਰਲ ਜਾਂ ਰੱਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦੀ ਪਾਲਣਾ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ",
+    ESCALATE_AUTHORIZED: "ਸੰਬੰਧਤ ਰਿਕਾਰਡ ਪੇਸ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ ਨਾਮਜ਼ਦ ਅਧਿਕਾਰੀ ਨੇ ਹੀ ਮਾਮਲਾ ਸੁਲਝਾਉਣਾ ਹੈ",
+    DOCUMENT_ACTION: "ਕਾਰਵਾਈ, ਕਾਰਨ ਅਤੇ ਜ਼ਿੰਮੇਵਾਰ ਅਧਿਕਾਰੀ ਦਾ ਵੇਰਵਾ ਸਰਕਾਰੀ ਰਿਕਾਰਡ ਵਿੱਚ ਜਾਂਚਯੋਗ ਰਹਿਣਾ ਚਾਹੀਦਾ ਹੈ",
+    PROTECT_CONFIDENTIALITY: "ਸੁਰੱਖਿਅਤ ਜਾਣਕਾਰੀ ਦੇਣ ਤੋਂ ਪਹਿਲਾਂ ਪਛਾਣ ਅਤੇ ਅਧਿਕਾਰ ਦੀ ਤਸਦੀਕ ਲਾਜ਼ਮੀ ਹੈ",
+    PRIORITIZE_URGENCY: "ਤਸਦੀਕਸ਼ੁਦਾ ਐਮਰਜੈਂਸੀ ਨੂੰ ਮਿਆਦ ਵਾਲੇ ਅਤੇ ਆਮ ਕੰਮ ਤੋਂ ਪਹਿਲਾਂ ਲਿਆ ਜਾਂਦਾ ਹੈ",
+    PRIORITIZE_DEADLINE: "ਆਮ ਕੰਮ ਵੱਲ ਮੁੜਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਆਦ ਵਾਲਾ ਕੰਮ ਪੂਰਾ ਕਰਨ ਦਾ ਪ੍ਰਬੰਧ ਲਾਜ਼ਮੀ ਹੈ",
+    SERVE_FAIRLY: "ਇੱਕੋ ਜਿਹੇ ਮਾਮਲਿਆਂ ਉੱਤੇ ਇੱਕੋ ਜਾਰੀ ਅਤੇ ਪਾਰਦਰਸ਼ੀ ਨਿਯਮ ਲਾਗੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+  },
+} as const);
+
 function generateSituationalQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
   const spec = scenario.situational!;
   const decision = solveDmSituation(spec);
@@ -941,11 +974,12 @@ function generateSituationalQuestion(scenario: DmScenario, locale: DmLocale, see
   const correctIndex = choices.findIndex((choice) => choice.choiceId === decision.choice.choiceId);
   const stem = spec.situation[locale] + "\n" + SITUATIONAL_STEMS[locale][seed % SITUATIONAL_STEMS[locale].length]!;
   const principle = PRINCIPLE_LABELS[locale][decision.choice.principle];
+  const whyFirst = WHY_FIRST[locale][decision.choice.principle];
   const explanation = locale === "en"
-    ? "Situation: " + spec.situation.en + "\nRelevant principle: " + principle + ".\nWhy this comes first: it is the earliest admissible step and avoids acting on assumptions, bypassing procedure, or taking irreversible action prematurely.\nConclusion: " + decision.choice.text.en
+    ? "Situation: " + spec.situation.en + "\nRelevant principle: " + principle + ".\nWhy this comes first: " + whyFirst + ".\nConclusion: " + decision.choice.text.en
     : locale === "hi"
-      ? "स्थिति: " + spec.situation.hi + "\nसंबंधित सिद्धांत: " + principle + "।\nयह पहले क्यों: यह पहला स्वीकार्य कदम है और अनुमान, प्रक्रिया उल्लंघन या समय से पहले निर्णायक कार्रवाई से बचाता है।\nनिष्कर्ष: " + decision.choice.text.hi
-      : "ਸਥਿਤੀ: " + spec.situation.pa + "\nਸੰਬੰਧਤ ਸਿਧਾਂਤ: " + principle + "।\nਇਹ ਪਹਿਲਾਂ ਕਿਉਂ: ਇਹ ਪਹਿਲਾ ਮਨਜ਼ੂਰਯੋਗ ਕਦਮ ਹੈ ਅਤੇ ਅਨੁਮਾਨ, ਪ੍ਰਕਿਰਿਆ ਉਲੰਘਣਾ ਜਾਂ ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਨਤੀਜਾਕਾਰੀ ਕਾਰਵਾਈ ਤੋਂ ਬਚਾਉਂਦਾ ਹੈ।\nਨਤੀਜਾ: " + decision.choice.text.pa;
+      ? "स्थिति: " + spec.situation.hi + "\nसंबंधित सिद्धांत: " + principle + "।\nयह पहले क्यों: " + whyFirst + "।\nनिष्कर्ष: " + decision.choice.text.hi
+      : "ਸਥਿਤੀ: " + spec.situation.pa + "\nਸੰਬੰਧਤ ਸਿਧਾਂਤ: " + principle + "।\nਇਹ ਪਹਿਲਾਂ ਕਿਉਂ: " + whyFirst + "।\nਨਤੀਜਾ: " + decision.choice.text.pa;
   return Object.freeze({
     chapterId: "DM-001", checkpointId: scenario.checkpointId, blueprintCheckpointId: scenario.blueprintCheckpointId,
     qlId: scenario.qlId, scenarioId: scenario.scenarioId, seed, locale,
