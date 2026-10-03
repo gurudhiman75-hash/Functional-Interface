@@ -6,8 +6,11 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/**"
-      - ".github/workflows/reasoning-v1-global-audit-reconciliation.yml"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-v1-global-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
