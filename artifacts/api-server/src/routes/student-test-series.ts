@@ -2,6 +2,7 @@ import { Router, type IRouter, type Request, type Response, type NextFunction } 
 
 import { auth } from "../lib/firebase-admin";
 import { sqlClient } from "../lib/db";
+import { requireTestAccess } from "../lib/canonical-commerce-entitlements";
 import {
   assertSeriesTestAccess,
   evaluateStudentSeriesEligibility,
@@ -156,11 +157,147 @@ async function loadStudentAttempts(firebaseUserId: string, seriesVersionId: stri
   }));
 }
 
+async function loadSeriesCommerce(
+  firebaseUserId: string,
+  seriesVersionId: string,
+) {
+  const users = await sqlClient`
+    SELECT u.id::text AS id
+    FROM identity.auth_identities ai
+    JOIN identity.users u
+      ON u.id = ai.user_id
+     AND u.deleted_at IS NULL
+     AND u.status = 'active'::user_status
+    JOIN identity.student_profiles sp ON sp.user_id = u.id
+    WHERE ai.provider = 'firebase'
+      AND ai.provider_subject = ${firebaseUserId}
+    LIMIT 1
+  `;
+  const userId = users[0]?.id ? String(users[0].id) : null;
+
+  const accessRows = await sqlClient`
+    SELECT
+      item.test_id::text AS "testId",
+      EXISTS (
+        SELECT 1
+        FROM commerce.products p
+        JOIN commerce.product_versions pv
+          ON pv.product_id = p.id
+         AND pv.version_number = p.current_version_number
+        JOIN commerce.product_version_tests pvt
+          ON pvt.product_version_id = pv.id
+         AND pvt.test_id = item.test_id
+        WHERE p.status = 'active'
+          AND pv.sale_price_minor > 0
+      ) AS "paidAccessRequired",
+      CASE
+        WHEN ${userId}::uuid IS NULL THEN false
+        ELSE EXISTS (
+          SELECT 1
+          FROM commerce.entitlements entitlement
+          JOIN commerce.entitlement_tests entitlement_test
+            ON entitlement_test.entitlement_id = entitlement.id
+           AND entitlement_test.test_id = item.test_id
+          WHERE entitlement.user_id = ${userId}::uuid
+            AND entitlement.status = 'active'
+            AND entitlement.starts_at <= now()
+            AND (entitlement.ends_at IS NULL OR entitlement.ends_at > now())
+        )
+      END AS entitled
+    FROM assessment.test_series_items item
+    WHERE item.series_version_id = ${seriesVersionId}::uuid
+    ORDER BY item.sort_order
+  `;
+
+  const plans = await sqlClient`
+    SELECT
+      p.id::text AS id,
+      p.code,
+      pv.title,
+      pv.description,
+      pv.currency,
+      pv.list_price_minor::float8 AS "listPriceMinor",
+      pv.sale_price_minor::float8 AS "salePriceMinor",
+      pv.validity_days AS "validityDays",
+      pv.sale_start_at AS "saleStartAt",
+      pv.sale_end_at AS "saleEndAt",
+      COUNT(DISTINCT item.test_id)::int AS "seriesCoveredTestCount",
+      (
+        SELECT COUNT(*)::int
+        FROM commerce.product_version_tests all_tests
+        WHERE all_tests.product_version_id = pv.id
+      ) AS "productTestCount"
+    FROM commerce.products p
+    JOIN commerce.product_versions pv
+      ON pv.product_id = p.id
+     AND pv.version_number = p.current_version_number
+    JOIN commerce.product_version_tests pvt
+      ON pvt.product_version_id = pv.id
+    JOIN assessment.test_series_items item
+      ON item.series_version_id = ${seriesVersionId}::uuid
+     AND item.test_id = pvt.test_id
+    WHERE p.status = 'active'
+      AND pv.sale_price_minor > 0
+      AND (pv.sale_start_at IS NULL OR pv.sale_start_at <= now())
+      AND (pv.sale_end_at IS NULL OR pv.sale_end_at > now())
+    GROUP BY p.id, pv.id
+    ORDER BY pv.validity_days ASC NULLS LAST, pv.sale_price_minor ASC, p.updated_at DESC
+  `;
+
+  const accessByTest = new Map(
+    accessRows.map((row) => [
+      String(row.testId),
+      {
+        paidAccessRequired: Boolean(row.paidAccessRequired),
+        entitled: Boolean(row.entitled),
+      },
+    ]),
+  );
+  const premiumTestCount = accessRows.filter((row) => Boolean(row.paidAccessRequired)).length;
+  const entitledPremiumTestCount = accessRows.filter(
+    (row) => Boolean(row.paidAccessRequired) && Boolean(row.entitled),
+  ).length;
+
+  return {
+    userId,
+    accessByTest,
+    premiumTestCount,
+    entitledPremiumTestCount,
+    freeTestCount: Math.max(0, accessRows.length - premiumTestCount),
+    hasFullAccess:
+      premiumTestCount === 0 || entitledPremiumTestCount === premiumTestCount,
+    plans: plans.map((plan) => ({
+      id: String(plan.id),
+      code: String(plan.code ?? ""),
+      title: String(plan.title ?? "Test Series Plan"),
+      description: String(plan.description ?? ""),
+      currency: String(plan.currency ?? "INR").trim().toUpperCase(),
+      listPriceMinor: Number(plan.listPriceMinor ?? 0),
+      salePriceMinor: Number(plan.salePriceMinor ?? 0),
+      validityDays:
+        plan.validityDays == null ? null : Number(plan.validityDays),
+      saleStartAt:
+        plan.saleStartAt == null
+          ? null
+          : new Date(String(plan.saleStartAt)).toISOString(),
+      saleEndAt:
+        plan.saleEndAt == null
+          ? null
+          : new Date(String(plan.saleEndAt)).toISOString(),
+      seriesCoveredTestCount: Number(plan.seriesCoveredTestCount ?? 0),
+      productTestCount: Number(plan.productTestCount ?? 0),
+    })),
+  };
+}
+
 async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
   const series = await loadSeries(identifier);
   if (!series || series.deletedAt) return null;
   const memberRows = await loadSeriesMembers(String(series.versionId));
-  const attempts = await loadStudentAttempts(firebaseUserId, String(series.versionId));
+  const [attempts, commerce] = await Promise.all([
+    loadStudentAttempts(firebaseUserId, String(series.versionId)),
+    loadSeriesCommerce(firebaseUserId, String(series.versionId)),
+  ]);
   const members: StudentSeriesMemberInput[] = memberRows.map((row) => ({
     id: String(row.id),
     testId: String(row.testId),
@@ -195,6 +332,11 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       totalMarks: Number(row.totalMarks ?? 0),
       questionCount: Number(row.questionCount ?? 0),
       isRequired: Boolean(row.isRequired),
+      paidAccessRequired:
+        commerce.accessByTest.get(String(row.testId))?.paidAccessRequired ??
+        false,
+      entitled:
+        commerce.accessByTest.get(String(row.testId))?.entitled ?? false,
     };
   });
   return {
@@ -217,6 +359,14 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
     eligibility: {
       ...eligibility,
       members: enrichedMembers,
+    },
+    commerce: {
+      hasFullAccess: commerce.hasFullAccess,
+      accessRequired: !commerce.hasFullAccess,
+      premiumTestCount: commerce.premiumTestCount,
+      entitledPremiumTestCount: commerce.entitledPremiumTestCount,
+      freeTestCount: commerce.freeTestCount,
+      plans: commerce.plans,
     },
     generatedAt: new Date().toISOString(),
   };
@@ -381,6 +531,10 @@ async function enforceSeriesAccess(req: Request, res: Response, next: NextFuncti
       return;
     }
     assertSeriesTestAccess(detail.eligibility as StudentSeriesEligibility, testId);
+    await requireTestAccess({
+      firebaseUid: req.user!.id,
+      testId,
+    });
     return next();
   } catch (error) {
     const typed = error as { message?: string; code?: string; statusCode?: number };
