@@ -75,7 +75,7 @@ export function CatalogBrandingEditor({
     return () => { active = false; };
   }, [entityId, entityType]);
 
-  const save = async (nextIconUrl = iconUrl) => {
+  const save = async (nextIconUrl = iconUrl, nextIconName = iconName) => {
     setSaving(true);
     try {
       const branding = await request<Branding>(
@@ -83,7 +83,7 @@ export function CatalogBrandingEditor({
         {
           method: 'PATCH',
           body: JSON.stringify({
-            iconName: iconName.trim(),
+            iconName: nextIconName.trim(),
             iconUrl: nextIconUrl.trim(),
             imageUrl: '',
             reason: 'Updated catalog icon',
@@ -133,7 +133,7 @@ export function CatalogBrandingEditor({
             onClick={() => {
               setIconUrl('');
               setIconName('');
-              void save('');
+              void save('', '');
             }}
             disabled={saving}
           >
