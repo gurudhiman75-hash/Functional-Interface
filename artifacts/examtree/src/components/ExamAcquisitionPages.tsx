@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { ArrowRight, BookOpenCheck, CheckCircle2, ChevronDown, Clock3, FileText, Layers3, Loader2, Sparkles, Target } from "lucide-react";
+import { ArrowRight, BookOpenCheck, CheckCircle2, ChevronDown, FileText, Loader2, Sparkles, Target } from "lucide-react";
 
 import MathText from "@/components/MathText";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
@@ -225,7 +226,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
             <div className="flex items-start gap-4">
               {catalogExam?.icon ? (
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
-                  <img src={catalogExam.icon} alt="" className="h-full w-full object-contain" />
+                  <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
                 </div>
               ) : (
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700"><BookOpenCheck className="h-8 w-8" /></div>
