@@ -56,7 +56,7 @@ const expectedWorldCounts: Readonly<Record<Sea002AdvancedQlId, number>> = {
 
 for (const authority of SEA002_ADVANCED_QL_AUTHORITIES) {
   for (const language of ["en", "hi", "pa"] as const) {
-    const difficulty = (authority.supportedDifficulties.includes("Medium" as never) ? "Medium" : "Hard") as "Medium" | "Hard";
+    const difficulty = ((authority.supportedDifficulties as readonly string[]).includes("Medium") ? "Medium" : "Hard") as "Medium" | "Hard";
     const seed = "sea002-final:" + authority.qlId + ":" + language;
     const first = generateSea002AdvancedQuestion(authority.qlId, seed, language, difficulty);
     const replay = generateSea002AdvancedQuestion(authority.qlId, seed, language, difficulty);
