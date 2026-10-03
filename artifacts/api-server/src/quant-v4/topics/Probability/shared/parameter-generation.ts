@@ -10,6 +10,48 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP003_COIN_PATTERN_STATE_LANES: Readonly<Record<string, Readonly<{ tosses: number; pattern: string }>>> = Object.freeze({
+  "PRB-QL-201": { tosses: 2, pattern: "HT" },
+  "PRB-QL-209": { tosses: 3, pattern: "HTH" },
+  "PRB-QL-217": { tosses: 4, pattern: "HHTT" },
+});
+
+const CP003_SINGLE_DIE_STATE_LANES: Readonly<Record<string, Readonly<{ property: string; threshold: number }>>> = Object.freeze({
+  "PRB-QL-203": { property: "EVEN", threshold: 2 },
+  "PRB-QL-211": { property: "PRIME", threshold: 2 },
+  "PRB-QL-219": { property: "GREATER_THAN", threshold: 4 },
+});
+
+const CP003_DICE_SUM_STATE_LANES: Readonly<Record<string, number>> = Object.freeze({
+  "PRB-QL-204": 5,
+  "PRB-QL-212": 7,
+  "PRB-QL-220": 9,
+});
+
+const CP003_DICE_PRODUCT_PARITY_STATE_LANES: Readonly<Record<string, Readonly<{ eventType: string; targetProduct: number }>>> = Object.freeze({
+  "PRB-QL-205": { eventType: "SAME_PARITY", targetProduct: 6 },
+  "PRB-QL-213": { eventType: "DIFFERENT_PARITY", targetProduct: 8 },
+  "PRB-QL-221": { eventType: "PRODUCT", targetProduct: 12 },
+});
+
+const CP003_SPINNER_STATE_LANES: Readonly<Record<string, Readonly<{ sectors: number; favourableSectors: number }>>> = Object.freeze({
+  "PRB-QL-206": { sectors: 6, favourableSectors: 2 },
+  "PRB-QL-214": { sectors: 8, favourableSectors: 3 },
+  "PRB-QL-222": { sectors: 10, favourableSectors: 4 },
+});
+
+const CP003_NUMBER_RANGE_STATE_LANES: Readonly<Record<string, Readonly<{ upper: number; property: string; divisor: number }>>> = Object.freeze({
+  "PRB-QL-207": { upper: 32, property: "PRIME", divisor: 2 },
+  "PRB-QL-215": { upper: 30, property: "EVEN", divisor: 2 },
+  "PRB-QL-223": { upper: 36, property: "DIVISIBLE", divisor: 4 },
+});
+
+const CP003_REVERSE_SPINNER_STATE_LANES: Readonly<Record<string, Readonly<{ sectors: number; favourableSectors: number }>>> = Object.freeze({
+  "PRB-QL-208": { sectors: 16, favourableSectors: 14 },
+  "PRB-QL-216": { sectors: 12, favourableSectors: 5 },
+  "PRB-QL-224": { sectors: 10, favourableSectors: 3 },
+});
+
 const CP003_COIN_HEAD_STATE_LANES: Readonly<Record<string, Readonly<{ tosses: number; heads: number }>>> = Object.freeze({
   "PRB-QL-202": { tosses: 3, heads: 2 },
   "PRB-QL-210": { tosses: 5, heads: 2 },
@@ -74,19 +116,53 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
     return { trials, k, successLabel: "head", failureLabel: "tail", fair: true };
   }
 
-  if (mode === "findCoinPatternProbability") { const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4); const pattern = Array.from({ length: tosses }, () => random() < 0.5 ? "H" : "T").join(""); return { tosses, pattern }; }
+  if (mode === "findCoinPatternProbability") {
+    const lane = CP003_COIN_PATTERN_STATE_LANES[entry.qlId];
+    if (lane) return { tosses: lane.tosses, pattern: lane.pattern };
+    const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4);
+    const pattern = Array.from({ length: tosses }, () => random() < 0.5 ? "H" : "T").join("");
+    return { tosses, pattern };
+  }
   if (mode === "findCoinHeadCountProbability") {
     const lane = CP003_COIN_HEAD_STATE_LANES[entry.qlId];
     if (lane) return { tosses: lane.tosses, heads: lane.heads };
     const tosses = randomInt(random, 2, entry.difficulty === "Hard" ? 5 : 4);
     return { tosses, heads: randomInt(random, 1, tosses - 1) };
   }
-  if (mode === "findSingleDieEventProbability") { return { dieSides: 6, property: pickRandom(random, ["EVEN", "PRIME", "GREATER_THAN", "LESS_THAN"] as const), threshold: randomInt(random, 2, 4) }; }
-  if (mode === "findTwoDiceSumProbability") { return { dieSides: 6, targetSum: randomInt(random, 4, 10) }; }
-  if (mode === "findTwoDiceProductOrParityProbability") { return { dieSides: 6, eventType: pickRandom(random, ["PRODUCT", "SAME_PARITY", "DIFFERENT_PARITY"] as const), targetProduct: pickRandom(random, [6, 8, 10, 12] as const) }; }
-  if (mode === "findSpinnerEventProbability") { const sectors = pickRandom(random, [6, 8, 10, 12] as const); return { sectors, favourableSectors: randomInt(random, 2, sectors - 2), sectorLabel: "shaded" }; }
-  if (mode === "findNumberRangePropertyProbability") { const upper = randomInt(random, 20, entry.difficulty === "Hard" ? 60 : 45); return { lower: 1, upper, property: pickRandom(random, ["DIVISIBLE", "PRIME", "EVEN", "COMPOSITE"] as const), divisor: pickRandom(random, [2, 3, 4, 5, 6] as const) }; }
-  if (mode === "findReverseDiceOrSpinnerEventCount") { const sectors = pickRandom(random, [8, 10, 12, 16] as const); const favourableSectors = randomInt(random, 2, sectors - 2); return { sectors, favourableSectors }; }
+  if (mode === "findSingleDieEventProbability") {
+    const lane = CP003_SINGLE_DIE_STATE_LANES[entry.qlId];
+    if (lane) return { dieSides: 6, property: lane.property, threshold: lane.threshold };
+    return { dieSides: 6, property: pickRandom(random, ["EVEN", "PRIME", "GREATER_THAN", "LESS_THAN"] as const), threshold: randomInt(random, 2, 4) };
+  }
+  if (mode === "findTwoDiceSumProbability") {
+    const targetSum = CP003_DICE_SUM_STATE_LANES[entry.qlId];
+    if (targetSum) return { dieSides: 6, targetSum };
+    return { dieSides: 6, targetSum: randomInt(random, 4, 10) };
+  }
+  if (mode === "findTwoDiceProductOrParityProbability") {
+    const lane = CP003_DICE_PRODUCT_PARITY_STATE_LANES[entry.qlId];
+    if (lane) return { dieSides: 6, eventType: lane.eventType, targetProduct: lane.targetProduct };
+    return { dieSides: 6, eventType: pickRandom(random, ["PRODUCT", "SAME_PARITY", "DIFFERENT_PARITY"] as const), targetProduct: pickRandom(random, [6, 8, 10, 12] as const) };
+  }
+  if (mode === "findSpinnerEventProbability") {
+    const lane = CP003_SPINNER_STATE_LANES[entry.qlId];
+    if (lane) return { sectors: lane.sectors, favourableSectors: lane.favourableSectors, sectorLabel: "shaded" };
+    const sectors = pickRandom(random, [6, 8, 10, 12] as const);
+    return { sectors, favourableSectors: randomInt(random, 2, sectors - 2), sectorLabel: "shaded" };
+  }
+  if (mode === "findNumberRangePropertyProbability") {
+    const lane = CP003_NUMBER_RANGE_STATE_LANES[entry.qlId];
+    if (lane) return { lower: 1, upper: lane.upper, property: lane.property, divisor: lane.divisor };
+    const upper = randomInt(random, 20, entry.difficulty === "Hard" ? 60 : 45);
+    return { lower: 1, upper, property: pickRandom(random, ["DIVISIBLE", "PRIME", "EVEN", "COMPOSITE"] as const), divisor: pickRandom(random, [2, 3, 4, 5, 6] as const) };
+  }
+  if (mode === "findReverseDiceOrSpinnerEventCount") {
+    const lane = CP003_REVERSE_SPINNER_STATE_LANES[entry.qlId];
+    if (lane) return { sectors: lane.sectors, favourableSectors: lane.favourableSectors };
+    const sectors = pickRandom(random, [8, 10, 12, 16] as const);
+    const favourableSectors = randomInt(random, 2, sectors - 2);
+    return { sectors, favourableSectors };
+  }
 
   if (["findRankProbability", "findSuitProbability", "findColourProbability", "findFaceCardProbability", "findUnionCardEventProbability", "findComplementCardProbability", "findCardPropertyIntersection", "findMissingDeckCountOrEventCount"].includes(mode)) {
     return { rank: pickRandom(random, ["ace", "king", "queen", "jack"] as const), suit: pickRandom(random, ["hearts", "diamonds", "clubs", "spades"] as const), colour: pickRandom(random, ["red", "black"] as const), deckSize: 52 };
