@@ -10,6 +10,40 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP004_CARD_STATE_LANES: Readonly<Record<string, Readonly<{ rank: string; suit: string; colour: string }>>> = Object.freeze({
+  "PRB-QL-301": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-309": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-317": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-302": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-310": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-318": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-303": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-311": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-319": { rank: "queen", suit: "diamonds", colour: "red" },
+
+  "PRB-QL-304": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-312": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-320": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-305": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-313": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-321": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-306": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-314": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-322": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-307": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-315": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-323": { rank: "queen", suit: "spades", colour: "black" },
+
+  "PRB-QL-308": { rank: "ace", suit: "hearts", colour: "red" },
+  "PRB-QL-316": { rank: "king", suit: "clubs", colour: "black" },
+  "PRB-QL-324": { rank: "queen", suit: "spades", colour: "black" },
+});
+
 const CP003_COIN_PATTERN_STATE_LANES: Readonly<Record<string, Readonly<{ tosses: number; pattern: string }>>> = Object.freeze({
   "PRB-QL-201": { tosses: 2, pattern: "HT" },
   "PRB-QL-209": { tosses: 3, pattern: "HTH" },
@@ -165,6 +199,8 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (["findRankProbability", "findSuitProbability", "findColourProbability", "findFaceCardProbability", "findUnionCardEventProbability", "findComplementCardProbability", "findCardPropertyIntersection", "findMissingDeckCountOrEventCount"].includes(mode)) {
+    const lane = CP004_CARD_STATE_LANES[entry.qlId];
+    if (lane) return { rank: lane.rank, suit: lane.suit, colour: lane.colour, deckSize: 52 };
     return { rank: pickRandom(random, ["ace", "king", "queen", "jack"] as const), suit: pickRandom(random, ["hearts", "diamonds", "clubs", "spades"] as const), colour: pickRandom(random, ["red", "black"] as const), deckSize: 52 };
   }
 
