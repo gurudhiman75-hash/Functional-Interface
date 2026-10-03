@@ -195,10 +195,10 @@ const RANKING_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.free
     "सीट पाने वाले आवेदकों की सही पहचान कौन-सा विकल्प करता है?",
     "उपलब्ध रिक्तियाँ कौन-से उम्मीदवार भरेंगे?",
     "अपात्र आवेदकों को हटाने के बाद किसका चयन होगा?",
-    "उपलब्ध सीटों की संख्या के भीतर कौन-से आवेदक रैंक करते हैं?",
-    "क्रमबद्ध बराबरी-निर्णय नियमों से कौन-सा उम्मीदवार समूह निकलता है?",
+    "उपलब्ध सीटों की सीमा में कौन-से आवेदक आते हैं?",
+    "बराबरी होने पर लागू क्रमबद्ध नियमों के बाद किस उम्मीदवार समूह का चयन होगा?",
     "इन सीटों के लिए प्राधिकरण को किन आवेदकों का चयन करना चाहिए?",
-    "बराबरी-निर्णय लागू होने पर कौन दूसरों से ऊपर आता है?",
+    "बराबरी की स्थिति में निर्णायक नियम लागू होने पर कौन ऊपर रहता है?",
     "किन उम्मीदवारों का चयन होगा और किन्हें प्रतीक्षा-सूची में रखा जाएगा?",
     "निर्धारित संख्या की सीटें किस समूह को मिलेंगी?",
     "सीमा के भीतर रैंक करने वाले पात्र आवेदकों की पहचान करें।",
@@ -215,10 +215,10 @@ const RANKING_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.free
     "ਸੀਟਾਂ ਲੈਣ ਵਾਲਿਆਂ ਦੀ ਸਹੀ ਪਛਾਣ ਕਿਹੜਾ ਵਿਕਲਪ ਕਰਦਾ ਹੈ?",
     "ਉਪਲਬਧ ਖਾਲੀ ਅਸਾਮੀਆਂ ਕਿਹੜੇ ਉਮੀਦਵਾਰ ਭਰਨਗੇ?",
     "ਅਯੋਗ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਹਟਾਉਣ ਮਗਰੋਂ ਕੌਣ ਚੁਣਿਆ ਜਾਵੇਗਾ?",
-    "ਉਪਲਬਧ ਸੀਟਾਂ ਦੀ ਗਿਣਤੀ ਅੰਦਰ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਆਉਂਦੇ ਹਨ?",
-    "ਕ੍ਰਮਵਾਰ ਬਰਾਬਰੀ-ਫੈਸਲਾ ਨਿਯਮਾਂ ਤੋਂ ਕਿਹੜਾ ਸਮੂਹ ਬਣਦਾ ਹੈ?",
+    "ਉਪਲਬਧ ਸੀਟਾਂ ਦੀ ਹੱਦ ਵਿੱਚ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਆਉਂਦੇ ਹਨ?",
+    "ਬਰਾਬਰੀ ਹੋਣ ਉੱਤੇ ਲਾਗੂ ਤਰਤੀਬਵਾਰ ਨਿਯਮਾਂ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਉਮੀਦਵਾਰ ਸਮੂਹ ਚੁਣਿਆ ਜਾਵੇਗਾ?",
     "ਇਨ੍ਹਾਂ ਸੀਟਾਂ ਲਈ ਅਧਿਕਾਰੀ ਨੂੰ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਚੁਣਨੇ ਚਾਹੀਦੇ ਹਨ?",
-    "ਬਰਾਬਰੀ ਦਾ ਫੈਸਲਾ ਕਰਨ ਮਗਰੋਂ ਕੌਣ ਦੂਜਿਆਂ ਤੋਂ ਉੱਪਰ ਆਉਂਦਾ ਹੈ?",
+    "ਬਰਾਬਰੀ ਦੀ ਸਥਿਤੀ ਵਿੱਚ ਨਿਰਣਾਇਕ ਨਿਯਮ ਲਾਗੂ ਹੋਣ ਮਗਰੋਂ ਕੌਣ ਉੱਪਰ ਰਹਿੰਦਾ ਹੈ?",
     "ਕਿਹੜੇ ਉਮੀਦਵਾਰ ਚੁਣੇ ਜਾਣਗੇ ਅਤੇ ਕਿਹੜੇ ਉਡੀਕ-ਸੂਚੀ ਵਿੱਚ ਰਹਿਣਗੇ?",
     "ਨਿਰਧਾਰਤ ਗਿਣਤੀ ਦੀਆਂ ਸੀਟਾਂ ਕਿਹੜੇ ਸਮੂਹ ਨੂੰ ਮਿਲਣਗੀਆਂ?",
     "ਸੀਟਾਂ ਦੀ ਹੱਦ ਅੰਦਰ ਦਰਜਾ ਲੈਣ ਵਾਲੇ ਯੋਗ ਬਿਨੈਕਾਰ ਪਛਾਣੋ।",
@@ -230,7 +230,7 @@ const RANKING_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.free
 const PROMPTS: Readonly<Record<DmLocale, Readonly<{ intro: string; conditions: string; applicant: string; additional: string; missing: string; pass: string; fail: string; unknown: string; result: string; }>>> = Object.freeze({
   en: { intro: "Study the following conditions for {context} and decide the case.", conditions: "Eligibility conditions", applicant: "Details of", additional: "Special provisions", missing: "not provided", pass: "satisfied", fail: "not satisfied", unknown: "cannot be determined", result: "Decision" },
   hi: { intro: "{context} के लिए दी गई शर्तों का अध्ययन करके मामले का निर्णय कीजिए।", conditions: "पात्रता शर्तें", applicant: "विवरण—", additional: "विशेष प्रावधान", missing: "उपलब्ध नहीं", pass: "पूरी", fail: "पूरी नहीं", unknown: "निर्धारित नहीं किया जा सकता", result: "निर्णय" },
-  pa: { intro: "{context} ਲਈ ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਪੜ੍ਹ ਕੇ ਮਾਮਲੇ ਦਾ ਫੈਸਲਾ ਕਰੋ।", conditions: "ਯੋਗਤਾ ਸ਼ਰਤਾਂ", applicant: "ਵੇਰਵਾ—", additional: "ਵਿਸ਼ੇਸ਼ ਪ੍ਰਬੰਧ", missing: "ਦਿੱਤੀ ਨਹੀਂ ਗਈ", pass: "ਪੂਰੀ", fail: "ਪੂਰੀ ਨਹੀਂ", unknown: "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ", result: "ਫੈਸਲਾ" },
+  pa: { intro: "{context} ਲਈ ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਪੜ੍ਹ ਕੇ ਮਾਮਲੇ ਦਾ ਫੈਸਲਾ ਕਰੋ।", conditions: "ਯੋਗਤਾ ਸ਼ਰਤਾਂ", applicant: "ਵੇਰਵਾ—", additional: "ਵਿਸ਼ੇਸ਼ ਪ੍ਰਬੰਧ", missing: "ਉਪਲਬਧ ਨਹੀਂ", pass: "ਪੂਰੀ", fail: "ਪੂਰੀ ਨਹੀਂ", unknown: "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ", result: "ਫੈਸਲਾ" },
 });
 
 const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>>> = Object.freeze({
@@ -726,7 +726,8 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
   });
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
   const ruleLine = matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome];
-  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + OUTCOME_LABELS[locale][result.outcome] + ".\n" + ruleLine;
+  const finalPunctuation = locale === "en" ? "." : "।";
+  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + OUTCOME_LABELS[locale][result.outcome] + finalPunctuation + "\n" + ruleLine;
 }
 
 const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind, string>>>> = Object.freeze({
@@ -942,7 +943,7 @@ const WHY_FIRST = Object.freeze({
     SERVE_FAIRLY: "the same published and transparent rule must be applied to every comparable case",
   },
   hi: {
-    VERIFY_FACTS: "अंतिम निर्णय से पहले विवादित तथ्य का प्रामाणिक अभिलेख से सत्यापन आवश्यक है",
+    VERIFY_FACTS: "अंतिम निर्णय से पहले विवादित तथ्य का सत्यापन प्रामाणिक अभिलेख से करना आवश्यक है",
     FOLLOW_PROCEDURE: "निर्धारित प्रक्रिया अधिकृत समाधान देती है और प्रेषण या अस्वीकृति से पहले उसी का पालन होना चाहिए",
     ESCALATE_AUTHORIZED: "संबंधित अभिलेख प्रस्तुत करने के बाद नामित प्राधिकारी को ही मामले का समाधान करना है",
     DOCUMENT_ACTION: "कार्रवाई, कारण और जिम्मेदार अधिकारी का विवरण आधिकारिक अभिलेख में जाँच योग्य रहना चाहिए",
@@ -952,14 +953,14 @@ const WHY_FIRST = Object.freeze({
     SERVE_FAIRLY: "समान मामलों पर एक ही प्रकाशित और पारदर्शी नियम लागू होना चाहिए",
   },
   pa: {
-    VERIFY_FACTS: "ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਵਿਵਾਦਿਤ ਤੱਥ ਦੀ ਅਧਿਕਾਰਤ ਰਿਕਾਰਡ ਨਾਲ ਤਸਦੀਕ ਲਾਜ਼ਮੀ ਹੈ",
+    VERIFY_FACTS: "ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਵਿਵਾਦਿਤ ਤੱਥ ਨੂੰ ਅਧਿਕਾਰਤ ਰਿਕਾਰਡ ਨਾਲ ਮਿਲਾਉਣਾ ਲਾਜ਼ਮੀ ਹੈ",
     FOLLOW_PROCEDURE: "ਨਿਰਧਾਰਤ ਪ੍ਰਕਿਰਿਆ ਅਧਿਕਾਰਤ ਹੱਲ ਦਿੰਦੀ ਹੈ ਅਤੇ ਰੈਫਰਲ ਜਾਂ ਰੱਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦੀ ਪਾਲਣਾ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ",
-    ESCALATE_AUTHORIZED: "ਸੰਬੰਧਤ ਰਿਕਾਰਡ ਪੇਸ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ ਨਾਮਜ਼ਦ ਅਧਿਕਾਰੀ ਨੇ ਹੀ ਮਾਮਲਾ ਸੁਲਝਾਉਣਾ ਹੈ",
+    ESCALATE_AUTHORIZED: "ਸੰਬੰਧਤ ਰਿਕਾਰਡ ਪੇਸ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ ਨਾਮਜ਼ਦ ਅਧਿਕਾਰੀ ਨੂੰ ਹੀ ਮਾਮਲਾ ਸੁਲਝਾਉਣਾ ਚਾਹੀਦਾ ਹੈ",
     DOCUMENT_ACTION: "ਕਾਰਵਾਈ, ਕਾਰਨ ਅਤੇ ਜ਼ਿੰਮੇਵਾਰ ਅਧਿਕਾਰੀ ਦਾ ਵੇਰਵਾ ਸਰਕਾਰੀ ਰਿਕਾਰਡ ਵਿੱਚ ਜਾਂਚਯੋਗ ਰਹਿਣਾ ਚਾਹੀਦਾ ਹੈ",
     PROTECT_CONFIDENTIALITY: "ਸੁਰੱਖਿਅਤ ਜਾਣਕਾਰੀ ਦੇਣ ਤੋਂ ਪਹਿਲਾਂ ਪਛਾਣ ਅਤੇ ਅਧਿਕਾਰ ਦੀ ਤਸਦੀਕ ਲਾਜ਼ਮੀ ਹੈ",
-    PRIORITIZE_URGENCY: "ਤਸਦੀਕਸ਼ੁਦਾ ਐਮਰਜੈਂਸੀ ਨੂੰ ਮਿਆਦ ਵਾਲੇ ਅਤੇ ਆਮ ਕੰਮ ਤੋਂ ਪਹਿਲਾਂ ਲਿਆ ਜਾਂਦਾ ਹੈ",
+    PRIORITIZE_URGENCY: "ਤਸਦੀਕਸ਼ੁਦਾ ਐਮਰਜੈਂਸੀ ਨੂੰ ਮਿਆਦ ਵਾਲੇ ਅਤੇ ਆਮ ਕੰਮ ਤੋਂ ਪਹਿਲਾਂ ਤਰਜੀਹ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ",
     PRIORITIZE_DEADLINE: "ਆਮ ਕੰਮ ਵੱਲ ਮੁੜਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਆਦ ਵਾਲਾ ਕੰਮ ਪੂਰਾ ਕਰਨ ਦਾ ਪ੍ਰਬੰਧ ਲਾਜ਼ਮੀ ਹੈ",
-    SERVE_FAIRLY: "ਇੱਕੋ ਜਿਹੇ ਮਾਮਲਿਆਂ ਉੱਤੇ ਇੱਕੋ ਜਾਰੀ ਅਤੇ ਪਾਰਦਰਸ਼ੀ ਨਿਯਮ ਲਾਗੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+    SERVE_FAIRLY: "ਇੱਕੋ ਜਿਹੇ ਮਾਮਲਿਆਂ ਉੱਤੇ ਇੱਕੋ ਪ੍ਰਕਾਸ਼ਿਤ ਅਤੇ ਪਾਰਦਰਸ਼ੀ ਨਿਯਮ ਲਾਗੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
   },
 } as const);
 
