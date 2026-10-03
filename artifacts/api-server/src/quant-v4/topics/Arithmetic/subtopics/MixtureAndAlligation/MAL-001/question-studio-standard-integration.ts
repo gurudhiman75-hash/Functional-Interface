@@ -139,6 +139,29 @@ export function listMal001StandardQuestionStudioPackages() {
   ];
 }
 
+function toQuestionStudioReviewPackage(pkg: any) {
+  return {
+    ...pkg,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE",
+    reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+    questionStudioDiscoverable: true,
+    questionBankStatus: "NOT_STORED",
+    questionBankWritable: false,
+    testEligibility: "INELIGIBLE",
+    testEligible: false,
+    publiclyPublishable: false,
+    traceability: {
+      ...(pkg.traceability ?? {}),
+      runtimeMode: "QUESTION_STUDIO_ACTIVE",
+      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      questionBankStatus: "NOT_STORED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      publiclyPublishable: false,
+    },
+  };
+}
+
 function toQuestionStudioPreview(
   pkg: any,
   context: { questionIndex: number; questionCount: number; seed: string },
@@ -190,14 +213,14 @@ function toQuestionStudioPreview(
     seed: context.seed,
     answer: pkg.answer,
     canonicalAnswer,
-    runtimeMode: pkg.runtimeMode,
-    reviewStatus: pkg.reviewStatus,
-    questionBankStatus: pkg.questionBankStatus,
-    questionBankWritable: pkg.questionBankWritable,
-    testEligibility: pkg.testEligibility,
-    testEligible: pkg.testEligible,
-    publiclyPublishable: pkg.publiclyPublishable,
-    questionStudioDiscoverable: pkg.questionStudioDiscoverable,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE",
+    reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+    questionBankStatus: "NOT_STORED",
+    questionBankWritable: false,
+    testEligibility: "INELIGIBLE",
+    testEligible: false,
+    publiclyPublishable: false,
+    questionStudioDiscoverable: true,
     packageSource: "mal-001-question-studio-standard-runtime",
     packageId: "MAL-001",
     taskKind,
@@ -210,12 +233,12 @@ function toQuestionStudioPreview(
       questionLanguageId: pkg.questionLanguageId,
       explanationId: pkg.explanationId,
       taskKind,
-      runtimeMode: pkg.runtimeMode,
-      reviewStatus: pkg.reviewStatus,
-      questionBankStatus: pkg.questionBankStatus,
-      questionBankWritable: pkg.questionBankWritable,
-      testEligibility: pkg.testEligibility,
-      publiclyPublishable: pkg.publiclyPublishable,
+      runtimeMode: "QUESTION_STUDIO_ACTIVE",
+      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      questionBankStatus: "NOT_STORED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      publiclyPublishable: false,
       releaseId: traceability.releaseId,
     },
     questionIndex: context.questionIndex,
@@ -300,7 +323,7 @@ export async function generateMal001StandardQuestionStudioBatch(
     }
     const cpId = eligibleCpIds[(cpOffset + index) % eligibleCpIds.length]!;
     const seed = `${batchSeed}:${cpId}:${index}`;
-    const pkg = runMal001QuestionStudioPipeline(cpId, {
+    const generated = runMal001QuestionStudioPipeline(cpId, {
       difficulty,
       language,
       questionLanguageId:
@@ -309,6 +332,7 @@ export async function generateMal001StandardQuestionStudioBatch(
           : String(request.questionLanguageId),
       seed,
     });
+    const pkg = toQuestionStudioReviewPackage(generated);
     questionPackages.push(pkg);
     questions.push(
       toQuestionStudioPreview(pkg, {
