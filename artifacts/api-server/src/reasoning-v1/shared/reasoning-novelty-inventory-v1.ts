@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_09_26_V1' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V2' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -180,6 +180,19 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     ],
     countsTowardControlledNovelTargetNow: false,
     nextGate: 'Re-open only on source-backed or solver-backed evidence for a materially new machine transition architecture.',
+  },
+  {
+    topicDirectory: 'Inequality',
+    chapterId: 'INE-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'INE-001 owns four permanent source-backed contracts: direct relation, conclusion-set classification, either/or and coded inequality.',
+      'Chain length, relation direction, strict/weak symbols, equality links, coded-symbol remapping and option order remain governed instance or presentation variation.',
+      'No current candidate proves a materially different non-source-backed learner contract beyond INE-QL-001..004.',
+      'INE-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the dedicated novelty decision.',
+    ],
+    countsTowardControlledNovelTargetNow: false,
+    nextGate: 'Re-open only on a solver-backed Inequality reasoning contract outside INE-QL-001..004 with a clear boundary from Algebra, Ranking, Mathematical Operations and Data Sufficiency.',
   },
   {
     topicDirectory: 'Logic-Puzzles',
