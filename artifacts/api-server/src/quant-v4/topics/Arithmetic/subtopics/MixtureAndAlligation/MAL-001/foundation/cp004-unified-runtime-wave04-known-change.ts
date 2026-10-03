@@ -226,7 +226,10 @@ export function generateMalCp004Wave04InitialTotalFromEvaporation(
     MAL_CP004_WAVE04_LIQUID_CONTEXTS,
     `${seed}:context`,
   );
-  const evaporated = rational(selected.evaporated);
+  const scale = [1, 2, 3][
+    malCp004Wave04VariantIndex(`${seed}:answer-scale`, 3)
+  ]!;
+  const evaporated = rational(selected.evaporated * scale);
   const initialRate = fraction(selected.initialRate);
   const targetRate = fraction(selected.targetRate);
   const rateIncrease = subtractRational(targetRate, initialRate);
