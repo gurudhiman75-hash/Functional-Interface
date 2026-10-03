@@ -34,6 +34,10 @@ assert.equal(legacyAggregateTrg001.localizationStatus, "MULTILINGUAL_FROZEN_ACTI
 
 const engineTrg001 = trg001EnginePackage();
 assert.equal(engineTrg001.packageId, "TRG-001");
+assert.equal(engineTrg001.lifecycleStage, "BANK_ONLY");
+assert.equal(engineTrg001.reviewSurfaceRequired, true);
+assert.equal(engineTrg001.manualApprovalRequired, true);
+assert.equal(engineTrg001.questionBankAcceptanceMode, "FULL_RELEASE");
 assert.deepEqual(engineTrg001.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(engineTrg001.questionBankWritable, true);
 assert.equal(engineTrg001.testEligible, true);
@@ -43,6 +47,10 @@ assert.equal(engineTrg001.productionReleaseAuthorized, false);
 
 const engineTrg002 = trg002EnginePackage();
 assert.equal(engineTrg002.packageId, "TRG-002");
+assert.equal(engineTrg002.lifecycleStage, "BANK_ONLY");
+assert.equal(engineTrg002.reviewSurfaceRequired, true);
+assert.equal(engineTrg002.manualApprovalRequired, true);
+assert.equal(engineTrg002.questionBankAcceptanceMode, "FULL_RELEASE");
 assert.deepEqual(engineTrg002.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(engineTrg002.questionBankWritable, true);
 assert.equal(engineTrg002.testEligible, true);
