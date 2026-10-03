@@ -66,14 +66,9 @@ function tangentSecantDiagram(): GeoDiagramModel {
 }
 
 function generateIntersectingChords(seed: string): Phase4PrototypeQuestion {
-  const pool = [
-    { pa: 2, pb: 6, pc: 3, pd: 4 },
-    { pa: 3, pb: 8, pc: 4, pd: 6 },
-    { pa: 4, pb: 9, pc: 6, pd: 6 },
-    { pa: 5, pb: 8, pc: 4, pd: 10 },
-    { pa: 6, pb: 10, pc: 5, pd: 12 },
-  ] as const;
-  const state = pool[variantIndex(seed, pool.length)]!;
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const state = { pa: 2 * scale, pb: 6 * scale, pc: 3 * scale, pd: 4 * scale } as const;
   const clueIds = ["AB_AND_CD_CHORDS_INTERSECT_AT_P_INSIDE", "PA_GIVEN", "PB_GIVEN", "PC_GIVEN"] as const;
   const expected = `${state.pd} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
@@ -82,10 +77,10 @@ function generateIntersectingChords(seed: string): Phase4PrototypeQuestion {
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Intersecting-chord solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(2), y: q(1, 2) }, P: { x: q(0), y: q(0) },
-    A: { x: q(-2), y: q(0) }, B: { x: q(6), y: q(0) }, C: { x: q(0), y: q(-3) }, D: { x: q(0), y: q(4) },
+    O: { x: q(2 * scale), y: q(scale, 2) }, P: { x: q(0), y: q(0) },
+    A: { x: q(-2 * scale), y: q(0) }, B: { x: q(6 * scale), y: q(0) }, C: { x: q(0), y: q(-3 * scale) }, D: { x: q(0), y: q(4 * scale) },
   });
-  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(65, 4)))
+  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(65 * scale * scale, 4)))
     && oracle.collinear("A", "P", "B") && oracle.collinear("C", "P", "D")
     && equals(q(state.pa * state.pb), q(state.pc * state.pd));
   const theoremTrace: TheoremId[] = ["INTERSECTING_CHORD_PRODUCT"];
@@ -111,14 +106,9 @@ function generateIntersectingChords(seed: string): Phase4PrototypeQuestion {
 }
 
 function generateSecantSecant(seed: string): Phase4PrototypeQuestion {
-  const pool = [
-    { pa: 3, pb: 8, pc: 4, pd: 6 },
-    { pa: 2, pb: 15, pc: 5, pd: 6 },
-    { pa: 4, pb: 12, pc: 6, pd: 8 },
-    { pa: 5, pb: 14, pc: 7, pd: 10 },
-    { pa: 6, pb: 15, pc: 9, pd: 10 },
-  ] as const;
-  const state = pool[variantIndex(seed, pool.length)]!;
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const state = { pa: 3 * scale, pb: 8 * scale, pc: 4 * scale, pd: 6 * scale } as const;
   const clueIds = ["TWO_SECANTS_FROM_EXTERNAL_P", "PA_EXTERNAL_GIVEN", "PB_WHOLE_GIVEN", "PC_EXTERNAL_GIVEN"] as const;
   const expected = `${state.pd} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
@@ -127,10 +117,10 @@ function generateSecantSecant(seed: string): Phase4PrototypeQuestion {
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Secant-secant solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(11, 2), y: q(17, 8) }, P: { x: q(0), y: q(0) }, A: { x: q(3), y: q(0) }, B: { x: q(8), y: q(0) },
-    C: { x: q(12, 5), y: q(16, 5) }, D: { x: q(18, 5), y: q(24, 5) },
+    O: { x: q(11 * scale, 2), y: q(17 * scale, 8) }, P: { x: q(0), y: q(0) }, A: { x: q(3 * scale), y: q(0) }, B: { x: q(8 * scale), y: q(0) },
+    C: { x: q(12 * scale, 5), y: q(16 * scale, 5) }, D: { x: q(18 * scale, 5), y: q(24 * scale, 5) },
   });
-  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(689, 64)))
+  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(689 * scale * scale, 64)))
     && oracle.collinear("P", "A", "B") && oracle.collinear("P", "C", "D")
     && equals(q(state.pa * state.pb), q(state.pc * state.pd));
   const theoremTrace: TheoremId[] = ["SECANT_SECANT_POWER"];
@@ -156,14 +146,9 @@ function generateSecantSecant(seed: string): Phase4PrototypeQuestion {
 }
 
 function generateTangentSecant(seed: string): Phase4PrototypeQuestion {
-  const pool = [
-    { pa: 2, pb: 18, pt: 6 },
-    { pa: 3, pb: 12, pt: 6 },
-    { pa: 4, pb: 16, pt: 8 },
-    { pa: 5, pb: 20, pt: 10 },
-    { pa: 8, pb: 18, pt: 12 },
-  ] as const;
-  const state = pool[variantIndex(seed, pool.length)]!;
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const state = { pa: 2 * scale, pb: 18 * scale, pt: 6 * scale } as const;
   const clueIds = ["PT_TANGENT_FROM_P", "PAB_SECANT_FROM_P", "PA_EXTERNAL_GIVEN", "PB_WHOLE_GIVEN"] as const;
   const expected = `${state.pt} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
@@ -172,9 +157,9 @@ function generateTangentSecant(seed: string): Phase4PrototypeQuestion {
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Tangent-secant solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(10), y: q(0) }, P: { x: q(0), y: q(0) }, A: { x: q(2), y: q(0) }, B: { x: q(18), y: q(0) }, T: { x: q(18, 5), y: q(24, 5) },
+    O: { x: q(10 * scale), y: q(0) }, P: { x: q(0), y: q(0) }, A: { x: q(2 * scale), y: q(0) }, B: { x: q(18 * scale), y: q(0) }, T: { x: q(18 * scale, 5), y: q(24 * scale, 5) },
   });
-  const passed = ["A", "B", "T"].every((point) => oracle.pointOnCircle(point, "O", q(64)))
+  const passed = ["A", "B", "T"].every((point) => oracle.pointOnCircle(point, "O", q(64 * scale * scale)))
     && oracle.collinear("P", "A", "B") && oracle.perpendicular("O", "T", "P", "T")
     && equals(q(state.pa * state.pb), q(state.pt * state.pt));
   const theoremTrace: TheoremId[] = ["TANGENT_SECANT_POWER"];
