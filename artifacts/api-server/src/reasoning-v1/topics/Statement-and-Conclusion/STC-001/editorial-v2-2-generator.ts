@@ -1,6 +1,5 @@
 import { renderStcV22Template } from "./editorial-v2-2-saturation-helpers.ts";
 import { STC_V22_TEMPLATES_BY_QL } from "./editorial-v2-2-templates.ts";
-import { reverseStcV2AnswerClass } from "./editorial-v2-scheduler.ts";
 import type { StcLocale, StcQlId } from "./types.ts";
 import type { StcV2AnswerClass } from "./editorial-v2-types.ts";
 import {
