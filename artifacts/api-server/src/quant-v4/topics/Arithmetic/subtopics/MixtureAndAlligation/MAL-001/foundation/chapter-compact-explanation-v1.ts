@@ -149,9 +149,18 @@ function simpleStepBased(
     : raw;
   const steps = compressSteps(refined, 5);
   if (steps.length === 0) return explanation;
+  const visual = cpId === "MAL-CP-002"
+    ? stringArray(explanation.lines).find((line) =>
+        line.startsWith("[[EXAMTREE_RATIO_ADJUSTMENT_SVG_V1:"),
+      )
+    : undefined;
   return {
     ...explanation,
-    lines: ["Simple Method", ...steps],
+    lines: [
+      "Simple Method",
+      ...(visual ? [visual] : []),
+      ...steps,
+    ],
   };
 }
 
