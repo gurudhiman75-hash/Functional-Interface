@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { CheckCircle2, ChevronDown, Loader2 } from "lucide-react";
+import { ArrowRight, BookOpenCheck, CheckCircle2, ChevronDown, Clock3, FileText, Layers3, Loader2, Sparkles, Target } from "lucide-react";
 
 import MathText from "@/components/MathText";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { apiRequest } from "@/lib/api";
+import type { Test } from "@/lib/data";
+import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import {
+  catalogExamCodesForSlug,
   examHubHref,
   examPreparationHref,
   examSyllabusHref,
@@ -40,30 +44,300 @@ function requireConfig(examSlug: string) {
   return config;
 }
 
+type ExamHubCatalogItem = {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  badge: string;
+  meta: string;
+  iconUrl?: string | null;
+  comingSoon?: boolean;
+};
+
+function compact(value: string | null | undefined) {
+  return String(value ?? "").trim();
+}
+
+function seriesSearchText(series: StudentSeriesSummary) {
+  return (series.name + " " + series.description + " " + series.code).toLowerCase();
+}
+
+function testSearchText(test: Test) {
+  return (test.name + " " + (test.subcategoryName ?? "")).toLowerCase();
+}
+
+function isPyqText(value: string) {
+  return /\bpyq\b|previous[ -]?year|memory[ -]?based/.test(value);
+}
+
+function stageFromText(value: string): "prelims" | "mains" | "general" {
+  const prelims = /\bprelims?\b|\bpreliminary\b/.test(value);
+  const mains = /\bmains?\b|\bmain examination\b/.test(value);
+  if (prelims && !mains) return "prelims";
+  if (mains && !prelims) return "mains";
+  return "general";
+}
+
+function seriesItem(series: StudentSeriesSummary): ExamHubCatalogItem {
+  const comingSoon = series.learnerVisibility === "coming_soon";
+  const countLabel = series.testCount === 1 ? "1 test" : series.testCount + " tests";
+  const duration = series.durationSeconds > 0 ? " · " + Math.max(1, Math.ceil(series.durationSeconds / 60)) + " min" : "";
+  return {
+    id: "series-" + series.id,
+    title: series.name,
+    description: compact(series.description) || (comingSoon ? series.learnerMessage : "ExamTree test series"),
+    href: "/test-series/" + encodeURIComponent(series.id),
+    badge: comingSoon ? "Coming Soon" : "Test Series",
+    meta: countLabel + duration,
+    iconUrl: series.iconUrl,
+    comingSoon,
+  };
+}
+
+function testItem(test: Test): ExamHubCatalogItem {
+  const kind = test.kind === "sectional" ? "Sectional" : test.kind === "topic-wise" ? "Topic-wise" : "Full Length";
+  const access = (test.access ?? "free") === "free" ? "Free" : "Premium";
+  return {
+    id: "test-" + test.id,
+    title: test.name,
+    description: compact(test.subcategoryName) ? compact(test.subcategoryName) + " · " + kind : kind + " test",
+    href: "/test/" + encodeURIComponent(test.id),
+    badge: access,
+    meta: test.totalQuestions + " questions · " + test.duration + " min",
+    iconUrl: test.iconUrl,
+  };
+}
+
+function ExamHubCatalogSection({
+  id,
+  title,
+  description,
+  items,
+  emptyMessage,
+}: {
+  id: string;
+  title: string;
+  description: string;
+  items: ExamHubCatalogItem[];
+  emptyMessage: string;
+}) {
+  return (
+    <section id={id} className="scroll-mt-24 border-t border-slate-200 pt-8">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
+          <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
+        </div>
+        {items.length > 0 ? <span className="text-xs font-semibold text-slate-400">{items.length} available</span> : null}
+      </div>
+      {items.length === 0 ? (
+        <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-7">
+          <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
+          <p className="mt-1 text-xs leading-5 text-slate-500">This section will appear automatically when matching catalogue content is published.</p>
+        </div>
+      ) : (
+        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {items.map((item) => (
+            <Link key={item.id} href={item.href} className="group flex min-h-[154px] flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                  {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={"rounded-full px-2 py-0.5 text-[10px] font-bold " + (item.comingSoon ? "bg-amber-50 text-amber-700" : "bg-indigo-50 text-indigo-700")}>{item.badge}</span>
+                  </div>
+                  <h3 className="mt-2 line-clamp-2 font-semibold leading-5 text-slate-950">{item.title}</h3>
+                </div>
+              </div>
+              <p className="mt-3 line-clamp-2 text-xs leading-5 text-slate-500">{item.description}</p>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-3 text-xs">
+                <span className="text-slate-500">{item.meta}</span>
+                <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-indigo-600" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
+  const catalog = useExamCatalog();
+  const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
+  const seriesQuery = useQuery({
+    queryKey: ["exam-hub-series", examSlug],
+    queryFn: getStudentTestSeries,
+    staleTime: 60_000,
+    retry: 1,
+  });
+
   usePageMeta(config.meta.hubTitle, config.meta.hubDescription, { canonicalPath: examHubHref(examSlug) });
 
+  const catalogExam = useMemo(
+    () => catalog.subcategories.find((exam) => examCodes.includes(exam.id.toUpperCase())),
+    [catalog.subcategories, examCodes],
+  );
+  const examTests = useMemo(
+    () => catalog.tests.filter((test) => test.subcategoryId && examCodes.includes(test.subcategoryId.toUpperCase())),
+    [catalog.tests, examCodes],
+  );
+  const examSeries = useMemo(
+    () => (seriesQuery.data?.series ?? []).filter((series) =>
+      series.learnerVisibility !== "hidden" && examCodes.includes(series.examCode.toUpperCase()),
+    ),
+    [seriesQuery.data, examCodes],
+  );
+
+  const pyqTests = examTests.filter((test) => isPyqText(testSearchText(test)));
+  const regularTests = examTests.filter((test) => !isPyqText(testSearchText(test)));
+  const pyqSeries = examSeries.filter((series) => isPyqText(seriesSearchText(series)));
+  const regularSeries = examSeries.filter((series) => !isPyqText(seriesSearchText(series)));
+
+  const prelimsItems = [
+    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "prelims").map(seriesItem),
+    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "prelims").map(testItem),
+  ];
+  const mainsItems = [
+    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "mains").map(seriesItem),
+    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "mains").map(testItem),
+  ];
+  const pyqItems = [...pyqSeries.map(seriesItem), ...pyqTests.map(testItem)];
+  const sectionalItems = regularTests.filter((test) => test.kind === "sectional").map(testItem);
+  const topicItems = regularTests.filter((test) => test.kind === "topic-wise").map(testItem);
+  const fullLengthItems = [
+    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "general").map(seriesItem),
+    ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "general").map(testItem),
+  ];
+
+  const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
+  const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
+  const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
+
   return (
-    <PublicPage eyebrow={config.name} title={config.hub.title} description={config.hub.description}>
-      <div className="grid gap-4 md:grid-cols-3">
+    <PublicPage eyebrow={config.name + " · " + config.yearLabel} title={config.hub.title} description={config.hub.description}>
+      <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_300px]">
+          <div className="p-5 sm:p-7">
+            <div className="flex items-start gap-4">
+              {catalogExam?.icon ? (
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
+                  <img src={catalogExam.icon} alt="" className="h-full w-full object-contain" />
+                </div>
+              ) : (
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700"><BookOpenCheck className="h-8 w-8" /></div>
+              )}
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Complete exam hub</p>
+                <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{config.name} {config.yearLabel}</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Syllabus, exam pattern, preparation strategy, full mocks, PYQs, sectional tests and topic-wise practice in one place.</p>
+              </div>
+            </div>
+            <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
+              {[
+                ["#prelims", "Prelims"],
+                ["#mains", "Mains"],
+                ["#pyq", "PYQs"],
+                ["#sectional", "Sectional"],
+                ["#topic-wise", "Topic-wise"],
+                ["#syllabus", "Syllabus"],
+                ["#preparation", "Preparation"],
+              ].map(([href, label]) => (
+                <a key={href} href={href} className="whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>
+              ))}
+            </nav>
+          </div>
+          <div className="border-t border-slate-200 bg-[#17182c] p-5 text-white lg:border-l lg:border-t-0 sm:p-6">
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">Live catalogue</p>
+            <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-1">
+              <div><div className="text-2xl font-semibold">{totalPublished}</div><div className="text-xs text-white/55">published</div></div>
+              <div><div className="text-2xl font-semibold">{freeCount}</div><div className="text-xs text-white/55">free tests</div></div>
+              <div><div className="text-2xl font-semibold">{comingSoonCount}</div><div className="text-xs text-white/55">coming soon</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {(catalog.error || seriesQuery.error) ? (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+          Some live test catalogue information is temporarily unavailable. Syllabus, preparation and free practice remain available below.
+        </div>
+      ) : null}
+
+      <div className="mt-7 grid gap-4 md:grid-cols-3">
         <PublicCard title="Preparation guide">
           {config.hub.preparationSummary}
-          <Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">How to prepare for {config.name}</Link>
+          <Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Detailed preparation strategy</Link>
         </PublicCard>
         <PublicCard title="Syllabus & pattern">
           {config.hub.syllabusSummary}
-          <Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">{config.name} syllabus</Link>
+          <Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Full {config.name} syllabus</Link>
         </PublicCard>
-        <PublicCard title="Mock tests">
-          {config.hub.mockSummary}
-          <Link href={config.categoryHref} className="mt-3 block font-semibold text-indigo-700 hover:underline">Browse {config.name} mock tests</Link>
+        <PublicCard title="Official information">
+          Verify dates, eligibility, vacancies and current notices on the official exam authority website.
+          <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 block font-semibold text-indigo-700 hover:underline">Open {config.officialLabel}</a>
         </PublicCard>
       </div>
 
-      <section className="mt-8">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Free {config.name} practice questions</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Open a topic, solve the visible questions without starting a full mock, then reveal the answer and explanation when you are ready.</p>
+      <div className="mt-10 space-y-9">
+        <ExamHubCatalogSection id="prelims" title="Prelims Test Series" description={"Full-length " + config.name + " preliminary-stage mock tests and series."} items={prelimsItems} emptyMessage="Prelims series are being prepared." />
+        <ExamHubCatalogSection id="mains" title="Mains Test Series" description={"Full-length " + config.name + " main-stage mock tests and series."} items={mainsItems} emptyMessage="Mains series are being prepared." />
+        <ExamHubCatalogSection id="pyq" title="Previous Year Papers (PYQs)" description="Previous-year and memory-based papers published for this exam." items={pyqItems} emptyMessage="No previous-year papers are published for this exam yet." />
+        <ExamHubCatalogSection id="sectional" title="Sectional Tests" description="Focused tests for individual exam sections so you can practise under section-level timing and difficulty." items={sectionalItems} emptyMessage="Sectional tests are being prepared." />
+        <ExamHubCatalogSection id="topic-wise" title="Topic-wise Tests" description="Shorter tests focused on specific topics from this exam syllabus." items={topicItems} emptyMessage="Topic-wise tests are being prepared." />
+        {fullLengthItems.length > 0 ? <ExamHubCatalogSection id="full-length" title="More Full-length Tests & Series" description="Additional full-length catalogue content not restricted to a single exam stage." items={fullLengthItems} emptyMessage="No additional full-length tests are published." /> : null}
+      </div>
+
+      <section id="syllabus" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Exam structure</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{config.name} syllabus & exam pattern</h2>
+          </div>
+          <Link href={examSyllabusHref(examSlug)} className="text-sm font-semibold text-indigo-700 hover:underline">Open full syllabus page</Link>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-2">
+          {config.syllabus.sections.map((section) => (
+            <div key={section.title} className="rounded-2xl border border-slate-200 bg-white p-4">
+              <h3 className="font-semibold text-slate-950">{section.title}</h3>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{section.summary}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 grid gap-3 lg:grid-cols-3">
+          {config.syllabus.patternCards.map((card) => (
+            <div key={card.title} className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+              <h3 className="font-semibold text-slate-950">{card.title}</h3>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="preparation" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
+        <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Study plan</p>
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">How to prepare for {config.name} {config.yearLabel}</h2>
+        <div className="mt-5 grid gap-3 lg:grid-cols-3">
+          {config.preparation.cards.map((card) => (
+            <div key={card.title} className="rounded-2xl border border-slate-200 bg-white p-4">
+              <Sparkles className="h-5 w-5 text-indigo-600" />
+              <h3 className="mt-3 font-semibold text-slate-950">{card.title}</h3>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p>
+            </div>
+          ))}
+        </div>
+        <Link href={examPreparationHref(examSlug)} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:underline">Open complete preparation guide <ArrowRight className="h-4 w-4" /></Link>
+      </section>
+
+      <section className="mt-12 border-t border-slate-200 pt-9">
+        <div className="flex items-center gap-2">
+          <Target className="h-5 w-5 text-indigo-600" />
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Free {config.name} topic practice</h2>
+        </div>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Solve sample questions continuously without starting a timed mock. Each page includes answers and explanations.</p>
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {config.topics.map((topic) => (
             <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm">
