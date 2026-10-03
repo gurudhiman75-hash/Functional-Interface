@@ -256,7 +256,14 @@ function reconcileNativeStemExplanationContext(
 
   for (const context of contexts) {
     if (context.stemPattern.test(stem) && !context.explanationPattern.test(joined)) {
-      lines[0] = `${context.prefix} ${lines[0] ?? ""}`.trim();
+      const firstLine = lines[0] ?? "";
+      lines[0] = firstLine.replace(
+        /^([^—]+—\s*)/u,
+        (_match, rolePrefix: string) => `${rolePrefix}${context.prefix} `,
+      );
+      if (lines[0] === firstLine) {
+        throw new Error("Probability native explanation role marker missing during context reconciliation.");
+      }
       break;
     }
   }
