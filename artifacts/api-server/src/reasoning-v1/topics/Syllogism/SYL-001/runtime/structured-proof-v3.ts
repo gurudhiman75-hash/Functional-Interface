@@ -535,7 +535,7 @@ function combinedReasoning(input: SylProofBuildInputV3): SylCombinedReasoningV3 
       : `Join these relations to decide that ${finalRelation}.`;
   steps.push({
     stepIndex: steps.length + 1,
-    premiseIds: ids,
+    premiseIds: [...ids],
     witnessIds: witnesses.map((witness) => witness.witnessId),
     text: finalText,
   });
