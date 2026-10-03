@@ -24,6 +24,10 @@ async function main() {
   assert.equal(trg001.permanentQlCount, 144);
   assert.deepEqual(trg001.supportedLanguages, ["en", "hi", "pa"]);
   assert.equal(trg001.enabled, true);
+  assert.equal(trg001.lifecycleStage, "BANK_ONLY");
+  assert.equal(trg001.reviewSurfaceRequired, true);
+  assert.equal(trg001.manualApprovalRequired, true);
+  assert.equal(trg001.questionBankAcceptanceMode, "FULL_RELEASE");
   assert.equal(trg001.questionStudioDiscoverable, true);
   assert.equal(trg001.questionBankStatus, "WRITABLE");
   assert.equal(trg001.questionBankWritable, true);
@@ -164,6 +168,10 @@ async function main() {
 
   assert.ok(trg002, "TRG-002 must remain exposed through the aggregate Question Studio capability surface");
   assert.equal(trg002.qlCount, 96);
+  assert.equal(trg002.lifecycleStage, "BANK_ONLY");
+  assert.equal(trg002.reviewSurfaceRequired, true);
+  assert.equal(trg002.manualApprovalRequired, true);
+  assert.equal(trg002.questionBankAcceptanceMode, "FULL_RELEASE");
   assert.deepEqual(trg002.supportedLanguages, ["en", "hi", "pa"]);
   assert.equal(trg002.questionStudioDiscoverable, true);
   assert.equal(trg002.questionBankStatus, "WRITABLE");
