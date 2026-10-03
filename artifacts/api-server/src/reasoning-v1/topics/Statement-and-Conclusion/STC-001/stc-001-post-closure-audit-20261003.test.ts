@@ -8,6 +8,7 @@ import {
   STC_V22_TEMPLATE_PROOFS,
   assertStcV22TemplateProofContract,
   getStcV22IndependentProof,
+  stcV22SemanticSignature,
 } from "./editorial-v2-2-independent-proof.ts";
 import { STC_001_V22_QUESTION_STUDIO_PACKAGE_ID } from "./question-studio-review-v2-2.ts";
 import { STC_QL_IDS, type StcLocale } from "./types.ts";
@@ -34,6 +35,22 @@ assert.throws(
   "An authored answer-key drift must fail closed",
 );
 
+assert.equal(
+  stcV22SemanticSignature(firstTemplate),
+  getStcV22IndependentProof(firstTemplate.id).semanticSignature,
+);
+assert.throws(
+  () => assertStcV22TemplateProofContract({
+    ...firstTemplate,
+    statement: {
+      ...firstTemplate.statement,
+      "en-IN": `${firstTemplate.statement["en-IN"]} Changed.`,
+    },
+  }),
+  /semantic skeleton drift/i,
+  "A semantic-text edit must fail closed even when answerClass is unchanged",
+);
+
 const bannedLearnerSurface = [
   /चुका\/चुकी/u,
   /ਚੁੱਕਾ\/ਚੁੱਕੀ/u,
@@ -50,6 +67,14 @@ const bannedLearnerSurface = [
   /ਤਾਜ਼ਾ ਮਹੀਨਾ ਵਿੱਚ/u,
   /ਆਉਣ ਵਾਲਾ ਮਹੀਨਾ ਵਿੱਚ/u,
   /ਅਗਲਾ ਸਮੀਖਿਆ ਚੱਕਰ ਵਿੱਚ/u,
+  /उपलब्ध रहेगी: ऑनलाइन आरक्षण पोर्टल/u,
+  /ਉਪਲਬਧ ਰਹੇਗੀ: ਆਨਲਾਈਨ ਰਿਜ਼ਰਵੇਸ਼ਨ ਪੋਰਟਲ/u,
+  /प्रदान नहीं कर रहा/u,
+  /ਪ੍ਰਦਾਨ ਨਹੀਂ ਕਰ ਰਿਹਾ/u,
+  /का घटना निश्चित/u,
+  /ਦਾ ਘਟਣਾ ਨਿਸ਼ਚਿਤ/u,
+  /हो चुका\/चुकी/u,
+  /ਹੋ ਚੁੱਕਾ\/ਚੁੱਕੀ/u,
 ] as const;
 
 let auditedSurfaceCount = 0;
@@ -137,6 +162,7 @@ assert.equal(stcPackages[0]!.testEligible, false);
 assert.equal(stcPackages[0]!.mockTestEligible, false);
 assert.equal(stcPackages[0]!.publiclyPublishable, false);
 assert.equal(stcPackages[0]!.automaticStudentPublication, false);
+assert.deepEqual(stcPackages[0]!.cpIds, ["STC-CP-001", "STC-CP-002", "STC-CP-003"]);
 
 const standardBatch = await reasoningV1QuestionStudioAdapter.generate({
   engineId: "reasoning-v1",
