@@ -10,6 +10,50 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP008_COMMITTEE_STATE_LANES: Readonly<Record<string, Readonly<{ men: number; women: number; committeeSize: number; requiredWomen: number }>>> = Object.freeze({
+  "PRB-QL-701": { men: 5, women: 8, committeeSize: 3, requiredWomen: 1 },
+  "PRB-QL-709": { men: 6, women: 7, committeeSize: 3, requiredWomen: 1 },
+  "PRB-QL-717": { men: 7, women: 6, committeeSize: 3, requiredWomen: 1 },
+  "PRB-QL-725": { men: 8, women: 5, committeeSize: 3, requiredWomen: 1 },
+
+  "PRB-QL-702": { men: 5, women: 7, committeeSize: 4, requiredWomen: 1 },
+  "PRB-QL-710": { men: 6, women: 8, committeeSize: 4, requiredWomen: 2 },
+  "PRB-QL-718": { men: 7, women: 9, committeeSize: 4, requiredWomen: 3 },
+  "PRB-QL-726": { men: 8, women: 6, committeeSize: 4, requiredWomen: 2 },
+
+  "PRB-QL-707": { men: 5, women: 6, committeeSize: 4, requiredWomen: 1 },
+  "PRB-QL-715": { men: 7, women: 5, committeeSize: 4, requiredWomen: 1 },
+  "PRB-QL-723": { men: 9, women: 7, committeeSize: 4, requiredWomen: 1 },
+
+  "PRB-QL-708": { men: 6, women: 5, committeeSize: 4, requiredWomen: 1 },
+  "PRB-QL-716": { men: 8, women: 7, committeeSize: 4, requiredWomen: 1 },
+  "PRB-QL-724": { men: 10, women: 6, committeeSize: 4, requiredWomen: 1 },
+});
+
+const CP008_ARRANGEMENT_STATE_LANES: Readonly<Record<string, number>> = Object.freeze({
+  "PRB-QL-703": 5,
+  "PRB-QL-711": 6,
+  "PRB-QL-719": 7,
+});
+
+const CP008_TOGETHER_STATE_LANES: Readonly<Record<string, Readonly<{ people: number; relation: "TOGETHER" | "APART" }>>> = Object.freeze({
+  "PRB-QL-704": { people: 5, relation: "APART" },
+  "PRB-QL-712": { people: 6, relation: "TOGETHER" },
+  "PRB-QL-720": { people: 7, relation: "APART" },
+});
+
+const CP008_POSITION_STATE_LANES: Readonly<Record<string, Readonly<{ men: number; women: number; positions: number }>>> = Object.freeze({
+  "PRB-QL-705": { men: 5, women: 4, positions: 4 },
+  "PRB-QL-713": { men: 7, women: 5, positions: 4 },
+  "PRB-QL-721": { men: 9, women: 6, positions: 4 },
+});
+
+const CP008_NUMBER_FORMATION_LANES: Readonly<Record<string, Readonly<{ maxDigit: number; length: number }>>> = Object.freeze({
+  "PRB-QL-706": { maxDigit: 6, length: 4 },
+  "PRB-QL-714": { maxDigit: 7, length: 4 },
+  "PRB-QL-722": { maxDigit: 9, length: 4 },
+});
+
 const CP007_CONDITIONAL_COUNTING_LANES: Readonly<Record<string, Readonly<{ mathTotal: number; both: number; englishOnly: number; neither: number }>>> = Object.freeze({
   "PRB-QL-601": { mathTotal: 8, both: 3, englishOnly: 7, neither: 4 },
   "PRB-QL-606": { mathTotal: 17, both: 7, englishOnly: 9, neither: 5 },
@@ -336,12 +380,32 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (["findSelectionProbabilityUsingCombination", "findCommitteeCompositionProbability", "findRestrictedSelectionProbability", "findReverseCountFromProbability"].includes(mode)) {
+    const lane = CP008_COMMITTEE_STATE_LANES[entry.qlId];
+    if (lane) return { ...lane };
     const men = randomInt(random, 5, 10), women = randomInt(random, 4, 9), committeeSize = entry.difficulty === "Hard" ? 4 : 3;
     return { men, women, committeeSize, requiredWomen: mode === "findCommitteeCompositionProbability" ? randomInt(random, 1, committeeSize - 1) : 1 };
   }
-  if (["findRandomArrangementPropertyProbability", "findTogetherOrApartProbability"].includes(mode)) { return { people: randomInt(random, 5, entry.difficulty === "Hard" ? 8 : 7), relation: mode === "findTogetherOrApartProbability" && random() < 0.5 ? "APART" : "TOGETHER" }; }
-  if (mode === "findPositionRestrictionProbability") { const men = randomInt(random, 5, 9), women = randomInt(random, 4, 8), positions = entry.difficulty === "Hard" ? 4 : 3; return { men, women, positions, fixedGroup: "women" }; }
-  if (mode === "findNumberFormationProbability") { const maxDigit = randomInt(random, 5, 9), length = entry.difficulty === "Hard" ? 4 : 3; return { minDigit: 1, maxDigit, symbolCount: maxDigit, length, property: "EVEN_LAST_DIGIT" }; }
+  if (["findRandomArrangementPropertyProbability", "findTogetherOrApartProbability"].includes(mode)) {
+    if (mode === "findRandomArrangementPropertyProbability") {
+      const people = CP008_ARRANGEMENT_STATE_LANES[entry.qlId] ?? randomInt(random, 5, entry.difficulty === "Hard" ? 8 : 7);
+      return { people, relation: "TOGETHER" };
+    }
+    const lane = CP008_TOGETHER_STATE_LANES[entry.qlId];
+    if (lane) return { people: lane.people, relation: lane.relation };
+    return { people: randomInt(random, 5, entry.difficulty === "Hard" ? 8 : 7), relation: random() < 0.5 ? "APART" : "TOGETHER" };
+  }
+  if (mode === "findPositionRestrictionProbability") {
+    const lane = CP008_POSITION_STATE_LANES[entry.qlId];
+    if (lane) return { men: lane.men, women: lane.women, positions: lane.positions, fixedGroup: "women" };
+    const men = randomInt(random, 5, 9), women = randomInt(random, 4, 8), positions = entry.difficulty === "Hard" ? 4 : 3;
+    return { men, women, positions, fixedGroup: "women" };
+  }
+  if (mode === "findNumberFormationProbability") {
+    const lane = CP008_NUMBER_FORMATION_LANES[entry.qlId];
+    if (lane) return { minDigit: 1, maxDigit: lane.maxDigit, symbolCount: lane.maxDigit, length: lane.length, property: "EVEN_LAST_DIGIT" };
+    const maxDigit = randomInt(random, 5, 9), length = entry.difficulty === "Hard" ? 4 : 3;
+    return { minDigit: 1, maxDigit, symbolCount: maxDigit, length, property: "EVEN_LAST_DIGIT" };
+  }
 
   if (mode === "findIndependentIntersection") { const a = reducedFraction(random, 5, 9), b = reducedFraction(random, 5, 9); return { aNumerator: a.numerator, aDenominator: a.denominator, bNumerator: b.numerator, bDenominator: b.denominator, independent: true }; }
   if (mode === "findMutuallyExclusiveUnion") { const denominator = 10; const a = randomInt(random, 1, 3), b = randomInt(random, 1, 3); return { aNumerator: a, aDenominator: denominator, bNumerator: b, bDenominator: denominator, intersectionNumerator: 0, intersectionDenominator: 1, mutuallyExclusive: true }; }
