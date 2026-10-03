@@ -202,23 +202,12 @@ function resolveCpId(
   },
 ): Mal001QuestionStudioCpId {
   const inferredFromQl = inferCpFromQl(input.questionLanguageId);
-  if (inferredFromQl) return inferredFromQl;
-  if (!input.difficulty) return requestedCpId;
-  if (
-    ALLOCATIONS_BY_CP[requestedCpId].some(
-      (entry) => entry.difficulty === input.difficulty,
-    )
-  ) {
-    return requestedCpId;
+  if (inferredFromQl && inferredFromQl !== requestedCpId) {
+    throw new Error(
+      `${String(input.questionLanguageId)} is not active for ${requestedCpId}.`,
+    );
   }
-  const eligibleCpIds = listMal001QuestionStudioCpIdsForDifficulty(
-    input.difficulty,
-  );
-  if (eligibleCpIds.length === 0) {
-    throw new Error(`MAL-001 has no Question Studio QLs for ${input.difficulty}.`);
-  }
-  const seed = input.seed ?? `mal-001-question-studio:${input.difficulty}`;
-  return eligibleCpIds[hash(`${seed}:difficulty-cp`) % eligibleCpIds.length]!;
+  return requestedCpId;
 }
 
 function chooseQl<T extends AllocationEntry>(
