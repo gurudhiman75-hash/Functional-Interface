@@ -110,6 +110,14 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
       {
+        topicDirectory: "Floor-and-Flat-Arrangement",
+        chapterId: "FLR-001",
+        closureAuthorityPath:
+          "topics/Floor-and-Flat-Arrangement/FLR-001/FLR-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
+        auditState: "PASS_WITH_REVIEW_GATE",
+        remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
+      },
+      {
         topicDirectory: "InputOutput",
         chapterId: "IOP-001",
         closureAuthorityPath:
