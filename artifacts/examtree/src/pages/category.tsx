@@ -52,10 +52,11 @@ export default function CategoryPage() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
-  const category = categories.find((item) => item.id === id);
+  const category = categories.find((item) => item.id.toLowerCase() === String(id ?? "").toLowerCase());
+  const canonicalCategoryId = category?.id ?? id;
   const exams = useMemo(
-    () => (id ? getRuntimeExamGroups(id, categories, tests, subcategories) : []),
-    [id, categories, tests, subcategories],
+    () => (canonicalCategoryId ? getRuntimeExamGroups(canonicalCategoryId, categories, tests, subcategories) : []),
+    [canonicalCategoryId, categories, tests, subcategories],
   );
 
   const attempts = useMemo(() => getAttempts(), []);
