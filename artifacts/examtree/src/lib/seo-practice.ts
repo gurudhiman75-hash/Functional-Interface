@@ -743,8 +743,8 @@ const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
   "ssc-cpo": ["SSC_CPO"],
   "ssc-stenographer": ["SSC_STENOGRAPHER"],
   "ssc-gd": ["SSC_GD"],
-  "ibps-po": ["IBPS_PO"],
-  "ibps-clerk": ["IBPS_CLERK"],
+  "ibps-po": ["IBPS_PO", "IBPS_PO_PRE"],
+  "ibps-clerk": ["IBPS_CLERK", "IBPS_CLERK_PRE"],
   "ibps-rrb-po": ["IBPS_RRB_PO"],
   "ibps-rrb-office-assistant": ["IBPS_RRB_CLERK"],
 };

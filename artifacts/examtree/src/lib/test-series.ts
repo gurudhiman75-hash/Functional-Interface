@@ -26,6 +26,10 @@ export interface StudentSeriesSummary {
   hubStage?: "general" | "prelims" | "mains";
   hubType?: "full-length" | "pyq" | "sectional" | "topic-wise";
   examCycle?: string;
+  hubSectionTitle?: string;
+  hubSectionDescription?: string;
+  hubSectionOrder?: number;
+  hubSeriesOrder?: number;
   iconUrl?: string;
 }
 
@@ -76,6 +80,10 @@ export interface StudentSeriesDetail {
     hubStage?: "general" | "prelims" | "mains";
     hubType?: "full-length" | "pyq" | "sectional" | "topic-wise";
     examCycle?: string;
+    hubSectionTitle?: string;
+    hubSectionDescription?: string;
+    hubSectionOrder?: number;
+    hubSeriesOrder?: number;
     iconUrl?: string;
   };
   eligibility: {

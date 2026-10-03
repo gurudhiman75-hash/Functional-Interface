@@ -401,6 +401,10 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       hubStage: asString((series.configuration as Record<string, unknown> | undefined)?.hubStage) || "general",
       hubType: asString((series.configuration as Record<string, unknown> | undefined)?.hubType) || "full-length",
       examCycle: asString((series.configuration as Record<string, unknown> | undefined)?.examCycle),
+      hubSectionTitle: asString((series.configuration as Record<string, unknown> | undefined)?.hubSectionTitle),
+      hubSectionDescription: asString((series.configuration as Record<string, unknown> | undefined)?.hubSectionDescription),
+      hubSectionOrder: Number((series.configuration as Record<string, unknown> | undefined)?.hubSectionOrder ?? 100),
+      hubSeriesOrder: Number((series.configuration as Record<string, unknown> | undefined)?.hubSeriesOrder ?? 100),
       iconUrl: asString(series.iconUrl),
     },
     eligibility: {
@@ -465,6 +469,18 @@ router.get("/test-series", async (_req, res) => {
         COALESCE(NULLIF(version.configuration->>'hubStage', ''), 'general') AS "hubStage",
         COALESCE(NULLIF(version.configuration->>'hubType', ''), 'full-length') AS "hubType",
         NULLIF(version.configuration->>'examCycle', '') AS "examCycle",
+        NULLIF(version.configuration->>'hubSectionTitle', '') AS "hubSectionTitle",
+        NULLIF(version.configuration->>'hubSectionDescription', '') AS "hubSectionDescription",
+        CASE
+          WHEN COALESCE(version.configuration->>'hubSectionOrder', '') ~ '^[0-9]+$'
+          THEN (version.configuration->>'hubSectionOrder')::int
+          ELSE 100
+        END AS "hubSectionOrder",
+        CASE
+          WHEN COALESCE(version.configuration->>'hubSeriesOrder', '') ~ '^[0-9]+$'
+          THEN (version.configuration->>'hubSeriesOrder')::int
+          ELSE 100
+        END AS "hubSeriesOrder",
         COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility",
         COALESCE(
           NULLIF(version.configuration->>'learnerMessage', ''),
