@@ -10,6 +10,17 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP006_SUCCESSIVE_STATE_LANES: Readonly<Record<string, Readonly<{ red: number; blue: number }>>> = Object.freeze({
+  "PRB-QL-501": { red: 4, blue: 5 }, "PRB-QL-509": { red: 6, blue: 7 }, "PRB-QL-517": { red: 8, blue: 9 },
+  "PRB-QL-502": { red: 5, blue: 7 }, "PRB-QL-510": { red: 7, blue: 9 }, "PRB-QL-518": { red: 9, blue: 6 },
+  "PRB-QL-503": { red: 6, blue: 4 }, "PRB-QL-511": { red: 8, blue: 5 }, "PRB-QL-519": { red: 9, blue: 7 },
+  "PRB-QL-504": { red: 5, blue: 6 }, "PRB-QL-512": { red: 7, blue: 5 }, "PRB-QL-520": { red: 8, blue: 7 },
+  "PRB-QL-505": { red: 4, blue: 7 }, "PRB-QL-513": { red: 6, blue: 9 }, "PRB-QL-521": { red: 9, blue: 5 },
+  "PRB-QL-506": { red: 5, blue: 8 }, "PRB-QL-514": { red: 7, blue: 6 }, "PRB-QL-522": { red: 9, blue: 8 },
+  "PRB-QL-507": { red: 4, blue: 8 }, "PRB-QL-515": { red: 6, blue: 5 }, "PRB-QL-523": { red: 8, blue: 6 },
+  "PRB-QL-508": { red: 5, blue: 9 }, "PRB-QL-516": { red: 7, blue: 8 }, "PRB-QL-524": { red: 9, blue: 4 },
+});
+
 const CP005_URN_STATE_LANES: Readonly<Record<string, Readonly<{ red: number; blue: number; draw: number; exactRed?: number }>>> = Object.freeze({
   "PRB-QL-401": { red: 4, blue: 5, draw: 1 },
   "PRB-QL-402": { red: 5, blue: 7, draw: 2 },
@@ -255,7 +266,10 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (["findSuccessiveIndependentProbability", "findSuccessiveDependentProbability", "findWithReplacementProbability", "findWithoutReplacementProbability", "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws", "findDifferentTypesInSuccessiveDraws", "findAtLeastOneAcrossIndependentStages"].includes(mode)) {
-    const red = randomInt(random, 4, 9), blue = randomInt(random, 4, 9); return { red, blue, total: red + blue, draws: 2, firstColour: "red", secondColour: "blue" };
+    const lane = CP006_SUCCESSIVE_STATE_LANES[entry.qlId];
+    if (lane) return { red: lane.red, blue: lane.blue, total: lane.red + lane.blue, draws: 2, firstColour: "red", secondColour: "blue" };
+    const red = randomInt(random, 4, 9), blue = randomInt(random, 4, 9);
+    return { red, blue, total: red + blue, draws: 2, firstColour: "red", secondColour: "blue" };
   }
 
   if (mode === "findConditionalCardProbability") return { condition: "FACE_CARD", target: "KING", conditionCount: 12, favourable: 4 };
