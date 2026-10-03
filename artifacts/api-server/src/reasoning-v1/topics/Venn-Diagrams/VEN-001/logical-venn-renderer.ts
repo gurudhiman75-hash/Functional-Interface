@@ -14,10 +14,10 @@ export type VennTopologyId =
   | "THREE_TWO_DISJOINT_OVERLAP_THIRD"
   | "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP";
 
-type Circle = Readonly<{ cx: number; cy: number; r: number }>;
+export type VennCircleGeometry = Readonly<{ cx: number; cy: number; r: number }>;
 
 type RenderSpec = Readonly<{
-  circles: readonly Circle[];
+  circles: readonly VennCircleGeometry[];
   accessibleName: string;
   accessibleDescription: string;
 }>;
@@ -220,6 +220,24 @@ function labelAnchors(
     case "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP":
       return [{ x: 120, y: 28 }, { x: 80, y: 91 }, { x: 202, y: 91 }];
   }
+}
+
+export function getVennTopologyGeometry(
+  topologyId: VennTopologyId,
+): Readonly<{
+  circles: readonly VennCircleGeometry[];
+  labelAnchors: readonly Readonly<{ x: number; y: number }>[];
+  accessibleName: string;
+  accessibleDescription: string;
+}> {
+  const spec = TOPOLOGY_SPECS[topologyId];
+  if (!spec) throw new Error(`Unsupported VEN-001 topology ${String(topologyId)}`);
+  return Object.freeze({
+    circles: Object.freeze(spec.circles.map((circle) => Object.freeze({ ...circle }))),
+    labelAnchors: Object.freeze(labelAnchors(topologyId).map((point) => Object.freeze({ ...point }))),
+    accessibleName: spec.accessibleName,
+    accessibleDescription: spec.accessibleDescription,
+  });
 }
 
 export function renderVennTopologySvg(
