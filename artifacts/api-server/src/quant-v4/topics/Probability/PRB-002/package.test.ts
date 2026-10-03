@@ -37,6 +37,20 @@ console.log(JSON.stringify({
 }));
 
 
+const cp007Ids = Array.from({ length: 22 }, (_, index) => `PRB-QL-${601 + index}`);
+function renderedStem(qlId:string){
+  const entry=entries.find((candidate)=>candidate.qlId===qlId);
+  assert(entry,`${qlId} missing from PRB-002 registry`);
+  return runPrb002Pipeline(entry.cpId as any,{questionLanguageId:qlId,seed:`PRB-002:cp007-family:${qlId}`}).stem;
+}
+const cp007Rendered = Object.fromEntries(cp007Ids.map((qlId)=>[qlId,renderedStem(qlId)]));
+for (const [qlId, stem] of Object.entries(cp007Rendered)) {
+  assert(!/\b(?:standard|classical|finite|structured|objective|exam-style|practice|mock-test|textbook|classroom|selection-based|counting-based|event-based|conditional|multi-stage|outcome-based|competitive-exam|review) model\b/i.test(stem),`${qlId} still exposes synthetic model boilerplate: ${stem}`);
+}
+for (const qlId of ["PRB-QL-601","PRB-QL-612","PRB-QL-619"]) assert(/student/i.test(cp007Rendered[qlId]),`${qlId} lost student context`);
+for (const qlId of ["PRB-QL-606","PRB-QL-613"]) assert(/candidate/i.test(cp007Rendered[qlId]),`${qlId} lost candidate context`);
+for (const qlId of ["PRB-QL-607","PRB-QL-618"]) assert(/committee/i.test(cp007Rendered[qlId]),`${qlId} lost committee context`);
+
 const conditionalNumberWave2=surfaces(["PRB-QL-603","PRB-QL-609","PRB-QL-615","PRB-QL-621"]);
 const conditionalCountingWave2=surfaces(["PRB-QL-601","PRB-QL-607","PRB-QL-613","PRB-QL-619"]);
 assert(new Set(conditionalNumberWave2).size>=4,`Conditional-number QLs still collapse to ${new Set(conditionalNumberWave2).size} structures`);

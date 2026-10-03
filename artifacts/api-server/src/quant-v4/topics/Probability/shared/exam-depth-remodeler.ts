@@ -256,11 +256,22 @@ export function remodelProbabilityStem(
 
   if (["findConditionalProbabilityByCounting", "findConditionalFromTwoWayTable"].includes(mode)) {
     const total = numberValue(parameters, "mathTotal"), both = numberValue(parameters, "both");
+    const context = textValue(parameters, "conditionalContext", "STUDENT_SUBJECTS");
     const form = seriesVariant(entry, 6, 4);
-    if (form === 0) return `Of the ${total} students who passed Mathematics, ${both} also passed English. One Mathematics-pass student is selected at random. What is the probability that the selected student also passed English?`;
-    if (form === 1) return `${total} candidates cleared Quantitative Aptitude, and ${both} of them also cleared Reasoning. If one of these ${total} candidates is chosen at random, find the probability that the chosen candidate cleared Reasoning.`;
-    if (form === 2) return `Among the ${total} students known to have qualified in Mathematics, ${both} also qualified in English. One student is chosen at random from this restricted group. Find the probability that the student qualified in English as well.`;
-    return `A group contains ${total} candidates who have already cleared Section A; ${both} of them also cleared Section B. A candidate is selected at random from the Section A group. What is the probability that the candidate also cleared Section B?`;
+    if (context === "CANDIDATE_STAGES") {
+      if (form % 2 === 0) return `${total} candidates cleared the written test, and ${both} of them also qualified the interview. One written-test qualifier is chosen at random. Find the probability that the chosen candidate qualified the interview.`;
+      return `Among ${total} candidates who cleared Section A, ${both} also cleared Section B. If a candidate is selected at random from the Section A group, what is the probability that the candidate also cleared Section B?`;
+    }
+    if (context === "COMMITTEE_MEMBERS") {
+      const condition = textValue(parameters, "conditionLabel", "are graduate members").replace(/^are\s+/i, "");
+      const target = textValue(parameters, "targetLabel", "are women").replace(/^are\s+/i, "");
+      if (form % 2 === 0) return `A committee has ${total} members who are ${condition}; ${both} of them are ${target}. One member is selected at random from this restricted group. Find the probability that the selected member is ${target}.`;
+      return `Of the ${total} committee members who are ${condition}, ${both} are ${target}. If one of these members is chosen at random, what is the probability that the chosen member is ${target}?`;
+    }
+    const condition = textValue(parameters, "conditionLabel", "passed Mathematics").replace(/^(?:passed|qualified in)\s+/i, "");
+    const target = textValue(parameters, "targetLabel", "passed English").replace(/^(?:passed|qualified in)\s+/i, "");
+    if (form % 2 === 0) return `Of the ${total} students who passed ${condition}, ${both} also passed ${target}. One of these students is selected at random. What is the probability that the selected student also passed ${target}?`;
+    return `Among ${total} students who qualified in ${condition}, ${both} also qualified in ${target}. One student is chosen at random from this group. Find the probability that the student qualified in ${target} as well.`;
   }
 
   if (mode === "findRandomArrangementPropertyProbability") {

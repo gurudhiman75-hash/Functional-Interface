@@ -92,14 +92,26 @@ const CP008_NUMBER_FORMATION_LANES: Readonly<Record<string, Readonly<{ maxDigit:
   "PRB-QL-722": { maxDigit: 9, length: 4 },
 });
 
-const CP007_CONDITIONAL_COUNTING_LANES: Readonly<Record<string, Readonly<{ mathTotal: number; both: number; englishOnly: number; neither: number }>>> = Object.freeze({
-  "PRB-QL-601": { mathTotal: 8, both: 3, englishOnly: 7, neither: 4 },
-  "PRB-QL-606": { mathTotal: 17, both: 7, englishOnly: 9, neither: 5 },
-  "PRB-QL-607": { mathTotal: 10, both: 4, englishOnly: 8, neither: 3 },
-  "PRB-QL-612": { mathTotal: 15, both: 13, englishOnly: 6, neither: 4 },
-  "PRB-QL-613": { mathTotal: 15, both: 10, englishOnly: 11, neither: 6 },
-  "PRB-QL-618": { mathTotal: 18, both: 8, englishOnly: 10, neither: 7 },
-  "PRB-QL-619": { mathTotal: 12, both: 5, englishOnly: 13, neither: 2 },
+type Cp007ConditionalContext = "STUDENT_SUBJECTS" | "CANDIDATE_STAGES" | "COMMITTEE_MEMBERS";
+
+const CP007_CONDITIONAL_COUNTING_LANES: Readonly<Record<string, Readonly<{
+  mathTotal: number;
+  both: number;
+  englishOnly: number;
+  neither: number;
+  conditionalContext: Cp007ConditionalContext;
+  conditionLabel: string;
+  targetLabel: string;
+  populationSingular: string;
+  populationPlural: string;
+}>>> = Object.freeze({
+  "PRB-QL-601": { mathTotal: 8, both: 3, englishOnly: 7, neither: 4, conditionalContext: "STUDENT_SUBJECTS", conditionLabel: "passed Mathematics", targetLabel: "passed English", populationSingular: "student", populationPlural: "students" },
+  "PRB-QL-606": { mathTotal: 17, both: 7, englishOnly: 9, neither: 5, conditionalContext: "CANDIDATE_STAGES", conditionLabel: "cleared the written test", targetLabel: "qualified the interview", populationSingular: "candidate", populationPlural: "candidates" },
+  "PRB-QL-607": { mathTotal: 10, both: 4, englishOnly: 8, neither: 3, conditionalContext: "COMMITTEE_MEMBERS", conditionLabel: "are graduate members", targetLabel: "are women", populationSingular: "committee member", populationPlural: "committee members" },
+  "PRB-QL-612": { mathTotal: 15, both: 13, englishOnly: 6, neither: 4, conditionalContext: "STUDENT_SUBJECTS", conditionLabel: "qualified in Mathematics", targetLabel: "qualified in English", populationSingular: "student", populationPlural: "students" },
+  "PRB-QL-613": { mathTotal: 15, both: 10, englishOnly: 11, neither: 6, conditionalContext: "CANDIDATE_STAGES", conditionLabel: "cleared Section A", targetLabel: "cleared Section B", populationSingular: "candidate", populationPlural: "candidates" },
+  "PRB-QL-618": { mathTotal: 18, both: 8, englishOnly: 10, neither: 7, conditionalContext: "COMMITTEE_MEMBERS", conditionLabel: "are senior members", targetLabel: "are women", populationSingular: "committee member", populationPlural: "committee members" },
+  "PRB-QL-619": { mathTotal: 12, both: 5, englishOnly: 13, neither: 2, conditionalContext: "STUDENT_SUBJECTS", conditionLabel: "passed Quantitative Aptitude", targetLabel: "passed Reasoning", populationSingular: "student", populationPlural: "students" },
 });
 
 const CP007_CONDITIONAL_NUMBER_LANES: Readonly<Record<string, number>> = Object.freeze({
@@ -409,12 +421,25 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
         both: lane.both,
         englishOnly: lane.englishOnly,
         neither: lane.neither,
-        conditionLabel: "passed Mathematics",
-        targetLabel: "passed English",
+        conditionalContext: lane.conditionalContext,
+        conditionLabel: lane.conditionLabel,
+        targetLabel: lane.targetLabel,
+        populationSingular: lane.populationSingular,
+        populationPlural: lane.populationPlural,
       };
     }
     const mathOnly = randomInt(random, 8, 18), both = randomInt(random, 3, mathOnly - 1), englishOnly = randomInt(random, 5, 16), neither = randomInt(random, 2, 10);
-    return { mathTotal: mathOnly, both, englishOnly, neither, conditionLabel: "passed Mathematics", targetLabel: "passed English" };
+    return {
+      mathTotal: mathOnly,
+      both,
+      englishOnly,
+      neither,
+      conditionalContext: "STUDENT_SUBJECTS",
+      conditionLabel: "passed Mathematics",
+      targetLabel: "passed English",
+      populationSingular: "student",
+      populationPlural: "students",
+    };
   }
 
   if (["findSelectionProbabilityUsingCombination", "findCommitteeCompositionProbability", "findRestrictedSelectionProbability", "findReverseCountFromProbability"].includes(mode)) {
