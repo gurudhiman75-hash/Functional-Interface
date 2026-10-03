@@ -23,6 +23,13 @@ for (const checkpointId of waveThreeCheckpoints) {
   assert.ok(!distractorTexts.has("Take a final adverse action immediately without checking the record."));
   assert.ok(!distractorTexts.has("Ignore the matter and wait without recording any reason."));
   assert.ok(!distractorTexts.has("Bypass the prescribed process and act only on an assumption."));
+  for (const banned of [
+    "Apply the harshest outcome before authenticating the disputed information.",
+    "Take no step until the entire monthly workload has been cleared.",
+    "Let the affected person choose the outcome instead of applying the governing rule.",
+    "Allocate the resource by a random draw without considering urgency or deadlines.",
+    "Split the resource into unusable shares merely to give every request the same amount.",
+  ]) assert.ok(!distractorTexts.has(banned), checkpointId + " must not use an obviously absurd distractor");
 
   for (const scenario of scenarios) {
     assert.ok(scenario.situational);
@@ -52,6 +59,13 @@ for (const checkpointId of waveThreeCheckpoints) {
       assert.match(question.explanation, locale === "en" ? /Situation:.*Relevant principle:.*Why this comes first:.*Conclusion:/s : locale === "hi" ? /स्थिति:.*संबंधित सिद्धांत:.*यह पहले क्यों:.*निष्कर्ष:/s : /ਸਥਿਤੀ:.*ਸੰਬੰਧਤ ਸਿਧਾਂਤ:.*ਇਹ ਪਹਿਲਾਂ ਕਿਉਂ:.*ਨਤੀਜਾ:/s);
     }
   }
+
+  const whyFirstLines = new Set(scenarios.map((scenario) =>
+    generateDmQuestion({ scenario, locale: "en", seed: 47, mode: "MULTIPLE_FAIL" }).explanation
+      .split("\n").find((line) => line.startsWith("Why this comes first:")),
+  ));
+  assert.ok(whyFirstLines.size >= new Set(scenarios.map((scenario) => scenario.situational!.choices[0]!.principle)).size,
+    checkpointId + " explanations must justify the actual governing principle");
 }
 
 assert.ok(dmScenariosForCheckpoint("DM-CP-012").every((scenario) => scenario.situational?.focus === "FIRST_ACTION"));
