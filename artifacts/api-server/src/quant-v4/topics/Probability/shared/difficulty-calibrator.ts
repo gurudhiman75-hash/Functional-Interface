@@ -45,6 +45,19 @@ const HARD_MODES = new Set([
 ]);
 
 export function calibrateEntryDifficulty(entry: ProbabilityTaskRegistryEntry): ProbabilityDifficulty {
+  if (
+    entry.cpId === "PRB-CP-005"
+    && entry.difficulty === "Hard"
+    && [
+      "findSimultaneousSameTypeProbability",
+      "findSimultaneousDifferentTypeProbability",
+      "findExactCompositionProbability",
+      "findNoObjectOfTypeProbability",
+      "findAtLeastOneObjectOfType",
+    ].includes(entry.solveMode)
+  ) {
+    return "Hard";
+  }
   if (EASY_MODES.has(entry.solveMode)) return "Easy";
   if (HARD_MODES.has(entry.solveMode)) return "Hard";
   return "Medium";
