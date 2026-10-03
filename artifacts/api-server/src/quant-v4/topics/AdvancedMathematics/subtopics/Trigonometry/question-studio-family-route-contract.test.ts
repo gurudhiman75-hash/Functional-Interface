@@ -17,6 +17,9 @@ assert.equal(isTrg001QuestionStudioRequest({ patternId: "TRG-001" }), true);
 assert.equal(isTrg001QuestionStudioRequest({ packageId: "TRG-002" }), false);
 assert.equal(isTrg002V4GenerationRequest({ packageId: "TRG-002" }), true);
 assert.equal(isTrg002V4GenerationRequest({ packageId: "TRG-001" }), false);
+assert.equal(isTrg002V4GenerationRequest({ topic: "Trigonometry" }), false);
+assert.equal(isTrg002V4GenerationRequest({ topic: "Advanced Mathematics", subtopic: "Trigonometry" }), false);
+assert.equal(isTrg002V4GenerationRequest({ topic: "Advanced Mathematics", subtopic: "Heights and Distances" }), true);
 
 const packages = listQuestionStudioPackages();
 assert.equal(packages.filter((entry: any) => entry.packageId === "TRG-001").length, 1);
