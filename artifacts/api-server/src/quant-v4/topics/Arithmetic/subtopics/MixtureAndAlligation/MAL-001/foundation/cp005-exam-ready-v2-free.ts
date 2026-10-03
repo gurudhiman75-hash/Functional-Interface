@@ -113,10 +113,6 @@ export function freeProfitQuestionV2(input: {
     HUNDRED_V2,
   );
   const revenuePercent = addRational(HUNDRED_V2, profit);
-  const inverseBase = multiplyRational(
-    divideRational(state.pureQuantity, state.adulterantQuantity),
-    HUNDRED_V2,
-  );
   const answer = percentTextV2(profit);
   const options = buildNaturalOptionsV2(
     answer,
