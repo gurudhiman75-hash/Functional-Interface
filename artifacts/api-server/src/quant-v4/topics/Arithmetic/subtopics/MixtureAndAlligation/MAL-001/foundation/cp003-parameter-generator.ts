@@ -192,7 +192,8 @@ export function generateMalCp003Parameters(
 
     case "MAL-CP003-PROT-OPERATION-COUNT-FROM-FINAL": {
       const initial = initialOriginalQuantity(selected.volume, random);
-      const operationCount = random.int(2, 8);
+      const operationCount =
+        2 + (hashSeed(`${prototypeId}:${seed}:operation-count-v2`) % 11);
       request = {
         mode: "OPERATION_COUNT_FROM_FINAL",
         vesselVolume,
@@ -204,7 +205,7 @@ export function generateMalCp003Parameters(
           initial,
         ),
         removedQuantity,
-        maximumOperations: 10,
+        maximumOperations: 14,
       };
       break;
     }
