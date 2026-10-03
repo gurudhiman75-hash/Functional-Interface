@@ -271,8 +271,8 @@ function buildConditional(seed:string,language:Sea003Language, implication:boole
   const conditionText=implication
     ? t(language,
         `If ${person(d!,language)} sits at the left end, then ${person(b!,language)} does not sit at the right end.`,
-        `यदि ${person(d!,language)} बाएँ छोर पर बैठता/बैठती है, तो ${person(b!,language)} दाएँ छोर पर नहीं बैठता/बैठती है।`,
-        `ਜੇ ${person(d!,language)} ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਬੈਠਦਾ/ਬੈਠਦੀ ਹੈ, ਤਾਂ ${person(b!,language)} ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਨਹੀਂ ਬੈਠਦਾ/ਬੈਠਦੀ।`)
+        `यदि ${person(d!,language)} बाएँ छोर पर है, तो ${person(b!,language)} दाएँ छोर पर नहीं है।`,
+        `ਜੇ ${person(d!,language)} ਖੱਬੇ ਸਿਰੇ 'ਤੇ ਹੈ, ਤਾਂ ${person(b!,language)} ਸੱਜੇ ਸਿਰੇ 'ਤੇ ਨਹੀਂ ਹੈ।`)
     : t(language,
         `Either ${person(a!,language)} or ${person(b!,language)} sits at the left end, but not both.`,
         `या तो ${person(a!,language)} या ${person(b!,language)} बाएँ छोर पर बैठता/बैठती है, लेकिन दोनों नहीं।`,
