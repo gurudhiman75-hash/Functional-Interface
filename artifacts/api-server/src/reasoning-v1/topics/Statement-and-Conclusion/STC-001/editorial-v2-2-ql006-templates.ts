@@ -26,7 +26,7 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
     ],
     statement: T("Candidates were first {a}, then called for {b}, and only after that stage were they called for {c}. {d} has reached the {c} stage.", "उम्मीदवार पहले {a} चरण से गुज़रे, फिर {b} के लिए बुलाए गए और उसके बाद ही {c} के लिए बुलाए गए। {d} अब {c} चरण में है।", "ਉਮੀਦਵਾਰ ਪਹਿਲਾਂ {a} ਪੜਾਅ ਵਿੱਚੋਂ ਲੰਘੇ, ਫਿਰ {b} ਲਈ ਬੁਲਾਏ ਗਏ ਅਤੇ ਉਸ ਤੋਂ ਬਾਅਦ ਹੀ {c} ਲਈ ਬੁਲਾਏ ਗਏ। {d} ਹੁਣ {c} ਪੜਾਅ ਵਿੱਚ ਹੈ।"),
     conclusions: [T("{d}'s {c} stage came before {b}.", "{d} के मामले में {c} चरण, {b} चरण से पहले था।", "{d} ਦੇ ਮਾਮਲੇ ਵਿੱਚ {c} ਪੜਾਅ, {b} ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਸੀ।"), T("{d}'s {b} came before the {c} stage.", "{d} के मामले में {b} चरण, {c} चरण से पहले था।", "{d} ਦੇ ਮਾਮਲੇ ਵਿੱਚ {b} ਪੜਾਅ, {c} ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਸੀ।")],
-    explanation: [T("The stated sequence places {b} before {c}.", "दिया गया क्रम {b} को {c} से पहले रखता है।", "ਦਿੱਤਾ ਕ੍ਰਮ {b} ਨੂੰ {c} ਤੋਂ ਪਹਿਲਾਂ ਰੱਖਦਾ ਹੈ।"), T("Reaching {c} under the stated sequence means {b} was earlier.", "दिए गए क्रम में {c} तक पहुँचने का अर्थ है कि {b} पहले हो चुका था।", "ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ {c} ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਅਰਥ ਹੈ ਕਿ {b} ਪਹਿਲਾਂ ਹੋ ਚੁੱਕੀ ਸੀ।")],
+    explanation: [T("The stated sequence places {b} before {c}.", "दिया गया क्रम {b} को {c} से पहले रखता है।", "ਦਿੱਤਾ ਕ੍ਰਮ {b} ਨੂੰ {c} ਤੋਂ ਪਹਿਲਾਂ ਰੱਖਦਾ ਹੈ।"), T("Reaching {c} under the stated sequence means {b} was earlier.", "दिए गए क्रम में {c} तक पहुँचने का अर्थ है कि {b} की प्रक्रिया पहले पूरी हो चुकी थी।", "ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ {c} ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਅਰਥ ਹੈ ਕਿ {b} ਦੀ ਪ੍ਰਕਿਰਿਆ ਪਹਿਲਾਂ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਸੀ।")],
   },
   {
     id: "STC-V22-QL006-T03", qlId: "STC-QL-006", surfaceArchetype: "SURVEY_REPORT", difficulty: "MEDIUM", answerClass: "BOTH",
@@ -61,7 +61,7 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
       [T("downward", "नीचे", "ਹੇਠਾਂ"), T("lower", "और नीचे", "ਹੋਰ ਹੇਠਾਂ"), T("to a lower level", "निचले स्तर पर", "ਹੇਠਲੇ ਪੱਧਰ ਉੱਤੇ"), T("in a downward direction", "नीचे की ओर", "ਹੇਠਾਂ ਵੱਲ")],
     ],
     statement: T("{a} moved {c} from the first {b} to the second, stayed unchanged in the third, and moved {d} in the fourth.", "पहले {b} से दूसरे तक {a} का स्तर {c} गया, तीसरे में अपरिवर्तित रहा और चौथे में {d} गया।", "ਪਹਿਲੇ {b} ਤੋਂ ਦੂਜੇ ਤੱਕ {a} ਦਾ ਪੱਧਰ {c} ਗਿਆ, ਤੀਜੇ ਵਿੱਚ ਬਦਲਿਆ ਨਹੀਂ ਅਤੇ ਚੌਥੇ ਵਿੱਚ {d} ਗਿਆ।"),
-    conclusions: [T("The third {b} matched the second on {a}.", "तीसरे {b} में {a} दूसरे के समान रही।", "ਤੀਜੇ {b} ਵਿੱਚ {a} ਦੂਜੇ ਦੇ ਬਰਾਬਰ ਰਹੀ।"), T("{a} rose in every {b} compared with the one before it.", "हर {b} में {a} का स्तर पिछले से ऊँचा था।", "ਹਰ {b} ਵਿੱਚ {a} ਦਾ ਪੱਧਰ ਪਿਛਲੇ ਨਾਲੋਂ ਉੱਚਾ ਸੀ।")],
+    conclusions: [T("The third {b} matched the second on {a}.", "तीसरे {b} में {a} का स्तर दूसरे के बराबर था।", "ਤੀਜੇ {b} ਵਿੱਚ {a} ਦਾ ਪੱਧਰ ਦੂਜੇ ਦੇ ਬਰਾਬਰ ਸੀ।"), T("{a} rose in every {b} compared with the one before it.", "हर {b} में {a} का स्तर पिछले से ऊँचा था।", "ਹਰ {b} ਵਿੱਚ {a} ਦਾ ਪੱਧਰ ਪਿਛਲੇ ਨਾਲੋਂ ਉੱਚਾ ਸੀ।")],
     explanation: [T("The statement explicitly says the third period was unchanged from the second.", "कथन स्पष्ट रूप से कहता है कि तीसरी अवधि दूसरी के समान रही।", "ਕਥਨ ਸਪਸ਼ਟ ਕਹਿੰਦਾ ਹੈ ਕਿ ਤੀਜੀ ਅਵਧੀ ਦੂਜੀ ਦੇ ਬਰਾਬਰ ਰਹੀ।"), T("The fourth period moved {d}, so the measure did not rise every time.", "चौथी अवधि में {a} का स्तर {d} गया, इसलिए हर बार वृद्धि नहीं हुई।", "ਚੌਥੀ ਅਵਧੀ ਵਿੱਚ {a} ਦਾ ਪੱਧਰ {d} ਗਿਆ, ਇਸ ਲਈ ਹਰ ਵਾਰ ਵਾਧਾ ਨਹੀਂ ਹੋਇਆ।")],
   },
   {
