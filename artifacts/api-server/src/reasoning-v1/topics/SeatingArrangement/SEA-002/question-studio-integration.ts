@@ -2,8 +2,8 @@ import type {
   QuestionStudioGenerationRequest,
   QuestionStudioGenerationResult,
   QuestionStudioPackageDefinition,
-} from "../../../question-studio/engine-types.ts";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle.ts";
+} from "../../../../question-studio/engine-types.ts";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle.ts";
 
 import {
   generateSea002Cp006QuestionStudioBatch,
