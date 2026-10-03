@@ -29,6 +29,12 @@ import {
   type MalCp005FreeStateV2,
 } from "./cp005-exam-ready-v2-core";
 
+const DIRECT_FREE_PROFIT_RATIOS_V2 = Object.freeze([
+  [20, 1], [16, 1], [15, 1], [12, 1], [10, 1], [8, 1], [6, 1],
+  [5, 1], [4, 1], [10, 3], [3, 1], [8, 3], [5, 2], [2, 1],
+  [5, 3], [3, 2], [4, 3], [5, 4], [1, 1],
+] as const);
+
 function expectPercent(result: MalCp005SolveResult) {
   if (result.kind !== "PERCENT") throw new Error("Expected percent result.");
   return result.value;
@@ -90,7 +96,7 @@ export function freeProfitQuestionV2(input: {
 }): MalCp005ExamReadyQuestionV2 {
   const prototypeId =
     "MAL-CP005-PROT-PROFIT-FROM-FREE-ADULTERANT-QUANTITIES" as const;
-  const state = freeStateV2(input.selectedSeed);
+  const state = freeStateV2(input.selectedSeed, DIRECT_FREE_PROFIT_RATIOS_V2);
   const request: Extract<
     MalCp005SolveRequest,
     { mode: "FREE_ADULTERANT_PROFIT_FROM_QUANTITIES" }
