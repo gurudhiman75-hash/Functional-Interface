@@ -18,7 +18,7 @@ export const SRI_002_MANIFEST = {
     disposition: "MIGRATION_EVIDENCE_NOT_PRODUCTION_AUTHORITY",
   },
   downstreamEligibility: {
-    questionStudio: false,
+    questionStudio: true,
     questionBank: false,
     tests: false,
     public: false,
