@@ -116,6 +116,12 @@ function instruction(locale: StcLocale): string {
   return "Read the statement and the two conclusions carefully. Decide which conclusion(s) logically follow from the statement.";
 }
 
+function statementLabel(locale: StcLocale): string {
+  if (locale === "hi-IN") return "कथन";
+  if (locale === "pa-IN") return "ਕਥਨ";
+  return "Statement";
+}
+
 function titleDifficulty(value: StcDifficulty): "Easy" | "Medium" | "Hard" {
   if (value === "EASY") return "Easy";
   if (value === "HARD") return "Hard";
@@ -130,7 +136,7 @@ function toStudioItem(
   const stem = [
     learnerInstruction,
     "",
-    `Statement: ${question.stem}`,
+    `${statementLabel(locale)}: ${question.stem}`,
     "",
     `I. ${question.conclusions[0]}`,
     `II. ${question.conclusions[1]}`,
