@@ -88,7 +88,7 @@ function initials(value: string) {
 }
 
 function ExamLogo({ name, icon, size = "md" }: { name: string; icon?: string; size?: "sm" | "md" | "lg" }) {
-  const src = EXAM_LOGOS.find((item) => item.match.test(name))?.src ?? null;
+  const src = icon ? null : EXAM_LOGOS.find((item) => item.match.test(name))?.src ?? null;
   const sizeClass = size === "lg" ? "h-14 w-14" : size === "sm" ? "h-9 w-9" : "h-11 w-11";
   const iconClass = size === "lg" ? "h-7 w-7" : size === "sm" ? "h-4 w-4" : "h-5 w-5";
   return (
@@ -268,7 +268,7 @@ export default function ExamsMarketplace() {
                 const comingSoon = seriesItem.learnerVisibility === "coming_soon";
                 return (
                   <article key={seriesItem.id} className={`min-w-0 overflow-hidden rounded-2xl border p-5 shadow-[0_8px_28px_rgba(37,42,68,0.045)] ${FEATURE_TONES[index % FEATURE_TONES.length]}`}>
-                    <div className="flex min-w-0 items-start justify-between gap-3"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${FEATURE_ICON_TONES[index % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} size="md" /></span><span className="shrink-0 rounded-full border border-white bg-white/80 px-2.5 py-1 text-[10px] font-black text-slate-600">{comingSoon ? "COMING SOON" : index === 0 && seriesItem.attemptCount > 0 ? "MOST ATTEMPTED" : "LIVE"}</span></div>
+                    <div className="flex min-w-0 items-start justify-between gap-3"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${FEATURE_ICON_TONES[index % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} icon={seriesItem.iconUrl} size="md" /></span><span className="shrink-0 rounded-full border border-white bg-white/80 px-2.5 py-1 text-[10px] font-black text-slate-600">{comingSoon ? "COMING SOON" : index === 0 && seriesItem.attemptCount > 0 ? "MOST ATTEMPTED" : "LIVE"}</span></div>
                     <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.14em] text-[#6657e8]">{seriesItem.examName}</p><h3 className="mt-1.5 line-clamp-2 min-h-11 text-base font-bold leading-5 text-slate-950">{seriesItem.name}</h3>
                     {comingSoon ? <p className="mt-3 line-clamp-2 min-h-10 text-xs leading-5 text-slate-500">{seriesItem.learnerMessage || "Tests are being prepared. No questions are available yet."}</p> : <div className="mt-4 flex min-w-0 flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-slate-500"><span>{formatCount(seriesItem.testCount)} tests</span><span>{formatCount(seriesItem.questionCount)} questions</span>{seriesItem.attemptCount > 0 ? <span className="inline-flex items-center gap-1"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</span> : null}</div>}
                     <Button className="mt-5 min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>{comingSoon ? "View details" : "View Series"}</Button>
@@ -286,7 +286,7 @@ export default function ExamsMarketplace() {
               {fullLengthSeries.map((seriesItem, index) => (
                 <article key={seriesItem.id} className={`group flex min-h-[290px] min-w-0 flex-col overflow-hidden rounded-3xl border p-5 shadow-[0_10px_30px_rgba(37,42,68,0.045)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(54,47,112,0.08)] ${FEATURE_TONES[(index + 1) % FEATURE_TONES.length]}`}>
                   <div className="flex min-w-0 items-start justify-between gap-3">
-                    <span className={`flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl border border-white/80 ${FEATURE_ICON_TONES[(index + 1) % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} size="lg" /></span>
+                    <span className={`flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl border border-white/80 ${FEATURE_ICON_TONES[(index + 1) % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} icon={seriesItem.iconUrl} size="lg" /></span>
                     <span className="shrink-0 rounded-full border border-white bg-white/85 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-slate-600">Full mocks</span>
                   </div>
                   <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.15em] text-[#6657e8]">{seriesItem.examName}</p>
