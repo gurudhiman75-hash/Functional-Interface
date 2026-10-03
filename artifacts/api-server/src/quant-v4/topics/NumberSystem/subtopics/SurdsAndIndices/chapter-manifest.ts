@@ -19,8 +19,8 @@ export const SRI_CHAPTER_MANIFEST = {
     discoveryOpen: false,
     englishFrozen: true,
     multilingualFrozen: true,
-    questionStudioDiscoverable: false,
-    questionStudioGenerationEnabled: false,
+    questionStudioDiscoverable: true,
+    questionStudioGenerationEnabled: true,
     questionBankWritesEnabled: false,
     testEligibilityEnabled: false,
     publicPublicationEnabled: false,
@@ -30,12 +30,10 @@ export const SRI_CHAPTER_MANIFEST = {
 export function assertSriReleaseLocks(): void {
   const lifecycle = SRI_CHAPTER_MANIFEST.lifecycle;
   if (
-    lifecycle.questionStudioDiscoverable ||
-    lifecycle.questionStudioGenerationEnabled ||
     lifecycle.questionBankWritesEnabled ||
     lifecycle.testEligibilityEnabled ||
     lifecycle.publicPublicationEnabled
   ) {
-    throw new Error("SRI Phase 9 multilingual freeze must keep downstream release locks closed");
+    throw new Error("SRI multilingual freeze must keep Question Bank, test and public release locks closed");
   }
 }
