@@ -317,7 +317,7 @@ function buildUncertain(seed:string,language:Sea003Language,middle:boolean):Sea0
     `The positional conditions fix the row length at ${world.n}. No other length from 8 to 12 satisfies all named-person positions.`,
     `स्थान संबंधी शर्तें पंक्ति की कुल संख्या ${world.n} तय करती हैं। 8 से 12 के बीच कोई अन्य संख्या सभी शर्तें पूरी नहीं करती।`,
     `ਸਥਾਨ ਵਾਲੀਆਂ ਸ਼ਰਤਾਂ ਕਤਾਰ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ${world.n} ਤੈਅ ਕਰਦੀਆਂ ਹਨ। 8 ਤੋਂ 12 ਵਿਚਕਾਰ ਹੋਰ ਕੋਈ ਗਿਣਤੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀ ਨਹੀਂ ਕਰਦੀ।`);
-  return make(middle?"SEA-QL-050":"SEA-QL-049",language,middle?"Hard":"Medium",stem,options,answer,explanation,worlds.length);
+  return make(middle?"SEA-QL-050":"SEA-QL-049",language,middle?"Hard":"Easy",stem,options,answer,explanation,worlds.length);
 }
 
 function buildExchange(seed:string,language:Sea003Language):Sea003GeneratedQuestion {
@@ -341,7 +341,7 @@ function buildExchange(seed:string,language:Sea003Language):Sea003GeneratedQuest
     finalTable(transformed,language),
     t(language,`So the required position is ${answer} from the left.`,`अतः आवश्यक स्थान बाएँ से ${answer} है।`,`ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਸਥਾਨ ਖੱਬੇ ਤੋਂ ${answer} ਹੈ।`)
   ].join("\n\n");
-  return make("SEA-QL-051",language,"Medium",stem,options,answer,explanation,worlds.length);
+  return make("SEA-QL-051",language,"Easy",stem,options,answer,explanation,worlds.length);
 }
 
 function make(
