@@ -345,7 +345,10 @@ export async function generateSea002QuestionStudioBatch(
   const difficulty = normalizeDifficulty(request.difficulty);
   const pool = resolvePool(request, difficulty);
   const baseSeed = String(request.seed ?? "").trim() || "sea002-question-studio-v1";
-  const start = hash(baseSeed + ":ql-start") % pool.length;
+  const broadDefault = !explicitQl(request) && !explicitCp(request) && !difficulty;
+  const start = broadDefault
+    ? hash(baseSeed + ":checkpoint-start") % Math.min(5, pool.length)
+    : hash(baseSeed + ":ql-start") % pool.length;
   const questions: Record<string, unknown>[] = [];
 
   for (let index = 0; index < count; index += 1) {
