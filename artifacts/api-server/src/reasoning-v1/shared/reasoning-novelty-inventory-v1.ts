@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V5' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V6' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -301,16 +301,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   },
   {
     topicDirectory: 'SeatingArrangement',
-    chapterId: 'SEA-001',
+    chapterId: 'SEA-001 / SEA-002',
     status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'SEA-001 already freezes 9 learner contracts across row/circular and same/outward/mixed-facing topologies.',
-      'Endpoint, relative-position, neighbour, between-count, opposite, sequence and facing-state answer semantics are already owned.',
-      'Name, clue-order, clue-density, arrangement-size and within-topology clue composition changes are not new solve contracts.',
-      'reasoning-novelty-final-pending-closures-20261002.md records the batch closure.',
+      'SEA-001 and SEA-002 now retain 31 permanent learner contracts across ten implemented checkpoints.',
+      'The implemented family covers single-row, circular, parallel-row, mixed-facing, square, rectangular, regular-polygon and concentric seating topologies.',
+      'Name pool, clue order, clue density, arrangement size within the supported topology, relative-distance parameter, query target, language and calibrated difficulty remain governed instance variation.',
+      'SEA-002-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the advanced-topology novelty decision; SEA-003 remains a separate source-backed implementation frontier rather than SEA-002 novelty.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Re-open only on a solver-backed seating topology or answer semantic not representable by SEA-QL-001..009.',
+    nextGate: 'Re-open only on a solver-backed seating contract outside SEA-001/SEA-002 or when SEA-003 source-backed ownership is implemented and audited.',
   },
   {
     topicDirectory: 'Series',

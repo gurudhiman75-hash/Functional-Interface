@@ -60,11 +60,19 @@ export const SEA_CP003_AUTHORITY_NOTES = [
 export const SEA_FAMILY_MANIFEST = Object.freeze({
   family: "REAS-SEA",
   packages: ["SEA-001", "SEA-002", "SEA-003"] as const,
-  activePackage: "SEA-001" as const,
-  implementedCheckpoints: ["SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005"] as const,
+  implementedPackages: ["SEA-001", "SEA-002"] as const,
+  activePackage: "SEA-002" as const,
+  nextPackage: "SEA-003" as const,
+  implementedCheckpoints: [
+    "SEA-CP-001", "SEA-CP-002", "SEA-CP-003", "SEA-CP-004", "SEA-CP-005",
+    "SEA-CP-006", "SEA-CP-007", "SEA-CP-008", "SEA-CP-009", "SEA-CP-010",
+  ] as const,
   completedRoadmapWaves: ["WAVE-0-GOVERNANCE", "WAVE-1-CONSTRAINT-CORE", "WAVE-2-SEA-CP-001", "WAVE-3-SEA-CP-003", "WAVE-4-VERIFICATION-HARDENING", "WAVE-5-COMPLETE-SEA-001"] as const,
-  activeRoadmapWave: "WAVE-6-SATURATION-AND-FREEZE-AUDIT" as const,
+  activeRoadmapWave: "SEA-003-PENDING" as const,
   completedWave5Checkpoints: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
   nextCheckpointSequence: [] as const,
-  permanentQlCount: 9 as const,
+  sea001PermanentQlCount: 9 as const,
+  sea002PermanentQlCount: 22 as const,
+  permanentQlCount: 31 as const,
+  currentImplementationStatus: "SEA_001_AND_SEA_002_CONTENT_AUDIT_CLOSED__SEA_003_PENDING" as const,
 });

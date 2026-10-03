@@ -33,3 +33,16 @@ SEA-001 / SEA-CP-004 — Circular seating, facing outward
 The sole design authority is the project-approved document `SEA — Seating Arrangement: Master End-to-End Family Design`, V3 merged.
 
 This amendment does not allocate permanent QLs or enable Question Studio registration, Question Bank writes, mock-test eligibility or public delivery. Those gates remain false until the design-mandated discovery, audits, English freeze, multilingual parity and product approvals are complete.
+
+
+---
+
+## Current implementation reconciliation — 2026-10-03
+
+The historical boundary above is superseded for current implementation status.
+
+- SEA-001 / SEA-CP-001..005: content deep audit closed.
+- SEA-002 / SEA-CP-006..010: content deep audit closed.
+- SEA-003: pending implementation.
+
+Current Seating permanent-Ql count is 31 across SEA-001 and SEA-002. Learner release remains governed by each package's explicit lifecycle gates.
