@@ -23,6 +23,7 @@ interface Shape {
   r: number;
   labelX?: number;
   labelY?: number;
+  geometrySource?: "VEN_001_SHARED";
 }
 
 interface Point {
@@ -258,6 +259,7 @@ function sharedLogicalVennTemplate(
     r: circle.r * scale,
     labelX: offsetX + geometry.labelAnchors[index]!.x * scale,
     labelY: offsetY + geometry.labelAnchors[index]!.y * scale,
+    geometrySource: "VEN_001_SHARED" as const,
   }));
 }
 
@@ -540,7 +542,13 @@ function render(
     return `<g data-witness="decisive" data-x="${point.x}" data-y="${point.y}" data-inside="${esc(requirement.inside.join(","))}" data-outside="${esc(requirement.outside.join(","))}"><circle cx="${point.x}" cy="${point.y}" r="11" class="witness-halo"/><text x="${point.x}" y="${point.y + 7}" text-anchor="middle" class="witness">×</text></g>`;
   });
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" width="100%" role="img" lang="${question.locale}" aria-labelledby="${id}-title ${id}-desc" data-diagram-count="1" data-learner-safe-venn="true" class="examtree-venn-svg">
+  const usesSharedGeometry = [...layout.shapes.values()].every(
+    (shape) => shape.geometrySource === "VEN_001_SHARED",
+  );
+  const geometryCatalog = usesSharedGeometry
+    ? "ven-001-logical-v1"
+    : "syl-001-supplement-v1";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" width="100%" role="img" lang="${question.locale}" aria-labelledby="${id}-title ${id}-desc" data-diagram-count="1" data-learner-safe-venn="true" data-geometry-catalog="${geometryCatalog}" class="examtree-venn-svg">
   <title id="${id}-title">${esc(caption)}</title>
   <desc id="${id}-desc">${esc(caption)} One valid arrangement is shown; unstated relations must not be treated as additional conclusions.</desc>
   <style>
