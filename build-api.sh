@@ -21,6 +21,11 @@ pnpm install \
   --filter @workspace/examtree-admin... \
   --filter @workspace/api-server...
 
+# Catch JavaScript syntax regressions in production bootstrap scripts even when
+# CI intentionally runs without production database credentials.
+echo "[render-build] syntax-check production bootstrap scripts"
+node --check artifacts/api-server/ensure-current-affairs.mjs
+
 # The GitHub Render-equivalent build intentionally has no production database
 # credentials. Skip DB mutation only in that exact environment. Real Render is
 # not GITHUB_ACTIONS, so a missing DATABASE_URL still fails closed inside the
