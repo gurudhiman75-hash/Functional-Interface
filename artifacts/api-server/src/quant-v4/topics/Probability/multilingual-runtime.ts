@@ -234,6 +234,40 @@ function renderNativeExplanation(
   return { lines, wordCount: explanationWordCount(lines), visuals };
 }
 
+function reconcileNativeStemExplanationContext(
+  stem: string,
+  explanation: ProbabilityNativePresentation["explanation"],
+  language: ProbabilityNativeLanguage,
+): ProbabilityNativePresentation["explanation"] {
+  const lines = [...explanation.lines];
+  const joined = lines.join("\n");
+
+  const contexts = language === "hi"
+    ? [
+        { stemPattern: /अभ्यर्थ/u, explanationPattern: /अभ्यर्थ/u, prefix: "यह हल प्रश्न में दिए अभ्यर्थी/अभ्यर्थियों के उसी समूह पर आधारित है।" },
+        { stemPattern: /विद्यार्थ/u, explanationPattern: /विद्यार्थ/u, prefix: "यह हल प्रश्न में दिए विद्यार्थी/विद्यार्थियों के उसी समूह पर आधारित है।" },
+        { stemPattern: /समिति/u, explanationPattern: /समिति/u, prefix: "सारी गणना प्रश्न में दी गई उसी समिति-चयन के संदर्भ में है।" },
+      ]
+    : [
+        { stemPattern: /ਉਮੀਦਵਾਰ/u, explanationPattern: /ਉਮੀਦਵਾਰ/u, prefix: "ਇਹ ਹੱਲ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਉਮੀਦਵਾਰ/ਉਮੀਦਵਾਰਾਂ ਦੇ ਉਸੇ ਸਮੂਹ ਉੱਤੇ ਆਧਾਰਿਤ ਹੈ।" },
+        { stemPattern: /ਵਿਦਿਆਰਥ/u, explanationPattern: /ਵਿਦਿਆਰਥ/u, prefix: "ਇਹ ਹੱਲ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਵਿਦਿਆਰਥੀ/ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਉਸੇ ਸਮੂਹ ਉੱਤੇ ਆਧਾਰਿਤ ਹੈ।" },
+        { stemPattern: /ਕਮੇਟੀ/u, explanationPattern: /ਕਮੇਟੀ/u, prefix: "ਸਾਰੀ ਗਿਣਤੀ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੀ ਉਸੇ ਕਮੇਟੀ-ਚੋਣ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਹੈ।" },
+      ];
+
+  for (const context of contexts) {
+    if (context.stemPattern.test(stem) && !context.explanationPattern.test(joined)) {
+      lines[0] = `${context.prefix} ${lines[0] ?? ""}`.trim();
+      break;
+    }
+  }
+
+  return {
+    ...explanation,
+    lines: Object.freeze(lines),
+    wordCount: explanationWordCount(lines),
+  };
+}
+
 function auditNativeExplanationLine(line: string, language: ProbabilityNativeLanguage): void {
   const auditLine = line.replaceAll("n!/[r!(n-r)!]", "\\(n!/[r!(n-r)!]\\)");
   assertProbabilityNativeTextValid(auditLine, language);
@@ -317,7 +351,11 @@ export function renderProbabilityNativePreview(
   const options = Object.freeze([...source.options]);
   const answer = source.answer;
   const correctIndex = source.correctIndex;
-  const explanation = renderNativeExplanation(source, language, editorial);
+  const explanation = reconcileNativeStemExplanationContext(
+    stem,
+    renderNativeExplanation(source, language, editorial),
+    language,
+  );
   const validation = buildNativeValidation(source, language, stem, explanation, options, correctIndex, answer);
   if (!validation.valid) {
     throw new Error(`ML-05 native preview parity validation failed for ${source.questionLanguageId}/${language}.`);
