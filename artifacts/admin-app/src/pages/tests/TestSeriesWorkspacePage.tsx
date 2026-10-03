@@ -301,7 +301,7 @@ export function TestSeriesWorkspacePage() {
     <div className="space-y-6">
       <PageHeader
         title="Test Series"
-        description="Create, edit and expose test series before questions exist. Coming Soon stays learner-visible while Live remains release-strict."
+        description="Canonical immutable series versions with learner visibility controls. Create and expose Coming Soon series before questions exist; Live remains release-strict."
         actions={(
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => void workspace.refresh()} disabled={workspace.loading}>
