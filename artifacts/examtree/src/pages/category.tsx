@@ -232,7 +232,7 @@ export default function CategoryPage() {
             <div>
               <p className="text-[9px] font-black uppercase tracking-[0.18em] text-[#6c5cf1]">Choose your exam</p>
               <h2 id="choose-exam-heading" className="mt-2 text-2xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-[28px]">{category.name} exams</h2>
-              <p className="mt-2 text-sm text-slate-500">Open an exam to see its full-length, sectional and topic-wise tests.</p>
+              <p className="mt-2 text-sm text-slate-500">Open an exam to see its dedicated exam page, test-series rows, syllabus, pattern and preparation details.</p>
             </div>
             {attemptedTests > 0 ? (
               <div className="inline-flex items-center gap-2 self-start rounded-full bg-white px-3 py-2 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200 sm:self-auto">
@@ -317,7 +317,7 @@ export default function CategoryPage() {
                     </div>
 
                     <span className="flex min-h-12 items-center justify-between border-t border-slate-100 px-5 text-xs font-semibold text-slate-600 transition group-hover:bg-[#fafaff] group-hover:text-[#6657e8] sm:px-6">
-                      View tests
+                      Open exam page
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </span>
                   </button>
