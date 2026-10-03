@@ -21,6 +21,24 @@ function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+const DEFAULT_COMING_SOON_MESSAGE = "Tests are being prepared. No questions are available yet.";
+
+function learnerVisibility(value: unknown): "hidden" | "coming_soon" | "live" {
+  const configuration = value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+  const raw = asString(configuration.learnerVisibility).toLowerCase();
+  if (raw === "hidden" || raw === "coming_soon" || raw === "live") return raw;
+  return "live";
+}
+
+function learnerMessage(value: unknown): string {
+  const configuration = value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+  return asString(configuration.learnerMessage).slice(0, 500);
+}
+
 async function authenticateStudent(req: Request, res: Response): Promise<boolean> {
   if (req.user) return true;
   if (!auth) {
@@ -159,6 +177,9 @@ async function loadStudentAttempts(firebaseUserId: string, seriesVersionId: stri
 async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
   const series = await loadSeries(identifier);
   if (!series || series.deletedAt) return null;
+  const visibility = learnerVisibility(series.configuration);
+  if (visibility === "hidden") return null;
+  const configuredMessage = learnerMessage(series.configuration);
   const memberRows = await loadSeriesMembers(String(series.versionId));
   const attempts = await loadStudentAttempts(firebaseUserId, String(series.versionId));
   const members: StudentSeriesMemberInput[] = memberRows.map((row) => ({
@@ -179,7 +200,16 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
     members,
     attempts,
   });
-  const eligibilityByTest = new Map(eligibility.members.map((member) => [member.testId, member]));
+  const effectiveEligibility = visibility === "coming_soon"
+    ? {
+        ...eligibility,
+        available: false,
+        availabilityCode: "SERIES_COMING_SOON",
+        availabilityReason: configuredMessage || DEFAULT_COMING_SOON_MESSAGE,
+        nextTestId: null,
+      }
+    : eligibility;
+  const eligibilityByTest = new Map(effectiveEligibility.members.map((member) => [member.testId, member]));
   const enrichedMembers = memberRows.map((row) => {
     const state = eligibilityByTest.get(String(row.testId));
     if (!state) throw new Error(`Series eligibility missing for test ${String(row.testId)}`);
@@ -213,9 +243,11 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       availabilityEndAt: series.availabilityEndAt == null ? null : new Date(String(series.availabilityEndAt)).toISOString(),
       progressionMode: String(series.progressionMode),
       completionThreshold: series.completionThreshold == null ? null : Number(series.completionThreshold),
+      learnerVisibility: visibility,
+      learnerMessage: configuredMessage || (visibility === "coming_soon" ? DEFAULT_COMING_SOON_MESSAGE : ""),
     },
     eligibility: {
-      ...eligibility,
+      ...effectiveEligibility,
       members: enrichedMembers,
     },
     generatedAt: new Date().toISOString(),
@@ -263,6 +295,15 @@ router.get("/test-series", async (_req, res) => {
         version.availability_end_at AS "availabilityEndAt",
         version.progression_mode AS "progressionMode",
         version.completion_threshold::float8 AS "completionThreshold",
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility",
+        COALESCE(
+          NULLIF(version.configuration->>'learnerMessage', ''),
+          CASE
+            WHEN COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+            THEN Tests are being prepared. No questions are available yet.
+            ELSE ''
+          END
+        ) AS "learnerMessage",
         e.code AS "examCode",
         e.name AS "examName",
         ef.code AS "examFamilyCode",
@@ -310,8 +351,8 @@ router.get("/test-series", async (_req, res) => {
       JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
       JOIN catalog.exams e ON e.id = ev.exam_id
       JOIN catalog.exam_families ef ON ef.id = e.family_id
-      JOIN assessment.test_series_items item ON item.series_version_id = version.id
-      JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
+      LEFT JOIN assessment.test_series_items item ON item.series_version_id = version.id
+      LEFT JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
       LEFT JOIN assessment.test_versions published ON published.id = test.published_version_id
       LEFT JOIN LATERAL (
         SELECT p.published_at, p.closes_at
@@ -324,12 +365,18 @@ router.get("/test-series", async (_req, res) => {
       ) publication ON true
       WHERE s.deleted_at IS NULL
         AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+        AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
       GROUP BY s.id, version.id, e.id, ef.id
-      HAVING COUNT(item.id) FILTER (
-        WHERE test.status = 'live'::test_status
-          AND publication.published_at IS NOT NULL
-          AND (publication.closes_at IS NULL OR publication.closes_at > now())
-      ) > 0
+      HAVING
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+        OR (
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+          AND COUNT(item.id) FILTER (
+            WHERE test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ) > 0
+        )
       ORDER BY "attemptCount" DESC, (version.availability_start_at > now()) DESC, s.updated_at DESC
       LIMIT 200
     `;
