@@ -14,6 +14,10 @@ async function main() {
     assert(definition.optionCountByExamProfile?.SSC_CGL_CHSL === 4, `${packageId} SSC option count is incorrect.`);
     assert(definition.optionCountByExamProfile?.BANKING_MAINS === 5, `${packageId} banking option count is incorrect.`);
     assert(definition.runtimeMode === "ENGLISH_MOCK_READY", `${packageId} runtime mode is not English mock-ready.`);
+    assert(definition.lifecycleStage === "BANK_ONLY", `${packageId} lifecycle stage is not BANK_ONLY.`);
+    assert(definition.reviewSurfaceRequired === true, `${packageId} review surface must remain required.`);
+    assert(definition.manualApprovalRequired === true, `${packageId} must remain manually governed.`);
+    assert(definition.questionBankAcceptanceMode === "FULL_RELEASE", `${packageId} Question Bank acceptance mode is incorrect.`);
     assert(definition.reviewStatus === "APPROVED_EDITORIAL_ENGLISH", `${packageId} review status is not approved.`);
     assert(definition.questionBankStatus === "WRITABLE", `${packageId} Question Bank status is not writable.`);
     assert(definition.testEligibility === "ELIGIBLE_WITH_FAMILY_LIMIT", `${packageId} test eligibility is incorrect.`);
