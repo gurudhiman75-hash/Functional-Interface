@@ -27,7 +27,7 @@ export function MediaAssetPicker({
   const[loading,setLoading]=useState(false);
   const[uploading,setUploading]=useState(false);
   const[search,setSearch]=useState('');
-  const[type,setType]=useState<MediaAssetType|'all'>(preferredType);
+  const[type,setType]=useState<MediaAssetType|'all'>('all');
   const inputRef=useRef<HTMLInputElement|null>(null);
 
   const load=async()=>{
@@ -58,7 +58,7 @@ export function MediaAssetPicker({
   return <div className="space-y-2">
     <div className="flex gap-2">
       <Input value={value||''} onChange={event=>onChange(event.target.value)} placeholder="https://…"/>
-      <Button type="button" variant="outline" onClick={()=>setOpen(true)}><ImagePlus className="mr-1.5 h-4 w-4"/>{label}</Button>
+      <Button type="button" variant="outline" onClick={()=>{setSearch('');setType('all');setOpen(true);}}><ImagePlus className="mr-1.5 h-4 w-4"/>{label}</Button>
     </div>
     {value&&<div className="overflow-hidden rounded-lg border bg-muted/20"><img src={value} alt="" className="h-24 w-full object-contain" onError={event=>{event.currentTarget.style.display='none';}}/></div>}
     <Dialog open={open} onOpenChange={setOpen}>
