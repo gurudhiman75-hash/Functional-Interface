@@ -10,6 +10,7 @@ import type {
   TermId,
 } from "../foundation/types";
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
+import { promoteLearnerDiagramV4ToV5 } from "./learner-v5-diagram-compat";
 import type {
   SylLearnerExplanationModeV5,
   SylLearnerPresentationV5,
@@ -259,7 +260,7 @@ export function remediateModelTargetV5(
     && question.learnerPresentationV4.diagram.mode === "VENN_EITHER_OR"
     && diagram.omissionReason === "ANSWER_MODE_MISMATCH"
   ) {
-    diagram = question.learnerPresentationV4.diagram;
+    diagram = promoteLearnerDiagramV4ToV5(question.learnerPresentationV4.diagram);
   }
 
   if (!MODEL_MODES.has(mode)) {
