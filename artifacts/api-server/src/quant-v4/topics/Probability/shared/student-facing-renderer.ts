@@ -56,8 +56,18 @@ function cardCondition(entry: ProbabilityTaskRegistryEntry, p: GeneratedParamete
   const suit = suitSingular(text(p, "suit", "spades"));
   const colour = text(p, "colour", "red");
   if (entry.solveMode === "findSuitProbability") return `${article(suit)} ${suit}`;
-  if (entry.solveMode === "findColourProbability") return `${article(colour)} ${colour} card`;
-  if (entry.solveMode === "findFaceCardProbability") return "a face card";
+  if (entry.solveMode === "findColourProbability") {
+    const form = qlVariant(entry, 3);
+    if (form === 0) return `${article(colour)} ${colour} card`;
+    if (form === 1) return `a card whose colour is ${colour}`;
+    return `a card from the ${colour} colour class`;
+  }
+  if (entry.solveMode === "findFaceCardProbability") {
+    const form = qlVariant(entry, 3);
+    if (form === 0) return "a face card";
+    if (form === 1) return "a king, queen or jack";
+    return "one of the 12 face cards";
+  }
   if (entry.solveMode === "findUnionCardEventProbability") return `${article(rank)} ${rank} or ${article(suit)} ${suit}`;
   if (entry.solveMode === "findComplementCardProbability") return `not ${article(suit)} ${suit}`;
   if (entry.solveMode === "findCardPropertyIntersection") return `the ${rank} of ${suit}s`;
