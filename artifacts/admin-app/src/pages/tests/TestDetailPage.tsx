@@ -18,6 +18,7 @@ import {
   XCircle,
 } from 'lucide-react';
 
+import { CatalogBrandingEditor } from '@/components/shared/CatalogBrandingEditor';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -140,6 +141,8 @@ export function TestDetailPage() {
       />
 
       <div className="mb-5 flex flex-wrap items-center gap-2"><Badge className={statusClass(test.status)}>{formatStatus(test.status)}</Badge><Badge variant="outline">Draft v{version.versionNumber}</Badge>{test.publishedVersionId && <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Published version retained</Badge>}<Badge variant="outline">{questionCount} questions</Badge><Badge variant="outline">{version.totalMarks} marks</Badge><Badge variant="outline">{Math.round(version.durationSeconds / 60)} minutes</Badge></div>
+
+      <div className="mb-5"><CatalogBrandingEditor entityType="test" entityId={test.id} title="Test icon" /></div>
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
         <div>
