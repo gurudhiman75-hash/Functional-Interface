@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V2' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V3' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -193,6 +193,19 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     ],
     countsTowardControlledNovelTargetNow: false,
     nextGate: 'Re-open only on a solver-backed Inequality reasoning contract outside INE-QL-001..004 with a clear boundary from Algebra, Ranking, Mathematical Operations and Data Sufficiency.',
+  },
+  {
+    topicDirectory: 'Assertion-and-Reason',
+    chapterId: 'ASM-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'ASM-001 owns one permanent source-backed learner contract covering the complete truth/explanation classification task.',
+      'The five answer classes, four-option/five-option profiles, option order, subject domain, language and difficulty are governed semantic states or presentation variation rather than new QLs.',
+      'The current curated trilingual corpus contains 20 scenario authorities and does not use free-form runtime truth generation.',
+      'ASM-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the dedicated novelty decision.',
+    ],
+    countsTowardControlledNovelTargetNow: false,
+    nextGate: 'Re-open only on recurring source evidence or an independently validated Assertion-and-Reason learner contract that changes the task beyond truth of A, truth of R and the explanatory link.',
   },
   {
     topicDirectory: 'Logic-Puzzles',
