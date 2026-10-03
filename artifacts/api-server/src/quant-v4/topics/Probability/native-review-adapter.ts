@@ -1,3 +1,4 @@
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
 import {
   listPrb001QuestionEntries,
 } from "./PRB-001";
@@ -74,6 +75,12 @@ export const PROBABILITY_NATIVE_REVIEW_PACKAGE = Object.freeze({
   reviewPreviewAvailable: true,
   runtimeMode: PROBABILITY_NATIVE_REVIEW_RUNTIME_MODE,
   reviewStatus: PROBABILITY_NATIVE_PREVIEW_STATUS,
+  lifecycleId: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.lifecycleId,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.stage,
+  reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+  manualApprovalRequired: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.manualApprovalRequired,
+  questionBankAcceptanceMode: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankAcceptanceAuthority,
   questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
   questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED",
   questionBankStatus: "NOT_STORED",
