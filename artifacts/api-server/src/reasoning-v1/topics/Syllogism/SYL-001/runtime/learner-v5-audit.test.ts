@@ -46,6 +46,8 @@ let diagramModeContradictions = 0;
 let unexplainedConclusions = 0;
 let optionStatusLabelMismatches = 0;
 let deadInconsistentOptionOccurrences = 0;
+let sharedLogicalVennDiagrams = 0;
+let syllogismSupplementDiagrams = 0;
 
 for (const definition of SYL_QL_REGISTRY) {
   for (let seed = 0; seed < 80; seed += 1) {
@@ -81,6 +83,13 @@ for (const definition of SYL_QL_REGISTRY) {
         assert.equal(presentation.diagram.omissionReason, null);
         assert.ok(premiseTerms.size <= 3, `${definition.qlId}/${seed}/${locale}: forced complex diagram`);
         assert.match(diagramSvg, /data-learner-safe-venn="true"/u);
+        const geometryCatalog = diagramSvg.match(/data-geometry-catalog="([^"]+)"/u)?.[1];
+        assert.ok(
+          geometryCatalog === "ven-001-logical-v1" || geometryCatalog === "syl-001-supplement-v1",
+          `${definition.qlId}/${seed}/${locale}: diagram lacks governed geometry catalogue metadata`,
+        );
+        if (geometryCatalog === "ven-001-logical-v1") sharedLogicalVennDiagrams += 1;
+        else syllogismSupplementDiagrams += 1;
         assert.match(diagramSvg, /viewBox="0 0 340 210"/u);
         assert.match(diagramSvg, /<(?:circle|ellipse)\b/u);
         assert.doesNotMatch(diagramSvg, /relation map|relation-map|node-link|arrow map|separation-mark|×[1-9]/iu);
@@ -177,6 +186,8 @@ assert.equal(optionStatusLabelMismatches, 0);
 assert.equal(deadInconsistentOptionOccurrences, 0);
 assert.ok(modelRecords > 0);
 assert.ok(enabledDiagrams > 0);
+assert.ok(sharedLogicalVennDiagrams > 0, "SYL V5 never reused the VEN-001 Logical Venn geometry catalogue.");
+assert.equal(sharedLogicalVennDiagrams + syllogismSupplementDiagrams, enabledDiagrams);
 assert.ok(omittedDiagrams > 0);
 assert.ok(omittedComplex > 0);
 
@@ -208,6 +219,8 @@ console.log(JSON.stringify({
     deadInconsistentOptionOccurrences,
     questionExplanationEditorialReview: "APPROVED_BY_PRODUCT_OWNER",
     diagramPolicy: "VERIFIED_SIMPLE_VENN_OR_OMIT",
+    sharedLogicalVennDiagrams,
+    syllogismSupplementDiagrams,
     humanViewportReview: "APPROVED_BY_PRODUCT_OWNER",
   },
   retainedReleaseBlockers: {
