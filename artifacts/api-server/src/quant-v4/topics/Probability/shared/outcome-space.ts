@@ -49,7 +49,9 @@ export function enumerateOutcomeSpace(experiment: ProbabilityExperiment, ceiling
   if (experiment.kind === "RANDOM_ARRANGEMENT") {
     const people = Number(metadata.people), solveMode = String(metadata.solveMode ?? ""); if (!people || people > 9) return undefined;
     if (solveMode === "findNumberFormationProbability") {
-      const length = Number(metadata.length), maxDigit = Number(metadata.maxDigit); const values = Array.from({ length: maxDigit }, (_, index) => index + 1); const rows = permutations(values, length); if (rows.length > ceiling) return undefined;
+      const length = Number(metadata.length), minDigit = Number(metadata.minDigit ?? 1), maxDigit = Number(metadata.maxDigit);
+      const values = Array.from({ length: maxDigit - minDigit + 1 }, (_, index) => minDigit + index);
+      const rows = permutations(values, length); if (rows.length > ceiling) return undefined;
       return rows.map((row) => ({ fields: { first: row[0]!, last: row[row.length - 1]!, positions: row.join(",") } }));
     }
     if (solveMode === "findPositionRestrictionProbability") {

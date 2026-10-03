@@ -120,7 +120,13 @@ function committeeStem(entry: ProbabilityTaskRegistryEntry, p: GeneratedParamete
     if (form === 1) return `From ${men} men and ${women} women, ${size} people are selected at random to form a committee. Find the probability that at least one selected member is a woman.`;
     return `A committee of ${size} is formed at random from a group containing ${men} men and ${women} women. What is the probability that the committee is not made up entirely of men?`;
   }
-  if (entry.solveMode === "findReverseCountFromProbability") return `A ${size}-member committee is chosen from ${men} men and ${women} women. The probability that it contains exactly ${required} ${noun(required, "woman", "women")} is ${frac(solved.evidence.favourableOutcomeCount ?? 0n, solved.evidence.totalOutcomeCount ?? 1n)}. How many such committees can be formed?`;
+  if (entry.solveMode === "findReverseCountFromProbability") {
+    const probability = frac(solved.evidence.favourableOutcomeCount ?? 0n, solved.evidence.totalOutcomeCount ?? 1n);
+    const form = qlSeriesVariant(entry, 8, 3);
+    if (form === 0) return `A ${size}-member committee is chosen from ${men} men and ${women} women. The probability that it contains exactly ${required} ${noun(required, "woman", "women")} is ${probability}. How many such committees can be formed?`;
+    if (form === 1) return `From ${men} men and ${women} women, ${size} people are selected to form a committee. If the probability of selecting exactly ${required} ${noun(required, "woman", "women")} is ${probability}, find the number of committees with this composition.`;
+    return `Among all ${size}-member committees that can be formed from ${men} men and ${women} women, the probability of a committee having exactly ${required} ${noun(required, "woman", "women")} is ${probability}. Determine the number of such committees.`;
+  }
   const form = qlVariant(entry, 3);
   if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
   if (form === 1) return `From a group of ${men} men and ${women} women, ${size} members are selected at random. Find the probability that exactly ${required} of the selected ${noun(required, "member")} ${required === 1 ? "is a woman" : "are women"}.`;

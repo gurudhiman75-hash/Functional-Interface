@@ -85,3 +85,51 @@ console.log(JSON.stringify({
     Object.entries(wave3Families).map(([family, values])=>[family,new Set(values).size]),
   ),
 }));
+
+const cp008Source = PRB_002_LIBRARIES.language.filter((entry)=>/^PRB-QL-7(?:0[1-9]|1[0-9]|2[0-6])$/.test(entry.qlId));
+assert(cp008Source.length===26,`Expected 26 CP008 English QLs, found ${cp008Source.length}`);
+for (const entry of cp008Source) {
+  assert(
+    !/\b(?:objective|exam-style|practice|mock-test|textbook|classroom|selection-based|counting-based|event-based|conditional|multi-stage|outcome-based|competitive-exam|review|standard|classical|finite|structured)\s+(?:example|drill)\b/i.test(entry.stemTemplate),
+    `${entry.qlId} still contains synthetic CP008 source boilerplate: ${entry.stemTemplate}`,
+  );
+}
+for (const qlId of ["PRB-QL-708","PRB-QL-716","PRB-QL-724"]) {
+  const source=cp008Source.find((entry)=>entry.qlId===qlId);
+  assert(source, `${qlId} missing from CP008 English source`);
+  assert(/exactly one woman/i.test(source.stemTemplate), `${qlId} reverse-count composition remains under-specified`);
+}
+for (const qlId of ["PRB-QL-706","PRB-QL-714","PRB-QL-722"]) {
+  const source=cp008Source.find((entry)=>entry.qlId===qlId);
+  assert(source, `${qlId} missing from CP008 English source`);
+  assert(/number/i.test(source.stemTemplate) && !/\bcode\b/i.test(source.stemTemplate), `${qlId} number-formation source is not aligned to the even-number event`);
+}
+const numberFormationRanges = ["PRB-QL-706","PRB-QL-714","PRB-QL-722"].map((qlId)=>{
+  const entry=entries.find((candidate)=>candidate.qlId===qlId);
+  assert(entry,`${qlId} missing from registry`);
+  const question=runPrb002Pipeline(entry.cpId as any,{questionLanguageId:qlId,seed:`PRB-002:cp008-range:${qlId}`});
+  return [Number(question.parameters.minDigit),Number(question.parameters.maxDigit)] as const;
+});
+assert(new Set(numberFormationRanges.map(([min,max])=>`${min}-${max}`)).size===3,`CP008 number-formation digit ranges did not diversify: ${JSON.stringify(numberFormationRanges)}`);
+assert(numberFormationRanges.some(([min])=>min>1),`CP008 number-formation lower bound is still hard-coded to 1`);
+
+const cp008DeepFamilies = {
+  committeeSelection: surfaces(["PRB-QL-701","PRB-QL-709","PRB-QL-717","PRB-QL-725"]),
+  committeeComposition: surfaces(["PRB-QL-702","PRB-QL-710","PRB-QL-718","PRB-QL-726"]),
+  togetherApart: surfaces(["PRB-QL-704","PRB-QL-712","PRB-QL-720"]),
+  reverseCounting: surfaces(["PRB-QL-708","PRB-QL-716","PRB-QL-724"]),
+};
+assert(new Set(cp008DeepFamilies.committeeSelection).size>=3,`CP008 committee-selection QLs collapse to ${new Set(cp008DeepFamilies.committeeSelection).size} structures`);
+assert(new Set(cp008DeepFamilies.committeeComposition).size>=3,`CP008 committee-composition QLs collapse to ${new Set(cp008DeepFamilies.committeeComposition).size} structures`);
+assert(new Set(cp008DeepFamilies.togetherApart).size>=3,`CP008 together/apart QLs collapse to ${new Set(cp008DeepFamilies.togetherApart).size} structures`);
+assert(new Set(cp008DeepFamilies.reverseCounting).size>=3,`CP008 reverse-count QLs collapse to ${new Set(cp008DeepFamilies.reverseCounting).size} structures`);
+console.log(JSON.stringify({
+  packageId:"PRB-002",
+  cp008DeepAudit:{
+    sourceQlCount:cp008Source.length,
+    committeeSelectionStructures:new Set(cp008DeepFamilies.committeeSelection).size,
+    committeeCompositionStructures:new Set(cp008DeepFamilies.committeeComposition).size,
+    togetherApartStructures:new Set(cp008DeepFamilies.togetherApart).size,
+    reverseCountingStructures:new Set(cp008DeepFamilies.reverseCounting).size,
+  },
+}));
