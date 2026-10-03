@@ -11,7 +11,6 @@ on:
       - artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-coupons.yml
   push:
     branches: [New-main]
     paths:
@@ -22,7 +21,6 @@ on:
       - artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-coupons.yml
   workflow_dispatch:
 
 permissions:
