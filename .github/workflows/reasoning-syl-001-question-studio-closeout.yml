@@ -2,14 +2,19 @@ name: Validate SYL-001 Question Studio closeout
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/**"
       - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
       - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.test.ts"
-      - ".github/workflows/reasoning-syl-001-question-studio-closeout.yml"
   workflow_dispatch:
+
+concurrency:
+  group: syl-001-closeout-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-syl-001-question-studio-closeout:
