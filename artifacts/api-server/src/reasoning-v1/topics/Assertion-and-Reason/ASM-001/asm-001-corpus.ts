@@ -360,7 +360,7 @@ export const ASM_001_SCENARIO_AUTHORITIES: readonly AsmScenarioAuthority[] =
       l(
         "Friction acts only when two objects are stationary relative to each other.",
         "घर्षण केवल तब कार्य करता है जब दो वस्तुएँ एक-दूसरे के सापेक्ष स्थिर हों।",
-        "ਘਰਸ਼ਣ ਕੇਵਲ ਤਦ ਹੀ ਕੰਮ ਕਰਦਾ ਹੈ ਜਦੋਂ ਦੋ ਵਸਤੂਆਂ ਇਕ-ਦੂਜੇ ਦੇ ਸਬੰਧ ਵਿੱਚ ਅਸਥਿਰ ਨਾ ਹੋਣ।",
+        "ਘਰਸ਼ਣ ਕੇਵਲ ਤਦ ਹੀ ਕੰਮ ਕਰਦਾ ਹੈ ਜਦੋਂ ਦੋ ਵਸਤੂਆਂ ਇਕ-ਦੂਜੇ ਦੇ ਸਬੰਧ ਵਿੱਚ ਥਿਰ ਹੋਣ।",
       ),
       l(
         "The Assertion is true. The Reason is false because friction also acts during sliding and other relative motion.",
