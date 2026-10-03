@@ -113,7 +113,10 @@ for (const entry of catalog) {
     assert(question.explanation.steps.length >= 4, `${entry.qlId}/${language}: native explanation is too shallow`);
     assert.equal(NATIVE_MACHINE_STEM.test(question.stem), false, `${entry.qlId}/${language}: instruction-style machine stem survived`);
     const learnerText = [question.stem, ...question.explanation.steps].join("\n");
-    const audit = auditProbabilityNativeText(learnerText, language);
+    // The English authority intentionally retains this standard combination identity
+    // outside MathJax. Audit it as mathematics, matching the active native runtime.
+    const auditLearnerText = learnerText.replaceAll("n!/[r!(n-r)!]", "\\(n!/[r!(n-r)!]\\)");
+    const audit = auditProbabilityNativeText(auditLearnerText, language);
     assert.equal(audit.valid, true, `${entry.qlId}/${language}: final learner surface failed native language audit`);
     if (language === "hi") {
       assert.equal(HINDI_FORBIDDEN_EDITORIAL.test(learnerText), false, `${entry.qlId}/hi: known unnatural editorial phrase survived`);
