@@ -52,10 +52,47 @@ try {
     configuredSeriesIds.length === 0
       ? Promise.resolve([])
       : sql`
-          SELECT id::text AS id
-          FROM assessment.test_series
-          WHERE id = ANY(${configuredSeriesIds}::uuid[])
-            AND deleted_at IS NULL
+          SELECT s.id::text AS id
+          FROM assessment.test_series s
+          JOIN assessment.test_series_versions version
+            ON version.series_id = s.id
+           AND version.version_number = s.current_version_number
+          LEFT JOIN assessment.test_series_items item
+            ON item.series_version_id = version.id
+          LEFT JOIN assessment.tests test
+            ON test.id = item.test_id
+           AND test.deleted_at IS NULL
+          LEFT JOIN assessment.test_publications publication
+            ON publication.test_id = test.id
+           AND publication.test_version_id = test.published_version_id
+           AND publication.published_at IS NOT NULL
+          WHERE s.id = ANY(${configuredSeriesIds}::uuid[])
+            AND s.deleted_at IS NULL
+            AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+            AND COALESCE(
+              NULLIF(version.configuration->>'learnerVisibility', ''),
+              'live'
+            ) <> 'hidden'
+          GROUP BY s.id, version.id
+          HAVING
+            COALESCE(
+              NULLIF(version.configuration->>'learnerVisibility', ''),
+              'live'
+            ) = 'coming_soon'
+            OR (
+              COALESCE(
+                NULLIF(version.configuration->>'learnerVisibility', ''),
+                'live'
+              ) = 'live'
+              AND COUNT(item.id) FILTER (
+                WHERE test.status = 'live'::test_status
+                  AND publication.published_at IS NOT NULL
+                  AND (
+                    publication.closes_at IS NULL
+                    OR publication.closes_at > now()
+                  )
+              ) > 0
+            )
         `,
   ]);
 
