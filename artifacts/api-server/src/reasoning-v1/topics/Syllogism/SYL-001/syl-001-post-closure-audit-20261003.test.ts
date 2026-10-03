@@ -61,7 +61,12 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(question.mockTestEligible, false);
     assert.equal(question.publiclyPublishable, false);
     assert.ok(String(question.stem).length > 20);
-    assert.ok(Array.isArray(question.options) && question.options.length >= 4);
+    assert.ok(
+      Array.isArray(question.options)
+        && question.options.length >= 3
+        && question.options.length <= 5,
+      "SYL review options must preserve the audited 3-5 option semantic space.",
+    );
     assert.ok(Number(question.correctIndex) >= 0);
     assert.ok(String(question.explanation).length > 20);
   }
