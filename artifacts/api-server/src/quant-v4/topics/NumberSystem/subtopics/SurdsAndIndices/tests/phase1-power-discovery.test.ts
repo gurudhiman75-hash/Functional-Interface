@@ -19,15 +19,15 @@ assert.equal(SRI_001_MANIFEST.discoveryWaves.phase1PowerFoundations, EXPECTED_CA
 for (const checkpointId of ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003"] as const) {
   assert.ok(SRI_001_MANIFEST.activeExecutableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must remain executable discovery`);
 }
-assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, false);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, true);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.tests, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.public, false);
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, false);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, true);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, true);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.testEligibilityEnabled, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.publicPublicationEnabled, false);
