@@ -19,6 +19,15 @@ import type { Phase4PrototypeDefinition, Phase4PrototypeQuestion } from "../disc
 
 const CP_ID = "GEO-CP-010" as const;
 const q = (value: number, denominator = 1) => rational(value, denominator);
+
+function variantIndex(seed: string, length: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % length;
+}
 const lengthText = (value: ReturnType<typeof rational>) => value.denominator === 1n ? `${value.numerator} cm` : `${value.numerator}/${value.denominator} cm`;
 
 function centrePerpendicularDiagram(): GeoDiagramModel {
@@ -65,77 +74,84 @@ function equalCentreDistanceDiagram(): GeoDiagramModel {
 }
 
 function generateCentrePerpendicular(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["AB_IS_CHORD", "OM_PERPENDICULAR_AB", "AB_IS_12"] as const;
-  const expected = "6 cm";
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const chord = 12 * scale;
+  const half = 6 * scale;
+  const clueIds = ["AB_IS_CHORD", "OM_PERPENDICULAR_AB", "AB_GIVEN"] as const;
+  const expected = `${half} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    return lengthText(chordHalfFromCentrePerpendicular(q(12)));
+    return lengthText(chordHalfFromCentrePerpendicular(q(chord)));
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Centre-perpendicular chord solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(0), y: q(0) }, A: { x: q(-6), y: q(8) }, B: { x: q(6), y: q(8) }, M: { x: q(0), y: q(8) },
+    O: { x: q(0), y: q(0) }, A: { x: q(-6 * scale), y: q(8 * scale) }, B: { x: q(6 * scale), y: q(8 * scale) }, M: { x: q(0), y: q(8 * scale) },
   });
-  const passed = oracle.pointOnCircle("A", "O", q(100))
+  const passed = oracle.pointOnCircle("A", "O", q(100 * scale * scale))
     && oracle.pointOnCircle("B", "O", q(100))
     && oracle.perpendicular("O", "M", "A", "B")
     && oracle.equalLengths("A", "M", "M", "B")
-    && equals(oracle.squaredLength("A", "B"), q(144));
+    && equals(oracle.squaredLength("A", "B"), q(chord * chord));
   const theoremTrace: TheoremId[] = ["PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_RATIO", left: "AM", right: "MB", ratio: q(1), reason: "PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD" }];
   const options = buildOptions(expected, [
-    { text: "12 cm", misconceptionId: "USED_FULL_CHORD_AS_HALF", rationale: "Uses the whole chord as one half." },
-    { text: "24 cm", misconceptionId: "DOUBLED_CHORD", rationale: "Doubles the chord instead of bisecting it." },
-    { text: "4 cm", misconceptionId: "DIVIDED_CHORD_INTO_THREE", rationale: "Divides the chord into three parts instead of two equal parts." },
+    { text: `${chord} cm`, misconceptionId: "USED_FULL_CHORD_AS_HALF", rationale: "Uses the whole chord as one half." },
+    { text: `${2 * chord} cm`, misconceptionId: "DOUBLED_CHORD", rationale: "Doubles the chord instead of bisecting it." },
+    { text: `${chord / 3} cm`, misconceptionId: "DIVIDED_CHORD_INTO_THREE", rationale: "Divides the chord into three parts instead of two equal parts." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP010-CENTRE-PERP-CHORD-V1", solveMode: "findHalfChordFromCentrePerpendicular", difficulty: "Easy", seed,
-    stem: "In a circle with centre O, AB is a chord. OM is perpendicular to AB at M. If AB = 12 cm, find AM.",
+    stem: `In a circle with centre O, AB is a chord. OM is perpendicular to AB at M. If AB = ${chord} cm, find AM.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "A perpendicular drawn from the centre of a circle to a chord bisects that chord.",
-      "So M is the midpoint of AB, and AM = 12/2 = 6 cm.",
+      `So M is the midpoint of AB, and AM = ${chord}/2 = ${half} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A and B lie exactly on the hidden circle", "OM is exactly perpendicular to AB", "AM = MB exactly", "AB has exact length 12"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["A and B lie exactly on the hidden circle", "OM is exactly perpendicular to AB", "AM = MB exactly", `AB has exact length ${chord}`]),
     diagramModel: centrePerpendicularDiagram(),
   });
 }
 
 function generateEqualCentreDistanceChord(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["AB_AND_CD_ARE_CHORDS", "OM_ON_ARE_EQUAL_PERPENDICULAR_DISTANCES", "AB_IS_8"] as const;
-  const expected = "8 cm";
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const chord = 8 * scale;
+  const clueIds = ["AB_AND_CD_ARE_CHORDS", "OM_ON_ARE_EQUAL_PERPENDICULAR_DISTANCES", "AB_GIVEN"] as const;
+  const expected = `${chord} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    return lengthText(equalChordLengthFromEqualCentreDistance(q(8)));
+    return lengthText(equalChordLengthFromEqualCentreDistance(q(chord)));
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Equal-centre-distance chord solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(0), y: q(0) }, A: { x: q(-4), y: q(3) }, B: { x: q(4), y: q(3) }, M: { x: q(0), y: q(3) },
-    C: { x: q(-4), y: q(-3) }, D: { x: q(4), y: q(-3) }, N: { x: q(0), y: q(-3) },
+    O: { x: q(0), y: q(0) }, A: { x: q(-4 * scale), y: q(3 * scale) }, B: { x: q(4 * scale), y: q(3 * scale) }, M: { x: q(0), y: q(3 * scale) },
+    C: { x: q(-4 * scale), y: q(-3 * scale) }, D: { x: q(4 * scale), y: q(-3 * scale) }, N: { x: q(0), y: q(-3 * scale) },
   });
-  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(25)))
+  const passed = ["A", "B", "C", "D"].every((point) => oracle.pointOnCircle(point, "O", q(25 * scale * scale)))
     && oracle.perpendicular("O", "M", "A", "B") && oracle.perpendicular("O", "N", "C", "D")
     && oracle.equalLengths("O", "M", "O", "N") && oracle.equalLengths("A", "B", "C", "D")
-    && equals(oracle.squaredLength("A", "B"), q(64));
+    && equals(oracle.squaredLength("A", "B"), q(chord * chord));
   const theoremTrace: TheoremId[] = ["EQUAL_CHORD_EQUAL_CENTRE_DISTANCE"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_RATIO", left: "AB", right: "CD", ratio: q(1), reason: "EQUAL_CHORD_EQUAL_CENTRE_DISTANCE" }];
   const options = buildOptions(expected, [
-    { text: "4 cm", misconceptionId: "HALVED_EQUAL_CHORD", rationale: "Halves the known chord even though equal centre distances imply equal whole chords." },
-    { text: "16 cm", misconceptionId: "DOUBLED_EQUAL_CHORD", rationale: "Doubles the known chord rather than matching it." },
+    { text: `${chord / 2} cm`, misconceptionId: "HALVED_EQUAL_CHORD", rationale: "Halves the known chord even though equal centre distances imply equal whole chords." },
+    { text: `${2 * chord} cm`, misconceptionId: "DOUBLED_EQUAL_CHORD", rationale: "Doubles the known chord rather than matching it." },
     { text: "Cannot be determined", misconceptionId: "MISSED_EQUAL_CHORD_THEOREM", rationale: "Misses the equal-distance-from-centre chord theorem." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP010-EQUAL-CENTRE-DISTANCE-CHORD-V1", solveMode: "findEqualChordFromEqualCentreDistance", difficulty: "Easy", seed,
-    stem: "AB and CD are chords of the same circle with centre O. Their perpendicular distances from O are equal. If AB = 8 cm, find CD.",
+    stem: `AB and CD are chords of the same circle with centre O. Their perpendicular distances from O are equal. If AB = ${chord} cm, find CD.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "Chords of the same circle that are equally distant from the centre are equal in length.",
-      "Since AB and CD are at equal perpendicular distances from O, CD = AB = 8 cm.",
+      `Since AB and CD are at equal perpendicular distances from O, CD = AB = ${chord} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["all four chord endpoints lie exactly on one hidden circle", "OM and ON are equal perpendicular centre distances", "AB and CD have equal exact squared lengths 64"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["all four chord endpoints lie exactly on one hidden circle", "OM and ON are equal perpendicular centre distances", `AB and CD have equal exact squared lengths ${chord * chord}`]),
     diagramModel: equalCentreDistanceDiagram(),
   });
 }
