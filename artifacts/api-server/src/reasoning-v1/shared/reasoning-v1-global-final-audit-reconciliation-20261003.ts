@@ -191,11 +191,11 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
       },
       {
         topicDirectory: "SeatingArrangement",
-        chapterId: "SEA-001",
+        chapterId: "SEA-FAMILY-CURRENT",
         closureAuthorityPath:
-          "topics/SeatingArrangement/SEA-001/SEA-001-FINAL-DEEP-AUDIT-CLOSURE-20261001.md",
-        auditState: "PASS",
-        remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
+          "topics/SeatingArrangement/SEA-FAMILY-CURRENT-CLOSURE-20261003.md",
+        auditState: "PASS_WITH_REVIEW_GATE",
+        remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
       },
       {
         topicDirectory: "Series",
@@ -278,6 +278,8 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
       blueprintOnlyOrNotYetStandaloneChaptersAreOutsideThisClosure: true,
     }),
     knownStandaloneBlueprintFrontier: Object.freeze([
+      "SEA-003",
+      "REAS-MAT",
       "REAS-GAM",
     ] as const),
   } as const);
