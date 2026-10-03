@@ -14,6 +14,15 @@ import type { Phase4PrototypeDefinition, Phase4PrototypeQuestion } from "../disc
 const CP_ID = "GEO-CP-012" as const;
 const q = (value: number, denominator = 1) => rational(value, denominator);
 
+function variantIndex(seed: string, length: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % length;
+}
+
 function radiusTangentDiagram(): GeoDiagramModel {
   return {
     points: [
@@ -73,39 +82,42 @@ function generateRadiusTangentAngle(seed: string): Phase4PrototypeQuestion {
 }
 
 function generateEqualTangents(seed: string): Phase4PrototypeQuestion {
-  const clueIds = ["PA_TANGENT_AT_A", "PB_TANGENT_AT_B", "COMMON_EXTERNAL_POINT_P", "PA_IS_9"] as const;
-  const expected = "9 cm";
+  const tangentPool = [6, 9, 12, 15, 18] as const;
+  const tangent = tangentPool[variantIndex(seed, tangentPool.length)]!;
+  const scale = tangent / 9;
+  const clueIds = ["PA_TANGENT_AT_A", "PB_TANGENT_AT_B", "COMMON_EXTERNAL_POINT_P", "PA_GIVEN"] as const;
+  const expected = `${tangent} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const result = equalTangentLength(q(9));
+    const result = equalTangentLength(q(tangent));
     return `${result.numerator} cm`;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Equal-tangents solver mismatch");
   const oracle = new CoordinateOracle({
-    O: { x: q(0), y: q(0) }, P: { x: q(15), y: q(0) },
-    A: { x: q(48, 5), y: q(36, 5) }, B: { x: q(48, 5), y: q(-36, 5) },
+    O: { x: q(0), y: q(0) }, P: { x: q(15 * scale), y: q(0) },
+    A: { x: q(48 * scale, 5), y: q(36 * scale, 5) }, B: { x: q(48 * scale, 5), y: q(-36 * scale, 5) },
   });
-  const passed = oracle.pointOnCircle("A", "O", q(144)) && oracle.pointOnCircle("B", "O", q(144))
+  const passed = oracle.pointOnCircle("A", "O", q(144 * scale * scale)) && oracle.pointOnCircle("B", "O", q(144))
     && oracle.perpendicular("O", "A", "P", "A") && oracle.perpendicular("O", "B", "P", "B")
-    && oracle.equalLengths("P", "A", "P", "B") && equals(oracle.squaredLength("P", "A"), q(81));
+    && oracle.equalLengths("P", "A", "P", "B") && equals(oracle.squaredLength("P", "A"), q(tangent * tangent));
   const theoremTrace: TheoremId[] = ["TANGENTS_FROM_EXTERNAL_POINT_EQUAL"];
   const proofEvents: GeoProofEvent[] = [{ kind: "SEGMENT_RATIO", left: "PA", right: "PB", ratio: q(1), reason: "TANGENTS_FROM_EXTERNAL_POINT_EQUAL" }];
   const options = buildOptions(expected, [
-    { text: "18 cm", misconceptionId: "ADDED_EQUAL_TANGENTS", rationale: "Adds the two tangent lengths instead of equating them." },
-    { text: "4.5 cm", misconceptionId: "HALVED_EQUAL_TANGENT", rationale: "Halves the known tangent without justification." },
+    { text: `${2 * tangent} cm`, misconceptionId: "ADDED_EQUAL_TANGENTS", rationale: "Adds the two tangent lengths instead of equating them." },
+    { text: `${tangent / 2} cm`, misconceptionId: "HALVED_EQUAL_TANGENT", rationale: "Halves the known tangent without justification." },
     { text: "Cannot be determined", misconceptionId: "UNEQUAL_TANGENTS_FROM_SAME_POINT", rationale: "Misses that two tangents from one external point are equal." },
   ], seed);
   return finalizePhase4Question({
     cpId: CP_ID, temporaryPrototypeId: "GEO-TMP-CP012-EQUAL-TANGENTS-V1", solveMode: "findSecondTangentFromExternalPoint", difficulty: "Easy", seed,
-    stem: "From an external point P, PA and PB are tangents to the same circle at A and B. If PA = 9 cm, find PB.",
+    stem: `From an external point P, PA and PB are tangents to the same circle at A and B. If PA = ${tangent} cm, find PB.`,
     ...options,
     explanation: buildExplanation(theoremTrace, [
       "Tangents drawn from the same external point to a circle are equal in length.",
-      "So PB = PA = 9 cm.",
+      `So PB = PA = ${tangent} cm.`
     ]),
     theoremTrace, proofEvents, displayedClueIds: clueIds,
     minimalityProof: proveClueMinimality(clueIds, solve, expected),
-    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["hidden A and B lie exactly on the circle", "OA is perpendicular to PA and OB is perpendicular to PB", "PA and PB both have exact squared length 81"]),
+    independentVerifierResult: verifier("COORDINATE_ORACLE", passed, ["hidden A and B lie exactly on the circle", "OA is perpendicular to PA and OB is perpendicular to PB", `PA and PB both have exact squared length ${tangent * tangent}`]),
     diagramModel: equalTangentsDiagram(),
   });
 }
