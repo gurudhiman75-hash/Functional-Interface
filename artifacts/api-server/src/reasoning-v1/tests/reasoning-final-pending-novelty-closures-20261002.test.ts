@@ -11,7 +11,7 @@ const closedTopics = [
   ["Data-Sufficiency", "DSF-001"],
   ["InputOutput", "IOP-001"],
   ["Missing-Number", "MIS-001"],
-  ["SeatingArrangement", "SEA-001"],
+  ["SeatingArrangement", "SEA-001 / SEA-002 / SEA-003"],
   ["Series", "SER-001"],
   ["Statement-and-Assumption", "STA-001"],
   ["Statement-and-Conclusion", "STC-001"],
