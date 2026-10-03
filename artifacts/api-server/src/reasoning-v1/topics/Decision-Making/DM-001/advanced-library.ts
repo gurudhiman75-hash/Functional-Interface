@@ -67,7 +67,7 @@ function documentReferral(): DmDecisionRule {
     ruleId: "CERTIFICATE_MISMATCH_REFER_MANAGER", priority: 5,
     conditions: Object.freeze([condition("set-certificate-mismatch", "certificateStatus", "EQ", "MISMATCH")]),
     outcome: "REFER_TO_MANAGER",
-    explanation: text("A certificate mismatch must be referred to the Manager before a final decision.", "प्रमाणपत्र में अंतर होने पर अंतिम निर्णय से पहले मामला प्रबंधक को भेजना होगा।", "ਸਰਟੀਫਿਕੇਟ ਵਿੱਚ ਫ਼ਰਕ ਹੋਣ ਤੇ ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਣਾ ਲਾਜ਼ਮੀ ਹੈ।"),
+    explanation: text("A certificate mismatch blocks an immediate final decision; the Manager reviews the discrepancy first.", "प्रमाणपत्र में अंतर होने पर तत्काल अंतिम निर्णय नहीं लिया जाएगा; पहले प्रबंधक इस अंतर की समीक्षा करेगा।", "ਸਰਟੀਫਿਕੇਟ ਵਿੱਚ ਫਰਕ ਹੋਣ ਤੇ ਤੁਰੰਤ ਅੰਤਿਮ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾਵੇਗਾ; ਪਹਿਲਾਂ ਮੈਨੇਜਰ ਇਸ ਫਰਕ ਦੀ ਸਮੀਖਿਆ ਕਰੇਗਾ।"),
   });
 }
 
@@ -92,13 +92,13 @@ function mixedRules(policy: number): { base: DmRuleCondition[]; rules: DmDecisio
       ruleId: "AGE_EXPERIENCE_RELAXATION_REFER_MANAGER", priority: 2,
       conditions: Object.freeze([...unaffectedAge, condition("mixed-age-only-lower", "age", "GTE", ageLimit + 1), condition("mixed-age-only-upper", "age", "LTE", ageLimit + 2), condition("mixed-age-exp", "experienceYears", "GTE", 5)]),
       outcome: "REFER_TO_MANAGER",
-      explanation: text("The age-and-experience relaxation applies, so the case goes to the Manager.", "आयु और अनुभव की छूट लागू है, इसलिए मामला प्रबंधक को जाएगा।", "ਉਮਰ ਅਤੇ ਤਜਰਬੇ ਦੀ ਛੋਟ ਲਾਗੂ ਹੈ, ਇਸ ਲਈ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਜਾਵੇਗਾ।"),
+      explanation: text("The age-and-experience relaxation is triggered; the Manager now decides whether the exception can be allowed.", "आयु और अनुभव की छूट लागू हो गई है; अब प्रबंधक तय करेगा कि अपवाद स्वीकार किया जा सकता है या नहीं।", "ਉਮਰ ਅਤੇ ਤਜਰਬੇ ਵਾਲੀ ਛੂਟ ਲਾਗੂ ਹੋ ਗਈ ਹੈ; ਹੁਣ ਮੈਨੇਜਰ ਤੈਅ ਕਰੇਗਾ ਕਿ ਅਪਵਾਦ ਮਨਜ਼ੂਰ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"),
     }),
     Object.freeze({
       ruleId: "POSTGRADUATE_MARKS_RELAXATION_REFER_DIRECTOR", priority: 3,
       conditions: Object.freeze([...unaffectedMarks, condition("mixed-pg", "qualificationRank", "GTE", 4), condition("mixed-marks-only-lower", "graduationMarks", "GTE", marksLimit - 5), condition("mixed-marks-only-upper", "graduationMarks", "LTE", marksLimit - 1)]),
       outcome: "REFER_TO_DIRECTOR",
-      explanation: text("The postgraduate marks relaxation applies, so the case goes to the Director.", "स्नातकोत्तर अंक छूट लागू है, इसलिए मामला निदेशक को जाएगा।", "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਅੰਕ ਛੋਟ ਲਾਗੂ ਹੈ, ਇਸ ਲਈ ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਜਾਵੇਗਾ।"),
+      explanation: text("The postgraduate-marks relaxation is triggered; the Director now decides the exception.", "स्नातकोत्तर अंक की छूट लागू हो गई है; अब निदेशक इस अपवाद पर निर्णय करेगा।", "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਅੰਕਾਂ ਵਾਲੀ ਛੂਟ ਲਾਗੂ ਹੋ ਗਈ ਹੈ; ਹੁਣ ਡਾਇਰੈਕਟਰ ਇਸ ਅਪਵਾਦ ਦਾ ਫੈਸਲਾ ਕਰੇਗਾ।"),
     }),
   ] };
 }
