@@ -35,7 +35,7 @@ export const STC_V22_QL001_TEMPLATES: readonly StcV22Template[] = [
       [T("online ticket booking", "ऑनलाइन टिकट बुकिंग", "ਆਨਲਾਈਨ ਟਿਕਟ ਬੁਕਿੰਗ"), T("online visit-slot booking", "ऑनलाइन भ्रमण-स्लॉट बुकिंग", "ਆਨਲਾਈਨ ਦੌਰਾ-ਸਲਾਟ ਬੁਕਿੰਗ"), T("the online reservation portal", "ऑनलाइन आरक्षण पोर्टल", "ਆਨਲਾਈਨ ਰਿਜ਼ਰਵੇਸ਼ਨ ਪੋਰਟਲ"), T("advance online booking", "अग्रिम ऑनलाइन बुकिंग", "ਅਗਾਊਂ ਆਨਲਾਈਨ ਬੁਕਿੰਗ")],
       [T("scheduled maintenance", "निर्धारित रखरखाव", "ਨਿਰਧਾਰਤ ਰਖ-ਰਖਾਵ"), T("a safety inspection", "सुरक्षा निरीक्षण", "ਸੁਰੱਖਿਆ ਜਾਂਚ"), T("electrical repair work", "विद्युत मरम्मत कार्य", "ਬਿਜਲੀ ਮੁਰੰਮਤ ਕੰਮ"), T("an internal stock check", "आंतरिक सामग्री जाँच", "ਅੰਦਰੂਨੀ ਸਮੱਗਰੀ ਜਾਂਚ")],
     ],
-    statement: T("Notice: {a} will remain closed to visitors on {b} because of {d}. {c} will remain available.", "सूचना: {d} के कारण {a} {b} आगंतुकों के लिए बंद रहेगा। {c} उपलब्ध रहेगी।", "ਸੂਚਨਾ: {d} ਕਰਕੇ {a} {b} ਆਗੰਤੁਕਾਂ ਲਈ ਬੰਦ ਰਹੇਗਾ। {c} ਉਪਲਬਧ ਰਹੇਗੀ।"),
+    statement: T("Notice: {a} will remain closed to visitors on {b} because of {d}. The following service will remain available: {c}.", "सूचना: {d} के कारण {a} {b} आगंतुकों के लिए बंद रहेगा। यह सेवा उपलब्ध रहेगी: {c}।", "ਸੂਚਨਾ: {d} ਕਰਕੇ {a} {b} ਆਗੰਤੁਕਾਂ ਲਈ ਬੰਦ ਰਹੇਗਾ। ਇਹ ਸੇਵਾ ਉਪਲਬਧ ਰਹੇਗੀ: {c}।"),
     conclusions: [
       T("{c} will also be unavailable on {b}.", "{c} भी {b} उपलब्ध नहीं रहेगी।", "{c} ਵੀ {b} ਉਪਲਬਧ ਨਹੀਂ ਰਹੇਗੀ।"),
       T("Visitors cannot enter {a} on {b} under the notice.", "सूचना के अनुसार आगंतुक {b} {a} में प्रवेश नहीं कर सकते।", "ਸੂਚਨਾ ਅਨੁਸਾਰ ਆਗੰਤੁਕ {b} {a} ਵਿੱਚ ਦਾਖ਼ਲ ਨਹੀਂ ਹੋ ਸਕਦੇ।"),
@@ -48,7 +48,7 @@ export const STC_V22_QL001_TEMPLATES: readonly StcV22Template[] = [
       [T("the college canteen", "कॉलेज कैंटीन", "ਕਾਲਜ ਕੈਂਟੀਨ"), T("the hostel mess", "छात्रावास मेस", "ਹੋਸਟਲ ਮੈਸ"), T("the office cafeteria", "कार्यालय कैफेटेरिया", "ਦਫ਼ਤਰ ਕੈਫੇਟੇਰੀਆ"), T("the training-centre dining hall", "प्रशिक्षण केंद्र भोजनालय", "ਟ੍ਰੇਨਿੰਗ ਕੇਂਦਰ ਭੋਜਨ ਹਾਲ")],
       [T("serving breakfast", "नाश्ता परोसना", "ਨਾਸ਼ਤਾ ਪਰੋਸਣਾ"), T("the morning tea service", "सुबह की चाय सेवा", "ਸਵੇਰ ਦੀ ਚਾਹ ਸੇਵਾ"), T("the early snack service", "सुबह की हल्की जलपान सेवा", "ਸਵੇਰ ਦੀ ਹਲਕੀ ਨਾਸ਼ਤਾ ਸੇਵਾ"), T("the pre-class meal service", "कक्षा-पूर्व भोजन सेवा", "ਕਲਾਸ ਤੋਂ ਪਹਿਲਾਂ ਭੋਜਨ ਸੇਵਾ")],
       [T("this month", "इस महीने", "ਇਸ ਮਹੀਨੇ"), T("this week", "इस सप्ताह", "ਇਸ ਹਫ਼ਤੇ"), T("during the current term", "वर्तमान सत्र के दौरान", "ਮੌਜੂਦਾ ਟਰਮ ਦੌਰਾਨ"), T("for the present schedule", "वर्तमान समय-सारणी में", "ਮੌਜੂਦਾ ਸਮਾਂ-ਸਾਰਣੀ ਵਿੱਚ")],
-      [T("lunch service", "दोपहर का भोजन", "ਦੁਪਹਿਰ ਦਾ ਭੋਜਨ"), T("the evening meal", "शाम का भोजन", "ਸ਼ਾਮ ਦਾ ਭੋਜਨ"), T("afternoon refreshments", "दोपहर बाद का जलपान", "ਦੁਪਹਿਰ ਬਾਅਦ ਦੀ ਰਿਫ਼ਰੈਸ਼ਮੈਂਟ"), T("the regular midday service", "नियमित मध्याह्न सेवा", "ਨਿਯਮਤ ਦੁਪਹਿਰ ਦੀ ਸੇਵਾ")],
+      [T("lunch service", "दोपहर का भोजन", "ਦੁਪਹਿਰ ਦਾ ਭੋਜਨ"), T("the evening meal", "शाम का भोजन", "ਸ਼ਾਮ ਦਾ ਭੋਜਨ"), T("the afternoon refreshment service", "दोपहर बाद की जलपान सेवा", "ਦੁਪਹਿਰ ਬਾਅਦ ਦੀ ਰਿਫ਼ਰੈਸ਼ਮੈਂਟ ਸੇਵਾ"), T("the regular midday service", "नियमित मध्याह्न सेवा", "ਨਿਯਮਤ ਦੁਪਹਿਰ ਦੀ ਸੇਵਾ")],
     ],
     statement: T("{a} stopped {b} {c}, but {d} continues as before.", "{a} ने {c} {b} बंद कर दिया है, लेकिन {d} पहले की तरह जारी है।", "{a} ਨੇ {c} {b} ਬੰਦ ਕਰ ਦਿੱਤਾ ਹੈ, ਪਰ {d} ਪਹਿਲਾਂ ਵਾਂਗ ਜਾਰੀ ਹੈ।"),
     conclusions: [T("{a} is no longer providing {b} {c}.", "{a} अब {c} {b} प्रदान नहीं कर रहा है।", "{a} ਹੁਣ {c} {b} ਪ੍ਰਦਾਨ ਨਹੀਂ ਕਰ ਰਿਹਾ।"), T("{d} is continuing {c}.", "{d} {c} जारी है।", "{d} {c} ਜਾਰੀ ਹੈ।")],
@@ -57,7 +57,7 @@ export const STC_V22_QL001_TEMPLATES: readonly StcV22Template[] = [
   {
     id: "STC-V22-QL001-T04", qlId: "STC-QL-001", surfaceArchetype: "SURVEY_REPORT", difficulty: "MEDIUM", answerClass: "NEITHER",
     dimensions: [
-      [T("adult respondents", "वयस्क उत्तरदाताओं", "ਵਯਸਕ ਉੱਤਰਦਾਤਿਆਂ"), T("urban respondents", "शहरी उत्तरदाताओं", "ਸ਼ਹਿਰੀ ਉੱਤਰਦਾਤਿਆਂ"), T("surveyed account holders", "सर्वेक्षित खाताधारकों", "ਸਰਵੇ ਕੀਤੇ ਖਾਤਾਧਾਰਕਾਂ"), T("registered users surveyed", "सर्वेक्षित पंजीकृत उपयोगकर्ताओं", "ਸਰਵੇ ਕੀਤੇ ਰਜਿਸਟਰਡ ਉਪਭੋਗਤਿਆਂ")],
+      [T("adult respondents", "वयस्क उत्तरदाताओं", "ਵਯਸਕ ਉੱਤਰਦਾਤਿਆਂ"), T("urban respondents", "शहरी उत्तरदाताओं", "ਸ਼ਹਿਰੀ ਉੱਤਰਦਾਤਿਆਂ"), T("account holders", "खाताधारकों", "ਖਾਤਾਧਾਰਕਾਂ"), T("registered users", "पंजीकृत उपयोगकर्ताओं", "ਰਜਿਸਟਰਡ ਉਪਭੋਗਤਿਆਂ")],
       [T("400", "400", "400"), T("500", "500", "500"), T("600", "600", "600"), T("800", "800", "800")],
       [T("58%", "58%", "58%"), T("62%", "62%", "62%"), T("68%", "68%", "68%"), T("74%", "74%", "74%")],
       [T("use mobile banking at least once a week", "सप्ताह में कम से कम एक बार मोबाइल बैंकिंग का उपयोग करते हैं", "ਹਫ਼ਤੇ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਾਰ ਮੋਬਾਈਲ ਬੈਂਕਿੰਗ ਵਰਤਦੇ ਹਨ"), T("make a digital payment at least once a week", "सप्ताह में कम से कम एक बार डिजिटल भुगतान करते हैं", "ਹਫ਼ਤੇ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਾਰ ਡਿਜ਼ਿਟਲ ਭੁਗਤਾਨ ਕਰਦੇ ਹਨ"), T("use public transport at least once a week", "सप्ताह में कम से कम एक बार सार्वजनिक परिवहन का उपयोग करते हैं", "ਹਫ਼ਤੇ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਾਰ ਜਨਤਕ ਆਵਾਜਾਈ ਵਰਤਦੇ ਹਨ"), T("access an e-service at least once a week", "सप्ताह में कम से कम एक बार ई-सेवा का उपयोग करते हैं", "ਹਫ਼ਤੇ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਵਾਰ ਈ-ਸੇਵਾ ਵਰਤਦੇ ਹਨ")],
