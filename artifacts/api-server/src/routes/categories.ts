@@ -1,18 +1,24 @@
 import { Router, type IRouter } from "express";
 
+import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { sqlClient } from "../lib/db";
 import { resolveCategoryIcon } from "../lib/category-icons";
 
 const router: IRouter = Router();
 
 async function loadCategories(identifier?: string) {
+  await ensureCatalogBrandingSchema();
   return sqlClient`
     SELECT
       ef.code AS id,
       ef.name,
       ('Mock tests for ' || ef.name) AS description,
+      branding.icon_url AS "iconUrl",
       COUNT(DISTINCT t.id)::int AS "testsCount"
     FROM catalog.exam_families ef
+    LEFT JOIN platform.catalog_entity_branding branding
+      ON branding.entity_type = 'exam_family'
+     AND branding.entity_id = ef.id
     LEFT JOIN catalog.exams e
       ON e.family_id = ef.id
      AND e.is_active = true
@@ -25,7 +31,7 @@ async function loadCategories(identifier?: string) {
      AND t.deleted_at IS NULL
     WHERE ef.is_active = true
       AND (${identifier ?? null}::text IS NULL OR lower(ef.code) = lower(${identifier ?? null}))
-    GROUP BY ef.id, ef.code, ef.name
+    GROUP BY ef.id, ef.code, ef.name, branding.icon_url
     ORDER BY ef.name
   `;
 }
@@ -36,7 +42,7 @@ function serializeCategory(row: Record<string, unknown>) {
     id: String(row.id),
     name,
     description: String(row.description ?? ""),
-    icon: resolveCategoryIcon(name, ""),
+    icon: String(row.iconUrl ?? "").trim() || resolveCategoryIcon(name, ""),
     color: "#2563eb",
     testsCount: Number(row.testsCount ?? 0),
   };
