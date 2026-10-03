@@ -30,6 +30,7 @@ export interface StudentSeriesMember {
   id: string;
   testId: string;
   publicCode: string;
+  iconUrl?: string;
   sortOrder: number;
   title: string;
   description: string | null;
