@@ -23,7 +23,7 @@ const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
 );
 
-assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 26);
+assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 27);
 assert.equal(awaitingRouteProviders.length, 0);
 assert.equal(approvedProviders.length, 9);
 assert.deepEqual(
@@ -103,7 +103,7 @@ assert.equal(providerSummary.reviewOnlyProviderIds.length, 0);
 assert.equal(providerSummary.assemblyCreditedProviderIds.length, 9);
 
 const inventorySummary = reasoningNoveltyInventorySummaryV1();
-assert.equal(inventorySummary.topicCount, 26);
+assert.equal(inventorySummary.topicCount, 27);
 assert.deepEqual(
   inventorySummary.controlledNovelTargetCreditedTopics,
   ["Alphabet-Test", "Blood-Relations", "Calendar", "Cause-and-Effect", "Clocks", "Direction-Sense", "Mathematical-Operations", "Non-Verbal-Reasoning", "Ranking-and-Order"].sort(),
