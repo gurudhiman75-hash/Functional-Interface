@@ -39,11 +39,15 @@ assert.ok(adminTests.includes('now(),'));
 assert.ok(adminTests.includes("status = 'live'::test_status"));
 assert.ok(adminTests.includes('published_version_id = ${input.expectedCurrentDraftVersionId}::uuid'));
 
-// Student test-series discovery only exposes tests that are both live and genuinely published.
-assert.ok(studentSeries.includes("t.status = 'live'::test_status"));
+// Live series still expose only genuinely published tests. Coming-soon series may
+// be discoverable with zero tests, but they remain non-attemptable.
+assert.ok(studentSeries.includes("test.status = 'live'::test_status") || studentSeries.includes("t.status = 'live'::test_status"));
 assert.ok(studentSeries.includes('publication.published_at IS NOT NULL'));
 assert.ok(studentSeries.includes("THEN 'live'"));
-assert.ok(studentSeries.includes('HAVING COUNT(item.id) FILTER'));
+assert.ok(studentSeries.includes("learnerVisibility"));
+assert.ok(studentSeries.includes("coming_soon"));
+assert.ok(studentSeries.includes("LEFT JOIN assessment.test_series_items"));
+assert.ok(studentSeries.includes("COUNT(item.id) FILTER"));
 assert.ok(studentSeries.includes('liveTestCount'));
 
 // Series assembly retains its own QA/release gate.
