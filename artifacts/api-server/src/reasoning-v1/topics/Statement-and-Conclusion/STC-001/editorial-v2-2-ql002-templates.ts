@@ -25,7 +25,7 @@ export const STC_V22_QL002_TEMPLATES: readonly StcV22Template[] = [
       [T("theft complaints", "चोरी की शिकायतें", "ਚੋਰੀ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ"), T("parking complaints", "पार्किंग की शिकायतें", "ਪਾਰਕਿੰਗ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ"), T("littering complaints", "कूड़ा फैलाने की शिकायतें", "ਕੂੜਾ ਸੁੱਟਣ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ"), T("traffic-noise complaints", "यातायात शोर की शिकायतें", "ਟ੍ਰੈਫ਼ਿਕ ਸ਼ੋਰ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ")],
     ],
     statement: T("After {b} at {a}, {c} fell sharply, while {d} remained at about the same level.", "{a} पर {b} के बाद {c} तेजी से घटीं, जबकि {d} लगभग उसी स्तर पर रहीं।", "{a} ਉੱਤੇ {b} ਤੋਂ ਬਾਅਦ {c} ਤੇਜ਼ੀ ਨਾਲ ਘਟੀਆਂ, ਜਦਕਿ {d} ਲਗਭਗ ਉਸੇ ਪੱਧਰ ਉੱਤੇ ਰਹੀਆਂ।"),
-    conclusions: [T("{d} also declined sharply after the lighting work.", "रोशनी के काम के बाद {d} भी तेजी से घटीं।", "ਰੌਸ਼ਨੀ ਦੇ ਕੰਮ ਤੋਂ ਬਾਅਦ {d} ਵੀ ਤੇਜ਼ੀ ਨਾਲ ਘਟੀਆਂ।"), T("{c} declined after the lighting work at {a}.", "{a} पर रोशनी के काम के बाद {c} घटीं।", "{a} ਉੱਤੇ ਰੌਸ਼ਨੀ ਦੇ ਕੰਮ ਤੋਂ ਬਾਅਦ {c} ਘਟੀਆਂ।")],
+    conclusions: [T("{d} also declined sharply after {b}.", "{b} के बाद {d} भी तेजी से घटीं।", "{b} ਤੋਂ ਬਾਅਦ {d} ਵੀ ਤੇਜ਼ੀ ਨਾਲ ਘਟੀਆਂ।"), T("{c} declined after {b} at {a}.", "{a} पर {b} के बाद {c} घटीं।", "{a} ਉੱਤੇ {b} ਤੋਂ ਬਾਅਦ {c} ਘਟੀਆਂ।")],
     explanation: [T("The statement says {d} stayed at about the same level.", "कथन कहता है कि {d} लगभग उसी स्तर पर रहीं।", "ਕਥਨ ਕਹਿੰਦਾ ਹੈ ਕਿ {d} ਲਗਭਗ ਉਸੇ ਪੱਧਰ ਉੱਤੇ ਰਹੀਆਂ।"), T("The statement directly reports a sharp fall in {c}.", "कथन सीधे {c} में तेज गिरावट बताता है।", "ਕਥਨ ਸਿੱਧੇ {c} ਵਿੱਚ ਤੇਜ਼ ਘਟਾਓ ਦੱਸਦਾ ਹੈ।")],
   },
   {
@@ -45,12 +45,12 @@ export const STC_V22_QL002_TEMPLATES: readonly StcV22Template[] = [
     dimensions: [
       [T("the new tablet", "नया टैबलेट", "ਨਵਾਂ ਟੈਬਲੇਟ"), T("the new handheld scanner", "नया हैंडहेल्ड स्कैनर", "ਨਵਾਂ ਹੈਂਡਹੈਲਡ ਸਕੈਨਰ"), T("the new field terminal", "नया फील्ड टर्मिनल", "ਨਵਾਂ ਫ਼ੀਲਡ ਟਰਮੀਨਲ"), T("the new portable reader", "नया पोर्टेबल रीडर", "ਨਵਾਂ ਪੋਰਟੇਬਲ ਰੀਡਰ")],
       [T("120 grams lighter", "120 ग्राम हल्का", "120 ਗ੍ਰਾਮ ਹਲਕਾ"), T("150 grams lighter", "150 ग्राम हल्का", "150 ਗ੍ਰਾਮ ਹਲਕਾ"), T("18% lighter", "18% हल्का", "18% ਹਲਕਾ"), T("22% lighter", "22% हल्का", "22% ਹਲਕਾ")],
-      [T("one hour fewer", "एक घंटा कम", "ਇੱਕ ਘੰਟਾ ਘੱਟ"), T("90 minutes fewer", "90 मिनट कम", "90 ਮਿੰਟ ਘੱਟ"), T("two hours fewer", "दो घंटे कम", "ਦੋ ਘੰਟੇ ਘੱਟ"), T("about 15% fewer hours", "लगभग 15% कम घंटे", "ਲਗਭਗ 15% ਘੱਟ ਘੰਟੇ")],
+      [T("one hour shorter", "एक घंटा कम", "ਇੱਕ ਘੰਟਾ ਘੱਟ"), T("90 minutes shorter", "90 मिनट कम", "90 ਮਿੰਟ ਘੱਟ"), T("two hours shorter", "दो घंटे कम", "ਦੋ ਘੰਟੇ ਘੱਟ"), T("about 15% shorter", "लगभग 15% कम", "ਲਗਭਗ 15% ਘੱਟ")],
       [T("in the latest product comparison", "नवीनतम उत्पाद तुलना में", "ਤਾਜ਼ਾ ਉਤਪਾਦ ਤੁਲਨਾ ਵਿੱਚ"), T("under the revised specification", "संशोधित विनिर्देश के अनुसार", "ਸੋਧੀ ਵਿਸ਼ੇਸ਼ਤਾ ਅਨੁਸਾਰ"), T("in the current model review", "वर्तमान मॉडल समीक्षा में", "ਮੌਜੂਦਾ ਮਾਡਲ ਸਮੀਖਿਆ ਵਿੱਚ"), T("according to the manufacturer data", "निर्माता के आँकड़ों के अनुसार", "ਨਿਰਮਾਤਾ ਦੇ ਅੰਕੜਿਆਂ ਅਨੁਸਾਰ")],
     ],
-    statement: T("{d}, {a} is {b} than the previous model, but its battery lasts {c} on a full charge.", "{d}, {a} पिछले मॉडल से {b} है, लेकिन पूरी चार्ज पर इसकी बैटरी {c} चलती है।", "{d}, {a} ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ {b} ਹੈ, ਪਰ ਪੂਰੀ ਚਾਰਜ ਉੱਤੇ ਇਸ ਦੀ ਬੈਟਰੀ {c} ਚੱਲਦੀ ਹੈ।"),
+    statement: T("{d}, {a} is {b} than the previous model, but its battery life is {c} than the previous model.", "{d}, {a} पिछले मॉडल से {b} है, लेकिन इसकी बैटरी लाइफ पिछले मॉडल से {c} है।", "{d}, {a} ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ {b} ਹੈ, ਪਰ ਇਸ ਦੀ ਬੈਟਰੀ ਲਾਈਫ ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ {c} ਹੈ।"),
     conclusions: [T("{a} improved on both weight and battery life.", "{a} ने वजन और बैटरी जीवन दोनों में सुधार किया।", "{a} ਨੇ ਵਜ਼ਨ ਅਤੇ ਬੈਟਰੀ ਲਾਈਫ ਦੋਵਾਂ ਵਿੱਚ ਸੁਧਾਰ ਕੀਤਾ।"), T("{a} has longer battery life than the previous model.", "{a} की बैटरी पिछले मॉडल से अधिक देर चलती है।", "{a} ਦੀ ਬੈਟਰੀ ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ ਵੱਧ ਚੱਲਦੀ ਹੈ।")],
-    explanation: [T("Weight improved, but battery duration became shorter by {c}.", "वजन सुधरा, लेकिन बैटरी अवधि {c} हो गई।", "ਵਜ਼ਨ ਸੁਧਰਿਆ, ਪਰ ਬੈਟਰੀ ਮਿਆਦ {c} ਹੋ ਗਈ।"), T("The statement says the battery lasts {c}, not longer.", "कथन कहता है कि बैटरी {c} चलती है, अधिक नहीं।", "ਕਥਨ ਕਹਿੰਦਾ ਹੈ ਕਿ ਬੈਟਰੀ {c} ਚੱਲਦੀ ਹੈ, ਵੱਧ ਨਹੀਂ।")],
+    explanation: [T("Weight improved, but battery life is {c} than in the previous model.", "वजन सुधरा, लेकिन बैटरी लाइफ पिछले मॉडल से {c} है।", "ਵਜ਼ਨ ਸੁਧਰਿਆ, ਪਰ ਬੈਟਰੀ ਲਾਈਫ ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ {c} ਹੈ।"), T("The statement says battery life is {c} than in the previous model, not longer.", "कथन बैटरी लाइफ को पिछले मॉडल से {c} बताता है, अधिक नहीं।", "ਕਥਨ ਬੈਟਰੀ ਲਾਈਫ ਨੂੰ ਪਿਛਲੇ ਮਾਡਲ ਨਾਲੋਂ {c} ਦੱਸਦਾ ਹੈ, ਵੱਧ ਨਹੀਂ।")],
   },
   {
     id: "STC-V22-QL002-T05", qlId: "STC-QL-002", surfaceArchetype: "RULE_ELIGIBILITY", difficulty: "MEDIUM", answerClass: "ONLY_I",
