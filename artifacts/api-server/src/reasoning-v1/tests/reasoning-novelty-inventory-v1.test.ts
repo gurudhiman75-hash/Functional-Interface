@@ -18,6 +18,7 @@ const EXPECTED_TOPIC_DIRECTORIES = [
   'Data-Sufficiency',
   'Direction-Sense',
   'InputOutput',
+  'Inequality',
   'Logic-Puzzles',
   'Mathematical-Operations',
   'Missing-Number',
