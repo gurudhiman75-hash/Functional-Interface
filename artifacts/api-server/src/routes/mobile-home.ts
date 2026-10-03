@@ -30,23 +30,71 @@ router.get("/mobile/home-config", async (_req, res) => {
       testSeriesIds.length === 0
         ? Promise.resolve([])
         : sqlClient`
-            SELECT s.id::text AS id,s.code,s.name,e.name AS "examName",
-              (
-                SELECT COUNT(*)::int
-                FROM assessment.test_series_versions sv
-                JOIN assessment.test_series_items item
-                  ON item.series_version_id=sv.id
-                WHERE sv.series_id=s.id
-                  AND sv.version_number=s.current_version_number
-              ) AS "testCount"
+            SELECT
+              s.id::text AS id,
+              s.code,
+              s.name,
+              e.name AS "examName",
+              COUNT(item.id)::int AS "testCount"
             FROM assessment.test_series s
-            JOIN catalog.exam_versions ev ON ev.id=s.exam_version_id
-            JOIN catalog.exams e ON e.id=ev.exam_id
-            WHERE s.id = ANY(${testSeriesIds}::uuid[]) AND s.deleted_at IS NULL
+            JOIN assessment.test_series_versions version
+              ON version.series_id = s.id
+             AND version.version_number = s.current_version_number
+            JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
+            JOIN catalog.exams e ON e.id = ev.exam_id
+            LEFT JOIN assessment.test_series_items item
+              ON item.series_version_id = version.id
+            LEFT JOIN assessment.tests test
+              ON test.id = item.test_id
+             AND test.deleted_at IS NULL
+            LEFT JOIN assessment.test_versions published
+              ON published.id = test.published_version_id
+            LEFT JOIN LATERAL (
+              SELECT publication.published_at, publication.closes_at
+              FROM assessment.test_publications publication
+              WHERE publication.test_id = test.id
+                AND publication.test_version_id = test.published_version_id
+                AND publication.published_at IS NOT NULL
+              ORDER BY publication.publication_number DESC
+              LIMIT 1
+            ) publication ON true
+            WHERE s.id = ANY(${testSeriesIds}::uuid[])
+              AND s.deleted_at IS NULL
+              AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+              AND COALESCE(
+                NULLIF(version.configuration->>'learnerVisibility', ''),
+                'live'
+              ) <> 'hidden'
+            GROUP BY s.id, version.id, e.id
+            HAVING
+              COALESCE(
+                NULLIF(version.configuration->>'learnerVisibility', ''),
+                'live'
+              ) = 'coming_soon'
+              OR (
+                COALESCE(
+                  NULLIF(version.configuration->>'learnerVisibility', ''),
+                  'live'
+                ) = 'live'
+                AND COUNT(item.id) FILTER (
+                  WHERE test.status = 'live'::test_status
+                    AND publication.published_at IS NOT NULL
+                    AND (
+                      publication.closes_at IS NULL
+                      OR publication.closes_at > now()
+                    )
+                ) > 0
+              )
           `,
     ]);
-    const familyById = new Map(featuredExamFamilies.map((row) => [String(row.id), row]));
-    const seriesById = new Map(featuredTestSeries.map((row) => [String(row.id), row]));
+    const familyById = new Map(
+      featuredExamFamilies.map((row) => [String(row.id), row]),
+    );
+    const seriesById = new Map(
+      featuredTestSeries.map((row) => [String(row.id), row]),
+    );
+    const validExamFamilyIds = examFamilyIds.filter((id) => familyById.has(id));
+    const validTestSeriesIds = testSeriesIds.filter((id) => seriesById.has(id));
     const now = Date.now();
     const slides = Array.isArray(configuration.heroSlides)
       ? configuration.heroSlides.filter((slide) => {
@@ -63,8 +111,14 @@ router.get("/mobile/home-config", async (_req, res) => {
       configuration: {
         ...configuration,
         heroSlides: slides,
-        featuredExamFamilies: examFamilyIds.map((id) => familyById.get(id)).filter(Boolean),
-        featuredTestSeries: testSeriesIds.map((id) => seriesById.get(id)).filter(Boolean),
+        featuredExamFamilyIds: validExamFamilyIds,
+        featuredTestSeriesIds: validTestSeriesIds,
+        featuredExamFamilies: validExamFamilyIds
+          .map((id) => familyById.get(id))
+          .filter(Boolean),
+        featuredTestSeries: validTestSeriesIds
+          .map((id) => seriesById.get(id))
+          .filter(Boolean),
       },
       updatedAt: rows[0]?.updatedAt ?? null,
       generatedAt: new Date().toISOString(),
