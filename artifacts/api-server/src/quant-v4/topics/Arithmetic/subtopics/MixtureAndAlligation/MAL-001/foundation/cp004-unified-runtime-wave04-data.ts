@@ -95,16 +95,20 @@ export interface MalCp004Wave04KnownSolventChangeCase {
 
 export const MAL_CP004_WAVE04_KNOWN_SOLVENT_CHANGE_CASES:
   readonly MalCp004Wave04KnownSolventChangeCase[] = [
-    { initialTotal: 5, initialRate: [2, 5], solventChange: 1, direction: "ADD" },
-    { initialTotal: 9, initialRate: [1, 2], solventChange: 6, direction: "ADD" },
-    { initialTotal: 60, initialRate: [2, 5], solventChange: 20, direction: "ADD" },
-    { initialTotal: 80, initialRate: [1, 2], solventChange: 20, direction: "ADD" },
-    { initialTotal: 72, initialRate: [1, 2], solventChange: 24, direction: "ADD" },
-    { initialTotal: 6, initialRate: [1, 25], solventChange: 1, direction: "EVAPORATE" },
-    { initialTotal: 75, initialRate: [1, 5], solventChange: 25, direction: "EVAPORATE" },
-    { initialTotal: 80, initialRate: [3, 10], solventChange: 20, direction: "EVAPORATE" },
-    { initialTotal: 100, initialRate: [2, 5], solventChange: 20, direction: "EVAPORATE" },
-    { initialTotal: 90, initialRate: [1, 3], solventChange: 30, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [1, 2], solventChange: 25, direction: "ADD" },
+    { initialTotal: 100, initialRate: [3, 5], solventChange: 20, direction: "ADD" },
+    { initialTotal: 100, initialRate: [2, 5], solventChange: 25, direction: "ADD" },
+    { initialTotal: 100, initialRate: [3, 10], solventChange: 20, direction: "ADD" },
+    { initialTotal: 100, initialRate: [3, 4], solventChange: 25, direction: "ADD" },
+    { initialTotal: 80, initialRate: [1, 2], solventChange: 32, direction: "ADD" },
+    { initialTotal: 100, initialRate: [1, 5], solventChange: 20, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [1, 4], solventChange: 20, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [3, 10], solventChange: 25, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [2, 5], solventChange: 25, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [1, 2], solventChange: 20, direction: "EVAPORATE" },
+    { initialTotal: 100, initialRate: [3, 5], solventChange: 25, direction: "EVAPORATE" },
+    { initialTotal: 120, initialRate: [1, 3], solventChange: 30, direction: "EVAPORATE" },
+    { initialTotal: 120, initialRate: [5, 8], solventChange: 24, direction: "EVAPORATE" },
   ] as const;
 
 export interface MalCp004Wave04InitialFromEvaporationCase {
