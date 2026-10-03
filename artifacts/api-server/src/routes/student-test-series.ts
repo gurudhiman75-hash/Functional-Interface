@@ -300,7 +300,7 @@ router.get("/test-series", async (_req, res) => {
           NULLIF(version.configuration->>'learnerMessage', ''),
           CASE
             WHEN COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
-            THEN Tests are being prepared. No questions are available yet.
+            THEN ${DEFAULT_COMING_SOON_MESSAGE}
             ELSE ''
           END
         ) AS "learnerMessage",
