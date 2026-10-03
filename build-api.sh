@@ -40,6 +40,11 @@ else
   echo "[render-build] verify student exam preferences schema"
   pnpm --dir artifacts/api-server exec node ensure-student-exam-preferences.mjs
 
+  # Emit a read-only catalogue snapshot before any later migration lock can
+  # delay the build. This is non-blocking and contains no user/auth secrets.
+  echo "[render-build] audit production catalogue"
+  pnpm --dir artifacts/api-server exec node audit-catalogue.mjs
+
   # Current Affairs has a cumulative, explicitly ordered schema. Apply only its
   # checked-in migrations through a dedicated ledger, under an advisory lock,
   # before any runtime that can generate yesterday's packs is deployed.
