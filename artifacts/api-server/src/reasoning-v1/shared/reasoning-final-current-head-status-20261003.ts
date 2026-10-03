@@ -211,7 +211,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Statement-and-Conclusion",
       chapterIds: ["STC-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Statement-and-Conclusion/STC-001/STC-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md"],
+      closureAuthorities: ["topics/Statement-and-Conclusion/STC-001/STC-001-POST-CLOSURE-DEEP-AUDIT-20261003.md"],
       internalContentBlocker: false,
     },
     {
