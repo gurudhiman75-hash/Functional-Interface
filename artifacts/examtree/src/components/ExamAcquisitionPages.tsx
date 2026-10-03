@@ -64,6 +64,20 @@ function seriesSearchText(series: StudentSeriesSummary) {
   return (series.name + " " + series.description + " " + series.code).toLowerCase();
 }
 
+function seriesHubType(series: StudentSeriesSummary) {
+  const value = series.hubType;
+  return value === "pyq" || value === "sectional" || value === "topic-wise" || value === "full-length"
+    ? value
+    : isPyqText(seriesSearchText(series)) ? "pyq" : "full-length";
+}
+
+function seriesHubStage(series: StudentSeriesSummary) {
+  const value = series.hubStage;
+  return value === "prelims" || value === "mains" || value === "general"
+    ? value
+    : stageFromText(seriesSearchText(series));
+}
+
 function testSearchText(test: Test) {
   return (test.name + " " + (test.subcategoryName ?? "")).toLowerCase();
 }
@@ -195,22 +209,30 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
   const pyqTests = examTests.filter((test) => isPyqText(testSearchText(test)));
   const regularTests = examTests.filter((test) => !isPyqText(testSearchText(test)));
-  const pyqSeries = examSeries.filter((series) => isPyqText(seriesSearchText(series)));
-  const regularSeries = examSeries.filter((series) => !isPyqText(seriesSearchText(series)));
+  const pyqSeries = examSeries.filter((series) => seriesHubType(series) === "pyq");
+  const fullLengthSeries = examSeries.filter((series) => seriesHubType(series) === "full-length");
+  const sectionalSeries = examSeries.filter((series) => seriesHubType(series) === "sectional");
+  const topicSeries = examSeries.filter((series) => seriesHubType(series) === "topic-wise");
 
   const prelimsItems = [
-    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "prelims").map(seriesItem),
+    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "prelims").map(seriesItem),
     ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "prelims").map(testItem),
   ];
   const mainsItems = [
-    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "mains").map(seriesItem),
+    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "mains").map(seriesItem),
     ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "mains").map(testItem),
   ];
   const pyqItems = [...pyqSeries.map(seriesItem), ...pyqTests.map(testItem)];
-  const sectionalItems = regularTests.filter((test) => test.kind === "sectional").map(testItem);
-  const topicItems = regularTests.filter((test) => test.kind === "topic-wise").map(testItem);
+  const sectionalItems = [
+    ...sectionalSeries.map(seriesItem),
+    ...regularTests.filter((test) => test.kind === "sectional").map(testItem),
+  ];
+  const topicItems = [
+    ...topicSeries.map(seriesItem),
+    ...regularTests.filter((test) => test.kind === "topic-wise").map(testItem),
+  ];
   const fullLengthItems = [
-    ...regularSeries.filter((series) => stageFromText(seriesSearchText(series)) === "general").map(seriesItem),
+    ...fullLengthSeries.filter((series) => seriesHubStage(series) === "general").map(seriesItem),
     ...regularTests.filter((test) => test.kind === "full-length" && stageFromText(testSearchText(test)) === "general").map(testItem),
   ];
 
