@@ -120,6 +120,7 @@ async function loadSeriesMembers(seriesVersionId: string) {
       item.is_required AS "isRequired",
       item.configuration,
       t.public_code AS "publicCode",
+      test_branding.icon_url AS "iconUrl",
       CASE
         WHEN t.status = 'live'::test_status
          AND publication.published_at IS NOT NULL
@@ -138,6 +139,9 @@ async function loadSeriesMembers(seriesVersionId: string) {
       ), 0) AS "questionCount"
     FROM assessment.test_series_items item
     JOIN assessment.tests t ON t.id = item.test_id
+    LEFT JOIN platform.catalog_entity_branding test_branding
+      ON test_branding.entity_type = 'test'
+     AND test_branding.entity_id = t.id
     LEFT JOIN assessment.test_versions version ON version.id = t.published_version_id
     LEFT JOIN LATERAL (
       SELECT p.published_at, p.closes_at
@@ -361,6 +365,7 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       id: String(row.id),
       testId: String(row.testId),
       publicCode: String(row.publicCode ?? ""),
+      iconUrl: asString(row.iconUrl),
       sortOrder: Number(row.sortOrder),
       title: String(row.titleOverride || row.title || "Untitled test"),
       description: row.description == null ? null : String(row.description),
