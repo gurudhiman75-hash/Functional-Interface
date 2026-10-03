@@ -238,7 +238,7 @@ export const STC_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,
   questionBankWritable: false,
-  questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
+  questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode ?? undefined,
   questionBankAcceptanceAuthority: lifecycle.questionBankAcceptanceAuthority,
   testEligibility: lifecycle.testEligibility,
   testEligible: false,
