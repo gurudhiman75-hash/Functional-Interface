@@ -107,7 +107,7 @@ function groupContext(entry: ProbabilityTaskRegistryEntry): GroupContext {
     { subjectA: "cricket", subjectB: "football", groupNoun: "students", action: "play" },
     { subjectA: "Section A", subjectB: "Section B", groupNoun: "candidates", action: "cleared" },
   ];
-  return contexts[variant(entry, contexts.length)]!;
+  return contexts[seriesVariant(entry, 8, contexts.length)]!;
 }
 
 function groupAction(context: GroupContext, count: number, subject: string): string {
@@ -197,28 +197,65 @@ function renderEventGroupStem(entry: ProbabilityTaskRegistryEntry, parameters: G
   const mode = entry.solveMode;
   const total = numberValue(parameters, "total"), a = numberValue(parameters, "aCount"), b = numberValue(parameters, "bCount"), both = numberValue(parameters, "overlap");
   const context = groupContext(entry);
+  const singular = context.groupNoun.slice(0, -1);
   const aText = groupAction(context, a, context.subjectA);
   const bText = groupAction(context, b, context.subjectB);
+
   const bothText = context.action === "play"
-    ? `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "plays" : "play"} both games`
-    : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "meets" : "meet"} both conditions`;
+    ? `${both} ${context.groupNoun} play both ${context.subjectA} and ${context.subjectB}`
+    : context.action === "qualified in"
+      ? `${both} ${context.groupNoun} qualified in both ${context.subjectA} and ${context.subjectB}`
+      : context.action === "cleared"
+        ? `${both} ${context.groupNoun} cleared both ${context.subjectA} and ${context.subjectB}`
+        : `${both} ${context.groupNoun} passed both ${context.subjectA} and ${context.subjectB}`;
+
+  const atLeastOne = context.action === "play"
+    ? `plays at least one of the two games`
+    : context.action === "qualified in"
+      ? `qualified in at least one of the two sections`
+      : context.action === "cleared"
+        ? `cleared at least one of the two sections`
+        : `passed at least one of the two subjects`;
+
+  const bothTarget = context.action === "play"
+    ? `plays both games`
+    : context.action === "qualified in"
+      ? `qualified in both sections`
+      : context.action === "cleared"
+        ? `cleared both sections`
+        : `passed both subjects`;
+
+  const exactlyOne = context.action === "play"
+    ? `plays exactly one of the two games`
+    : context.action === "qualified in"
+      ? `qualified in exactly one of the two sections`
+      : context.action === "cleared"
+        ? `cleared exactly one of the two sections`
+        : `passed exactly one of the two subjects`;
+
+  const neither = context.action === "play"
+    ? `plays neither game`
+    : context.action === "qualified in"
+      ? `qualified in neither section`
+      : context.action === "cleared"
+        ? `cleared neither section`
+        : `passed neither subject`;
 
   if (mode === "findUnionProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets at least one condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${singular} ${atLeastOne}?`;
   }
   if (mode === "findIntersectionProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets both conditions?`;
+    return `In a group of ${total} ${context.groupNoun}, ${bothText}. What is the probability that a randomly selected ${singular} ${bothTarget}?`;
   }
   if (["findExactlyOneOfTwoEvents", "findMixedEventExpressionProbability"].includes(mode)) {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets exactly one condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${singular} ${exactlyOne}?`;
   }
   if (mode === "findNeitherEventProbability") {
-    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets neither condition?`;
+    return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${singular} ${neither}?`;
   }
   const union = a + b - both;
   return `For a group of ${total} ${context.groupNoun}, P(${context.subjectA}) = ${fraction(a, total)}, P(${context.subjectB}) = ${fraction(b, total)}, and P(${context.subjectA} or ${context.subjectB}) = ${fraction(union, total)}. Find P(${context.subjectA} and ${context.subjectB}).`;
 }
-
 export function remodelProbabilityStem(
   entry: ProbabilityTaskRegistryEntry,
   parameters: GeneratedParameters,
@@ -297,12 +334,22 @@ export function remodelProbabilityStem(
   ];
   if (eventModes.includes(mode)) return tidy(renderEventGroupStem(entry, parameters));
 
-  if (mode === "findMutuallyExclusiveUnion" && variant(entry, 2) === 1) {
-    return `A candidate can receive either Scholarship A or Scholarship B, but not both. If P(A) = ${fraction(numberValue(parameters, "aNumerator"), numberValue(parameters, "aDenominator", 1))} and P(B) = ${fraction(numberValue(parameters, "bNumerator"), numberValue(parameters, "bDenominator", 1))}, what is the probability that the candidate receives a scholarship?`;
+  if (mode === "findMutuallyExclusiveUnion") {
+    const pA = fraction(numberValue(parameters, "aNumerator"), numberValue(parameters, "aDenominator", 1));
+    const pB = fraction(numberValue(parameters, "bNumerator"), numberValue(parameters, "bDenominator", 1));
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `A candidate can receive Scholarship A or Scholarship B, but not both. If the probabilities are ${pA} and ${pB}, what is the probability that the candidate receives either scholarship?`;
+    if (form === 1) return `A customer chooses either Plan A or Plan B, and the two choices are mutually exclusive. If P(A) = ${pA} and P(B) = ${pB}, find the probability of choosing one of the two plans.`;
+    return `Two awards A and B cannot be received together. Their probabilities are ${pA} and ${pB}. Find the probability of receiving A or B.`;
   }
 
-  if (mode === "findIndependentIntersection" && variant(entry, 2) === 1) {
-    return `A machine independently passes a mechanical test with probability ${fraction(numberValue(parameters, "aNumerator"), numberValue(parameters, "aDenominator", 1))} and an electrical test with probability ${fraction(numberValue(parameters, "bNumerator"), numberValue(parameters, "bDenominator", 1))}. What is the probability that it passes both tests?`;
+  if (mode === "findIndependentIntersection") {
+    const pA = fraction(numberValue(parameters, "aNumerator"), numberValue(parameters, "aDenominator", 1));
+    const pB = fraction(numberValue(parameters, "bNumerator"), numberValue(parameters, "bDenominator", 1));
+    const form = seriesVariant(entry, 8, 3);
+    if (form === 0) return `A machine independently passes a mechanical test with probability ${pA} and an electrical test with probability ${pB}. What is the probability that it passes both tests?`;
+    if (form === 1) return `A candidate clears Section A with probability ${pA} and Section B with probability ${pB}. The two results are independent. Find the probability that the candidate clears both sections.`;
+    return `Two independent events A and B have probabilities ${pA} and ${pB}. What is the probability that both events occur?`;
   }
 
   return tidy(baseStem);

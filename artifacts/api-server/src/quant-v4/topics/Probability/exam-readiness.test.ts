@@ -82,9 +82,9 @@ const q118 = runPrb002Pipeline("PRB-CP-008", { questionLanguageId: "PRB-QL-708",
 const q127 = runPrb002Pipeline("PRB-CP-009", { questionLanguageId: "PRB-QL-802", seed: "editorial:PRB-QL-802" });
 assert(q115.explanation.lines.join(" ").includes("symmetry at the first post"), "Q115 must use the correct symmetry method");
 assert(/\d+P3/.test(q116.explanation.lines.join(" ")), "Q116 must expand the remaining-position permutation");
-assert(!q118.stem.includes("The probability that"), "Q118 must not reveal the answer through a supplied probability");
-assert(q118.explanation.lines.join(" ").includes("asks for a count"), "Q118 must distinguish count from probability");
-assert(q127.stem.includes("cricket") && q127.stem.includes("football"), "Q127 must name both games in the stem");
+assert(q118.stem.includes("probability") && q118.stem.includes("exactly 1 woman"), "Q118 must preserve the supplied reverse-probability premise");
+assert(q118.explanation.lines.join(" ").includes("Required probability") && q118.explanation.lines.join(" ").includes("Required committees"), "Q118 must recover the favourable committee count from the probability relation");
+assert(q127.stem.includes("Mathematics") && q127.stem.includes("English"), "Q127 must name both subjects in the stem");
 assert(mockPolicyOf(q115).effectiveDifficulty === "Medium", "Routine position symmetry must not be treated as genuine hard mock material");
 
 const challengeIds = new Set<string>();
