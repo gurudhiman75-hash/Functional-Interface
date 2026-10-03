@@ -105,6 +105,7 @@ export function legacyMobileTest(row: JsonRecord, sections: unknown[] = []) {
     marksPerQuestion: Math.max(0, numberValue(row.marksPerQuestion, 1)),
     negativeMarks: Math.max(0, numberValue(row.negativeMarks, 0)),
     languages: normalizeLanguages(row.languages, settings.languageCode),
+    iconUrl: text(row.iconUrl),
     maxAttempts: maxAttempts > 0 ? maxAttempts : 99,
   };
 }

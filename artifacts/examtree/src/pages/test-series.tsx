@@ -22,6 +22,7 @@ import {
   Trophy,
 } from "lucide-react";
 
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { getStudentTestSeriesDetail, type StudentSeriesMember } from "@/lib/test-series";
@@ -193,7 +194,7 @@ export default function TestSeriesPage() {
           <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-stretch lg:p-8">
             <div className="min-w-0">
               <div className="flex min-w-0 items-start gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#ded9fa] bg-white text-[#6657e8] shadow-[0_8px_24px_rgba(71,61,145,0.08)]"><Trophy className="h-8 w-8" /></div>
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#ded9fa] bg-white text-[#6657e8] shadow-[0_8px_24px_rgba(71,61,145,0.08)]">{series.iconUrl ? <CategoryIcon icon={series.iconUrl} className="h-10 w-10" /> : <Trophy className="h-8 w-8" />}</div>
                 <div className="min-w-0">
                   <p className="truncate text-[10px] font-black uppercase tracking-[0.18em] text-[#6657e8]">{series.examFamilyName} · {series.examName}</p>
                   <h1 className="mt-2 text-2xl font-bold tracking-[-0.035em] text-slate-950 sm:text-3xl lg:text-[34px]">{series.name}</h1>
@@ -282,6 +283,7 @@ export default function TestSeriesPage() {
               const catalogTest = catalogTestById.get(member.testId);
               return (
                 <article key={member.id} className={`rounded-2xl border bg-white p-5 shadow-[0_7px_24px_rgba(37,42,68,0.035)] transition ${member.unlocked ? "border-[#ddd8f7] hover:border-[#cfc7f5]" : "border-slate-200 opacity-90"}`}>
+                  {catalogTest?.iconUrl ? <div className="mb-3 flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border bg-white"><CategoryIcon icon={catalogTest.iconUrl} className="h-7 w-7" /></div> : null}
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div className="flex min-w-0 gap-4">
                       <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-black ${member.completed ? "bg-emerald-50 text-emerald-700" : member.unlocked ? "bg-[#eeeaff] text-[#6657e8]" : "bg-slate-100 text-slate-500"}`}>

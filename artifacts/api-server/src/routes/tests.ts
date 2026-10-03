@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import { evaluateTestAccess, resolveCanonicalStudentUserId } from "../lib/canonical-commerce-entitlements";
 import { cacheGet, cacheSet, TTL } from "../lib/cache";
+import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { sqlClient } from "../lib/db";
 import { legacyMobileQuestion, legacyMobileSection, legacyMobileTest } from "../lib/mobile-test-compat";
 import { authenticate } from "../middlewares/auth";
@@ -30,6 +31,7 @@ function intValue(value: unknown, fallback = 0): number {
 }
 
 async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound = false) {
+  await ensureCatalogBrandingSchema();
   const normalized = identifier?.trim() || null;
   const uuidIdentifier = normalized && isUuid(normalized) ? normalized : null;
 
@@ -43,6 +45,7 @@ async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound =
       tv.duration_seconds AS "durationSeconds",
       tv.total_marks::float8 AS "totalMarks",
       tv.settings,
+      branding.icon_url AS "iconUrl",
       ef.code AS "examFamilyCode",
       ef.name AS "examFamilyName",
       e.code AS "examCode",
@@ -87,6 +90,9 @@ async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound =
       publication."publishedAt"
     FROM assessment.tests t
     JOIN assessment.test_versions tv ON tv.id = t.published_version_id
+    LEFT JOIN platform.catalog_entity_branding branding
+      ON branding.entity_type = 'test'
+     AND branding.entity_id = t.id
     JOIN catalog.exam_versions ev ON ev.id = t.exam_version_id
     JOIN catalog.exams e ON e.id = ev.exam_id
     JOIN catalog.exam_families ef ON ef.id = e.family_id
@@ -185,6 +191,7 @@ router.get("/", async (_req, res) => {
 
 router.get("/my-tests", authenticate, async (req, res) => {
   try {
+    await ensureCatalogBrandingSchema();
     const canonicalUserId = await resolveCanonicalStudentUserId(req.user!.id);
     if (!canonicalUserId) return res.json({ purchasedTests: [] });
 
@@ -196,6 +203,7 @@ router.get("/my-tests", authenticate, async (req, res) => {
         tv.description,
         tv.duration_seconds AS "durationSeconds",
         tv.settings,
+        branding.icon_url AS "iconUrl",
         ef.code AS "examFamilyCode",
         ef.name AS "examFamilyName",
         e.code AS "examCode",
@@ -212,6 +220,9 @@ router.get("/my-tests", authenticate, async (req, res) => {
       JOIN commerce.entitlement_tests entitlement_test ON entitlement_test.entitlement_id = entitlement.id
       JOIN assessment.tests t ON t.id = entitlement_test.test_id
       JOIN assessment.test_versions tv ON tv.id = t.published_version_id
+      LEFT JOIN platform.catalog_entity_branding branding
+        ON branding.entity_type = 'test'
+       AND branding.entity_id = t.id
       JOIN catalog.exam_versions ev ON ev.id = t.exam_version_id
       JOIN catalog.exams e ON e.id = ev.exam_id
       JOIN catalog.exam_families ef ON ef.id = e.family_id

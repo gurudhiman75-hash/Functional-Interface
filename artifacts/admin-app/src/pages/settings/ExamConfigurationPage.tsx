@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FolderPlus, Pencil, Plus, RefreshCw, Settings2 } from 'lucide-react';
 
+import { CatalogBrandingEditor } from '@/components/shared/CatalogBrandingEditor';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { showToast } from '@/components/shared/toast';
@@ -148,6 +149,10 @@ export function ExamConfigurationPage() {
   const selectedExamRecord = useMemo(
     () => data?.exams.find((exam) => exam.id === selectedExam) ?? null,
     [data?.exams, selectedExam],
+  );
+  const selectedFamilyRecord = useMemo(
+    () => selectedExamRecord ? data?.families.find((family) => family.id === selectedExamRecord.familyId) ?? null : null,
+    [data?.families, selectedExamRecord],
   );
 
   const createFamily = async () => {
@@ -411,6 +416,28 @@ export function ExamConfigurationPage() {
           </CardContent>
         </Card>
       </div>
+
+      {selectedExamRecord && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Catalogue icons</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-4 lg:grid-cols-2">
+            {selectedFamilyRecord && (
+              <CatalogBrandingEditor
+                entityType="exam_family"
+                entityId={selectedFamilyRecord.id}
+                title={`${selectedFamilyRecord.name} category icon`}
+              />
+            )}
+            <CatalogBrandingEditor
+              entityType="exam"
+              entityId={selectedExamRecord.id}
+              title={`${selectedExamRecord.name} exam icon`}
+            />
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader><CardTitle className="text-base">Version history</CardTitle></CardHeader>
