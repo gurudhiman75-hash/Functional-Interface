@@ -151,9 +151,9 @@ function exceptionRules(base: readonly DmRuleCondition[], ageLimit: number, mark
       ]),
       outcome: "REFER_TO_MANAGER",
       explanation: text(
-        "The age limit is exceeded by no more than two years, the candidate has at least five years of relevant experience, and every other basic condition is met; the rules send the case to the Manager.",
-        "अभ्यर्थी की आयु निर्धारित सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और बाकी सभी मूल शर्तें पूरी हैं; नियमों के अनुसार मामला प्रबंधक को भेजा जाएगा।",
-        "ਉਮਰ ਦੀ ਹੱਦ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਪਾਰ ਹੈ, ਉਮੀਦਵਾਰ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਬਾਕੀ ਸਾਰੀਆਂ ਮੁੱਢਲੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ; ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "A candidate who is up to two years over the age limit and has at least five years of relevant experience must be referred to the Manager, provided all other conditions are met.",
+        "यदि अभ्यर्थी आयु-सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और वह बाकी सभी शर्तें पूरी करता है, तो मामला प्रबंधक को भेजा जाएगा।",
+        "ਜੇ ਉਮੀਦਵਾਰ ਦੀ ਉਮਰ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਦੋ ਸਾਲ ਤੱਕ ਵੱਧ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਉਹ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ ਹੈ, ਤਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
       ),
     }));
   }
@@ -217,9 +217,9 @@ function makeReferralRules(base: readonly DmRuleCondition[], policy: number, var
       ]),
       outcome: "REFER_TO_DIRECTOR",
       explanation: text(
-        "The applicant is no more than two years above the age limit and has at least five years of relevant experience while meeting the other requirements; the rules require the Director to decide the case.",
-        "आवेदक आयु-सीमा से अधिकतम दो वर्ष ऊपर है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और बाकी शर्तें पूरी हैं; नियमों के अनुसार मामला निदेशक के निर्णय के लिए भेजा जाएगा।",
-        "ਬਿਨੈਕਾਰ ਉਮਰ ਦੀ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਉੱਪਰ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਬਾਕੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ; ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਦੇ ਫੈਸਲੇ ਲਈ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "A candidate who is up to two years over the age limit and has at least five years of relevant experience must be referred to the Director, provided all other conditions are met.",
+        "यदि आवेदक आयु-सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और वह बाकी सभी शर्तें पूरी करता है, तो मामला निदेशक के निर्णय के लिए भेजा जाएगा।",
+        "ਜੇ ਬਿਨੈਕਾਰ ਦੀ ਉਮਰ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਦੋ ਸਾਲ ਤੱਕ ਵੱਧ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਉਹ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ ਹੈ, ਤਾਂ ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਦੇ ਫੈਸਲੇ ਲਈ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
       ),
     }));
   }
