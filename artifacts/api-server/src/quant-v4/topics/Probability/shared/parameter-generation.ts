@@ -10,6 +10,44 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP009_EVENT_STATE_LANES: Readonly<Record<string, Readonly<{ total: number; aCount: number; bCount: number; overlap: number }>>> = Object.freeze({
+  "PRB-QL-801": { total: 60, aCount: 24, bCount: 20, overlap: 8 },
+  "PRB-QL-809": { total: 70, aCount: 30, bCount: 26, overlap: 10 },
+  "PRB-QL-817": { total: 80, aCount: 34, bCount: 28, overlap: 12 },
+
+  "PRB-QL-802": { total: 64, aCount: 26, bCount: 22, overlap: 9 },
+  "PRB-QL-810": { total: 72, aCount: 31, bCount: 27, overlap: 11 },
+  "PRB-QL-818": { total: 84, aCount: 36, bCount: 30, overlap: 13 },
+
+  "PRB-QL-803": { total: 66, aCount: 28, bCount: 24, overlap: 7 },
+  "PRB-QL-811": { total: 75, aCount: 33, bCount: 29, overlap: 9 },
+  "PRB-QL-819": { total: 90, aCount: 38, bCount: 32, overlap: 14 },
+
+  "PRB-QL-804": { total: 68, aCount: 25, bCount: 23, overlap: 6 },
+  "PRB-QL-812": { total: 78, aCount: 32, bCount: 27, overlap: 8 },
+  "PRB-QL-820": { total: 88, aCount: 37, bCount: 31, overlap: 12 },
+
+  "PRB-QL-807": { total: 62, aCount: 23, bCount: 21, overlap: 5 },
+  "PRB-QL-815": { total: 74, aCount: 29, bCount: 25, overlap: 7 },
+  "PRB-QL-823": { total: 86, aCount: 35, bCount: 29, overlap: 11 },
+
+  "PRB-QL-808": { total: 65, aCount: 27, bCount: 22, overlap: 6 },
+  "PRB-QL-816": { total: 76, aCount: 31, bCount: 28, overlap: 9 },
+  "PRB-QL-824": { total: 92, aCount: 39, bCount: 33, overlap: 13 },
+});
+
+const CP009_MUTUALLY_EXCLUSIVE_LANES: Readonly<Record<string, Readonly<{ aNumerator: number; bNumerator: number; denominator: number }>>> = Object.freeze({
+  "PRB-QL-805": { aNumerator: 1, bNumerator: 2, denominator: 10 },
+  "PRB-QL-813": { aNumerator: 1, bNumerator: 3, denominator: 10 },
+  "PRB-QL-821": { aNumerator: 2, bNumerator: 3, denominator: 10 },
+});
+
+const CP009_INDEPENDENT_LANES: Readonly<Record<string, Readonly<{ aNumerator: number; aDenominator: number; bNumerator: number; bDenominator: number }>>> = Object.freeze({
+  "PRB-QL-806": { aNumerator: 1, aDenominator: 2, bNumerator: 1, bDenominator: 3 },
+  "PRB-QL-814": { aNumerator: 2, aDenominator: 3, bNumerator: 1, bDenominator: 4 },
+  "PRB-QL-822": { aNumerator: 3, aDenominator: 5, bNumerator: 2, bDenominator: 7 },
+});
+
 const CP008_COMMITTEE_STATE_LANES: Readonly<Record<string, Readonly<{ men: number; women: number; committeeSize: number; requiredWomen: number }>>> = Object.freeze({
   "PRB-QL-701": { men: 5, women: 8, committeeSize: 3, requiredWomen: 1 },
   "PRB-QL-709": { men: 6, women: 7, committeeSize: 3, requiredWomen: 1 },
@@ -407,9 +445,22 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
     return { minDigit: 1, maxDigit, symbolCount: maxDigit, length, property: "EVEN_LAST_DIGIT" };
   }
 
-  if (mode === "findIndependentIntersection") { const a = reducedFraction(random, 5, 9), b = reducedFraction(random, 5, 9); return { aNumerator: a.numerator, aDenominator: a.denominator, bNumerator: b.numerator, bDenominator: b.denominator, independent: true }; }
-  if (mode === "findMutuallyExclusiveUnion") { const denominator = 10; const a = randomInt(random, 1, 3), b = randomInt(random, 1, 3); return { aNumerator: a, aDenominator: denominator, bNumerator: b, bDenominator: denominator, intersectionNumerator: 0, intersectionDenominator: 1, mutuallyExclusive: true }; }
+  if (mode === "findIndependentIntersection") {
+    const lane = CP009_INDEPENDENT_LANES[entry.qlId];
+    if (lane) return { ...lane, independent: true };
+    const a = reducedFraction(random, 5, 9), b = reducedFraction(random, 5, 9);
+    return { aNumerator: a.numerator, aDenominator: a.denominator, bNumerator: b.numerator, bDenominator: b.denominator, independent: true };
+  }
+  if (mode === "findMutuallyExclusiveUnion") {
+    const lane = CP009_MUTUALLY_EXCLUSIVE_LANES[entry.qlId];
+    const denominator = lane?.denominator ?? 10;
+    const a = lane?.aNumerator ?? randomInt(random, 1, 3);
+    const b = lane?.bNumerator ?? randomInt(random, 1, 3);
+    return { aNumerator: a, aDenominator: denominator, bNumerator: b, bDenominator: denominator, intersectionNumerator: 0, intersectionDenominator: 1, mutuallyExclusive: true };
+  }
   if (["findUnionProbability", "findIntersectionProbability", "findExactlyOneOfTwoEvents", "findNeitherEventProbability", "findMissingIntersectionOrUnionProbability", "findMixedEventExpressionProbability"].includes(mode)) {
+    const lane = CP009_EVENT_STATE_LANES[entry.qlId];
+    if (lane) return { ...lane, independent: false, mutuallyExclusive: false };
     const total = randomInt(random, 50, 100), aCount = randomInt(random, 18, 38), bCount = randomInt(random, 18, 38);
     const minOverlap = Math.max(1, aCount + bCount - total), maxOverlap = Math.min(aCount, bCount, minOverlap + 10), overlap = randomInt(random, minOverlap, maxOverlap);
     return { total, aCount, bCount, overlap, independent: false, mutuallyExclusive: false };
