@@ -1,3 +1,4 @@
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
 import {
   generateProbabilityStandardQuestionStudioBatch,
   isProbabilityStandardQuestionStudioRequest,
@@ -78,6 +79,12 @@ export function listProbabilityStandardQuestionStudioPackages() {
     ...entry,
     runtimeMode: "ENGLISH_MOCK_READY",
     reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+    lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+    lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+    reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+    manualApprovalRequired: true,
+    questionBankAcceptanceMode: "FULL_RELEASE",
+    questionBankAcceptanceAuthority: "PRB-ENGLISH-MOCK-READY",
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE_WITH_FAMILY_LIMIT",
     publiclyPublishable: false,
