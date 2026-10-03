@@ -1,5 +1,7 @@
 import { apiRequest } from "@/lib/api";
 
+export type StudentSeriesLearnerVisibility = "hidden" | "coming_soon" | "live";
+
 export interface StudentSeriesSummary {
   id: string;
   code: string;
@@ -19,6 +21,8 @@ export interface StudentSeriesSummary {
   durationSeconds: number;
   questionCount: number;
   attemptCount: number;
+  learnerVisibility: StudentSeriesLearnerVisibility;
+  learnerMessage: string;
 }
 
 export interface StudentSeriesMember {
@@ -62,6 +66,8 @@ export interface StudentSeriesDetail {
     availabilityEndAt: string | null;
     progressionMode: "open" | "sequential" | "score_gated";
     completionThreshold: number | null;
+    learnerVisibility: StudentSeriesLearnerVisibility;
+    learnerMessage: string;
   };
   eligibility: {
     available: boolean;

@@ -39,6 +39,34 @@ test("normalizes an immutable score-gated series version", () => {
   assert.equal(result.items[0]?.minimumScore, 40);
 });
 
+
+test("allows a visible coming-soon series with zero tests", () => {
+  const input = validInput();
+  input.progressionMode = "open";
+  input.completionThreshold = null as unknown as number;
+  input.configuration = {
+    learnerVisibility: "coming_soon",
+    learnerMessage: "Questions are being prepared.",
+  };
+  input.items = [];
+  const result = normalizeTestSeriesInput(input);
+  assert.equal(result.items.length, 0);
+  assert.equal(result.configuration.learnerVisibility, "coming_soon");
+  assert.equal(result.configuration.learnerMessage, "Questions are being prepared.");
+});
+
+test("keeps live series strict when no tests are attached", () => {
+  const input = validInput();
+  input.progressionMode = "open";
+  input.completionThreshold = null as unknown as number;
+  input.configuration = { learnerVisibility: "live" };
+  input.items = [];
+  assert.throws(
+    () => normalizeTestSeriesInput(input),
+    (error: unknown) => error instanceof TestSeriesError && error.code === "TEST_SERIES_ITEMS_INVALID",
+  );
+});
+
 test("rejects duplicate test membership", () => {
   const input = validInput();
   input.items[1]!.testId = firstTestId;

@@ -38,6 +38,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import type {
   SeriesCatalog,
+  SeriesLearnerVisibility,
   SeriesProgressionMode,
   TestSeriesDetail,
   TestSeriesInput,
@@ -55,6 +56,8 @@ interface EditorDraft {
   code: string;
   name: string;
   description: string;
+  learnerVisibility: SeriesLearnerVisibility;
+  learnerMessage: string;
   availabilityStartAt: string;
   availabilityEndAt: string;
   progressionMode: SeriesProgressionMode;
@@ -97,6 +100,8 @@ function blankDraft(catalog: SeriesCatalog): EditorDraft {
     code: '',
     name: '',
     description: '',
+    learnerVisibility: 'coming_soon',
+    learnerMessage: 'Tests are being prepared. No questions are available yet.',
     availabilityStartAt: '',
     availabilityEndAt: '',
     progressionMode: 'open',
@@ -112,6 +117,13 @@ function detailDraft(detail: TestSeriesDetail): EditorDraft {
     code: detail.series.code,
     name: detail.series.name,
     description: detail.currentVersion?.description ?? '',
+    learnerVisibility: (() => {
+      const value = detail.currentVersion?.configuration?.learnerVisibility;
+      return value === 'hidden' || value === 'coming_soon' || value === 'live' ? value : 'live';
+    })(),
+    learnerMessage: typeof detail.currentVersion?.configuration?.learnerMessage === 'string'
+      ? detail.currentVersion.configuration.learnerMessage
+      : '',
     availabilityStartAt: localDateTime(detail.currentVersion?.availabilityStartAt),
     availabilityEndAt: localDateTime(detail.currentVersion?.availabilityEndAt),
     progressionMode: detail.currentVersion?.progressionMode ?? 'open',
@@ -255,6 +267,8 @@ export function TestSeriesWorkspacePage() {
       configuration: {
         orderedMembership: true,
         releasePolicySource: 'canonical_test_series_version',
+        learnerVisibility: draft.learnerVisibility,
+        learnerMessage: draft.learnerMessage.trim(),
       },
       changeReason: draft.changeReason,
       items: draft.items.map(({ clientId: _clientId, unlockAt, ...item }) => ({
@@ -287,7 +301,7 @@ export function TestSeriesWorkspacePage() {
     <div className="space-y-6">
       <PageHeader
         title="Test Series"
-        description="Canonical immutable series versions, ordered test membership, release windows and student progression policy."
+        description="Canonical immutable series versions with learner visibility controls. Create and expose Coming Soon series before questions exist; Live remains release-strict."
         actions={(
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => void workspace.refresh()} disabled={workspace.loading}>
@@ -337,7 +351,7 @@ export function TestSeriesWorkspacePage() {
                 onClick={() => { workspace.setSelectedId(entry.id); setMode('view'); }}
                 className={cn('w-full rounded-lg border p-3 text-left transition hover:bg-muted/50', workspace.selectedId === entry.id && 'border-primary bg-primary/5')}
               >
-                <div className="flex items-start justify-between gap-2"><div><p className="font-medium">{entry.name}</p><p className="text-xs text-muted-foreground">{entry.code} · v{entry.currentVersionNumber}</p></div><Badge variant={entry.readiness.ready ? 'default' : 'outline'}>{entry.readiness.ready ? 'Ready' : `${entry.readiness.blockers.length} blocker${entry.readiness.blockers.length === 1 ? '' : 's'}`}</Badge></div>
+                <div className="flex items-start justify-between gap-2"><div><p className="font-medium">{entry.name}</p><p className="text-xs text-muted-foreground">{entry.code} · v{entry.currentVersionNumber}</p></div><Badge variant={entry.learnerVisibility === 'live' && entry.readiness.ready ? 'default' : 'outline'}>{entry.learnerVisibility === 'coming_soon' ? 'Coming soon' : entry.learnerVisibility === 'hidden' ? 'Hidden' : entry.readiness.ready ? 'Ready' : `${entry.readiness.blockers.length} blocker${entry.readiness.blockers.length === 1 ? '' : 's'}`}</Badge></div>
                 <p className="mt-2 text-xs text-muted-foreground">{entry.examName} · {entry.itemCount} tests · {entry.progressionMode.replace('_', ' ')}</p>
               </button>
             ))}
@@ -404,13 +418,16 @@ function SeriesEditor(props: {
   const { draft, setDraft } = props;
   return (
     <Card>
-      <CardHeader><div className="flex items-center justify-between"><CardTitle>{props.mode === 'new' ? 'Create test series' : 'Create immutable series version'}</CardTitle><div className="flex gap-2"><Button variant="outline" onClick={props.onCancel}>Cancel</Button><Button onClick={props.onSave} disabled={props.saving}>{props.saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}Save</Button></div></div></CardHeader>
+      <CardHeader><div className="flex items-center justify-between"><CardTitle>{props.mode === 'new' ? 'Create test series' : 'Create immutable series version'}</CardTitle><div className="flex gap-2"><Button variant="outline" onClick={props.onCancel}>Cancel</Button><Button onClick={props.onSave} disabled={props.saving || (draft.learnerVisibility === 'live' && draft.items.length === 0)}>{props.saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}Save</Button></div></div></CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, items: current.examVersionId === value ? current.items : [] }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{props.catalog.examVersions.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.examFamilyName} · {exam.examName}</SelectItem>)}</SelectContent></Select></div>
           <div className="space-y-2"><Label>Series code</Label><Input value={draft.code} onChange={(event) => setDraft((current) => ({ ...current, code: event.target.value }))} placeholder="SSC-CGL-FULL-MOCKS" /></div>
           <div className="space-y-2 md:col-span-2"><Label>Series name</Label><Input value={draft.name} onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))} /></div>
           <div className="space-y-2 md:col-span-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
+          <div className="space-y-2"><Label>Learner visibility</Label><Select value={draft.learnerVisibility} onValueChange={(value) => setDraft((current) => ({ ...current, learnerVisibility: value as SeriesLearnerVisibility, learnerMessage: value === 'coming_soon' && !current.learnerMessage.trim() ? 'Tests are being prepared. No questions are available yet.' : current.learnerMessage }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="hidden">Hidden · admin only</SelectItem><SelectItem value="coming_soon">Coming Soon · visible without tests</SelectItem><SelectItem value="live">Live · tests required</SelectItem></SelectContent></Select></div>
+          <div className="space-y-2"><Label>Visibility meaning</Label><div className="min-h-10 rounded-md border bg-muted/30 px-3 py-2 text-sm text-muted-foreground">{draft.learnerVisibility === 'hidden' ? 'Not shown in web or app.' : draft.learnerVisibility === 'coming_soon' ? 'Shown in web and app. Learners can open the page, but cannot start a test.' : 'Shown as active. At least one canonical test is required.'}</div></div>
+          {draft.learnerVisibility === 'coming_soon' && <div className="space-y-2 md:col-span-2"><Label>Coming Soon message</Label><Textarea value={draft.learnerMessage} onChange={(event) => setDraft((current) => ({ ...current, learnerMessage: event.target.value }))} rows={2} maxLength={500} placeholder="Tests are being prepared. No questions are available yet." /></div>}
           <div className="space-y-2"><Label>Availability start</Label><Input type="datetime-local" value={draft.availabilityStartAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityStartAt: event.target.value }))} /></div>
           <div className="space-y-2"><Label>Availability end</Label><Input type="datetime-local" value={draft.availabilityEndAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityEndAt: event.target.value }))} /></div>
           <div className="space-y-2"><Label>Progression</Label><Select value={draft.progressionMode} onValueChange={(value) => setDraft((current) => ({ ...current, progressionMode: value as SeriesProgressionMode, completionThreshold: value === 'score_gated' ? current.completionThreshold ?? 40 : null }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="open">Open access</SelectItem><SelectItem value="sequential">Sequential completion</SelectItem><SelectItem value="score_gated">Score gated</SelectItem></SelectContent></Select></div>
@@ -428,7 +445,7 @@ function SeriesEditor(props: {
               <label className="mt-3 flex items-center gap-2 text-sm"><input type="checkbox" checked={item.isRequired} onChange={(event) => props.updateItem(item.clientId, { isRequired: event.target.checked })} />Required for series completion</label>
             </div>;
           })}
-          {draft.items.length === 0 && <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">Add at least one test. Only tests mapped to the selected exam version are available.</div>}
+          {draft.items.length === 0 && <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">{draft.learnerVisibility === 'live' ? 'Add at least one test before saving as Live. Only tests mapped to the selected exam version are available.' : draft.learnerVisibility === 'coming_soon' ? 'No test is required yet. This series will be visible in the app and web as Coming Soon and can be filled with tests later.' : 'No test is required while the series is hidden. You can add tests whenever the structure is ready.'}</div>}
         </div>
       </CardContent>
     </Card>
@@ -448,7 +465,7 @@ function SeriesDetail(props: {
   const { detail } = props;
   const archived = Boolean(detail.series.deletedAt);
   return <>
-    <Card><CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><div className="flex items-center gap-2"><CardTitle>{detail.series.name}</CardTitle><Badge variant={detail.readiness.ready ? 'default' : 'outline'}>{detail.readiness.ready ? 'Release ready' : 'Blocked'}</Badge>{archived && <Badge variant="secondary">Archived</Badge>}</div><p className="mt-1 text-sm text-muted-foreground">{detail.series.code} · {detail.series.examFamilyName} · {detail.series.examName} · version {detail.series.currentVersionNumber}</p></div><div className="flex gap-2">{props.canUpdate && !archived && <Button variant="outline" onClick={props.onEdit}><Settings2 className="mr-2 h-4 w-4" />Edit</Button>}<Button variant="outline" onClick={props.onNew}><Plus className="mr-2 h-4 w-4" />New</Button></div></div></CardHeader><CardContent className="grid gap-4 md:grid-cols-3"><div><p className="text-xs text-muted-foreground">Progression</p><p className="font-medium capitalize">{detail.currentVersion?.progressionMode.replace('_', ' ')}</p></div><div><p className="text-xs text-muted-foreground">Availability</p><p className="font-medium">{detail.currentVersion?.availabilityStartAt ? new Date(detail.currentVersion.availabilityStartAt).toLocaleString() : 'Open start'} → {detail.currentVersion?.availabilityEndAt ? new Date(detail.currentVersion.availabilityEndAt).toLocaleString() : 'No end'}</p></div><div><p className="text-xs text-muted-foreground">Ordered tests</p><p className="font-medium">{detail.items.length}</p></div><div className="md:col-span-3"><p className="text-xs text-muted-foreground">Description</p><p className="mt-1 text-sm">{detail.currentVersion?.description || 'No description.'}</p></div></CardContent></Card>
+    <Card><CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><div className="flex items-center gap-2"><CardTitle>{detail.series.name}</CardTitle><Badge variant={detail.currentVersion?.configuration?.learnerVisibility === 'live' && detail.readiness.ready ? 'default' : 'outline'}>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' ? 'Coming Soon' : detail.currentVersion?.configuration?.learnerVisibility === 'hidden' ? 'Hidden' : detail.readiness.ready ? 'Release ready' : 'Blocked'}</Badge>{archived && <Badge variant="secondary">Archived</Badge>}</div><p className="mt-1 text-sm text-muted-foreground">{detail.series.code} · {detail.series.examFamilyName} · {detail.series.examName} · version {detail.series.currentVersionNumber}</p></div><div className="flex gap-2">{props.canUpdate && !archived && <Button variant="outline" onClick={props.onEdit}><Settings2 className="mr-2 h-4 w-4" />Edit</Button>}<Button variant="outline" onClick={props.onNew}><Plus className="mr-2 h-4 w-4" />New</Button></div></div></CardHeader><CardContent className="grid gap-4 md:grid-cols-3"><div><p className="text-xs text-muted-foreground">Progression</p><p className="font-medium capitalize">{detail.currentVersion?.progressionMode.replace('_', ' ')}</p></div><div><p className="text-xs text-muted-foreground">Availability</p><p className="font-medium">{detail.currentVersion?.availabilityStartAt ? new Date(detail.currentVersion.availabilityStartAt).toLocaleString() : 'Open start'} → {detail.currentVersion?.availabilityEndAt ? new Date(detail.currentVersion.availabilityEndAt).toLocaleString() : 'No end'}</p></div><div><p className="text-xs text-muted-foreground">Ordered tests</p><p className="font-medium">{detail.items.length}</p></div><div className="md:col-span-3"><p className="text-xs text-muted-foreground">Description</p><p className="mt-1 text-sm">{detail.currentVersion?.description || 'No description.'}</p></div>{detail.currentVersion?.configuration?.learnerVisibility === 'coming_soon' && <div className="md:col-span-3"><p className="text-xs text-muted-foreground">Learner message</p><p className="mt-1 text-sm">{typeof detail.currentVersion.configuration.learnerMessage === 'string' && detail.currentVersion.configuration.learnerMessage.trim() ? detail.currentVersion.configuration.learnerMessage : 'Tests are being prepared. No questions are available yet.'}</p></div>}</CardContent></Card>
 
     <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><ShieldCheck className="h-5 w-5" />Release readiness</CardTitle></CardHeader><CardContent className="space-y-2">{detail.readiness.blockers.map((blocker) => <div key={blocker} className="flex items-center gap-2 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800"><XCircle className="h-4 w-4" />{blocker}</div>)}{detail.readiness.warnings.map((warning) => <div key={warning} className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800"><Clock3 className="h-4 w-4" />{warning}</div>)}{detail.readiness.ready && <div className="flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800"><CheckCircle2 className="h-4 w-4" />Every member test is QA approved or released, and the series window is valid.</div>}<Button asChild variant="outline" size="sm"><Link to="/tests/qa">Open Test QA</Link></Button></CardContent></Card>
 

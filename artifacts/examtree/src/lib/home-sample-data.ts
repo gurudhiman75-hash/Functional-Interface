@@ -127,6 +127,8 @@ export const SAMPLE_HOME_SERIES: StudentSeriesSummary[] = [
     durationSeconds: 201600,
     questionCount: 2800,
     attemptCount: 28740,
+    learnerVisibility: "live",
+    learnerMessage: "",
   },
   {
     id: "sample-series-ibps-po",
@@ -147,6 +149,8 @@ export const SAMPLE_HOME_SERIES: StudentSeriesSummary[] = [
     durationSeconds: 172800,
     questionCount: 2400,
     attemptCount: 23180,
+    learnerVisibility: "live",
+    learnerMessage: "",
   },
   {
     id: "sample-series-rrb-ntpc",
@@ -167,6 +171,8 @@ export const SAMPLE_HOME_SERIES: StudentSeriesSummary[] = [
     durationSeconds: 144000,
     questionCount: 2000,
     attemptCount: 19420,
+    learnerVisibility: "live",
+    learnerMessage: "",
   },
   {
     id: "sample-series-punjab-patwari",
@@ -187,6 +193,8 @@ export const SAMPLE_HOME_SERIES: StudentSeriesSummary[] = [
     durationSeconds: 129600,
     questionCount: 1800,
     attemptCount: 12860,
+    learnerVisibility: "live",
+    learnerMessage: "",
   },
 ];
 

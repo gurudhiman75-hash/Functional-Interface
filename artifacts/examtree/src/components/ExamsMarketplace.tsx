@@ -260,20 +260,23 @@ export default function ExamsMarketplace() {
         </section>
 
         <section className="min-w-0" data-testid="featured-series-section" aria-labelledby="featured-series-heading">
-          <div id="featured-series-heading"><SectionHeader eyebrow="Popular preparation paths" title="Featured Test Series" description="Structured series from the live catalogue, ordered by real attempt activity and available tests." trailing={<span className="rounded-full border border-[#e3dff8] bg-white px-3 py-1 text-xs font-black text-slate-500">{series.length} live series</span>} /></div>
+          <div id="featured-series-heading"><SectionHeader eyebrow="Popular preparation paths" title="Featured Test Series" description="Live and Coming Soon preparation paths from the canonical catalogue." trailing={<span className="rounded-full border border-[#e3dff8] bg-white px-3 py-1 text-xs font-black text-slate-500">{series.length} visible series</span>} /></div>
           {!sampleMode && seriesQuery.isError ? <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Featured series could not be loaded. <button className="ml-2 font-black underline" onClick={() => void seriesQuery.refetch()}>Retry</button></div> : null}
           {featuredSeries.length > 0 ? (
             <div className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {featuredSeries.map((seriesItem, index) => (
-                <article key={seriesItem.id} className={`min-w-0 overflow-hidden rounded-2xl border p-5 shadow-[0_8px_28px_rgba(37,42,68,0.045)] ${FEATURE_TONES[index % FEATURE_TONES.length]}`}>
-                  <div className="flex min-w-0 items-start justify-between gap-3"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${FEATURE_ICON_TONES[index % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} size="md" /></span><span className="shrink-0 rounded-full border border-white bg-white/80 px-2.5 py-1 text-[10px] font-black text-slate-600">{index === 0 && seriesItem.attemptCount > 0 ? "MOST ATTEMPTED" : "LIVE"}</span></div>
-                  <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.14em] text-[#6657e8]">{seriesItem.examName}</p><h3 className="mt-1.5 line-clamp-2 min-h-11 text-base font-bold leading-5 text-slate-950">{seriesItem.name}</h3>
-                  <div className="mt-4 flex min-w-0 flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-slate-500"><span>{formatCount(seriesItem.testCount)} tests</span><span>{formatCount(seriesItem.questionCount)} questions</span>{seriesItem.attemptCount > 0 ? <span className="inline-flex items-center gap-1"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</span> : null}</div>
-                  <Button className="mt-5 min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>View Series</Button>
-                </article>
-              ))}
+              {featuredSeries.map((seriesItem, index) => {
+                const comingSoon = seriesItem.learnerVisibility === "coming_soon";
+                return (
+                  <article key={seriesItem.id} className={`min-w-0 overflow-hidden rounded-2xl border p-5 shadow-[0_8px_28px_rgba(37,42,68,0.045)] ${FEATURE_TONES[index % FEATURE_TONES.length]}`}>
+                    <div className="flex min-w-0 items-start justify-between gap-3"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${FEATURE_ICON_TONES[index % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} size="md" /></span><span className="shrink-0 rounded-full border border-white bg-white/80 px-2.5 py-1 text-[10px] font-black text-slate-600">{comingSoon ? "COMING SOON" : index === 0 && seriesItem.attemptCount > 0 ? "MOST ATTEMPTED" : "LIVE"}</span></div>
+                    <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.14em] text-[#6657e8]">{seriesItem.examName}</p><h3 className="mt-1.5 line-clamp-2 min-h-11 text-base font-bold leading-5 text-slate-950">{seriesItem.name}</h3>
+                    {comingSoon ? <p className="mt-3 line-clamp-2 min-h-10 text-xs leading-5 text-slate-500">{seriesItem.learnerMessage || "Tests are being prepared. No questions are available yet."}</p> : <div className="mt-4 flex min-w-0 flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-slate-500"><span>{formatCount(seriesItem.testCount)} tests</span><span>{formatCount(seriesItem.questionCount)} questions</span>{seriesItem.attemptCount > 0 ? <span className="inline-flex items-center gap-1"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</span> : null}</div>}
+                    <Button className="mt-5 min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>{comingSoon ? "View details" : "View Series"}</Button>
+                  </article>
+                );
+              })}
             </div>
-          ) : <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">No canonical test series are live yet.</div>}
+          ) : <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">No learner-visible test series are available yet.</div>}
         </section>
 
         <section className="min-w-0" data-testid="full-length-series-section" aria-labelledby="full-length-series-heading">

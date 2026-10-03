@@ -6,6 +6,8 @@ import {
   TestSeriesError,
   normalizeTestSeriesInput,
   seriesReadiness,
+  testSeriesLearnerMessage,
+  testSeriesLearnerVisibility,
   type NormalizedTestSeriesInput,
 } from "../lib/admin-test-series";
 import { sqlClient } from "../lib/db";
@@ -47,6 +49,7 @@ async function assertReferences(client: SqlExecutor, input: NormalizedTestSeries
   }
 
   const testIds = input.items.map((item) => item.testId);
+  if (testIds.length === 0) return;
   const tests = await client`
     SELECT id::text AS id, exam_version_id::text AS "examVersionId", status::text AS status
     FROM assessment.tests
@@ -273,6 +276,7 @@ router.get("/", requireAdminPermission("tests.read"), async (_req, res) => {
         v.availability_end_at AS "availabilityEndAt",
         v.progression_mode AS "progressionMode",
         v.completion_threshold::float8 AS "completionThreshold",
+        v.configuration,
         COALESCE(stats.item_count, 0)::int AS "itemCount",
         COALESCE(stats.member_statuses, '{}') AS "memberStatuses"
       FROM assessment.test_series s
@@ -295,6 +299,8 @@ router.get("/", requireAdminPermission("tests.read"), async (_req, res) => {
     `;
     const series = rows.map((row) => ({
       ...row,
+      learnerVisibility: testSeriesLearnerVisibility(row.configuration),
+      learnerMessage: testSeriesLearnerMessage(row.configuration),
       readiness: seriesReadiness({
         deletedAt: row.deletedAt ? String(row.deletedAt) : null,
         itemCount: Number(row.itemCount),
