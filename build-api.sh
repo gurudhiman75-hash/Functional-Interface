@@ -40,6 +40,12 @@ else
   echo "[render-build] verify student exam preferences schema"
   pnpm --dir artifacts/api-server exec node ensure-student-exam-preferences.mjs
 
+  # Remove stale category/test-series references from Mobile Home before
+  # learners fetch the shared catalogue. This does not invent replacement data;
+  # an empty featured list falls back to the canonical live catalogue.
+  echo "[render-build] reconcile mobile home catalogue references"
+  pnpm --dir artifacts/api-server exec node reconcile-mobile-home-catalogue.mjs
+
   # Emit a read-only catalogue snapshot before any later migration lock can
   # delay the build. This is non-blocking and contains no user/auth secrets.
   echo "[render-build] audit production catalogue"
