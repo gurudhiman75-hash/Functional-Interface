@@ -1,0 +1,32 @@
+name: Validate Reasoning final current-head status
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-final-current-head-status-20261003.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-final-current-head-status-20261003.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-freeze-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/**"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-final-current-head-status-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-final-current-head-status-20261003.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-final-current-head-status-20261003.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-final-current-head-status-20261003.test.mjs
