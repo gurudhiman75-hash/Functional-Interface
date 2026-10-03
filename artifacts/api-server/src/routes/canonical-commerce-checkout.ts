@@ -1,8 +1,9 @@
-import { randomUUID } from "node:crypto";
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import { Router, type Response } from "express";
 import Razorpay from "razorpay";
 
 import { sqlClient } from "../lib/db";
+import { finalizeCapturedPayment } from "../lib/canonical-commerce-payments";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
@@ -228,6 +229,181 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
       discountMinor: Number(prepared.discountMinor), currency: String(prepared.currency).trim(), provider: "razorpay", providerOrderId: providerOrder.id, keyId,
     });
   } catch (error) { sendError(res, error); }
+});
+
+
+router.post("/commerce/orders/:orderId/confirm", authenticate, async (req, res) => {
+  const orderId = String(req.params.orderId ?? "").trim();
+  const providerPaymentId = String(req.body?.providerPaymentId ?? "").trim();
+  const providerSignature = String(req.body?.providerSignature ?? "").trim();
+  if (!uuid.test(orderId)) {
+    return void res.status(400).json({
+      error: "Invalid order identifier",
+      code: "INVALID_ORDER_ID",
+    });
+  }
+  if (!providerPaymentId || !providerSignature) {
+    return void res.status(400).json({
+      error: "Payment confirmation details are required",
+      code: "PAYMENT_CONFIRMATION_REQUIRED",
+    });
+  }
+
+  try {
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    if (!keyId || !keySecret) {
+      throw new CheckoutError(
+        "PAYMENT_PROVIDER_NOT_CONFIGURED",
+        "Online payments are not configured",
+        503,
+      );
+    }
+
+    const userId = await canonicalUserId(req.user!.id);
+    const rows = await sqlClient`
+      SELECT
+        o.id::text AS "orderId",
+        o.status AS "orderStatus",
+        o.total_minor::float8 AS "totalMinor",
+        o.currency,
+        pa.id::text AS "paymentAttemptId",
+        pa.provider_order_id AS "providerOrderId",
+        pa.provider_payment_id AS "providerPaymentId",
+        pa.status AS "paymentStatus"
+      FROM commerce.orders o
+      JOIN commerce.payment_attempts pa
+        ON pa.order_id = o.id
+       AND pa.provider = 'razorpay'
+      WHERE o.id = ${orderId}::uuid
+        AND o.user_id = ${userId}::uuid
+      ORDER BY pa.created_at DESC
+      LIMIT 1
+    `;
+    const row = rows[0];
+    if (!row) {
+      throw new CheckoutError(
+        "ORDER_NOT_FOUND",
+        "This order could not be found for your account",
+        404,
+      );
+    }
+
+    if (
+      String(row.orderStatus) === "paid" &&
+      String(row.paymentStatus) === "captured"
+    ) {
+      res.json({
+        ok: true,
+        orderId,
+        orderStatus: "paid",
+        paymentStatus: "captured",
+        alreadyFinalized: true,
+      });
+      return;
+    }
+
+    const providerOrderId = String(row.providerOrderId ?? "").trim();
+    if (!providerOrderId) {
+      throw new CheckoutError(
+        "PAYMENT_ORDER_NOT_READY",
+        "Payment order is not ready yet",
+        409,
+      );
+    }
+
+    const expectedSignature = createHmac("sha256", keySecret)
+      .update(`${providerOrderId}|${providerPaymentId}`)
+      .digest("hex");
+    const expected = Buffer.from(expectedSignature, "utf8");
+    const received = Buffer.from(providerSignature, "utf8");
+    if (
+      expected.length !== received.length ||
+      !timingSafeEqual(expected, received)
+    ) {
+      throw new CheckoutError(
+        "PAYMENT_SIGNATURE_INVALID",
+        "Payment confirmation could not be verified",
+        400,
+      );
+    }
+
+    const razorpay = new Razorpay({ key_id: keyId, key_secret: keySecret });
+    let payment = (await razorpay.payments.fetch(providerPaymentId)) as unknown as {
+      id?: string;
+      order_id?: string;
+      status?: string;
+      captured?: boolean;
+      amount?: number | string;
+      currency?: string;
+    };
+
+    if (String(payment.order_id ?? "") !== providerOrderId) {
+      throw new CheckoutError(
+        "PAYMENT_ORDER_MISMATCH",
+        "Payment does not match this order",
+        409,
+      );
+    }
+
+    const expectedAmount = Number(row.totalMinor);
+    const expectedCurrency = String(row.currency ?? "").trim().toUpperCase();
+    if (
+      Number(payment.amount) !== expectedAmount ||
+      String(payment.currency ?? "").trim().toUpperCase() !== expectedCurrency
+    ) {
+      throw new CheckoutError(
+        "PAYMENT_AMOUNT_MISMATCH",
+        "Payment amount does not match the order total",
+        409,
+      );
+    }
+
+    if (payment.captured !== true && String(payment.status) === "authorized") {
+      payment = (await razorpay.payments.capture(
+        providerPaymentId,
+        expectedAmount,
+        expectedCurrency,
+      )) as unknown as typeof payment;
+    }
+
+    if (
+      payment.captured !== true &&
+      String(payment.status).toLowerCase() !== "captured"
+    ) {
+      res.status(202).json({
+        ok: false,
+        orderId,
+        orderStatus: String(row.orderStatus),
+        paymentStatus: String(payment.status ?? "pending"),
+        pending: true,
+      });
+      return;
+    }
+
+    const finalized = await sqlClient.begin(async (tx) =>
+      finalizeCapturedPayment({
+        client: tx as typeof sqlClient,
+        provider: "razorpay",
+        providerOrderId,
+        providerPaymentId,
+        amountMinor: expectedAmount,
+        currency: expectedCurrency,
+        capturedAt: new Date().toISOString(),
+      }),
+    );
+
+    res.json({
+      ok: true,
+      orderId: finalized.orderId,
+      orderStatus: "paid",
+      paymentStatus: "captured",
+      entitlementIds: finalized.entitlementIds,
+      alreadyFinalized: finalized.alreadyFinalized,
+    });
+  } catch (error) {
+    sendError(res, error);
+  }
 });
 
 export default router;
