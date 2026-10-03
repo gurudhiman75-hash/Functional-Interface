@@ -79,7 +79,7 @@ export const SEA003_QL_AUTHORITIES = Object.freeze([
   readonly solveContract: string;
   readonly answerSemantic: string;
   readonly sourcePosture: string;
-}[];
+}[]);
 
 export const SEA003_CHECKPOINTS = Object.freeze([
   { id: "SEA-CP-011" as const, label: "Attribute-linked seating" },
