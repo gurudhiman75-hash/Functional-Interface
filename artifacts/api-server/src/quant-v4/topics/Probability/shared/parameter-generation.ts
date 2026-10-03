@@ -10,6 +10,15 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP002_COIN_STATE_LANES: Readonly<Record<string, Readonly<{ trials: number; k?: number }>>> = Object.freeze({
+  "PRB-QL-102": { trials: 2 }, "PRB-QL-109": { trials: 3 }, "PRB-QL-116": { trials: 4 },
+  "PRB-QL-103": { trials: 2 }, "PRB-QL-110": { trials: 3 }, "PRB-QL-117": { trials: 4 }, "PRB-QL-124": { trials: 5 },
+  "PRB-QL-104": { trials: 2 }, "PRB-QL-111": { trials: 3 }, "PRB-QL-118": { trials: 4 },
+  "PRB-QL-105": { trials: 3, k: 1 }, "PRB-QL-112": { trials: 4, k: 2 }, "PRB-QL-119": { trials: 5, k: 2 },
+  "PRB-QL-106": { trials: 3, k: 1 }, "PRB-QL-113": { trials: 4, k: 2 }, "PRB-QL-120": { trials: 5, k: 3 },
+  "PRB-QL-107": { trials: 2 }, "PRB-QL-114": { trials: 3 }, "PRB-QL-121": { trials: 4 },
+});
+
 function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, seed: string): GeneratedParameters {
   const random = seededRandom(`${seed}:${entry.qlId}:parameters`);
   const mode = entry.solveMode;
@@ -41,8 +50,21 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
 
   if (mode === "findComplementProbability") { const f = reducedFraction(random, 6, 14); return { givenNumerator: f.numerator, givenDenominator: f.denominator, eventLabel: pickRandom(random, ["a machine passes inspection", "a candidate qualifies", "a train arrives on time"] as const) }; }
   if (["findAtLeastOneUsingComplement", "findNoneProbability", "findExactlyOneSuccess", "findExactlyKSuccessSmallCase", "findAtMostKSuccessSmallCase", "findAllSuccessOrNotAll"].includes(mode)) {
-    const [min, max] = difficultyRange(entry, [2, 3], [3, 4], [4, 5]); const trials = randomInt(random, min, max);
-    const k = mode === "findExactlyKSuccessSmallCase" || mode === "findAtMostKSuccessSmallCase" ? randomInt(random, 1, Math.max(1, trials - 1)) : 1;
+    const lane = CP002_COIN_STATE_LANES[entry.qlId];
+    if (lane) {
+      return {
+        trials: lane.trials,
+        k: lane.k ?? 1,
+        successLabel: "head",
+        failureLabel: "tail",
+        fair: true,
+      };
+    }
+    const [min, max] = difficultyRange(entry, [2, 3], [3, 4], [4, 5]);
+    const trials = randomInt(random, min, max);
+    const k = mode === "findExactlyKSuccessSmallCase" || mode === "findAtMostKSuccessSmallCase"
+      ? randomInt(random, 1, Math.max(1, trials - 1))
+      : 1;
     return { trials, k, successLabel: "head", failureLabel: "tail", fair: true };
   }
 
