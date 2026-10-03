@@ -23,7 +23,7 @@ export interface StudentSeriesSummary {
   attemptCount: number;
   learnerVisibility: StudentSeriesLearnerVisibility;
   learnerMessage: string;
-  iconUrl: string;
+  iconUrl?: string;
 }
 
 export interface StudentSeriesMember {
@@ -69,7 +69,7 @@ export interface StudentSeriesDetail {
     completionThreshold: number | null;
     learnerVisibility: StudentSeriesLearnerVisibility;
     learnerMessage: string;
-    iconUrl: string;
+    iconUrl?: string;
   };
   eligibility: {
     available: boolean;
