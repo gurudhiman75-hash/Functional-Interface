@@ -42,7 +42,7 @@ assert.equal(SER_PERMANENT_QL_IDS_V4.length, 29);
 
 assert.deepEqual(
   reconciliation.knownStandaloneBlueprintFrontier,
-  ["REAS-GAM"],
+  ["SEA-003", "REAS-MAT", "REAS-GAM"],
 );
 
 console.log(JSON.stringify({
