@@ -275,6 +275,7 @@ function selectUniqueClues<W, C>(
 ): { clues: C[]; remaining: W[] } {
   const targetFp = fingerprint(target);
   let remaining = [...worlds];
+  void seed;
   // Candidate builders already order relation-rich clues before direct fixed placements.
   // Preserve that order so uniqueness is earned through reasoning rather than answer-leading anchors.
   const ordered = [...candidates];
