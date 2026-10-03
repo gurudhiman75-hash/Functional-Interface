@@ -74,7 +74,7 @@ export const STC_V22_QL001_TEMPLATES: readonly StcV22Template[] = [
       [T("the main auditorium", "मुख्य सभागार", "ਮੁੱਖ ਆਡੀਟੋਰੀਅਮ"), T("the conference hall", "सम्मेलन कक्ष", "ਕਾਨਫ਼ਰੰਸ ਹਾਲ"), T("the community hall", "सामुदायिक भवन", "ਕਮਿਊਨਿਟੀ ਹਾਲ"), T("the training auditorium", "प्रशिक्षण सभागार", "ਟ੍ਰੇਨਿੰਗ ਆਡੀਟੋਰੀਅਮ")],
       [T("the date has not yet been finalised", "तारीख अभी अंतिम नहीं हुई है", "ਤਾਰੀਖ ਹਾਲੇ ਅੰਤਿਮ ਨਹੀਂ ਹੋਈ"), T("the final date will be announced later", "अंतिम तारीख बाद में घोषित की जाएगी", "ਅੰਤਿਮ ਤਾਰੀਖ ਬਾਅਦ ਵਿੱਚ ਘੋਸ਼ਿਤ ਕੀਤੀ ਜਾਵੇਗੀ"), T("the date is still under consideration", "तारीख अभी विचाराधीन है", "ਤਾਰੀਖ ਹਾਲੇ ਵਿਚਾਰ ਅਧੀਨ ਹੈ"), T("the date still requires final approval", "तारीख को अभी अंतिम स्वीकृति चाहिए", "ਤਾਰੀਖ ਨੂੰ ਹਾਲੇ ਅੰਤਿਮ ਮਨਜ਼ੂਰੀ ਚਾਹੀਦੀ ਹੈ")],
     ],
-    statement: T("{a} said, “{b} will be held in {c}; {d}.”", "{a} ने कहा, “{b} का आयोजन {c} में किया जाएगा; {d}।”", "{a} ਨੇ ਕਿਹਾ, “{b} ਦਾ ਆਯੋਜਨ {c} ਵਿੱਚ ਕੀਤਾ ਜਾਵੇਗਾ; {d}।”"),
+    statement: T("{a} said, “{b} will be held in {c}; {d}.”", "{a} ने कहा, “{b} का आयोजन {c} में किया जाएगा; {d}।”", "{a} ਨੇ ਕਿਹਾ, “{b} ਦਾ {c} ਵਿੱਚ ਹੋਣਾ ਤੈਅ ਹੈ; {d}।”"),
     conclusions: [T("The venue for {b} has been decided.", "{b} का स्थान तय हो चुका है।", "{b} ਦਾ ਸਥਾਨ ਤੈਅ ਹੋ ਚੁੱਕਾ ਹੈ।"), T("{b} has been cancelled.", "{b} को रद्द किया गया है।", "{b} ਨੂੰ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ।")],
     explanation: [T("{a} identifies {c} as the venue.", "{a} ने {c} को स्थान बताया है।", "{a} ਨੇ {c} ਨੂੰ ਸਥਾਨ ਦੱਸਿਆ ਹੈ।"), T("No cancellation of {b} is stated.", "{b} के रद्द होने की कोई बात नहीं कही गई।", "{b} ਦੇ ਰੱਦ ਹੋਣ ਦੀ ਕੋਈ ਗੱਲ ਨਹੀਂ ਕਹੀ ਗਈ।")],
   },
