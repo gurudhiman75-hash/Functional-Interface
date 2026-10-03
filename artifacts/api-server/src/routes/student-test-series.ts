@@ -401,6 +401,10 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       hubStage: asString((series.configuration as Record<string, unknown> | undefined)?.hubStage) || "general",
       hubType: asString((series.configuration as Record<string, unknown> | undefined)?.hubType) || "full-length",
       examCycle: asString((series.configuration as Record<string, unknown> | undefined)?.examCycle),
+      hubSectionTitle: asString((series.configuration as Record<string, unknown> | undefined)?.hubSectionTitle),
+      hubSectionDescription: asString((series.configuration as Record<string, unknown> | undefined)?.hubSectionDescription),
+      hubSectionOrder: Number((series.configuration as Record<string, unknown> | undefined)?.hubSectionOrder ?? 100),
+      hubSeriesOrder: Number((series.configuration as Record<string, unknown> | undefined)?.hubSeriesOrder ?? 100),
       iconUrl: asString(series.iconUrl),
     },
     eligibility: {
@@ -465,6 +469,366 @@ router.get("/test-series", async (_req, res) => {
         COALESCE(NULLIF(version.configuration->>'hubStage', ''), 'general') AS "hubStage",
         COALESCE(NULLIF(version.configuration->>'hubType', ''), 'full-length') AS "hubType",
         NULLIF(version.configuration->>'examCycle', '') AS "examCycle",
+        NULLIF(version.configuration->>'hubSectionTitle', '') AS "hubSectionTitle",
+        NULLIF(version.configuration->>'hubSectionDescription', '') AS "hubSectionDescription",
+        CASE
+          WHEN COALESCE(version.configuration->>'hubSectionOrder', '') ~ '^[0-9]+
+        COALESCE(
+          NULLIF(version.configuration->>'learnerMessage', ''),
+          CASE
+            WHEN COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+            THEN ${DEFAULT_COMING_SOON_MESSAGE}
+            ELSE ''
+          END
+        ) AS "learnerMessage",
+        e.code AS "examCode",
+        e.name AS "examName",
+        ef.code AS "examFamilyCode",
+        ef.name AS "examFamilyName",
+        COUNT(item.id)::int AS "testCount",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        )::int AS "liveTestCount",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+            AND COALESCE(published.settings->>'testType', 'full_mock') <> 'sectional'
+        )::int AS "fullLengthTestCount",
+        COALESCE(SUM(published.duration_seconds) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "durationSeconds",
+        COALESCE(SUM(published.total_marks) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::float8 AS "totalMarks",
+        COALESCE(SUM((
+          SELECT COUNT(*)::int
+          FROM assessment.test_questions question
+          WHERE question.test_version_id = published.id
+        )) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "questionCount",
+        COALESCE((
+          SELECT COUNT(*)::int
+          FROM learning.attempts attempt
+          JOIN assessment.test_publications attempt_publication
+            ON attempt_publication.id = attempt.test_publication_id
+          JOIN assessment.test_series_items attempted_item
+            ON attempted_item.test_id = attempt_publication.test_id
+           AND attempted_item.series_version_id = version.id
+          WHERE attempt.status = 'evaluated'
+        ), 0)::int AS "attemptCount"
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions version
+        ON version.series_id = s.id
+       AND version.version_number = s.current_version_number
+      LEFT JOIN platform.catalog_entity_branding branding
+        ON branding.entity_type = 'test_series'
+       AND branding.entity_id = s.id
+      JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
+      JOIN catalog.exams e ON e.id = ev.exam_id
+      JOIN catalog.exam_families ef ON ef.id = e.family_id
+      LEFT JOIN assessment.test_series_items item ON item.series_version_id = version.id
+      LEFT JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
+      LEFT JOIN assessment.test_versions published ON published.id = test.published_version_id
+      LEFT JOIN LATERAL (
+        SELECT p.published_at, p.closes_at
+        FROM assessment.test_publications p
+        WHERE p.test_id = test.id
+          AND p.test_version_id = test.published_version_id
+          AND p.published_at IS NOT NULL
+        ORDER BY p.publication_number DESC
+        LIMIT 1
+      ) publication ON true
+      WHERE s.deleted_at IS NULL
+        AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+        AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
+      GROUP BY s.id, version.id, e.id, ef.id, branding.icon_url
+      HAVING
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+        OR (
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+          AND COUNT(item.id) FILTER (
+            WHERE test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ) > 0
+        )
+      ORDER BY "attemptCount" DESC, (version.availability_start_at > now()) DESC, s.updated_at DESC
+      LIMIT 200
+    `;
+    res.json({ series: rows, generatedAt: new Date().toISOString() });
+  } catch (error) {
+    console.error("Unable to list canonical test series", error);
+    res.status(500).json({ error: "Unable to load test series" });
+  }
+});
+
+router.get("/test-series/:id", async (req, res) => {
+  if (!(await authenticateStudent(req, res))) return;
+  try {
+    const detail = await buildSeriesDetail(asString(req.params.id), req.user!.id);
+    if (!detail) {
+      res.status(404).json({ error: "Test series not found", code: "TEST_SERIES_NOT_FOUND" });
+      return;
+    }
+    res.json(detail);
+  } catch (error) {
+    console.error("Unable to load student test series", error);
+    res.status(500).json({ error: "Unable to load test series" });
+  }
+});
+
+async function enforceSeriesAccess(req: Request, res: Response, next: NextFunction, identifier: string, seriesId: string) {
+  try {
+    const testId = await resolveTestIdentifier(identifier);
+    if (!testId) return next();
+    const bindings = await findBoundSeries(testId);
+    if (bindings.length === 0) return next();
+    if (!seriesId) {
+      res.status(403).json({
+        error: "Open this test from its test series.",
+        code: "SERIES_CONTEXT_REQUIRED",
+        series: bindings.map((row) => ({ id: String(row.id), code: String(row.code), name: String(row.name) })),
+      });
+      return;
+    }
+    const selected = bindings.find((row) => String(row.id) === seriesId || String(row.code).toLowerCase() === seriesId.toLowerCase());
+    if (!selected) {
+      res.status(403).json({ error: "This test does not belong to the selected series", code: "SERIES_CONTEXT_INVALID" });
+      return;
+    }
+    if (!(await authenticateStudent(req, res))) return;
+    const detail = await buildSeriesDetail(String(selected.id), req.user!.id);
+    if (!detail) {
+      res.status(404).json({ error: "Test series not found", code: "TEST_SERIES_NOT_FOUND" });
+      return;
+    }
+    assertSeriesTestAccess(detail.eligibility as StudentSeriesEligibility, testId);
+    await requireTestAccess({
+      firebaseUid: req.user!.id,
+      testId,
+    });
+    return next();
+  } catch (error) {
+    const typed = error as { message?: string; code?: string; statusCode?: number };
+    res.status(typed.statusCode ?? 500).json({
+      error: typed.message ?? "Unable to verify series access",
+      code: typed.code ?? "SERIES_ACCESS_CHECK_FAILED",
+    });
+  }
+}
+
+router.post("/attempt-sessions", async (req, res, next) => {
+  const identifier = asString(req.body?.testId);
+  const seriesId = asString(req.body?.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+router.get("/tests/:id", async (req, res, next) => {
+  const identifier = asString(req.params.id);
+  const seriesId = asString(req.query.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+router.post("/attempts", async (req, res, next) => {
+  const identifier = asString(req.body?.testId);
+  const seriesId = asString(req.body?.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+export default router;
+
+          THEN (version.configuration->>'hubSectionOrder')::int
+          ELSE 100
+        END AS "hubSectionOrder",
+        CASE
+          WHEN COALESCE(version.configuration->>'hubSeriesOrder', '') ~ '^[0-9]+
+        COALESCE(
+          NULLIF(version.configuration->>'learnerMessage', ''),
+          CASE
+            WHEN COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+            THEN ${DEFAULT_COMING_SOON_MESSAGE}
+            ELSE ''
+          END
+        ) AS "learnerMessage",
+        e.code AS "examCode",
+        e.name AS "examName",
+        ef.code AS "examFamilyCode",
+        ef.name AS "examFamilyName",
+        COUNT(item.id)::int AS "testCount",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        )::int AS "liveTestCount",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+            AND COALESCE(published.settings->>'testType', 'full_mock') <> 'sectional'
+        )::int AS "fullLengthTestCount",
+        COALESCE(SUM(published.duration_seconds) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "durationSeconds",
+        COALESCE(SUM(published.total_marks) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::float8 AS "totalMarks",
+        COALESCE(SUM((
+          SELECT COUNT(*)::int
+          FROM assessment.test_questions question
+          WHERE question.test_version_id = published.id
+        )) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "questionCount",
+        COALESCE((
+          SELECT COUNT(*)::int
+          FROM learning.attempts attempt
+          JOIN assessment.test_publications attempt_publication
+            ON attempt_publication.id = attempt.test_publication_id
+          JOIN assessment.test_series_items attempted_item
+            ON attempted_item.test_id = attempt_publication.test_id
+           AND attempted_item.series_version_id = version.id
+          WHERE attempt.status = 'evaluated'
+        ), 0)::int AS "attemptCount"
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions version
+        ON version.series_id = s.id
+       AND version.version_number = s.current_version_number
+      LEFT JOIN platform.catalog_entity_branding branding
+        ON branding.entity_type = 'test_series'
+       AND branding.entity_id = s.id
+      JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
+      JOIN catalog.exams e ON e.id = ev.exam_id
+      JOIN catalog.exam_families ef ON ef.id = e.family_id
+      LEFT JOIN assessment.test_series_items item ON item.series_version_id = version.id
+      LEFT JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
+      LEFT JOIN assessment.test_versions published ON published.id = test.published_version_id
+      LEFT JOIN LATERAL (
+        SELECT p.published_at, p.closes_at
+        FROM assessment.test_publications p
+        WHERE p.test_id = test.id
+          AND p.test_version_id = test.published_version_id
+          AND p.published_at IS NOT NULL
+        ORDER BY p.publication_number DESC
+        LIMIT 1
+      ) publication ON true
+      WHERE s.deleted_at IS NULL
+        AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
+        AND COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') <> 'hidden'
+      GROUP BY s.id, version.id, e.id, ef.id, branding.icon_url
+      HAVING
+        COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'coming_soon'
+        OR (
+          COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') = 'live'
+          AND COUNT(item.id) FILTER (
+            WHERE test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ) > 0
+        )
+      ORDER BY "attemptCount" DESC, (version.availability_start_at > now()) DESC, s.updated_at DESC
+      LIMIT 200
+    `;
+    res.json({ series: rows, generatedAt: new Date().toISOString() });
+  } catch (error) {
+    console.error("Unable to list canonical test series", error);
+    res.status(500).json({ error: "Unable to load test series" });
+  }
+});
+
+router.get("/test-series/:id", async (req, res) => {
+  if (!(await authenticateStudent(req, res))) return;
+  try {
+    const detail = await buildSeriesDetail(asString(req.params.id), req.user!.id);
+    if (!detail) {
+      res.status(404).json({ error: "Test series not found", code: "TEST_SERIES_NOT_FOUND" });
+      return;
+    }
+    res.json(detail);
+  } catch (error) {
+    console.error("Unable to load student test series", error);
+    res.status(500).json({ error: "Unable to load test series" });
+  }
+});
+
+async function enforceSeriesAccess(req: Request, res: Response, next: NextFunction, identifier: string, seriesId: string) {
+  try {
+    const testId = await resolveTestIdentifier(identifier);
+    if (!testId) return next();
+    const bindings = await findBoundSeries(testId);
+    if (bindings.length === 0) return next();
+    if (!seriesId) {
+      res.status(403).json({
+        error: "Open this test from its test series.",
+        code: "SERIES_CONTEXT_REQUIRED",
+        series: bindings.map((row) => ({ id: String(row.id), code: String(row.code), name: String(row.name) })),
+      });
+      return;
+    }
+    const selected = bindings.find((row) => String(row.id) === seriesId || String(row.code).toLowerCase() === seriesId.toLowerCase());
+    if (!selected) {
+      res.status(403).json({ error: "This test does not belong to the selected series", code: "SERIES_CONTEXT_INVALID" });
+      return;
+    }
+    if (!(await authenticateStudent(req, res))) return;
+    const detail = await buildSeriesDetail(String(selected.id), req.user!.id);
+    if (!detail) {
+      res.status(404).json({ error: "Test series not found", code: "TEST_SERIES_NOT_FOUND" });
+      return;
+    }
+    assertSeriesTestAccess(detail.eligibility as StudentSeriesEligibility, testId);
+    await requireTestAccess({
+      firebaseUid: req.user!.id,
+      testId,
+    });
+    return next();
+  } catch (error) {
+    const typed = error as { message?: string; code?: string; statusCode?: number };
+    res.status(typed.statusCode ?? 500).json({
+      error: typed.message ?? "Unable to verify series access",
+      code: typed.code ?? "SERIES_ACCESS_CHECK_FAILED",
+    });
+  }
+}
+
+router.post("/attempt-sessions", async (req, res, next) => {
+  const identifier = asString(req.body?.testId);
+  const seriesId = asString(req.body?.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+router.get("/tests/:id", async (req, res, next) => {
+  const identifier = asString(req.params.id);
+  const seriesId = asString(req.query.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+router.post("/attempts", async (req, res, next) => {
+  const identifier = asString(req.body?.testId);
+  const seriesId = asString(req.body?.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
+export default router;
+
+          THEN (version.configuration->>'hubSeriesOrder')::int
+          ELSE 100
+        END AS "hubSeriesOrder",
         COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility",
         COALESCE(
           NULLIF(version.configuration->>'learnerMessage', ''),
