@@ -1,4 +1,8 @@
 export type TestSeriesProgressionMode = "open" | "sequential" | "score_gated";
+export type TestSeriesLearnerVisibility = "hidden" | "coming_soon" | "live";
+
+export const DEFAULT_TEST_SERIES_LEARNER_MESSAGE =
+  "Tests are being prepared. No questions are available yet.";
 
 export interface NormalizedTestSeriesItemInput {
   testId: string;
@@ -83,6 +87,25 @@ function score(value: unknown, code: string, label: string): number | null {
   return Math.round(result * 100) / 100;
 }
 
+export function testSeriesLearnerVisibility(value: unknown): TestSeriesLearnerVisibility {
+  const configuration = asRecord(value);
+  const raw = asString(configuration.learnerVisibility).toLowerCase();
+  if (!raw) return "live";
+  if (!["hidden", "coming_soon", "live"].includes(raw)) {
+    throw new TestSeriesError(
+      "TEST_SERIES_VISIBILITY_INVALID",
+      "Learner visibility must be hidden, coming soon or live",
+    );
+  }
+  return raw as TestSeriesLearnerVisibility;
+}
+
+export function testSeriesLearnerMessage(value: unknown): string {
+  const configuration = asRecord(value);
+  const message = asString(configuration.learnerMessage);
+  return message.slice(0, 500);
+}
+
 function normalizeCode(value: unknown): string {
   const code = asString(value).toUpperCase().replace(/[^A-Z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
   if (code.length < 3 || code.length > 120) {
@@ -138,9 +161,17 @@ export function normalizeTestSeriesInput(value: unknown): NormalizedTestSeriesIn
     throw new TestSeriesError("TEST_SERIES_WINDOW_INVALID", "Availability end must be after availability start");
   }
 
+  const configuration = asRecord(input.configuration);
+  const learnerVisibility = testSeriesLearnerVisibility(configuration);
+  const learnerMessage = testSeriesLearnerMessage(configuration);
   const rawItems = Array.isArray(input.items) ? input.items : [];
-  if (rawItems.length < 1 || rawItems.length > 200) {
-    throw new TestSeriesError("TEST_SERIES_ITEMS_INVALID", "A series must contain between 1 and 200 tests");
+  if (rawItems.length > 200 || (learnerVisibility === "live" && rawItems.length < 1)) {
+    throw new TestSeriesError(
+      "TEST_SERIES_ITEMS_INVALID",
+      learnerVisibility === "live"
+        ? "A live series must contain between 1 and 200 tests"
+        : "A hidden or coming-soon series may contain 0 to 200 tests",
+    );
   }
   const seen = new Set<string>();
   const items = rawItems.map((rawItem, index): NormalizedTestSeriesItemInput => {
@@ -183,7 +214,13 @@ export function normalizeTestSeriesInput(value: unknown): NormalizedTestSeriesIn
     availabilityEndAt,
     progressionMode,
     completionThreshold: progressionMode === "score_gated" ? completionThreshold : null,
-    configuration: asRecord(input.configuration),
+    configuration: {
+      ...configuration,
+      learnerVisibility,
+      learnerMessage: learnerMessage || (
+        learnerVisibility === "coming_soon" ? DEFAULT_TEST_SERIES_LEARNER_MESSAGE : ""
+      ),
+    },
     changeReason,
     items,
   };
