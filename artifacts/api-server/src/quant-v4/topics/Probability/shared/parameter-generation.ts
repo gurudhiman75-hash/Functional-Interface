@@ -86,10 +86,10 @@ const CP008_POSITION_STATE_LANES: Readonly<Record<string, Readonly<{ men: number
   "PRB-QL-721": { men: 9, women: 6, positions: 4 },
 });
 
-const CP008_NUMBER_FORMATION_LANES: Readonly<Record<string, Readonly<{ maxDigit: number; length: number }>>> = Object.freeze({
-  "PRB-QL-706": { maxDigit: 6, length: 4 },
-  "PRB-QL-714": { maxDigit: 7, length: 4 },
-  "PRB-QL-722": { maxDigit: 9, length: 4 },
+const CP008_NUMBER_FORMATION_LANES: Readonly<Record<string, Readonly<{ minDigit: number; maxDigit: number; length: number }>>> = Object.freeze({
+  "PRB-QL-706": { minDigit: 1, maxDigit: 6, length: 4 },
+  "PRB-QL-714": { minDigit: 2, maxDigit: 8, length: 4 },
+  "PRB-QL-722": { minDigit: 3, maxDigit: 9, length: 4 },
 });
 
 type Cp007ConditionalContext = "STUDENT_SUBJECTS" | "CANDIDATE_STAGES" | "COMMITTEE_MEMBERS";
@@ -465,7 +465,7 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
   if (mode === "findNumberFormationProbability") {
     const lane = CP008_NUMBER_FORMATION_LANES[entry.qlId];
-    if (lane) return { minDigit: 1, maxDigit: lane.maxDigit, symbolCount: lane.maxDigit, length: lane.length, property: "EVEN_LAST_DIGIT" };
+    if (lane) return { minDigit: lane.minDigit, maxDigit: lane.maxDigit, symbolCount: lane.maxDigit - lane.minDigit + 1, length: lane.length, property: "EVEN_LAST_DIGIT" };
     const maxDigit = randomInt(random, 5, 9), length = entry.difficulty === "Hard" ? 4 : 3;
     return { minDigit: 1, maxDigit, symbolCount: maxDigit, length, property: "EVEN_LAST_DIGIT" };
   }
