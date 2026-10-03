@@ -33,7 +33,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Coverage Planner', path: '/content/coverage', icon: Target, status: 'live', permission: 'content.taxonomy.read', summary: 'Plan exam-version targets and measure canonical Question Bank readiness across the taxonomy hierarchy.' },
     { label: 'Sections & Topics', path: '/content/taxonomy', icon: Network, status: 'live', permission: 'content.taxonomy.read', summary: 'Manage canonical taxonomy nodes, parent edges, exam-version mappings and activation state.' },
     { label: 'DI & Passage Sets', path: '/content/sets', icon: Layers, status: 'planned', summary: 'Create shared passages, data sets and grouped questions with reusable source material.', milestone: 'Passage/set schema, media references and grouped-question delivery.' },
-    { label: 'Media Library', path: '/content/media', icon: ImageIcon, status: 'planned', summary: 'Upload, validate and reuse diagrams, charts, tables and question media.', milestone: 'Canonical object storage, transformations and usage tracking.' },
+    { label: 'Media Library', path: '/content/media', icon: ImageIcon, status: 'live', permission: 'content.taxonomy.read', summary: 'Upload, import from Firebase Storage, validate and reuse canonical image assets across exams, tests, mobile promotions, notifications and learning content.', milestone: 'Firebase-backed canonical media indexing and reuse.' },
   ] },
   { id: 'tests', label: 'Tests', items: [
     { label: 'Tests', path: '/tests', icon: FileText, status: 'live', summary: 'Canonical test inventory, lifecycle and publication workspace.' },
