@@ -3,6 +3,11 @@ import { STC_V22_TEMPLATES_BY_QL } from "./editorial-v2-2-templates.ts";
 import { reverseStcV2AnswerClass } from "./editorial-v2-scheduler.ts";
 import type { StcLocale, StcQlId } from "./types.ts";
 import type { StcV2AnswerClass } from "./editorial-v2-types.ts";
+import {
+  STC_V22_INDEPENDENT_PROOF_AUTHORITY,
+  getStcV22IndependentProof,
+  stcV22IndependentAnswerClass,
+} from "./editorial-v2-2-independent-proof.ts";
 
 export const STC_V22_SEMANTIC_SURFACE_CAPACITY_PER_QL = 2048 as const;
 export const STC_V22_TEMPLATE_COUNT_PER_QL = 8 as const;
@@ -105,7 +110,13 @@ export function generateStcV22Question(input: {
   const schedule = scheduleStcV22Surface(input);
   const template = templates[schedule.templateIndex]!;
   const rendered = renderStcV22Template(template, input.locale, schedule.variantIndex);
-  const answerClass = schedule.reverseConclusions ? reverseStcV2AnswerClass(rendered.answerClass) : rendered.answerClass;
+  const proof = getStcV22IndependentProof(template.id);
+  if (proof.answerClass !== rendered.answerClass) {
+    throw new Error(
+      `${template.id}: rendered answerClass ${rendered.answerClass} disagrees with independent proof ${proof.answerClass}`,
+    );
+  }
+  const answerClass = stcV22IndependentAnswerClass(template, schedule.reverseConclusions);
   const conclusions = schedule.reverseConclusions
     ? [rendered.conclusions[1], rendered.conclusions[0]] as const
     : rendered.conclusions;
@@ -149,6 +160,9 @@ export function generateStcV22Question(input: {
       trilingualTemplateParity: true as const,
       antiGamingScheduler: "STC_V2_2_BIJECTIVE_2048_SURFACE" as const,
       semanticSurfaceCapacityPerQl: STC_V22_SEMANTIC_SURFACE_CAPACITY_PER_QL,
+      independentProofVerified: true as const,
+      independentProofAuthority: STC_V22_INDEPENDENT_PROOF_AUTHORITY,
+      independentProofMechanism: proof.mechanism,
       saturationReady: true as const,
       reviewOnly: true as const,
       questionBankWritable: false as const,
