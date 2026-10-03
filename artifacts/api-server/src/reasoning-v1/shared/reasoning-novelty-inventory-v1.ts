@@ -265,13 +265,13 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     chapterId: 'SER-001',
     status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'SER-001 retains 13 permanent QLs plus 16 genuinely new source-backed CP008/CP009 promotion candidates.',
-      'Those 16 candidates remain source-backed promotion work and are not reclassified as CONTROLLED_NOVEL.',
-      'Merged variants and rejected ownership cases remain exactly as frozen by the final Series audit.',
-      'reasoning-novelty-final-pending-closures-20261002.md records the batch closure.',
+      'SER-CP-010 permanently allocated all 16 retained source-backed CP008/CP009 families as inactive SER-QL-014..029.',
+      'SER-001 now owns a contiguous permanent registry SER-QL-001..029; SER-QL-030 is the next available identity.',
+      'Anti-inflation merges and rejected ownership cases remain exactly as frozen by the final Series audit.',
+      'The promoted QLs remain inactive: Question Studio discovery, Question Bank writes, tests, mocks and public publication stay closed until a separate activation checkpoint.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Run the separate source-backed promotion checkpoint for the 16 retained CP008/CP009 candidates; re-open novelty only for a distinct non-source-backed governed contract.',
+    nextGate: 'Source-backed promotion is complete. Re-open only for an explicit activation checkpoint or for a distinct non-source-backed governed novelty contract.',
   },
   {
     topicDirectory: 'Statement-and-Arguments',
