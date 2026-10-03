@@ -140,6 +140,33 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
 }
 assert.equal(generated, 174);
 
+let diversityQuestions = 0;
+for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
+  const stems = new Set<string>();
+  const correctPositions = new Set<number>();
+  const sourceCandidates = new Set<string>();
+  const answerKeys = new Set<string>();
+  for (let seedIndex = 0; seedIndex < 12; seedIndex += 1) {
+    const result = await generateSriQuestionStudioBatchV1({
+      packageId: allocation.packageId,
+      questionLanguageId: allocation.qlId,
+      language: "en",
+      seed: `sri-active-diversity:${allocation.qlId}:${seedIndex}`,
+      count: 1,
+    });
+    const question = result.questions[0]!;
+    stems.add(question.stem.trim().replace(/\s+/gu, " "));
+    correctPositions.add(question.correctIndex);
+    sourceCandidates.add(String(question.traceability.sourceCandidateId));
+    answerKeys.add(String(question.canonicalAnswer.key));
+    diversityQuestions += 1;
+  }
+  assert.ok(stems.size >= 3, `${allocation.qlId}: active runtime collapsed below three stem surfaces across 12 seeds`);
+  assert.ok(correctPositions.size >= 3, `${allocation.qlId}: correct-option positions are too concentrated across 12 active seeds`);
+  assert.ok(sourceCandidates.size >= 1, `${allocation.qlId}: no active source candidate provenance`);
+  assert.ok(answerKeys.size >= 1, `${allocation.qlId}: no canonical answer diversity evidence`);
+}
+
 for (const language of SRI_QUESTION_STUDIO_LANGUAGES_V1) {
   const request = {
     questionLanguageId: "SRI-002-QL-029" as SriPermanentQlId,
@@ -191,6 +218,7 @@ console.log(JSON.stringify({
   packages: packages.length,
   languages: SRI_QUESTION_STUDIO_LANGUAGES_V1,
   exhaustiveGeneratedQuestions: generated,
+  activeDiversityQuestions: diversityQuestions,
   questionStudioDiscoverable: true,
   questionStudioGenerationEnabled: true,
   questionBankWritable: false,
