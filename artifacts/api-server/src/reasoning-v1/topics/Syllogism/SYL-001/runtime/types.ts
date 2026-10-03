@@ -276,7 +276,7 @@ export interface GeneratedSylQuestion {
     selectedConclusionClasses: readonly InternalConclusionClass[];
     followMask: number | null;
     pairStatus: PairSemanticStatus | PairClassificationStatus | null;
-    optionCount: 4 | 5;
+    optionCount: 3 | 4 | 5;
     answerTemplateId: SylQlDefinition["answerTemplateId"];
     solverAgreementPassed: true;
     premiseRelevancePassed: true;
