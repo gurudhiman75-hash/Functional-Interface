@@ -311,6 +311,42 @@ function overrideConditionalExplanation(
   return next;
 }
 
+function preserveNamedHumanContext(
+  source: ProbabilityQuestion,
+  language: ProbabilityNativeLanguage,
+  lines: string[],
+): string[] {
+  const next = [...lines];
+  const stem = source.stem;
+
+  const appendContext = (marker: string) => {
+    if (next.some((line) => line.includes(marker))) return;
+    if (language === "hi") {
+      if (/\bcandidates?\b/iu.test(stem)) {
+        next[0] = `${next[0]} प्रश्न में दिए अभ्यर्थी/अभ्यर्थियों के संदर्भ को ही पूरे हल में बनाए रखें।`;
+      } else if (/\bstudents?\b/iu.test(stem)) {
+        next[0] = `${next[0]} प्रश्न में दिए विद्यार्थी/विद्यार्थियों के उसी समूह को आधार मानें।`;
+      } else if (/\bcommittee\b/iu.test(stem)) {
+        next[0] = `${next[0]} सभी गणनाएँ इसी समिति-चयन के संदर्भ में हैं।`;
+      }
+    } else {
+      if (/\bcandidates?\b/iu.test(stem)) {
+        next[0] = `${next[0]} ਹੱਲ ਵਿੱਚ ਸਵਾਲ ਵਾਲੇ ਉਮੀਦਵਾਰ/ਉਮੀਦਵਾਰਾਂ ਦਾ ਹੀ ਸੰਦਰਭ ਬਣਾਈ ਰੱਖੋ।`;
+      } else if (/\bstudents?\b/iu.test(stem)) {
+        next[0] = `${next[0]} ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਵਿਦਿਆਰਥੀ/ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਉਸੇ ਸਮੂਹ ਨੂੰ ਆਧਾਰ ਮੰਨੋ।`;
+      } else if (/\bcommittee\b/iu.test(stem)) {
+        next[0] = `${next[0]} ਸਾਰੀ ਗਿਣਤੀ ਇਸੇ ਕਮੇਟੀ-ਚੋਣ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਹੈ।`;
+      }
+    }
+  };
+
+  if (/\bcandidates?\b/iu.test(stem)) appendContext(language === "hi" ? "अभ्यर्थ" : "ਉਮੀਦਵਾਰ");
+  else if (/\bstudents?\b/iu.test(stem)) appendContext(language === "hi" ? "विद्यार्थ" : "ਵਿਦਿਆਰਥ");
+  else if (/\bcommittee\b/iu.test(stem)) appendContext(language === "hi" ? "समिति" : "ਕਮੇਟੀ");
+
+  return next;
+}
+
 function simplifyDiceExplanation(
   source: ProbabilityQuestion,
   language: ProbabilityNativeLanguage,
@@ -341,6 +377,7 @@ export function polishNativeExplanationLines(
   polished = overrideSuccessiveObjectExplanation(source, language, context, polished);
   polished = overrideConditionalExplanation(source, language, polished);
   polished = simplifyDiceExplanation(source, language, polished);
+  polished = preserveNamedHumanContext(source, language, polished);
   return polished;
 }
 
