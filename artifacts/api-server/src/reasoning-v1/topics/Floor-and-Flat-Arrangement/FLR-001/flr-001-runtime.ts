@@ -392,7 +392,7 @@ function buildFloorQuestion(
     allWorlds, target, candidates, truthFloorClue, floorWorldFingerprint,
     seed + ":select", difficulty === "Easy" ? 4 : 5,
   );
-  const clues = selected.clues.slice(0, difficulty === "Easy" ? 6 : 8);
+  const clues = selected.clues;
   const filtered = allWorlds.filter((world) => clues.every((clue) => truthFloorClue(world, clue)));
   if (filtered.length !== 1) {
     throw new Error("FLR-QL-001 post-trim clues lost uniqueness.");
@@ -566,8 +566,7 @@ function buildAttributeQuestion(
     worlds, target, candidates, truthAttributeClue, attributeWorldFingerprint,
     seed + ":select", difficulty === "Hard" ? 7 : 6,
   );
-  const max = difficulty === "Hard" ? 10 : 9;
-  const clues = selected.clues.slice(0, max);
+  const clues = selected.clues;
   const filtered = worlds.filter((world) => clues.every((clue) => truthAttributeClue(world, clue)));
   if (filtered.length !== 1) throw new Error("FLR-QL-002 post-trim clues lost uniqueness.");
 
@@ -757,8 +756,7 @@ function buildGridQuestion(
     worlds, target, candidates, truthGridClue, gridFingerprint,
     seed + ":select", difficulty === "Hard" ? 7 : 6,
   );
-  const max = difficulty === "Hard" ? 10 : 9;
-  const clues = selected.clues.slice(0, max);
+  const clues = selected.clues;
   const filtered = worlds.filter((world) => clues.every((clue) => truthGridClue(world, clue)));
   if (filtered.length !== 1) throw new Error("FLR-QL-003 post-trim clues lost uniqueness.");
 
@@ -825,7 +823,7 @@ function buildSharedQuestion(
     worlds, target, candidates, truthGridClue, gridFingerprint,
     seed + ":select", 8,
   );
-  const clues = selected.clues.slice(0, 11);
+  const clues = selected.clues;
   const filtered = worlds.filter((world) => clues.every((clue) => truthGridClue(world, clue)));
   if (filtered.length !== 1) throw new Error("FLR-QL-004 post-trim clues lost uniqueness.");
 
