@@ -141,6 +141,12 @@ function reverseTotalStem(source: ProbabilityQuestion, language: ProbabilityNati
   return `${favourable} ਵਿਅਕਤੀ ਇੱਕ ਸ਼ਰਤ ਪੂਰੀ ਕਰਦੇ ਹਨ। ਜੇ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣੇ ਵਿਅਕਤੀ ਵੱਲੋਂ ਇਹ ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ${probability} ਹੈ, ਤਾਂ ਸਮੂਹ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਵਿਅਕਤੀ ਹਨ?`;
 }
 
+function sourceQlVariant(source: ProbabilityQuestion, count: number): number {
+  const match = source.questionLanguageId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return value % count;
+}
+
 function cardRank(value: string, language: ProbabilityNativeLanguage): string {
   const key = value.toLowerCase();
   const hi: Record<string, string> = { ace: "इक्का", king: "बादशाह", queen: "बेगम", jack: "गुलाम" };
@@ -162,16 +168,36 @@ function cardCondition(source: ProbabilityQuestion, language: ProbabilityNativeL
   const cardColour = colour(text(source, "colour", "red"), language);
   if (language === "hi") {
     if (mode === "findSuitProbability") return `${suit} का पत्ता`;
-    if (mode === "findColourProbability") return `${cardColour} रंग का पत्ता`;
-    if (mode === "findFaceCardProbability") return "फेस कार्ड";
+    if (mode === "findColourProbability") {
+      const form = sourceQlVariant(source, 3);
+      if (form === 0) return `${cardColour} रंग का पत्ता`;
+      if (form === 1) return `ऐसा पत्ता जिसका रंग ${cardColour} हो`;
+      return `${cardColour} रंग-समूह का पत्ता`;
+    }
+    if (mode === "findFaceCardProbability") {
+      const form = sourceQlVariant(source, 3);
+      if (form === 0) return "फेस कार्ड";
+      if (form === 1) return "बादशाह, बेगम या गुलाम";
+      return "12 फेस कार्डों में से कोई एक";
+    }
     if (mode === "findUnionCardEventProbability") return `${rank} या ${suit} का पत्ता`;
     if (mode === "findComplementCardProbability") return `${suit} का न होने वाला पत्ता`;
     if (mode === "findCardPropertyIntersection") return `${suit} का ${rank}`;
     return `${rank}`;
   }
   if (mode === "findSuitProbability") return `${suit} ਦਾ ਪੱਤਾ`;
-  if (mode === "findColourProbability") return `${cardColour} ਰੰਗ ਦਾ ਪੱਤਾ`;
-  if (mode === "findFaceCardProbability") return "ਫੇਸ ਕਾਰਡ";
+  if (mode === "findColourProbability") {
+    const form = sourceQlVariant(source, 3);
+    if (form === 0) return `${cardColour} ਰੰਗ ਦਾ ਪੱਤਾ`;
+    if (form === 1) return `ਅਜਿਹਾ ਪੱਤਾ ਜਿਸ ਦਾ ਰੰਗ ${cardColour} ਹੋਵੇ`;
+    return `${cardColour} ਰੰਗ-ਵਰਗ ਦਾ ਪੱਤਾ`;
+  }
+  if (mode === "findFaceCardProbability") {
+    const form = sourceQlVariant(source, 3);
+    if (form === 0) return "ਫੇਸ ਕਾਰਡ";
+    if (form === 1) return "ਬਾਦਸ਼ਾਹ, ਬੇਗਮ ਜਾਂ ਗੁਲਾਮ";
+    return "12 ਫੇਸ ਕਾਰਡਾਂ ਵਿੱਚੋਂ ਕੋਈ ਇੱਕ";
+  }
   if (mode === "findUnionCardEventProbability") return `${rank} ਜਾਂ ${suit} ਦਾ ਪੱਤਾ`;
   if (mode === "findComplementCardProbability") return `${suit} ਦਾ ਨਾ ਹੋਣ ਵਾਲਾ ਪੱਤਾ`;
   if (mode === "findCardPropertyIntersection") return `${suit} ਦਾ ${rank}`;
