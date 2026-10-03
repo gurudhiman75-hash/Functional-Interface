@@ -54,7 +54,7 @@ function isQl(value: string): value is SylQlId {
   return (SYL_001_QUESTION_STUDIO_QL_IDS as readonly string[]).includes(value);
 }
 
-function isCp(value: string): value is keyof typeof CP_TO_QLS {
+function isCp(value: string): boolean {
   return Object.prototype.hasOwnProperty.call(CP_TO_QLS, value);
 }
 
@@ -99,7 +99,7 @@ function explicitCp(
   for (const raw of [request.canonicalProblemId, request.patternId]) {
     const value = text(raw).toUpperCase();
     if (!value || value === "SYL-001") continue;
-    if (isCp(value)) return value;
+    if (isCp(value)) return value as keyof typeof CP_TO_QLS;
     if (value.startsWith("SYL-CP-")) throw new Error("Unknown SYL-001 checkpoint: " + value);
   }
   return undefined;
