@@ -283,6 +283,7 @@ export default function TestSeriesPage() {
               const catalogTest = catalogTestById.get(member.testId);
               return (
                 <article key={member.id} className={`rounded-2xl border bg-white p-5 shadow-[0_7px_24px_rgba(37,42,68,0.035)] transition ${member.unlocked ? "border-[#ddd8f7] hover:border-[#cfc7f5]" : "border-slate-200 opacity-90"}`}>
+                  {catalogTest?.iconUrl ? <div className="mb-3 flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border bg-white"><CategoryIcon icon={catalogTest.iconUrl} className="h-7 w-7" /></div> : null}
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div className="flex min-w-0 gap-4">
                       <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-black ${member.completed ? "bg-emerald-50 text-emerald-700" : member.unlocked ? "bg-[#eeeaff] text-[#6657e8]" : "bg-slate-100 text-slate-500"}`}>
