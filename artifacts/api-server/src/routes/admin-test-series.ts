@@ -49,6 +49,7 @@ async function assertReferences(client: SqlExecutor, input: NormalizedTestSeries
   }
 
   const testIds = input.items.map((item) => item.testId);
+  if (testIds.length === 0) return;
   const tests = await client`
     SELECT id::text AS id, exam_version_id::text AS "examVersionId", status::text AS status
     FROM assessment.tests
