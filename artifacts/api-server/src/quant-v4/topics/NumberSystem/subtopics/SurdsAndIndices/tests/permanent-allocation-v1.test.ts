@@ -66,8 +66,12 @@ assert.equal(SRI_001_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 29);
 assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 29);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, true);
+assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionStudio, true);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
+assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, true);
 assertSriReleaseLocks();
 
 console.log(JSON.stringify({
