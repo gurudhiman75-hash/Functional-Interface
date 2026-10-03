@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { Router, type IRouter } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
+import { cacheDel } from "../lib/cache";
 import {
   ensureCatalogBrandingSchema,
   isCatalogBrandingEntityType,
@@ -36,6 +37,7 @@ router.get("/:entityType/:entityId", requireAdminPermission("content.taxonomy.re
     return void res.status(400).json({ error: "Invalid branding target", code: "CATALOG_BRANDING_TARGET_INVALID" });
   }
   try {
+    if (entityType === "test") await cacheDel("tests:list:canonical-mobile-v2");
     res.json(await readCatalogBranding(entityType, entityId));
   } catch (error) {
     console.error("Unable to load catalog branding", error);
