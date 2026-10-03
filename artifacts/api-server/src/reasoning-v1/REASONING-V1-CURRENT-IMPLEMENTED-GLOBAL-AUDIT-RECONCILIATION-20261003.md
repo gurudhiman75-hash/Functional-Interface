@@ -12,7 +12,7 @@ This reconciliation records the current state so completed chapters are not repe
 
 ## Current implemented corpus
 
-The current implemented Reasoning topic surface contains **30 reconciled authorities**. Every one has either:
+The current implemented Reasoning topic surface contains **31 reconciled authorities**. Every one has either:
 
 - a final content/deep-audit closure authority; or
 - a review-gated final readiness authority where the automated content audit is complete and manual editorial/product approval remains a separate gate.
@@ -26,6 +26,7 @@ Notable current counts retained by executable regression:
 - Inequality: **4 permanent QLs** across direct, conclusion-set, either/or and coded inequality;
 - Assertion and Reason: **1 permanent QL** with 20 curated trilingual scenario authorities across all five answer classes;
 - Floor and Flat Arrangement: **4 permanent QLs** spanning single-column floors, floor + variable, two-flat grids and shared-flat capacity;
+- Decision Making / Eligibility: **60 permanent QLs**, **20 checkpoints** and **650 trilingual scenario authorities**, with mixed review batches stratified across all checkpoint families;
 - Spatial/non-verbal family: **63 permanent QLs**.
 
 ## Audit closure is not learner release
@@ -50,11 +51,10 @@ The earlier 29-authority reconciliation also omitted `REAS-FLR — Floor and Fla
 
 This is **not** a declaration that every chapter in the Reasoning master blueprint is implemented. Standalone blueprint chapters still outside this current implemented-corpus closure include:
 
-- `REAS-DCS` — Decision Making / Eligibility;
 - `REAS-GAM` — Games and Tournament.
 
 They require their own implementation/audit lifecycle and must not be treated as “closed” by this reconciliation.
 
 ## Result
 
-`REASONING_V1_CURRENT_IMPLEMENTED_CORPUS_AUDIT_RECONCILED_20261003__30_AUTHORITIES__NOVELTY_FINAL__RELEASE_SEPARATE`
+`REASONING_V1_CURRENT_IMPLEMENTED_CORPUS_AUDIT_RECONCILED_20261003__31_AUTHORITIES__NOVELTY_FINAL__RELEASE_SEPARATE`
