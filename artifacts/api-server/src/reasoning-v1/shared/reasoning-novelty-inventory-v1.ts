@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V6' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V7' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -301,16 +301,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   },
   {
     topicDirectory: 'SeatingArrangement',
-    chapterId: 'SEA-001 / SEA-002',
+    chapterId: 'SEA-001 / SEA-002 / SEA-003',
     status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
     evidence: [
-      'SEA-001 and SEA-002 now retain 31 permanent learner contracts across ten implemented checkpoints.',
-      'The implemented family covers single-row, circular, parallel-row, mixed-facing, square, rectangular, regular-polygon and concentric seating topologies.',
-      'Name pool, clue order, clue density, arrangement size within the supported topology, relative-distance parameter, query target, language and calibrated difficulty remain governed instance variation.',
-      'SEA-002-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the advanced-topology novelty decision; SEA-003 remains a separate source-backed implementation frontier rather than SEA-002 novelty.',
+      'SEA-001 through SEA-003 now retain 40 permanent learner contracts across fifteen implemented checkpoints.',
+      'The family covers linear, circular, parallel-row, square, polygonal, concentric, attribute-linked, vacant-seat, conditional, uncertain-number and post-arrangement transformation seating contracts.',
+      'Name pool, attribute labels, clue order, arrangement size within an existing contract, vacancy location, exchanged occupants, query target, language and calibrated difficulty remain governed instance variation.',
+      'SEA-003-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the final approved-package novelty decision.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Re-open only on a solver-backed seating contract outside SEA-001/SEA-002 or when SEA-003 source-backed ownership is implemented and audited.',
+    nextGate: 'Re-open only on recurring source evidence for a materially new seating learner contract outside SEA-QL-001..051.',
   },
   {
     topicDirectory: 'Series',

@@ -27,7 +27,7 @@ Notable current counts retained by executable regression:
 - Assertion and Reason: **1 permanent QL** with 20 curated trilingual scenario authorities across all five answer classes;
 - Floor and Flat Arrangement: **4 permanent QLs** spanning single-column floors, floor + variable, two-flat grids and shared-flat capacity;
 - Decision Making / Eligibility: **60 permanent QLs**, **20 checkpoints** and **650 trilingual scenario authorities**, with mixed review batches stratified across all checkpoint families;
-- Seating Arrangement: **31 permanent QLs currently implemented** across SEA-001 (9) and SEA-002 (22); SEA-003 remains pending;
+- Seating Arrangement: **40 permanent QLs** across SEA-001 (9), SEA-002 (22) and SEA-003 (9); the approved Seating package sequence is content-audit closed;
 - Spatial/non-verbal family: **63 permanent QLs**.
 
 ## Audit closure is not learner release
@@ -52,7 +52,6 @@ The earlier 29-authority reconciliation also omitted `REAS-FLR — Floor and Fla
 
 This is **not** a declaration that every chapter in the Reasoning master blueprint is implemented. Implementation units still outside the current implemented-corpus closure include:
 
-- `SEA-003` — attribute-linked, vacant-seat, uncertain-number and other conditional Seating Arrangement systems;
 - `REAS-MAT` — the symbolic/number/letter/mixed-token Matrix chapter surface not covered by the already-frozen spatial Figure Matrix runtime;
 - `REAS-GAM` — Games and Tournament.
 

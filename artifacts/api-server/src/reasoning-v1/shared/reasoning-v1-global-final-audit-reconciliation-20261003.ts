@@ -278,7 +278,6 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
       blueprintOnlyOrNotYetStandaloneChaptersAreOutsideThisClosure: true,
     }),
     knownStandaloneBlueprintFrontier: Object.freeze([
-      "SEA-003",
       "REAS-MAT",
       "REAS-GAM",
     ] as const),
