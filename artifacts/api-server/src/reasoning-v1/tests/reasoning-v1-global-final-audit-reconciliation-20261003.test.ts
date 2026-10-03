@@ -8,9 +8,9 @@ import { SPATIAL_FAMILY_FREEZE_AUTHORITY_V1 } from "../foundation/spatial/spatia
 import { MIS_PERMANENT_QL_IDS } from "../topics/Missing-Number/MIS-001/MIS-PERMANENT-QL-REGISTRY";
 import { SER_PERMANENT_QL_IDS_V4 } from "../topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY-V4";
 
-assert.equal(reconciliation.chapters.length, 29, "Expected 29 currently implemented Reasoning topic authorities.");
-assert.equal(new Set(reconciliation.chapters.map((x) => x.topicDirectory)).size, 29);
-assert.equal(new Set(reconciliation.chapters.map((x) => x.chapterId)).size, 29);
+assert.equal(reconciliation.chapters.length, 30, "Expected 30 currently implemented Reasoning topic authorities.");
+assert.equal(new Set(reconciliation.chapters.map((x) => x.topicDirectory)).size, 30);
+assert.equal(new Set(reconciliation.chapters.map((x) => x.chapterId)).size, 30);
 
 const reasoningRoot = resolve(process.cwd(), "src/reasoning-v1");
 for (const chapter of reconciliation.chapters) {
