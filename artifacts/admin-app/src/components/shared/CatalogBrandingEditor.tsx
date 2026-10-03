@@ -4,8 +4,6 @@ import { ImagePlus, Loader2, Save, Trash2 } from 'lucide-react';
 import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { getFirebaseAuth } from '@/integrations/firebase';
 
 export type CatalogBrandingEntityType = 'exam_family' | 'exam' | 'test_series' | 'test';
@@ -53,7 +51,6 @@ export function CatalogBrandingEditor({
   onSaved?: (branding: Branding) => void;
 }) {
   const [iconUrl, setIconUrl] = useState('');
-  const [iconName, setIconName] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -64,7 +61,6 @@ export function CatalogBrandingEditor({
       .then((branding) => {
         if (!active) return;
         setIconUrl(branding.iconUrl || '');
-        setIconName(branding.iconName || '');
       })
       .catch((error) => {
         if (active) showToast.error('Unable to load icon', error instanceof Error ? error.message : 'Request failed.');
@@ -75,7 +71,7 @@ export function CatalogBrandingEditor({
     return () => { active = false; };
   }, [entityId, entityType]);
 
-  const save = async (nextIconUrl = iconUrl, nextIconName = iconName) => {
+  const save = async (nextIconUrl = iconUrl) => {
     setSaving(true);
     try {
       const branding = await request<Branding>(
@@ -83,7 +79,7 @@ export function CatalogBrandingEditor({
         {
           method: 'PATCH',
           body: JSON.stringify({
-            iconName: nextIconName.trim(),
+            iconName: '',
             iconUrl: nextIconUrl.trim(),
             imageUrl: '',
             reason: 'Updated catalog icon',
@@ -91,7 +87,6 @@ export function CatalogBrandingEditor({
         },
       );
       setIconUrl(branding.iconUrl || '');
-      setIconName(branding.iconName || '');
       onSaved?.(branding);
       showToast.success('Icon updated', 'The new icon is now the canonical icon for web and mobile.');
     } catch (error) {
@@ -117,23 +112,18 @@ export function CatalogBrandingEditor({
         preferredType="Exam Icon"
         label="Choose icon"
       />
-      <div className="space-y-1.5">
-        <Label>Built-in icon name (optional)</Label>
-        <Input value={iconName} onChange={(event) => setIconName(event.target.value)} placeholder="e.g. Landmark, Banknote" />
-      </div>
       <div className="flex flex-wrap gap-2">
         <Button type="button" onClick={() => void save()} disabled={saving}>
           {saving ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />}
           Save icon
         </Button>
-        {(iconUrl || iconName) && (
+        {iconUrl && (
           <Button
             type="button"
             variant="outline"
             onClick={() => {
               setIconUrl('');
-              setIconName('');
-              void save('', '');
+              void save('');
             }}
             disabled={saving}
           >
