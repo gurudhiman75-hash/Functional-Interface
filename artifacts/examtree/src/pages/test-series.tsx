@@ -168,6 +168,7 @@ export default function TestSeriesPage() {
   }
 
   const { series, eligibility } = query.data;
+  const comingSoon = series.learnerVisibility === "coming_soon";
   const unavailable = !eligibility.available;
   const examDescription = matchingSubcategory?.description || series.description || `Prepare for ${series.examName} with structured ExamTree mock tests.`;
   const scheduledRelease = eligibility.members
@@ -200,19 +201,20 @@ export default function TestSeriesPage() {
               </div>
               <p className="mt-5 max-w-3xl text-sm leading-6 text-slate-600 sm:text-[15px]">{examDescription}</p>
               <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-black text-slate-600">
+                {comingSoon && <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-amber-800">COMING SOON</span>}
                 <span className="rounded-full border border-[#e1def3] bg-white px-3 py-1.5">{progressionLabel(series.progressionMode)}</span>
-                <span className="rounded-full border border-[#e1def3] bg-white px-3 py-1.5">{eligibility.totalCount} tests</span>
+                <span className="rounded-full border border-[#e1def3] bg-white px-3 py-1.5">{comingSoon ? "No questions yet" : `${eligibility.totalCount} tests`}</span>
                 {series.completionThreshold != null && <span className="rounded-full border border-[#d9eee4] bg-[#f3fbf7] px-3 py-1.5 text-[#247453]">Pass target {series.completionThreshold}%</span>}
               </div>
             </div>
 
             <aside className="flex min-w-0 flex-col rounded-2xl border border-white bg-white/90 p-5 shadow-[0_10px_30px_rgba(43,47,72,0.055)] backdrop-blur-sm" aria-label="Series progress">
-              <div className="flex items-center justify-between gap-3"><span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500">Your progress</span><strong className="text-xl text-slate-950">{eligibility.progressPercent}%</strong></div>
-              <Progress value={eligibility.progressPercent} className="mt-3 h-2" />
-              <p className="mt-2 text-xs leading-5 text-slate-500">{eligibility.completedRequiredCount} of {eligibility.requiredCount} required tests completed</p>
+              <div className="flex items-center justify-between gap-3"><span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500">{comingSoon ? "Series status" : "Your progress"}</span><strong className="text-xl text-slate-950">{comingSoon ? "Coming Soon" : `${eligibility.progressPercent}%`}</strong></div>
+              {!comingSoon && <Progress value={eligibility.progressPercent} className="mt-3 h-2" />}
+              <p className="mt-2 text-xs leading-5 text-slate-500">{comingSoon ? (series.learnerMessage || "Tests are being prepared. No questions are available yet.") : `${eligibility.completedRequiredCount} of ${eligibility.requiredCount} required tests completed`}</p>
               <Button className="mt-auto min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" disabled={unavailable || !nextMember} onClick={() => nextMember && setLocation(`/test/${nextMember.testId}?seriesId=${encodeURIComponent(series.id)}`)}>
                 {nextMember?.completed ? <RefreshCw className="mr-2 h-4 w-4" /> : <PlayCircle className="mr-2 h-4 w-4" />}
-                {nextMember ? (nextMember.completed ? "Retake available test" : "Continue series") : "Series completed"}
+                {comingSoon ? "No tests available yet" : nextMember ? (nextMember.completed ? "Retake available test" : "Continue series") : "Series completed"}
               </Button>
             </aside>
           </div>
@@ -264,7 +266,7 @@ export default function TestSeriesPage() {
 
         {eligibility.availabilityReason && (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-            <strong>{eligibility.availabilityReason}</strong> The test list remains visible so you can review the planned sequence.
+            <strong>{eligibility.availabilityReason}</strong>{comingSoon ? " You can view the series now; tests will appear here when they are added." : " The test list remains visible so you can review the planned sequence."}
           </div>
         )}
 
@@ -310,7 +312,7 @@ export default function TestSeriesPage() {
                 </article>
               );
             })}
-            {visibleMembers.length === 0 ? <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-7 text-center text-sm text-slate-500">No tests of this type are currently mapped to the live series catalogue.</div> : null}
+            {visibleMembers.length === 0 ? <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-7 text-center text-sm text-slate-500">{comingSoon ? (series.learnerMessage || "Tests are being prepared. No questions are available yet.") : "No tests of this type are currently mapped to the live series catalogue."}</div> : null}
           </div>
         </section>
 
