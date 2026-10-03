@@ -56,6 +56,7 @@ describe('admin navigation roadmap', () => {
       '/content/current-affairs',
       '/content/coverage',
       '/content/taxonomy',
+      '/content/media',
       '/tests',
       '/tests/builder',
       '/tests/qa',
@@ -95,7 +96,7 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 44, in_progress: 1, planned: 5 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 45, in_progress: 1, planned: 4 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -106,6 +107,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/content/current-affairs']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/coverage']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/content/taxonomy']?.permission).toBe('content.taxonomy.read');
+    expect(NAV_LOOKUP['/content/media']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
