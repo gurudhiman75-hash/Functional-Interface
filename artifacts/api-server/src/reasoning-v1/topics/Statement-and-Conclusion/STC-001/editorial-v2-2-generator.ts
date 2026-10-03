@@ -11,7 +11,7 @@ export const STC_V22_VARIANTS_PER_TEMPLATE = 256 as const;
 const OPTIONS: Record<StcLocale, readonly [string, string, string, string]> = {
   "en-IN": ["Only conclusion I follows", "Only conclusion II follows", "Both conclusions I and II follow", "Neither conclusion I nor II follows"],
   "hi-IN": ["केवल निष्कर्ष I अनुसरण करता है", "केवल निष्कर्ष II अनुसरण करता है", "निष्कर्ष I और II दोनों अनुसरण करते हैं", "न तो निष्कर्ष I और न ही II अनुसरण करता है"],
-  "pa-IN": ["ਕੇਵਲ ਨਤੀਜਾ I ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ", "ਕੇਵਲ ਨਤੀਜਾ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ", "ਨਤੀਜੇ I ਅਤੇ II ਦੋਵੇਂ ਅਨੁਸਰਣ ਕਰਦੇ ਹਨ", "ਨਾ ਨਤੀਜਾ I ਅਤੇ ਨਾ ਹੀ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ"],
+  "pa-IN": ["ਕੇਵਲ ਸਿੱਟਾ I ਨਿਕਲਦਾ ਹੈ", "ਕੇਵਲ ਸਿੱਟਾ II ਨਿਕਲਦਾ ਹੈ", "ਸਿੱਟੇ I ਅਤੇ II ਦੋਵੇਂ ਨਿਕਲਦੇ ਹਨ", "ਨਾ ਸਿੱਟਾ I ਅਤੇ ਨਾ ਹੀ II ਨਿਕਲਦਾ ਹੈ"],
 };
 
 const QL_MULTIPLIER: Readonly<Record<StcQlId, number>> = Object.freeze({
@@ -71,7 +71,7 @@ function followsFlags(answerClass: StcV2AnswerClass): readonly [boolean, boolean
 function explanationLine(locale: StcLocale, label: "I" | "II", follows: boolean, reason: string): string {
   if (locale === "en-IN") return `${label} ${follows ? "follows" : "does not follow"}: ${reason}`;
   if (locale === "hi-IN") return `निष्कर्ष ${label} ${follows ? "अनुसरण करता है" : "अनुसरण नहीं करता है"}: ${reason}`;
-  return `ਨਤੀਜਾ ${label} ${follows ? "ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ" : "ਅਨੁਸਰਣ ਨਹੀਂ ਕਰਦਾ"}: ${reason}`;
+  return `ਸਿੱਟਾ ${label} ${follows ? "ਨਿਕਲਦਾ ਹੈ" : "ਨਹੀਂ ਨਿਕਲਦਾ"}: ${reason}`;
 }
 
 function checkpointFor(qlId: StcQlId): "STC-CP-001" | "STC-CP-002" | "STC-CP-003" {
