@@ -127,10 +127,10 @@ export function isTrg002V4GenerationRequest(request: Trg002V4QuestionStudioReque
   if (explicit === "TRG-002" || pattern === "TRG-002" || pattern.includes("TRG-002")) return true;
   const topic = normalizeRequestText(request.topic);
   const subtopic = normalizeRequestText(request.subtopic);
-  return topic === "trigonometry"
-    || subtopic.includes("heights distances")
+  return subtopic.includes("heights distances")
     || subtopic.includes("heights and distances")
-    || (topic === "advanced mathematics" && subtopic.includes("trigonometry"));
+    || subtopic.includes("height and distance")
+    || subtopic.includes("trigonometry applications");
 }
 
 function requestedQlIds(request: Trg002V4QuestionStudioRequest) {
