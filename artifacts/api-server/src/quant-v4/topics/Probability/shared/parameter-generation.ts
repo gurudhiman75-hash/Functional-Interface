@@ -10,6 +10,36 @@ function reducedFraction(random: () => number, denominatorMin = 5, denominatorMa
   return { numerator, denominator };
 }
 
+const CP007_CONDITIONAL_COUNTING_LANES: Readonly<Record<string, Readonly<{ mathTotal: number; both: number; englishOnly: number; neither: number }>>> = Object.freeze({
+  "PRB-QL-601": { mathTotal: 8, both: 3, englishOnly: 7, neither: 4 },
+  "PRB-QL-606": { mathTotal: 17, both: 7, englishOnly: 9, neither: 5 },
+  "PRB-QL-607": { mathTotal: 10, both: 4, englishOnly: 8, neither: 3 },
+  "PRB-QL-612": { mathTotal: 15, both: 13, englishOnly: 6, neither: 4 },
+  "PRB-QL-613": { mathTotal: 15, both: 10, englishOnly: 11, neither: 6 },
+  "PRB-QL-618": { mathTotal: 18, both: 8, englishOnly: 10, neither: 7 },
+  "PRB-QL-619": { mathTotal: 12, both: 5, englishOnly: 13, neither: 2 },
+});
+
+const CP007_CONDITIONAL_NUMBER_LANES: Readonly<Record<string, number>> = Object.freeze({
+  "PRB-QL-603": 20,
+  "PRB-QL-609": 24,
+  "PRB-QL-615": 36,
+  "PRB-QL-621": 40,
+});
+
+const CP007_CONDITIONAL_URN_LANES: Readonly<Record<string, Readonly<{ red: number; blue: number }>>> = Object.freeze({
+  "PRB-QL-604": { red: 7, blue: 8 },
+  "PRB-QL-610": { red: 8, blue: 5 },
+  "PRB-QL-616": { red: 9, blue: 4 },
+  "PRB-QL-622": { red: 10, blue: 7 },
+});
+
+const CP007_REVERSE_CONDITIONAL_LANES: Readonly<Record<string, Readonly<{ restrictedTotal: number; favourable: number }>>> = Object.freeze({
+  "PRB-QL-605": { restrictedTotal: 24, favourable: 3 },
+  "PRB-QL-611": { restrictedTotal: 18, favourable: 6 },
+  "PRB-QL-617": { restrictedTotal: 30, favourable: 5 },
+});
+
 const CP006_SUCCESSIVE_STATE_LANES: Readonly<Record<string, Readonly<{ red: number; blue: number }>>> = Object.freeze({
   "PRB-QL-501": { red: 4, blue: 5 }, "PRB-QL-509": { red: 6, blue: 7 }, "PRB-QL-517": { red: 8, blue: 9 },
   "PRB-QL-502": { red: 5, blue: 7 }, "PRB-QL-510": { red: 7, blue: 9 }, "PRB-QL-518": { red: 9, blue: 6 },
@@ -273,10 +303,34 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   }
 
   if (mode === "findConditionalCardProbability") return { condition: "FACE_CARD", target: "KING", conditionCount: 12, favourable: 4 };
-  if (mode === "findConditionalNumberProbability") { const upper = pickRandom(random, [20, 24, 30, 36, 40] as const); return { lower: 1, upper, conditionDivisor: 2, targetDivisor: 4 }; }
-  if (mode === "findConditionalUrnProbability") { const red = randomInt(random, 5, 10), blue = randomInt(random, 4, 9); return { red, blue, knownFirstColour: "red", targetColour: "red" }; }
-  if (mode === "findReverseConditionalCount") { const restrictedTotal = randomInt(random, 12, 30), favourable = randomInt(random, 2, restrictedTotal - 2); return { restrictedTotal, favourable, conditionLabel: "shortlisted", targetLabel: "certified" }; }
+  if (mode === "findConditionalNumberProbability") {
+    const upper = CP007_CONDITIONAL_NUMBER_LANES[entry.qlId] ?? pickRandom(random, [20, 24, 30, 36, 40] as const);
+    return { lower: 1, upper, conditionDivisor: 2, targetDivisor: 4 };
+  }
+  if (mode === "findConditionalUrnProbability") {
+    const lane = CP007_CONDITIONAL_URN_LANES[entry.qlId];
+    const red = lane?.red ?? randomInt(random, 5, 10);
+    const blue = lane?.blue ?? randomInt(random, 4, 9);
+    return { red, blue, knownFirstColour: "red", targetColour: "red" };
+  }
+  if (mode === "findReverseConditionalCount") {
+    const lane = CP007_REVERSE_CONDITIONAL_LANES[entry.qlId];
+    const restrictedTotal = lane?.restrictedTotal ?? randomInt(random, 12, 30);
+    const favourable = lane?.favourable ?? randomInt(random, 2, restrictedTotal - 2);
+    return { restrictedTotal, favourable, conditionLabel: "shortlisted", targetLabel: "certified" };
+  }
   if (mode === "findConditionalFromTwoWayTable" || mode === "findConditionalProbabilityByCounting") {
+    const lane = CP007_CONDITIONAL_COUNTING_LANES[entry.qlId];
+    if (lane) {
+      return {
+        mathTotal: lane.mathTotal,
+        both: lane.both,
+        englishOnly: lane.englishOnly,
+        neither: lane.neither,
+        conditionLabel: "passed Mathematics",
+        targetLabel: "passed English",
+      };
+    }
     const mathOnly = randomInt(random, 8, 18), both = randomInt(random, 3, mathOnly - 1), englishOnly = randomInt(random, 5, 16), neither = randomInt(random, 2, 10);
     return { mathTotal: mathOnly, both, englishOnly, neither, conditionLabel: "passed Mathematics", targetLabel: "passed English" };
   }
