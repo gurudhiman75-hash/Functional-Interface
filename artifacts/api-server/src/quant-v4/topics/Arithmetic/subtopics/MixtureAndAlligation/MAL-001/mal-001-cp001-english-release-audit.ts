@@ -205,10 +205,10 @@ const packageCard = packages.find((item: any) => item.packageId === "MAL-001") a
 assert(packageCard, "MAL-001 is missing from Question Studio package discovery.");
 assert(packageCard.enabled === true, "MAL-001 package is not enabled.");
 assert(packageCard.cpIds?.includes("MAL-CP-001"), "MAL-CP-001 is missing from the package card.");
-assert(packageCard.supportedLanguages?.length === 1 && packageCard.supportedLanguages[0] === "en", "MAL-001 package language exposure is not English-only.");
-assert(packageCard.questionBankStatus === "WRITABLE", "MAL-001 package is not Question Bank writable.");
-assert(packageCard.testEligibility === "ELIGIBLE", "MAL-001 package is not test eligible.");
-assert(packageCard.publiclyPublishable === true, "MAL-001 package is not publishable.");
+assert(JSON.stringify(packageCard.supportedLanguages) === JSON.stringify(["en", "hi", "pa"]), "MAL-001 package language exposure is not trilingual.");
+assert(packageCard.questionBankStatus === "NOT_STORED", "MAL-001 package must remain outside Question Bank storage.");
+assert(packageCard.testEligibility === "INELIGIBLE", "MAL-001 package must remain test-ineligible during multilingual review.");
+assert(packageCard.publiclyPublishable === false, "MAL-001 package must not be publicly publishable during multilingual review.");
 
 let questionStudioPreviewCount = 0;
 for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
@@ -223,15 +223,15 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
   });
   assert(result.questionPackages.length === 2, `${allocation.qlId}: Question Studio package batch count mismatch.`);
   assert(result.questions.length === 2, `${allocation.qlId}: Question Studio preview batch count mismatch.`);
-  assert(result.generationContext.runtimeMode === "RELEASED", `${allocation.qlId}: release runtime mode is missing from generation context.`);
-  assert(result.generationContext.questionBankStatus === "WRITABLE", `${allocation.qlId}: Question Bank status is missing from generation context.`);
+  assert(result.generationContext.runtimeMode === "QUESTION_STUDIO_ACTIVE", `${allocation.qlId}: Question Studio runtime mode is missing from generation context.`);
+  assert(result.generationContext.questionBankStatus === "NOT_STORED", `${allocation.qlId}: Question Studio storage boundary drifted.`);
   for (const preview of result.questions) {
     assert(preview.packageId === "MAL-001", `${allocation.qlId}: preview package ID mismatch.`);
     assert(preview.canonicalProblemId === "MAL-CP-001", `${allocation.qlId}: preview CP mismatch.`);
     assert(preview.questionLanguageId === allocation.qlId, `${allocation.qlId}: preview QL mismatch.`);
-    assert(preview.publiclyPublishable === true, `${allocation.qlId}: preview is not publishable.`);
-    assert(preview.questionBankStatus === "WRITABLE", `${allocation.qlId}: preview is not Question Bank writable.`);
-    assert(preview.testEligibility === "ELIGIBLE", `${allocation.qlId}: preview is not test eligible.`);
+    assert(preview.publiclyPublishable === false, `${allocation.qlId}: preview unexpectedly became publishable.`);
+    assert(preview.questionBankStatus === "NOT_STORED", `${allocation.qlId}: preview unexpectedly became Question Bank writable.`);
+    assert(preview.testEligibility === "INELIGIBLE", `${allocation.qlId}: preview unexpectedly became test eligible.`);
     assert(typeof preview.explanation === "string" && preview.explanation.includes("Core Concept & Formula"), `${allocation.qlId}: preview explanation is incomplete.`);
     assert(preview.explanation.includes(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX), `${allocation.qlId}: preview omitted the SVG directive.`);
     assert(preview.packageExplanation?.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID, `${allocation.qlId}: preview package omitted structured visual data.`);
@@ -240,18 +240,16 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
   }
 }
 
-let unsupportedLanguageRejected = false;
-try {
-  await generateQuestionStudioQuestion({
-    packageId: "MAL-001",
-    language: "hi",
-    count: 1,
-    seed: "unsupported-language",
-  });
-} catch {
-  unsupportedLanguageRejected = true;
-}
-assert(unsupportedLanguageRejected, "Question Studio did not reject unsupported Hindi generation.");
+const hindiResult: any = await generateQuestionStudioQuestion({
+  packageId: "MAL-001",
+  canonicalProblemId: "MAL-CP-001",
+  questionLanguageId: "MAL-QL-001",
+  language: "hi",
+  count: 1,
+  seed: "multilingual-hindi-route",
+});
+assert(hindiResult.questions?.length === 1, "Question Studio Hindi generation did not return one question.");
+assert(hindiResult.questions[0]?.language === "hi", "Question Studio Hindi generation did not return Hindi output.");
 
 let unknownCpRejected = false;
 try {
@@ -301,14 +299,14 @@ console.log(
       approvedReviewDistinctStemCount: reviewStemCount,
       questionStudioPackageDiscovered: true,
       questionStudioPreviewCount,
-      unsupportedLanguageRejected,
+      multilingualHindiRouteVerified: true,
       unknownCpRejected,
       unknownQlRejected,
-      publiclyPublishable: true,
+      publiclyPublishable: false,
       questionStudioDiscoverable: true,
-      questionBankWritable: true,
-      testEligible: true,
-      excludedLanguages: MAL_CP001_ENGLISH_RELEASE.excludedLanguages,
+      questionBankWritable: false,
+      testEligible: false,
+      questionStudioLanguages: ["en", "hi", "pa"],
     },
     null,
     2,
