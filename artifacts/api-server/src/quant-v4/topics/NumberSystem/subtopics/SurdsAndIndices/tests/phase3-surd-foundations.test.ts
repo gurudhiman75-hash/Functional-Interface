@@ -19,7 +19,7 @@ assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 29);
 for (const checkpointId of ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"] as const) {
   assert.ok(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must remain active executable discovery`);
 }
-assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionStudio, false);
+assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionStudio, true);
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.tests, false);
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.public, false);
