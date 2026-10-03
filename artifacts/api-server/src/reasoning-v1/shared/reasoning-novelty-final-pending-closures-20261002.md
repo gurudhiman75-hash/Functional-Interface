@@ -52,14 +52,15 @@ Changing names, clue order, clue density, arrangement size, answer target or com
 
 ### SER-001 — Series
 
-This closure does **not** cancel Series source-backed promotion work.
+This novelty closure did **not** convert source-backed expansion into controlled novelty. The separate source-backed promotion checkpoint has since completed under `SER-CP-010`.
 
-The chapter currently retains:
-- 13 approved permanent QLs;
-- 9 genuinely new source-backed CP008 promotion candidates;
-- 7 genuinely new source-backed CP009 promotion candidates.
+Current permanent state:
+- `SER-QL-001..013`: prior permanent Series QLs;
+- `SER-QL-014..022`: 9 audited CP008 source-backed families;
+- `SER-QL-023..029`: 7 audited CP009 source-backed families;
+- next available identity: `SER-QL-030`.
 
-Those 16 candidates are source-backed content-expansion candidates awaiting a separate promotion checkpoint. They are not `CONTROLLED_NOVEL` merely because they are not yet permanent.
+The 16 promoted identities remain inactive. Question Studio discovery, Question Bank writes, scored tests, mock eligibility, public publication and automatic student publication remain closed until a separate activation checkpoint.
 
 Merged variants and rejected ownership cases remain exactly as frozen by the final Series audit.
 
