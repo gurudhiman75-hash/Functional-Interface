@@ -294,7 +294,13 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findDifferentTypesInSuccessiveDraws": return `एक ${bagWord(language)} में ${red} लाल और ${blue} नीली गेंदें हैं। दो गेंदें क्रमशः बिना वापस रखे निकाली जाती हैं। दोनों गेंदों के अलग-अलग रंग की होने की प्रायिकता क्या है?`;
       case "findAtLeastOneAcrossIndependentStages": return `एक ${bagWord(language)} में ${red} लाल और ${blue} नीली गेंदें हैं। दो गेंदें वापस रखकर निकाली जाती हैं। कम-से-कम एक लाल गेंद निकलने की प्रायिकता क्या है?`;
       case "findConditionalProbabilityByCounting": case "findConditionalFromTwoWayTable": return `गणित में उत्तीर्ण ${num(source, "mathTotal")} विद्यार्थियों में से ${num(source, "both")} अंग्रेज़ी में भी उत्तीर्ण हैं। गणित में उत्तीर्ण विद्यार्थियों में से एक विद्यार्थी यादृच्छिक रूप से चुना जाता है। उसके अंग्रेज़ी में भी उत्तीर्ण होने की प्रायिकता क्या है?`;
-      case "findConditionalCardProbability": return "मानक 52 पत्तों की गड्डी से निकला पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
+      case "findConditionalCardProbability": {
+        const form = sourceQlVariant(source, 4);
+        if (form === 0) return "मानक 52 पत्तों की गड्डी से निकला पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
+        if (form === 1) return "यह ज्ञात है कि मानक गड्डी से चुना गया पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
+        if (form === 2) return "मानक गड्डी में से एक पत्ता चुना गया और वह फेस कार्ड निकला। उस पत्ते के बादशाह होने की प्रायिकता ज्ञात कीजिए।";
+        return "फेस कार्डों के समूह में से एक पत्ता समान संभावना से चुना जाता है। उसके बादशाह होने की प्रायिकता क्या है?";
+      }
       case "findConditionalNumberProbability": return `1 से ${num(source, "upper")} तक चुना गया एक पूर्णांक ${num(source, "conditionDivisor")} से विभाज्य है। उसके ${num(source, "targetDivisor")} से भी विभाज्य होने की प्रायिकता क्या है?`;
       case "findConditionalUrnProbability": return `एक ${bagWord(language)} में ${red} लाल और ${blue} नीली गेंदें हैं। दो गेंदें बिना वापस रखे निकाली जाती हैं। यदि पहली गेंद लाल है, तो दूसरी गेंद के भी लाल होने की प्रायिकता क्या है?`;
       case "findReverseConditionalCount": { const status = text(source, "targetLabel", "certified") === "certified" ? "प्रमाणित" : "शॉर्टलिस्ट"; return `${num(source, "restrictedTotal")} शॉर्टलिस्ट किए गए अभ्यर्थियों में से यादृच्छिक रूप से चुने गए अभ्यर्थी के ${status} होने की प्रायिकता ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} है। ऐसे कितने अभ्यर्थी हैं?`; }
@@ -341,7 +347,13 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findDifferentTypesInSuccessiveDraws": return `ਇੱਕ ${bagWord(language)} ਵਿੱਚ ${red} ਲਾਲ ਅਤੇ ${blue} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਹਨ। ਦੋ ਗੇਂਦਾਂ ਲਗਾਤਾਰ ਬਿਨਾਂ ਵਾਪਸ ਰੱਖੇ ਕੱਢੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਗੇਂਦਾਂ ਦੇ ਵੱਖ-ਵੱਖ ਰੰਗ ਦੀਆਂ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findAtLeastOneAcrossIndependentStages": return `ਇੱਕ ${bagWord(language)} ਵਿੱਚ ${red} ਲਾਲ ਅਤੇ ${blue} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਹਨ। ਦੋ ਗੇਂਦਾਂ ਵਾਪਸ ਰੱਖ ਕੇ ਕੱਢੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ ਗੇਂਦ ਨਿਕਲਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findConditionalProbabilityByCounting": case "findConditionalFromTwoWayTable": return `ਗਣਿਤ ਵਿੱਚ ਪਾਸ ${num(source, "mathTotal")} ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ ${num(source, "both")} ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵੀ ਪਾਸ ਹਨ। ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ ਇੱਕ ਵਿਦਿਆਰਥੀ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ। ਉਸ ਦੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵੀ ਪਾਸ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
-      case "findConditionalCardProbability": return "ਮਿਆਰੀ 52 ਪੱਤਿਆਂ ਦੀ ਗੱਡੀ ਵਿੱਚੋਂ ਕੱਢਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
+      case "findConditionalCardProbability": {
+        const form = sourceQlVariant(source, 4);
+        if (form === 0) return "ਮਿਆਰੀ 52 ਪੱਤਿਆਂ ਦੀ ਗੱਡੀ ਵਿੱਚੋਂ ਕੱਢਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
+        if (form === 1) return "ਇਹ ਦਿੱਤਾ ਹੈ ਕਿ ਮਿਆਰੀ ਗੱਡੀ ਵਿੱਚੋਂ ਚੁਣਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
+        if (form === 2) return "ਮਿਆਰੀ ਗੱਡੀ ਵਿੱਚੋਂ ਇੱਕ ਪੱਤਾ ਕੱਢਿਆ ਗਿਆ ਅਤੇ ਉਹ ਫੇਸ ਕਾਰਡ ਨਿਕਲਿਆ। ਉਸ ਪੱਤੇ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੱਢੋ।";
+        return "ਫੇਸ ਕਾਰਡਾਂ ਦੇ ਸਮੂਹ ਵਿੱਚੋਂ ਇੱਕ ਪੱਤਾ ਸਮਾਨ ਸੰਭਾਵਨਾ ਨਾਲ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
+      }
       case "findConditionalNumberProbability": return `1 ਤੋਂ ${num(source, "upper")} ਤੱਕ ਚੁਣਿਆ ਗਿਆ ਇੱਕ ਪੂਰਨ ਅੰਕ ${num(source, "conditionDivisor")} ਨਾਲ ਭਾਗਯੋਗ ਹੈ। ਉਸ ਦੇ ${num(source, "targetDivisor")} ਨਾਲ ਵੀ ਭਾਗਯੋਗ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findConditionalUrnProbability": return `ਇੱਕ ${bagWord(language)} ਵਿੱਚ ${red} ਲਾਲ ਅਤੇ ${blue} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਹਨ। ਦੋ ਗੇਂਦਾਂ ਬਿਨਾਂ ਵਾਪਸ ਰੱਖੇ ਕੱਢੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਜੇ ਪਹਿਲੀ ਗੇਂਦ ਲਾਲ ਹੈ, ਤਾਂ ਦੂਜੀ ਗੇਂਦ ਦੇ ਵੀ ਲਾਲ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findReverseConditionalCount": { const status = text(source, "targetLabel", "certified") === "certified" ? "ਪ੍ਰਮਾਣਿਤ" : "ਸ਼ਾਰਟਲਿਸਟ"; return `${num(source, "restrictedTotal")} ਸ਼ਾਰਟਲਿਸਟ ਕੀਤੇ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚੋਂ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣੇ ਉਮੀਦਵਾਰ ਦੇ ${status} ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ${frac(num(source, "favourable"), num(source, "restrictedTotal", 1))} ਹੈ। ਅਜਿਹੇ ਕਿੰਨੇ ਉਮੀਦਵਾਰ ਹਨ?`; }
