@@ -1,11 +1,44 @@
 import { strict as assert } from "node:assert";
 import { getRap003QuestionLanguageIds, validateRap003Libraries } from "./library";
-import { generateRap003Parameters } from "./parameter-generator";
+import { generateRap003Parameters, RAP_003_CONTEXT_POOLS } from "./parameter-generator";
 import { runRap003Cp013ForLanguages, runRap003Cp013Pipeline, runRap003Cp014ForLanguages, runRap003Cp014Pipeline, runRap003Cp015ForLanguages, runRap003Cp015Pipeline, runRap003Cp016ForLanguages, runRap003Cp016Pipeline, runRap003Cp017ForLanguages, runRap003Cp017Pipeline, runRap003Cp018ForLanguages, runRap003Cp018Pipeline, runRap003Cp019ForLanguages, runRap003Cp019Pipeline, runRap003Cp020ForLanguages, runRap003Cp020Pipeline, runRap003Cp021ForLanguages, runRap003Cp021Pipeline, runRap003Cp022ForLanguages, runRap003Cp022Pipeline } from "./pipeline";
 import { solveRap003 } from "./solver";
 
 const libraryValidation = validateRap003Libraries();
 assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
+
+assert.ok(RAP_003_CONTEXT_POOLS.incomePairs.length >= 20, "RAP-003 income name pool should remain broad");
+assert.ok(RAP_003_CONTEXT_POOLS.mixtureContexts.length >= 8, "RAP-003 mixture context pool should remain broad");
+assert.ok(RAP_003_CONTEXT_POOLS.replacementContexts.length >= 8, "RAP-003 replacement context pool should remain broad");
+assert.ok(RAP_003_CONTEXT_POOLS.denominationItems.length >= 8, "RAP-003 denomination item pool should remain broad");
+assert.ok(RAP_003_CONTEXT_POOLS.ratePairs.length >= 10, "RAP-003 rate/speed object pool should remain broad");
+
+const incomeContextSamples = Array.from({ length: 80 }, (_, index) =>
+  generateRap003Parameters({
+    canonicalProblemId: "RAP-CP-015",
+    seed: `rap-003-context-income:${index}`,
+    questionLanguageId: "RAP-QL-951",
+  }),
+);
+assert.ok(new Set(incomeContextSamples.map((item) => `${item.variables.personA}|${item.variables.personB}`)).size >= 12);
+
+const mixtureContextSamples = Array.from({ length: 80 }, (_, index) =>
+  generateRap003Parameters({
+    canonicalProblemId: "RAP-CP-016",
+    seed: `rap-003-context-mixture:${index}`,
+    questionLanguageId: "RAP-QL-1001",
+  }),
+);
+assert.ok(new Set(mixtureContextSamples.map((item) => `${item.variables.mixtureA}|${item.variables.mixtureB}|${item.variables.component}`)).size >= 6);
+
+const rateContextSamples = Array.from({ length: 100 }, (_, index) =>
+  generateRap003Parameters({
+    canonicalProblemId: "RAP-CP-019",
+    seed: `rap-003-context-rate:${index}`,
+    questionLanguageId: "RAP-QL-1301",
+  }),
+);
+assert.ok(new Set(rateContextSamples.map((item) => `${item.variables.objectA}|${item.variables.objectB}`)).size >= 8);
 
 const fixedPartnership = generateRap003Parameters({
   canonicalProblemId: "RAP-CP-013",
