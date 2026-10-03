@@ -79,6 +79,11 @@ import {
   isSif001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Statement-and-Inference/SIF-001/question-studio-adapter.ts";
 import {
+  SYL_001_STANDARD_QUESTION_STUDIO_PACKAGE,
+  generateSyl001QuestionStudioBatch,
+  isSyl001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Syllogism/SYL-001/question-studio-integration";
+import {
   VEN_001_QUESTION_STUDIO_PACKAGE,
   generateVen001QuestionStudioBatch,
   isVen001QuestionStudioRequest,
@@ -481,6 +486,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
       SIF_001_QUESTION_STUDIO_PACKAGE,
+      SYL_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       VEN_001_QUESTION_STUDIO_PACKAGE,
     ].map(enrichQuestionStudioPackageCpTitles);
   },
@@ -499,6 +505,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isVen001QuestionStudioRequest(request)) {
       return generateVen001QuestionStudioBatch(request);
+    }
+    if (isSyl001QuestionStudioRequest(request)) {
+      return generateSyl001QuestionStudioBatch(request);
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
