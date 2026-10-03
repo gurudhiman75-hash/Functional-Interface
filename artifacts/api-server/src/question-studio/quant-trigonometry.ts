@@ -15,6 +15,7 @@ import type {
   QuestionStudioPackageDefinition,
 } from "./engine-types";
 import { deriveQuestionStudioCpTitles } from "./package-metadata";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "./standard-lifecycle";
 
 const TRG_001_FULL_INTERNAL = TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.execution;
 
@@ -137,8 +138,25 @@ function toSharedPackage(card: Record<string, unknown>): QuestionStudioPackageDe
           entry === "Easy" || entry === "Medium" || entry === "Hard")
       : ["Easy", "Medium", "Hard"],
     runtimeMode: typeof card.runtimeMode === "string" ? card.runtimeMode : undefined,
+    lifecycleId: typeof card.lifecycleId === "string" ? card.lifecycleId : undefined,
+    lifecycleStage:
+      card.lifecycleStage === "REVIEW_ONLY" || card.lifecycleStage === "BANK_ONLY"
+        ? card.lifecycleStage
+        : undefined,
+    reviewSurfaceRequired:
+      typeof card.reviewSurfaceRequired === "boolean" ? card.reviewSurfaceRequired : undefined,
+    manualApprovalRequired:
+      typeof card.manualApprovalRequired === "boolean" ? card.manualApprovalRequired : undefined,
     questionBankStatus: typeof card.questionBankStatus === "string" ? card.questionBankStatus : undefined,
     questionBankWritable: typeof card.questionBankWritable === "boolean" ? card.questionBankWritable : undefined,
+    questionBankAcceptanceMode:
+      card.questionBankAcceptanceMode === "BANK_ONLY" || card.questionBankAcceptanceMode === "FULL_RELEASE"
+        ? card.questionBankAcceptanceMode
+        : undefined,
+    questionBankAcceptanceAuthority:
+      typeof card.questionBankAcceptanceAuthority === "string" || card.questionBankAcceptanceAuthority === null
+        ? card.questionBankAcceptanceAuthority
+        : undefined,
     testEligibility: typeof card.testEligibility === "string" ? card.testEligibility : undefined,
     testEligible: typeof card.testEligible === "boolean" ? card.testEligible : undefined,
     mockTestEligible: typeof card.mockTestEligible === "boolean" ? card.mockTestEligible : undefined,
@@ -158,6 +176,12 @@ function toSharedPackage(card: Record<string, unknown>): QuestionStudioPackageDe
 export function trg001EnginePackage(): QuestionStudioPackageDefinition {
   return toSharedPackage({
     ...TRG_001_QUESTION_STUDIO_PACKAGE,
+    lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+    lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+    reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+    manualApprovalRequired: true,
+    questionBankAcceptanceMode: "FULL_RELEASE",
+    questionBankAcceptanceAuthority: TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.version,
     questionBankStatus: TRG_001_FULL_INTERNAL.questionBankStatus,
     questionBankWritable: TRG_001_FULL_INTERNAL.questionBankWritable,
     testEligibility: TRG_001_FULL_INTERNAL.testEligibility,
@@ -172,6 +196,13 @@ export function trg001EnginePackage(): QuestionStudioPackageDefinition {
 export function trg002EnginePackage(): QuestionStudioPackageDefinition {
   return toSharedPackage({
     ...TRG_002_V4_QUESTION_STUDIO_PACKAGE,
+    lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+    lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+    reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+    manualApprovalRequired: true,
+    questionBankAcceptanceMode: "FULL_RELEASE",
+    questionBankAcceptanceAuthority: "TRG-002-V4-HUMAN-APPROVED-INTERNAL",
+    questionBankStatus: "WRITABLE",
     questionBankWritable: true,
     testEligible: true,
     mockTestEligible: true,

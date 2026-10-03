@@ -1,3 +1,4 @@
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "./standard-lifecycle";
 import {
   generateQuestion as generatePreviousQuestion,
   listQuestionStudioPackages as listPreviousPackages,
@@ -21,6 +22,12 @@ const TRG_001_FULL_INTERNAL = TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.ex
 
 const TRG_001_AGGREGATE_CAPABILITY = Object.freeze({
   ...TRG_001_QUESTION_STUDIO_PACKAGE,
+  lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+  reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+  manualApprovalRequired: true,
+  questionBankAcceptanceMode: "FULL_RELEASE" as const,
+  questionBankAcceptanceAuthority: TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.version,
   questionBankStatus: TRG_001_FULL_INTERNAL.questionBankStatus,
   questionBankWritable: TRG_001_FULL_INTERNAL.questionBankWritable,
   testEligibility: TRG_001_FULL_INTERNAL.testEligibility,
@@ -35,6 +42,12 @@ const TRG_001_AGGREGATE_CAPABILITY = Object.freeze({
 const TRG_002_AGGREGATE_CAPABILITY = Object.freeze({
   ...TRG_002_V4_QUESTION_STUDIO_PACKAGE,
   permanentQlCount: 96,
+  lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+  reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+  manualApprovalRequired: true,
+  questionBankAcceptanceMode: "FULL_RELEASE" as const,
+  questionBankAcceptanceAuthority: "TRG-002-V4-HUMAN-APPROVED-INTERNAL",
   questionBankWritable: true,
   testEligible: true,
   mockTestEligible: true,
@@ -147,8 +160,7 @@ export function listQuestionStudioPackages() {
 }
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
-  // Keep TRG-001 first because the TRG-002 base detector intentionally accepts
-  // broader Trigonometry topic selectors.
+  // Keep package-specific routing ahead of the legacy fallback.
   if (isTrg001QuestionStudioRequest(request)) {
     return applyTrg001FullInternalLifecycle(generateTrg001QuestionStudioBatch(request as any));
   }
