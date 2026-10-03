@@ -398,6 +398,9 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       completionThreshold: series.completionThreshold == null ? null : Number(series.completionThreshold),
       learnerVisibility: visibility,
       learnerMessage: configuredMessage || (visibility === "coming_soon" ? DEFAULT_COMING_SOON_MESSAGE : ""),
+      hubStage: asString((series.configuration as Record<string, unknown> | undefined)?.hubStage) || "general",
+      hubType: asString((series.configuration as Record<string, unknown> | undefined)?.hubType) || "full-length",
+      examCycle: asString((series.configuration as Record<string, unknown> | undefined)?.examCycle),
       iconUrl: asString(series.iconUrl),
     },
     eligibility: {
@@ -459,6 +462,9 @@ router.get("/test-series", async (_req, res) => {
         version.progression_mode AS "progressionMode",
         version.completion_threshold::float8 AS "completionThreshold",
         branding.icon_url AS "iconUrl",
+        COALESCE(NULLIF(version.configuration->>'hubStage', ''), 'general') AS "hubStage",
+        COALESCE(NULLIF(version.configuration->>'hubType', ''), 'full-length') AS "hubType",
+        NULLIF(version.configuration->>'examCycle', '') AS "examCycle",
         COALESCE(NULLIF(version.configuration->>'learnerVisibility', ''), 'live') AS "learnerVisibility",
         COALESCE(
           NULLIF(version.configuration->>'learnerMessage', ''),
