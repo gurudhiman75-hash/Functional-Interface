@@ -54,6 +54,11 @@ import {
   isFlr001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Floor-and-Flat-Arrangement/FLR-001/question-studio-integration";
 import {
+  DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  generateDm001QuestionStudioBatch,
+  isDm001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.ts";
+import {
   MIS_001_QUESTION_STUDIO_PACKAGE,
   generateMis001QuestionStudioBatch,
   isMis001QuestionStudioRequest,
@@ -458,6 +463,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       INE_001_QUESTION_STUDIO_PACKAGE,
       ASM_001_QUESTION_STUDIO_PACKAGE,
       FLR_001_QUESTION_STUDIO_PACKAGE,
+      DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       MIS_001_QUESTION_STUDIO_PACKAGE,
       WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
@@ -513,6 +519,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isFlr001QuestionStudioRequest(request)) {
       return generateFlr001QuestionStudioBatch(request);
+    }
+    if (isDm001QuestionStudioRequest(request)) {
+      return generateDm001QuestionStudioBatch(request);
     }
     if (isRnk001QuestionStudioRequest(request)) {
       const source = await generateRnk001QuestionStudioBatch(request);
