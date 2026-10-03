@@ -10,6 +10,7 @@ const cases = [
   { packageId: "OPS-001", difficulty: "Hard" as const },
   { packageId: "DIR-001", difficulty: "Medium" as const },
   { packageId: "CLK-001", difficulty: "Hard" as const },
+  { packageId: "RNK-001", difficulty: "Medium" as const },
 ] as const;
 
 for (const item of cases) {

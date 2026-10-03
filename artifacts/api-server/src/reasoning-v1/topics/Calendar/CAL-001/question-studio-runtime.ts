@@ -10,6 +10,7 @@ import {
   type LocalizedCalendarSourceGapQuestion,
 } from "./source-gap-multilingual.ts";
 import type { CalendarSourceGapPrototypeId } from "./source-gap-runtime.ts";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import type {
   CalendarPrototypeId,
   CalendarQuestionPackage,
@@ -79,13 +80,20 @@ export const CAL_001_QUESTION_STUDIO_PACKAGE = {
   enabled: true,
   runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
   reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
-  questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
-  testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
-  publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
-  mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
-  manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
-  automaticStudentPublication:
-    CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+  lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+  reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+  questionBankStatus: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankStatus,
+  questionBankWritable: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankWritable,
+  questionBankAcceptanceMode: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceAuthority,
+  testEligibility: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligibility,
+  testEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligible,
+  publiclyPublishable: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.publiclyPublishable,
+  mockTestEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.mockTestEligible,
+  manualApprovalRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.manualApprovalRequired,
+  automaticStudentPublication: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.automaticStudentPublication,
+  productionReleaseAuthorized: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.productionReleaseAuthorized,
   releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
   freezeStatus: "ENGLISH_HINDI_PUNJABI_FROZEN",
 } as const;

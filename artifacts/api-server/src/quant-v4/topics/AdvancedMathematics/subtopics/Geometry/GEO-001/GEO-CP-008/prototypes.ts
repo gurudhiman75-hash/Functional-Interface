@@ -22,6 +22,15 @@ import type { Phase3PrototypeDefinition, Phase3PrototypeQuestion } from "../disc
 
 const CP_ID = "GEO-CP-008" as const;
 const q = (value: number) => rational(value);
+
+function variantIndex(seed: string, length: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % length;
+}
 const p = (x: number, y: number): ExactCoordinate => Object.freeze({ x: q(x), y: q(y) });
 
 function parallelogramDiagram(): GeoDiagramModel {
@@ -74,22 +83,25 @@ function rhombusDiagram(): GeoDiagramModel {
 }
 
 function generateFourthAngle(seed: string): Phase3PrototypeQuestion {
-  const clueIds = ["ABCD_IS_CONVEX_QUADRILATERAL", "ANGLE_A_IS_75", "ANGLE_B_IS_95", "ANGLE_C_IS_110"] as const;
-  const expected = "80°";
+  const pool = [[75, 95, 110], [82, 104, 96], [68, 112, 101], [90, 73, 119], [105, 88, 77]] as const;
+  const [a, b, cAngle] = pool[variantIndex(seed, pool.length)]!;
+  const d = 360 - a - b - cAngle;
+  const clueIds = ["ABCD_IS_CONVEX_QUADRILATERAL", "THREE_ANGLES_GIVEN"] as const;
+  const expected = `${d}°`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const result = quadrilateralFourthAngle(angle(75), angle(95), angle(110));
+    const result = quadrilateralFourthAngle(angle(a), angle(b), angle(cAngle));
     return result.denominator === 1n ? `${result.numerator}°` : `${result.numerator}/${result.denominator}°`;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Quadrilateral fourth-angle solver mismatch");
-  const verifierPassed = 75 + 95 + 110 + 80 === 360;
+  const verifierPassed = a + b + cAngle + d === 360;
   const theoremTrace: TheoremId[] = ["POLYGON_INTERIOR_SUM"];
   const proofEvents: GeoProofEvent[] = [{
     kind: "ANGLE_SUM", angleIds: ["A", "B", "C", "D"], total: angle(360), reason: "POLYGON_INTERIOR_SUM",
   }];
   const optionSet = buildOptions(expected, [
-    { text: "100°", misconceptionId: "USED_TRIANGLE_ANGLE_SUM", rationale: "Subtracts the three given angles from an inappropriate triangle-based total." },
-    { text: "70°", misconceptionId: "ARITHMETIC_SUBTRACTION_ERROR", rationale: "Makes a subtraction error after using the 360° quadrilateral sum." },
+    { text: `${Math.abs(180 - (a + b + cAngle))}°`, misconceptionId: "USED_TRIANGLE_ANGLE_SUM", rationale: "Uses a triangle-based total instead of the quadrilateral total." },
+    { text: `${d + 10}°`, misconceptionId: "ARITHMETIC_SUBTRACTION_ERROR", rationale: "Makes a subtraction error after using the 360° quadrilateral sum." },
     { text: "90°", misconceptionId: "ASSUMED_RIGHT_ANGLE", rationale: "Adds an unstated right-angle property to a general quadrilateral." },
   ], seed);
   return finalizePhase3Question({
@@ -98,11 +110,11 @@ function generateFourthAngle(seed: string): Phase3PrototypeQuestion {
     solveMode: "findFourthQuadrilateralAngle",
     difficulty: "Easy",
     seed,
-    stem: "In a convex quadrilateral ABCD, ∠A = 75°, ∠B = 95° and ∠C = 110°. Find ∠D.",
+    stem: `In a convex quadrilateral ABCD, ∠A = ${a}°, ∠B = ${b}° and ∠C = ${cAngle}°. Find ∠D.`,
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "A quadrilateral has four interior angles whose total is 360°.",
-      "Therefore ∠D = 360° − (75° + 95° + 110°) = 360° − 280° = 80°.",
+      `Therefore ∠D = 360° − (${a}° + ${b}° + ${cAngle}°) = ${d}°.`,
     ]),
     theoremTrace,
     proofEvents,
@@ -111,21 +123,24 @@ function generateFourthAngle(seed: string): Phase3PrototypeQuestion {
     independentVerifierResult: Object.freeze({
       passed: verifierPassed,
       oracle: "INDEPENDENT_ARITHMETIC",
-      checks: Object.freeze(["75 + 95 + 110 + 80 = 360"]),
+      checks: Object.freeze([`${a} + ${b} + ${cAngle} + ${d} = 360`]),
     }),
   });
 }
 
 function generateParallelogramDiagonal(seed: string): Phase3PrototypeQuestion {
-  const clueIds = ["ABCD_IS_PARALLELOGRAM", "DIAGONALS_INTERSECT_AT_O", "AC_IS_18"] as const;
-  const expected = "9 cm";
+  const diagonalPool = [12, 18, 24, 30, 36] as const;
+  const ac = diagonalPool[variantIndex(seed, diagonalPool.length)]!;
+  const ao = ac / 2;
+  const clueIds = ["ABCD_IS_PARALLELOGRAM", "DIAGONALS_INTERSECT_AT_O", "AC_GIVEN"] as const;
+  const expected = `${ao} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const value = parallelogramDiagonalHalf(q(18));
+    const value = parallelogramDiagonalHalf(q(ac));
     return value.denominator === 1n ? `${value.numerator} cm` : null;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Parallelogram diagonal-bisection solver mismatch");
-  const A = p(0, 0); const B = p(6, 4); const C = p(0, 18); const D = p(-6, 14); const O = p(0, 9);
+  const A = p(0, 0); const B = p(6, 4); const C = p(0, ac); const D = p(-6, ac - 4); const O = p(0, ao);
   const classification = validateIntendedQuadrilateral([A, B, C, D], "PARALLELOGRAM");
   const oracle = new CoordinateOracle({ A, B, C, D, O });
   const verifierPassed = classification.valid
@@ -133,16 +148,16 @@ function generateParallelogramDiagonal(seed: string): Phase3PrototypeQuestion {
     && oracle.collinear("B", "O", "D")
     && oracle.equalLengths("A", "O", "O", "C")
     && oracle.equalLengths("B", "O", "O", "D")
-    && equals(oracle.squaredLength("A", "C"), q(324));
+    && equals(oracle.squaredLength("A", "C"), q(ac * ac));
   if (!verifierPassed) throw new Error(`Parallelogram coordinate verification failed: ${classification.errors.join(",")}`);
   const theoremTrace: TheoremId[] = ["PARALLELOGRAM_DIAGONALS_BISECT"];
   const proofEvents: GeoProofEvent[] = [{
     kind: "SEGMENT_RATIO", left: "AO", right: "OC", ratio: rational(1), reason: "PARALLELOGRAM_DIAGONALS_BISECT",
   }];
   const optionSet = buildOptions(expected, [
-    { text: "18 cm", misconceptionId: "DIAGONAL_NOT_BISECTED", rationale: "Uses the full diagonal length as one half." },
-    { text: "6 cm", misconceptionId: "DIVIDED_DIAGONAL_INTO_THREE", rationale: "Divides the diagonal into three parts instead of two equal parts." },
-    { text: "36 cm", misconceptionId: "DOUBLED_DIAGONAL", rationale: "Doubles the given diagonal instead of taking half." },
+    { text: `${ac} cm`, misconceptionId: "DIAGONAL_NOT_BISECTED", rationale: "Uses the full diagonal length as one half." },
+    { text: `${ac / 3} cm`, misconceptionId: "DIVIDED_DIAGONAL_INTO_THREE", rationale: "Divides the diagonal into three parts instead of two equal parts." },
+    { text: `${2 * ac} cm`, misconceptionId: "DOUBLED_DIAGONAL", rationale: "Doubles the given diagonal instead of taking half." },
   ], seed);
   return finalizePhase3Question({
     cpId: CP_ID,
@@ -150,11 +165,11 @@ function generateParallelogramDiagonal(seed: string): Phase3PrototypeQuestion {
     solveMode: "findParallelogramHalfDiagonal",
     difficulty: "Easy",
     seed,
-    stem: "ABCD is a parallelogram whose diagonals AC and BD intersect at O. If AC = 18 cm, find AO.",
+    stem: `ABCD is a parallelogram whose diagonals AC and BD intersect at O. If AC = ${ac} cm, find AO.`,
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "The diagonals of a parallelogram bisect each other, so O is the midpoint of AC.",
-      "Hence AO = AC/2 = 18/2 = 9 cm.",
+      `Hence AO = AC/2 = ${ac}/2 = ${ao} cm.`,
     ]),
     theoremTrace,
     proofEvents,
@@ -163,7 +178,7 @@ function generateParallelogramDiagonal(seed: string): Phase3PrototypeQuestion {
     independentVerifierResult: Object.freeze({
       passed: verifierPassed,
       oracle: "COORDINATE_ORACLE",
-      checks: Object.freeze(["hidden quadrilateral is a valid parallelogram with no accidental rectangle/rhombus/square subtype", "O lies on both diagonals", "O is the exact midpoint of both diagonals", "AC has exact length 18"]),
+      checks: Object.freeze(["hidden quadrilateral is a valid parallelogram with no accidental rectangle/rhombus/square subtype", "O lies on both diagonals", "O is the exact midpoint of both diagonals", `AC has exact length ${ac}`]),
     }),
     diagramModel: parallelogramDiagram(),
   });

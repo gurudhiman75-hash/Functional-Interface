@@ -5,12 +5,14 @@ on:
     branches: [New-main]
     paths:
       - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-integration.ts"
       - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-live-mix-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-runtime-activation-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-live-mix-20261002.test.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-question-studio-live-adapter-20261002.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/rnk-001-question-studio-novelty-activation-20261002.test.ts"
   workflow_dispatch:
 
 concurrency:
@@ -34,3 +36,5 @@ jobs:
       - run: node artifacts/api-server/dist/reasoning-v1/reasoning-novelty-live-mix-20261002.test.mjs
       - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-novelty-question-studio-live-adapter-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-novelty-question-studio-live-adapter-20261002.test.mjs
       - run: node artifacts/api-server/dist/reasoning-v1/reasoning-novelty-question-studio-live-adapter-20261002.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/rnk-001-question-studio-novelty-activation-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/rnk-001-question-studio-novelty-activation-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/rnk-001-question-studio-novelty-activation-20261002.test.mjs

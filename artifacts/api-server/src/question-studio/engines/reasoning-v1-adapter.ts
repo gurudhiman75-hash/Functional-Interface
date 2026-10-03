@@ -96,6 +96,11 @@ import {
   generateWfm001QuestionStudioBatch,
   isWfm001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Word-Formation/WFM-001/question-studio-integration.ts";
+import {
+  RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  generateRnk001QuestionStudioBatch,
+  isRnk001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Ranking-and-Order/RNK-001/question-studio-integration";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -441,6 +446,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
+      RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       MIS_001_QUESTION_STUDIO_PACKAGE,
       WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
@@ -485,6 +491,10 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isClk001QuestionStudioRequest(request)) {
       const source = await generateClk001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
+    }
+    if (isRnk001QuestionStudioRequest(request)) {
+      const source = await generateRnk001QuestionStudioBatch(request);
       return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isWfm001QuestionStudioRequest(request)) {

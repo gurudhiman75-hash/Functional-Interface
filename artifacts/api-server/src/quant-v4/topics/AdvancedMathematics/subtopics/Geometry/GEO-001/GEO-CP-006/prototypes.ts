@@ -21,6 +21,15 @@ import type { Phase2PrototypeDefinition, Phase2PrototypeQuestion } from "../disc
 const CP_ID = "GEO-CP-006" as const;
 const q = (value: number) => rational(value);
 
+function variantIndex(seed: string, length: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % length;
+}
+
 function centroidDiagram(): GeoDiagramModel {
   return {
     points: [
@@ -94,24 +103,28 @@ function midpointDiagram(): GeoDiagramModel {
 }
 
 function generateCentroidRatio(seed: string): Phase2PrototypeQuestion {
-  const clueIds = ["ABC_IS_TRIANGLE", "AM_IS_MEDIAN", "G_IS_CENTROID", "AM_IS_12"] as const;
-  const expected = "8 cm";
+  const medianPool = [9, 12, 15, 18, 21] as const;
+  const median = medianPool[variantIndex(seed, medianPool.length)]!;
+  const ag = (2 * median) / 3;
+  const gm = median / 3;
+  const clueIds = ["ABC_IS_TRIANGLE", "AM_IS_MEDIAN", "G_IS_CENTROID", "AM_GIVEN"] as const;
+  const expected = `${ag} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const split = centroidMedianSplit(rational(12));
+    const split = centroidMedianSplit(rational(median));
     return split.vertexToCentroid.denominator === 1n ? `${split.vertexToCentroid.numerator} cm` : null;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Centroid 2:1 discovery solver mismatch");
   const oracle = new CoordinateOracle({
-    A: { x: q(0), y: q(12) }, B: { x: q(-6), y: q(0) }, C: { x: q(6), y: q(0) },
-    M: { x: q(0), y: q(0) }, G: { x: q(0), y: q(4) },
+    A: { x: q(0), y: q(median) }, B: { x: q(-6), y: q(0) }, C: { x: q(6), y: q(0) },
+    M: { x: q(0), y: q(0) }, G: { x: q(0), y: q(gm) },
   });
   const ag2 = oracle.squaredLength("A", "G");
   const gm2 = oracle.squaredLength("G", "M");
   const verifierPassed = oracle.collinear("A", "G", "M")
     && oracle.equalLengths("B", "M", "M", "C")
-    && equals(ag2, rational(64))
-    && equals(gm2, rational(16));
+    && equals(ag2, rational(ag * ag))
+    && equals(gm2, rational(gm * gm));
   if (!verifierPassed) throw new Error("Centroid independent coordinate verification failed");
   const theoremTrace: TheoremId[] = ["CENTROID_DIVIDES_MEDIAN_2_TO_1"];
   const proofEvents: GeoProofEvent[] = [{
@@ -122,9 +135,9 @@ function generateCentroidRatio(seed: string): Phase2PrototypeQuestion {
     reason: "CENTROID_DIVIDES_MEDIAN_2_TO_1",
   }];
   const optionSet = buildOptions(expected, [
-    { text: "4 cm", misconceptionId: "REVERSED_CENTROID_RATIO", rationale: "Takes the shorter centroid-to-midpoint part as the vertex-to-centroid part." },
-    { text: "6 cm", misconceptionId: "CENTROID_1_TO_1_INSTEAD_OF_2_TO_1", rationale: "Incorrectly divides the median into two equal halves." },
-    { text: "10 cm", misconceptionId: "CENTROID_RATIO_USED_AS_DIFFERENCE", rationale: "Treats the 2:1 relation as a subtraction adjustment rather than three equal ratio units." },
+    { text: `${gm} cm`, misconceptionId: "REVERSED_CENTROID_RATIO", rationale: "Takes the shorter centroid-to-midpoint part as the vertex-to-centroid part." },
+    { text: `${median / 2} cm`, misconceptionId: "CENTROID_1_TO_1_INSTEAD_OF_2_TO_1", rationale: "Incorrectly divides the median into two equal halves." },
+    { text: `${median - 2} cm`, misconceptionId: "CENTROID_RATIO_USED_AS_DIFFERENCE", rationale: "Treats the 2:1 relation as a subtraction adjustment rather than three equal ratio units." },
   ], seed);
   return finalizePhase2Question({
     cpId: CP_ID,
@@ -132,11 +145,11 @@ function generateCentroidRatio(seed: string): Phase2PrototypeQuestion {
     solveMode: "findCentroidMedianSegment",
     difficulty: "Easy",
     seed,
-    stem: "In triangle ABC, AM is a median of length 12 cm and G is the centroid on AM. Find AG.",
+    stem: `In triangle ABC, AM is a median of length ${median} cm and G is the centroid on AM. Find AG.`,
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "A centroid divides every median in the ratio 2:1, with the longer part next to the vertex.",
-      "So AM is split into 3 equal ratio parts. AG = (2/3) × 12 = 8 cm.",
+      `So AM is split into 3 equal ratio parts. AG = (2/3) × ${median} = ${ag} cm.`,
     ]),
     theoremTrace,
     proofEvents,
@@ -145,23 +158,29 @@ function generateCentroidRatio(seed: string): Phase2PrototypeQuestion {
     independentVerifierResult: Object.freeze({
       passed: verifierPassed,
       oracle: "COORDINATE_ORACLE",
-      checks: Object.freeze(["M is the exact midpoint of BC", "A, G and M are collinear", "hidden coordinates give AG = 8 and GM = 4"]),
+      checks: Object.freeze(["M is the exact midpoint of BC", "A, G and M are collinear", `hidden coordinates give AG = ${ag} and GM = ${gm}`]),
     }),
     diagramModel: centroidDiagram(),
   });
 }
 
 function generateAngleBisectorRatio(seed: string): Phase2PrototypeQuestion {
-  const clueIds = ["ABC_IS_TRIANGLE", "D_ON_BC", "AD_BISECTS_ANGLE_A", "AB_IS_21", "AC_IS_28", "BD_IS_15"] as const;
-  const expected = "20 cm";
+  const scalePool = [1, 2, 3] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const ab = 21 * scale;
+  const ac = 28 * scale;
+  const bd = 15 * scale;
+  const dcExpected = 20 * scale;
+  const clueIds = ["ABC_IS_TRIANGLE", "D_ON_BC", "AD_BISECTS_ANGLE_A", "AB_GIVEN", "AC_GIVEN", "BD_GIVEN"] as const;
+  const expected = `${dcExpected} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const dc = angleBisectorBaseSplit(rational(21), rational(28), rational(15));
+    const dc = angleBisectorBaseSplit(rational(ab), rational(ac), rational(bd));
     return dc.denominator === 1n ? `${dc.numerator} cm` : `${dc.numerator}/${dc.denominator} cm`;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Angle-bisector theorem discovery solver mismatch");
   const realization = {
-    A: { x: q(0), y: q(0) }, B: { x: q(21), y: q(0) }, C: { x: q(0), y: q(28) }, D: { x: q(12), y: q(12) },
+    A: { x: q(0), y: q(0) }, B: { x: q(ab), y: q(0) }, C: { x: q(0), y: q(ac) }, D: { x: q(12 * scale), y: q(12 * scale) },
   } as const;
   const oracle = new CoordinateOracle(realization);
   const ab2 = oracle.squaredLength("A", "B");
@@ -182,9 +201,9 @@ function generateAngleBisectorRatio(seed: string): Phase2PrototypeQuestion {
     reason: "ANGLE_BISECTOR_THEOREM",
   }];
   const optionSet = buildOptions(expected, [
-    { text: "15 cm", misconceptionId: "ANGLE_BISECTOR_ASSUMED_MEDIAN", rationale: "Assumes an angle bisector must split the opposite side into equal parts." },
-    { text: "28 cm", misconceptionId: "MIXED_NONCORRESPONDING_SIDES", rationale: "Copies AC instead of using the proportional division of BC." },
-    { text: "35 cm", misconceptionId: "INVERTED_SIDE_RATIO", rationale: "Uses the adjacent-side ratio in the wrong direction when solving for DC." },
+    { text: `${bd} cm`, misconceptionId: "ANGLE_BISECTOR_ASSUMED_MEDIAN", rationale: "Assumes an angle bisector must split the opposite side into equal parts." },
+    { text: `${ac} cm`, misconceptionId: "MIXED_NONCORRESPONDING_SIDES", rationale: "Copies AC instead of using the proportional division of BC." },
+    { text: `${35 * scale} cm`, misconceptionId: "INVERTED_SIDE_RATIO", rationale: "Uses the adjacent-side ratio in the wrong direction when solving for DC." },
   ], seed);
   return finalizePhase2Question({
     cpId: CP_ID,
@@ -192,11 +211,11 @@ function generateAngleBisectorRatio(seed: string): Phase2PrototypeQuestion {
     solveMode: "findOppositeSegmentByAngleBisectorTheorem",
     difficulty: "Medium",
     seed,
-    stem: "In triangle ABC, D lies on BC and AD bisects ∠A. If AB = 21 cm, AC = 28 cm and BD = 15 cm, find DC.",
+    stem: `In triangle ABC, D lies on BC and AD bisects ∠A. If AB = ${ab} cm, AC = ${ac} cm and BD = ${bd} cm, find DC.`,
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "Because AD bisects ∠A, the angle-bisector theorem gives BD/DC = AB/AC.",
-      "Thus 15/DC = 21/28 = 3/4. Therefore 3DC = 60 and DC = 20 cm.",
+      `Thus ${bd}/DC = ${ab}/${ac} = 3/4. Therefore 3DC = ${60 * scale} and DC = ${dcExpected} cm.`,
     ]),
     theoremTrace,
     proofEvents,
@@ -212,17 +231,21 @@ function generateAngleBisectorRatio(seed: string): Phase2PrototypeQuestion {
 }
 
 function generateMidpointTheorem(seed: string): Phase2PrototypeQuestion {
-  const clueIds = ["ABC_IS_TRIANGLE", "D_MIDPOINT_AB", "E_MIDPOINT_AC", "BC_IS_10"] as const;
-  const expected = "5 cm";
+  const scalePool = [1, 2, 3, 4, 5] as const;
+  const scale = scalePool[variantIndex(seed, scalePool.length)]!;
+  const bc = 10 * scale;
+  const deExpected = 5 * scale;
+  const clueIds = ["ABC_IS_TRIANGLE", "D_MIDPOINT_AB", "E_MIDPOINT_AC", "BC_GIVEN"] as const;
+  const expected = `${deExpected} cm`;
   const solve = (active: ReadonlySet<string>): string | null => {
     if (!clueIds.every((clue) => active.has(clue))) return null;
-    const de = midpointTheoremSegment(rational(10));
+    const de = midpointTheoremSegment(rational(bc));
     return de.denominator === 1n ? `${de.numerator} cm` : `${de.numerator}/${de.denominator} cm`;
   };
   if (solve(new Set(clueIds)) !== expected) throw new Error("Midpoint theorem discovery solver mismatch");
   const oracle = new CoordinateOracle({
-    A: { x: q(0), y: q(0) }, B: { x: q(6), y: q(0) }, C: { x: q(0), y: q(8) },
-    D: { x: q(3), y: q(0) }, E: { x: q(0), y: q(4) },
+    A: { x: q(0), y: q(0) }, B: { x: q(6 * scale), y: q(0) }, C: { x: q(0), y: q(8 * scale) },
+    D: { x: q(3 * scale), y: q(0) }, E: { x: q(0), y: q(4 * scale) },
   });
   const de2 = oracle.squaredLength("D", "E");
   const bc2 = oracle.squaredLength("B", "C");
@@ -242,9 +265,9 @@ function generateMidpointTheorem(seed: string): Phase2PrototypeQuestion {
     reason: "MIDPOINT_THEOREM",
   }];
   const optionSet = buildOptions(expected, [
-    { text: "10 cm", misconceptionId: "MIDPOINT_SEGMENT_ASSUMED_EQUAL_THIRD_SIDE", rationale: "Treats the midpoint segment as equal to the whole third side instead of half." },
-    { text: "20 cm", misconceptionId: "REVERSED_MIDPOINT_RATIO", rationale: "Doubles the third side instead of halving it." },
-    { text: "2.5 cm", misconceptionId: "HALVED_TWICE", rationale: "Applies the half-length relation twice." },
+    { text: `${bc} cm`, misconceptionId: "MIDPOINT_SEGMENT_ASSUMED_EQUAL_THIRD_SIDE", rationale: "Treats the midpoint segment as equal to the whole third side instead of half." },
+    { text: `${2 * bc} cm`, misconceptionId: "REVERSED_MIDPOINT_RATIO", rationale: "Doubles the third side instead of halving it." },
+    { text: `${deExpected / 2} cm`, misconceptionId: "HALVED_TWICE", rationale: "Applies the half-length relation twice." },
   ], seed);
   return finalizePhase2Question({
     cpId: CP_ID,
@@ -252,11 +275,11 @@ function generateMidpointTheorem(seed: string): Phase2PrototypeQuestion {
     solveMode: "findMidpointJoinLength",
     difficulty: "Easy",
     seed,
-    stem: "In triangle ABC, D is the midpoint of AB and E is the midpoint of AC. If BC = 10 cm, find DE.",
+    stem: `In triangle ABC, D is the midpoint of AB and E is the midpoint of AC. If BC = ${bc} cm, find DE.`,
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "The segment joining the midpoints of two sides of a triangle is parallel to the third side and half its length.",
-      "Therefore DE = BC/2 = 10/2 = 5 cm.",
+      `Therefore DE = BC/2 = ${bc}/2 = ${deExpected} cm.`,
     ]),
     theoremTrace,
     proofEvents,

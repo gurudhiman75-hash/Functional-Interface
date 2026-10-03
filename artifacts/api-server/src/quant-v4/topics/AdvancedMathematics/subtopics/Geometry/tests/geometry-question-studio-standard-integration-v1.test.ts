@@ -23,6 +23,9 @@ const packageCard = packages[0] as any;
 assert.equal(packageCard.enabled, true);
 assert.equal(packageCard.runtimeMode, "QUESTION_STUDIO_ACTIVE");
 assert.equal(packageCard.questionStudioDiscoverable, true);
+assert.equal(packageCard.lifecycleStage, "REVIEW_ONLY");
+assert.equal(packageCard.reviewSurfaceRequired, true);
+assert.equal(packageCard.manualApprovalRequired, true);
 assert.equal(packageCard.questionBankStatus, "NOT_STORED");
 assert.equal(packageCard.questionBankWritable, false);
 assert.equal(packageCard.testEligibility, "INELIGIBLE");
@@ -132,6 +135,49 @@ const topicRoute = await generateQuestion({
   seed: "geo-qs-topic-selector-proof",
 });
 for (const question of topicRoute.questions as any[]) assertFrozenParity(question, "hi");
+
+const mixedDifficultyProbe = await generateQuestion({
+  packageId: "GEO-001" as never,
+  language: "en",
+  count: 12,
+  seed: "geo-qs-mixed-difficulty-proof",
+});
+for (const question of mixedDifficultyProbe.questions as any[]) {
+  const variantIndex = Number(question.metadata.variantIndex);
+  const frozen = generateGeometryPermanentEnglishFrozenV1(question.qlId, question.seed, variantIndex);
+  assert.equal(question.difficulty, frozen.difficulty);
+  assert.equal(question.difficultyLabel, frozen.difficulty);
+  assert.equal(question.proceduralLogic.sourceDifficulty, frozen.difficulty);
+  assert.equal(question.proceduralLogic.difficultyRoutingMode, "FROZEN_SOURCE_MIXED");
+}
+
+for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const result = await generateQuestion({
+    packageId: "GEO-001" as never,
+    difficulty,
+    language: "en",
+    count: difficulty === "Hard" ? 1 : 8,
+    seed: `geo-qs-explicit-difficulty-${difficulty.toLowerCase()}`,
+  });
+  assert.ok(result.questions.length >= 1);
+  for (const question of result.questions as any[]) {
+    assert.equal(question.difficulty, difficulty);
+    assert.equal(question.difficultyLabel, difficulty);
+    assert.equal(question.proceduralLogic.sourceDifficulty, difficulty);
+    assert.equal(question.proceduralLogic.difficultyRoutingMode, "FROZEN_SOURCE_DIFFICULTY_MATCH");
+  }
+}
+
+await assert.rejects(
+  () => generateQuestion({
+    packageId: "GEO-001" as never,
+    questionLanguageId: "GEO-QL-001",
+    difficulty: "Hard",
+    count: 1,
+    seed: "geo-qs-unreachable-hard-proof",
+  }),
+  /has no Hard Question Studio QLs|has no Hard Geometry variant/u,
+);
 
 await assert.rejects(
   () => generateQuestion({ packageId: "GEO-001" as never, questionLanguageId: "GEO-QL-999", count: 1 }),

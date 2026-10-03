@@ -24,6 +24,7 @@ interface GeometryExecutableQuestionLike {
   readonly cpId: string;
   readonly solveMode: string;
   readonly language: string;
+  readonly difficulty: "Easy" | "Medium" | "Hard";
   readonly seed: string;
   readonly stem: string;
   readonly options: readonly string[];
@@ -123,6 +124,7 @@ export interface GeometryPermanentEnglishCandidateItemV1 {
   readonly variantIndex: number;
   readonly seed: string;
   readonly language: "en-IN";
+  readonly difficulty: "Easy" | "Medium" | "Hard";
   readonly question: string;
   readonly options: readonly string[];
   readonly correctIndex: number;
@@ -219,6 +221,7 @@ export function generateGeometryPermanentEnglishCandidateV1(
     variantIndex,
     seed,
     language: "en-IN",
+    difficulty: raw.difficulty,
     question: raw.stem,
     options: raw.options,
     correctIndex: raw.correctIndex,

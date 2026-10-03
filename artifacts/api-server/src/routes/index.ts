@@ -157,6 +157,11 @@ router.use("/users", studentExamPreferencesRouter);
 router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
+// Series guards must run before the canonical /tests router so a caller cannot
+// reveal a series-bound test merely by adding an arbitrary seriesId query.
+// The guard validates membership, authentication and progression, then calls
+// next() for the canonical test reader.
+router.use(studentTestSeriesRouter);
 router.use("/tests", testsRouter);
 router.use(learningResourcesRouter);
 router.use(mobileHomeRouter);
@@ -171,7 +176,6 @@ router.use(publicPracticeRouter);
 router.use(canonicalCommerceCheckoutRouter);
 router.use(canonicalCommercePurchasesRouter);
 router.use(canonicalCommerceAccessGuardRouter);
-router.use(studentTestSeriesRouter);
 router.use(attemptReliabilityRouter);
 router.use(canonicalAttemptResultsRouter);
 router.use(canonicalStudentReadRouter);
