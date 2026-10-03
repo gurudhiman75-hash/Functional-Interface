@@ -55,3 +55,15 @@ Current live chapter authority is `SYL_001_QUESTION_STUDIO_CLOSEOUT_V1`.
 - public/student publication: **locked**.
 
 The unresolved work is not learner-content approval. It is the separate source-profile / mock-archetype freeze: exact historical weighting is still unfrozen, the Banking modal candidate family remains inactive pending its own review/source-profile gate, and difficulty calibration remains non-production until learner evidence exists.
+
+
+## 2026-10-03 post-closure remediation
+
+- current `reasoning-v1` Question Studio adapter registration added;
+- legacy review-registry route retained for compatibility;
+- V5 exact Venn renderer now reuses VEN-001 reviewed geometry/label anchors where semantically safe;
+- Syllogism-specific witness, possibility, counterexample and either/or proof semantics remain local to SYL-001;
+- strict V4/V5 diagram type leaks repaired;
+- source weighting, learner-data difficulty calibration and downstream release remain separate gates.
+
+Authority: `SYL-001-POST-CLOSURE-DEEP-AUDIT-20261003.md`.

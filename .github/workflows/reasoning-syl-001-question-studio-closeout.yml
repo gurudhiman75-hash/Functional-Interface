@@ -2,15 +2,24 @@ name: Validate SYL-001 Question Studio closeout
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/**"
       - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
-      - ".github/workflows/reasoning-syl-001-question-studio-closeout.yml"
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.test.ts"
   workflow_dispatch:
+
+concurrency:
+  group: syl-001-closeout-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-syl-001-question-studio-closeout:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,6 +27,32 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+      - name: Run focused SYL-001 TypeScript contract
+        run: >-
+          pnpm --dir artifacts/api-server exec tsc
+          --noEmit --skipLibCheck --target ES2022
+          --module ESNext --moduleResolution Bundler
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
+          src/reasoning-v1/topics/Syllogism/SYL-001/question-studio-integration.ts
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.ts
+      - name: Run Logical Venn reusable renderer audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.test.ts
+      - name: Run SYL-001 V5 exam-readiness audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
+      - name: Run SYL-001 V5 viewport audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-audit.test.ts
+      - name: Run SYL-001 final diagram-proof audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v3-audit.test.ts
+      - name: Run SYL-001 containment-direction audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-audit.test.ts
+      - name: Run SYL-001 post-closure audit
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Syllogism/SYL-001/syl-001-post-closure-audit-20261003.test.ts
       - name: Bundle SYL-001 Question Studio closeout audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild

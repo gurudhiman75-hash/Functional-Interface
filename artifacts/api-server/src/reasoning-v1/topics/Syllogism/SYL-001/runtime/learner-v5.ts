@@ -5,6 +5,7 @@ import type {
   TermId,
 } from "../foundation/types";
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
+import { promoteLearnerDiagramV4ToV5 } from "./learner-v5-diagram-compat";
 import {
   SYL_LEARNER_V5_AUTHORITY,
   type SylLearnerConclusionResultV5,
@@ -375,10 +376,10 @@ function remediateDiagram(
   const current = question.learnerPresentationV4.diagram;
   const answerModeMismatch = current.mode === "VENN_EITHER_OR" && resolvedMode !== "EITHER_OR";
   const unknownWitnessRelation = current.mode === "VENN_WITNESS_TRANSFER" && hasUnknownPremisePair(question);
-  if (!answerModeMismatch && !unknownWitnessRelation) return current;
+  if (!answerModeMismatch && !unknownWitnessRelation) return promoteLearnerDiagramV4ToV5(current);
   const reason = answerModeMismatch ? "ANSWER_MODE_MISMATCH" : "UNKNOWN_RELATION_NOT_DRAWN";
   return {
-    ...current,
+    ...promoteLearnerDiagramV4ToV5(current),
     enabled: false,
     mode: "OMITTED_NOT_USEFUL",
     omissionReason: reason,

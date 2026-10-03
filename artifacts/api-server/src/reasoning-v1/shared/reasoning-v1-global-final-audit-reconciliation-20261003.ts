@@ -241,9 +241,9 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Syllogism",
         chapterId: "SYL-001",
         closureAuthorityPath:
-          "topics/Syllogism/SYL-001/SYL-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Syllogism/SYL-001/SYL-001-POST-CLOSURE-DEEP-AUDIT-20261003.md",
         auditState: "PASS",
-        remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
+        remainingGate: "SOURCE_WEIGHTING_DIFFICULTY_CALIBRATION_AND_RELEASE_SEPARATE",
       },
       {
         topicDirectory: "Venn-Diagrams",

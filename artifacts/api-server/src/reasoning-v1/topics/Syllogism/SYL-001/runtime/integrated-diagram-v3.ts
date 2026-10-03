@@ -226,6 +226,9 @@ export function renderIntegratedDiagramV3(input: IntegratedDiagramInputV3): {
 } {
   const c = copy(input.locale);
   const premises = input.premises.filter((premise) => input.relevantPremiseIds.includes(premise.premiseId));
+  if (premises.length !== input.relevantPremiseIds.length) {
+    throw new Error("SYL integrated diagram is missing a relevant premise.");
+  }
   const terms = [...new Set(premises.flatMap((premise) => [premise.subject, premise.predicate]))].sort();
   const points = termPoints(terms);
   const relations = premises.map((premise, index) => relationSvg(premise, index, points, input.locale)).join("");
@@ -260,7 +263,7 @@ ${relations}${nodes}${modelSvg}
       diagramCount: 1,
       mode: input.mode,
       correctOptionOnly: true,
-      allRelevantPremisesIncluded: premises.length === input.relevantPremiseIds.length,
+      allRelevantPremisesIncluded: true,
       relevantPremiseIds: input.relevantPremiseIds,
       correctOptionDisplayIndex: input.correctOptionDisplayIndex,
       correctOptionText: input.correctOptionText,
