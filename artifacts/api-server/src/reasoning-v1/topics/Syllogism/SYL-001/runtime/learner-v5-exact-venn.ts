@@ -4,6 +4,10 @@ import type {
   SylLocale,
   TermId,
 } from "../foundation/types";
+import {
+  getVennTopologyGeometry,
+  type VennTopologyId,
+} from "../../../Venn-Diagrams/VEN-001/logical-venn-renderer";
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import type { TermAssignment } from "./localization";
 import { resolveModelTargetV5 } from "./learner-v5-model-target-remediation";
@@ -17,6 +21,8 @@ interface Shape {
   cx: number;
   cy: number;
   r: number;
+  labelX?: number;
+  labelY?: number;
 }
 
 interface Point {
@@ -219,17 +225,65 @@ function permutations<T>(values: readonly T[]): readonly (readonly T[])[] {
   return result;
 }
 
+const SHARED_TWO_SET_TOPOLOGIES: readonly VennTopologyId[] = [
+  "TWO_DISJOINT",
+  "TWO_PARTIAL_OVERLAP",
+  "TWO_CONTAINMENT",
+];
+
+const SHARED_THREE_SET_TOPOLOGIES: readonly VennTopologyId[] = [
+  "THREE_NESTED",
+  "THREE_TWO_DISJOINT_SUBSETS",
+  "THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET",
+  "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE",
+  "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE",
+  "THREE_TWO_OVERLAP_ONE_SEPARATE",
+  "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
+  "THREE_ALL_DISJOINT",
+  "THREE_NESTED_PAIR_CROSSED_BY_THIRD",
+  "THREE_TWO_DISJOINT_OVERLAP_THIRD",
+  "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
+];
+
+function sharedLogicalVennTemplate(
+  topologyId: VennTopologyId,
+): readonly Omit<Shape, "term">[] {
+  const geometry = getVennTopologyGeometry(topologyId);
+  const scale = 1.12;
+  const offsetX = (WIDTH - 250 * scale) / 2;
+  const offsetY = (HEIGHT - 172 * scale) / 2;
+  return geometry.circles.map((circle, index) => ({
+    cx: offsetX + circle.cx * scale,
+    cy: offsetY + circle.cy * scale,
+    r: circle.r * scale,
+    labelX: offsetX + geometry.labelAnchors[index]!.x * scale,
+    labelY: offsetY + geometry.labelAnchors[index]!.y * scale,
+  }));
+}
+
+function sharedLogicalVennTemplates(
+  count: number,
+): readonly (readonly Omit<Shape, "term">[])[] {
+  const ids = count === 2
+    ? SHARED_TWO_SET_TOPOLOGIES
+    : count === 3
+      ? SHARED_THREE_SET_TOPOLOGIES
+      : [];
+  return ids.map(sharedLogicalVennTemplate);
+}
+
 function templates(count: number): readonly (readonly Omit<Shape, "term">[])[] {
   if (count === 1) return [[{ cx: 170, cy: 108, r: 72 }]];
   if (count === 2) {
     return [
+      ...sharedLogicalVennTemplates(2),
+      // Coincident circles are a Syllogism-specific identity case not needed
+      // by Logical Venn's topology-selection chapter.
       [{ cx: 170, cy: 108, r: 76 }, { cx: 170, cy: 108, r: 76 }],
-      [{ cx: 170, cy: 108, r: 78 }, { cx: 170, cy: 112, r: 44 }],
-      [{ cx: 132, cy: 108, r: 62 }, { cx: 208, cy: 108, r: 62 }],
-      [{ cx: 95, cy: 108, r: 56 }, { cx: 245, cy: 108, r: 56 }],
     ];
   }
   return [
+    ...sharedLogicalVennTemplates(3),
     [{ cx: 170, cy: 108, r: 88 }, { cx: 170, cy: 112, r: 61 }, { cx: 170, cy: 116, r: 34 }],
     [{ cx: 170, cy: 108, r: 90 }, { cx: 132, cy: 119, r: 31 }, { cx: 208, cy: 119, r: 31 }],
     [{ cx: 170, cy: 108, r: 90 }, { cx: 151, cy: 118, r: 42 }, { cx: 189, cy: 118, r: 42 }],
@@ -419,9 +473,10 @@ function splitLabel(value: string): readonly string[] {
 
 function labelSvg(shape: Shape, value: string, duplicateIndex: number): string {
   const lines = splitLabel(value);
-  const y = Math.max(24, shape.cy - shape.r + 18 + duplicateIndex * 18);
-  return `<text x="${shape.cx}" y="${y}" text-anchor="middle" class="set-label">${lines.map((line, index) =>
-    `<tspan x="${shape.cx}" dy="${index === 0 ? 0 : 14}">${esc(line)}</tspan>`).join("")}</text>`;
+  const x = shape.labelX ?? shape.cx;
+  const y = shape.labelY ?? Math.max(24, shape.cy - shape.r + 18 + duplicateIndex * 18);
+  return `<text x="${x}" y="${y}" text-anchor="middle" class="set-label">${lines.map((line, index) =>
+    `<tspan x="${x}" dy="${index === 0 ? 0 : 14}">${esc(line)}</tspan>`).join("")}</text>`;
 }
 
 function localizedCaption(
