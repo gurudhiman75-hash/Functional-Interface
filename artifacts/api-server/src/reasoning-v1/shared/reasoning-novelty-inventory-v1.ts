@@ -1,5 +1,5 @@
 export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
-  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V3' as const;
+  'REASONING_V1_NOVELTY_INVENTORY_2026_10_03_V4' as const;
 
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
@@ -167,6 +167,19 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     ],
     countsTowardControlledNovelTargetNow: true,
     nextGate: 'Monitor bounded Question Studio mix quality and keep the shared 15–25% assembly band intact.',
+  },
+  {
+    topicDirectory: 'Floor-and-Flat-Arrangement',
+    chapterId: 'FLR-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'FLR-001 freezes four source-backed solve contracts: single-column floor, floor plus one secondary variable, bijective two-flat grid and non-bijective shared-flat capacity.',
+      'Floor count, person pool, clue order, query projection, gap/parity wording, option order, language and calibrated difficulty remain governed instance or presentation variation.',
+      'Vacant-flat, three-flat-per-floor and wider multi-variable variants remain explicit source-reopen holds rather than being relabelled as novelty.',
+      'FLR-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the dedicated novelty decision.',
+    ],
+    countsTowardControlledNovelTargetNow: false,
+    nextGate: 'Re-open only on recurring source evidence or an independently validated Floor/Flat learner contract outside FLR-QL-001..004.',
   },
   {
     topicDirectory: 'InputOutput',
