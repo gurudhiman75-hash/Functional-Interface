@@ -132,6 +132,19 @@ function stableOrder<T extends { packageId: string; qlId: string }>(items: reado
     .map(({ item }) => item);
 }
 
+function isGenericProbabilityChapterRequest(request: ProbabilityStandardQuestionStudioRequest): boolean {
+  const explicit = String(request.packageId ?? request.archetypeId ?? request.patternId ?? "").trim();
+  const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim();
+  const qlId = String(request.questionLanguageId ?? "").trim();
+  if (explicit || cpId || qlId) return false;
+
+  const topic = normalizeSelector(request.topic);
+  const subtopic = normalizeSelector(request.subtopic);
+  return topic === "probability"
+    || subtopic === "probability"
+    || (topic === "arithmetic" && subtopic.includes("probability"));
+}
+
 function selectedPackage(request: ProbabilityStandardQuestionStudioRequest) {
   const explicit = String(request.packageId ?? request.archetypeId ?? "").trim().toUpperCase();
   if (explicit === "PRB-001" || explicit === "PRB-002") {
@@ -494,13 +507,59 @@ function generateNativeBatch(
 export function generateProbabilityStandardQuestionStudioBatch(
   request: ProbabilityStandardQuestionStudioRequest = {},
 ) {
+  const language = request.language ?? "en";
+  const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+
+  if (isGenericProbabilityChapterRequest(request)) {
+    if (!PROBABILITY_STANDARD_QUESTION_STUDIO_LANGUAGES.includes(language)) {
+      throw new Error(`Probability does not support Question Studio language '${language}'.`);
+    }
+    const chapterSeed = request.seed?.trim() || [
+      "quant-v4",
+      "question-studio",
+      "Probability",
+      language,
+      Date.now(),
+      Math.random().toString(36).slice(2),
+    ].join(":");
+    const packageOffset = seedHash(`${chapterSeed}:package-offset`) % PACKAGES.length;
+    const questions: any[] = [];
+    const questionPackages: any[] = [];
+
+    for (let index = 0; index < count; index += 1) {
+      const pkg = PACKAGES[(packageOffset + index) % PACKAGES.length]!;
+      const itemSeed = `${chapterSeed}:${pkg.packageId}:${index}`;
+      const itemRequest = { ...request, packageId: pkg.packageId, seed: itemSeed, count: 1 };
+      const generated = language === "en"
+        ? generateEnglishBatch(pkg, itemRequest, 1, itemSeed)
+        : generateNativeBatch(pkg, itemRequest, language, 1, itemSeed);
+      questions.push(...generated.questions);
+      questionPackages.push(...generated.questionPackages);
+    }
+
+    return {
+      generationContext: {
+        generationDomain: "quant-v4" as const,
+        chapterId: "Probability" as const,
+        packageId: "MIXED_PRB_001_PRB_002" as const,
+        participatingPackageIds: PACKAGES.map((pkg) => pkg.packageId),
+        seed: chapterSeed,
+        timestamp: Date.now(),
+        language,
+        mixedChapterRouting: true as const,
+        publiclyPublishable: false as const,
+        automaticStudentPublication: false as const,
+      },
+      questionPackages,
+      questions,
+    };
+  }
+
   const pkg = selectedPackage(request);
   if (!pkg) throw new Error("Probability Question Studio package selection is required.");
-  const language = request.language ?? "en";
   if (!PROBABILITY_STANDARD_QUESTION_STUDIO_LANGUAGES.includes(language)) {
     throw new Error(`${pkg.packageId} does not support Question Studio language '${language}'.`);
   }
-  const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const batchSeed = buildBatchSeed(pkg, request, language);
 
   return language === "en"
