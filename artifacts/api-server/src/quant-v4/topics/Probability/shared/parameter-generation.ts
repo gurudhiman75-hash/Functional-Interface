@@ -14,8 +14,8 @@ const CP002_COIN_STATE_LANES: Readonly<Record<string, Readonly<{ trials: number;
   "PRB-QL-102": { trials: 2 }, "PRB-QL-109": { trials: 3 }, "PRB-QL-116": { trials: 4 },
   "PRB-QL-103": { trials: 2 }, "PRB-QL-110": { trials: 3 }, "PRB-QL-117": { trials: 4 }, "PRB-QL-124": { trials: 5 },
   "PRB-QL-104": { trials: 2 }, "PRB-QL-111": { trials: 3 }, "PRB-QL-118": { trials: 4 },
-  "PRB-QL-105": { trials: 3, k: 1 }, "PRB-QL-112": { trials: 4, k: 2 }, "PRB-QL-119": { trials: 5, k: 2 },
-  "PRB-QL-106": { trials: 3, k: 1 }, "PRB-QL-113": { trials: 4, k: 2 }, "PRB-QL-120": { trials: 5, k: 3 },
+  "PRB-QL-105": { trials: 3, k: 1 }, "PRB-QL-112": { trials: 4, k: 2 }, "PRB-QL-119": { trials: 4, k: 1 },
+  "PRB-QL-106": { trials: 3, k: 1 }, "PRB-QL-113": { trials: 4, k: 2 }, "PRB-QL-120": { trials: 4, k: 3 },
   "PRB-QL-107": { trials: 2 }, "PRB-QL-114": { trials: 3 }, "PRB-QL-121": { trials: 4 },
 });
 
