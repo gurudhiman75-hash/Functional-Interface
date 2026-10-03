@@ -22,6 +22,7 @@ import {
   Trophy,
 } from "lucide-react";
 
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { getStudentTestSeriesDetail, type StudentSeriesMember } from "@/lib/test-series";
@@ -193,7 +194,7 @@ export default function TestSeriesPage() {
           <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-stretch lg:p-8">
             <div className="min-w-0">
               <div className="flex min-w-0 items-start gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#ded9fa] bg-white text-[#6657e8] shadow-[0_8px_24px_rgba(71,61,145,0.08)]"><Trophy className="h-8 w-8" /></div>
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#ded9fa] bg-white text-[#6657e8] shadow-[0_8px_24px_rgba(71,61,145,0.08)]">{series.iconUrl ? <CategoryIcon icon={series.iconUrl} className="h-10 w-10" /> : <Trophy className="h-8 w-8" />}</div>
                 <div className="min-w-0">
                   <p className="truncate text-[10px] font-black uppercase tracking-[0.18em] text-[#6657e8]">{series.examFamilyName} · {series.examName}</p>
                   <h1 className="mt-2 text-2xl font-bold tracking-[-0.035em] text-slate-950 sm:text-3xl lg:text-[34px]">{series.name}</h1>
