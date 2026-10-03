@@ -126,6 +126,14 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
       },
       {
+        topicDirectory: "Assertion-and-Reason",
+        chapterId: "ASM-001",
+        closureAuthorityPath:
+          "topics/Assertion-and-Reason/ASM-001/ASM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
+        auditState: "PASS_WITH_REVIEW_GATE",
+        remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
+      },
+      {
         topicDirectory: "Logic-Puzzles",
         chapterId: "LP-001",
         closureAuthorityPath:
@@ -254,7 +262,6 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
       blueprintOnlyOrNotYetStandaloneChaptersAreOutsideThisClosure: true,
     }),
     knownStandaloneBlueprintFrontier: Object.freeze([
-      "REAS-ASM",
       "REAS-DCS",
       "REAS-GAM",
     ] as const),

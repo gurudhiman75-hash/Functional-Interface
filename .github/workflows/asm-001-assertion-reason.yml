@@ -1,0 +1,47 @@
+name: Validate ASM-001 Assertion and Reason
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Assertion-and-Reason/ASM-001/**"
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-v1-global-final-audit-reconciliation-20261003.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-inventory-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-cross-chapter-novelty-current-head-20261002.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-v1-global-final-audit-reconciliation-20261003.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: asm-001-standalone-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Run ASM-001 standalone closure proof
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Assertion-and-Reason/ASM-001/asm-001-standalone-closure.test.ts
+      - name: Run Reasoning novelty inventory proof
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/tests/reasoning-novelty-inventory-v1.test.ts
+      - name: Run cross-chapter novelty current-head proof
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/tests/reasoning-cross-chapter-novelty-current-head-20261002.test.ts
+      - name: Run global audit reconciliation proof
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/tests/reasoning-v1-global-final-audit-reconciliation-20261003.test.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
