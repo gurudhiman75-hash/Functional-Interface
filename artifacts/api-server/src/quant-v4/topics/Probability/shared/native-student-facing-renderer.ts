@@ -141,6 +141,16 @@ function reverseTotalStem(source: ProbabilityQuestion, language: ProbabilityNati
   return `${favourable} ਵਿਅਕਤੀ ਇੱਕ ਸ਼ਰਤ ਪੂਰੀ ਕਰਦੇ ਹਨ। ਜੇ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣੇ ਵਿਅਕਤੀ ਵੱਲੋਂ ਇਹ ਸ਼ਰਤ ਪੂਰੀ ਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ${probability} ਹੈ, ਤਾਂ ਸਮੂਹ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਵਿਅਕਤੀ ਹਨ?`;
 }
 
+function conditionalCardNativeForm(source: ProbabilityQuestion): number {
+  const explicit: Readonly<Record<string, number>> = Object.freeze({
+    "PRB-QL-602": 0,
+    "PRB-QL-608": 1,
+    "PRB-QL-614": 2,
+    "PRB-QL-620": 3,
+  });
+  return explicit[source.questionLanguageId] ?? sourceQlVariant(source, 4);
+}
+
 function sourceQlVariant(source: ProbabilityQuestion, count: number): number {
   const match = source.questionLanguageId.match(/(\d+)$/);
   const value = match ? Number(match[1]) : 0;
@@ -295,7 +305,7 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findAtLeastOneAcrossIndependentStages": return `एक ${bagWord(language)} में ${red} लाल और ${blue} नीली गेंदें हैं। दो गेंदें वापस रखकर निकाली जाती हैं। कम-से-कम एक लाल गेंद निकलने की प्रायिकता क्या है?`;
       case "findConditionalProbabilityByCounting": case "findConditionalFromTwoWayTable": return `गणित में उत्तीर्ण ${num(source, "mathTotal")} विद्यार्थियों में से ${num(source, "both")} अंग्रेज़ी में भी उत्तीर्ण हैं। गणित में उत्तीर्ण विद्यार्थियों में से एक विद्यार्थी यादृच्छिक रूप से चुना जाता है। उसके अंग्रेज़ी में भी उत्तीर्ण होने की प्रायिकता क्या है?`;
       case "findConditionalCardProbability": {
-        const form = sourceQlVariant(source, 4);
+        const form = conditionalCardNativeForm(source);
         if (form === 0) return "मानक 52 पत्तों की गड्डी से निकला पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
         if (form === 1) return "यह ज्ञात है कि मानक गड्डी से चुना गया पत्ता फेस कार्ड है। उसके बादशाह होने की प्रायिकता क्या है?";
         if (form === 2) return "मानक गड्डी में से एक पत्ता चुना गया और वह फेस कार्ड निकला। उस पत्ते के बादशाह होने की प्रायिकता ज्ञात कीजिए।";
@@ -348,7 +358,7 @@ export function renderNativeStudentFacingStem(source: ProbabilityQuestion, langu
       case "findAtLeastOneAcrossIndependentStages": return `ਇੱਕ ${bagWord(language)} ਵਿੱਚ ${red} ਲਾਲ ਅਤੇ ${blue} ਨੀਲੀਆਂ ਗੇਂਦਾਂ ਹਨ। ਦੋ ਗੇਂਦਾਂ ਵਾਪਸ ਰੱਖ ਕੇ ਕੱਢੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਲ ਗੇਂਦ ਨਿਕਲਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findConditionalProbabilityByCounting": case "findConditionalFromTwoWayTable": return `ਗਣਿਤ ਵਿੱਚ ਪਾਸ ${num(source, "mathTotal")} ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ ${num(source, "both")} ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵੀ ਪਾਸ ਹਨ। ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ ਇੱਕ ਵਿਦਿਆਰਥੀ ਬੇਤਰਤੀਬੀ ਨਾਲ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ। ਉਸ ਦੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਵੀ ਪਾਸ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?`;
       case "findConditionalCardProbability": {
-        const form = sourceQlVariant(source, 4);
+        const form = conditionalCardNativeForm(source);
         if (form === 0) return "ਮਿਆਰੀ 52 ਪੱਤਿਆਂ ਦੀ ਗੱਡੀ ਵਿੱਚੋਂ ਕੱਢਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
         if (form === 1) return "ਇਹ ਦਿੱਤਾ ਹੈ ਕਿ ਮਿਆਰੀ ਗੱਡੀ ਵਿੱਚੋਂ ਚੁਣਿਆ ਪੱਤਾ ਫੇਸ ਕਾਰਡ ਹੈ। ਉਸ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੀ ਹੈ?";
         if (form === 2) return "ਮਿਆਰੀ ਗੱਡੀ ਵਿੱਚੋਂ ਇੱਕ ਪੱਤਾ ਕੱਢਿਆ ਗਿਆ ਅਤੇ ਉਹ ਫੇਸ ਕਾਰਡ ਨਿਕਲਿਆ। ਉਸ ਪੱਤੇ ਦੇ ਬਾਦਸ਼ਾਹ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਕੱਢੋ।";
