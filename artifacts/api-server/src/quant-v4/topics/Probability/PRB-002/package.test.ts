@@ -133,3 +133,43 @@ console.log(JSON.stringify({
     reverseCountingStructures:new Set(cp008DeepFamilies.reverseCounting).size,
   },
 }));
+
+const ql708Stem=renderedStem("PRB-QL-708");
+assert(/probability/i.test(ql708Stem),`PRB-QL-708 lost its reverse-probability premise: ${ql708Stem}`);
+
+const cp009Source = PRB_002_LIBRARIES.language.filter((entry)=>/^PRB-QL-8(?:0[1-9]|1[0-9]|2[0-4])$/.test(entry.qlId));
+assert(cp009Source.length===24,`Expected 24 CP009 English QLs, found ${cp009Source.length}`);
+for (const entry of cp009Source) {
+  assert(
+    !/\b(?:event-based|conditional|multi-stage|outcome-based|competitive-exam|review|standard|classical|finite|structured|objective|exam-style|practice|mock-test|textbook|classroom|selection-based|counting-based)\s+(?:drill|case)\b/i.test(entry.stemTemplate),
+    `${entry.qlId} still contains synthetic CP009 source framing: ${entry.stemTemplate}`,
+  );
+  assert(!/preserve the stated ordering|all elementary outcomes/i.test(entry.stemTemplate),`${entry.qlId} still contains irrelevant generator instructions`);
+}
+
+const cp009Ids=Array.from({length:24},(_,index)=>`PRB-QL-${801+index}`);
+const cp009Rendered=Object.fromEntries(cp009Ids.map((qlId)=>[qlId,renderedStem(qlId)]));
+for (const [qlId, stem] of Object.entries(cp009Rendered)) {
+  assert(!/\bmeets? (?:at least one|both|exactly one|neither) condition/i.test(stem),`${qlId} still exposes generic event-condition wording: ${stem}`);
+}
+
+const cp009DeepFamilies = {
+  union: surfaces(["PRB-QL-801","PRB-QL-809","PRB-QL-817"]),
+  intersection: surfaces(["PRB-QL-802","PRB-QL-810","PRB-QL-818"]),
+  exactlyOne: surfaces(["PRB-QL-803","PRB-QL-811","PRB-QL-819"]),
+  neither: surfaces(["PRB-QL-804","PRB-QL-812","PRB-QL-820"]),
+  mutuallyExclusive: surfaces(["PRB-QL-805","PRB-QL-813","PRB-QL-821"]),
+  independentIntersection: surfaces(["PRB-QL-806","PRB-QL-814","PRB-QL-822"]),
+  missingIntersection: surfaces(["PRB-QL-807","PRB-QL-815","PRB-QL-823"]),
+  mixedExpression: surfaces(["PRB-QL-808","PRB-QL-816","PRB-QL-824"]),
+};
+for (const [family, values] of Object.entries(cp009DeepFamilies)) {
+  assert(new Set(values).size>=3,`CP009 ${family} QLs collapse to ${new Set(values).size} structures`);
+}
+console.log(JSON.stringify({
+  packageId:"PRB-002",
+  cp009DeepAudit:{
+    sourceQlCount:cp009Source.length,
+    ...Object.fromEntries(Object.entries(cp009DeepFamilies).map(([family,values])=>[family,new Set(values).size])),
+  },
+}));
