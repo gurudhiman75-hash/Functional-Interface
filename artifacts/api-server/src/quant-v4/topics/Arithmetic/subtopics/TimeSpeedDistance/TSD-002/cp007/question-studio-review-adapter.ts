@@ -8,6 +8,7 @@ import {
   TSD_CP007_LOCALIZATION_FREEZE_APPROVAL,
 } from "./localization-freeze-registry";
 import { TSD_CP007_PERMANENT_QL_IDS } from "./ql-allocation";
+import { cp007FamilyAcceptsInput } from "./studio-semantic-compatibility";
 
 export const TSD_CP007_QUESTION_STUDIO_PACKAGE_ID = "TSD-002" as const;
 export const TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID = "TSD-CP-007" as const;
@@ -91,7 +92,8 @@ function compatibleCasesForFamily(ql: StudioQl, family: StudioFamily): readonly 
   const compatible = Array.from({ length: LATENT_NUMERIC_CASES }, (_, index) => index + 1)
     .filter((caseIndex) => {
       const available = availableBindingKeys(family.familyId, ql.authorityKey, caseIndex);
-      return required.every((key) => available.has(key));
+      const input = buildCp007ExecutableInput(ql.authorityKey, `cp007:${ql.authorityKey}:${caseIndex}`);
+      return cp007FamilyAcceptsInput(family.familyId, input) && required.every((key) => available.has(key));
     });
   if (!compatible.length) throw new Error(`${family.familyId}: no executable CP007 case satisfies the frozen placeholder contract`);
   return Object.freeze(compatible);

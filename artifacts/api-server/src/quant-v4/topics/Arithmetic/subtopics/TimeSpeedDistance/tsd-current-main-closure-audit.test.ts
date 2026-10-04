@@ -21,7 +21,7 @@ import {
 import {
   TSD_CP010_STUDIO_CANDIDATE_PACKAGE,
   previewTsdCp010StudioCandidate,
-} from "./TSD-002/cp010/question-studio-candidate-adapter-final";
+} from "./TSD-002/cp010/question-studio-candidate-adapter-exam-real";
 import {
   TSD_CP011_PERMANENT_QL_IDS,
   type TsdCp011QlId,

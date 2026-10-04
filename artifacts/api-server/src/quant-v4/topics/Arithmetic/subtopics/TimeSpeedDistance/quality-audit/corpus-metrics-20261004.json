@@ -1,0 +1,120 @@
+[
+  {
+    "checkpoint": "CP003",
+    "rows": 189,
+    "languages": {
+      "en": 63,
+      "hi": 63,
+      "pa": 63
+    },
+    "englishShapes": 60,
+    "englishArithmeticMarkers": 63,
+    "nativeArithmeticMarkers": 126
+  },
+  {
+    "checkpoint": "CP004",
+    "rows": 60,
+    "languages": {
+      "en": 60
+    },
+    "englishShapes": 52,
+    "englishArithmeticMarkers": 60,
+    "nativeArithmeticMarkers": 0
+  },
+  {
+    "checkpoint": "CP005",
+    "rows": 234,
+    "languages": {
+      "en": 78,
+      "hi": 78,
+      "pa": 78
+    },
+    "englishShapes": 78,
+    "englishArithmeticMarkers": 72,
+    "nativeArithmeticMarkers": 144
+  },
+  {
+    "checkpoint": "CP006",
+    "rows": 234,
+    "languages": {
+      "en": 78,
+      "hi": 78,
+      "pa": 78
+    },
+    "englishShapes": 78,
+    "englishArithmeticMarkers": 35,
+    "nativeArithmeticMarkers": 70
+  },
+  {
+    "checkpoint": "CP007",
+    "rows": 198,
+    "languages": {
+      "en": 66,
+      "hi": 66,
+      "pa": 66
+    },
+    "englishShapes": 66,
+    "englishArithmeticMarkers": 15,
+    "nativeArithmeticMarkers": 86
+  },
+  {
+    "checkpoint": "CP008",
+    "rows": 162,
+    "languages": {
+      "en": 54,
+      "hi": 54,
+      "pa": 54
+    },
+    "englishShapes": 54,
+    "englishArithmeticMarkers": 0,
+    "nativeArithmeticMarkers": 0
+  },
+  {
+    "checkpoint": "CP009",
+    "rows": 198,
+    "languages": {
+      "en": 66,
+      "hi": 66,
+      "pa": 66
+    },
+    "englishShapes": 66,
+    "englishArithmeticMarkers": 4,
+    "nativeArithmeticMarkers": 12
+  },
+  {
+    "checkpoint": "CP010",
+    "rows": 180,
+    "languages": {
+      "en": 60,
+      "hi": 60,
+      "pa": 60
+    },
+    "englishShapes": 60,
+    "englishArithmeticMarkers": 54,
+    "nativeArithmeticMarkers": 12
+  },
+  {
+    "checkpoint": "CP011",
+    "rows": 504,
+    "languages": {
+      "en": 168,
+      "hi": 168,
+      "pa": 168
+    },
+    "englishShapes": 40,
+    "englishArithmeticMarkers": 102,
+    "nativeArithmeticMarkers": 130
+  },
+  {
+    "checkpoint": "CP012",
+    "rows": 810,
+    "languages": {
+      "en": 270,
+      "hi": 270,
+      "pa": 270
+    },
+    "englishShapes": 70,
+    "englishArithmeticMarkers": 111,
+    "nativeArithmeticMarkers": 134
+  }
+]

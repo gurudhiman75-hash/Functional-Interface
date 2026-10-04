@@ -1,6 +1,7 @@
 import {
   generateQuestion as generateQuantV4Question,
   listQuantV4Packages,
+  QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
 } from "../../quant-v4/generation-engine";
 import {
   generateQuestion as generateQuantV4QuestionStudioQuestion,
@@ -229,7 +230,11 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     subtopic: asString(pkg.subtopic),
     label: asString(pkg.label) || asString(pkg.packageId),
     enabled: Boolean(pkg.enabled),
-    cpIds: asStringArray(pkg.cpIds),
+    cpIds: Array.isArray(pkg.cpIds)
+      ? asStringArray(pkg.cpIds)
+      : Array.isArray(pkg.canonicalProblems)
+        ? pkg.canonicalProblems.map((entry) => asString((entry as Record<string, unknown>).id)).filter(Boolean)
+        : [],
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
     supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
     difficultyFilterSupported:
@@ -553,7 +558,14 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
   listPackages() {
-    const packages = listQuantV4Packages().map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
+    const packages = listQuantV4Packages()
+      // The legacy aggregate is a mixed-generation selector, not an executable
+      // package. Its individual Percentage packages retain their CP authority.
+      .filter((pkg) => pkg.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID
+        // Calendar has a native reasoning-v1 registration. Its legacy Quant
+        // proxy remains available through the old API, not as a second owner.
+        && pkg.packageId !== "CAL-001")
+      .map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
 
     const replaceOrPush = (packageId: string, card: Record<string, unknown>) => {
       const shared = toSharedPackage(card);
