@@ -367,7 +367,7 @@ export function generateBlr001StandardQuestionStudioBatch(
       runtimeMode: "STANDARD_QUESTION_STUDIO" as const,
       questionStudioRegistrationStatus: "REGISTERED_STANDARD" as const,
       questionStudioStagingStatus: "STANDARD_REVIEW_QUEUE" as const,
-      persistenceAllowed: true as const,
+      persistenceAllowed: false as const,
       reviewStatus: "REVIEW_REQUIRED" as const,
       questionBankStatus: "NOT_STORED" as const,
       testEligibility: "INELIGIBLE" as const,
