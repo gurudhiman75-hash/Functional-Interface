@@ -87,6 +87,7 @@ function normalizeSection(value: unknown, index: number) {
 export function normalizeWebExamPageConfiguration(value: unknown) {
   const raw = value && typeof value === "object" ? value as Record<string, unknown> : {};
   return {
+    detailsBuilderInitialized: raw.detailsBuilderInitialized === true,
     pageEyebrow: text(raw.pageEyebrow, 160),
     pageTitle: text(raw.pageTitle, 240),
     pageDescription: text(raw.pageDescription, 1200),
@@ -98,6 +99,7 @@ export function normalizeWebExamPageConfiguration(value: unknown) {
 
 export function defaultWebExamPageConfiguration() {
   return normalizeWebExamPageConfiguration({
+    detailsBuilderInitialized: true,
     sections: [
       { id: "hero", type: "hero", isVisible: true, sortOrder: 1, layout: "cards", columns: 3 },
       { id: "test-catalog", type: "test_catalog", isVisible: true, sortOrder: 2, layout: "tabs", columns: 1, tabStyle: "pills", showCounts: true },
