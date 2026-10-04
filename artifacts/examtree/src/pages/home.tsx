@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
-  Award,
   BarChart3,
   BookOpen,
   Monitor,
