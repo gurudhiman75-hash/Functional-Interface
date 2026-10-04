@@ -5,6 +5,15 @@ import type {
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { CAE_001_MANIFEST } from "./chapter-manifest";
 import { generateReviewedCaeQuestion } from "./reviewed-generator";
+import {
+  assertCaeGeneratedAnswerIntegrity,
+  assertCaeQuestionStudioMappingIntegrity,
+} from "./question-studio-post-closure-proof.ts";
+import {
+  CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+  CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
+  CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+} from "./post-closure-current-state.ts";
 import { CAE_PROVISIONAL_QL_IDS, type CaeDifficulty, type CaeLocale } from "./types";
 
 export const CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_ID = "CAE-001" as const;
@@ -29,7 +38,10 @@ export const CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   metadata: {
     permanentQlCount: CAE_PROVISIONAL_QL_IDS.length,
     qlIds: [...CAE_PROVISIONAL_QL_IDS],
+    qlAllocationStatus: CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+    historicalSourceQlAllocationStatus: CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
     sourceAuthority: "CAE-001-SOURCE-SATURATED-CONTENT-FROZEN",
+    postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
     deterministicGeneration: true,
     graphFirstProjection: true,
   },
@@ -157,12 +169,13 @@ export async function generateCae001QuestionStudioBatch(
         "CAE-001 could not find any source-backed QL for the requested difficulty.",
       );
     })();
+    assertCaeGeneratedAnswerIntegrity(generated);
     const difficulty = difficultyLabel(generated.difficulty);
     const options = [...generated.options];
     const answer = options[generated.correctIndex]!;
     const questionId = `CAE-001:${generated.qlId}:${generated.seed}:${language}`;
 
-    return {
+    const mapped = {
       ...QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1,
       id: questionId,
       questionId,
@@ -211,7 +224,16 @@ export async function generateCae001QuestionStudioBatch(
         itemVariantId: generated.itemVariantId,
         solver: generated.metadata.solver,
       },
+      answerId: generated.answerId,
+      causalStructure: generated.causalStructure,
+      causalTrace: [...generated.causalTrace],
+      qlAllocationStatus: CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+      historicalSourceQlAllocationStatus: generated.metadata.qlAllocation,
+      postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+      postClosureMappingProofVerified: true as const,
     };
+    assertCaeQuestionStudioMappingIntegrity(generated, mapped);
+    return mapped;
   });
 
   return {
@@ -224,6 +246,10 @@ export async function generateCae001QuestionStudioBatch(
       seed: baseSeed,
       count,
       runtimeMode: "review-only",
+      qlAllocationStatus: CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+      historicalSourceQlAllocationStatus: CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
+      postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+      postClosureMappingProofVerified: true,
       reviewOnly: true,
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
