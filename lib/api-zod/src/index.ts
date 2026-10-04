@@ -383,6 +383,32 @@ export type TestAttempt = {
     minutesSpent: number;
   }[];
   descriptiveReviewStatus?: "pending" | "not_required" | "reviewed";
+  scoringStatus?: "COMPLETE" | "OBJECTIVE_COMPLETE_DESCRIPTIVE_PENDING";
+  objectiveScore?: number;
+  objectiveActualScore?: number;
+  descriptiveMarksPending?: number;
+  combinedActualScore?: number | null;
+  combinedPercentage?: number | null;
+  displayActualScore?: number | null;
+  displayPercentage?: number | null;
+  descriptiveReview?: {
+    reviewVersion?: number;
+    reviewStatus?: string;
+    taskScores?: {
+      questionId: number;
+      taskId: string;
+      awardedMarks: number;
+      maxMarks: number;
+      comment?: string | null;
+    }[];
+    descriptiveAwardedMarks?: number;
+    descriptiveMaximumMarks?: number;
+    objectiveActualScore?: number;
+    combinedActualScore?: number;
+    combinedPercentage?: number | null;
+    totalMarks?: number;
+    reviewedAt?: string;
+  };
   descriptiveResponses?: {
     questionId: number;
     taskId: string;
