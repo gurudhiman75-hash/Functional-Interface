@@ -13,12 +13,12 @@ describe('admin navigation roadmap', () => {
 
   it('keeps the complete admin information architecture visible', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
-      'overview', 'content', 'tests', 'mobile-app', 'commerce', 'users', 'analytics', 'settings',
+      'overview', 'content', 'tests', 'web-app', 'mobile-app', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(50);
+    expect(items).toHaveLength(51);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Notes Studio', 'Notes Studio v2', 'Content Review', 'Learning Resources', 'Current Affairs', 'Coverage Planner', 'Sections & Topics',
-      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Layout Composer', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Students', 'Admin Team',
+      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Exam Page Builder', 'Layout Composer', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
@@ -63,6 +63,7 @@ describe('admin navigation roadmap', () => {
       '/tests/series',
       '/tests/blueprints',
       '/tests/calendar',
+      '/web/exam-pages',
       '/mobile/screens',
       '/mobile/home',
       '/mobile/promotions',
@@ -96,7 +97,7 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 45, in_progress: 1, planned: 4 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 46, in_progress: 1, planned: 4 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -112,6 +113,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/calendar']?.permission).toBe('tests.read');
+    expect(NAV_LOOKUP['/web/exam-pages']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/screens']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/home']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/promotions']?.permission).toBe('content.taxonomy.read');
