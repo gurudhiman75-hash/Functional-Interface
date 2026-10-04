@@ -1,0 +1,47 @@
+name: Validate CLS-001 Post-Closure Deep Audit
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-final-current-head-status-20261003.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-v1-global-final-audit-reconciliation-20261003.ts"
+
+concurrency:
+  group: cls-001-post-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc             --noEmit             --target es2022             --module esnext             --moduleResolution bundler             --allowImportingTsExtensions             --strictNullChecks             --noImplicitAny             --noImplicitReturns             --noFallthroughCasesInSwitch             --skipLibCheck             --types node             src/reasoning-v1/topics/Classification/CLS-001/post-closure-multilingual-governance.ts             src/reasoning-v1/topics/Classification/CLS-001/cls-001-post-closure-audit-20261004.test.ts
+
+      - name: Bundle all-13-QL post-closure audit
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Classification/CLS-001/cls-001-post-closure-audit-20261004.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/cls-001-post-closure-audit-20261004.mjs
+
+      - name: Run all-13-QL post-closure audit
+        working-directory: artifacts/api-server
+        run: node dist/cls-001-post-closure-audit-20261004.mjs

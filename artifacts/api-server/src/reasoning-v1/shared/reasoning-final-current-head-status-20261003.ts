@@ -65,7 +65,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Classification",
       chapterIds: ["CLS-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Classification/CLS-001/CLS-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md"],
+      closureAuthorities: ["topics/Classification/CLS-001/CLS-001-POST-CLOSURE-DEEP-AUDIT-20261004.md"],
       internalContentBlocker: false,
     },
     {
