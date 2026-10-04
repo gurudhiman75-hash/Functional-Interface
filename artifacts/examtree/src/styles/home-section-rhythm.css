@@ -1382,3 +1382,149 @@
   margin-left:auto!important;
   margin-right:auto!important;
 }
+
+
+/* Homepage product refinements — 2026-10-04 */
+.hero-google-login{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:34px 1fr 18px!important;
+  min-height:54px!important;
+  align-items:center!important;
+  gap:10px!important;
+  overflow:hidden!important;
+  border:1px solid #a9c6ff!important;
+  border-radius:12px!important;
+  background:
+    radial-gradient(circle at 16% 25%,rgba(255,255,255,.98),rgba(255,255,255,.82) 34%,transparent 35%),
+    linear-gradient(135deg,#eef5ff 0%,#ffffff 50%,#f4f8ff 100%)!important;
+  color:#10254d!important;
+  box-shadow:0 12px 26px -18px rgba(23,105,255,.52),inset 0 1px 0 rgba(255,255,255,.9)!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  letter-spacing:-.01em!important;
+}
+.hero-google-login:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(105deg,transparent 0 44%,rgba(23,105,255,.08) 50%,transparent 56% 100%);
+  transform:translateX(-110%);
+  transition:transform .55s ease;
+  pointer-events:none;
+}
+.hero-google-login:hover{
+  border-color:#78a8ff!important;
+  background:linear-gradient(135deg,#eaf3ff 0%,#fff 46%,#edf4ff 100%)!important;
+  box-shadow:0 16px 30px -18px rgba(23,105,255,.62)!important;
+  transform:translateY(-2px)!important;
+}
+.hero-google-login:hover:before{transform:translateX(110%)}
+.google-g{
+  display:grid!important;
+  width:32px!important;
+  height:32px!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  box-shadow:0 3px 10px rgba(30,64,175,.14)!important;
+  font-size:18px!important;
+  font-weight:1000!important;
+  font-family:Arial,sans-serif!important;
+  color:#4285f4!important;
+}
+.google-g:after{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  margin:12px 0 0 13px;
+  background:#34a853;
+  box-shadow:-10px -2px 0 -2px #fbbc05,-8px -11px 0 -2px #ea4335;
+}
+.google-arrow{
+  width:16px!important;
+  height:16px!important;
+  color:#1769ff!important;
+  transition:transform .18s ease!important;
+}
+.hero-google-login:hover .google-arrow{transform:translateX(3px)!important}
+
+/* More categories, less clutter: logo + category name only. */
+.reference-exam-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.compact-logo-card{
+  min-height:92px!important;
+  padding:10px 8px!important;
+  justify-content:center!important;
+  gap:6px!important;
+}
+.compact-logo-card .compact-logo-icon{
+  display:flex!important;
+  width:44px!important;
+  height:44px!important;
+  flex:0 0 44px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  border-radius:10px!important;
+  background:transparent!important;
+}
+.compact-logo-card .compact-logo-icon img,
+.compact-logo-card .compact-logo-icon svg,
+.compact-logo-card .compact-logo-icon span{
+  display:block!important;
+  width:42px!important;
+  height:42px!important;
+  max-width:42px!important;
+  max-height:42px!important;
+  object-fit:contain!important;
+}
+.compact-logo-card h3{
+  margin:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  color:#101f45!important;
+  font-size:11.5px!important;
+  line-height:1.2!important;
+  font-weight:850!important;
+  text-align:center!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+.compact-logo-card p,
+.compact-logo-card .reference-exam-arrow{display:none!important}
+
+/* Feature cards should communicate product value, not generic marketing. */
+.feature-list>div{
+  min-height:92px!important;
+  align-items:flex-start!important;
+  padding:15px 16px!important;
+}
+.feature-list>div>svg{
+  margin-top:1px!important;
+}
+.feature-list b{
+  font-size:11.5px!important;
+  line-height:1.25!important;
+}
+.feature-list small{
+  margin-top:5px!important;
+  font-size:9.5px!important;
+  line-height:1.45!important;
+}
+
+@media(max-width:1180px){
+  .reference-exam-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+  .reference-exam-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:480px){
+  .reference-exam-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .compact-logo-card{min-height:86px!important}
+}

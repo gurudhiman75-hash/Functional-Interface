@@ -3,11 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
-  Award,
   BarChart3,
   BookOpen,
+  Monitor,
   CheckCircle2,
-  Chrome,
   ChevronRight,
   Search,
   Sparkles,
@@ -26,23 +25,11 @@ import {
 import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { signInWithGoogle } from "@/lib/auth";
-import { getActiveTestSessions, getUser, type User } from "@/lib/storage";
-import { getUserAttempts } from "@/lib/data";
+import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
 
-const SERIES_FILTERS = ["All", "SSC", "Banking", "Railways"] as const;
 const CATEGORY_TONES = ["indigo", "emerald", "orange", "sky", "rose", "violet"] as const;
-const REFERENCE_EXAMS = [
-  { name: "SSC", detail: "CGL | CHSL | MTS" },
-  { name: "Banking", detail: "IBPS | SBI | RBI" },
-  { name: "Punjab Govt.", detail: "PSSSB | PSPCL" },
-  { name: "State Govt.", detail: "All State Exams" },
-  { name: "Railways", detail: "RRB NTPC | Group D" },
-  { name: "Defence", detail: "NDA | CDS | Agniveer" },
-  { name: "Insurance", detail: "LIC | UIIC | NIACL" },
-] as const;
-
 const REFERENCE_SERIES = [
   { name: "SBI PO 2025", badge: "Pre + Mains", tests: "120+ Tests", price: "₹499", oldPrice: "₹999" },
   { name: "SSC CGL 2025", badge: "Tier 1 + Tier 2", tests: "100+ Tests", price: "₹399", oldPrice: "₹799" },
@@ -57,20 +44,11 @@ function formatCount(value: number) {
   return new Intl.NumberFormat("en-IN").format(safe);
 }
 
-function seriesMatchesFilter(series: StudentSeriesSummary, filter: (typeof SERIES_FILTERS)[number]) {
-  if (filter === "All") return true;
-  const haystack = `${series.examFamilyName} ${series.examName} ${series.name}`.toLowerCase();
-  if (filter === "SSC") return haystack.includes("ssc");
-  if (filter === "Banking") return /bank|ibps|sbi|rrb officer/.test(haystack);
-  return /rail|rrb|ntpc|group d/.test(haystack);
-}
-
 export default function Home() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const catalog = useExamCatalog();
   const sampleMode = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("preview") === "sample";
-  const [seriesFilter, setSeriesFilter] = useState<(typeof SERIES_FILTERS)[number]>("All");
   const [query, setQuery] = useState("");
   const [sessionUser, setSessionUser] = useState<User | null>(() => (typeof window === "undefined" ? null : getUser()));
   const [googleSignInPending, setGoogleSignInPending] = useState(false);
@@ -78,45 +56,28 @@ export default function Home() {
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
   const seriesQuery = useQuery({ queryKey: ["student-test-series", "reference-home"], queryFn: getStudentTestSeries, enabled: !sampleMode, retry: 1, staleTime: 60_000 });
-  const attemptsQuery = useQuery({
-    queryKey: ["canonical-attempt-history", sessionUser?.id],
-    queryFn: () => getUserAttempts(sessionUser?.id),
-    enabled: Boolean(sessionUser) && !sampleMode,
-    retry: false,
-    staleTime: 30_000,
-  });
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
-  const featuredGroups = examGroups.slice(0, 7);
+  const featuredGroups = examGroups.slice(0, 12);
   const filteredGroups = useMemo(() => {
     const needle = query.trim().toLowerCase();
     if (!needle) return featuredGroups;
     return featuredGroups.filter((group) => `${group.name} ${group.subcategories.map((item) => item.name).join(" ")}`.toLowerCase().includes(needle));
   }, [featuredGroups, query]);
   const allSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
-  const popularSeries = useMemo(() => [...allSeries].filter((series) => seriesMatchesFilter(series, seriesFilter)).sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries, seriesFilter]);
-  const activeSession = useMemo(
-    () => Object.values(getActiveTestSessions()).sort((left, right) => right.updatedAt - left.updatedAt)[0] ?? null,
-    [sessionUser],
-  );
-  const latestAttempt = useMemo(
-    () => [...(attemptsQuery.data ?? [])].sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime())[0] ?? null,
-    [attemptsQuery.data],
-  );
-  const loggedInHero = useMemo(() => {
-    const firstName = sessionUser?.name?.trim().split(/\s+/)[0] || "there";
-    const recommendedSeries = popularSeries[0] ?? null;
-    const action = activeSession
-      ? { label: "Resume test", href: `/test/${activeSession.testId}`, detail: activeSession.testName }
-      : { label: "Continue preparation", href: "/dashboard", detail: latestAttempt ? `Review your latest ${latestAttempt.category || "test"} attempt` : "Choose your next test and keep moving" };
-    return { firstName, recommendedSeries, action };
-  }, [activeSession, latestAttempt, popularSeries, sessionUser?.name]);
+  const popularSeries = useMemo(() => [...allSeries].sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries]);
   const totalTests = tests.length;
   const totalCategories = categories.length;
   useEffect(() => {
+    if (sessionUser) {
+      setLocation("/dashboard");
+      return;
+    }
     const refresh = () => setSessionUser(getUser());
     window.addEventListener("storage", refresh);
     return () => window.removeEventListener("storage", refresh);
-  }, []);
+  }, [sessionUser, setLocation]);
+  if (sessionUser) return null;
+
   const handleGoogleSignIn = async () => {
     if (googleSignInPending) return;
     setGoogleSignInPending(true);
@@ -160,16 +121,16 @@ export default function Home() {
             </div>
             <button className="mock-next" type="button">Next <ArrowRight /></button>
           </div>
-        </div><aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside>
+        </div><aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><span className="google-g" aria-hidden="true">G</span><span>{googleSignInPending ? "Connecting…" : "Continue with Google"}</span><ArrowRight className="google-arrow" aria-hidden="true" /></button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside>
       </section>
 
       <section className="proof-bar"><div><b>{formatCount(Math.max(totalTests * 18, 1000))}</b><span>Questions in catalog</span></div><div><b>{formatCount(totalTests)}</b><span>Published tests</span></div><div><b>{formatCount(totalCategories)}</b><span>Exam categories</span></div><div><b>12</b><span>Languages supported</span></div></section>
 
       <section className="section series-section" id="test-series" data-testid="home-popular-series"><div className="section-head reference-section-head"><div><h2>Featured Test Series</h2><p>Most popular and exam-focused test series designed by experts.</p></div><button type="button" onClick={() => setLocation("/exams")}>View All <ArrowRight size={16} /></button></div><div className="series-grid reference-series-grid">{REFERENCE_SERIES.map((item, index) => <article className="series-card reference-series-card" key={item.name}><div className="series-top"><div className={`series-icon reference-series-icon reference-series-icon-${index}`}>{index === 1 ? <img src="/category-icons/SSC-CGL.png" alt="" /> : index === 2 ? <img src="/category-icons/punjab.png" alt="" /> : <BookOpen />}</div></div><h3>{item.name}</h3><span className="reference-series-badge">{item.badge}</span><div className="series-meta"><span><BookOpen />{item.tests}</span><span><CheckCircle2 />Bilingual</span></div><div className="reference-price"><strong>{item.price}</strong><del>{item.oldPrice}</del></div><button className="reference-series-go" type="button" aria-label={`View ${item.name}`} onClick={() => setLocation("/exams")}><ChevronRight /></button></article>)}</div></section>
 
-      <section className="section compact-exams" id="exams" data-testid="home-exam-categories"><div className="section-head compact-exams-head reference-section-head"><div><h2>Explore by Exam</h2></div><button type="button" onClick={() => setLocation("/exams")}>View All Exams <ArrowRight size={16} /></button></div><div className="exam-grid compact-exam-grid reference-exam-grid">{REFERENCE_EXAMS.map((item, index) => { const group = featuredGroups[index]; return <button key={item.name} type="button" onClick={() => group ? setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`) : setLocation("/exams")} className={`exam-card compact-exam-card ${CATEGORY_TONES[index % CATEGORY_TONES.length]}`}><div className={`exam-icon reference-safe-icon reference-safe-icon-${index}`}>{index === 0 ? <img src="/category-icons/SSC-CGL.png" alt="" /> : index === 2 ? <img src="/category-icons/punjab.png" alt="" /> : <span aria-hidden="true">{["SSC","IB","PB","SG","RR","DF","IN"][index]}</span>}</div><div><h3>{item.name}</h3><p>{item.detail}</p></div>{index === 0 ? <span className="reference-exam-arrow"><ChevronRight /></span> : null}</button>; })}</div></section>
+      <section className="section compact-exams" id="exams" data-testid="home-exam-categories"><div className="section-head compact-exams-head reference-section-head"><div><h2>Explore by Exam</h2></div><button type="button" onClick={() => setLocation("/exams")}>View All Exams <ArrowRight size={16} /></button></div><div className="exam-grid compact-exam-grid reference-exam-grid">{featuredGroups.map((group, index) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)} className={`exam-card compact-exam-card compact-logo-card ${CATEGORY_TONES[index % CATEGORY_TONES.length]}`}><div className="exam-icon compact-logo-icon"><CategoryIcon icon={group.icon} /></div><h3>{group.name}</h3></button>)}</div></section>
 
-      <section className="feature-wrap" id="features" data-testid="home-examtree-edge"><div className="feature-copy"><h2>Why Choose Examtree</h2><div className="feature-list"><div><Award /><span><b>Exam-oriented content</b><small>Designed as per latest pattern</small></span></div><div><BookOpen /><span><b>Detailed explanations</b><small>Learn concepts with every test</small></span></div><div><Users /><span><b>Bilingual support</b><small>English, Hindi &amp; Punjabi</small></span></div><div><Sparkles /><span><b>Personalised learning</b><small>Practice that adapts to your progress</small></span></div></div></div><div className="insight-card"><div className="insight-head"><div><span>Weekly insight</span><b>Your learning curve</b></div><span className="growth">↗ 18.6%</span></div><div className="chart"><span className="axis a">100</span><span className="axis b">75</span><span className="axis c">50</span><svg viewBox="0 0 520 190" role="img" aria-label="Score improving through the week"><defs><linearGradient id="site-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3156d9" stopOpacity=".25" /><stop offset="1" stopColor="#3156d9" stopOpacity="0" /></linearGradient></defs><path className="area" d="M20 160 C85 148 90 120 155 127 S240 95 295 105 S370 77 405 83 S465 38 505 31 L505 190 L20 190Z" /><path className="line" d="M20 160 C85 148 90 120 155 127 S240 95 295 105 S370 77 405 83 S465 38 505 31" /><circle cx="505" cy="31" r="6" /></svg><div className="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div><div className="insight-note"><Sparkles /><span><b>You&apos;re improving faster</b><small>Your practice stays visible across every attempt.</small></span><ChevronRight /></div></div></section>
+      <section className="feature-wrap" id="features" data-testid="home-examtree-edge"><div className="feature-copy"><h2>Why Choose Examtree</h2><div className="feature-list"><div><Monitor /><span><b>Clean, real exam interface</b><small>Practice in a distraction-free layout that feels like the actual test.</small></span></div><div><BarChart3 /><span><b>Smart performance analytics</b><small>See accuracy, speed, weak topics and score movement at a glance.</small></span></div><div><Sparkles /><span><b>Personalised recommendations</b><small>Know what to practise next instead of guessing your next step.</small></span></div><div><BookOpen /><span><b>Detailed review & explanations</b><small>Understand every mistake with clear solutions and attempt review.</small></span></div></div></div><div className="insight-card"><div className="insight-head"><div><span>Weekly insight</span><b>Your learning curve</b></div><span className="growth">↗ 18.6%</span></div><div className="chart"><span className="axis a">100</span><span className="axis b">75</span><span className="axis c">50</span><svg viewBox="0 0 520 190" role="img" aria-label="Score improving through the week"><defs><linearGradient id="site-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3156d9" stopOpacity=".25" /><stop offset="1" stopColor="#3156d9" stopOpacity="0" /></linearGradient></defs><path className="area" d="M20 160 C85 148 90 120 155 127 S240 95 295 105 S370 77 405 83 S465 38 505 31 L505 190 L20 190Z" /><path className="line" d="M20 160 C85 148 90 120 155 127 S240 95 295 105 S370 77 405 83 S465 38 505 31" /><circle cx="505" cy="31" r="6" /></svg><div className="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div><div className="insight-note"><Sparkles /><span><b>You&apos;re improving faster</b><small>Your practice stays visible across every attempt.</small></span><ChevronRight /></div></div></section>
 
       <section className="cta" data-testid="home-final-cta"><div><span><Trophy /> Your next best score starts here</span><h2>Ready to move ahead<br />of the competition?</h2><p>Start with a free mock test. No payment required.</p><button type="button" onClick={() => setLocation("/mock-tests")}>Start practising free <ArrowRight /></button></div><div className="cta-score"><div><small>YOUR NEXT MILESTONE</small><b>Keep climbing</b><p><CheckCircle2 /> Personalised study plan</p><p><CheckCircle2 /> Published mock tests</p><p><CheckCircle2 /> Detailed solutions</p></div></div></section>
     </div>
