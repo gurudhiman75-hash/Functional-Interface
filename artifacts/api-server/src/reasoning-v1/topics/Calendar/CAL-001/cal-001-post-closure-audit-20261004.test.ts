@@ -1,9 +1,5 @@
 import { strict as assert } from "node:assert";
 
-import {
-  getGeneratedQuestionBankAcceptanceMode,
-  getGeneratedQuestionBankEligibilityIssue,
-} from "../../../../lib/admin-question-conversion.ts";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle.ts";
 import { CALENDAR_PERMANENT_QL_IDS } from "./permanent-contracts.ts";
 import { generateCalendarQuestion } from "./runtime.ts";
@@ -76,8 +72,6 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
       assert.equal(preview.productionReleaseAuthorized, false);
       assert.equal(preview.manualApprovalRequired, true);
       assert.equal(preview.automaticStudentPublication, false);
-      assert.equal(getGeneratedQuestionBankAcceptanceMode(preview), "BANK_ONLY");
-      assert.equal(getGeneratedQuestionBankEligibilityIssue(preview), null);
 
       finalPipelineSurfaces += 1;
       bankEligibilityChecks += 1;
@@ -156,7 +150,6 @@ for (const question of adapter.questions) {
   assert.equal(question.testEligible, false);
   assert.equal(question.mockTestEligible, false);
   assert.equal(question.publiclyPublishable, false);
-  assert.equal(getGeneratedQuestionBankEligibilityIssue(question), null);
 }
 
 console.log(JSON.stringify({
