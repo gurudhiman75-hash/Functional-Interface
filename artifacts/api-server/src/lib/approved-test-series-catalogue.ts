@@ -103,7 +103,7 @@ export async function ensureApprovedExamTestSeries(): Promise<{
         continue;
       }
 
-      let versions = await tx`
+      const versions = await tx`
         SELECT id::text AS id, version_number AS "versionNumber", is_current AS "isCurrent"
         FROM catalog.exam_versions
         WHERE exam_id = ${String(exam.id)}::uuid
@@ -111,24 +111,22 @@ export async function ensureApprovedExamTestSeries(): Promise<{
         LIMIT 1
       `;
 
-      if (!versions[0]) {
-        const placeholderVersionId = randomUUID();
+      let examVersionId = versions[0]?.id ? String(versions[0].id) : "";
+      if (!examVersionId) {
+        examVersionId = randomUUID();
         await tx`
           INSERT INTO catalog.exam_versions (
             id, exam_id, version_number, name, is_current
           ) VALUES (
-            ${placeholderVersionId}::uuid,
+            ${examVersionId}::uuid,
             ${String(exam.id)}::uuid,
             1,
             'Test-series catalogue shell',
             false
           )
         `;
-        versions = [{ id: placeholderVersionId, versionNumber: 1, isCurrent: false }];
         createdPlaceholderVersions += 1;
       }
-
-      const examVersionId = String(versions[0].id);
       const code = seriesCode(String(exam.code));
       const codeConflict = await tx`
         SELECT id::text AS id
