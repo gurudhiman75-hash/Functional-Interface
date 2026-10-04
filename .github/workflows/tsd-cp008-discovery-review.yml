@@ -1,0 +1,73 @@
+name: Validate TSD CP008 frozen multilingual and Question Studio gate
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp008-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/**
+      - .github/workflows/tsd-cp008-discovery-review.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp007-executable-discovery-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/**
+      - .github/workflows/tsd-cp008-discovery-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp008-discovery-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frozen-multilingual-and-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP008 package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008 -name '*.ts' -print)
+      - name: Prove initial discovery ownership snapshot
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/ownership-proof.test.ts
+      - name: Prove source-saturated ownership boundary
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/source-saturation-proof.test.ts
+      - name: Prove executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/executable-proof.test.ts
+      - name: Prove permanent QL allocation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/allocation-proof.test.ts
+      - name: Prove approved English authoring remains valid
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/english-authoring-proof.test.ts
+      - name: Prove exact approved English freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/english-freeze-proof.test.ts
+      - name: Prove Hindi Punjabi localization template parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localization-parity-proof.test.ts
+      - name: Prove rendered Hindi Punjabi numeric and semantic parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localized-rendered-review-proof.test.ts
+      - name: Prove approved Hindi Punjabi localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localization-freeze-proof.test.ts
+      - name: Prove exhaustive Question Studio review adapter
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-review-proof.test.ts

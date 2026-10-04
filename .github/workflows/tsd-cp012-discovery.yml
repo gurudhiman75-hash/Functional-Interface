@@ -1,0 +1,83 @@
+name: Validate TSD CP012 discovery
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp012-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/**
+      - .github/workflows/tsd-cp012-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp012-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP012 package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012 -name '*.ts' -print)
+      - name: Prove CP011 to CP012 frozen stack compatibility
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/upstream-stack-compatibility-proof.test.ts
+      - name: Prove CP012 frozen source saturation and cross-checkpoint disposition
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-saturation-proof.test.ts
+      - name: Prove CP012 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/representation-saturation-proof.test.ts
+      - name: Prove CP012 cross-checkpoint ownership boundaries
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/ownership-boundaries-proof.test.ts
+      - name: Prove CP012 exact executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/executable-proof.test.ts
+      - name: Prove CP012 learner-source executable coverage
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-executable-coverage-proof.test.ts
+      - name: Prove CP012 two-engine cross-authority provenance
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/two-engine-provenance-proof.test.ts
+      - name: Prove CP012 permanent frozen QL allocation and lifecycle locks
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/allocation-proof.test.ts
+      - name: Prove CP012 English review authoring
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/english-authoring-proof.test.ts
+      - name: Prove CP012 native Hindi/Punjabi localization
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/native-localization-proof.test.ts
+      - name: Prove CP012 English content freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/english-freeze-proof.test.ts
+      - name: Prove CP012 native localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/localization-freeze-proof.test.ts
+      - name: Prove CP012 multilingual questions-only review export
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/multilingual-review-export-proof.test.ts
+      - name: Prove CP012 advertised Question Studio difficulty contract
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-difficulty-contract-proof.test.ts
+      - name: Prove CP012 per-family misconception distractor coverage
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-distractor-coverage-proof.test.ts
+      - name: Prove CP012 option realness and native option purity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-option-realness-proof.test.ts
+      - name: Prove CP012 locked Question Studio review candidate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-candidate-proof.test.ts
+      - name: Prove CP012 frozen-content production preregistration lock
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-preregistration-lock-proof.test.ts

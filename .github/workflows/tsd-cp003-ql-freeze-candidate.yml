@@ -1,0 +1,57 @@
+name: Validate TSD CP-003 QL and Freeze Candidate
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp001/freeze-registry.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp002/freeze-registry.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/english-frozen.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/final-authority-registry.ts
+      - .github/workflows/tsd-cp003-ql-freeze-candidate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp003-ql-freeze-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-003 QL and freeze-candidate proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp003
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/english-freeze-candidate-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-candidate-proof.mjs"
+
+      - name: Run CP-003 QL and freeze-candidate proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp003/english-freeze-candidate-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp003/english-freeze-candidate-proof.log
+
+      - name: Upload CP-003 QL and freeze-candidate proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp003-ql-freeze-candidate-proof
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp003/english-freeze-candidate-proof.log
+          if-no-files-found: error

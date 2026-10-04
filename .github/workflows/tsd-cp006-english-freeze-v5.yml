@@ -1,0 +1,71 @@
+name: Validate TSD CP006 English V5 Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp005-studio-cp006-discovery-v1
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**
+      - .github/workflows/tsd-cp006-english-freeze-v5.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp006-english-v5-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP006 approved English V5 freeze evidence
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp006-english-v5-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-english-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-native-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-review-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-v5-review-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-v5-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp006/english-approved-freeze-export-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp006-v5-freeze-export.mjs"
+      - name: Re-prove approved source and prior freezes
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-english-v5-freeze
+          node "$OUT/cp005-english-freeze-proof.mjs" 2>&1 | tee "$OUT/cp005-english-freeze-proof.log"
+          node "$OUT/cp005-native-freeze-proof.mjs" 2>&1 | tee "$OUT/cp005-native-freeze-proof.log"
+          node "$OUT/cp006-v5-review-proof.mjs" 2>&1 | tee "$OUT/cp006-v5-review-proof.log"
+      - name: Prove and export CP006 English V5 freeze
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp006-english-v5-freeze
+          node "$OUT/cp006-v5-freeze-proof.mjs" 2>&1 | tee "$OUT/cp006-v5-freeze-proof.log"
+          node "$OUT/cp006-v5-freeze-export.mjs" "$OUT/cp006-english-frozen-v5-78q.json" 2>&1 | tee "$OUT/cp006-v5-freeze-export.log"
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Upload CP006 English V5 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp006-english-v5-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp005-english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp005-native-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp006-v5-review-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp006-v5-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp006-v5-freeze-export.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp006-english-v5-freeze/cp006-english-frozen-v5-78q.json
+          if-no-files-found: error

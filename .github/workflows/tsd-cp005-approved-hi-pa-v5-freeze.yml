@@ -1,0 +1,68 @@
+name: Validate TSD CP-005 Approved Hindi Punjabi V5 Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp005-hi-pa-localization-v1
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp005/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp005-approved-hi-pa-v5-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp005-approved-hi-pa-v5-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle approved source and freeze proofs
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/english-approved-freeze-proof-v13.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-review-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-v5-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-proof-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-freeze-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005/localization/native-approved-freeze-export-v5.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-freeze-export.mjs"
+      - name: Re-prove approved English and native V5 source
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze
+          node "$OUT/english-freeze-proof.mjs" 2>&1 | tee "$OUT/english-freeze-proof.log"
+          node "$OUT/native-v5-proof.mjs" 2>&1 | tee "$OUT/native-v5-proof.log"
+      - name: Prove and export approved native freeze
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze
+          node "$OUT/native-freeze-proof.mjs" 2>&1 | tee "$OUT/native-freeze-proof.log"
+          node "$OUT/native-freeze-export.mjs" > "$OUT/cp005-hi-pa-v5-approved-freeze-156q.json"
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Upload approved CP005 Hindi Punjabi V5 freeze artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp005-approved-hi-pa-v5-freeze-156q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze/english-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze/native-v5-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze/native-freeze-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp005-hi-pa-v5-freeze/cp005-hi-pa-v5-approved-freeze-156q.json
+          if-no-files-found: error

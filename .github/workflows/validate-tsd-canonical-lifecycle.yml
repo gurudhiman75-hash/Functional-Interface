@@ -1,0 +1,52 @@
+name: Validate TSD Canonical Lifecycle
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/validate-tsd-canonical-lifecycle.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/canonical-lifecycle.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/canonical-lifecycle-proof.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/english-frozen.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp001/freeze-registry.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp002/freeze-registry.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp*/english*frozen*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp*/english*freeze*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp*/ql-allocation.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp0*/english-freeze-registry.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp0*/ql-allocation.ts"
+  workflow_dispatch:
+
+jobs:
+  validate-canonical-lifecycle:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle canonical lifecycle proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance
+          OUT=dist/quant-v4/tsd-canonical-lifecycle
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-lifecycle-proof.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/proof.mjs"
+
+      - name: Run canonical lifecycle proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-canonical-lifecycle/proof.mjs 2>&1 | tee dist/quant-v4/tsd-canonical-lifecycle/proof.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

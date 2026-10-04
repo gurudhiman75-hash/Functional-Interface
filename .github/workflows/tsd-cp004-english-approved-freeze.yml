@@ -1,0 +1,67 @@
+name: Validate TSD CP-004 Approved English Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp004-relative-motion-discovery
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp004/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp004-english-approved-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-approved-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce frozen CP004 public entry point
+        run: |
+          INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+          grep -q 'cp004/english-approved-freeze' "$INDEX"
+
+      - name: Bundle CP004 candidate regressions and freeze proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp004-approved-english-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/evidence.ts" --bundle --platform=node --format=esm --outfile="$OUT/candidate-evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/english-approved-freeze-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-approved-freeze-proof.mjs"
+
+      - name: Run CP004 approved English freeze proofs
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp004-approved-english-freeze
+          node "$OUT/candidate-evidence.mjs" 2>&1 | tee "$OUT/candidate-evidence.log"
+          node "$OUT/english-approved-freeze-proof.mjs" 2>&1 | tee "$OUT/english-approved-freeze-proof.log"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload approved English freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp004-approved-english-freeze-evidence
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp004-approved-english-freeze/*.log
+          if-no-files-found: error

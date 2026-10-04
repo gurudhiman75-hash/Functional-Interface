@@ -1,0 +1,127 @@
+name: Validate TSD CP-004 Relative Motion Foundation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**"
+  workflow_dispatch:
+
+jobs:
+  validate-cp004-foundation:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP004 proofs and candidate engine
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp004-foundation
+          mkdir -p artifacts/api-server/$OUT/package
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/foundation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/foundation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/authority-allocation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/authority-allocation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/evidence.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-candidate-evidence.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp004/runtime-engine.ts" --bundle --platform=node --format=esm --outfile="$OUT/runtime-engine.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+
+      - name: Run CP004 exact foundation proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp004-foundation/foundation-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/foundation-proof.log
+
+      - name: Run CP004 authority and QL allocation proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/authority-allocation-proof.log
+
+      - name: Run CP004 English candidate evidence
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/cp004-foundation/english-candidate-evidence.mjs 2>&1 | tee dist/quant-v4/tsd-001/cp004-foundation/english-candidate-evidence.log
+
+      - name: Audit editorial quality and export clean 60-question JSON
+        run: |
+          cd artifacts/api-server
+          node --input-type=module <<'NODE' > dist/quant-v4/tsd-001/cp004-foundation/package/tsd-cp004-english-candidate-60q.json
+          const savedLog = console.log;
+          console.log = () => {};
+          const engine = await import('./dist/quant-v4/tsd-001/cp004-foundation/runtime-engine.mjs');
+          console.log = savedLog;
+          const source = engine.generateCp004ReviewQuestions(6);
+          const sameDirectionModes = new Set([
+            'findRelativeSpeedSameDirection','findCatchUpTimeFromHeadStartDistance','findHeadStartDistanceFromCatchUpTime',
+            'findDelayedStartCatchUpTime','findStartDelayFromCatchUpState','findFasterSpeedFromCatchUpState','findSlowerSpeedFromCatchUpState'
+          ]);
+          for (const q of source) {
+            const explanation = [q.explanation.method, ...q.explanation.steps, q.explanation.shortcut].join(' ');
+            if (sameDirectionModes.has(q.solveMode) && (explanation.includes('sum of the two speeds') || explanation.includes('towards each other or directly apart'))) throw new Error(`${q.solveMode}: wrong direction rule in explanation`);
+            if (!q.explanation.steps.some((step) => step.includes('='))) throw new Error(`${q.solveMode}: explanation lacks connected numerical working`);
+            if (q.stem.includes('on two towns')) throw new Error('awkward two-towns stem');
+            if (q.stem.startsWith('Two vehicles in the same direction at')) throw new Error('malformed departure-clock stem');
+            if (q.stem.includes('faster than a bus ahead only through their speed difference')) throw new Error('malformed same-direction relative-speed stem');
+            if (q.solveMode === 'findCatchUpTimeFromHeadStartDistance' && q.stem.includes('cyclist')) throw new Error('implausible cyclist pursuit wording');
+            const wrongs = q.internalOptionAudit.filter((entry) => !entry.isCorrect);
+            if (wrongs.length !== 3) throw new Error(`${q.solveMode}: expected three distractors`);
+            const paths = wrongs.map((entry) => `${entry.misconceptionId}|${entry.wrongWorking?.calculation ?? ''}`);
+            if (new Set(paths).size !== 3) throw new Error(`${q.solveMode}: distractor paths are not distinct`);
+            if (wrongs.some((entry) => /scaled|alter final arithmetic|answer ×|answer ÷/i.test(entry.wrongWorking?.calculation ?? ''))) throw new Error(`${q.solveMode}: generic arithmetic filler leaked into options`);
+            if ((q.solveMode === 'findMeetingPointDistanceSplit' || q.solveMode === 'findMeetingPointFromSpeedRatio') && q.input.routeDistance) {
+              const route = Number(q.input.routeDistance.numerator) / Number(q.input.routeDistance.denominator);
+              for (const option of wrongs) {
+                if (!option.wrongWorking) continue;
+                const value = Number(option.wrongWorking.value.numerator) / Number(option.wrongWorking.value.denominator);
+                if (value <= 0 || value >= route) throw new Error(`${q.solveMode}: meeting-point distractor lies outside route`);
+              }
+            }
+          }
+          const labels = ['A','B','C','D'];
+          const rows = source.map((q, index) => ({
+            questionNo: index + 1,
+            permanentQlId: q.permanentQlId,
+            authorityKey: q.authorityKey,
+            difficulty: q.difficulty,
+            representation: q.representation,
+            stem: q.stem,
+            options: q.options,
+            correctOption: labels[q.correctIndex],
+            answer: q.answerText,
+            explanation: q.explanation,
+          }));
+          process.stdout.write(JSON.stringify(rows, null, 2));
+          NODE
+
+      - name: Preserve CP003 approved freeze boundary
+        run: |
+          INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+          grep -q 'cp003/localization/native-approved-freeze' "$INDEX"
+          grep -q 'cp004/discovery-registry' "$INDEX"
+          grep -q 'cp004/relative-motion-foundation' "$INDEX"
+          grep -q 'cp004/cross-checkpoint-overlap-audit' "$INDEX"
+          grep -q 'cp004/final-ownership-candidate' "$INDEX"
+          grep -q 'cp004/ql-allocation' "$INDEX"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP004 evidence and candidate package
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp004-english-candidate-60q
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-foundation/*.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp004-foundation/package/*.json
+          if-no-files-found: error

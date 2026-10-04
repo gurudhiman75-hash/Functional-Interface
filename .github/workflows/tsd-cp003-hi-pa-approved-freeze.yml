@@ -1,0 +1,73 @@
+name: Validate TSD CP-003 Approved Hindi Punjabi Freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/tsd-cp003-executable-discovery
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/cp003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+      - .github/workflows/tsd-cp003-hi-pa-approved-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-approved-native-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce sole approved native public API
+        run: |
+          INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
+          grep -q 'cp003/localization/native-approved-freeze' "$INDEX"
+          if grep -Eq 'cp003/localization/(native-runtime|native-editorial-review|native-reviewed-candidate|native-authoritative|native-final-candidate|native-final-polished-candidate)' "$INDEX"; then
+            echo "A non-frozen CP-003 native entry point is publicly exported"
+            exit 1
+          fi
+
+      - name: Bundle approved candidate regressions and freeze proof
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/cp003-approved-native-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-final-candidate-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-final-candidate-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-final-polished-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-final-polished-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003/localization/native-approved-freeze-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/native-approved-freeze-proof.mjs"
+
+      - name: Run approved native freeze proofs
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          OUT=dist/quant-v4/tsd-001/cp003-approved-native-freeze
+          node "$OUT/native-final-candidate-proof.mjs" 2>&1 | tee "$OUT/native-final-candidate-proof.log"
+          node "$OUT/native-final-polished-proof.mjs" 2>&1 | tee "$OUT/native-final-polished-proof.log"
+          node "$OUT/native-approved-freeze-proof.mjs" 2>&1 | tee "$OUT/native-approved-freeze-proof.log"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload approved freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp003-hi-pa-approved-freeze-evidence
+          path: artifacts/api-server/dist/quant-v4/tsd-001/cp003-approved-native-freeze/*.log
+          if-no-files-found: error
