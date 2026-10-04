@@ -8,8 +8,52 @@ export function fingerprintSifAuthority(authority: SifScenarioAuthority): string
   return createHash("sha256").update(JSON.stringify({ cpId: authority.cpId, statement: authority.statement["en-IN"], candidates: authority.candidates.map((entry) => entry.text["en-IN"]), strengths: authority.candidates.map((entry) => entry.strength), follows: authority.candidates.map((entry) => entry.follows), mechanisms: authority.mechanisms })).digest("hex").slice(0, 20);
 }
 
+function explanationContradictsAnswer(
+  explanation: string,
+  locale: SifLocale,
+  answer: ReturnType<typeof solveSifScenario>,
+): boolean {
+  const onlyI = locale === "en-IN"
+    ? /\bonly (?:inference )?I follows\b/iu
+    : locale === "hi-IN"
+      ? /केवल (?:अनुमान )?I सही है/u
+      : /ਕੇਵਲ (?:ਅਨੁਮਾਨ )?I ਸਹੀ ਹੈ/u;
+  const onlyII = locale === "en-IN"
+    ? /\bonly (?:inference )?II follows\b/iu
+    : locale === "hi-IN"
+      ? /केवल (?:अनुमान )?II सही है/u
+      : /ਕੇਵਲ (?:ਅਨੁਮਾਨ )?II ਸਹੀ ਹੈ/u;
+
+  const rejectsI = locale === "en-IN"
+    ? /(?:\bInference I\b|(?<!I)\bI\b(?!I))[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
+    : locale === "hi-IN"
+      ? /(?:अनुमान I|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
+      : /(?:ਅਨੁਮਾਨ I|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
+  const rejectsII = locale === "en-IN"
+    ? /(?:\bInference II\b|\bII\b)[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
+    : locale === "hi-IN"
+      ? /(?:अनुमान II|\bII\b)[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
+      : /(?:ਅਨੁਮਾਨ II|\bII\b)[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
+
+  if (answer === "ONLY_I") return onlyII.test(explanation) || rejectsI.test(explanation);
+  if (answer === "ONLY_II") return onlyI.test(explanation) || rejectsII.test(explanation);
+  if (answer === "BOTH") return onlyI.test(explanation) || onlyII.test(explanation) || rejectsI.test(explanation) || rejectsII.test(explanation);
+  if (answer === "NEITHER") return onlyI.test(explanation) || onlyII.test(explanation);
+  return onlyI.test(explanation) || onlyII.test(explanation);
+}
+
+export function assertSifExplanationAnswerConsistency(authority: SifScenarioAuthority): void {
+  const answer = solveSifScenario(authority);
+  for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
+    if (explanationContradictsAnswer(authority.explanation[locale], locale, answer)) {
+      throw new Error(`${authority.id}/${locale}: explanation contradicts ${answer}`);
+    }
+  }
+}
+
 export function validateSifAuthority(authority: SifScenarioAuthority): readonly SifValidationGateResult[] {
   assertSifAuthority(authority);
+  assertSifExplanationAnswerConsistency(authority);
   const answer = solveSifScenario(authority);
   const localized = (["en-IN", "hi-IN", "pa-IN"] as const).every((locale) => authority.statement[locale].trim().length > 10 && authority.explanation[locale].trim().length > 20 && authority.candidates.every((entry) => entry.text[locale].trim().length > 5));
   const invalidCandidates = authority.candidates.filter((entry) => !entry.follows);
@@ -21,7 +65,7 @@ export function validateSifAuthority(authority: SifScenarioAuthority): readonly 
     DISTRACTOR_PLAUSIBILITY: [invalidCandidates.every((entry) => Boolean(entry.distractorType)) || answer === "EITHER", "Invalid candidates use a controlled logical-error family."],
     LANGUAGE_QUALITY: [localized, "English, Hindi and Punjabi text is complete."],
     DIFFICULTY_MATCH: [authority.difficulty === "EASY" ? authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 2 : authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 3, "Reasoning mechanisms remain within the difficulty ceiling."],
-    EXPLANATION_QUALITY: [(["en-IN", "hi-IN", "pa-IN"] as const).every((locale) => authority.explanation[locale].length >= 45), "Explanation states the evidence, connection and result."],
+    EXPLANATION_QUALITY: [(["en-IN", "hi-IN", "pa-IN"] as const).every((locale) => authority.explanation[locale].length >= 45 && !explanationContradictsAnswer(authority.explanation[locale], locale, answer)), "Explanation states the evidence, connection and result without contradicting the keyed answer."],
     MULTILINGUAL_PARITY: [localized, `Answer class ${answer} is derived before language realization.`],
     NOVELTY_READINESS: [
       fingerprintSifAuthority(authority).length === 20,
