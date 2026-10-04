@@ -12,10 +12,17 @@ export function previewSta001QuestionStudioReviewPostClosure(
 ) {
   const preview = Frozen.previewSta001QuestionStudioReview(input);
   for (const question of preview.questions) {
+    if (question.queryPolarity !== "POSITIVE" && question.queryPolarity !== "NEGATIVE") {
+      throw new Error(`${question.questionId}: unsupported STA query polarity ${question.queryPolarity}`);
+    }
     assertStaV41RenderedQuestionIndependentProof({
       questionId: question.questionId,
       queryPolarity: question.queryPolarity,
-      candidates: question.candidates,
+      candidates: question.candidates.map((candidate) => ({
+        candidateId: candidate.candidateId,
+        classification: candidate.oracle.classification,
+        misconception: candidate.misconception,
+      })),
       answerSet: question.answerSet,
       options: question.options,
       correctIndex: question.correctIndex,
