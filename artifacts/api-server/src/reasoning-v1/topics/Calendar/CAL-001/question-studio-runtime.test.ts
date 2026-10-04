@@ -197,8 +197,8 @@ assert(CAL_001_QUESTION_STUDIO_ACTIVATION.manualApprovalRequired === true, "Cale
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.automaticStudentPublication === false, "Calendar automatic publication was enabled.");
 assert(CAL_001_PRODUCTION_RELEASE.authority === CAL_001_PRODUCTION_RELEASE_AUTHORITY, "Calendar release authority changed.");
 
-// Historical freeze snapshots remain immutable evidence. The newer release authority
-// supersedes those delivery locks without rewriting the earlier audit record.
+// Historical freeze snapshots remain immutable evidence. The current BANK_ONLY authority
+// opens reviewed Question Bank persistence without opening test, mock or public delivery.
 assert(CAL_001_RELEASE_LOCK.questionStudioAllowed === false, "Historical multilingual freeze snapshot was mutated.");
 assert(CAL_001_RELEASE_LOCK.questionBankWriteAllowed === false, "Historical Question Bank lock was mutated.");
 assert(CAL_001_RELEASE_LOCK.mockTestAllowed === false, "Historical mock-test lock was mutated.");
@@ -221,10 +221,15 @@ console.log(JSON.stringify({
   persistenceEnabled: true,
   reviewAndRevisionEnabled: true,
   regenerationEnabled: true,
-  questionBankStatus: "READY_FOR_STORAGE",
-  testEligibility: "ELIGIBLE",
-  publiclyPublishable: true,
-  mockTestEligible: true,
-  manualApprovalRequired: true,
-  automaticStudentPublication: false,
+  lifecycleStage: CAL_001_PRODUCTION_RELEASE.lifecycleStage,
+  questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+  questionBankWritable: CAL_001_PRODUCTION_RELEASE.questionBankWritable,
+  acceptanceMode: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode,
+  testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+  testEligible: CAL_001_PRODUCTION_RELEASE.testEligible,
+  publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+  mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+  manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+  automaticStudentPublication: CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+  productionReleaseAuthorized: CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized,
 }, null, 2));
