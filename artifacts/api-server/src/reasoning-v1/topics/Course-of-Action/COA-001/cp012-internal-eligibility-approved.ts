@@ -3,6 +3,10 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../../../../question-studio/engine-types.ts";
 import {
+  COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+  assertCoaCp012FinalAnswerIntegrity,
+} from "./cp012-post-closure-answer-proof.ts";
+import {
   COA_CP011_CHECKPOINT_ID,
   COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
   COA_CP011_QUESTION_STUDIO_PACKAGE,
@@ -131,7 +135,11 @@ export function isCoaCp012ApprovedQuestionStudioRequest(
 
 export async function generateCoaCp012ApprovedQuestionStudioBatch(input: ApprovedInput) {
   const source = await generateCoaCp011QuestionStudioBatch(cp011SourceInput(input));
-  const questions = source.questions.map((question) => approveQuestion(question as QuestionRecord));
+  const questions = source.questions.map((question) => {
+    const approved = approveQuestion(question as QuestionRecord);
+    assertCoaCp012FinalAnswerIntegrity(approved);
+    return approved;
+  });
 
   return {
     ...source,
@@ -147,6 +155,8 @@ export async function generateCoaCp012ApprovedQuestionStudioBatch(input: Approve
       authority: COA_CP012_QUESTION_STUDIO_AUTHORITY,
       approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
       approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+      postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+      postClosureAnswerProofVerified: true as const,
       runtimeMode: COA_CP012_RUNTIME_MODE,
       reviewStatus: COA_CP012_REVIEW_STATUS,
       lifecycleStatus: "INTERNALLY_ELIGIBLE" as const,
@@ -192,6 +202,7 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   currentReleaseCheckpointId: COA_CP012_APPROVED_CHECKPOINT_ID,
   approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
   approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+  postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
   runtimeMode: COA_CP012_RUNTIME_MODE,
   reviewStatus: COA_CP012_REVIEW_STATUS,
   reviewOnly: false,
@@ -212,6 +223,7 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
     currentQuestionStudioAuthority: COA_CP012_QUESTION_STUDIO_AUTHORITY,
     sourceQuestionStudioAuthority: COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
     approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
+    postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
     internalEligibilityStatus: "APPROVED",
     internalQuestionBankEligibility: true,
     internalTestEligibility: true,
