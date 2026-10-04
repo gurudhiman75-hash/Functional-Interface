@@ -97,7 +97,10 @@ function parityAware(pkg: SapCp004Package): SapCp004Package {
   const oppositeParityPowered = -exactPowered;
   const multiplicationShortcut = BigInt(-base * exponent);
   const exponentOffByOne = power(BigInt(-base), Math.max(1, exponent - 1));
+  const exponentPlusOne = power(BigInt(-base), exponent + 1);
   const unpoweredBase = BigInt(-base);
+  const positiveMultiplicationShortcut = BigInt(base * exponent);
+  const positiveUnpoweredBase = BigInt(base);
   const answer = expressionValue(mode, exactPowered, add, multiplier);
   if (answer.toString() !== pkg.canonicalAnswer) {
     throw new Error(`${pkg.prototypeId}/${pkg.seed}: parity postprocessor disagrees with the canonical answer.`);
@@ -130,6 +133,21 @@ function parityAware(pkg: SapCp004Package): SapCp004Package {
       value: expressionValue(mode, unpoweredBase, add, multiplier),
       misconceptionId: "POWER_OPERATION_OMITTED",
       analysis: "This keeps the signed base but omits the exponent operation before carrying out the remaining arithmetic.",
+    },
+    {
+      value: expressionValue(mode, exponentPlusOne, add, multiplier),
+      misconceptionId: "EXPONENT_INCREASED_BY_ONE",
+      analysis: "This uses one extra repeated factor, changing the powered magnitude and potentially the sign before the final operation.",
+    },
+    {
+      value: expressionValue(mode, positiveMultiplicationShortcut, add, multiplier),
+      misconceptionId: "EXPONENT_AS_POSITIVE_MULTIPLICATION",
+      analysis: "This treats the exponent as multiplication and also drops the negative sign from the base before applying the remaining arithmetic.",
+    },
+    {
+      value: expressionValue(mode, positiveUnpoweredBase, add, multiplier),
+      misconceptionId: "POWER_OMITTED_AND_SIGN_DROPPED",
+      analysis: "This omits the exponent operation and also treats the negative base as positive before completing the expression.",
     },
   ], pkg.correctIndex);
 
