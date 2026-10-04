@@ -8,7 +8,7 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
-import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
+import { getStudentTestSeries, type StudentSeriesCatalogTest, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import {
   catalogExamCodesForSlug,
@@ -49,11 +49,14 @@ type ExamHubCatalogItem = {
   id: string;
   title: string;
   description: string;
-  href: string;
+  href?: string;
   badge: string;
   meta: string;
   iconUrl?: string | null;
   comingSoon?: boolean;
+  seriesId?: string;
+  progressionMode?: "open" | "sequential" | "score_gated";
+  seriesTests?: StudentSeriesCatalogTest[];
 };
 
 function compact(value: string | null | undefined) {
@@ -94,19 +97,37 @@ function stageFromText(value: string): "prelims" | "mains" | "general" {
   return "general";
 }
 
+function progressionLabel(mode: ExamHubCatalogItem["progressionMode"]) {
+  if (mode === "sequential") return "Complete in order";
+  if (mode === "score_gated") return "Score-gated";
+  return "Open access";
+}
+
+function tabLabelForSection(title: string) {
+  const value = title.toLowerCase();
+  if (/prelims?|preliminary/.test(value)) return "Prelims";
+  if (/mains?|main exam/.test(value)) return "Mains";
+  if (/\bpyq\b|previous[ -]?year/.test(value)) return "PYQ";
+  if (/sectional/.test(value)) return "Sectional";
+  if (/topic[ -]?wise/.test(value)) return "Topic-wise";
+  if (/more test/.test(value)) return "More";
+  return title;
+}
+
 function seriesItem(series: StudentSeriesSummary): ExamHubCatalogItem {
   const comingSoon = series.learnerVisibility === "coming_soon";
-  const countLabel = series.testCount === 1 ? "1 test" : series.testCount + " tests";
-  const duration = series.durationSeconds > 0 ? " · " + Math.max(1, Math.ceil(series.durationSeconds / 60)) + " min" : "";
+  const liveCount = series.tests?.length ?? series.liveTestCount ?? 0;
   return {
     id: "series-" + series.id,
     title: series.name,
     description: compact(series.description) || (comingSoon ? series.learnerMessage : "ExamTree test series"),
-    href: "/test-series/" + encodeURIComponent(series.id),
     badge: comingSoon ? "Coming Soon" : "Test Series",
-    meta: countLabel + duration,
+    meta: liveCount === 1 ? "1 live test" : liveCount + " live tests",
     iconUrl: series.iconUrl,
     comingSoon,
+    seriesId: series.id,
+    progressionMode: series.progressionMode,
+    seriesTests: series.tests ?? [],
   };
 }
 
@@ -124,6 +145,32 @@ function testItem(test: Test): ExamHubCatalogItem {
   };
 }
 
+function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; seriesId: string }) {
+  const durationMinutes = Math.max(1, Math.ceil(Number(test.durationSeconds || 0) / 60));
+  return (
+    <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-4 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex min-w-0 items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+          {test.iconUrl ? <img src={test.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-4 w-4 text-indigo-600" />}
+        </div>
+        <div className="min-w-0">
+          <h4 className="font-semibold leading-5 text-slate-950">{test.title}</h4>
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            {test.questionCount} questions · {durationMinutes} min{Number(test.totalMarks) > 0 ? " · " + test.totalMarks + " marks" : ""}
+          </p>
+          {test.description ? <p className="mt-1 line-clamp-1 text-xs text-slate-400">{test.description}</p> : null}
+        </div>
+      </div>
+      <Link
+        href={"/test/" + encodeURIComponent(test.testId) + "?seriesId=" + encodeURIComponent(seriesId)}
+        className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white transition hover:bg-[#594bd9]"
+      >
+        Start test
+      </Link>
+    </div>
+  );
+}
+
 function ExamHubCatalogSection({
   id,
   title,
@@ -138,40 +185,61 @@ function ExamHubCatalogSection({
   emptyMessage: string;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 border-t border-slate-200 pt-8">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
-          <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
-        </div>
-        {items.length > 0 ? <span className="text-xs font-semibold text-slate-400">{items.length} available</span> : null}
+    <section id={id} role="tabpanel" className="rounded-2xl border border-slate-200 bg-slate-50/60 p-3 sm:p-4">
+      <div className="px-1 pb-3">
+        <h3 className="text-xl font-semibold tracking-tight text-slate-950">{title}</h3>
+        <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
       </div>
+
       {items.length === 0 ? (
-        <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-7">
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-7">
           <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
-          <p className="mt-1 text-xs leading-5 text-slate-500">This section will appear automatically when matching catalogue content is published.</p>
         </div>
       ) : (
-        <div className="-mx-1 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]">
-          {items.map((item) => (
-            <Link key={item.id} href={item.href} className="group flex min-h-[164px] w-[84vw] max-w-[340px] shrink-0 snap-start flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm sm:w-[310px]">
-              <div className="flex items-start gap-3">
+        <div className="space-y-4">
+          {items.map((item) => item.seriesId ? (
+            <article key={item.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_5px_18px_rgba(15,23,42,0.035)]">
+              <div className="p-4 sm:p-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                    {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={"rounded-full px-2 py-0.5 text-[10px] font-bold " + (item.comingSoon ? "bg-amber-50 text-amber-700" : "bg-indigo-50 text-indigo-700")}>{item.badge}</span>
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">{progressionLabel(item.progressionMode)}</span>
+                      <span className="text-[11px] font-semibold text-slate-400">{item.meta}</span>
+                    </div>
+                    <h4 className="mt-2 text-base font-semibold text-slate-950">{item.title}</h4>
+                    <p className="mt-1 text-sm leading-5 text-slate-500">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+
+              {item.seriesTests?.length ? (
+                <div className="border-t border-slate-200 bg-white">
+                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} />)}
+                </div>
+              ) : (
+                <div className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-500">
+                  {item.comingSoon ? item.description : "No live tests are published in this series yet."}
+                </div>
+              )}
+            </article>
+          ) : (
+            <article key={item.id} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 items-start gap-3">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
                   {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
                 </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className={"rounded-full px-2 py-0.5 text-[10px] font-bold " + (item.comingSoon ? "bg-amber-50 text-amber-700" : "bg-indigo-50 text-indigo-700")}>{item.badge}</span>
-                  </div>
-                  <h3 className="mt-2 line-clamp-2 font-semibold leading-5 text-slate-950">{item.title}</h3>
+                <div className="min-w-0">
+                  <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700">{item.badge}</span>
+                  <h4 className="mt-2 font-semibold text-slate-950">{item.title}</h4>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{item.meta}</p>
                 </div>
               </div>
-              <p className="mt-3 line-clamp-2 text-xs leading-5 text-slate-500">{item.description}</p>
-              <div className="mt-auto flex items-center justify-between gap-3 pt-3 text-xs">
-                <span className="text-slate-500">{item.meta}</span>
-                <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-indigo-600" />
-              </div>
-            </Link>
+              {item.href ? <Link href={item.href} className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 text-sm font-semibold text-indigo-700 hover:bg-indigo-100">Start test</Link> : null}
+            </article>
           ))}
         </div>
       )}
@@ -182,6 +250,7 @@ function ExamHubCatalogSection({
 export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
   const catalog = useExamCatalog();
+  const [activeSeriesTabId, setActiveSeriesTabId] = useState("");
   const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
   const seriesQuery = useQuery({
     queryKey: ["exam-hub-series", examSlug],
@@ -261,7 +330,12 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
       );
     });
 
+    const seriesTestIds = new Set(
+      examSeries.flatMap((series) => (series.tests ?? []).map((test) => String(test.testId).toLowerCase())),
+    );
+
     examTests.forEach((test, index) => {
+      if (seriesTestIds.has(String(test.id).toLowerCase())) return;
       const fallback = fallbackTestSection(test);
       addItem(fallback.title, fallback.description, fallback.order, 1000 + index, testItem(test));
     });
@@ -278,6 +352,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           .map((entry) => entry.item),
       }));
   }, [examSeries, examTests, config.name]);
+
+  const activeLandingSection =
+    landingSections.find((section) => section.id === activeSeriesTabId) ?? landingSections[0] ?? null;
 
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
@@ -304,7 +381,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
             </div>
             <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
               {[
-                ...landingSections.map((section) => ["#" + section.id, section.title]),
+                ["#test-catalog", "Tests"],
                 ["#syllabus", "Syllabus"],
                 ["#preparation", "Preparation"],
               ].map(([href, label]) => (
@@ -329,23 +406,59 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
         </div>
       ) : null}
 
-      <div className="mt-8 space-y-10">
-        {landingSections.length > 0 ? landingSections.map((section) => (
-          <ExamHubCatalogSection
-            key={section.id}
-            id={section.id}
-            title={section.title}
-            description={section.description}
-            items={section.items}
-            emptyMessage="This series row is being prepared."
-          />
-        )) : (
-          <section className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
-            <h2 className="text-lg font-semibold text-slate-900">Test series are being prepared</h2>
-            <p className="mt-1 text-sm leading-6 text-slate-500">Prelims, mains, sectional, topic-wise, PYQ, or any custom series row will appear here as soon as it is configured for this exam.</p>
-          </section>
+      <section id="test-catalog" className="mt-8 scroll-mt-24" aria-labelledby="test-catalog-heading">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Mock tests & practice</p>
+            <h2 id="test-catalog-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">Choose what you want to practise</h2>
+            <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">Prelims, mains, PYQs, sectional and topic-wise practice stay on this master exam page.</p>
+          </div>
+        </div>
+
+        {landingSections.length > 0 ? (
+          <>
+            <div className="mt-5 max-w-full overflow-x-auto pb-2">
+              <div role="tablist" aria-label={config.name + " test categories"} className="inline-flex min-w-max gap-1 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm">
+                {landingSections.map((section) => {
+                  const selected = activeLandingSection?.id === section.id;
+                  return (
+                    <button
+                      key={section.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-controls={section.id}
+                      onClick={() => setActiveSeriesTabId(section.id)}
+                      className={"min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}
+                    >
+                      {tabLabelForSection(section.title)}
+                      <span className={"ml-2 text-xs " + (selected ? "text-white/75" : "text-slate-400")}>
+                        {section.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {activeLandingSection ? (
+              <ExamHubCatalogSection
+                key={activeLandingSection.id}
+                id={activeLandingSection.id}
+                title={activeLandingSection.title}
+                description={activeLandingSection.description}
+                items={activeLandingSection.items}
+                emptyMessage="This test category is being prepared."
+              />
+            ) : null}
+          </>
+        ) : (
+          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
+            <h3 className="text-lg font-semibold text-slate-900">Test series are being prepared</h3>
+            <p className="mt-1 text-sm leading-6 text-slate-500">Prelims, mains, sectional, topic-wise, PYQ, or any custom tab will appear here as soon as it is configured for this exam.</p>
+          </div>
         )}
-      </div>
+      </section>
 
       <section className="mt-12 border-t border-slate-200 pt-9" aria-labelledby="exam-information-heading">
         <div>

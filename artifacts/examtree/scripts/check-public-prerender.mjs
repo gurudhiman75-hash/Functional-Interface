@@ -27,7 +27,7 @@ assert.match(generator, /url\.pathname !== "\/" \|\| url\.search \|\| url\.hash/
 for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-chsl", "/ssc-chsl-preparation", "/ssc-chsl-syllabus", "/ssc-mts", "/ssc-mts-preparation", "/ssc-mts-syllabus", "/ssc-cpo", "/ssc-cpo-preparation", "/ssc-cpo-syllabus", "/ssc-stenographer", "/ssc-stenographer-preparation", "/ssc-stenographer-syllabus", "/ssc-gd", "/ssc-gd-preparation", "/ssc-gd-syllabus", "/ibps-po", "/ibps-po-preparation", "/ibps-po-syllabus", "/ibps-clerk", "/ibps-clerk-preparation", "/ibps-clerk-syllabus", "/ibps-rrb-po", "/ibps-rrb-po-preparation", "/ibps-rrb-po-syllabus", "/ibps-rrb-office-assistant", "/ibps-rrb-office-assistant-preparation", "/ibps-rrb-office-assistant-syllabus"]) {
   assert.ok(generator.includes(`path: "${route}"`), `prerender route set must include ${route}`);
 }
-for (const route of ["/pyqs", "/blog", "/ssc-cgl-pyqs", "/punjab-police-mock-tests", "/ibps-clerk-syllabus", "/dashboard", "/test/"]) {
+for (const route of ["/pyqs", "/blog", "/ssc-cgl-pyqs", "/punjab-police-mock-tests", "/dashboard", "/test/"]) {
   assert.ok(!generator.includes(`path: "${route}"`), `prerender route set must exclude ${route}`);
 }
 

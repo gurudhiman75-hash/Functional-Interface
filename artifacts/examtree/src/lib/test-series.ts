@@ -2,6 +2,19 @@ import { apiRequest } from "@/lib/api";
 
 export type StudentSeriesLearnerVisibility = "hidden" | "coming_soon" | "live";
 
+export interface StudentSeriesCatalogTest {
+  id: string;
+  testId: string;
+  publicCode: string;
+  sortOrder: number;
+  title: string;
+  description: string | null;
+  durationSeconds: number;
+  totalMarks: number;
+  questionCount: number;
+  iconUrl?: string;
+}
+
 export interface StudentSeriesSummary {
   id: string;
   code: string;
@@ -31,6 +44,7 @@ export interface StudentSeriesSummary {
   hubSectionOrder?: number;
   hubSeriesOrder?: number;
   iconUrl?: string;
+  tests?: StudentSeriesCatalogTest[];
 }
 
 export interface StudentSeriesMember {
