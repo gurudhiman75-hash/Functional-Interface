@@ -6,6 +6,17 @@ export type { SapCp011E2Structure };
 
 function wrong(value: string, id: string, analysis: string) { return { value, id, analysis }; }
 
+function foldCertifiedSeed(seed: number): number {
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  // Preserve the certified 1..100 runtime while folding all six Question Studio
+  // source-seed digits; plain modulo 100 discarded four digits and caused repeats.
+  return ((8 * low + 9 * mid + 3 * high) % 100) + 1;
+}
+
 function compareAccuracy(seed: number): SapE2Package {
   if (!Number.isInteger(seed) || seed < 1 || seed > 100) throw new Error("CP011 seed must be 1..100.");
   const p = seed - 1;
@@ -46,7 +57,7 @@ function compareAccuracy(seed: number): SapE2Package {
 
 export function generateSapCp011E2(structureId: SapCp011E2Structure, seed: number): SapE2Package {
   if (!Number.isInteger(seed) || seed < 1) throw new Error("CP011 seed must be a positive integer.");
-  const sourceSeed = ((seed - 1) % 100) + 1;
+  const sourceSeed = foldCertifiedSeed(seed);
   if (structureId === "CP011-E2-COMPARE-ESTIMATE-ACCURACY") return compareAccuracy(sourceSeed);
   return generateR5(structureId, sourceSeed);
 }
