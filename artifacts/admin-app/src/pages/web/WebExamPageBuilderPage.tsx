@@ -297,13 +297,31 @@ export function WebExamPageBuilderPage(){
                 <div className="space-y-2"><Label>Columns</Label><Select value={String(section.columns)} onValueChange={value=>updateSection(section.id,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent>{[1,2,3,4].map(value=><SelectItem key={value} value={String(value)}>{value}</SelectItem>)}</SelectContent></Select></div>
                 <div className="space-y-2"><Label>Card style</Label><Select value={section.cardStyle} onValueChange={value=>updateSection(section.id,{cardStyle:value as CardStyle})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="default">Default</SelectItem><SelectItem value="compact">Compact</SelectItem><SelectItem value="bordered">Bordered</SelectItem><SelectItem value="minimal">Minimal</SelectItem><SelectItem value="featured">Featured</SelectItem></SelectContent></Select></div>
                 {section.type==='test_catalog'&&<><div className="space-y-2"><Label>Tab style</Label><Select value={section.tabStyle} onValueChange={value=>updateSection(section.id,{tabStyle:value as TabStyle})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="pills">Pills</SelectItem><SelectItem value="underline">Underline</SelectItem><SelectItem value="segmented">Segmented</SelectItem></SelectContent></Select></div><div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><Label>Show tab counts</Label><p className="text-xs text-muted-foreground">Number of tests next to each tab.</p></div><Switch checked={section.showCounts} onCheckedChange={value=>updateSection(section.id,{showCounts:value})}/></div></>}
-                {section.type==='test_catalog'&&<div className="grid gap-3 rounded-lg border p-3 md:col-span-2 md:grid-cols-3">
-                  <div className="space-y-1"><Label>Prelims tab</Label><Input value={section.labels.prelims||''} onChange={event=>updateSectionLabel(section.id,'prelims',event.target.value)} placeholder="Prelims"/></div>
-                  <div className="space-y-1"><Label>Mains tab</Label><Input value={section.labels.mains||''} onChange={event=>updateSectionLabel(section.id,'mains',event.target.value)} placeholder="Mains"/></div>
-                  <div className="space-y-1"><Label>PYQ tab</Label><Input value={section.labels.pyq||''} onChange={event=>updateSectionLabel(section.id,'pyq',event.target.value)} placeholder="PYQ"/></div>
-                  <div className="space-y-1"><Label>Sectional tab</Label><Input value={section.labels.sectional||''} onChange={event=>updateSectionLabel(section.id,'sectional',event.target.value)} placeholder="Sectional"/></div>
-                  <div className="space-y-1"><Label>Topic-wise tab</Label><Input value={section.labels.topicWise||''} onChange={event=>updateSectionLabel(section.id,'topicWise',event.target.value)} placeholder="Topic-wise"/></div>
-                  <div className="space-y-1"><Label>More tab</Label><Input value={section.labels.more||''} onChange={event=>updateSectionLabel(section.id,'more',event.target.value)} placeholder="More"/></div>
+                {section.type==='test_catalog'&&<div className="space-y-4 rounded-lg border p-3 md:col-span-2">
+                  <div>
+                    <p className="text-sm font-semibold">Test navigation labels</p>
+                    <p className="text-xs text-muted-foreground">Edit both levels of the approved exam test navigator.</p>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-3">
+                    <div className="space-y-1"><Label>Prelims tab</Label><Input value={section.labels.prelims||''} onChange={event=>updateSectionLabel(section.id,'prelims',event.target.value)} placeholder="Prelims"/></div>
+                    <div className="space-y-1"><Label>Mains tab</Label><Input value={section.labels.mains||''} onChange={event=>updateSectionLabel(section.id,'mains',event.target.value)} placeholder="Mains"/></div>
+                    <div className="space-y-1"><Label>PYQ tab</Label><Input value={section.labels.pyq||''} onChange={event=>updateSectionLabel(section.id,'pyq',event.target.value)} placeholder="Previous Year Papers"/></div>
+                    <div className="space-y-1"><Label>Full tests</Label><Input value={section.labels.fullTests||''} onChange={event=>updateSectionLabel(section.id,'fullTests',event.target.value)} placeholder="Full Tests"/></div>
+                    <div className="space-y-1"><Label>Sectional tests</Label><Input value={section.labels.sectional||''} onChange={event=>updateSectionLabel(section.id,'sectional',event.target.value)} placeholder="Sectional Tests"/></div>
+                    <div className="space-y-1"><Label>Topic-wise tests</Label><Input value={section.labels.topicWise||''} onChange={event=>updateSectionLabel(section.id,'topicWise',event.target.value)} placeholder="Topic-wise Tests"/></div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <p className="mb-2 text-sm font-semibold">Soft page switcher</p>
+                    <div className="grid gap-3 md:grid-cols-3">
+                      <div className="space-y-1"><Label>Overview</Label><Input value={section.labels.navOverview||''} onChange={event=>updateSectionLabel(section.id,'navOverview',event.target.value)} placeholder="Overview"/></div>
+                      <div className="space-y-1"><Label>Test Series</Label><Input value={section.labels.navTests||''} onChange={event=>updateSectionLabel(section.id,'navTests',event.target.value)} placeholder="Test Series"/></div>
+                      <div className="space-y-1"><Label>Syllabus</Label><Input value={section.labels.navSyllabus||''} onChange={event=>updateSectionLabel(section.id,'navSyllabus',event.target.value)} placeholder="Syllabus"/></div>
+                      <div className="space-y-1"><Label>Exam Pattern</Label><Input value={section.labels.navPattern||''} onChange={event=>updateSectionLabel(section.id,'navPattern',event.target.value)} placeholder="Exam Pattern"/></div>
+                      <div className="space-y-1"><Label>Previous Year Papers</Label><Input value={section.labels.navPyq||''} onChange={event=>updateSectionLabel(section.id,'navPyq',event.target.value)} placeholder="Previous Year Papers"/></div>
+                      <div className="space-y-1"><Label>Preparation</Label><Input value={section.labels.navPreparation||''} onChange={event=>updateSectionLabel(section.id,'navPreparation',event.target.value)} placeholder="Preparation Resources"/></div>
+                      <div className="space-y-1"><Label>Notifications</Label><Input value={section.labels.navNotifications||''} onChange={event=>updateSectionLabel(section.id,'navNotifications',event.target.value)} placeholder="Notifications"/></div>
+                    </div>
+                  </div>
                 </div>}
                 {section.type==='hero'&&<div className="grid gap-3 rounded-lg border p-3 md:col-span-2 md:grid-cols-3">
                   <div className="space-y-1"><Label>Tests nav</Label><Input value={section.labels.navTests||''} onChange={event=>updateSectionLabel(section.id,'navTests',event.target.value)} placeholder="Tests"/></div>
