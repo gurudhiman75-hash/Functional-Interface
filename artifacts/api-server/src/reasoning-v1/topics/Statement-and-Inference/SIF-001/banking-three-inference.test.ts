@@ -48,10 +48,10 @@ for (let seed = 0; seed < 40; seed++) {
     assert.deepEqual(question.optionSubsets, english.optionSubsets);
     assert.equal(question.inferences.length, 3);
     assert.equal(question.options.length, 5);
-    if (locale === "hi-IN") {
+    if (question.locale === "hi-IN") {
       assert.doesNotMatch(question.options.join(" | "), /केवल [IVX]+, [IVX]+/u);
     }
-    if (locale === "pa-IN") {
+    if (question.locale === "pa-IN") {
       assert.doesNotMatch(question.options.join(" | "), /ਕੇਵਲ [IVX]+, [IVX]+/u);
     }
     assert.ok(question.statement.length >= 20);
