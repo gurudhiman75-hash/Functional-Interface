@@ -1,15 +1,15 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 
-import { DIR_001_QLS, generateDirectionQuestion } from "./chapter-registry.ts";
+import { DIR_001_QLS, generateDirectionQuestion } from "./chapter-registry";
 import {
   DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   generateDir001QuestionStudioBatch,
-} from "./dir-001-question-studio-integration.ts";
+} from "./dir-001-question-studio-integration";
 import {
   assertDirQuestionStudioMappingIntegrity,
   DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
-} from "./dir-001-post-closure-mapping-proof.ts";
+} from "./dir-001-post-closure-mapping-proof";
 
 const languages = ["en", "hi", "pa"] as const;
 const samplesPerQl = 8;
@@ -44,14 +44,16 @@ for (const ql of DIR_001_QLS) {
         runtimeMode: "review-only",
       });
       assert.equal(result.questions.length, 1);
-      assert.equal(result.generationContext.questionBankWritable, false);
-      assert.equal(result.generationContext.testEligible, false);
-      assert.equal(result.generationContext.mockTestEligible, false);
-      assert.equal(result.generationContext.publiclyPublishable, false);
-      assert.equal(result.generationContext.productionReleaseAuthorized, false);
-      assert.equal(result.generationContext.postClosureMappingProofVerified, true);
+      assert.ok(result.generationContext, "DIR-001 Question Studio result must include generation context");
+      const generationContext = result.generationContext;
+      assert.equal(generationContext.questionBankWritable, false);
+      assert.equal(generationContext.testEligible, false);
+      assert.equal(generationContext.mockTestEligible, false);
+      assert.equal(generationContext.publiclyPublishable, false);
+      assert.equal(generationContext.productionReleaseAuthorized, false);
+      assert.equal(generationContext.postClosureMappingProofVerified, true);
       assert.equal(
-        result.generationContext.postClosureMappingProofAuthority,
+        generationContext.postClosureMappingProofAuthority,
         DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
       );
 
