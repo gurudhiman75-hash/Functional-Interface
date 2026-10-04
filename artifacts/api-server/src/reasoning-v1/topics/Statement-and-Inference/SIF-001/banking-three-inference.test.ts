@@ -10,6 +10,14 @@ import type { SifLocale } from "./types.ts";
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const authorities = listSifBankingThreeInferenceAuthorities();
 assert.equal(authorities.length, 5, "expected five curated Banking three-inference authorities");
+const mediumAuthorities = listSifBankingThreeInferenceAuthorities("MEDIUM");
+const hardAuthorities = listSifBankingThreeInferenceAuthorities("HARD");
+const easyAuthorities = listSifBankingThreeInferenceAuthorities("EASY");
+assert.equal(
+  mediumAuthorities.length + hardAuthorities.length + easyAuthorities.length,
+  authorities.length,
+  "difficulty-filtered Banking authority pools must partition the overlay inventory",
+);
 
 let generated = 0;
 for (let seed = 0; seed < 40; seed++) {
@@ -40,6 +48,12 @@ for (let seed = 0; seed < 40; seed++) {
     assert.deepEqual(question.optionSubsets, english.optionSubsets);
     assert.equal(question.inferences.length, 3);
     assert.equal(question.options.length, 5);
+    if (locale === "hi-IN") {
+      assert.doesNotMatch(question.options.join(" | "), /केवल [IVX]+, [IVX]+/u);
+    }
+    if (locale === "pa-IN") {
+      assert.doesNotMatch(question.options.join(" | "), /ਕੇਵਲ [IVX]+, [IVX]+/u);
+    }
     assert.ok(question.statement.length >= 20);
     assert.ok(question.inferences.every((value) => value.length >= 8));
     assert.ok(question.distractorTypes.length >= 1);
@@ -60,6 +74,23 @@ const answerPositions = new Set(
   ),
 );
 assert.equal(answerPositions.size, 5, "all five answer positions should be reachable");
+
+for (const difficulty of ["MEDIUM", "HARD"] as const) {
+  const eligible = listSifBankingThreeInferenceAuthorities(difficulty);
+  if (eligible.length === 0) continue;
+  for (let seed = 0; seed < eligible.length * 2; seed += 1) {
+    const question = generateSifBankingThreeInferenceQuestion({
+      locale: "en-IN",
+      seed,
+      difficulty,
+    });
+    assert.equal(question.difficulty, difficulty);
+  }
+}
+assert.throws(
+  () => generateSifBankingThreeInferenceQuestion({ locale: "en-IN", seed: 0, difficulty: "EASY" }),
+  /no easy curated authority/i,
+);
 
 console.log(JSON.stringify({
   status: "PASS_SIF_BANKING_THREE_INFERENCE",
