@@ -57,12 +57,12 @@ for (const entry of TMW_CP006_REGISTRY) {
         first.explanation.conclusion,
       ].join("\n");
       assert.equal(/undefined|null|NaN|Infinity|find[A-Z]|TMW_|Independent invariant|Do not|Don't/i.test(learnerText), false, `${entry.qlId}:${language}: internal wording`);
-      assert.equal(/\b(?:workers?|clerks?|packers?|painters?|inspectors?|machines?|printers?|bottling lines?|assembly units?|person-days?|worker-days?|machine-hours?|shifts?|overtime)\b/i.test(learnerText), false, `${entry.qlId}:${language}: English unit leakage`);
+      assert.equal(/\b(?:workers?|clerks?|packers?|painters?|inspectors?|sorters?|operators?|gardeners?|surveyors?|technicians?|loaders?|machines?|printers?|bottling lines?|assembly units?|labeling machines?|looms?|CNC machines?|sealing lines?|parcels|records|sections|forms|consignments|labels|cartons|metres of fabric|person-days?|worker-days?|sorter-days?|operator-days?|gardener-days?|surveyor-days?|technician-days?|loader-days?|machine-hours?|shifts?|overtime)\b/i.test(learnerText), false, `${entry.qlId}:${language}: English unit leakage`);
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
 
       switch (first.solution.answerType) {
         case "COUNT":
-          assert.match(first.solution.answerText, language === "hi" ? /श्रमिक|क्लर्क|कर्मी|पेंटर|निरीक्षक|मशीन|लाइन|इकाई/ : /ਮਜ਼ਦੂਰ|ਕਲਰਕ|ਕਰਮਚਾਰੀ|ਪੇਂਟਰ|ਮਸ਼ੀਨ|ਲਾਈਨ|ਇਕਾਈ/);
+          assert.match(first.solution.answerText, language === "hi" ? /श्रमिक|क्लर्क|कर्मी|पेंटर|निरीक्षक|ऑपरेटर|माली|सर्वेक्षक|तकनीशियन|मशीन|करघ|लाइन|इकाई/ : /ਮਜ਼ਦੂਰ|ਕਲਰਕ|ਕਰਮਚਾਰੀ|ਪੇਂਟਰ|ਓਪਰੇਟਰ|ਮਾਲੀ|ਸਰਵੇਖਕ|ਤਕਨੀਸ਼ੀਅਨ|ਮਸ਼ੀਨ|ਖੱਡ|ਲਾਈਨ|ਇਕਾਈ/);
           break;
         case "TIME":
           assert.match(first.solution.answerText, language === "hi" ? /दिन$/ : /ਦਿਨ$/);

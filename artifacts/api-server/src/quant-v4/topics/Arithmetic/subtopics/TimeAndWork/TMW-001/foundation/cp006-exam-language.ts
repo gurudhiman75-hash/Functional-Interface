@@ -16,10 +16,20 @@ function profile(jobPhrase:string):ScenarioProfile{
     case "a packaging order":return {setting:"a warehouse distribution centre",task:"a large logistics order"};
     case "a painting contract":return {setting:"a commercial-complex painting site",task:"the painting contract"};
     case "an inspection assignment":return {setting:"a quality-control department",task:"the inspection assignment"};
+    case "a warehouse sorting assignment":return {setting:"a parcel-sorting centre",task:"the sorting assignment"};
+    case "a data-entry backlog":return {setting:"a data-processing centre",task:"the data-entry backlog"};
+    case "a landscaping contract":return {setting:"a landscaping project",task:"the landscaping contract"};
+    case "a field-survey assignment":return {setting:"a survey office",task:"the field-survey assignment"};
+    case "a quality-control batch":return {setting:"a quality-control unit",task:"the quality-control batch"};
+    case "a loading assignment":return {setting:"a freight depot",task:"the loading assignment"};
     case "a component-production order":return {setting:"an auto-component factory",task:"the component-production order"};
     case "a printing order":return {setting:"a commercial printing press",task:"the printing order"};
     case "a bottling target":return {setting:"a beverage bottling plant",task:"the bottling target"};
     case "an assembly target":return {setting:"an electronics assembly workshop",task:"the assembly target"};
+    case "a label-printing order":return {setting:"a label-printing plant",task:"the label-printing order"};
+    case "a textile production order":return {setting:"a textile mill",task:"the fabric-production order"};
+    case "a machining order":return {setting:"a machine shop",task:"the machining order"};
+    case "a carton-sealing target":return {setting:"a packaging plant",task:"the carton-sealing target"};
     case "a wall face":return {setting:"a building-construction site",task:"the wall-plastering job"};
     case "a road surface":return {setting:"a highway construction site",task:"the road-surfacing job"};
     case "a masonry wall":return {setting:"a masonry project",task:"the wall-construction job"};
@@ -60,7 +70,15 @@ export function renderTmwCp006ExamStem(entry:TmwCp006RegistryEntry,p:TmwCp006Par
     case "findDimensionalWorkRatio":return `A contractor at ${s.setting} is comparing two jobs of the same type. The first has ${dimensions(required(p.dimensionsA,"dimensionsA"),required(p.dimensionLabels,"dimensionLabels"))}, while the second has ${dimensions(required(p.dimensionsB,"dimensionsB"),required(p.dimensionLabels,"dimensionLabels"))}. If work is proportional to the relevant area or volume, what is the ratio of the second job's work to the first?`;
     case "findWorkersForChangedDimensions":return `At ${s.setting}, ${resourceCount(p,a.resources)} complete ${s.task} with ${dimensions(required(p.dimensionsA,"dimensionsA"),required(p.dimensionLabels,"dimensionLabels"))} in ${days(a.days)}. How many ${c.resourcePlural} are required for a similar job with ${dimensions(required(p.dimensionsB,"dimensionsB"),required(p.dimensionLabels,"dimensionLabels"))} in ${days(b.days)}, with daily hours and efficiency unchanged?`;
     case "findDaysForChangedDimensions":return `At ${s.setting}, ${resourceCount(p,a.resources)} complete ${s.task} with ${dimensions(required(p.dimensionsA,"dimensionsA"),required(p.dimensionLabels,"dimensionLabels"))} in ${days(a.days)}. How many days will ${resourceCount(p,b.resources)} take for a similar job with ${dimensions(required(p.dimensionsB,"dimensionsB"),required(p.dimensionLabels,"dimensionLabels"))}, with daily hours and efficiency unchanged?`;
-    case "findResourceDurationAfterPopulationChange":return `A relief camp has enough food for ${number(required(p.initialPopulation,"initialPopulation"))} people for ${days(a.days)}. After ${days(required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"))}, the camp population changes to ${number(required(p.changedPopulation,"changedPopulation"))}. For how many more days will the remaining food last?`;
+    case "findResourceDurationAfterPopulationChange":{
+      const initial=required(p.initialPopulation,"initialPopulation");
+      const changed=required(p.changedPopulation,"changedPopulation");
+      const elapsed=required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange");
+      const variant=Math.abs(initial.numerator)%3;
+      if(variant===1)return `A relief camp stores enough provisions for ${number(initial)} people for ${days(a.days)}. After ${days(elapsed)}, the number of people in the camp becomes ${number(changed)}. How many additional days will the remaining provisions last?`;
+      if(variant===2)return `At a relief camp, the available food can support ${number(initial)} people for ${days(a.days)}. ${days(elapsed)} later, the camp has ${number(changed)} people. For how long will the food left at that point last?`;
+      return `A relief camp has enough food for ${number(initial)} people for ${days(a.days)}. After ${days(elapsed)}, the camp population changes to ${number(changed)}. For how many more days will the remaining food last?`;
+    }
     case "findCompletionTimeAfterAbsenteeism":return `A department at ${s.setting} schedules ${resourceCount(p,a.resources)} to complete ${s.task} in ${days(a.days)}. If ${number(required(p.absentPercent,"absentPercent"))}% of them remain absent throughout the assignment, in how many days will the active workforce finish it?`;
     case "findCompletionWithBatchWorkerAdditions":return `A contractor at ${s.setting} knows that ${resourceCount(p,a.resources)} could complete ${s.task} in ${days(a.days)}. Instead, only ${number(required(p.initialBatchResources,"initialBatchResources"))} ${c.resourcePlural} start, and ${number(required(p.batchAddition,"batchAddition"))} more join at the beginning of every following day. In how many days will the job be completed?`;
     case "findEquivalentResourceTime":return `For capacity planning at ${s.setting}, ${resourceCount(p,a.resources)} ${isMachineContext(p)?"operate":"work"} for ${resourceDuration(p)}. What is the equivalent total in ${c.resourceTimeUnit}?`;

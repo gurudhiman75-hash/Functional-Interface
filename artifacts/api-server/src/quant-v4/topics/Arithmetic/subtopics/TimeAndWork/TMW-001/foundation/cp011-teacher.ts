@@ -57,7 +57,7 @@ export function cp011TeacherSteps(e:TmwCp011RegistryEntry,p:TmwCp011Parameters,s
   case "findInitialRateFromArithmeticTotal":{const twoS=multiply(rational(2),p.totalOutput!),part=multiply(rational(n*(n-1)),d),top=subtract(twoS,part);return[
    `Double the total: ${m(`2\\times${v(p.totalOutput!)}=${v(twoS)}`)}.`,
    `Daily-change part: ${m(`${n}\\times${n-1}\\times${v(d)}=${v(part)}`)}.`,
-   `So ${m(`2na=${signed(twoS,part)}=${v(top)}`)}.`,
+   `After removing the daily-change part: ${m(`${signed(twoS,part)}=${v(top)}`)}. This remainder equals twice the number of days times the Day 1 output.`,
    `Day 1 output = ${m(`\\frac{${v(top)}}{${2*n}}=${v(s.answer)}`)} ${unit}.`];}
   case "findDailyChangeFromArithmeticTotal":{const twoS=multiply(rational(2),p.totalOutput!),base=multiply(rational(2*n),a),top=subtract(twoS,base),bottom=rational(n*(n-1));return[
    `Double the total: ${m(`2\\times${v(p.totalOutput!)}=${v(twoS)}`)}.`,

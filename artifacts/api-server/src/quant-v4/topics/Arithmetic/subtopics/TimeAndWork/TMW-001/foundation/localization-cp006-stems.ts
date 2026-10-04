@@ -85,9 +85,21 @@ export function renderTmwCp006LocalizedStem(source:TmwCp006GeneratedQuestion,lan
         `${cp006Resource(p,a.resources,language)} ${cp006Dimensions(required(p.dimensionsA,"dimensionsA"),labels,language)} आयाम वाले ${job} को ${cp006Days(a.days,language,true)} पूरा करते हैं। ${cp006Resource(p,b.resources,language)} समान घंटे और दक्षता पर ${cp006Dimensions(required(p.dimensionsB,"dimensionsB"),labels,language)} आयाम वाला काम कितने दिनों में पूरा करेंगे?`,
         `${cp006Resource(p,a.resources,language)} ${cp006Dimensions(required(p.dimensionsA,"dimensionsA"),labels,language)} ਮਾਪ ਵਾਲੇ ${job} ਨੂੰ ${cp006Days(a.days,language,true)} ਪੂਰਾ ਕਰਦੇ ਹਨ। ${cp006Resource(p,b.resources,language)} ਇੱਕੋ ਘੰਟਿਆਂ ਅਤੇ ਦੱਖਤਾ ਉੱਤੇ ${cp006Dimensions(required(p.dimensionsB,"dimensionsB"),labels,language)} ਮਾਪ ਵਾਲਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਨਗੇ?`);
     }
-    case "findResourceDurationAfterPopulationChange":return q(language,
-      `एक राहत शिविर में ${cp006Number(required(p.initialPopulation,"initialPopulation"))} लोगों के लिए ${cp006Days(a.days,language)} का भोजन है। ${cp006Days(required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"),language)} बाद लोगों की संख्या ${cp006Number(required(p.changedPopulation,"changedPopulation"))} हो जाती है। बचा भोजन और कितने दिन चलेगा?`,
-      `ਇੱਕ ਰਾਹਤ ਕੈਂਪ ਵਿੱਚ ${cp006Number(required(p.initialPopulation,"initialPopulation"))} ਲੋਕਾਂ ਲਈ ${cp006Days(a.days,language)} ਦਾ ਖਾਣਾ ਹੈ। ${cp006Days(required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"),language)} ਬਾਅਦ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ${cp006Number(required(p.changedPopulation,"changedPopulation"))} ਹੋ ਜਾਂਦੀ ਹੈ। ਬਚਿਆ ਖਾਣਾ ਹੋਰ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?`);
+    case "findResourceDurationAfterPopulationChange":{
+      const initial=required(p.initialPopulation,"initialPopulation");
+      const changed=required(p.changedPopulation,"changedPopulation");
+      const elapsed=required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange");
+      const variant=Math.abs(initial.numerator)%3;
+      if(variant===1)return q(language,
+        `एक राहत शिविर में ${cp006Number(initial)} लोगों के लिए ${cp006Days(a.days,language)} का राशन रखा गया है। ${cp006Days(elapsed,language)} बाद शिविर में ${cp006Number(changed)} लोग रह जाते हैं। बचा राशन और कितने दिन चलेगा?`,
+        `ਇੱਕ ਰਾਹਤ ਕੈਂਪ ਵਿੱਚ ${cp006Number(initial)} ਲੋਕਾਂ ਲਈ ${cp006Days(a.days,language)} ਦਾ ਰਾਸ਼ਨ ਰੱਖਿਆ ਗਿਆ ਹੈ। ${cp006Days(elapsed,language)} ਬਾਅਦ ਕੈਂਪ ਵਿੱਚ ${cp006Number(changed)} ਲੋਕ ਰਹਿ ਜਾਂਦੇ ਹਨ। ਬਚਿਆ ਰਾਸ਼ਨ ਹੋਰ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?`);
+      if(variant===2)return q(language,
+        `किसी राहत शिविर का भोजन ${cp006Number(initial)} लोगों के लिए ${cp006Days(a.days,language)} पर्याप्त है। ${cp006Days(elapsed,language)} बाद वहाँ ${cp006Number(changed)} लोग रह जाते हैं। उस समय बचा भोजन कितने दिन और पर्याप्त रहेगा?`,
+        `ਇੱਕ ਰਾਹਤ ਕੈਂਪ ਦਾ ਖਾਣਾ ${cp006Number(initial)} ਲੋਕਾਂ ਲਈ ${cp006Days(a.days,language)} ਤੱਕ ਕਾਫ਼ੀ ਹੈ। ${cp006Days(elapsed,language)} ਬਾਅਦ ਉੱਥੇ ${cp006Number(changed)} ਲੋਕ ਰਹਿ ਜਾਂਦੇ ਹਨ। ਉਸ ਵੇਲੇ ਬਚਿਆ ਖਾਣਾ ਹੋਰ ਕਿੰਨੇ ਦਿਨ ਲਈ ਕਾਫ਼ੀ ਰਹੇਗਾ?`);
+      return q(language,
+        `एक राहत शिविर में ${cp006Number(initial)} लोगों के लिए ${cp006Days(a.days,language)} का भोजन है। ${cp006Days(elapsed,language)} बाद लोगों की संख्या ${cp006Number(changed)} हो जाती है। बचा भोजन और कितने दिन चलेगा?`,
+        `ਇੱਕ ਰਾਹਤ ਕੈਂਪ ਵਿੱਚ ${cp006Number(initial)} ਲੋਕਾਂ ਲਈ ${cp006Days(a.days,language)} ਦਾ ਖਾਣਾ ਹੈ। ${cp006Days(elapsed,language)} ਬਾਅਦ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ${cp006Number(changed)} ਹੋ ਜਾਂਦੀ ਹੈ। ਬਚਿਆ ਖਾਣਾ ਹੋਰ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗਾ?`);
+    }
     case "findCompletionTimeAfterAbsenteeism":return q(language,
       `${cp006Resource(p,a.resources,language)} को ${job} ${cp006Days(a.days,language,true)} पूरा करना है। यदि ${cp006Number(required(p.absentPercent,"absentPercent"))}% कर्मचारी पूरे समय अनुपस्थित रहें, तो सक्रिय कर्मचारी काम कितने दिनों में पूरा करेंगे?`,
       `${cp006Resource(p,a.resources,language)} ਨੇ ${job} ${cp006Days(a.days,language,true)} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਜੇ ${cp006Number(required(p.absentPercent,"absentPercent"))}% ਕਰਮਚਾਰੀ ਪੂਰੇ ਸਮੇਂ ਗੈਰਹਾਜ਼ਰ ਰਹਿਣ, ਤਾਂ ਸਰਗਰਮ ਕਰਮਚਾਰੀ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਪੂਰਾ ਕਰਨਗੇ?`);
