@@ -274,6 +274,61 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "Recruitment rules and schedules can change. Check the latest Combined Graduate Level notice on the official SSC website before relying on dates, eligibility, vacancies, or detailed scheme provisions.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CGL 2026 eligibility",
+        description: "SSC CGL recruits for multiple Group B and Group C posts, so age limits and post-specific qualifications vary. The 2026 notice is the controlling source.",
+        cards: [
+          { title: "Educational qualification", text: "A bachelor's degree is the base qualification for CGL. Some posts prescribe additional subject-specific requirements in the official notice.", badge: "Graduate level" },
+          { title: "Age limits", text: "The 2026 notice lists different age bands by post, including 18-27, 18-30, 20-30 and up to 32 years for specified posts. Category relaxations apply under SSC rules.", badge: "Post-specific" },
+          { title: "Selection structure", text: "Tier-I is followed by Tier-II. Post-specific qualifying modules, computer/data-entry requirements and document verification apply where prescribed.", badge: "Two-tier CBE" },
+          { title: "Posts", text: "Recruitment covers multiple Group B and Group C posts across Central Government ministries, departments, organisations and statutory or constitutional bodies.", badge: "Multiple posts" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CGL 2026 important updates",
+        description: "The 2026 CGL cycle is active. Use SSC's live notice board for the latest schedule and vacancy revisions.",
+        cards: [
+          { title: "Notice published", text: "SSC published the Combined Graduate Level Examination, 2026 notice on 21 May 2026.", badge: "21 May 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Application window reopened", text: "SSC reopened the online application window from 23 June to 25 June 2026; the revised fee-payment deadline was 26 June 2026 and the correction window was 1-3 July 2026.", badge: "Completed" },
+          { title: "Tier-I city / admission-certificate update", text: "SSC issued the Tier-I city and admission-certificate information notice on 21 September 2026.", badge: "21 Sep 2026" },
+          { title: "Tentative vacancies", text: "SSC published an updated tentative-vacancy statement for CGL 2026 on 24 September 2026. Vacancy totals remain subject to revision.", badge: "24 Sep 2026", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC CGL posts and pay levels",
+        description: "CGL is a multi-post examination, so salary depends on the post and department.",
+        cards: [
+          { title: "Pay levels", text: "The 2026 notice includes posts across multiple 7th CPC pay levels, including Levels 4 through 8 depending on the post.", badge: "Post-dependent" },
+          { title: "Examples of posts", text: "The notice includes Assistant Audit Officer, Assistant Accounts Officer, Assistant Section Officer, Inspectors, Auditors, Accountants and other Group B / Group C posts.", badge: "CGL cadre" },
+          { title: "Allowances", text: "DA, HRA, transport allowance and other benefits depend on the allotted post, department and place of posting under applicable Central Government rules.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CGL 2026 FAQs",
+        description: "Key points for the current cycle.",
+        cards: [
+          { title: "Is SSC CGL only for one post?", text: "No. CGL is a common recruitment examination for many Group B and Group C posts across Central Government organisations." },
+          { title: "What is the Tier-I pattern?", text: "Tier-I has 100 questions for 200 marks across Reasoning, General Awareness, Quantitative Aptitude and English Comprehension." },
+          { title: "Is there negative marking in Tier-I?", text: "Yes. The 2026 notice states a deduction of 0.50 mark for each wrong answer in Tier-I." },
+          { title: "Are age limits the same for every CGL post?", text: "No. The age band depends on the post. Always check the post-wise eligibility table in the current notice." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CGL 2026 official status",
+        description: "Current updates are taken from SSC's official notice board.",
+        cards: [
+          { title: "Tentative vacancy update", text: "SSC published the updated tentative vacancy statement on 24 September 2026.", badge: "24 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Tier-I city / admission certificate notice", text: "SSC released the Tier-I city and admission-certificate information on 21 September 2026.", badge: "21 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Application reopening notice", text: "The application window was reopened for 23-25 June 2026.", badge: "23 Jun 2026" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-chsl": {
@@ -332,6 +387,57 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
         { title: "Skill / Typing", text: "The final skill component is qualifying: a Data Entry Skill Test applies to DEO posts, while a Typing Test applies to LDC/JSA posts, subject to the official notice." },
       ],
       verificationNote: "Recruitment dates, vacancies, eligibility rules, language options, skill-test standards, and other detailed provisions can change. Check the latest Combined Higher Secondary Level notice on the official SSC website before relying on them.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CHSL 2026 eligibility",
+        description: "CHSL is the 10+2-level SSC recruitment route for LDC/JSA and DEO-type posts. Post-specific requirements remain governed by the 2026 notice.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must meet the 10+2 / Senior Secondary qualification prescribed in the current notice. Certain DEO posts can carry additional subject requirements.", badge: "10+2 level" },
+          { title: "Age", text: "CHSL normally uses a common young-entry age band with category relaxations, but candidates should rely on the exact crucial date and limits in the 2026 notice.", badge: "Verify notice" },
+          { title: "Selection stages", text: "Tier-I CBE → Tier-II modules → qualifying Computer Knowledge and Skill / Typing Test as applicable to the post.", badge: "Tier-I + Tier-II" },
+          { title: "Typing / data entry", text: "LDC/JSA candidates face the prescribed typing test; DEO candidates face the prescribed data-entry skill test.", badge: "Qualifying skill" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CHSL 2026 schedule",
+        description: "SSC lists CHSL 2026 in its 2026-27 examination calendar.",
+        cards: [
+          { title: "2026 notification cycle", text: "The official SSC calendar places the CHSL 2026 advertisement in April 2026 with application closing in May 2026.", badge: "2026 cycle" },
+          { title: "Tier-I window", text: "The official calendar scheduled Tier-I for the July-September 2026 period. Candidates should use SSC notices and admission certificates for exact dates.", badge: "Tier-I" },
+          { title: "Later stages", text: "Tier-II and skill / typing schedules are announced separately by SSC after Tier-I processing.", badge: "Follow SSC", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC CHSL posts and pay",
+        description: "Pay varies by LDC/JSA, DEO and the recruiting department.",
+        cards: [
+          { title: "LDC / JSA", text: "Lower Division Clerk / Junior Secretariat Assistant posts are Central Government clerical posts with pay fixed under the applicable 7th CPC level in the notice.", badge: "Clerical" },
+          { title: "DEO", text: "Data Entry Operator posts can carry different pay levels depending on the organisation and post.", badge: "Post-dependent" },
+          { title: "Allowances", text: "Allowances depend on the allotted department and place of posting under Central Government rules.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CHSL 2026 FAQs",
+        description: "Core preparation and selection questions.",
+        cards: [
+          { title: "What is the CHSL Tier-I pattern?", text: "Tier-I uses four sections—English, General Intelligence, Quantitative Aptitude and General Awareness—with 25 questions and 50 marks per section." },
+          { title: "Is Tier-II only descriptive?", text: "No. The current structure uses multiple Tier-II modules including Maths, Reasoning, English, General Awareness and qualifying computer / skill components." },
+          { title: "Do all posts use the same skill test?", text: "No. The final qualifying skill component depends on the post, such as Typing Test for LDC/JSA or DEST for DEO." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CHSL 2026 official status",
+        description: "Follow SSC for result, answer-key and Tier-II schedule notices.",
+        cards: [
+          { title: "CHSL 2026 cycle", text: "The 2026 cycle is listed in the SSC 2026-27 calendar, with Tier-I scheduled in the July-September 2026 period.", badge: "Official calendar", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
     },
     topics: SSC_CGL_TOPICS,
   },
@@ -392,6 +498,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "SSC lists the Multi-Tasking (Non-Technical) Staff & Havaldar Examination, 2026 in its 2026-27 examination calendar. Check the latest official notice for exact session timings, marking, vacancies, eligibility, and physical-stage rules.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC MTS & Havaldar 2026 eligibility",
+        description: "MTS is a matriculation-level recruitment; Havaldar candidates must also satisfy the physical-stage requirements.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must meet the Matriculation / Class 10 qualification requirement prescribed by SSC.", badge: "Matric level" },
+          { title: "Age", text: "Age limits differ by MTS / Havaldar vacancy and department. Use the exact age band and crucial date in the 2026 notice.", badge: "Post-specific" },
+          { title: "MTS selection", text: "Computer Based Examination followed by document / eligibility verification as prescribed.", badge: "CBE" },
+          { title: "Havaldar selection", text: "Computer Based Examination plus the prescribed PET/PST for Havaldar candidates.", badge: "CBE + PET/PST" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC MTS & Havaldar 2026 schedule",
+        description: "The official SSC calendar places the 2026 cycle in the second half of the year.",
+        cards: [
+          { title: "Notification period", text: "SSC's 2026-27 calendar places the MTS & Havaldar advertisement in June 2026 with application closing in July 2026.", badge: "2026 cycle" },
+          { title: "CBE window", text: "The official calendar schedules the 2026 CBE for the September-November 2026 period.", badge: "Sep-Nov 2026" },
+          { title: "Havaldar physical stage", text: "PET/PST is conducted after CBE shortlisting for the Havaldar posts.", badge: "Later stage", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Post & pay",
+        title: "SSC MTS / Havaldar pay",
+        description: "The exact in-hand amount depends on posting and allowances.",
+        cards: [
+          { title: "MTS / Havaldar", text: "These are Central Government support posts paid under the 7th CPC structure specified in the notice and recruiting department.", badge: "Central Govt." },
+          { title: "Allowances", text: "DA, HRA, transport and other admissible allowances depend on the place of posting and rules in force.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC MTS 2026 FAQs",
+        description: "Core questions for MTS and Havaldar candidates.",
+        cards: [
+          { title: "Is the MTS exam only one session?", text: "No. Recent SSC MTS CBEs use two mandatory sessions on the same examination day." },
+          { title: "Does Havaldar require a physical test?", text: "Yes. Havaldar recruitment includes PET/PST after CBE shortlisting." },
+          { title: "What qualification is required?", text: "The base qualification is Matriculation / Class 10, subject to the current notice's crucial date and documentary conditions." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC MTS 2026 official status",
+        description: "The current CBE cycle falls in the September-November 2026 window in SSC's official calendar.",
+        cards: [
+          { title: "2026 CBE cycle", text: "SSC's official 2026-27 calendar schedules MTS & Havaldar CBE during September-November 2026.", badge: "Current cycle", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-cpo": {
@@ -451,6 +607,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "SSC lists the Sub-Inspector in Delhi Police & Central Armed Police Forces Examination, 2026 in its 2026-27 calendar. Check the current official notice for exact paper timings, marks, negative marking, PET/PST standards, eligibility, and medical requirements.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CPO 2026 eligibility",
+        description: "CPO recruits Sub-Inspectors in Delhi Police and CAPFs and combines academic, physical and medical requirements.",
+        cards: [
+          { title: "Educational qualification", text: "A bachelor's degree is required for the Sub-Inspector recruitment, subject to the current notice's post-specific conditions.", badge: "Graduate level" },
+          { title: "Age", text: "CPO uses a young-entry age band with statutory category relaxations. Verify the exact 2026 crucial date and age limits in the current notice.", badge: "Verify notice" },
+          { title: "Selection stages", text: "Paper-I CBE → PET/PST → Paper-II → medical examination / document verification and other prescribed stages.", badge: "Written + physical" },
+          { title: "Physical standards", text: "Height, chest, race and other PET/PST standards differ by sex and eligible categories and must be checked in the official notice.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CPO 2026 schedule",
+        description: "The 2026-27 SSC calendar places CPO Paper-I in the October-November 2026 period.",
+        cards: [
+          { title: "Notification cycle", text: "SSC's official calendar places the 2026 CPO advertisement in May 2026 with closing in June 2026.", badge: "2026 cycle" },
+          { title: "Paper-I window", text: "Paper-I is scheduled for October-November 2026 in the official SSC calendar.", badge: "Oct-Nov 2026" },
+          { title: "PET/PST and Paper-II", text: "These stages are scheduled separately after Paper-I shortlisting.", badge: "Later stages", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Post & pay",
+        title: "SSC CPO Sub-Inspector role",
+        description: "CPO recruits Sub-Inspectors in Delhi Police and Central Armed Police Forces.",
+        cards: [
+          { title: "Sub-Inspector", text: "Selected candidates are appointed to Sub-Inspector posts in Delhi Police / CAPFs under the pay scale and service rules specified in the notice.", badge: "Uniformed service" },
+          { title: "Allowances", text: "Allowances and field/service benefits depend on the force, place of posting and rules in force.", badge: "Force-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CPO 2026 FAQs",
+        description: "Core selection questions.",
+        cards: [
+          { title: "Is PET/PST qualifying?", text: "PET/PST is a mandatory selection stage. Candidates must satisfy the prescribed physical standards before progressing." },
+          { title: "Does CPO have two written papers?", text: "Yes. Paper-I is followed, after physical-stage shortlisting, by Paper-II as prescribed by SSC." },
+          { title: "Should physical preparation wait until Paper-I?", text: "No. Candidates should prepare physical fitness in parallel because the PET/PST stage follows written shortlisting." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CPO 2026 official status",
+        description: "The current official calendar places Paper-I in October-November 2026.",
+        cards: [
+          { title: "Paper-I cycle", text: "SSC's 2026-27 calendar schedules the CPO 2026 Paper-I CBE for October-November 2026.", badge: "Current window", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-stenographer": {
@@ -508,6 +714,58 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
         { title: "Stenography skill test", text: "Shortlisted candidates take a 10-minute dictation at 100 w.p.m. for Grade C or 80 w.p.m. for Grade D, followed by computer transcription within the prescribed time." },
       ],
       verificationNote: "The 2026 Stenographer notice is published by SSC. Check the official notice and subsequent addenda for skill-test language, transcription method, font requirements, dates, and other operational details.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC Stenographer Grade C & D 2026 eligibility",
+        description: "The examination combines a 10+2-level academic requirement with a qualifying stenography skill test.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must satisfy the 10+2 / Senior Secondary qualification prescribed in the notice.", badge: "10+2 level" },
+          { title: "Age", text: "Grade C and Grade D use different age limits and category relaxations. Check the exact 2026 crucial date in the notice.", badge: "Grade-specific" },
+          { title: "CBE", text: "General Intelligence & Reasoning, General Awareness, and English Language & Comprehension.", badge: "200 questions" },
+          { title: "Skill test", text: "A 10-minute dictation is taken at 100 w.p.m. for Grade C or 80 w.p.m. for Grade D, followed by computer transcription within the prescribed time.", badge: "Qualifying skill" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC Stenographer 2026 schedule",
+        description: "The 2026 CBE has progressed to the answer-key stage.",
+        cards: [
+          { title: "2026 examination window", text: "SSC's official calendar scheduled Stenographer Grade C & D CBE for August-September 2026.", badge: "Aug-Sep 2026" },
+          { title: "Tentative answer key", text: "SSC uploaded the 2026 tentative answer keys and candidate response sheets on 23 September 2026.", badge: "23 Sep 2026", ctaLabel: "SSC answer keys", href: "https://ssc.gov.in/home/answer-key" },
+          { title: "Skill-test addendum", text: "SSC also issued an addendum on 23 September 2026 making Mangal font mandatory for Hindi typing / skill-test transcription.", badge: "23 Sep 2026" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC Stenographer Grade C & D posts",
+        description: "Pay and service conditions depend on the grade, ministry / department and post.",
+        cards: [
+          { title: "Grade C", text: "Grade C appointments are made to higher stenographic cadres in participating Central Government offices under the applicable pay level.", badge: "Grade C" },
+          { title: "Grade D", text: "Grade D appointments are made across participating ministries, departments and offices under the applicable pay level.", badge: "Grade D" },
+          { title: "Vacancies", text: "SSC publishes tentative grade-wise and department-wise vacancy statements separately and can revise them.", badge: "Tentative" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC Stenographer 2026 FAQs",
+        description: "Written and skill-test essentials.",
+        cards: [
+          { title: "How much of the CBE is English?", text: "English Language & Comprehension carries 100 of the 200 CBE questions; Reasoning and General Awareness carry 50 each." },
+          { title: "What are the stenography speeds?", text: "The skill test uses 100 w.p.m. dictation for Grade C and 80 w.p.m. for Grade D." },
+          { title: "Is the skill test optional?", text: "No. It is a qualifying selection stage for shortlisted candidates." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC Stenographer 2026 official status",
+        description: "The CBE has reached tentative-answer-key processing.",
+        cards: [
+          { title: "Tentative answer keys uploaded", text: "SSC uploaded the Stenographer Grade C & D Examination 2026 tentative answer keys and response sheets on 23 September 2026.", badge: "23 Sep 2026", ctaLabel: "Open answer keys", href: "https://ssc.gov.in/home/answer-key" },
+          { title: "Hindi skill-test font update", text: "SSC issued an addendum requiring Mangal font for Hindi typing / skill-test transcription.", badge: "23 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
     },
     topics: SSC_STENO_TOPICS,
   },
@@ -567,6 +825,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
         { title: "Medical & verification", text: "Later selection stages include the prescribed medical examination and document/eligibility verification." },
       ],
       verificationNote: "SSC's 2026-27 calendar places the next Constable (GD) cycle as the 2027 examination, with advertisement planned in September 2026 and CBE tentatively in January-March 2027. Verify the issued notice for exact pattern, dates, vacancies, physical standards, and eligibility.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC GD 2027 eligibility",
+        description: "The next GD cycle covers Constable (GD) recruitment in CAPFs / SSF and Rifleman (GD) in Assam Rifles, subject to the 2027 notice.",
+        cards: [
+          { title: "Educational qualification", text: "SSC GD is a matriculation-level recruitment. Candidates should verify the qualifying date and documentary conditions in the 2027 notice.", badge: "Matric level" },
+          { title: "Age", text: "The exact 2027 age band, crucial date and category relaxations must be taken from the 2027 notification.", badge: "Notification controls" },
+          { title: "Selection stages", text: "CBE → PET/PST → medical examination / document verification and other force-specific checks prescribed in the notice.", badge: "Written + physical" },
+          { title: "Physical standards", text: "Race, height, chest and other standards differ by sex and eligible categories. Candidates should prepare fitness in parallel with CBE work.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Next cycle",
+        title: "SSC GD 2027 schedule",
+        description: "SSC's 2026-27 calendar already lists the next GD recruitment cycle.",
+        cards: [
+          { title: "Notification period", text: "The official calendar places the SSC GD 2027 advertisement in September 2026 with applications closing in October 2026.", badge: "Sep-Oct 2026" },
+          { title: "CBE window", text: "The official calendar schedules the 2027 CBE for January-March 2027.", badge: "Jan-Mar 2027" },
+          { title: "Physical / medical stages", text: "PET/PST and medical stages follow CBE shortlisting and are scheduled separately.", badge: "Later stages", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Role & pay",
+        title: "SSC GD posts",
+        description: "The exact force-wise pay and allowances are governed by the 2027 notice and allotted organisation.",
+        cards: [
+          { title: "CAPFs / SSF / Assam Rifles", text: "Recruitment is for uniformed constable / rifleman roles in the forces and organisations listed in the notification.", badge: "Uniformed service" },
+          { title: "Allowances", text: "Field, risk, location and other allowances depend on the allotted force, posting and applicable rules.", badge: "Force-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC GD 2027 FAQs",
+        description: "What candidates should know before the next cycle.",
+        cards: [
+          { title: "When is SSC GD 2027 CBE expected?", text: "SSC's official 2026-27 calendar places the CBE in January-March 2027." },
+          { title: "Is there a physical test?", text: "Yes. PET/PST is a mandatory stage after CBE shortlisting." },
+          { title: "Should I prepare only for the written exam?", text: "No. Physical fitness should be trained alongside Reasoning, General Awareness, Elementary Mathematics and the chosen language section." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC GD 2027 official status",
+        description: "The next cycle is listed in the SSC examination calendar.",
+        cards: [
+          { title: "SSC GD 2027 calendar entry", text: "The official SSC 2026-27 calendar places notification in September 2026, closing in October 2026 and CBE in January-March 2027.", badge: "Upcoming cycle", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
     },
     topics: SSC_GD_TOPICS,
   },
@@ -879,20 +1187,229 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     },
     topics: BANKING_PRACTICE_TOPICS,
   },
-  "ssc-selection-post": makeExamShellConfig({
+  "ssc-selection-post": {
     slug: "ssc-selection-post",
     name: "SSC Selection Post",
+    yearLabel: "Phase XIV / 2026",
     categoryHref: "/category/ssc",
     officialUrl: "https://ssc.gov.in",
     officialLabel: "ssc.gov.in",
-  }),
-  "ssc-je": makeExamShellConfig({
+    meta: {
+      hubTitle: "SSC Selection Post Phase XIV 2026 Preparation, Pattern & Updates",
+      hubDescription: "Prepare for SSC Selection Post Phase XIV/2026 with level-wise CBE guidance, post-specific eligibility, current notices and ExamTree practice.",
+      preparationTitle: "How to Prepare for SSC Selection Post Phase XIV 2026",
+      preparationDescription: "Prepare by qualification level and post code: verify the post-specific eligibility first, then practise the common CBE subject families under SSC timing.",
+      syllabusTitle: "SSC Selection Post Phase XIV 2026 Syllabus & Pattern",
+      syllabusDescription: "SSC Selection Post Phase XIV/2026 uses a computer-based examination with the exact post eligibility, age, qualification and skill requirements defined separately for each post code.",
+    },
+    hub: {
+      title: "SSC Selection Post Phase XIV/2026 hub",
+      description: "Selection Post is not one uniform job. Use the post code first, verify its qualification and age conditions, then prepare for the relevant Matriculation, Higher Secondary or Graduation-level CBE.",
+      preparationSummary: "Identify the post code and qualification level before studying; the same subject families are tested at different difficulty levels.",
+      syllabusSummary: "The CBE covers General Intelligence, General Awareness, Quantitative Aptitude and English, with difficulty aligned to the prescribed qualification level.",
+      mockSummary: "Practise level-appropriate SSC questions and keep post-code eligibility separate from exam preparation.",
+    },
+    preparation: {
+      eyebrow: "Selection Post preparation",
+      title: "How to prepare for SSC Selection Post Phase XIV/2026",
+      description: "Start from the post code, not from a generic Selection Post label. Confirm Essential Qualification, age, experience and skill-test conditions before investing in preparation.",
+      cards: [
+        { title: "1. Lock the post code", text: "Open the SSC post-details page and confirm the exact post name, qualification level, age limit, experience and category conditions." },
+        { title: "2. Prepare at the correct level", text: "Use Matriculation, Higher Secondary or Graduation-level practice as applicable; the subject families are similar but the expected level changes." },
+        { title: "3. Keep document scrutiny in view", text: "Candidates qualifying the CBE must upload the prescribed documents for scrutiny; eligibility is checked against the post-specific notice." },
+      ],
+      weeklyCycle: [
+        "Verify the target post code and Essential Qualification.",
+        "Rotate General Intelligence and Quantitative Aptitude practice.",
+        "Revise General Awareness in short recurring blocks.",
+        "Practise English grammar, vocabulary and comprehension.",
+        "Take one mixed CBE mock at the correct qualification level.",
+        "Maintain a checklist of certificates, experience and category documents required by the post.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "Phase XIV / 2026",
+      title: "SSC Selection Post Phase XIV syllabus and scheme",
+      description: "Selection Post Phase XIV/2026 uses a CBE, but post-specific qualification, age, experience and skill requirements are defined separately in Annexure III and the SSC post-details portal.",
+      sections: [
+        { title: "General Intelligence", summary: "Common CBE subject · difficulty depends on qualification level" },
+        { title: "General Awareness", summary: "Common CBE subject · difficulty depends on qualification level" },
+        { title: "Quantitative Aptitude", summary: "Common CBE subject · level-specific" },
+        { title: "English Language", summary: "Common CBE subject · grammar, vocabulary and comprehension" },
+      ],
+      patternCards: [
+        { title: "Three qualification levels", text: "SSC conducts separate level-appropriate question papers for Matriculation, Higher Secondary and Graduation & above posts." },
+        { title: "Post-specific eligibility", text: "Essential Qualification, experience, age limit, skill test and suitability conditions differ by post code; Annexure III / the SSC post-details portal is decisive." },
+        { title: "After CBE", text: "Candidates successful in the CBE must upload relevant documents for scrutiny. User departments can reject candidature if post-specific eligibility is not met." },
+      ],
+      verificationNote: "Phase XIV/2026 was advertised on 13 April 2026. SSC has since issued addenda, corrigenda and post cancellations, so candidates must verify their exact post code on the live SSC notice board.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "Selection Post eligibility is post-specific",
+        description: "There is no single age or qualification rule for all Phase XIV posts.",
+        cards: [
+          { title: "Qualification level", text: "Posts are advertised at Matriculation, Higher Secondary and Graduation & above levels.", badge: "Post-specific" },
+          { title: "Essential Qualification", text: "The exact degree, diploma, subject, experience or skill requirement is defined against the individual post code.", badge: "Check Annexure III" },
+          { title: "Age limit", text: "Age limits vary by post code. Category relaxations apply under SSC rules where eligible.", badge: "Varies" },
+          { title: "Document scrutiny", text: "CBE-qualified candidates must upload supporting documents; the user department performs detailed eligibility scrutiny.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Phase XIV / 2026",
+        title: "SSC Selection Post Phase XIV important dates",
+        description: "The application and CBE stages have progressed; post-specific corrigenda continue to be published.",
+        cards: [
+          { title: "Notification", text: "Phase XIV/2026 notice published on 13 April 2026.", badge: "13 Apr 2026" },
+          { title: "Application window", text: "13 April to 4 May 2026; fee payment closed 5 May 2026 and correction window ran 11-13 May 2026.", badge: "Closed" },
+          { title: "CBE", text: "The notice scheduled the CBE for June 2026 on a tentative basis.", badge: "2026 cycle" },
+          { title: "Corrigenda / cancellations", text: "SSC has continued issuing post-specific corrigenda and cancellation notices, including notices in October 2026.", badge: "Check post code", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "Selection Post salary",
+        description: "Salary cannot be represented by one figure because Phase XIV contains many unrelated posts.",
+        cards: [
+          { title: "Pay level", text: "Each post code carries its own pay level / scale and department. Check the post-details entry before comparing opportunities.", badge: "Post-specific" },
+          { title: "Job profile", text: "Roles range across technical, scientific, clerical, field and support functions depending on the user department.", badge: "Wide variety" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC Selection Post Phase XIV FAQs",
+        description: "The key distinction is that eligibility belongs to the post code, not the examination name.",
+        cards: [
+          { title: "Is there one qualification for Selection Post?", text: "No. Each post code has its own Essential Qualification; posts are grouped broadly by Matriculation, Higher Secondary and Graduation & above levels." },
+          { title: "Can I apply for multiple post codes?", text: "Candidates must follow SSC's application instructions and satisfy the eligibility of every post code applied for." },
+          { title: "Is the CBE the final eligibility check?", text: "No. Detailed document scrutiny is carried out after CBE qualification, and candidature can be rejected if the post-specific conditions are not met." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "Phase XIV/2026 official status",
+        description: "SSC continues to publish post-specific corrections and cancellation notices.",
+        cards: [
+          { title: "Phase XIV notice", text: "SSC published Advertisement No. Phase-XIV/2026/Selection Posts on 13 April 2026.", badge: "13 Apr 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Additional DRDO posts", text: "SSC issued an addendum on 20 April 2026 adding four DRDO posts under special circumstances.", badge: "20 Apr 2026" },
+          { title: "Post cancellations / corrigenda", text: "Post-specific changes continued through 2026. Always verify the exact post code before relying on an older saved notice.", badge: "Ongoing", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
+    topics: SSC_CGL_TOPICS,
+  },
+  "ssc-je": {
     slug: "ssc-je",
     name: "SSC JE",
+    yearLabel: "2026",
     categoryHref: "/category/ssc",
     officialUrl: "https://ssc.gov.in",
     officialLabel: "ssc.gov.in",
-  }),
+    meta: {
+      hubTitle: "SSC JE 2026 Preparation, Syllabus, Pattern & Updates",
+      hubDescription: "Prepare for SSC Junior Engineer 2026 for Civil, Mechanical and Electrical disciplines with paper-wise guidance and official-cycle updates.",
+      preparationTitle: "How to Prepare for SSC JE 2026",
+      preparationDescription: "A discipline-first SSC JE strategy covering engineering fundamentals, General Intelligence, General Awareness and timed Paper-I / Paper-II practice.",
+      syllabusTitle: "SSC JE 2026 Syllabus & Exam Pattern",
+      syllabusDescription: "SSC JE recruits Junior Engineers in Civil, Mechanical and Electrical streams for participating Government of India organisations.",
+    },
+    hub: {
+      title: "SSC JE 2026 preparation hub",
+      description: "Choose your engineering discipline first, then combine technical preparation with the General Intelligence and General Awareness components required by SSC.",
+      preparationSummary: "Technical engineering carries the largest preparation load; use General Intelligence and General Awareness as regular scoring blocks rather than last-week revision.",
+      syllabusSummary: "Paper-I tests General Intelligence, General Awareness and the chosen engineering discipline; later stages continue discipline-specific assessment under the current notice.",
+      mockSummary: "Use discipline-specific technical sets plus full SSC JE papers to build calculation speed, formula recall and question selection.",
+    },
+    preparation: {
+      eyebrow: "SSC JE preparation",
+      title: "How to prepare for SSC JE 2026",
+      description: "Build a strong Civil, Mechanical or Electrical core first, then layer SSC-style objective practice and time control over it.",
+      cards: [
+        { title: "1. Lock the discipline", text: "Prepare only the engineering branch applicable to your target posts and qualification; do not mix Civil, Mechanical and Electrical syllabi." },
+        { title: "2. Build technical depth", text: "Revise core formulas, standard results, units, code concepts and frequently tested applications before increasing speed." },
+        { title: "3. Add SSC scoring sections", text: "Keep General Intelligence and General Awareness in recurring practice so technical preparation does not crowd them out." },
+      ],
+      weeklyCycle: [
+        "Revise one technical subject block and its formula sheet.",
+        "Solve a timed technical MCQ set from the same subject.",
+        "Practise General Intelligence twice during the week.",
+        "Revise General Awareness in short recurring blocks.",
+        "Take a mixed Paper-I mock and analyse calculation and concept errors.",
+        "Revisit weak technical topics with fresh questions rather than only notes.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "SSC JE 2026",
+      title: "SSC Junior Engineer syllabus and pattern",
+      description: "SSC JE is discipline-specific. Candidates choose Civil, Mechanical or Electrical engineering according to the posts and qualifications for which they are eligible.",
+      sections: [
+        { title: "General Intelligence & Reasoning", summary: "Paper-I common section" },
+        { title: "General Awareness", summary: "Paper-I common section" },
+        { title: "Civil Engineering", summary: "Technical paper for Civil-target candidates" },
+        { title: "Mechanical Engineering", summary: "Technical paper for Mechanical-target candidates" },
+        { title: "Electrical Engineering", summary: "Technical paper for Electrical-target candidates" },
+      ],
+      patternCards: [
+        { title: "Paper-I", text: "Computer-based paper combining General Intelligence, General Awareness and the candidate's chosen engineering discipline." },
+        { title: "Paper-II", text: "Discipline-specific engineering assessment under the current SSC JE scheme. Use the 2026 notice for exact marks, timing and negative-marking provisions." },
+        { title: "Post eligibility", text: "Degree / diploma and experience requirements differ by organisation and JE post. Candidates must match their qualification to the post table in the notice." },
+      ],
+      verificationNote: "SSC lists Junior Engineer (Civil, Mechanical & Electrical) Examination, 2026 in its official 2026-27 calendar. SSC also issued JE 2026 notices in September 2026, so candidates should use the live notice board for the current schedule and post additions.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC JE 2026 eligibility",
+        description: "Eligibility is organisation- and discipline-specific.",
+        cards: [
+          { title: "Engineering qualification", text: "Candidates need the degree / diploma in Civil, Mechanical or Electrical Engineering specified against the target organisation and post.", badge: "Discipline-specific" },
+          { title: "Experience", text: "Some organisations accept the prescribed degree directly, while some diploma routes require the experience stated in the notice.", badge: "Post-specific" },
+          { title: "Age", text: "Upper-age limits differ by organisation / post; category relaxations apply under SSC rules.", badge: "Varies" },
+          { title: "Selection", text: "Paper-I → Paper-II → document / eligibility verification and allocation under the current scheme.", badge: "Two papers" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC JE 2026 official status",
+        description: "JE 2026 is an active SSC recruitment cycle.",
+        cards: [
+          { title: "2026 calendar entry", text: "SSC's 2026-27 calendar lists Junior Engineer (Civil, Mechanical & Electrical) Examination, 2026.", badge: "2026 cycle" },
+          { title: "September JE notice", text: "SSC published an Important Notice for Junior Engineer Examination, 2026 on 17 September 2026.", badge: "17 Sep 2026", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+          { title: "Scientific Assistant in IMD", text: "SSC published a 16 September 2026 notice for recruitment of Scientific Assistant in IMD through Junior Engineer Examination, 2026.", badge: "16 Sep 2026" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC JE role and pay",
+        description: "Junior Engineer appointments are technical Central Government posts; exact pay and allowances depend on the organisation.",
+        cards: [
+          { title: "Junior Engineer", text: "SSC JE recruits technical Junior Engineers in participating Government of India departments / organisations.", badge: "Technical Group B" },
+          { title: "Pay", text: "The applicable pay level and allowances are stated against the post / organisation in the current notice and service rules.", badge: "Organisation-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC JE 2026 FAQs",
+        description: "Key distinctions for engineering candidates.",
+        cards: [
+          { title: "Do I prepare all three engineering branches?", text: "No. Prepare only the branch relevant to your eligible target posts—Civil, Mechanical or Electrical." },
+          { title: "Is SSC JE only a technical paper?", text: "No. Paper-I also includes General Intelligence and General Awareness alongside the chosen engineering discipline." },
+          { title: "Is a diploma always enough?", text: "Not for every post. Degree, diploma and experience conditions vary by organisation, so check the post table carefully." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC JE 2026 official updates",
+        description: "The live SSC notice board is the source for current schedule and post changes.",
+        cards: [
+          { title: "Important Notice - JE 2026", text: "SSC published an Important Notice for Junior Engineer Examination, 2026 on 17 September 2026.", badge: "17 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Scientific Assistant recruitment through JE 2026", text: "SSC published a separate notice on 16 September 2026 for Scientific Assistant in IMD through JE Examination, 2026.", badge: "16 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
+    topics: [],
+  },
   "sbi-po": makeExamShellConfig({
     slug: "sbi-po",
     name: "SBI PO",
