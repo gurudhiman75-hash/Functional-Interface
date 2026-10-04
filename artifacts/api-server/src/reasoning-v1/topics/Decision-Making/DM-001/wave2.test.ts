@@ -16,7 +16,7 @@ for (const condition of cutoffs.baseConditions) {
   }
 }
 
-const relaxations = dmScenariosForCheckpoint("DM-CP-009");
+const relaxations = dmScenariosForCheckpoint("DM-CP-009").filter((scenario) => scenario.subjectKind !== "PRODUCT_LOT");
 for (const scenario of relaxations) {
   assert.equal(new Set(scenario.ruleNotes.map((note) => note.en)).size, scenario.ruleNotes.length, scenario.scenarioId + " must explain each relaxation separately");
   for (const [mode, ruleId] of [

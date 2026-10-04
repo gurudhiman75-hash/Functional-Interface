@@ -8,7 +8,7 @@ import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
 assert.equal(DM_001_CHECKPOINT_IDS.length, 20);
 assert.equal(DM_001_QL_IDS.length, 60);
 assert.equal(DM_001_QL_REGISTRY.length, 60);
-assert.equal(DM_001_SCENARIO_LIBRARY.length, 800);
+assert.equal(DM_001_SCENARIO_LIBRARY.length, 830);
 assertContinuousDmQlIds();
 
 const malformedAdvancedLocalization = [

@@ -51,6 +51,9 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/dm-001-final-deep-audit.test.ts
       - name: Validate DM-001 scenario-domain diversity
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/dm-001-scenario-domain-diversity.test.ts
+
+      - name: Validate DM-001 structured product rules
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/dm-001-structured-product-rules.test.ts
       - name: Validate shared Question Studio routing and review-only lifecycle
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.test.ts
       - name: Build API server
