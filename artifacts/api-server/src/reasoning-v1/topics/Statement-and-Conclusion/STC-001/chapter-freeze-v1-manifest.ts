@@ -44,12 +44,14 @@ export const STC_001_CHAPTER_FREEZE_V1 = Object.freeze({
     humanAuditStatus: "APPROVED_CLEAN" as const,
   }),
 
+  certifiedSnapshotPolicy: "V1_DRIFTED_GOVERNANCE_FILES_ARCHIVED_BYTE_IDENTICALLY__LIVE_V2_AUTHORITIES_MAY_EVOLVE" as const,
+
   certifiedContentBlobLocks: Object.freeze({
-    "./STC-001-END-TO-END-DESIGN.md": "fc3feecffcd3fe25565c9d09a3c314529dc34d7e",
+    "./v1-certified-snapshots/STC-001-END-TO-END-DESIGN.md.snapshot": "fc3feecffcd3fe25565c9d09a3c314529dc34d7e",
     "./STC-CP001-REVIEW-BOUNDARY.md": "26675679a7662e9c00dff61e855b1604e48b816e",
     "./chapter-generator.ts": "5e93ac3524f3007cc087dfbf81df38a7e539ae2c",
-    "./chapter-manifest.ts": "c17c1eda4a405088e6aa876f48959fe82ff00ed0",
-    "./chapter-proof.test.ts": "70a6cb8e4ad87eca7dde96c4e8d040d25189d2c0",
+    "./v1-certified-snapshots/chapter-manifest.ts.snapshot": "c17c1eda4a405088e6aa876f48959fe82ff00ed0",
+    "./v1-certified-snapshots/chapter-proof.test.ts.snapshot": "70a6cb8e4ad87eca7dde96c4e8d040d25189d2c0",
     "./chapter-review-pack.ts": "df87963b420817ab9d782e7930c0449b7e5f5ddb",
     "./cp001-authorities.ts": "459e6c29feba7ee04c92b372dd63f50aa7735799",
     "./cp001-authority-registry.ts": "3e64bf7ff72e1bb94847f3efd08d657c18a98672",
