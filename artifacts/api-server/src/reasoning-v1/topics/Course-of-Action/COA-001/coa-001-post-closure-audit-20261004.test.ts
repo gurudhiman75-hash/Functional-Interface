@@ -16,6 +16,7 @@ import {
 import {
   COA_CP012_APPROVED_CHECKPOINT_ID,
   COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
+  COA_CP012_EDITORIAL_DIVERSITY_STATUS,
   COA_CP012_RUNTIME_MODE,
   assertCoaCp012ApprovedContentIdentity,
   generateCoaCp012ApprovedQuestionStudioBatch,
@@ -49,6 +50,14 @@ assert.deepEqual(
 assert.equal(
   COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE.postClosureAnswerProofAuthority,
   COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+);
+assert.equal(
+  COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE.editorialDiversityStatus,
+  COA_CP012_EDITORIAL_DIVERSITY_STATUS,
+);
+assert.equal(
+  COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE.metadata?.editorialDiversityStatus,
+  COA_CP012_EDITORIAL_DIVERSITY_STATUS,
 );
 
 let ordinarySurfaces = 0;
@@ -103,6 +112,8 @@ for (const qlId of COA_CP010_ACTIVE_QL_IDS) {
         assert.equal(question.studentDeliveryAuthorized, false);
         assert.equal(question.automaticStudentPublication, false);
         assert.equal(question.lifecycleStatus, "INTERNALLY_ELIGIBLE");
+        assert.equal(question.editorialDiversityStatus, COA_CP012_EDITORIAL_DIVERSITY_STATUS);
+        assert.notEqual(question.editorialDiversityStatus, "FINAL_EDITORIAL_DIVERSITY_REVIEW_PENDING");
         coveredOrdinaryIds.add(String(question.semanticAuthorityId));
         ordinarySurfaces += 1;
         digestRows.push([
@@ -316,6 +327,7 @@ console.log(JSON.stringify({
   totalFinalSemanticProofSurfaces: ordinarySurfaces + eitherSurfaces + threeActionSurfaces,
   postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
   runtimeMode: COA_CP012_RUNTIME_MODE,
+  editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
   authorityDigest,
   lifecycle: {
     questionBankWritable: true,
