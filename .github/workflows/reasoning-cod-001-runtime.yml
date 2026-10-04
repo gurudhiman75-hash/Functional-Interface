@@ -2,9 +2,15 @@ name: Reasoning COD-001 Runtime
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-cod-001-runtime-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   cod-runtime:
