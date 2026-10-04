@@ -1035,6 +1035,40 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     if (section.type === "details_updates") return "Updates";
     return section.title || "More Details";
   };
+
+  const findDetailCard = (section: "eligibility" | "dates" | "salary" | "updates", titleIncludes: string) =>
+    config.details?.[section]?.cards.find((card) => card.title.toLowerCase().includes(titleIncludes.toLowerCase()));
+
+  const vacancyCard = findDetailCard("dates", "vacanc");
+  const selectionCard = findDetailCard("eligibility", "selection stages");
+  const salaryCard = findDetailCard("salary", "starting basic pay");
+  const vacancyMatch = vacancyCard?.text.match(/[\d,]+/);
+  const summaryFacts = [
+    { label: "Official source", value: config.officialLabel, icon: Landmark },
+    ...(config.yearLabel && config.yearLabel !== "Exam" ? [{ label: "Current cycle", value: config.yearLabel, icon: CalendarDays }] : []),
+    ...(vacancyMatch ? [{ label: "Vacancies", value: vacancyMatch[0], icon: Users }] : []),
+    ...(salaryCard ? [{ label: "Starting basic pay", value: salaryCard.text.split(".")[0], icon: FileText }] : []),
+  ].slice(0, 4);
+
+  const patternRows = config.syllabus.sections
+    .map((item) => {
+      const stageMatch = item.title.match(/^(Prelims|Mains|Main)\s*·\s*(.+)$/i);
+      if (!stageMatch) return null;
+      const bits = item.summary.split("·").map((part) => part.trim()).filter(Boolean);
+      return {
+        stage: /^prelims/i.test(stageMatch[1]) ? "Preliminary Exam" : "Main Exam",
+        section: stageMatch[2],
+        questions: bits[0] ?? "—",
+        marks: bits[1] ?? "—",
+        duration: bits[2] ?? "—",
+        medium: bits.slice(3).join(" · "),
+      };
+    })
+    .filter((row): row is NonNullable<typeof row> => Boolean(row));
+
+  const patternStages = Array.from(new Set(patternRows.map((row) => row.stage)));
+  const showPatternTable = patternRows.length >= 3 && patternStages.length >= 1;
+
   const detailsRow = (
     key: string,
     title: string,
@@ -1119,7 +1153,48 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     } else if (section.type === "details_syllabus") {
       content = <div className="divide-y divide-slate-200 border-y border-slate-200">{config.syllabus.sections.map((item) => detailsRow(item.title, item.title, item.summary))}</div>;
     } else if (section.type === "details_pattern") {
-      content = <div className="divide-y divide-slate-200 border-y border-slate-200">{config.syllabus.patternCards.map((card) => detailsRow(card.title, card.title, card.text))}</div>;
+      content = showPatternTable ? (
+        <div className="grid gap-5 xl:grid-cols-2">
+          {patternStages.map((stage) => {
+            const rows = patternRows.filter((row) => row.stage === stage);
+            return (
+              <div key={stage} className="overflow-hidden rounded-xl border border-slate-200">
+                <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-3">
+                  <h3 className="font-black text-slate-950">{stage}</h3>
+                  <span className="rounded-md bg-blue-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-blue-700">{stage === "Preliminary Exam" ? "Stage 1" : "Stage 2"}</span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[560px] border-collapse text-left text-xs">
+                    <thead className="bg-white text-slate-500">
+                      <tr>
+                        <th className="border-b border-slate-200 px-4 py-3 font-bold">Section</th>
+                        <th className="border-b border-slate-200 px-3 py-3 font-bold">Questions</th>
+                        <th className="border-b border-slate-200 px-3 py-3 font-bold">Marks</th>
+                        <th className="border-b border-slate-200 px-3 py-3 font-bold">Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rows.map((row) => (
+                        <tr key={row.section} className="align-top">
+                          <td className="border-b border-slate-100 px-4 py-3 font-semibold text-slate-800">{row.section}</td>
+                          <td className="border-b border-slate-100 px-3 py-3 text-slate-600">{row.questions.replace(/\s*questions?/i, "")}</td>
+                          <td className="border-b border-slate-100 px-3 py-3 text-slate-600">{row.marks.replace(/\s*marks?/i, "")}</td>
+                          <td className="border-b border-slate-100 px-3 py-3 text-slate-600">{row.duration}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })}
+          <div className="xl:col-span-2 divide-y divide-slate-200 border-y border-slate-200">
+            {config.syllabus.patternCards.map((card) => detailsRow(card.title, card.title, card.text))}
+          </div>
+        </div>
+      ) : (
+        <div className="divide-y divide-slate-200 border-y border-slate-200">{config.syllabus.patternCards.map((card) => detailsRow(card.title, card.title, card.text))}</div>
+      );
     } else if (section.type === "details_preparation") {
       content = (
         <div className="space-y-7">
@@ -1236,13 +1311,30 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             )}
           </div>
 
+          {summaryFacts.length ? (
+            <div className="mt-6 grid gap-0 overflow-hidden rounded-xl border border-slate-200 sm:grid-cols-2 lg:grid-cols-4">
+              {summaryFacts.map((fact, index) => {
+                const Icon = fact.icon;
+                return (
+                  <div key={fact.label} className={"flex items-center gap-3 px-4 py-4 " + (index ? "border-t border-slate-200 sm:border-t-0 sm:border-l" : "")}>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700"><Icon className="h-4 w-4" /></span>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">{fact.label}</p>
+                      <p className="mt-0.5 truncate text-sm font-bold text-slate-900">{fact.value}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
+
           <div className="mt-6 flex items-center gap-1 overflow-x-auto border-y border-slate-200 py-2">
             <Link href={sessionUser ? examHubHref(examSlug) : loginHref} className="mr-2 inline-flex min-h-9 shrink-0 items-center rounded-lg bg-slate-950 px-3.5 text-xs font-bold text-white">
               {sessionUser ? "Test Workspace" : "Login for Tests"}
             </Link>
             {detailSections.map((section) => (
               <a key={section.id} href={"#" + sectionAnchor(section)} className="inline-flex min-h-9 shrink-0 items-center rounded-lg px-3.5 text-xs font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-950">
-                {section.title || sectionDefaultLabel(section)}
+                {sectionDefaultLabel(section)}
               </a>
             ))}
           </div>
@@ -1250,14 +1342,14 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
 
         {pageConfigQuery.error ? <div className="mt-5 border-l-4 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-950">Custom details configuration is temporarily unavailable. Canonical exam information is shown below.</div> : null}
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] xl:gap-14">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[190px_minmax(0,1fr)] xl:grid-cols-[190px_minmax(0,1fr)_290px] xl:gap-10">
           <aside className="hidden lg:block">
             <div className="sticky top-24">
               <p className="mb-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">On this page</p>
               <nav className="border-l border-slate-200" aria-label={config.name + " detail sections"}>
                 {detailSections.map((section) => (
                   <a key={section.id} href={"#" + sectionAnchor(section)} className="block border-l-2 border-transparent px-4 py-2.5 text-sm font-semibold text-slate-600 hover:border-blue-600 hover:bg-blue-50/60 hover:text-blue-700">
-                    {section.title || sectionDefaultLabel(section)}
+                    {sectionDefaultLabel(section)}
                   </a>
                 ))}
               </nav>
@@ -1270,6 +1362,39 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
           <main className="min-w-0">
             {detailSections.map(renderDetailsSection)}
           </main>
+
+          <aside className="hidden xl:block">
+            <div className="sticky top-24 space-y-5">
+              {config.details?.updates?.cards.length ? (
+                <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                  <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+                    <h2 className="text-sm font-black text-slate-950">Latest Updates</h2>
+                    <a href="#updates" className="text-xs font-bold text-blue-700 hover:underline">View all</a>
+                  </div>
+                  <div className="divide-y divide-slate-100">
+                    {config.details.updates.cards.slice(0, 3).map((card) => (
+                      <div key={card.title} className="px-4 py-4">
+                        {card.badge ? <p className="text-[10px] font-black uppercase tracking-[0.08em] text-emerald-700">{card.badge}</p> : null}
+                        <h3 className="mt-1 text-sm font-bold leading-5 text-slate-900">{card.title}</h3>
+                        <p className="mt-1 line-clamp-3 text-xs leading-5 text-slate-500">{card.text}</p>
+                        {card.href && card.ctaLabel ? (
+                          /^https?:\/\//i.test(card.href)
+                            ? <a href={card.href} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-blue-700">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></a>
+                            : <Link href={card.href} className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-blue-700">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></Link>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              <section className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">Official information</p>
+                <p className="mt-2 text-xs leading-5 text-slate-600">Always verify time-sensitive dates, vacancies and eligibility against the responsible authority.</p>
+                <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-blue-700"><Globe2 className="h-3.5 w-3.5" /> {config.officialLabel}</a>
+              </section>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
