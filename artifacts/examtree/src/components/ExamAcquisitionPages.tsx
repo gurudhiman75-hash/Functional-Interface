@@ -513,7 +513,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   usePageMeta(
     pageConfiguration.pageTitle || config.meta.hubTitle,
     pageConfiguration.pageDescription || config.meta.hubDescription,
-    { canonicalPath: examHubHref(examSlug) },
+    { canonicalPath: examHubHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" },
   );
 
   const catalogExam = useMemo(
@@ -1010,7 +1010,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   usePageMeta(
     config.name + " " + config.yearLabel + " Exam Details, Syllabus & Preparation",
     config.meta.syllabusDescription,
-    { canonicalPath: examDetailsHref(examSlug) },
+    { canonicalPath: examDetailsHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" },
   );
 
   const sectionAnchor = (section: WebExamPageSection) => {
@@ -1228,7 +1228,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
 
 export function ExamPreparationPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
-  usePageMeta(config.meta.preparationTitle, config.meta.preparationDescription, { canonicalPath: examPreparationHref(examSlug) });
+  usePageMeta(config.meta.preparationTitle, config.meta.preparationDescription, { canonicalPath: examPreparationHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" });
 
   return (
     <PublicPage eyebrow={config.preparation.eyebrow} title={config.preparation.title} description={config.preparation.description}>
@@ -1262,7 +1262,7 @@ export function ExamPreparationPage({ examSlug }: { examSlug: string }) {
 
 export function ExamSyllabusPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
-  usePageMeta(config.meta.syllabusTitle, config.meta.syllabusDescription, { canonicalPath: examSyllabusHref(examSlug) });
+  usePageMeta(config.meta.syllabusTitle, config.meta.syllabusDescription, { canonicalPath: examSyllabusHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" });
 
   return (
     <PublicPage eyebrow={config.syllabus.eyebrow} title={config.syllabus.title} description={config.syllabus.description}>
