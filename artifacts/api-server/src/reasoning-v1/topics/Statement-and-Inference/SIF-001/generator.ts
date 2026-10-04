@@ -15,15 +15,6 @@ const INSTRUCTIONS = {
   "pa-IN": ["ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਤੋਂ ਕਿਹੜਾ ਅਨੁਮਾਨ ਸਮਰਥਿਤ ਹੈ?", "ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਤੋਂ ਵਾਜਬ ਤੌਰ 'ਤੇ ਕੀ ਅਨੁਮਾਨ ਲਗਾਇਆ ਜਾ ਸਕਦਾ ਹੈ?", "ਹੇਠਾਂ ਦਿੱਤੇ ਅਨੁਮਾਨਾਂ 'ਤੇ ਵਿਚਾਰ ਕਰੋ ਅਤੇ ਦੱਸੋ ਕਿ ਕਿਹੜਾ ਸਹੀ ਹੈ।"],
 } as const;
 
-function stableHash(value: string): number {
-  let result = 2166136261;
-  for (let index = 0; index < value.length; index += 1) {
-    result ^= value.charCodeAt(index);
-    result = Math.imul(result, 16777619);
-  }
-  return result >>> 0;
-}
-
 function selectAuthority(cpId: SifCpId, seed: number): {
   readonly authority: SifScenarioAuthority;
   readonly poolSize: number;
@@ -43,16 +34,12 @@ function swapLabels(text: string): string {
 function shouldSwapCandidates(
   authority: SifScenarioAuthority,
   seed: number,
-  poolSize: number,
 ): boolean {
-  // CP002 retains its explicitly approved presentation baseline.
+  // Preserve the approved V1 review-pack answer-position scheduler.
+  // Candidate identity is now canonicalized by ID before this presentation
+  // swap, so historically reversed [II, I] storage cannot corrupt the key.
   if (authority.cpId === "SIF-CP002") return false;
-
-  // Authority selection remains seed % poolSize, but presentation order is
-  // independently varied by selection cycle. This prevents even-sized pools
-  // from permanently tying one authority to one I/II order.
-  const cycle = Math.floor(Math.abs(seed) / poolSize);
-  return ((stableHash(authority.id) + cycle) & 1) === 1;
+  return Math.abs(seed) % 2 === 1;
 }
 
 export function renderSifAuthority(input: {
@@ -69,7 +56,7 @@ export function renderSifAuthority(input: {
   const authority = input.authority;
   const [candidateI, candidateII] = canonicalSifCandidates(authority);
   const sourceAnswerClass = solveSifScenario(authority);
-  const swapCandidates = shouldSwapCandidates(authority, input.seed, input.poolSize);
+  const swapCandidates = shouldSwapCandidates(authority, input.seed);
   const answerClass = swapCandidates
     ? sourceAnswerClass === "ONLY_I" ? "ONLY_II"
       : sourceAnswerClass === "ONLY_II" ? "ONLY_I"
