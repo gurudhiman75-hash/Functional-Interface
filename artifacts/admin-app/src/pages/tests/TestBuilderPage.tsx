@@ -525,7 +525,8 @@ export function TestBuilderPage() {
       <div className="mb-4 flex flex-wrap items-center gap-2">
         {detail && <Badge variant="outline">Version {detail.currentVersion?.versionNumber ?? '—'}</Badge>}
         {detail && <Badge>{detail.test.status.replace(/_/g, ' ')}</Badge>}
-        <Badge variant="outline">{selectedQuestionIds.length} questions</Badge>
+        <Badge variant="outline">{selectedQuestionIds.length} objective</Badge>
+        {descriptiveTaskCount > 0 && <Badge variant="outline">{descriptiveTaskCount} descriptive</Badge>}
         <Badge variant="outline">{draft.totalMarks} marks</Badge>
         {localIssues.length === 0 ? <Badge className="bg-success/10 text-success hover:bg-success/10"><CheckCircle2 className="mr-1 h-3.5 w-3.5" /> Locally valid</Badge> : <Badge className="bg-warning/10 text-warning hover:bg-warning/10"><AlertTriangle className="mr-1 h-3.5 w-3.5" /> {localIssues.length} issue(s)</Badge>}
       </div>
@@ -543,7 +544,7 @@ export function TestBuilderPage() {
           <Card><CardHeader><CardTitle className="text-base">Test configuration</CardTitle></CardHeader><CardContent className="space-y-5">
             <div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} placeholder="SSC CGL Full Mock 01" /></div></div>
             <div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value + descriptiveMarksForSections(current.sections) }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Test type" value={draft.testType} options={[['full_mock', 'Full Mock'], ['sectional', 'Sectional Test'], ['quiz', 'Quiz'], ['previous_year', 'Previous Year']]} onChange={(value) => setDraft((current) => ({ ...current, testType: value }))} /><SelectField label="Access" value={draft.access} options={[['free', 'Free'], ['paid', 'Paid'], ['premium', 'Premium']]} onChange={(value) => setDraft((current) => ({ ...current, access: value }))} /><SelectField label="Difficulty" value={draft.difficulty} options={[['Easy', 'Easy'], ['Moderate', 'Moderate'], ['Hard', 'Hard'], ['Mixed', 'Mixed']]} onChange={(value) => setDraft((current) => ({ ...current, difficulty: value }))} /><div className="space-y-2"><Label>Language</Label><Select value={draft.languageCode} onValueChange={(value) => setDraft((current) => ({ ...current, languageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{selectedExam?.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>) ?? <SelectItem value="en">English</SelectItem>}</SelectContent></Select></div></div>
             <div className="grid gap-3 sm:grid-cols-3">
               <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
@@ -668,7 +669,60 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="preview">
-          <Card><CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader><CardContent className="space-y-6"><div className="rounded-lg border bg-muted/20 p-4"><h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p><p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p></div>{draft.sections.map((section) => <div key={section.clientKey}><div className="mb-3 flex items-center justify-between"><h3 className="font-semibold">{section.name}</h3><Badge variant="outline">{section.questionVersionIds.length} questions</Badge></div><div className="space-y-4">{section.questionVersionIds.map((id, index) => { const question = questionMap.get(id); if (!question) return null; return <div key={id} className="rounded-lg border p-4"><p className="text-sm font-medium">{index + 1}. {question.stem}</p><div className="mt-3 grid gap-2 sm:grid-cols-2">{question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}</div><p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p></div>; })}</div></div>)}</CardContent></Card>
+          <Card>
+            <CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader>
+            <CardContent className="space-y-6">
+              <div className="rounded-lg border bg-muted/20 p-4">
+                <h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p>
+                <p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p>
+              </div>
+              {draft.sections.map((section) => (
+                <div key={section.clientKey}>
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <h3 className="font-semibold">{section.name}</h3>
+                    <div className="flex gap-2">
+                      <Badge variant="outline">{section.questionVersionIds.length} objective</Badge>
+                      {section.descriptiveTasks.length > 0 && <Badge variant="outline">{section.descriptiveTasks.length} descriptive</Badge>}
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    {section.questionVersionIds.map((id, index) => {
+                      const question = questionMap.get(id);
+                      if (!question) return null;
+                      return (
+                        <div key={id} className="rounded-lg border p-4">
+                          <p className="text-sm font-medium">{index + 1}. {question.stem}</p>
+                          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                            {question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}
+                          </div>
+                          <p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p>
+                        </div>
+                      );
+                    })}
+                    {section.descriptiveTasks.map((task, index) => (
+                      <div key={task.id} className="rounded-lg border p-4">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge variant="secondary">{task.kind}</Badge>
+                          <Badge variant="outline">{task.marks} marks</Badge>
+                          {(task.minWords || task.maxWords) && <span className="text-xs text-muted-foreground">{task.minWords || '0'}–{task.maxWords || 'open'} words</span>}
+                        </div>
+                        {task.stimulusText && (
+                          <div className="mt-3 rounded-md border bg-muted/20 p-3">
+                            {task.stimulusTitle && <p className="mb-1 text-xs font-semibold">{task.stimulusTitle}</p>}
+                            <p className="whitespace-pre-wrap text-sm text-muted-foreground">{task.stimulusText}</p>
+                          </div>
+                        )}
+                        <p className="mt-3 text-sm font-medium">{section.questionVersionIds.length + index + 1}. {task.prompt || 'Prompt not entered'}</p>
+                        {task.instructions && <p className="mt-2 text-xs text-muted-foreground">{task.instructions}</p>}
+                        <div className="mt-3 min-h-28 rounded-md border border-dashed bg-background p-3 text-xs text-muted-foreground">Learner typing area</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
