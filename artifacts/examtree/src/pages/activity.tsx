@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
@@ -177,7 +177,7 @@ export default function ActivityPage() {
             <Link href="/performance">View Detailed Analysis <ArrowRight /></Link>
           </div>
           <div className="dash-performance-top">
-            <div className="dash-score-ring" style={{ "--score": stats.average } as React.CSSProperties}>
+            <div className="dash-score-ring" style={{ "--score": stats.average } as CSSProperties}>
               <div><b>{stats.average}%</b><span>Average Score</span></div>
             </div>
             <div className="dash-performance-stats">
