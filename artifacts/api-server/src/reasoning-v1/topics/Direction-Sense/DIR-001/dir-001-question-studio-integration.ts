@@ -7,6 +7,10 @@ import type {
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { DIR_001_QLS, generateDirectionQuestion } from "./chapter-registry";
 import { generateDirectionQuestionHindi, generateDirectionQuestionPunjabi } from "./localization";
+import {
+  assertDirQuestionStudioMappingIntegrity,
+  DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+} from "./dir-001-post-closure-mapping-proof";
 
 export const DIR001_QUESTION_STUDIO_PACKAGE_ID_V1 = "DIR-001" as const;
 export const DIR001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -188,6 +192,8 @@ export const DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
     multilingualParityVerified: true,
     difficultyCalibrationStatus: "GENERATED_INSTANCE_AUDITED_V1",
     diagramPolicy: "EXPLANATION_ONLY",
+    multilingualFreezeAuthorityId: "DIR-001-MULTILINGUAL-FREEZE-V1",
+    postClosureMappingProofAuthority: DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
     reviewOnly: true,
   },
 };
@@ -227,7 +233,7 @@ export async function generateDir001QuestionStudioBatch(
     const correctLabel = options[generated.correctIndex];
     const questionId = `DIR-001:${qlId}:${numericSeed}:${language}`;
 
-    questions.push({
+    const mapped = {
       ...lifecycle,
       lifecycleStage: lifecycle.stage,
       id: questionId,
@@ -288,7 +294,12 @@ export async function generateDir001QuestionStudioBatch(
         difficultyDerivedFromGeneratedInstance: true,
         questionDiagramAbsent: generated.questionDiagram == null,
       },
-    });
+      multilingualFreezeAuthorityId: "DIR-001-MULTILINGUAL-FREEZE-V1",
+      postClosureMappingProofAuthority: DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+      postClosureMappingProofVerified: true,
+    };
+    assertDirQuestionStudioMappingIntegrity(generated, mapped, language);
+    questions.push(mapped);
   }
 
   return {
@@ -309,6 +320,9 @@ export async function generateDir001QuestionStudioBatch(
       difficultyFilterApplied: Boolean(requestedDifficulty),
       difficultyCalibrationStatus: "GENERATED_INSTANCE_AUDITED_V1",
       diagramPolicy: "EXPLANATION_ONLY",
+      multilingualFreezeAuthorityId: "DIR-001-MULTILINGUAL-FREEZE-V1",
+      postClosureMappingProofAuthority: DIR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+      postClosureMappingProofVerified: true,
       requestedExam: request.exam ?? null,
       examProfileApplied: false,
       seed: baseSeed,

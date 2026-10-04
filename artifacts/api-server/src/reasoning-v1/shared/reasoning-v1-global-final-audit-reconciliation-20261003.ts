@@ -113,7 +113,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Direction-Sense",
         chapterId: "DIR-001",
         closureAuthorityPath:
-          "topics/Direction-Sense/DIR-001/DIR-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Direction-Sense/DIR-001/DIR-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
