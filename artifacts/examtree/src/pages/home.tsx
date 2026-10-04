@@ -29,7 +29,6 @@ import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
 
-const CATEGORY_TONES = ["indigo", "emerald", "orange", "sky", "rose", "violet"] as const;
 const REFERENCE_EXAMS = [
   { name: "SSC", detail: "CGL | CHSL | MTS" },
   { name: "Banking", detail: "IBPS | SBI | RBI" },
