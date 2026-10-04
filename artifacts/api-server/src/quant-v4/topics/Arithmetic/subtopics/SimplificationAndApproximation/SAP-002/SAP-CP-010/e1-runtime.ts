@@ -91,10 +91,12 @@ function decimalScaleAnswer(hundredths: number, factor: number): string {
 
 export function generateSapCp010E1SuppliedRootScaling(seed: number): SapE1CandidatePackage {
   if (!Number.isInteger(seed) || seed < 1) throw new Error("Seed must be a positive integer.");
-  const i = seed - 1;
+  // Cycle deterministically through the complete certified bounded state space:
+  // 8 supplied roots × 13 scale factors (2..14) × 2 scale modes.
+  const i = (seed - 1) % (SUPPLIED_ROOTS.length * 13 * 2);
   const supplied = SUPPLIED_ROOTS[i % SUPPLIED_ROOTS.length]!;
-  const factor = 2 + Math.floor(i / SUPPLIED_ROOTS.length);
-  const decimalScale = i % 2 === 1;
+  const factor = 2 + (Math.floor(i / SUPPLIED_ROOTS.length) % 13);
+  const decimalScale = Math.floor(i / (SUPPLIED_ROOTS.length * 13)) % 2 === 1;
   const suppliedValue = formatScaled(supplied.hundredths, 2);
   const target = decimalScale
     ? formatScaled(supplied.n * factor * factor, 2)
