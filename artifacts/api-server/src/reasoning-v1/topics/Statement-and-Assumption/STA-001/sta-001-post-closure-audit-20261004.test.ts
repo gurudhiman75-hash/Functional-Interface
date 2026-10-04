@@ -144,10 +144,15 @@ for (const qlId of STA_V4_QL_IDS) {
         assert.equal(question.permanentQlId, qlId);
         assert.equal(question.validation.multilingualFrozen, true);
         assert.equal(question.lifecycleStatus, "REVIEW_ONLY");
+        assert.ok(question.queryPolarity === "POSITIVE" || question.queryPolarity === "NEGATIVE");
         assertStaV41RenderedQuestionIndependentProof({
           questionId: question.questionId,
           queryPolarity: question.queryPolarity,
-          candidates: question.candidates,
+          candidates: question.candidates.map((candidate) => ({
+            candidateId: candidate.candidateId,
+            classification: candidate.oracle.classification,
+            misconception: candidate.misconception,
+          })),
           answerSet: question.answerSet,
           options: question.options,
           correctIndex: question.correctIndex,
