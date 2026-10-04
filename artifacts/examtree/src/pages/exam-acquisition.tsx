@@ -1,6 +1,7 @@
 import { useParams } from "wouter";
 
 import {
+  ExamDetailsPage,
   ExamHubPage,
   ExamPreparationPage,
   ExamSyllabusPage,
@@ -9,6 +10,11 @@ import {
 
 export function ConfiguredExamHub({ examSlug }: { examSlug: string }) {
   return <ExamHubPage examSlug={examSlug} />;
+}
+
+export function ConfiguredExamDetails() {
+  const params = useParams<{ examSlug: string }>();
+  return <ExamDetailsPage examSlug={params.examSlug} />;
 }
 
 export function ConfiguredExamPreparation({ examSlug }: { examSlug: string }) {
