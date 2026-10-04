@@ -55,11 +55,35 @@ const benefits = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
   patternId: "DM-007",
   language: "en",
-  count: 5,
+  count: 6,
   seed: "dm001-benefit-eligibility",
 });
 assert.ok(benefits.questions.every((question) => question.checkpointId === "DM-CP-007"));
-assert.ok(benefits.questions.every((question) => String(question.stem).includes("fictional scheme")));
+assert.ok(benefits.questions.every((question) => /fictional scheme|fictional programme/i.test(String(question.stem))));
+assert.ok(benefits.questions.some((question) => question.subjectKind === "PERSON"));
+assert.ok(benefits.questions.some((question) => question.subjectKind === "ORGANIZATION"));
+
+const productBalanced = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1",
+  patternId: "DM-QL-001",
+  language: "en",
+  count: 8,
+  seed: "dm001-product-subject-balance",
+});
+assert.equal(productBalanced.questions.filter((question) => question.subjectKind === "PERSON").length, 4);
+assert.equal(productBalanced.questions.filter((question) => question.subjectKind === "PRODUCT_LOT").length, 4);
+assert.equal(new Set(productBalanced.questions.map((question) => question.scenarioId)).size >= 4, true);
+
+const organizationBalanced = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1",
+  patternId: "DM-QL-010",
+  language: "en",
+  count: 8,
+  seed: "dm001-organization-subject-balance",
+});
+assert.equal(organizationBalanced.questions.filter((question) => question.subjectKind === "PERSON").length, 4);
+assert.equal(organizationBalanced.questions.filter((question) => question.subjectKind === "ORGANIZATION").length, 4);
+assert.equal(new Set(organizationBalanced.questions.map((question) => question.scenarioId)).size >= 4, true);
 
 const ranked = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
@@ -115,4 +139,4 @@ for (let offset = 0; offset < mixedSet.questions.length; offset += 5) {
   assert.deepEqual(new Set(setQuestions.map((question) => question.setQuestionKind)), new Set(["COUNT_SELECTED", "IDENTIFY_REJECTED", "IDENTIFY_REFERRED", "SAME_DECISION_PAIR", "INFORMATION_REQUIRED"]));
 }
 
-console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–4 selectors, locale, difficulty and review-only lifecycle checks.");
+console.log("DM-001 passed shared Question Studio registration, routing, subject-balanced sampling, Waves 1–4 selectors, locale, difficulty and review-only lifecycle checks.");

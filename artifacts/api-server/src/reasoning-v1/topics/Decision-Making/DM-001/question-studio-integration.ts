@@ -9,7 +9,7 @@ import { DM_001_MANIFEST } from "./chapter-manifest.ts";
 import { generateDm020QuestionSet, generateDmQuestion, modesForDmDifficulty } from "./generator.ts";
 import { DM_001_QL_REGISTRY } from "./ql-registry.ts";
 import { DM_001_SCENARIO_LIBRARY } from "./scenario-library.ts";
-import type { DmCheckpointId, DmDifficulty, DmLocale, DmQlId } from "./types.ts";
+import type { DmCheckpointId, DmDifficulty, DmLocale, DmQlId, DmScenario, DmSubjectKind } from "./types.ts";
 
 export const DM001_QUESTION_STUDIO_PACKAGE_ID_V1 = "DM-001" as const;
 export const DM001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -54,6 +54,36 @@ function hash(value: string): number {
     result = Math.imul(result, 16777619);
   }
   return result >>> 0;
+}
+
+const SUBJECT_KIND_ORDER: readonly DmSubjectKind[] = Object.freeze(["PERSON", "PRODUCT_LOT", "ORGANIZATION"]);
+
+function subjectKindOfScenario(scenario: DmScenario): DmSubjectKind {
+  return scenario.subjectKind ?? "PERSON";
+}
+
+function balancedScenarioForQl(
+  eligibleScenarios: readonly DmScenario[],
+  qlId: DmQlId,
+  seedText: string,
+  sequenceIndex: number,
+  numericSeed: number,
+): DmScenario {
+  const populatedGroups = SUBJECT_KIND_ORDER
+    .map((kind) => Object.freeze({
+      kind,
+      scenarios: eligibleScenarios.filter((scenario) => subjectKindOfScenario(scenario) === kind),
+    }))
+    .filter((group) => group.scenarios.length > 0);
+  if (populatedGroups.length === 0) throw new Error("DM-001 has no scenario authority for " + qlId);
+  if (populatedGroups.length === 1) {
+    const only = populatedGroups[0]!.scenarios;
+    return only[numericSeed % only.length]!;
+  }
+  const start = hash(seedText + ":" + qlId + ":subject-start") % populatedGroups.length;
+  const group = populatedGroups[(start + sequenceIndex) % populatedGroups.length]!;
+  const scenarioSeed = hash(seedText + ":" + qlId + ":" + String(sequenceIndex) + ":" + group.kind + ":scenario");
+  return group.scenarios[scenarioSeed % group.scenarios.length]!;
 }
 
 function normalizeCount(value: number | undefined): number {
@@ -189,16 +219,16 @@ export const DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinit
     reviewOnly: true,
     scenarioCount: DM_001_SCENARIO_LIBRARY.length,
     cpTitles: {
-      "DM-CP-001": "Basic Eligibility Decisions · DM-001",
-      "DM-CP-002": "Multiple Eligibility Conditions · DM-002",
+      "DM-CP-001": "Basic Direct Decisions · DM-001",
+      "DM-CP-002": "Multiple Simultaneous Conditions · DM-002",
       "DM-CP-003": "Conditional and Exception Rules · DM-003",
       "DM-CP-004": "Referral and Escalation Decisions · DM-004",
       "DM-CP-005": "Age, Qualification and Experience · DM-005",
-      "DM-CP-006": "Recruitment, Admission and Training · DM-006",
-      "DM-CP-007": "Loan and Benefit Eligibility · DM-007",
-      "DM-CP-008": "Cut-offs and Minimum Scores · DM-008",
-      "DM-CP-009": "Dependent Relaxations · DM-009",
-      "DM-CP-010": "Priority Based Seat Selection · DM-010",
+      "DM-CP-006": "Applicant and Provider Approval · DM-006",
+      "DM-CP-007": "Benefit and Enterprise Support · DM-007",
+      "DM-CP-008": "Multi-field Cut-offs · DM-008",
+      "DM-CP-009": "Dependent Exceptions and Tolerances · DM-009",
+      "DM-CP-010": "Priority-Based Allocation · DM-010",
       "DM-CP-011": "Administrative Course of Action · DM-011",
       "DM-CP-012": "Best Immediate Action · DM-012",
       "DM-CP-013": "Complaint and Grievance Handling · DM-013",
@@ -242,7 +272,7 @@ export async function generateDm001QuestionStudioBatch(
     const eligibleScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.qlId === qlId);
     if (eligibleScenarios.length === 0) throw new Error("DM-001 has no scenario authority for " + qlId);
     const numericSeed = hash(seedText + ":" + qlId + ":" + String(sequenceIndex));
-    const scenario = eligibleScenarios[numericSeed % eligibleScenarios.length]!;
+    const scenario = balancedScenarioForQl(eligibleScenarios, qlId, seedText, sequenceIndex, numericSeed);
     const difficulty = requestedDifficulty ?? DIFFICULTY_PATTERN[sequenceIndex % DIFFICULTY_PATTERN.length]!;
     const mode = modesForDmDifficulty(scenario, difficulty, numericSeed);
     const generatedSet = cohesiveDm020
@@ -271,6 +301,7 @@ export async function generateDm001QuestionStudioBatch(
       checkpointId: generated.checkpointId,
       blueprintCheckpointId: generated.blueprintCheckpointId,
       scenarioId: generated.scenarioId,
+      subjectKind: subjectKindOfScenario(scenario),
       ruleOutcome: generated.outcome,
       answerMode: generated.answerMode,
       ...(generated.selectedCandidates ? { selectedCandidates: [...generated.selectedCandidates] } : {}),
@@ -328,6 +359,7 @@ export async function generateDm001QuestionStudioBatch(
         checkpointId: generated.checkpointId,
         blueprintCheckpointId: generated.blueprintCheckpointId,
         scenarioId: generated.scenarioId,
+        subjectKind: subjectKindOfScenario(scenario),
         ruleOutcome: generated.outcome,
         answerMode: generated.answerMode,
         ...(generated.setQuestionKind ? { setQuestionKind: generated.setQuestionKind, setQuestionNumber: generated.setQuestionNumber } : {}),
@@ -351,9 +383,12 @@ export async function generateDm001QuestionStudioBatch(
       permanentQlIds: [...qlIds],
       cpIds: [...cpIds],
       scenarioCount: DM_001_SCENARIO_LIBRARY.length,
-      ruleBasedScenarioCountPerCheckpoint: 25,
-      situationalScenarioCountPerCheckpoint: 50,
+      baseRuleScenarioCountPerCheckpoint: 25,
+      structuredProductScenarioCount: 30,
+      structuredOrganizationScenarioCount: 15,
+      situationalScenarioCountPerCheckpoint: 75,
       advancedScenarioCountPerCheckpoint: 25,
+      scenarioCountByCheckpoint: Object.fromEntries(DM_001_MANIFEST.checkpoints.map((entry) => [entry.checkpointId, entry.scenarioTarget])),
       language,
       requestedDifficulty: requestedDifficulty ? displayDifficulty(requestedDifficulty) : "Mixed",
       difficultyDistributionTarget: "30% Easy / 45% Medium / 25% Hard",
