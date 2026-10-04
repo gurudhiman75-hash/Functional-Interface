@@ -12,6 +12,9 @@ assert.equal(registered.questionBankWritable, false);
 assert.equal(registered.testEligible, false);
 assert.equal(registered.mockTestEligible, false);
 assert.equal(registered.publiclyPublishable, false);
+assert.equal(registered.metadata?.contentClosureStatus, "CONTENT_CLOSED_FROZEN_REVIEW_ONLY");
+assert.equal(registered.metadata?.contentFrozen, true);
+assert.equal(registered.metadata?.contentClosureAuthority, "DM-001-FINAL-CLOSURE-FREEZE-20261004.md");
 
 for (const language of ["en", "hi", "pa"] as const) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
@@ -25,6 +28,9 @@ for (const language of ["en", "hi", "pa"] as const) {
     });
     assert.equal(result.engineId, "reasoning-v1");
     assert.equal(result.questions.length, 10);
+    assert.equal(result.generationContext?.contentClosureStatus, "CONTENT_CLOSED_FROZEN_REVIEW_ONLY");
+    assert.equal(result.generationContext?.contentFrozen, true);
+    assert.equal(result.generationContext?.contentClosureAuthority, "DM-001-FINAL-CLOSURE-FREEZE-20261004.md");
     assert.ok(result.questions.every((question) => question.difficulty === difficulty));
     assert.ok(result.questions.every((question) => question.reviewOnly === true));
     assert.ok(result.questions.every((question) => question.questionBankWritable === false));
