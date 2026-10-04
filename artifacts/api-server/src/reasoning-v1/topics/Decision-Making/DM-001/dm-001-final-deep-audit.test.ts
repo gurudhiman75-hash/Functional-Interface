@@ -10,6 +10,10 @@ import type { DmCheckpointId } from "./types.ts";
 assert.equal(DM_001_MANIFEST.checkpointIds.length, 20);
 assert.equal(DM_001_QL_REGISTRY.length, 60);
 assert.equal(DM_001_SCENARIO_LIBRARY.length, 845);
+assert.equal(DM_001_MANIFEST.lifecycle.status, "CONTENT_CLOSED_FROZEN_REVIEW_ONLY");
+assert.equal(DM_001_MANIFEST.lifecycle.frozen, true);
+assert.equal(DM_001_MANIFEST.lifecycle.chapterClosureAuthority, "DM-001-FINAL-CLOSURE-FREEZE-20261004.md");
+assert.equal(DM_001_MANIFEST.lifecycle.reopenPolicy, "DEFECT_OR_SOURCE_BACKED_NEW_LEARNER_CONTRACT_ONLY");
 assert.equal(new Set(DM_001_QL_REGISTRY.map((entry) => entry.qlId)).size, 60);
 
 const expectedCheckpointCounts = new Map<DmCheckpointId, number>();
