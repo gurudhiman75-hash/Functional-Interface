@@ -270,7 +270,7 @@ function LoggedOutExamHubPage({
     { icon: BookOpen, label: "Syllabus", href: examSyllabusHref(examSlug) },
     { icon: FileText, label: "Exam Pattern", href: examSyllabusHref(examSlug) },
     { icon: Sparkles, label: "Preparation Strategy", href: examPreparationHref(examSlug) },
-    { icon: Target, label: "Free Practice", href: practiceTopicHref(config.topics[0]?.slug ?? "", examSlug) },
+    ...(config.topics[0] ? [{ icon: Target, label: "Free Practice", href: practiceTopicHref(config.topics[0].slug, examSlug) }] : []),
     { icon: Globe2, label: "Official Notices", href: config.officialUrl, external: true },
   ];
 
@@ -513,7 +513,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   usePageMeta(
     pageConfiguration.pageTitle || config.meta.hubTitle,
     pageConfiguration.pageDescription || config.meta.hubDescription,
-    { canonicalPath: examHubHref(examSlug) },
+    { canonicalPath: examHubHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" },
   );
 
   const catalogExam = useMemo(
@@ -1010,7 +1010,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   usePageMeta(
     config.name + " " + config.yearLabel + " Exam Details, Syllabus & Preparation",
     config.meta.syllabusDescription,
-    { canonicalPath: examDetailsHref(examSlug) },
+    { canonicalPath: examDetailsHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" },
   );
 
   const sectionAnchor = (section: WebExamPageSection) => {
@@ -1119,7 +1119,9 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
         </>
       );
     } else if (section.type === "details_practice") {
-      content = <div className={contentLayoutClass(section)}>{config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className={canonicalCardClass(section) + " transition hover:-translate-y-0.5 hover:shadow-sm"}><p className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-600">{topic.subject}</p><h3 className="mt-2 font-bold text-slate-950">{topic.name}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p><p className="mt-3 text-xs leading-5 text-slate-500"><strong>Preparation tip:</strong> {topic.preparationTip}</p></Link>)}</div>;
+      content = config.topics.length > 0
+        ? <div className={contentLayoutClass(section)}>{config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className={canonicalCardClass(section) + " transition hover:-translate-y-0.5 hover:shadow-sm"}><p className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-600">{topic.subject}</p><h3 className="mt-2 font-bold text-slate-950">{topic.name}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p><p className="mt-3 text-xs leading-5 text-slate-500"><strong>Preparation tip:</strong> {topic.preparationTip}</p></Link>)}</div>
+        : <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm leading-6 text-slate-600">Topic-wise practice has not been published for this exam yet. It will appear here automatically once verified practice content is mapped to the exam.</div>;
     } else if (section.type === "details_updates") {
       content = (
         <div className={contentLayoutClass(section)}>
@@ -1226,7 +1228,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
 
 export function ExamPreparationPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
-  usePageMeta(config.meta.preparationTitle, config.meta.preparationDescription, { canonicalPath: examPreparationHref(examSlug) });
+  usePageMeta(config.meta.preparationTitle, config.meta.preparationDescription, { canonicalPath: examPreparationHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" });
 
   return (
     <PublicPage eyebrow={config.preparation.eyebrow} title={config.preparation.title} description={config.preparation.description}>
@@ -1260,7 +1262,7 @@ export function ExamPreparationPage({ examSlug }: { examSlug: string }) {
 
 export function ExamSyllabusPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
-  usePageMeta(config.meta.syllabusTitle, config.meta.syllabusDescription, { canonicalPath: examSyllabusHref(examSlug) });
+  usePageMeta(config.meta.syllabusTitle, config.meta.syllabusDescription, { canonicalPath: examSyllabusHref(examSlug), robots: config.isShell ? "noindex,follow" : "index,follow" });
 
   return (
     <PublicPage eyebrow={config.syllabus.eyebrow} title={config.syllabus.title} description={config.syllabus.description}>

@@ -34,6 +34,7 @@ export type ExamDetailSection = {
 
 export type ExamAcquisitionConfig = {
   slug: string;
+  isShell?: boolean;
   name: string;
   yearLabel: string;
   categoryHref: string;
@@ -163,6 +164,57 @@ const SSC_GD_TOPICS: SeoPracticeTopic[] = SSC_CGL_TOPICS.filter((topic) =>
 const BANKING_PRACTICE_TOPICS: SeoPracticeTopic[] = SSC_CGL_TOPICS.filter((topic) =>
   ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding"].includes(topic.slug),
 );
+
+
+function makeExamShellConfig(input: {
+  slug: string;
+  name: string;
+  categoryHref: string;
+  officialUrl: string;
+  officialLabel: string;
+}): ExamAcquisitionConfig {
+  const { slug, name, categoryHref, officialUrl, officialLabel } = input;
+  return {
+    slug,
+    isShell: true,
+    name,
+    yearLabel: "Exam",
+    categoryHref,
+    officialUrl,
+    officialLabel,
+    meta: {
+      hubTitle: name + " Preparation, Mock Tests & Exam Details | ExamTree",
+      hubDescription: "Open the ExamTree " + name + " exam page. Verified syllabus, eligibility, dates and preparation details will be added after official-source review.",
+      preparationTitle: name + " Preparation Guide | ExamTree",
+      preparationDescription: "Preparation guidance for " + name + " will be published after the exam pattern and syllabus are verified from the responsible authority.",
+      syllabusTitle: name + " Syllabus & Exam Pattern | ExamTree",
+      syllabusDescription: "Verified " + name + " syllabus and exam-pattern details will be published after official-source review.",
+    },
+    hub: {
+      title: name + " exam hub",
+      description: "ExamTree has created the " + name + " exam workspace. Test inventory and verified exam information will appear here as they are published.",
+      preparationSummary: "Preparation guidance is not yet populated. It will be added only after the current official pattern and syllabus are verified.",
+      syllabusSummary: "Detailed syllabus and exam-pattern information is awaiting official-source review.",
+      mockSummary: "Published ExamTree tests will appear automatically when they are mapped to this exam identity.",
+    },
+    preparation: {
+      eyebrow: name + " preparation",
+      title: name + " preparation",
+      description: "A verified preparation plan has not yet been published for this exam.",
+      cards: [],
+      weeklyCycle: [],
+    },
+    syllabus: {
+      eyebrow: name + " syllabus",
+      title: name + " syllabus and exam pattern",
+      description: "Detailed exam information is awaiting official-source review.",
+      sections: [],
+      patternCards: [],
+      verificationNote: "This exam identity is live, but detailed rules have not yet been populated. Verify all time-sensitive information on the responsible authority's official website.",
+    },
+    topics: [],
+  };
+}
 
 export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
   "ssc-cgl": {
@@ -827,6 +879,153 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     },
     topics: BANKING_PRACTICE_TOPICS,
   },
+  "ssc-selection-post": makeExamShellConfig({
+    slug: "ssc-selection-post",
+    name: "SSC Selection Post",
+    categoryHref: "/category/ssc",
+    officialUrl: "https://ssc.gov.in",
+    officialLabel: "ssc.gov.in",
+  }),
+  "ssc-je": makeExamShellConfig({
+    slug: "ssc-je",
+    name: "SSC JE",
+    categoryHref: "/category/ssc",
+    officialUrl: "https://ssc.gov.in",
+    officialLabel: "ssc.gov.in",
+  }),
+  "sbi-po": makeExamShellConfig({
+    slug: "sbi-po",
+    name: "SBI PO",
+    categoryHref: "/category/banking",
+    officialUrl: "https://sbi.co.in/web/careers",
+    officialLabel: "sbi.co.in",
+  }),
+  "sbi-clerk": makeExamShellConfig({
+    slug: "sbi-clerk",
+    name: "SBI Clerk / Junior Associate",
+    categoryHref: "/category/banking",
+    officialUrl: "https://sbi.co.in/web/careers",
+    officialLabel: "sbi.co.in",
+  }),
+  "rbi-assistant": makeExamShellConfig({
+    slug: "rbi-assistant",
+    name: "RBI Assistant",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.rbi.org.in",
+    officialLabel: "rbi.org.in",
+  }),
+  "rbi-grade-b": makeExamShellConfig({
+    slug: "rbi-grade-b",
+    name: "RBI Grade B",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.rbi.org.in",
+    officialLabel: "rbi.org.in",
+  }),
+  "nabard-grade-a": makeExamShellConfig({
+    slug: "nabard-grade-a",
+    name: "NABARD Grade A",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.nabard.org",
+    officialLabel: "nabard.org",
+  }),
+  "sebi-grade-a": makeExamShellConfig({
+    slug: "sebi-grade-a",
+    name: "SEBI Grade A",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.sebi.gov.in",
+    officialLabel: "sebi.gov.in",
+  }),
+  "punjab-police-constable": makeExamShellConfig({
+    slug: "punjab-police-constable",
+    name: "Punjab Police Constable",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "punjab-police-si": makeExamShellConfig({
+    slug: "punjab-police-si",
+    name: "Punjab Police Sub-Inspector",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "psssb-clerk": makeExamShellConfig({
+    slug: "psssb-clerk",
+    name: "PSSSB Clerk / Junior Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-patwari": makeExamShellConfig({
+    slug: "punjab-patwari",
+    name: "Punjab Patwari",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "psssb-excise-taxation-inspector": makeExamShellConfig({
+    slug: "psssb-excise-taxation-inspector",
+    name: "PSSSB Excise & Taxation Inspector",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-naib-tehsildar": makeExamShellConfig({
+    slug: "punjab-naib-tehsildar",
+    name: "Punjab Naib Tehsildar",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://ppsc.gov.in",
+    officialLabel: "ppsc.gov.in",
+  }),
+  "punjab-pcs": makeExamShellConfig({
+    slug: "punjab-pcs",
+    name: "PPSC Punjab State Civil Services",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://ppsc.gov.in",
+    officialLabel: "ppsc.gov.in",
+  }),
+  "psssb-senior-assistant": makeExamShellConfig({
+    slug: "psssb-senior-assistant",
+    name: "PSSSB Senior Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "psssb-vdo": makeExamShellConfig({
+    slug: "psssb-vdo",
+    name: "PSSSB VDO / Gram Sevak",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-jail-warder": makeExamShellConfig({
+    slug: "punjab-jail-warder",
+    name: "Punjab Jail Warder / Matron",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjab.gov.in",
+    officialLabel: "punjab.gov.in",
+  }),
+  "punjab-police-intelligence-assistant": makeExamShellConfig({
+    slug: "punjab-police-intelligence-assistant",
+    name: "Punjab Police Intelligence Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "pspcl-alm": makeExamShellConfig({
+    slug: "pspcl-alm",
+    name: "PSPCL Assistant Lineman",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://www.pspcl.in",
+    officialLabel: "pspcl.in",
+  }),
+  "pspcl-revenue-accountant": makeExamShellConfig({
+    slug: "pspcl-revenue-accountant",
+    name: "PSPCL Revenue Accountant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://www.pspcl.in",
+    officialLabel: "pspcl.in",
+  }),
 };
 
 export const SSC_CGL_PRACTICE_TOPICS = EXAM_ACQUISITION_CONFIGS["ssc-cgl"].topics;
@@ -843,6 +1042,27 @@ const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
   "ibps-clerk": ["IBPS_CLERK", "IBPS_CLERK_PRE", "IBPS_CLERK_PRELIMS", "IBPS_CSA"],
   "ibps-rrb-po": ["IBPS_RRB_PO"],
   "ibps-rrb-office-assistant": ["IBPS_RRB_CLERK"],
+  "ssc-selection-post": ["SSC_SELECTION_POST", "SSC_SELECTION_POSTS"],
+  "ssc-je": ["SSC_JE", "SSC_JUNIOR_ENGINEER"],
+  "sbi-po": ["SBI_PO", "SBI_PROBATIONARY_OFFICER"],
+  "sbi-clerk": ["SBI_CLERK", "SBI_JUNIOR_ASSOCIATE", "SBI_JA"],
+  "rbi-assistant": ["RBI_ASSISTANT"],
+  "rbi-grade-b": ["RBI_GRADE_B", "RBI_GRADE_B_OFFICER"],
+  "nabard-grade-a": ["NABARD_GRADE_A"],
+  "sebi-grade-a": ["SEBI_GRADE_A"],
+  "punjab-police-constable": ["PUNJAB_POLICE_CONSTABLE"],
+  "punjab-police-si": ["PUNJAB_POLICE_SI", "PUNJAB_POLICE_SUB_INSPECTOR"],
+  "psssb-clerk": ["PSSSB_CLERK", "PSSSB_JUNIOR_ASSISTANT"],
+  "punjab-patwari": ["PUNJAB_PATWARI", "PSSSB_PATWARI"],
+  "psssb-excise-taxation-inspector": ["PSSSB_EXCISE_TAXATION_INSPECTOR", "PUNJAB_EXCISE_TAXATION_INSPECTOR"],
+  "punjab-naib-tehsildar": ["PUNJAB_NAIB_TEHSILDAR", "PPSC_NAIB_TEHSILDAR"],
+  "punjab-pcs": ["PUNJAB_PCS", "PPSC_PCS", "PUNJAB_STATE_CIVIL_SERVICES"],
+  "psssb-senior-assistant": ["PSSSB_SENIOR_ASSISTANT"],
+  "psssb-vdo": ["PSSSB_VDO", "PSSSB_GRAM_SEVAK", "PUNJAB_VDO"],
+  "punjab-jail-warder": ["PUNJAB_JAIL_WARDER", "PUNJAB_JAIL_MATRON"],
+  "punjab-police-intelligence-assistant": ["PUNJAB_POLICE_INTELLIGENCE_ASSISTANT"],
+  "pspcl-alm": ["PSPCL_ALM", "PSPCL_ASSISTANT_LINEMAN"],
+  "pspcl-revenue-accountant": ["PSPCL_REVENUE_ACCOUNTANT"],
 };
 
 const EXAM_SLUG_BY_CATALOG_CODE = Object.fromEntries(
