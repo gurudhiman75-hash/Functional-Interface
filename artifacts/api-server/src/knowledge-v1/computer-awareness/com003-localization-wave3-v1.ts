@@ -30,12 +30,12 @@ const TERM_TRANSLATIONS: Record<string, Bilingual> = {
   "Fill handle": { hi: "Fill Handle (फिल हैंडल)", pa: "Fill Handle (ਫਿਲ ਹੈਂਡਲ)" },
   "Insert row": { hi: "Insert Row (पंक्ति जोड़ना)", pa: "Insert Row (ਕਤਾਰ ਜੋੜਨਾ)" },
   "Delete row": { hi: "Delete Row (पंक्ति हटाना)", pa: "Delete Row (ਕਤਾਰ ਹਟਾਉਣਾ)" },
-  "Column width": { hi: "Column Width (स्तंभ चौड़ाई)", pa: "Column Width (ਕਾਲਮ ਚੌੜਾਈ)" },
+  "Column width": { hi: "Column Width (कॉलम चौड़ाई)", pa: "Column Width (ਕਾਲਮ ਚੌੜਾਈ)" },
   "Row height": { hi: "Row Height (पंक्ति ऊँचाई)", pa: "Row Height (ਕਤਾਰ ਉਚਾਈ)" },
   "Line chart": { hi: "Line Chart (रेखा चार्ट)", pa: "Line Chart (ਲਾਈਨ ਚਾਰਟ)" },
   "Pie chart": { hi: "Pie Chart (पाई चार्ट)", pa: "Pie Chart (ਪਾਈ ਚਾਰਟ)" },
   "Bar chart": { hi: "Bar Chart (बार चार्ट)", pa: "Bar Chart (ਬਾਰ ਚਾਰਟ)" },
-  "Column chart": { hi: "Column Chart (स्तंभ चार्ट)", pa: "Column Chart (ਕਾਲਮ ਚਾਰਟ)" },
+  "Column chart": { hi: "Column Chart (कॉलम चार्ट)", pa: "Column Chart (ਕਾਲਮ ਚਾਰਟ)" },
 };
 
 const DESCRIPTION_TRANSLATIONS: Record<string, Bilingual> = {

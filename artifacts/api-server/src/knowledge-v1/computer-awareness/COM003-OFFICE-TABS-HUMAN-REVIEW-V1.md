@@ -173,7 +173,7 @@ C. Chart
 D. कार्यपत्रक टैब
 
 **Answer:** कक्ष
-**Explanation:** B3 स्तंभ B और पंक्ति 3 पर स्थित कक्ष की पहचान बताता है।
+**Explanation:** B3 कॉलम B और पंक्ति 3 पर स्थित कक्ष की पहचान बताता है।
 **Trace:** COM003-OFFICE-TABS-002 · com003-excel-interface-cell-address
 
 #### 3. COM003-OFFICE-TABS-003 — EASY
@@ -201,15 +201,15 @@ D. Name Box
 **Trace:** COM003-OFFICE-TABS-004 · com003-excel-interface-name-box
 
 #### 5. COM003-OFFICE-TABS-005 — EASY
-**Question:** Excel कार्यपत्रक में स्तंभ और पंक्तियाँ को सामान्यतः कैसे लेबल किया जाता है?
+**Question:** Excel कार्यपत्रक में कॉलम और पंक्तियाँ को सामान्यतः कैसे लेबल किया जाता है?
 
-A. स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
-B. स्तंभ संख्याएँ से और पंक्तियाँ अक्षर से
+A. कॉलम अक्षर से और पंक्तियाँ संख्याएँ से
+B. कॉलम संख्याएँ से और पंक्तियाँ अक्षर से
 C. दोनों केवल अक्षर से
 D. दोनों केवल संख्याएँ से
 
-**Answer:** स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
-**Explanation:** Excel में स्तंभ को सामान्यतः अक्षर और पंक्तियाँ को संख्याएँ से लेबल किया जाता है।
+**Answer:** कॉलम अक्षर से और पंक्तियाँ संख्याएँ से
+**Explanation:** Excel में कॉलम को सामान्यतः अक्षर और पंक्तियाँ को संख्याएँ से लेबल किया जाता है।
 **Trace:** COM003-OFFICE-TABS-005 · com003-excel-interface-row-column-headings
 
 #### 6. COM003-OFFICE-TABS-006 — EASY
@@ -1641,7 +1641,7 @@ C. समेकित करना
 D. समूह
 
 **Answer:** Sort
-**Explanation:** Sort चयनित स्तंभ या नियम के अनुसार डेटा का क्रम बदलता है।
+**Explanation:** Sort चयनित कॉलम या नियम के अनुसार डेटा का क्रम बदलता है।
 **Trace:** COM003-OFFICE-TABS-041 · com003-excel-data-sort
 
 #### 2. COM003-OFFICE-TABS-042 — EASY
@@ -1681,7 +1681,7 @@ D. Data Validation
 **Trace:** COM003-OFFICE-TABS-044 · com003-excel-data-drop-down
 
 #### 5. COM003-OFFICE-TABS-045 — MEDIUM
-**Question:** एक स्तंभ की पाठ को कई स्तंभ में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?
+**Question:** एक कॉलम की पाठ को कई कॉलम में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?
 
 A. Text to Columns
 B. Flash Fill
@@ -2261,7 +2261,7 @@ D. सूत्र दृश्य
 **Trace:** COM003-OFFICE-TABS-059 · com003-excel-view-page-layout
 
 #### 4. COM003-OFFICE-TABS-060 — EASY
-**Question:** स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ स्तंभ दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?
+**Question:** स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ कॉलम दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
 A. विभाजित करें
 B. Arrange All
@@ -2269,7 +2269,7 @@ C. ग्रिडलाइनें
 D. Freeze Panes
 
 **Answer:** Freeze Panes
-**Explanation:** Freeze Panes चयनित कक्ष के ऊपर की पंक्तियाँ और बायाँ की स्तंभ को स्क्रॉल करना के दौरान दृश्यमान रखता है।
+**Explanation:** Freeze Panes चयनित कक्ष के ऊपर की पंक्तियाँ और बायाँ की कॉलम को स्क्रॉल करना के दौरान दृश्यमान रखता है।
 **Trace:** COM003-OFFICE-TABS-060 · com003-excel-view-freeze-panes
 
 #### 5. COM003-OFFICE-TABS-061 — EASY
@@ -2309,7 +2309,7 @@ D. Arrange All
 **Trace:** COM003-OFFICE-TABS-063 · com003-excel-view-zoom
 
 #### 8. COM003-OFFICE-TABS-064 — MEDIUM
-**Question:** चयनित पंक्तियाँ या स्तंभ का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?
+**Question:** चयनित पंक्तियाँ या कॉलम का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?
 
 A. Clear
 B. हटाना
@@ -2317,7 +2317,7 @@ C. फ़िल्टर
 D. छिपाना
 
 **Answer:** छिपाना
-**Explanation:** छिपाना पंक्तियाँ या स्तंभ को दृश्य से हटाता है लेकिन उनका डेटा कार्यपत्रक में रखता है।
+**Explanation:** छिपाना पंक्तियाँ या कॉलम को दृश्य से हटाता है लेकिन उनका डेटा कार्यपत्रक में रखता है।
 **Trace:** COM003-OFFICE-TABS-064 · com003-excel-view-hide-rows-columns
 
 #### Punjabi
@@ -3409,7 +3409,7 @@ D. Header & Footer
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-089 — EASY
-**Question:** PowerPoint स्लाइड में पंक्तियाँ और स्तंभ रखने वाला Insert टैबटैब सुविधा कौन-सा है?
+**Question:** PowerPoint स्लाइड में पंक्तियाँ और कॉलम रखने वाला Insert टैबटैब सुविधा कौन-सा है?
 
 A. तालिका
 B. Chart
@@ -3417,7 +3417,7 @@ C. Text Box
 D. WordArt
 
 **Answer:** तालिका
-**Explanation:** तालिका स्लाइड पर पंक्तियाँ और स्तंभ का ग्रिड डालना करता है।
+**Explanation:** तालिका स्लाइड पर पंक्तियाँ और कॉलम का ग्रिड डालना करता है।
 **Trace:** COM003-OFFICE-TABS-089 · com003-powerpoint-insert-table
 
 #### 2. COM003-OFFICE-TABS-090 — EASY

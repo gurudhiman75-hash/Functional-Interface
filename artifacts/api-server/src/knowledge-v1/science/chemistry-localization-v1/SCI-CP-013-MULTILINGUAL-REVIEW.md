@@ -154,7 +154,7 @@ Review-only packet. Canonical English semantics, QL, difficulty, sources and ans
 
 - **Correct answer:** 18
 - **Distractors:** 7 | 8 | 16
-- **Explanation:** आधुनिक आवर्त सारणी में 18 ऊर्ध्वाधर स्तंभ होते हैं, जिन्हें समूह कहते हैं।
+- **Explanation:** आधुनिक आवर्त सारणी में 18 ऊर्ध्वाधर कॉलम होते हैं, जिन्हें समूह कहते हैं।
 
 ### Q20
 
