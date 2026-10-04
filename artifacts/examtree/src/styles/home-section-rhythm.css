@@ -1330,3 +1330,55 @@
     margin-bottom:-62px!important;
   }
 }
+
+
+/* 2026-10-04 emergency layout correction: the home surface must not inherit any
+   parent max-width. The approved reference is a full-viewport homepage. */
+.home-page{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  overflow-x:hidden!important;
+}
+.home-page>.home-hero-guest{
+  width:100vw!important;
+  max-width:none!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+@media(min-width:1241px){
+  .home-hero-guest{
+    grid-template-columns:minmax(500px,1.08fr) minmax(360px,.78fr) minmax(320px,.62fr)!important;
+    min-height:434px!important;
+    padding-left:max(64px,calc((100vw - 1408px)/2))!important;
+    padding-right:max(64px,calc((100vw - 1408px)/2))!important;
+  }
+  .home-hero-guest .hero-copy{
+    min-width:0!important;
+    max-width:610px!important;
+  }
+  .home-hero-guest .hero-copy h1{
+    max-width:610px!important;
+    white-space:normal!important;
+  }
+  .home-hero-guest .hero-visual{
+    display:flex!important;
+    width:auto!important;
+    min-width:340px!important;
+    transform:none!important;
+  }
+  .hero-auth-panel{
+    display:flex!important;
+    width:100%!important;
+    min-width:300px!important;
+  }
+}
+.home-page .compact-exams,
+.home-page .series-section,
+.home-page .feature-wrap{
+  width:min(calc(100vw - 128px),1408px)!important;
+  max-width:1408px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
