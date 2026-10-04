@@ -108,4 +108,30 @@ export function assertStaV41RenderedQuestionIndependentProof(question: Readonly<
   if (correctIndex === undefined || correctIndex < 0 || correctIndex >= question.options.length) {
     throw new Error(`${question.questionId}: independent proof found invalid correct-option index`);
   }
+
+  const structuredOptions = question.options.filter(
+    (option): option is Readonly<{ semanticAnswerSet: readonly number[]; isCorrect: boolean }> =>
+      typeof option === "object"
+      && option !== null
+      && "semanticAnswerSet" in option
+      && "isCorrect" in option,
+  );
+  if (structuredOptions.length === question.options.length) {
+    const independentlyCorrect = structuredOptions.filter((option) =>
+      option.semanticAnswerSet.length === independentAnswerSet.length
+      && option.semanticAnswerSet.every((value, index) => value === independentAnswerSet[index]),
+    );
+    if (independentlyCorrect.length !== 1) {
+      throw new Error(`${question.questionId}: independent proof expected exactly one semantic correct option`);
+    }
+    if (structuredOptions[correctIndex] !== independentlyCorrect[0]) {
+      throw new Error(`${question.questionId}: runtime correct index disagrees with independent option semantics`);
+    }
+    if (
+      structuredOptions.filter((option) => option.isCorrect).length !== 1
+      || structuredOptions[correctIndex]!.isCorrect !== true
+    ) {
+      throw new Error(`${question.questionId}: runtime isCorrect flags disagree with independent proof`);
+    }
+  }
 }
