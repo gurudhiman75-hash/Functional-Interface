@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, Redirect } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
 import MathText from "@/components/MathText";
@@ -15,6 +15,7 @@ import { getSessionUser } from "@/lib/session-user";
 import { signInWithGoogle } from "@/lib/auth";
 import {
   catalogExamCodesForSlug,
+  examDetailsHref,
   examHubHref,
   examPreparationHref,
   examSyllabusHref,
@@ -715,9 +716,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
       const softNav = [
         { label: "Hub", href: "#workspace-hub" },
         { label: section.labels.navTests || "Test Series", href: "#test-catalog", active: true },
-        { label: section.labels.navSyllabus || "Syllabus", href: "#syllabus" },
-        { label: section.labels.navPattern || "Exam Pattern", href: "#syllabus" },
-        { label: section.labels.navPreparation || "Preparation Resources", href: "#preparation" },
+        { label: section.labels.navSyllabus || "Syllabus", href: examDetailsHref(examSlug, "syllabus") },
+        { label: section.labels.navPattern || "Exam Pattern", href: examDetailsHref(examSlug, "pattern") },
+        { label: section.labels.navPreparation || "Preparation Resources", href: examDetailsHref(examSlug, "preparation") },
       ];
 
       return (
@@ -938,18 +939,18 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           </div>
 
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <Link href={examSyllabusHref(examSlug)} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+            <Link href={examDetailsHref(examSlug, "syllabus")} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
               <BookOpen className="h-5 w-5 text-blue-600" /> Syllabus
             </Link>
-            <a href="#syllabus" className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+            <Link href={examDetailsHref(examSlug, "pattern")} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
               <FileText className="h-5 w-5 text-cyan-600" /> Exam Pattern
-            </a>
-            <Link href={examPreparationHref(examSlug)} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+            </Link>
+            <Link href={examDetailsHref(examSlug, "preparation")} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
               <Sparkles className="h-5 w-5 text-violet-600" /> Preparation
             </Link>
-            <a href={config.officialUrl} target="_blank" rel="noreferrer" className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+            <Link href={examDetailsHref(examSlug, "updates")} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
               <Globe2 className="h-5 w-5 text-emerald-600" /> Official Updates
-            </a>
+            </Link>
           </div>
         </section>
 
@@ -959,7 +960,162 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           </div>
         ) : null}
 
-        {orderedPageSections.filter((section) => section.type !== "hero").map(renderSection)}
+        {orderedPageSections.filter((section) => !["hero", "exam_information", "syllabus", "preparation", "topic_practice"].includes(section.type)).map(renderSection)}
+      </div>
+    </div>
+  );
+}
+
+
+export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
+  const config = requireConfig(examSlug);
+  const catalog = useExamCatalog();
+  const sessionUser = getSessionUser();
+  const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
+  const catalogExam = useMemo(
+    () => catalog.subcategories.find((exam) => examCodes.includes(exam.id.toUpperCase())),
+    [catalog.subcategories, examCodes],
+  );
+
+  usePageMeta(
+    config.name + " " + config.yearLabel + " Exam Details, Syllabus & Preparation",
+    config.meta.syllabusDescription,
+    { canonicalPath: examDetailsHref(examSlug) },
+  );
+
+  if (!sessionUser) return <Redirect to={examHubHref(examSlug)} />;
+
+  const detailNav = [
+    ["overview", "Overview"],
+    ["syllabus", "Syllabus"],
+    ["pattern", "Exam Pattern"],
+    ["preparation", "Preparation"],
+    ["practice", "Practice Topics"],
+    ["updates", "Updates"],
+  ] as const;
+
+  return (
+    <div className="bg-slate-50/45 pb-14">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex min-w-0 items-start gap-4">
+              {catalogExam?.icon ? (
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+                  <CategoryIcon icon={catalogExam.icon} className="h-9 w-9" />
+                </div>
+              ) : (
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700"><BookOpenCheck className="h-7 w-7" /></div>
+              )}
+              <div className="min-w-0">
+                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-600">Exam workspace</p>
+                <h1 className="mt-1 text-2xl font-black tracking-[-0.03em] text-slate-950 sm:text-3xl">{config.name} {config.yearLabel}</h1>
+                <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500">Tests, previous papers, syllabus, exam pattern, preparation resources and official updates—all from one hub.</p>
+              </div>
+            </div>
+            <Link href={examHubHref(examSlug)} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">
+              Back to Test Workspace <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <Link href={examHubHref(examSlug)} className="group min-h-[112px] rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-left text-blue-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><FileText className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
+              <h2 className="mt-3 text-sm font-black text-slate-950">Test Workspace</h2><p className="mt-1 text-xs font-semibold text-slate-500">Mocks, sectional, topic-wise and PYQs</p>
+            </Link>
+            <a href="#syllabus" className="group min-h-[112px] rounded-2xl border border-indigo-100 bg-indigo-50/70 p-4 text-left text-indigo-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><BookOpen className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
+              <h2 className="mt-3 text-sm font-black text-slate-950">Syllabus</h2><p className="mt-1 text-xs font-semibold text-slate-500">Subjects and coverage</p>
+            </a>
+            <a href="#pattern" className="group min-h-[112px] rounded-2xl border border-cyan-100 bg-cyan-50/70 p-4 text-left text-cyan-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><BarChart3 className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
+              <h2 className="mt-3 text-sm font-black text-slate-950">Exam Pattern</h2><p className="mt-1 text-xs font-semibold text-slate-500">Stages, timing and marking</p>
+            </a>
+            <a href="#preparation" className="group min-h-[112px] rounded-2xl border border-violet-100 bg-violet-50/70 p-4 text-left text-violet-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><Sparkles className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
+              <h2 className="mt-3 text-sm font-black text-slate-950">Preparation</h2><p className="mt-1 text-xs font-semibold text-slate-500">Strategy and weekly plan</p>
+            </a>
+            <a href="#updates" className="group min-h-[112px] rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-left text-emerald-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><Globe2 className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
+              <h2 className="mt-3 text-sm font-black text-slate-950">Updates</h2><p className="mt-1 text-xs font-semibold text-slate-500">Official notices and verification</p>
+            </a>
+          </div>
+
+          <nav className="mt-4 overflow-x-auto border-t border-slate-100 pt-4" aria-label={config.name + " detail sections"}>
+            <div className="flex min-w-max gap-2">
+              {detailNav.map(([id, label]) => <a key={id} href={"#" + id} className="inline-flex min-h-10 items-center rounded-xl border border-slate-200 bg-slate-50 px-4 text-xs font-bold text-slate-700 hover:border-blue-200 hover:bg-white hover:text-blue-700">{label}</a>)}
+            </div>
+          </nav>
+        </section>
+
+        <main className="mt-6 space-y-6">
+          <section id="overview" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">Overview</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">About {config.name} {config.yearLabel}</h2>
+            <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-600">{config.hub.description}</p>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5"><h3 className="font-bold text-slate-950">Preparation focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.preparationSummary}</p></div>
+              <div className="rounded-2xl border border-violet-100 bg-violet-50/60 p-5"><h3 className="font-bold text-slate-950">Syllabus focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.syllabusSummary}</p></div>
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5"><h3 className="font-bold text-slate-950">Practice focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.mockSummary}</p></div>
+            </div>
+          </section>
+
+          <section id="syllabus" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">{config.syllabus.eyebrow}</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.syllabus.title}</h2>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.syllabus.description}</p>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {config.syllabus.sections.map((section) => <div key={section.title} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5"><h3 className="font-bold text-slate-950">{section.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{section.summary}</p></div>)}
+            </div>
+          </section>
+
+          <section id="pattern" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-600">Exam pattern</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.name} {config.yearLabel} exam pattern</h2>
+            <div className="mt-5 grid gap-4 lg:grid-cols-3">
+              {config.syllabus.patternCards.map((card) => <div key={card.title} className="rounded-2xl border border-cyan-100 bg-cyan-50/50 p-5"><h3 className="font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}
+            </div>
+          </section>
+
+          <section id="preparation" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-600">{config.preparation.eyebrow}</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.preparation.title}</h2>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.preparation.description}</p>
+            <div className="mt-5 grid gap-4 lg:grid-cols-3">
+              {config.preparation.cards.map((card) => <div key={card.title} className="rounded-2xl border border-violet-100 bg-violet-50/45 p-5"><Sparkles className="h-5 w-5 text-violet-600" /><h3 className="mt-3 font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}
+            </div>
+            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+              <h3 className="font-bold text-slate-950">Weekly preparation cycle</h3>
+              <div className="mt-3"><CheckList items={config.preparation.weeklyCycle} /></div>
+            </div>
+          </section>
+
+          <section id="practice" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-orange-600">Practice topics</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Topic-wise preparation areas</h2>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">Use these topic pages for focused practice before moving back to sectional and full-length tests.</p>
+            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className="rounded-2xl border border-orange-100 bg-orange-50/40 p-5 transition hover:-translate-y-0.5 hover:shadow-sm"><p className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-600">{topic.subject}</p><h3 className="mt-2 font-bold text-slate-950">{topic.name}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p><p className="mt-3 text-xs leading-5 text-slate-500"><strong>Preparation tip:</strong> {topic.preparationTip}</p></Link>)}
+            </div>
+          </section>
+
+          <section id="updates" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-600">Updates & official notices</p>
+                <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.name} official information</h2>
+                <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.syllabus.verificationNote}</p>
+              </div>
+              <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-5 text-sm font-bold text-white hover:bg-emerald-700">
+                Open {config.officialLabel} <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5"><p className="text-xs font-bold text-slate-500">Current preparation cycle</p><p className="mt-1 text-xl font-black text-slate-950">{config.yearLabel}</p></div>
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5"><p className="text-xs font-bold text-amber-700">Important</p><p className="mt-1 text-sm leading-6 text-amber-950">Dates, vacancies, eligibility and detailed rules can change. Use the official authority notice as the final source for time-sensitive information.</p></div>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
   );

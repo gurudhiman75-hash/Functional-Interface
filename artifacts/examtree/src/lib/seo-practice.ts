@@ -785,6 +785,11 @@ export function examPreparationHref(examSlug: string) {
   return "/" + examSlug + "-preparation";
 }
 
+export function examDetailsHref(examSlug: string, section?: "overview" | "syllabus" | "pattern" | "preparation" | "updates" | "practice") {
+  const base = "/" + examSlug + "/details";
+  return section ? base + "#" + section : base;
+}
+
 export function examSyllabusHref(examSlug: string) {
   return "/" + examSlug + "-syllabus";
 }
