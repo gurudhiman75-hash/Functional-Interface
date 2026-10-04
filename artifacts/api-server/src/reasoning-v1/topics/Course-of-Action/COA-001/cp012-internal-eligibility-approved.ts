@@ -86,9 +86,10 @@ function text(value: unknown): string {
 }
 
 function cp011SourceInput(input: ApprovedInput): ApprovedInput {
+  const { runtimeMode: _approvedRuntimeMode, ...sourceInput } = input;
   return text(input.cpId).toUpperCase() === COA_CP012_APPROVED_CHECKPOINT_ID
-    ? { ...input, cpId: COA_CP011_CHECKPOINT_ID }
-    : input;
+    ? { ...sourceInput, cpId: COA_CP011_CHECKPOINT_ID }
+    : sourceInput;
 }
 
 function approveQuestion(source: QuestionRecord): QuestionRecord {
@@ -134,6 +135,9 @@ export function isCoaCp012ApprovedQuestionStudioRequest(
 }
 
 export async function generateCoaCp012ApprovedQuestionStudioBatch(input: ApprovedInput) {
+  if (input.runtimeMode && input.runtimeMode !== COA_CP012_RUNTIME_MODE) {
+    throw new Error(`COA-001 CP012 supports runtime mode ${COA_CP012_RUNTIME_MODE}; received ${input.runtimeMode}`);
+  }
   const source = await generateCoaCp011QuestionStudioBatch(cp011SourceInput(input));
   const questions = source.questions.map((question) => {
     const approved = approveQuestion(question as QuestionRecord);
@@ -204,6 +208,7 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
   postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
   runtimeMode: COA_CP012_RUNTIME_MODE,
+  supportedRuntimeModes: [COA_CP012_RUNTIME_MODE],
   reviewStatus: COA_CP012_REVIEW_STATUS,
   reviewOnly: false,
   manualApprovalRequired: false,
