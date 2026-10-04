@@ -3,7 +3,7 @@ import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/en
 import { SIF_001_QUESTION_STUDIO_PACKAGE as SIF_NORMAL_PACKAGE } from "./question-studio-adapter.ts";
 import { listEnabledReasoningV1QuestionStudioPackages, listReasoningV1QuestionStudioReviewPackages, persistReasoningV1QuestionStudioReview, previewReasoningV1QuestionStudioReview } from "../../../question-studio-review-registry.ts";
 import { SIF_001_QUESTION_STUDIO_PACKAGE_ID, SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE } from "./question-studio-review.ts";
-import { SIF_BANKING_THREE_INFERENCE_PROFILE_ID } from "./banking-three-inference.ts";
+import { listSifBankingThreeInferenceAuthorities, SIF_BANKING_THREE_INFERENCE_PROFILE_ID } from "./banking-three-inference.ts";
 
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.cpCount, 17);
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.lifecycleStatus, "REVIEW_ONLY");
@@ -120,6 +120,35 @@ assert.equal(
   new Set(bankingThreeInference.questions.map((question) => question.sourceAuthorityId)).size,
   5,
   "Banking three-inference review batch must use five distinct curated authorities",
+);
+
+const hardBankingAuthorityCount = listSifBankingThreeInferenceAuthorities("HARD").length;
+if (hardBankingAuthorityCount > 0) {
+  const hardBanking = await reasoningV1QuestionStudioAdapter.generate({
+    engineId: "reasoning-v1",
+    packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+    patternId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+    language: "hi",
+    difficulty: "Hard",
+    runtimeMode: "review-only",
+    count: Math.min(2, hardBankingAuthorityCount),
+    seed: "sif-banking-hard-filter",
+  });
+  assert.ok(hardBanking.questions.every((question) => question.difficulty === "Hard"));
+  assert.ok(hardBanking.questions.every((question) => !/केवल [IVX]+, [IVX]+/u.test(String(question.options))));
+}
+await assert.rejects(
+  () => reasoningV1QuestionStudioAdapter.generate({
+    engineId: "reasoning-v1",
+    packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+    patternId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+    language: "en",
+    difficulty: "Easy",
+    runtimeMode: "review-only",
+    count: 1,
+    seed: "sif-banking-no-easy",
+  }),
+  /no easy curated authorit/i,
 );
 
 console.log("PASS_SIF_001_NORMAL_QUESTION_STUDIO_INTEGRATION");

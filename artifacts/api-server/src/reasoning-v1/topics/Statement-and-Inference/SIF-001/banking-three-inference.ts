@@ -1,5 +1,6 @@
 import { listSifAuthorities } from "./authorities.ts";
-import type { SifCandidateAuthority, SifCpId, SifLocale, SifLocalizedText, SifScenarioAuthority } from "./types.ts";
+import { candidateFollowsFromStrength, canonicalSifCandidates } from "./solver.ts";
+import type { SifCandidateAuthority, SifCpId, SifDifficulty, SifLocale, SifLocalizedText, SifScenarioAuthority } from "./types.ts";
 
 export const SIF_BANKING_THREE_INFERENCE_PROFILE_ID = "SIF-BANKING-3I" as const;
 
@@ -142,7 +143,9 @@ function findBase(overlay: ThreeInferenceAuthority): SifScenarioAuthority {
 }
 
 function subsetFor(candidates: readonly SifCandidateAuthority[]): readonly number[] {
-  return candidates.flatMap((candidate, index) => candidate.follows ? [index + 1] : []);
+  return candidates.flatMap((candidate, index) =>
+    candidateFollowsFromStrength(candidate) ? [index + 1] : [],
+  );
 }
 
 function subsetLabel(subset: readonly number[], locale: SifLocale): string {
@@ -157,7 +160,8 @@ function subsetLabel(subset: readonly number[], locale: SifLocale): string {
     if (locale === "pa-IN") return "ਤਿੰਨੇ ਅਨੁਮਾਨ ਸਹੀ ਹਨ";
     return "All I, II and III follow";
   }
-  const labels = subset.map((value) => roman[value - 1]).join(locale === "en-IN" ? " and " : ", ");
+  const conjunction = locale === "en-IN" ? " and " : locale === "hi-IN" ? " और " : " ਅਤੇ ";
+  const labels = subset.map((value) => roman[value - 1]).join(conjunction);
   if (locale === "hi-IN") return subset.length === 1 ? `केवल ${labels} सही है` : `केवल ${labels} सही हैं`;
   if (locale === "pa-IN") return subset.length === 1 ? `ਕੇਵਲ ${labels} ਸਹੀ ਹੈ` : `ਕੇਵਲ ${labels} ਸਹੀ ਹਨ`;
   return subset.length === 1 ? `Only ${labels} follows` : `Only ${labels} follow`;
@@ -181,7 +185,7 @@ function optionSubsets(correct: readonly number[], seed: number): readonly (read
 }
 
 function explanationFor(base: SifScenarioAuthority, third: SifCandidateAuthority, locale: SifLocale, correct: readonly number[]): string {
-  const thirdResult = third.follows
+  const thirdResult = candidateFollowsFromStrength(third)
     ? locale === "en-IN" ? "Inference III is supported by the stated facts."
       : locale === "hi-IN" ? "अनुमान III दिए गए तथ्यों से समर्थित है।"
       : "ਅਨੁਮਾਨ III ਦਿੱਤੇ ਤੱਥਾਂ ਨਾਲ ਸਮਰਥਿਤ ਹੈ।"
@@ -192,17 +196,28 @@ function explanationFor(base: SifScenarioAuthority, third: SifCandidateAuthority
   return `${base.explanation[locale]} ${thirdResult} ${locale === "en-IN" ? "Therefore" : locale === "hi-IN" ? "अतः" : "ਇਸ ਲਈ"}, ${answer}.`;
 }
 
-export function listSifBankingThreeInferenceAuthorities(): readonly ThreeInferenceAuthority[] {
-  return OVERLAYS;
+export function listSifBankingThreeInferenceAuthorities(
+  difficulty?: SifDifficulty,
+): readonly ThreeInferenceAuthority[] {
+  if (!difficulty) return OVERLAYS;
+  return OVERLAYS.filter((overlay) => findBase(overlay).difficulty === difficulty);
 }
 
 export function generateSifBankingThreeInferenceQuestion(input: {
   readonly locale: SifLocale;
   readonly seed: number;
+  readonly difficulty?: SifDifficulty;
 }): GeneratedThreeInferenceQuestion {
-  const overlay = OVERLAYS[Math.abs(input.seed) % OVERLAYS.length]!;
+  const eligible = listSifBankingThreeInferenceAuthorities(input.difficulty);
+  if (eligible.length === 0) {
+    throw new Error(
+      `SIF Banking three-inference has no ${input.difficulty?.toLowerCase() ?? "requested"} curated authority`,
+    );
+  }
+  const overlay = eligible[Math.abs(input.seed) % eligible.length]!;
   const base = findBase(overlay);
-  const candidates = [base.candidates[0], base.candidates[1], overlay.third] as const;
+  const [baseI, baseII] = canonicalSifCandidates(base);
+  const candidates = [baseI, baseII, overlay.third] as const;
   const correctSubset = subsetFor(candidates);
   const subsets = optionSubsets(correctSubset, input.seed);
   const options = subsets.map((subset) => subsetLabel(subset, input.locale));
@@ -218,8 +233,8 @@ export function generateSifBankingThreeInferenceQuestion(input: {
     difficulty: base.difficulty,
     statement: base.statement[input.locale],
     inferences: [
-      base.candidates[0].text[input.locale],
-      base.candidates[1].text[input.locale],
+      baseI.text[input.locale],
+      baseII.text[input.locale],
       overlay.third.text[input.locale],
     ],
     optionSubsets: subsets,
@@ -227,7 +242,9 @@ export function generateSifBankingThreeInferenceQuestion(input: {
     correctIndex,
     correctSubset,
     explanation: explanationFor(base, overlay.third, input.locale, correctSubset),
-    distractorTypes: candidates.flatMap((entry) => entry.follows || !entry.distractorType ? [] : [entry.distractorType]),
+    distractorTypes: candidates.flatMap((entry) =>
+      candidateFollowsFromStrength(entry) || !entry.distractorType ? [] : [entry.distractorType],
+    ),
     reviewOnly: true,
     questionBankWritable: false,
     testEligible: false,
