@@ -127,7 +127,7 @@ function showStudySidebarForRoute(location: string) {
 }
 
 export function PublicLayout({ children }: PublicLayoutProps) {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = getSessionUser();
   const isHome = location === "/";
@@ -135,6 +135,10 @@ export function PublicLayout({ children }: PublicLayoutProps) {
   const visiblePublicLinks = isHome ? homeLinks : primaryLinks;
 
   useEffect(() => setMobileOpen(false), [location]);
+
+  useEffect(() => {
+    if (location === "/" && user) setLocation("/dashboard");
+  }, [location, setLocation, user]);
 
   useEffect(() => {
     if (!mobileOpen) return;
