@@ -38,6 +38,23 @@ const SERIES_FILTERS = ["All", "SSC", "Banking", "Railways"] as const;
 const CATEGORY_TONES = ["indigo", "emerald", "orange", "sky", "rose", "violet"] as const;
 const SERIES_BADGES = ["POPULAR", "NEW", "TRENDING"] as const;
 
+const REFERENCE_EXAMS = [
+  { name: "SSC", detail: "CGL | CHSL | MTS" },
+  { name: "Banking", detail: "IBPS | SBI | RBI" },
+  { name: "Punjab Govt.", detail: "PSSSB | PSPCL" },
+  { name: "State Govt.", detail: "All State Exams" },
+  { name: "Railways", detail: "RRB NTPC | Group D" },
+  { name: "Defence", detail: "NDA | CDS | Agniveer" },
+  { name: "Insurance", detail: "LIC | UIIC | NIACL" },
+] as const;
+
+const REFERENCE_SERIES = [
+  { name: "SBI PO 2025", badge: "Pre + Mains", tests: "120+ Tests", price: "₹499", oldPrice: "₹999" },
+  { name: "SSC CGL 2025", badge: "Tier 1 + Tier 2", tests: "100+ Tests", price: "₹399", oldPrice: "₹799" },
+  { name: "PSSSB Exams", badge: "All Posts", tests: "80+ Tests", price: "₹299", oldPrice: "₹599" },
+  { name: "IBPS PO 2025", badge: "Pre + Mains", tests: "100+ Tests", price: "₹399", oldPrice: "₹799" },
+] as const;
+
 function formatCount(value: number) {
   const safe = Math.max(0, Number(value) || 0);
   if (safe >= 1000000) return `${(safe / 1000000).toFixed(1)}M`;
