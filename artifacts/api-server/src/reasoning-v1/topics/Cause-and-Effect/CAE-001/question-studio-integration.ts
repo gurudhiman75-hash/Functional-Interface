@@ -45,7 +45,11 @@ export const CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
     postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
     deterministicGeneration: true,
     graphFirstProjection: true,
-    bankingProfileSelection: "FIVE_WAY_ONLY_WHERE_QL_AUTHORITY_SUPPORTS_IT__OTHERWISE_FOUR_WAY",
+    bankingProfileSelection: "FIVE_WAY_ONLY_FOR_CURRENT_SOURCE_PROVEN_QL001_QL002__OTHERWISE_FOUR_WAY",
+    currentFiveWayQlIds: ["CAE-QL-001", "CAE-QL-002"],
+    historicalProjectionFiveWayQlIds: CAE_001_PROJECTION_AUTHORITIES
+      .filter((entry) => entry.examProfiles.includes("FIVE_WAY"))
+      .map((entry) => entry.qlId),
   },
 };
 
@@ -105,6 +109,11 @@ export function isCae001QuestionStudioRequest(
   return topic === "cause and effect" || subtopic === "cause and effect";
 }
 
+const CAE001_CURRENT_FIVE_WAY_QL_IDS = new Set([
+  "CAE-QL-001",
+  "CAE-QL-002",
+] as const);
+
 function questionProfileFor(
   qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number],
   banking: boolean,
@@ -112,7 +121,10 @@ function questionProfileFor(
   if (!banking) return "FOUR_WAY";
   const authority = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId);
   if (!authority) throw new Error(qlId + " has no CAE projection authority.");
-  return authority.examProfiles.includes("FIVE_WAY") ? "FIVE_WAY" : "FOUR_WAY";
+  return CAE001_CURRENT_FIVE_WAY_QL_IDS.has(qlId as "CAE-QL-001" | "CAE-QL-002")
+    && authority.examProfiles.includes("FIVE_WAY")
+    ? "FIVE_WAY"
+    : "FOUR_WAY";
 }
 
 function generateOne(input: {
