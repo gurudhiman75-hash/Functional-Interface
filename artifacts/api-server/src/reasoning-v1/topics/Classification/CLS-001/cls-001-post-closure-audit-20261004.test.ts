@@ -120,7 +120,7 @@ for (const qlId of ["CLS-QL-001", "CLS-QL-002", "CLS-QL-003"] as const) {
     for (const locale of LOCALES) {
       const question = generateClsCp001Question(qlId, locale, seed);
       assert.equal(question.correctIndex, english.correctIndex);
-      assert.equal(question.answer, english.answer);
+      assert.equal(question.answer, question.options[question.correctIndex]);
       record(question);
     }
   }
@@ -190,7 +190,7 @@ for (const qlId of ["CLS-QL-008", "CLS-QL-009"] as const) {
       const question = generateClsCp005FrozenQuestion(qlId, locale, seed);
       assert.deepEqual(question.options, english.options);
       assert.equal(question.correctIndex, english.correctIndex);
-      assert.equal(question.answer, english.answer);
+      assert.equal(question.answer, question.options[question.correctIndex]);
       record(question);
     }
   }
