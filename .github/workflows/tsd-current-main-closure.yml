@@ -52,6 +52,20 @@ jobs:
             2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
           grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
 
+      - name: Bundle final CP005-CP012 proof authorities
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/tsd-frozen-checkpoint-proof-suite.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs
+
+      - name: Run final CP005-CP012 proof authorities
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
+          grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
