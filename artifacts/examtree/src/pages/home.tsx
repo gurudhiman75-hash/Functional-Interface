@@ -75,14 +75,14 @@ export default function Home() {
     staleTime: 30_000,
   });
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
-  const featuredGroups = examGroups.slice(0, 6);
+  const featuredGroups = examGroups.slice(0, 7);
   const filteredGroups = useMemo(() => {
     const needle = query.trim().toLowerCase();
     if (!needle) return featuredGroups;
     return featuredGroups.filter((group) => `${group.name} ${group.subcategories.map((item) => item.name).join(" ")}`.toLowerCase().includes(needle));
   }, [featuredGroups, query]);
   const allSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
-  const popularSeries = useMemo(() => [...allSeries].filter((series) => seriesMatchesFilter(series, seriesFilter)).sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 3), [allSeries, seriesFilter]);
+  const popularSeries = useMemo(() => [...allSeries].filter((series) => seriesMatchesFilter(series, seriesFilter)).sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries, seriesFilter]);
   const activeSession = useMemo(
     () => Object.values(getActiveTestSessions()).sort((left, right) => right.updatedAt - left.updatedAt)[0] ?? null,
     [sessionUser],
