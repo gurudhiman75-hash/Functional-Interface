@@ -13,7 +13,8 @@ import {
   ASM_001_RUNTIME_MODE,
 } from "./asm-001-authority";
 import {
-  generateAsm001Question,
+  generateAsm001QuestionFromScenario,
+  listAsm001ScenarioAuthorities,
   type AsmDifficulty,
 } from "./asm-001-runtime";
 import type { AsmLanguage } from "./asm-001-corpus";
@@ -54,6 +55,17 @@ function hash(value: string): number {
     h = Math.imul(h, 16777619);
   }
   return h >>> 0;
+}
+
+function shuffledScenarioPool<T>(pool: readonly T[], seed: string): T[] {
+  const values = [...pool];
+  let state = hash(seed + ":scenario-order") || 1;
+  for (let i = values.length - 1; i > 0; i -= 1) {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    const j = state % (i + 1);
+    [values[i], values[j]] = [values[j]!, values[i]!];
+  }
+  return values;
 }
 
 function validateSelector(request: QuestionStudioGenerationRequest): void {
@@ -114,6 +126,14 @@ export const ASM_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     curatedTruthAuthority: true,
     deterministicGeneration: true,
     multilingual: true,
+    curatedScenarioCount: 23,
+    distinctScenarioCapacity: Object.freeze({
+      Mixed: 23,
+      Easy: 9,
+      Medium: 9,
+      Hard: 5,
+    }),
+    withoutReplacementBatches: true,
     standardFourOptionProfile: true,
     extendedFiveOptionProfile: true,
     reviewOnly: true,
@@ -159,14 +179,28 @@ export async function generateAsm001QuestionStudioBatch(
   const difficulty = normalizeDifficulty(request.difficulty);
   const baseSeed =
     String(request.seed ?? "").trim() || "asm001-question-studio-v1";
+  const availableScenarios = listAsm001ScenarioAuthorities(difficulty);
+  if (count > availableScenarios.length) {
+    throw new Error(
+      "ASM-001 can provide only " +
+        availableScenarios.length +
+        " distinct curated " +
+        String(difficulty ?? "Mixed") +
+        " scenarios in one batch; requested " +
+        count +
+        ".",
+    );
+  }
+  const scenarioOrder = shuffledScenarioPool(availableScenarios, baseSeed);
   const questions: Record<string, unknown>[] = [];
 
   for (let index = 0; index < count; index += 1) {
     const itemSeed = baseSeed + ":ASM-QL-001:" + index;
-    const generated = generateAsm001Question(
+    const scenario = scenarioOrder[index]!;
+    const generated = generateAsm001QuestionFromScenario(
+      scenario,
       itemSeed,
       language,
-      difficulty,
     );
     const questionId =
       "ASM-001:ASM-QL-001:" + language + ":" + hash(itemSeed);
@@ -246,6 +280,9 @@ export async function generateAsm001QuestionStudioBatch(
       checkpointIds: [...ASM_001_CHECKPOINT_IDS],
       language,
       requestedDifficulty: difficulty ?? "Mixed",
+      availableDistinctScenarioCount: availableScenarios.length,
+      withoutReplacement: true,
+      scenarioIds: scenarioOrder.slice(0, count).map((scenario) => scenario.id),
       seed: baseSeed,
       count,
     },

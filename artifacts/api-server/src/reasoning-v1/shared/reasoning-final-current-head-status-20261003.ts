@@ -37,7 +37,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Assertion-and-Reason",
       chapterIds: ["ASM-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Assertion-and-Reason/ASM-001/ASM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md"],
+      closureAuthorities: ["topics/Assertion-and-Reason/ASM-001/ASM-001-POST-CLOSURE-DEEP-AUDIT-20261004.md"],
       internalContentBlocker: false,
     },
     {

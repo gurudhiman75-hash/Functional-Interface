@@ -1,6 +1,6 @@
 export const ASM_001_PACKAGE_ID = "ASM-001" as const;
 export const ASM_001_RUNTIME_MODE = "review-only" as const;
-export const ASM_001_FREEZE_VERSION = "ASM_001_CONTENT_FREEZE_2026_10_03_V1" as const;
+export const ASM_001_FREEZE_VERSION = "ASM_001_POST_CLOSURE_FREEZE_2026_10_04_V2" as const;
 
 export type AsmQlId = "ASM-QL-001";
 export type AsmCheckpointId = "ASM-CP-001";
@@ -35,8 +35,8 @@ export const ASM_001_PERMANENT_QL_IDS = Object.freeze(["ASM-QL-001"] as const);
 export const ASM_001_CHECKPOINT_IDS = Object.freeze(["ASM-CP-001"] as const);
 
 export const ASM_001_CONTENT_CLOSURE = Object.freeze({
-  authorityId: "ASM_001_FINAL_CONTENT_DEEP_AUDIT_CLOSURE_20261003_V1" as const,
-  status: "CONTENT_DEEP_AUDIT_CLOSED__1_QL__CURATED_TRILINGUAL_REVIEW_ONLY" as const,
+  authorityId: "ASM_001_POST_CLOSURE_DEEP_AUDIT_20261004_V2" as const,
+  status: "CONTENT_DEEP_AUDIT_CLOSED__1_QL__23_CURATED_SCENARIOS__TRILINGUAL_REVIEW_ONLY" as const,
   packageId: ASM_001_PACKAGE_ID,
   permanentQlRange: "ASM-QL-001" as const,
   permanentQlCount: 1 as const,
