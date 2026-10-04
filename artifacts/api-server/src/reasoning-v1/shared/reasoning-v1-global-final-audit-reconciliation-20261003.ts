@@ -49,7 +49,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Calendar",
         chapterId: "CAL-001",
         closureAuthorityPath:
-          "topics/Calendar/CAL-001/CAL-001-FINAL-DEEP-AUDIT-CLOSURE-20260927.md",
+          "topics/Calendar/CAL-001/CAL-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
