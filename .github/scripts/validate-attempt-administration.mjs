@@ -29,6 +29,9 @@ assert(attempts.includes("requireAdminPermission('users.students.manage')"), 'At
 assert(attempts.includes('ATTEMPT_STATE_CHANGED'), 'Single-attempt abandonment must enforce optimistic concurrency');
 assert(attempts.includes('ATTEMPT_NOT_STALE'), 'Attempt abandonment must enforce stale-state validation');
 assert(attempts.includes("'student.attempt.abandoned'"), 'Attempt abandonment must be audited');
+assert(attempts.includes("'student.attempt.descriptive_review.completed'"), 'Descriptive review must be an immutable audit overlay');
+assert(attempts.includes('canonicalScoreFieldsChanged: false'), 'Descriptive review must explicitly preserve canonical score fields');
+assert(attempts.includes('resultSnapshotChanged: false'), 'Descriptive review must explicitly preserve the immutable submission snapshot');
 assert(integrity.includes("'student.attempt.review_note.added'"), 'Review notes must be immutable audit events');
 assert(investigations.includes('ATTEMPT_INVESTIGATION_ALREADY_ACTIVE'), 'Duplicate active investigations must be rejected');
 assert(investigations.includes('ATTEMPT_INVESTIGATION_REVIEW_REQUIRED'), 'Investigations must enter review before closure');
@@ -39,9 +42,9 @@ assert(exportsRoute.includes('excludesAuthenticationIdentities: true'), 'Evidenc
 assert(exportsRoute.includes('excludesSessionsAndTokens: true'), 'Evidence exports must exclude sessions and tokens');
 assert(migration.includes("ALTER TYPE %s ADD VALUE IF NOT EXISTS %L"), 'Abandoned status migration must be idempotent');
 assert(migration.includes("typtype FROM pg_type"), 'Migration must detect enum-backed status columns');
-assert(app.includes("path: '/users/attempts'"), 'Attempt directory route must exist');
-assert(app.includes("path: '/users/attempt-investigations'"), 'Investigation route must exist');
-assert(app.includes("path: '/users/attempt-exports'"), 'Evidence export route must exist');
+assert(/path\s*:\s*['"]\/users\/attempts['"]/.test(app), 'Attempt directory route must exist');
+assert(/path\s*:\s*['"]\/users\/attempt-investigations['"]/.test(app), 'Investigation route must exist');
+assert(/path\s*:\s*['"]\/users\/attempt-exports['"]/.test(app), 'Evidence export route must exist');
 assert(nav.includes("label: 'Attempt Administration'"), 'Attempt Administration navigation must exist');
 assert(nav.includes("label: 'Attempt Investigations'"), 'Attempt Investigations navigation must exist');
 assert(nav.includes("label: 'Attempt Evidence Exports'"), 'Attempt Evidence Exports navigation must exist');
