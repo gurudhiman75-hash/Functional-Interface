@@ -127,6 +127,17 @@ for (const index of [0, 1, 2, 3, 4]) {
   );
 }
 
+  const driftedStrengths = [...(sample.argumentStrengths as readonly string[])];
+  driftedStrengths[0] = driftedStrengths[0] === "STRONG" ? "WEAK" : "STRONG";
+  assert.throws(
+    () => assertArgCp015FinalAnswerIntegrity({
+      ...sample,
+      argumentStrengths: driftedStrengths,
+    }),
+    /runtime correct index .* disagrees with independently parsed option semantics|expected exactly one option for strong-set/i,
+  );
+}
+
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.questionBankWritable, true);
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.testEligible, true);
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.mockTestEligible, true);
