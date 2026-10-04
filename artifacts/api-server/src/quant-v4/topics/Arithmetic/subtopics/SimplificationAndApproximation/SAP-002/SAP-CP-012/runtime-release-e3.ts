@@ -4,6 +4,17 @@ import { SAP_CP012_E2_STRUCTURES, generateSapCp012E2 as generateR6, type SapCp01
 export { SAP_CP012_E2_STRUCTURES };
 export type { SapCp012E2Structure };
 
+function foldCertifiedSeed(seed: number): number {
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  // Preserve the certified 1..100 runtime while folding all six Question Studio
+  // source-seed digits; plain modulo 100 discarded four digits and caused repeats.
+  return ((8 * low + 9 * mid + 3 * high) % 100) + 1;
+}
+
 function repackage(q: SapE2Package, finalAnswer: string, options: readonly SapE2Option[] = q.options): SapE2Package {
   return packageE2({
     profile: q.profile,
@@ -34,7 +45,9 @@ function polishUniqueInteger(q: SapE2Package): SapE2Package {
 }
 
 export function generateSapCp012E2(structureId: SapCp012E2Structure, seed: number): SapE2Package {
-  const q = generateR6(structureId, seed);
+  if (!Number.isInteger(seed) || seed < 1) throw new Error("CP012 seed must be a positive integer.");
+  const sourceSeed = foldCertifiedSeed(seed);
+  const q = generateR6(structureId, sourceSeed);
   if (structureId === "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE") return polishUniqueInteger(q);
   return q;
 }

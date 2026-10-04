@@ -16,6 +16,18 @@ import {
 export { SAP_CP010_PROTOTYPE_IDS };
 export type { SapCp010Package, SapCp010PrototypeId };
 
+function foldCertifiedSeed(seed: number): number {
+  if (!Number.isInteger(seed) || seed < 1) throw new Error("CP010 seed must be a positive integer.");
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  // CP010's reviewed root-depth authority is a 100-state surface. Mix every
+  // decimal chunk of the larger Question Studio seed before re-entering it.
+  return ((low + 6 * mid + high) % 100) + 1;
+}
+
 function repositionPowerNearest(base: SapCp010Package, seed: number, sourceSeed: number): SapCp010Package {
   const correct = base.options.find((o) => o.isCorrect);
   if (!correct) throw new Error("Power-nearest source has no correct option.");
@@ -54,9 +66,10 @@ function polishCp010English(base: SapCp010Package): SapCp010Package {
 }
 
 export function generateSapCp010E1Existing(prototypeId: SapCp010PrototypeId, seed: number): SapCp010Package {
+  const sourceSeed = foldCertifiedSeed(seed);
   const base = prototypeId !== SAP_CP010_PROTOTYPE_IDS[14]
-    ? generateV6(prototypeId, seed)
-    : repositionPowerNearest(generateV6(prototypeId, seed * 2), seed, seed * 2);
+    ? generateV6(prototypeId, sourceSeed)
+    : repositionPowerNearest(generateV6(prototypeId, sourceSeed * 2), seed, sourceSeed * 2);
   return polishCp010English(base);
 }
 
@@ -91,10 +104,12 @@ function decimalScaleAnswer(hundredths: number, factor: number): string {
 
 export function generateSapCp010E1SuppliedRootScaling(seed: number): SapE1CandidatePackage {
   if (!Number.isInteger(seed) || seed < 1) throw new Error("Seed must be a positive integer.");
-  const i = seed - 1;
+  // Cycle deterministically through the complete certified bounded state space:
+  // 8 supplied roots × 13 scale factors (2..14) × 2 scale modes.
+  const i = (seed - 1) % (SUPPLIED_ROOTS.length * 13 * 2);
   const supplied = SUPPLIED_ROOTS[i % SUPPLIED_ROOTS.length]!;
-  const factor = 2 + Math.floor(i / SUPPLIED_ROOTS.length);
-  const decimalScale = i % 2 === 1;
+  const factor = 2 + (Math.floor(i / SUPPLIED_ROOTS.length) % 13);
+  const decimalScale = Math.floor(i / (SUPPLIED_ROOTS.length * 13)) % 2 === 1;
   const suppliedValue = formatScaled(supplied.hundredths, 2);
   const target = decimalScale
     ? formatScaled(supplied.n * factor * factor, 2)

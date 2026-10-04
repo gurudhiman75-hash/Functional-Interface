@@ -438,9 +438,13 @@ function percentOfQuantityExpression(pkg: SapCp003Package): SapCp003Package {
 function convertTermsToDecimals(pkg: SapCp003Package): SapCp003Package {
   if (pkg.prototypeId !== "SAP-CP003-PROT-CONVERT-TERMS-TO-DECIMALS") return pkg;
   const frame = (pkg.seed - 1) % 4;
-  const first = EQUIVALENCE_CASES[pkg.seed % EQUIVALENCE_CASES.length]!;
-  const second = EQUIVALENCE_CASES[(pkg.seed * 3 + 1) % EQUIVALENCE_CASES.length]!;
-  const rate = BENCHMARK_RATES[(pkg.seed * 5 + 2) % 10]!;
+  const block = Math.floor((pkg.seed - 1) / 4);
+  // Select semantic cases from the frame block rather than the raw seed.
+  // Raw-seed modulo selectors were correlated with the four-frame cycle and
+  // collapsed SAP-QL-043 to only 22 canonical payloads across 64 seeds.
+  const first = EQUIVALENCE_CASES[(block + frame * 2) % EQUIVALENCE_CASES.length]!;
+  const second = EQUIVALENCE_CASES[(block * 3 + frame + 1) % EQUIVALENCE_CASES.length]!;
+  const rate = BENCHMARK_RATES[(block * 5 + frame * 3 + 2) % BENCHMARK_RATES.length]!;
   const rateDecimal = exactDisplay(rate.value);
 
   if (frame === 0) {

@@ -65,9 +65,25 @@ function diversifyPowerOfTenDivisionStem(pkg: SapCp003Package): SapCp003Package 
 
 function diversifyDecimalPlacementStem(pkg: SapCp003Package): SapCp003Package {
   if (pkg.prototypeId !== "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT") return pkg;
-  const match = pkg.stem.match(/^Which option is the correct value of (.+)\?$/);
-  if (!match) return pkg;
-  const expression = match[1]!;
+
+  const visible = pkg.stem.match(
+    /^Ignoring decimal points, (\d+) × (\d+) = (\d+)\. Which option places the decimal point correctly for (.+)\?$/,
+  );
+  if (visible) {
+    const [, leftDigits, rightDigits, wholeProduct, expression] = visible;
+    const prefix = `Ignoring decimal points, ${leftDigits} × ${rightDigits} = ${wholeProduct}.`;
+    const frames = [
+      `${prefix} Which option places the decimal point correctly for ${expression}?`,
+      `${prefix} What is the correctly placed value of ${expression}?`,
+      `${prefix} Select the correct product for ${expression}.`,
+      `${prefix} Which of the following is equal to ${expression}?`,
+    ] as const;
+    return Object.freeze({ ...pkg, stem: frames[(pkg.seed - 1) % frames.length]! });
+  }
+
+  const legacy = pkg.stem.match(/^Which option is the correct value of (.+)\?$/);
+  if (!legacy) return pkg;
+  const expression = legacy[1]!;
   const frames = [
     `Which option is the correct value of ${expression}?`,
     `What is the value of ${expression}?`,

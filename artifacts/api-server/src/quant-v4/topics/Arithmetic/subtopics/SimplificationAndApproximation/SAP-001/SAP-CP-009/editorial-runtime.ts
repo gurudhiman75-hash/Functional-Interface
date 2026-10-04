@@ -27,6 +27,15 @@ function correctPosition(seed: number, mode: number): number {
 function wrong(value: string, misconceptionId: string, analysis: string): SapCp009Option {
   return Object.freeze({ value, isCorrect: false, misconceptionId, analysis });
 }
+
+function foldHundredStateSeed(seed: number): number {
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  return ((low + 6 * mid + high) % 100) + 1;
+}
 function optionSet(answer: string, seed: number, mode: number, wrongs: readonly SapCp009Option[]): readonly SapCp009Option[] {
   const unique = wrongs.filter((item, index, all) => item.value !== answer && all.findIndex((other) => other.value === item.value) === index);
   if (unique.length < 3) throw new Error(`${answer}: editorial distractors collapsed in mode ${mode}.`);
@@ -117,7 +126,8 @@ function percentageOf(seed: number): SapCp009Package {
 }
 
 function quantityAsPercent(seed: number): SapCp009Package {
-  const base = generateV6(SAP_CP009_PROTOTYPE_IDS[4]!, seed);
+  const sourceSeed = foldHundredStateSeed(seed);
+  const base = generateV6(SAP_CP009_PROTOTYPE_IDS[4]!, sourceSeed);
   const d = base.oracle.data;
   return clonePresentation(
     base,
@@ -284,6 +294,7 @@ function overUnder(seed: number): SapCp009Package {
 export function generateSapCp009(prototypeId: SapCp009PrototypeId, seed: number): SapCp009Package {
   if (prototypeId === SAP_CP009_PROTOTYPE_IDS[3]) return percentageOf(seed);
   if (prototypeId === SAP_CP009_PROTOTYPE_IDS[4]) return quantityAsPercent(seed);
+  if (prototypeId === SAP_CP009_PROTOTYPE_IDS[5]) return generateV6(prototypeId, foldHundredStateSeed(seed));
   if (prototypeId === SAP_CP009_PROTOTYPE_IDS[7]) return coordinatedRatio(seed);
   if (prototypeId === SAP_CP009_PROTOTYPE_IDS[8]) return cancellation(seed);
   if (prototypeId === SAP_CP009_PROTOTYPE_IDS[9]) return reciprocal(seed);
