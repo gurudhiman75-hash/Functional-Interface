@@ -77,7 +77,7 @@ export interface GeneratedSifQuestion {
   readonly distractorTypes: readonly SifDistractorType[];
   readonly validation: readonly SifValidationGateResult[];
   readonly metadata: {
-    readonly solver: "SIF_STRUCTURED_SUPPORT_V1";
+    readonly solver: "SIF_STRENGTH_BACKED_SUPPORT_V2";
     readonly generationOrder: "LOGIC_FIRST_LANGUAGE_SECOND";
     readonly reviewOnly: true;
     readonly questionBankWritable: false;

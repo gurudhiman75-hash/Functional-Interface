@@ -46,6 +46,32 @@ jobs:
       - name: Run deep-audit Wave 3 fatigue-resistance proof
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/sif-001-deep-audit-wave3.test.ts
 
+      - name: Strict TypeScript check for post-closure answer integrity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/solver.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/validators.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/generator.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/banking-three-inference.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/question-studio-adapter.ts \
+            src/reasoning-v1/topics/Statement-and-Inference/SIF-001/sif-001-post-closure-audit-20261004.test.ts
+
+      - name: Run exhaustive post-closure answer-integrity audit
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/sif-001-post-closure-audit-20261004.test.ts
+
       - name: Validate Banking three-inference source-gap remediation
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/banking-three-inference.test.ts
 
