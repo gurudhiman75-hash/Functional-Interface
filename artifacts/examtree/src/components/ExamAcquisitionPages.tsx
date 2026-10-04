@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link, Redirect } from "wouter";
+import { Link } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
 import MathText from "@/components/MathText";
@@ -1013,8 +1013,6 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     { canonicalPath: examDetailsHref(examSlug) },
   );
 
-  if (!sessionUser) return <Redirect to={examHubHref(examSlug)} />;
-
   const sectionAnchor = (section: WebExamPageSection) => {
     if (section.type === "details_overview") return "overview";
     if (section.type === "details_syllabus") return "syllabus";
@@ -1159,6 +1157,10 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     ["details_syllabus", "details_pattern", "details_preparation", "details_updates"].includes(section.type),
   );
 
+  const detailsPath = examDetailsHref(examSlug);
+  const loginHref = "/login/student?next=" + encodeURIComponent(detailsPath);
+  const signupHref = "/login/student?mode=signup&next=" + encodeURIComponent(detailsPath);
+
   return (
     <div className="bg-slate-50/45 pb-14">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
@@ -1178,15 +1180,26 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
                 <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500">Tests, previous papers, syllabus, exam pattern, preparation resources and official updates—all from one hub.</p>
               </div>
             </div>
-            <Link href={examHubHref(examSlug)} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">
-              Back to Test Workspace <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            {sessionUser ? (
+              <Link href={examHubHref(examSlug)} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">
+                Back to Test Workspace <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            ) : (
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
+                <Link href={loginHref} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-blue-200 bg-white px-5 text-sm font-bold text-blue-700 hover:bg-blue-50">
+                  Login
+                </Link>
+                <Link href={signupHref} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">
+                  Sign up <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className={"mt-5 grid gap-3 sm:grid-cols-2 " + (primaryShortcuts.length >= 4 ? "lg:grid-cols-5" : "lg:grid-cols-4")}>
-            <Link href={examHubHref(examSlug)} className="group min-h-[112px] rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-left text-blue-700 transition hover:-translate-y-0.5 hover:shadow-sm">
+            <Link href={sessionUser ? examHubHref(examSlug) : loginHref} className="group min-h-[112px] rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-left text-blue-700 transition hover:-translate-y-0.5 hover:shadow-sm">
               <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><FileText className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
-              <h2 className="mt-3 text-sm font-black text-slate-950">Test Workspace</h2><p className="mt-1 text-xs font-semibold text-slate-500">Mocks, sectional, topic-wise and PYQs</p>
+              <h2 className="mt-3 text-sm font-black text-slate-950">{sessionUser ? "Test Workspace" : "Login for Test Workspace"}</h2><p className="mt-1 text-xs font-semibold text-slate-500">{sessionUser ? "Mocks, sectional, topic-wise and PYQs" : "Take mocks, save attempts and track progress"}</p>
             </Link>
             {primaryShortcuts.map((section) => {
               const Icon = section.type === "details_syllabus" ? BookOpen : section.type === "details_pattern" ? BarChart3 : section.type === "details_preparation" ? Sparkles : Globe2;
