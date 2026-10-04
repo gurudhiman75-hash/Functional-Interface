@@ -181,3 +181,104 @@ export function wordCount(value: string): number {
   const normalized = value.trim();
   return normalized ? normalized.split(/\s+/u).length : 0;
 }
+
+
+export interface DescriptiveTaskAssignment {
+  questionId: number;
+  sectionId: string;
+  sectionName: string;
+  task: DescriptiveTaskRuntime;
+}
+
+export interface DescriptiveResponseSnapshot {
+  questionId: number;
+  taskId: string;
+  sectionId: string;
+  section: string;
+  kind: DescriptiveTaskKind;
+  prompt: string;
+  text: string;
+  wordCount: number;
+  submitted: boolean;
+  timeTaken: number;
+  marks: number;
+  awardedMarks: null;
+  reviewStatus: "pending";
+}
+
+export function descriptiveAssignments(
+  sections: Array<{ id: unknown; name: unknown; settings: unknown }>,
+): DescriptiveTaskAssignment[] {
+  const assignments: DescriptiveTaskAssignment[] = [];
+  for (const section of sections) {
+    const sectionId = String(section.id ?? "").trim();
+    const sectionName = String(section.name ?? "").trim();
+    if (!sectionId) continue;
+    const inspection = inspectDescriptiveTasks(section.settings);
+    if (inspection.issues.length > 0) {
+      throw new Error(inspection.issues.join(" "));
+    }
+    for (const task of inspection.tasks) {
+      assignments.push({
+        questionId: stableRuntimeItemId(`descriptive:${sectionId}:${task.id}`),
+        sectionId,
+        sectionName,
+        task,
+      });
+    }
+  }
+  return assignments;
+}
+
+export function normalizeDescriptiveResponses(
+  value: unknown,
+  assignments: readonly DescriptiveTaskAssignment[],
+): DescriptiveResponseSnapshot[] {
+  const rawItems = Array.isArray(value) ? value.slice(0, 100) : [];
+  const assignmentByQuestionId = new Map(assignments.map((entry) => [entry.questionId, entry]));
+  const submittedByQuestionId = new Map<number, { text: string; timeTaken: number }>();
+
+  for (const raw of rawItems) {
+    const item = asRecord(raw);
+    const questionId = Number(item.questionId);
+    if (!Number.isSafeInteger(questionId) || questionId < 0) {
+      throw new Error("A descriptive response contains an invalid question id.");
+    }
+    const assignment = assignmentByQuestionId.get(questionId);
+    if (!assignment) {
+      throw new Error("A descriptive response does not belong to this immutable test version.");
+    }
+    if (submittedByQuestionId.has(questionId)) {
+      throw new Error("A descriptive task was submitted more than once.");
+    }
+    const taskId = String(item.taskId ?? "").trim();
+    const sectionId = String(item.sectionId ?? "").trim();
+    if (taskId !== assignment.task.id || sectionId !== assignment.sectionId) {
+      throw new Error("A descriptive response does not match its immutable task identity.");
+    }
+    const text = typeof item.text === "string" ? item.text.slice(0, 50_000) : "";
+    const rawTime = Number(item.timeTaken ?? 0);
+    const timeTaken = Number.isFinite(rawTime) && rawTime >= 0 ? Math.round(rawTime) : 0;
+    submittedByQuestionId.set(questionId, { text, timeTaken });
+  }
+
+  return assignments.map((assignment) => {
+    const submitted = submittedByQuestionId.get(assignment.questionId);
+    const text = submitted?.text ?? "";
+    return {
+      questionId: assignment.questionId,
+      taskId: assignment.task.id,
+      sectionId: assignment.sectionId,
+      section: assignment.sectionName,
+      kind: assignment.task.kind,
+      prompt: assignment.task.prompt,
+      text,
+      wordCount: wordCount(text),
+      submitted: Boolean(text.trim()),
+      timeTaken: submitted?.timeTaken ?? 0,
+      marks: assignment.task.marks,
+      awardedMarks: null,
+      reviewStatus: "pending" as const,
+    };
+  });
+}
