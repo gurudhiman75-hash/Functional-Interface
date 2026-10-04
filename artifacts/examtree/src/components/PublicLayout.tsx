@@ -144,6 +144,21 @@ export function PublicLayout({ children }: PublicLayoutProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
 
+  if (isHome) {
+    return (
+      <div className="et-viewport et-page-surface bg-background text-foreground">
+        <PublicSeoFallback />
+        <a
+          href="#main-content"
+          className="sr-only z-[1000] rounded-lg bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
+        <main id="main-content" tabIndex={-1} className="min-h-[60vh]">{children}</main>
+      </div>
+    );
+  }
+
   return (
     <div className="et-viewport et-page-surface bg-background text-foreground">
       <PublicSeoFallback />
