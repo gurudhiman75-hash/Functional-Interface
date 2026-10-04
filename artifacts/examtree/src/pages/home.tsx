@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
-  Award,
   BarChart3,
   BookOpen,
   CheckCircle2,
@@ -26,12 +25,10 @@ import {
 import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { signInWithGoogle } from "@/lib/auth";
-import { getActiveTestSessions, getUser, type User } from "@/lib/storage";
-import { getUserAttempts } from "@/lib/data";
+import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
 
-const SERIES_FILTERS = ["All", "SSC", "Banking", "Railways"] as const;
 const CATEGORY_TONES = ["indigo", "emerald", "orange", "sky", "rose", "violet"] as const;
 const REFERENCE_EXAMS = [
   { name: "SSC", detail: "CGL | CHSL | MTS" },
@@ -57,20 +54,11 @@ function formatCount(value: number) {
   return new Intl.NumberFormat("en-IN").format(safe);
 }
 
-function seriesMatchesFilter(series: StudentSeriesSummary, filter: (typeof SERIES_FILTERS)[number]) {
-  if (filter === "All") return true;
-  const haystack = `${series.examFamilyName} ${series.examName} ${series.name}`.toLowerCase();
-  if (filter === "SSC") return haystack.includes("ssc");
-  if (filter === "Banking") return /bank|ibps|sbi|rrb officer/.test(haystack);
-  return /rail|rrb|ntpc|group d/.test(haystack);
-}
-
 export default function Home() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const catalog = useExamCatalog();
   const sampleMode = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("preview") === "sample";
-  const [seriesFilter, setSeriesFilter] = useState<(typeof SERIES_FILTERS)[number]>("All");
   const [query, setQuery] = useState("");
   const [sessionUser, setSessionUser] = useState<User | null>(() => (typeof window === "undefined" ? null : getUser()));
   const [googleSignInPending, setGoogleSignInPending] = useState(false);
@@ -78,13 +66,6 @@ export default function Home() {
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
   const seriesQuery = useQuery({ queryKey: ["student-test-series", "reference-home"], queryFn: getStudentTestSeries, enabled: !sampleMode, retry: 1, staleTime: 60_000 });
-  const attemptsQuery = useQuery({
-    queryKey: ["canonical-attempt-history", sessionUser?.id],
-    queryFn: () => getUserAttempts(sessionUser?.id),
-    enabled: Boolean(sessionUser) && !sampleMode,
-    retry: false,
-    staleTime: 30_000,
-  });
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
   const featuredGroups = examGroups.slice(0, 12);
   const filteredGroups = useMemo(() => {
@@ -93,30 +74,20 @@ export default function Home() {
     return featuredGroups.filter((group) => `${group.name} ${group.subcategories.map((item) => item.name).join(" ")}`.toLowerCase().includes(needle));
   }, [featuredGroups, query]);
   const allSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
-  const popularSeries = useMemo(() => [...allSeries].filter((series) => seriesMatchesFilter(series, seriesFilter)).sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries, seriesFilter]);
-  const activeSession = useMemo(
-    () => Object.values(getActiveTestSessions()).sort((left, right) => right.updatedAt - left.updatedAt)[0] ?? null,
-    [sessionUser],
-  );
-  const latestAttempt = useMemo(
-    () => [...(attemptsQuery.data ?? [])].sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime())[0] ?? null,
-    [attemptsQuery.data],
-  );
-  const loggedInHero = useMemo(() => {
-    const firstName = sessionUser?.name?.trim().split(/\s+/)[0] || "there";
-    const recommendedSeries = popularSeries[0] ?? null;
-    const action = activeSession
-      ? { label: "Resume test", href: `/test/${activeSession.testId}`, detail: activeSession.testName }
-      : { label: "Continue preparation", href: "/dashboard", detail: latestAttempt ? `Review your latest ${latestAttempt.category || "test"} attempt` : "Choose your next test and keep moving" };
-    return { firstName, recommendedSeries, action };
-  }, [activeSession, latestAttempt, popularSeries, sessionUser?.name]);
+  const popularSeries = useMemo(() => [...allSeries].sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries]);
   const totalTests = tests.length;
   const totalCategories = categories.length;
   useEffect(() => {
+    if (sessionUser) {
+      setLocation("/dashboard");
+      return;
+    }
     const refresh = () => setSessionUser(getUser());
     window.addEventListener("storage", refresh);
     return () => window.removeEventListener("storage", refresh);
-  }, []);
+  }, [sessionUser, setLocation]);
+  if (sessionUser) return null;
+
   const handleGoogleSignIn = async () => {
     if (googleSignInPending) return;
     setGoogleSignInPending(true);
