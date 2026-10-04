@@ -266,16 +266,16 @@ export function generateSif001QuestionStudioBatch(
   const locale = normalizeLanguage(request.language);
 
   if (isBankingThreeInferenceRequest(request)) {
-    const difficulty = normalizeDifficulty(request.difficulty);
-    const eligibleBankingAuthorities = listSifBankingThreeInferenceAuthorities(difficulty);
+    const requestedDifficulty = normalizeDifficulty(request.difficulty);
+    const eligibleBankingAuthorities = listSifBankingThreeInferenceAuthorities(requestedDifficulty);
     if (eligibleBankingAuthorities.length === 0) {
       throw new Error(
-        `SIF Banking three-inference has no ${difficulty?.toLowerCase() ?? "requested"} curated authorities`,
+        `SIF Banking three-inference has no ${requestedDifficulty?.toLowerCase() ?? "requested"} curated authorities`,
       );
     }
     if (count > eligibleBankingAuthorities.length) {
       throw new Error(
-        `SIF Banking three-inference can provide only ${eligibleBankingAuthorities.length} distinct ${difficulty?.toLowerCase() ?? "requested"} curated authorities; requested ${count}`,
+        `SIF Banking three-inference can provide only ${eligibleBankingAuthorities.length} distinct ${requestedDifficulty?.toLowerCase() ?? "requested"} curated authorities; requested ${count}`,
       );
     }
     const seedText = text(request.seed) || "sif-001-banking-three-inference-v1";
@@ -284,7 +284,7 @@ export function generateSif001QuestionStudioBatch(
       const question = generateSifBankingThreeInferenceQuestion({
         locale,
         seed: baseSeed + index,
-        difficulty,
+        difficulty: requestedDifficulty,
       });
       const roman = ["I", "II", "III"];
       const instruction = locale === "hi-IN"
@@ -299,7 +299,7 @@ export function generateSif001QuestionStudioBatch(
         "",
         ...question.inferences.map((value, inferenceIndex) => `${roman[inferenceIndex]}. ${value}`),
       ].join("\n");
-      const difficulty = question.difficulty[0] + question.difficulty.slice(1).toLowerCase();
+      const difficultyLabel = question.difficulty[0] + question.difficulty.slice(1).toLowerCase();
       return {
         ...lifecycle,
         id: `${question.authorityId}:${baseSeed + index}:${locale}`,
@@ -322,13 +322,13 @@ export function generateSif001QuestionStudioBatch(
         instruction,
         statement: question.statement,
         inferences: question.inferences,
-        options: question.options,
+        options: [...question.options],
         correctIndex: question.correctIndex,
         correct: question.correctIndex,
         canonicalAnswer: question.options[question.correctIndex],
         explanation: question.explanation,
-        difficulty,
-        difficultyLabel: difficulty,
+        difficulty: difficultyLabel,
+        difficultyLabel,
         difficultyAuthority: question.difficulty,
         format: "THREE_INFERENCES",
         distractorTypes: question.distractorTypes,
@@ -374,8 +374,8 @@ export function generateSif001QuestionStudioBatch(
         chapterId: "SIF-001",
         presentationProfileId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
         locale,
-        requestedDifficulty: difficulty ?? "Mixed",
-        difficultyFilterApplied: difficulty !== undefined,
+        requestedDifficulty: requestedDifficulty ?? "Mixed",
+        difficultyFilterApplied: requestedDifficulty !== undefined,
         sourceAuthorityCount: eligibleBankingAuthorities.length,
         sourceAuthorityIds: eligibleBankingAuthorities.map((authority) => authority.id),
         seed: seedText,
