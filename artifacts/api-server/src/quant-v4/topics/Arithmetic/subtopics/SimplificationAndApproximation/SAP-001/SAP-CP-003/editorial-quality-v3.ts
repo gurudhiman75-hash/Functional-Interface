@@ -100,6 +100,15 @@ const RATE_CASES = Object.freeze([
   Object.freeze({ display: "175%", value: rat(7n, 4n) }),
 ] as const);
 
+function foldHundredStateSeed(seed: number): number {
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  return ((low + 6 * mid + high) % 100) + 1;
+}
+
 function abs(value: bigint): bigint {
   return value < 0n ? -value : value;
 }
@@ -208,8 +217,9 @@ function buildPackage(
 
 function decimalProduct(pkg: SapCp003Package): SapCp003Package {
   if (pkg.prototypeId !== "SAP-CP003-PROT-DECIMAL-PRODUCT-PLACE-VALUE") return pkg;
-  const frame = (pkg.seed - 1) % 4;
-  const item = PRODUCT_CASES[Math.floor((pkg.seed - 1) / 2) % PRODUCT_CASES.length]!;
+  const stateSeed = foldHundredStateSeed(pkg.seed);
+  const frame = (stateSeed - 1) % 4;
+  const item = PRODUCT_CASES[Math.floor((stateSeed - 1) / 2) % PRODUCT_CASES.length]!;
   const left = parseNumericLiteral(item.left)!;
   const right = parseNumericLiteral(item.right)!;
   const product = multiply(left, right);
@@ -254,7 +264,7 @@ function decimalProduct(pkg: SapCp003Package): SapCp003Package {
   }
 
   if (frame === 2) {
-    const outside = parseNumericLiteral(["0.25", "0.5", "0.75", "1.25"][pkg.seed % 4]!)!;
+    const outside = parseNumericLiteral(["0.25", "0.5", "0.75", "1.25"][stateSeed % 4]!)!;
     const bracket = add(right, outside);
     const answer = multiply(left, bracket);
     return buildPackage(pkg, {
@@ -275,7 +285,7 @@ function decimalProduct(pkg: SapCp003Package): SapCp003Package {
     });
   }
 
-  const outside = parseNumericLiteral(["0.125", "0.25", "0.5", "0.75"][pkg.seed % 4]!)!;
+  const outside = parseNumericLiteral(["0.125", "0.25", "0.5", "0.75"][stateSeed % 4]!)!;
   const bracket = subtract(right, outside);
   const answer = multiply(left, bracket);
   return buildPackage(pkg, {
