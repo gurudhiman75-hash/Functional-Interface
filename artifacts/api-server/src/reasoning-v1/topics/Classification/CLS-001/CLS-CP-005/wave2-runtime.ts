@@ -558,7 +558,7 @@ function explainTuple(
         const composite = [first, second].find((value) => !isPrime(value));
         const factor = composite === undefined ? null : smallestFactor(composite);
         const prose = matches ? `${first} and ${second} are both prime numbers.` : `${composite} is composite, so the pair is not an all-prime pair.`;
-        const tex = matches ? `${first}, ${second} \\in \\mathbb{P}` : factor ? `${composite} = ${factor} \\times ${composite / factor}` : `${composite} \\notin \\mathbb{P}`;
+        const tex = matches ? `${first}, ${second} \\in \\mathbb{P}` : factor ? `${composite} = ${factor} \\times ${composite! / factor}` : `${composite} \\notin \\mathbb{P}`;
         return `${display}: ${prose} ${inlineMath(tex)} ${status(matches)}`;
       }
       case "PAIR_DIVISIBILITY_DIRECTION": {
@@ -599,7 +599,7 @@ function explainTuple(
         const composite = [first, second, third].find((value) => !isPrime(value));
         const factor = composite === undefined ? null : smallestFactor(composite);
         const prose = matches ? `${first}, ${second} and ${third} are all prime.` : `${composite} is composite, so the triple is not all-prime.`;
-        const tex = matches ? `${first}, ${second}, ${third} \\in \\mathbb{P}` : factor ? `${composite} = ${factor} \\times ${composite / factor}` : `${composite} \\notin \\mathbb{P}`;
+        const tex = matches ? `${first}, ${second}, ${third} \\in \\mathbb{P}` : factor ? `${composite} = ${factor} \\times ${composite! / factor}` : `${composite} \\notin \\mathbb{P}`;
         return `${display}: ${prose} ${inlineMath(tex)} ${status(matches)}`;
       }
       case "TRIPLE_SAME_DIGIT_MULTISET": {
