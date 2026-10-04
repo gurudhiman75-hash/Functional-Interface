@@ -168,7 +168,26 @@ export default function Home() {
             <div className="hero-benefits"><span><BookOpen /> Exam-like Mock Tests</span><span><BarChart3 /> Detailed Performance Analysis</span><span><Sparkles /> Topic-wise Practice</span><span><CheckCircle2 /> Updated Syllabus &amp; Pattern</span></div>
           </>}
         </div>
-        <div className="hero-visual" aria-label="Performance dashboard preview"><div className="dashboard-card"><div className="dash-top"><span><span className="tiny-mark">E</span> Test analysis</span><Bell size={17} /></div><div className="score-panel"><div className="rank-ring"><span><b>92</b>/100</span></div><div><small>Your score</small><h3>Excellent work!</h3><p><Trophy size={14} /> You&apos;re in the top 3%</p></div></div><div className="dash-stats"><div><span>Accuracy</span><b>91.4%</b><em className="up">+8.2%</em></div><div><span>Percentile</span><b>97.1</b><em className="up">+4.5</em></div><div><span>Time saved</span><b>08:42</b><em>minutes</em></div></div><div className="progress-title"><span>Subject performance</span><b>View report</b></div>{[["Reasoning", 92, "#3156d9"], ["Quantitative Aptitude", 78, "#ed7a2f"], ["English", 86, "#0ea875"]].map(([name, value, color]) => <div className="subject" key={String(name)}><span>{name}</span><div><i style={{ width: `${value}%`, background: String(color) }} /></div><b>{value}%</b></div>)}</div><div className="float-card live"><i /><span><b>Live test</b><small>Taking place now</small></span><Play size={18} fill="currentColor" /></div><div className="float-card streak"><Award size={24} /><span><b>7 day streak!</b><small>Keep it going</small></span></div></div>{!sessionUser ? <aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside> : null}
+        <div className="hero-visual" aria-label="Mock test interface preview">
+          <div className="dashboard-card mock-device">
+            <div className="mock-device-top"><span><span className="tiny-mark">E</span> English Language</span><b>◷ 00:24:17</b></div>
+            <div className="mock-device-body">
+              <div className="mock-question">
+                <small>Q. 12 / 20</small>
+                <h3>Find the correctly spelt word.</h3>
+                {["Accommodate","Accomodate","Acommodate","Accomoddate"].map((option,index)=><div className={`mock-option ${index===0?"selected":""}`} key={option}><span>{String.fromCharCode(65+index)}</span>{option}</div>)}
+              </div>
+              <div className="mock-palette">
+                <h4>Question Palette</h4>
+                <div className="mock-legend"><span>Answered</span><span>Current</span><span>Not Visited</span></div>
+                <div className="mock-numbers">{Array.from({length:20},(_,i)=><i className={i===11?"current":i<10?"done":""} key={i}>{i+1}</i>)}</div>
+                <div className="mock-progress"><span>Your Progress <b>60%</b></span><div><i /></div></div>
+                <div className="mock-score"><span>Attempted<b>12/20</b></span><span>Live Rank<b>#248</b></span></div>
+              </div>
+            </div>
+            <button className="mock-next" type="button">Next <ArrowRight /></button>
+          </div>
+        </div>{!sessionUser ? <aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside> : null}
       </section>
 
       <section className="proof-bar"><div><b>{formatCount(Math.max(totalTests * 18, 1000))}</b><span>Questions in catalog</span></div><div><b>{formatCount(totalTests)}</b><span>Published tests</span></div><div><b>{formatCount(totalCategories)}</b><span>Exam categories</span></div><div><b>12</b><span>Languages supported</span></div></section>
