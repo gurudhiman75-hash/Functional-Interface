@@ -135,7 +135,7 @@ for (let seed = 0; seed < SEEDS; seed += 1) {
   for (const locale of LOCALES) {
     const question = generateClsCp002Question("CLS-QL-004", locale, seed);
     assert.equal(question.correctIndex, english.correctIndex);
-    assert.equal(question.answer, english.answer);
+    assert.equal(question.answer, question.options[question.correctIndex]);
     record(question);
   }
 }
