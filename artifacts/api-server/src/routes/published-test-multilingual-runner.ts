@@ -179,7 +179,7 @@ router.get("/tests/:id", async (req, res, next) => {
     const [sections, questionRows, translations] = await Promise.all([
       sqlClient`
         SELECT id::text AS id, name, section_key AS "sectionKey",
-          sort_order AS "sortOrder", duration_seconds AS "durationSeconds"
+          sort_order AS "sortOrder", duration_seconds AS "durationSeconds", settings
         FROM assessment.test_sections
         WHERE test_version_id = ${String(test.publishedVersionId)}::uuid
         ORDER BY sort_order
@@ -237,6 +237,8 @@ router.get("/tests/:id", async (req, res, next) => {
       questionsBySection.set(sectionId, list);
     });
 
+    const navigationRules = asRecord(settings.navigationRules);
+    const lockSectionNavigation = navigationRules.switchSections === false;
     const difficultyValue = String(settings.difficulty ?? "Medium");
     const difficulty = difficultyValue === "Easy" || difficultyValue === "Hard" ? difficultyValue : "Medium";
     const sectionTimings = sections
@@ -269,7 +271,10 @@ router.get("/tests/:id", async (req, res, next) => {
       difficulty,
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none",
       sectionTimings,
-      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
+      sectionSettings: sections.map((section) => ({
+        name: String(section.name),
+        locked: asRecord(section.settings).locked === true || lockSectionNavigation,
+      })),
       sections: sections.map((section) => {
         const localized = translations.sections.get(String(section.id));
         return {
