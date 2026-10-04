@@ -227,7 +227,7 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
     evidence: [
       'ASM-001 owns one permanent source-backed learner contract covering the complete truth/explanation classification task.',
       'The five answer classes, four-option/five-option profiles, option order, subject domain, language and difficulty are governed semantic states or presentation variation rather than new QLs.',
-      'The current curated trilingual corpus contains 20 scenario authorities and does not use free-form runtime truth generation.',
+      'The current curated trilingual corpus contains 23 scenario authorities, covers all five semantic answer classes at every difficulty, and does not use free-form runtime truth generation.',
       'ASM-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261003.md records the dedicated novelty decision.',
     ],
     countsTowardControlledNovelTargetNow: false,
