@@ -74,6 +74,21 @@ test("question timing is bounded and malformed values are normalized", () => {
   });
 });
 
+test("draft normalization preserves bounded descriptive responses", () => {
+  const normalized = normalizeAttemptDraftState({
+    ...state(),
+    textResponses: {
+      7001: "A responsible bank balances growth with prudent underwriting.",
+      7002: "x".repeat(60_000),
+      invalid: "ignored",
+    },
+  }, testId);
+
+  assert.equal(normalized.textResponses[7001], "A responsible bank balances growth with prudent underwriting.");
+  assert.equal(normalized.textResponses[7002].length, 50_000);
+  assert.equal(Object.keys(normalized.textResponses).length, 2);
+});
+
 test("a draft cannot be attached to another test", () => {
   assert.throws(
     () => normalizeAttemptDraftState({ ...state(), testId: versionId }, testId),
