@@ -27,119 +27,122 @@ export function buildTmwCp004Parameters(entry:TmwCp004RegistryEntry,seed:string)
  const b=base(seed);
  switch(entry.solveMode){
   case "findRemainingWorkAfterInitialPhase":{
-   const s=pick([{a:12,d:4},{a:15,d:6},{a:18,d:5},{a:20,d:8}],seed,"cp004-remain");
+   const s=pick([{a:12,d:4},{a:15,d:6},{a:18,d:5},{a:20,d:8},{a:24,d:6},{a:30,d:10},{a:14,d:5},{a:25,d:8}],seed,"cp004-remain");
    return {...b,timeA:rational(s.a),rateA:rateFromTime(s.a),durationA:rational(s.d)};
   }
   case "findWorkCompletedBeforeEvent":{
-   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:4},{a:18,b:36,d:6}],seed,"cp004-done");
+   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:4},{a:18,b:36,d:6},{a:14,b:21,d:5},{a:20,b:30,d:6},{a:24,b:36,d:8},{a:15,b:25,d:4}],seed,"cp004-done");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
   case "findTotalTimeWhenFirstAgentStartsThenSecondFinishes":{
-   const s=pick([{a:12,b:18,d:4},{a:15,b:20,d:5},{a:10,b:16,d:3},{a:18,b:24,d:6}],seed,"cp004-handoff");
+   const s=pick([{a:12,b:18,d:4},{a:15,b:20,d:5},{a:10,b:16,d:3},{a:18,b:24,d:6},{a:14,b:21,d:4},{a:20,b:30,d:5},{a:24,b:36,d:8},{a:16,b:28,d:6}],seed,"cp004-handoff");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
   case "findTotalTimeWhenTeamStartsThenOneLeaves":{
-   const s=pick([{a:12,b:18,d:3},{a:10,b:15,d:2},{a:16,b:24,d:4},{a:18,b:36,d:5}],seed,"cp004-leave-total");
+   const s=pick([{a:12,b:18,d:3},{a:10,b:15,d:2},{a:16,b:24,d:4},{a:18,b:36,d:5},{a:14,b:21,d:3},{a:20,b:30,d:4},{a:24,b:36,d:6},{a:16,b:28,d:3}],seed,"cp004-leave-total");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
   case "findTotalTimeWhenOneStartsThenAnotherJoins":{
-   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:5},{a:18,b:36,d:6}],seed,"cp004-join-total");
+   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:5},{a:18,b:36,d:6},{a:14,b:21,d:4},{a:20,b:30,d:6},{a:24,b:36,d:7},{a:16,b:28,d:5}],seed,"cp004-join-total");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
   case "findTotalTimeWithStaggeredJoins":{
    const s=pick([
-    {a:12,b:18,c:36,d1:2,d2:2},{a:10,b:15,c:30,d1:2,d2:1},{a:16,b:24,c:48,d1:3,d2:2},{a:18,b:27,c:54,d1:3,d2:2}
+    {a:12,b:18,c:36,d1:2,d2:2},{a:10,b:15,c:30,d1:2,d2:1},{a:16,b:24,c:48,d1:3,d2:2},{a:18,b:27,c:54,d1:3,d2:2},
+    {a:14,b:21,c:42,d1:2,d2:3},{a:20,b:30,c:60,d1:3,d2:2},{a:24,b:36,c:72,d1:4,d2:3},{a:15,b:25,c:50,d1:2,d2:2}
    ],seed,"cp004-stagger-join");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),timeC:rational(s.c),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),rateC:rateFromTime(s.c),durationA:rational(s.d1),durationB:rational(s.d2)};
   }
   case "findTotalTimeWithStaggeredExits":{
    const s=pick([
-    {a:12,b:18,c:36,d1:2,d2:2},{a:10,b:15,c:30,d1:1,d2:2},{a:16,b:24,c:48,d1:2,d2:3},{a:18,b:27,c:54,d1:2,d2:3}
+    {a:12,b:18,c:36,d1:2,d2:2},{a:10,b:15,c:30,d1:1,d2:2},{a:16,b:24,c:48,d1:2,d2:3},{a:18,b:27,c:54,d1:2,d2:3},
+    {a:14,b:21,c:42,d1:2,d2:3},{a:20,b:30,c:60,d1:3,d2:2},{a:24,b:36,c:72,d1:3,d2:4},{a:15,b:25,c:50,d1:2,d2:2}
    ],seed,"cp004-stagger-exit");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),timeC:rational(s.c),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),rateC:rateFromTime(s.c),durationA:rational(s.d1),durationB:rational(s.d2)};
   }
   case "findTotalTimeWithJoinAndLeaveEvents":{
-   const s=pick([{a:12,b:18,d1:3,d2:3},{a:10,b:15,d1:2,d2:2},{a:16,b:24,d1:4,d2:3},{a:18,b:30,d1:4,d2:4}],seed,"cp004-join-leave");
+   const s=pick([{a:12,b:18,d1:3,d2:3},{a:10,b:15,d1:2,d2:2},{a:16,b:24,d1:4,d2:3},{a:18,b:30,d1:4,d2:4},{a:14,b:21,d1:3,d2:2},{a:20,b:30,d1:5,d2:3},{a:24,b:36,d1:6,d2:4},{a:16,b:28,d1:4,d2:2}],seed,"cp004-join-leave");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d1),durationB:rational(s.d2)};
   }
   case "findJoinTimeFromFinalCompletion":{
-   const s=pick([{a:12,b:18,x:4},{a:10,b:15,x:3},{a:16,b:24,x:5},{a:18,b:30,x:6}],seed,"cp004-find-join");
+   const s=pick([{a:12,b:18,x:4},{a:10,b:15,x:3},{a:16,b:24,x:5},{a:18,b:30,x:6},{a:14,b:21,x:4},{a:20,b:30,x:6},{a:24,b:36,x:8},{a:16,b:28,x:5}],seed,"cp004-find-join");
    const rA=rateFromTime(s.a),rB=rateFromTime(s.b),x=rational(s.x);
    const remaining=subtract(rational(1),multiply(x,rA));
    const total=add(x,divide(remaining,add(rA,rB)));
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rA,rateB:rB,durationA:x,totalCompletionTime:total};
   }
   case "findLeaveTimeFromFinalCompletion":{
-   const s=pick([{a:12,b:18,x:3},{a:10,b:15,x:2},{a:16,b:24,x:4},{a:18,b:30,x:5}],seed,"cp004-find-leave");
+   const s=pick([{a:12,b:18,x:3},{a:10,b:15,x:2},{a:16,b:24,x:4},{a:18,b:30,x:5},{a:14,b:21,x:3},{a:20,b:30,x:4},{a:24,b:36,x:6},{a:16,b:28,x:4}],seed,"cp004-find-leave");
    const rA=rateFromTime(s.a),rB=rateFromTime(s.b),x=rational(s.x);
    const done=multiply(x,add(rA,rB));
    const total=add(x,divide(subtract(rational(1),done),rB));
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rA,rateB:rB,durationA:x,totalCompletionTime:total};
   }
   case "findUnknownInitialPhaseDuration":{
-   const s=pick([{a:12,b:18,x:4,y:9},{a:10,b:15,x:3,y:8},{a:16,b:24,x:6,y:9},{a:18,b:30,x:5,y:10}],seed,"cp004-unknown-initial");
+   const s=pick([{a:12,b:18,x:4,y:9},{a:10,b:15,x:3,y:8},{a:16,b:24,x:6,y:9},{a:18,b:30,x:5,y:10},{a:14,b:21,x:5,y:8},{a:20,b:30,x:6,y:12},{a:24,b:36,x:8,y:10},{a:16,b:28,x:5,y:11}],seed,"cp004-unknown-initial");
    const rA=rateFromTime(s.a),rB=rateFromTime(s.b);
    const work=add(multiply(rational(s.x),rA),multiply(rational(s.y),rB));
    const scale=reciprocal(work);
    return {...b,totalWork:rational(1),rateA:multiply(rA,scale),rateB:multiply(rB,scale),durationA:rational(s.x),durationB:rational(s.y)};
   }
   case "findUnknownFinalPhaseDuration":{
-   const s=pick([{a:12,b:18,x:4},{a:10,b:15,x:3},{a:16,b:24,x:5},{a:18,b:30,x:6}],seed,"cp004-unknown-final");
+   const s=pick([{a:12,b:18,x:4},{a:10,b:15,x:3},{a:16,b:24,x:5},{a:18,b:30,x:6},{a:14,b:21,x:4},{a:20,b:30,x:6},{a:24,b:36,x:8},{a:16,b:28,x:5}],seed,"cp004-unknown-final");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.x)};
   }
   case "findReplacementWorkerRate":
   case "findReplacementWorkerTime":{
-   const s=pick([{a:12,d:4,y:8},{a:15,d:5,y:10},{a:18,d:6,y:8},{a:20,d:8,y:9}],seed,"cp004-replacement");
+   const s=pick([{a:12,d:4,y:8},{a:15,d:5,y:10},{a:18,d:6,y:8},{a:20,d:8,y:9},{a:24,d:6,y:12},{a:30,d:10,y:8},{a:14,d:4,y:9},{a:25,d:5,y:15}],seed,"cp004-replacement");
    const rA=rateFromTime(s.a),remaining=subtract(rational(1),multiply(rational(s.d),rA));
    const rB=divide(remaining,rational(s.y));
    return {...b,timeA:rational(s.a),rateA:rA,rateB:rB,timeB:reciprocal(rB),durationA:rational(s.d),durationB:rational(s.y)};
   }
   case "findCompletionWithIdleInterval":{
-   const s=pick([{a:12,b:18,d:4,idle:2},{a:10,b:15,d:3,idle:1},{a:16,b:24,d:5,idle:3},{a:18,b:30,d:6,idle:2}],seed,"cp004-idle");
+   const s=pick([{a:12,b:18,d:4,idle:2},{a:10,b:15,d:3,idle:1},{a:16,b:24,d:5,idle:3},{a:18,b:30,d:6,idle:2},{a:14,b:21,d:4,idle:3},{a:20,b:30,d:6,idle:4},{a:24,b:36,d:8,idle:2},{a:16,b:28,d:5,idle:1}],seed,"cp004-idle");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d),idleDuration:rational(s.idle)};
   }
   case "findCompletionWithChangedDailyHours":{
-   const s=pick([{days:20,h1:8,h2:10,d:5},{days:18,h1:6,h2:9,d:6},{days:24,h1:8,h2:12,d:8},{days:15,h1:5,h2:8,d:5}],seed,"cp004-hours");
+   const s=pick([{days:20,h1:8,h2:10,d:5},{days:18,h1:6,h2:9,d:6},{days:24,h1:8,h2:12,d:8},{days:15,h1:5,h2:8,d:5},{days:30,h1:6,h2:8,d:10},{days:28,h1:7,h2:10,d:7},{days:16,h1:4,h2:6,d:4},{days:25,h1:5,h2:7,d:8}],seed,"cp004-hours");
    return {...b,timeA:rational(s.days),rateA:rateFromTime(s.days),durationA:rational(s.d),originalDailyHours:rational(s.h1),changedDailyHours:rational(s.h2)};
   }
   case "findCompletionWithMidProjectEfficiencyChange":{
-   const s=pick([{a:20,d:5,mNum:5,mDen:4},{a:18,d:6,mNum:3,mDen:2},{a:24,d:8,mNum:4,mDen:3},{a:15,d:5,mNum:6,mDen:5}],seed,"cp004-eff-change");
+   const s=pick([{a:20,d:5,mNum:5,mDen:4},{a:18,d:6,mNum:3,mDen:2},{a:24,d:8,mNum:4,mDen:3},{a:15,d:5,mNum:6,mDen:5},{a:30,d:10,mNum:5,mDen:3},{a:28,d:7,mNum:7,mDen:5},{a:16,d:4,mNum:3,mDen:2},{a:25,d:5,mNum:4,mDen:3}],seed,"cp004-eff-change");
    return {...b,timeA:rational(s.a),rateA:rateFromTime(s.a),durationA:rational(s.d),efficiencyMultiplier:rational(s.mNum,s.mDen)};
   }
   case "findCompletionWithNegativeWorkerActivatedLater":{
    const s=pick([
-    {a:12,b:18,c:36,d:3},{a:10,b:15,c:30,d:2},{a:16,b:24,c:48,d:4},{a:18,b:27,c:54,d:5}
+    {a:12,b:18,c:36,d:3},{a:10,b:15,c:30,d:2},{a:16,b:24,c:48,d:4},{a:18,b:27,c:54,d:5},
+    {a:14,b:21,c:42,d:3},{a:20,b:30,c:60,d:5},{a:24,b:36,c:72,d:6},{a:15,b:25,c:50,d:4}
    ],seed,"cp004-negative-later");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),timeC:rational(s.c),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),rateC:rateFromTime(s.c),durationA:rational(s.d)};
   }
   case "findEventTimeAtSpecifiedCompletionFraction":{
-   const s=pick([{a:12,n:1,d:3},{a:15,n:2,d:5},{a:18,n:1,d:6},{a:20,n:3,d:5}],seed,"cp004-fraction-event");
+   const s=pick([{a:12,n:1,d:3},{a:15,n:2,d:5},{a:18,n:1,d:6},{a:20,n:3,d:5},{a:24,n:1,d:4},{a:30,n:2,d:3},{a:14,n:3,d:7},{a:25,n:4,d:5}],seed,"cp004-fraction-event");
    return {...b,timeA:rational(s.a),rateA:rateFromTime(s.a),targetFraction:rational(s.n,s.d)};
   }
   case "findRequiredRemainingRateForDeadline":{
-   const s=pick([{a:12,d:4,deadline:10},{a:15,d:5,deadline:12},{a:18,d:6,deadline:14},{a:20,d:8,deadline:15}],seed,"cp004-deadline-rate");
+   const s=pick([{a:12,d:4,deadline:10},{a:15,d:5,deadline:12},{a:18,d:6,deadline:14},{a:20,d:8,deadline:15},{a:24,d:6,deadline:16},{a:30,d:10,deadline:20},{a:14,d:4,deadline:9},{a:25,d:8,deadline:18}],seed,"cp004-deadline-rate");
    return {...b,timeA:rational(s.a),rateA:rateFromTime(s.a),durationA:rational(s.d),deadline:rational(s.deadline)};
   }
   case "findWorkerCountAddedAfterPartialProgress":{
-   const s=pick([{single:60,n:5,d:4,add:3},{single:72,n:6,d:4,add:3},{single:80,n:8,d:5,add:2},{single:90,n:6,d:5,add:4}],seed,"cp004-workers-add");
+   const s=pick([{single:60,n:5,d:4,add:3},{single:72,n:6,d:4,add:3},{single:80,n:8,d:5,add:2},{single:90,n:6,d:5,add:4},{single:84,n:7,d:4,add:2},{single:96,n:8,d:6,add:4},{single:70,n:5,d:5,add:5},{single:108,n:9,d:4,add:3}],seed,"cp004-workers-add");
    const per=rateFromTime(s.single),done=multiply(multiply(rational(s.n),per),rational(s.d));
    const remaining=subtract(rational(1),done),finalCount=s.n+s.add;
    const finalDuration=divide(remaining,multiply(rational(finalCount),per));
    return {...b,perWorkerTime:rational(s.single),rateA:per,durationA:rational(s.d),deadline:add(rational(s.d),finalDuration),initialWorkerCount:s.n,changedWorkerCount:finalCount};
   }
   case "findWorkerCountRemovedAfterPartialProgress":{
-   const s=pick([{single:60,n:8,d:3,remove:3},{single:72,n:9,d:4,remove:3},{single:80,n:10,d:4,remove:2},{single:90,n:9,d:5,remove:4}],seed,"cp004-workers-remove");
+   const s=pick([{single:60,n:8,d:3,remove:3},{single:72,n:9,d:4,remove:3},{single:80,n:10,d:4,remove:2},{single:90,n:9,d:5,remove:4},{single:84,n:7,d:4,remove:2},{single:96,n:12,d:3,remove:4},{single:70,n:10,d:2,remove:5},{single:108,n:9,d:6,remove:3}],seed,"cp004-workers-remove");
    const per=rateFromTime(s.single),done=multiply(multiply(rational(s.n),per),rational(s.d));
    const remaining=subtract(rational(1),done),finalCount=s.n-s.remove;
    const finalDuration=divide(remaining,multiply(rational(finalCount),per));
    return {...b,perWorkerTime:rational(s.single),rateA:per,durationA:rational(s.d),deadline:add(rational(s.d),finalDuration),initialWorkerCount:s.n,changedWorkerCount:finalCount};
   }
   case "findDelayAfterWorkerLeaves":{
-   const s=pick([{a:12,b:18,d:3},{a:10,b:15,d:2},{a:16,b:24,d:4},{a:18,b:30,d:5}],seed,"cp004-delay-leave");
+   const s=pick([{a:12,b:18,d:3},{a:10,b:15,d:2},{a:16,b:24,d:4},{a:18,b:30,d:5},{a:14,b:21,d:3},{a:20,b:30,d:4},{a:24,b:36,d:6},{a:16,b:28,d:4}],seed,"cp004-delay-leave");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
   case "findEarlyCompletionAfterWorkerJoins":{
-   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:5},{a:18,b:30,d:6}],seed,"cp004-early-join");
+   const s=pick([{a:12,b:18,d:4},{a:10,b:15,d:3},{a:16,b:24,d:5},{a:18,b:30,d:6},{a:14,b:21,d:4},{a:20,b:30,d:6},{a:24,b:36,d:8},{a:16,b:28,d:5}],seed,"cp004-early-join");
    return {...b,timeA:rational(s.a),timeB:rational(s.b),rateA:rateFromTime(s.a),rateB:rateFromTime(s.b),durationA:rational(s.d)};
   }
  }

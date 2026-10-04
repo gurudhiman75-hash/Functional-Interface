@@ -52,6 +52,10 @@ for (const entry of TMW_CP001_REGISTRY) {
       assert.deepEqual(first.parameters, english.parameters);
       assert.deepEqual(first.solution.answer, english.solution.answer);
       assert.equal(first.solution.answerType, english.solution.answerType);
+      if (first.solution.answerType === "PERCENT") {
+        assert.match(english.solution.answerText, /%$/u, `${entry.qlId}:en: percent answer lost unit marker`);
+        assert.match(first.solution.answerText, /%$/u, `${entry.qlId}:${language}: percent answer lost unit marker`);
+      }
       assert.equal(first.solution.formulaLatex, english.solution.formulaLatex);
       assert.deepEqual(first.solution.workedLatex, english.solution.workedLatex);
       assert.equal(first.mathematicalFingerprint, english.mathematicalFingerprint);
