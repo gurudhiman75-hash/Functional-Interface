@@ -49,7 +49,7 @@ const quickActions = [
   { label: "Take a Mock Test", helper: "Full length tests", icon: FileText, href: "/mock-tests", tone: "blue" },
   { label: "Practice by Topic", helper: "Topic-wise questions", icon: Target, href: "/mock-tests", tone: "violet" },
   { label: "Previous Year Papers", helper: "All exams", icon: Bookmark, href: "/pyqs", tone: "rose" },
-  { label: "Study Material", helper: "Notes & PDFs", icon: BookOpen, href: "/resources", tone: "green" },
+  { label: "Study Material", helper: "Notes & PDFs", href: "/resources", tone: "green" },
   { label: "Current Affairs", helper: "Daily updates", icon: Newspaper, href: "/current-affairs", tone: "orange" },
   { label: "Performance", helper: "Detailed analysis", icon: BarChart3, href: "/performance", tone: "indigo" },
 ] as const;
@@ -201,7 +201,7 @@ export default function ActivityPage() {
           <div className="dash-upcoming-list">
             {upcomingTests.map((item) => (
               <div className="dash-upcoming-row" key={item.name}>
-                <span className="dash-upcoming-logo">{item.logo ? <img src={item.logo} alt="" /> : item.icon ? <item.icon /> : <BookOpen />}</span>
+                <span className="dash-upcoming-logo">{item.logo ? <img src={item.logo} alt="" /> : <BookOpen />}</span>
                 <div><b>{item.name}</b><span>{item.detail}</span><small><Clock3 /> {item.meta}</small></div>
                 <time><strong>{item.date}</strong><span>{item.month}</span></time>
               </div>
