@@ -7,7 +7,14 @@ export type WebExamSectionType =
   | "syllabus"
   | "preparation"
   | "topic_practice"
-  | "custom";
+  | "custom"
+  | "details_overview"
+  | "details_syllabus"
+  | "details_pattern"
+  | "details_preparation"
+  | "details_practice"
+  | "details_updates"
+  | "details_custom";
 
 export type WebExamSectionLayout = "tabs" | "list" | "grid" | "horizontal" | "cards";
 export type WebExamCardStyle = "default" | "compact" | "bordered" | "minimal" | "featured";
@@ -70,6 +77,16 @@ export const DEFAULT_WEB_EXAM_PAGE_CONFIGURATION: WebExamPageConfiguration = {
     { id: "syllabus", type: "syllabus", isVisible: true, sortOrder: 4, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
     { id: "preparation", type: "preparation", isVisible: true, sortOrder: 5, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
     { id: "topic-practice", type: "topic_practice", isVisible: true, sortOrder: 6, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-overview", type: "details_overview", isVisible: true, sortOrder: 20, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-syllabus", type: "details_syllabus", isVisible: true, sortOrder: 21, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-pattern", type: "details_pattern", isVisible: true, sortOrder: 22, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-preparation", type: "details_preparation", isVisible: true, sortOrder: 23, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-practice", type: "details_practice", isVisible: true, sortOrder: 24, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-updates", type: "details_updates", isVisible: true, sortOrder: 25, eyebrow: "", title: "", description: "", body: "", layout: "list", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-eligibility", type: "details_custom", isVisible: false, sortOrder: 26, eyebrow: "Eligibility", title: "Eligibility & selection process", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-dates", type: "details_custom", isVisible: false, sortOrder: 27, eyebrow: "Important dates", title: "Important dates & vacancies", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-salary", type: "details_custom", isVisible: false, sortOrder: 28, eyebrow: "Job profile", title: "Salary & job profile", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "details-faq", type: "details_custom", isVisible: false, sortOrder: 29, eyebrow: "FAQ", title: "Frequently asked questions", description: "", body: "", layout: "list", columns: 1, cardStyle: "bordered", tabStyle: "pills", showCounts: false, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
   ],
 };
 
