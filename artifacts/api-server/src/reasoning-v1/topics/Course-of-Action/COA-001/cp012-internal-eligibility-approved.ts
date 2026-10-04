@@ -3,9 +3,14 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../../../../question-studio/engine-types.ts";
 import {
+  COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+  assertCoaCp012FinalAnswerIntegrity,
+} from "./cp012-post-closure-answer-proof.ts";
+import {
   COA_CP011_CHECKPOINT_ID,
   COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
   COA_CP011_QUESTION_STUDIO_PACKAGE,
+  COA_CP011_STATUS,
   generateCoaCp011QuestionStudioBatch,
   getCoaCp011SafeSemanticCapacity,
   isCoaCp011QuestionStudioRequest,
@@ -20,6 +25,8 @@ export const COA_CP012_RUNTIME_MODE =
   "APPROVED_CP011_SURFACE_INTERNAL_ELIGIBILITY" as const;
 export const COA_CP012_REVIEW_STATUS =
   "QUESTION_STUDIO_CP012_INTERNALLY_ELIGIBLE" as const;
+export const COA_CP012_EDITORIAL_DIVERSITY_STATUS =
+  "FINAL_EDITORIAL_DIVERSITY_APPROVED_INTERNAL" as const;
 export const COA_CP012_LEARNER_RELEASE = "INTERNAL_ELIGIBLE" as const;
 
 export const COA_CP012_PRODUCT_OWNER_APPROVAL = Object.freeze({
@@ -82,9 +89,10 @@ function text(value: unknown): string {
 }
 
 function cp011SourceInput(input: ApprovedInput): ApprovedInput {
+  const { runtimeMode: _approvedRuntimeMode, ...sourceInput } = input;
   return text(input.cpId).toUpperCase() === COA_CP012_APPROVED_CHECKPOINT_ID
-    ? { ...input, cpId: COA_CP011_CHECKPOINT_ID }
-    : input;
+    ? { ...sourceInput, cpId: COA_CP011_CHECKPOINT_ID }
+    : sourceInput;
 }
 
 function approveQuestion(source: QuestionRecord): QuestionRecord {
@@ -98,6 +106,8 @@ function approveQuestion(source: QuestionRecord): QuestionRecord {
     supersedesQuestionStudioAuthority: COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
     approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
     approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+    sourceEditorialDiversityStatus: source.editorialDiversityStatus ?? COA_CP011_STATUS,
+    editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
     runtimeMode: COA_CP012_RUNTIME_MODE,
     reviewStatus: COA_CP012_REVIEW_STATUS,
     lifecycleStatus: "INTERNALLY_ELIGIBLE" as const,
@@ -130,8 +140,15 @@ export function isCoaCp012ApprovedQuestionStudioRequest(
 }
 
 export async function generateCoaCp012ApprovedQuestionStudioBatch(input: ApprovedInput) {
+  if (input.runtimeMode && input.runtimeMode !== COA_CP012_RUNTIME_MODE) {
+    throw new Error(`COA-001 CP012 supports runtime mode ${COA_CP012_RUNTIME_MODE}; received ${input.runtimeMode}`);
+  }
   const source = await generateCoaCp011QuestionStudioBatch(cp011SourceInput(input));
-  const questions = source.questions.map((question) => approveQuestion(question as QuestionRecord));
+  const questions = source.questions.map((question) => {
+    const approved = approveQuestion(question as QuestionRecord);
+    assertCoaCp012FinalAnswerIntegrity(approved);
+    return approved;
+  });
 
   return {
     ...source,
@@ -147,6 +164,10 @@ export async function generateCoaCp012ApprovedQuestionStudioBatch(input: Approve
       authority: COA_CP012_QUESTION_STUDIO_AUTHORITY,
       approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
       approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+      postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+      postClosureAnswerProofVerified: true as const,
+      sourceEditorialDiversityStatus: source.generationContext.editorialDiversityStatus ?? COA_CP011_STATUS,
+      editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
       runtimeMode: COA_CP012_RUNTIME_MODE,
       reviewStatus: COA_CP012_REVIEW_STATUS,
       lifecycleStatus: "INTERNALLY_ELIGIBLE" as const,
@@ -192,7 +213,11 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   currentReleaseCheckpointId: COA_CP012_APPROVED_CHECKPOINT_ID,
   approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
   approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+  postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+  sourceEditorialDiversityStatus: COA_CP011_STATUS,
+  editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
   runtimeMode: COA_CP012_RUNTIME_MODE,
+  supportedRuntimeModes: [COA_CP012_RUNTIME_MODE],
   reviewStatus: COA_CP012_REVIEW_STATUS,
   reviewOnly: false,
   manualApprovalRequired: false,
@@ -212,6 +237,9 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
     currentQuestionStudioAuthority: COA_CP012_QUESTION_STUDIO_AUTHORITY,
     sourceQuestionStudioAuthority: COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
     approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
+    postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+    sourceEditorialDiversityStatus: COA_CP011_STATUS,
+    editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
     internalEligibilityStatus: "APPROVED",
     internalQuestionBankEligibility: true,
     internalTestEligibility: true,
