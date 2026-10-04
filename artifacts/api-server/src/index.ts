@@ -5,6 +5,7 @@ import { startGenerationJobWorker } from "./lib/generation-jobs";
 import { startMobileNotificationWorker } from "./lib/mobile-notification-delivery";
 import { logger } from "./lib/logger";
 import { validateAIProviderStartup } from "./lib/ai-providers";
+import { ensureApprovedExamCatalogue } from "./lib/approved-exam-catalogue";
 
 const rawPort = process.env["PORT"];
 
@@ -21,6 +22,10 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 validateAIProviderStartup();
+
+await ensureApprovedExamCatalogue().catch((error) => {
+  logger.error({ error }, "Unable to ensure approved exam catalogue during startup");
+});
 
 startGenerationJobWorker();
 startMobileNotificationWorker();
