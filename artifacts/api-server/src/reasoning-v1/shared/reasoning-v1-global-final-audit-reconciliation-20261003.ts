@@ -105,7 +105,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Decision-Making",
         chapterId: "DM-001",
         closureAuthorityPath:
-          "topics/Decision-Making/DM-001/DM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
+          "topics/Decision-Making/DM-001/DM-001-FINAL-CLOSURE-FREEZE-20261004.md",
         auditState: "PASS_WITH_REVIEW_GATE",
         remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
       },
