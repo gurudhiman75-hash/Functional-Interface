@@ -409,19 +409,13 @@ expectThrow(
   /not active for MAL-CP-004/iu,
   "Question Studio accepted a CP003 QL for CP004.",
 );
-expectThrow(
-  () =>
-    (runMal001QuestionStudioPipeline as unknown as (
-      cpId: string,
-      input: Record<string, unknown>,
-    ) => unknown)("MAL-CP-004", {
-      questionLanguageId: "MAL-QL-038",
-      seed: "cp004-wave06-hindi-rejection",
-      language: "hi",
-    }),
-  /supports English generation only/iu,
-  "Question Studio accepted unreleased Hindi output.",
-);
+const localizedHindi = runMal001QuestionStudioPipeline("MAL-CP-004", {
+  questionLanguageId: "MAL-QL-038",
+  seed: "cp004-wave06-hindi-route",
+  language: "hi",
+});
+assert(localizedHindi.questionLanguageId === "MAL-QL-038", "Question Studio Hindi route changed the requested CP004 QL.");
+assert(localizedHindi.language === "hi", "Question Studio Hindi route did not return Hindi output.");
 expectThrow(
   () =>
     (runMalCp004EnglishReleasePipeline as unknown as (

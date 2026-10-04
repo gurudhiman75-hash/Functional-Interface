@@ -430,9 +430,9 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
   for (const preview of result.questions) {
     assert(preview.canonicalProblemId === "MAL-CP-002", "Question Studio CP mismatch.");
     assert(preview.questionLanguageId === allocation.qlId, "Question Studio QL mismatch.");
-    assert(preview.publiclyPublishable === true, "Question Studio preview is not publishable.");
-    assert(preview.questionBankStatus === "WRITABLE", "Question Studio preview is not writable.");
-    assert(preview.testEligibility === "ELIGIBLE", "Question Studio preview is not test eligible.");
+    assert(preview.publiclyPublishable === false, "Question Studio preview unexpectedly became publishable.");
+    assert(preview.questionBankStatus === "NOT_STORED", "Question Studio preview unexpectedly became writable.");
+    assert(preview.testEligibility === "INELIGIBLE", "Question Studio preview unexpectedly became test eligible.");
     assert(
       preview.explanation.includes(MAL_CP002_RATIO_VISUAL_DIRECTIVE),
       "Question Studio explanation lost the ratio SVG directive.",
@@ -441,18 +441,16 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
   }
 }
 
-let unsupportedLanguageRejected = false;
-try {
-  await generateQuestionStudioQuestion({
-    packageId: "MAL-001",
-    canonicalProblemId: "MAL-CP-002",
-    language: "hi",
-    count: 1,
-  });
-} catch {
-  unsupportedLanguageRejected = true;
-}
-assert(unsupportedLanguageRejected, "Question Studio accepted unsupported Hindi.");
+const hindiResult: any = await generateQuestionStudioQuestion({
+  packageId: "MAL-001",
+  canonicalProblemId: "MAL-CP-002",
+  questionLanguageId: "MAL-QL-012",
+  language: "hi",
+  count: 1,
+  seed: "cp002-multilingual-hindi-route",
+});
+assert(hindiResult.questions?.length === 1, "CP002 Hindi Question Studio route did not return one question.");
+assert(hindiResult.questions[0]?.language === "hi", "CP002 Hindi Question Studio route did not return Hindi output.");
 
 let unknownQlRejected = false;
 try {
@@ -568,14 +566,14 @@ console.log(
       milkWaterCount,
       reviewQuestionCount: reviewRows.length,
       questionStudioPreviewCount,
-      unsupportedLanguageRejected,
+      multilingualHindiRouteVerified: true,
       unknownQlRejected,
       cp001Regression: true,
       questionStudioDiscoverable: true,
-      questionBankWritable: true,
-      testEligible: true,
-      publiclyPublishable: true,
-      excludedLanguages: MAL_CP002_ENGLISH_RELEASE.excludedLanguages,
+      questionBankWritable: false,
+      testEligible: false,
+      publiclyPublishable: false,
+      questionStudioLanguages: ["en", "hi", "pa"],
       reviewJson: jsonPath,
       reviewMarkdown: markdownPath,
     },

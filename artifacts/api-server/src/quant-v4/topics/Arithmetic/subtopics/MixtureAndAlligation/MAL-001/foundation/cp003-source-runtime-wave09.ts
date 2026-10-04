@@ -111,20 +111,20 @@ const REMOVAL_CASES: readonly RuntimeCase[] = [
 ] as const;
 
 const THRESHOLD_CASES: readonly RuntimeCase[] = [
-  { vesselVolume: 24, removedQuantity: 3, operations: 12, original: "milk", refill: "water", container: "vessel" },
-  { vesselVolume: 30, removedQuantity: 3, operations: 12, original: "milk", refill: "water", container: "can" },
-  { vesselVolume: 32, removedQuantity: 4, operations: 12, original: "juice", refill: "water", container: "container" },
-  { vesselVolume: 36, removedQuantity: 6, operations: 10, original: "milk", refill: "water", container: "vessel" },
-  { vesselVolume: 40, removedQuantity: 4, operations: 12, original: "milk", refill: "water", container: "container" },
-  { vesselVolume: 48, removedQuantity: 8, operations: 10, original: "wine", refill: "water", container: "cask" },
-  { vesselVolume: 50, removedQuantity: 5, operations: 12, original: "milk", refill: "water", container: "can" },
-  { vesselVolume: 60, removedQuantity: 10, operations: 10, original: "solution", refill: "solvent", container: "tank" },
-  { vesselVolume: 64, removedQuantity: 8, operations: 12, original: "juice", refill: "water", container: "vessel" },
-  { vesselVolume: 72, removedQuantity: 9, operations: 12, original: "milk", refill: "water", container: "container" },
-  { vesselVolume: 80, removedQuantity: 8, operations: 12, original: "milk", refill: "water", container: "tank" },
-  { vesselVolume: 90, removedQuantity: 15, operations: 10, original: "syrup", refill: "water", container: "vessel" },
-  { vesselVolume: 100, removedQuantity: 10, operations: 12, original: "liquid A", refill: "liquid B", container: "vessel" },
-  { vesselVolume: 120, removedQuantity: 15, operations: 12, original: "fruit juice", refill: "water", container: "tank" },
+  { vesselVolume: 30, removedQuantity: 10, operations: 12, original: "milk", refill: "water", container: "can" },
+  { vesselVolume: 40, removedQuantity: 10, operations: 12, original: "milk", refill: "water", container: "vessel" },
+  { vesselVolume: 50, removedQuantity: 10, operations: 12, original: "juice", refill: "water", container: "container" },
+  { vesselVolume: 70, removedQuantity: 10, operations: 12, original: "milk", refill: "water", container: "vessel" },
+  { vesselVolume: 80, removedQuantity: 10, operations: 12, original: "wine", refill: "water", container: "cask" },
+  { vesselVolume: 100, removedQuantity: 10, operations: 12, original: "solution", refill: "solvent", container: "tank" },
+  { vesselVolume: 110, removedQuantity: 10, operations: 14, original: "juice", refill: "water", container: "vessel" },
+  { vesselVolume: 130, removedQuantity: 10, operations: 14, original: "milk", refill: "water", container: "container" },
+  { vesselVolume: 150, removedQuantity: 10, operations: 16, original: "syrup", refill: "water", container: "vessel" },
+  { vesselVolume: 45, removedQuantity: 15, operations: 12, original: "liquid A", refill: "liquid B", container: "vessel" },
+  { vesselVolume: 72, removedQuantity: 18, operations: 12, original: "fruit juice", refill: "water", container: "tank" },
+  { vesselVolume: 96, removedQuantity: 16, operations: 12, original: "oil", refill: "lighter oil", container: "drum" },
+  { vesselVolume: 120, removedQuantity: 15, operations: 14, original: "milk", refill: "water", container: "tank" },
+  { vesselVolume: 144, removedQuantity: 12, operations: 16, original: "solution", refill: "solvent", container: "tank" },
 ] as const;
 
 function hash(value: string): number {

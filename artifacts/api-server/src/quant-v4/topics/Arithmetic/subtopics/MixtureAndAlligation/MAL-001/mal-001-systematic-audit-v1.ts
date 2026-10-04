@@ -287,4 +287,13 @@ console.log(JSON.stringify({
   perQl,
 }, null, 2));
 
+assert.equal(lowRawStemQls.length, 0, `Low raw-stem diversity remains: ${lowRawStemQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(lowStructureQls.length, 0, `Low structural diversity remains: ${lowStructureQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(lowAnswerDiversityQls.length, 0, `Low answer diversity remains: ${lowAnswerDiversityQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(lowNumericSignatureQls.length, 0, `Low numeric-state diversity remains: ${lowNumericSignatureQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(thinExplanationQls.length, 0, `Thin explanations remain: ${thinExplanationQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(machineStemQls.length, 0, `Machine-like stems remain: ${machineStemQls.map((item) => item.qlId).join(", ")}`);
+assert.equal(crossQlStemCollisions.length, 0, `Cross-QL stem collisions remain: ${crossQlStemCollisions.map((item) => item.qlIds.join("/")).join(", ")}`);
+
 console.log("PASS_MAL_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY");
+console.log("PASS_MAL_001_SYSTEMATIC_AUDIT_V1_FULL_DIVERSITY_CLOSURE");

@@ -36,8 +36,11 @@ function targetState(seed: string, pool: readonly MalCp004Wave04TargetCase[]) {
     MAL_CP004_WAVE04_LIQUID_CONTEXTS,
     `${seed}:context`,
   );
+  const scale = [1, 2, 3][
+    malCp004Wave04VariantIndex(`${seed}:answer-scale`, 3)
+  ]!;
   return {
-    initialTotal: rational(selected.initialTotal),
+    initialTotal: rational(selected.initialTotal * scale),
     initialRate: fraction(selected.initialRate),
     targetRate: fraction(selected.targetRate),
     context,

@@ -56,7 +56,7 @@ function numericSignature(value: unknown): string[] {
 
 function stripNonProse(value: string): string {
   return value
-    .replace(/\[\[EXAMTREE_ALLIGATION_SVG_V1:[^\]]+\]\]/gu, " ")
+    .replace(/\[\[EXAMTREE_[A-Z0-9_]+:[^\]]+\]\]/gu, " ")
     .replace(/\\[A-Za-z]+/gu, " ")
     .replace(/MAL-(?:CP|QL)-\d+/gu, " ");
 }

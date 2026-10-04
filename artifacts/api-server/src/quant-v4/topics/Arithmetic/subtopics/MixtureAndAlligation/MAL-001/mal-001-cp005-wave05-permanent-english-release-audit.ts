@@ -269,11 +269,13 @@ expectThrow(
   /does not support language 'hi'/u,
   "Hindi must remain excluded.",
 );
-expectThrow(
-  () => runMal001QuestionStudioPipeline("MAL-CP-005", { language: "pa" as never }),
-  /supports English generation only/u,
-  "Punjabi must remain excluded.",
-);
+const localizedPunjabi = runMal001QuestionStudioPipeline("MAL-CP-005", {
+  questionLanguageId: "MAL-QL-048",
+  language: "pa",
+  seed: "cp005-wave05-punjabi-route",
+});
+assert(localizedPunjabi.questionLanguageId === "MAL-QL-048", "Punjabi Question Studio route changed the requested CP005 QL.");
+assert(localizedPunjabi.language === "pa", "Punjabi Question Studio route did not return Punjabi output.");
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -313,7 +315,7 @@ const summary = {
     testEligible: true,
     publiclyPublishable: true,
   },
-  excludedLanguages: ["hi", "pa"],
+  questionStudioLanguages: ["en", "hi", "pa"],
 };
 
 writeFileSync(
@@ -326,7 +328,7 @@ writeFileSync(
 const markdown: string[] = [
   "# MAL-CP-005 Wave 05 — Permanent English Release 52Q Review",
   "",
-  "> English release candidate. Hindi and Punjabi remain excluded. Merge remains a separate gate.",
+  "> Direct English release audit retained for CP005; the chapter-level Question Studio wrapper now supports English, Hindi and Punjabi.",
   "",
   `Runtime: \`${MAL_CP005_PERMANENT_RUNTIME_ID}\``,
   `Release: \`${MAL_CP005_ENGLISH_RELEASE.releaseId}\``,
@@ -338,7 +340,7 @@ const markdown: string[] = [
   "- MAL-QL-048..049 are Easy; MAL-QL-050..060 are Medium; no synthetic Hard QL is introduced.",
   "- Question Studio, Question Bank, tests and public publication are enabled in the release layer.",
   "- Learner-facing CP terminology uses cost price, not buying rate or purchase rate.",
-  "- Hindi and Punjabi remain excluded.",
+  "- Direct CP005 release runtime remains English-authoritative; Question Studio localization supports Hindi and Punjabi.",
   "",
   "## Per-QL diversity evidence",
   "",

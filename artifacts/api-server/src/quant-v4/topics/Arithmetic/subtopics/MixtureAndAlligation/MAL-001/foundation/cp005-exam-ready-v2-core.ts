@@ -223,9 +223,14 @@ function targetProfitFromSeed(seed: string): Rational {
   return rV2(selected.numerator, selected.denominator);
 }
 
-export function freeStateV2(seed: string): MalCp005FreeStateV2 {
+export function freeStateV2(
+  seed: string,
+  ratioPool: readonly (readonly [number, number])[] = MAL_CP005_NATURAL_RATIOS_V2,
+): MalCp005FreeStateV2 {
   const context = pickV2(MAL_CP005_FREE_CONTEXTS_V2, `${seed}:context`);
-  const [purePart, adulterantPart] = ratioFromSeed(seed);
+  const pair = pickV2(ratioPool, `${seed}:ratio`);
+  const purePart = rV2(pair[0]);
+  const adulterantPart = rV2(pair[1]);
   const scale = scaleFromSeed(seed);
   const pureQuantity = multiplyRational(purePart, scale);
   const adulterantQuantity = multiplyRational(adulterantPart, scale);

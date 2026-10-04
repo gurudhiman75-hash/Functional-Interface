@@ -67,6 +67,16 @@ const EQUAL_STAGE_CASES = [
   { volume: 160, removed: 40 },
 ] as const;
 
+const OPERATION_COUNT_CASES = [
+  { volume: 64, removed: 32, initial: 64, operations: 2 },
+  { volume: 96, removed: 48, initial: 96, operations: 3 },
+  { volume: 128, removed: 64, initial: 128, operations: 4 },
+  { volume: 160, removed: 80, initial: 160, operations: 5 },
+  { volume: 192, removed: 96, initial: 192, operations: 6 },
+  { volume: 256, removed: 128, initial: 256, operations: 7 },
+  { volume: 256, removed: 128, initial: 256, operations: 8 },
+] as const;
+
 const INITIAL_SHARES = [
   rational(1),
   rational(3, 4),
@@ -191,18 +201,27 @@ export function generateMalCp003Parameters(
     }
 
     case "MAL-CP003-PROT-OPERATION-COUNT-FROM-FINAL": {
-      const initial = initialOriginalQuantity(selected.volume, random);
+      const operationCase =
+        OPERATION_COUNT_CASES[
+          hashSeed(`${prototypeId}:${seed}:answer-state`) %
+            OPERATION_COUNT_CASES.length
+        ]!;
+      const operationScale =
+        1 + (hashSeed(`${prototypeId}:${seed}:operation-scale`) % 2);
+      const operationVolume = operationCase.volume * operationScale;
+      const operationRemoved = operationCase.removed * operationScale;
+      const operationInitial = operationCase.initial * operationScale;
       request = {
         mode: "OPERATION_COUNT_FROM_FINAL",
-        vesselVolume,
-        initialOriginalQuantity: initial,
+        vesselVolume: rational(operationVolume),
+        initialOriginalQuantity: rational(operationInitial),
         finalOriginalQuantity: equalFinal(
-          selected.volume,
-          selected.removed,
-          operations,
-          initial,
+          operationVolume,
+          operationRemoved,
+          operationCase.operations,
+          rational(operationInitial),
         ),
-        removedQuantity,
+        removedQuantity: rational(operationRemoved),
         maximumOperations: 10,
       };
       break;
