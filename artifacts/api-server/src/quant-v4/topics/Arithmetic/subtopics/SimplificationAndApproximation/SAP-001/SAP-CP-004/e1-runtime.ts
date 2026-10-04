@@ -16,6 +16,16 @@ import {
 export { SAP_CP004_PROTOTYPE_IDS };
 export type { SapCp004Package, SapCp004PrototypeId };
 
+function foldPerfectSquareSeed(seed: number): number {
+  if (!Number.isInteger(seed) || seed < 1) throw new Error("CP004 seed must be a positive integer.");
+  if (seed <= 100) return seed;
+  const value = seed - 1;
+  const low = value % 100;
+  const mid = Math.floor(value / 100) % 100;
+  const high = Math.floor(value / 10_000) % 100;
+  return ((low + 3 * mid + 7 * high) % 100) + 1;
+}
+
 function formatScaled(value: number, scale: number): string {
   const sign = value < 0 ? "-" : "";
   const digits = String(Math.abs(value)).padStart(scale + 1, "0");
@@ -148,7 +158,8 @@ function presentationRemediation(base: SapCp004Package): SapCp004Package {
 }
 
 export function generateSapCp004E1Existing(prototypeId: SapCp004PrototypeId, seed: number): SapCp004Package {
-  const base = generateFrozenCandidate(prototypeId, seed);
+  const sourceSeed = prototypeId === "SAP-CP004-PROT-PERFECT-SQUARE-ROOT" ? foldPerfectSquareSeed(seed) : seed;
+  const base = generateFrozenCandidate(prototypeId, sourceSeed);
   if (prototypeId === "SAP-CP004-PROT-PERFECT-SQUARE-ROOT" && seed % 4 === 0) return decimalSquareRoot(base);
   if (prototypeId === "SAP-CP004-PROT-ROOT-MIXED-ARITHMETIC" && seed % 4 === 1) return decimalRootArithmetic(base);
   return presentationRemediation(base);
