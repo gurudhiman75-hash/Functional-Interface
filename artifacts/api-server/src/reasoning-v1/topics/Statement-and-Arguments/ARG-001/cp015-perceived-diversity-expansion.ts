@@ -42,6 +42,10 @@ import {
 } from "./cp015-localized-combo-residual-polish.ts";
 import { polishArgCp015LocalizedTwoArgumentSurface } from "./cp015-localized-two-argument-surface-polish.ts";
 import { naturalizeArgCp015TwoArgumentEditorial } from "./cp015-two-argument-editorial-naturalization.ts";
+import {
+  ARG_CP015_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+  assertArgCp015FinalAnswerIntegrity,
+} from "./cp015-post-closure-answer-proof.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
 export const ARG_CP015_AUTHORITY = "ARG_CP015_PERCEIVED_DIVERSITY_EXPANSION_V1" as const;
@@ -365,6 +369,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       }
     }
     if (!accepted) throw new Error(`ARG-001 CP015 could not resolve a unique question at batch index ${index}.`);
+    assertArgCp015FinalAnswerIntegrity(accepted);
     questions.push(accepted);
   }
 
@@ -384,6 +389,8 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       diversityAuthority: ARG_CP015_AUTHORITY,
       antiGamingCueDebiasAuthority: ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY,
       antiGamingGrammarPolishAuthority: ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY,
+      postClosureAnswerProofAuthority: ARG_CP015_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+      postClosureAnswerProofVerified: true as const,
       runtimeMode: ARG_CP015_RUNTIME_MODE,
       reviewStatus: ARG_CP015_REVIEW_STATUS,
       profileMode: isArgCp015RealPaperRequest(input) ? "real-paper" as const : "core" as const,
@@ -431,6 +438,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   diversityAuthority: ARG_CP015_AUTHORITY,
   antiGamingCueDebiasAuthority: ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY,
   antiGamingGrammarPolishAuthority: ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY,
+  postClosureAnswerProofAuthority: ARG_CP015_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
   runtimeMode: ARG_CP015_RUNTIME_MODE,
   reviewStatus: ARG_CP015_REVIEW_STATUS,
   noRepeatWithinBatch: true as const,
