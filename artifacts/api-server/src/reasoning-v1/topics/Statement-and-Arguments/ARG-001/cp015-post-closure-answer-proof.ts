@@ -33,9 +33,9 @@ function isEitherDistractor(option: string): boolean {
 }
 
 function isNoneOption(option: string): boolean {
-  return /None of the arguments is strong/iu.test(option)
-    || /कोई भी तर्क मजबूत नहीं है/u.test(option)
-    || /ਕੋਈ ਵੀ ਦਲੀਲ ਮਜ਼ਬੂਤ ਨਹੀਂ ਹੈ/u.test(option);
+  return /None of the arguments is strong|Neither argument I nor II is strong/iu.test(option)
+    || /कोई भी तर्क मजबूत नहीं है|न तो तर्क I और न ही II मजबूत है/u.test(option)
+    || /ਕੋਈ ਵੀ ਦਲੀਲ ਮਜ਼ਬੂਤ ਨਹੀਂ ਹੈ|ਨਾ ਦਲੀਲ I ਅਤੇ ਨਾ ਹੀ II ਮਜ਼ਬੂਤ ਹੈ/u.test(option);
 }
 
 function isAllOption(option: string): boolean {
