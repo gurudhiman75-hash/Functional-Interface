@@ -18,7 +18,7 @@ import { generateAsm001Question } from "./asm-001-runtime";
 
 assert.deepEqual([...ASM_001_PERMANENT_QL_IDS], ["ASM-QL-001"]);
 assert.equal(ASM_001_CONTENT_CLOSURE.nextAvailablePermanentQl, "ASM-QL-002");
-assert.equal(ASM_001_SCENARIO_AUTHORITIES.length, 20);
+assert.equal(ASM_001_SCENARIO_AUTHORITIES.length, 23);
 assert.ok(ASM_001_ANSWER_CLASS_COUNTS.BOTH_TRUE_REASON_EXPLAINS >= 4);
 assert.ok(ASM_001_ANSWER_CLASS_COUNTS.BOTH_TRUE_REASON_NOT_EXPLAINS >= 3);
 assert.ok(ASM_001_ANSWER_CLASS_COUNTS.ASSERTION_TRUE_REASON_FALSE >= 3);
@@ -112,19 +112,54 @@ assert.deepEqual([...profiles].sort(), ["EXTENDED_5", "STANDARD_4"]);
 assert.ok(correctSlots.size >= 4, "Correct answer positions must not be fixed.");
 
 for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const pool = ASM_001_SCENARIO_AUTHORITIES.filter((scenario) => scenario.difficulty === difficulty);
   const result = await generateAsm001QuestionStudioBatch({
     packageId: "ASM-001",
     language: "en",
     difficulty,
-    count: 10,
+    count: pool.length,
     seed: "asm-difficulty-" + difficulty,
   });
-  assert.equal(result.questions.length, 10);
+  assert.equal(result.questions.length, pool.length);
   assert.ok(result.questions.every((q) => q.difficulty === difficulty));
   assert.ok(result.questions.every((q) => q.qlId === "ASM-QL-001"));
   assert.ok(result.questions.every((q) => q.questionBankWritable === false));
   assert.ok(result.questions.every((q) => q.testEligible === false));
+  assert.equal(
+    new Set(result.questions.map((q) => String(q.traceability?.scenarioId))).size,
+    pool.length,
+    difficulty + " batch must not repeat curated scenarios",
+  );
+  assert.equal(result.generationContext?.withoutReplacement, true);
+  assert.equal(result.generationContext?.availableDistinctScenarioCount, pool.length);
+
+  await assert.rejects(
+    () => generateAsm001QuestionStudioBatch({
+      packageId: "ASM-001",
+      language: "en",
+      difficulty,
+      count: pool.length + 1,
+      seed: "asm-over-capacity-" + difficulty,
+    }),
+    /distinct curated .* scenarios/i,
+  );
+
+  const classes = new Set(pool.map((scenario) => scenario.answerClass));
+  assert.equal(classes.size, 5, difficulty + " must cover all five answer classes");
 }
+
+const mixedFull = await generateAsm001QuestionStudioBatch({
+  packageId: "ASM-001",
+  language: "en",
+  count: ASM_001_SCENARIO_AUTHORITIES.length,
+  seed: "asm-full-unique-batch",
+});
+assert.equal(mixedFull.questions.length, ASM_001_SCENARIO_AUTHORITIES.length);
+assert.equal(
+  new Set(mixedFull.questions.map((q) => String(q.traceability?.scenarioId))).size,
+  ASM_001_SCENARIO_AUTHORITIES.length,
+  "Mixed full-capacity batch must expose every curated scenario exactly once",
+);
 
 const punjabi = await reasoningV1QuestionStudioAdapter.generate({
   packageId: "ASM-001",
