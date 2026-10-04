@@ -4,10 +4,10 @@ import {
   BarChart3,
   ChevronDown,
   Home,
-  Languages,
   LayoutDashboard,
   Menu,
   Newspaper,
+  Search,
   Settings,
   ShoppingBag,
   X,
@@ -42,9 +42,10 @@ const primaryLinks = [
 const homeLinks = [
   { label: "Exams", href: "/exams" },
   { label: "Test Series", href: "/exams" },
-  { label: "Practice", href: "/mock-tests" },
-  { label: "Resources", href: "/resources" },
-  { label: "Store", href: "/store" },
+  { label: "Study Material", href: "/resources" },
+  { label: "Current Affairs", href: "/current-affairs" },
+  { label: "Free Tests", href: "/mock-tests" },
+  { label: "Blog", href: "/resources" },
 ];
 
 const mobileStudyLinks: MobileStudyLink[] = [
@@ -154,14 +155,23 @@ export function PublicLayout({ children }: PublicLayoutProps) {
         Skip to main content
       </a>
 
-      {isHome ? <div className="sites-top-strip"><span>India&apos;s smarter exam prep platform</span><span aria-hidden="true">•</span><strong>Start with free mock tests</strong><span aria-hidden="true">•</span><span>Updated for 2026</span></div> : null}
-
       <header className={`et-chrome sticky top-0 z-50 border-b ${isHome ? "home-reference-header" : ""}`} data-testid="public-header">
         <div className={`mx-auto flex w-full items-center gap-4 px-4 sm:px-6 ${isHome ? "h-14 max-w-7xl lg:px-8" : `h-16 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}`}>
           <div className={!isHome && showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-sidebar-border lg:px-5 lg:self-stretch" : "shrink-0"}>
             <Link href="/" className="et-interactive flex min-h-[45px] shrink-0 items-center gap-2 rounded-xl" aria-label="ExamTree home">
-              <span className={`flex items-center justify-center bg-primary font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15 ${isHome ? "h-8 w-8 rounded-lg text-xs" : "h-9 w-9 rounded-xl text-sm"}`}>E</span>
-              <span className={`${isHome ? "text-[15px]" : "text-lg"} font-extrabold tracking-[-0.03em] text-foreground`}>EXAMTREE</span>
+              {isHome ? (
+                <svg className="home-brand-mark" width="35" height="35" viewBox="0 0 40 40" aria-hidden="true">
+                  <defs><linearGradient id="etLogoBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0a78ff"/><stop offset="1" stopColor="#0c2f79"/></linearGradient></defs>
+                  <path d="M4 12.5c5.3-.2 9.6 1.2 13.2 4.3V34C13.3 31.5 9 30.5 4 30.8V12.5Z" fill="#0d2d71"/>
+                  <path d="M36 12.5c-5.3-.2-9.6 1.2-13.2 4.3V34c3.9-2.5 8.2-3.5 13.2-3.2V12.5Z" fill="#0b4ca2"/>
+                  <path d="M20 14c-4-5.6-8.8-6.2-11.1-5 2.8 1.6 5 4.1 6.1 7.2 1.5-.9 3.2-1.7 5-2.2Z" fill="#0a72e8"/>
+                  <path d="M20 14c4-5.6 8.8-6.2 11.1-5-2.8 1.6-5 4.1-6.1 7.2-1.5-.9-3.2-1.7-5-2.2Z" fill="#1398ff"/>
+                  <path d="M20 12.5C18.8 7.8 20.2 4.6 22 3c1.8 2.1 2.7 5.3 1 9.4-1-.2-2-.2-3 .1Z" fill="#1379df"/>
+                </svg>
+              ) : (
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15">E</span>
+              )}
+              <span className={`${isHome ? "home-brand-word" : "text-lg"} font-extrabold tracking-[-0.03em] text-foreground`}>{isHome ? "Examtree" : "EXAMTREE"}</span>
             </Link>
           </div>
 
@@ -186,13 +196,16 @@ export function PublicLayout({ children }: PublicLayoutProps) {
           <div className={`ml-auto hidden items-center gap-2 sm:flex ${showStudySidebar ? "lg:px-5" : ""}`} data-testid="public-header-actions">
             {isHome ? (
               <>
-                <span className="mr-1 hidden items-center gap-1.5 text-[11px] font-medium text-slate-500 md:inline-flex"><Languages className="h-3.5 w-3.5" /> English <ChevronDown className="h-3 w-3" /></span>
+                <div className="home-header-search hidden xl:flex">
+                  <Search className="h-4 w-4" aria-hidden="true" />
+                  <input aria-label="Search exams, tests, topics" placeholder="Search exams, tests, topics..." />
+                </div>
                 {user ? (
                   <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
                 ) : (
                   <>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
-                    <Link href="/login/student?mode=signup" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
+                    <Link href="/login/student" className="home-header-login et-interactive inline-flex items-center">Login</Link>
+                    <Link href="/login/student?mode=signup" className="home-header-signup et-interactive inline-flex items-center">Sign Up</Link>
                   </>
                 )}
               </>
