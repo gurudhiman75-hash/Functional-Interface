@@ -52,6 +52,7 @@ export interface WebExamPageSection {
 }
 
 export interface WebExamPageConfiguration {
+  detailsBuilderInitialized: boolean;
   pageEyebrow: string;
   pageTitle: string;
   pageDescription: string;
@@ -67,6 +68,7 @@ export interface WebExamPageConfigurationResponse {
 }
 
 export const DEFAULT_WEB_EXAM_PAGE_CONFIGURATION: WebExamPageConfiguration = {
+  detailsBuilderInitialized: true,
   pageEyebrow: "",
   pageTitle: "",
   pageDescription: "",
@@ -92,4 +94,19 @@ export const DEFAULT_WEB_EXAM_PAGE_CONFIGURATION: WebExamPageConfiguration = {
 
 export function getWebExamPageConfiguration(examSlug: string) {
   return apiRequest<WebExamPageConfigurationResponse>(`/web/exam-pages/${encodeURIComponent(examSlug)}`);
+}
+
+
+export function withDefaultExamDetailsSections(configuration: WebExamPageConfiguration): WebExamPageConfiguration {
+  if (configuration.detailsBuilderInitialized || configuration.sections.some((section) => section.type.startsWith("details_"))) {
+    return configuration;
+  }
+  const detailDefaults = DEFAULT_WEB_EXAM_PAGE_CONFIGURATION.sections
+    .filter((section) => section.type.startsWith("details_"))
+    .map((section) => ({ ...section, labels: { ...section.labels }, cards: section.cards.map((card) => ({ ...card })) }));
+  return {
+    ...configuration,
+    detailsBuilderInitialized: true,
+    sections: [...configuration.sections, ...detailDefaults],
+  };
 }
