@@ -8,8 +8,8 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
-import { getStudentTestSeries, type StudentSeriesCatalogTest, type StudentSeriesSummary } from "@/lib/test-series";
-import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection, type WebExamSectionLayout } from "@/lib/web-exam-page";
+import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
+import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import {
   catalogExamCodesForSlug,
@@ -45,20 +45,6 @@ function requireConfig(examSlug: string) {
   if (!config) throw new Error("Unknown exam acquisition config: " + examSlug);
   return config;
 }
-
-type ExamHubCatalogItem = {
-  id: string;
-  title: string;
-  description: string;
-  href?: string;
-  badge: string;
-  meta: string;
-  iconUrl?: string | null;
-  comingSoon?: boolean;
-  seriesId?: string;
-  progressionMode?: "open" | "sequential" | "score_gated";
-  seriesTests?: StudentSeriesCatalogTest[];
-};
 
 type ExamHubFlatTest = {
   id: string;
@@ -161,178 +147,6 @@ function stageFromText(value: string): "prelims" | "mains" | "general" {
   if (prelims && !mains) return "prelims";
   if (mains && !prelims) return "mains";
   return "general";
-}
-
-function progressionLabel(mode: ExamHubCatalogItem["progressionMode"]) {
-  if (mode === "sequential") return "Complete in order";
-  if (mode === "score_gated") return "Score-gated";
-  return "Open access";
-}
-
-function tabLabelForSection(title: string, labels: Record<string, string> = {}) {
-  const value = title.toLowerCase();
-  if (/prelims?|preliminary/.test(value)) return labels.prelims || "Prelims";
-  if (/mains?|main exam/.test(value)) return labels.mains || "Mains";
-  if (/\bpyq\b|previous[ -]?year/.test(value)) return labels.pyq || "PYQ";
-  if (/sectional/.test(value)) return labels.sectional || "Sectional";
-  if (/topic[ -]?wise/.test(value)) return labels.topicWise || "Topic-wise";
-  if (/more test/.test(value)) return labels.more || "More";
-  return title;
-}
-
-function seriesItem(series: StudentSeriesSummary): ExamHubCatalogItem {
-  const comingSoon = series.learnerVisibility === "coming_soon";
-  const liveCount = series.tests?.length ?? series.liveTestCount ?? 0;
-  return {
-    id: "series-" + series.id,
-    title: series.name,
-    description: compact(series.description) || (comingSoon ? series.learnerMessage : "ExamTree test series"),
-    badge: comingSoon ? "Coming Soon" : "Test Series",
-    meta: liveCount === 1 ? "1 live test" : liveCount + " live tests",
-    iconUrl: series.iconUrl,
-    comingSoon,
-    seriesId: series.id,
-    progressionMode: series.progressionMode,
-    seriesTests: series.tests ?? [],
-  };
-}
-
-function testItem(test: Test): ExamHubCatalogItem {
-  const kind = test.kind === "sectional" ? "Sectional" : test.kind === "topic-wise" ? "Topic-wise" : "Full Length";
-  const access = (test.access ?? "free") === "free" ? "Free" : "Premium";
-  return {
-    id: "test-" + test.id,
-    title: test.name,
-    description: compact(test.subcategoryName) ? compact(test.subcategoryName) + " · " + kind : kind + " test",
-    href: "/test/" + encodeURIComponent(test.id),
-    badge: access,
-    meta: test.totalQuestions + " questions · " + test.duration + " min",
-    iconUrl: test.iconUrl,
-  };
-}
-
-function SeriesTestRow({ test, seriesId, ctaLabel }: { test: StudentSeriesCatalogTest; seriesId: string; ctaLabel?: string }) {
-  const durationMinutes = Math.max(1, Math.ceil(Number(test.durationSeconds || 0) / 60));
-  return (
-    <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-4 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex min-w-0 items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-          {test.iconUrl ? <img src={test.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-4 w-4 text-indigo-600" />}
-        </div>
-        <div className="min-w-0">
-          <h4 className="font-semibold leading-5 text-slate-950">{test.title}</h4>
-          <p className="mt-1 text-xs leading-5 text-slate-500">
-            {test.questionCount} questions · {durationMinutes} min{Number(test.totalMarks) > 0 ? " · " + test.totalMarks + " marks" : ""}
-          </p>
-          {test.description ? <p className="mt-1 line-clamp-1 text-xs text-slate-400">{test.description}</p> : null}
-        </div>
-      </div>
-      <Link
-        href={"/test/" + encodeURIComponent(test.testId) + "?seriesId=" + encodeURIComponent(seriesId)}
-        className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white transition hover:bg-[#594bd9]"
-      >
-        {ctaLabel || "Start test"}
-      </Link>
-    </div>
-  );
-}
-
-function ExamHubCatalogSection({
-  id,
-  title,
-  description,
-  items,
-  emptyMessage,
-  layout = "list",
-  columns = 1,
-  cardStyle = "default",
-  ctaLabel,
-}: {
-  id: string;
-  title: string;
-  description: string;
-  items: ExamHubCatalogItem[];
-  emptyMessage: string;
-  layout?: WebExamSectionLayout;
-  columns?: number;
-  cardStyle?: WebExamCardStyle;
-  ctaLabel?: string;
-}) {
-  const containerClass =
-    layout === "horizontal"
-      ? "flex snap-x gap-4 overflow-x-auto pb-2"
-      : layout === "grid" || layout === "cards"
-        ? "grid gap-4"
-        : "space-y-4";
-  const gridColumnsClass =
-    columns >= 4 ? "lg:grid-cols-4" : columns === 3 ? "lg:grid-cols-3" : columns === 2 ? "md:grid-cols-2" : "grid-cols-1";
-  const cardClass =
-    cardStyle === "minimal" ? "border-transparent shadow-none" :
-    cardStyle === "featured" ? "border-indigo-200 shadow-[0_10px_28px_rgba(79,70,229,0.08)]" :
-    cardStyle === "compact" ? "border-slate-200 shadow-none" :
-    "border-slate-200 shadow-[0_5px_18px_rgba(15,23,42,0.035)]";
-
-  return (
-    <section id={id} role="tabpanel" className="rounded-2xl border border-slate-200 bg-slate-50/60 p-3 sm:p-4">
-      <div className="px-1 pb-3">
-        <h3 className="text-xl font-semibold tracking-tight text-slate-950">{title}</h3>
-        <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
-      </div>
-
-      {items.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-7">
-          <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
-        </div>
-      ) : (
-        <div className={containerClass + ((layout === "grid" || layout === "cards") ? " " + gridColumnsClass : "")}>
-          {items.map((item) => item.seriesId ? (
-            <article key={item.id} className={"overflow-hidden rounded-2xl border bg-white " + cardClass + (layout === "horizontal" ? " w-[86vw] max-w-[430px] shrink-0 snap-start" : "")}>
-              <div className="p-4 sm:p-5">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                    {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className={"rounded-full px-2 py-0.5 text-[10px] font-bold " + (item.comingSoon ? "bg-amber-50 text-amber-700" : "bg-indigo-50 text-indigo-700")}>{item.badge}</span>
-                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">{progressionLabel(item.progressionMode)}</span>
-                      <span className="text-[11px] font-semibold text-slate-400">{item.meta}</span>
-                    </div>
-                    <h4 className="mt-2 text-base font-semibold text-slate-950">{item.title}</h4>
-                    <p className="mt-1 text-sm leading-5 text-slate-500">{item.description}</p>
-                  </div>
-                </div>
-              </div>
-
-              {item.seriesTests?.length ? (
-                <div className="border-t border-slate-200 bg-white">
-                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} ctaLabel={ctaLabel} />)}
-                </div>
-              ) : (
-                <div className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-500">
-                  {item.comingSoon ? item.description : "No live tests are published in this series yet."}
-                </div>
-              )}
-            </article>
-          ) : (
-            <article key={item.id} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex min-w-0 items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                  {item.iconUrl ? <img src={item.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-5 w-5 text-indigo-600" />}
-                </div>
-                <div className="min-w-0">
-                  <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700">{item.badge}</span>
-                  <h4 className="mt-2 font-semibold text-slate-950">{item.title}</h4>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">{item.meta}</p>
-                </div>
-              </div>
-              {item.href ? <Link href={item.href} className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 text-sm font-semibold text-indigo-700 hover:bg-indigo-100">{ctaLabel || "Start test"}</Link> : null}
-            </article>
-          ))}
-        </div>
-      )}
-    </section>
-  );
 }
 
 function gridColumnsClass(columns: number) {
@@ -473,81 +287,6 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
     return [...fromSeries, ...standalone];
   }, [examSeries, examTests]);
-
-  const landingSections = useMemo(() => {
-    type SectionEntry = { order: number; item: ExamHubCatalogItem };
-    type SectionDraft = { title: string; description: string; order: number; entries: SectionEntry[] };
-    const sections = new Map<string, SectionDraft>();
-
-    const asOrder = (value: unknown, fallback: number) => {
-      const number = Number(value);
-      return Number.isFinite(number) && number >= 0 ? number : fallback;
-    };
-    const addItem = (title: string, description: string, sectionOrder: number, itemOrder: number, item: ExamHubCatalogItem) => {
-      const key = title.trim().toLowerCase();
-      const existing = sections.get(key);
-      if (existing) {
-        existing.order = Math.min(existing.order, sectionOrder);
-        if (!existing.description && description) existing.description = description;
-        existing.entries.push({ order: itemOrder, item });
-        return;
-      }
-      sections.set(key, { title, description, order: sectionOrder, entries: [{ order: itemOrder, item }] });
-    };
-    const fallbackSeriesSection = (series: StudentSeriesSummary) => {
-      const type = seriesHubType(series);
-      const stage = seriesHubStage(series);
-      if (type === "pyq") return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
-      if (type === "sectional") return { title: "Sectional Tests", description: "Section-level series for focused timed practice.", order: 40 };
-      if (type === "topic-wise") return { title: "Topic-wise Tests", description: "Topic-focused practice series from the exam syllabus.", order: 50 };
-      if (stage === "prelims") return { title: "Prelims Test Series", description: "Full-length " + config.name + " preliminary-stage mock series.", order: 10 };
-      if (stage === "mains") return { title: "Mains Test Series", description: "Full-length " + config.name + " main-stage mock series.", order: 20 };
-      return { title: "More Test Series", description: "Additional test series published for this exam.", order: 60 };
-    };
-    const fallbackTestSection = (test: Test) => {
-      const value = testSearchText(test);
-      if (isPyqText(value)) return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
-      if (test.kind === "sectional") return { title: "Sectional Tests", description: "Focused tests for individual exam sections.", order: 40 };
-      if (test.kind === "topic-wise") return { title: "Topic-wise Tests", description: "Short tests focused on specific topics from this exam syllabus.", order: 50 };
-      const stage = stageFromText(value);
-      if (stage === "prelims") return { title: "Prelims Test Series", description: "Full-length " + config.name + " preliminary-stage mock tests and series.", order: 10 };
-      if (stage === "mains") return { title: "Mains Test Series", description: "Full-length " + config.name + " main-stage mock tests and series.", order: 20 };
-      return { title: "More Tests", description: "Additional published tests for this exam.", order: 60 };
-    };
-
-    examSeries.forEach((series) => {
-      const fallback = fallbackSeriesSection(series);
-      addItem(
-        compact(series.hubSectionTitle) || fallback.title,
-        compact(series.hubSectionDescription) || fallback.description,
-        asOrder(series.hubSectionOrder, fallback.order),
-        asOrder(series.hubSeriesOrder, 100),
-        seriesItem(series),
-      );
-    });
-
-    const seriesTestIds = new Set(
-      examSeries.flatMap((series) => (series.tests ?? []).map((test) => String(test.testId).toLowerCase())),
-    );
-
-    examTests.forEach((test, index) => {
-      if (seriesTestIds.has(String(test.id).toLowerCase())) return;
-      const fallback = fallbackTestSection(test);
-      addItem(fallback.title, fallback.description, fallback.order, 1000 + index, testItem(test));
-    });
-
-    return Array.from(sections.values())
-      .sort((left, right) => left.order - right.order || left.title.localeCompare(right.title))
-      .map((section, index) => ({
-        id: "series-" + String(index + 1) + "-" + (section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "row"),
-        title: section.title,
-        description: section.description,
-        order: section.order,
-        items: section.entries
-          .sort((left, right) => left.order - right.order || left.item.title.localeCompare(right.item.title))
-          .map((entry) => entry.item),
-      }));
-  }, [examSeries, examTests, config.name]);
 
   const activeTests = flatTests.filter((test) =>
     activeExamStage === "pyq"
