@@ -141,7 +141,7 @@ for (const index of [0, 1, 2, 3, 4]) {
       ...sample,
       argumentStrengths: driftedStrengths,
     }),
-    /runtime correct index .* disagrees with independently parsed option semantics|expected exactly one option for strong-set/i,
+    /contextualized role .* expects (?:STRONG|WEAK)|runtime correct index .* disagrees with independently parsed option semantics|expected exactly one option for strong-set/i,
   );
 }
 
