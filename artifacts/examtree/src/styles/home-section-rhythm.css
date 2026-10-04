@@ -1518,3 +1518,250 @@
   .reference-exam-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .reference-exam-grid .minimal-exam-card{min-height:76px!important}
 }
+
+
+/* 2026-10-04 homepage cleanup: compact round exam shortcuts + clean series cards */
+.home-page .reference-exam-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.home-page .reference-exam-grid .minimal-exam-card{
+  display:flex!important;
+  min-height:104px!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  border:0!important;
+  border-radius:18px!important;
+  background:transparent!important;
+  padding:8px 4px!important;
+  text-align:center!important;
+  box-shadow:none!important;
+}
+.home-page .reference-exam-grid .minimal-exam-card:hover{
+  background:#f8fbff!important;
+  transform:translateY(-2px)!important;
+}
+.home-page .reference-exam-grid .minimal-exam-icon{
+  display:grid!important;
+  width:62px!important;
+  height:62px!important;
+  flex:0 0 62px!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  border:1px solid #e4ebf6!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  padding:10px!important;
+  box-shadow:0 7px 18px -14px rgba(28,58,108,.28)!important;
+}
+.home-page .reference-exam-grid .minimal-exam-icon img,
+.home-page .reference-exam-grid .minimal-exam-icon svg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:38px!important;
+  max-height:38px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.home-page .reference-exam-grid .minimal-exam-card h3{
+  display:block!important;
+  width:100%!important;
+  margin:0!important;
+  overflow:hidden!important;
+  color:#102348!important;
+  font-size:11.5px!important;
+  line-height:1.25!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+}
+.home-page .reference-exam-grid .minimal-exam-card p,
+.home-page .reference-exam-grid .reference-exam-arrow{
+  display:none!important;
+}
+
+/* Featured test series: no stretched logos, clearer card hierarchy */
+.home-page .reference-series-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+.home-page .clean-series-card{
+  position:relative!important;
+  display:grid!important;
+  min-height:124px!important;
+  grid-template-columns:58px minmax(0,1fr) 34px!important;
+  gap:12px!important;
+  align-items:center!important;
+  border:1px solid #e3eaf4!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  padding:14px!important;
+  box-shadow:0 8px 20px -18px rgba(28,52,95,.28)!important;
+}
+.home-page .clean-series-card:hover{
+  border-color:#bfd2f5!important;
+  box-shadow:0 14px 28px -22px rgba(23,105,255,.3)!important;
+  transform:translateY(-2px)!important;
+}
+.home-page .clean-series-card .series-top{
+  position:static!important;
+  align-self:start!important;
+}
+.home-page .clean-series-icon{
+  display:grid!important;
+  width:56px!important;
+  height:56px!important;
+  min-width:56px!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  border:1px solid #e6edf7!important;
+  border-radius:14px!important;
+  background:#f8fbff!important;
+  padding:8px!important;
+}
+.home-page .clean-series-icon img,
+.home-page .clean-series-icon svg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:40px!important;
+  max-height:40px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:auto!important;
+}
+.home-page .series-letter-logo{
+  display:grid!important;
+  width:40px!important;
+  height:40px!important;
+  place-items:center!important;
+  border-radius:10px!important;
+  background:#1769ff!important;
+  color:#fff!important;
+  font-size:12px!important;
+  font-weight:950!important;
+  letter-spacing:-.04em!important;
+}
+.home-page .reference-series-icon-0,
+.home-page .reference-series-icon-3{
+  background:#eef5ff!important;
+}
+.home-page .clean-series-content{
+  min-width:0!important;
+}
+.home-page .clean-series-content h3{
+  min-height:auto!important;
+  margin:0 0 4px!important;
+  overflow:hidden!important;
+  color:#102348!important;
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+}
+.home-page .clean-series-card .reference-series-badge{
+  display:inline-block!important;
+  margin:0 0 7px!important;
+}
+.home-page .clean-series-card .series-meta{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  margin:0!important;
+  color:#6f7d96!important;
+  font-size:8.5px!important;
+}
+.home-page .clean-series-card .series-meta span{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:4px!important;
+}
+.home-page .clean-series-card .series-meta svg{
+  width:10px!important;
+  height:10px!important;
+}
+.home-page .clean-series-card .reference-price{
+  display:flex!important;
+  align-items:baseline!important;
+  gap:7px!important;
+  margin-top:7px!important;
+}
+.home-page .clean-series-card .reference-price strong{
+  color:#0d1e45!important;
+  font-size:14px!important;
+  font-weight:900!important;
+}
+.home-page .clean-series-card .reference-price del{
+  color:#8793a8!important;
+  font-size:9px!important;
+}
+.home-page .clean-series-card .reference-series-go{
+  position:static!important;
+  display:grid!important;
+  width:32px!important;
+  height:32px!important;
+  place-items:center!important;
+  justify-self:end!important;
+  align-self:end!important;
+  border:1px solid #deE7f4!important;
+  border-radius:50%!important;
+  background:#f7faff!important;
+  color:#1769ff!important;
+  padding:0!important;
+}
+.home-page .clean-series-card .reference-series-go svg{
+  width:14px!important;
+  height:14px!important;
+}
+
+@media(max-width:900px){
+  .home-page .reference-exam-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-card{
+    min-height:92px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-icon{
+    width:54px!important;
+    height:54px!important;
+    flex-basis:54px!important;
+  }
+  .home-page .reference-series-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:560px){
+  .home-page .reference-exam-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:6px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-card{
+    min-height:84px!important;
+    gap:7px!important;
+    padding:6px 2px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-icon{
+    width:48px!important;
+    height:48px!important;
+    flex-basis:48px!important;
+    padding:8px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-icon img,
+  .home-page .reference-exam-grid .minimal-exam-icon svg{
+    max-width:30px!important;
+    max-height:30px!important;
+  }
+  .home-page .reference-exam-grid .minimal-exam-card h3{
+    font-size:10px!important;
+  }
+  .home-page .reference-series-grid{
+    grid-template-columns:1fr!important;
+  }
+}
