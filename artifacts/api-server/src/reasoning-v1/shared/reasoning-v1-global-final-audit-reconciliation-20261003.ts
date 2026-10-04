@@ -89,7 +89,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Course-of-Action",
         chapterId: "COA-001",
         closureAuthorityPath:
-          "topics/Course-of-Action/COA-001/COA-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Course-of-Action/COA-001/COA-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
