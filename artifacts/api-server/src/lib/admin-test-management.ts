@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 
+import { inspectDescriptiveTasks } from "./test-runtime-content";
+
 export class TestManagementError extends Error {
   constructor(
     public readonly code: string,
@@ -201,13 +203,21 @@ export function normalizeTestDraftInput(value: unknown): NormalizedTestDraftInpu
     });
 
     const durationValue = section.durationMinutes;
+    const settings = asRecord(section.settings);
+    const descriptiveInspection = inspectDescriptiveTasks(settings);
+    if (descriptiveInspection.issues.length > 0) {
+      throw new TestManagementError(
+        "INVALID_DESCRIPTIVE_SECTION",
+        descriptiveInspection.issues.join(" "),
+      );
+    }
     return {
       clientKey,
       name: text(section.name, `Section ${sectionIndex + 1} name`, 1, 180),
       durationMinutes: durationValue == null || durationValue === ""
         ? null
         : numberInRange(durationValue, "Section duration", 1, 600),
-      settings: asRecord(section.settings),
+      settings,
       questions,
     };
   });
@@ -240,24 +250,40 @@ export function normalizeTestDraftInput(value: unknown): NormalizedTestDraftInpu
 
 export function validateTestDraftShape(input: NormalizedTestDraftInput): TestValidationIssue[] {
   const issues: TestValidationIssue[] = [];
-  const questionCount = input.sections.reduce((sum, section) => sum + section.questions.length, 0);
-  if (questionCount === 0) {
-    issues.push({ code: "STRUCTURE_NO_QUESTIONS", message: "Select at least one published question" });
+  const objectiveQuestionCount = input.sections.reduce((sum, section) => sum + section.questions.length, 0);
+  const descriptiveTaskCount = input.sections.reduce(
+    (sum, section) => sum + inspectDescriptiveTasks(section.settings).tasks.length,
+    0,
+  );
+  const scorableItemCount = objectiveQuestionCount + descriptiveTaskCount;
+  if (scorableItemCount === 0) {
+    issues.push({ code: "STRUCTURE_NO_QUESTIONS", message: "Add at least one objective question or descriptive task" });
   }
+
   input.sections.forEach((section) => {
-    if (section.questions.length === 0) {
-      issues.push({ code: "STRUCTURE_EMPTY_SECTION", message: `${section.name} has no questions` });
+    const descriptive = inspectDescriptiveTasks(section.settings);
+    if (descriptive.issues.length > 0) {
+      descriptive.issues.forEach((message) => issues.push({ code: "INVALID_DESCRIPTIVE_SECTION", message }));
+    }
+    if (section.questions.length === 0 && descriptive.tasks.length === 0) {
+      issues.push({ code: "STRUCTURE_EMPTY_SECTION", message: `${section.name} has no questions or descriptive tasks` });
     }
   });
 
-  const calculatedMarks = input.sections.reduce(
+  const objectiveMarks = input.sections.reduce(
     (sum, section) => sum + section.questions.reduce((sectionSum, question) => sectionSum + question.marks, 0),
     0,
   );
-  if (questionCount > 0 && Math.abs(calculatedMarks - input.totalMarks) > 0.001) {
+  const descriptiveMarks = input.sections.reduce(
+    (sum, section) =>
+      sum + inspectDescriptiveTasks(section.settings).tasks.reduce((sectionSum, task) => sectionSum + task.marks, 0),
+    0,
+  );
+  const calculatedMarks = objectiveMarks + descriptiveMarks;
+  if (scorableItemCount > 0 && Math.abs(calculatedMarks - input.totalMarks) > 0.001) {
     issues.push({
       code: "STRUCTURE_MARKS_MISMATCH",
-      message: `Question marks total ${calculatedMarks}, but the test total is ${input.totalMarks}`,
+      message: `Objective and descriptive items total ${calculatedMarks} marks, but the test total is ${input.totalMarks}`,
     });
   }
 

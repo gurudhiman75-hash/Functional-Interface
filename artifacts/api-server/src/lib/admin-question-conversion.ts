@@ -38,6 +38,67 @@ function lifecycleValue(
   return payload[key] ?? generationContext[key];
 }
 
+
+type GeneratedSharedStimulus = {
+  id: string;
+  kind: "passage" | "data_interpretation" | "puzzle" | "caselet" | "other";
+  title: string | null;
+  text: string | null;
+  imageUrl: string | null;
+};
+
+function boundedText(value: unknown, maximum: number): string | null {
+  const normalized = asText(value);
+  return normalized ? normalized.slice(0, maximum) : null;
+}
+
+function generatedSharedStimulus(
+  payload: Record<string, unknown>,
+  generationContext: Record<string, unknown>,
+): GeneratedSharedStimulus | null {
+  const explicit = asRecord(payload.sharedStimulus ?? generationContext.sharedStimulus);
+  const rawId =
+    boundedText(explicit.id, 180) ??
+    boundedText(payload.passageId ?? generationContext.passageId, 180) ??
+    boundedText(payload.diSetId ?? generationContext.diSetId, 180) ??
+    boundedText(payload.setId ?? generationContext.setId, 180) ??
+    boundedText(payload.stimulusId ?? generationContext.stimulusId, 180);
+  if (!rawId) return null;
+
+  const text =
+    boundedText(explicit.text ?? explicit.content, 120_000) ??
+    boundedText(payload.passage ?? generationContext.passage, 120_000) ??
+    boundedText(payload.stimulus ?? generationContext.stimulus, 120_000);
+  const imageUrl =
+    boundedText(explicit.imageUrl, 4_000) ??
+    boundedText(payload.stimulusImageUrl ?? payload.imageUrl, 4_000);
+  if (!text && !imageUrl) return null;
+
+  const requestedKind = (
+    boundedText(explicit.kind, 80) ??
+    (payload.passage || generationContext.passage ? "passage" : null) ??
+    (payload.diSetId || generationContext.diSetId ? "data_interpretation" : null) ??
+    "other"
+  ).toLowerCase();
+  const kind: GeneratedSharedStimulus["kind"] =
+    requestedKind === "passage" ||
+    requestedKind === "data_interpretation" ||
+    requestedKind === "puzzle" ||
+    requestedKind === "caselet"
+      ? requestedKind
+      : "other";
+
+  return {
+    id: rawId,
+    kind,
+    title:
+      boundedText(explicit.title, 500) ??
+      boundedText(payload.passageTitle ?? payload.stimulusTitle, 500),
+    text,
+    imageUrl,
+  };
+}
+
 export function getGeneratedQuestionBankAcceptanceMode(value: unknown): "BANK_ONLY" | "FULL_RELEASE" {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
@@ -260,6 +321,7 @@ export function normalizeGeneratedQuestionPayload(
     .join("\n\n");
   const difficulty =
     asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
+  const sharedStimulus = generatedSharedStimulus(payload, generationContext);
   const visualContent = spatialVisualContent(payload);
   const options = visualContent?.optionImages
     ? visualContent.optionImages
@@ -313,6 +375,9 @@ export function normalizeGeneratedQuestionPayload(
         examFamily: payload.examFamily ?? generationContext.examFamily ?? null,
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
+        sharedStimulus,
+        passageId: payload.passageId ?? generationContext.passageId ?? null,
+        setId: payload.setId ?? generationContext.setId ?? null,
         language: payload.language ?? "en",
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent?.kind ?? null,

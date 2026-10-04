@@ -172,6 +172,35 @@ test("normalizes generated questions before canonical conversion", () => {
   assert.equal(normalized.options.length, 3);
 });
 
+test("preserves linked passage stimulus during Question Bank conversion", () => {
+  const normalized = normalizeGeneratedQuestionPayload({
+    text: "What is the author's main conclusion?",
+    explanation: "The final paragraph states the conclusion.",
+    difficulty: "Hard",
+    options: ["A", "B", "C", "D"],
+    correctIndex: 2,
+    topic: "Reading Comprehension",
+    passageId: "BANK-MAINS-RC-017",
+    passageTitle: "Credit growth and risk",
+    passage: "Banks can expand credit responsibly only when underwriting discipline keeps pace with balance-sheet growth.",
+    questionBankStatus: "STORED",
+    questionBankWritable: true,
+    questionBankAcceptanceMode: "FULL_RELEASE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
+  }, { itemId: "item-rc-1", generationRunCode: "GEN-RC-1" });
+
+  const generation = normalized.answerModel.generation as Record<string, unknown>;
+  assert.deepEqual(generation.sharedStimulus, {
+    id: "BANK-MAINS-RC-017",
+    kind: "passage",
+    title: "Credit growth and risk",
+    text: "Banks can expand credit responsibly only when underwriting discipline keeps pace with balance-sheet growth.",
+    imageUrl: null,
+  });
+  assert.equal(generation.passageId, "BANK-MAINS-RC-017");
+});
+
 test("creates stable-format public question codes", () => {
   const code = questionPublicCode(
     new Date("2026-07-16T00:00:00.000Z"),

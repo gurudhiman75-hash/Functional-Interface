@@ -4,6 +4,14 @@ import { AttemptReliabilityError } from "../lib/attempt-reliability";
 import { evaluateTestLocalizationReadiness } from "../lib/admin-test-localization";
 import { languageCodesFromSettings } from "../lib/admin-translation-operations";
 import { sqlClient } from "../lib/db";
+import {
+  descriptiveAssignments,
+  inspectDescriptiveTasks,
+  normalizeDescriptiveResponses,
+  readSharedStimulus,
+  stableRuntimeItemId,
+  type SharedStimulusRuntime,
+} from "../lib/test-runtime-content";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -179,7 +187,7 @@ router.get("/tests/:id", async (req, res, next) => {
     const [sections, questionRows, translations] = await Promise.all([
       sqlClient`
         SELECT id::text AS id, name, section_key AS "sectionKey",
-          sort_order AS "sortOrder", duration_seconds AS "durationSeconds"
+          sort_order AS "sortOrder", duration_seconds AS "durationSeconds", settings
         FROM assessment.test_sections
         WHERE test_version_id = ${String(test.publishedVersionId)}::uuid
         ORDER BY sort_order
@@ -191,6 +199,9 @@ router.get("/tests/:id", async (req, res, next) => {
           tq.position,
           tq.marks::float8 AS marks,
           tq.negative_marks::float8 AS "negativeMarks",
+          tq.settings AS "questionSettings",
+          version.question_type AS "questionType",
+          version.answer_model AS "answerModel",
           version.stem,
           COALESCE(
             json_agg(json_build_object(
@@ -205,22 +216,37 @@ router.get("/tests/:id", async (req, res, next) => {
         LEFT JOIN content.question_options option ON option.question_version_id = version.id
         WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
         GROUP BY tq.test_section_id, tq.question_version_id, tq.position,
-          tq.marks, tq.negative_marks, version.stem
+          tq.marks, tq.negative_marks, tq.settings, version.question_type, version.answer_model, version.stem
         ORDER BY tq.test_section_id, tq.position
       `,
       loadTranslations(String(test.publishedVersionId), languageCodes.filter((code) => code !== "en")),
     ]);
 
-    const questionsBySection = new Map<string, unknown[]>();
+    const questionsBySection = new Map<string, Array<Record<string, unknown>>>();
+    const stimulusBySection = new Map<string, Map<string, SharedStimulusRuntime>>();
+    const registerStimulus = (sectionId: string, stimulus: SharedStimulusRuntime | null) => {
+      if (!stimulus) return;
+      const current = stimulusBySection.get(sectionId) ?? new Map<string, SharedStimulusRuntime>();
+      current.set(stimulus.id, stimulus);
+      stimulusBySection.set(sectionId, current);
+    };
+
     questionRows.forEach((row, index) => {
       const sectionId = String(row.testSectionId);
       const options = asOptionList(row.options).map((option) => String(option.text ?? ""));
       const localized = translations.questions.get(String(row.questionVersionId));
       const hindi = localized?.get("hi");
       const punjabi = localized?.get("pa");
+      const sharedStimulus = readSharedStimulus(row.answerModel, row.questionSettings);
+      registerStimulus(sectionId, sharedStimulus);
       const list = questionsBySection.get(sectionId) ?? [];
       list.push({
         id: stableQuestionId(String(row.questionVersionId), index),
+        questionVersionId: String(row.questionVersionId),
+        testSectionId: sectionId,
+        responseType: "single_choice",
+        questionType: String(row.questionType ?? "mcq_single"),
+        sharedStimulusId: sharedStimulus?.id ?? null,
         text: String(row.stem),
         options,
         correct: -1,
@@ -233,10 +259,53 @@ router.get("/tests/:id", async (req, res, next) => {
         optionsPa: punjabi?.options ?? null,
         explanationPa: null,
         translations: Object.fromEntries(localized ?? []),
+        marks: Number(row.marks),
+        negativeMarks: Number(row.negativeMarks),
       });
       questionsBySection.set(sectionId, list);
     });
 
+    let descriptiveTaskCount = 0;
+    let descriptiveMarks = 0;
+    for (const section of sections) {
+      const sectionId = String(section.id);
+      const inspection = inspectDescriptiveTasks(section.settings);
+      if (inspection.issues.length > 0) {
+        throw new Error(`Published descriptive section ${String(section.name)} is invalid: ${inspection.issues.join(" ")}`);
+      }
+      if (inspection.tasks.length === 0) continue;
+      const list = questionsBySection.get(sectionId) ?? [];
+      for (const task of inspection.tasks) {
+        registerStimulus(sectionId, task.stimulus);
+        list.push({
+          id: stableRuntimeItemId(`descriptive:${sectionId}:${task.id}`),
+          questionVersionId: null,
+          testSectionId: sectionId,
+          responseType: "descriptive",
+          questionType: "descriptive",
+          descriptiveTaskId: task.id,
+          descriptiveKind: task.kind,
+          sharedStimulusId: task.stimulus?.id ?? null,
+          text: task.prompt,
+          options: [],
+          correct: -1,
+          section: String(section.name),
+          explanation: "",
+          marks: task.marks,
+          negativeMarks: 0,
+          minWords: task.minWords,
+          maxWords: task.maxWords,
+          instructions: task.instructions,
+        });
+        descriptiveTaskCount += 1;
+        descriptiveMarks += task.marks;
+      }
+      questionsBySection.set(sectionId, list);
+    }
+
+    const totalRuntimeItems = questionRows.length + descriptiveTaskCount;
+    const navigationRules = asRecord(settings.navigationRules);
+    const lockSectionNavigation = navigationRules.switchSections === false;
     const difficultyValue = String(settings.difficulty ?? "Medium");
     const difficulty = difficultyValue === "Easy" || difficultyValue === "Hard" ? difficultyValue : "Medium";
     const sectionTimings = sections
@@ -263,13 +332,19 @@ router.get("/tests/:id", async (req, res, next) => {
       priceCents: null,
       kind: String(settings.testType ?? "full_mock") === "sectional" ? "sectional" : "full-length",
       duration: Math.max(1, Math.round(Number(test.durationSeconds) / 60)),
-      totalQuestions: questionRows.length,
+      totalQuestions: totalRuntimeItems,
+      objectiveQuestionCount: questionRows.length,
+      descriptiveTaskCount,
+      descriptiveMarks,
       attempts: 0,
       avgScore: 0,
       difficulty,
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none",
       sectionTimings,
-      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
+      sectionSettings: sections.map((section) => ({
+        name: String(section.name),
+        locked: asRecord(section.settings).locked === true || lockSectionNavigation,
+      })),
       sections: sections.map((section) => {
         const localized = translations.sections.get(String(section.id));
         return {
@@ -278,6 +353,7 @@ router.get("/tests/:id", async (req, res, next) => {
           nameHi: localized?.get("hi") ?? null,
           namePa: localized?.get("pa") ?? null,
           translations: Object.fromEntries(localized ?? []),
+          stimulusGroups: Array.from(stimulusBySection.get(String(section.id))?.values() ?? []),
           questions: questionsBySection.get(String(section.id)) ?? [],
         };
       }),
@@ -374,6 +450,36 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         : [];
       const answerMap = new Map(responseItems.map((item) => [Number(item.questionId), item.selectedOption ?? null]));
       const flags = asRecord(req.body?.flags);
+      const sectionRows = await sql`
+        SELECT id::text AS id, name, settings
+        FROM assessment.test_sections
+        WHERE test_version_id = ${String(attempt.testVersionId)}::uuid
+        ORDER BY sort_order
+      `;
+      let descriptiveTaskAssignments;
+      try {
+        descriptiveTaskAssignments = descriptiveAssignments(sectionRows as Array<{ id: unknown; name: unknown; settings: unknown }>);
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_DESCRIPTIVE_CONFIG_INVALID",
+          error instanceof Error ? error.message : "Descriptive section configuration is invalid",
+          409,
+        );
+      }
+      let descriptiveResponses;
+      try {
+        descriptiveResponses = normalizeDescriptiveResponses(
+          req.body?.descriptiveResponses,
+          descriptiveTaskAssignments,
+        );
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_INVALID_DESCRIPTIVE_RESPONSE",
+          error instanceof Error ? error.message : "Descriptive response is invalid",
+          400,
+        );
+      }
+
       const questionRows = await sql`
         SELECT
           tq.test_section_id::text AS "testSectionId",
@@ -403,7 +509,9 @@ router.post("/attempts", authenticate, async (req, res, next) => {
           version.stem, version.explanation
         ORDER BY section.sort_order, tq.position
       `;
-      if (questionRows.length === 0) throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      if (questionRows.length === 0 && descriptiveTaskAssignments.length === 0) {
+        throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      }
 
       const translated = await loadTranslations(
         String(attempt.testVersionId),
@@ -461,6 +569,11 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const totalQuestions = questionRows.length;
       const unanswered = totalQuestions - correct - wrong;
       const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+      const descriptiveMarksPending = descriptiveResponses.reduce((sum, response) => sum + response.marks, 0);
+      const descriptiveReviewStatus = descriptiveResponses.length > 0 ? "pending" as const : "not_required" as const;
+      const scoringStatus = descriptiveResponses.length > 0
+        ? "OBJECTIVE_COMPLETE_DESCRIPTIVE_PENDING" as const
+        : "COMPLETE" as const;
       const sectionStats = Array.from(sectionStatsMap.entries()).map(([name, stats]) => {
         const answered = stats.correct + stats.wrong;
         return { name, ...stats, accuracy: answered > 0 ? Math.round((stats.correct / answered) * 100) : 0 };
@@ -481,10 +594,17 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         category: String(attempt.examFamilyCode),
         score,
         actualScore,
+        objectiveScore: score,
+        objectiveActualScore: actualScore,
+        scoringStatus,
+        descriptiveReviewStatus,
+        descriptiveMarksPending,
+        descriptiveResponses,
         correct,
         wrong,
         unanswered,
         totalQuestions,
+        totalItems: totalQuestions + descriptiveResponses.length,
         timeSpent,
         createdAt: new Date(String(attempt.startedAt)).toISOString(),
         submittedAt,

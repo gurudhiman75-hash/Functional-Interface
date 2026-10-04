@@ -8,6 +8,13 @@ import { authenticate } from '../middlewares/auth';
 const router = Router();
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const text = (value: unknown, maximum = 500) => typeof value === 'string' ? value.trim().slice(0, maximum) : '';
+
+const record = (value: unknown): Record<string, unknown> =>
+  value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
+const finite = (value: unknown): number | null => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
 const STATUSES = new Set(['all', 'in_progress', 'evaluated', 'practice_evaluated', 'abandoned', 'stale']);
 
 router.use(authenticate);
@@ -193,6 +200,127 @@ router.post('/:attemptId/actions/abandon', requireAdminPermission('users.student
     const typed = error as { status?: number; code?: string; message?: string };
     console.error('Unable to abandon stale attempt', error);
     return res.status(typed.status ?? 500).json({ error: typed.message || 'Unable to abandon attempt', code: typed.code || 'ATTEMPT_ABANDON_FAILED' });
+  }
+});
+
+router.post('/:attemptId/descriptive-review', requireAdminPermission('users.students.manage'), async (req, res) => {
+  const attemptId = text(req.params.attemptId, 80);
+  const reason = text(req.body?.reason, 2_000).replace(/\s+/g, ' ');
+  if (!uuid.test(attemptId)) return res.status(400).json({ error: 'Invalid attempt ID', code: 'INVALID_ATTEMPT_ID' });
+  if (reason.length < 12) return res.status(400).json({ error: 'Provide a descriptive review reason of at least 12 characters', code: 'DESCRIPTIVE_REVIEW_REASON_REQUIRED' });
+
+  try {
+    const review = await sqlClient.begin(async (tx) => {
+      const rows = await tx`
+        SELECT a.status::text AS status, a.result_snapshot AS "resultSnapshot",
+          tv.total_marks::float8 AS "totalMarks", tv.title AS "testTitle",
+          u.display_name AS "studentName"
+        FROM learning.attempts a
+        JOIN identity.users u ON u.id = a.user_id
+        JOIN assessment.test_publications p ON p.id = a.test_publication_id
+        JOIN assessment.test_versions tv ON tv.id = p.test_version_id
+        WHERE a.id = ${attemptId}::uuid
+        LIMIT 1
+        FOR UPDATE OF a
+      `;
+      const attempt = rows[0];
+      if (!attempt) throw Object.assign(new Error('Attempt not found'), { status: 404, code: 'ATTEMPT_NOT_FOUND' });
+      if (!['evaluated', 'practice_evaluated'].includes(String(attempt.status))) {
+        throw Object.assign(new Error('Only submitted attempts can receive descriptive review'), { status: 409, code: 'DESCRIPTIVE_ATTEMPT_NOT_SUBMITTED' });
+      }
+
+      const snapshot = record(attempt.resultSnapshot);
+      const responses = Array.isArray(snapshot.descriptiveResponses)
+        ? snapshot.descriptiveResponses.map((value) => record(value))
+        : [];
+      if (responses.length === 0) {
+        throw Object.assign(new Error('This attempt has no descriptive responses to review'), { status: 409, code: 'DESCRIPTIVE_RESPONSES_NOT_FOUND' });
+      }
+
+      const scoreItems = Array.isArray(req.body?.scores) ? req.body.scores.map((value: unknown) => record(value)) : [];
+      if (scoreItems.length !== responses.length) {
+        throw Object.assign(new Error('Every descriptive task must receive a reviewed mark'), { status: 400, code: 'DESCRIPTIVE_REVIEW_INCOMPLETE' });
+      }
+
+      const responseByQuestionId = new Map(
+        responses.map((response) => [Number(response.questionId), response]),
+      );
+      const seen = new Set<number>();
+      const taskScores = scoreItems.map((item: Record<string, unknown>) => {
+        const questionId = Number(item.questionId);
+        const response = responseByQuestionId.get(questionId);
+        if (!Number.isSafeInteger(questionId) || !response || seen.has(questionId)) {
+          throw Object.assign(new Error('Descriptive review contains an unknown or duplicate task'), { status: 400, code: 'DESCRIPTIVE_REVIEW_TASK_INVALID' });
+        }
+        seen.add(questionId);
+        const expectedTaskId = String(response.taskId ?? '');
+        if (String(item.taskId ?? '') !== expectedTaskId) {
+          throw Object.assign(new Error('Descriptive review task identity does not match the immutable submission'), { status: 400, code: 'DESCRIPTIVE_REVIEW_TASK_MISMATCH' });
+        }
+        const maxMarks = Number(response.marks ?? 0);
+        const awardedMarks = finite(item.awardedMarks);
+        if (awardedMarks == null || awardedMarks < 0 || awardedMarks > maxMarks) {
+          throw Object.assign(new Error(`Marks for ${expectedTaskId} must be between 0 and ${maxMarks}`), { status: 400, code: 'DESCRIPTIVE_REVIEW_MARKS_INVALID' });
+        }
+        return {
+          questionId,
+          taskId: expectedTaskId,
+          awardedMarks: Math.round(awardedMarks * 100) / 100,
+          maxMarks,
+          comment: text(item.comment, 2_000) || null,
+        };
+      });
+
+      const descriptiveAwardedMarks = Math.round(taskScores.reduce((sum, item) => sum + item.awardedMarks, 0) * 100) / 100;
+      const descriptiveMaximumMarks = Math.round(taskScores.reduce((sum, item) => sum + item.maxMarks, 0) * 100) / 100;
+      const objectiveActualScore = finite(snapshot.objectiveActualScore ?? snapshot.actualScore) ?? 0;
+      const combinedActualScore = Math.round((objectiveActualScore + descriptiveAwardedMarks) * 100) / 100;
+      const totalMarks = finite(attempt.totalMarks) ?? 0;
+      const combinedPercentage = totalMarks > 0
+        ? Math.round((combinedActualScore / totalMarks) * 10_000) / 100
+        : null;
+      const reviewedAt = new Date().toISOString();
+      const metadata = {
+        reviewVersion: 1,
+        reviewStatus: 'reviewed',
+        taskScores,
+        descriptiveAwardedMarks,
+        descriptiveMaximumMarks,
+        objectiveActualScore,
+        combinedActualScore,
+        combinedPercentage,
+        totalMarks,
+        reviewedAt,
+        canonicalScoreFieldsChanged: false,
+        resultSnapshotChanged: false,
+      };
+
+      const eventId = randomUUID();
+      await tx`
+        INSERT INTO platform.audit_events (
+          id, actor_type, actor_user_id, effective_role_key, action_key,
+          entity_type, entity_id, reason, summary, metadata
+        ) VALUES (
+          ${eventId}::uuid, 'user'::audit_actor_type,
+          ${req.adminSession?.user.id ?? null}::uuid, ${req.adminSession?.roles[0] ?? null},
+          'student.attempt.descriptive_review.completed', 'attempt', ${attemptId}::uuid,
+          ${reason},
+          ${`Reviewed descriptive responses for ${String(attempt.studentName)} · ${String(attempt.testTitle)}`},
+          ${tx.json(metadata)}
+        )
+      `;
+
+      return { eventId, ...metadata };
+    });
+
+    return res.json({ review, generatedAt: new Date().toISOString() });
+  } catch (error) {
+    const typed = error as { status?: number; code?: string; message?: string };
+    console.error('Unable to save descriptive attempt review', error);
+    return res.status(typed.status ?? 500).json({
+      error: typed.message || 'Unable to save descriptive review',
+      code: typed.code || 'DESCRIPTIVE_REVIEW_FAILED',
+    });
   }
 });
 

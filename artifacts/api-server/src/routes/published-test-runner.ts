@@ -2,6 +2,14 @@ import { Router, type IRouter } from "express";
 
 import { sqlClient } from "../lib/db";
 import { AttemptReliabilityError, resolveAttemptLimit } from "../lib/attempt-reliability";
+import {
+  descriptiveAssignments,
+  inspectDescriptiveTasks,
+  normalizeDescriptiveResponses,
+  readSharedStimulus,
+  stableRuntimeItemId,
+  type SharedStimulusRuntime,
+} from "../lib/test-runtime-content";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -73,7 +81,7 @@ router.get("/tests/:id", async (req, res, next) => {
 
     const sections = await sqlClient`
       SELECT s.id::text AS id, s.name, s.section_key AS "sectionKey",
-        s.sort_order AS "sortOrder", s.duration_seconds AS "durationSeconds"
+        s.sort_order AS "sortOrder", s.duration_seconds AS "durationSeconds", s.settings
       FROM assessment.test_sections s
       WHERE s.test_version_id = ${String(test.publishedVersionId)}::uuid
       ORDER BY s.sort_order
@@ -83,7 +91,9 @@ router.get("/tests/:id", async (req, res, next) => {
       SELECT concat(tq.test_version_id::text, ':', tq.question_version_id::text) AS "testQuestionId",
         tq.test_section_id::text AS "testSectionId",
         tq.question_version_id::text AS "questionVersionId", tq.position,
-        tq.marks::float8 AS marks, tq.negative_marks::float8 AS "negativeMarks", v.stem,
+        tq.marks::float8 AS marks, tq.negative_marks::float8 AS "negativeMarks",
+        tq.settings AS "questionSettings", v.question_type AS "questionType",
+        v.answer_model AS "answerModel", v.stem,
         COALESCE(json_agg(json_build_object('key', o.option_key, 'text', o.text, 'sortOrder', o.sort_order)
           ORDER BY o.sort_order) FILTER (WHERE o.id IS NOT NULL), '[]'::json) AS options
       FROM assessment.test_questions tq
@@ -91,30 +101,87 @@ router.get("/tests/:id", async (req, res, next) => {
       LEFT JOIN content.question_options o ON o.question_version_id = v.id
       WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
       GROUP BY tq.test_version_id, tq.test_section_id, tq.question_version_id, tq.position,
-        tq.marks, tq.negative_marks, v.stem
+        tq.marks, tq.negative_marks, tq.settings, v.question_type, v.answer_model, v.stem
       ORDER BY tq.test_section_id, tq.position
     `;
 
-    const questionsBySection = new Map<string, unknown[]>();
+    const questionsBySection = new Map<string, Array<Record<string, unknown>>>();
+    const stimulusBySection = new Map<string, Map<string, SharedStimulusRuntime>>();
+    const registerStimulus = (sectionId: string, stimulus: SharedStimulusRuntime | null) => {
+      if (!stimulus) return;
+      const current = stimulusBySection.get(sectionId) ?? new Map<string, SharedStimulusRuntime>();
+      current.set(stimulus.id, stimulus);
+      stimulusBySection.set(sectionId, current);
+    };
+
     questionRows.forEach((row, index) => {
       const sectionId = String(row.testSectionId);
       const options = Array.isArray(row.options) ? row.options as Array<Record<string, unknown>> : [];
       const list = questionsBySection.get(sectionId) ?? [];
+      const sharedStimulus = readSharedStimulus(row.answerModel, row.questionSettings);
+      registerStimulus(sectionId, sharedStimulus);
       list.push({
         id: stableQuestionId(String(row.questionVersionId), index),
         questionVersionId: String(row.questionVersionId),
         testQuestionId: String(row.testQuestionId),
         testSectionId: sectionId,
+        responseType: "single_choice",
+        questionType: String(row.questionType ?? "mcq_single"),
+        sharedStimulusId: sharedStimulus?.id ?? null,
         text: String(row.stem),
         options: options.map((option) => String(option.text ?? "")),
         correct: -1,
         section: sections.find((section) => String(section.id) === sectionId)?.name ?? "General",
         explanation: "",
+        marks: Number(row.marks),
+        negativeMarks: Number(row.negativeMarks),
       });
       questionsBySection.set(sectionId, list);
     });
 
+    let descriptiveTaskCount = 0;
+    let descriptiveMarks = 0;
+    for (const section of sections) {
+      const sectionId = String(section.id);
+      const inspection = inspectDescriptiveTasks(section.settings);
+      if (inspection.issues.length > 0) {
+        throw new Error(`Published descriptive section ${String(section.name)} is invalid: ${inspection.issues.join(" ")}`);
+      }
+      if (inspection.tasks.length === 0) continue;
+      const list = questionsBySection.get(sectionId) ?? [];
+      for (const task of inspection.tasks) {
+        registerStimulus(sectionId, task.stimulus);
+        list.push({
+          id: stableRuntimeItemId(`descriptive:${sectionId}:${task.id}`),
+          questionVersionId: null,
+          testQuestionId: `descriptive:${sectionId}:${task.id}`,
+          testSectionId: sectionId,
+          responseType: "descriptive",
+          questionType: "descriptive",
+          descriptiveTaskId: task.id,
+          descriptiveKind: task.kind,
+          sharedStimulusId: task.stimulus?.id ?? null,
+          text: task.prompt,
+          options: [],
+          correct: -1,
+          section: String(section.name),
+          explanation: "",
+          marks: task.marks,
+          negativeMarks: 0,
+          minWords: task.minWords,
+          maxWords: task.maxWords,
+          instructions: task.instructions,
+        });
+        descriptiveTaskCount += 1;
+        descriptiveMarks += task.marks;
+      }
+      questionsBySection.set(sectionId, list);
+    }
+
+    const totalRuntimeItems = questionRows.length + descriptiveTaskCount;
     const settings = asRecord(test.settings);
+    const navigationRules = asRecord(settings.navigationRules);
+    const lockSectionNavigation = navigationRules.switchSections === false;
     const difficultyValue = String(settings.difficulty ?? "Medium");
     const difficulty = difficultyValue === "Easy" || difficultyValue === "Hard" ? difficultyValue : "Medium";
     const sectionTimings = sections
@@ -127,12 +194,21 @@ router.get("/tests/:id", async (req, res, next) => {
       categoryName: String(test.examFamilyName), categoryId: String(test.examFamilyCode),
       subcategoryId: String(test.examCode), subcategoryName: String(test.examName), access: "free",
       priceCents: null, kind: String(settings.testType ?? "full_mock") === "sectional" ? "sectional" : "full-length",
-      duration: Math.max(1, Math.round(Number(test.durationSeconds) / 60)), totalQuestions: questionRows.length,
+      duration: Math.max(1, Math.round(Number(test.durationSeconds) / 60)), totalQuestions: totalRuntimeItems,
+      objectiveQuestionCount: questionRows.length, descriptiveTaskCount, descriptiveMarks,
       attempts: 0, avgScore: 0, difficulty,
       maxAttempts: resolveAttemptLimit(test.settings),
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none", sectionTimings,
-      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
-      sections: sections.map((section) => ({ id: String(section.id), name: String(section.name), questions: questionsBySection.get(String(section.id)) ?? [] })),
+      sectionSettings: sections.map((section) => ({
+        name: String(section.name),
+        locked: asRecord(section.settings).locked === true || lockSectionNavigation,
+      })),
+      sections: sections.map((section) => ({
+        id: String(section.id),
+        name: String(section.name),
+        stimulusGroups: Array.from(stimulusBySection.get(String(section.id))?.values() ?? []),
+        questions: questionsBySection.get(String(section.id)) ?? [],
+      })),
       languages: [String(settings.languageCode ?? "en")],
       marksPerQuestion: firstQuestion ? Number(firstQuestion.marks) : 1,
       negativeMarks: firstQuestion ? Number(firstQuestion.negativeMarks) : 0,
@@ -204,6 +280,36 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       }
       const flags = asRecord(req.body?.flags);
 
+      const sectionRows = await sql`
+        SELECT id::text AS id, name, settings
+        FROM assessment.test_sections
+        WHERE test_version_id = ${String(attempt.testVersionId)}::uuid
+        ORDER BY sort_order
+      `;
+      let descriptiveTaskAssignments;
+      try {
+        descriptiveTaskAssignments = descriptiveAssignments(sectionRows as Array<{ id: unknown; name: unknown; settings: unknown }>);
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_DESCRIPTIVE_CONFIG_INVALID",
+          error instanceof Error ? error.message : "Descriptive section configuration is invalid",
+          409,
+        );
+      }
+      let descriptiveResponses;
+      try {
+        descriptiveResponses = normalizeDescriptiveResponses(
+          req.body?.descriptiveResponses,
+          descriptiveTaskAssignments,
+        );
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_INVALID_DESCRIPTIVE_RESPONSE",
+          error instanceof Error ? error.message : "Descriptive response is invalid",
+          400,
+        );
+      }
+
       const questionRows = await sql`
         SELECT concat(tq.test_version_id::text, ':', tq.question_version_id::text) AS "testQuestionId",
           tq.test_section_id::text AS "testSectionId",
@@ -222,7 +328,9 @@ router.post("/attempts", authenticate, async (req, res, next) => {
           tq.marks, tq.negative_marks, section.name, section.sort_order, version.stem, version.explanation
         ORDER BY section.sort_order, tq.position
       `;
-      if (questionRows.length === 0) throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      if (questionRows.length === 0 && descriptiveTaskAssignments.length === 0) {
+        throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      }
 
       let correct = 0; let wrong = 0; let actualScore = 0;
       const sectionStatsMap = new Map<string, { correct: number; wrong: number; unanswered: number; totalQuestions: number }>();
@@ -280,6 +388,11 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const totalQuestions = questionRows.length;
       const unanswered = totalQuestions - correct - wrong;
       const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+      const descriptiveMarksPending = descriptiveResponses.reduce((sum, response) => sum + response.marks, 0);
+      const descriptiveReviewStatus = descriptiveResponses.length > 0 ? "pending" as const : "not_required" as const;
+      const scoringStatus = descriptiveResponses.length > 0
+        ? "OBJECTIVE_COMPLETE_DESCRIPTIVE_PENDING" as const
+        : "COMPLETE" as const;
       const sectionStats = Array.from(sectionStatsMap.entries()).map(([name, stats]) => {
         const answered = stats.correct + stats.wrong;
         return { name, ...stats, accuracy: answered > 0 ? Math.round((stats.correct / answered) * 100) : 0 };
@@ -298,7 +411,15 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         testPublicationId: String(attempt.publicationId),
         testVersionId: String(attempt.testVersionId),
         testName: String(attempt.title), category: String(attempt.examFamilyCode), score, actualScore,
-        correct, wrong, unanswered, totalQuestions, timeSpent,
+        objectiveScore: score,
+        objectiveActualScore: actualScore,
+        scoringStatus,
+        descriptiveReviewStatus,
+        descriptiveMarksPending,
+        descriptiveResponses,
+        correct, wrong, unanswered, totalQuestions,
+        totalItems: totalQuestions + descriptiveResponses.length,
+        timeSpent,
         createdAt: new Date(String(attempt.startedAt)).toISOString(), submittedAt,
         attemptNumber: Number(attempt.attemptNumber), attemptType,
         seriesId: typeof req.body?.seriesId === "string" ? req.body.seriesId : null,

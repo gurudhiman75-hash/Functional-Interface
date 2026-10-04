@@ -18,11 +18,12 @@ import { getPublishedQuestions, type PublishedQuestion } from '@/features/questi
 import { createLiveTest, getLiveTest, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
 import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
-interface BuilderSection { clientKey: string; name: string; durationMinutes: string; questionVersionIds: string[] }
+interface BuilderSection { clientKey: string; name: string; durationMinutes: string; questionVersionIds: string[]; settings: Record<string, unknown> }
 interface BuilderDraft {
   examVersionId: string; title: string; description: string; durationMinutes: number; totalMarks: number;
   marksPerQuestion: number; negativeMarks: number; testType: string; languageCode: string; access: string;
-  difficulty: string; instructions: string; sections: BuilderSection[];
+  difficulty: string; instructions: string; switchSections: boolean; markForReview: boolean;
+  preventFullscreenExit: boolean; sections: BuilderSection[];
 }
 interface LocalCheckpoint { savedAt: string; serverDraftVersionId: string | null; draft: BuilderDraft }
 
@@ -30,11 +31,28 @@ const freshDraft = (): BuilderDraft => ({
   examVersionId: '', title: '', description: '', durationMinutes: 60, totalMarks: 0, marksPerQuestion: 2,
   negativeMarks: 0.5, testType: 'full_mock', languageCode: 'en', access: 'free', difficulty: 'Moderate',
   instructions: 'Read every question carefully. Submit the test before the timer ends.',
-  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
+  switchSections: true, markForReview: true, preventFullscreenExit: false,
+  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [], settings: {} }],
 });
 
 function record(value: unknown): Record<string, unknown> { return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {}; }
 function setting(settings: Record<string, unknown>, key: string, fallback: string) { return typeof settings[key] === 'string' ? String(settings[key]) : fallback; }
+function descriptiveMarks(sections: BuilderSection[]) {
+  return sections.reduce((sum, section) => {
+    const tasks = Array.isArray(section.settings.descriptiveTasks) ? section.settings.descriptiveTasks : [];
+    return sum + tasks.reduce((taskSum, value) => {
+      const task = record(value);
+      const marks = Number(task.marks);
+      return taskSum + (Number.isFinite(marks) ? marks : 0);
+    }, 0);
+  }, 0);
+}
+function hasScorableContent(sections: BuilderSection[]) {
+  return sections.some((section) =>
+    section.questionVersionIds.length > 0 ||
+    (Array.isArray(section.settings.descriptiveTasks) && section.settings.descriptiveTasks.length > 0)
+  );
+}
 function fingerprint(value: BuilderDraft) { return JSON.stringify(value); }
 function formatTime(value: string | null) { if (!value) return 'Not saved yet'; const date = new Date(value); return Number.isNaN(date.getTime()) ? value : date.toLocaleString(); }
 
@@ -43,6 +61,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   if (!version) return freshDraft();
   const settings = record(version.settings);
   const instructions = record(version.instructions);
+  const navigationRules = record(settings.navigationRules);
   const firstQuestion = detail.sections.flatMap((section) => section.questions)[0];
   return {
     examVersionId: detail.test.examVersionId,
@@ -57,11 +76,15 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     access: setting(settings, 'access', 'free'),
     difficulty: setting(settings, 'difficulty', 'Moderate'),
     instructions: typeof instructions.text === 'string' ? instructions.text : '',
+    switchSections: navigationRules.switchSections !== false,
+    markForReview: navigationRules.markForReview !== false,
+    preventFullscreenExit: navigationRules.preventFullscreenExit === true,
     sections: detail.sections.map((section) => ({
       clientKey: section.sectionKey,
       name: section.name,
       durationMinutes: section.durationSeconds == null ? '' : String(section.durationSeconds / 60),
       questionVersionIds: section.questions.map((question) => question.questionVersionId),
+      settings: record(section.settings),
     })),
   };
 }
@@ -140,15 +163,26 @@ export function TestBuilderRecoveryPage() {
     durationMinutes: draft.durationMinutes,
     totalMarks: draft.totalMarks,
     instructions: { text: draft.instructions },
-    settings: { testType: draft.testType, languageCode: draft.languageCode, access: draft.access, difficulty: draft.difficulty, sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared' },
+    settings: {
+      testType: draft.testType,
+      languageCode: draft.languageCode,
+      access: draft.access,
+      difficulty: draft.difficulty,
+      sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
+      navigationRules: {
+        switchSections: draft.switchSections,
+        markForReview: draft.markForReview,
+        preventFullscreenExit: draft.preventFullscreenExit,
+      },
+    },
     changeReason,
     sections: draft.sections.map((section) => ({
-      clientKey: section.clientKey, name: section.name, durationMinutes: section.durationMinutes === '' ? null : Number(section.durationMinutes), settings: {},
+      clientKey: section.clientKey, name: section.name, durationMinutes: section.durationMinutes === '' ? null : Number(section.durationMinutes), settings: section.settings,
       questions: section.questionVersionIds.map((questionVersionId) => ({ questionVersionId, marks: draft.marksPerQuestion, negativeMarks: draft.negativeMarks, settings: {} })),
     })),
   }), [detail?.test.currentDraftVersionId, draft]);
 
-  const canServerAutosave = Boolean(detail && dirty && !saving && draft.examVersionId && draft.title.trim().length >= 3 && draft.sections.length > 0 && selectedIds.length > 0 && !conflict);
+  const canServerAutosave = Boolean(detail && dirty && !saving && draft.examVersionId && draft.title.trim().length >= 3 && draft.sections.length > 0 && hasScorableContent(draft.sections) && !conflict);
   useEffect(() => {
     if (!canServerAutosave || !detail) return;
     const timer = window.setTimeout(async () => {
@@ -186,13 +220,13 @@ export function TestBuilderRecoveryPage() {
   const discardLocal = () => { localStorage.removeItem(storageKey); setRecovery(null); setLocalSavedAt(null); };
   const reloadServer = async () => { localStorage.removeItem(storageKey); setRecovery(null); await load(); };
 
-  const addSection = () => { const key = `section-${Date.now()}`; setDraft((current) => ({ ...current, sections: [...current.sections, { clientKey: key, name: `Section ${current.sections.length + 1}`, durationMinutes: '', questionVersionIds: [] }] })); setActiveSectionKey(key); };
+  const addSection = () => { const key = `section-${Date.now()}`; setDraft((current) => ({ ...current, sections: [...current.sections, { clientKey: key, name: `Section ${current.sections.length + 1}`, durationMinutes: '', questionVersionIds: [], settings: {} }] })); setActiveSectionKey(key); };
   const toggleQuestion = (id: string) => {
     if (!activeSection) return;
     setDraft((current) => {
       const already = current.sections.some((section) => section.questionVersionIds.includes(id));
       const sections = current.sections.map((section) => ({ ...section, questionVersionIds: section.clientKey === activeSection.clientKey && !already ? [...section.questionVersionIds.filter((item) => item !== id), id] : section.questionVersionIds.filter((item) => item !== id) }));
-      return { ...current, sections, totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion };
+      return { ...current, sections, totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarks(sections) };
     });
   };
 
@@ -208,7 +242,7 @@ export function TestBuilderRecoveryPage() {
     {error && <AdminErrorAlert error={error} title="Test Builder operation failed" onRetry={() => void (conflict ? reloadServer() : save())} />}
 
     <Tabs defaultValue="details" className="space-y-4"><TabsList><TabsTrigger value="details">Basic info</TabsTrigger><TabsTrigger value="sections">Sections</TabsTrigger><TabsTrigger value="questions">Questions</TabsTrigger><TabsTrigger value="preview">Preview</TabsTrigger></TabsList>
-      <TabsContent value="details"><Card><CardHeader><CardTitle>Test configuration</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} /></div></div><div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} /></div><div className="grid gap-4 sm:grid-cols-3"><NumberField label="Duration" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks/question" value={draft.marksPerQuestion} min={0.01} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /></div><div className="space-y-2"><Label>Instructions</Label><Textarea rows={4} value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} /></div></CardContent></Card></TabsContent>
+      <TabsContent value="details"><Card><CardHeader><CardTitle>Test configuration</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} /></div></div><div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} /></div><div className="grid gap-4 sm:grid-cols-3"><NumberField label="Duration" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks/question" value={draft.marksPerQuestion} min={0.01} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedIds.length * value + descriptiveMarks(current.sections) }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /></div><div className="space-y-2"><Label>Instructions</Label><Textarea rows={4} value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} /></div></CardContent></Card></TabsContent>
       <TabsContent value="sections"><div className="space-y-3"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1}</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => setDraft((current) => ({ ...current, sections: current.sections.map((item) => item.clientKey === section.clientKey ? { ...item, name: event.target.value } : item) }))} /></div><Button variant="outline" onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length === 1} onClick={() => setDraft((current) => ({ ...current, sections: current.sections.filter((item) => item.clientKey !== section.clientKey) }))}><Trash2 className="h-4 w-4" /></Button></CardContent></Card>)}</div></TabsContent>
       <TabsContent value="questions"><Card><CardHeader><CardTitle>Published Question Bank</CardTitle></CardHeader><CardContent className="space-y-3"><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search question code or stem" />{!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version first.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.map((question) => <label key={question.versionId} className="flex cursor-pointer gap-3 p-3"><Checkbox checked={selectedIds.includes(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div><div className="flex gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="secondary">{question.difficulty}</Badge></div><p className="mt-2 text-sm">{question.stem}</p></div></label>)}</div>}</CardContent></Card></TabsContent>
       <TabsContent value="preview"><Card><CardContent className="space-y-4 p-5"><div><h2 className="text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p></div>{draft.sections.map((section) => <div key={section.clientKey}><h3 className="font-medium">{section.name} ({section.questionVersionIds.length})</h3></div>)}</CardContent></Card></TabsContent>

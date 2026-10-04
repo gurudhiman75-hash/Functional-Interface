@@ -42,6 +42,7 @@ import { checkPurchase } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { EnglishQuestionLayout } from "@/components/EnglishQuestionLayout";
@@ -63,6 +64,11 @@ function formatTime(seconds: number) {
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
   return [h, m, s].map((value) => String(value).padStart(2, "0")).join(":");
+}
+
+function countWords(value: string) {
+  const normalized = value.trim();
+  return normalized ? normalized.split(/\s+/u).length : 0;
 }
 
 function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam, backUrl }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null; backUrl?: string }) {
@@ -109,6 +115,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const [textResponses, setTextResponses] = useState<Record<number, string>>({});
   const [flags, setFlags] = useState<Record<number, boolean>>({});
   const [timeLeft, setTimeLeft] = useState(totalTime);
   const [sectionTimeLeftByName, setSectionTimeLeftByName] = useState<Record<string, number>>({});
@@ -166,6 +173,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const questions = currentSection?.questions ?? [];
   const q = questions[currentQuestionIndex];
   const allQuestions = effectiveSections.flatMap((section) => section.questions);
+  const currentSharedStimulus = currentSection?.stimulusGroups?.find(
+    (stimulus) => stimulus.id === q?.sharedStimulusId,
+  );
 
   const currentQuestionNumber =
     effectiveSections
@@ -184,7 +194,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     : 0;
   const activeTimeLeft = hasSectionalTiming ? sectionTimeLeft : timeLeft;
   const isLowTime = activeTimeLeft < 120;
-  const answered = allQuestions.filter((question) => answers[question.id] !== null && answers[question.id] !== undefined).length;
+  const answered = allQuestions.filter((question) =>
+    question.responseType === "descriptive"
+      ? Boolean(textResponses[question.id]?.trim())
+      : answers[question.id] !== null && answers[question.id] !== undefined
+  ).length;
   const flagged = allQuestions.filter((question) => Boolean(flags[question.id])).length;
   const unanswered = totalQuestions - answered;
   const currentQuestionFlagged = Boolean(flags[q?.id]);
@@ -197,6 +211,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     });
   const hasAttemptProgress =
     Object.keys(answers).length > 0 ||
+    Object.keys(textResponses).some((key) => Boolean(textResponses[Number(key)]?.trim())) ||
     Object.keys(flags).length > 0 ||
     timeLeft < totalTime ||
     hasSectionTimerProgress ||
@@ -252,13 +267,16 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
   type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED";
 
-  const getQuestionStatus = (question: { id: number }): QuestionStatus => {
+  const getQuestionStatus = (question: { id: number; responseType?: string }): QuestionStatus => {
     const answer = answers[question.id];
     const isFlagged = Boolean(flags[question.id]);
     const isVisited = visitedQuestionIds.includes(question.id);
+    const hasResponse = question.responseType === "descriptive"
+      ? Boolean(textResponses[question.id]?.trim())
+      : answer !== null && answer !== undefined;
 
     if (isFlagged) return "MARKED";
-    if (answer !== null && answer !== undefined) return "ANSWERED";
+    if (hasResponse) return "ANSWERED";
     if (isVisited) return "NOT_ANSWERED";
     return "NOT_VISITED";
   };
@@ -277,7 +295,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         MARKED: 0,
       } as Record<QuestionStatus, number>,
     );
-  }, [allQuestions, answers, flags, visitedQuestionIds]);
+  }, [allQuestions, answers, flags, textResponses, visitedQuestionIds]);
 
   const isFirstQuestion = currentSectionIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
@@ -313,6 +331,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       );
       setCurrentQuestionIndex(Math.max(draft.currentQuestionIndex, 0));
       setAnswers(draft.answers);
+      setTextResponses(draft.textResponses ?? {});
       setFlags(draft.flags);
       setTimeLeft(Math.max(0, Math.min(draft.timeLeft, totalTime)));
       setSectionTimeLeftByName({ ...defaultSectionTimes, ...draft.sectionTimeLeftByName });
@@ -349,6 +368,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         // Load original answers and flags for comparison
         // Note: In practice mode, we'll start fresh but show original answers
         setAnswers({});
+        setTextResponses({});
         setFlags({});
         setTimeLeft(totalTime); // No timer in practice mode
         setSectionTimeLeftByName(defaultSectionTimes);
@@ -382,6 +402,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           currentSectionIndex: 0,
           currentQuestionIndex: 0,
           answers: {},
+          textResponses: {},
           flags: {},
           timeLeft: totalTime,
           sectionTimeLeftByName: defaultSectionTimes,
@@ -398,6 +419,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     setCurrentSectionIndex(0);
     setCurrentQuestionIndex(0);
     setAnswers({});
+    setTextResponses({});
     setFlags({});
     setTimeLeft(totalTime);
     setShowSubmitModal(false);
@@ -436,6 +458,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       currentSectionIndex,
       currentQuestionIndex,
       answers,
+      textResponses,
       flags,
       timeLeft,
       sectionTimeLeftByName: persistedSectionTimes,
@@ -449,6 +472,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     });
   }, [
     answers,
+    textResponses,
     attemptType,
     currentQuestionIndex,
     currentSectionIndex,
@@ -516,11 +540,29 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         )
       : Math.round((totalTime - timeLeft) / 60);
 
-    const responsePayload = allQuestions.map((q) => ({
-      questionId: q.id,
-      selectedOption: answers[q.id] ?? null,
-      timeTaken: realExamTimes[q.id] ?? 0,
-    }));
+    const responsePayload = allQuestions
+      .filter((question) => question.responseType !== "descriptive")
+      .map((question) => ({
+        questionId: question.id,
+        selectedOption: answers[question.id] ?? null,
+        timeTaken: realExamTimes[question.id] ?? 0,
+      }));
+
+    const descriptiveResponsePayload = effectiveSections.flatMap((section) =>
+      section.questions
+        .filter((question) => question.responseType === "descriptive" && question.descriptiveTaskId)
+        .map((question) => {
+          const text = textResponses[question.id] ?? "";
+          return {
+            questionId: question.id,
+            taskId: question.descriptiveTaskId!,
+            sectionId: section.id,
+            text,
+            wordCount: countWords(text),
+            timeTaken: 0,
+          };
+        }),
+    );
 
     const sectionTimeSpentPayload = hasSectionalTiming
       ? effectiveSections.map((section, index) => {
@@ -554,6 +596,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           attemptType,
           timeSpent,
           responses: responsePayload,
+          descriptiveResponses: descriptiveResponsePayload,
           flags,
           sectionTimeSpent: sectionTimeSpentPayload,
           originalAttemptId: attemptType === "PRACTICE" ? originalAttemptId : undefined,
@@ -606,6 +649,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     timeLeft,
     totalTime,
     realExamTimes,
+    textResponses,
   ]);
 
   useEffect(() => {
@@ -684,6 +728,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   };
 
   const clearResponse = () => {
+    if (q.responseType === "descriptive") {
+      setTextResponses((current) => ({ ...current, [q.id]: "" }));
+      return;
+    }
     setAnswers((current) => ({ ...current, [q.id]: null }));
   };
 
@@ -787,8 +835,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const resumeQuestionIndexInSection = (sectionIndex: number) => {
     const section = effectiveSections[sectionIndex];
     if (!section) return 0;
-    const idx = section.questions.findIndex(
-      (qq) => answers[qq.id] === null || answers[qq.id] === undefined,
+    const idx = section.questions.findIndex((qq) =>
+      qq.responseType === "descriptive"
+        ? !textResponses[qq.id]?.trim()
+        : answers[qq.id] === null || answers[qq.id] === undefined
     );
     return idx === -1 ? 0 : idx;
   };
@@ -939,6 +989,28 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
               <div className="space-y-5 px-5 py-5">
 
+              {currentSharedStimulus && (
+                <div className="mb-1 rounded-lg border border-blue-200 bg-blue-50 p-4">
+                  {currentSharedStimulus.title && (
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-blue-700">
+                      {currentSharedStimulus.title}
+                    </p>
+                  )}
+                  {currentSharedStimulus.imageUrl && (
+                    <img
+                      src={currentSharedStimulus.imageUrl}
+                      alt={currentSharedStimulus.title ?? "Shared question stimulus"}
+                      className="mb-3 max-w-full rounded border border-blue-100"
+                    />
+                  )}
+                  {currentSharedStimulus.text && (
+                    <div className="text-sm leading-7 text-blue-950">
+                      <QuestionRichText content={currentSharedStimulus.text} lang={lang} />
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* DI Set context panel */}
               {q.diSetId && (q.diSetImageUrl || q.diSetDescription) && (
                 <div className="mb-1 p-3 bg-blue-50 border border-blue-200 rounded-lg">
@@ -969,6 +1041,35 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 <EnglishQuestionLayout content={getLocalizedQuestion(q, lang).text} lang={lang} />
               </div>
 
+              {q.responseType === "descriptive" ? (
+                <div className="space-y-3">
+                  {q.instructions && (
+                    <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                      {q.instructions}
+                    </div>
+                  )}
+                  <Textarea
+                    value={textResponses[q.id] ?? ""}
+                    onChange={(event) => {
+                      const next = event.target.value.slice(0, 50_000);
+                      setTextResponses((current) => ({ ...current, [q.id]: next }));
+                    }}
+                    rows={16}
+                    maxLength={50_000}
+                    placeholder="Type your answer here…"
+                    className="min-h-72 bg-white text-base leading-7"
+                  />
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
+                    <span>{countWords(textResponses[q.id] ?? "")} words</span>
+                    {(q.minWords != null || q.maxWords != null) && (
+                      <span>
+                        Target: {q.minWords ?? 0}{q.maxWords != null ? `–${q.maxWords}` : "+"} words
+                      </span>
+                    )}
+                    {q.marks != null && <span>{q.marks} marks</span>}
+                  </div>
+                </div>
+              ) : (
               <div className="grid gap-2">
                 {getLocalizedQuestion(q, lang).options.map((option, index) => {
                   const isPracticeRevealed = attemptType === "PRACTICE" && showSolutionQuestions.has(q.id);
@@ -1046,8 +1147,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   );
                 })}
               </div>
+              )}
 
-              {attemptType === "PRACTICE" && practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined && (
+              {q.responseType !== "descriptive" && attemptType === "PRACTICE" && practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined && (
                 <button
                   type="button"
                   onClick={() => {
@@ -1068,7 +1170,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 </button>
               )}
 
-              {attemptType === "PRACTICE" && showSolutionQuestions.has(q.id) && (() => {
+              {q.responseType !== "descriptive" && attemptType === "PRACTICE" && showSolutionQuestions.has(q.id) && (() => {
                 const practiceSelected = practiceAnswers[q.id];
                 const examSelected = realExamAnswers[q.id];
                 const isCorrect = practiceSelected === q.correct;

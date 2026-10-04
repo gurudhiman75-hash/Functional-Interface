@@ -104,6 +104,9 @@ export type Test = {
   categoryId: string;
   duration: number;
   totalQuestions: number;
+  objectiveQuestionCount?: number;
+  descriptiveTaskCount?: number;
+  descriptiveMarks?: number;
   attempts: number;
   avgScore: number;
   difficulty: "Easy" | "Medium" | "Hard";
@@ -131,9 +134,18 @@ export const Test = {
   },
 };
 
+export type SharedStimulus = {
+  id: string;
+  kind: "passage" | "data_interpretation" | "puzzle" | "caselet" | "other";
+  title?: string | null;
+  text?: string | null;
+  imageUrl?: string | null;
+};
+
 export type TestSection = {
   id: string;
   name: string;
+  stimulusGroups?: SharedStimulus[];
   questions: Question[];
 };
 
@@ -325,6 +337,16 @@ export type Question = {
   explanationPa?: string | null;
   seatingDiagram?: SeatingDiagramData | null;
   seatingExplanationFlow?: SeatingExplanationFlow | null;
+  responseType?: "single_choice" | "descriptive";
+  questionType?: string;
+  sharedStimulusId?: string | null;
+  descriptiveTaskId?: string | null;
+  descriptiveKind?: "essay" | "comprehension" | "letter" | "precis" | "other";
+  marks?: number;
+  negativeMarks?: number;
+  minWords?: number | null;
+  maxWords?: number | null;
+  instructions?: string | null;
 };
 
 export type TestAttempt = {
@@ -359,6 +381,42 @@ export type TestAttempt = {
   sectionTimeSpent?: {
     name: string;
     minutesSpent: number;
+  }[];
+  descriptiveReviewStatus?: "pending" | "not_required" | "reviewed";
+  scoringStatus?: "COMPLETE" | "OBJECTIVE_COMPLETE_DESCRIPTIVE_PENDING";
+  objectiveScore?: number;
+  objectiveActualScore?: number;
+  descriptiveMarksPending?: number;
+  combinedActualScore?: number | null;
+  combinedPercentage?: number | null;
+  displayActualScore?: number | null;
+  displayPercentage?: number | null;
+  descriptiveReview?: {
+    reviewVersion?: number;
+    reviewStatus?: string;
+    taskScores?: {
+      questionId: number;
+      taskId: string;
+      awardedMarks: number;
+      maxMarks: number;
+      comment?: string | null;
+    }[];
+    descriptiveAwardedMarks?: number;
+    descriptiveMaximumMarks?: number;
+    objectiveActualScore?: number;
+    combinedActualScore?: number;
+    combinedPercentage?: number | null;
+    totalMarks?: number;
+    reviewedAt?: string;
+  };
+  descriptiveResponses?: {
+    questionId: number;
+    taskId: string;
+    sectionId: string;
+    text: string;
+    wordCount: number;
+    timeTaken: number;
+    marks: number;
   }[];
   questionReview?: {
     questionId: number;

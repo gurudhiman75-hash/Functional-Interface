@@ -17,6 +17,7 @@ const apiBase = ((import.meta.env.VITE_API_URL as string | undefined)?.trim() ||
 const fmt = (value: unknown) => value ? new Date(String(value)).toLocaleString() : '—';
 const title = (value: string) => value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 const duration = (seconds: number) => seconds >= 3600 ? `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m` : `${Math.floor(seconds / 60)}m`;
+const record = (value: unknown): Record<string, unknown> => value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const statusTone = (status: string) => status === 'evaluated' || status === 'practice_evaluated' ? 'success' : status === 'in_progress' ? 'warning' : status === 'abandoned' ? 'destructive' : 'neutral';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -51,6 +52,180 @@ type IntegrityIssue = { code: string; severity: 'warning' | 'critical'; title: s
 type IntegrityResult = { state: 'clean' | 'warning' | 'critical'; issues: IntegrityIssue[] };
 type AttemptReviewNote = { id: string; content: string; occurredAt: string; actorUserId: string | null; actorName: string | null };
 type AttemptStats = { total: number; inProgress: number; evaluated: number; practiceEvaluated: number; abandoned: number; stale: number };
+
+type DescriptiveResponseView = {
+  questionId: number;
+  taskId: string;
+  section: string;
+  kind: string;
+  prompt: string;
+  text: string;
+  wordCount: number;
+  submitted: boolean;
+  marks: number;
+};
+
+function DescriptiveReviewCard({
+  attempt,
+  timeline,
+  onReviewed,
+}: {
+  attempt: AttemptDetail;
+  timeline: AttemptTimelineEvent[];
+  onReviewed: () => Promise<void>;
+}) {
+  const snapshot = useMemo(() => record(attempt.resultSnapshot), [attempt.resultSnapshot]);
+  const responses = useMemo<DescriptiveResponseView[]>(() => (
+    Array.isArray(snapshot.descriptiveResponses)
+      ? snapshot.descriptiveResponses.map((value) => {
+          const item = record(value);
+          return {
+            questionId: Number(item.questionId),
+            taskId: String(item.taskId ?? ''),
+            section: String(item.section ?? ''),
+            kind: String(item.kind ?? 'other'),
+            prompt: String(item.prompt ?? ''),
+            text: String(item.text ?? ''),
+            wordCount: Number(item.wordCount ?? 0),
+            submitted: Boolean(item.submitted),
+            marks: Number(item.marks ?? 0),
+          };
+        }).filter((item) => Number.isSafeInteger(item.questionId) && item.taskId)
+      : []
+  ), [snapshot]);
+
+  const latestReview = useMemo(() => {
+    const event = timeline.find((entry) => entry.actionKey === 'student.attempt.descriptive_review.completed');
+    return event ? record(event.metadata) : {};
+  }, [timeline]);
+
+  const [scores, setScores] = useState<Record<number, { awardedMarks: string; comment: string }>>({});
+  const [reason, setReason] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const reviewedScores = Array.isArray(latestReview.taskScores) ? latestReview.taskScores.map((value) => record(value)) : [];
+    const reviewedById = new Map(reviewedScores.map((item) => [Number(item.questionId), item]));
+    setScores(Object.fromEntries(responses.map((response) => {
+      const reviewed = reviewedById.get(response.questionId);
+      return [response.questionId, {
+        awardedMarks: reviewed?.awardedMarks == null ? '' : String(reviewed.awardedMarks),
+        comment: typeof reviewed?.comment === 'string' ? reviewed.comment : '',
+      }];
+    })));
+  }, [responses, latestReview]);
+
+  if (responses.length === 0) return null;
+
+  const reviewed = latestReview.reviewStatus === 'reviewed';
+  const submit = async () => {
+    if (reason.trim().length < 12) {
+      showToast.warning('Review reason required', 'Enter at least 12 characters explaining this descriptive evaluation.');
+      return;
+    }
+    let payload;
+    try {
+      payload = responses.map((response) => {
+        const draft = scores[response.questionId];
+        const awardedMarks = Number(draft?.awardedMarks);
+        if (!Number.isFinite(awardedMarks) || awardedMarks < 0 || awardedMarks > response.marks) {
+          throw new Error(`${response.taskId} must be scored between 0 and ${response.marks} marks.`);
+        }
+        return {
+          questionId: response.questionId,
+          taskId: response.taskId,
+          awardedMarks,
+          comment: draft?.comment?.trim() || null,
+        };
+      });
+    } catch (error) {
+      showToast.warning('Check descriptive marks', error instanceof Error ? error.message : 'Every task needs a valid mark.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await request(`/admin/attempts/${encodeURIComponent(attempt.id)}/descriptive-review`, {
+        method: 'POST',
+        body: JSON.stringify({ reason: reason.trim(), scores: payload }),
+      });
+      showToast.success('Descriptive review saved', 'The grading overlay was appended to the attempt audit trail without changing canonical submission evidence.');
+      setReason('');
+      await onReviewed();
+    } catch (error) {
+      showToast.error('Unable to save descriptive review', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return <Card className="border-primary/30">
+    <CardContent className="space-y-4 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="font-semibold">Descriptive response review</p>
+          <p className="text-sm text-muted-foreground">Score typed responses as an audited overlay. The learner submission and objective score remain immutable.</p>
+        </div>
+        <StatusBadge tone={reviewed ? 'success' : 'warning'}>{reviewed ? 'Reviewed' : 'Pending review'}</StatusBadge>
+      </div>
+      {reviewed && <div className="grid gap-2 sm:grid-cols-4">
+        <Detail label="Descriptive marks" value={String(latestReview.descriptiveAwardedMarks ?? '—')} />
+        <Detail label="Maximum" value={String(latestReview.descriptiveMaximumMarks ?? '—')} />
+        <Detail label="Combined marks" value={String(latestReview.combinedActualScore ?? '—')} />
+        <Detail label="Combined %" value={latestReview.combinedPercentage == null ? '—' : `${latestReview.combinedPercentage}%`} />
+      </div>}
+      <div className="space-y-4">
+        {responses.map((response) => (
+          <div key={response.questionId} className="space-y-3 rounded-lg border p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p className="text-sm font-semibold">{response.taskId} · {title(response.kind)}</p>
+                <p className="text-xs text-muted-foreground">{response.section} · {response.wordCount} words · {response.marks} marks</p>
+              </div>
+              <StatusBadge tone={response.submitted ? 'success' : 'neutral'}>{response.submitted ? 'Submitted' : 'Blank'}</StatusBadge>
+            </div>
+            <div className="rounded-md bg-muted/30 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Prompt</p>
+              <p className="mt-1 whitespace-pre-wrap text-sm">{response.prompt}</p>
+            </div>
+            <div className="max-h-72 overflow-auto rounded-md border p-3">
+              <p className="whitespace-pre-wrap text-sm leading-6">{response.text || 'No response submitted.'}</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-[180px_minmax(0,1fr)]">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium">Awarded marks</label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={response.marks}
+                  step={0.25}
+                  value={scores[response.questionId]?.awardedMarks ?? ''}
+                  onChange={(event) => setScores((current) => ({
+                    ...current,
+                    [response.questionId]: { ...current[response.questionId], awardedMarks: event.target.value, comment: current[response.questionId]?.comment ?? '' },
+                  }))}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium">Reviewer comment (optional)</label>
+                <Input
+                  value={scores[response.questionId]?.comment ?? ''}
+                  onChange={(event) => setScores((current) => ({
+                    ...current,
+                    [response.questionId]: { awardedMarks: current[response.questionId]?.awardedMarks ?? '', comment: event.target.value },
+                  }))}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder={reviewed ? 'Reason for revised descriptive review (minimum 12 characters).' : 'Descriptive review reason / rubric note (minimum 12 characters).'} />
+      <Button onClick={() => void submit()} disabled={saving || reason.trim().length < 12}>{saving ? 'Saving review…' : reviewed ? 'Append revised review' : 'Complete descriptive review'}</Button>
+      <p className="text-xs text-muted-foreground">Every revision is append-only in the audit timeline. Canonical objective fields and the submitted descriptive text are never rewritten.</p>
+    </CardContent>
+  </Card>;
+}
 
 export function AttemptsWorkspacePage() {
   const [search, setSearch] = useState('');
@@ -158,6 +333,7 @@ export function AttemptDetailPage() {
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5"><Metric label="Status" value={<StatusBadge tone={statusTone(attempt.status)} dot>{title(attempt.status)}</StatusBadge>} /><Metric label="Reliability" value={attempt.stale ? 'Stale session' : attempt.status === 'in_progress' ? 'Within active window' : 'Closed'} /><Metric label="Integrity" value={title(integrity.state)} /><Metric label="Final score" value={attempt.finalScore ?? attempt.rawScore ?? '—'} /><Metric label="Time spent" value={`${attempt.timeSpentSeconds ?? 0}s`} /></div>
     {integrity.issues.length > 0 ? <Card className={integrity.state === 'critical' ? 'border-destructive/40' : 'border-warning/40'}><CardContent className="space-y-3 p-4"><div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /><p className="font-semibold">Attempt integrity diagnostics</p></div>{integrity.issues.map((issue) => <div key={issue.code} className="rounded-md border p-3"><div className="flex items-center gap-2"><StatusBadge tone={issue.severity === 'critical' ? 'destructive' : 'warning'}>{title(issue.severity)}</StatusBadge><p className="text-sm font-medium">{issue.title}</p></div><p className="mt-2 text-sm text-muted-foreground">{issue.detail}</p><p className="mt-1 text-xs text-muted-foreground">{issue.code}</p></div>)}</CardContent></Card> : <Card className="border-success/30"><CardContent className="flex items-center gap-2 p-4"><ShieldCheck className="h-4 w-4" /><p className="text-sm">No structural attempt-integrity anomaly was detected.</p></CardContent></Card>}
     {attempt.stale && <Card className="border-destructive/30"><CardContent className="space-y-3 p-4"><div className="flex gap-2"><AlertTriangle className="mt-0.5 h-4 w-4 text-destructive" /><div><p className="font-semibold">Stale in-progress attempt</p><p className="text-sm text-muted-foreground">No canonical save has been recorded for {duration(attempt.inactiveSeconds)}. The reliability threshold for this test is {duration(attempt.staleAfterSeconds)}.</p></div></div><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required audit reason. Confirm support context and why this stale attempt should be closed." /><Button variant="destructive" onClick={() => void abandon()} disabled={abandoning || reason.trim().length < 20}>{abandoning ? 'Abandoning…' : 'Abandon stale attempt'}</Button><p className="text-xs text-muted-foreground">This action changes only lifecycle status. Scores, responses and the canonical result snapshot are preserved unchanged.</p></CardContent></Card>}
+    <DescriptiveReviewCard attempt={attempt} timeline={timeline} onReviewed={load} />
     <Card><CardContent className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3"><Detail label="Student" value={<Link className="hover:underline" to={`/users/students/${attempt.studentId}`}>{attempt.studentName}</Link>} /><Detail label="Student email" value={attempt.studentEmail} /><Detail label="Student status" value={title(attempt.studentStatus)} /><Detail label="Test code" value={attempt.testPublicCode} /><Detail label="Publication" value={`#${attempt.publicationNumber}`} /><Detail label="Duration" value={`${attempt.durationSeconds}s`} /><Detail label="Started" value={fmt(attempt.startedAt)} /><Detail label="Last canonical update" value={fmt(attempt.updatedAt)} /><Detail label="Evaluated" value={fmt(attempt.evaluatedAt)} /></CardContent></Card>
     <Card><CardContent className="space-y-3 p-4"><p className="font-semibold">Immutable review notes</p><Textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Record investigation context, verification steps or follow-up. Minimum 12 characters." /><Button onClick={() => void addReviewNote()} disabled={savingNote || note.trim().length < 12}>{savingNote ? 'Saving…' : 'Add review note'}</Button>{notes.map((entry) => <div key={entry.id} className="rounded-md border p-3"><p className="text-sm">{entry.content}</p><p className="mt-2 text-xs text-muted-foreground">{entry.actorName || 'Administrator'} · {fmt(entry.occurredAt)}</p></div>)}{!notes.length && <p className="text-sm text-muted-foreground">No review notes have been recorded.</p>}</CardContent></Card>
     <Card><CardContent className="p-4"><p className="mb-3 text-sm font-semibold">Canonical result snapshot</p><pre className="max-h-[560px] overflow-auto rounded-md border bg-muted/30 p-4 text-xs leading-5">{snapshot}</pre></CardContent></Card>

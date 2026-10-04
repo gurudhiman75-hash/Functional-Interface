@@ -47,11 +47,25 @@ import {
   type TestValidationIssue,
 } from '@/features/test-builder/api';
 
+interface BuilderDescriptiveTask {
+  id: string;
+  kind: 'essay' | 'comprehension' | 'letter' | 'precis' | 'other';
+  prompt: string;
+  marks: number;
+  minWords: string;
+  maxWords: string;
+  instructions: string;
+  stimulusTitle: string;
+  stimulusText: string;
+}
+
 interface BuilderSection {
   clientKey: string;
   name: string;
   durationMinutes: string;
   questionVersionIds: string[];
+  settings: Record<string, unknown>;
+  descriptiveTasks: BuilderDescriptiveTask[];
 }
 
 interface BuilderDraft {
@@ -68,6 +82,9 @@ interface BuilderDraft {
   access: string;
   difficulty: string;
   instructions: string;
+  switchSections: boolean;
+  markForReview: boolean;
+  preventFullscreenExit: boolean;
   sections: BuilderSection[];
 }
 
@@ -85,7 +102,10 @@ const freshDraft = (): BuilderDraft => ({
   access: 'free',
   difficulty: 'Moderate',
   instructions: 'Read every question carefully. Submit the test before the timer ends.',
-  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
+  switchSections: true,
+  markForReview: true,
+  preventFullscreenExit: false,
+  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [], settings: {}, descriptiveTasks: [] }],
 });
 
 function record(value: unknown): Record<string, unknown> {
@@ -98,6 +118,61 @@ function stringSetting(settings: Record<string, unknown>, key: string, fallback:
   return typeof settings[key] === 'string' ? String(settings[key]) : fallback;
 }
 
+
+function descriptiveTasksFromSettings(settingsValue: unknown): BuilderDescriptiveTask[] {
+  const settings = record(settingsValue);
+  const rawTasks = Array.isArray(settings.descriptiveTasks) ? settings.descriptiveTasks : [];
+  return rawTasks.map((value, index) => {
+    const task = record(value);
+    const stimulus = record(task.stimulus);
+    const kindValue = String(task.kind ?? 'other');
+    const kind: BuilderDescriptiveTask['kind'] =
+      kindValue === 'essay' || kindValue === 'comprehension' || kindValue === 'letter' || kindValue === 'precis'
+        ? kindValue
+        : 'other';
+    return {
+      id: typeof task.id === 'string' && task.id.trim() ? task.id : `task-${index + 1}`,
+      kind,
+      prompt: typeof task.prompt === 'string' ? task.prompt : '',
+      marks: Number.isFinite(Number(task.marks)) ? Number(task.marks) : 0,
+      minWords: task.minWords == null ? '' : String(task.minWords),
+      maxWords: task.maxWords == null ? '' : String(task.maxWords),
+      instructions: typeof task.instructions === 'string' ? task.instructions : '',
+      stimulusTitle: typeof stimulus.title === 'string' ? stimulus.title : '',
+      stimulusText: typeof stimulus.text === 'string' ? stimulus.text : '',
+    };
+  });
+}
+
+function descriptiveMarksForSections(sections: BuilderSection[]): number {
+  return sections.reduce(
+    (sum, section) => sum + section.descriptiveTasks.reduce((taskSum, task) => taskSum + (Number(task.marks) || 0), 0),
+    0,
+  );
+}
+
+function serializedSectionSettings(section: BuilderSection): Record<string, unknown> {
+  const descriptiveTasks = section.descriptiveTasks.map((task) => ({
+    id: task.id.trim(),
+    kind: task.kind,
+    prompt: task.prompt.trim(),
+    marks: Number(task.marks),
+    minWords: task.minWords === '' ? null : Number(task.minWords),
+    maxWords: task.maxWords === '' ? null : Number(task.maxWords),
+    instructions: task.instructions.trim() || null,
+    stimulus: task.stimulusText.trim()
+      ? {
+          id: `${task.id.trim()}-stimulus`,
+          kind: 'passage',
+          title: task.stimulusTitle.trim() || null,
+          text: task.stimulusText.trim(),
+          imageUrl: null,
+        }
+      : null,
+  }));
+  return { ...section.settings, descriptiveTasks };
+}
+
 function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   const version = detail.currentVersion;
   if (!version) return freshDraft();
@@ -107,6 +182,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   const negativeMarks = firstQuestion?.negativeMarks ?? 0.5;
   const questionCount = detail.sections.reduce((sum, section) => sum + section.questions.length, 0);
   const instructions = record(version.instructions);
+  const navigationRules = record(settings.navigationRules);
   return {
     examVersionId: detail.test.examVersionId,
     title: version.title,
@@ -121,11 +197,16 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     access: stringSetting(settings, 'access', 'free'),
     difficulty: stringSetting(settings, 'difficulty', 'Moderate'),
     instructions: typeof instructions.text === 'string' ? instructions.text : '',
+    switchSections: navigationRules.switchSections !== false,
+    markForReview: navigationRules.markForReview !== false,
+    preventFullscreenExit: navigationRules.preventFullscreenExit === true,
     sections: detail.sections.map((section) => ({
       clientKey: section.sectionKey,
       name: section.name,
       durationMinutes: section.durationSeconds == null ? '' : String(section.durationSeconds / 60),
       questionVersionIds: section.questions.map((question) => question.questionVersionId),
+      settings: record(section.settings),
+      descriptiveTasks: descriptiveTasksFromSettings(section.settings),
     })),
   };
 }
@@ -192,7 +273,9 @@ export function TestBuilderPage() {
   );
   const selectedQuestionIds = draft.sections.flatMap((section) => section.questionVersionIds);
   const selectedQuestionSet = useMemo(() => new Set(selectedQuestionIds), [selectedQuestionIds.join('|')]);
-  const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion;
+  const descriptiveTaskCount = draft.sections.reduce((sum, section) => sum + section.descriptiveTasks.length, 0);
+  const descriptiveMarks = descriptiveMarksForSections(draft.sections);
+  const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion + descriptiveMarks;
 
   const availableQuestions = useMemo(() => publishedQuestions.filter((question) => {
     if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
@@ -209,11 +292,19 @@ export function TestBuilderPage() {
     if (draft.sections.length === 0) issues.push({ code: 'SECTION_REQUIRED', message: 'Add at least one section.' });
     draft.sections.forEach((section) => {
       if (!section.name.trim()) issues.push({ code: 'SECTION_NAME_REQUIRED', message: 'Every section needs a name.' });
-      if (section.questionVersionIds.length === 0) issues.push({ code: 'EMPTY_SECTION', message: `${section.name || 'A section'} has no questions.` });
+      if (section.questionVersionIds.length === 0 && section.descriptiveTasks.length === 0) issues.push({ code: 'EMPTY_SECTION', message: `${section.name || 'A section'} has no questions or descriptive tasks.` });
+      section.descriptiveTasks.forEach((task) => {
+        if (!task.id.trim()) issues.push({ code: 'DESCRIPTIVE_ID_REQUIRED', message: `${section.name}: every descriptive task needs an id.` });
+        if (!task.prompt.trim()) issues.push({ code: 'DESCRIPTIVE_PROMPT_REQUIRED', message: `${section.name}: descriptive task ${task.id || 'unnamed'} needs a prompt.` });
+        if (!(task.marks > 0)) issues.push({ code: 'DESCRIPTIVE_MARKS_REQUIRED', message: `${section.name}: descriptive task ${task.id || 'unnamed'} needs positive marks.` });
+        const minWords = task.minWords === '' ? null : Number(task.minWords);
+        const maxWords = task.maxWords === '' ? null : Number(task.maxWords);
+        if (minWords != null && maxWords != null && minWords > maxWords) issues.push({ code: 'DESCRIPTIVE_WORD_LIMIT', message: `${section.name}: minimum words cannot exceed maximum words for ${task.id}.` });
+      });
     });
-    if (selectedQuestionIds.length === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Select at least one published question.' });
+    if (selectedQuestionIds.length + descriptiveTaskCount === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Add at least one published question or descriptive task.' });
     if (Math.abs(calculatedMarks - draft.totalMarks) > 0.001) {
-      issues.push({ code: 'MARKS_MISMATCH', message: `Selected questions total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
+      issues.push({ code: 'MARKS_MISMATCH', message: `Objective and descriptive items total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
     }
     const timed = draft.sections.filter((section) => section.durationMinutes !== '');
     if (timed.length > 0) {
@@ -221,14 +312,14 @@ export function TestBuilderPage() {
       if (total !== draft.durationMinutes) issues.push({ code: 'DURATION_MISMATCH', message: `Section durations total ${total} minutes, while test duration is ${draft.durationMinutes}.` });
     }
     return issues;
-  }, [draft, calculatedMarks, selectedQuestionIds.length]);
+  }, [draft, calculatedMarks, descriptiveTaskCount, selectedQuestionIds.length]);
 
   const addSection = () => {
     const next = draft.sections.length + 1;
     const clientKey = `section-${Date.now()}`;
     setDraft((current) => ({
       ...current,
-      sections: [...current.sections, { clientKey, name: `Section ${next}`, durationMinutes: '', questionVersionIds: [] }],
+      sections: [...current.sections, { clientKey, name: `Section ${next}`, durationMinutes: '', questionVersionIds: [], settings: {}, descriptiveTasks: [] }],
     }));
     setActiveSectionKey(clientKey);
   };
@@ -236,7 +327,11 @@ export function TestBuilderPage() {
   const removeSection = (clientKey: string) => {
     if (draft.sections.length <= 1) return;
     const next = draft.sections.filter((section) => section.clientKey !== clientKey);
-    setDraft((current) => ({ ...current, sections: next, totalMarks: next.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion }));
+    setDraft((current) => ({
+      ...current,
+      sections: next,
+      totalMarks: next.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(next),
+    }));
     if (activeSectionKey === clientKey) setActiveSectionKey(next[0].clientKey);
   };
 
@@ -245,6 +340,75 @@ export function TestBuilderPage() {
       ...current,
       sections: current.sections.map((section) => section.clientKey === clientKey ? { ...section, ...patch } : section),
     }));
+  };
+
+
+  const addDescriptiveTask = (clientKey: string) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => {
+        if (section.clientKey !== clientKey) return section;
+        const ordinal = section.descriptiveTasks.length + 1;
+        return {
+          ...section,
+          descriptiveTasks: [
+            ...section.descriptiveTasks,
+            {
+              id: `descriptive-${ordinal}`,
+              kind: ordinal === 1 ? 'essay' : 'comprehension',
+              prompt: '',
+              marks: 10,
+              minWords: '',
+              maxWords: '',
+              instructions: '',
+              stimulusTitle: '',
+              stimulusText: '',
+            },
+          ],
+        };
+      });
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
+  };
+
+  const updateDescriptiveTask = (
+    clientKey: string,
+    taskId: string,
+    patch: Partial<BuilderDescriptiveTask>,
+  ) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => (
+        section.clientKey === clientKey
+          ? {
+              ...section,
+              descriptiveTasks: section.descriptiveTasks.map((task) => task.id === taskId ? { ...task, ...patch } : task),
+            }
+          : section
+      ));
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
+  };
+
+  const removeDescriptiveTask = (clientKey: string, taskId: string) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => (
+        section.clientKey === clientKey
+          ? { ...section, descriptiveTasks: section.descriptiveTasks.filter((task) => task.id !== taskId) }
+          : section
+      ));
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
   };
 
   const toggleQuestion = (questionVersionId: string) => {
@@ -257,7 +421,7 @@ export function TestBuilderPage() {
         return { ...section, questionVersionIds: [...without, questionVersionId] };
       });
       const count = sections.flatMap((section) => section.questionVersionIds).length;
-      return { ...current, sections, totalMarks: count * current.marksPerQuestion };
+      return { ...current, sections, totalMarks: count * current.marksPerQuestion + descriptiveMarksForSections(sections) };
     });
   };
 
@@ -275,14 +439,18 @@ export function TestBuilderPage() {
       access: draft.access,
       difficulty: draft.difficulty,
       sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
-      navigationRules: { switchSections: true, markForReview: true },
+      navigationRules: {
+        switchSections: draft.switchSections,
+        markForReview: draft.markForReview,
+        preventFullscreenExit: draft.preventFullscreenExit,
+      },
     },
     changeReason: detail ? 'Saved from live Test Builder' : 'Initial live Test Builder draft',
     sections: draft.sections.map((section) => ({
       clientKey: section.clientKey,
       name: section.name,
       durationMinutes: section.durationMinutes === '' ? null : Number(section.durationMinutes),
-      settings: {},
+      settings: serializedSectionSettings(section),
       questions: section.questionVersionIds.map((questionVersionId) => ({
         questionVersionId,
         marks: draft.marksPerQuestion,
@@ -357,7 +525,8 @@ export function TestBuilderPage() {
       <div className="mb-4 flex flex-wrap items-center gap-2">
         {detail && <Badge variant="outline">Version {detail.currentVersion?.versionNumber ?? '—'}</Badge>}
         {detail && <Badge>{detail.test.status.replace(/_/g, ' ')}</Badge>}
-        <Badge variant="outline">{selectedQuestionIds.length} questions</Badge>
+        <Badge variant="outline">{selectedQuestionIds.length} objective</Badge>
+        {descriptiveTaskCount > 0 && <Badge variant="outline">{descriptiveTaskCount} descriptive</Badge>}
         <Badge variant="outline">{draft.totalMarks} marks</Badge>
         {localIssues.length === 0 ? <Badge className="bg-success/10 text-success hover:bg-success/10"><CheckCircle2 className="mr-1 h-3.5 w-3.5" /> Locally valid</Badge> : <Badge className="bg-warning/10 text-warning hover:bg-warning/10"><AlertTriangle className="mr-1 h-3.5 w-3.5" /> {localIssues.length} issue(s)</Badge>}
       </div>
@@ -375,14 +544,116 @@ export function TestBuilderPage() {
           <Card><CardHeader><CardTitle className="text-base">Test configuration</CardTitle></CardHeader><CardContent className="space-y-5">
             <div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} placeholder="SSC CGL Full Mock 01" /></div></div>
             <div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value + descriptiveMarksForSections(current.sections) }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Test type" value={draft.testType} options={[['full_mock', 'Full Mock'], ['sectional', 'Sectional Test'], ['quiz', 'Quiz'], ['previous_year', 'Previous Year']]} onChange={(value) => setDraft((current) => ({ ...current, testType: value }))} /><SelectField label="Access" value={draft.access} options={[['free', 'Free'], ['paid', 'Paid'], ['premium', 'Premium']]} onChange={(value) => setDraft((current) => ({ ...current, access: value }))} /><SelectField label="Difficulty" value={draft.difficulty} options={[['Easy', 'Easy'], ['Moderate', 'Moderate'], ['Hard', 'Hard'], ['Mixed', 'Mixed']]} onChange={(value) => setDraft((current) => ({ ...current, difficulty: value }))} /><div className="space-y-2"><Label>Language</Label><Select value={draft.languageCode} onValueChange={(value) => setDraft((current) => ({ ...current, languageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{selectedExam?.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>) ?? <SelectItem value="en">English</SelectItem>}</SelectContent></Select></div></div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.switchSections} onCheckedChange={(value) => setDraft((current) => ({ ...current, switchSections: value === true }))} />
+                Allow switching sections
+              </label>
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.markForReview} onCheckedChange={(value) => setDraft((current) => ({ ...current, markForReview: value === true }))} />
+                Allow mark for review
+              </label>
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.preventFullscreenExit} onCheckedChange={(value) => setDraft((current) => ({ ...current, preventFullscreenExit: value === true }))} />
+                Protect fullscreen exam mode
+              </label>
+            </div>
             <div className="space-y-2"><Label>Instructions</Label><Textarea value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} rows={5} /></div>
           </CardContent></Card>
         </TabsContent>
 
         <TabsContent value="sections">
-          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Duration (optional)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
+          <div className="space-y-4">
+            <div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>
+            {draft.sections.map((section, index) => (
+              <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}>
+                <CardContent className="space-y-4 p-4">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
+                    <div className="flex-1 space-y-2">
+                      <Label>Section {index + 1} name</Label>
+                      <Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} />
+                    </div>
+                    <div className="w-full space-y-2 lg:w-48">
+                      <Label>Duration (optional)</Label>
+                      <Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" />
+                    </div>
+                    <Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>
+                      {section.questionVersionIds.length} objective
+                    </Button>
+                    <Badge variant="outline">{section.descriptiveTasks.length} descriptive</Badge>
+                    <Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button>
+                  </div>
+
+                  <div className="rounded-lg border bg-muted/20 p-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="text-sm font-semibold">Descriptive tasks</p>
+                        <p className="text-xs text-muted-foreground">Use this for essay, comprehension, letter or précis tasks. These are stored with the immutable test version, not forced into the MCQ Question Bank.</p>
+                      </div>
+                      <Button type="button" variant="outline" size="sm" onClick={() => addDescriptiveTask(section.clientKey)}>
+                        <Plus className="mr-1.5 h-4 w-4" /> Add descriptive task
+                      </Button>
+                    </div>
+
+                    {section.descriptiveTasks.length === 0 ? (
+                      <p className="mt-3 text-xs text-muted-foreground">No descriptive task in this section.</p>
+                    ) : (
+                      <div className="mt-4 space-y-4">
+                        {section.descriptiveTasks.map((task, taskIndex) => (
+                          <div key={task.id} className="space-y-3 rounded-md border bg-background p-4">
+                            <div className="flex items-end gap-3">
+                              <div className="grid flex-1 gap-3 sm:grid-cols-3">
+                                <div className="space-y-1.5">
+                                  <Label>Task id</Label>
+                                  <Input value={task.id} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { id: event.target.value })} />
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label>Type</Label>
+                                  <Select value={task.kind} onValueChange={(value) => updateDescriptiveTask(section.clientKey, task.id, { kind: value as BuilderDescriptiveTask['kind'] })}>
+                                    <SelectTrigger><SelectValue /></SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="essay">Essay</SelectItem>
+                                      <SelectItem value="comprehension">Comprehension</SelectItem>
+                                      <SelectItem value="letter">Letter</SelectItem>
+                                      <SelectItem value="precis">Précis</SelectItem>
+                                      <SelectItem value="other">Other</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label>Marks</Label>
+                                  <Input type="number" min={0.01} step={0.5} value={task.marks} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { marks: Number(event.target.value) })} />
+                                </div>
+                              </div>
+                              <Button type="button" variant="ghost" size="icon" onClick={() => removeDescriptiveTask(section.clientKey, task.id)} aria-label={`Remove descriptive task ${taskIndex + 1}`}><Trash2 className="h-4 w-4" /></Button>
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label>Prompt</Label>
+                              <Textarea rows={3} value={task.prompt} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { prompt: event.target.value })} placeholder="Write the exact learner-facing descriptive prompt." />
+                            </div>
+                            <div className="grid gap-3 sm:grid-cols-2">
+                              <div className="space-y-1.5"><Label>Minimum words (optional)</Label><Input type="number" min={0} value={task.minWords} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { minWords: event.target.value })} /></div>
+                              <div className="space-y-1.5"><Label>Maximum words (optional)</Label><Input type="number" min={1} value={task.maxWords} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { maxWords: event.target.value })} /></div>
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label>Task instructions (optional)</Label>
+                              <Textarea rows={2} value={task.instructions} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { instructions: event.target.value })} />
+                            </div>
+                            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_2fr]">
+                              <div className="space-y-1.5"><Label>Shared stimulus title (optional)</Label><Input value={task.stimulusTitle} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { stimulusTitle: event.target.value })} placeholder="Comprehension passage" /></div>
+                              <div className="space-y-1.5"><Label>Shared passage / stimulus (optional)</Label><Textarea rows={4} value={task.stimulusText} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { stimulusText: event.target.value })} placeholder="Paste the passage used by this task." /></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
 
         <TabsContent value="questions">
@@ -398,7 +669,60 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="preview">
-          <Card><CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader><CardContent className="space-y-6"><div className="rounded-lg border bg-muted/20 p-4"><h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p><p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p></div>{draft.sections.map((section) => <div key={section.clientKey}><div className="mb-3 flex items-center justify-between"><h3 className="font-semibold">{section.name}</h3><Badge variant="outline">{section.questionVersionIds.length} questions</Badge></div><div className="space-y-4">{section.questionVersionIds.map((id, index) => { const question = questionMap.get(id); if (!question) return null; return <div key={id} className="rounded-lg border p-4"><p className="text-sm font-medium">{index + 1}. {question.stem}</p><div className="mt-3 grid gap-2 sm:grid-cols-2">{question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}</div><p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p></div>; })}</div></div>)}</CardContent></Card>
+          <Card>
+            <CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader>
+            <CardContent className="space-y-6">
+              <div className="rounded-lg border bg-muted/20 p-4">
+                <h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p>
+                <p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p>
+              </div>
+              {draft.sections.map((section) => (
+                <div key={section.clientKey}>
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <h3 className="font-semibold">{section.name}</h3>
+                    <div className="flex gap-2">
+                      <Badge variant="outline">{section.questionVersionIds.length} objective</Badge>
+                      {section.descriptiveTasks.length > 0 && <Badge variant="outline">{section.descriptiveTasks.length} descriptive</Badge>}
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    {section.questionVersionIds.map((id, index) => {
+                      const question = questionMap.get(id);
+                      if (!question) return null;
+                      return (
+                        <div key={id} className="rounded-lg border p-4">
+                          <p className="text-sm font-medium">{index + 1}. {question.stem}</p>
+                          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                            {question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}
+                          </div>
+                          <p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p>
+                        </div>
+                      );
+                    })}
+                    {section.descriptiveTasks.map((task, index) => (
+                      <div key={task.id} className="rounded-lg border p-4">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge variant="secondary">{task.kind}</Badge>
+                          <Badge variant="outline">{task.marks} marks</Badge>
+                          {(task.minWords || task.maxWords) && <span className="text-xs text-muted-foreground">{task.minWords || '0'}–{task.maxWords || 'open'} words</span>}
+                        </div>
+                        {task.stimulusText && (
+                          <div className="mt-3 rounded-md border bg-muted/20 p-3">
+                            {task.stimulusTitle && <p className="mb-1 text-xs font-semibold">{task.stimulusTitle}</p>}
+                            <p className="whitespace-pre-wrap text-sm text-muted-foreground">{task.stimulusText}</p>
+                          </div>
+                        )}
+                        <p className="mt-3 text-sm font-medium">{section.questionVersionIds.length + index + 1}. {task.prompt || 'Prompt not entered'}</p>
+                        {task.instructions && <p className="mt-2 text-xs text-muted-foreground">{task.instructions}</p>}
+                        <div className="mt-3 min-h-28 rounded-md border border-dashed bg-background p-3 text-xs text-muted-foreground">Learner typing area</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

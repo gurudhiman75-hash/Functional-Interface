@@ -143,7 +143,13 @@ export default function CanonicalResult() {
   const accuracy = result.correct + result.wrong > 0
     ? Math.round((result.correct / (result.correct + result.wrong)) * 100)
     : 0;
-  const boundedScore = clampPercent(result.score);
+  const displayScore = result.descriptiveReviewStatus === "reviewed" && result.combinedPercentage != null
+    ? result.combinedPercentage
+    : result.score;
+  const displayActualScore = result.descriptiveReviewStatus === "reviewed" && result.combinedActualScore != null
+    ? result.combinedActualScore
+    : result.actualScore;
+  const boundedScore = clampPercent(displayScore);
   const totalQuestions = Math.max(0, result.totalQuestions || result.correct + result.wrong + result.unanswered);
   const correctShare = totalQuestions > 0 ? (result.correct / totalQuestions) * 100 : 0;
   const wrongShare = totalQuestions > 0 ? (result.wrong / totalQuestions) * 100 : 0;
@@ -171,6 +177,18 @@ export default function CanonicalResult() {
           {seriesUrl ? "Back to Test Series" : "Back to My Activity"}
         </button>
 
+        {result.descriptiveReviewStatus === "pending" && (
+          <section className="rounded-2xl border border-amber-200 bg-amber-50/80 p-4 text-sm text-amber-950">
+            <p className="font-bold">Descriptive evaluation is pending</p>
+            <p className="mt-1 leading-6">Your objective section has been scored. Essay/comprehension marks will be added after review; the submitted text is already saved with this attempt.</p>
+          </section>
+        )}
+        {result.descriptiveReviewStatus === "reviewed" && (
+          <section className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 text-sm text-emerald-950">
+            <p className="font-bold">Descriptive evaluation completed</p>
+            <p className="mt-1 leading-6">Descriptive: {result.descriptiveReview?.descriptiveAwardedMarks ?? 0}/{result.descriptiveReview?.descriptiveMaximumMarks ?? 0} marks · Objective: {result.objectiveActualScore ?? result.actualScore ?? 0} marks.</p>
+          </section>
+        )}
         <section className="overflow-hidden rounded-3xl border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_8%,rgba(108,92,241,0.14),transparent_25rem),linear-gradient(120deg,#ffffff_0%,#f8f6ff_100%)] shadow-[0_16px_44px_rgba(37,42,68,0.05)]" data-testid="result-summary">
           <div className="grid gap-7 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_310px] lg:items-center lg:p-8">
             <div className="min-w-0">
@@ -193,9 +211,9 @@ export default function CanonicalResult() {
             <div className="rounded-3xl border border-white bg-white/90 p-5 shadow-[0_12px_36px_rgba(71,61,145,0.08)]">
               <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-full p-[12px]" style={{ background: `conic-gradient(#6657e8 ${boundedScore * 3.6}deg,#ece9fb 0deg)` }}>
                 <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white text-center">
-                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Score</span>
-                  <span className="mt-1 text-4xl font-black tracking-[-0.04em] text-slate-950">{result.score}%</span>
-                  {result.actualScore != null && <span className="mt-1 text-xs font-bold text-slate-500">{result.actualScore} marks</span>}
+                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">{result.descriptiveReviewStatus === "reviewed" ? "Combined score" : result.descriptiveReviewStatus === "pending" ? "Objective score" : "Score"}</span>
+                  <span className="mt-1 text-4xl font-black tracking-[-0.04em] text-slate-950">{displayScore}%</span>
+                  {displayActualScore != null && <span className="mt-1 text-xs font-bold text-slate-500">{displayActualScore} marks</span>}
                 </div>
               </div>
               <div className="mt-5 flex items-center justify-between text-xs"><span className="font-semibold text-slate-500">Accuracy</span><strong className="text-slate-950">{accuracy}%</strong></div>
@@ -208,6 +226,37 @@ export default function CanonicalResult() {
           </div>
         </section>
 
+        {Array.isArray(result.descriptiveResponses) && result.descriptiveResponses.length > 0 && (
+          <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BookOpen className="h-5 w-5" /></span>
+              <div>
+                <h2 className="text-lg font-bold tracking-tight text-slate-950">Descriptive responses</h2>
+                <p className="mt-1 text-sm text-slate-500">Your submitted text is preserved exactly with the attempt. Reviewed marks appear alongside it when available.</p>
+              </div>
+            </div>
+            <div className="mt-5 space-y-4">
+              {result.descriptiveResponses.map((response) => {
+                const reviewed = result.descriptiveReview?.taskScores?.find((score) => score.questionId === response.questionId);
+                return (
+                  <div key={response.questionId} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="text-sm font-bold text-slate-950">{response.taskId}</p>
+                        <p className="text-xs text-slate-500">{response.wordCount} words · {response.marks} marks</p>
+                      </div>
+                      <span className="rounded-full border border-[#ded9fa] bg-white px-2.5 py-1 text-xs font-bold text-[#6657e8]">
+                        {reviewed ? reviewed.awardedMarks + "/" + reviewed.maxMarks : "Review pending"}
+                      </span>
+                    </div>
+                    <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700">{response.text || "No response submitted."}</p>
+                    {reviewed?.comment && <p className="mt-3 rounded-xl bg-white p-3 text-xs leading-5 text-slate-600"><strong>Reviewer:</strong> {reviewed.comment}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
         <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" aria-label="Attempt analysis">
           <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
             <div className="flex items-start gap-3">

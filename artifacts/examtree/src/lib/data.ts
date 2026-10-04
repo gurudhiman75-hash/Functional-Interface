@@ -22,9 +22,18 @@ export type Category = {
   exams?: Exam[];
 };
 
+export interface SharedStimulus {
+  id: string;
+  kind: "passage" | "data_interpretation" | "puzzle" | "caselet" | "other";
+  title?: string | null;
+  text?: string | null;
+  imageUrl?: string | null;
+}
+
 export type TestSection = {
   id: string;
   name: string;
+  stimulusGroups?: SharedStimulus[];
   questions: Question[];
 };
 
@@ -42,6 +51,9 @@ export type Test = {
   kind?: "full-length" | "sectional" | "topic-wise";
   duration: number;
   totalQuestions: number;
+  objectiveQuestionCount?: number;
+  descriptiveTaskCount?: number;
+  descriptiveMarks?: number;
   attempts: number;
   avgScore: number;
   difficulty: "Easy" | "Medium" | "Hard";
@@ -109,7 +121,16 @@ export interface Question {
   seatingExplanationFlow?: SeatingExplanationFlow | null;
   /** Optional image URL displayed above the question */
   imageUrl?: string | null;
-  questionType?: "text" | "image" | "di";
+  responseType?: "single_choice" | "descriptive";
+  questionType?: "text" | "image" | "di" | "mcq_single" | "descriptive";
+  sharedStimulusId?: string | null;
+  descriptiveTaskId?: string | null;
+  descriptiveKind?: "essay" | "comprehension" | "letter" | "precis" | "other";
+  marks?: number;
+  negativeMarks?: number;
+  minWords?: number | null;
+  maxWords?: number | null;
+  instructions?: string | null;
   diSetId?: number | null;
   /** Denormalized DI set data (from snapshot join) */
   diSetTitle?: string | null;
@@ -373,6 +394,7 @@ export interface SubmitAttemptPayload {
   attemptType: "REAL" | "PRACTICE";
   timeSpent: number;
   responses: { questionId: number; selectedOption: number | null; timeTaken: number }[];
+  descriptiveResponses?: { questionId: number; taskId: string; sectionId: string; text: string; wordCount: number; timeTaken: number }[];
   flags?: Record<number, boolean>;
   sectionTimeSpent?: { name: string; minutesSpent: number }[];
   originalAttemptId?: string;
