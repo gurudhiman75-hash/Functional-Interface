@@ -129,33 +129,17 @@ export default function Home() {
     <div className="home-page" data-testid="home-reference">
       {sampleMode ? <div className="border-b border-amber-200 bg-amber-50 text-amber-950" data-testid="home-sample-preview-badge"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 text-xs sm:px-6 lg:px-8"><span><strong>Sample data preview.</strong> Visual-only catalog data.</span><button type="button" className="min-h-10 rounded-lg px-3 font-bold hover:bg-amber-100" onClick={() => setLocation("/")}>Exit preview</button></div></div> : null}
 
-      <section className={sessionUser ? "home-hero home-hero-member" : "home-hero home-hero-guest"} data-testid="home-hero">
+      <section className="home-hero home-hero-guest" data-testid="home-hero">
         <div className="hero-glow one" /><div className="hero-glow two" />
         <div className="hero-copy">
-          {sessionUser ? <>
-            <span className="hero-badge"><Sparkles size={14} /> YOUR PREPARATION</span>
-            <h1>Welcome back, {loggedInHero.firstName}.<br /><span>Keep moving forward.</span></h1>
-            <p>{loggedInHero.action.detail}. Your saved progress and next steps are ready when you are.</p>
-            <div className="home-member-actions">
-              <button type="button" className="home-member-primary" onClick={() => setLocation(loggedInHero.action.href)}>{loggedInHero.action.label} <ArrowRight /></button>
-              <button type="button" className="home-member-secondary" onClick={() => setLocation("/dashboard")}>View dashboard</button>
-            </div>
-            <div className="home-member-summary" aria-label="Your preparation summary">
-              <div><span>Current focus</span><b>{activeSession?.category || loggedInHero.recommendedSeries?.examName || "Choose an exam"}</b></div>
-              <div><span>Next recommended</span><b>{activeSession?.testName || loggedInHero.recommendedSeries?.name || "Browse a test"}</b></div>
-              <div><span>Latest score</span><b>{latestAttempt ? `${Math.round(latestAttempt.score)}%` : "Start a test"}</b></div>
-            </div>
-          </> : <>
-            <span className="hero-badge"><Users size={14} /> 5,00,000+ aspirants trust Examtree</span>
-            <h1>Practice Today<br />for a <span>Brighter Tomorrow</span></h1>
-            <p>Take exam-like tests, learn from detailed explanations and improve your rank with personalised insights.</p>
-            <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
-              <Search aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways, Punjab Govt..." aria-label="Search exams" /><button type="submit">Find tests</button>
-            </form>
-            {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
-            
-            <div className="hero-benefits"><span><BookOpen /> Exam-like Mock Tests</span><span><BarChart3 /> Detailed Performance Analysis</span><span><Sparkles /> Topic-wise Practice</span><span><CheckCircle2 /> Updated Syllabus &amp; Pattern</span></div>
-          </>}
+          <span className="hero-badge"><Users size={14} /> 5,00,000+ aspirants trust Examtree</span>
+          <h1>Practice Today<br />for a <span>Brighter Tomorrow</span></h1>
+          <p>Take exam-like tests, learn from detailed explanations and improve your rank with personalised insights.</p>
+          <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
+            <Search aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways, Punjab Govt..." aria-label="Search exams" /><button type="submit">Find Tests</button>
+          </form>
+          {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
+          <div className="hero-benefits"><span><BookOpen /> Exam-like Mock Tests</span><span><BarChart3 /> Detailed Performance Analysis</span><span><Sparkles /> Topic-wise Practice</span><span><CheckCircle2 /> Updated Syllabus &amp; Pattern</span></div>
         </div>
         <div className="hero-visual" aria-label="Mock test interface preview">
           <div className="dashboard-card mock-device">
@@ -176,7 +160,7 @@ export default function Home() {
             </div>
             <button className="mock-next" type="button">Next <ArrowRight /></button>
           </div>
-        </div>{!sessionUser ? <aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside> : null}
+        </div>{!sessionUser ? <aside className="hero-auth-panel" data-testid="home-hero-auth-card"><div className="hero-auth-card"><h2>Get started with Examtree</h2><p>Access free tests, study material and personalised learning.</p><button type="button" className="hero-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button><div className="hero-auth-divider"><span>or</span></div><button type="button" className="hero-email-login" onClick={() => setLocation("/login")}>Continue with email</button><p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p><div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div></div></aside>
       </section>
 
       <section className="proof-bar"><div><b>{formatCount(Math.max(totalTests * 18, 1000))}</b><span>Questions in catalog</span></div><div><b>{formatCount(totalTests)}</b><span>Published tests</span></div><div><b>{formatCount(totalCategories)}</b><span>Exam categories</span></div><div><b>12</b><span>Languages supported</span></div></section>
