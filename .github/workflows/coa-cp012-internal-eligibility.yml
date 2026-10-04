@@ -38,3 +38,14 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/course-of-action/cp012-internal-eligibility-approval-proof.test.mjs
+
+      - name: Bundle COA post-closure final semantic proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Course-of-Action/COA-001/coa-001-post-closure-audit-20261004.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/course-of-action/coa-001-post-closure-audit-20261004.test.mjs
+      - name: Run COA post-closure final semantic proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/course-of-action/coa-001-post-closure-audit-20261004.test.mjs
