@@ -44,6 +44,7 @@ type Section={
   cardStyle:CardStyle;
   tabStyle:TabStyle;
   showCounts:boolean;
+  labels:Record<string,string>;
   ctaLabel:string;
   ctaHref:string;
   cards:CustomCard[];
@@ -125,6 +126,7 @@ const newSection=(type:SectionType):Section=>({
   cardStyle:'default',
   tabStyle:'pills',
   showCounts:true,
+  labels:{},
   ctaLabel:'',
   ctaHref:'',
   cards:[],
@@ -172,6 +174,7 @@ export function WebExamPageBuilderPage(){
   const patchConfiguration=(value:Partial<Configuration>)=>setDraft(previous=>previous?({...previous,configuration:{...previous.configuration,...value}}):previous);
   const setSections=(sections:Section[])=>patchConfiguration({sections:sections.map((section,index)=>({...section,sortOrder:index+1}))});
   const updateSection=(id:string,value:Partial<Section>)=>setSections(orderedSections.map(section=>section.id===id?{...section,...value}:section));
+  const updateSectionLabel=(id:string,key:string,value:string)=>setSections(orderedSections.map(section=>section.id===id?{...section,labels:{...section.labels,[key]:value}}:section));
   const removeSection=(id:string)=>setSections(orderedSections.filter(section=>section.id!==id));
   const duplicateSection=(id:string)=>setSections(orderedSections.flatMap(section=>section.id===id?[section,{...structuredClone(section),id:crypto.randomUUID(),title:section.title?`${section.title} copy`:'',cards:section.cards.map(card=>({...card,id:crypto.randomUUID()}))}]:[section]));
   const updateCard=(sectionId:string,cardId:string,value:Partial<CustomCard>)=>setSections(orderedSections.map(section=>section.id===sectionId?{...section,cards:section.cards.map(card=>card.id===cardId?{...card,...value}:card)}:section));
@@ -294,6 +297,23 @@ export function WebExamPageBuilderPage(){
                 <div className="space-y-2"><Label>Columns</Label><Select value={String(section.columns)} onValueChange={value=>updateSection(section.id,{columns:Number(value)})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent>{[1,2,3,4].map(value=><SelectItem key={value} value={String(value)}>{value}</SelectItem>)}</SelectContent></Select></div>
                 <div className="space-y-2"><Label>Card style</Label><Select value={section.cardStyle} onValueChange={value=>updateSection(section.id,{cardStyle:value as CardStyle})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="default">Default</SelectItem><SelectItem value="compact">Compact</SelectItem><SelectItem value="bordered">Bordered</SelectItem><SelectItem value="minimal">Minimal</SelectItem><SelectItem value="featured">Featured</SelectItem></SelectContent></Select></div>
                 {section.type==='test_catalog'&&<><div className="space-y-2"><Label>Tab style</Label><Select value={section.tabStyle} onValueChange={value=>updateSection(section.id,{tabStyle:value as TabStyle})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="pills">Pills</SelectItem><SelectItem value="underline">Underline</SelectItem><SelectItem value="segmented">Segmented</SelectItem></SelectContent></Select></div><div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><Label>Show tab counts</Label><p className="text-xs text-muted-foreground">Number of tests next to each tab.</p></div><Switch checked={section.showCounts} onCheckedChange={value=>updateSection(section.id,{showCounts:value})}/></div></>}
+                {section.type==='test_catalog'&&<div className="grid gap-3 rounded-lg border p-3 md:col-span-2 md:grid-cols-3">
+                  <div className="space-y-1"><Label>Prelims tab</Label><Input value={section.labels.prelims||''} onChange={event=>updateSectionLabel(section.id,'prelims',event.target.value)} placeholder="Prelims"/></div>
+                  <div className="space-y-1"><Label>Mains tab</Label><Input value={section.labels.mains||''} onChange={event=>updateSectionLabel(section.id,'mains',event.target.value)} placeholder="Mains"/></div>
+                  <div className="space-y-1"><Label>PYQ tab</Label><Input value={section.labels.pyq||''} onChange={event=>updateSectionLabel(section.id,'pyq',event.target.value)} placeholder="PYQ"/></div>
+                  <div className="space-y-1"><Label>Sectional tab</Label><Input value={section.labels.sectional||''} onChange={event=>updateSectionLabel(section.id,'sectional',event.target.value)} placeholder="Sectional"/></div>
+                  <div className="space-y-1"><Label>Topic-wise tab</Label><Input value={section.labels.topicWise||''} onChange={event=>updateSectionLabel(section.id,'topicWise',event.target.value)} placeholder="Topic-wise"/></div>
+                  <div className="space-y-1"><Label>More tab</Label><Input value={section.labels.more||''} onChange={event=>updateSectionLabel(section.id,'more',event.target.value)} placeholder="More"/></div>
+                </div>}
+                {section.type==='hero'&&<div className="grid gap-3 rounded-lg border p-3 md:col-span-2 md:grid-cols-3">
+                  <div className="space-y-1"><Label>Tests nav</Label><Input value={section.labels.navTests||''} onChange={event=>updateSectionLabel(section.id,'navTests',event.target.value)} placeholder="Tests"/></div>
+                  <div className="space-y-1"><Label>Syllabus nav</Label><Input value={section.labels.navSyllabus||''} onChange={event=>updateSectionLabel(section.id,'navSyllabus',event.target.value)} placeholder="Syllabus"/></div>
+                  <div className="space-y-1"><Label>Preparation nav</Label><Input value={section.labels.navPreparation||''} onChange={event=>updateSectionLabel(section.id,'navPreparation',event.target.value)} placeholder="Preparation"/></div>
+                  <div className="space-y-1"><Label>Catalogue label</Label><Input value={section.labels.catalogue||''} onChange={event=>updateSectionLabel(section.id,'catalogue',event.target.value)} placeholder="Live catalogue"/></div>
+                  <div className="space-y-1"><Label>Published label</Label><Input value={section.labels.published||''} onChange={event=>updateSectionLabel(section.id,'published',event.target.value)} placeholder="published"/></div>
+                  <div className="space-y-1"><Label>Free tests label</Label><Input value={section.labels.freeTests||''} onChange={event=>updateSectionLabel(section.id,'freeTests',event.target.value)} placeholder="free tests"/></div>
+                  <div className="space-y-1"><Label>Coming soon label</Label><Input value={section.labels.comingSoon||''} onChange={event=>updateSectionLabel(section.id,'comingSoon',event.target.value)} placeholder="coming soon"/></div>
+                </div>}
                 <div className="space-y-2"><Label>CTA label</Label><Input value={section.ctaLabel} onChange={event=>updateSection(section.id,{ctaLabel:event.target.value})} placeholder="Blank keeps default"/></div>
                 <div className="space-y-2"><Label>CTA href</Label><Input value={section.ctaHref} onChange={event=>updateSection(section.id,{ctaHref:event.target.value})} placeholder="/path or https://…"/></div>
 
