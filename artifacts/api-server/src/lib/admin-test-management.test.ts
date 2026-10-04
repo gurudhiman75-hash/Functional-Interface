@@ -31,6 +31,7 @@ function validDraft() {
         clientKey: "quant",
         name: "Quantitative Aptitude",
         durationMinutes: 60,
+        settings: {},
         questions: [
           { questionVersionId: q1, marks: 2, negativeMarks: 0.5 },
           { questionVersionId: q2, marks: 2, negativeMarks: 0.5 },
