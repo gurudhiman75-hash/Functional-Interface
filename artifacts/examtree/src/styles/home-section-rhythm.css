@@ -1016,3 +1016,79 @@
   .home-hero-guest{grid-template-columns:minmax(0,1.1fr) minmax(310px,.7fr)!important}
   .home-hero-guest .hero-visual{display:none!important}
 }
+
+
+.reference-series-card{
+  position:relative!important;
+  display:block!important;
+  min-height:128px!important;
+  padding:15px 16px 13px 84px!important;
+}
+.reference-series-card .series-top{
+  position:absolute!important;
+  left:18px!important;
+  top:18px!important;
+}
+.reference-series-card .reference-series-icon{
+  display:flex!important;
+  width:50px!important;
+  height:50px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:50%!important;
+  background:#f4f8ff!important;
+  color:#1769ff!important;
+}
+.reference-series-card .reference-series-icon img{max-width:46px!important;max-height:46px!important;object-fit:contain!important}
+.reference-series-card .reference-series-icon-0{background:#1d75f3!important;color:#fff!important}
+.reference-series-card .reference-series-icon-3{border-radius:8px!important;background:#f6f9ff!important;color:#1769ff!important}
+.reference-series-card h3{
+  min-height:auto!important;
+  margin:0 0 3px!important;
+  color:#0d1d45!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+}
+.reference-series-badge{
+  display:inline-block;
+  margin-bottom:6px;
+  border-radius:4px;
+  background:#e9f2ff;
+  padding:2px 6px;
+  color:#1769ff;
+  font-size:8px;
+  line-height:1.4;
+  font-weight:800;
+}
+.reference-series-card .series-meta{
+  display:flex!important;
+  margin:0!important;
+  gap:11px!important;
+  color:#677794!important;
+  font-size:9px!important;
+}
+.reference-series-card .series-meta span{display:flex;align-items:center;gap:4px}
+.reference-series-card .series-meta svg{width:11px!important;height:11px!important}
+.reference-price{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-top:7px;
+}
+.reference-price strong{color:#0d1d45;font-size:15px;font-weight:900}
+.reference-price del{color:#7b889f;font-size:10px}
+.reference-series-go{
+  position:absolute!important;
+  right:14px!important;
+  bottom:14px!important;
+  display:grid!important;
+  width:34px!important;height:34px!important;
+  place-items:center!important;
+  border:1px solid #dce6f5!important;
+  border-radius:50%!important;
+  background:#f8fbff!important;
+  color:#1769ff!important;
+  padding:0!important;
+}
+.reference-series-go svg{width:15px;height:15px}
