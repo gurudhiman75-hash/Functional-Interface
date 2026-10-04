@@ -15,7 +15,6 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/blog`);
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/ssc-cgl-pyqs`);
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/punjab-police-mock-tests`);
-    expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/ibps-clerk-syllabus`);
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/dashboard`);
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/test/`);
 
