@@ -9,6 +9,8 @@ import {
   generateLocalizedCalendarSourceGapQuestion,
   type LocalizedCalendarSourceGapQuestion,
 } from "./source-gap-multilingual.ts";
+import { assertCalendarPackageIntegrity } from "./verifier.ts";
+import { assertCalendarSourceGapIntegrity } from "./source-gap-verifier.ts";
 import type { CalendarSourceGapPrototypeId } from "./source-gap-runtime.ts";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import type {
@@ -307,6 +309,11 @@ export function runCal001QuestionStudioPipeline(
 
   const contract = getCalendarPermanentContract(qlId);
   const selected = selectSourcePackage(qlId, input);
+  if (isSourceGap(selected.sourceId)) {
+    assertCalendarSourceGapIntegrity(selected.pkg as LocalizedCalendarSourceGapQuestion);
+  } else {
+    assertCalendarPackageIntegrity(selected.pkg as CalendarQuestionPackage);
+  }
   const options = sourceOptions(selected.pkg);
   const correctIndex = sourceAnswerIndex(selected.pkg);
   const answer = options[correctIndex]!;
@@ -328,6 +335,11 @@ export function runCal001QuestionStudioPipeline(
         sourceId as CalendarFrozenSourcePrototypeId,
       ),
       message: "Selected source authority belongs to the permanent QL.",
+    },
+    {
+      name: "independent-answer-proof",
+      passed: true,
+      message: "Final source package passed the independent Calendar answer verifier.",
     },
     {
       name: "four-unique-options",
@@ -388,6 +400,10 @@ export function runCal001QuestionStudioPipeline(
     checkpointIds: [...contract.checkpointIds],
     sourcePrototypeAuthority: sourceId,
     sourcePrototypeIds: [...contract.sourcePrototypeIds],
+    independentAnswerProof:
+      isSourceGap(sourceId as CalendarFrozenSourcePrototypeId)
+        ? "CAL_001_SOURCE_GAP_INDEPENDENT_PROOF_2026_10_04"
+        : "CAL_001_NORMAL_PROTOTYPE_INDEPENDENT_VERIFIER",
     studentTask: contract.studentTask,
     mathematicalFingerprint: sourceFingerprint(selected.pkg),
     generationMode: "FROZEN_MULTILINGUAL_REVIEW",
