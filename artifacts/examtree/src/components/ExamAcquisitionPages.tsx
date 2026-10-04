@@ -104,14 +104,14 @@ function progressionLabel(mode: ExamHubCatalogItem["progressionMode"]) {
   return "Open access";
 }
 
-function tabLabelForSection(title: string) {
+function tabLabelForSection(title: string, labels: Record<string, string> = {}) {
   const value = title.toLowerCase();
-  if (/prelims?|preliminary/.test(value)) return "Prelims";
-  if (/mains?|main exam/.test(value)) return "Mains";
-  if (/\bpyq\b|previous[ -]?year/.test(value)) return "PYQ";
-  if (/sectional/.test(value)) return "Sectional";
-  if (/topic[ -]?wise/.test(value)) return "Topic-wise";
-  if (/more test/.test(value)) return "More";
+  if (/prelims?|preliminary/.test(value)) return labels.prelims || "Prelims";
+  if (/mains?|main exam/.test(value)) return labels.mains || "Mains";
+  if (/\bpyq\b|previous[ -]?year/.test(value)) return labels.pyq || "PYQ";
+  if (/sectional/.test(value)) return labels.sectional || "Sectional";
+  if (/topic[ -]?wise/.test(value)) return labels.topicWise || "Topic-wise";
+  if (/more test/.test(value)) return labels.more || "More";
   return title;
 }
 
@@ -449,9 +449,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     if (section.type === "hero") {
       const visibleTypes = new Set(orderedPageSections.map((item) => item.type));
       const navItems = [
-        visibleTypes.has("test_catalog") ? ["#test-catalog", "Tests"] : null,
-        visibleTypes.has("syllabus") ? ["#syllabus", "Syllabus"] : null,
-        visibleTypes.has("preparation") ? ["#preparation", "Preparation"] : null,
+        visibleTypes.has("test_catalog") ? ["#test-catalog", section.labels.navTests || "Tests"] : null,
+        visibleTypes.has("syllabus") ? ["#syllabus", section.labels.navSyllabus || "Syllabus"] : null,
+        visibleTypes.has("preparation") ? ["#preparation", section.labels.navPreparation || "Preparation"] : null,
       ].filter(Boolean) as string[][];
       return (
         <section key={section.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
@@ -491,11 +491,11 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
                 </div>
               ) : (
                 <>
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">Live catalogue</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">{section.labels.catalogue || "Live catalogue"}</p>
                   <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-1">
-                    <div><div className="text-2xl font-semibold">{totalPublished}</div><div className="text-xs text-white/55">published</div></div>
-                    <div><div className="text-2xl font-semibold">{freeCount}</div><div className="text-xs text-white/55">free tests</div></div>
-                    <div><div className="text-2xl font-semibold">{comingSoonCount}</div><div className="text-xs text-white/55">coming soon</div></div>
+                    <div><div className="text-2xl font-semibold">{totalPublished}</div><div className="text-xs text-white/55">{section.labels.published || "published"}</div></div>
+                    <div><div className="text-2xl font-semibold">{freeCount}</div><div className="text-xs text-white/55">{section.labels.freeTests || "free tests"}</div></div>
+                    <div><div className="text-2xl font-semibold">{comingSoonCount}</div><div className="text-xs text-white/55">{section.labels.comingSoon || "coming soon"}</div></div>
                   </div>
                 </>
               )}
@@ -533,7 +533,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
                         : "min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950");
                     return (
                       <button key={tab.id} type="button" role="tab" aria-selected={selected} aria-controls={tab.id} onClick={() => setActiveSeriesTabId(tab.id)} className={tabClass}>
-                        {tabLabelForSection(tab.title)}
+                        {tabLabelForSection(tab.title, section.labels)}
                         {section.showCounts ? <span className={"ml-2 text-xs " + (selected ? "opacity-75" : "text-slate-400")}>{tab.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}</span> : null}
                       </button>
                     );
