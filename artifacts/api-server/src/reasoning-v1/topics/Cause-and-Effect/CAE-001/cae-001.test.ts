@@ -68,7 +68,10 @@ assert.ok(renderCae001EditorialRealnessReview().includes("CAE-CP-009"), "editori
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.qlAllocationStatus, "SOURCE_SATURATED_CONTENT_FROZEN");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalSourceQlAllocationStatus, "PROVISIONAL_PENDING_SOURCE_SATURATION");
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 9);
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlCount, 9);
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlCount, 0);
+assert.deepEqual(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlIds, []);
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalProvisionalQlCount, 9);
+assert.deepEqual(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalProvisionalQlIds, CAE_PROVISIONAL_QL_IDS);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.scenarioFamilyCount, 9);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.canonicalScenarioVariantCount, 27);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
