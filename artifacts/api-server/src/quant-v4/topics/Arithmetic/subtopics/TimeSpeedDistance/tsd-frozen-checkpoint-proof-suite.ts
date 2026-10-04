@@ -1,6 +1,13 @@
 // Current-main TSD closure suite.
 // These imports execute the final checkpoint assertions at module load.
 
+import "./TSD-001/cp003/runtime-proof";
+import "./TSD-001/cp003/english-frozen-proof";
+import "./TSD-001/cp003/localization/native-approved-freeze-proof";
+
+import "./TSD-001/cp004/foundation-proof";
+import "./TSD-001/cp004/english-approved-freeze-proof";
+
 import "./TSD-001/cp005/proof";
 import "./TSD-001/cp005/english-approved-freeze-proof-v13";
 import "./TSD-001/cp005/localization/native-approved-freeze-proof-v5";
@@ -76,7 +83,7 @@ import "./TSD-002/cp012/question-studio-preregistration-lock-proof.test";
 console.log(JSON.stringify({
   chapter: "Time, Speed & Distance",
   suite: "TSD-FROZEN-CHECKPOINT-PROOFS-CURRENT-MAIN-V1",
-  checkpoints: ["CP005", "CP006", "CP007", "CP008", "CP009", "CP010", "CP011", "CP012"],
+  checkpoints: ["CP003", "CP004", "CP005", "CP006", "CP007", "CP008", "CP009", "CP010", "CP011", "CP012"],
   obsoleteBespokeRouteProofsIntentionallyExcluded: true,
   currentUnifiedQuestionStudioProof: "tsd-current-main-closure-audit.test.ts",
   verdict: "PASS",

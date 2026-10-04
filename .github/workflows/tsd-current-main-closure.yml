@@ -8,8 +8,6 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
       - "artifacts/api-server/src/question-studio/quant-time-speed-distance.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
-      - ".github/workflows/tsd-current-main-closure.yml"
 
 permissions:
   contents: read
@@ -52,14 +50,14 @@ jobs:
             2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
           grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
 
-      - name: Bundle final CP005-CP012 proof authorities
+      - name: Bundle final CP003-CP012 proof authorities
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/tsd-frozen-checkpoint-proof-suite.ts \
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs
 
-      - name: Run final CP005-CP012 proof authorities
+      - name: Run final CP003-CP012 proof authorities
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs \
