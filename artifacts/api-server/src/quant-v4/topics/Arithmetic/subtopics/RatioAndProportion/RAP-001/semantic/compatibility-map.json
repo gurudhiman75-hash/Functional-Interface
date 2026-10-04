@@ -1,20 +1,474 @@
 {
   "allowed_pairings": {
-    "father": ["mother", "son", "daughter"],
-    "mother": ["father", "son", "daughter"],
-    "son": ["father", "mother", "daughter"],
-    "daughter": ["father", "mother", "son"],
-    "boys": ["girls", "teachers"],
-    "girls": ["boys", "teachers"],
-    "teachers": ["boys", "girls"],
-    "milk": ["water", "juice"],
-    "water": ["milk", "juice"],
-    "juice": ["milk", "water"],
-    "coin_1": ["coin_2", "coin_5", "coin_10"],
-    "coin_2": ["coin_1", "coin_5", "coin_10"],
-    "coin_5": ["coin_1", "coin_2", "coin_10"],
-    "coin_10": ["coin_1", "coin_2", "coin_5"],
-    "men": ["women"],
-    "women": ["men"]
+    "father": [
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "mother": [
+      "father",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "son": [
+      "father",
+      "mother",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "daughter": [
+      "father",
+      "mother",
+      "son",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "boys": [
+      "girls",
+      "students",
+      "teachers",
+      "staff",
+      "candidates",
+      "children",
+      "other_students"
+    ],
+    "girls": [
+      "boys",
+      "students",
+      "teachers",
+      "staff",
+      "candidates",
+      "children",
+      "other_students"
+    ],
+    "teachers": [
+      "boys",
+      "girls",
+      "students",
+      "staff",
+      "candidates",
+      "children",
+      "other_students"
+    ],
+    "milk": [
+      "water",
+      "juice",
+      "syrup",
+      "honey",
+      "vinegar"
+    ],
+    "water": [
+      "milk",
+      "juice",
+      "syrup",
+      "honey",
+      "vinegar"
+    ],
+    "juice": [
+      "milk",
+      "water",
+      "syrup",
+      "honey",
+      "vinegar"
+    ],
+    "coin_1": [
+      "coin_2",
+      "coin_5",
+      "coin_10"
+    ],
+    "coin_2": [
+      "coin_1",
+      "coin_5",
+      "coin_10"
+    ],
+    "coin_5": [
+      "coin_1",
+      "coin_2",
+      "coin_10"
+    ],
+    "coin_10": [
+      "coin_1",
+      "coin_2",
+      "coin_5"
+    ],
+    "men": [
+      "workers",
+      "employees",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "women": [
+      "workers",
+      "employees",
+      "men",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "students": [
+      "boys",
+      "girls",
+      "teachers",
+      "staff",
+      "candidates",
+      "children",
+      "other_students"
+    ],
+    "staff": [
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "candidates",
+      "children",
+      "other_students"
+    ],
+    "candidates": [
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "staff",
+      "children",
+      "other_students"
+    ],
+    "children": [
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "staff",
+      "candidates",
+      "other_students"
+    ],
+    "other_students": [
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "staff",
+      "candidates",
+      "children"
+    ],
+    "workers": [
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "employees": [
+      "workers",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "managers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "supervisors": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "engineers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "clerks": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "drivers",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "drivers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "farmers",
+      "players",
+      "customers"
+    ],
+    "farmers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "players",
+      "customers"
+    ],
+    "players": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "customers"
+    ],
+    "customers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "engineers",
+      "clerks",
+      "drivers",
+      "farmers",
+      "players"
+    ],
+    "syrup": [
+      "milk",
+      "water",
+      "juice",
+      "honey",
+      "vinegar"
+    ],
+    "honey": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "vinegar"
+    ],
+    "vinegar": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "honey"
+    ],
+    "petrol": [
+      "diesel",
+      "kerosene"
+    ],
+    "diesel": [
+      "petrol",
+      "kerosene"
+    ],
+    "kerosene": [
+      "petrol",
+      "diesel"
+    ],
+    "oil": [
+      "mustard_oil",
+      "coconut_oil"
+    ],
+    "mustard_oil": [
+      "oil",
+      "coconut_oil"
+    ],
+    "coconut_oil": [
+      "oil",
+      "mustard_oil"
+    ],
+    "brother": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "sister": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "grandfather_paternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "grandmother_paternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "uncle_paternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "aunt_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "aunt_paternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "uncle_maternal",
+      "aunt_maternal"
+    ],
+    "uncle_maternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "aunt_maternal"
+    ],
+    "aunt_maternal": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather_paternal",
+      "grandmother_paternal",
+      "uncle_paternal",
+      "aunt_paternal",
+      "uncle_maternal"
+    ]
   }
 }
