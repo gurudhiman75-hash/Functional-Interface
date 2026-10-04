@@ -7,6 +7,7 @@ export interface AttemptDraftState {
   currentSectionIndex: number;
   currentQuestionIndex: number;
   answers: Record<number, number | null>;
+  textResponses: Record<number, string>;
   flags: Record<number, boolean>;
   timeLeft: number;
   sectionTimeLeftByName: Record<string, number>;
@@ -94,6 +95,14 @@ export function normalizeAttemptDraftState(value: unknown, expectedTestId: strin
     else answers[questionId] = finiteInteger(raw, 0, 50);
   }
 
+  const rawTextResponses = asRecord(input.textResponses);
+  const textResponses: Record<number, string> = {};
+  for (const [key, raw] of Object.entries(rawTextResponses).slice(0, 200)) {
+    const questionId = Number(key);
+    if (!Number.isSafeInteger(questionId) || questionId < 0 || typeof raw !== "string") continue;
+    textResponses[questionId] = raw.slice(0, 50_000);
+  }
+
   const rawFlags = asRecord(input.flags);
   const flags: Record<number, boolean> = {};
   for (const [key, raw] of Object.entries(rawFlags).slice(0, 2_000)) {
@@ -117,6 +126,7 @@ export function normalizeAttemptDraftState(value: unknown, expectedTestId: strin
     currentSectionIndex: finiteInteger(input.currentSectionIndex, 0, 1_000),
     currentQuestionIndex: finiteInteger(input.currentQuestionIndex, 0, 10_000),
     answers,
+    textResponses,
     flags,
     timeLeft: finiteInteger(input.timeLeft, 0, 604_800),
     sectionTimeLeftByName: numberMap(input.sectionTimeLeftByName, 200, 0, 604_800),
