@@ -9,11 +9,13 @@ assertContinuousDmQlIds();
 const legacyCheckpoints = DM_001_CHECKPOINT_IDS.slice(0, 10);
 const legacyScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 10);
 assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 10).length, 30);
-assert.equal(legacyScenarios.length, 250);
+assert.equal(legacyScenarios.length, 280);
+const productExpandedCheckpoints = new Set(["DM-CP-001", "DM-CP-002", "DM-CP-003", "DM-CP-008", "DM-CP-009", "DM-CP-010"]);
 for (const checkpointId of legacyCheckpoints) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
-  assert.equal(scenarios.length, 25, checkpointId + " scenario coverage");
-  assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 25);
+  const expectedScenarioCount = productExpandedCheckpoints.has(checkpointId) ? 30 : 25;
+  assert.equal(scenarios.length, expectedScenarioCount, checkpointId + " scenario coverage");
+  assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, expectedScenarioCount);
   assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
   for (const scenario of scenarios) {
     assert.ok(scenario.baseConditions.length >= (checkpointId === "DM-CP-002" ? 5 : 2));
@@ -52,7 +54,20 @@ for (const scenario of legacyScenarios) {
             }[locale];
             assert.match(correctOption, rolePattern, "referral option must preserve the deciding authority");
           } else {
-            assert.equal(correctOption, {
+            const expectedLabels = scenario.subjectKind === "PRODUCT_LOT" ? {
+              en: {
+                SELECT: "Accept under the stated quality rules", REJECT: "Reject under the stated quality rules",
+                INFORMATION_REQUIRED: "Quality decision cannot be made; information is required",
+              },
+              hi: {
+                SELECT: "दिए गए गुणवत्ता नियमों के अनुसार स्वीकार करें", REJECT: "दिए गए गुणवत्ता नियमों के अनुसार अस्वीकार करें",
+                INFORMATION_REQUIRED: "गुणवत्ता निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
+              },
+              pa: {
+                SELECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰ ਕਰੋ", REJECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਰੱਦ ਕਰੋ",
+                INFORMATION_REQUIRED: "ਗੁਣਵੱਤਾ ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+              },
+            } : {
               en: {
                 SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules",
                 INFORMATION_REQUIRED: "Decision cannot be made; information is required",
@@ -65,7 +80,8 @@ for (const scenario of legacyScenarios) {
                 SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ",
                 INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
               },
-            }[locale][question.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]);
+            };
+            assert.equal(correctOption, expectedLabels[locale][question.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]);
           }
           assert.doesNotMatch(
             question.options.join("\n") + "\n" + question.explanation,
@@ -94,7 +110,9 @@ for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(o
 for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-007")!.has(expected), "DM-CP-007 should cover " + expected);
 for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-008")!.has(expected), "DM-CP-008 should cover " + expected);
 for (const expected of ["SELECT", "REFER_TO_COMMITTEE", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-009")!.has(expected), "DM-CP-009 should cover " + expected);
-assert.ok(DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === "DM-CP-010").every((scenario) => scenario.ranking?.priorityOrder.at(-1)?.field === "applicationOrder"));
+assert.ok(DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === "DM-CP-010").every((scenario) =>
+  scenario.ranking?.priorityOrder.at(-1)?.field === (scenario.subjectKind === "PRODUCT_LOT" ? "inspectionOrder" : "applicationOrder")
+));
 
 const distinctEnglishContexts = new Set(DM_001_SCENARIO_LIBRARY.map((scenario) => scenario.context.en));
 const domainMarkers = ["scholarship", "licence", "hostel", "certification", "admission", "grant", "benefit", "loan", "training", "fellowship", "accreditation", "promotion"];
@@ -108,4 +126,4 @@ assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outc
 assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_DIRECTOR")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
-console.log("DM-001 Waves 1–2 regression checks passed: 250 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");
+console.log("DM-001 Waves 1–2 regression checks passed: 280 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");
