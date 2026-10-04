@@ -77,7 +77,8 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
       });
 
       const projection = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId)!;
-      if (seed < 32 && projection.examProfiles.includes("FIVE_WAY")) {
+      const currentFiveWay = qlId === "CAE-QL-001" || qlId === "CAE-QL-002";
+      if (seed < 32 && currentFiveWay && projection.examProfiles.includes("FIVE_WAY")) {
         const fiveWay = generateReviewedCaeQuestion({
           qlId,
           locale,
@@ -157,6 +158,20 @@ const bankingQl003 = await generateCae001QuestionStudioBatch({
 });
 assert.equal(bankingQl003.questions.length, 3);
 assert.ok(bankingQl003.questions.every((question) => question.options.length === 4));
+
+const bankingQl007 = await generateCae001QuestionStudioBatch({
+  engineId: "reasoning-v1",
+  packageId: "CAE-001",
+  canonicalProblemId: "CAE-QL-007",
+  language: "en",
+  difficulty: "Mixed",
+  runtimeMode: "review-only",
+  count: 3,
+  seed: "cae-post-closure-bank-ql007",
+  exam: "IBPS PO",
+});
+assert.equal(bankingQl007.questions.length, 3);
+assert.ok(bankingQl007.questions.every((question) => question.options.length === 4));
 
 // Mutation proof: graph-proved option metadata must reject a changed answer key.
 {
