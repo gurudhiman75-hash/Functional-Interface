@@ -13,7 +13,7 @@ Current authority:
 
 The chapter uses curated proposition truth and explanation-link metadata rather than free-form runtime truth generation.
 
-See `ASM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md`.
+See `ASM-001-POST-CLOSURE-DEEP-AUDIT-20261004.md`.
 
 ## Post-closure batch capacity
 
