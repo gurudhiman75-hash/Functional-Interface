@@ -202,21 +202,21 @@ const routes = [
   },
   {
     path: "/ibps-po",
-    title: "IBPS PO 2026 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    title: "IBPS PO 2026 (CRP PO/MT-XVI) Preparation, Syllabus, Mock Tests & Updates | ExamTree",
     heading: "IBPS PO 2026 preparation hub",
-    description: "Prepare for IBPS PO/MT XVI with prelims and mains guidance, mock tests, and free topic-wise banking questions.",
+    description: "Prepare for CRP PO/MT-XVI with the revised 2026 prelims and mains pattern, mock tests, official-cycle updates, and topic-wise banking practice.",
   },
   {
     path: "/ibps-po-preparation",
-    title: "How to Prepare for IBPS PO 2026 | ExamTree",
+    title: "How to Prepare for IBPS PO 2026 (CRP PO/MT-XVI) | ExamTree",
     heading: "How to prepare for IBPS PO 2026",
-    description: "Build prelims speed while preparing mains-level reasoning, data analysis, awareness, English, and mock strategy.",
+    description: "Prepare for the revised XVI pattern with timed prelims, 170-question mains, banking awareness, Essay + Comprehension, and mock analysis.",
   },
   {
     path: "/ibps-po-syllabus",
-    title: "IBPS PO 2026 Syllabus & Exam Pattern | ExamTree",
-    heading: "IBPS PO/MT XVI syllabus and exam pattern 2026",
-    description: "Review the current IBPS PO/MT XVI preliminary and main examination stages and preparation priorities.",
+    title: "IBPS PO 2026 Syllabus & Revised Exam Pattern (CRP PO/MT-XVI) | ExamTree",
+    heading: "IBPS PO/MT-XVI syllabus and revised exam pattern 2026",
+    description: "Review the XVI prelims, 170-question mains objective paper, descriptive Essay + Comprehension, interview, and final-merit structure.",
   },
   {
     path: "/ibps-clerk",

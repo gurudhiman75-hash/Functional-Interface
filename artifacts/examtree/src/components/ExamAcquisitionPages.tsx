@@ -982,14 +982,29 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     staleTime: 60_000,
     retry: 1,
   });
+  const rawPageConfiguration = pageConfigQuery.data?.configuration ?? null;
   const pageConfiguration = withDefaultExamDetailsSections(
-    pageConfigQuery.data?.configuration ?? DEFAULT_WEB_EXAM_PAGE_CONFIGURATION,
+    rawPageConfiguration ?? DEFAULT_WEB_EXAM_PAGE_CONFIGURATION,
   );
+  const adminOwnsDetailsVisibility = Boolean(
+    pageConfigQuery.data?.configured && rawPageConfiguration?.detailsBuilderInitialized,
+  );
+  const canonicalCustomSection = (section: WebExamPageSection) => {
+    if (section.id === "details-eligibility") return config.details?.eligibility;
+    if (section.id === "details-dates") return config.details?.dates;
+    if (section.id === "details-salary") return config.details?.salary;
+    if (section.id === "details-faq") return config.details?.faq;
+    if (section.type === "details_updates") return config.details?.updates;
+    return undefined;
+  };
   const detailSections = useMemo(
     () => pageConfiguration.sections
-      .filter((section) => section.isVisible && section.type.startsWith("details_"))
+      .filter((section) =>
+        section.type.startsWith("details_") &&
+        (section.isVisible || (!adminOwnsDetailsVisibility && Boolean(canonicalCustomSection(section)))),
+      )
       .sort((a, b) => a.sortOrder - b.sortOrder),
-    [pageConfiguration.sections],
+    [adminOwnsDetailsVisibility, pageConfiguration.sections, config.details],
   );
 
   usePageMeta(
@@ -1007,6 +1022,10 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     if (section.type === "details_preparation") return "preparation";
     if (section.type === "details_practice") return "practice";
     if (section.type === "details_updates") return "updates";
+    if (section.id === "details-eligibility") return "eligibility";
+    if (section.id === "details-dates") return "dates";
+    if (section.id === "details-salary") return "salary";
+    if (section.id === "details-faq") return "faq";
     return "details-" + section.id.replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase();
   };
   const sectionDefaultLabel = (section: WebExamPageSection) => {
@@ -1030,8 +1049,10 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   const renderDetailsSection = (section: WebExamPageSection) => {
     const anchor = sectionAnchor(section);
     const manualCards = (section.cards ?? []).filter((card) => card.isVisible);
+    const canonicalCustom = canonicalCustomSection(section);
     const title =
       section.title ||
+      canonicalCustom?.title ||
       (section.type === "details_overview" ? "About " + config.name + " " + config.yearLabel :
       section.type === "details_syllabus" ? config.syllabus.title :
       section.type === "details_pattern" ? config.name + " " + config.yearLabel + " exam pattern" :
@@ -1041,6 +1062,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
       "More about " + config.name);
     const eyebrow =
       section.eyebrow ||
+      canonicalCustom?.eyebrow ||
       (section.type === "details_overview" ? "Overview" :
       section.type === "details_syllabus" ? config.syllabus.eyebrow :
       section.type === "details_pattern" ? "Exam pattern" :
@@ -1050,6 +1072,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
       "Exam details");
     const description =
       section.description ||
+      canonicalCustom?.description ||
       (section.type === "details_overview" ? config.hub.description :
       section.type === "details_syllabus" ? config.syllabus.description :
       section.type === "details_preparation" ? config.preparation.description :
@@ -1061,6 +1084,24 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
 
     if (manualCards.length > 0) {
       content = <ConfiguredManualCards section={section} />;
+    } else if (canonicalCustom?.cards.length) {
+      content = (
+        <div className={contentLayoutClass(section)}>
+          {canonicalCustom.cards.map((card) => {
+            const cardContent = (
+              <div className={canonicalCardClass(section)}>
+                {card.badge ? <p className="text-[10px] font-black uppercase tracking-[0.12em] text-blue-600">{card.badge}</p> : null}
+                <h3 className="mt-1 font-bold text-slate-950">{card.title}</h3>
+                <p className="mt-2 whitespace-pre-line text-sm leading-6 text-slate-600">{card.text}</p>
+                {card.ctaLabel && card.href ? <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-blue-700">{card.ctaLabel}<ArrowRight className="h-4 w-4" /></span> : null}
+              </div>
+            );
+            if (!card.href) return <div key={card.title}>{cardContent}</div>;
+            if (/^https?:\/\//i.test(card.href)) return <a key={card.title} href={card.href} target="_blank" rel="noreferrer">{cardContent}</a>;
+            return <Link key={card.title} href={card.href}>{cardContent}</Link>;
+          })}
+        </div>
+      );
     } else if (section.type === "details_overview") {
       const cards = [
         ["Preparation focus", config.hub.preparationSummary],
@@ -1097,7 +1138,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">{eyebrow}</p>
             <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{title}</h2>
             {description ? <p className="mt-2 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-600">{description}</p> : null}
-            {section.body ? <p className="mt-3 max-w-5xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+            {(section.body || canonicalCustom?.body) ? <p className="mt-3 max-w-5xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body || canonicalCustom?.body}</p> : null}
           </div>
           {section.type === "details_updates" ? (
             <a href={section.ctaHref || config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-5 text-sm font-bold text-white hover:bg-emerald-700">
