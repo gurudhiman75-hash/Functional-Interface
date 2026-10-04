@@ -107,7 +107,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Direction-Sense",
       chapterIds: ["DIR-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Direction-Sense/DIR-001/DIR-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md"],
+      closureAuthorities: ["topics/Direction-Sense/DIR-001/DIR-001-POST-CLOSURE-DEEP-AUDIT-20261004.md"],
       internalContentBlocker: false,
     },
     {
