@@ -57,7 +57,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Cause-and-Effect",
         chapterId: "CAE-001",
         closureAuthorityPath:
-          "topics/Cause-and-Effect/CAE-001/CAE-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Cause-and-Effect/CAE-001/CAE-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
