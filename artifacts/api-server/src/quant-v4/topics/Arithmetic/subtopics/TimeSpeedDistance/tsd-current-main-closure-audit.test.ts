@@ -5,8 +5,8 @@ import {
   tsd001EnginePackage,
   tsd002EnginePackage,
   TSD_CURRENT_STUDIO_AUTHORITY,
-} from "../../../../../../question-studio/quant-time-speed-distance";
-import { quantV4QuestionStudioAdapter } from "../../../../../../question-studio/engines/quant-v4-adapter";
+} from "../../../../../question-studio/quant-time-speed-distance";
+import { quantV4QuestionStudioAdapter } from "../../../../../question-studio/engines/quant-v4-adapter";
 import { TSD_CP003_PERMANENT_QL_IDS } from "./TSD-001/cp003/ql-allocation";
 import { TSD_CP004_PERMANENT_QL_IDS } from "./TSD-001/cp004/ql-allocation";
 import { TSD_CP005_PERMANENT_QL_IDS } from "./TSD-001/cp005/ql-allocation";
