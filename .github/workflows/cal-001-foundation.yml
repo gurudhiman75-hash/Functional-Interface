@@ -147,6 +147,13 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/question-studio-production-integration.test.ts 2>&1 | tee /tmp/cal-001-finished-production-integration.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-finished-production-integration-exit
           exit 0
+      - name: Run post-closure answer and BANK_ONLY lifecycle proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/cal-001-post-closure-audit-20261004.test.ts 2>&1 | tee /tmp/cal-001-post-closure-audit.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-post-closure-audit-exit
+          exit 0
       - name: Run deep-audit learner-surface proof
         shell: bash
         run: |
@@ -192,6 +199,8 @@ jobs:
             /tmp/cal-001-question-studio-production-exit
             /tmp/cal-001-finished-production-integration.log
             /tmp/cal-001-finished-production-integration-exit
+            /tmp/cal-001-post-closure-audit.log
+            /tmp/cal-001-post-closure-audit-exit
             /tmp/cal-001-deep-audit-wave1.log
             /tmp/cal-001-deep-audit-wave1-exit
             /tmp/cal-001-difficulty-reachability.log
@@ -211,6 +220,7 @@ jobs:
           test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
           test "$(cat /tmp/cal-001-question-studio-production-exit)" = "0"
           test "$(cat /tmp/cal-001-finished-production-integration-exit)" = "0"
+          test "$(cat /tmp/cal-001-post-closure-audit-exit)" = "0"
           test "$(cat /tmp/cal-001-deep-audit-wave1-exit)" = "0"
           test "$(cat /tmp/cal-001-difficulty-reachability-exit)" = "0"
           test "$(cat /tmp/cal-001-generated-profile-exit)" = "0"
