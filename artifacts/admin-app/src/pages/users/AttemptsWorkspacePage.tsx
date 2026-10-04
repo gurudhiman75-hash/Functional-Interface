@@ -123,19 +123,25 @@ function DescriptiveReviewCard({
       showToast.warning('Review reason required', 'Enter at least 12 characters explaining this descriptive evaluation.');
       return;
     }
-    const payload = responses.map((response) => {
-      const draft = scores[response.questionId];
-      const awardedMarks = Number(draft?.awardedMarks);
-      if (!Number.isFinite(awardedMarks) || awardedMarks < 0 || awardedMarks > response.marks) {
-        throw new Error(`${response.taskId} must be scored between 0 and ${response.marks} marks.`);
-      }
-      return {
-        questionId: response.questionId,
-        taskId: response.taskId,
-        awardedMarks,
-        comment: draft?.comment?.trim() || null,
-      };
-    });
+    let payload;
+    try {
+      payload = responses.map((response) => {
+        const draft = scores[response.questionId];
+        const awardedMarks = Number(draft?.awardedMarks);
+        if (!Number.isFinite(awardedMarks) || awardedMarks < 0 || awardedMarks > response.marks) {
+          throw new Error(`${response.taskId} must be scored between 0 and ${response.marks} marks.`);
+        }
+        return {
+          questionId: response.questionId,
+          taskId: response.taskId,
+          awardedMarks,
+          comment: draft?.comment?.trim() || null,
+        };
+      });
+    } catch (error) {
+      showToast.warning('Check descriptive marks', error instanceof Error ? error.message : 'Every task needs a valid mark.');
+      return;
+    }
 
     setSaving(true);
     try {
