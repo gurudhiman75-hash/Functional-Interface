@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
 import {
   BarChart3,
-  Bell,
   Bookmark,
   BookOpen,
   CircleHelp,
@@ -42,7 +41,6 @@ const primaryLinks = [
   { href: "/current-affairs", label: "Current Affairs", icon: Newspaper, badge: "New" },
   { href: "/performance", label: "Performance", icon: BarChart3 },
   { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
-  { href: "/notifications", label: "Notifications", icon: Bell },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/profile", label: "Settings", icon: Settings },
   { href: "/contact", label: "Help & Support", icon: CircleHelp },
@@ -117,7 +115,7 @@ export function AppSidebar() {
           {links.map((link) => {
             const active = isLinkActive(location, link.href);
             return (
-              <SidebarMenuItem key={link.href}>
+              <SidebarMenuItem key={`${link.href}-${link.label}`}>
                 <SidebarMenuButton
                   asChild
                   isActive={active}
