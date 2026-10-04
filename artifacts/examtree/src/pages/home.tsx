@@ -14,7 +14,6 @@ import {
   Play,
   Search,
   Sparkles,
-  Star,
   Trophy,
   Users,
 } from "lucide-react";
