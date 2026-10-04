@@ -4,6 +4,7 @@ import type {
 } from "../../../../question-studio/engine-types";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 import { CAE_001_MANIFEST } from "./chapter-manifest";
+import { CAE_001_PROJECTION_AUTHORITIES } from "./causal-world-authorities";
 import { generateReviewedCaeQuestion } from "./reviewed-generator";
 import {
   assertCaeGeneratedAnswerIntegrity,
@@ -44,6 +45,7 @@ export const CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
     postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
     deterministicGeneration: true,
     graphFirstProjection: true,
+    bankingProfileSelection: "FIVE_WAY_ONLY_WHERE_QL_AUTHORITY_SUPPORTS_IT__OTHERWISE_FOUR_WAY",
   },
 };
 
@@ -103,6 +105,16 @@ export function isCae001QuestionStudioRequest(
   return topic === "cause and effect" || subtopic === "cause and effect";
 }
 
+function questionProfileFor(
+  qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number],
+  banking: boolean,
+): "FOUR_WAY" | "FIVE_WAY" {
+  if (!banking) return "FOUR_WAY";
+  const authority = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId);
+  if (!authority) throw new Error(qlId + " has no CAE projection authority.");
+  return authority.examProfiles.includes("FIVE_WAY") ? "FIVE_WAY" : "FOUR_WAY";
+}
+
 function generateOne(input: {
   qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number];
   locale: CaeLocale;
@@ -110,13 +122,14 @@ function generateOne(input: {
   targetDifficulty?: CaeDifficulty;
   banking: boolean;
 }) {
+  const questionProfile = questionProfileFor(input.qlId, input.banking);
   for (let offset = 0; offset < 256; offset += 1) {
     const seed = (input.baseSeed + offset) >>> 0;
     const generated = generateReviewedCaeQuestion({
       qlId: input.qlId,
       locale: input.locale,
       seed,
-      questionProfile: input.banking ? "FIVE_WAY" : "FOUR_WAY",
+      questionProfile,
     });
     if (input.targetDifficulty && generated.difficulty !== input.targetDifficulty) continue;
     return generated;
