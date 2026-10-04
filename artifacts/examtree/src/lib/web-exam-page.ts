@@ -38,6 +38,7 @@ export interface WebExamPageSection {
   cardStyle: WebExamCardStyle;
   tabStyle: WebExamTabStyle;
   showCounts: boolean;
+  labels: Record<string, string>;
   ctaLabel: string;
   ctaHref: string;
   cards: WebExamCustomCard[];
@@ -63,12 +64,12 @@ export const DEFAULT_WEB_EXAM_PAGE_CONFIGURATION: WebExamPageConfiguration = {
   pageTitle: "",
   pageDescription: "",
   sections: [
-    { id: "hero", type: "hero", isVisible: true, sortOrder: 1, eyebrow: "", title: "", description: "", body: "", layout: "cards", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
-    { id: "test-catalog", type: "test_catalog", isVisible: true, sortOrder: 2, eyebrow: "", title: "", description: "", body: "", layout: "tabs", columns: 1, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
-    { id: "exam-information", type: "exam_information", isVisible: true, sortOrder: 3, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
-    { id: "syllabus", type: "syllabus", isVisible: true, sortOrder: 4, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
-    { id: "preparation", type: "preparation", isVisible: true, sortOrder: 5, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
-    { id: "topic-practice", type: "topic_practice", isVisible: true, sortOrder: 6, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "hero", type: "hero", isVisible: true, sortOrder: 1, eyebrow: "", title: "", description: "", body: "", layout: "cards", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "test-catalog", type: "test_catalog", isVisible: true, sortOrder: 2, eyebrow: "", title: "", description: "", body: "", layout: "tabs", columns: 1, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "exam-information", type: "exam_information", isVisible: true, sortOrder: 3, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "syllabus", type: "syllabus", isVisible: true, sortOrder: 4, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 2, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "preparation", type: "preparation", isVisible: true, sortOrder: 5, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
+    { id: "topic-practice", type: "topic_practice", isVisible: true, sortOrder: 6, eyebrow: "", title: "", description: "", body: "", layout: "grid", columns: 3, cardStyle: "default", tabStyle: "pills", showCounts: true, labels: {}, ctaLabel: "", ctaHref: "", cards: [] },
   ],
 };
 
