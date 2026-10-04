@@ -39,6 +39,11 @@ import {
   isClk001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Clocks/CLK-001/question-studio-integration";
 import {
+  COD_001_STANDARD_QUESTION_STUDIO_PACKAGE,
+  generateCod001QuestionStudioBatch,
+  isCod001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Coding-Decoding/COD-001/question-studio-integration";
+import {
   INE_001_QUESTION_STUDIO_PACKAGE,
   generateIne001QuestionStudioBatch,
   isIne001QuestionStudioRequest,
@@ -485,6 +490,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
+      COD_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       INE_001_QUESTION_STUDIO_PACKAGE,
       ASM_001_QUESTION_STUDIO_PACKAGE,
       FLR_001_QUESTION_STUDIO_PACKAGE,
@@ -549,6 +555,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (isClk001QuestionStudioRequest(request)) {
       const source = await generateClk001QuestionStudioBatch(request);
       return applyReasoningControlledNovelMixV1(request, source);
+    }
+    if (isCod001QuestionStudioRequest(request)) {
+      return generateCod001QuestionStudioBatch(request);
     }
     if (isIne001QuestionStudioRequest(request)) {
       return generateIne001QuestionStudioBatch(request);
