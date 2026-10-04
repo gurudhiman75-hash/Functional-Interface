@@ -34,6 +34,7 @@ export type ExamDetailSection = {
 
 export type ExamAcquisitionConfig = {
   slug: string;
+  isShell?: boolean;
   name: string;
   yearLabel: string;
   categoryHref: string;
@@ -175,6 +176,7 @@ function makeExamShellConfig(input: {
   const { slug, name, categoryHref, officialUrl, officialLabel } = input;
   return {
     slug,
+    isShell: true,
     name,
     yearLabel: "Exam",
     categoryHref,
