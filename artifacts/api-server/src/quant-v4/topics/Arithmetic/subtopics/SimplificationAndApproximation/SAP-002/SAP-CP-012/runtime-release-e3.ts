@@ -34,7 +34,9 @@ function polishUniqueInteger(q: SapE2Package): SapE2Package {
 }
 
 export function generateSapCp012E2(structureId: SapCp012E2Structure, seed: number): SapE2Package {
-  const q = generateR6(structureId, seed);
+  if (!Number.isInteger(seed) || seed < 1) throw new Error("CP012 seed must be a positive integer.");
+  const sourceSeed = ((seed - 1) % 100) + 1;
+  const q = generateR6(structureId, sourceSeed);
   if (structureId === "CP012-E2-UNIQUE-INTEGER-WITHIN-TOLERANCE") return polishUniqueInteger(q);
   return q;
 }
