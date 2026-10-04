@@ -187,3 +187,177 @@
     transition: none;
   }
 }
+
+
+/* 2026 homepage hero refresh: keep the approved analytics-led hero,
+ * move acquisition/login to a dedicated right rail, and reduce exam-browser height.
+ */
+.home-hero-guest{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(290px,.78fr) minmax(275px,.58fr);
+  align-items:center;
+  gap:clamp(22px,2.4vw,40px);
+  padding-inline:clamp(24px,4vw,64px);
+}
+.home-hero-guest .hero-copy{min-width:0}
+.home-hero-guest .hero-copy>p{max-width:650px}
+.home-hero-guest .hero-visual{min-width:0;transform:scale(.94);transform-origin:center}
+.hero-auth-panel{display:flex;align-items:center;justify-content:center;min-width:0}
+.hero-auth-card{
+  width:100%;
+  max-width:340px;
+  border:1px solid #dfe6f3;
+  border-radius:22px;
+  background:rgba(255,255,255,.96);
+  padding:28px 24px 22px;
+  text-align:center;
+  box-shadow:0 24px 60px -38px rgba(35,58,105,.38);
+  backdrop-filter:blur(16px);
+}
+.hero-auth-mark{
+  display:inline-flex;
+  width:34px;height:34px;
+  align-items:center;justify-content:center;
+  border-radius:10px;
+  background:#3156d9;color:#fff;
+  font-size:15px;font-weight:900;
+}
+.hero-auth-card h2{margin:14px 0 7px;color:#14213d;font-size:20px;line-height:1.2;font-weight:850}
+.hero-auth-card>p{margin:0 auto;max-width:260px;color:#64728a;font-size:12px;line-height:1.55}
+.hero-google-login,.hero-email-login{
+  display:flex;width:100%;min-height:46px;
+  align-items:center;justify-content:center;gap:9px;
+  border-radius:11px;font-size:13px;font-weight:800;cursor:pointer
+}
+.hero-google-login{margin-top:21px;border:1px solid #bfd0ff;background:#fff;color:#1f2e4d}
+.hero-google-login:hover{border-color:#8eabff;background:#f8faff}
+.hero-google-login:disabled{cursor:wait;opacity:.72}
+.hero-google-login svg{width:17px;height:17px;color:#4285f4}
+.hero-email-login{border:1px solid #e1e7f1;background:#f6f8fc;color:#243553}
+.hero-email-login:hover{background:#eef3fb}
+.hero-auth-divider{display:flex;align-items:center;gap:10px;margin:12px 0;color:#9aa5b8;font-size:11px}
+.hero-auth-divider::before,.hero-auth-divider::after{content:"";height:1px;flex:1;background:#e5eaf2}
+.hero-login-copy{margin-top:15px!important;font-size:11px!important}
+.hero-login-copy button{border:0;background:none;padding:0;color:#3156d9;font-weight:800;cursor:pointer}
+.hero-auth-perks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:19px;padding-top:16px;border-top:1px solid #e8edf5}
+.hero-auth-perks span{display:flex;min-width:0;flex-direction:column;align-items:center;gap:5px;color:#52617a;font-size:9px;line-height:1.25;font-weight:700}
+.hero-auth-perks svg{width:16px;height:16px;color:#3156d9}
+
+.compact-exams{padding-top:26px!important;padding-bottom:26px!important}
+.compact-exams-head{margin-bottom:12px!important;align-items:center}
+.compact-exams-head h2{font-size:clamp(22px,2vw,28px)!important}
+.compact-exam-grid{gap:10px!important}
+.compact-exam-card{
+  min-height:108px!important;
+  grid-template-columns:46px minmax(0,1fr)!important;
+  gap:11px!important;
+  align-items:center!important;
+  padding:13px 14px!important;
+  border-radius:14px!important;
+}
+.compact-exam-card .exam-icon{width:44px!important;height:44px!important}
+.compact-exam-card h3{margin:0 0 3px!important;font-size:14px!important}
+.compact-exam-card p{
+  display:-webkit-box;
+  overflow:hidden;
+  margin:0!important;
+  color:#6b7890!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+.compact-exam-card .chev,.compact-exam-card span{display:none!important}
+
+@media(max-width:1180px){
+  .home-hero-guest{grid-template-columns:minmax(0,1.05fr) minmax(270px,.72fr)}
+  .home-hero-guest .hero-visual{display:none}
+}
+@media(max-width:800px){
+  .home-hero-guest{grid-template-columns:1fr;gap:20px;padding-inline:20px}
+  .hero-auth-panel{justify-content:flex-start}
+  .hero-auth-card{max-width:520px}
+  .compact-exam-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:520px){
+  .home-hero-guest{padding-inline:14px}
+  .hero-auth-card{padding:22px 18px 18px;border-radius:18px}
+  .compact-exam-grid{grid-template-columns:1fr!important}
+  .compact-exam-card{min-height:88px!important}
+}
+
+
+/* Inspired interaction polish: preserve the approved visual design, enhance only behavior. */
+@media (hover:hover) and (pointer:fine){
+  .compact-exam-card,
+  .series-card,
+  .hero-auth-card,
+  .insight-card,
+  .feature-list>div,
+  .home-member-summary>div{
+    transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s ease,border-color .2s ease,background-color .2s ease;
+  }
+  .compact-exam-card:hover{
+    transform:translateY(-4px);
+    border-color:#b9c8ee;
+    box-shadow:0 16px 34px -26px rgba(49,86,217,.42);
+    background:#fbfcff;
+  }
+  .compact-exam-card:hover .exam-icon{transform:scale(1.05)}
+  .compact-exam-card .exam-icon{transition:transform .2s cubic-bezier(.16,1,.3,1)}
+  .series-card:hover{
+    transform:translateY(-5px);
+    border-color:#cbd7f5;
+    box-shadow:0 22px 46px -34px rgba(49,86,217,.44);
+  }
+  .series-card:hover .series-bottom button svg,
+  .section-head>button:hover svg,
+  .feature-copy>button:hover svg,
+  .cta button:hover svg{transform:translateX(4px)}
+  .series-bottom button svg,
+  .section-head>button svg,
+  .feature-copy>button svg,
+  .cta button svg{transition:transform .18s ease}
+  .hero-auth-card:hover{
+    transform:translateY(-3px);
+    border-color:#c9d5f4;
+    box-shadow:0 28px 66px -40px rgba(35,58,105,.46);
+  }
+  .hero-google-login:hover,.hero-email-login:hover{
+    transform:translateY(-1px);
+  }
+  .hero-google-login,.hero-email-login{
+    transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
+  }
+  .hero-visual .dashboard-card{
+    transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s ease;
+  }
+  .hero-visual:hover .dashboard-card{
+    transform:translateY(-4px) rotateX(.35deg) rotateY(-.35deg);
+    box-shadow:0 28px 60px -34px rgba(38,66,130,.45);
+  }
+  .feature-list>div:hover{
+    transform:translateX(4px);
+    background:rgba(255,255,255,.05);
+  }
+  .insight-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 26px 54px -38px rgba(20,33,61,.42);
+  }
+  .home-member-summary>div:hover{
+    transform:translateY(-2px);
+    border-color:#cbd7f5;
+  }
+}
+.home-page button:active,
+.home-page a:active{
+  transform:translateY(1px);
+}
+.home-page button:focus-visible,
+.home-page a:focus-visible{
+  outline:3px solid rgba(49,86,217,.18);
+  outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+  .compact-exam-card,.series-card,.hero-auth-card,.insight-card,.feature-list>div,.home-member-summary>div,.hero-visual .dashboard-card,.series-bottom button svg,.section-head>button svg,.feature-copy>button svg,.cta button svg{transition:none!important;transform:none!important}
+}
