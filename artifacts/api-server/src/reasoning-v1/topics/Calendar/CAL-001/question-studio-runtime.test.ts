@@ -143,9 +143,9 @@ assert(catalogPackage.supportedLanguages.join(",") === "en,hi,pa", "CAL-001 lang
 assert(catalogPackage.runtimeMode === "CANONICAL_REVIEW", "CAL-001 capability is not in canonical review mode.");
 assert(catalogPackage.reviewStatus === "APPROVED_EDITORIAL_CANONICAL", "CAL-001 capability is not editorially release-approved.");
 assert(catalogPackage.questionBankStatus === "READY_FOR_STORAGE", "CAL-001 capability did not open approval-gated Question Bank conversion.");
-assert(catalogPackage.testEligibility === "INELIGIBLE", "CAL-001 capability did not open test eligibility.");
-assert(catalogPackage.publiclyPublishable === false, "CAL-001 capability did not open publication QA eligibility.");
-assert(catalogPackage.mockTestEligible === false, "CAL-001 capability did not open mock-test eligibility.");
+assert(catalogPackage.testEligibility === "INELIGIBLE", "CAL-001 capability did not preserve the BANK_ONLY test lock.");
+assert(catalogPackage.publiclyPublishable === false, "CAL-001 capability did not preserve the BANK_ONLY public lock.");
+assert(catalogPackage.mockTestEligible === false, "CAL-001 capability did not preserve the BANK_ONLY mock lock.");
 assert(catalogPackage.manualApprovalRequired === true, "CAL-001 capability removed manual approval.");
 assert(catalogPackage.automaticStudentPublication === false, "CAL-001 capability enabled automatic student publication.");
 
@@ -161,9 +161,12 @@ assert(new Set(mixedBatch.questions.map((question: any) => question.canonicalPro
 assert(mixedBatch.questions.every((question: any) => question.section === "Reasoning"), "Calendar preview section is not Reasoning.");
 assert(mixedBatch.questions.every((question: any) => question.generationBackend === "reasoning-v1"), "Calendar preview backend is not reasoning-v1.");
 assert(mixedBatch.questions.every((question: any) => question.questionBankStatus === "READY_FOR_STORAGE"), "Mixed batch is not Question Bank ready after approval.");
-assert(mixedBatch.questions.every((question: any) => question.testEligibility === "INELIGIBLE"), "Mixed batch is not test eligible after approval.");
-assert(mixedBatch.questions.every((question: any) => question.publiclyPublishable === false), "Mixed batch is not publication-QA eligible after approval.");
-assert(mixedBatch.questions.every((question: any) => question.mockTestEligible === false), "Mixed batch is not mock-test eligible after approval.");
+assert(mixedBatch.questions.every((question: any) => question.questionBankWritable === true), "Mixed batch Question Bank write gate is closed.");
+assert(mixedBatch.questions.every((question: any) => question.questionBankAcceptanceMode === "BANK_ONLY"), "Mixed batch acceptance mode is not BANK_ONLY.");
+assert(mixedBatch.questions.every((question: any) => question.lifecycleStage === "BANK_ONLY"), "Mixed batch lifecycle stage is not BANK_ONLY.");
+assert(mixedBatch.questions.every((question: any) => question.testEligibility === "INELIGIBLE"), "Mixed batch did not preserve the BANK_ONLY test lock.");
+assert(mixedBatch.questions.every((question: any) => question.publiclyPublishable === false), "Mixed batch did not preserve the BANK_ONLY public lock.");
+assert(mixedBatch.questions.every((question: any) => question.mockTestEligible === false), "Mixed batch did not preserve the BANK_ONLY mock lock.");
 assert(mixedBatch.questions.every((question: any) => question.manualApprovalRequired === true), "Mixed batch bypassed manual approval.");
 assert(mixedBatch.questions.every((question: any) => question.automaticStudentPublication === false), "Mixed batch enabled automatic student publication.");
 assert(mixedBatch.generationContext.runtimeMode === "CANONICAL_REVIEW", "Mixed batch runtime mode mismatch.");
