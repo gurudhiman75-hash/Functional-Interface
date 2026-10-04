@@ -60,7 +60,39 @@ function pick(values: readonly string[], index: number): string {
   return values[index % values.length]!;
 }
 
-function role(qlId: string, argument: string): string | undefined {
+const CONTEXT_ROLE_STRENGTH = Object.freeze({
+  IMITATION: "WEAK",
+  COSMETIC: "WEAK",
+  ACCURACY: "STRONG",
+  SECOND_FACTOR: "STRONG",
+  ANECDOTE: "WEAK",
+  ABSOLUTE_FRAUD: "WEAK",
+  DESKTOP: "WEAK",
+  CAPACITY: "STRONG",
+  ACCESS: "STRONG",
+  DELIVERY: "STRONG",
+  PERMANENT_HARM: "WEAK",
+  BLANKET: "WEAK",
+  CONFLICT: "STRONG",
+  MODERN: "WEAK",
+  SUSPICION: "WEAK",
+  INVESTIGATION: "STRONG",
+  PRIVACY_STEREOTYPE: "WEAK",
+  HEARING: "STRONG",
+  MISTAKEN: "STRONG",
+  IGNORE: "WEAK",
+  CERTAIN_GUILT: "WEAK",
+} as const);
+
+export type ArgCp015ContextSemanticRole = keyof typeof CONTEXT_ROLE_STRENGTH;
+
+export function expectedStrengthForArgCp015ContextRole(
+  semanticRole: ArgCp015ContextSemanticRole,
+): "STRONG" | "WEAK" {
+  return CONTEXT_ROLE_STRENGTH[semanticRole];
+}
+
+export function inferArgCp015ContextSemanticRole(qlId: string, argument: string): ArgCp015ContextSemanticRole | undefined {
   if (qlId === "ARG-QL-001") {
     if (/Successful organisations|सफल संस्थाएँ|ਸਫਲ ਸੰਸਥਾਵਾਂ/i.test(argument)) return "IMITATION";
     if (/less attractive|कम आकर्षक|ਘੱਟ ਆਕਰਸ਼ਕ/i.test(argument)) return "COSMETIC";
@@ -493,6 +525,21 @@ function variants(locale: Locale, qlId: string, semanticRole: string, captured: 
   return english(qlId, semanticRole, captured.a, captured.b);
 }
 
+export function isApprovedArgCp015ContextualizedVariant(input: {
+  readonly locale: Locale;
+  readonly qlId: string;
+  readonly sourceStatement: string;
+  readonly sourceArgument: string;
+  readonly targetArgument: string;
+}): boolean {
+  const semanticRole = inferArgCp015ContextSemanticRole(input.qlId, input.sourceArgument);
+  if (!semanticRole) return input.sourceArgument === input.targetArgument;
+  const captured = capture(input.locale, input.qlId, input.sourceStatement);
+  if (!captured) return input.sourceArgument === input.targetArgument;
+  const allowed = variants(input.locale, input.qlId, semanticRole, captured);
+  return allowed?.includes(input.targetArgument) ?? input.sourceArgument === input.targetArgument;
+}
+
 function rebuildStem(locale: Locale, statement: string, argumentsList: readonly string[]): string {
   const statementLabel = locale === "hi-IN" ? "कथन" : locale === "pa-IN" ? "ਕਥਨ" : "Statement";
   const argumentLabel = locale === "hi-IN" ? "तर्क" : locale === "pa-IN" ? "ਦਲੀਲਾਂ" : "Arguments";
@@ -516,8 +563,22 @@ export function contextualizeArgCp015ComboArguments(
   if (sourceArguments.length !== 3 && sourceArguments.length !== 4) return question;
 
   let changed = false;
+  const semanticRoles = sourceArguments.map((argument) =>
+    inferArgCp015ContextSemanticRole(qlId, argument),
+  );
+  const strengths = Array.isArray(question.argumentStrengths) ? question.argumentStrengths.map(String) : [];
+  for (let index = 0; index < semanticRoles.length; index += 1) {
+    const semanticRole = semanticRoles[index];
+    if (!semanticRole) continue;
+    const expected = expectedStrengthForArgCp015ContextRole(semanticRole);
+    if (String(strengths[index] ?? "").toUpperCase() !== expected) {
+      throw new Error(
+        `ARG CP015 contextualization strength drift at ${question.questionId ?? qlId}/${index + 1}: ${semanticRole} expects ${expected}`,
+      );
+    }
+  }
   const argumentsList = Object.freeze(sourceArguments.map((argument, index) => {
-    const semanticRole = role(qlId, argument);
+    const semanticRole = semanticRoles[index];
     if (!semanticRole) return argument;
     const options = variants(locale, qlId, semanticRole, captured);
     if (!options?.length) return argument;
@@ -550,6 +611,8 @@ export function contextualizeArgCp015ComboArguments(
     stem,
     text: stem,
     preArgumentContextualizationArguments: question.arguments,
+    postArgumentContextualizationArguments: argumentsList,
+    comboArgumentSemanticRoles: Object.freeze([...semanticRoles]),
     comboArgumentSurfaceAuthority: ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
     questionId: `ARG-001:${question.qlId}:${profile}:${locale}:CP015:${contentFingerprint.slice(0, 20)}`,
     canonicalItemId: `${question.canonicalItemId}:CP015:ARGCTX`,

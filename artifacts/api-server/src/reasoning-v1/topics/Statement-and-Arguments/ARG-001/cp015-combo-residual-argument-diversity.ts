@@ -312,6 +312,16 @@ function variants(locale: Locale, qlId: string, argument: string): readonly stri
   return punjabiResidual(qlId, argument);
 }
 
+export function isApprovedArgCp015ResidualVariant(input: {
+  readonly locale: Locale;
+  readonly qlId: string;
+  readonly sourceArgument: string;
+  readonly targetArgument: string;
+}): boolean {
+  const allowed = variants(input.locale, input.qlId, input.sourceArgument);
+  return allowed?.includes(input.targetArgument) ?? input.sourceArgument === input.targetArgument;
+}
+
 function rebuildStem(locale: Locale, statement: string, argumentsList: readonly string[]): string {
   const statementLabel = locale === "en-IN" ? "Statement" : locale === "hi-IN" ? "कथन" : "ਕਥਨ";
   const argumentLabel = locale === "en-IN" ? "Arguments" : locale === "hi-IN" ? "तर्क" : "ਦਲੀਲਾਂ";
@@ -366,6 +376,7 @@ export function diversifyArgCp015ResidualComboArguments(
     stem,
     text: stem,
     preResidualArgumentDiversityArguments: question.arguments,
+    postResidualArgumentDiversityArguments: argumentsList,
     comboResidualArgumentDiversityAuthority: ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY,
     questionId: `ARG-001:${question.qlId}:${profile}:${locale}:CP015:${contentFingerprint.slice(0, 20)}`,
     canonicalItemId: `${question.canonicalItemId}:CP015:ARGRES`,
