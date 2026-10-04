@@ -17,3 +17,5 @@ The existing CP007 proof validates all 1,854 multilingual combinations. Frozen c
 
 `corpus-metrics-20261004.json` contains triage measurements for the reviewed snapshot.
 The report defines numeric-mask and arithmetic-marker heuristics; these measurements must not be treated as semantic approvals.
+
+Latest remediation: `TSD-REMEDIATION-V3-20261004.md`. Bundle/run `editorial-candidates-proof-suite.ts` for candidate checks or `revision-v2-proof-suite.ts` for candidate plus frozen/closure checks. `revision-review-export-v3.ts` exports the complete 2,334-row candidate JSON and 678-row human-readable review.

@@ -45,6 +45,15 @@ jobs:
           --outfile=dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
       - name: Run frozen V3 regression
         run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-v3-regression.mjs
+
+      - name: Bundle post-closure mapping audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-post-closure-audit-20261004.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/cae-001/cae-001-post-closure-audit.mjs
+      - name: Run post-closure mapping audit
+        run: node artifacts/api-server/dist/reasoning-v1/cae-001/cae-001-post-closure-audit.mjs
       - name: Bundle saturation wave 1 regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -159,3 +168,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/cae-001/CAE-001-REVIEWED-90.md
             artifacts/api-server/dist/reasoning-v1/cae-001/CAE-001-SOURCE-PROFILE-30.md
           if-no-files-found: error
+      - name: Build production API
+        run: pnpm --dir artifacts/api-server build
+      - name: Build production admin app
+        run: pnpm --dir artifacts/admin-app build

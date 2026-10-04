@@ -1,4 +1,10 @@
 import type { ArgStrength } from "./types.ts";
+import {
+  expectedStrengthForArgCp015ContextRole,
+  isApprovedArgCp015ContextualizedVariant,
+  type ArgCp015ContextSemanticRole,
+} from "./cp015-combo-argument-contextualization.ts";
+import { isApprovedArgCp015ResidualVariant } from "./cp015-combo-residual-argument-diversity.ts";
 
 export const ARG_CP015_POST_CLOSURE_ANSWER_PROOF_AUTHORITY =
   "ARG_CP015_FINAL_OPTION_SEMANTICS_PROOF_2026_10_04" as const;
@@ -20,6 +26,16 @@ type ArgFinalQuestion = Readonly<{
   correct?: unknown;
   answer?: unknown;
   canonicalAnswer?: unknown;
+  locale?: unknown;
+  language?: unknown;
+  qlId?: unknown;
+  sourceStatement?: unknown;
+  statement?: unknown;
+  preArgumentContextualizationArguments?: readonly unknown[];
+  postArgumentContextualizationArguments?: readonly unknown[];
+  comboArgumentSemanticRoles?: readonly unknown[];
+  preResidualArgumentDiversityArguments?: readonly unknown[];
+  postResidualArgumentDiversityArguments?: readonly unknown[];
 }>;
 
 function key(indices: readonly number[]): string {
@@ -73,6 +89,82 @@ export function deriveArgCp015StrongIndices(
   ));
 }
 
+
+function localeOf(question: ArgFinalQuestion): "en-IN" | "hi-IN" | "pa-IN" {
+  if (question.locale === "hi-IN" || question.language === "hi") return "hi-IN";
+  if (question.locale === "pa-IN" || question.language === "pa") return "pa-IN";
+  return "en-IN";
+}
+
+function stringArray(value: readonly unknown[] | undefined): readonly string[] | undefined {
+  return Array.isArray(value) ? Object.freeze(value.map(String)) : undefined;
+}
+
+function assertContextualizationProvenance(
+  question: ArgFinalQuestion,
+  strengths: readonly unknown[],
+): void {
+  const before = stringArray(question.preArgumentContextualizationArguments);
+  const after = stringArray(question.postArgumentContextualizationArguments);
+  const roles = Array.isArray(question.comboArgumentSemanticRoles)
+    ? question.comboArgumentSemanticRoles.map((role) => role == null ? undefined : String(role))
+    : undefined;
+  if (!before && !after && !roles) return;
+  if (!before || !after || !roles || before.length !== after.length || before.length !== roles.length) {
+    throw new Error(`${String(question.questionId ?? "ARG-CP015-UNKNOWN")}: incomplete contextualization provenance`);
+  }
+
+  const locale = localeOf(question);
+  const qlId = String(question.qlId ?? "");
+  const sourceStatement = String(question.sourceStatement ?? question.statement ?? "");
+  for (let index = 0; index < before.length; index += 1) {
+    const role = roles[index] as ArgCp015ContextSemanticRole | undefined;
+    if (role) {
+      const expected = expectedStrengthForArgCp015ContextRole(role);
+      if (String(strengths[index] ?? "").toUpperCase() !== expected) {
+        throw new Error(
+          `${String(question.questionId ?? "ARG-CP015-UNKNOWN")}: contextualized role ${role} at argument ${index + 1} expects ${expected}`,
+        );
+      }
+    }
+    if (!isApprovedArgCp015ContextualizedVariant({
+      locale,
+      qlId,
+      sourceStatement,
+      sourceArgument: before[index]!,
+      targetArgument: after[index]!,
+    })) {
+      throw new Error(
+        `${String(question.questionId ?? "ARG-CP015-UNKNOWN")}: contextualized argument ${index + 1} is outside the approved semantic variant family`,
+      );
+    }
+  }
+}
+
+function assertResidualProvenance(question: ArgFinalQuestion): void {
+  const before = stringArray(question.preResidualArgumentDiversityArguments);
+  const after = stringArray(question.postResidualArgumentDiversityArguments);
+  if (!before && !after) return;
+  if (!before || !after || before.length !== after.length) {
+    throw new Error(`${String(question.questionId ?? "ARG-CP015-UNKNOWN")}: incomplete residual-diversity provenance`);
+  }
+
+  const locale = localeOf(question);
+  const qlId = String(question.qlId ?? "");
+  for (let index = 0; index < before.length; index += 1) {
+    if (!isApprovedArgCp015ResidualVariant({
+      locale,
+      qlId,
+      sourceArgument: before[index]!,
+      targetArgument: after[index]!,
+    })) {
+      throw new Error(
+        `${String(question.questionId ?? "ARG-CP015-UNKNOWN")}: residual argument ${index + 1} is outside the approved semantic variant family`,
+      );
+    }
+  }
+}
+
 export function assertArgCp015FinalAnswerIntegrity(question: ArgFinalQuestion): void {
   const questionId = String(question.questionId ?? "ARG-CP015-UNKNOWN");
   const argumentsList = Array.isArray(question.arguments) ? question.arguments : [];
@@ -94,6 +186,9 @@ export function assertArgCp015FinalAnswerIntegrity(question: ArgFinalQuestion): 
       throw new Error(`${questionId}: invalid final argument strength ${String(strength)}`);
     }
   }
+
+  assertContextualizationProvenance(question, strengths);
+  assertResidualProvenance(question);
 
   const expectedStrong = deriveArgCp015StrongIndices(strengths);
   const expectedKey = key(expectedStrong);

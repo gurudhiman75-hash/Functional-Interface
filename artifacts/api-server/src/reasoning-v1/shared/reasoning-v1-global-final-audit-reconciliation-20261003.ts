@@ -41,7 +41,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Blood-Relations",
         chapterId: "BLR-001",
         closureAuthorityPath:
-          "topics/Blood-Relations/BLR-001/BLR-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Blood-Relations/BLR-001/BLR-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
@@ -49,7 +49,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Calendar",
         chapterId: "CAL-001",
         closureAuthorityPath:
-          "topics/Calendar/CAL-001/CAL-001-FINAL-DEEP-AUDIT-CLOSURE-20260927.md",
+          "topics/Calendar/CAL-001/CAL-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
@@ -57,7 +57,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Cause-and-Effect",
         chapterId: "CAE-001",
         closureAuthorityPath:
-          "topics/Cause-and-Effect/CAE-001/CAE-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Cause-and-Effect/CAE-001/CAE-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
@@ -65,7 +65,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Classification",
         chapterId: "CLS-001",
         closureAuthorityPath:
-          "topics/Classification/CLS-001/CLS-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Classification/CLS-001/CLS-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
@@ -113,7 +113,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Direction-Sense",
         chapterId: "DIR-001",
         closureAuthorityPath:
-          "topics/Direction-Sense/DIR-001/DIR-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Direction-Sense/DIR-001/DIR-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
@@ -145,7 +145,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Assertion-and-Reason",
         chapterId: "ASM-001",
         closureAuthorityPath:
-          "topics/Assertion-and-Reason/ASM-001/ASM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md",
+          "topics/Assertion-and-Reason/ASM-001/ASM-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS_WITH_REVIEW_GATE",
         remainingGate: "MANUAL_EDITORIAL_OR_PRODUCT_APPROVAL_SEPARATE",
       },

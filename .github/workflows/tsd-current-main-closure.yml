@@ -64,6 +64,16 @@ jobs:
             2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
           grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
 
+      - name: Prove unapproved TSD editorial correction candidates
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/quality-audit/editorial-candidates-proof-suite.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 

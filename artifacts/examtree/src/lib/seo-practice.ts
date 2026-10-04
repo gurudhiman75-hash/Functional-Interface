@@ -16,8 +16,25 @@ export type ExamPatternCard = {
   text: string;
 };
 
+export type ExamDetailCard = {
+  title: string;
+  text: string;
+  badge?: string;
+  ctaLabel?: string;
+  href?: string;
+};
+
+export type ExamDetailSection = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  body?: string;
+  cards: ExamDetailCard[];
+};
+
 export type ExamAcquisitionConfig = {
   slug: string;
+  isShell?: boolean;
   name: string;
   yearLabel: string;
   categoryHref: string;
@@ -38,6 +55,13 @@ export type ExamAcquisitionConfig = {
     syllabusSummary: string;
     mockSummary: string;
   };
+  testHub?: {
+    mode: "single" | "dual";
+    stage1Label: string;
+    stage2Label?: string;
+    stage1Keywords?: string[];
+    stage2Keywords?: string[];
+  };
   preparation: {
     eyebrow: string;
     title: string;
@@ -52,6 +76,13 @@ export type ExamAcquisitionConfig = {
     sections: ExamSyllabusSection[];
     patternCards: ExamPatternCard[];
     verificationNote: string;
+  };
+  details?: {
+    eligibility?: ExamDetailSection;
+    dates?: ExamDetailSection;
+    salary?: ExamDetailSection;
+    faq?: ExamDetailSection;
+    updates?: ExamDetailSection;
   };
   topics: SeoPracticeTopic[];
 };
@@ -141,6 +172,57 @@ const BANKING_PRACTICE_TOPICS: SeoPracticeTopic[] = SSC_CGL_TOPICS.filter((topic
   ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding"].includes(topic.slug),
 );
 
+
+function makeExamShellConfig(input: {
+  slug: string;
+  name: string;
+  categoryHref: string;
+  officialUrl: string;
+  officialLabel: string;
+}): ExamAcquisitionConfig {
+  const { slug, name, categoryHref, officialUrl, officialLabel } = input;
+  return {
+    slug,
+    isShell: true,
+    name,
+    yearLabel: "Exam",
+    categoryHref,
+    officialUrl,
+    officialLabel,
+    meta: {
+      hubTitle: name + " Preparation, Mock Tests & Exam Details | ExamTree",
+      hubDescription: "Open the ExamTree " + name + " exam page. Verified syllabus, eligibility, dates and preparation details will be added after official-source review.",
+      preparationTitle: name + " Preparation Guide | ExamTree",
+      preparationDescription: "Preparation guidance for " + name + " will be published after the exam pattern and syllabus are verified from the responsible authority.",
+      syllabusTitle: name + " Syllabus & Exam Pattern | ExamTree",
+      syllabusDescription: "Verified " + name + " syllabus and exam-pattern details will be published after official-source review.",
+    },
+    hub: {
+      title: name + " exam hub",
+      description: "ExamTree has created the " + name + " exam workspace. Test inventory and verified exam information will appear here as they are published.",
+      preparationSummary: "Preparation guidance is not yet populated. It will be added only after the current official pattern and syllabus are verified.",
+      syllabusSummary: "Detailed syllabus and exam-pattern information is awaiting official-source review.",
+      mockSummary: "Published ExamTree tests will appear automatically when they are mapped to this exam identity.",
+    },
+    preparation: {
+      eyebrow: name + " preparation",
+      title: name + " preparation",
+      description: "A verified preparation plan has not yet been published for this exam.",
+      cards: [],
+      weeklyCycle: [],
+    },
+    syllabus: {
+      eyebrow: name + " syllabus",
+      title: name + " syllabus and exam pattern",
+      description: "Detailed exam information is awaiting official-source review.",
+      sections: [],
+      patternCards: [],
+      verificationNote: "This exam identity is live, but detailed rules have not yet been populated. Verify all time-sensitive information on the responsible authority's official website.",
+    },
+    topics: [],
+  };
+}
+
 export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
   "ssc-cgl": {
     slug: "ssc-cgl",
@@ -163,6 +245,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build a practical study order across Quantitative Aptitude, Reasoning, General Awareness, and English.",
       syllabusSummary: "Review the current Tier-I structure and major preparation areas before planning your practice.",
       mockSummary: "Move from topic practice to timed exam-style attempts using the published ExamTree catalogue.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Tier-I",
+      stage2Label: "Tier-II",
+      stage1Keywords: ["tier-i", "tier i", "tier-1", "tier 1"],
+      stage2Keywords: ["tier-ii", "tier ii", "tier-2", "tier 2"],
     },
     preparation: {
       eyebrow: "SSC CGL preparation",
@@ -199,6 +288,61 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "Recruitment rules and schedules can change. Check the latest Combined Graduate Level notice on the official SSC website before relying on dates, eligibility, vacancies, or detailed scheme provisions.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CGL 2026 eligibility",
+        description: "SSC CGL recruits for multiple Group B and Group C posts, so age limits and post-specific qualifications vary. The 2026 notice is the controlling source.",
+        cards: [
+          { title: "Educational qualification", text: "A bachelor's degree is the base qualification for CGL. Some posts prescribe additional subject-specific requirements in the official notice.", badge: "Graduate level" },
+          { title: "Age limits", text: "The 2026 notice lists different age bands by post, including 18-27, 18-30, 20-30 and up to 32 years for specified posts. Category relaxations apply under SSC rules.", badge: "Post-specific" },
+          { title: "Selection structure", text: "Tier-I is followed by Tier-II. Post-specific qualifying modules, computer/data-entry requirements and document verification apply where prescribed.", badge: "Two-tier CBE" },
+          { title: "Posts", text: "Recruitment covers multiple Group B and Group C posts across Central Government ministries, departments, organisations and statutory or constitutional bodies.", badge: "Multiple posts" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CGL 2026 important updates",
+        description: "The 2026 CGL cycle is active. Use SSC's live notice board for the latest schedule and vacancy revisions.",
+        cards: [
+          { title: "Notice published", text: "SSC published the Combined Graduate Level Examination, 2026 notice on 21 May 2026.", badge: "21 May 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Application window reopened", text: "SSC reopened the online application window from 23 June to 25 June 2026; the revised fee-payment deadline was 26 June 2026 and the correction window was 1-3 July 2026.", badge: "Completed" },
+          { title: "Tier-I city / admission-certificate update", text: "SSC issued the Tier-I city and admission-certificate information notice on 21 September 2026.", badge: "21 Sep 2026" },
+          { title: "Tentative vacancies", text: "SSC published an updated tentative-vacancy statement for CGL 2026 on 24 September 2026. Vacancy totals remain subject to revision.", badge: "24 Sep 2026", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC CGL posts and pay levels",
+        description: "CGL is a multi-post examination, so salary depends on the post and department.",
+        cards: [
+          { title: "Pay levels", text: "The 2026 notice includes posts across multiple 7th CPC pay levels, including Levels 4 through 8 depending on the post.", badge: "Post-dependent" },
+          { title: "Examples of posts", text: "The notice includes Assistant Audit Officer, Assistant Accounts Officer, Assistant Section Officer, Inspectors, Auditors, Accountants and other Group B / Group C posts.", badge: "CGL cadre" },
+          { title: "Allowances", text: "DA, HRA, transport allowance and other benefits depend on the allotted post, department and place of posting under applicable Central Government rules.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CGL 2026 FAQs",
+        description: "Key points for the current cycle.",
+        cards: [
+          { title: "Is SSC CGL only for one post?", text: "No. CGL is a common recruitment examination for many Group B and Group C posts across Central Government organisations." },
+          { title: "What is the Tier-I pattern?", text: "Tier-I has 100 questions for 200 marks across Reasoning, General Awareness, Quantitative Aptitude and English Comprehension." },
+          { title: "Is there negative marking in Tier-I?", text: "Yes. The 2026 notice states a deduction of 0.50 mark for each wrong answer in Tier-I." },
+          { title: "Are age limits the same for every CGL post?", text: "No. The age band depends on the post. Always check the post-wise eligibility table in the current notice." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CGL 2026 official status",
+        description: "Current updates are taken from SSC's official notice board.",
+        cards: [
+          { title: "Tentative vacancy update", text: "SSC published the updated tentative vacancy statement on 24 September 2026.", badge: "24 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Tier-I city / admission certificate notice", text: "SSC released the Tier-I city and admission-certificate information on 21 September 2026.", badge: "21 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Application reopening notice", text: "The application window was reopened for 23-25 June 2026.", badge: "23 Jun 2026" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-chsl": {
@@ -222,6 +366,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build speed and accuracy across English, General Intelligence, Quantitative Aptitude, and General Awareness, then prepare for Tier-II requirements.",
       syllabusSummary: "Review the Tier-I subject structure, Tier-II modules, negative marking, and skill or typing stage before planning your preparation.",
       mockSummary: "Move from focused topic practice to timed SSC-style attempts using the published ExamTree catalogue.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Tier-I",
+      stage2Label: "Tier-II",
+      stage1Keywords: ["tier-i", "tier i", "tier-1", "tier 1"],
+      stage2Keywords: ["tier-ii", "tier ii", "tier-2", "tier 2"],
     },
     preparation: {
       eyebrow: "SSC CHSL preparation",
@@ -258,6 +409,57 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "Recruitment dates, vacancies, eligibility rules, language options, skill-test standards, and other detailed provisions can change. Check the latest Combined Higher Secondary Level notice on the official SSC website before relying on them.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CHSL 2026 eligibility",
+        description: "CHSL is the 10+2-level SSC recruitment route for LDC/JSA and DEO-type posts. Post-specific requirements remain governed by the 2026 notice.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must meet the 10+2 / Senior Secondary qualification prescribed in the current notice. Certain DEO posts can carry additional subject requirements.", badge: "10+2 level" },
+          { title: "Age", text: "CHSL normally uses a common young-entry age band with category relaxations, but candidates should rely on the exact crucial date and limits in the 2026 notice.", badge: "Verify notice" },
+          { title: "Selection stages", text: "Tier-I CBE → Tier-II modules → qualifying Computer Knowledge and Skill / Typing Test as applicable to the post.", badge: "Tier-I + Tier-II" },
+          { title: "Typing / data entry", text: "LDC/JSA candidates face the prescribed typing test; DEO candidates face the prescribed data-entry skill test.", badge: "Qualifying skill" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CHSL 2026 schedule",
+        description: "SSC lists CHSL 2026 in its 2026-27 examination calendar.",
+        cards: [
+          { title: "2026 notification cycle", text: "The official SSC calendar places the CHSL 2026 advertisement in April 2026 with application closing in May 2026.", badge: "2026 cycle" },
+          { title: "Tier-I window", text: "The official calendar scheduled Tier-I for the July-September 2026 period. Candidates should use SSC notices and admission certificates for exact dates.", badge: "Tier-I" },
+          { title: "Later stages", text: "Tier-II and skill / typing schedules are announced separately by SSC after Tier-I processing.", badge: "Follow SSC", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC CHSL posts and pay",
+        description: "Pay varies by LDC/JSA, DEO and the recruiting department.",
+        cards: [
+          { title: "LDC / JSA", text: "Lower Division Clerk / Junior Secretariat Assistant posts are Central Government clerical posts with pay fixed under the applicable 7th CPC level in the notice.", badge: "Clerical" },
+          { title: "DEO", text: "Data Entry Operator posts can carry different pay levels depending on the organisation and post.", badge: "Post-dependent" },
+          { title: "Allowances", text: "Allowances depend on the allotted department and place of posting under Central Government rules.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CHSL 2026 FAQs",
+        description: "Core preparation and selection questions.",
+        cards: [
+          { title: "What is the CHSL Tier-I pattern?", text: "Tier-I uses four sections—English, General Intelligence, Quantitative Aptitude and General Awareness—with 25 questions and 50 marks per section." },
+          { title: "Is Tier-II only descriptive?", text: "No. The current structure uses multiple Tier-II modules including Maths, Reasoning, English, General Awareness and qualifying computer / skill components." },
+          { title: "Do all posts use the same skill test?", text: "No. The final qualifying skill component depends on the post, such as Typing Test for LDC/JSA or DEST for DEO." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CHSL 2026 official status",
+        description: "Follow SSC for result, answer-key and Tier-II schedule notices.",
+        cards: [
+          { title: "CHSL 2026 cycle", text: "The 2026 cycle is listed in the SSC 2026-27 calendar, with Tier-I scheduled in the July-September 2026 period.", badge: "Official calendar", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-mts": {
@@ -281,6 +483,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build reliable basics in Numerical Ability, Reasoning, English, and General Awareness before increasing speed.",
       syllabusSummary: "Review the session-based CBE structure and the subjects you need to cover before planning revision.",
       mockSummary: "Move from topic practice to timed SSC-style attempts using the published ExamTree catalogue.",
+    },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination", "session-i", "session ii", "session-i", "session-ii"],
     },
     preparation: {
       eyebrow: "SSC MTS preparation",
@@ -317,6 +524,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "SSC lists the Multi-Tasking (Non-Technical) Staff & Havaldar Examination, 2026 in its 2026-27 examination calendar. Check the latest official notice for exact session timings, marking, vacancies, eligibility, and physical-stage rules.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC MTS & Havaldar 2026 eligibility",
+        description: "MTS is a matriculation-level recruitment; Havaldar candidates must also satisfy the physical-stage requirements.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must meet the Matriculation / Class 10 qualification requirement prescribed by SSC.", badge: "Matric level" },
+          { title: "Age", text: "Age limits differ by MTS / Havaldar vacancy and department. Use the exact age band and crucial date in the 2026 notice.", badge: "Post-specific" },
+          { title: "MTS selection", text: "Computer Based Examination followed by document / eligibility verification as prescribed.", badge: "CBE" },
+          { title: "Havaldar selection", text: "Computer Based Examination plus the prescribed PET/PST for Havaldar candidates.", badge: "CBE + PET/PST" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC MTS & Havaldar 2026 schedule",
+        description: "The official SSC calendar places the 2026 cycle in the second half of the year.",
+        cards: [
+          { title: "Notification period", text: "SSC's 2026-27 calendar places the MTS & Havaldar advertisement in June 2026 with application closing in July 2026.", badge: "2026 cycle" },
+          { title: "CBE window", text: "The official calendar schedules the 2026 CBE for the September-November 2026 period.", badge: "Sep-Nov 2026" },
+          { title: "Havaldar physical stage", text: "PET/PST is conducted after CBE shortlisting for the Havaldar posts.", badge: "Later stage", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Post & pay",
+        title: "SSC MTS / Havaldar pay",
+        description: "The exact in-hand amount depends on posting and allowances.",
+        cards: [
+          { title: "MTS / Havaldar", text: "These are Central Government support posts paid under the 7th CPC structure specified in the notice and recruiting department.", badge: "Central Govt." },
+          { title: "Allowances", text: "DA, HRA, transport and other admissible allowances depend on the place of posting and rules in force.", badge: "Varies" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC MTS 2026 FAQs",
+        description: "Core questions for MTS and Havaldar candidates.",
+        cards: [
+          { title: "Is the MTS exam only one session?", text: "No. Recent SSC MTS CBEs use two mandatory sessions on the same examination day." },
+          { title: "Does Havaldar require a physical test?", text: "Yes. Havaldar recruitment includes PET/PST after CBE shortlisting." },
+          { title: "What qualification is required?", text: "The base qualification is Matriculation / Class 10, subject to the current notice's crucial date and documentary conditions." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC MTS 2026 official status",
+        description: "The current CBE cycle falls in the September-November 2026 window in SSC's official calendar.",
+        cards: [
+          { title: "2026 CBE cycle", text: "SSC's official 2026-27 calendar schedules MTS & Havaldar CBE during September-November 2026.", badge: "Current cycle", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-cpo": {
@@ -340,6 +597,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build Paper-I speed across Reasoning, General Knowledge, Quantitative Aptitude, and English while preparing physically in parallel.",
       syllabusSummary: "Understand the written papers and the PET/PST stage so your preparation covers the full selection process.",
       mockSummary: "Use topic practice first, then timed SSC-style mocks to improve speed and decision-making.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Paper-I",
+      stage2Label: "Paper-II",
+      stage1Keywords: ["paper-i", "paper i", "paper-1", "paper 1"],
+      stage2Keywords: ["paper-ii", "paper ii", "paper-2", "paper 2"],
     },
     preparation: {
       eyebrow: "SSC CPO preparation",
@@ -376,6 +640,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "SSC lists the Sub-Inspector in Delhi Police & Central Armed Police Forces Examination, 2026 in its 2026-27 calendar. Check the current official notice for exact paper timings, marks, negative marking, PET/PST standards, eligibility, and medical requirements.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC CPO 2026 eligibility",
+        description: "CPO recruits Sub-Inspectors in Delhi Police and CAPFs and combines academic, physical and medical requirements.",
+        cards: [
+          { title: "Educational qualification", text: "A bachelor's degree is required for the Sub-Inspector recruitment, subject to the current notice's post-specific conditions.", badge: "Graduate level" },
+          { title: "Age", text: "CPO uses a young-entry age band with statutory category relaxations. Verify the exact 2026 crucial date and age limits in the current notice.", badge: "Verify notice" },
+          { title: "Selection stages", text: "Paper-I CBE → PET/PST → Paper-II → medical examination / document verification and other prescribed stages.", badge: "Written + physical" },
+          { title: "Physical standards", text: "Height, chest, race and other PET/PST standards differ by sex and eligible categories and must be checked in the official notice.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC CPO 2026 schedule",
+        description: "The 2026-27 SSC calendar places CPO Paper-I in the October-November 2026 period.",
+        cards: [
+          { title: "Notification cycle", text: "SSC's official calendar places the 2026 CPO advertisement in May 2026 with closing in June 2026.", badge: "2026 cycle" },
+          { title: "Paper-I window", text: "Paper-I is scheduled for October-November 2026 in the official SSC calendar.", badge: "Oct-Nov 2026" },
+          { title: "PET/PST and Paper-II", text: "These stages are scheduled separately after Paper-I shortlisting.", badge: "Later stages", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Post & pay",
+        title: "SSC CPO Sub-Inspector role",
+        description: "CPO recruits Sub-Inspectors in Delhi Police and Central Armed Police Forces.",
+        cards: [
+          { title: "Sub-Inspector", text: "Selected candidates are appointed to Sub-Inspector posts in Delhi Police / CAPFs under the pay scale and service rules specified in the notice.", badge: "Uniformed service" },
+          { title: "Allowances", text: "Allowances and field/service benefits depend on the force, place of posting and rules in force.", badge: "Force-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC CPO 2026 FAQs",
+        description: "Core selection questions.",
+        cards: [
+          { title: "Is PET/PST qualifying?", text: "PET/PST is a mandatory selection stage. Candidates must satisfy the prescribed physical standards before progressing." },
+          { title: "Does CPO have two written papers?", text: "Yes. Paper-I is followed, after physical-stage shortlisting, by Paper-II as prescribed by SSC." },
+          { title: "Should physical preparation wait until Paper-I?", text: "No. Candidates should prepare physical fitness in parallel because the PET/PST stage follows written shortlisting." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC CPO 2026 official status",
+        description: "The current official calendar places Paper-I in October-November 2026.",
+        cards: [
+          { title: "Paper-I cycle", text: "SSC's 2026-27 calendar schedules the CPO 2026 Paper-I CBE for October-November 2026.", badge: "Current window", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_CGL_TOPICS,
   },
   "ssc-stenographer": {
@@ -399,6 +713,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Prioritise English heavily while maintaining Reasoning and General Awareness, and practise stenography skill throughout.",
       syllabusSummary: "Review the three-part CBE and the Grade C/Grade D stenography speeds before planning your schedule.",
       mockSummary: "Use focused practice followed by timed CBE mocks while continuing stenography dictation and transcription work.",
+    },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
     },
     preparation: {
       eyebrow: "SSC Stenographer preparation",
@@ -434,6 +753,58 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "The 2026 Stenographer notice is published by SSC. Check the official notice and subsequent addenda for skill-test language, transcription method, font requirements, dates, and other operational details.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC Stenographer Grade C & D 2026 eligibility",
+        description: "The examination combines a 10+2-level academic requirement with a qualifying stenography skill test.",
+        cards: [
+          { title: "Educational qualification", text: "Candidates must satisfy the 10+2 / Senior Secondary qualification prescribed in the notice.", badge: "10+2 level" },
+          { title: "Age", text: "Grade C and Grade D use different age limits and category relaxations. Check the exact 2026 crucial date in the notice.", badge: "Grade-specific" },
+          { title: "CBE", text: "General Intelligence & Reasoning, General Awareness, and English Language & Comprehension.", badge: "200 questions" },
+          { title: "Skill test", text: "A 10-minute dictation is taken at 100 w.p.m. for Grade C or 80 w.p.m. for Grade D, followed by computer transcription within the prescribed time.", badge: "Qualifying skill" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC Stenographer 2026 schedule",
+        description: "The 2026 CBE has progressed to the answer-key stage.",
+        cards: [
+          { title: "2026 examination window", text: "SSC's official calendar scheduled Stenographer Grade C & D CBE for August-September 2026.", badge: "Aug-Sep 2026" },
+          { title: "Tentative answer key", text: "SSC uploaded the 2026 tentative answer keys and candidate response sheets on 23 September 2026.", badge: "23 Sep 2026", ctaLabel: "SSC answer keys", href: "https://ssc.gov.in/home/answer-key" },
+          { title: "Skill-test addendum", text: "SSC also issued an addendum on 23 September 2026 making Mangal font mandatory for Hindi typing / skill-test transcription.", badge: "23 Sep 2026" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC Stenographer Grade C & D posts",
+        description: "Pay and service conditions depend on the grade, ministry / department and post.",
+        cards: [
+          { title: "Grade C", text: "Grade C appointments are made to higher stenographic cadres in participating Central Government offices under the applicable pay level.", badge: "Grade C" },
+          { title: "Grade D", text: "Grade D appointments are made across participating ministries, departments and offices under the applicable pay level.", badge: "Grade D" },
+          { title: "Vacancies", text: "SSC publishes tentative grade-wise and department-wise vacancy statements separately and can revise them.", badge: "Tentative" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC Stenographer 2026 FAQs",
+        description: "Written and skill-test essentials.",
+        cards: [
+          { title: "How much of the CBE is English?", text: "English Language & Comprehension carries 100 of the 200 CBE questions; Reasoning and General Awareness carry 50 each." },
+          { title: "What are the stenography speeds?", text: "The skill test uses 100 w.p.m. dictation for Grade C and 80 w.p.m. for Grade D." },
+          { title: "Is the skill test optional?", text: "No. It is a qualifying selection stage for shortlisted candidates." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC Stenographer 2026 official status",
+        description: "The CBE has reached tentative-answer-key processing.",
+        cards: [
+          { title: "Tentative answer keys uploaded", text: "SSC uploaded the Stenographer Grade C & D Examination 2026 tentative answer keys and response sheets on 23 September 2026.", badge: "23 Sep 2026", ctaLabel: "Open answer keys", href: "https://ssc.gov.in/home/answer-key" },
+          { title: "Hindi skill-test font update", text: "SSC issued an addendum requiring Mangal font for Hindi typing / skill-test transcription.", badge: "23 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_STENO_TOPICS,
   },
   "ssc-gd": {
@@ -457,6 +828,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build fast fundamentals in Reasoning, General Awareness, Elementary Mathematics, and English/Hindi while training physically in parallel.",
       syllabusSummary: "Review the CBE subjects and the PET/PST and medical stages before planning the full preparation cycle.",
       mockSummary: "Move from topic-wise practice into timed GD-style mocks while maintaining physical preparation.",
+    },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
     },
     preparation: {
       eyebrow: "SSC GD 2027 preparation",
@@ -493,6 +869,56 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       ],
       verificationNote: "SSC's 2026-27 calendar places the next Constable (GD) cycle as the 2027 examination, with advertisement planned in September 2026 and CBE tentatively in January-March 2027. Verify the issued notice for exact pattern, dates, vacancies, physical standards, and eligibility.",
     },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC GD 2027 eligibility",
+        description: "The next GD cycle covers Constable (GD) recruitment in CAPFs / SSF and Rifleman (GD) in Assam Rifles, subject to the 2027 notice.",
+        cards: [
+          { title: "Educational qualification", text: "SSC GD is a matriculation-level recruitment. Candidates should verify the qualifying date and documentary conditions in the 2027 notice.", badge: "Matric level" },
+          { title: "Age", text: "The exact 2027 age band, crucial date and category relaxations must be taken from the 2027 notification.", badge: "Notification controls" },
+          { title: "Selection stages", text: "CBE → PET/PST → medical examination / document verification and other force-specific checks prescribed in the notice.", badge: "Written + physical" },
+          { title: "Physical standards", text: "Race, height, chest and other standards differ by sex and eligible categories. Candidates should prepare fitness in parallel with CBE work.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Next cycle",
+        title: "SSC GD 2027 schedule",
+        description: "SSC's 2026-27 calendar already lists the next GD recruitment cycle.",
+        cards: [
+          { title: "Notification period", text: "The official calendar places the SSC GD 2027 advertisement in September 2026 with applications closing in October 2026.", badge: "Sep-Oct 2026" },
+          { title: "CBE window", text: "The official calendar schedules the 2027 CBE for January-March 2027.", badge: "Jan-Mar 2027" },
+          { title: "Physical / medical stages", text: "PET/PST and medical stages follow CBE shortlisting and are scheduled separately.", badge: "Later stages", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Role & pay",
+        title: "SSC GD posts",
+        description: "The exact force-wise pay and allowances are governed by the 2027 notice and allotted organisation.",
+        cards: [
+          { title: "CAPFs / SSF / Assam Rifles", text: "Recruitment is for uniformed constable / rifleman roles in the forces and organisations listed in the notification.", badge: "Uniformed service" },
+          { title: "Allowances", text: "Field, risk, location and other allowances depend on the allotted force, posting and applicable rules.", badge: "Force-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC GD 2027 FAQs",
+        description: "What candidates should know before the next cycle.",
+        cards: [
+          { title: "When is SSC GD 2027 CBE expected?", text: "SSC's official 2026-27 calendar places the CBE in January-March 2027." },
+          { title: "Is there a physical test?", text: "Yes. PET/PST is a mandatory stage after CBE shortlisting." },
+          { title: "Should I prepare only for the written exam?", text: "No. Physical fitness should be trained alongside Reasoning, General Awareness, Elementary Mathematics and the chosen language section." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC GD 2027 official status",
+        description: "The next cycle is listed in the SSC examination calendar.",
+        cards: [
+          { title: "SSC GD 2027 calendar entry", text: "The official SSC 2026-27 calendar places notification in September 2026, closing in October 2026 and CBE in January-March 2027.", badge: "Upcoming cycle", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
     topics: SSC_GD_TOPICS,
   },
   "ibps-po": {
@@ -503,54 +929,127 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://www.ibps.in/index.php/management-trainees-xvi/",
     officialLabel: "ibps.in",
     meta: {
-      hubTitle: "IBPS PO 2026 Preparation, Syllabus, Mock Tests & Free Questions",
-      hubDescription: "Prepare for IBPS PO/MT XVI with prelims and mains guidance, mock tests, and free topic-wise banking questions on ExamTree.",
-      preparationTitle: "How to Prepare for IBPS PO 2026",
-      preparationDescription: "A practical IBPS PO 2026 preparation guide covering prelims speed, mains depth, banking awareness, descriptive readiness, and mock analysis.",
-      syllabusTitle: "IBPS PO 2026 Syllabus & Exam Pattern",
-      syllabusDescription: "IBPS PO/MT XVI 2026 syllabus and exam-stage overview covering the preliminary examination, main examination, and later selection stages.",
+      hubTitle: "IBPS PO 2026 (CRP PO/MT-XVI) Preparation, Syllabus, Mock Tests & Updates",
+      hubDescription: "Prepare for IBPS CRP PO/MT-XVI with the current 2026 prelims and mains pattern, detailed syllabus guidance, mock tests, official-cycle updates, and topic-wise banking practice.",
+      preparationTitle: "How to Prepare for IBPS PO 2026 (CRP PO/MT-XVI)",
+      preparationDescription: "A practical IBPS PO 2026 preparation guide aligned to the revised PO/MT-XVI pattern: separately timed prelims, 170-question mains objective paper, descriptive essay and comprehension, banking awareness, and mock analysis.",
+      syllabusTitle: "IBPS PO 2026 Syllabus & Revised Exam Pattern (CRP PO/MT-XVI)",
+      syllabusDescription: "Current IBPS PO/MT-XVI syllabus and examination structure for the 2026 recruitment cycle, including prelims, mains objective tests, descriptive paper, personality test, interview, and final merit.",
     },
     hub: {
       title: "IBPS PO 2026 preparation hub",
-      description: "Use one place for IBPS PO prelims and mains strategy, syllabus guidance, mock tests, and free topic-wise banking practice.",
-      preparationSummary: "Build prelims speed in English, Quantitative Aptitude, and Reasoning, then deepen preparation for the main examination.",
-      syllabusSummary: "Review the preliminary and main examination stages before deciding how to split your daily practice.",
-      mockSummary: "Move from topic practice to separately timed banking mocks and review speed, accuracy, and question selection after every attempt.",
+      description: "CRP PO/MT-XVI is the current IBPS Probationary Officer / Management Trainee recruitment for vacancies of 2027-28. Use this hub for prelims and mains practice, the revised 2026 exam pattern, official-cycle updates, previous papers, and topic-wise preparation.",
+      preparationSummary: "Prelims is a screening stage; for serious preparation, combine separately timed prelims practice with mains-level Reasoning, Data Analysis, Banking/Digital/Financial Awareness, English, and descriptive writing.",
+      syllabusSummary: "The XVI pattern uses 100 questions / 100 marks / 60 minutes in prelims and 170 objective questions / 200 marks / 160 minutes in mains, plus a 25-mark descriptive paper.",
+      mockSummary: "Use timed sectionals and full mocks to improve question selection. Review every slow, guessed, skipped, or incorrect question and separately track mains awareness and descriptive readiness.",
     },
     preparation: {
-      eyebrow: "IBPS PO preparation",
+      eyebrow: "IBPS PO/MT-XVI preparation",
       title: "How to prepare for IBPS PO 2026",
-      description: "Treat prelims as a speed-and-selection stage while building mains-level reasoning, data analysis, awareness, and English in parallel.",
+      description: "For the XVI cycle, prepare for the revised marks distribution rather than relying on older PO patterns. Keep prelims speed work and mains depth in parallel, with extra attention to Banking/Digital/Financial Awareness and the descriptive Essay + Comprehension paper.",
       cards: [
-        { title: "1. Build prelims speed", text: "Practise English, Quantitative Aptitude, and Reasoning in separately timed blocks so accuracy remains stable under section pressure." },
-        { title: "2. Prepare mains in parallel", text: "Do not wait for the prelims result to begin higher-level reasoning, data analysis, banking awareness, and deeper English practice." },
-        { title: "3. Review every mock", text: "Track skipped questions, slow questions, guesses, and avoidable errors; banking exams reward question selection as much as raw solving speed." },
+        { title: "1. Master the revised prelims split", text: "English carries 30 marks, Quantitative Aptitude 30 marks and Reasoning Ability 40 marks. Each section is separately timed for 20 minutes, so practise the sections independently as well as in full mocks." },
+        { title: "2. Build mains depth early", text: "Mains has 170 objective questions for 200 marks in 160 minutes: Reasoning 60 marks, Awareness 60, English 20 and Data Analysis & Interpretation 60. Do not postpone these sections until after prelims." },
+        { title: "3. Prepare descriptive + interview stages", text: "The descriptive paper is Essay and Comprehension for 25 marks in 30 minutes. After mains, shortlisted candidates must appear for the Personality Test and Interview; final merit uses Main and Interview scores in an 80:20 ratio." },
       ],
       weeklyCycle: [
-        "Take short separately timed prelims section tests.",
-        "Practise arithmetic and data-oriented Quant topics with calculation-speed drills.",
-        "Rotate puzzles, syllogism, coding-decoding, and other Reasoning sets.",
-        "Practise reading, grammar, vocabulary, and comprehension in English every day.",
-        "Revise banking, financial, and current awareness regularly for mains.",
-        "Take a full mock and analyse attempts, accuracy, time spent, and questions left unattempted.",
+        "Take separately timed 20-minute prelims section tests and track attempts, accuracy and time lost.",
+        "Practise arithmetic, approximation/series and Data Interpretation with calculation-speed drills.",
+        "Rotate puzzles, seating/arrangement, syllogism, inequality, coding-decoding, ranking and logical reasoning sets.",
+        "Practise reading comprehension, grammar, vocabulary and sentence-level English every day.",
+        "Revise General/Economy/Banking, Digital and Financial Awareness, including relevant RBI circulars, in short recurring blocks.",
+        "Write one timed essay or comprehension response each week and review clarity, structure, grammar and word economy.",
+        "Take one full mock regularly and classify every miss as concept, selection, calculation, reading, awareness recall or time-management error.",
       ],
     },
     syllabus: {
-      eyebrow: "IBPS PO syllabus",
-      title: "IBPS PO/MT XVI syllabus and exam pattern 2026",
-      description: "A learner-friendly overview of the current IBPS PO/MT XVI cycle. Verify detailed marks, timings, and later-stage rules in the latest official IBPS notification and information handouts.",
+      eyebrow: "IBPS PO/MT-XVI syllabus",
+      title: "IBPS PO/MT-XVI syllabus and revised exam pattern 2026",
+      description: "The 2026 XVI cycle uses a revised marks distribution in prelims and a 170-question mains objective paper. The exact official section names, marks and timings below reflect the current notification; topic-level practice areas are organised for preparation.",
       sections: [
-        { title: "English Language", summary: "Preliminary examination core section" },
-        { title: "Quantitative Aptitude", summary: "Preliminary examination core section" },
-        { title: "Reasoning Ability", summary: "Preliminary examination core section" },
-        { title: "Main examination", summary: "Higher-level reasoning/data analysis, awareness, English, and the current main-stage components prescribed by IBPS" },
+        { title: "Prelims · English Language", summary: "30 questions · 30 marks · 20 minutes · English medium" },
+        { title: "Prelims · Quantitative Aptitude", summary: "35 questions · 30 marks · 20 minutes · English/Hindi" },
+        { title: "Prelims · Reasoning Ability", summary: "35 questions · 40 marks · 20 minutes · English/Hindi" },
+        { title: "Mains · Reasoning", summary: "40 questions · 60 marks · 45 minutes · English/Hindi" },
+        { title: "Mains · General/Economy/Banking/Digital/Financial Awareness", summary: "50 questions · 60 marks · 35 minutes · includes RBI circulars · English/Hindi" },
+        { title: "Mains · English Language", summary: "40 questions · 20 marks · 35 minutes · English medium" },
+        { title: "Mains · Data Analysis & Interpretation", summary: "40 questions · 60 marks · 45 minutes · English/Hindi" },
+        { title: "Mains · Descriptive Paper", summary: "Essay and Comprehension · 2 questions · 25 marks · 30 minutes · English" },
       ],
       patternCards: [
-        { title: "Preliminary examination", text: "The PO/MT recruitment process begins with an online preliminary examination using separately timed sections, followed by shortlisting for the main examination." },
-        { title: "Main examination", text: "The main stage requires deeper reasoning and data-analysis ability together with banking/economy awareness and English. Use the current information handout for exact section structure." },
-        { title: "Current 2026 cycle", text: "IBPS scheduled PO/MT XVI prelims for 22-23 August 2026 and the main examination for 4 October 2026 in its 2026-27 calendar." },
+        { title: "Preliminary examination", text: "100 questions · 100 marks · 60 minutes. English, Quantitative Aptitude and Reasoning Ability are separately timed for 20 minutes each. Candidates must qualify the tests as prescribed by IBPS to be shortlisted for Mains." },
+        { title: "Main examination", text: "Objective paper: 170 questions · 200 marks · 160 minutes. Descriptive paper: Essay and Comprehension · 2 questions · 25 marks · 30 minutes. Objective sections are separately timed." },
+        { title: "Negative marking", text: "For a wrong answer in an objective test, one-fourth of the marks assigned to that question is deducted. There is no penalty for an unanswered question." },
+        { title: "Selection after Mains", text: "Shortlisted candidates must appear for the Personality Test and then the Common Interview. The Interview carries 100 marks; minimum qualifying marks are 40% for General/EWS and 35% for SC/ST/OBC/PwBD candidates." },
+        { title: "Final merit", text: "Prelims is qualifying. Final merit uses the Main Examination and Interview scores in an 80:20 weightage. Provisional allotment depends on actual vacancies reported by participating banks and candidate preferences." },
+        { title: "2026 dates", text: "Prelims: 22-23 August 2026. Main Examination: 4 October 2026. The exact time and venue on the candidate's call letter govern the individual exam appointment." },
       ],
-      verificationNote: "The CRP PO/MT-XVI cycle is active in 2026. Check the official IBPS PO/MT XVI page, notification, call-letter information handouts, and any corrigenda for exact pattern, marks, timings, vacancies, eligibility, and later selection-stage rules.",
+      verificationNote: "CRP PO/MT-XVI is for vacancies of 2027-28. IBPS issued the detailed notification on 1 July 2026 and subsequently revised the indicative vacancy position. Always verify time-sensitive dates, vacancies, eligibility, call letters, results and corrigenda on the official IBPS PO/MT-XVI page.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility & selection",
+        title: "IBPS PO/MT-XVI eligibility and selection process",
+        description: "Core eligibility is based on the official CRP PO/MT-XVI notification. Reservation, certificate, nationality and relaxation conditions should always be checked against the full notification.",
+        cards: [
+          { title: "Educational qualification", text: "A degree (graduation) in any discipline from a university recognised by the Government of India, or an equivalent qualification recognised by the Central Government.", badge: "Eligibility" },
+          { title: "Age limit", text: "20 to 30 years as on 1 July 2026. The base date-of-birth range is 2 July 1996 to 1 July 2006, both dates inclusive.", badge: "Eligibility" },
+          { title: "Upper-age relaxation", text: "SC/ST: 5 years · OBC (Non-Creamy Layer): 3 years · PwBD: 10 years · eligible ex-servicemen/commissioned officers under the notification: 5 years. Read the notification for complete cumulative-relaxation rules.", badge: "Relaxation" },
+          { title: "Application fee", text: "₹175 including GST for SC/ST/PwBD candidates; ₹850 including GST for all other candidates. The 2026 application window is already closed.", badge: "2026 cycle" },
+          { title: "Selection stages", text: "Online Preliminary Examination → Online Main Examination (objective + descriptive) → mandatory Personality Test → Common Interview → Provisional Allotment.", badge: "Selection" },
+          { title: "Interview and final merit", text: "Interview: 100 marks. Minimum qualifying marks: 40% for General/EWS and 35% for SC/ST/OBC/PwBD. Main and Interview are combined in an 80:20 ratio for final merit.", badge: "Final merit" },
+        ],
+      },
+      dates: {
+        eyebrow: "Important dates & vacancies",
+        title: "IBPS PO 2026 important dates and latest vacancy position",
+        description: "The application stage and prelims are complete. The current cycle has progressed to the Main Examination stage.",
+        cards: [
+          { title: "Detailed notification", text: "1 July 2026 · CRP PO/MT-XVI notification issued for vacancies of 2027-28.", badge: "Completed", ctaLabel: "Official notification", href: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf" },
+          { title: "Application window", text: "Online registration and fee payment: 1 July to 26 July 2026. Edit window: 29-30 July 2026.", badge: "Closed" },
+          { title: "Preliminary examination", text: "22 and 23 August 2026.", badge: "Completed" },
+          { title: "Prelims score display", text: "IBPS opened the preliminary score display on 29 September 2026; the current score-display window is scheduled through 28 October 2026.", badge: "Current update" },
+          { title: "Main examination", text: "4 October 2026. Candidates should follow the date, reporting time and venue printed on their call letter.", badge: "Current stage" },
+          { title: "Indicative vacancies", text: "7,565 vacancies in the latest Annexure I position published on 27 August 2026. Union Bank of India was shown as not reported, so the figure remains indicative rather than a final allotment total.", badge: "Updated 27 Aug 2026", ctaLabel: "Latest vacancy annexure", href: "https://www.ibps.in/wp-content/uploads/ANNEXURE-I_updated_25.08.2026.pdf" },
+          { title: "Bank-wise vacancy snapshot", text: "Bank of Baroda 1,900 · Bank of India 500 · Bank of Maharashtra 1,100 · Canara Bank 1,500 · Central Bank of India 500 · Indian Bank 650 · Indian Overseas Bank 550 · Punjab National Bank 504 · Punjab & Sind Bank 161 · UCO Bank 200 · Union Bank of India: not reported.", badge: "Annexure I" },
+          { title: "Later stages", text: "Personality Test / Interview follow the Main result and shortlisting process. Provisional allotment is expected in the later part of the recruitment cycle; candidates should follow the official IBPS updates page for final dates.", badge: "Upcoming" },
+        ],
+      },
+      salary: {
+        eyebrow: "Salary & job profile",
+        title: "IBPS PO pay scale and role",
+        description: "IBPS specifies the basic pay scale. Allowances and perquisites depend on the rules of the participating bank and place of posting, so Examtree does not publish an invented in-hand salary figure.",
+        cards: [
+          { title: "Starting basic pay", text: "₹48,480.", badge: "JMGS-I" },
+          { title: "Official basic-pay scale", text: "₹48,480-2,000/7-62,480-2,340/2-67,160-2,680/7-85,920.", badge: "Pay scale" },
+          { title: "Allowances & perquisites", text: "Eligible officers receive allowances and perquisites according to the participating bank's rules in force from time to time. These can vary by bank and posting.", badge: "Bank-specific" },
+          { title: "Role", text: "Probationary Officer / Management Trainee is an entry-level officer track in participating public sector banks, involving branch operations, customer service, credit/operations exposure, compliance and managerial responsibilities as assigned by the bank.", badge: "Job profile" },
+        ],
+      },
+      faq: {
+        eyebrow: "Frequently asked questions",
+        title: "IBPS PO 2026 FAQs",
+        description: "Quick answers for the current CRP PO/MT-XVI cycle.",
+        cards: [
+          { title: "How many IBPS PO vacancies are there in the latest update?", text: "The latest indicative vacancy annexure published on 27 August 2026 totals 7,565. Union Bank of India was shown as not reported, and provisional allotment ultimately uses actual vacancies reported by participating banks." },
+          { title: "Do prelims marks count in final merit?", text: "No. Prelims is a screening stage. Final merit is based on the Main Examination and Interview, combined in an 80:20 ratio." },
+          { title: "What is the current IBPS PO Mains pattern?", text: "170 objective questions for 200 marks in 160 minutes, plus an English descriptive paper with one Essay and one Comprehension task for 25 marks in 30 minutes." },
+          { title: "Is there negative marking?", text: "Yes. One-fourth of the marks assigned to an objective question is deducted for a wrong answer. Unanswered questions carry no penalty." },
+          { title: "What is the age limit?", text: "20-30 years as on 1 July 2026, with category-wise upper-age relaxations under the notification." },
+          { title: "What is the starting basic pay?", text: "₹48,480 in the official JMGS-I basic scale. Allowances and perquisites vary according to the allotted bank's rules." },
+        ],
+      },
+      updates: {
+        eyebrow: "Current official updates",
+        title: "IBPS PO/MT-XVI latest official status",
+        description: "Current-cycle snapshot verified for 4 October 2026. Status should follow IBPS, not coaching-site calendars.",
+        cards: [
+          { title: "Main Examination call letter", text: "The Main Examination call-letter download window opened on 24 September 2026 and closes on 4 October 2026.", badge: "24 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
+          { title: "Preliminary score display", text: "IBPS opened the Online Preliminary Examination score display on 29 September 2026, with the displayed closure date 28 October 2026.", badge: "29 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
+          { title: "Latest vacancy update", text: "IBPS published a further vacancy corrigendum / updated vacancy position on 27 August 2026. The indicative total is 7,565.", badge: "27 Aug 2026", ctaLabel: "Vacancy annexure", href: "https://www.ibps.in/wp-content/uploads/ANNEXURE-I_updated_25.08.2026.pdf" },
+          { title: "Detailed notification", text: "The CRP PO/MT-XVI detailed notification was published on 1 July 2026.", badge: "1 Jul 2026", ctaLabel: "Notification PDF", href: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf" },
+        ],
+      },
     },
     topics: BANKING_PRACTICE_TOPICS,
   },
@@ -731,6 +1230,374 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     },
     topics: BANKING_PRACTICE_TOPICS,
   },
+  "ssc-selection-post": {
+    slug: "ssc-selection-post",
+    name: "SSC Selection Post",
+    yearLabel: "Phase XIV / 2026",
+    categoryHref: "/category/ssc",
+    officialUrl: "https://ssc.gov.in",
+    officialLabel: "ssc.gov.in",
+    meta: {
+      hubTitle: "SSC Selection Post Phase XIV 2026 Preparation, Pattern & Updates",
+      hubDescription: "Prepare for SSC Selection Post Phase XIV/2026 with level-wise CBE guidance, post-specific eligibility, current notices and ExamTree practice.",
+      preparationTitle: "How to Prepare for SSC Selection Post Phase XIV 2026",
+      preparationDescription: "Prepare by qualification level and post code: verify the post-specific eligibility first, then practise the common CBE subject families under SSC timing.",
+      syllabusTitle: "SSC Selection Post Phase XIV 2026 Syllabus & Pattern",
+      syllabusDescription: "SSC Selection Post Phase XIV/2026 uses a computer-based examination with the exact post eligibility, age, qualification and skill requirements defined separately for each post code.",
+    },
+    hub: {
+      title: "SSC Selection Post Phase XIV/2026 hub",
+      description: "Selection Post is not one uniform job. Use the post code first, verify its qualification and age conditions, then prepare for the relevant Matriculation, Higher Secondary or Graduation-level CBE.",
+      preparationSummary: "Identify the post code and qualification level before studying; the same subject families are tested at different difficulty levels.",
+      syllabusSummary: "The CBE covers General Intelligence, General Awareness, Quantitative Aptitude and English, with difficulty aligned to the prescribed qualification level.",
+      mockSummary: "Practise level-appropriate SSC questions and keep post-code eligibility separate from exam preparation.",
+    },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
+    },
+    preparation: {
+      eyebrow: "Selection Post preparation",
+      title: "How to prepare for SSC Selection Post Phase XIV/2026",
+      description: "Start from the post code, not from a generic Selection Post label. Confirm Essential Qualification, age, experience and skill-test conditions before investing in preparation.",
+      cards: [
+        { title: "1. Lock the post code", text: "Open the SSC post-details page and confirm the exact post name, qualification level, age limit, experience and category conditions." },
+        { title: "2. Prepare at the correct level", text: "Use Matriculation, Higher Secondary or Graduation-level practice as applicable; the subject families are similar but the expected level changes." },
+        { title: "3. Keep document scrutiny in view", text: "Candidates qualifying the CBE must upload the prescribed documents for scrutiny; eligibility is checked against the post-specific notice." },
+      ],
+      weeklyCycle: [
+        "Verify the target post code and Essential Qualification.",
+        "Rotate General Intelligence and Quantitative Aptitude practice.",
+        "Revise General Awareness in short recurring blocks.",
+        "Practise English grammar, vocabulary and comprehension.",
+        "Take one mixed CBE mock at the correct qualification level.",
+        "Maintain a checklist of certificates, experience and category documents required by the post.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "Phase XIV / 2026",
+      title: "SSC Selection Post Phase XIV syllabus and scheme",
+      description: "Selection Post Phase XIV/2026 uses a CBE, but post-specific qualification, age, experience and skill requirements are defined separately in Annexure III and the SSC post-details portal.",
+      sections: [
+        { title: "General Intelligence", summary: "Common CBE subject · difficulty depends on qualification level" },
+        { title: "General Awareness", summary: "Common CBE subject · difficulty depends on qualification level" },
+        { title: "Quantitative Aptitude", summary: "Common CBE subject · level-specific" },
+        { title: "English Language", summary: "Common CBE subject · grammar, vocabulary and comprehension" },
+      ],
+      patternCards: [
+        { title: "Three qualification levels", text: "SSC conducts separate level-appropriate question papers for Matriculation, Higher Secondary and Graduation & above posts." },
+        { title: "Post-specific eligibility", text: "Essential Qualification, experience, age limit, skill test and suitability conditions differ by post code; Annexure III / the SSC post-details portal is decisive." },
+        { title: "After CBE", text: "Candidates successful in the CBE must upload relevant documents for scrutiny. User departments can reject candidature if post-specific eligibility is not met." },
+      ],
+      verificationNote: "Phase XIV/2026 was advertised on 13 April 2026. SSC has since issued addenda, corrigenda and post cancellations, so candidates must verify their exact post code on the live SSC notice board.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "Selection Post eligibility is post-specific",
+        description: "There is no single age or qualification rule for all Phase XIV posts.",
+        cards: [
+          { title: "Qualification level", text: "Posts are advertised at Matriculation, Higher Secondary and Graduation & above levels.", badge: "Post-specific" },
+          { title: "Essential Qualification", text: "The exact degree, diploma, subject, experience or skill requirement is defined against the individual post code.", badge: "Check Annexure III" },
+          { title: "Age limit", text: "Age limits vary by post code. Category relaxations apply under SSC rules where eligible.", badge: "Varies" },
+          { title: "Document scrutiny", text: "CBE-qualified candidates must upload supporting documents; the user department performs detailed eligibility scrutiny.", badge: "Mandatory" },
+        ],
+      },
+      dates: {
+        eyebrow: "Phase XIV / 2026",
+        title: "SSC Selection Post Phase XIV important dates",
+        description: "The application and CBE stages have progressed; post-specific corrigenda continue to be published.",
+        cards: [
+          { title: "Notification", text: "Phase XIV/2026 notice published on 13 April 2026.", badge: "13 Apr 2026" },
+          { title: "Application window", text: "13 April to 4 May 2026; fee payment closed 5 May 2026 and correction window ran 11-13 May 2026.", badge: "Closed" },
+          { title: "CBE", text: "The notice scheduled the CBE for June 2026 on a tentative basis.", badge: "2026 cycle" },
+          { title: "Corrigenda / cancellations", text: "SSC has continued issuing post-specific corrigenda and cancellation notices, including notices in October 2026.", badge: "Check post code", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "Selection Post salary",
+        description: "Salary cannot be represented by one figure because Phase XIV contains many unrelated posts.",
+        cards: [
+          { title: "Pay level", text: "Each post code carries its own pay level / scale and department. Check the post-details entry before comparing opportunities.", badge: "Post-specific" },
+          { title: "Job profile", text: "Roles range across technical, scientific, clerical, field and support functions depending on the user department.", badge: "Wide variety" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC Selection Post Phase XIV FAQs",
+        description: "The key distinction is that eligibility belongs to the post code, not the examination name.",
+        cards: [
+          { title: "Is there one qualification for Selection Post?", text: "No. Each post code has its own Essential Qualification; posts are grouped broadly by Matriculation, Higher Secondary and Graduation & above levels." },
+          { title: "Can I apply for multiple post codes?", text: "Candidates must follow SSC's application instructions and satisfy the eligibility of every post code applied for." },
+          { title: "Is the CBE the final eligibility check?", text: "No. Detailed document scrutiny is carried out after CBE qualification, and candidature can be rejected if the post-specific conditions are not met." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "Phase XIV/2026 official status",
+        description: "SSC continues to publish post-specific corrections and cancellation notices.",
+        cards: [
+          { title: "Phase XIV notice", text: "SSC published Advertisement No. Phase-XIV/2026/Selection Posts on 13 April 2026.", badge: "13 Apr 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Additional DRDO posts", text: "SSC issued an addendum on 20 April 2026 adding four DRDO posts under special circumstances.", badge: "20 Apr 2026" },
+          { title: "Post cancellations / corrigenda", text: "Post-specific changes continued through 2026. Always verify the exact post code before relying on an older saved notice.", badge: "Ongoing", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
+    topics: SSC_CGL_TOPICS,
+  },
+  "ssc-je": {
+    slug: "ssc-je",
+    name: "SSC JE",
+    yearLabel: "2026",
+    categoryHref: "/category/ssc",
+    officialUrl: "https://ssc.gov.in",
+    officialLabel: "ssc.gov.in",
+    meta: {
+      hubTitle: "SSC JE 2026 Preparation, Syllabus, Pattern & Updates",
+      hubDescription: "Prepare for SSC Junior Engineer 2026 for Civil, Mechanical and Electrical disciplines with paper-wise guidance and official-cycle updates.",
+      preparationTitle: "How to Prepare for SSC JE 2026",
+      preparationDescription: "A discipline-first SSC JE strategy covering engineering fundamentals, General Intelligence, General Awareness and timed Paper-I / Paper-II practice.",
+      syllabusTitle: "SSC JE 2026 Syllabus & Exam Pattern",
+      syllabusDescription: "SSC JE recruits Junior Engineers in Civil, Mechanical and Electrical streams for participating Government of India organisations.",
+    },
+    hub: {
+      title: "SSC JE 2026 preparation hub",
+      description: "Choose your engineering discipline first, then combine technical preparation with the General Intelligence and General Awareness components required by SSC.",
+      preparationSummary: "Technical engineering carries the largest preparation load; use General Intelligence and General Awareness as regular scoring blocks rather than last-week revision.",
+      syllabusSummary: "Paper-I tests General Intelligence, General Awareness and the chosen engineering discipline; later stages continue discipline-specific assessment under the current notice.",
+      mockSummary: "Use discipline-specific technical sets plus full SSC JE papers to build calculation speed, formula recall and question selection.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Paper-I",
+      stage2Label: "Paper-II",
+      stage1Keywords: ["paper-i", "paper i", "paper-1", "paper 1"],
+      stage2Keywords: ["paper-ii", "paper ii", "paper-2", "paper 2"],
+    },
+    preparation: {
+      eyebrow: "SSC JE preparation",
+      title: "How to prepare for SSC JE 2026",
+      description: "Build a strong Civil, Mechanical or Electrical core first, then layer SSC-style objective practice and time control over it.",
+      cards: [
+        { title: "1. Lock the discipline", text: "Prepare only the engineering branch applicable to your target posts and qualification; do not mix Civil, Mechanical and Electrical syllabi." },
+        { title: "2. Build technical depth", text: "Revise core formulas, standard results, units, code concepts and frequently tested applications before increasing speed." },
+        { title: "3. Add SSC scoring sections", text: "Keep General Intelligence and General Awareness in recurring practice so technical preparation does not crowd them out." },
+      ],
+      weeklyCycle: [
+        "Revise one technical subject block and its formula sheet.",
+        "Solve a timed technical MCQ set from the same subject.",
+        "Practise General Intelligence twice during the week.",
+        "Revise General Awareness in short recurring blocks.",
+        "Take a mixed Paper-I mock and analyse calculation and concept errors.",
+        "Revisit weak technical topics with fresh questions rather than only notes.",
+      ],
+    },
+    syllabus: {
+      eyebrow: "SSC JE 2026",
+      title: "SSC Junior Engineer syllabus and pattern",
+      description: "SSC JE is discipline-specific. Candidates choose Civil, Mechanical or Electrical engineering according to the posts and qualifications for which they are eligible.",
+      sections: [
+        { title: "General Intelligence & Reasoning", summary: "Paper-I common section" },
+        { title: "General Awareness", summary: "Paper-I common section" },
+        { title: "Civil Engineering", summary: "Technical paper for Civil-target candidates" },
+        { title: "Mechanical Engineering", summary: "Technical paper for Mechanical-target candidates" },
+        { title: "Electrical Engineering", summary: "Technical paper for Electrical-target candidates" },
+      ],
+      patternCards: [
+        { title: "Paper-I", text: "Computer-based paper combining General Intelligence, General Awareness and the candidate's chosen engineering discipline." },
+        { title: "Paper-II", text: "Discipline-specific engineering assessment under the current SSC JE scheme. Use the 2026 notice for exact marks, timing and negative-marking provisions." },
+        { title: "Post eligibility", text: "Degree / diploma and experience requirements differ by organisation and JE post. Candidates must match their qualification to the post table in the notice." },
+      ],
+      verificationNote: "SSC lists Junior Engineer (Civil, Mechanical & Electrical) Examination, 2026 in its official 2026-27 calendar. SSC also issued JE 2026 notices in September 2026, so candidates should use the live notice board for the current schedule and post additions.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility",
+        title: "SSC JE 2026 eligibility",
+        description: "Eligibility is organisation- and discipline-specific.",
+        cards: [
+          { title: "Engineering qualification", text: "Candidates need the degree / diploma in Civil, Mechanical or Electrical Engineering specified against the target organisation and post.", badge: "Discipline-specific" },
+          { title: "Experience", text: "Some organisations accept the prescribed degree directly, while some diploma routes require the experience stated in the notice.", badge: "Post-specific" },
+          { title: "Age", text: "Upper-age limits differ by organisation / post; category relaxations apply under SSC rules.", badge: "Varies" },
+          { title: "Selection", text: "Paper-I → Paper-II → document / eligibility verification and allocation under the current scheme.", badge: "Two papers" },
+        ],
+      },
+      dates: {
+        eyebrow: "Current cycle",
+        title: "SSC JE 2026 official status",
+        description: "JE 2026 is an active SSC recruitment cycle.",
+        cards: [
+          { title: "2026 calendar entry", text: "SSC's 2026-27 calendar lists Junior Engineer (Civil, Mechanical & Electrical) Examination, 2026.", badge: "2026 cycle" },
+          { title: "September JE notice", text: "SSC published an Important Notice for Junior Engineer Examination, 2026 on 17 September 2026.", badge: "17 Sep 2026", ctaLabel: "SSC notice board", href: "https://ssc.gov.in" },
+          { title: "Scientific Assistant in IMD", text: "SSC published a 16 September 2026 notice for recruitment of Scientific Assistant in IMD through Junior Engineer Examination, 2026.", badge: "16 Sep 2026" },
+        ],
+      },
+      salary: {
+        eyebrow: "Posts & pay",
+        title: "SSC JE role and pay",
+        description: "Junior Engineer appointments are technical Central Government posts; exact pay and allowances depend on the organisation.",
+        cards: [
+          { title: "Junior Engineer", text: "SSC JE recruits technical Junior Engineers in participating Government of India departments / organisations.", badge: "Technical Group B" },
+          { title: "Pay", text: "The applicable pay level and allowances are stated against the post / organisation in the current notice and service rules.", badge: "Organisation-specific" },
+        ],
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "SSC JE 2026 FAQs",
+        description: "Key distinctions for engineering candidates.",
+        cards: [
+          { title: "Do I prepare all three engineering branches?", text: "No. Prepare only the branch relevant to your eligible target posts—Civil, Mechanical or Electrical." },
+          { title: "Is SSC JE only a technical paper?", text: "No. Paper-I also includes General Intelligence and General Awareness alongside the chosen engineering discipline." },
+          { title: "Is a diploma always enough?", text: "Not for every post. Degree, diploma and experience conditions vary by organisation, so check the post table carefully." },
+        ],
+      },
+      updates: {
+        eyebrow: "Latest updates",
+        title: "SSC JE 2026 official updates",
+        description: "The live SSC notice board is the source for current schedule and post changes.",
+        cards: [
+          { title: "Important Notice - JE 2026", text: "SSC published an Important Notice for Junior Engineer Examination, 2026 on 17 September 2026.", badge: "17 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+          { title: "Scientific Assistant recruitment through JE 2026", text: "SSC published a separate notice on 16 September 2026 for Scientific Assistant in IMD through JE Examination, 2026.", badge: "16 Sep 2026", ctaLabel: "Open SSC", href: "https://ssc.gov.in" },
+        ],
+      },
+    },
+    topics: [],
+  },
+  "sbi-po": makeExamShellConfig({
+    slug: "sbi-po",
+    name: "SBI PO",
+    categoryHref: "/category/banking",
+    officialUrl: "https://sbi.co.in/web/careers",
+    officialLabel: "sbi.co.in",
+  }),
+  "sbi-clerk": makeExamShellConfig({
+    slug: "sbi-clerk",
+    name: "SBI Clerk / Junior Associate",
+    categoryHref: "/category/banking",
+    officialUrl: "https://sbi.co.in/web/careers",
+    officialLabel: "sbi.co.in",
+  }),
+  "rbi-assistant": makeExamShellConfig({
+    slug: "rbi-assistant",
+    name: "RBI Assistant",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.rbi.org.in",
+    officialLabel: "rbi.org.in",
+  }),
+  "rbi-grade-b": makeExamShellConfig({
+    slug: "rbi-grade-b",
+    name: "RBI Grade B",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.rbi.org.in",
+    officialLabel: "rbi.org.in",
+  }),
+  "nabard-grade-a": makeExamShellConfig({
+    slug: "nabard-grade-a",
+    name: "NABARD Grade A",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.nabard.org",
+    officialLabel: "nabard.org",
+  }),
+  "sebi-grade-a": makeExamShellConfig({
+    slug: "sebi-grade-a",
+    name: "SEBI Grade A",
+    categoryHref: "/category/banking",
+    officialUrl: "https://www.sebi.gov.in",
+    officialLabel: "sebi.gov.in",
+  }),
+  "punjab-police-constable": makeExamShellConfig({
+    slug: "punjab-police-constable",
+    name: "Punjab Police Constable",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "punjab-police-si": makeExamShellConfig({
+    slug: "punjab-police-si",
+    name: "Punjab Police Sub-Inspector",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "psssb-clerk": makeExamShellConfig({
+    slug: "psssb-clerk",
+    name: "PSSSB Clerk / Junior Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-patwari": makeExamShellConfig({
+    slug: "punjab-patwari",
+    name: "Punjab Patwari",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "psssb-excise-taxation-inspector": makeExamShellConfig({
+    slug: "psssb-excise-taxation-inspector",
+    name: "PSSSB Excise & Taxation Inspector",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-naib-tehsildar": makeExamShellConfig({
+    slug: "punjab-naib-tehsildar",
+    name: "Punjab Naib Tehsildar",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://ppsc.gov.in",
+    officialLabel: "ppsc.gov.in",
+  }),
+  "punjab-pcs": makeExamShellConfig({
+    slug: "punjab-pcs",
+    name: "PPSC Punjab State Civil Services",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://ppsc.gov.in",
+    officialLabel: "ppsc.gov.in",
+  }),
+  "psssb-senior-assistant": makeExamShellConfig({
+    slug: "psssb-senior-assistant",
+    name: "PSSSB Senior Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "psssb-vdo": makeExamShellConfig({
+    slug: "psssb-vdo",
+    name: "PSSSB VDO / Gram Sevak",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://sssb.punjab.gov.in",
+    officialLabel: "sssb.punjab.gov.in",
+  }),
+  "punjab-jail-warder": makeExamShellConfig({
+    slug: "punjab-jail-warder",
+    name: "Punjab Jail Warder / Matron",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjab.gov.in",
+    officialLabel: "punjab.gov.in",
+  }),
+  "punjab-police-intelligence-assistant": makeExamShellConfig({
+    slug: "punjab-police-intelligence-assistant",
+    name: "Punjab Police Intelligence Assistant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://punjabpolice.gov.in",
+    officialLabel: "punjabpolice.gov.in",
+  }),
+  "pspcl-alm": makeExamShellConfig({
+    slug: "pspcl-alm",
+    name: "PSPCL Assistant Lineman",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://www.pspcl.in",
+    officialLabel: "pspcl.in",
+  }),
+  "pspcl-revenue-accountant": makeExamShellConfig({
+    slug: "pspcl-revenue-accountant",
+    name: "PSPCL Revenue Accountant",
+    categoryHref: "/category/punjab",
+    officialUrl: "https://www.pspcl.in",
+    officialLabel: "pspcl.in",
+  }),
 };
 
 export const SSC_CGL_PRACTICE_TOPICS = EXAM_ACQUISITION_CONFIGS["ssc-cgl"].topics;
@@ -747,6 +1614,27 @@ const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
   "ibps-clerk": ["IBPS_CLERK", "IBPS_CLERK_PRE", "IBPS_CLERK_PRELIMS", "IBPS_CSA"],
   "ibps-rrb-po": ["IBPS_RRB_PO"],
   "ibps-rrb-office-assistant": ["IBPS_RRB_CLERK"],
+  "ssc-selection-post": ["SSC_SELECTION_POST", "SSC_SELECTION_POSTS"],
+  "ssc-je": ["SSC_JE", "SSC_JUNIOR_ENGINEER"],
+  "sbi-po": ["SBI_PO", "SBI_PROBATIONARY_OFFICER"],
+  "sbi-clerk": ["SBI_CLERK", "SBI_JUNIOR_ASSOCIATE", "SBI_JA"],
+  "rbi-assistant": ["RBI_ASSISTANT"],
+  "rbi-grade-b": ["RBI_GRADE_B", "RBI_GRADE_B_OFFICER"],
+  "nabard-grade-a": ["NABARD_GRADE_A"],
+  "sebi-grade-a": ["SEBI_GRADE_A"],
+  "punjab-police-constable": ["PUNJAB_POLICE_CONSTABLE"],
+  "punjab-police-si": ["PUNJAB_POLICE_SI", "PUNJAB_POLICE_SUB_INSPECTOR"],
+  "psssb-clerk": ["PSSSB_CLERK", "PSSSB_JUNIOR_ASSISTANT"],
+  "punjab-patwari": ["PUNJAB_PATWARI", "PSSSB_PATWARI"],
+  "psssb-excise-taxation-inspector": ["PSSSB_EXCISE_TAXATION_INSPECTOR", "PUNJAB_EXCISE_TAXATION_INSPECTOR"],
+  "punjab-naib-tehsildar": ["PUNJAB_NAIB_TEHSILDAR", "PPSC_NAIB_TEHSILDAR"],
+  "punjab-pcs": ["PUNJAB_PCS", "PPSC_PCS", "PUNJAB_STATE_CIVIL_SERVICES"],
+  "psssb-senior-assistant": ["PSSSB_SENIOR_ASSISTANT"],
+  "psssb-vdo": ["PSSSB_VDO", "PSSSB_GRAM_SEVAK", "PUNJAB_VDO"],
+  "punjab-jail-warder": ["PUNJAB_JAIL_WARDER", "PUNJAB_JAIL_MATRON"],
+  "punjab-police-intelligence-assistant": ["PUNJAB_POLICE_INTELLIGENCE_ASSISTANT"],
+  "pspcl-alm": ["PSPCL_ALM", "PSPCL_ASSISTANT_LINEMAN"],
+  "pspcl-revenue-accountant": ["PSPCL_REVENUE_ACCOUNTANT"],
 };
 
 const EXAM_SLUG_BY_CATALOG_CODE = Object.fromEntries(
@@ -783,6 +1671,11 @@ export function examHubHref(examSlug: string) {
 
 export function examPreparationHref(examSlug: string) {
   return "/" + examSlug + "-preparation";
+}
+
+export function examDetailsHref(examSlug: string, section?: "overview" | "syllabus" | "pattern" | "preparation" | "updates" | "practice") {
+  const base = "/" + examSlug + "/details";
+  return section ? base + "#" + section : base;
 }
 
 export function examSyllabusHref(examSlug: string) {

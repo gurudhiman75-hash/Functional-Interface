@@ -65,8 +65,13 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
   assert.deepEqual(new Set(samples.map((sample) => ["EASY", "MEDIUM", "HARD"].indexOf(sample.question.difficulty))), allAvailableDifficulties, `${qlId}: editorial pack must show every available difficulty.`);
 }
 assert.ok(renderCae001EditorialRealnessReview().includes("CAE-CP-009"), "editorial realness pack must render all current checkpoints.");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.qlAllocationStatus, "PROVISIONAL_PENDING_SOURCE_SATURATION");
-assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlCount, 9);
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.qlAllocationStatus, "SOURCE_SATURATED_CONTENT_FROZEN");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalSourceQlAllocationStatus, "PROVISIONAL_PENDING_SOURCE_SATURATION");
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 9);
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlCount, 0);
+assert.deepEqual(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.provisionalQlIds, []);
+assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalProvisionalQlCount, 9);
+assert.deepEqual(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.historicalProvisionalQlIds, CAE_PROVISIONAL_QL_IDS);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.scenarioFamilyCount, 9);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.canonicalScenarioVariantCount, 27);
 assert.equal(CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
@@ -233,6 +238,9 @@ assert.equal(fiveWay.optionMetadata.filter((option) => option.isCorrect).length,
 const preview = previewCae001QuestionStudioReview({ qlId: "CAE-QL-009", locale: "pa-IN", seed: 73 });
 assert.equal(preview.packageId, CAE_001_QUESTION_STUDIO_PACKAGE_ID);
 assert.equal(preview.lifecycleStatus, "REVIEW_ONLY");
+assert.equal(preview.qlAllocationStatus, "SOURCE_SATURATED_CONTENT_FROZEN");
+assert.equal(preview.historicalSourceQlAllocationStatus, "PROVISIONAL_PENDING_SOURCE_SATURATION");
+assert.equal(preview.postClosureMappingProofVerified, true);
 assert.equal(preview.question.metadata.reviewOnly, true);
 assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry) => entry.packageId === CAE_001_QUESTION_STUDIO_PACKAGE_ID));
 assert.ok(listEnabledReasoningV1QuestionStudioPackages().some((entry) => entry.packageId === CAE_001_QUESTION_STUDIO_PACKAGE_ID));

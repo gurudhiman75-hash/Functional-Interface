@@ -1,14 +1,16 @@
 import { Link, useLocation } from "wouter";
 import {
+  BarChart3,
   Bookmark,
+  BookOpen,
+  CircleHelp,
   ClipboardList,
+  FileText,
   Home,
   LogOut,
   Newspaper,
-  ReceiptText,
   Settings,
   ShieldCheck,
-  ShoppingBag,
   Target,
   User,
   WandSparkles,
@@ -30,16 +32,22 @@ import {
 } from "@/components/ui/sidebar";
 
 const primaryLinks = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/exams", label: "Tests & Exams", icon: ClipboardList },
-  { href: "/resources", label: "Free Resources", icon: Newspaper },
-  { href: "/store", label: "Store", icon: ShoppingBag },
-  { href: "/my-packages", label: "My Purchases", icon: ReceiptText },
-  { href: "/dashboard", label: "My Activity", icon: Target },
+  { href: "/dashboard", label: "Dashboard", icon: Home },
+  { href: "/exams", label: "My Exams", icon: BookOpen },
+  { href: "/exams", label: "Test Series", icon: ClipboardList },
+  { href: "/mock-tests", label: "Free Tests", icon: FileText },
+  { href: "/mock-tests", label: "Practice by Topic", icon: Target },
+  { href: "/resources", label: "Study Material", icon: BookOpen },
+  { href: "/current-affairs", label: "Current Affairs", icon: Newspaper, badge: "New" },
+  { href: "/performance", label: "Performance", icon: BarChart3 },
   { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+  { href: "/profile", label: "Profile", icon: User },
+  { href: "/profile", label: "Settings", icon: Settings },
+  { href: "/contact", label: "Help & Support", icon: CircleHelp },
 ];
 
 function isLinkActive(location: string, href: string) {
+  if (href === "/dashboard") return location === "/dashboard" || location === "/result";
   if (href === "/") return location === "/";
   if (href === "/exams") {
     return location === "/exams"
@@ -56,7 +64,6 @@ function isLinkActive(location: string, href: string) {
       || (location.startsWith("/packages/") && !location.startsWith("/packages/success/"));
   }
   if (href === "/my-packages") return location === "/my-packages" || location === "/purchases";
-  if (href === "/dashboard") return location === "/dashboard" || location === "/result";
   return location === href || location.startsWith(`${href}/`);
 }
 
@@ -92,14 +99,14 @@ export function AppSidebar() {
       collapsible="icon"
     >
       <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
-        <Link href="/" aria-label="ExamTree home" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-            <span className="text-sm font-extrabold">E</span>
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-extrabold tracking-[-0.03em] text-sidebar-foreground">EXAMTREE</p>
-            <p className="truncate text-[11px] font-medium text-muted-foreground">Student workspace</p>
-          </div>
+        <Link href="/dashboard" aria-label="ExamTree dashboard" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1">
+          <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M4 12.5c5.3-.2 9.6 1.2 13.2 4.3V34C13.3 31.5 9 30.5 4 30.8V12.5Z" fill="#0d2d71"/>
+            <path d="M36 12.5c-5.3-.2-9.6 1.2-13.2 4.3V34c3.9-2.5 8.2-3.5 13.2-3.2V12.5Z" fill="#0b4ca2"/>
+            <path d="M20 14c-4-5.6-8.8-6.2-11.1-5 2.8 1.6 5 4.1 6.1 7.2 1.5-.9 3.2-1.7 5-2.2Z" fill="#0a72e8"/>
+            <path d="M20 14c4-5.6 8.8-6.2 11.1-5-2.8 1.6-5 4.1-6.1 7.2-1.5-.9-3.2-1.7-5-2.2Z" fill="#1398ff"/>
+          </svg>
+          <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-[#0b1b4d]">Examtree</p>
         </Link>
       </SidebarHeader>
 
@@ -108,7 +115,7 @@ export function AppSidebar() {
           {links.map((link) => {
             const active = isLinkActive(location, link.href);
             return (
-              <SidebarMenuItem key={link.href}>
+              <SidebarMenuItem key={`${link.href}-${link.label}`}>
                 <SidebarMenuButton
                   asChild
                   isActive={active}
@@ -117,7 +124,7 @@ export function AppSidebar() {
                 >
                   <Link href={link.href} className="flex items-center gap-3" aria-current={active ? "page" : undefined}>
                     <link.icon className="h-4 w-4" aria-hidden="true" />
-                    <span>{link.label}</span>
+                    <span className="flex min-w-0 flex-1 items-center justify-between gap-2"><span>{link.label}</span>{"badge" in link && link.badge ? <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[9px] font-extrabold text-white">{link.badge}</span> : null}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

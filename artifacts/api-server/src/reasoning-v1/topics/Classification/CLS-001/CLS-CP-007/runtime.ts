@@ -286,7 +286,7 @@ function coreConceptFor(ruleId: ClsCp007RuleId, commonValue: string): string {
     case "CLUSTER_ABSOLUTE_GAP_VECTOR":
       return `Most clusters have the same ordered absolute-gap vector: ${vectorText(commonValue, false)}.`;
     case "CLUSTER_NORMALIZED_SIGNED_GAP_RATIO":
-      return `Most clusters have adjacent movements in the same reduced signed ratio: ${commonValue.split(",").map(signed).join(":")}.`;
+      return `Most clusters have adjacent movements in the same reduced signed ratio: ${commonValue.split(",").map((entry) => signed(Number(entry))).join(":")}.`;
     case "CLUSTER_GAP_EQUALITY_PATTERN":
       return `Most clusters share the same equality arrangement among their adjacent gaps: ${displayPattern(commonValue)}.`;
     case "CLUSTER_VOWEL_COUNT": {

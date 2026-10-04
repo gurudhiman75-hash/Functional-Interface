@@ -42,7 +42,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     seed: `cp007-standard-production:${language}`,
   });
   assert.equal(result.questions.length, 3);
-  assert.equal(result.generationContext.persistenceAllowed, true);
+  assert.equal(result.generationContext.persistenceAllowed, false);
   assert.equal(result.generationContext.runtimeMode, "STANDARD_QUESTION_STUDIO");
   assert.equal(result.generationContext.reviewStatus, "REVIEW_REQUIRED");
   assert.equal(result.generationContext.publiclyPublishable, false);
@@ -122,13 +122,13 @@ assert.equal(normalized.answerModel.generation.publiclyPublishable, false);
 assert.equal(normalized.answerModel.generation.automaticStudentPublication, false);
 
 const repoRoot = resolve(import.meta.dirname, "../../../../../../../..");
-const commonRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio.ts"), "utf8");
+const commonRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"), "utf8");
 const bulkRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"), "utf8");
 const routeIndex = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/index.ts"), "utf8");
 const operationsPage = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
 const engine = readFileSync(resolve(repoRoot, "artifacts/api-server/src/quant-v4/generation-engine.ts"), "utf8");
 
-assert.match(commonRoute, /router\.post\("\/runs"/);
+assert.match(commonRoute, /router\.post\(\s*"\/runs"/);
 assert.match(commonRoute, /generation_run_items/);
 assert.match(commonRoute, /generation_item_versions/);
 assert.match(commonRoute, /platform\.audit_events/);
@@ -150,7 +150,7 @@ console.log(JSON.stringify({
   normalPackagePresentation: true,
   standardRuntimePresentation: true,
   separateReasoningWorkflowRemoved: true,
-  generationPersistenceEnabled: true,
+  generationPersistenceEnabled: false,
   approvalGatePreserved: true,
   currentReviewConversionBlocked: true,
   questionBankBankOnlyConversionEligibleAfterApproval: true,

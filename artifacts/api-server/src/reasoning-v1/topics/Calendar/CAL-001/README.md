@@ -1,6 +1,6 @@
 # CAL-001 — Calendar
 
-Current production-integrated Calendar package for Reasoning V1.
+Current BANK_ONLY-integrated Calendar package for Reasoning V1.
 
 ## Current authority
 
@@ -9,15 +9,18 @@ Permanent QLs:                 CAL-QL-001..036
 Checkpoint span:               CAL-CP-001..010
 Languages:                     English, Hindi, Punjabi
 Question Studio:               ACTIVE
+Lifecycle stage:               BANK_ONLY
 Question Bank status:          READY_FOR_STORAGE after manual approval
-Test eligibility:              ELIGIBLE after manual approval
-Mock-test eligibility:         enabled after manual approval
-Publication workflow:          eligible after manual approval
+Question Bank acceptance:      BANK_ONLY
+Test eligibility:              INELIGIBLE
+Mock-test eligibility:         false
+Publicly publishable:          false
+Production release authorized: false
 Automatic student publication: false
 ```
 
-The current production lifecycle is defined by `question-studio-runtime.ts` and
-`CAL-001-QUESTION-STUDIO-COMPLETION.md`.
+The current lifecycle is defined by `question-studio-runtime.ts` and
+`CAL-001-POST-CLOSURE-DEEP-AUDIT-20261004.md`.
 
 Older discovery/freeze records remain immutable historical evidence and may show
 earlier locked states. They must not be interpreted as the current package
@@ -41,8 +44,9 @@ runtime.ts                    deterministic source-package orchestration
 permanent-contracts.ts        CAL-QL-001..036 semantic ownership
 question-studio-runtime.ts    active permanent-QL Question Studio projection
 question-studio-runtime.test.ts
-                              production lifecycle and multilingual parity proof
-verifier.ts                   package-level independent recomputation and lifecycle checks
+                              BANK_ONLY lifecycle and multilingual parity proof
+verifier.ts                   normal-prototype independent recomputation
+source-gap-verifier.ts        source-gap independent recomputation
 foundation-proof.test.ts      exhaustive Gregorian foundation proof
 source-audit-gate.ts          source-coverage gate
 review-export.ts              English prototype review pack
@@ -62,6 +66,7 @@ Reasoning novelty pass.
 
 See:
 
+- `CAL-001-POST-CLOSURE-DEEP-AUDIT-20261004.md`
 - `CAL-001-DEEP-AUDIT-WAVE-01.md`
 - `cal-001-deep-audit-wave1.test.ts`
 - `cal-001-difficulty-reachability.test.ts`

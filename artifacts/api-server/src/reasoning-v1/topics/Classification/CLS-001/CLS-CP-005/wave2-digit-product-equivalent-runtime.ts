@@ -88,7 +88,6 @@ function constructState(seed: number, optionCount: 4 | 5) {
     });
     if (audit.result !== "EXPANDED_UNIQUE" || audit.answerIndex === null) continue;
     const quality = auditClsCp005Wave2PresentationQuality({
-      referenceTuple: reference,
       tuples,
       correctIndex: audit.answerIndex,
     });

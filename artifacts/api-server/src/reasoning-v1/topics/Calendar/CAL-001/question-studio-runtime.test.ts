@@ -32,9 +32,13 @@ function assertProductionReleasePayload(
   assert(preview.runtimeMode === "CANONICAL_REVIEW", `${label}: runtime mode is not canonical review.`);
   assert(preview.reviewStatus === "APPROVED_EDITORIAL_CANONICAL", `${label}: editorial release status is missing.`);
   assert(preview.questionBankStatus === "READY_FOR_STORAGE", `${label}: Question Bank storage is not enabled.`);
-  assert(preview.testEligibility === "ELIGIBLE", `${label}: test eligibility is not enabled.`);
-  assert(preview.publiclyPublishable === true, `${label}: publication workflow eligibility is not enabled.`);
-  assert(preview.mockTestEligible === true, `${label}: mock-test eligibility is not enabled.`);
+  assert(preview.questionBankWritable === true, `${label}: Question Bank write gate is not enabled.`);
+  assert(preview.questionBankAcceptanceMode === "BANK_ONLY", `${label}: acceptance mode is not BANK_ONLY.`);
+  assert(preview.lifecycleStage === "BANK_ONLY", `${label}: lifecycle stage is not BANK_ONLY.`);
+  assert(preview.productionReleaseAuthorized === false, `${label}: production release opened unexpectedly.`);
+  assert(preview.testEligibility === "INELIGIBLE", `${label}: scored-test eligibility must remain locked in BANK_ONLY.`);
+  assert(preview.publiclyPublishable === false, `${label}: public publication must remain locked in BANK_ONLY.`);
+  assert(preview.mockTestEligible === false, `${label}: mock-test eligibility must remain locked in BANK_ONLY.`);
   assert(preview.manualApprovalRequired === true, `${label}: manual approval gate is missing.`);
   assert(preview.automaticStudentPublication === false, `${label}: automatic student publication was enabled.`);
   assert(preview.releaseAuthority === CAL_001_PRODUCTION_RELEASE_AUTHORITY, `${label}: release authority mismatch.`);
@@ -73,9 +77,13 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
     assert(english.validation.valid, `${qlId}: package validation failed.`);
     assert(english.parameters.questionStudioStatus === "ACTIVE", `${qlId}: Question Studio is not active.`);
     assert(english.parameters.questionBankStatus === "READY_FOR_STORAGE", `${qlId}: Question Bank release is closed.`);
-    assert(english.parameters.testEligibility === "ELIGIBLE", `${qlId}: test release is closed.`);
-    assert(english.parameters.publiclyPublishable === true, `${qlId}: publication workflow release is closed.`);
-    assert(english.parameters.mockTestEligible === true, `${qlId}: mock-test release is closed.`);
+    assert(english.parameters.questionBankWritable === true, `${qlId}: Question Bank write gate is closed.`);
+    assert(english.parameters.questionBankAcceptanceMode === "BANK_ONLY", `${qlId}: acceptance mode drifted.`);
+    assert(english.parameters.lifecycleStage === "BANK_ONLY", `${qlId}: lifecycle stage drifted.`);
+    assert(english.parameters.productionReleaseAuthorized === false, `${qlId}: production release opened.`);
+    assert(english.parameters.testEligibility === "INELIGIBLE", `${qlId}: BANK_ONLY test lock drifted.`);
+    assert(english.parameters.publiclyPublishable === false, `${qlId}: BANK_ONLY public lock drifted.`);
+    assert(english.parameters.mockTestEligible === false, `${qlId}: BANK_ONLY mock lock drifted.`);
     assert(english.parameters.manualApprovalRequired === true, `${qlId}: approval gate is missing.`);
     assert(english.parameters.automaticStudentPublication === false, `${qlId}: automatic publication opened.`);
 
@@ -135,9 +143,9 @@ assert(catalogPackage.supportedLanguages.join(",") === "en,hi,pa", "CAL-001 lang
 assert(catalogPackage.runtimeMode === "CANONICAL_REVIEW", "CAL-001 capability is not in canonical review mode.");
 assert(catalogPackage.reviewStatus === "APPROVED_EDITORIAL_CANONICAL", "CAL-001 capability is not editorially release-approved.");
 assert(catalogPackage.questionBankStatus === "READY_FOR_STORAGE", "CAL-001 capability did not open approval-gated Question Bank conversion.");
-assert(catalogPackage.testEligibility === "ELIGIBLE", "CAL-001 capability did not open test eligibility.");
-assert(catalogPackage.publiclyPublishable === true, "CAL-001 capability did not open publication QA eligibility.");
-assert(catalogPackage.mockTestEligible === true, "CAL-001 capability did not open mock-test eligibility.");
+assert(catalogPackage.testEligibility === "INELIGIBLE", "CAL-001 capability did not preserve the BANK_ONLY test lock.");
+assert(catalogPackage.publiclyPublishable === false, "CAL-001 capability did not preserve the BANK_ONLY public lock.");
+assert(catalogPackage.mockTestEligible === false, "CAL-001 capability did not preserve the BANK_ONLY mock lock.");
 assert(catalogPackage.manualApprovalRequired === true, "CAL-001 capability removed manual approval.");
 assert(catalogPackage.automaticStudentPublication === false, "CAL-001 capability enabled automatic student publication.");
 
@@ -153,9 +161,12 @@ assert(new Set(mixedBatch.questions.map((question: any) => question.canonicalPro
 assert(mixedBatch.questions.every((question: any) => question.section === "Reasoning"), "Calendar preview section is not Reasoning.");
 assert(mixedBatch.questions.every((question: any) => question.generationBackend === "reasoning-v1"), "Calendar preview backend is not reasoning-v1.");
 assert(mixedBatch.questions.every((question: any) => question.questionBankStatus === "READY_FOR_STORAGE"), "Mixed batch is not Question Bank ready after approval.");
-assert(mixedBatch.questions.every((question: any) => question.testEligibility === "ELIGIBLE"), "Mixed batch is not test eligible after approval.");
-assert(mixedBatch.questions.every((question: any) => question.publiclyPublishable === true), "Mixed batch is not publication-QA eligible after approval.");
-assert(mixedBatch.questions.every((question: any) => question.mockTestEligible === true), "Mixed batch is not mock-test eligible after approval.");
+assert(mixedBatch.questions.every((question: any) => question.questionBankWritable === true), "Mixed batch Question Bank write gate is closed.");
+assert(mixedBatch.questions.every((question: any) => question.questionBankAcceptanceMode === "BANK_ONLY"), "Mixed batch acceptance mode is not BANK_ONLY.");
+assert(mixedBatch.questions.every((question: any) => question.lifecycleStage === "BANK_ONLY"), "Mixed batch lifecycle stage is not BANK_ONLY.");
+assert(mixedBatch.questions.every((question: any) => question.testEligibility === "INELIGIBLE"), "Mixed batch did not preserve the BANK_ONLY test lock.");
+assert(mixedBatch.questions.every((question: any) => question.publiclyPublishable === false), "Mixed batch did not preserve the BANK_ONLY public lock.");
+assert(mixedBatch.questions.every((question: any) => question.mockTestEligible === false), "Mixed batch did not preserve the BANK_ONLY mock lock.");
 assert(mixedBatch.questions.every((question: any) => question.manualApprovalRequired === true), "Mixed batch bypassed manual approval.");
 assert(mixedBatch.questions.every((question: any) => question.automaticStudentPublication === false), "Mixed batch enabled automatic student publication.");
 assert(mixedBatch.generationContext.runtimeMode === "CANONICAL_REVIEW", "Mixed batch runtime mode mismatch.");
@@ -182,15 +193,15 @@ assert(CAL_001_QUESTION_STUDIO_ACTIVATION.reviewAndRevisionEnabled, "Calendar re
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.regenerationEnabled, "Calendar regeneration is disabled.");
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.persistenceEnabled, "Calendar generation persistence is disabled.");
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.questionBankStatus === "READY_FOR_STORAGE", "Calendar Question Bank release is closed.");
-assert(CAL_001_QUESTION_STUDIO_ACTIVATION.testEligibility === "ELIGIBLE", "Calendar test release is closed.");
-assert(CAL_001_QUESTION_STUDIO_ACTIVATION.publiclyPublishable === true, "Calendar publication-QA release is closed.");
-assert(CAL_001_QUESTION_STUDIO_ACTIVATION.mockTestEligible === true, "Calendar mock-test release is closed.");
+assert(CAL_001_QUESTION_STUDIO_ACTIVATION.testEligibility === "INELIGIBLE", "Calendar test release is closed.");
+assert(CAL_001_QUESTION_STUDIO_ACTIVATION.publiclyPublishable === false, "Calendar publication-QA release is closed.");
+assert(CAL_001_QUESTION_STUDIO_ACTIVATION.mockTestEligible === false, "Calendar mock-test release is closed.");
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.manualApprovalRequired === true, "Calendar manual approval gate is missing.");
 assert(CAL_001_QUESTION_STUDIO_ACTIVATION.automaticStudentPublication === false, "Calendar automatic publication was enabled.");
 assert(CAL_001_PRODUCTION_RELEASE.authority === CAL_001_PRODUCTION_RELEASE_AUTHORITY, "Calendar release authority changed.");
 
-// Historical freeze snapshots remain immutable evidence. The newer release authority
-// supersedes those delivery locks without rewriting the earlier audit record.
+// Historical freeze snapshots remain immutable evidence. The current BANK_ONLY authority
+// opens reviewed Question Bank persistence without opening test, mock or public delivery.
 assert(CAL_001_RELEASE_LOCK.questionStudioAllowed === false, "Historical multilingual freeze snapshot was mutated.");
 assert(CAL_001_RELEASE_LOCK.questionBankWriteAllowed === false, "Historical Question Bank lock was mutated.");
 assert(CAL_001_RELEASE_LOCK.mockTestAllowed === false, "Historical mock-test lock was mutated.");
@@ -213,10 +224,15 @@ console.log(JSON.stringify({
   persistenceEnabled: true,
   reviewAndRevisionEnabled: true,
   regenerationEnabled: true,
-  questionBankStatus: "READY_FOR_STORAGE",
-  testEligibility: "ELIGIBLE",
-  publiclyPublishable: true,
-  mockTestEligible: true,
-  manualApprovalRequired: true,
-  automaticStudentPublication: false,
+  lifecycleStage: CAL_001_PRODUCTION_RELEASE.lifecycleStage,
+  questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+  questionBankWritable: CAL_001_PRODUCTION_RELEASE.questionBankWritable,
+  acceptanceMode: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode,
+  testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+  testEligible: CAL_001_PRODUCTION_RELEASE.testEligible,
+  publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
+  mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
+  manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
+  automaticStudentPublication: CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+  productionReleaseAuthorized: CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized,
 }, null, 2));

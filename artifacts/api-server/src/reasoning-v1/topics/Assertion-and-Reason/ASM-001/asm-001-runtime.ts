@@ -221,7 +221,9 @@ function answerLine(
   );
 }
 
-function scenarioPool(difficulty?: AsmDifficulty): readonly AsmScenarioAuthority[] {
+export function listAsm001ScenarioAuthorities(
+  difficulty?: AsmDifficulty,
+): readonly AsmScenarioAuthority[] {
   const pool = difficulty
     ? ASM_001_SCENARIO_AUTHORITIES.filter(
         (scenario) => scenario.difficulty === difficulty,
@@ -235,14 +237,13 @@ function scenarioPool(difficulty?: AsmDifficulty): readonly AsmScenarioAuthority
   return pool;
 }
 
-export function generateAsm001Question(
+export function generateAsm001QuestionFromScenario(
+  scenario: AsmScenarioAuthority,
   seed: string,
   language: AsmLanguage = "en",
-  difficulty?: AsmDifficulty,
 ): GeneratedAsm001Question {
   if (!seed.trim()) throw new Error("ASM-001 seed must be non-empty.");
-  const pool = scenarioPool(difficulty);
-  const scenario = pool[hash(seed + ":scenario") % pool.length]!;
+  validateScenario(scenario);
   const optionProfile = profileFor(scenario, seed);
 
   const semantics =
@@ -302,6 +303,17 @@ export function generateAsm001Question(
       reviewOnly: true as const,
     }),
   });
+}
+
+export function generateAsm001Question(
+  seed: string,
+  language: AsmLanguage = "en",
+  difficulty?: AsmDifficulty,
+): GeneratedAsm001Question {
+  if (!seed.trim()) throw new Error("ASM-001 seed must be non-empty.");
+  const pool = listAsm001ScenarioAuthorities(difficulty);
+  const scenario = pool[hash(seed + ":scenario") % pool.length]!;
+  return generateAsm001QuestionFromScenario(scenario, seed, language);
 }
 
 export function asm001ScenarioCountByDifficulty(): Readonly<
