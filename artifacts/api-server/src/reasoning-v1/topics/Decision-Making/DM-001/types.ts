@@ -48,6 +48,7 @@ export type DmCheckpointId = (typeof DM_001_CHECKPOINT_IDS)[number];
 export type DmQlId = (typeof DM_001_QL_IDS)[number];
 export type DmLocale = "en" | "hi" | "pa";
 export type DmDifficulty = "EASY" | "MEDIUM" | "HARD";
+export type DmSubjectKind = "PERSON" | "PRODUCT_LOT";
 export type DmOutcome =
   | "SELECT"
   | "REJECT"
@@ -77,8 +78,37 @@ export type DmField =
   | "repaymentStatus"
   | "collateralStatus"
   | "category"
-  | "applicationOrder";
-export type DmRankField = "qualificationRank" | "experienceYears" | "graduationMarks" | "writtenScore" | "sectionalScore" | "interviewScore" | "overallScore" | "age" | "applicationOrder";
+  | "applicationOrder"
+  | "moisturePercent"
+  | "defectPercent"
+  | "temperatureC"
+  | "weightGrams"
+  | "sizeMm"
+  | "purityPercent"
+  | "strengthMpa"
+  | "sealStatus"
+  | "labStatus"
+  | "labelStatus"
+  | "packagingStatus"
+  | "inspectionOrder";
+export type DmRankField =
+  | "qualificationRank"
+  | "experienceYears"
+  | "graduationMarks"
+  | "writtenScore"
+  | "sectionalScore"
+  | "interviewScore"
+  | "overallScore"
+  | "age"
+  | "applicationOrder"
+  | "moisturePercent"
+  | "defectPercent"
+  | "temperatureC"
+  | "weightGrams"
+  | "sizeMm"
+  | "purityPercent"
+  | "strengthMpa"
+  | "inspectionOrder";
 export type DmRankCriterion = Readonly<{ field: DmRankField; direction: "HIGHER_FIRST" | "LOWER_FIRST" }>;
 export type DmOperator = "LTE" | "GTE" | "EQ" | "IN";
 export type DmRuleValue = number | string | readonly (number | string)[];
@@ -94,7 +124,8 @@ export type DmCandidateMode =
   | "DIRECTOR_REFERRAL"
   | "COMMITTEE_REFERRAL"
   | "BOTH_RELAXATION"
-  | "DETERMINED_REJECT_WITH_MISSING";
+  | "DETERMINED_REJECT_WITH_MISSING"
+  | "RULE_EXCEPTION";
 
 export type LocalizedText = Readonly<Record<DmLocale, string>>;
 
@@ -187,6 +218,18 @@ export type DmCandidateProfile = Readonly<{
   collateralStatus?: string;
   category?: string;
   applicationOrder?: number;
+  moisturePercent?: number;
+  defectPercent?: number;
+  temperatureC?: number;
+  weightGrams?: number;
+  sizeMm?: number;
+  purityPercent?: number;
+  strengthMpa?: number;
+  sealStatus?: string;
+  labStatus?: string;
+  labelStatus?: string;
+  packagingStatus?: string;
+  inspectionOrder?: number;
 }>; 
 
 export type DmRankingSpec = Readonly<{
@@ -200,6 +243,7 @@ export type DmScenario = Readonly<{
   blueprintCheckpointId: string;
   qlId: DmQlId;
   context: LocalizedText;
+  subjectKind?: DmSubjectKind;
   baseConditions: readonly DmRuleCondition[];
   decisionRules: readonly DmDecisionRule[];
   ruleNotes: readonly LocalizedText[];
