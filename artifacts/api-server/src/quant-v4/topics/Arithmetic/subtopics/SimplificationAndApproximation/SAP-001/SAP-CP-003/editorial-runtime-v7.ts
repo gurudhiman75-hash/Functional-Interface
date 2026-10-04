@@ -31,6 +31,28 @@ function shuffledFour(seedMaterial: string): number[] {
   return values;
 }
 
+function diversifyDecimalPlacementFrame(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.prototypeId !== "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT") return pkg;
+  const match = pkg.stem.match(/^(Ignoring decimal points, \d+ × \d+ = \d+\.)\s+Which option places the decimal point correctly for ([0-9.]+) × ([0-9.]+)\?$/);
+  if (!match) return pkg;
+  const prefix = match[1]!;
+  const left = match[2]!;
+  const right = match[3]!;
+  const frame = (pkg.seed - 1) % 4;
+  const tails = [
+    `Which option places the decimal point correctly for ${left} × ${right}?`,
+    `Choose the correctly placed decimal value of ${left} × ${right}.`,
+    `Which listed value gives the correct decimal placement in the product ${left} × ${right}?`,
+    `For ${left} × ${right}, which option has the decimal point in the correct position?`,
+  ] as const;
+  const stem = `${prefix} ${tails[frame]!}`;
+  return Object.freeze({
+    ...pkg,
+    stem,
+    generationIdentity: `${pkg.generationIdentity}:QL051-FRAME-${frame + 1}`,
+  });
+}
+
 function targetCorrectIndex(pkg: SapCp003Package): number {
   const zeroBasedSeed = pkg.seed - 1;
   const block = Math.floor(zeroBasedSeed / 4);
@@ -81,7 +103,8 @@ export function generateSapCp003Package(
   seed: number,
 ): SapCp003Package {
   const qualityReady = applySapCp003DistractorPlausibilityV3(generateV6Package(prototypeId, seed));
-  return balanceAnswerPosition(qualityReady);
+  const frameReady = diversifyDecimalPlacementFrame(qualityReady);
+  return balanceAnswerPosition(frameReady);
 }
 
 export function generateSapCp003Sweep(
