@@ -114,7 +114,6 @@ const registryPreview = previewReasoningV1QuestionStudioReview({
 assert.equal(registryPreview.questions[0]?.candidateQlId, "STA-QL-005");
 assert.equal(registryPreview.questions[0]?.permanentQlId, "STA-QL-005");
 assert.equal(registryPreview.questions[0]?.validation.multilingualFrozen, true);
-assert.equal(registryPreview.questions[0]?.permanentQlId, null);
 assert.throws(
   () => persistReasoningV1QuestionStudioReview({ packageId: "STA-001", language: "en", qlId: "STA-QL-001" }),
   /V4\.1 remains review-only|delivery stays locked/u,
