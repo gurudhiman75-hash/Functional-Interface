@@ -47,11 +47,25 @@ import {
   type TestValidationIssue,
 } from '@/features/test-builder/api';
 
+interface BuilderDescriptiveTask {
+  id: string;
+  kind: 'essay' | 'comprehension' | 'letter' | 'precis' | 'other';
+  prompt: string;
+  marks: number;
+  minWords: string;
+  maxWords: string;
+  instructions: string;
+  stimulusTitle: string;
+  stimulusText: string;
+}
+
 interface BuilderSection {
   clientKey: string;
   name: string;
   durationMinutes: string;
   questionVersionIds: string[];
+  settings: Record<string, unknown>;
+  descriptiveTasks: BuilderDescriptiveTask[];
 }
 
 interface BuilderDraft {
@@ -91,7 +105,7 @@ const freshDraft = (): BuilderDraft => ({
   switchSections: true,
   markForReview: true,
   preventFullscreenExit: false,
-  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
+  sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [], settings: {}, descriptiveTasks: [] }],
 });
 
 function record(value: unknown): Record<string, unknown> {
@@ -102,6 +116,61 @@ function record(value: unknown): Record<string, unknown> {
 
 function stringSetting(settings: Record<string, unknown>, key: string, fallback: string) {
   return typeof settings[key] === 'string' ? String(settings[key]) : fallback;
+}
+
+
+function descriptiveTasksFromSettings(settingsValue: unknown): BuilderDescriptiveTask[] {
+  const settings = record(settingsValue);
+  const rawTasks = Array.isArray(settings.descriptiveTasks) ? settings.descriptiveTasks : [];
+  return rawTasks.map((value, index) => {
+    const task = record(value);
+    const stimulus = record(task.stimulus);
+    const kindValue = String(task.kind ?? 'other');
+    const kind: BuilderDescriptiveTask['kind'] =
+      kindValue === 'essay' || kindValue === 'comprehension' || kindValue === 'letter' || kindValue === 'precis'
+        ? kindValue
+        : 'other';
+    return {
+      id: typeof task.id === 'string' && task.id.trim() ? task.id : `task-${index + 1}`,
+      kind,
+      prompt: typeof task.prompt === 'string' ? task.prompt : '',
+      marks: Number.isFinite(Number(task.marks)) ? Number(task.marks) : 0,
+      minWords: task.minWords == null ? '' : String(task.minWords),
+      maxWords: task.maxWords == null ? '' : String(task.maxWords),
+      instructions: typeof task.instructions === 'string' ? task.instructions : '',
+      stimulusTitle: typeof stimulus.title === 'string' ? stimulus.title : '',
+      stimulusText: typeof stimulus.text === 'string' ? stimulus.text : '',
+    };
+  });
+}
+
+function descriptiveMarksForSections(sections: BuilderSection[]): number {
+  return sections.reduce(
+    (sum, section) => sum + section.descriptiveTasks.reduce((taskSum, task) => taskSum + (Number(task.marks) || 0), 0),
+    0,
+  );
+}
+
+function serializedSectionSettings(section: BuilderSection): Record<string, unknown> {
+  const descriptiveTasks = section.descriptiveTasks.map((task) => ({
+    id: task.id.trim(),
+    kind: task.kind,
+    prompt: task.prompt.trim(),
+    marks: Number(task.marks),
+    minWords: task.minWords === '' ? null : Number(task.minWords),
+    maxWords: task.maxWords === '' ? null : Number(task.maxWords),
+    instructions: task.instructions.trim() || null,
+    stimulus: task.stimulusText.trim()
+      ? {
+          id: `${task.id.trim()}-stimulus`,
+          kind: 'passage',
+          title: task.stimulusTitle.trim() || null,
+          text: task.stimulusText.trim(),
+          imageUrl: null,
+        }
+      : null,
+  }));
+  return { ...section.settings, descriptiveTasks };
 }
 
 function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
@@ -136,6 +205,8 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
       name: section.name,
       durationMinutes: section.durationSeconds == null ? '' : String(section.durationSeconds / 60),
       questionVersionIds: section.questions.map((question) => question.questionVersionId),
+      settings: record(section.settings),
+      descriptiveTasks: descriptiveTasksFromSettings(section.settings),
     })),
   };
 }
@@ -202,7 +273,9 @@ export function TestBuilderPage() {
   );
   const selectedQuestionIds = draft.sections.flatMap((section) => section.questionVersionIds);
   const selectedQuestionSet = useMemo(() => new Set(selectedQuestionIds), [selectedQuestionIds.join('|')]);
-  const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion;
+  const descriptiveTaskCount = draft.sections.reduce((sum, section) => sum + section.descriptiveTasks.length, 0);
+  const descriptiveMarks = descriptiveMarksForSections(draft.sections);
+  const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion + descriptiveMarks;
 
   const availableQuestions = useMemo(() => publishedQuestions.filter((question) => {
     if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
@@ -219,11 +292,19 @@ export function TestBuilderPage() {
     if (draft.sections.length === 0) issues.push({ code: 'SECTION_REQUIRED', message: 'Add at least one section.' });
     draft.sections.forEach((section) => {
       if (!section.name.trim()) issues.push({ code: 'SECTION_NAME_REQUIRED', message: 'Every section needs a name.' });
-      if (section.questionVersionIds.length === 0) issues.push({ code: 'EMPTY_SECTION', message: `${section.name || 'A section'} has no questions.` });
+      if (section.questionVersionIds.length === 0 && section.descriptiveTasks.length === 0) issues.push({ code: 'EMPTY_SECTION', message: `${section.name || 'A section'} has no questions or descriptive tasks.` });
+      section.descriptiveTasks.forEach((task) => {
+        if (!task.id.trim()) issues.push({ code: 'DESCRIPTIVE_ID_REQUIRED', message: `${section.name}: every descriptive task needs an id.` });
+        if (!task.prompt.trim()) issues.push({ code: 'DESCRIPTIVE_PROMPT_REQUIRED', message: `${section.name}: descriptive task ${task.id || 'unnamed'} needs a prompt.` });
+        if (!(task.marks > 0)) issues.push({ code: 'DESCRIPTIVE_MARKS_REQUIRED', message: `${section.name}: descriptive task ${task.id || 'unnamed'} needs positive marks.` });
+        const minWords = task.minWords === '' ? null : Number(task.minWords);
+        const maxWords = task.maxWords === '' ? null : Number(task.maxWords);
+        if (minWords != null && maxWords != null && minWords > maxWords) issues.push({ code: 'DESCRIPTIVE_WORD_LIMIT', message: `${section.name}: minimum words cannot exceed maximum words for ${task.id}.` });
+      });
     });
-    if (selectedQuestionIds.length === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Select at least one published question.' });
+    if (selectedQuestionIds.length + descriptiveTaskCount === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Add at least one published question or descriptive task.' });
     if (Math.abs(calculatedMarks - draft.totalMarks) > 0.001) {
-      issues.push({ code: 'MARKS_MISMATCH', message: `Selected questions total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
+      issues.push({ code: 'MARKS_MISMATCH', message: `Objective and descriptive items total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
     }
     const timed = draft.sections.filter((section) => section.durationMinutes !== '');
     if (timed.length > 0) {
@@ -231,14 +312,14 @@ export function TestBuilderPage() {
       if (total !== draft.durationMinutes) issues.push({ code: 'DURATION_MISMATCH', message: `Section durations total ${total} minutes, while test duration is ${draft.durationMinutes}.` });
     }
     return issues;
-  }, [draft, calculatedMarks, selectedQuestionIds.length]);
+  }, [draft, calculatedMarks, descriptiveTaskCount, selectedQuestionIds.length]);
 
   const addSection = () => {
     const next = draft.sections.length + 1;
     const clientKey = `section-${Date.now()}`;
     setDraft((current) => ({
       ...current,
-      sections: [...current.sections, { clientKey, name: `Section ${next}`, durationMinutes: '', questionVersionIds: [] }],
+      sections: [...current.sections, { clientKey, name: `Section ${next}`, durationMinutes: '', questionVersionIds: [], settings: {}, descriptiveTasks: [] }],
     }));
     setActiveSectionKey(clientKey);
   };
@@ -246,7 +327,11 @@ export function TestBuilderPage() {
   const removeSection = (clientKey: string) => {
     if (draft.sections.length <= 1) return;
     const next = draft.sections.filter((section) => section.clientKey !== clientKey);
-    setDraft((current) => ({ ...current, sections: next, totalMarks: next.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion }));
+    setDraft((current) => ({
+      ...current,
+      sections: next,
+      totalMarks: next.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(next),
+    }));
     if (activeSectionKey === clientKey) setActiveSectionKey(next[0].clientKey);
   };
 
@@ -267,7 +352,7 @@ export function TestBuilderPage() {
         return { ...section, questionVersionIds: [...without, questionVersionId] };
       });
       const count = sections.flatMap((section) => section.questionVersionIds).length;
-      return { ...current, sections, totalMarks: count * current.marksPerQuestion };
+      return { ...current, sections, totalMarks: count * current.marksPerQuestion + descriptiveMarksForSections(sections) };
     });
   };
 
@@ -296,7 +381,7 @@ export function TestBuilderPage() {
       clientKey: section.clientKey,
       name: section.name,
       durationMinutes: section.durationMinutes === '' ? null : Number(section.durationMinutes),
-      settings: {},
+      settings: serializedSectionSettings(section),
       questions: section.questionVersionIds.map((questionVersionId) => ({
         questionVersionId,
         marks: draft.marksPerQuestion,
