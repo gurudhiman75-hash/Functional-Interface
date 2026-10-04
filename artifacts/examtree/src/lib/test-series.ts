@@ -44,7 +44,7 @@ export interface StudentSeriesSummary {
   hubSectionOrder?: number;
   hubSeriesOrder?: number;
   iconUrl?: string;
-  tests: StudentSeriesCatalogTest[];
+  tests?: StudentSeriesCatalogTest[];
 }
 
 export interface StudentSeriesMember {
