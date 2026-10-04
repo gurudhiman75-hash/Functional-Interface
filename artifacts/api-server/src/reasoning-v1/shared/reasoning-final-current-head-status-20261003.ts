@@ -79,7 +79,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Coding-Decoding",
       chapterIds: ["COD-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Coding-Decoding/COD-001/COD-001-FINAL-DEEP-AUDIT-CLOSURE-20260928.md"],
+      closureAuthorities: ["topics/Coding-Decoding/COD-001/COD-001-POST-CLOSURE-DEEP-AUDIT-20261004.md"],
       internalContentBlocker: false,
     },
     {

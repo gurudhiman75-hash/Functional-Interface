@@ -2,10 +2,15 @@ name: Reasoning COD-001 Runtime
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**"
-      - ".github/workflows/reasoning-cod-001-runtime.yml"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-cod-001-runtime-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   cod-runtime:
@@ -70,6 +75,9 @@ jobs:
         run: |
           cat cod-difficulty-pedagogy.log
           test "${{ steps.difficulty_pedagogy.outputs.exit_code }}" = "0"
+
+      - name: Run standard Question Studio adapter integration
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/question-studio-standard-integration.test.ts
 
       - name: Run standard competitive-exam stem audit
         id: standard_stems
