@@ -8,6 +8,12 @@ import { CP005_COMPETING_SCENARIOS } from "./cp005-competing-explanations.ts";
 import { CP007_FALSE_CAUSATION_WORLDS } from "./cp007-false-causation.ts";
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
 import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
+import { assertCaeGeneratedAnswerIntegrity } from "./question-studio-post-closure-proof.ts";
+import {
+  CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+  CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
+  CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+} from "./post-closure-current-state.ts";
 import { CAE_SOURCE_PROFILE_IDS, type CaeSourceProfileId } from "./source-profiles.ts";
 import type { CaeLocale, CaeQlId, CaeQuestionProfile } from "./types.ts";
 
@@ -36,11 +42,15 @@ export const CAE_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   version: "V3" as const,
   integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
   reviewStatus: "REVIEW_ONLY_GENERATIVE_CAUSAL_STATE_V3_ARCHITECTURE_CHECKPOINT" as const,
-  /** Frozen V3 legacy counts remain stable; saturation is exposed separately. */
-  qlAllocationStatus: "PROVISIONAL_PENDING_SOURCE_SATURATION" as const,
+  /** Historical source authorities retain their original provisional marker; current chapter state is frozen. */
+  qlAllocationStatus: CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+  historicalSourceQlAllocationStatus: CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
   contentFreezeStatus: CAE_001_MANIFEST.qlDiscovery.status,
+  permanentQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
+  permanentQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
   provisionalQlCount: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds.length,
   provisionalQlIds: CAE_001_MANIFEST.qlDiscovery.currentCandidateIds,
+  postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
   scenarioFamilyCount: CAE_001_SCENARIO_FAMILIES.length,
   canonicalScenarioVariantCount: CAE_001_CAUSAL_WORLDS.length,
   saturationWave1FamilyCount: SATURATION_WAVE1_FAMILY_COUNT,
@@ -78,11 +88,16 @@ export function previewCae001QuestionStudioReview(input: PreviewCae001QuestionSt
   const question = input.sourceProfileId
     ? generateReviewedCaeSourceProfileQuestion({ qlId: input.qlId, locale: input.locale, seed: input.seed, sourceProfileId: input.sourceProfileId })
     : generateReviewedCaeQuestion(input);
+  assertCaeGeneratedAnswerIntegrity(question);
   return Object.freeze({
     packageId: CAE_001_QUESTION_STUDIO_PACKAGE_ID,
     integrationAuthority: CAE_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
     lifecycleStatus: "REVIEW_ONLY" as const,
     reviewOnly: true as const,
+    qlAllocationStatus: CAE_001_CURRENT_QL_ALLOCATION_STATUS,
+    historicalSourceQlAllocationStatus: CAE_001_HISTORICAL_SOURCE_QL_ALLOCATION_STATUS,
+    postClosureMappingProofAuthority: CAE_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+    postClosureMappingProofVerified: true as const,
     question,
   });
 }
