@@ -6,6 +6,7 @@ import { startMobileNotificationWorker } from "./lib/mobile-notification-deliver
 import { logger } from "./lib/logger";
 import { validateAIProviderStartup } from "./lib/ai-providers";
 import { ensureApprovedExamCatalogue } from "./lib/approved-exam-catalogue";
+import { ensureApprovedExamTestSeries } from "./lib/approved-test-series-catalogue";
 
 const rawPort = process.env["PORT"];
 
@@ -25,6 +26,9 @@ validateAIProviderStartup();
 
 await ensureApprovedExamCatalogue().catch((error) => {
   logger.error({ error }, "Unable to ensure approved exam catalogue during startup");
+});
+await ensureApprovedExamTestSeries().catch((error) => {
+  logger.error({ error }, "Unable to ensure approved exam test series during startup");
 });
 
 startGenerationJobWorker();
