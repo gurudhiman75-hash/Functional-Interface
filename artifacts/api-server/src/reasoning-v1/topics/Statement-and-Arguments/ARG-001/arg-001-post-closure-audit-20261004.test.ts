@@ -125,7 +125,6 @@ for (const index of [0, 1, 2, 3, 4]) {
     }),
     /runtime correct index .* disagrees with independently parsed option semantics/i,
   );
-}
 
   const driftedStrengths = [...(sample.argumentStrengths as readonly string[])];
   driftedStrengths[0] = driftedStrengths[0] === "STRONG" ? "WEAK" : "STRONG";
