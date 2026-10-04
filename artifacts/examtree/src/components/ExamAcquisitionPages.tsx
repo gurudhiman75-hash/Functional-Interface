@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { ArrowRight, BookOpenCheck, CheckCircle2, ChevronDown, FileText, Loader2, Sparkles, Target } from "lucide-react";
+import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
 import MathText from "@/components/MathText";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -11,6 +11,7 @@ import type { Test } from "@/lib/data";
 import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { getSessionUser } from "@/lib/session-user";
 import {
   catalogExamCodesForSlug,
   examHubHref,
@@ -193,9 +194,285 @@ function ConfiguredManualCards({ section }: { section: WebExamPageSection }) {
   );
 }
 
+
+function countLabel(count: number) {
+  return count > 0 ? String(count) : "Coming soon";
+}
+
+function marketingCategoryLabel(examName: string) {
+  if (/^IBPS\b|^SBI\b|^RBI\b|bank/i.test(examName)) return "Banking exams";
+  if (/^SSC\b/i.test(examName)) return "SSC exams";
+  return "Exam preparation";
+}
+
+function LoggedOutExamHubPage({
+  examSlug,
+  config,
+  examIcon,
+  flatTests,
+  dataUnavailable,
+}: {
+  examSlug: string;
+  config: ReturnType<typeof requireConfig>;
+  examIcon?: string | null;
+  flatTests: ExamHubFlatTest[];
+  dataUnavailable: boolean;
+}) {
+  const returnPath = examHubHref(examSlug);
+  const loginHref = "/login/student?next=" + encodeURIComponent(returnPath);
+  const signupHref = "/login/student?mode=signup&next=" + encodeURIComponent(returnPath);
+
+  const prelimsFull = flatTests.filter((test) => test.stage === "prelims" && test.type === "full-length").length;
+  const mainsFull = flatTests.filter((test) => test.stage === "mains" && test.type === "full-length").length;
+  const sectional = flatTests.filter((test) => test.type === "sectional").length;
+  const topicWise = flatTests.filter((test) => test.type === "topic-wise").length;
+  const pyq = flatTests.filter((test) => test.type === "pyq").length;
+  const fullMocks = flatTests.filter((test) => test.type === "full-length").length;
+  const hasMains = mainsFull > 0;
+
+  const offeringCards = hasMains
+    ? [
+        { value: countLabel(prelimsFull), title: "Prelims Mock Tests", text: "Full-length practice for the preliminary stage.", tone: "blue" },
+        { value: countLabel(mainsFull), title: "Mains Mock Tests", text: "Full-length practice for the main examination.", tone: "green" },
+        { value: countLabel(sectional), title: "Sectional Tests", text: "Focused practice for individual exam sections.", tone: "orange" },
+        { value: countLabel(topicWise), title: "Topic-wise Tests", text: "Target individual topics before full mocks.", tone: "violet" },
+      ]
+    : [
+        { value: countLabel(fullMocks), title: "Full Mock Tests", text: "Exam-pattern full-length practice.", tone: "blue" },
+        { value: countLabel(sectional), title: "Sectional Tests", text: "Focused practice for individual exam sections.", tone: "green" },
+        { value: countLabel(topicWise), title: "Topic-wise Tests", text: "Target individual topics before full mocks.", tone: "orange" },
+        { value: countLabel(pyq), title: "Previous Year Papers", text: "Practise published previous-year and memory-based papers.", tone: "violet" },
+      ];
+
+  const toneClass: Record<string, string> = {
+    blue: "border-blue-100 bg-gradient-to-br from-blue-50 to-white text-blue-700",
+    green: "border-emerald-100 bg-gradient-to-br from-emerald-50 to-white text-emerald-700",
+    orange: "border-orange-100 bg-gradient-to-br from-orange-50 to-white text-orange-700",
+    violet: "border-violet-100 bg-gradient-to-br from-violet-50 to-white text-violet-700",
+  };
+
+  const features = [
+    { icon: Target, title: "Exam-focused mock tests", text: "Practise with published full-length, sectional and topic-wise tests mapped to this exam." },
+    { icon: BookOpenCheck, title: "Detailed solutions", text: "Review answers with clear explanations after your attempts." },
+    { icon: BarChart3, title: "Focused practice", text: "Move between full mocks, sections and individual topics as your preparation develops." },
+    { icon: BookOpen, title: "Previous year practice", text: "Use available previous-year and memory-based papers to understand the question style." },
+    { icon: Languages, title: "Language support", text: "Use the language options available for each published test and learning resource." },
+    { icon: Smartphone, title: "Study on any screen", text: "Use the responsive web experience across desktop, tablet and mobile." },
+    { icon: CalendarDays, title: "Preparation resources", text: "Keep syllabus, pattern and preparation guidance together with your test practice." },
+    { icon: ShieldCheck, title: "Saved preparation", text: "Sign in to keep attempts, results and preparation activity connected to your account." },
+  ];
+
+  const infoLinks = [
+    { icon: BookOpenCheck, label: "Overview", href: "#about-exam" },
+    { icon: BookOpen, label: "Syllabus", href: examSyllabusHref(examSlug) },
+    { icon: FileText, label: "Exam Pattern", href: examSyllabusHref(examSlug) },
+    { icon: Sparkles, label: "Preparation Strategy", href: examPreparationHref(examSlug) },
+    { icon: Target, label: "Free Practice", href: practiceTopicHref(config.topics[0]?.slug ?? "", examSlug) },
+    { icon: Globe2, label: "Official Notices", href: config.officialUrl, external: true },
+  ];
+
+  return (
+    <div className="bg-white pb-14">
+      <div className="mx-auto w-full max-w-[1480px] px-4 pt-5 sm:px-6 lg:px-8">
+        <section className="relative min-h-[470px] overflow-hidden rounded-[30px] border border-blue-100 bg-[linear-gradient(115deg,#f8fbff_0%,#edf6ff_48%,#dbeafe_100%)] shadow-[0_18px_55px_rgba(37,99,235,0.10)]">
+          <div className="absolute -left-20 -top-24 h-72 w-72 rounded-full bg-white/80 blur-3xl" />
+          <div className="absolute bottom-[-150px] left-[38%] h-[380px] w-[380px] rounded-full bg-blue-300/20 blur-3xl" />
+          <div className="absolute right-[270px] top-14 hidden h-[340px] w-[340px] items-center justify-center rounded-full border border-white/70 bg-white/25 text-blue-900/10 lg:flex">
+            <Landmark className="h-56 w-56" strokeWidth={1.1} />
+          </div>
+          <div className="absolute bottom-9 right-[335px] hidden rounded-2xl border border-white/80 bg-white/70 px-4 py-3 text-xs font-semibold leading-5 text-slate-600 shadow-sm backdrop-blur lg:block">
+            Prepare smarter.<br />Build confidence.<br />Perform better.
+          </div>
+
+          <div className="relative grid min-h-[470px] lg:grid-cols-[minmax(0,1fr)_350px]">
+            <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-14 lg:py-12">
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/75 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] text-blue-700 shadow-sm">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                {marketingCategoryLabel(config.name)}
+              </div>
+
+              <div className="mt-5 flex items-start gap-4">
+                {examIcon ? (
+                  <div className="hidden h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm sm:flex">
+                    <CategoryIcon icon={examIcon} className="h-12 w-12" />
+                  </div>
+                ) : null}
+                <div>
+                  <h1 className="text-4xl font-black tracking-[-0.045em] text-[#111b4d] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">
+                    {config.name} <span className="text-blue-600">{config.yearLabel}</span>
+                  </h1>
+                  <p className="mt-2 text-xl font-bold tracking-tight text-slate-800">{config.hub.title}</p>
+                </div>
+              </div>
+
+              <p className="mt-4 max-w-2xl text-[15px] leading-7 text-slate-600 sm:text-base">
+                {config.hub.description}
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {[
+                  "Exam-pattern practice",
+                  "Sectional & topic-wise",
+                  "Previous year papers",
+                  "Detailed solutions",
+                ].map((label) => (
+                  <span key={label} className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-white/90 bg-white/75 px-3 py-2 text-xs font-bold text-slate-700 shadow-sm backdrop-blur">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href={signupHref} className="inline-flex min-h-12 items-center justify-center rounded-xl bg-blue-600 px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(37,99,235,0.22)] transition hover:bg-blue-700">
+                  Start preparing <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <a href="#whats-included" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-blue-200 bg-white/75 px-6 text-sm font-bold text-blue-700 transition hover:bg-white">
+                  See what&apos;s included
+                </a>
+              </div>
+            </div>
+
+            <div className="m-5 self-center rounded-[24px] border border-white/90 bg-white/92 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.12)] backdrop-blur sm:m-7 lg:ml-0 lg:p-6">
+              <div className="text-center">
+                <h2 className="text-xl font-black tracking-tight text-slate-950">Get started with ExamTree</h2>
+                <p className="mt-2 text-sm leading-5 text-slate-500">Sign in to access tests, save attempts and keep your preparation connected.</p>
+              </div>
+
+              <Link href={loginHref} className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-bold text-white hover:bg-blue-700">
+                <Chrome className="mr-2 h-4 w-4" /> Continue with Google
+              </Link>
+              <div className="my-4 flex items-center gap-3"><span className="h-px flex-1 bg-slate-200" /><span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">or</span><span className="h-px flex-1 bg-slate-200" /></div>
+              <div className="grid grid-cols-2 gap-2">
+                <Link href={signupHref} className="flex min-h-11 items-center justify-center rounded-xl border border-blue-200 bg-white px-3 text-xs font-bold text-blue-700 hover:bg-blue-50">Sign up</Link>
+                <Link href={loginHref} className="flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-700 hover:bg-slate-50">Login</Link>
+              </div>
+
+              <div className="mt-5 grid grid-cols-3 gap-2 border-t border-slate-100 pt-4">
+                <div className="text-center"><ShieldCheck className="mx-auto h-5 w-5 text-blue-600" /><p className="mt-1 text-[10px] font-bold text-slate-700">Secure account</p></div>
+                <div className="text-center"><BarChart3 className="mx-auto h-5 w-5 text-emerald-600" /><p className="mt-1 text-[10px] font-bold text-slate-700">Save progress</p></div>
+                <div className="text-center"><Smartphone className="mx-auto h-5 w-5 text-violet-600" /><p className="mt-1 text-[10px] font-bold text-slate-700">Responsive access</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="mt-14 grid gap-3 rounded-2xl border border-blue-100 bg-blue-50/60 p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-4">
+          <div className="flex items-center gap-3 rounded-xl bg-white/70 p-3"><CalendarDays className="h-8 w-8 text-blue-600" /><div><p className="text-[11px] font-semibold text-slate-500">Exam cycle</p><p className="font-bold text-slate-900">{config.yearLabel}</p></div></div>
+          <div className="flex items-center gap-3 rounded-xl bg-white/70 p-3"><FileText className="h-8 w-8 text-cyan-600" /><div><p className="text-[11px] font-semibold text-slate-500">Published practice</p><p className="font-bold text-slate-900">{flatTests.length > 0 ? flatTests.length + " tests" : "Being prepared"}</p></div></div>
+          <div className="flex items-center gap-3 rounded-xl bg-white/70 p-3"><BookOpen className="h-8 w-8 text-violet-600" /><div><p className="text-[11px] font-semibold text-slate-500">Preparation</p><p className="font-bold text-slate-900">Syllabus + strategy</p></div></div>
+          <div className="flex items-center gap-3 rounded-xl bg-white/70 p-3"><Landmark className="h-8 w-8 text-amber-600" /><div><p className="text-[11px] font-semibold text-slate-500">Official source</p><p className="font-bold text-slate-900">{config.officialLabel}</p></div></div>
+        </div>
+
+        {dataUnavailable ? (
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+            Live catalogue counts are temporarily unavailable. Public exam information remains available below.
+          </div>
+        ) : null}
+
+        <section id="whats-included" className="mt-12 scroll-mt-24">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="text-2xl font-black tracking-tight text-[#111b4d]">{config.name} {config.yearLabel} Test Series</h2>
+              <p className="mt-1 text-sm text-slate-500">See what is available after you sign in. Individual test names remain inside your preparation workspace.</p>
+            </div>
+            <Link href={signupHref} className="text-sm font-bold text-blue-700 hover:underline">Sign in to access tests <ArrowRight className="ml-1 inline h-4 w-4" /></Link>
+          </div>
+
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {offeringCards.map((card) => (
+              <div key={card.title} className={"rounded-2xl border p-5 " + toneClass[card.tone]}>
+                <p className="text-3xl font-black tracking-tight">{card.value}</p>
+                <h3 className="mt-1 font-bold text-slate-950">{card.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{card.text}</p>
+                <div className="mt-4 flex items-center gap-2 text-xs font-bold text-slate-600"><CheckCircle2 className="h-4 w-4 text-emerald-600" /> Available in your test workspace</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="why-examtree" className="mt-12 overflow-hidden rounded-[26px] border border-blue-100 bg-gradient-to-r from-blue-50 via-white to-indigo-50 p-6 sm:p-8">
+          <div className="grid gap-7 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">Why ExamTree</p>
+              <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-[#111b4d]">Everything you need to prepare in one place.</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Use the same exam page for discovery, guidance and—after sign in—your actual test practice.</p>
+              <Link href={signupHref} className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">Create free account <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {features.map(({ icon: Icon, title, text }) => (
+                <article key={title} className="rounded-2xl border border-white bg-white/85 p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700"><Icon className="h-5 w-5" /></span>
+                  <h3 className="mt-3 text-sm font-bold text-slate-950">{title}</h3>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="about-exam" className="mt-12 scroll-mt-24">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">Know the exam</p>
+          <h2 className="mt-1 text-2xl font-black tracking-tight text-[#111b4d]">Everything about {config.name} {config.yearLabel}</h2>
+          <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500">Plan your preparation with public exam guidance before you create an account.</p>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {infoLinks.map(({ icon: Icon, label, href, external }) => {
+              const content = <><Icon className="h-6 w-6 text-blue-600" /><span className="mt-3 text-sm font-bold text-slate-900">{label}</span><ArrowRight className="mt-3 h-4 w-4 text-slate-400" /></>;
+              return external
+                ? <a key={label} href={href} target="_blank" rel="noreferrer" className="flex min-h-[145px] flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-sm">{content}</a>
+                : <Link key={label} href={href} className="flex min-h-[145px] flex-col rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-sm">{content}</Link>;
+            })}
+          </div>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+              <h3 className="text-lg font-bold text-slate-950">About {config.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">{config.hub.description}</p>
+              <Link href={examSyllabusHref(examSlug)} className="mt-4 inline-flex items-center text-sm font-bold text-blue-700 hover:underline">View syllabus & exam pattern <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </div>
+            <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+              <h3 className="text-lg font-bold text-slate-950">Prepare with a clear plan</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">{config.hub.preparationSummary}</p>
+              <Link href={examPreparationHref(examSlug)} className="mt-4 inline-flex items-center text-sm font-bold text-blue-700 hover:underline">Open preparation guide <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <h2 className="text-2xl font-black tracking-tight text-[#111b4d]">Preparation resources</h2>
+              <p className="mt-1 text-sm text-slate-500">Public guidance you can use before starting your tests.</p>
+            </div>
+          </div>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {config.preparation.cards.slice(0, 3).map((card, index) => {
+              const Icon = index === 0 ? Target : index === 1 ? BookOpen : CalendarDays;
+              return <Link key={card.title} href={examPreparationHref(examSlug)} className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-sm"><Icon className="h-6 w-6 text-blue-600" /><h3 className="mt-3 font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-500">{card.text}</p></Link>;
+            })}
+          </div>
+        </section>
+
+        <section className="mt-12 overflow-hidden rounded-[26px] bg-[#0f2f66] px-6 py-7 text-white sm:px-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-200">Ready when you are</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight">Turn preparation into consistent practice.</h2>
+              <p className="mt-2 text-sm text-blue-100">Create an account to unlock the actual {config.name} test workspace and save your progress.</p>
+            </div>
+            <Link href={signupHref} className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-xl bg-amber-400 px-6 text-sm font-black text-slate-950 hover:bg-amber-300">Sign up now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
 export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
   const catalog = useExamCatalog();
+  const sessionUser = getSessionUser();
   const [activeExamStage, setActiveExamStage] = useState<"prelims" | "mains" | "pyq">("prelims");
   const [activeTestType, setActiveTestType] = useState<"full-length" | "sectional" | "topic-wise">("full-length");
   const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
@@ -301,6 +578,18 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
   const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
+
+  if (!sessionUser) {
+    return (
+      <LoggedOutExamHubPage
+        examSlug={examSlug}
+        config={config}
+        examIcon={catalogExam?.icon}
+        flatTests={flatTests}
+        dataUnavailable={Boolean(catalog.error || seriesQuery.error)}
+      />
+    );
+  }
 
   const renderSection = (section: WebExamPageSection) => {
     const manualCards = (section.cards ?? []).filter((card) => card.isVisible);
