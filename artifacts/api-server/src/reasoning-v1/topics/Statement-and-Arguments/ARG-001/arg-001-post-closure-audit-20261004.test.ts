@@ -34,6 +34,8 @@ const fingerprints: string[] = [];
 const profileCounts = new Map<string, number>();
 const answerIndexCounts = new Map<number, number>();
 let bankingEitherDistractors = 0;
+let contextualizedProvenanceSurfaces = 0;
+let residualProvenanceSurfaces = 0;
 
 for (const language of LANGUAGES) {
   for (const qlId of ARG_QL_IDS) {
@@ -51,6 +53,12 @@ for (const language of LANGUAGES) {
         });
         const question = batch.questions[0] as Question;
         assertArgCp015FinalAnswerIntegrity(question);
+        if (Array.isArray(question.preArgumentContextualizationArguments)) {
+          contextualizedProvenanceSurfaces += 1;
+        }
+        if (Array.isArray(question.preResidualArgumentDiversityArguments)) {
+          residualProvenanceSurfaces += 1;
+        }
 
         assert.equal(batch.generationContext.postClosureAnswerProofVerified, true);
         assert.equal(
@@ -137,6 +145,43 @@ for (const index of [0, 1, 2, 3, 4]) {
   );
 }
 
+assert.ok(
+  contextualizedProvenanceSurfaces > 0,
+  "ARG post-closure audit did not exercise contextualized combo provenance",
+);
+assert.ok(
+  residualProvenanceSurfaces > 0,
+  "ARG post-closure audit did not exercise residual combo provenance",
+);
+
+// Provenance proof must fail closed when a transformed argument is tampered with
+// while the carried strength vector and answer metadata are left untouched.
+{
+  let sample: Question | undefined;
+  for (let seedIndex = 0; seedIndex < 128 && !sample; seedIndex += 1) {
+    const question = generateArgCp015QuestionStudioBatch({
+      profileMode: "real-paper",
+      examProfile: "BANKING_COMBO_4X5",
+      qlId: "ARG-QL-004",
+      language: "en",
+      difficulty: "Hard",
+      seed: `ARG-POST-CLOSURE-PROVENANCE-DRIFT:${seedIndex}`,
+      count: 1,
+    }).questions[0] as Question;
+    if (Array.isArray(question.postResidualArgumentDiversityArguments)) sample = question;
+  }
+  assert.ok(sample, "ARG provenance drift test could not locate a residual-rewrite sample");
+  const tampered = [...(sample!.postResidualArgumentDiversityArguments as readonly string[])];
+  tampered[0] = `${tampered[0]} This sentence was not produced by the approved rewrite family.`;
+  assert.throws(
+    () => assertArgCp015FinalAnswerIntegrity({
+      ...sample!,
+      postResidualArgumentDiversityArguments: tampered,
+    }),
+    /outside the approved semantic variant family/i,
+  );
+}
+
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.questionBankWritable, true);
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.testEligible, true);
 assert.equal(ARG_CP015_QUESTION_STUDIO_PACKAGE.mockTestEligible, true);
@@ -159,6 +204,8 @@ console.log(JSON.stringify({
   profileCounts: Object.fromEntries(profileCounts),
   answerIndexCounts: Object.fromEntries([...answerIndexCounts].sort(([a], [b]) => a - b)),
   bankingEitherDistractors,
+  contextualizedProvenanceSurfaces,
+  residualProvenanceSurfaces,
   answerProofAuthority: ARG_CP015_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
   lifecycle: {
     questionBankWritable: true,
