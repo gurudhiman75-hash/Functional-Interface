@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const reasoningRegistry = await import("../../../question-studio-review-registry.ts");
 const sharedGenerationEngine = await import("../../../../question-studio/shared-generation-engine.ts");
@@ -23,8 +24,12 @@ import {
   previewSta001QuestionStudioReview,
 } from "./question-studio-review.ts";
 
-function source(relativePath: string): string {
-  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+function source(...relativePaths: readonly string[]): string {
+  for (const relativePath of relativePaths) {
+    const candidate = resolve(process.cwd(), relativePath);
+    if (existsSync(candidate)) return readFileSync(candidate, "utf8");
+  }
+  throw new Error(`Unable to locate required source file from cwd ${process.cwd()}: ${relativePaths.join(", ")}`);
 }
 
 function assertReviewOnly(payload: Record<string, any>) {
@@ -45,8 +50,11 @@ function assertReviewOnly(payload: Record<string, any>) {
 assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry: any) => entry.packageId === "STA-001"));
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioVisible, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 4);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 6);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, [
+  "STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006",
+]);
+assert.deepEqual(STA_001_HISTORICAL_PERMANENT_QL_IDS, [
   "STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004",
 ]);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount, 6);
@@ -57,7 +65,7 @@ assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount, 4);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles.length, 9);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedDifficulties, ["Easy", "Medium", "Hard"]);
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, false);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
@@ -80,12 +88,11 @@ for (const qlId of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds) {
   for (let index = 0; index < 4; index += 1) {
     const en = byLanguage.en![index]!;
     assert.equal(en.candidateQlId, qlId);
-    const historicallyPermanent = (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId);
-    assert.equal(en.permanentQlId, historicallyPermanent ? qlId : null);
+    assert.equal(en.permanentQlId, qlId);
     assert.equal(en.validation.valid, true);
     assert.equal(en.validation.crossLanguageSemanticParity, true);
     assert.equal(en.validation.antiCueV4, true);
-    assert.equal(en.validation.multilingualFrozen, false);
+    assert.equal(en.validation.multilingualFrozen, true);
     assertReviewOnly(buildSta001QuestionStudioPayload(en) as Record<string, any>);
     for (const language of ["hi", "pa"] as const) {
       const translated = byLanguage[language]![index]!;
@@ -110,10 +117,11 @@ const registryPreview = previewReasoningV1QuestionStudioReview({
   seed: "sta-v4-1-registry-preview",
 });
 assert.equal(registryPreview.questions[0]?.candidateQlId, "STA-QL-005");
-assert.equal(registryPreview.questions[0]?.permanentQlId, null);
+assert.equal(registryPreview.questions[0]?.permanentQlId, "STA-QL-005");
+assert.equal(registryPreview.questions[0]?.validation.multilingualFrozen, true);
 assert.throws(
   () => persistReasoningV1QuestionStudioReview({ packageId: "STA-001", language: "en", qlId: "STA-QL-001" }),
-  /V4\.1 remains review-only|delivery stays locked/u,
+  /review only.*delivery remains locked|Question Bank\/test\/mock\/public delivery remains locked/u,
 );
 
 for (const profile of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles) {
@@ -123,7 +131,8 @@ for (const profile of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfile
 
 const cockpit = listQuestionStudioPackages().find((entry: any) => entry.packageId === "STA-001") as any;
 assert.ok(cockpit);
-assert.equal(cockpit.permanentQlCount, 4);
+assert.equal(cockpit.permanentQlCount, 6);
+assert.deepEqual(cockpit.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
 assert.equal(cockpit.candidateQlCount, 6);
 assert.deepEqual(cockpit.candidateQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
 assert.equal(cockpit.presentationProfiles.length, 9);
@@ -144,8 +153,7 @@ for (const qlId of ["STA-QL-001", "STA-QL-005", "STA-QL-006"] as const) {
   assert.equal(generated.questions.length, 3);
   for (const raw of generated.questions as Array<Record<string, any>>) {
     assert.equal(raw.candidateQlId, qlId);
-    const historicallyPermanent = (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId);
-    assert.equal(raw.permanentQlId, historicallyPermanent ? qlId : null);
+    assert.equal(raw.permanentQlId, qlId);
     assertReviewOnly(raw);
   }
 }
@@ -155,10 +163,16 @@ for (const cpId of ["STA-CP-001", "STA-CP-002", "STA-CP-003", "STA-CP-004"] as c
   assert.ok(generated.questionPackages.every((entry: any) => entry.checkpointId === cpId));
 }
 
-const routeSource = source("../../../../routes/admin-question-studio-average.ts");
+const routeSource = source(
+  "src/routes/admin-question-studio-average.ts",
+  "artifacts/api-server/src/routes/admin-question-studio-average.ts",
+);
 assert.ok(routeSource.includes("isSta001QuestionStudioRequest"));
 assert.ok(routeSource.includes("reasoning-v1-sta-001"));
-const panelSource = source("../../../../../../admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx");
+const panelSource = source(
+  "../admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx",
+  "artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx",
+);
 for (const marker of ["STA-QL-005", "STA-QL-006", "BANK_5X5", "PUNJAB_3X4", "canonicalProblemId: qlId", "patternId: selectedProfile"]) {
   assert.ok(panelSource.includes(marker), `STA V4.1 admin panel missing marker: ${marker}`);
 }

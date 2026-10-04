@@ -67,9 +67,11 @@ export const STA_001_CHAPTER_FREEZE_V4_1 = Object.freeze({
     "./question-studio-review-v4-1.ts": "a689d65256a6520470f937a085ceda2639a68401",
   }),
 
+  certifiedSnapshotPolicy: "ORIGINAL_V4_1_REVIEW_ENTRYPOINT_ARCHIVED_BYTE_IDENTICALLY__LIVE_ENTRYPOINT_ADDS_POST_CLOSURE_PROOF" as const,
+
   frozenGovernanceBlobLocks: Object.freeze({
     "./question-studio-freeze-v4-1.ts": "bd20fe49fba90101407127b21d43f3550c78b66b",
-    "./question-studio-review.ts": "7b83c208d54d925d8178b02103f7df527d7bef52",
+    "./v4-1-certified-snapshots/question-studio-review.ts.snapshot": "7b83c208d54d925d8178b02103f7df527d7bef52",
     "./question-studio-payload.ts": "75f876c38c99236ccec04a45b82699bf095dab81",
     "./question-studio-v4-1-integration.test.ts": "d88b3192839575980c9e54a245fd0e5a4974ac2d",
   }),

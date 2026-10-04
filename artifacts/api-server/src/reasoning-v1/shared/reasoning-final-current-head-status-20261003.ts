@@ -204,7 +204,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Statement-and-Assumption",
       chapterIds: ["STA-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Statement-and-Assumption/STA-001/STA-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md"],
+      closureAuthorities: ["topics/Statement-and-Assumption/STA-001/STA-001-POST-CLOSURE-DEEP-AUDIT-20261004.md"],
       internalContentBlocker: false,
     },
     {
