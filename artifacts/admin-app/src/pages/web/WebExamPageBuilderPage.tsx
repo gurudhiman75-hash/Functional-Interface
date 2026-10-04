@@ -93,7 +93,7 @@ const KNOWN_PAGES=[
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
   const user=getFirebaseAuth()?.currentUser;
   if(!user)throw new Error('Your administrator session has expired.');
-  const response=await fetch(${apiBase}${path},{...init,headers:{'Content-Type':'application/json',Authorization:`Bearer ${await user.getIdToken()}`,...init?.headers}});
+  const response=await fetch(`${apiBase}${path}`,{...init,headers:{'Content-Type':'application/json',Authorization:`Bearer ${await user.getIdToken()}`,...init?.headers}});
   const body=await response.json().catch(()=>null) as (T&{error?:string})|null;
   if(!response.ok)throw new Error(body?.error||`Request failed (${response.status}).`);
   return body as T;
