@@ -230,10 +230,20 @@ const PRODUCT_OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Partial<Record<
   pa: Object.freeze({ SELECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰ ਕਰੋ", REJECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਰੱਦ ਕਰੋ", INFORMATION_REQUIRED: "ਗੁਣਵੱਤਾ ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ" }),
 });
 
+const ORGANIZATION_OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Partial<Record<DmOutcome, string>>>>> = Object.freeze({
+  en: Object.freeze({ SELECT: "Approve under the stated rules", REJECT: "Do not approve under the stated rules", INFORMATION_REQUIRED: "Decision cannot be made; an organisational record is required" }),
+  hi: Object.freeze({ SELECT: "दी गई शर्तों के अनुसार मंजूरी दें", REJECT: "दी गई शर्तों के अनुसार मंजूरी न दें", INFORMATION_REQUIRED: "निर्णय के लिए संस्थागत रिकॉर्ड आवश्यक है" }),
+  pa: Object.freeze({ SELECT: "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ", REJECT: "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰੀ ਨਾ ਦਿਓ", INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਸੰਸਥਾਗਤ ਰਿਕਾਰਡ ਲੋੜੀਂਦਾ ਹੈ" }),
+});
+
 function outcomeLabel(outcome: DmOutcome, locale: DmLocale, seed: number, scenario?: DmScenario): string {
   if (scenario?.subjectKind === "PRODUCT_LOT") {
     const productLabel = PRODUCT_OUTCOME_LABELS[locale][outcome];
     if (productLabel) return productLabel;
+  }
+  if (scenario?.subjectKind === "ORGANIZATION") {
+    const organizationLabel = ORGANIZATION_OUTCOME_LABELS[locale][outcome];
+    if (organizationLabel) return organizationLabel;
   }
   if (outcome === "REFER_TO_MANAGER" || outcome === "REFER_TO_DIRECTOR" || outcome === "REFER_TO_COMMITTEE") {
     const variants = REFERRAL_OUTCOME_VARIANTS[locale][outcome];
