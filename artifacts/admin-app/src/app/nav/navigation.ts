@@ -43,6 +43,9 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Define immutable exam structures, preview Question Bank shortages and assemble deterministic test drafts.' },
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Plan releases, inspect missed schedules, drag QA-approved tests onto dates, publish immediately, postpone or unschedule.' },
   ] },
+  { id: 'web-app', label: 'Web App', items: [
+    { label: 'Exam Page Builder', path: '/web/exam-pages', icon: Home, status: 'live', permission: 'content.taxonomy.read', summary: 'Control full exam landing-page structure, section order, visibility, copy, tabs, list/grid layouts, columns, card styles, CTAs and custom content.' },
+  ] },
   { id: 'mobile-app', label: 'Mobile App', items: [
     { label: 'Layout Composer', path: '/mobile/screens', icon: Home, status: 'live', permission: 'content.taxonomy.read', summary: 'Edit the mobile app page-by-page with hierarchy, hero, data-bound sections, configurable grids, card spans, styles and destinations.', milestone: 'App-wide page registry, native/managed rendering, canonical data sources, visual composition and deep-link validation.' },
     { label: 'Home Management', path: '/mobile/home', icon: Home, status: 'live', permission: 'content.taxonomy.read', summary: 'Advanced Home-specific controls retained while Home is migrated to the app-wide block schema.', milestone: 'Home parity with the generic Screen Builder.' },

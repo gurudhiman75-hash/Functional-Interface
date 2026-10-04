@@ -9,6 +9,7 @@ import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/Pub
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
 import { getStudentTestSeries, type StudentSeriesCatalogTest, type StudentSeriesSummary } from "@/lib/test-series";
+import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection, type WebExamSectionLayout } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import {
   catalogExamCodesForSlug,
@@ -103,14 +104,14 @@ function progressionLabel(mode: ExamHubCatalogItem["progressionMode"]) {
   return "Open access";
 }
 
-function tabLabelForSection(title: string) {
+function tabLabelForSection(title: string, labels: Record<string, string> = {}) {
   const value = title.toLowerCase();
-  if (/prelims?|preliminary/.test(value)) return "Prelims";
-  if (/mains?|main exam/.test(value)) return "Mains";
-  if (/\bpyq\b|previous[ -]?year/.test(value)) return "PYQ";
-  if (/sectional/.test(value)) return "Sectional";
-  if (/topic[ -]?wise/.test(value)) return "Topic-wise";
-  if (/more test/.test(value)) return "More";
+  if (/prelims?|preliminary/.test(value)) return labels.prelims || "Prelims";
+  if (/mains?|main exam/.test(value)) return labels.mains || "Mains";
+  if (/\bpyq\b|previous[ -]?year/.test(value)) return labels.pyq || "PYQ";
+  if (/sectional/.test(value)) return labels.sectional || "Sectional";
+  if (/topic[ -]?wise/.test(value)) return labels.topicWise || "Topic-wise";
+  if (/more test/.test(value)) return labels.more || "More";
   return title;
 }
 
@@ -145,7 +146,7 @@ function testItem(test: Test): ExamHubCatalogItem {
   };
 }
 
-function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; seriesId: string }) {
+function SeriesTestRow({ test, seriesId, ctaLabel }: { test: StudentSeriesCatalogTest; seriesId: string; ctaLabel?: string }) {
   const durationMinutes = Math.max(1, Math.ceil(Number(test.durationSeconds || 0) / 60));
   return (
     <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-4 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
@@ -165,7 +166,7 @@ function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; ser
         href={"/test/" + encodeURIComponent(test.testId) + "?seriesId=" + encodeURIComponent(seriesId)}
         className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white transition hover:bg-[#594bd9]"
       >
-        Start test
+        {ctaLabel || "Start test"}
       </Link>
     </div>
   );
@@ -177,13 +178,35 @@ function ExamHubCatalogSection({
   description,
   items,
   emptyMessage,
+  layout = "list",
+  columns = 1,
+  cardStyle = "default",
+  ctaLabel,
 }: {
   id: string;
   title: string;
   description: string;
   items: ExamHubCatalogItem[];
   emptyMessage: string;
+  layout?: WebExamSectionLayout;
+  columns?: number;
+  cardStyle?: WebExamCardStyle;
+  ctaLabel?: string;
 }) {
+  const containerClass =
+    layout === "horizontal"
+      ? "flex snap-x gap-4 overflow-x-auto pb-2"
+      : layout === "grid" || layout === "cards"
+        ? "grid gap-4"
+        : "space-y-4";
+  const gridColumnsClass =
+    columns >= 4 ? "lg:grid-cols-4" : columns === 3 ? "lg:grid-cols-3" : columns === 2 ? "md:grid-cols-2" : "grid-cols-1";
+  const cardClass =
+    cardStyle === "minimal" ? "border-transparent shadow-none" :
+    cardStyle === "featured" ? "border-indigo-200 shadow-[0_10px_28px_rgba(79,70,229,0.08)]" :
+    cardStyle === "compact" ? "border-slate-200 shadow-none" :
+    "border-slate-200 shadow-[0_5px_18px_rgba(15,23,42,0.035)]";
+
   return (
     <section id={id} role="tabpanel" className="rounded-2xl border border-slate-200 bg-slate-50/60 p-3 sm:p-4">
       <div className="px-1 pb-3">
@@ -196,9 +219,9 @@ function ExamHubCatalogSection({
           <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className={containerClass + ((layout === "grid" || layout === "cards") ? " " + gridColumnsClass : "")}>
           {items.map((item) => item.seriesId ? (
-            <article key={item.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_5px_18px_rgba(15,23,42,0.035)]">
+            <article key={item.id} className={"overflow-hidden rounded-2xl border bg-white " + cardClass + (layout === "horizontal" ? " w-[86vw] max-w-[430px] shrink-0 snap-start" : "")}>
               <div className="p-4 sm:p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
@@ -218,7 +241,7 @@ function ExamHubCatalogSection({
 
               {item.seriesTests?.length ? (
                 <div className="border-t border-slate-200 bg-white">
-                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} />)}
+                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} ctaLabel={ctaLabel} />)}
                 </div>
               ) : (
                 <div className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-500">
@@ -238,7 +261,7 @@ function ExamHubCatalogSection({
                   <p className="mt-1 text-xs leading-5 text-slate-500">{item.meta}</p>
                 </div>
               </div>
-              {item.href ? <Link href={item.href} className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 text-sm font-semibold text-indigo-700 hover:bg-indigo-100">Start test</Link> : null}
+              {item.href ? <Link href={item.href} className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-4 text-sm font-semibold text-indigo-700 hover:bg-indigo-100">{ctaLabel || "Start test"}</Link> : null}
             </article>
           ))}
         </div>
@@ -247,19 +270,80 @@ function ExamHubCatalogSection({
   );
 }
 
+function gridColumnsClass(columns: number) {
+  if (columns >= 4) return "lg:grid-cols-4";
+  if (columns === 3) return "lg:grid-cols-3";
+  if (columns === 2) return "md:grid-cols-2";
+  return "grid-cols-1";
+}
+
+function configuredCardClass(style: WebExamCardStyle) {
+  if (style === "minimal") return "border-transparent bg-transparent shadow-none";
+  if (style === "featured") return "border-indigo-200 bg-indigo-50/40 shadow-[0_10px_28px_rgba(79,70,229,0.08)]";
+  if (style === "compact") return "border-slate-200 bg-white py-3 shadow-none";
+  if (style === "bordered") return "border-slate-300 bg-white shadow-none";
+  return "border-slate-200 bg-white shadow-[0_6px_20px_rgba(15,23,42,0.035)]";
+}
+
+function ConfiguredManualCards({ section }: { section: WebExamPageSection }) {
+  const cards = (section.cards ?? []).filter((card) => card.isVisible).sort((a, b) => a.sortOrder - b.sortOrder);
+  if (cards.length === 0) return null;
+  const layoutClass =
+    section.layout === "horizontal"
+      ? "flex snap-x gap-4 overflow-x-auto pb-2"
+      : section.layout === "list"
+        ? "space-y-3"
+        : "grid gap-4 " + gridColumnsClass(section.columns);
+
+  return (
+    <div className={layoutClass}>
+      {cards.map((card) => {
+        const content = (
+          <div className={"h-full rounded-2xl border p-4 " + configuredCardClass(section.cardStyle) + (section.layout === "horizontal" ? " w-[82vw] max-w-[360px] shrink-0 snap-start" : "")}>
+            {card.badge ? <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-indigo-600">{card.badge}</p> : null}
+            {card.title ? <h3 className="mt-1 font-semibold text-slate-950">{card.title}</h3> : null}
+            {card.text ? <p className="mt-2 whitespace-pre-line text-sm leading-6 text-slate-600">{card.text}</p> : null}
+            {card.ctaLabel && card.href ? <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-indigo-700">{card.ctaLabel}<ArrowRight className="h-4 w-4" /></span> : null}
+          </div>
+        );
+        if (!card.href) return <div key={card.id}>{content}</div>;
+        if (/^https?:\/\//i.test(card.href)) return <a key={card.id} href={card.href} target="_blank" rel="noreferrer">{content}</a>;
+        return <Link key={card.id} href={card.href}>{content}</Link>;
+      })}
+    </div>
+  );
+}
+
 export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
   const catalog = useExamCatalog();
   const [activeSeriesTabId, setActiveSeriesTabId] = useState("");
   const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
+
   const seriesQuery = useQuery({
     queryKey: ["exam-hub-series", examSlug],
     queryFn: getStudentTestSeries,
     staleTime: 60_000,
     retry: 1,
   });
+  const pageConfigQuery = useQuery({
+    queryKey: ["web-exam-page", examSlug],
+    queryFn: () => getWebExamPageConfiguration(examSlug),
+    staleTime: 60_000,
+    retry: 1,
+  });
 
-  usePageMeta(config.meta.hubTitle, config.meta.hubDescription, { canonicalPath: examHubHref(examSlug) });
+  const pageConfiguration = pageConfigQuery.data?.configuration ?? DEFAULT_WEB_EXAM_PAGE_CONFIGURATION;
+  const orderedPageSections = useMemo(
+    () => [...pageConfiguration.sections].filter((section) => section.isVisible).sort((a, b) => a.sortOrder - b.sortOrder),
+    [pageConfiguration.sections],
+  );
+
+  usePageMeta(
+    pageConfiguration.pageTitle || config.meta.hubTitle,
+    pageConfiguration.pageDescription || config.meta.hubDescription,
+    { canonicalPath: examHubHref(examSlug) },
+  );
 
   const catalogExam = useMemo(
     () => catalog.subcategories.find((exam) => examCodes.includes(exam.id.toUpperCase())),
@@ -307,11 +391,11 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
       return { title: "More Test Series", description: "Additional test series published for this exam.", order: 60 };
     };
     const fallbackTestSection = (test: Test) => {
-      const text = testSearchText(test);
-      if (isPyqText(text)) return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
+      const value = testSearchText(test);
+      if (isPyqText(value)) return { title: "Previous Year Papers (PYQs)", description: "Previous-year and memory-based papers published for this exam.", order: 30 };
       if (test.kind === "sectional") return { title: "Sectional Tests", description: "Focused tests for individual exam sections.", order: 40 };
       if (test.kind === "topic-wise") return { title: "Topic-wise Tests", description: "Short tests focused on specific topics from this exam syllabus.", order: 50 };
-      const stage = stageFromText(text);
+      const stage = stageFromText(value);
       if (stage === "prelims") return { title: "Prelims Test Series", description: "Full-length " + config.name + " preliminary-stage mock tests and series.", order: 10 };
       if (stage === "mains") return { title: "Mains Test Series", description: "Full-length " + config.name + " main-stage mock tests and series.", order: 20 };
       return { title: "More Tests", description: "Additional published tests for this exam.", order: 60 };
@@ -319,11 +403,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
     examSeries.forEach((series) => {
       const fallback = fallbackSeriesSection(series);
-      const title = compact(series.hubSectionTitle) || fallback.title;
-      const description = compact(series.hubSectionDescription) || fallback.description;
       addItem(
-        title,
-        description,
+        compact(series.hubSectionTitle) || fallback.title,
+        compact(series.hubSectionDescription) || fallback.description,
         asOrder(series.hubSectionOrder, fallback.order),
         asOrder(series.hubSeriesOrder, 100),
         seriesItem(series),
@@ -355,189 +437,218 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
   const activeLandingSection =
     landingSections.find((section) => section.id === activeSeriesTabId) ?? landingSections[0] ?? null;
-
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
   const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
 
-  return (
-    <PublicPage eyebrow={config.name + " · " + config.yearLabel} title={config.hub.title} description={config.hub.description}>
-      <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
-        <div className="grid lg:grid-cols-[minmax(0,1fr)_300px]">
-          <div className="p-5 sm:p-7">
-            <div className="flex items-start gap-4">
-              {catalogExam?.icon ? (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
-                  <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
+  const renderSection = (section: WebExamPageSection) => {
+    const manualCards = (section.cards ?? []).filter((card) => card.isVisible);
+    const sectionGridClass = "grid gap-4 " + gridColumnsClass(section.columns);
+    const sectionCardClass = configuredCardClass(section.cardStyle);
+
+    if (section.type === "hero") {
+      const visibleTypes = new Set(orderedPageSections.map((item) => item.type));
+      const navItems = [
+        visibleTypes.has("test_catalog") ? ["#test-catalog", section.labels.navTests || "Tests"] : null,
+        visibleTypes.has("syllabus") ? ["#syllabus", section.labels.navSyllabus || "Syllabus"] : null,
+        visibleTypes.has("preparation") ? ["#preparation", section.labels.navPreparation || "Preparation"] : null,
+      ].filter(Boolean) as string[][];
+      return (
+        <section key={section.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_300px]">
+            <div className="p-5 sm:p-7">
+              <div className="flex items-start gap-4">
+                {catalogExam?.icon ? (
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
+                    <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
+                  </div>
+                ) : (
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700"><BookOpenCheck className="h-8 w-8" /></div>
+                )}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Complete exam hub"}</p>
+                  <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || (config.name + " " + config.yearLabel)}</h2>
+                  <p className="mt-2 max-w-2xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description || "Syllabus, exam pattern, preparation strategy, full mocks, PYQs, sectional tests and topic-wise practice in one place."}</p>
+                </div>
+              </div>
+              {section.body ? <p className="mt-4 whitespace-pre-line text-sm leading-6 text-slate-600">{section.body}</p> : null}
+              {navItems.length > 0 ? <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
+                {navItems.map(([href, label]) => <a key={href} href={href} className="whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>)}
+              </nav> : null}
+              {section.ctaLabel && section.ctaHref ? (/^https?:\/\//i.test(section.ctaHref) ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></a> : <Link href={section.ctaHref} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></Link>) : null}
+            </div>
+            <div className="border-t border-slate-200 bg-[#17182c] p-5 text-white lg:border-l lg:border-t-0 sm:p-6">
+              {manualCards.length > 0 ? (
+                <div className="space-y-3">
+                  {manualCards.sort((a, b) => a.sortOrder - b.sortOrder).map((card) => (
+                    <div key={card.id} className="rounded-xl border border-white/10 bg-white/5 p-3">
+                      {card.badge ? <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">{card.badge}</p> : null}
+                      {card.title ? <p className="mt-1 font-semibold text-white">{card.title}</p> : null}
+                      {card.text ? <p className="mt-1 whitespace-pre-line text-xs leading-5 text-white/65">{card.text}</p> : null}
+                      {card.ctaLabel && card.href ? (/^https?:\/\//i.test(card.href) ? <a href={card.href} target="_blank" rel="noreferrer" className="mt-2 inline-flex text-xs font-semibold text-indigo-200">{card.ctaLabel}</a> : <Link href={card.href} className="mt-2 inline-flex text-xs font-semibold text-indigo-200">{card.ctaLabel}</Link>) : null}
+                    </div>
+                  ))}
                 </div>
               ) : (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700"><BookOpenCheck className="h-8 w-8" /></div>
+                <>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">{section.labels.catalogue || "Live catalogue"}</p>
+                  <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-1">
+                    <div><div className="text-2xl font-semibold">{totalPublished}</div><div className="text-xs text-white/55">{section.labels.published || "published"}</div></div>
+                    <div><div className="text-2xl font-semibold">{freeCount}</div><div className="text-xs text-white/55">{section.labels.freeTests || "free tests"}</div></div>
+                    <div><div className="text-2xl font-semibold">{comingSoonCount}</div><div className="text-xs text-white/55">{section.labels.comingSoon || "coming soon"}</div></div>
+                  </div>
+                </>
               )}
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Complete exam hub</p>
-                <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{config.name} {config.yearLabel}</h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Syllabus, exam pattern, preparation strategy, full mocks, PYQs, sectional tests and topic-wise practice in one place.</p>
-              </div>
-            </div>
-            <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
-              {[
-                ["#test-catalog", "Tests"],
-                ["#syllabus", "Syllabus"],
-                ["#preparation", "Preparation"],
-              ].map(([href, label]) => (
-                <a key={href} href={href} title={label} className="max-w-[190px] truncate whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>
-              ))}
-            </nav>
-          </div>
-          <div className="border-t border-slate-200 bg-[#17182c] p-5 text-white lg:border-l lg:border-t-0 sm:p-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-300">Live catalogue</p>
-            <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-1">
-              <div><div className="text-2xl font-semibold">{totalPublished}</div><div className="text-xs text-white/55">published</div></div>
-              <div><div className="text-2xl font-semibold">{freeCount}</div><div className="text-xs text-white/55">free tests</div></div>
-              <div><div className="text-2xl font-semibold">{comingSoonCount}</div><div className="text-xs text-white/55">coming soon</div></div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      );
+    }
 
-      {(catalog.error || seriesQuery.error) ? (
-        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-          Some live test catalogue information is temporarily unavailable. Syllabus, preparation and free practice remain available below.
+    if (section.type === "test_catalog") {
+      const eyebrow = section.eyebrow || "Mock tests & practice";
+      const title = section.title || "Choose what you want to practise";
+      const description = section.description || "Prelims, mains, PYQs, sectional and topic-wise practice stay on this master exam page.";
+      const contentLayout = section.layout === "tabs" ? (section.columns > 1 ? "grid" : "list") : section.layout;
+
+      return (
+        <section key={section.id} id="test-catalog" className="mt-8 scroll-mt-24" aria-labelledby="test-catalog-heading">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{eyebrow}</p>
+            <h2 id="test-catalog-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
+            <p className="mt-1 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{description}</p>
+            {section.body ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.body}</p> : null}
+          </div>
+
+          {landingSections.length > 0 ? section.layout === "tabs" ? (
+            <>
+              <div className="mt-5 max-w-full overflow-x-auto pb-2">
+                <div role="tablist" aria-label={config.name + " test categories"} className={section.tabStyle === "underline" ? "inline-flex min-w-max gap-5 border-b border-slate-200" : section.tabStyle === "segmented" ? "inline-flex min-w-max gap-0 overflow-hidden rounded-xl border border-slate-200 bg-white" : "inline-flex min-w-max gap-1 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm"}>
+                  {landingSections.map((tab) => {
+                    const selected = activeLandingSection?.id === tab.id;
+                    const tabClass = section.tabStyle === "underline"
+                      ? "min-h-10 border-b-2 px-1 text-sm font-semibold transition " + (selected ? "border-indigo-600 text-indigo-700" : "border-transparent text-slate-500")
+                      : section.tabStyle === "segmented"
+                        ? "min-h-10 border-r border-slate-200 px-4 text-sm font-semibold last:border-r-0 " + (selected ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-50")
+                        : "min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950");
+                    return (
+                      <button key={tab.id} type="button" role="tab" aria-selected={selected} aria-controls={tab.id} onClick={() => setActiveSeriesTabId(tab.id)} className={tabClass}>
+                        {tabLabelForSection(tab.title, section.labels)}
+                        {section.showCounts ? <span className={"ml-2 text-xs " + (selected ? "opacity-75" : "text-slate-400")}>{tab.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}</span> : null}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              {activeLandingSection ? <ExamHubCatalogSection key={activeLandingSection.id} id={activeLandingSection.id} title={activeLandingSection.title} description={activeLandingSection.description} items={activeLandingSection.items} emptyMessage="This test category is being prepared." layout={contentLayout} columns={section.columns} cardStyle={section.cardStyle} ctaLabel={section.ctaLabel} /> : null}
+            </>
+          ) : (
+            <div className="mt-5 space-y-5">
+              {landingSections.map((group) => <ExamHubCatalogSection key={group.id} id={group.id} title={group.title} description={group.description} items={group.items} emptyMessage="This test category is being prepared." layout={contentLayout} columns={section.columns} cardStyle={section.cardStyle} ctaLabel={section.ctaLabel} />)}
+            </div>
+          ) : (
+            <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
+              <h3 className="text-lg font-semibold text-slate-900">Test series are being prepared</h3>
+              <p className="mt-1 text-sm leading-6 text-slate-500">Configured test categories will appear here as soon as content is published.</p>
+            </div>
+          )}
+        </section>
+      );
+    }
+
+    if (section.type === "exam_information") {
+      return (
+        <section key={section.id} className="mt-12 border-t border-slate-200 pt-9" aria-labelledby={"exam-information-" + section.id}>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Exam information"}</p>
+          <h2 id={"exam-information-" + section.id} className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || ("About " + config.name + " " + config.yearLabel)}</h2>
+          {section.description ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description}</p> : null}
+          {section.body ? <p className="mt-3 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+          <div className="mt-5">
+            {manualCards.length > 0 ? <ConfiguredManualCards section={section} /> : <div className={sectionGridClass}>
+              <div className={"rounded-2xl border p-5 " + sectionCardClass}><h3 className="font-semibold text-slate-950">Preparation guide</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.preparationSummary}</p><Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">{section.ctaLabel || "Detailed preparation strategy"}</Link></div>
+              <div className={"rounded-2xl border p-5 " + sectionCardClass}><h3 className="font-semibold text-slate-950">Syllabus & pattern</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.syllabusSummary}</p><Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Full {config.name} syllabus</Link></div>
+              <div className={"rounded-2xl border p-5 " + sectionCardClass}><h3 className="font-semibold text-slate-950">Official information</h3><p className="mt-2 text-sm leading-6 text-slate-600">Verify dates, eligibility, vacancies and current notices on the official exam authority website.</p><a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 block font-semibold text-indigo-700 hover:underline">Open {config.officialLabel}</a></div>
+            </div>}
+          </div>
+        </section>
+      );
+    }
+
+    if (section.type === "syllabus") {
+      return (
+        <section key={section.id} id="syllabus" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Exam structure"}</p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || (config.name + " syllabus & exam pattern")}</h2>
+          {section.description ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description}</p> : null}
+          {section.body ? <p className="mt-3 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+          <div className="mt-5">
+            {manualCards.length > 0 ? <ConfiguredManualCards section={section} /> : <>
+              <div className={sectionGridClass}>
+                {config.syllabus.sections.map((item) => <div key={item.title} className={"rounded-2xl border p-4 " + sectionCardClass}><h3 className="font-semibold text-slate-950">{item.title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{item.summary}</p></div>)}
+              </div>
+              <div className={"mt-4 grid gap-3 " + gridColumnsClass(Math.min(3, section.columns || 3))}>
+                {config.syllabus.patternCards.map((card) => <div key={card.title} className={"rounded-2xl border p-4 " + sectionCardClass}><h3 className="font-semibold text-slate-950">{card.title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p></div>)}
+              </div>
+            </>}
+          </div>
+          <Link href={section.ctaHref || examSyllabusHref(examSlug)} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:underline">{section.ctaLabel || "Open full syllabus page"}<ArrowRight className="h-4 w-4" /></Link>
+        </section>
+      );
+    }
+
+    if (section.type === "preparation") {
+      return (
+        <section key={section.id} id="preparation" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Study plan"}</p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || ("How to prepare for " + config.name + " " + config.yearLabel)}</h2>
+          {section.description ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description}</p> : null}
+          {section.body ? <p className="mt-3 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+          <div className="mt-5">
+            {manualCards.length > 0 ? <ConfiguredManualCards section={section} /> : <div className={sectionGridClass}>{config.preparation.cards.map((card) => <div key={card.title} className={"rounded-2xl border p-4 " + sectionCardClass}><Sparkles className="h-5 w-5 text-indigo-600" /><h3 className="mt-3 font-semibold text-slate-950">{card.title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p></div>)}</div>}
+          </div>
+          <Link href={section.ctaHref || examPreparationHref(examSlug)} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:underline">{section.ctaLabel || "Open complete preparation guide"}<ArrowRight className="h-4 w-4" /></Link>
+        </section>
+      );
+    }
+
+    if (section.type === "topic_practice") {
+      return (
+        <section key={section.id} className="mt-12 border-t border-slate-200 pt-9">
+          <div className="flex items-center gap-2"><Target className="h-5 w-5 text-indigo-600" /><p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Free practice"}</p></div>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || ("Free " + config.name + " topic practice")}</h2>
+          <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description || "Solve sample questions continuously without starting a timed mock. Each page includes answers and explanations."}</p>
+          {section.body ? <p className="mt-3 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+          <div className="mt-5">
+            {manualCards.length > 0 ? <ConfiguredManualCards section={section} /> : <div className={sectionGridClass}>{config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className={"rounded-2xl border p-5 transition hover:-translate-y-0.5 hover:border-indigo-300 " + sectionCardClass}><p className="text-xs font-semibold uppercase tracking-[0.12em] text-indigo-600">{topic.subject}</p><h3 className="mt-2 text-lg font-semibold text-slate-950">{topic.name} Questions</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p></Link>)}</div>}
+          </div>
+        </section>
+      );
+    }
+
+    return (
+      <section key={section.id} className="mt-12 border-t border-slate-200 pt-9">
+        {section.eyebrow ? <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow}</p> : null}
+        {section.title ? <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title}</h2> : null}
+        {section.description ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description}</p> : null}
+        {section.body ? <div className="mt-4 whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</div> : null}
+        <div className="mt-5"><ConfiguredManualCards section={section} /></div>
+        {section.ctaLabel && section.ctaHref ? (/^https?:\/\//i.test(section.ctaHref) ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></a> : <Link href={section.ctaHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></Link>) : null}
+      </section>
+    );
+  };
+
+  return (
+    <PublicPage
+      eyebrow={pageConfiguration.pageEyebrow || (config.name + " · " + config.yearLabel)}
+      title={pageConfiguration.pageTitle || config.hub.title}
+      description={pageConfiguration.pageDescription || config.hub.description}
+    >
+      {(catalog.error || seriesQuery.error || pageConfigQuery.error) ? (
+        <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+          Some live page information is temporarily unavailable. Available exam content is shown below.
         </div>
       ) : null}
-
-      <section id="test-catalog" className="mt-8 scroll-mt-24" aria-labelledby="test-catalog-heading">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Mock tests & practice</p>
-            <h2 id="test-catalog-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">Choose what you want to practise</h2>
-            <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">Prelims, mains, PYQs, sectional and topic-wise practice stay on this master exam page.</p>
-          </div>
-        </div>
-
-        {landingSections.length > 0 ? (
-          <>
-            <div className="mt-5 max-w-full overflow-x-auto pb-2">
-              <div role="tablist" aria-label={config.name + " test categories"} className="inline-flex min-w-max gap-1 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm">
-                {landingSections.map((section) => {
-                  const selected = activeLandingSection?.id === section.id;
-                  return (
-                    <button
-                      key={section.id}
-                      type="button"
-                      role="tab"
-                      aria-selected={selected}
-                      aria-controls={section.id}
-                      onClick={() => setActiveSeriesTabId(section.id)}
-                      className={"min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}
-                    >
-                      {tabLabelForSection(section.title)}
-                      <span className={"ml-2 text-xs " + (selected ? "text-white/75" : "text-slate-400")}>
-                        {section.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {activeLandingSection ? (
-              <ExamHubCatalogSection
-                key={activeLandingSection.id}
-                id={activeLandingSection.id}
-                title={activeLandingSection.title}
-                description={activeLandingSection.description}
-                items={activeLandingSection.items}
-                emptyMessage="This test category is being prepared."
-              />
-            ) : null}
-          </>
-        ) : (
-          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
-            <h3 className="text-lg font-semibold text-slate-900">Test series are being prepared</h3>
-            <p className="mt-1 text-sm leading-6 text-slate-500">Prelims, mains, sectional, topic-wise, PYQ, or any custom tab will appear here as soon as it is configured for this exam.</p>
-          </div>
-        )}
-      </section>
-
-      <section className="mt-12 border-t border-slate-200 pt-9" aria-labelledby="exam-information-heading">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Exam information</p>
-          <h2 id="exam-information-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">About {config.name} {config.yearLabel}</h2>
-        </div>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          <PublicCard title="Preparation guide">
-            {config.hub.preparationSummary}
-            <Link href={examPreparationHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Detailed preparation strategy</Link>
-          </PublicCard>
-          <PublicCard title="Syllabus & pattern">
-            {config.hub.syllabusSummary}
-            <Link href={examSyllabusHref(examSlug)} className="mt-3 block font-semibold text-indigo-700 hover:underline">Full {config.name} syllabus</Link>
-          </PublicCard>
-          <PublicCard title="Official information">
-            Verify dates, eligibility, vacancies and current notices on the official exam authority website.
-            <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 block font-semibold text-indigo-700 hover:underline">Open {config.officialLabel}</a>
-          </PublicCard>
-        </div>
-      </section>
-
-      <section id="syllabus" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Exam structure</p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{config.name} syllabus & exam pattern</h2>
-          </div>
-          <Link href={examSyllabusHref(examSlug)} className="text-sm font-semibold text-indigo-700 hover:underline">Open full syllabus page</Link>
-        </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-2">
-          {config.syllabus.sections.map((section) => (
-            <div key={section.title} className="rounded-2xl border border-slate-200 bg-white p-4">
-              <h3 className="font-semibold text-slate-950">{section.title}</h3>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{section.summary}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 grid gap-3 lg:grid-cols-3">
-          {config.syllabus.patternCards.map((card) => (
-            <div key={card.title} className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
-              <h3 className="font-semibold text-slate-950">{card.title}</h3>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="preparation" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9">
-        <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">Study plan</p>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">How to prepare for {config.name} {config.yearLabel}</h2>
-        <div className="mt-5 grid gap-3 lg:grid-cols-3">
-          {config.preparation.cards.map((card) => (
-            <div key={card.title} className="rounded-2xl border border-slate-200 bg-white p-4">
-              <Sparkles className="h-5 w-5 text-indigo-600" />
-              <h3 className="mt-3 font-semibold text-slate-950">{card.title}</h3>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{card.text}</p>
-            </div>
-          ))}
-        </div>
-        <Link href={examPreparationHref(examSlug)} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:underline">Open complete preparation guide <ArrowRight className="h-4 w-4" /></Link>
-      </section>
-
-      <section className="mt-12 border-t border-slate-200 pt-9">
-        <div className="flex items-center gap-2">
-          <Target className="h-5 w-5 text-indigo-600" />
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Free {config.name} topic practice</h2>
-        </div>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Solve sample questions continuously without starting a timed mock. Each page includes answers and explanations.</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {config.topics.map((topic) => (
-            <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-indigo-600">{topic.subject}</p>
-              <h3 className="mt-2 text-lg font-semibold text-slate-950">{topic.name} Questions</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {orderedPageSections.map(renderSection)}
     </PublicPage>
   );
 }
