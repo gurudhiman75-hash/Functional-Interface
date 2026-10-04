@@ -1,5 +1,6 @@
 import { generateStcV22Question, STC_V22_SEMANTIC_SURFACE_CAPACITY_PER_QL, STC_V22_TEMPLATE_COUNT_PER_QL, STC_V22_VARIANTS_PER_TEMPLATE } from "./editorial-v2-2-generator.ts";
 import { STC_QL_IDS, type StcLocale, type StcQlId } from "./types.ts";
+import { STC_V22_INDEPENDENT_PROOF_AUTHORITY } from "./editorial-v2-2-independent-proof.ts";
 
 export const STC_001_V22_QUESTION_STUDIO_PACKAGE_ID = "STC-001-V2-2-SATURATED-REVIEW" as const;
 export const STC_001_V22_QUESTION_STUDIO_REVIEW_AUTHORITY = "STC-001-QUESTION-STUDIO-V2-2-VARIABLEIZED" as const;
@@ -41,6 +42,9 @@ export const STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   enabled: true as const,
   questionStudioVisible: true as const,
   questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+  standardQuestionStudioAdapterStatus: "REGISTERED_CURRENT_REASONING_V1_ADAPTER" as const,
+  answerAuthority: STC_V22_INDEPENDENT_PROOF_AUTHORITY,
+  postClosureAuditAuthority: "STC-001-POST-CLOSURE-DEEP-AUDIT-20261003" as const,
   reviewOnly: true as const,
   questionBankStatus: "NOT_STORED" as const,
   questionBankWritable: false as const,

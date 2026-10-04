@@ -79,6 +79,11 @@ import {
   isSif001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Statement-and-Inference/SIF-001/question-studio-adapter.ts";
 import {
+  STC_001_QUESTION_STUDIO_PACKAGE,
+  generateStc001QuestionStudioBatch,
+  isStc001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-integration.ts";
+import {
   SYL_001_STANDARD_QUESTION_STUDIO_PACKAGE,
   generateSyl001QuestionStudioBatch,
   isSyl001QuestionStudioRequest,
@@ -486,6 +491,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
       SIF_001_QUESTION_STUDIO_PACKAGE,
+      STC_001_QUESTION_STUDIO_PACKAGE,
       SYL_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       VEN_001_QUESTION_STUDIO_PACKAGE,
     ].map(enrichQuestionStudioPackageCpTitles);
@@ -511,6 +517,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isStc001QuestionStudioRequest(request)) {
+      return generateStc001QuestionStudioBatch(request);
     }
     if (isBlr001ChapterQuestionStudioRequest(request)) {
       const source = await generateBlr001ChapterQuestionStudioBatch(request);

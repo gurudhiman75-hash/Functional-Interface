@@ -19,14 +19,14 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
   {
     id: "STC-V22-QL006-T02", qlId: "STC-QL-006", surfaceArchetype: "EVENT_SEQUENCE", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
-      [T("shortlisted", "शॉर्टलिस्ट", "ਸ਼ਾਰਟਲਿਸਟ"), T("registered", "पंजीकृत", "ਰਜਿਸਟਰ"), T("screened", "प्रारंभिक जाँच", "ਮੁੱਢਲੀ ਜਾਂਚ"), T("provisionally selected", "अस्थायी रूप से चयनित", "ਅਸਥਾਈ ਤੌਰ ਤੇ ਚੁਣੇ")],
+      [T("shortlisted", "शॉर्टलिस्टिंग", "ਸ਼ਾਰਟਲਿਸਟਿੰਗ"), T("registered", "पंजीकरण", "ਰਜਿਸਟ੍ਰੇਸ਼ਨ"), T("screened", "प्रारंभिक जाँच", "ਮੁੱਢਲੀ ਜਾਂਚ"), T("provisionally selected", "अस्थायी चयन", "ਅਸਥਾਈ ਚੋਣ")],
       [T("document verification", "दस्तावेज़ सत्यापन", "ਦਸਤਾਵੇਜ਼ ਜਾਂਚ"), T("identity verification", "पहचान सत्यापन", "ਪਛਾਣ ਜਾਂਚ"), T("certificate scrutiny", "प्रमाणपत्र जाँच", "ਸਰਟੀਫਿਕੇਟ ਜਾਂਚ"), T("eligibility verification", "पात्रता सत्यापन", "ਯੋਗਤਾ ਜਾਂਚ")],
       [T("interview", "साक्षात्कार", "ਇੰਟਰਵਿਊ"), T("final interaction", "अंतिम संवाद", "ਅੰਤਿਮ ਸੰਵਾਦ"), T("medical examination", "चिकित्सा परीक्षण", "ਮੈਡੀਕਲ ਜਾਂਚ"), T("final assessment", "अंतिम आकलन", "ਅੰਤਿਮ ਮੁਲਾਂਕਣ")],
       [T("Riya", "रिया", "ਰਿਆ"), T("Aman", "अमन", "ਅਮਨ"), T("Neha", "नेहा", "ਨੇਹਾ"), T("Karan", "करण", "ਕਰਨ")],
     ],
-    statement: T("Candidates were first {a}, then called for {b}, and only after that stage were they called for {c}. {d} has reached the {c} stage.", "उम्मीदवारों को पहले {a} किया गया, फिर {b} के लिए बुलाया गया और उसके बाद ही {c} के लिए बुलाया गया। {d} {c} चरण तक पहुँच चुका/चुकी है।", "ਉਮੀਦਵਾਰ ਪਹਿਲਾਂ {a} ਕੀਤੇ ਗਏ, ਫਿਰ {b} ਲਈ ਬੁਲਾਏ ਗਏ ਅਤੇ ਉਸ ਤੋਂ ਬਾਅਦ ਹੀ {c} ਲਈ ਬੁਲਾਏ ਗਏ। {d} {c} ਪੜਾਅ ਤੱਕ ਪਹੁੰਚ ਚੁੱਕਾ/ਚੁੱਕੀ ਹੈ।"),
-    conclusions: [T("{d}'s {c} stage came before {b}.", "{d} का {c} चरण {b} से पहले आया।", "{d} ਦਾ {c} ਪੜਾਅ {b} ਤੋਂ ਪਹਿਲਾਂ ਆਇਆ।"), T("{d}'s {b} came before the {c} stage.", "{d} का {b}, {c} चरण से पहले हुआ।", "{d} ਦੀ {b}, {c} ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਹੋਈ।")],
-    explanation: [T("The stated sequence places {b} before {c}.", "दिया गया क्रम {b} को {c} से पहले रखता है।", "ਦਿੱਤਾ ਕ੍ਰਮ {b} ਨੂੰ {c} ਤੋਂ ਪਹਿਲਾਂ ਰੱਖਦਾ ਹੈ।"), T("Reaching {c} under the stated sequence means {b} was earlier.", "दिए गए क्रम में {c} तक पहुँचने का अर्थ है कि {b} पहले हो चुका था।", "ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ {c} ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਅਰਥ ਹੈ ਕਿ {b} ਪਹਿਲਾਂ ਹੋ ਚੁੱਕੀ ਸੀ।")],
+    statement: T("Candidates were first {a}, then called for {b}, and only after that stage were they called for {c}. {d} has reached the {c} stage.", "उम्मीदवार पहले {a} चरण से गुज़रे, फिर {b} के लिए बुलाए गए और उसके बाद ही {c} के लिए बुलाए गए। {d} अब {c} चरण में है।", "ਉਮੀਦਵਾਰ ਪਹਿਲਾਂ {a} ਪੜਾਅ ਵਿੱਚੋਂ ਲੰਘੇ, ਫਿਰ {b} ਲਈ ਬੁਲਾਏ ਗਏ ਅਤੇ ਉਸ ਤੋਂ ਬਾਅਦ ਹੀ {c} ਲਈ ਬੁਲਾਏ ਗਏ। {d} ਹੁਣ {c} ਪੜਾਅ ਵਿੱਚ ਹੈ।"),
+    conclusions: [T("{d}'s {c} stage came before {b}.", "{d} के मामले में {c} चरण, {b} चरण से पहले था।", "{d} ਦੇ ਮਾਮਲੇ ਵਿੱਚ {c} ਪੜਾਅ, {b} ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਸੀ।"), T("{d}'s {b} came before the {c} stage.", "{d} के मामले में {b} चरण, {c} चरण से पहले था।", "{d} ਦੇ ਮਾਮਲੇ ਵਿੱਚ {b} ਪੜਾਅ, {c} ਪੜਾਅ ਤੋਂ ਪਹਿਲਾਂ ਸੀ।")],
+    explanation: [T("The stated sequence places {b} before {c}.", "दिया गया क्रम {b} को {c} से पहले रखता है।", "ਦਿੱਤਾ ਕ੍ਰਮ {b} ਨੂੰ {c} ਤੋਂ ਪਹਿਲਾਂ ਰੱਖਦਾ ਹੈ।"), T("Reaching {c} under the stated sequence means {b} was earlier.", "दिए गए क्रम में {c} तक पहुँचने का अर्थ है कि {b} की प्रक्रिया पहले पूरी हो चुकी थी।", "ਦਿੱਤੇ ਕ੍ਰਮ ਵਿੱਚ {c} ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਅਰਥ ਹੈ ਕਿ {b} ਦੀ ਪ੍ਰਕਿਰਿਆ ਪਹਿਲਾਂ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਸੀ।")],
   },
   {
     id: "STC-V22-QL006-T03", qlId: "STC-QL-006", surfaceArchetype: "SURVEY_REPORT", difficulty: "MEDIUM", answerClass: "BOTH",
@@ -57,12 +57,12 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
     dimensions: [
       [T("attendance", "उपस्थिति", "ਹਾਜ਼ਰੀ"), T("daily output", "दैनिक उत्पादन", "ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ"), T("customer footfall", "ग्राहक आवागमन", "ਗਾਹਕ ਆਵਾਜਾਈ"), T("help-desk calls", "सहायता-डेस्क कॉल", "ਸਹਾਇਤਾ-ਡੈਸਕ ਕਾਲਾਂ")],
       [T("training session", "प्रशिक्षण सत्र", "ਟ੍ਰੇਨਿੰਗ ਸੈਸ਼ਨ"), T("review day", "समीक्षा दिवस", "ਸਮੀਖਿਆ ਦਿਨ"), T("service shift", "सेवा पाली", "ਸੇਵਾ ਸ਼ਿਫ਼ਟ"), T("reporting period", "रिपोर्टिंग अवधि", "ਰਿਪੋਰਟਿੰਗ ਅਵਧੀ")],
-      [T("rose", "बढ़ी", "ਵਧੀ"), T("increased", "ऊपर गई", "ਉੱਪਰ ਗਈ"), T("improved", "सुधरी", "ਸੁਧਰੀ"), T("moved upward", "ऊपर की ओर गई", "ਉੱਪਰ ਵੱਲ ਗਈ")],
-      [T("fell", "घटी", "ਘਟੀ"), T("declined", "कम हुई", "ਘੱਟੀ"), T("dropped", "नीचे गई", "ਥੱਲੇ ਗਈ"), T("moved downward", "नीचे की ओर गई", "ਥੱਲੇ ਵੱਲ ਗਈ")],
+      [T("upward", "ऊपर", "ਉੱਪਰ"), T("higher", "और ऊपर", "ਹੋਰ ਉੱਪਰ"), T("to a higher level", "ऊँचे स्तर पर", "ਉੱਚੇ ਪੱਧਰ ਉੱਤੇ"), T("in an upward direction", "ऊपर की ओर", "ਉੱਪਰ ਵੱਲ")],
+      [T("downward", "नीचे", "ਹੇਠਾਂ"), T("lower", "और नीचे", "ਹੋਰ ਹੇਠਾਂ"), T("to a lower level", "निचले स्तर पर", "ਹੇਠਲੇ ਪੱਧਰ ਉੱਤੇ"), T("in a downward direction", "नीचे की ओर", "ਹੇਠਾਂ ਵੱਲ")],
     ],
-    statement: T("{a} {c} from the first {b} to the second, stayed unchanged in the third, and {d} in the fourth.", "{a} पहले {b} से दूसरे में {c}, तीसरे में समान रही और चौथे में {d}।", "{a} ਪਹਿਲੇ {b} ਤੋਂ ਦੂਜੇ ਵਿੱਚ {c}, ਤੀਜੇ ਵਿੱਚ ਇਕੋ ਜਿਹੀ ਰਹੀ ਅਤੇ ਚੌਥੇ ਵਿੱਚ {d}।"),
-    conclusions: [T("The third {b} matched the second on {a}.", "तीसरे {b} में {a} दूसरे के समान रही।", "ਤੀਜੇ {b} ਵਿੱਚ {a} ਦੂਜੇ ਦੇ ਬਰਾਬਰ ਰਹੀ।"), T("{a} rose in every {b} compared with the one before it.", "{a} हर {b} में पिछले से बढ़ी।", "{a} ਹਰ {b} ਵਿੱਚ ਪਿਛਲੇ ਨਾਲੋਂ ਵਧੀ।")],
-    explanation: [T("The statement explicitly says the third period was unchanged from the second.", "कथन स्पष्ट रूप से कहता है कि तीसरी अवधि दूसरी के समान रही।", "ਕਥਨ ਸਪਸ਼ਟ ਕਹਿੰਦਾ ਹੈ ਕਿ ਤੀਜੀ ਅਵਧੀ ਦੂਜੀ ਦੇ ਬਰਾਬਰ ਰਹੀ।"), T("The fourth period {d}, so the measure did not rise every time.", "चौथी अवधि में {d}, इसलिए हर बार वृद्धि नहीं हुई।", "ਚੌਥੀ ਅਵਧੀ ਵਿੱਚ {d}, ਇਸ ਲਈ ਹਰ ਵਾਰ ਵਾਧਾ ਨਹੀਂ ਹੋਇਆ।")],
+    statement: T("{a} moved {c} from the first {b} to the second, stayed unchanged in the third, and moved {d} in the fourth.", "पहले {b} से दूसरे तक {a} का स्तर {c} गया, तीसरे में अपरिवर्तित रहा और चौथे में {d} गया।", "ਪਹਿਲੇ {b} ਤੋਂ ਦੂਜੇ ਤੱਕ {a} ਦਾ ਪੱਧਰ {c} ਗਿਆ, ਤੀਜੇ ਵਿੱਚ ਬਦਲਿਆ ਨਹੀਂ ਅਤੇ ਚੌਥੇ ਵਿੱਚ {d} ਗਿਆ।"),
+    conclusions: [T("The third {b} matched the second on {a}.", "तीसरे {b} में {a} का स्तर दूसरे के बराबर था।", "ਤੀਜੇ {b} ਵਿੱਚ {a} ਦਾ ਪੱਧਰ ਦੂਜੇ ਦੇ ਬਰਾਬਰ ਸੀ।"), T("{a} rose in every {b} compared with the one before it.", "हर {b} में {a} का स्तर पिछले से ऊँचा था।", "ਹਰ {b} ਵਿੱਚ {a} ਦਾ ਪੱਧਰ ਪਿਛਲੇ ਨਾਲੋਂ ਉੱਚਾ ਸੀ।")],
+    explanation: [T("The statement explicitly says the third period was unchanged from the second.", "कथन स्पष्ट रूप से कहता है कि तीसरी अवधि दूसरी के समान रही।", "ਕਥਨ ਸਪਸ਼ਟ ਕਹਿੰਦਾ ਹੈ ਕਿ ਤੀਜੀ ਅਵਧੀ ਦੂਜੀ ਦੇ ਬਰਾਬਰ ਰਹੀ।"), T("The fourth period moved {d}, so the measure did not rise every time.", "चौथी अवधि में {a} का स्तर {d} गया, इसलिए हर बार वृद्धि नहीं हुई।", "ਚੌਥੀ ਅਵਧੀ ਵਿੱਚ {a} ਦਾ ਪੱਧਰ {d} ਗਿਆ, ਇਸ ਲਈ ਹਰ ਵਾਰ ਵਾਧਾ ਨਹੀਂ ਹੋਇਆ।")],
   },
   {
     id: "STC-V22-QL006-T06", qlId: "STC-QL-006", surfaceArchetype: "QUOTED_CLAIM", difficulty: "HARD", answerClass: "ONLY_II",
@@ -72,8 +72,8 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
       [T("July", "जुलाई", "ਜੁਲਾਈ"), T("September", "सितंबर", "ਸਤੰਬਰ"), T("the penultimate period", "अंतिम से पहले की अवधि", "ਅੰਤਿਮ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਅਵਧੀ"), T("the fourth review point", "चौथे समीक्षा बिंदु", "ਚੌਥੇ ਸਮੀਖਿਆ ਬਿੰਦੂ")],
       [T("August", "अगस्त", "ਅਗਸਤ"), T("October", "अक्टूबर", "ਅਕਤੂਬਰ"), T("the final period", "अंतिम अवधि", "ਅੰਤਿਮ ਅਵਧੀ"), T("the fifth review point", "पाँचवें समीक्षा बिंदु", "ਪੰਜਵੇਂ ਸਮੀਖਿਆ ਬਿੰਦੂ")],
     ],
-    statement: T("The editor said, \"{a} climbed for {b}, levelled off in {c}, and slipped slightly in {d}.\"", "संपादक ने कहा, \"{a} {b} तक बढ़ी, {c} में स्थिर रही और {d} में थोड़ी घटी।\"", "ਸੰਪਾਦਕ ਨੇ ਕਿਹਾ, \"{a} {b} ਤੱਕ ਵਧੀ, {c} ਵਿੱਚ ਸਥਿਰ ਰਹੀ ਅਤੇ {d} ਵਿੱਚ ਥੋੜ੍ਹੀ ਘਟੀ।\""),
-    conclusions: [T("{a} continued rising without interruption through {d}.", "{a} {d} तक बिना रुके बढ़ती रही।", "{a} {d} ਤੱਕ ਬਿਨਾਂ ਰੁਕੇ ਵਧਦੀ ਰਹੀ।"), T("{a} was lower in {d} than in {c}.", "{a} {d} में {c} से कम थी।", "{a} {d} ਵਿੱਚ {c} ਨਾਲੋਂ ਘੱਟ ਸੀ।")],
+    statement: T("The editor said, \"The number of {a} climbed for {b}, levelled off in {c}, and slipped slightly in {d}.\"", "संपादक ने कहा, \"{a} की संख्या {b} तक बढ़ी, {c} में स्थिर रही और {d} में थोड़ी घटी।\"", "ਸੰਪਾਦਕ ਨੇ ਕਿਹਾ, \"{a} ਦੀ ਗਿਣਤੀ {b} ਤੱਕ ਵਧੀ, {c} ਵਿੱਚ ਸਥਿਰ ਰਹੀ ਅਤੇ {d} ਵਿੱਚ ਥੋੜ੍ਹੀ ਘਟੀ।\""),
+    conclusions: [T("The number of {a} continued rising without interruption through {d}.", "{a} की संख्या {d} तक बिना रुके बढ़ती रही।", "{a} ਦੀ ਗਿਣਤੀ {d} ਤੱਕ ਬਿਨਾਂ ਰੁਕੇ ਵਧਦੀ ਰਹੀ।"), T("The number of {a} was lower in {d} than in {c}.", "{a} की संख्या {d} में {c} से कम थी।", "{a} ਦੀ ਗਿਣਤੀ {d} ਵਿੱਚ {c} ਨਾਲੋਂ ਘੱਟ ਸੀ।")],
     explanation: [T("The plateau in {c} and decline in {d} break continuous growth.", "{c} में स्थिरता और {d} में गिरावट लगातार वृद्धि को तोड़ती है।", "{c} ਵਿੱਚ ਸਥਿਰਤਾ ਅਤੇ {d} ਵਿੱਚ ਘਟਾਅ ਲਗਾਤਾਰ ਵਾਧੇ ਨੂੰ ਤੋੜਦੇ ਹਨ।"), T("A slight slip in {d} means a fall from the {c} level.", "{d} में थोड़ी गिरावट का अर्थ {c} के स्तर से कमी है।", "{d} ਵਿੱਚ ਥੋੜ੍ਹਾ ਘਟਣਾ {c} ਦੇ ਪੱਧਰ ਤੋਂ ਹੇਠਾਂ ਆਉਣਾ ਹੈ।")],
   },
   {
@@ -81,8 +81,8 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
     dimensions: [
       [T("average disposal time", "औसत निपटान समय", "ਔਸਤ ਨਿਪਟਾਰਾ ਸਮਾਂ"), T("average processing time", "औसत प्रसंस्करण समय", "ਔਸਤ ਪ੍ਰਕਿਰਿਆ ਸਮਾਂ"), T("average waiting time", "औसत प्रतीक्षा समय", "ਔਸਤ ਉਡੀਕ ਸਮਾਂ"), T("average turnaround time", "औसत पूर्णता समय", "ਔਸਤ ਟਰਨਅਰਾਊਂਡ ਸਮਾਂ")],
       [T("new cases", "नए मामलों", "ਨਵੇਂ ਮਾਮਲਿਆਂ"), T("new applications", "नए आवेदनों", "ਨਵੀਆਂ ਅਰਜ਼ੀਆਂ"), T("incoming requests", "आने वाले अनुरोधों", "ਆਉਣ ਵਾਲੀਆਂ ਬੇਨਤੀਆਂ"), T("fresh complaints", "नई शिकायतों", "ਨਵੀਆਂ ਸ਼ਿਕਾਇਤਾਂ")],
-      [T("the latest quarter", "नवीनतम तिमाही", "ਤਾਜ਼ਾ ਤਿਮਾਹੀ"), T("the latest month", "नवीनतम महीना", "ਤਾਜ਼ਾ ਮਹੀਨਾ"), T("the final review period", "अंतिम समीक्षा अवधि", "ਅੰਤਿਮ ਸਮੀਖਿਆ ਅਵਧੀ"), T("the most recent cycle", "सबसे हाल का चक्र", "ਸਭ ਤੋਂ ਤਾਜ਼ਾ ਚੱਕਰ")],
-      [T("fell", "घटा", "ਘਟਿਆ"), T("declined", "कम हुआ", "ਘੱਟਿਆ"), T("improved downward", "नीचे आया", "ਹੇਠਾਂ ਆਇਆ"), T("reduced", "कम हुआ", "ਘਟਿਆ")],
+      [T("the latest quarter", "नवीनतम तिमाही", "ਤਾਜ਼ਾ ਤਿਮਾਹੀ"), T("the latest month", "नवीनतम महीने", "ਤਾਜ਼ਾ ਮਹੀਨੇ"), T("the final review period", "अंतिम समीक्षा अवधि", "ਅੰਤਿਮ ਸਮੀਖਿਆ ਅਵਧੀ"), T("the most recent cycle", "सबसे हाल के चक्र", "ਸਭ ਤੋਂ ਤਾਜ਼ਾ ਚੱਕਰ")],
+      [T("fell", "घटा", "ਘਟਿਆ"), T("declined", "कम हुआ", "ਘੱਟਿਆ"), T("decreased", "नीचे आया", "ਹੇਠਾਂ ਆਇਆ"), T("dropped", "कम हुआ", "ਘਟਿਆ")],
     ],
     statement: T("{a} {d} in {c}, while the number of {b} rose sharply in the same period.", "{c} में {a} {d}, जबकि उसी अवधि में {b} की संख्या तेजी से बढ़ी।", "{c} ਵਿੱਚ {a} {d}, ਜਦਕਿ ਉਸੇ ਅਵਧੀ ਵਿੱਚ {b} ਦੀ ਗਿਣਤੀ ਤੇਜ਼ੀ ਨਾਲ ਵਧੀ।"),
     conclusions: [T("{c} combined a lower {a} with a higher inflow of {b}.", "{c} में कम {a} के साथ अधिक {b} आए।", "{c} ਵਿੱਚ ਘੱਟ {a} ਦੇ ਨਾਲ ਵੱਧ {b} ਆਏ।"), T("The two stated measures moved in opposite directions in {c}.", "{c} में दोनों बताए गए माप विपरीत दिशाओं में चले।", "{c} ਵਿੱਚ ਦੋਵੇਂ ਦੱਸੇ ਮਾਪ ਉਲਟੀ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ ਗਏ।")],
@@ -93,11 +93,11 @@ export const STC_V22_QL006_TEMPLATES: readonly StcV22Template[] = [
     dimensions: [
       [T("pending cases", "लंबित मामलों", "ਲੰਬਿਤ ਮਾਮਲਿਆਂ"), T("unresolved complaints", "अनसुलझी शिकायतों", "ਅਣਸੁਲਝੀਆਂ ਸ਼ਿਕਾਇਤਾਂ"), T("backlogged applications", "लंबित आवेदनों", "ਬੈਕਲੌਗ ਅਰਜ਼ੀਆਂ"), T("open service requests", "खुले सेवा अनुरोधों", "ਖੁੱਲ੍ਹੀਆਂ ਸੇਵਾ ਬੇਨਤੀਆਂ")],
       [T("the present disposal rate", "वर्तमान निपटान दर", "ਮੌਜੂਦਾ ਨਿਪਟਾਰਾ ਦਰ"), T("the current processing pace", "वर्तमान प्रसंस्करण गति", "ਮੌਜੂਦਾ ਪ੍ਰਕਿਰਿਆ ਗਤੀ"), T("the existing clearance rate", "मौजूदा निस्तारण दर", "ਮੌਜੂਦਾ ਨਿਪਟਾਰਾ ਦਰ"), T("the present completion pace", "वर्तमान पूर्णता गति", "ਮੌਜੂਦਾ ਪੂਰਨਤਾ ਗਤੀ")],
-      [T("the next quarter", "अगली तिमाही", "ਅਗਲੀ ਤਿਮਾਹੀ"), T("the coming month", "आने वाला महीना", "ਆਉਣ ਵਾਲਾ ਮਹੀਨਾ"), T("the next review cycle", "अगला समीक्षा चक्र", "ਅਗਲਾ ਸਮੀਖਿਆ ਚੱਕਰ"), T("the remaining reporting period", "शेष रिपोर्टिंग अवधि", "ਬਾਕੀ ਰਿਪੋਰਟਿੰਗ ਅਵਧੀ")],
+      [T("the next quarter", "अगली तिमाही", "ਅਗਲੀ ਤਿਮਾਹੀ"), T("the coming month", "आने वाले महीने", "ਆਉਣ ਵਾਲੇ ਮਹੀਨੇ"), T("the next review cycle", "अगले समीक्षा चक्र", "ਅਗਲੇ ਸਮੀਖਿਆ ਚੱਕਰ"), T("the remaining reporting period", "शेष रिपोर्टिंग अवधि", "ਬਾਕੀ ਰਿਪੋਰਟਿੰਗ ਅਵਧੀ")],
       [T("the latest report", "नवीनतम रिपोर्ट", "ਤਾਜ਼ਾ ਰਿਪੋਰਟ"), T("the management note", "प्रबंधन टिप्पणी", "ਪ੍ਰਬੰਧਕੀ ਨੋਟ"), T("the review summary", "समीक्षा सारांश", "ਸਮੀਖਿਆ ਸੰਖੇਪ"), T("the monitoring update", "निगरानी अपडेट", "ਨਿਗਰਾਨੀ ਅਪਡੇਟ")],
     ],
-    statement: T("{d} says {a} are expected to keep falling during {c} if {b} is maintained.", "{d} में कहा गया है कि यदि {b} बनी रहती है, तो {c} में {a} घटते रहने की अपेक्षा है।", "{d} ਕਹਿੰਦੀ ਹੈ ਕਿ ਜੇ {b} ਬਣੀ ਰਹੇ, ਤਾਂ {c} ਵਿੱਚ {a} ਘਟਦੇ ਰਹਿਣ ਦੀ ਉਮੀਦ ਹੈ।"),
-    conclusions: [T("{a} are guaranteed to fall even if {b} changes.", "{b} बदलने पर भी {a} का घटना निश्चित है।", "{b} ਬਦਲਣ ਤੇ ਵੀ {a} ਦਾ ਘਟਣਾ ਨਿਸ਼ਚਿਤ ਹੈ।"), T("The statement proves that {a} have already fallen in the current period.", "कथन सिद्ध करता है कि वर्तमान अवधि में {a} पहले ही घट चुके हैं।", "ਕਥਨ ਸਾਬਤ ਕਰਦਾ ਹੈ ਕਿ ਮੌਜੂਦਾ ਅਵਧੀ ਵਿੱਚ {a} ਪਹਿਲਾਂ ਹੀ ਘਟ ਚੁੱਕੇ ਹਨ।")],
+    statement: T("{d} says {a} are expected to keep falling during {c} if {b} is maintained.", "{d} में कहा गया है कि यदि {b} बनी रहती है, तो {c} में {a} में कमी जारी रहने की अपेक्षा है।", "{d} ਮੁਤਾਬਕ, ਜੇ {b} ਬਣੀ ਰਹੇ, ਤਾਂ {c} ਵਿੱਚ {a} ਵਿੱਚ ਘਟਾਅ ਜਾਰੀ ਰਹਿਣ ਦੀ ਉਮੀਦ ਹੈ।"),
+    conclusions: [T("{a} are guaranteed to fall even if {b} changes.", "{b} बदलने पर भी {a} में गिरावट निश्चित है।", "{b} ਬਦਲਣ ਤੇ ਵੀ {a} ਵਿੱਚ ਘਟਾਅ ਨਿਸ਼ਚਿਤ ਹੈ।"), T("The statement proves that {a} have already fallen in the current period.", "कथन सिद्ध करता है कि वर्तमान अवधि में {a} में पहले ही गिरावट आ चुकी है।", "ਕਥਨ ਸਾਬਤ ਕਰਦਾ ਹੈ ਕਿ ਮੌਜੂਦਾ ਅਵਧੀ ਵਿੱਚ {a} ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਘਟਾਅ ਆ ਚੁੱਕਾ ਹੈ।")],
     explanation: [T("The forecast is conditional on maintaining {b}.", "पूर्वानुमान {b} बनाए रखने की शर्त पर आधारित है।", "ਅਨੁਮਾਨ {b} ਬਣਾਈ ਰੱਖਣ ਦੀ ਸ਼ਰਤ ਤੇ ਆਧਾਰਿਤ ਹੈ।"), T("A forecast for {c} does not establish a completed fall in the current period.", "{c} के लिए पूर्वानुमान वर्तमान अवधि में हो चुकी गिरावट सिद्ध नहीं करता।", "{c} ਲਈ ਅਨੁਮਾਨ ਮੌਜੂਦਾ ਅਵਧੀ ਵਿੱਚ ਹੋ ਚੁੱਕੇ ਘਟਾਅ ਨੂੰ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ।")],
   },
 ] as const;

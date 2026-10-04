@@ -84,9 +84,11 @@ for (const qlId of STC_QL_IDS) {
       assert.equal(preview.generationReady, true);
       assert.equal(preview.presentationProfile, "FOUR_WAY");
       assert.equal(preview.question.scenarioId, direct.scenarioId);
-      assert.equal(preview.question.correctOptionIndex, direct.correctOptionIndex);
+      assert.equal(preview.question.correctIndex, direct.correctIndex);
       assert.equal(preview.question.qlId, qlId);
       assert.equal(preview.question.locale, locale);
+      assert.equal(direct.metadata.independentProofVerified, true);
+      assert.equal(direct.metadata.questionBankWritable, false);
     }
   }
 }

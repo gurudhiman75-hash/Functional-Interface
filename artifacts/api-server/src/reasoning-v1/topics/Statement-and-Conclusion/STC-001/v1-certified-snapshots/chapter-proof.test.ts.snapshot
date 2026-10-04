@@ -36,13 +36,8 @@ assert(STC_001_MANIFEST.lifecycle.semanticQlAllocationComplete, "semantic alloca
 assert(historicalAuthorityCount === 24, `historical 24-authority baseline drifted: ${historicalAuthorityCount}`);
 assert(expansionAuthorityCount === 24, `expected 24 exam-realness expansion authorities, got ${expansionAuthorityCount}`);
 assert(authorityCount === 48, `expected 48 current semantic authorities, got ${authorityCount}`);
-assert(STC_001_MANIFEST.lifecycle.chapterFrozen, "approved STC V2.2 chapter must remain frozen");
-assert(STC_001_MANIFEST.lifecycle.multilingualFrozen, "approved STC V2.2 multilingual surface must remain frozen");
-assert(
-  String(STC_001_MANIFEST.lifecycle.questionStudio) === "GENERATION_READY_REVIEW_ONLY_FROZEN",
-  "Question Studio must remain generation-ready but review-only",
-);
-assert(STC_001_MANIFEST.lifecycle.questionStudioRegisteredReviewOnly, "Question Studio review-only registration must remain active");
+assert(!STC_001_MANIFEST.lifecycle.chapterFrozen, "chapter must not freeze before human review");
+assert(STC_001_MANIFEST.lifecycle.questionStudio === "NOT_REGISTERED", "Question Studio must remain unregistered before review approval");
 assert(!STC_001_MANIFEST.lifecycle.questionBankWritable, "Question Bank must remain locked");
 assert(!STC_001_MANIFEST.lifecycle.testEligible, "test delivery must remain locked");
 assert(!STC_001_MANIFEST.lifecycle.mockEligible, "mock delivery must remain locked");
