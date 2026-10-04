@@ -48,7 +48,7 @@ export type DmCheckpointId = (typeof DM_001_CHECKPOINT_IDS)[number];
 export type DmQlId = (typeof DM_001_QL_IDS)[number];
 export type DmLocale = "en" | "hi" | "pa";
 export type DmDifficulty = "EASY" | "MEDIUM" | "HARD";
-export type DmSubjectKind = "PERSON" | "PRODUCT_LOT";
+export type DmSubjectKind = "PERSON" | "PRODUCT_LOT" | "ORGANIZATION";
 export type DmOutcome =
   | "SELECT"
   | "REJECT"
@@ -90,7 +90,20 @@ export type DmField =
   | "labStatus"
   | "labelStatus"
   | "packagingStatus"
-  | "inspectionOrder";
+  | "inspectionOrder"
+  | "yearsOperating"
+  | "qualifiedStaffCount"
+  | "complianceScore"
+  | "incidentCount"
+  | "annualTurnover"
+  | "auditStatus"
+  | "insuranceStatus"
+  | "licenseStatus"
+  | "taxStatus"
+  | "documentStatus"
+  | "serviceAreaStatus"
+  | "financialRecordStatus"
+  | "securityStatus";
 export type DmRankField =
   | "qualificationRank"
   | "experienceYears"
@@ -230,6 +243,19 @@ export type DmCandidateProfile = Readonly<{
   labelStatus?: string;
   packagingStatus?: string;
   inspectionOrder?: number;
+  yearsOperating?: number;
+  qualifiedStaffCount?: number;
+  complianceScore?: number;
+  incidentCount?: number;
+  annualTurnover?: number;
+  auditStatus?: string;
+  insuranceStatus?: string;
+  licenseStatus?: string;
+  taxStatus?: string;
+  documentStatus?: string;
+  serviceAreaStatus?: string;
+  financialRecordStatus?: string;
+  securityStatus?: string;
 }>; 
 
 export type DmRankingSpec = Readonly<{

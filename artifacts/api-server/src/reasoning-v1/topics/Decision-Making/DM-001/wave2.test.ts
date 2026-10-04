@@ -70,8 +70,10 @@ for (const offset of [-1, 0, 1]) {
   assert.equal(evaluateDmDecision(candidate, benefitScenario).outcome, offset <= 0 ? "SELECT" : "REJECT", "fictional scheme income limit boundary");
 }
 
-assert.equal(dmScenariosForCheckpoint("DM-CP-007").length, 25);
-assert.ok(dmScenariosForCheckpoint("DM-CP-007").every((scenario) => scenario.context.en.includes("fictional scheme")));
-const employmentCondition = dmScenariosForCheckpoint("DM-CP-007")[0]!.baseConditions.find((condition) => condition.field === "employmentStatus")!;
+assert.equal(dmScenariosForCheckpoint("DM-CP-007").length, 30);
+const personBenefitScenarios = dmScenariosForCheckpoint("DM-CP-007").filter((scenario) => scenario.subjectKind !== "ORGANIZATION");
+assert.equal(personBenefitScenarios.length, 25);
+assert.ok(personBenefitScenarios.every((scenario) => scenario.context.en.includes("fictional scheme")));
+const employmentCondition = personBenefitScenarios[0]!.baseConditions.find((condition) => condition.field === "employmentStatus")!;
 assert.equal(formatDmRequirement(employmentCondition, "en"), "Employment status: student or unemployed");
 console.log("DM-001 Wave 2 checks passed: cutoff boundaries, dependent relaxations, fictional benefit contexts and computed priority ranking.");

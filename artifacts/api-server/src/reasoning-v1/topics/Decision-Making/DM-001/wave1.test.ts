@@ -9,11 +9,11 @@ assertContinuousDmQlIds();
 const legacyCheckpoints = DM_001_CHECKPOINT_IDS.slice(0, 10);
 const legacyScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 10);
 assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 10).length, 30);
-assert.equal(legacyScenarios.length, 280);
-const productExpandedCheckpoints = new Set(["DM-CP-001", "DM-CP-002", "DM-CP-003", "DM-CP-008", "DM-CP-009", "DM-CP-010"]);
+assert.equal(legacyScenarios.length, 295);
+const expandedCheckpoints = new Set(["DM-CP-001", "DM-CP-002", "DM-CP-003", "DM-CP-004", "DM-CP-006", "DM-CP-007", "DM-CP-008", "DM-CP-009", "DM-CP-010"]);
 for (const checkpointId of legacyCheckpoints) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
-  const expectedScenarioCount = productExpandedCheckpoints.has(checkpointId) ? 30 : 25;
+  const expectedScenarioCount = expandedCheckpoints.has(checkpointId) ? 30 : 25;
   assert.equal(scenarios.length, expectedScenarioCount, checkpointId + " scenario coverage");
   assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, expectedScenarioCount);
   assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
@@ -66,6 +66,19 @@ for (const scenario of legacyScenarios) {
               pa: {
                 SELECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰ ਕਰੋ", REJECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਰੱਦ ਕਰੋ",
                 INFORMATION_REQUIRED: "ਗੁਣਵੱਤਾ ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+              },
+            } : scenario.subjectKind === "ORGANIZATION" ? {
+              en: {
+                SELECT: "Approve under the stated rules", REJECT: "Do not approve under the stated rules",
+                INFORMATION_REQUIRED: "Decision cannot be made; an organisational record is required",
+              },
+              hi: {
+                SELECT: "दी गई शर्तों के अनुसार मंजूरी दें", REJECT: "दी गई शर्तों के अनुसार मंजूरी न दें",
+                INFORMATION_REQUIRED: "निर्णय के लिए संस्थागत रिकॉर्ड आवश्यक है",
+              },
+              pa: {
+                SELECT: "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ", REJECT: "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰੀ ਨਾ ਦਿਓ",
+                INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਸੰਸਥਾਗਤ ਰਿਕਾਰਡ ਲੋੜੀਂਦਾ ਹੈ",
               },
             } : {
               en: {
@@ -126,4 +139,4 @@ assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outc
 assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_DIRECTOR")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
-console.log("DM-001 Waves 1–2 regression checks passed: 280 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");
+console.log("DM-001 Waves 1–2 regression checks passed: 295 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");

@@ -9,14 +9,14 @@ import type { DmCheckpointId } from "./types.ts";
 
 assert.equal(DM_001_MANIFEST.checkpointIds.length, 20);
 assert.equal(DM_001_QL_REGISTRY.length, 60);
-assert.equal(DM_001_SCENARIO_LIBRARY.length, 830);
+assert.equal(DM_001_SCENARIO_LIBRARY.length, 845);
 assert.equal(new Set(DM_001_QL_REGISTRY.map((entry) => entry.qlId)).size, 60);
 
 const expectedCheckpointCounts = new Map<DmCheckpointId, number>();
 for (let cp = 1; cp <= 20; cp += 1) {
   const id = ("DM-CP-" + String(cp).padStart(3, "0")) as DmCheckpointId;
-  const productExpanded = [1, 2, 3, 8, 9, 10].includes(cp);
-  expectedCheckpointCounts.set(id, cp <= 10 ? (productExpanded ? 30 : 25) : cp <= 16 ? 75 : 25);
+  const expanded = [1, 2, 3, 4, 6, 7, 8, 9, 10].includes(cp);
+  expectedCheckpointCounts.set(id, cp <= 10 ? (expanded ? 30 : 25) : cp <= 16 ? 75 : 25);
 }
 for (const [checkpointId, expected] of expectedCheckpointCounts) {
   const scenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === checkpointId);
@@ -109,7 +109,7 @@ console.log(JSON.stringify({
   status: "PASS_DM_001_FINAL_DEEP_AUDIT",
   checkpointCount: 20,
   permanentQlCount: 60,
-  scenarioAuthorityCount: 830,
+  scenarioAuthorityCount: 845,
   mixedBatchCheckpointCoverage: 20,
   languages: ["en", "hi", "pa"],
   lifecycle: "review-only",
