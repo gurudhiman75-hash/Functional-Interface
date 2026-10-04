@@ -23,6 +23,12 @@ const NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
   pa: ["ਅਮਨ", "ਸਿਮਰਨ", "ਕਬੀਰ", "ਮੀਰਾ", "ਹਰਜੀਤ", "ਨਿਸ਼ਾ", "ਕਰਨ", "ਰੀਆ", "ਅਰਜੁਨ", "ਨੂਰ"],
 });
 
+const LOT_NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: ["Lot A", "Lot B", "Lot C", "Lot D", "Lot E", "Lot F", "Lot G", "Lot H", "Lot J", "Lot K"],
+  hi: ["लॉट A", "लॉट B", "लॉट C", "लॉट D", "लॉट E", "लॉट F", "लॉट G", "लॉट H", "लॉट J", "लॉट K"],
+  pa: ["ਲਾਟ A", "ਲਾਟ B", "ਲਾਟ C", "ਲਾਟ D", "ਲਾਟ E", "ਲਾਟ F", "ਲਾਟ G", "ਲਾਟ H", "ਲਾਟ J", "ਲਾਟ K"],
+});
+
 const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>> = Object.freeze({
   en: {
     age: "Age", ageAtDate: "Age on the cut-off date", graduationMarks: "Graduation marks",
@@ -31,6 +37,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     writtenScore: "Written score", sectionalScore: "Sectional score", interviewScore: "Interview score", overallScore: "Overall score",
     annualIncome: "Annual income", familyIncome: "Family income", employmentStatus: "Employment status",
     repaymentStatus: "Repayment record", collateralStatus: "Collateral", category: "Category", applicationOrder: "Application order",
+    moisturePercent: "Moisture", defectPercent: "Defects", temperatureC: "Temperature", weightGrams: "Unit weight",
+    sizeMm: "Size", purityPercent: "Purity", strengthMpa: "Strength", sealStatus: "Seal status",
+    labStatus: "Lab result", labelStatus: "Label compliance", packagingStatus: "Packaging condition", inspectionOrder: "Inspection order",
   },
   hi: {
     age: "आयु", ageAtDate: "निर्धारित तिथि पर आयु", graduationMarks: "स्नातक में अंक",
@@ -39,6 +48,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     writtenScore: "लिखित परीक्षा के अंक", sectionalScore: "अनुभागीय अंक", interviewScore: "साक्षात्कार के अंक", overallScore: "कुल अंक",
     annualIncome: "वार्षिक आय", familyIncome: "परिवार की आय", employmentStatus: "रोज़गार की स्थिति",
     repaymentStatus: "भुगतान का रिकॉर्ड", collateralStatus: "जमानत", category: "श्रेणी", applicationOrder: "आवेदन क्रम",
+    moisturePercent: "नमी", defectPercent: "दोष", temperatureC: "तापमान", weightGrams: "इकाई वजन",
+    sizeMm: "आकार", purityPercent: "शुद्धता", strengthMpa: "मजबूती", sealStatus: "सील की स्थिति",
+    labStatus: "प्रयोगशाला परिणाम", labelStatus: "लेबल अनुपालन", packagingStatus: "पैकेजिंग की स्थिति", inspectionOrder: "निरीक्षण क्रम",
   },
   pa: {
     age: "ਉਮਰ", ageAtDate: "ਨਿਰਧਾਰਤ ਮਿਤੀ ਨੂੰ ਉਮਰ", graduationMarks: "ਗ੍ਰੈਜੂਏਸ਼ਨ ਦੇ ਅੰਕ",
@@ -47,6 +59,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     writtenScore: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ", sectionalScore: "ਭਾਗੀ ਅੰਕ", interviewScore: "ਇੰਟਰਵਿਊ ਦੇ ਅੰਕ", overallScore: "ਕੁੱਲ ਅੰਕ",
     annualIncome: "ਸਾਲਾਨਾ ਆਮਦਨ", familyIncome: "ਪਰਿਵਾਰਕ ਆਮਦਨ", employmentStatus: "ਰੁਜ਼ਗਾਰ ਦੀ ਸਥਿਤੀ",
     repaymentStatus: "ਭੁਗਤਾਨ ਰਿਕਾਰਡ", collateralStatus: "ਜਮਾਨਤ", category: "ਸ਼੍ਰੇਣੀ", applicationOrder: "ਅਰਜ਼ੀ ਦਾ ਕ੍ਰਮ",
+    moisturePercent: "ਨਮੀ", defectPercent: "ਖਾਮੀਆਂ", temperatureC: "ਤਾਪਮਾਨ", weightGrams: "ਇਕਾਈ ਭਾਰ",
+    sizeMm: "ਆਕਾਰ", purityPercent: "ਸ਼ੁੱਧਤਾ", strengthMpa: "ਮਜ਼ਬੂਤੀ", sealStatus: "ਸੀਲ ਦੀ ਸਥਿਤੀ",
+    labStatus: "ਲੈਬ ਨਤੀਜਾ", labelStatus: "ਲੇਬਲ ਅਨੁਕੂਲਤਾ", packagingStatus: "ਪੈਕਿੰਗ ਦੀ ਸਥਿਤੀ", inspectionOrder: "ਜਾਂਚ ਕ੍ਰਮ",
   },
 });
 
@@ -56,18 +71,21 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
     HOME_STATE: "resident of the state", OTHER_STATE: "not a resident of the state",
     STUDENT: "student", UNEMPLOYED: "unemployed", CURRENT: "up to date", NOT_APPLICABLE: "not applicable", ACCEPTABLE: "acceptable", GENERAL: "General category", OBC: "OBC category", SC: "SC category", ST: "ST category", OTHER: "other",
     TEACHING: "teaching", CLERICAL: "clerical work", BANKING: "banking", TECHNICAL: "technical work", FIELD: "field work", LABORATORY: "laboratory work",
+    SEALED: "sealed", UNSEALED: "unsealed", PASS: "passed", FAIL: "failed", COMPLIANT: "compliant", NON_COMPLIANT: "not compliant", INTACT: "intact", DAMAGED: "damaged",
   },
   hi: {
     VALID: "वैध", PENDING: "लंबित", INVALID: "अमान्य", MISMATCH: "अभिलेख से मेल नहीं खाता",
     HOME_STATE: "राज्य का निवासी", OTHER_STATE: "राज्य का निवासी नहीं",
     STUDENT: "विद्यार्थी", UNEMPLOYED: "बेरोज़गार", CURRENT: "भुगतान नियमित", NOT_APPLICABLE: "लागू नहीं", ACCEPTABLE: "स्वीकार्य", GENERAL: "सामान्य श्रेणी", OBC: "ओबीसी श्रेणी", SC: "एससी श्रेणी", ST: "एसटी श्रेणी", OTHER: "अन्य",
     TEACHING: "अध्यापन", CLERICAL: "लिपिकीय कार्य", BANKING: "बैंकिंग", TECHNICAL: "तकनीकी कार्य", FIELD: "क्षेत्रीय कार्य", LABORATORY: "प्रयोगशाला कार्य",
+    SEALED: "सीलबंद", UNSEALED: "सील खुली", PASS: "उत्तीर्ण", FAIL: "अनुत्तीर्ण", COMPLIANT: "अनुरूप", NON_COMPLIANT: "अनुरूप नहीं", INTACT: "सही", DAMAGED: "क्षतिग्रस्त",
   },
   pa: {
     VALID: "ਵੈਧ", PENDING: "ਲੰਬਿਤ", INVALID: "ਅਵੈਧ", MISMATCH: "ਰਿਕਾਰਡ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
     HOME_STATE: "ਰਾਜ ਦਾ ਵਸਨੀਕ", OTHER_STATE: "ਰਾਜ ਦਾ ਵਸਨੀਕ ਨਹੀਂ",
     STUDENT: "ਵਿਦਿਆਰਥੀ", UNEMPLOYED: "ਬੇਰੁਜ਼ਗਾਰ", CURRENT: "ਭੁਗਤਾਨ ਠੀਕ", NOT_APPLICABLE: "ਲਾਗੂ ਨਹੀਂ", ACCEPTABLE: "ਮਨਜ਼ੂਰਯੋਗ", GENERAL: "ਜਨਰਲ ਸ਼੍ਰੇਣੀ", OBC: "ਓਬੀਸੀ ਸ਼੍ਰੇਣੀ", SC: "ਐਸਸੀ ਸ਼੍ਰੇਣੀ", ST: "ਐਸਟੀ ਸ਼੍ਰੇਣੀ", OTHER: "ਹੋਰ",
     TEACHING: "ਅਧਿਆਪਨ", CLERICAL: "ਕਲਰਕੀ ਕੰਮ", BANKING: "ਬੈਂਕਿੰਗ", TECHNICAL: "ਤਕਨੀਕੀ ਕੰਮ", FIELD: "ਫੀਲਡ ਕੰਮ", LABORATORY: "ਲੈਬੋਰਟਰੀ ਦਾ ਕੰਮ",
+    SEALED: "ਸੀਲਬੰਦ", UNSEALED: "ਸੀਲ ਖੁੱਲ੍ਹੀ", PASS: "ਪਾਸ", FAIL: "ਫੇਲ", COMPLIANT: "ਅਨੁਕੂਲ", NON_COMPLIANT: "ਅਨੁਕੂਲ ਨਹੀਂ", INTACT: "ਠੀਕ", DAMAGED: "ਖਰਾਬ",
   },
 });
 
@@ -185,7 +203,17 @@ const REFERRAL_OUTCOME_VARIANTS: Readonly<Record<
   }),
 });
 
-function outcomeLabel(outcome: DmOutcome, locale: DmLocale, seed: number): string {
+const PRODUCT_OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Partial<Record<DmOutcome, string>>>>> = Object.freeze({
+  en: Object.freeze({ SELECT: "Accept under the stated quality rules", REJECT: "Reject under the stated quality rules", INFORMATION_REQUIRED: "Quality decision cannot be made; information is required" }),
+  hi: Object.freeze({ SELECT: "दिए गए गुणवत्ता नियमों के अनुसार स्वीकार करें", REJECT: "दिए गए गुणवत्ता नियमों के अनुसार अस्वीकार करें", INFORMATION_REQUIRED: "गुणवत्ता निर्णय के लिए अतिरिक्त जानकारी आवश्यक है" }),
+  pa: Object.freeze({ SELECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰ ਕਰੋ", REJECT: "ਦਿੱਤੇ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਰੱਦ ਕਰੋ", INFORMATION_REQUIRED: "ਗੁਣਵੱਤਾ ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ" }),
+});
+
+function outcomeLabel(outcome: DmOutcome, locale: DmLocale, seed: number, scenario?: DmScenario): string {
+  if (scenario?.subjectKind === "PRODUCT_LOT") {
+    const productLabel = PRODUCT_OUTCOME_LABELS[locale][outcome];
+    if (productLabel) return productLabel;
+  }
   if (outcome === "REFER_TO_MANAGER" || outcome === "REFER_TO_DIRECTOR" || outcome === "REFER_TO_COMMITTEE") {
     const variants = REFERRAL_OUTCOME_VARIANTS[locale][outcome];
     return variants[Math.abs(seed) % variants.length]!;
@@ -235,6 +263,24 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "{name} ਲਈ ਅੰਤਿਮ ਕਾਰਵਾਈ ਕੀ ਹੋਵੇਗੀ?",
     "ਸ਼ਰਤਾਂ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ {name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਕਿਹੜਾ ਫੈਸਲਾ ਨਿਕਲਦਾ ਹੈ?",
     "ਅਧਿਕਾਰੀ ਨੂੰ {name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਕੀ ਫੈਸਲਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+  ],
+});
+
+const PRODUCT_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: [
+    "What is the correct decision for {name}?", "Should {name} be accepted under these quality rules?", "Which decision follows for {name}?",
+    "How should {name} be classified?", "What action is required for {name}?", "Does {name} meet the acceptance standard?",
+    "Which option correctly decides {name}?", "What is the status of {name} after applying every condition?",
+  ],
+  hi: [
+    "{name} के लिए सही निर्णय क्या है?", "क्या {name} को इन गुणवत्ता नियमों के अनुसार स्वीकार किया जाना चाहिए?", "{name} के लिए कौन-सा निर्णय निकलता है?",
+    "{name} को किस प्रकार वर्गीकृत किया जाए?", "{name} के लिए क्या कार्रवाई आवश्यक है?", "क्या {name} स्वीकृति मानक पूरा करता है?",
+    "कौन-सा विकल्प {name} का सही निर्णय बताता है?", "सभी शर्तें लागू करने के बाद {name} की स्थिति क्या है?",
+  ],
+  pa: [
+    "{name} ਲਈ ਸਹੀ ਫੈਸਲਾ ਕੀ ਹੈ?", "ਕੀ {name} ਨੂੰ ਇਨ੍ਹਾਂ ਗੁਣਵੱਤਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰ ਕੀਤਾ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ?", "{name} ਲਈ ਕਿਹੜਾ ਫੈਸਲਾ ਨਿਕਲਦਾ ਹੈ?",
+    "{name} ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤਾ ਜਾਵੇ?", "{name} ਲਈ ਕਿਹੜੀ ਕਾਰਵਾਈ ਲੋੜੀਂਦੀ ਹੈ?", "ਕੀ {name} ਮਨਜ਼ੂਰੀ ਮਿਆਰ ਪੂਰਾ ਕਰਦਾ ਹੈ?",
+    "ਕਿਹੜਾ ਵਿਕਲਪ {name} ਦਾ ਸਹੀ ਫੈਸਲਾ ਦੱਸਦਾ ਹੈ?", "ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ {name} ਦੀ ਸਥਿਤੀ ਕੀ ਹੈ?",
   ],
 });
 
@@ -406,7 +452,7 @@ function satisfyingValue(conditions: readonly DmRuleCondition[], scenario: DmSce
     if (age === undefined) throw new Error("DM-001 could not satisfy the age conditions in " + scenario.scenarioId);
     return dateOfBirthForAge(scenario.referenceDate, age);
   }
-  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome"].includes(field);
+  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder"].includes(field);
   if (numericField) {
     const numericThresholds = thresholds.filter((value): value is number => typeof value === "number");
     const offset = boundary ? 0 : 1 + (seed % 2);
@@ -429,6 +475,10 @@ function valueFailing(condition: DmRuleCondition, seed: number, scenario: DmScen
     if (condition.field === "certificateStatus") return "INVALID";
     if (condition.field === "residenceStatus") return "OTHER_STATE";
     if (condition.field === "experienceArea") return "FIELD";
+    if (condition.field === "sealStatus") return "UNSEALED";
+    if (condition.field === "labStatus") return "FAIL";
+    if (condition.field === "labelStatus") return "NON_COMPLIANT";
+    if (condition.field === "packagingStatus") return "DAMAGED";
     if (condition.field === "qualificationRank" && typeof target === "number") return Math.max(1, target - 1);
     return "OTHER";
   }
@@ -440,8 +490,7 @@ function valueFailing(condition: DmRuleCondition, seed: number, scenario: DmScen
   if (typeof target !== "number") return "OTHER";
   const delta = 1 + (seed % 2);
   if (condition.operator === "LTE") return target + delta;
-    if (condition.field === "experienceYears" || condition.field === "graduationMarks" || condition.field === "writtenScore" || condition.field === "sectionalScore" || condition.field === "interviewScore" || condition.field === "overallScore" || condition.field === "annualIncome" || condition.field === "familyIncome" || condition.field === "age") return Math.max(0, target - delta);
-  return target - delta;
+    return Math.max(0, target - delta);
 }
 
 function dateOfBirthForAge(referenceDate: string, age: number): string {
@@ -457,7 +506,7 @@ function setField(profile: Record<string, string | number | undefined>, field: D
 }
 
 function defaultForField(field: DmField): number | string | undefined {
-  if (["experienceYears", "graduationMarks", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "qualificationRank", "age", "ageAtDate", "applicationOrder"].includes(field)) return 0;
+  if (["experienceYears", "graduationMarks", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "qualificationRank", "age", "ageAtDate", "applicationOrder", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder"].includes(field)) return 0;
   if (field === "experienceArea") return "FIELD";
   if (field === "residenceStatus") return "OTHER_STATE";
   if (field === "registrationStatus") return "PENDING";
@@ -466,6 +515,10 @@ function defaultForField(field: DmField): number | string | undefined {
   if (field === "repaymentStatus") return "NOT_APPLICABLE";
   if (field === "collateralStatus") return "ACCEPTABLE";
   if (field === "category") return "GENERAL";
+  if (field === "sealStatus") return "UNSEALED";
+  if (field === "labStatus") return "FAIL";
+  if (field === "labelStatus") return "NON_COMPLIANT";
+  if (field === "packagingStatus") return "DAMAGED";
   return undefined;
 }
 
@@ -497,6 +550,7 @@ function ruleForMode(scenario: DmScenario, mode: DmCandidateMode) {
   if (mode === "DOCUMENT_REFERRAL") return scenario.decisionRules.find((rule) => /CERTIFICATE_MISMATCH/.test(rule.ruleId));
   if (mode === "DIRECTOR_REFERRAL") return scenario.decisionRules.find((rule) => /DIRECTOR/.test(rule.ruleId));
   if (mode === "COMMITTEE_REFERRAL") return scenario.decisionRules.find((rule) => /COMMITTEE/.test(rule.ruleId));
+  if (mode === "RULE_EXCEPTION") return scenario.decisionRules.length ? scenario.decisionRules[0] : undefined;
   return undefined;
 }
 
@@ -538,7 +592,8 @@ export function buildDmCandidate(
     for (const [field, conditions] of byField) setField(values, field, satisfyingValue(conditions, scenario, seed + field.length, true));
     if (mode === "DOCUMENT_REFERRAL") setField(values, "certificateStatus", "MISMATCH");
   }
-  const name = NAMES[locale][seed % NAMES[locale].length]!;
+  const namePool = scenario.subjectKind === "PRODUCT_LOT" ? LOT_NAMES : NAMES;
+  const name = namePool[locale][seed % namePool[locale].length]!;
   values.name = name;
   return Object.freeze(values as DmCandidateProfile);
 }
@@ -548,7 +603,12 @@ function formatRuleValue(field: DmField, value: number | string, locale: DmLocal
   const translated = VALUE_LABELS[locale][String(value)];
   if (translated) return translated;
   if (field === "annualIncome" || field === "familyIncome") return "₹" + String(value);
-  if (field === "graduationMarks" || field === "writtenScore" || field === "sectionalScore" || field === "interviewScore" || field === "overallScore") return String(value) + "%";
+  if (field === "graduationMarks" || field === "writtenScore" || field === "sectionalScore" || field === "interviewScore" || field === "overallScore" || field === "moisturePercent" || field === "defectPercent" || field === "purityPercent") return String(value) + "%";
+  if (field === "temperatureC") return String(value) + "°C";
+  if (field === "weightGrams") return String(value) + (locale === "en" ? " g" : locale === "hi" ? " ग्राम" : " ਗ੍ਰਾਮ");
+  if (field === "sizeMm") return String(value) + " mm";
+  if (field === "strengthMpa") return String(value) + " MPa";
+  if (field === "inspectionOrder") return String(value);
   if (field === "age" || field === "ageAtDate" || field === "experienceYears") {
     if (locale === "en") return String(value) + (value === 1 ? " year" : " years");
     if (locale === "hi") return String(value) + " वर्ष";
@@ -630,9 +690,11 @@ function localizedRankingStem(scenario: DmScenario, candidates: readonly DmCandi
   const intro = PROMPTS[locale].intro.replaceAll("{context}", scenario.context[locale]);
   const requirements = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
   const orderLabel = locale === "en" ? "Priority order (each item breaks a tie in the previous one)" : locale === "hi" ? "प्राथमिकता क्रम (हर अगली शर्त पिछले बराबर परिणाम का निर्णय करती है)" : "ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ (ਹਰ ਅਗਲੀ ਸ਼ਰਤ ਪਿਛਲੀ ਬਰਾਬਰੀ ਦਾ ਫੈਸਲਾ ਕਰਦੀ ਹੈ)";
-  const applicantsLabel = locale === "en" ? "Profiles" : locale === "hi" ? "प्रोफाइल" : "ਪ੍ਰੋਫਾਈਲਾਂ";
-  const seatsLabel = locale === "en" ? "Available places or awards" : locale === "hi" ? "उपलब्ध स्थान या पुरस्कार" : "ਉਪਲਬਧ ਥਾਵਾਂ ਜਾਂ ਇਨਾਮ";
-  const prompt = RANKING_STEMS[locale][seed % RANKING_STEMS[locale].length]!;
+  const isProduct = scenario.subjectKind === "PRODUCT_LOT";
+  const applicantsLabel = isProduct ? (locale === "en" ? "Lots" : locale === "hi" ? "लॉट" : "ਲਾਟਾਂ") : (locale === "en" ? "Profiles" : locale === "hi" ? "प्रोफाइल" : "ਪ੍ਰੋਫਾਈਲਾਂ");
+  const seatsLabel = isProduct ? (locale === "en" ? "Available priority slots" : locale === "hi" ? "उपलब्ध प्राथमिकता स्थान" : "ਉਪਲਬਧ ਤਰਜੀਹ ਸਥਾਨ") : (locale === "en" ? "Available places or awards" : locale === "hi" ? "उपलब्ध स्थान या पुरस्कार" : "ਉਪਲਬਧ ਥਾਵਾਂ ਜਾਂ ਇਨਾਮ");
+  const productPrompt = locale === "en" ? "Which qualifying lot or group of lots should receive priority?" : locale === "hi" ? "कौन-सा पात्र लॉट या लॉटों का समूह प्राथमिकता पाएगा?" : "ਕਿਹੜਾ ਯੋਗ ਲਾਟ ਜਾਂ ਲਾਟਾਂ ਦਾ ਸਮੂਹ ਤਰਜੀਹ ਲਵੇਗਾ?";
+  const prompt = isProduct ? productPrompt : RANKING_STEMS[locale][seed % RANKING_STEMS[locale].length]!;
   return [
     intro,
     PROMPTS[locale].conditions + ":",
@@ -678,6 +740,32 @@ function rankingOptions(
 }
 
 function buildRankingCandidates(scenario: DmScenario, mode: DmCandidateMode, seed: number, locale: DmLocale): readonly DmCandidateProfile[] {
+  if (scenario.subjectKind === "PRODUCT_LOT") {
+    const purity = [99, 97, 98, 96, 95];
+    const sizes = [78, 74, 82, 76, 80];
+    const strengths = [48, 45, 50, 46, 47];
+    const weights = [505, 500, 510, 498, 502];
+    const defects = [1, 3, 2, 4, 5];
+    const moisture = [10, 12, 11, 13, 9];
+    const temperatures = [3, 4, 2, 5, 1];
+    const failingIndex = seed % 5;
+    return Object.freeze(Array.from({ length: 5 }, (_, index) => {
+      const lotMode = index === failingIndex ? mode : "ALL_PASS";
+      const candidate = buildDmCandidate(scenario, lotMode, seed + index * 17, locale);
+      return Object.freeze({
+        ...candidate,
+        name: LOT_NAMES[locale][(seed + index) % LOT_NAMES[locale].length]!,
+        purityPercent: purity[index]!,
+        sizeMm: sizes[index]!,
+        strengthMpa: strengths[index]!,
+        weightGrams: weights[index]!,
+        defectPercent: candidate.defectPercent ?? defects[index]!,
+        moisturePercent: candidate.moisturePercent ?? moisture[index]!,
+        temperatureC: candidate.temperatureC ?? temperatures[index]!,
+        inspectionOrder: index + 1,
+      });
+    }));
+  }
   const qualification = [3, 4, 5, 3, 4];
   const experience = [2, 6, 4, 5, 3];
   const marks = [70, 80, 75, 90, 85];
@@ -721,18 +809,23 @@ function buildRankingExplanation(
   const excluded = cohort.filter((candidate) => !ranked.eligibleRanking.some((entry) => entry.candidate.name === candidate.name));
   const excludedRows = excluded.map((candidate) => {
     const result = evaluateDmDecision(candidate, scenario);
-    return candidate.name + " — " + outcomeLabel(result.outcome, locale, hash(scenario.scenarioId + ":" + candidate.name));
+    return candidate.name + " — " + outcomeLabel(result.outcome, locale, hash(scenario.scenarioId + ":" + candidate.name), scenario);
   });
+  const isProduct = scenario.subjectKind === "PRODUCT_LOT";
   const heading = locale === "en" ? "Ranking using the stated priority order" : locale === "hi" ? "दिए गए प्राथमिकता क्रम से वरीयता" : "ਦਿੱਤੇ ਤਰਜੀਹ ਕ੍ਰਮ ਅਨੁਸਾਰ ਦਰਜਾਬੰਦੀ";
-  const eligibleHeading = locale === "en" ? "Eligible ranking" : locale === "hi" ? "पात्रता के बाद वरीयता" : "ਯੋਗਤਾ ਮਗਰੋਂ ਦਰਜਾਬੰਦੀ";
-  const excludedHeading = locale === "en" ? "Not eligible" : locale === "hi" ? "अपात्र" : "ਅਯੋਗ";
-  const selectedLine = locale === "en"
-    ? scenario.ranking!.seatCount === 1
-      ? "The highest-ranked eligible profile receives the available place or award."
-      : "The first " + scenario.ranking!.seatCount + " eligible profiles receive the available places or awards."
-    : locale === "hi"
-      ? "पहली " + scenario.ranking!.seatCount + " पात्र प्रोफाइलों को उपलब्ध स्थान या पुरस्कार मिलेंगे।"
-      : "ਪਹਿਲੀਆਂ " + scenario.ranking!.seatCount + " ਯੋਗ ਪ੍ਰੋਫਾਈਲਾਂ ਨੂੰ ਉਪਲਬਧ ਥਾਵਾਂ ਜਾਂ ਇਨਾਮ ਮਿਲਣਗੇ।";
+  const eligibleHeading = isProduct ? (locale === "en" ? "Qualifying lots in priority order" : locale === "hi" ? "पात्र लॉटों का प्राथमिकता क्रम" : "ਯੋਗ ਲਾਟਾਂ ਦਾ ਤਰਜੀਹ ਕ੍ਰਮ") : (locale === "en" ? "Eligible ranking" : locale === "hi" ? "पात्रता के बाद वरीयता" : "ਯੋਗਤਾ ਮਗਰੋਂ ਦਰਜਾਬੰਦੀ");
+  const excludedHeading = isProduct ? (locale === "en" ? "Lots not accepted" : locale === "hi" ? "अस्वीकृत लॉट" : "ਰੱਦ ਲਾਟ") : (locale === "en" ? "Not eligible" : locale === "hi" ? "अपात्र" : "ਅਯੋਗ");
+  const selectedLine = isProduct
+    ? (locale === "en" ? "The first " + scenario.ranking!.seatCount + " qualifying lots receive the available priority slots."
+      : locale === "hi" ? "पहले " + scenario.ranking!.seatCount + " पात्र लॉट उपलब्ध प्राथमिकता स्थान प्राप्त करेंगे।"
+      : "ਪਹਿਲੇ " + scenario.ranking!.seatCount + " ਯੋਗ ਲਾਟ ਉਪਲਬਧ ਤਰਜੀਹ ਸਥਾਨ ਲੈਣਗੇ।")
+    : locale === "en"
+      ? scenario.ranking!.seatCount === 1
+        ? "The highest-ranked eligible profile receives the available place or award."
+        : "The first " + scenario.ranking!.seatCount + " eligible profiles receive the available places or awards."
+      : locale === "hi"
+        ? "पहली " + scenario.ranking!.seatCount + " पात्र प्रोफाइलों को उपलब्ध स्थान या पुरस्कार मिलेंगे।"
+        : "ਪਹਿਲੀਆਂ " + scenario.ranking!.seatCount + " ਯੋਗ ਪ੍ਰੋਫਾਈਲਾਂ ਨੂੰ ਉਪਲਬਧ ਥਾਵਾਂ ਜਾਂ ਇਨਾਮ ਮਿਲਣਗੇ।";
   return heading + ": " + localizedPriorityOrder(scenario.ranking!, locale) + "\n\n" + eligibleHeading + ":\n" + rankingRows.join("\n")
     + (excludedRows.length ? "\n\n" + excludedHeading + ":\n" + excludedRows.join("\n") : "") + "\n\n" + selectedLine;
 }
@@ -740,7 +833,7 @@ function buildRankingExplanation(
 function generateRankedQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
   const cohort = buildRankingCandidates(scenario, mode, seed, locale);
   const ranked = rankDmCandidates(cohort, scenario);
-  if (ranked.eligibleRanking.length < scenario.ranking!.seatCount) throw new Error("DM-010 must have enough eligible applicants to fill the available seats.");
+  if (ranked.eligibleRanking.length < scenario.ranking!.seatCount) throw new Error("DM-010 must have enough qualifying subjects to fill the available allocation.");
   const candidate = ranked.selected[0]!;
   const eligibility = evaluateDmDecision(candidate, scenario);
   const options = rankingOptions(scenario, cohort, ranked.selected, locale, seed);
@@ -800,7 +893,8 @@ function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale
     for (const note of scenario.ruleNotes) lines.push("• " + asSentence(note[locale], locale));
   }
   lines.push(formatApplicant(profile, scenario, locale));
-  lines.push(STEMS[locale][seed % STEMS[locale].length]!.replaceAll("{name}", profile.name));
+  const stemPool = scenario.subjectKind === "PRODUCT_LOT" ? PRODUCT_STEMS : STEMS;
+  lines.push(stemPool[locale][seed % stemPool[locale].length]!.replaceAll("{name}", profile.name));
   return lines.join("\n");
 }
 
@@ -830,9 +924,16 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
     return "• " + FIELD_LABELS[locale][check.condition.field] + ": " + observed + separator + requirement + " — " + statusLabel(check.status, locale) + punctuation;
   });
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
-  const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome], locale);
+  const productConclusion = scenario.subjectKind === "PRODUCT_LOT"
+    ? {
+        en: { SELECT: "Every mandatory quality condition is met, so the lot is accepted.", REJECT: "At least one mandatory quality condition is not met and no exception applies, so the lot is rejected.", INFORMATION_REQUIRED: "A required quality reading or status is missing, so the lot cannot yet be decided." },
+        hi: { SELECT: "सभी अनिवार्य गुणवत्ता शर्तें पूरी हैं, इसलिए लॉट स्वीकार किया जाता है।", REJECT: "कम-से-कम एक अनिवार्य गुणवत्ता शर्त पूरी नहीं है और कोई अपवाद लागू नहीं होता, इसलिए लॉट अस्वीकार किया जाता है।", INFORMATION_REQUIRED: "आवश्यक गुणवत्ता रीडिंग या स्थिति उपलब्ध नहीं है, इसलिए अभी निर्णय नहीं लिया जा सकता।" },
+        pa: { SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਗੁਣਵੱਤਾ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਲਾਟ ਮਨਜ਼ੂਰ ਹੈ।", REJECT: "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਜ਼ਮੀ ਗੁਣਵੱਤਾ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਅਤੇ ਕੋਈ ਅਪਵਾਦ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਲਾਟ ਰੱਦ ਹੈ।", INFORMATION_REQUIRED: "ਲੋੜੀਂਦੀ ਗੁਣਵੱਤਾ ਰੀਡਿੰਗ ਜਾਂ ਸਥਿਤੀ ਉਪਲਬਧ ਨਹੀਂ, ਇਸ ਲਈ ਹਾਲੇ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।" },
+      }[locale][result.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]
+    : undefined;
+  const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : productConclusion ?? CONCLUSIONS[locale][result.outcome], locale);
   const finalPunctuation = locale === "en" ? "." : "।";
-  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + outcomeLabel(result.outcome, locale, seed) + finalPunctuation + "\n" + ruleLine;
+  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + outcomeLabel(result.outcome, locale, seed, scenario) + finalPunctuation + "\n" + ruleLine;
 }
 
 const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind, string>>>> = Object.freeze({
@@ -1017,7 +1118,7 @@ function distractors(correct: DmOutcome): readonly DmOutcome[] {
   return preferred[correct];
 }
 
-function orderedOptions(correct: DmOutcome, locale: DmLocale, seed: number): { options: readonly string[]; correctIndex: number } {
+function orderedOptions(correct: DmOutcome, locale: DmLocale, seed: number, scenario?: DmScenario): { options: readonly string[]; correctIndex: number } {
   const keys: DmOutcome[] = [correct, ...distractors(correct)];
   for (let index = keys.length - 1; index > 0; index -= 1) {
     const swap = hash(String(seed) + ":option:" + String(index)) % (index + 1);
@@ -1025,7 +1126,7 @@ function orderedOptions(correct: DmOutcome, locale: DmLocale, seed: number): { o
     keys[index] = keys[swap]!;
     keys[swap] = current;
   }
-  const options = keys.map((key, index) => outcomeLabel(key, locale, seed + index * 17));
+  const options = keys.map((key, index) => outcomeLabel(key, locale, seed + index * 17, scenario));
   if (new Set(options).size !== 4) throw new Error("DM-001 option labels must be unique in every supported locale.");
   return Object.freeze({ options: Object.freeze(options), correctIndex: keys.indexOf(correct) });
 }
@@ -1118,10 +1219,12 @@ export function modesForDmDifficulty(
     return seed % 4 === 0 ? "MISSING_REQUIRED" : "SINGLE_FAIL";
   }
   if (scenario.checkpointId === "DM-CP-003") {
+    if (scenario.subjectKind === "PRODUCT_LOT") return scenario.decisionRules.length ? "RULE_EXCEPTION" : "MULTIPLE_FAIL";
     const rule = scenario.decisionRules[seed % scenario.decisionRules.length];
     return rule?.ruleId.includes("AGE_") ? "AGE_EXCEPTION" : rule ? "MARKS_EXCEPTION" : "MULTIPLE_FAIL";
   }
   if (scenario.checkpointId === "DM-CP-009") {
+    if (scenario.subjectKind === "PRODUCT_LOT") return scenario.decisionRules.length ? "RULE_EXCEPTION" : "MULTIPLE_FAIL";
     return seed % 3 === 0 ? "BOTH_RELAXATION" : seed % 3 === 1 ? "AGE_EXCEPTION" : "MARKS_EXCEPTION";
   }
   if (scenario.checkpointId === "DM-CP-004") {
@@ -1150,7 +1253,7 @@ export function generateDmQuestion(input: {
   if (expectedSpecialRule && result.outcome !== expectedSpecialRule.outcome) {
     throw new Error(scenario.scenarioId + " did not resolve the candidate through " + expectedSpecialRule.ruleId + ".");
   }
-  const options = orderedOptions(result.outcome, locale, seed);
+  const options = orderedOptions(result.outcome, locale, seed, scenario);
   return Object.freeze({
     chapterId: "DM-001",
     checkpointId: scenario.checkpointId,
