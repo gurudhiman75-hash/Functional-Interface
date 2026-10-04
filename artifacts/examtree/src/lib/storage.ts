@@ -39,6 +39,7 @@ export interface ActiveTestSession {
   currentSectionIndex: number;
   currentQuestionIndex: number;
   answers: Record<number, number | null>;
+  textResponses: Record<number, string>;
   flags: Record<number, boolean>;
   timeLeft: number;
   sectionTimeLeftByName: Record<string, number>;
