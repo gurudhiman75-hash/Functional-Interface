@@ -25,19 +25,26 @@ export const CAL_001_QUESTION_STUDIO_VERSION =
 export const CAL_001_PACKAGE_ID = "CAL-001" as const;
 export const CAL_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export const CAL_001_PRODUCTION_RELEASE_AUTHORITY =
-  "CAL_001_PRODUCT_RELEASE_APPROVED_2026_08_09" as const;
+  "CAL_001_BANK_ONLY_POST_CLOSURE_2026_10_04" as const;
 
 export const CAL_001_PRODUCTION_RELEASE = {
   authority: CAL_001_PRODUCTION_RELEASE_AUTHORITY,
   runtimeMode: "CANONICAL_REVIEW",
   reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
-  questionBankStatus: "READY_FOR_STORAGE",
-  questionBankWritable: true,
-  testEligibility: "ELIGIBLE",
-  publiclyPublishable: true,
-  mockTestEligible: true,
-  manualApprovalRequired: true,
-  automaticStudentPublication: false,
+  lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
+  reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+  questionBankStatus: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankStatus,
+  questionBankWritable: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankWritable,
+  questionBankAcceptanceMode: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceAuthority,
+  testEligibility: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligibility,
+  testEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligible,
+  publiclyPublishable: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.publiclyPublishable,
+  mockTestEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.mockTestEligible,
+  manualApprovalRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.manualApprovalRequired,
+  automaticStudentPublication: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.automaticStudentPublication,
+  productionReleaseAuthorized: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.productionReleaseAuthorized,
 } as const;
 
 export type Cal001QuestionStudioLanguage =
@@ -365,13 +372,17 @@ export function runCal001QuestionStudioPipeline(
         CAL_001_PRODUCTION_RELEASE.reviewStatus ===
           "APPROVED_EDITORIAL_CANONICAL" &&
         CAL_001_PRODUCTION_RELEASE.questionBankStatus === "READY_FOR_STORAGE" &&
-        CAL_001_PRODUCTION_RELEASE.testEligibility === "ELIGIBLE" &&
-        CAL_001_PRODUCTION_RELEASE.publiclyPublishable === true &&
-        CAL_001_PRODUCTION_RELEASE.mockTestEligible === true &&
+        CAL_001_PRODUCTION_RELEASE.questionBankWritable === true &&
+        CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode === "BANK_ONLY" &&
+        CAL_001_PRODUCTION_RELEASE.testEligibility === "INELIGIBLE" &&
+        CAL_001_PRODUCTION_RELEASE.testEligible === false &&
+        CAL_001_PRODUCTION_RELEASE.publiclyPublishable === false &&
+        CAL_001_PRODUCTION_RELEASE.mockTestEligible === false &&
         CAL_001_PRODUCTION_RELEASE.manualApprovalRequired === true &&
-        CAL_001_PRODUCTION_RELEASE.automaticStudentPublication === false,
+        CAL_001_PRODUCTION_RELEASE.automaticStudentPublication === false &&
+        CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized === false,
       message:
-        "Question is release-eligible only after manual approval; automatic student publication remains disabled.",
+        "Question is eligible for manual approval into Question Bank only; test, mock and public release remain locked.",
     },
   ];
   const validation = {
@@ -410,14 +421,21 @@ export function runCal001QuestionStudioPipeline(
     runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
     reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
     questionStudioStatus: "ACTIVE",
+    lifecycleId: CAL_001_PRODUCTION_RELEASE.lifecycleId,
+    lifecycleStage: CAL_001_PRODUCTION_RELEASE.lifecycleStage,
     questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
     questionBankWritable: CAL_001_PRODUCTION_RELEASE.questionBankWritable,
+    questionBankAcceptanceMode: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode,
+    questionBankAcceptanceAuthority: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceAuthority,
     testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+    testEligible: CAL_001_PRODUCTION_RELEASE.testEligible,
     publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
     mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
     manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
     automaticStudentPublication:
       CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+    productionReleaseAuthorized:
+      CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized,
     releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
     seed,
   } as const;
@@ -450,14 +468,21 @@ export function runCal001QuestionStudioPipeline(
       runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
       reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
       questionStudioStatus: "ACTIVE",
+      lifecycleId: CAL_001_PRODUCTION_RELEASE.lifecycleId,
+      lifecycleStage: CAL_001_PRODUCTION_RELEASE.lifecycleStage,
       questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
       questionBankWritable: CAL_001_PRODUCTION_RELEASE.questionBankWritable,
+      questionBankAcceptanceMode: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode,
+      questionBankAcceptanceAuthority: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceAuthority,
       testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+      testEligible: CAL_001_PRODUCTION_RELEASE.testEligible,
       publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
       mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
       manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
       automaticStudentPublication:
         CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+      productionReleaseAuthorized:
+        CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized,
       releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
       mathematicalFingerprint: sourceFingerprint(selected.pkg),
       facts: sourceFacts(selected.pkg),
@@ -715,13 +740,21 @@ export async function generateCal001QuestionStudioBatch(
       runtimeMode: CAL_001_PRODUCTION_RELEASE.runtimeMode,
       reviewStatus: CAL_001_PRODUCTION_RELEASE.reviewStatus,
       questionStudioStatus: "ACTIVE",
+      lifecycleId: CAL_001_PRODUCTION_RELEASE.lifecycleId,
+      lifecycleStage: CAL_001_PRODUCTION_RELEASE.lifecycleStage,
       questionBankStatus: CAL_001_PRODUCTION_RELEASE.questionBankStatus,
+      questionBankWritable: CAL_001_PRODUCTION_RELEASE.questionBankWritable,
+      questionBankAcceptanceMode: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceMode,
+      questionBankAcceptanceAuthority: CAL_001_PRODUCTION_RELEASE.questionBankAcceptanceAuthority,
       testEligibility: CAL_001_PRODUCTION_RELEASE.testEligibility,
+      testEligible: CAL_001_PRODUCTION_RELEASE.testEligible,
       publiclyPublishable: CAL_001_PRODUCTION_RELEASE.publiclyPublishable,
       mockTestEligible: CAL_001_PRODUCTION_RELEASE.mockTestEligible,
       manualApprovalRequired: CAL_001_PRODUCTION_RELEASE.manualApprovalRequired,
       automaticStudentPublication:
         CAL_001_PRODUCTION_RELEASE.automaticStudentPublication,
+      productionReleaseAuthorized:
+        CAL_001_PRODUCTION_RELEASE.productionReleaseAuthorized,
       releaseAuthority: CAL_001_PRODUCTION_RELEASE.authority,
       permanentQlRange: "CAL-QL-001..036",
       language,
