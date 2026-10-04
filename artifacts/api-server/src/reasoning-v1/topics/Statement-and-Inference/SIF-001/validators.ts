@@ -25,15 +25,15 @@ function explanationContradictsAnswer(
       : /ਕੇਵਲ (?:ਅਨੁਮਾਨ )?II ਸਹੀ ਹੈ/u;
 
   const rejectsI = locale === "en-IN"
-    ? /(?:\bInference I\b|(?<!I)\bI\b(?!I))[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
+    ? /(?:\bInference I\b|(?<!I)\bI\b(?!I))\s+(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
     : locale === "hi-IN"
-      ? /(?:अनुमान I(?!I)|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
-      : /(?:ਅਨੁਮਾਨ I(?!I)|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
+      ? /(?:अनुमान I(?!I)|(?<!I)\bI\b(?!I))\s+(?:सही नहीं है|समर्थित नहीं है|सिद्ध नहीं है|दायरे से आगे जाता है)/u
+      : /(?:ਅਨੁਮਾਨ I(?!I)|(?<!I)\bI\b(?!I))\s+(?:ਸਹੀ ਨਹੀਂ ਹੈ|ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ|ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ ਜਾਂਦਾ ਹੈ)/u;
   const rejectsII = locale === "en-IN"
-    ? /(?:\bInference II\b|\bII\b)[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
+    ? /(?:\bInference II\b|\bII\b)\s+(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
     : locale === "hi-IN"
-      ? /(?:अनुमान II|\bII\b)[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
-      : /(?:ਅਨੁਮਾਨ II|\bII\b)[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
+      ? /(?:अनुमान II|\bII\b)\s+(?:सही नहीं है|समर्थित नहीं है|सिद्ध नहीं है|दायरे से आगे जाता है)/u
+      : /(?:ਅਨੁਮਾਨ II|\bII\b)\s+(?:ਸਹੀ ਨਹੀਂ ਹੈ|ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ|ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ ਜਾਂਦਾ ਹੈ)/u;
 
   if (answer === "ONLY_I") return onlyII.test(explanation) || rejectsI.test(explanation);
   if (answer === "ONLY_II") return onlyI.test(explanation) || rejectsII.test(explanation);
