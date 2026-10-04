@@ -9,7 +9,7 @@ import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/Pub
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
 import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
-import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection } from "@/lib/web-exam-page";
+import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, withDefaultExamDetailsSections, type WebExamCardStyle, type WebExamPageSection } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { getSessionUser } from "@/lib/session-user";
 import { signInWithGoogle } from "@/lib/auth";
@@ -960,7 +960,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           </div>
         ) : null}
 
-        {orderedPageSections.filter((section) => !["hero", "exam_information", "syllabus", "preparation", "topic_practice"].includes(section.type)).map(renderSection)}
+        {orderedPageSections.filter((section) => !["hero", "exam_information", "syllabus", "preparation", "topic_practice"].includes(section.type) && !section.type.startsWith("details_")).map(renderSection)}
       </div>
     </div>
   );
@@ -976,6 +976,21 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     () => catalog.subcategories.find((exam) => examCodes.includes(exam.id.toUpperCase())),
     [catalog.subcategories, examCodes],
   );
+  const pageConfigQuery = useQuery({
+    queryKey: ["web-exam-page", examSlug],
+    queryFn: () => getWebExamPageConfiguration(examSlug),
+    staleTime: 60_000,
+    retry: 1,
+  });
+  const pageConfiguration = withDefaultExamDetailsSections(
+    pageConfigQuery.data?.configuration ?? DEFAULT_WEB_EXAM_PAGE_CONFIGURATION,
+  );
+  const detailSections = useMemo(
+    () => pageConfiguration.sections
+      .filter((section) => section.isVisible && section.type.startsWith("details_"))
+      .sort((a, b) => a.sortOrder - b.sortOrder),
+    [pageConfiguration.sections],
+  );
 
   usePageMeta(
     config.name + " " + config.yearLabel + " Exam Details, Syllabus & Preparation",
@@ -985,14 +1000,123 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
 
   if (!sessionUser) return <Redirect to={examHubHref(examSlug)} />;
 
-  const detailNav = [
-    ["overview", "Overview"],
-    ["syllabus", "Syllabus"],
-    ["pattern", "Exam Pattern"],
-    ["preparation", "Preparation"],
-    ["practice", "Practice Topics"],
-    ["updates", "Updates"],
-  ] as const;
+  const sectionAnchor = (section: WebExamPageSection) => {
+    if (section.type === "details_overview") return "overview";
+    if (section.type === "details_syllabus") return "syllabus";
+    if (section.type === "details_pattern") return "pattern";
+    if (section.type === "details_preparation") return "preparation";
+    if (section.type === "details_practice") return "practice";
+    if (section.type === "details_updates") return "updates";
+    return "details-" + section.id.replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase();
+  };
+  const sectionDefaultLabel = (section: WebExamPageSection) => {
+    if (section.type === "details_overview") return "Overview";
+    if (section.type === "details_syllabus") return "Syllabus";
+    if (section.type === "details_pattern") return "Exam Pattern";
+    if (section.type === "details_preparation") return "Preparation";
+    if (section.type === "details_practice") return "Practice Topics";
+    if (section.type === "details_updates") return "Updates";
+    return section.title || "More Details";
+  };
+  const contentLayoutClass = (section: WebExamPageSection) =>
+    section.layout === "horizontal"
+      ? "flex snap-x gap-4 overflow-x-auto pb-2"
+      : section.layout === "list"
+        ? "space-y-3"
+        : "grid gap-4 " + gridColumnsClass(section.columns);
+  const canonicalCardClass = (section: WebExamPageSection) =>
+    "rounded-2xl border p-5 " + configuredCardClass(section.cardStyle) + (section.layout === "horizontal" ? " w-[82vw] max-w-[370px] shrink-0 snap-start" : "");
+
+  const renderDetailsSection = (section: WebExamPageSection) => {
+    const anchor = sectionAnchor(section);
+    const manualCards = (section.cards ?? []).filter((card) => card.isVisible);
+    const title =
+      section.title ||
+      (section.type === "details_overview" ? "About " + config.name + " " + config.yearLabel :
+      section.type === "details_syllabus" ? config.syllabus.title :
+      section.type === "details_pattern" ? config.name + " " + config.yearLabel + " exam pattern" :
+      section.type === "details_preparation" ? config.preparation.title :
+      section.type === "details_practice" ? "Topic-wise preparation areas" :
+      section.type === "details_updates" ? config.name + " official information" :
+      "More about " + config.name);
+    const eyebrow =
+      section.eyebrow ||
+      (section.type === "details_overview" ? "Overview" :
+      section.type === "details_syllabus" ? config.syllabus.eyebrow :
+      section.type === "details_pattern" ? "Exam pattern" :
+      section.type === "details_preparation" ? config.preparation.eyebrow :
+      section.type === "details_practice" ? "Practice topics" :
+      section.type === "details_updates" ? "Updates & official notices" :
+      "Exam details");
+    const description =
+      section.description ||
+      (section.type === "details_overview" ? config.hub.description :
+      section.type === "details_syllabus" ? config.syllabus.description :
+      section.type === "details_preparation" ? config.preparation.description :
+      section.type === "details_practice" ? "Use focused topic practice before moving back to sectional and full-length tests." :
+      section.type === "details_updates" ? config.syllabus.verificationNote :
+      "");
+
+    let content: React.ReactNode = null;
+
+    if (manualCards.length > 0) {
+      content = <ConfiguredManualCards section={section} />;
+    } else if (section.type === "details_overview") {
+      const cards = [
+        ["Preparation focus", config.hub.preparationSummary],
+        ["Syllabus focus", config.hub.syllabusSummary],
+        ["Practice focus", config.hub.mockSummary],
+      ];
+      content = <div className={contentLayoutClass(section)}>{cards.map(([cardTitle, text]) => <div key={cardTitle} className={canonicalCardClass(section)}><h3 className="font-bold text-slate-950">{cardTitle}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{text}</p></div>)}</div>;
+    } else if (section.type === "details_syllabus") {
+      content = <div className={contentLayoutClass(section)}>{config.syllabus.sections.map((item) => <div key={item.title} className={canonicalCardClass(section)}><h3 className="font-bold text-slate-950">{item.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{item.summary}</p></div>)}</div>;
+    } else if (section.type === "details_pattern") {
+      content = <div className={contentLayoutClass(section)}>{config.syllabus.patternCards.map((card) => <div key={card.title} className={canonicalCardClass(section)}><h3 className="font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}</div>;
+    } else if (section.type === "details_preparation") {
+      content = (
+        <>
+          <div className={contentLayoutClass(section)}>{config.preparation.cards.map((card) => <div key={card.title} className={canonicalCardClass(section)}><Sparkles className="h-5 w-5 text-violet-600" /><h3 className="mt-3 font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}</div>
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-5"><h3 className="font-bold text-slate-950">Weekly preparation cycle</h3><div className="mt-3"><CheckList items={config.preparation.weeklyCycle} /></div></div>
+        </>
+      );
+    } else if (section.type === "details_practice") {
+      content = <div className={contentLayoutClass(section)}>{config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className={canonicalCardClass(section) + " transition hover:-translate-y-0.5 hover:shadow-sm"}><p className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-600">{topic.subject}</p><h3 className="mt-2 font-bold text-slate-950">{topic.name}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p><p className="mt-3 text-xs leading-5 text-slate-500"><strong>Preparation tip:</strong> {topic.preparationTip}</p></Link>)}</div>;
+    } else if (section.type === "details_updates") {
+      content = (
+        <div className={contentLayoutClass(section)}>
+          <div className={canonicalCardClass(section)}><p className="text-xs font-bold text-slate-500">Current preparation cycle</p><p className="mt-1 text-xl font-black text-slate-950">{config.yearLabel}</p></div>
+          <div className={canonicalCardClass(section)}><p className="text-xs font-bold text-amber-700">Important</p><p className="mt-1 text-sm leading-6 text-slate-600">Dates, vacancies, eligibility and detailed rules can change. Use the official authority notice as the final source for time-sensitive information.</p></div>
+        </div>
+      );
+    }
+
+    return (
+      <section key={section.id} id={anchor} className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">{eyebrow}</p>
+            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{title}</h2>
+            {description ? <p className="mt-2 max-w-4xl whitespace-pre-line text-sm leading-7 text-slate-600">{description}</p> : null}
+            {section.body ? <p className="mt-3 max-w-5xl whitespace-pre-line text-sm leading-7 text-slate-700">{section.body}</p> : null}
+          </div>
+          {section.type === "details_updates" ? (
+            <a href={section.ctaHref || config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-5 text-sm font-bold text-white hover:bg-emerald-700">
+              {section.ctaLabel || "Open " + config.officialLabel} <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          ) : section.ctaLabel && section.ctaHref ? (
+            /^https?:\/\//i.test(section.ctaHref)
+              ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-5 text-sm font-bold text-blue-700">{section.ctaLabel}<ArrowRight className="ml-2 h-4 w-4" /></a>
+              : <Link href={section.ctaHref} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl border border-blue-200 bg-blue-50 px-5 text-sm font-bold text-blue-700">{section.ctaLabel}<ArrowRight className="ml-2 h-4 w-4" /></Link>
+          ) : null}
+        </div>
+        {content ? <div className="mt-5">{content}</div> : null}
+      </section>
+    );
+  };
+
+  const primaryShortcuts = detailSections.filter((section) =>
+    ["details_syllabus", "details_pattern", "details_preparation", "details_updates"].includes(section.type),
+  );
 
   return (
     <div className="bg-slate-50/45 pb-14">
@@ -1018,103 +1142,28 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             </Link>
           </div>
 
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className={"mt-5 grid gap-3 sm:grid-cols-2 " + (primaryShortcuts.length >= 4 ? "lg:grid-cols-5" : "lg:grid-cols-4")}>
             <Link href={examHubHref(examSlug)} className="group min-h-[112px] rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-left text-blue-700 transition hover:-translate-y-0.5 hover:shadow-sm">
               <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><FileText className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
               <h2 className="mt-3 text-sm font-black text-slate-950">Test Workspace</h2><p className="mt-1 text-xs font-semibold text-slate-500">Mocks, sectional, topic-wise and PYQs</p>
             </Link>
-            <a href="#syllabus" className="group min-h-[112px] rounded-2xl border border-indigo-100 bg-indigo-50/70 p-4 text-left text-indigo-700 transition hover:-translate-y-0.5 hover:shadow-sm">
-              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><BookOpen className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
-              <h2 className="mt-3 text-sm font-black text-slate-950">Syllabus</h2><p className="mt-1 text-xs font-semibold text-slate-500">Subjects and coverage</p>
-            </a>
-            <a href="#pattern" className="group min-h-[112px] rounded-2xl border border-cyan-100 bg-cyan-50/70 p-4 text-left text-cyan-700 transition hover:-translate-y-0.5 hover:shadow-sm">
-              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><BarChart3 className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
-              <h2 className="mt-3 text-sm font-black text-slate-950">Exam Pattern</h2><p className="mt-1 text-xs font-semibold text-slate-500">Stages, timing and marking</p>
-            </a>
-            <a href="#preparation" className="group min-h-[112px] rounded-2xl border border-violet-100 bg-violet-50/70 p-4 text-left text-violet-700 transition hover:-translate-y-0.5 hover:shadow-sm">
-              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><Sparkles className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
-              <h2 className="mt-3 text-sm font-black text-slate-950">Preparation</h2><p className="mt-1 text-xs font-semibold text-slate-500">Strategy and weekly plan</p>
-            </a>
-            <a href="#updates" className="group min-h-[112px] rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-left text-emerald-700 transition hover:-translate-y-0.5 hover:shadow-sm">
-              <div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><Globe2 className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div>
-              <h2 className="mt-3 text-sm font-black text-slate-950">Updates</h2><p className="mt-1 text-xs font-semibold text-slate-500">Official notices and verification</p>
-            </a>
+            {primaryShortcuts.map((section) => {
+              const Icon = section.type === "details_syllabus" ? BookOpen : section.type === "details_pattern" ? BarChart3 : section.type === "details_preparation" ? Sparkles : Globe2;
+              return <a key={section.id} href={"#" + sectionAnchor(section)} className="group min-h-[112px] rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-sm"><div className="flex items-start justify-between gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white"><Icon className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 opacity-45" /></div><h2 className="mt-3 text-sm font-black text-slate-950">{section.title || sectionDefaultLabel(section)}</h2><p className="mt-1 text-xs font-semibold text-slate-500">{sectionDefaultLabel(section)}</p></a>;
+            })}
           </div>
 
           <nav className="mt-4 overflow-x-auto border-t border-slate-100 pt-4" aria-label={config.name + " detail sections"}>
             <div className="flex min-w-max gap-2">
-              {detailNav.map(([id, label]) => <a key={id} href={"#" + id} className="inline-flex min-h-10 items-center rounded-xl border border-slate-200 bg-slate-50 px-4 text-xs font-bold text-slate-700 hover:border-blue-200 hover:bg-white hover:text-blue-700">{label}</a>)}
+              {detailSections.map((section) => <a key={section.id} href={"#" + sectionAnchor(section)} className="inline-flex min-h-10 items-center rounded-xl border border-slate-200 bg-slate-50 px-4 text-xs font-bold text-slate-700 hover:border-blue-200 hover:bg-white hover:text-blue-700">{section.title || sectionDefaultLabel(section)}</a>)}
             </div>
           </nav>
         </section>
 
+        {pageConfigQuery.error ? <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">Custom details configuration is temporarily unavailable. Canonical exam information is shown below.</div> : null}
+
         <main className="mt-6 space-y-6">
-          <section id="overview" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">Overview</p>
-            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">About {config.name} {config.yearLabel}</h2>
-            <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-600">{config.hub.description}</p>
-            <div className="mt-5 grid gap-4 md:grid-cols-3">
-              <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5"><h3 className="font-bold text-slate-950">Preparation focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.preparationSummary}</p></div>
-              <div className="rounded-2xl border border-violet-100 bg-violet-50/60 p-5"><h3 className="font-bold text-slate-950">Syllabus focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.syllabusSummary}</p></div>
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5"><h3 className="font-bold text-slate-950">Practice focus</h3><p className="mt-2 text-sm leading-6 text-slate-600">{config.hub.mockSummary}</p></div>
-            </div>
-          </section>
-
-          <section id="syllabus" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">{config.syllabus.eyebrow}</p>
-            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.syllabus.title}</h2>
-            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.syllabus.description}</p>
-            <div className="mt-5 grid gap-4 md:grid-cols-2">
-              {config.syllabus.sections.map((section) => <div key={section.title} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5"><h3 className="font-bold text-slate-950">{section.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{section.summary}</p></div>)}
-            </div>
-          </section>
-
-          <section id="pattern" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-600">Exam pattern</p>
-            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.name} {config.yearLabel} exam pattern</h2>
-            <div className="mt-5 grid gap-4 lg:grid-cols-3">
-              {config.syllabus.patternCards.map((card) => <div key={card.title} className="rounded-2xl border border-cyan-100 bg-cyan-50/50 p-5"><h3 className="font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}
-            </div>
-          </section>
-
-          <section id="preparation" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-600">{config.preparation.eyebrow}</p>
-            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.preparation.title}</h2>
-            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.preparation.description}</p>
-            <div className="mt-5 grid gap-4 lg:grid-cols-3">
-              {config.preparation.cards.map((card) => <div key={card.title} className="rounded-2xl border border-violet-100 bg-violet-50/45 p-5"><Sparkles className="h-5 w-5 text-violet-600" /><h3 className="mt-3 font-bold text-slate-950">{card.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p></div>)}
-            </div>
-            <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
-              <h3 className="font-bold text-slate-950">Weekly preparation cycle</h3>
-              <div className="mt-3"><CheckList items={config.preparation.weeklyCycle} /></div>
-            </div>
-          </section>
-
-          <section id="practice" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-orange-600">Practice topics</p>
-            <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Topic-wise preparation areas</h2>
-            <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">Use these topic pages for focused practice before moving back to sectional and full-length tests.</p>
-            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {config.topics.map((topic) => <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className="rounded-2xl border border-orange-100 bg-orange-50/40 p-5 transition hover:-translate-y-0.5 hover:shadow-sm"><p className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-600">{topic.subject}</p><h3 className="mt-2 font-bold text-slate-950">{topic.name}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{topic.summary}</p><p className="mt-3 text-xs leading-5 text-slate-500"><strong>Preparation tip:</strong> {topic.preparationTip}</p></Link>)}
-            </div>
-          </section>
-
-          <section id="updates" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-600">Updates & official notices</p>
-                <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{config.name} official information</h2>
-                <p className="mt-2 max-w-4xl text-sm leading-7 text-slate-600">{config.syllabus.verificationNote}</p>
-              </div>
-              <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-5 text-sm font-bold text-white hover:bg-emerald-700">
-                Open {config.officialLabel} <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-            </div>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5"><p className="text-xs font-bold text-slate-500">Current preparation cycle</p><p className="mt-1 text-xl font-black text-slate-950">{config.yearLabel}</p></div>
-              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5"><p className="text-xs font-bold text-amber-700">Important</p><p className="mt-1 text-sm leading-6 text-amber-950">Dates, vacancies, eligibility and detailed rules can change. Use the official authority notice as the final source for time-sensitive information.</p></div>
-            </div>
-          </section>
+          {detailSections.map(renderDetailsSection)}
         </main>
       </div>
     </div>
