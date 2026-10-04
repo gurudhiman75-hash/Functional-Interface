@@ -36,7 +36,7 @@ export type StcV22TemplateProof = Readonly<{
 export const STC_V22_TEMPLATE_PROOFS: Readonly<Record<string, StcV22TemplateProof>> =
   Object.freeze({
   "STC-V22-QL001-T01": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "ONLY_I" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "a42c0f7a" as const }),
-  "STC-V22-QL001-T02": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "ONLY_II" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "f0c794ab" as const }),
+  "STC-V22-QL001-T02": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "ONLY_II" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "8e974fdc" as const }),
   "STC-V22-QL001-T03": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "BOTH" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "98214836" as const }),
   "STC-V22-QL001-T04": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "NEITHER" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "1f528000" as const }),
   "STC-V22-QL001-T05": Object.freeze({ qlId: "STC-QL-001" as const, answerClass: "ONLY_I" as const, mechanism: "DIRECT_EXPLICIT_ENTAILMENT" as const, semanticSignature: "71159143" as const }),
