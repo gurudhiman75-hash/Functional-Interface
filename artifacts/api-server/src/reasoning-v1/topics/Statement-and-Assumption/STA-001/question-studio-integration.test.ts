@@ -45,8 +45,11 @@ function assertReviewOnly(payload: Record<string, any>) {
 assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry: any) => entry.packageId === "STA-001"));
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioVisible, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 4);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 6);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, [
+  "STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006",
+]);
+assert.deepEqual(STA_001_HISTORICAL_PERMANENT_QL_IDS, [
   "STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004",
 ]);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount, 6);
@@ -57,7 +60,7 @@ assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount, 4);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles.length, 9);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedDifficulties, ["Easy", "Medium", "Hard"]);
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, false);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
@@ -80,12 +83,11 @@ for (const qlId of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds) {
   for (let index = 0; index < 4; index += 1) {
     const en = byLanguage.en![index]!;
     assert.equal(en.candidateQlId, qlId);
-    const historicallyPermanent = (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId);
-    assert.equal(en.permanentQlId, historicallyPermanent ? qlId : null);
+    assert.equal(en.permanentQlId, qlId);
     assert.equal(en.validation.valid, true);
     assert.equal(en.validation.crossLanguageSemanticParity, true);
     assert.equal(en.validation.antiCueV4, true);
-    assert.equal(en.validation.multilingualFrozen, false);
+    assert.equal(en.validation.multilingualFrozen, true);
     assertReviewOnly(buildSta001QuestionStudioPayload(en) as Record<string, any>);
     for (const language of ["hi", "pa"] as const) {
       const translated = byLanguage[language]![index]!;
@@ -110,6 +112,8 @@ const registryPreview = previewReasoningV1QuestionStudioReview({
   seed: "sta-v4-1-registry-preview",
 });
 assert.equal(registryPreview.questions[0]?.candidateQlId, "STA-QL-005");
+assert.equal(registryPreview.questions[0]?.permanentQlId, "STA-QL-005");
+assert.equal(registryPreview.questions[0]?.validation.multilingualFrozen, true);
 assert.equal(registryPreview.questions[0]?.permanentQlId, null);
 assert.throws(
   () => persistReasoningV1QuestionStudioReview({ packageId: "STA-001", language: "en", qlId: "STA-QL-001" }),
@@ -123,7 +127,8 @@ for (const profile of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfile
 
 const cockpit = listQuestionStudioPackages().find((entry: any) => entry.packageId === "STA-001") as any;
 assert.ok(cockpit);
-assert.equal(cockpit.permanentQlCount, 4);
+assert.equal(cockpit.permanentQlCount, 6);
+assert.deepEqual(cockpit.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
 assert.equal(cockpit.candidateQlCount, 6);
 assert.deepEqual(cockpit.candidateQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
 assert.equal(cockpit.presentationProfiles.length, 9);
@@ -144,8 +149,7 @@ for (const qlId of ["STA-QL-001", "STA-QL-005", "STA-QL-006"] as const) {
   assert.equal(generated.questions.length, 3);
   for (const raw of generated.questions as Array<Record<string, any>>) {
     assert.equal(raw.candidateQlId, qlId);
-    const historicallyPermanent = (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId);
-    assert.equal(raw.permanentQlId, historicallyPermanent ? qlId : null);
+    assert.equal(raw.permanentQlId, qlId);
     assertReviewOnly(raw);
   }
 }
