@@ -55,6 +55,13 @@ export type ExamAcquisitionConfig = {
     syllabusSummary: string;
     mockSummary: string;
   };
+  testHub?: {
+    mode: "single" | "dual";
+    stage1Label: string;
+    stage2Label?: string;
+    stage1Keywords?: string[];
+    stage2Keywords?: string[];
+  };
   preparation: {
     eyebrow: string;
     title: string;
@@ -239,6 +246,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       syllabusSummary: "Review the current Tier-I structure and major preparation areas before planning your practice.",
       mockSummary: "Move from topic practice to timed exam-style attempts using the published ExamTree catalogue.",
     },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Tier-I",
+      stage2Label: "Tier-II",
+      stage1Keywords: ["tier-i", "tier i", "tier-1", "tier 1"],
+      stage2Keywords: ["tier-ii", "tier ii", "tier-2", "tier 2"],
+    },
     preparation: {
       eyebrow: "SSC CGL preparation",
       title: "How to prepare for SSC CGL 2026",
@@ -353,6 +367,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       syllabusSummary: "Review the Tier-I subject structure, Tier-II modules, negative marking, and skill or typing stage before planning your preparation.",
       mockSummary: "Move from focused topic practice to timed SSC-style attempts using the published ExamTree catalogue.",
     },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Tier-I",
+      stage2Label: "Tier-II",
+      stage1Keywords: ["tier-i", "tier i", "tier-1", "tier 1"],
+      stage2Keywords: ["tier-ii", "tier ii", "tier-2", "tier 2"],
+    },
     preparation: {
       eyebrow: "SSC CHSL preparation",
       title: "How to prepare for SSC CHSL 2026",
@@ -463,6 +484,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       syllabusSummary: "Review the session-based CBE structure and the subjects you need to cover before planning revision.",
       mockSummary: "Move from topic practice to timed SSC-style attempts using the published ExamTree catalogue.",
     },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination", "session-i", "session ii", "session-i", "session-ii"],
+    },
     preparation: {
       eyebrow: "SSC MTS preparation",
       title: "How to prepare for SSC MTS 2026",
@@ -571,6 +597,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build Paper-I speed across Reasoning, General Knowledge, Quantitative Aptitude, and English while preparing physically in parallel.",
       syllabusSummary: "Understand the written papers and the PET/PST stage so your preparation covers the full selection process.",
       mockSummary: "Use topic practice first, then timed SSC-style mocks to improve speed and decision-making.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Paper-I",
+      stage2Label: "Paper-II",
+      stage1Keywords: ["paper-i", "paper i", "paper-1", "paper 1"],
+      stage2Keywords: ["paper-ii", "paper ii", "paper-2", "paper 2"],
     },
     preparation: {
       eyebrow: "SSC CPO preparation",
@@ -681,6 +714,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       syllabusSummary: "Review the three-part CBE and the Grade C/Grade D stenography speeds before planning your schedule.",
       mockSummary: "Use focused practice followed by timed CBE mocks while continuing stenography dictation and transcription work.",
     },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
+    },
     preparation: {
       eyebrow: "SSC Stenographer preparation",
       title: "How to prepare for SSC Stenographer 2026",
@@ -790,6 +828,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Build fast fundamentals in Reasoning, General Awareness, Elementary Mathematics, and English/Hindi while training physically in parallel.",
       syllabusSummary: "Review the CBE subjects and the PET/PST and medical stages before planning the full preparation cycle.",
       mockSummary: "Move from topic-wise practice into timed GD-style mocks while maintaining physical preparation.",
+    },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
     },
     preparation: {
       eyebrow: "SSC GD 2027 preparation",
@@ -1209,6 +1252,11 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       syllabusSummary: "The CBE covers General Intelligence, General Awareness, Quantitative Aptitude and English, with difficulty aligned to the prescribed qualification level.",
       mockSummary: "Practise level-appropriate SSC questions and keep post-code eligibility separate from exam preparation.",
     },
+    testHub: {
+      mode: "single",
+      stage1Label: "CBE",
+      stage1Keywords: ["cbe", "computer based examination"],
+    },
     preparation: {
       eyebrow: "Selection Post preparation",
       title: "How to prepare for SSC Selection Post Phase XIV/2026",
@@ -1320,6 +1368,13 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       preparationSummary: "Technical engineering carries the largest preparation load; use General Intelligence and General Awareness as regular scoring blocks rather than last-week revision.",
       syllabusSummary: "Paper-I tests General Intelligence, General Awareness and the chosen engineering discipline; later stages continue discipline-specific assessment under the current notice.",
       mockSummary: "Use discipline-specific technical sets plus full SSC JE papers to build calculation speed, formula recall and question selection.",
+    },
+    testHub: {
+      mode: "dual",
+      stage1Label: "Paper-I",
+      stage2Label: "Paper-II",
+      stage1Keywords: ["paper-i", "paper i", "paper-1", "paper 1"],
+      stage2Keywords: ["paper-ii", "paper ii", "paper-2", "paper 2"],
     },
     preparation: {
       eyebrow: "SSC JE preparation",
