@@ -29,6 +29,12 @@ const LOT_NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
   pa: ["ਲਾਟ A", "ਲਾਟ B", "ਲਾਟ C", "ਲਾਟ D", "ਲਾਟ E", "ਲਾਟ F", "ਲਾਟ G", "ਲਾਟ H", "ਲਾਟ J", "ਲਾਟ K"],
 });
 
+const ORGANIZATION_NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: ["Organisation A", "Organisation B", "Organisation C", "Organisation D", "Organisation E", "Organisation F", "Organisation G", "Organisation H", "Organisation J", "Organisation K"],
+  hi: ["संस्था A", "संस्था B", "संस्था C", "संस्था D", "संस्था E", "संस्था F", "संस्था G", "संस्था H", "संस्था J", "संस्था K"],
+  pa: ["ਸੰਸਥਾ A", "ਸੰਸਥਾ B", "ਸੰਸਥਾ C", "ਸੰਸਥਾ D", "ਸੰਸਥਾ E", "ਸੰਸਥਾ F", "ਸੰਸਥਾ G", "ਸੰਸਥਾ H", "ਸੰਸਥਾ J", "ਸੰਸਥਾ K"],
+});
+
 const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>> = Object.freeze({
   en: {
     age: "Age", ageAtDate: "Age on the cut-off date", graduationMarks: "Graduation marks",
@@ -40,6 +46,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     moisturePercent: "Moisture", defectPercent: "Defects", temperatureC: "Temperature", weightGrams: "Unit weight",
     sizeMm: "Size", purityPercent: "Purity", strengthMpa: "Strength", sealStatus: "Seal status",
     labStatus: "Lab result", labelStatus: "Label compliance", packagingStatus: "Packaging condition", inspectionOrder: "Inspection order",
+    yearsOperating: "Years in operation", qualifiedStaffCount: "Qualified staff", complianceScore: "Compliance score", incidentCount: "Recorded incidents",
+    annualTurnover: "Annual turnover", auditStatus: "Audit status", insuranceStatus: "Insurance status", licenseStatus: "Licence status",
+    taxStatus: "Tax compliance", documentStatus: "Document status", serviceAreaStatus: "Service area", financialRecordStatus: "Financial record", securityStatus: "Security status",
   },
   hi: {
     age: "आयु", ageAtDate: "निर्धारित तिथि पर आयु", graduationMarks: "स्नातक में अंक",
@@ -51,6 +60,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     moisturePercent: "नमी", defectPercent: "दोष", temperatureC: "तापमान", weightGrams: "इकाई वजन",
     sizeMm: "आकार", purityPercent: "शुद्धता", strengthMpa: "मजबूती", sealStatus: "सील की स्थिति",
     labStatus: "प्रयोगशाला परिणाम", labelStatus: "लेबल अनुपालन", packagingStatus: "पैकेजिंग की स्थिति", inspectionOrder: "निरीक्षण क्रम",
+    yearsOperating: "कार्यरत वर्ष", qualifiedStaffCount: "योग्य कर्मचारी", complianceScore: "अनुपालन अंक", incidentCount: "दर्ज घटनाएँ",
+    annualTurnover: "वार्षिक कारोबार", auditStatus: "ऑडिट स्थिति", insuranceStatus: "बीमा स्थिति", licenseStatus: "लाइसेंस स्थिति",
+    taxStatus: "कर अनुपालन", documentStatus: "दस्तावेज़ स्थिति", serviceAreaStatus: "सेवा क्षेत्र", financialRecordStatus: "वित्तीय रिकॉर्ड", securityStatus: "सुरक्षा/जमानत स्थिति",
   },
   pa: {
     age: "ਉਮਰ", ageAtDate: "ਨਿਰਧਾਰਤ ਮਿਤੀ ਨੂੰ ਉਮਰ", graduationMarks: "ਗ੍ਰੈਜੂਏਸ਼ਨ ਦੇ ਅੰਕ",
@@ -62,6 +74,9 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     moisturePercent: "ਨਮੀ", defectPercent: "ਖਾਮੀਆਂ", temperatureC: "ਤਾਪਮਾਨ", weightGrams: "ਇਕਾਈ ਭਾਰ",
     sizeMm: "ਆਕਾਰ", purityPercent: "ਸ਼ੁੱਧਤਾ", strengthMpa: "ਮਜ਼ਬੂਤੀ", sealStatus: "ਸੀਲ ਦੀ ਸਥਿਤੀ",
     labStatus: "ਲੈਬ ਨਤੀਜਾ", labelStatus: "ਲੇਬਲ ਅਨੁਕੂਲਤਾ", packagingStatus: "ਪੈਕਿੰਗ ਦੀ ਸਥਿਤੀ", inspectionOrder: "ਜਾਂਚ ਕ੍ਰਮ",
+    yearsOperating: "ਕਾਰਜਸ਼ੀਲ ਸਾਲ", qualifiedStaffCount: "ਯੋਗ ਸਟਾਫ", complianceScore: "ਅਨੁਕੂਲਤਾ ਅੰਕ", incidentCount: "ਦਰਜ ਘਟਨਾਵਾਂ",
+    annualTurnover: "ਸਾਲਾਨਾ ਕਾਰੋਬਾਰ", auditStatus: "ਆਡਿਟ ਸਥਿਤੀ", insuranceStatus: "ਬੀਮਾ ਸਥਿਤੀ", licenseStatus: "ਲਾਇਸੈਂਸ ਸਥਿਤੀ",
+    taxStatus: "ਕਰ ਅਨੁਕੂਲਤਾ", documentStatus: "ਦਸਤਾਵੇਜ਼ ਸਥਿਤੀ", serviceAreaStatus: "ਸੇਵਾ ਖੇਤਰ", financialRecordStatus: "ਵਿੱਤੀ ਰਿਕਾਰਡ", securityStatus: "ਜਮਾਨਤ ਸਥਿਤੀ",
   },
 });
 
@@ -72,6 +87,8 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
     STUDENT: "student", UNEMPLOYED: "unemployed", CURRENT: "up to date", NOT_APPLICABLE: "not applicable", ACCEPTABLE: "acceptable", GENERAL: "General category", OBC: "OBC category", SC: "SC category", ST: "ST category", OTHER: "other",
     TEACHING: "teaching", CLERICAL: "clerical work", BANKING: "banking", TECHNICAL: "technical work", FIELD: "field work", LABORATORY: "laboratory work",
     SEALED: "sealed", UNSEALED: "unsealed", PASS: "passed", FAIL: "failed", COMPLIANT: "compliant", NON_COMPLIANT: "not compliant", INTACT: "intact", DAMAGED: "damaged",
+    REVIEW: "under review", GOOD: "satisfactory", POOR: "unsatisfactory", LOCAL_AREA: "within the notified service area", OUTSIDE_AREA: "outside the notified service area",
+    AVAILABLE: "available", UNAVAILABLE: "not available",
   },
   hi: {
     VALID: "वैध", PENDING: "लंबित", INVALID: "अमान्य", MISMATCH: "अभिलेख से मेल नहीं खाता",
@@ -79,6 +96,8 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
     STUDENT: "विद्यार्थी", UNEMPLOYED: "बेरोज़गार", CURRENT: "भुगतान नियमित", NOT_APPLICABLE: "लागू नहीं", ACCEPTABLE: "स्वीकार्य", GENERAL: "सामान्य श्रेणी", OBC: "ओबीसी श्रेणी", SC: "एससी श्रेणी", ST: "एसटी श्रेणी", OTHER: "अन्य",
     TEACHING: "अध्यापन", CLERICAL: "लिपिकीय कार्य", BANKING: "बैंकिंग", TECHNICAL: "तकनीकी कार्य", FIELD: "क्षेत्रीय कार्य", LABORATORY: "प्रयोगशाला कार्य",
     SEALED: "सीलबंद", UNSEALED: "सील खुली", PASS: "उत्तीर्ण", FAIL: "अनुत्तीर्ण", COMPLIANT: "अनुरूप", NON_COMPLIANT: "अनुरूप नहीं", INTACT: "सही", DAMAGED: "क्षतिग्रस्त",
+    REVIEW: "समीक्षाधीन", GOOD: "संतोषजनक", POOR: "असंतोषजनक", LOCAL_AREA: "अधिसूचित सेवा क्षेत्र के भीतर", OUTSIDE_AREA: "अधिसूचित सेवा क्षेत्र से बाहर",
+    AVAILABLE: "उपलब्ध", UNAVAILABLE: "उपलब्ध नहीं",
   },
   pa: {
     VALID: "ਵੈਧ", PENDING: "ਲੰਬਿਤ", INVALID: "ਅਵੈਧ", MISMATCH: "ਰਿਕਾਰਡ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
@@ -86,6 +105,8 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
     STUDENT: "ਵਿਦਿਆਰਥੀ", UNEMPLOYED: "ਬੇਰੁਜ਼ਗਾਰ", CURRENT: "ਭੁਗਤਾਨ ਠੀਕ", NOT_APPLICABLE: "ਲਾਗੂ ਨਹੀਂ", ACCEPTABLE: "ਮਨਜ਼ੂਰਯੋਗ", GENERAL: "ਜਨਰਲ ਸ਼੍ਰੇਣੀ", OBC: "ਓਬੀਸੀ ਸ਼੍ਰੇਣੀ", SC: "ਐਸਸੀ ਸ਼੍ਰੇਣੀ", ST: "ਐਸਟੀ ਸ਼੍ਰੇਣੀ", OTHER: "ਹੋਰ",
     TEACHING: "ਅਧਿਆਪਨ", CLERICAL: "ਕਲਰਕੀ ਕੰਮ", BANKING: "ਬੈਂਕਿੰਗ", TECHNICAL: "ਤਕਨੀਕੀ ਕੰਮ", FIELD: "ਫੀਲਡ ਕੰਮ", LABORATORY: "ਲੈਬੋਰਟਰੀ ਦਾ ਕੰਮ",
     SEALED: "ਸੀਲਬੰਦ", UNSEALED: "ਸੀਲ ਖੁੱਲ੍ਹੀ", PASS: "ਪਾਸ", FAIL: "ਫੇਲ", COMPLIANT: "ਅਨੁਕੂਲ", NON_COMPLIANT: "ਅਨੁਕੂਲ ਨਹੀਂ", INTACT: "ਠੀਕ", DAMAGED: "ਖਰਾਬ",
+    REVIEW: "ਸਮੀਖਿਆ ਹੇਠ", GOOD: "ਸੰਤੋਸ਼ਜਨਕ", POOR: "ਅਸੰਤੋਸ਼ਜਨਕ", LOCAL_AREA: "ਸੂਚਿਤ ਸੇਵਾ ਖੇਤਰ ਦੇ ਅੰਦਰ", OUTSIDE_AREA: "ਸੂਚਿਤ ਸੇਵਾ ਖੇਤਰ ਤੋਂ ਬਾਹਰ",
+    AVAILABLE: "ਉਪਲਬਧ", UNAVAILABLE: "ਉਪਲਬਧ ਨਹੀਂ",
   },
 });
 
@@ -263,6 +284,24 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "{name} ਲਈ ਅੰਤਿਮ ਕਾਰਵਾਈ ਕੀ ਹੋਵੇਗੀ?",
     "ਸ਼ਰਤਾਂ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ {name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਕਿਹੜਾ ਫੈਸਲਾ ਨਿਕਲਦਾ ਹੈ?",
     "ਅਧਿਕਾਰੀ ਨੂੰ {name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਕੀ ਫੈਸਲਾ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+  ],
+});
+
+const ORGANIZATION_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: [
+    "What is the correct decision for {name}?", "Should {name} be approved under these conditions?", "Which decision applies to {name}?",
+    "How should {name}'s application be decided?", "What action follows for {name}?", "Does {name} meet the stated approval criteria?",
+    "Which option correctly decides {name}'s case?", "What is {name}'s status after all conditions are checked?",
+  ],
+  hi: [
+    "{name} के लिए सही निर्णय क्या है?", "क्या {name} को इन शर्तों के अनुसार मंजूरी दी जानी चाहिए?", "{name} पर कौन-सा निर्णय लागू होता है?",
+    "{name} के आवेदन पर क्या निर्णय होना चाहिए?", "{name} के लिए कौन-सी कार्रवाई होगी?", "क्या {name} दी गई मंजूरी शर्तें पूरी करती है?",
+    "कौन-सा विकल्प {name} के मामले का सही निर्णय बताता है?", "सभी शर्तें जाँचने के बाद {name} की स्थिति क्या है?",
+  ],
+  pa: [
+    "{name} ਲਈ ਸਹੀ ਫੈਸਲਾ ਕੀ ਹੈ?", "ਕੀ {name} ਨੂੰ ਇਨ੍ਹਾਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ ਮਨਜ਼ੂਰੀ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ?", "{name} ਉੱਤੇ ਕਿਹੜਾ ਫੈਸਲਾ ਲਾਗੂ ਹੁੰਦਾ ਹੈ?",
+    "{name} ਦੀ ਅਰਜ਼ੀ ਬਾਰੇ ਕੀ ਫੈਸਲਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?", "{name} ਲਈ ਕਿਹੜੀ ਕਾਰਵਾਈ ਹੋਵੇਗੀ?", "ਕੀ {name} ਦਿੱਤੀਆਂ ਮਨਜ਼ੂਰੀ ਸ਼ਰਤਾਂ ਪੂਰੀ ਕਰਦੀ ਹੈ?",
+    "ਕਿਹੜਾ ਵਿਕਲਪ {name} ਦੇ ਮਾਮਲੇ ਦਾ ਸਹੀ ਫੈਸਲਾ ਦੱਸਦਾ ਹੈ?", "ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਜਾਂਚਣ ਮਗਰੋਂ {name} ਦੀ ਸਥਿਤੀ ਕੀ ਹੈ?",
   ],
 });
 
@@ -452,7 +491,7 @@ function satisfyingValue(conditions: readonly DmRuleCondition[], scenario: DmSce
     if (age === undefined) throw new Error("DM-001 could not satisfy the age conditions in " + scenario.scenarioId);
     return dateOfBirthForAge(scenario.referenceDate, age);
   }
-  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder"].includes(field);
+  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder", "yearsOperating", "qualifiedStaffCount", "complianceScore", "incidentCount", "annualTurnover"].includes(field);
   if (numericField) {
     const numericThresholds = thresholds.filter((value): value is number => typeof value === "number");
     const offset = boundary ? 0 : 1 + (seed % 2);
@@ -479,6 +518,14 @@ function valueFailing(condition: DmRuleCondition, seed: number, scenario: DmScen
     if (condition.field === "labStatus") return "FAIL";
     if (condition.field === "labelStatus") return "NON_COMPLIANT";
     if (condition.field === "packagingStatus") return "DAMAGED";
+    if (condition.field === "auditStatus") return "FAIL";
+    if (condition.field === "insuranceStatus") return "INVALID";
+    if (condition.field === "licenseStatus") return "INVALID";
+    if (condition.field === "taxStatus") return "NON_COMPLIANT";
+    if (condition.field === "documentStatus") return "INVALID";
+    if (condition.field === "serviceAreaStatus") return "OUTSIDE_AREA";
+    if (condition.field === "financialRecordStatus") return "POOR";
+    if (condition.field === "securityStatus") return "UNAVAILABLE";
     if (condition.field === "qualificationRank" && typeof target === "number") return Math.max(1, target - 1);
     return "OTHER";
   }
@@ -506,7 +553,7 @@ function setField(profile: Record<string, string | number | undefined>, field: D
 }
 
 function defaultForField(field: DmField): number | string | undefined {
-  if (["experienceYears", "graduationMarks", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "qualificationRank", "age", "ageAtDate", "applicationOrder", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder"].includes(field)) return 0;
+  if (["experienceYears", "graduationMarks", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "qualificationRank", "age", "ageAtDate", "applicationOrder", "moisturePercent", "defectPercent", "temperatureC", "weightGrams", "sizeMm", "purityPercent", "strengthMpa", "inspectionOrder", "yearsOperating", "qualifiedStaffCount", "complianceScore", "incidentCount", "annualTurnover"].includes(field)) return 0;
   if (field === "experienceArea") return "FIELD";
   if (field === "residenceStatus") return "OTHER_STATE";
   if (field === "registrationStatus") return "PENDING";
@@ -519,6 +566,14 @@ function defaultForField(field: DmField): number | string | undefined {
   if (field === "labStatus") return "FAIL";
   if (field === "labelStatus") return "NON_COMPLIANT";
   if (field === "packagingStatus") return "DAMAGED";
+  if (field === "auditStatus") return "FAIL";
+  if (field === "insuranceStatus") return "INVALID";
+  if (field === "licenseStatus") return "INVALID";
+  if (field === "taxStatus") return "NON_COMPLIANT";
+  if (field === "documentStatus") return "INVALID";
+  if (field === "serviceAreaStatus") return "OUTSIDE_AREA";
+  if (field === "financialRecordStatus") return "POOR";
+  if (field === "securityStatus") return "UNAVAILABLE";
   return undefined;
 }
 
@@ -547,7 +602,7 @@ function ruleForMode(scenario: DmScenario, mode: DmCandidateMode) {
   if (mode === "BOTH_RELAXATION") return scenario.decisionRules.find((rule) => /BOTH_RELAXATIONS/.test(rule.ruleId));
   if (mode === "AGE_EXCEPTION") return scenario.decisionRules.find((rule) => /AGE_/.test(rule.ruleId));
   if (mode === "MARKS_EXCEPTION") return scenario.decisionRules.find((rule) => /MARKS_/.test(rule.ruleId));
-  if (mode === "DOCUMENT_REFERRAL") return scenario.decisionRules.find((rule) => /CERTIFICATE_MISMATCH/.test(rule.ruleId));
+  if (mode === "DOCUMENT_REFERRAL") return scenario.decisionRules.find((rule) => /CERTIFICATE_MISMATCH|DOCUMENT_MISMATCH/.test(rule.ruleId));
   if (mode === "DIRECTOR_REFERRAL") return scenario.decisionRules.find((rule) => /DIRECTOR/.test(rule.ruleId));
   if (mode === "COMMITTEE_REFERRAL") return scenario.decisionRules.find((rule) => /COMMITTEE/.test(rule.ruleId));
   if (mode === "RULE_EXCEPTION") return scenario.decisionRules.length ? scenario.decisionRules[0] : undefined;
@@ -590,9 +645,9 @@ export function buildDmCandidate(
     const byField = new Map<DmField, DmRuleCondition[]>();
     for (const item of specialRule.conditions) byField.set(item.field, [...(byField.get(item.field) ?? []), item]);
     for (const [field, conditions] of byField) setField(values, field, satisfyingValue(conditions, scenario, seed + field.length, true));
-    if (mode === "DOCUMENT_REFERRAL") setField(values, "certificateStatus", "MISMATCH");
+    if (mode === "DOCUMENT_REFERRAL" && specialRule.conditions.some((item) => item.field === "certificateStatus")) setField(values, "certificateStatus", "MISMATCH");
   }
-  const namePool = scenario.subjectKind === "PRODUCT_LOT" ? LOT_NAMES : NAMES;
+  const namePool = scenario.subjectKind === "PRODUCT_LOT" ? LOT_NAMES : scenario.subjectKind === "ORGANIZATION" ? ORGANIZATION_NAMES : NAMES;
   const name = namePool[locale][seed % namePool[locale].length]!;
   values.name = name;
   return Object.freeze(values as DmCandidateProfile);
@@ -602,14 +657,14 @@ function formatRuleValue(field: DmField, value: number | string, locale: DmLocal
   if (field === "qualificationRank" && typeof value === "number") return QUALIFICATIONS[locale][value] ?? QUALIFICATIONS[locale][5]!;
   const translated = VALUE_LABELS[locale][String(value)];
   if (translated) return translated;
-  if (field === "annualIncome" || field === "familyIncome") return "₹" + String(value);
+  if (field === "annualIncome" || field === "familyIncome" || field === "annualTurnover") return "₹" + String(value);
   if (field === "graduationMarks" || field === "writtenScore" || field === "sectionalScore" || field === "interviewScore" || field === "overallScore" || field === "moisturePercent" || field === "defectPercent" || field === "purityPercent") return String(value) + "%";
   if (field === "temperatureC") return String(value) + "°C";
   if (field === "weightGrams") return String(value) + (locale === "en" ? " g" : locale === "hi" ? " ग्राम" : " ਗ੍ਰਾਮ");
   if (field === "sizeMm") return String(value) + " mm";
   if (field === "strengthMpa") return String(value) + " MPa";
-  if (field === "inspectionOrder") return String(value);
-  if (field === "age" || field === "ageAtDate" || field === "experienceYears") {
+  if (field === "inspectionOrder" || field === "qualifiedStaffCount" || field === "incidentCount" || field === "complianceScore") return String(value);
+  if (field === "age" || field === "ageAtDate" || field === "experienceYears" || field === "yearsOperating") {
     if (locale === "en") return String(value) + (value === 1 ? " year" : " years");
     if (locale === "hi") return String(value) + " वर्ष";
     return String(value) + " ਸਾਲ";
@@ -893,7 +948,7 @@ function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale
     for (const note of scenario.ruleNotes) lines.push("• " + asSentence(note[locale], locale));
   }
   lines.push(formatApplicant(profile, scenario, locale));
-  const stemPool = scenario.subjectKind === "PRODUCT_LOT" ? PRODUCT_STEMS : STEMS;
+  const stemPool = scenario.subjectKind === "PRODUCT_LOT" ? PRODUCT_STEMS : scenario.subjectKind === "ORGANIZATION" ? ORGANIZATION_STEMS : STEMS;
   lines.push(stemPool[locale][seed % stemPool[locale].length]!.replaceAll("{name}", profile.name));
   return lines.join("\n");
 }
@@ -924,6 +979,13 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
     return "• " + FIELD_LABELS[locale][check.condition.field] + ": " + observed + separator + requirement + " — " + statusLabel(check.status, locale) + punctuation;
   });
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
+  const organizationConclusion = scenario.subjectKind === "ORGANIZATION"
+    ? {
+        en: { SELECT: "Every mandatory approval condition is met, so the organisation is approved.", REJECT: "At least one mandatory approval condition is not met and no exception applies, so the organisation is not approved.", INFORMATION_REQUIRED: "A required organisational record is missing, so a final decision cannot yet be made." },
+        hi: { SELECT: "सभी अनिवार्य मंजूरी शर्तें पूरी हैं, इसलिए संस्था को मंजूरी दी जाती है।", REJECT: "कम-से-कम एक अनिवार्य मंजूरी शर्त पूरी नहीं है और कोई अपवाद लागू नहीं होता, इसलिए संस्था को मंजूरी नहीं दी जाती।", INFORMATION_REQUIRED: "एक आवश्यक संस्थागत रिकॉर्ड उपलब्ध नहीं है, इसलिए अभी अंतिम निर्णय नहीं लिया जा सकता।" },
+        pa: { SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਮਨਜ਼ੂਰੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਸੰਸਥਾ ਨੂੰ ਮਨਜ਼ੂਰੀ ਮਿਲਦੀ ਹੈ।", REJECT: "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਜ਼ਮੀ ਮਨਜ਼ੂਰੀ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਅਤੇ ਕੋਈ ਅਪਵਾਦ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਸੰਸਥਾ ਨੂੰ ਮਨਜ਼ੂਰੀ ਨਹੀਂ ਮਿਲਦੀ।", INFORMATION_REQUIRED: "ਇੱਕ ਲੋੜੀਂਦਾ ਸੰਸਥਾਗਤ ਰਿਕਾਰਡ ਉਪਲਬਧ ਨਹੀਂ, ਇਸ ਲਈ ਹਾਲੇ ਅੰਤਿਮ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।" },
+      }[locale][result.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]
+    : undefined;
   const productConclusion = scenario.subjectKind === "PRODUCT_LOT"
     ? {
         en: { SELECT: "Every mandatory quality condition is met, so the lot is accepted.", REJECT: "At least one mandatory quality condition is not met and no exception applies, so the lot is rejected.", INFORMATION_REQUIRED: "A required quality reading or status is missing, so the lot cannot yet be decided." },
@@ -931,7 +993,7 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
         pa: { SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਗੁਣਵੱਤਾ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਲਾਟ ਮਨਜ਼ੂਰ ਹੈ।", REJECT: "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਜ਼ਮੀ ਗੁਣਵੱਤਾ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਅਤੇ ਕੋਈ ਅਪਵਾਦ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਲਾਟ ਰੱਦ ਹੈ।", INFORMATION_REQUIRED: "ਲੋੜੀਂਦੀ ਗੁਣਵੱਤਾ ਰੀਡਿੰਗ ਜਾਂ ਸਥਿਤੀ ਉਪਲਬਧ ਨਹੀਂ, ਇਸ ਲਈ ਹਾਲੇ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।" },
       }[locale][result.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]
     : undefined;
-  const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : productConclusion ?? CONCLUSIONS[locale][result.outcome], locale);
+  const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : organizationConclusion ?? productConclusion ?? CONCLUSIONS[locale][result.outcome], locale);
   const finalPunctuation = locale === "en" ? "." : "।";
   return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + outcomeLabel(result.outcome, locale, seed, scenario) + finalPunctuation + "\n" + ruleLine;
 }
