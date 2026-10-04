@@ -267,7 +267,6 @@ function Router() {
           <Route path="/ibps-rrb-office-assistant/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-office-assistant" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
-          <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />
 
           <Route path="/admin" component={() => <AdminRedirect />} />
           <Route path="/admin/generator" component={() => <AdminRedirect to="/admin/content/questions/generate" />} />
