@@ -16,6 +16,10 @@ import {
   previewBlrCp006QuestionStudioReview,
 } from "./BLR-CP-006/question-studio-review-adapter";
 import {
+  assertBlrStandardMappingIntegrity,
+  BLR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+} from "./question-studio-post-closure-proof";
+import {
   BLR_CP007_QUESTION_STUDIO_PACKAGE_ID,
   BLR_CP007_QUESTION_STUDIO_QL_IDS,
   previewBlrCp007QuestionStudioReview,
@@ -259,7 +263,7 @@ function toStandardQuestion(
   const testEligibility = "INELIGIBLE";
   const reviewStatus = "REVIEW_REQUIRED";
 
-  return {
+  const mapped = {
     text,
     stem: text,
     originalStem: learnerStem,
@@ -313,7 +317,11 @@ function toStandardQuestion(
     integrationAuthority: authority,
     sourceSafety: source.safety,
     sourceParameters: source.parameters,
+    postClosureMappingProofAuthority: BLR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+    postClosureMappingProofVerified: true as const,
   } as const;
+  assertBlrStandardMappingIntegrity(source, mapped);
+  return mapped;
 }
 
 export function isBlr001StandardQuestionStudioRequest(request: Blr001StandardQuestionStudioRequest) {
@@ -367,7 +375,7 @@ export function generateBlr001StandardQuestionStudioBatch(
       runtimeMode: "STANDARD_QUESTION_STUDIO" as const,
       questionStudioRegistrationStatus: "REGISTERED_STANDARD" as const,
       questionStudioStagingStatus: "STANDARD_REVIEW_QUEUE" as const,
-      persistenceAllowed: true as const,
+      persistenceAllowed: false as const,
       reviewStatus: "REVIEW_REQUIRED" as const,
       questionBankStatus: "NOT_STORED" as const,
       testEligibility: "INELIGIBLE" as const,
@@ -375,6 +383,8 @@ export function generateBlr001StandardQuestionStudioBatch(
       automaticStudentPublication: false as const,
       manualApprovalRequired: true as const,
       releaseEligibleAfterApproval: spec.releaseEligibleAfterApproval,
+      postClosureMappingProofAuthority: BLR_001_POST_CLOSURE_MAPPING_PROOF_AUTHORITY,
+      postClosureMappingProofVerified: true as const,
     },
     questionPackages: [],
     questions,
