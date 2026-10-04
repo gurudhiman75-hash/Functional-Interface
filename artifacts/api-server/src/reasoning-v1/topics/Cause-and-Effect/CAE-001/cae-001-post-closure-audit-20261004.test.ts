@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 
 import { generateReviewedCaeQuestion } from "./reviewed-generator.ts";
+import { CAE_001_PROJECTION_AUTHORITIES } from "./causal-world-authorities.ts";
 import { generateReviewedCaeSourceProfileQuestion } from "./reviewed-source-profiles.ts";
 import {
   assertCaeGeneratedAnswerIntegrity,
@@ -75,7 +76,8 @@ for (const qlId of CAE_PROVISIONAL_QL_IDS) {
         correctIndex: fourWay.correctIndex,
       });
 
-      if (seed < 32) {
+      const projection = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId)!;
+      if (seed < 32 && projection.examProfiles.includes("FIVE_WAY")) {
         const fiveWay = generateReviewedCaeQuestion({
           qlId,
           locale,
@@ -141,6 +143,20 @@ for (const locale of LOCALES) {
     }
   }
 }
+
+const bankingQl003 = await generateCae001QuestionStudioBatch({
+  engineId: "reasoning-v1",
+  packageId: "CAE-001",
+  canonicalProblemId: "CAE-QL-003",
+  language: "en",
+  difficulty: "Mixed",
+  runtimeMode: "review-only",
+  count: 3,
+  seed: "cae-post-closure-bank-ql003",
+  exam: "IBPS PO",
+});
+assert.equal(bankingQl003.questions.length, 3);
+assert.ok(bankingQl003.questions.every((question) => question.options.length === 4));
 
 // Mutation proof: graph-proved option metadata must reject a changed answer key.
 {
