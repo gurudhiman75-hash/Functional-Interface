@@ -48,6 +48,7 @@ const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
 const ConfiguredExamHub = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamHub })));
+const ConfiguredExamDetails = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamDetails })));
 const ConfiguredExamPreparation = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamPreparation })));
 const ConfiguredExamSyllabus = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamSyllabus })));
 const ConfiguredExamQuestions = lazy(() => import("@/pages/exam-acquisition").then((module) => ({ default: module.ConfiguredExamQuestions })));
@@ -265,6 +266,7 @@ function Router() {
           <Route path="/ibps-rrb-office-assistant-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-rrb-office-assistant" />)} />
           <Route path="/ibps-rrb-office-assistant-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-rrb-office-assistant" />)} />
           <Route path="/ibps-rrb-office-assistant/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/:examSlug/details" component={() => renderCatalogPublicRoute(ConfiguredExamDetails)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
 
