@@ -22,7 +22,8 @@ interface BuilderSection { clientKey: string; name: string; durationMinutes: str
 interface BuilderDraft {
   examVersionId: string; title: string; description: string; durationMinutes: number; totalMarks: number;
   marksPerQuestion: number; negativeMarks: number; testType: string; languageCode: string; access: string;
-  difficulty: string; instructions: string; sections: BuilderSection[];
+  difficulty: string; instructions: string; switchSections: boolean; markForReview: boolean;
+  preventFullscreenExit: boolean; sections: BuilderSection[];
 }
 interface LocalCheckpoint { savedAt: string; serverDraftVersionId: string | null; draft: BuilderDraft }
 
@@ -30,6 +31,7 @@ const freshDraft = (): BuilderDraft => ({
   examVersionId: '', title: '', description: '', durationMinutes: 60, totalMarks: 0, marksPerQuestion: 2,
   negativeMarks: 0.5, testType: 'full_mock', languageCode: 'en', access: 'free', difficulty: 'Moderate',
   instructions: 'Read every question carefully. Submit the test before the timer ends.',
+  switchSections: true, markForReview: true, preventFullscreenExit: false,
   sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
 });
 
@@ -43,6 +45,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   if (!version) return freshDraft();
   const settings = record(version.settings);
   const instructions = record(version.instructions);
+  const navigationRules = record(settings.navigationRules);
   const firstQuestion = detail.sections.flatMap((section) => section.questions)[0];
   return {
     examVersionId: detail.test.examVersionId,
@@ -57,6 +60,9 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     access: setting(settings, 'access', 'free'),
     difficulty: setting(settings, 'difficulty', 'Moderate'),
     instructions: typeof instructions.text === 'string' ? instructions.text : '',
+    switchSections: navigationRules.switchSections !== false,
+    markForReview: navigationRules.markForReview !== false,
+    preventFullscreenExit: navigationRules.preventFullscreenExit === true,
     sections: detail.sections.map((section) => ({
       clientKey: section.sectionKey,
       name: section.name,
@@ -140,7 +146,18 @@ export function TestBuilderRecoveryPage() {
     durationMinutes: draft.durationMinutes,
     totalMarks: draft.totalMarks,
     instructions: { text: draft.instructions },
-    settings: { testType: draft.testType, languageCode: draft.languageCode, access: draft.access, difficulty: draft.difficulty, sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared' },
+    settings: {
+      testType: draft.testType,
+      languageCode: draft.languageCode,
+      access: draft.access,
+      difficulty: draft.difficulty,
+      sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
+      navigationRules: {
+        switchSections: draft.switchSections,
+        markForReview: draft.markForReview,
+        preventFullscreenExit: draft.preventFullscreenExit,
+      },
+    },
     changeReason,
     sections: draft.sections.map((section) => ({
       clientKey: section.clientKey, name: section.name, durationMinutes: section.durationMinutes === '' ? null : Number(section.durationMinutes), settings: {},
