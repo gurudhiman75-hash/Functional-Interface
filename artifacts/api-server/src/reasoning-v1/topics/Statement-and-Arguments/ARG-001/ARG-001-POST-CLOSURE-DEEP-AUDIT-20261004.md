@@ -37,9 +37,11 @@ The six existing semantic QLs still cover:
 
 ### 1. Final CP015 answer index lacked a fail-closed post-transform proof
 
-The base ARG semantic authority already has a genuine independent strength classifier based on relevance, materiality, support, feasibility, scope and stakeholder legitimacy.
+The early structured ARG authority includes an independent feature-based strength classifier using relevance, materiality, support, feasibility, scope and stakeholder legitimacy.
 
-However, CP015 applies a long editorial/localization/anti-gaming transformation stack after earlier answer construction. The final learner surface retained `argumentStrengths`, `strongArgumentIndices`, options and `correctIndex`, but there was no final general proof that those fields still agreed after all transformations.
+The current CP015 learner runtime is later than that structured layer. Its final natural-language STRONG/WEAK labels inherit the manually approved CP013/CP014 semantic decisions and are protected by the chapter's semantic-alignment/editorial suites; this audit does **not** claim that a second NLP classifier can re-derive argument strength from arbitrary final prose.
+
+CP015 also applies a long editorial/localization/anti-gaming transformation stack after earlier answer construction. The final learner surface retained `argumentStrengths`, `strongArgumentIndices`, options and `correctIndex`, but there was no final general proof that those fields still agreed after all transformations.
 
 Remediation authority:
 
@@ -165,7 +167,7 @@ Correct-option positions exercised:
 
 Banking Either distractors verified: **576**
 
-The proof also deliberately corrupts the final answer index and confirms that the new semantic guard rejects it.
+The proof deliberately corrupts both the final answer index **and the final strength vector** and confirms that the semantic guard rejects either drift.
 
 ## Standard Question Studio proof
 
@@ -236,7 +238,8 @@ The standard adapter preserves the same boundary and declares Question Bank acce
 
 ```text
 semantic QL breadth:                     CLOSED — NO NEW QL REQUIRED
-base strength classifier:                INDEPENDENT / CLOSED
+structured base strength classifier:     INDEPENDENT / CLOSED
+final prose strength labels:               MANUAL-APPROVED + SEMANTIC-ALIGNMENT GATED
 final CP015 option-answer integrity:      CLOSED — FAIL_CLOSED
 EN/HI/PA editorial quality:              CLOSED
 profile diversity:                       CLOSED
