@@ -534,7 +534,34 @@ router.get("/test-series", async (_req, res) => {
             ON attempted_item.test_id = attempt_publication.test_id
            AND attempted_item.series_version_id = version.id
           WHERE attempt.status = 'evaluated'
-        ), 0)::int AS "attemptCount"
+        ), 0)::int AS "attemptCount",
+        COALESCE(
+          jsonb_agg(
+            jsonb_build_object(
+              'id', item.id::text,
+              'testId', test.id::text,
+              'publicCode', COALESCE(test.public_code, ''),
+              'sortOrder', item.sort_order,
+              'title', COALESCE(item.title_override, published.title, 'Untitled test'),
+              'description', published.description,
+              'durationSeconds', COALESCE(published.duration_seconds, 0),
+              'totalMarks', COALESCE(published.total_marks, 0),
+              'questionCount', COALESCE((
+                SELECT COUNT(*)::int
+                FROM assessment.test_questions question
+                WHERE question.test_version_id = published.id
+              ), 0),
+              'iconUrl', test_branding.icon_url
+            )
+            ORDER BY item.sort_order
+          ) FILTER (
+            WHERE item.id IS NOT NULL
+              AND test.status = 'live'::test_status
+              AND publication.published_at IS NOT NULL
+              AND (publication.closes_at IS NULL OR publication.closes_at > now())
+          ),
+          '[]'::jsonb
+        ) AS tests
       FROM assessment.test_series s
       JOIN assessment.test_series_versions version
         ON version.series_id = s.id
@@ -547,6 +574,9 @@ router.get("/test-series", async (_req, res) => {
       JOIN catalog.exam_families ef ON ef.id = e.family_id
       LEFT JOIN assessment.test_series_items item ON item.series_version_id = version.id
       LEFT JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
+      LEFT JOIN platform.catalog_entity_branding test_branding
+        ON test_branding.entity_type = 'test'
+       AND test_branding.entity_id = test.id
       LEFT JOIN assessment.test_versions published ON published.id = test.published_version_id
       LEFT JOIN LATERAL (
         SELECT p.published_at, p.closes_at
