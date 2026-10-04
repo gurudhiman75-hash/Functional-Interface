@@ -85,7 +85,7 @@ for (const pkg of packages) {
       assert.equal(question.richExplanation?.commonTraps, undefined);
       assert.equal(question.richExplanation?.optionAnalysis, undefined);
       assert.equal(question.richExplanation?.distractorAnalysis, undefined);
-      assert.equal(result.generationContext.persistenceAllowed, true);
+      assert.equal(result.generationContext.persistenceAllowed, false);
       assert.equal(result.generationContext.questionBankStatus, "NOT_STORED");
       assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
       assert.equal(result.generationContext.publiclyPublishable, false);
