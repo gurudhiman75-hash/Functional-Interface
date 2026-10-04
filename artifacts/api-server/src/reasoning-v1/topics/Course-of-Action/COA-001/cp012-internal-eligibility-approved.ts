@@ -10,6 +10,7 @@ import {
   COA_CP011_CHECKPOINT_ID,
   COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
   COA_CP011_QUESTION_STUDIO_PACKAGE,
+  COA_CP011_STATUS,
   generateCoaCp011QuestionStudioBatch,
   getCoaCp011SafeSemanticCapacity,
   isCoaCp011QuestionStudioRequest,
@@ -24,6 +25,8 @@ export const COA_CP012_RUNTIME_MODE =
   "APPROVED_CP011_SURFACE_INTERNAL_ELIGIBILITY" as const;
 export const COA_CP012_REVIEW_STATUS =
   "QUESTION_STUDIO_CP012_INTERNALLY_ELIGIBLE" as const;
+export const COA_CP012_EDITORIAL_DIVERSITY_STATUS =
+  "FINAL_EDITORIAL_DIVERSITY_APPROVED_INTERNAL" as const;
 export const COA_CP012_LEARNER_RELEASE = "INTERNAL_ELIGIBLE" as const;
 
 export const COA_CP012_PRODUCT_OWNER_APPROVAL = Object.freeze({
@@ -103,6 +106,8 @@ function approveQuestion(source: QuestionRecord): QuestionRecord {
     supersedesQuestionStudioAuthority: COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
     approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
     approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
+    sourceEditorialDiversityStatus: source.editorialDiversityStatus ?? COA_CP011_STATUS,
+    editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
     runtimeMode: COA_CP012_RUNTIME_MODE,
     reviewStatus: COA_CP012_REVIEW_STATUS,
     lifecycleStatus: "INTERNALLY_ELIGIBLE" as const,
@@ -161,6 +166,8 @@ export async function generateCoaCp012ApprovedQuestionStudioBatch(input: Approve
       approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
       postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
       postClosureAnswerProofVerified: true as const,
+      sourceEditorialDiversityStatus: source.generationContext.editorialDiversityStatus ?? COA_CP011_STATUS,
+      editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
       runtimeMode: COA_CP012_RUNTIME_MODE,
       reviewStatus: COA_CP012_REVIEW_STATUS,
       lifecycleStatus: "INTERNALLY_ELIGIBLE" as const,
@@ -207,6 +214,8 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
   approvalEvidence: COA_CP012_PRODUCT_OWNER_APPROVAL,
   postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+  sourceEditorialDiversityStatus: COA_CP011_STATUS,
+  editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
   runtimeMode: COA_CP012_RUNTIME_MODE,
   supportedRuntimeModes: [COA_CP012_RUNTIME_MODE],
   reviewStatus: COA_CP012_REVIEW_STATUS,
@@ -229,6 +238,8 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
     sourceQuestionStudioAuthority: COA_CP011_EDITORIAL_DIVERSITY_AUTHORITY,
     approvalAuthority: COA_CP012_APPROVAL_AUTHORITY,
     postClosureAnswerProofAuthority: COA_CP012_POST_CLOSURE_ANSWER_PROOF_AUTHORITY,
+    sourceEditorialDiversityStatus: COA_CP011_STATUS,
+    editorialDiversityStatus: COA_CP012_EDITORIAL_DIVERSITY_STATUS,
     internalEligibilityStatus: "APPROVED",
     internalQuestionBankEligibility: true,
     internalTestEligibility: true,
