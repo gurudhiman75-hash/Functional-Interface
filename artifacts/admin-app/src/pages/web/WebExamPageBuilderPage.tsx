@@ -14,7 +14,7 @@ import { getFirebaseAuth } from '@/integrations/firebase';
 
 const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api').replace(/\/$/,'');
 
-type SectionType='hero'|'test_catalog'|'exam_information'|'syllabus'|'preparation'|'topic_practice'|'custom';
+type SectionType='hero'|'test_catalog'|'exam_information'|'syllabus'|'preparation'|'topic_practice'|'custom'|'details_overview'|'details_syllabus'|'details_pattern'|'details_preparation'|'details_practice'|'details_updates'|'details_custom';
 type Layout='tabs'|'list'|'grid'|'horizontal'|'cards';
 type CardStyle='default'|'compact'|'bordered'|'minimal'|'featured';
 type TabStyle='pills'|'underline'|'segmented';
@@ -51,6 +51,7 @@ type Section={
 };
 
 type Configuration={
+  detailsBuilderInitialized:boolean;
   pageEyebrow:string;
   pageTitle:string;
   pageDescription:string;
@@ -76,6 +77,13 @@ const SECTION_LABELS:Record<SectionType,string>={
   preparation:'Preparation',
   topic_practice:'Topic practice',
   custom:'Custom content',
+  details_overview:'Details · Overview',
+  details_syllabus:'Details · Syllabus',
+  details_pattern:'Details · Exam pattern',
+  details_preparation:'Details · Preparation',
+  details_practice:'Details · Practice topics',
+  details_updates:'Details · Updates / notices',
+  details_custom:'Details · Custom section',
 };
 
 const KNOWN_PAGES=[
@@ -90,6 +98,25 @@ const KNOWN_PAGES=[
   ['ibps-rrb-po','IBPS RRB PO'],
   ['ibps-rrb-office-assistant','IBPS RRB Office Assistant'],
 ] as const;
+
+const DETAILS_SECTION_TYPES=new Set<SectionType>([
+  'details_overview','details_syllabus','details_pattern','details_preparation','details_practice','details_updates','details_custom',
+]);
+
+const sectionArea=(type:SectionType)=>DETAILS_SECTION_TYPES.has(type)?'Details page':'Exam hub';
+
+const initializeDetails=(configuration:Configuration,defaults:Configuration):Configuration=>{
+  if(configuration.detailsBuilderInitialized||configuration.sections.some(section=>DETAILS_SECTION_TYPES.has(section.type)))return configuration;
+  const details=defaults.sections
+    .filter(section=>DETAILS_SECTION_TYPES.has(section.type))
+    .map(section=>structuredClone(section));
+  return {...configuration,detailsBuilderInitialized:true,sections:[...configuration.sections,...details]};
+};
+
+const preparePage=(page:PageRecord,defaults:Configuration):PageRecord=>({
+  ...page,
+  configuration:initializeDetails(structuredClone(page.configuration),defaults),
+});
 
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
   const user=getFirebaseAuth()?.currentUser;
@@ -121,8 +148,8 @@ const newSection=(type:SectionType):Section=>({
   title:'',
   description:'',
   body:'',
-  layout:type==='test_catalog'?'tabs':'grid',
-  columns:type==='syllabus'?2:3,
+  layout:type==='test_catalog'?'tabs':type==='details_updates'?'list':'grid',
+  columns:type==='syllabus'||type==='details_syllabus'||type==='details_custom'?2:3,
   cardStyle:'default',
   tabStyle:'pills',
   showCounts:true,
@@ -153,7 +180,7 @@ export function WebExamPageBuilderPage(){
       const slug=preferredSlug||selectedSlug||result.pages[0]?.examSlug||'';
       const selected=result.pages.find(page=>page.examSlug===slug)||null;
       setSelectedSlug(selected?.examSlug||'');
-      setDraft(selected?structuredClone(selected):null);
+      setDraft(selected?preparePage(selected,result.defaultConfiguration):null);
     }catch(error){
       showToast.error('Unable to load web page builder',error instanceof Error?error.message:'Request failed.');
     }finally{setLoading(false);}
@@ -162,7 +189,7 @@ export function WebExamPageBuilderPage(){
   useEffect(()=>{void load();},[]);
   useEffect(()=>{
     const selected=pages.find(page=>page.examSlug===selectedSlug);
-    if(selected)setDraft(structuredClone(selected));
+    if(selected&&defaultConfiguration)setDraft(preparePage(selected,defaultConfiguration));
   },[selectedSlug,pages]);
 
   const orderedSections=useMemo(
@@ -186,7 +213,7 @@ export function WebExamPageBuilderPage(){
     if(!slug||!defaultConfiguration)return;
     const existing=pages.find(page=>page.examSlug===slug);
     if(existing){setSelectedSlug(slug);setDraft(structuredClone(existing));return;}
-    const page:PageRecord={examSlug:slug,title:newTitle.trim()||slug,isActive:true,configuration:structuredClone(defaultConfiguration)};
+    const page:PageRecord={examSlug:slug,title:newTitle.trim()||slug,isActive:true,configuration:{...structuredClone(defaultConfiguration),detailsBuilderInitialized:true}};
     setDraft(page);setSelectedSlug(slug);
   };
 
@@ -219,7 +246,7 @@ export function WebExamPageBuilderPage(){
   return <div className="space-y-5">
     <PageHeader
       title="Web App · Exam Page Builder"
-      description="Control the complete exam landing page: section placement, visibility, copy, layouts, columns, card styles, tabs, CTAs and custom content."
+      description="Control both the logged-in exam hub and the full Exam Details page: placement, visibility, copy, layouts, columns, cards, CTAs and custom information."
       icon={<LayoutTemplate className="h-5 w-5"/>}
       actions={<Button onClick={()=>void save()} disabled={!draft||saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Publishing…':'Publish page'}</Button>}
     />
@@ -276,7 +303,7 @@ export function WebExamPageBuilderPage(){
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <span className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-xs font-bold">{index+1}</span>
-                    <div><CardTitle className="text-base">{SECTION_LABELS[section.type]}</CardTitle><p className="text-xs text-muted-foreground">{section.isVisible?'Visible':'Hidden'} · {section.layout} · {section.columns} column{section.columns===1?'':'s'}</p></div>
+                    <div><CardTitle className="text-base">{SECTION_LABELS[section.type]}</CardTitle><p className="text-xs text-muted-foreground">{sectionArea(section.type)} · {section.isVisible?'Visible':'Hidden'} · {section.layout} · {section.columns} column{section.columns===1?'':'s'}</p></div>
                   </div>
                   <div className="flex flex-wrap gap-1">
                     <Button size="icon" variant="ghost" onClick={()=>setSections(move(orderedSections,index,-1))} disabled={index===0}><ArrowUp className="h-4 w-4"/></Button>
@@ -336,7 +363,7 @@ export function WebExamPageBuilderPage(){
                 <div className="space-y-2"><Label>CTA href</Label><Input value={section.ctaHref} onChange={event=>updateSection(section.id,{ctaHref:event.target.value})} placeholder="/path or https://…"/></div>
 
                 {section.type!=='test_catalog'&&<div className="space-y-3 md:col-span-2">
-                  <div className="flex items-center justify-between gap-3"><div><Label>{section.type==='custom'?'Custom cards':section.type==='hero'?'Hero side cards override':'Manual card override'}</Label><p className="text-xs text-muted-foreground">{section.type==='custom'?'Build cards for this custom section.':section.type==='hero'?'Adding cards here replaces the default published/free/coming-soon summary on the right side of the hero.':'Adding cards here replaces the canonical cards for this section, so every title and line of copy can be controlled.'}</p></div><Button size="sm" variant="outline" onClick={()=>addCard(section.id)}><Plus className="mr-1 h-4 w-4"/>Card</Button></div>
+                  <div className="flex items-center justify-between gap-3"><div><Label>{section.type==='custom'||section.type==='details_custom'?'Custom cards':section.type==='hero'?'Hero side cards override':'Manual card override'}</Label><p className="text-xs text-muted-foreground">{section.type==='details_custom'?'Use cards for eligibility rules, dates, vacancies, salary points, FAQs, notices, links or PDFs.':section.type==='custom'?'Build cards for this custom hub section.':section.type==='hero'?'Adding cards here replaces the default published/free/coming-soon summary on the right side of the hero.':'Adding cards here replaces the canonical cards for this section, so every title and line of copy can be controlled.'}</p></div><Button size="sm" variant="outline" onClick={()=>addCard(section.id)}><Plus className="mr-1 h-4 w-4"/>Card</Button></div>
                   {section.cards.map(card=><div key={card.id} className="grid gap-2 rounded-lg border p-3 md:grid-cols-2">
                     <Input value={card.title} onChange={event=>updateCard(section.id,card.id,{title:event.target.value})} placeholder="Card title"/>
                     <Input value={card.badge} onChange={event=>updateCard(section.id,card.id,{badge:event.target.value})} placeholder="Badge"/>
@@ -351,8 +378,19 @@ export function WebExamPageBuilderPage(){
           </div>
 
           <Card>
-            <CardContent className="flex flex-wrap gap-2 p-4">
-              {(Object.keys(SECTION_LABELS) as SectionType[]).map(type=><Button key={type} variant="outline" size="sm" onClick={()=>setSections([...orderedSections,{...newSection(type),sortOrder:orderedSections.length+1}])}><Plus className="mr-1 h-4 w-4"/>{SECTION_LABELS[type]}</Button>)}
+            <CardContent className="space-y-4 p-4">
+              <div>
+                <p className="mb-2 text-sm font-semibold">Add to exam hub</p>
+                <div className="flex flex-wrap gap-2">
+                  {(Object.keys(SECTION_LABELS) as SectionType[]).filter(type=>!DETAILS_SECTION_TYPES.has(type)).map(type=><Button key={type} variant="outline" size="sm" onClick={()=>setSections([...orderedSections,{...newSection(type),sortOrder:orderedSections.length+1}])}><Plus className="mr-1 h-4 w-4"/>{SECTION_LABELS[type]}</Button>)}
+                </div>
+              </div>
+              <div className="border-t pt-4">
+                <p className="mb-2 text-sm font-semibold">Add to Exam Details page</p>
+                <div className="flex flex-wrap gap-2">
+                  {(Object.keys(SECTION_LABELS) as SectionType[]).filter(type=>DETAILS_SECTION_TYPES.has(type)).map(type=><Button key={type} variant="outline" size="sm" onClick={()=>setSections([...orderedSections,{...newSection(type),sortOrder:orderedSections.length+1}])}><Plus className="mr-1 h-4 w-4"/>{SECTION_LABELS[type]}</Button>)}
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -371,7 +409,7 @@ export function WebExamPageBuilderPage(){
             </div>
             {orderedSections.map((section,index)=><div key={section.id} className={`rounded-xl border p-3 ${section.isVisible?'bg-background':'bg-muted/50 opacity-60'}`}>
               <div className="flex items-center justify-between gap-2"><span className="text-xs font-bold">{index+1}. {section.title||SECTION_LABELS[section.type]}</span><span className="text-[10px] uppercase text-muted-foreground">{section.layout}</span></div>
-              <p className="mt-1 text-[11px] text-muted-foreground">{section.isVisible?'Visible':'Hidden'} · {section.columns} col · {section.cardStyle}</p>
+              <p className="mt-1 text-[11px] text-muted-foreground">{sectionArea(section.type)} · {section.isVisible?'Visible':'Hidden'} · {section.columns} col · {section.cardStyle}</p>
             </div>)}
             <p className="text-[11px] leading-5 text-muted-foreground">Blank copy fields deliberately fall back to the canonical exam content. This lets you rearrange presentation without duplicating syllabus/preparation data.</p>
           </>}

@@ -10,6 +10,13 @@ export const WEB_EXAM_SECTION_TYPES = [
   "preparation",
   "topic_practice",
   "custom",
+  "details_overview",
+  "details_syllabus",
+  "details_pattern",
+  "details_preparation",
+  "details_practice",
+  "details_updates",
+  "details_custom",
 ] as const;
 
 const SECTION_TYPES = new Set<string>(WEB_EXAM_SECTION_TYPES);
@@ -80,6 +87,7 @@ function normalizeSection(value: unknown, index: number) {
 export function normalizeWebExamPageConfiguration(value: unknown) {
   const raw = value && typeof value === "object" ? value as Record<string, unknown> : {};
   return {
+    detailsBuilderInitialized: raw.detailsBuilderInitialized === true,
     pageEyebrow: text(raw.pageEyebrow, 160),
     pageTitle: text(raw.pageTitle, 240),
     pageDescription: text(raw.pageDescription, 1200),
@@ -91,6 +99,7 @@ export function normalizeWebExamPageConfiguration(value: unknown) {
 
 export function defaultWebExamPageConfiguration() {
   return normalizeWebExamPageConfiguration({
+    detailsBuilderInitialized: true,
     sections: [
       { id: "hero", type: "hero", isVisible: true, sortOrder: 1, layout: "cards", columns: 3 },
       { id: "test-catalog", type: "test_catalog", isVisible: true, sortOrder: 2, layout: "tabs", columns: 1, tabStyle: "pills", showCounts: true },
@@ -98,6 +107,16 @@ export function defaultWebExamPageConfiguration() {
       { id: "syllabus", type: "syllabus", isVisible: true, sortOrder: 4, layout: "grid", columns: 2 },
       { id: "preparation", type: "preparation", isVisible: true, sortOrder: 5, layout: "grid", columns: 3 },
       { id: "topic-practice", type: "topic_practice", isVisible: true, sortOrder: 6, layout: "grid", columns: 3 },
+      { id: "details-overview", type: "details_overview", isVisible: true, sortOrder: 20, layout: "grid", columns: 3 },
+      { id: "details-syllabus", type: "details_syllabus", isVisible: true, sortOrder: 21, layout: "grid", columns: 2 },
+      { id: "details-pattern", type: "details_pattern", isVisible: true, sortOrder: 22, layout: "grid", columns: 3 },
+      { id: "details-preparation", type: "details_preparation", isVisible: true, sortOrder: 23, layout: "grid", columns: 3 },
+      { id: "details-practice", type: "details_practice", isVisible: true, sortOrder: 24, layout: "grid", columns: 3 },
+      { id: "details-updates", type: "details_updates", isVisible: true, sortOrder: 25, layout: "list", columns: 2 },
+      { id: "details-eligibility", type: "details_custom", isVisible: false, sortOrder: 26, eyebrow: "Eligibility", title: "Eligibility & selection process", layout: "grid", columns: 2 },
+      { id: "details-dates", type: "details_custom", isVisible: false, sortOrder: 27, eyebrow: "Important dates", title: "Important dates & vacancies", layout: "grid", columns: 2 },
+      { id: "details-salary", type: "details_custom", isVisible: false, sortOrder: 28, eyebrow: "Job profile", title: "Salary & job profile", layout: "grid", columns: 2 },
+      { id: "details-faq", type: "details_custom", isVisible: false, sortOrder: 29, eyebrow: "FAQ", title: "Frequently asked questions", layout: "list", columns: 1, cardStyle: "bordered" },
     ],
   });
 }
