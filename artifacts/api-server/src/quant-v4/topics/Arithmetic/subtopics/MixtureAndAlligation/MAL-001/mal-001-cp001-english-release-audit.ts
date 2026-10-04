@@ -32,7 +32,18 @@ function stable(value: unknown): string {
   return JSON.stringify(value);
 }
 
-const crossQlIds = new Set([
+const releaseCrossQlIds = new Set([
+  "MAL-QL-001",
+  "MAL-QL-002",
+  "MAL-QL-003",
+  "MAL-QL-005",
+  "MAL-QL-006",
+  "MAL-QL-007",
+  "MAL-QL-009",
+  "MAL-QL-010",
+]);
+
+const compactCrossQlIds = new Set([
   "MAL-QL-001",
   "MAL-QL-005",
   "MAL-QL-006",
@@ -133,7 +144,7 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
     explanationLineCount += released.explanation.lines.length;
 
     const visual = released.explanation.alligationVisual;
-    if (crossQlIds.has(qlId)) {
+    if (releaseCrossQlIds.has(qlId)) {
       assert(visual.kind === "cross", `${qlId}/${seed}: expected a cross visual.`);
     } else if (deviationQlIds.has(qlId)) {
       assert(visual.kind === "deviation", `${qlId}/${seed}: expected a deviation visual.`);
@@ -235,7 +246,7 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
         /(?:Simple Method|Method 1 — Simple Method)/u.test(preview.explanation),
       `${allocation.qlId}: compact Question Studio explanation is incomplete.`,
     );
-    if (crossQlIds.has(allocation.qlId)) {
+    if (compactCrossQlIds.has(allocation.qlId)) {
       assert(
         preview.explanation.includes(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX),
         `${allocation.qlId}: alligation-capable preview omitted the SVG directive.`,
