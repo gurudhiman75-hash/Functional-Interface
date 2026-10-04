@@ -592,6 +592,7 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
           { title: "Educational qualification", text: "A degree (graduation) in any discipline from a university recognised by the Government of India, or an equivalent qualification recognised by the Central Government.", badge: "Eligibility" },
           { title: "Age limit", text: "20 to 30 years as on 1 July 2026. The base date-of-birth range is 2 July 1996 to 1 July 2006, both dates inclusive.", badge: "Eligibility" },
           { title: "Upper-age relaxation", text: "SC/ST: 5 years · OBC (Non-Creamy Layer): 3 years · PwBD: 10 years · eligible ex-servicemen/commissioned officers under the notification: 5 years. Read the notification for complete cumulative-relaxation rules.", badge: "Relaxation" },
+          { title: "Application fee", text: "₹175 including GST for SC/ST/PwBD candidates; ₹850 including GST for all other candidates. The 2026 application window is already closed.", badge: "2026 cycle" },
           { title: "Selection stages", text: "Online Preliminary Examination → Online Main Examination (objective + descriptive) → mandatory Personality Test → Common Interview → Provisional Allotment.", badge: "Selection" },
           { title: "Interview and final merit", text: "Interview: 100 marks. Minimum qualifying marks: 40% for General/EWS and 35% for SC/ST/OBC/PwBD. Main and Interview are combined in an 80:20 ratio for final merit.", badge: "Final merit" },
         ],
@@ -607,6 +608,7 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
           { title: "Prelims score display", text: "IBPS opened the preliminary score display on 29 September 2026; the current score-display window is scheduled through 28 October 2026.", badge: "Current update" },
           { title: "Main examination", text: "4 October 2026. Candidates should follow the date, reporting time and venue printed on their call letter.", badge: "Current stage" },
           { title: "Indicative vacancies", text: "7,565 vacancies in the latest Annexure I position published on 27 August 2026. Union Bank of India was shown as not reported, so the figure remains indicative rather than a final allotment total.", badge: "Updated 27 Aug 2026", ctaLabel: "Latest vacancy annexure", href: "https://www.ibps.in/wp-content/uploads/ANNEXURE-I_updated_25.08.2026.pdf" },
+          { title: "Bank-wise vacancy snapshot", text: "Bank of Baroda 1,900 · Bank of India 500 · Bank of Maharashtra 1,100 · Canara Bank 1,500 · Central Bank of India 500 · Indian Bank 650 · Indian Overseas Bank 550 · Punjab National Bank 504 · Punjab & Sind Bank 161 · UCO Bank 200 · Union Bank of India: not reported.", badge: "Annexure I" },
           { title: "Later stages", text: "Personality Test / Interview follow the Main result and shortlisting process. Provisional allotment is expected in the later part of the recruitment cycle; candidates should follow the official IBPS updates page for final dates.", badge: "Upcoming" },
         ],
       },
@@ -637,7 +639,7 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
       updates: {
         eyebrow: "Current official updates",
         title: "IBPS PO/MT-XVI latest official status",
-        description: "Current-cycle status should follow IBPS, not coaching-site calendars.",
+        description: "Current-cycle snapshot verified for 4 October 2026. Status should follow IBPS, not coaching-site calendars.",
         cards: [
           { title: "Main Examination call letter", text: "The Main Examination call-letter download window opened on 24 September 2026 and closes on 4 October 2026.", badge: "24 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
           { title: "Preliminary score display", text: "IBPS opened the Online Preliminary Examination score display on 29 September 2026, with the displayed closure date 28 October 2026.", badge: "29 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
