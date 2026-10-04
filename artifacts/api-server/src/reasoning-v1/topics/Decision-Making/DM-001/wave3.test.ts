@@ -8,7 +8,7 @@ import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
 assert.equal(DM_001_CHECKPOINT_IDS.slice(0, 16).length, 16);
 assert.equal(DM_001_QL_IDS.slice(0, 48).length, 48);
 assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 16).length, 48);
-assert.equal(DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 16).length, 700);
+assert.equal(DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 16).length, 730);
 assertContinuousDmQlIds();
 
 const waveThreeCheckpoints = DM_001_CHECKPOINT_IDS.slice(10, 16);
