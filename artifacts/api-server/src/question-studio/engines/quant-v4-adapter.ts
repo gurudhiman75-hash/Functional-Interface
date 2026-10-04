@@ -173,6 +173,10 @@ import {
   generateNum001EngineBatch,
   num001EnginePackageCard,
 } from "../quant-number-system-num001";
+import {
+  generateNum002Cp008To012EngineBatch,
+  num002Cp008To012EnginePackageCard,
+} from "../quant-number-system-num002";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -671,6 +675,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg002EnginePackage(),
       tmw001EnginePackage(),
       toSharedPackage(num001EnginePackageCard()),
+      toSharedPackage(num002Cp008To012EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
       if (index >= 0) packages[index] = specializedPackage;
@@ -709,6 +714,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const numberSystem = await generateNum001EngineBatch(request);
     if (numberSystem) return numberSystem;
+
+    const numberSystemNum002 = await generateNum002Cp008To012EngineBatch(request);
+    if (numberSystemNum002) return numberSystemNum002;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
