@@ -1,0 +1,64 @@
+name: Validate TSD current-main closure
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
+      - "artifacts/api-server/src/question-studio/quant-time-speed-distance.ts"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+      - ".github/workflows/tsd-current-main-closure.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tsd-current-main-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tsd-current-main-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle TSD current-main closure audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/tsd-current-main-closure
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/tsd-current-main-closure-audit.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.mjs
+
+      - name: Run TSD current-main closure audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
+          grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload TSD closure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-current-main-closure
+          path: artifacts/api-server/dist/quant-v4/tsd-current-main-closure/*.log
+          if-no-files-found: error
