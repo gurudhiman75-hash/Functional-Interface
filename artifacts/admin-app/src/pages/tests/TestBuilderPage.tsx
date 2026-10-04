@@ -342,6 +342,75 @@ export function TestBuilderPage() {
     }));
   };
 
+
+  const addDescriptiveTask = (clientKey: string) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => {
+        if (section.clientKey !== clientKey) return section;
+        const ordinal = section.descriptiveTasks.length + 1;
+        return {
+          ...section,
+          descriptiveTasks: [
+            ...section.descriptiveTasks,
+            {
+              id: `descriptive-${ordinal}`,
+              kind: ordinal === 1 ? 'essay' : 'comprehension',
+              prompt: '',
+              marks: 10,
+              minWords: '',
+              maxWords: '',
+              instructions: '',
+              stimulusTitle: '',
+              stimulusText: '',
+            },
+          ],
+        };
+      });
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
+  };
+
+  const updateDescriptiveTask = (
+    clientKey: string,
+    taskId: string,
+    patch: Partial<BuilderDescriptiveTask>,
+  ) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => (
+        section.clientKey === clientKey
+          ? {
+              ...section,
+              descriptiveTasks: section.descriptiveTasks.map((task) => task.id === taskId ? { ...task, ...patch } : task),
+            }
+          : section
+      ));
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
+  };
+
+  const removeDescriptiveTask = (clientKey: string, taskId: string) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => (
+        section.clientKey === clientKey
+          ? { ...section, descriptiveTasks: section.descriptiveTasks.filter((task) => task.id !== taskId) }
+          : section
+      ));
+      return {
+        ...current,
+        sections,
+        totalMarks: sections.flatMap((section) => section.questionVersionIds).length * current.marksPerQuestion + descriptiveMarksForSections(sections),
+      };
+    });
+  };
+
   const toggleQuestion = (questionVersionId: string) => {
     if (!activeSection) return;
     setDraft((current) => {
@@ -495,7 +564,95 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="sections">
-          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Duration (optional)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
+          <div className="space-y-4">
+            <div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>
+            {draft.sections.map((section, index) => (
+              <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}>
+                <CardContent className="space-y-4 p-4">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
+                    <div className="flex-1 space-y-2">
+                      <Label>Section {index + 1} name</Label>
+                      <Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} />
+                    </div>
+                    <div className="w-full space-y-2 lg:w-48">
+                      <Label>Duration (optional)</Label>
+                      <Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" />
+                    </div>
+                    <Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>
+                      {section.questionVersionIds.length} objective
+                    </Button>
+                    <Badge variant="outline">{section.descriptiveTasks.length} descriptive</Badge>
+                    <Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button>
+                  </div>
+
+                  <div className="rounded-lg border bg-muted/20 p-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="text-sm font-semibold">Descriptive tasks</p>
+                        <p className="text-xs text-muted-foreground">Use this for essay, comprehension, letter or précis tasks. These are stored with the immutable test version, not forced into the MCQ Question Bank.</p>
+                      </div>
+                      <Button type="button" variant="outline" size="sm" onClick={() => addDescriptiveTask(section.clientKey)}>
+                        <Plus className="mr-1.5 h-4 w-4" /> Add descriptive task
+                      </Button>
+                    </div>
+
+                    {section.descriptiveTasks.length === 0 ? (
+                      <p className="mt-3 text-xs text-muted-foreground">No descriptive task in this section.</p>
+                    ) : (
+                      <div className="mt-4 space-y-4">
+                        {section.descriptiveTasks.map((task, taskIndex) => (
+                          <div key={task.id} className="space-y-3 rounded-md border bg-background p-4">
+                            <div className="flex items-end gap-3">
+                              <div className="grid flex-1 gap-3 sm:grid-cols-3">
+                                <div className="space-y-1.5">
+                                  <Label>Task id</Label>
+                                  <Input value={task.id} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { id: event.target.value })} />
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label>Type</Label>
+                                  <Select value={task.kind} onValueChange={(value) => updateDescriptiveTask(section.clientKey, task.id, { kind: value as BuilderDescriptiveTask['kind'] })}>
+                                    <SelectTrigger><SelectValue /></SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="essay">Essay</SelectItem>
+                                      <SelectItem value="comprehension">Comprehension</SelectItem>
+                                      <SelectItem value="letter">Letter</SelectItem>
+                                      <SelectItem value="precis">Précis</SelectItem>
+                                      <SelectItem value="other">Other</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label>Marks</Label>
+                                  <Input type="number" min={0.01} step={0.5} value={task.marks} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { marks: Number(event.target.value) })} />
+                                </div>
+                              </div>
+                              <Button type="button" variant="ghost" size="icon" onClick={() => removeDescriptiveTask(section.clientKey, task.id)} aria-label={`Remove descriptive task ${taskIndex + 1}`}><Trash2 className="h-4 w-4" /></Button>
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label>Prompt</Label>
+                              <Textarea rows={3} value={task.prompt} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { prompt: event.target.value })} placeholder="Write the exact learner-facing descriptive prompt." />
+                            </div>
+                            <div className="grid gap-3 sm:grid-cols-2">
+                              <div className="space-y-1.5"><Label>Minimum words (optional)</Label><Input type="number" min={0} value={task.minWords} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { minWords: event.target.value })} /></div>
+                              <div className="space-y-1.5"><Label>Maximum words (optional)</Label><Input type="number" min={1} value={task.maxWords} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { maxWords: event.target.value })} /></div>
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label>Task instructions (optional)</Label>
+                              <Textarea rows={2} value={task.instructions} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { instructions: event.target.value })} />
+                            </div>
+                            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_2fr]">
+                              <div className="space-y-1.5"><Label>Shared stimulus title (optional)</Label><Input value={task.stimulusTitle} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { stimulusTitle: event.target.value })} placeholder="Comprehension passage" /></div>
+                              <div className="space-y-1.5"><Label>Shared passage / stimulus (optional)</Label><Textarea rows={4} value={task.stimulusText} onChange={(event) => updateDescriptiveTask(section.clientKey, task.id, { stimulusText: event.target.value })} placeholder="Paste the passage used by this task." /></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
 
         <TabsContent value="questions">
