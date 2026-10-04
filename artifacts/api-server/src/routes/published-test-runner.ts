@@ -3,7 +3,9 @@ import { Router, type IRouter } from "express";
 import { sqlClient } from "../lib/db";
 import { AttemptReliabilityError, resolveAttemptLimit } from "../lib/attempt-reliability";
 import {
+  descriptiveAssignments,
   inspectDescriptiveTasks,
+  normalizeDescriptiveResponses,
   readSharedStimulus,
   stableRuntimeItemId,
   type SharedStimulusRuntime,
@@ -278,6 +280,36 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       }
       const flags = asRecord(req.body?.flags);
 
+      const sectionRows = await sql`
+        SELECT id::text AS id, name, settings
+        FROM assessment.test_sections
+        WHERE test_version_id = ${String(attempt.testVersionId)}::uuid
+        ORDER BY sort_order
+      `;
+      let descriptiveTaskAssignments;
+      try {
+        descriptiveTaskAssignments = descriptiveAssignments(sectionRows as Array<{ id: unknown; name: unknown; settings: unknown }>);
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_DESCRIPTIVE_CONFIG_INVALID",
+          error instanceof Error ? error.message : "Descriptive section configuration is invalid",
+          409,
+        );
+      }
+      let descriptiveResponses;
+      try {
+        descriptiveResponses = normalizeDescriptiveResponses(
+          req.body?.descriptiveResponses,
+          descriptiveTaskAssignments,
+        );
+      } catch (error) {
+        throw new AttemptReliabilityError(
+          "ATTEMPT_INVALID_DESCRIPTIVE_RESPONSE",
+          error instanceof Error ? error.message : "Descriptive response is invalid",
+          400,
+        );
+      }
+
       const questionRows = await sql`
         SELECT concat(tq.test_version_id::text, ':', tq.question_version_id::text) AS "testQuestionId",
           tq.test_section_id::text AS "testSectionId",
@@ -296,7 +328,9 @@ router.post("/attempts", authenticate, async (req, res, next) => {
           tq.marks, tq.negative_marks, section.name, section.sort_order, version.stem, version.explanation
         ORDER BY section.sort_order, tq.position
       `;
-      if (questionRows.length === 0) throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      if (questionRows.length === 0 && descriptiveTaskAssignments.length === 0) {
+        throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      }
 
       let correct = 0; let wrong = 0; let actualScore = 0;
       const sectionStatsMap = new Map<string, { correct: number; wrong: number; unanswered: number; totalQuestions: number }>();
@@ -354,6 +388,11 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const totalQuestions = questionRows.length;
       const unanswered = totalQuestions - correct - wrong;
       const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+      const descriptiveMarksPending = descriptiveResponses.reduce((sum, response) => sum + response.marks, 0);
+      const descriptiveReviewStatus = descriptiveResponses.length > 0 ? "pending" as const : "not_required" as const;
+      const scoringStatus = descriptiveResponses.length > 0
+        ? "OBJECTIVE_COMPLETE_DESCRIPTIVE_PENDING" as const
+        : "COMPLETE" as const;
       const sectionStats = Array.from(sectionStatsMap.entries()).map(([name, stats]) => {
         const answered = stats.correct + stats.wrong;
         return { name, ...stats, accuracy: answered > 0 ? Math.round((stats.correct / answered) * 100) : 0 };
@@ -372,7 +411,15 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         testPublicationId: String(attempt.publicationId),
         testVersionId: String(attempt.testVersionId),
         testName: String(attempt.title), category: String(attempt.examFamilyCode), score, actualScore,
-        correct, wrong, unanswered, totalQuestions, timeSpent,
+        objectiveScore: score,
+        objectiveActualScore: actualScore,
+        scoringStatus,
+        descriptiveReviewStatus,
+        descriptiveMarksPending,
+        descriptiveResponses,
+        correct, wrong, unanswered, totalQuestions,
+        totalItems: totalQuestions + descriptiveResponses.length,
+        timeSpent,
         createdAt: new Date(String(attempt.startedAt)).toISOString(), submittedAt,
         attemptNumber: Number(attempt.attemptNumber), attemptType,
         seriesId: typeof req.body?.seriesId === "string" ? req.body.seriesId : null,
