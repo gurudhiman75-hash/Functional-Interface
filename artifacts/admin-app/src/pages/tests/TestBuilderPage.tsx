@@ -68,6 +68,9 @@ interface BuilderDraft {
   access: string;
   difficulty: string;
   instructions: string;
+  switchSections: boolean;
+  markForReview: boolean;
+  preventFullscreenExit: boolean;
   sections: BuilderSection[];
 }
 
@@ -85,6 +88,9 @@ const freshDraft = (): BuilderDraft => ({
   access: 'free',
   difficulty: 'Moderate',
   instructions: 'Read every question carefully. Submit the test before the timer ends.',
+  switchSections: true,
+  markForReview: true,
+  preventFullscreenExit: false,
   sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
 });
 
@@ -107,6 +113,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   const negativeMarks = firstQuestion?.negativeMarks ?? 0.5;
   const questionCount = detail.sections.reduce((sum, section) => sum + section.questions.length, 0);
   const instructions = record(version.instructions);
+  const navigationRules = record(settings.navigationRules);
   return {
     examVersionId: detail.test.examVersionId,
     title: version.title,
@@ -121,6 +128,9 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     access: stringSetting(settings, 'access', 'free'),
     difficulty: stringSetting(settings, 'difficulty', 'Moderate'),
     instructions: typeof instructions.text === 'string' ? instructions.text : '',
+    switchSections: navigationRules.switchSections !== false,
+    markForReview: navigationRules.markForReview !== false,
+    preventFullscreenExit: navigationRules.preventFullscreenExit === true,
     sections: detail.sections.map((section) => ({
       clientKey: section.sectionKey,
       name: section.name,
@@ -275,7 +285,11 @@ export function TestBuilderPage() {
       access: draft.access,
       difficulty: draft.difficulty,
       sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
-      navigationRules: { switchSections: true, markForReview: true },
+      navigationRules: {
+        switchSections: draft.switchSections,
+        markForReview: draft.markForReview,
+        preventFullscreenExit: draft.preventFullscreenExit,
+      },
     },
     changeReason: detail ? 'Saved from live Test Builder' : 'Initial live Test Builder draft',
     sections: draft.sections.map((section) => ({
@@ -377,6 +391,20 @@ export function TestBuilderPage() {
             <div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Test type" value={draft.testType} options={[['full_mock', 'Full Mock'], ['sectional', 'Sectional Test'], ['quiz', 'Quiz'], ['previous_year', 'Previous Year']]} onChange={(value) => setDraft((current) => ({ ...current, testType: value }))} /><SelectField label="Access" value={draft.access} options={[['free', 'Free'], ['paid', 'Paid'], ['premium', 'Premium']]} onChange={(value) => setDraft((current) => ({ ...current, access: value }))} /><SelectField label="Difficulty" value={draft.difficulty} options={[['Easy', 'Easy'], ['Moderate', 'Moderate'], ['Hard', 'Hard'], ['Mixed', 'Mixed']]} onChange={(value) => setDraft((current) => ({ ...current, difficulty: value }))} /><div className="space-y-2"><Label>Language</Label><Select value={draft.languageCode} onValueChange={(value) => setDraft((current) => ({ ...current, languageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{selectedExam?.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>) ?? <SelectItem value="en">English</SelectItem>}</SelectContent></Select></div></div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.switchSections} onCheckedChange={(value) => setDraft((current) => ({ ...current, switchSections: value === true }))} />
+                Allow switching sections
+              </label>
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.markForReview} onCheckedChange={(value) => setDraft((current) => ({ ...current, markForReview: value === true }))} />
+                Allow mark for review
+              </label>
+              <label className="flex items-center gap-2 rounded-md border p-3 text-sm">
+                <Checkbox checked={draft.preventFullscreenExit} onCheckedChange={(value) => setDraft((current) => ({ ...current, preventFullscreenExit: value === true }))} />
+                Protect fullscreen exam mode
+              </label>
+            </div>
             <div className="space-y-2"><Label>Instructions</Label><Textarea value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} rows={5} /></div>
           </CardContent></Card>
         </TabsContent>
