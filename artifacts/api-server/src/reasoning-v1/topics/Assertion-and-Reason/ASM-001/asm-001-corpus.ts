@@ -595,7 +595,7 @@ export const ASM_001_SCENARIO_AUTHORITIES: readonly AsmScenarioAuthority[] =
       l(
         "An object moving in a circle at constant speed has zero acceleration.",
         "वृत्त में समान चाल से चल रही वस्तु का त्वरण शून्य होता है।",
-        "ਗੋਲ ਚੱਕਰ ਵਿੱਚ ਇਕਸਾਰ ਚਾਲ ਨਾਲ ਚੱਲ ਰਹੀ ਵਸਤੂ ਦਾ ਤ੍ਵਰਨ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ।",
+        "ਗੋਲ ਚੱਕਰ ਵਿੱਚ ਇਕਸਾਰ ਚਾਲ ਨਾਲ ਚੱਲ ਰਹੀ ਵਸਤੂ ਦਾ ਪ੍ਰਵੇਗ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ।",
       ),
       l(
         "Its velocity remains constant because its speed remains constant.",
@@ -605,7 +605,7 @@ export const ASM_001_SCENARIO_AUTHORITIES: readonly AsmScenarioAuthority[] =
       l(
         "Both statements are false. Even when speed is constant, the velocity direction changes continuously in circular motion, producing centripetal acceleration.",
         "दोनों कथन गलत हैं। चाल स्थिर होने पर भी वृत्तीय गति में वेग की दिशा लगातार बदलती रहती है, इसलिए अभिकेंद्रीय त्वरण होता है।",
-        "ਦੋਵੇਂ ਬਿਆਨ ਗਲਤ ਹਨ। ਚਾਲ ਸਥਿਰ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਗੋਲ ਗਤੀ ਵਿੱਚ ਵੇਗ ਦੀ ਦਿਸ਼ਾ ਲਗਾਤਾਰ ਬਦਲਦੀ ਰਹਿੰਦੀ ਹੈ, ਇਸ ਲਈ ਅਭਿਕੇਂਦਰੀ ਤ੍ਵਰਨ ਹੁੰਦਾ ਹੈ।",
+        "ਦੋਵੇਂ ਬਿਆਨ ਗਲਤ ਹਨ। ਚਾਲ ਸਥਿਰ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਗੋਲ ਗਤੀ ਵਿੱਚ ਵੇਗ ਦੀ ਦਿਸ਼ਾ ਲਗਾਤਾਰ ਬਦਲਦੀ ਰਹਿੰਦੀ ਹੈ, ਇਸ ਲਈ ਕੇਂਦਰ-ਅਭਿਮੁਖ ਪ੍ਰਵੇਗ ਹੁੰਦਾ ਹੈ।",
       ),
       "PHYSICS",
     ),
