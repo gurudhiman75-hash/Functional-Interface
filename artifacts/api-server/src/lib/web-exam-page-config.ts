@@ -40,6 +40,16 @@ function normalizeCard(value: unknown, index: number) {
   };
 }
 
+function normalizeLabels(value: unknown) {
+  const raw = value && typeof value === "object" ? value as Record<string, unknown> : {};
+  return Object.fromEntries(
+    Object.entries(raw)
+      .slice(0, 40)
+      .map(([key, label]) => [text(key, 80), text(label, 140)])
+      .filter(([key, label]) => Boolean(key && label)),
+  );
+}
+
 function normalizeSection(value: unknown, index: number) {
   const raw = value && typeof value === "object" ? value as Record<string, unknown> : {};
   const type = text(raw.type, 40);
@@ -60,6 +70,7 @@ function normalizeSection(value: unknown, index: number) {
     cardStyle: CARD_STYLES.has(cardStyle) ? cardStyle : "default",
     tabStyle: TAB_STYLES.has(tabStyle) ? tabStyle : "pills",
     showCounts: raw.showCounts !== false,
+    labels: normalizeLabels(raw.labels),
     ctaLabel: text(raw.ctaLabel, 100),
     ctaHref: text(raw.ctaHref, 1000),
     cards: Array.isArray(raw.cards) ? raw.cards.slice(0, 100).map(normalizeCard) : [],
