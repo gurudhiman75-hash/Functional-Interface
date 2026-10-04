@@ -12,6 +12,7 @@ import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-seri
 import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { getSessionUser } from "@/lib/session-user";
+import { signInWithGoogle } from "@/lib/auth";
 import {
   catalogExamCodesForSlug,
   examHubHref,
@@ -219,6 +220,7 @@ function LoggedOutExamHubPage({
   dataUnavailable: boolean;
 }) {
   const returnPath = examHubHref(examSlug);
+  const [googlePending, setGooglePending] = useState(false);
   const loginHref = "/login/student?next=" + encodeURIComponent(returnPath);
   const signupHref = "/login/student?mode=signup&next=" + encodeURIComponent(returnPath);
 
@@ -339,9 +341,20 @@ function LoggedOutExamHubPage({
                 <p className="mt-2 text-sm leading-5 text-slate-500">Sign in to access tests, save attempts and keep your preparation connected.</p>
               </div>
 
-              <Link href={loginHref} className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-bold text-white hover:bg-blue-700">
-                <Chrome className="mr-2 h-4 w-4" /> Continue with Google
-              </Link>
+              <button
+                type="button"
+                disabled={googlePending}
+                onClick={() => {
+                  setGooglePending(true);
+                  void signInWithGoogle()
+                    .then(() => window.location.assign(returnPath))
+                    .catch(() => window.location.assign(loginHref))
+                    .finally(() => setGooglePending(false));
+                }}
+                className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-blue-600 px-4 text-sm font-bold text-white hover:bg-blue-700 disabled:cursor-wait disabled:opacity-70"
+              >
+                <Chrome className="mr-2 h-4 w-4" /> {googlePending ? "Connecting…" : "Continue with Google"}
+              </button>
               <div className="my-4 flex items-center gap-3"><span className="h-px flex-1 bg-slate-200" /><span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">or</span><span className="h-px flex-1 bg-slate-200" /></div>
               <div className="grid grid-cols-2 gap-2">
                 <Link href={signupHref} className="flex min-h-11 items-center justify-center rounded-xl border border-blue-200 bg-white px-3 text-xs font-bold text-blue-700 hover:bg-blue-50">Sign up</Link>
