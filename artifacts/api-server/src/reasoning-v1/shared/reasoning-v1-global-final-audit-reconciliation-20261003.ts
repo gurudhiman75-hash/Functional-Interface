@@ -41,7 +41,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Blood-Relations",
         chapterId: "BLR-001",
         closureAuthorityPath:
-          "topics/Blood-Relations/BLR-001/BLR-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Blood-Relations/BLR-001/BLR-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
