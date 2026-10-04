@@ -27,8 +27,8 @@ function explanationContradictsAnswer(
   const rejectsI = locale === "en-IN"
     ? /(?:\bInference I\b|(?<!I)\bI\b(?!I))[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
     : locale === "hi-IN"
-      ? /(?:अनुमान I|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
-      : /(?:ਅਨੁਮਾਨ I|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
+      ? /(?:अनुमान I(?!I)|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:सही नहीं|समर्थित नहीं|सिद्ध नहीं|दायरे से आगे)/u
+      : /(?:ਅਨੁਮਾਨ I(?!I)|(?<!I)\bI\b(?!I))[^।.!?]{0,55}(?:ਸਹੀ ਨਹੀਂ|ਸਮਰਥਿਤ ਨਹੀਂ|ਸਾਬਤ ਨਹੀਂ|ਦਾਇਰੇ ਤੋਂ ਅੱਗੇ)/u;
   const rejectsII = locale === "en-IN"
     ? /(?:\bInference II\b|\bII\b)[^.!?]{0,45}\b(?:does not follow|is not supported|is not established|goes beyond|overextends)\b/iu
     : locale === "hi-IN"
