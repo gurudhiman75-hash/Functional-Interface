@@ -209,7 +209,7 @@ export const REASONING_V1_CURRENT_IMPLEMENTED_AUDIT_RECONCILIATION_20261003 =
         topicDirectory: "Statement-and-Arguments",
         chapterId: "ARG-001",
         closureAuthorityPath:
-          "topics/Statement-and-Arguments/ARG-001/ARG-001-FINAL-DEEP-AUDIT-CLOSURE-20260929.md",
+          "topics/Statement-and-Arguments/ARG-001/ARG-001-POST-CLOSURE-DEEP-AUDIT-20261004.md",
         auditState: "PASS",
         remainingGate: "RELEASE_OR_PRODUCT_APPROVAL_SEPARATE",
       },
