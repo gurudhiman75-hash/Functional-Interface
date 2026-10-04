@@ -103,6 +103,17 @@ function progressionLabel(mode: ExamHubCatalogItem["progressionMode"]) {
   return "Open access";
 }
 
+function tabLabelForSection(title: string) {
+  const value = title.toLowerCase();
+  if (/prelims?|preliminary/.test(value)) return "Prelims";
+  if (/mains?|main exam/.test(value)) return "Mains";
+  if (/\bpyq\b|previous[ -]?year/.test(value)) return "PYQ";
+  if (/sectional/.test(value)) return "Sectional";
+  if (/topic[ -]?wise/.test(value)) return "Topic-wise";
+  if (/more test/.test(value)) return "More";
+  return title;
+}
+
 function seriesItem(series: StudentSeriesSummary): ExamHubCatalogItem {
   const comingSoon = series.learnerVisibility === "coming_soon";
   const liveCount = series.tests?.length ?? series.liveTestCount ?? 0;
@@ -420,8 +431,10 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
                       onClick={() => setActiveSeriesTabId(section.id)}
                       className={"min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}
                     >
-                      {section.title}
-                      <span className={"ml-2 text-xs " + (selected ? "text-white/75" : "text-slate-400")}>{section.items.length}</span>
+                      {tabLabelForSection(section.title)}
+                      <span className={"ml-2 text-xs " + (selected ? "text-white/75" : "text-slate-400")}>
+                        {section.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}
+                      </span>
                     </button>
                   );
                 })}
