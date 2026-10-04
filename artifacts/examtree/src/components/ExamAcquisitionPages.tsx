@@ -60,6 +60,71 @@ type ExamHubCatalogItem = {
   seriesTests?: StudentSeriesCatalogTest[];
 };
 
+type ExamHubFlatTest = {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  stage: "prelims" | "mains" | "general";
+  type: "full-length" | "sectional" | "topic-wise" | "pyq";
+  questionCount: number;
+  durationMinutes: number;
+  totalMarks: number;
+  difficulty?: string;
+  access?: "free" | "paid";
+  iconUrl?: string | null;
+  seriesName?: string;
+};
+
+function flatTestType(test: Test): ExamHubFlatTest["type"] {
+  const text = testSearchText(test);
+  if (isPyqText(text)) return "pyq";
+  if (test.kind === "sectional") return "sectional";
+  if (test.kind === "topic-wise") return "topic-wise";
+  return "full-length";
+}
+
+function preferredStage(stage: "prelims" | "mains" | "general", searchText: string): "prelims" | "mains" | "general" {
+  if (stage !== "general") return stage;
+  const inferred = stageFromText(searchText);
+  return inferred === "general" ? "prelims" : inferred;
+}
+
+function ExamHubFlatTestRow({ test, ctaLabel }: { test: ExamHubFlatTest; ctaLabel?: string }) {
+  const typeLabel =
+    test.type === "sectional" ? "Sectional Test" :
+    test.type === "topic-wise" ? "Topic-wise Test" :
+    test.type === "pyq" ? "Previous Year" :
+    "Full Test";
+
+  return (
+    <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-[0_3px_14px_rgba(15,23,42,0.025)] sm:flex-row sm:items-center sm:justify-between sm:px-5">
+      <div className="flex min-w-0 items-start gap-3">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-blue-50 text-sm font-bold text-blue-700">
+          {test.iconUrl ? <img src={test.iconUrl} alt="" className="h-full w-full object-contain p-1.5" /> : <FileText className="h-5 w-5" />}
+        </div>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-slate-950">{test.title}</h3>
+            {test.access === "free" ? <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">Free</span> : null}
+          </div>
+          {test.description ? <p className="mt-1 line-clamp-1 text-sm text-slate-500">{test.description}</p> : null}
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+            <span className="rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700">{typeLabel}</span>
+            {test.difficulty ? <span className="rounded-md bg-amber-50 px-2 py-1 font-semibold text-amber-700">{test.difficulty}</span> : null}
+            <span>{test.questionCount} questions</span>
+            <span>{test.durationMinutes} min</span>
+            {test.totalMarks > 0 ? <span>{test.totalMarks} marks</span> : null}
+          </div>
+        </div>
+      </div>
+      <Link href={test.href} className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl bg-[#1375ea] px-5 text-sm font-semibold text-white transition hover:bg-[#0d67d0]">
+        {ctaLabel || "Start Test"} <ArrowRight className="ml-1.5 h-4 w-4" />
+      </Link>
+    </article>
+  );
+}
+
 function compact(value: string | null | undefined) {
   return String(value ?? "").trim();
 }
@@ -317,7 +382,8 @@ function ConfiguredManualCards({ section }: { section: WebExamPageSection }) {
 export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
   const catalog = useExamCatalog();
-  const [activeSeriesTabId, setActiveSeriesTabId] = useState("");
+  const [activeExamStage, setActiveExamStage] = useState<"prelims" | "mains" | "pyq">("prelims");
+  const [activeTestType, setActiveTestType] = useState<"full-length" | "sectional" | "topic-wise">("full-length");
   const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
 
   const seriesQuery = useQuery({
@@ -359,6 +425,54 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     ),
     [seriesQuery.data, examCodes],
   );
+
+  const flatTests = useMemo<ExamHubFlatTest[]>(() => {
+    const seriesBoundIds = new Set<string>();
+    const fromSeries = examSeries.flatMap((series) => {
+      const rawStage = seriesHubStage(series);
+      const stage = preferredStage(rawStage, seriesSearchText(series));
+      const type = seriesHubType(series);
+      return (series.tests ?? []).map((test) => {
+        seriesBoundIds.add(String(test.testId).toLowerCase());
+        return {
+          id: "series-test-" + series.id + "-" + test.testId,
+          title: test.title,
+          description: compact(test.description) || series.name,
+          href: "/test/" + encodeURIComponent(test.testId) + "?seriesId=" + encodeURIComponent(series.id),
+          stage,
+          type,
+          questionCount: Number(test.questionCount || 0),
+          durationMinutes: Math.max(1, Math.ceil(Number(test.durationSeconds || 0) / 60)),
+          totalMarks: Number(test.totalMarks || 0),
+          iconUrl: test.iconUrl ?? series.iconUrl,
+          seriesName: series.name,
+        } satisfies ExamHubFlatTest;
+      });
+    });
+
+    const standalone = examTests
+      .filter((test) => !seriesBoundIds.has(String(test.id).toLowerCase()))
+      .map((test) => {
+        const stage = preferredStage(stageFromText(testSearchText(test)), testSearchText(test));
+        const totalMarks = Math.max(0, Math.round(test.totalQuestions * Number(test.marksPerQuestion ?? 1)));
+        return {
+          id: "test-" + test.id,
+          title: test.name,
+          description: compact(test.subcategoryName) || (test.kind === "sectional" ? "Focused sectional practice" : test.kind === "topic-wise" ? "Focused topic practice" : "Full-length mock test"),
+          href: "/test/" + encodeURIComponent(test.id),
+          stage,
+          type: flatTestType(test),
+          questionCount: Number(test.totalQuestions || 0),
+          durationMinutes: Number(test.duration || 0),
+          totalMarks,
+          difficulty: test.difficulty,
+          access: test.access ?? "free",
+          iconUrl: test.iconUrl,
+        } satisfies ExamHubFlatTest;
+      });
+
+    return [...fromSeries, ...standalone];
+  }, [examSeries, examTests]);
 
   const landingSections = useMemo(() => {
     type SectionEntry = { order: number; item: ExamHubCatalogItem };
@@ -435,8 +549,16 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
       }));
   }, [examSeries, examTests, config.name]);
 
-  const activeLandingSection =
-    landingSections.find((section) => section.id === activeSeriesTabId) ?? landingSections[0] ?? null;
+  const activeTests = flatTests.filter((test) =>
+    activeExamStage === "pyq"
+      ? test.type === "pyq"
+      : test.stage === activeExamStage && test.type === activeTestType,
+  );
+  const stageCounts = {
+    prelims: flatTests.filter((test) => test.stage === "prelims" && test.type !== "pyq").length,
+    mains: flatTests.filter((test) => test.stage === "mains" && test.type !== "pyq").length,
+    pyq: flatTests.filter((test) => test.type === "pyq").length,
+  };
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
   const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
@@ -447,14 +569,8 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     const sectionCardClass = configuredCardClass(section.cardStyle);
 
     if (section.type === "hero") {
-      const visibleTypes = new Set(orderedPageSections.map((item) => item.type));
-      const navItems = [
-        visibleTypes.has("test_catalog") ? ["#test-catalog", section.labels.navTests || "Tests"] : null,
-        visibleTypes.has("syllabus") ? ["#syllabus", section.labels.navSyllabus || "Syllabus"] : null,
-        visibleTypes.has("preparation") ? ["#preparation", section.labels.navPreparation || "Preparation"] : null,
-      ].filter(Boolean) as string[][];
       return (
-        <section key={section.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
+        <section key={section.id} id="overview" className="scroll-mt-24 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_12px_34px_rgba(15,23,42,0.05)]">
           <div className="grid lg:grid-cols-[minmax(0,1fr)_300px]">
             <div className="p-5 sm:p-7">
               <div className="flex items-start gap-4">
@@ -472,9 +588,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
                 </div>
               </div>
               {section.body ? <p className="mt-4 whitespace-pre-line text-sm leading-6 text-slate-600">{section.body}</p> : null}
-              {navItems.length > 0 ? <nav className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1" aria-label={config.name + " page sections"}>
-                {navItems.map(([href, label]) => <a key={href} href={href} className="whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:border-indigo-300 hover:bg-white hover:text-indigo-700">{label}</a>)}
-              </nav> : null}
+
               {section.ctaLabel && section.ctaHref ? (/^https?:\/\//i.test(section.ctaHref) ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></a> : <Link href={section.ctaHref} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></Link>) : null}
             </div>
             <div className="border-t border-slate-200 bg-[#17182c] p-5 text-white lg:border-l lg:border-t-0 sm:p-6">
@@ -506,59 +620,127 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     }
 
     if (section.type === "test_catalog") {
-      const eyebrow = section.eyebrow || "Mock tests & practice";
-      const title = section.title || "Choose what you want to practise";
-      const description = section.description || "Prelims, mains, PYQs, sectional and topic-wise practice stay on this master exam page.";
-      const contentLayout = section.layout === "tabs" ? (section.columns > 1 ? "grid" : "list") : section.layout;
+      const stageLabel =
+        activeExamStage === "prelims" ? (section.labels.prelims || "Prelims") :
+        activeExamStage === "mains" ? (section.labels.mains || "Mains") :
+        (section.labels.pyq || "Previous Year Papers");
+      const typeLabel =
+        activeTestType === "sectional" ? (section.labels.sectional || "Sectional Tests") :
+        activeTestType === "topic-wise" ? (section.labels.topicWise || "Topic-wise Tests") :
+        (section.labels.fullTests || "Full Tests");
+      const heading = activeExamStage === "pyq"
+        ? config.name + " " + config.yearLabel + " Previous Year Papers"
+        : config.name + " " + config.yearLabel + " " + stageLabel + " " + typeLabel;
+
+      const softNav = [
+        { label: section.labels.navOverview || "Overview", href: "#overview" },
+        { label: section.labels.navTests || "Test Series", href: "#test-catalog", active: true },
+        { label: section.labels.navSyllabus || "Syllabus", href: "#syllabus" },
+        { label: section.labels.navPattern || "Exam Pattern", href: "#syllabus" },
+        { label: section.labels.navPreparation || "Preparation Resources", href: "#preparation" },
+      ];
 
       return (
-        <section key={section.id} id="test-catalog" className="mt-8 scroll-mt-24" aria-labelledby="test-catalog-heading">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{eyebrow}</p>
-            <h2 id="test-catalog-heading" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
-            <p className="mt-1 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{description}</p>
-            {section.body ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.body}</p> : null}
+        <section key={section.id} id="test-catalog" className="mt-5 scroll-mt-24" aria-labelledby="test-catalog-heading">
+          <nav className="max-w-full overflow-x-auto pb-2" aria-label={config.name + " exam navigation"}>
+            <div className="inline-flex min-w-full items-center justify-center gap-1 rounded-2xl border border-blue-100 bg-blue-50/55 p-1.5 shadow-[0_4px_18px_rgba(37,99,235,0.04)]">
+              {softNav.map((item) => (
+                <a key={item.label} href={item.href} className={"inline-flex min-h-10 min-w-max items-center justify-center rounded-xl px-4 text-sm font-semibold transition " + (item.active ? "border border-blue-100 bg-white text-blue-700 shadow-sm" : "text-slate-600 hover:bg-white/70 hover:text-slate-950")}>
+                  {item.label}
+                </a>
+              ))}
+              <button
+                type="button"
+                onClick={() => setActiveExamStage("pyq")}
+                className={"inline-flex min-h-10 min-w-max items-center justify-center rounded-xl px-4 text-sm font-semibold transition " + (activeExamStage === "pyq" ? "border border-blue-100 bg-white text-blue-700 shadow-sm" : "text-slate-600 hover:bg-white/70 hover:text-slate-950")}
+              >
+                {section.labels.navPyq || "Previous Year Papers"}
+              </button>
+              <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-10 min-w-max items-center justify-center rounded-xl px-4 text-sm font-semibold text-slate-600 transition hover:bg-white/70 hover:text-slate-950">
+                {section.labels.navNotifications || "Notifications"}
+              </a>
+            </div>
+          </nav>
+
+          <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div role="tablist" aria-label={config.name + " exam stage"} className="grid min-w-[560px] grid-cols-3">
+              {([
+                ["prelims", section.labels.prelims || "Prelims", stageCounts.prelims],
+                ["mains", section.labels.mains || "Mains", stageCounts.mains],
+                ["pyq", section.labels.pyq || "Previous Year Papers", stageCounts.pyq],
+              ] as const).map(([stage, label, count]) => {
+                const selected = activeExamStage === stage;
+                return (
+                  <button
+                    key={stage}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    onClick={() => setActiveExamStage(stage)}
+                    className={"min-h-12 border-r border-slate-200 px-5 text-sm font-semibold last:border-r-0 " + (selected ? "bg-[#1375ea] text-white" : "bg-white text-slate-700 hover:bg-slate-50")}
+                  >
+                    {label}{section.showCounts && count > 0 ? <span className={"ml-2 text-xs " + (selected ? "text-white/70" : "text-slate-400")}>{count}</span> : null}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {landingSections.length > 0 ? section.layout === "tabs" ? (
-            <>
-              <div className="mt-5 max-w-full overflow-x-auto pb-2">
-                <div role="tablist" aria-label={config.name + " test categories"} className={section.tabStyle === "underline" ? "inline-flex min-w-max gap-5 border-b border-slate-200" : section.tabStyle === "segmented" ? "inline-flex min-w-max gap-0 overflow-hidden rounded-xl border border-slate-200 bg-white" : "inline-flex min-w-max gap-1 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm"}>
-                  {landingSections.map((tab) => {
-                    const selected = activeLandingSection?.id === tab.id;
-                    const tabClass = section.tabStyle === "underline"
-                      ? "min-h-10 border-b-2 px-1 text-sm font-semibold transition " + (selected ? "border-indigo-600 text-indigo-700" : "border-transparent text-slate-500")
-                      : section.tabStyle === "segmented"
-                        ? "min-h-10 border-r border-slate-200 px-4 text-sm font-semibold last:border-r-0 " + (selected ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-50")
-                        : "min-h-10 rounded-xl px-4 text-sm font-semibold transition " + (selected ? "bg-[#6657e8] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950");
-                    return (
-                      <button key={tab.id} type="button" role="tab" aria-selected={selected} aria-controls={tab.id} onClick={() => setActiveSeriesTabId(tab.id)} className={tabClass}>
-                        {tabLabelForSection(tab.title, section.labels)}
-                        {section.showCounts ? <span className={"ml-2 text-xs " + (selected ? "opacity-75" : "text-slate-400")}>{tab.items.reduce((total, item) => total + (item.seriesTests?.length ?? (item.href ? 1 : 0)), 0)}</span> : null}
-                      </button>
-                    );
-                  })}
-                </div>
+          {activeExamStage !== "pyq" ? (
+            <div className="mt-3 overflow-x-auto">
+              <div role="tablist" aria-label={stageLabel + " test type"} className="grid min-w-[560px] grid-cols-3 border-b border-slate-200">
+                {([
+                  ["full-length", section.labels.fullTests || "Full Tests"],
+                  ["sectional", section.labels.sectional || "Sectional Tests"],
+                  ["topic-wise", section.labels.topicWise || "Topic-wise Tests"],
+                ] as const).map(([type, label]) => {
+                  const selected = activeTestType === type;
+                  const count = flatTests.filter((test) => test.stage === activeExamStage && test.type === type).length;
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      onClick={() => setActiveTestType(type)}
+                      className={"min-h-11 border-b-2 px-4 text-sm font-semibold transition " + (selected ? "border-blue-600 bg-blue-50/50 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900")}
+                    >
+                      {label}{section.showCounts && count > 0 ? <span className="ml-2 text-xs text-slate-400">{count}</span> : null}
+                    </button>
+                  );
+                })}
               </div>
-              {activeLandingSection ? <ExamHubCatalogSection key={activeLandingSection.id} id={activeLandingSection.id} title={activeLandingSection.title} description={activeLandingSection.description} items={activeLandingSection.items} emptyMessage="This test category is being prepared." layout={contentLayout} columns={section.columns} cardStyle={section.cardStyle} ctaLabel={section.ctaLabel} /> : null}
-            </>
-          ) : (
-            <div className="mt-5 space-y-5">
-              {landingSections.map((group) => <ExamHubCatalogSection key={group.id} id={group.id} title={group.title} description={group.description} items={group.items} emptyMessage="This test category is being prepared." layout={contentLayout} columns={section.columns} cardStyle={section.cardStyle} ctaLabel={section.ctaLabel} />)}
             </div>
-          ) : (
-            <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
-              <h3 className="text-lg font-semibold text-slate-900">Test series are being prepared</h3>
-              <p className="mt-1 text-sm leading-6 text-slate-500">Configured test categories will appear here as soon as content is published.</p>
+          ) : null}
+
+          <div className="mt-6 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 id="test-catalog-heading" className="text-2xl font-semibold tracking-tight text-slate-950">{section.title || heading}</h2>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-600">
+                {section.description || (activeExamStage === "pyq"
+                  ? "Practice actual and memory-based papers for this exam."
+                  : "Attempt focused " + stageLabel.toLowerCase() + " " + typeLabel.toLowerCase() + " based on the latest exam pattern.")}
+              </p>
+              {section.body ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.body}</p> : null}
             </div>
-          )}
+            {activeTests.length > 0 ? <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">{activeTests.length} Tests</span> : null}
+          </div>
+
+          <div className="mt-4 space-y-3">
+            {activeTests.length > 0 ? activeTests.map((test) => <ExamHubFlatTestRow key={test.id} test={test} ctaLabel={section.ctaLabel} />) : (
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8">
+                <h3 className="font-semibold text-slate-900">Tests are being prepared</h3>
+                <p className="mt-1 text-sm leading-6 text-slate-500">This {stageLabel.toLowerCase()} category will appear here as soon as tests are published.</p>
+              </div>
+            )}
+          </div>
         </section>
       );
     }
 
     if (section.type === "exam_information") {
       return (
-        <section key={section.id} className="mt-12 border-t border-slate-200 pt-9" aria-labelledby={"exam-information-" + section.id}>
+        <section key={section.id} id="exam-information" className="mt-12 scroll-mt-24 border-t border-slate-200 pt-9" aria-labelledby={"exam-information-" + section.id}>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Exam information"}</p>
           <h2 id={"exam-information-" + section.id} className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || ("About " + config.name + " " + config.yearLabel)}</h2>
           {section.description ? <p className="mt-2 max-w-3xl whitespace-pre-line text-sm leading-6 text-slate-600">{section.description}</p> : null}
