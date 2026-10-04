@@ -45,6 +45,8 @@ function compareAccuracy(seed: number): SapE2Package {
 }
 
 export function generateSapCp011E2(structureId: SapCp011E2Structure, seed: number): SapE2Package {
-  if (structureId === "CP011-E2-COMPARE-ESTIMATE-ACCURACY") return compareAccuracy(seed);
-  return generateR5(structureId, seed);
+  if (!Number.isInteger(seed) || seed < 1) throw new Error("CP011 seed must be a positive integer.");
+  const sourceSeed = ((seed - 1) % 100) + 1;
+  if (structureId === "CP011-E2-COMPARE-ESTIMATE-ACCURACY") return compareAccuracy(sourceSeed);
+  return generateR5(structureId, sourceSeed);
 }
