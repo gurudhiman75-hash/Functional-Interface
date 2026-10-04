@@ -45,6 +45,12 @@ else
   echo "[render-build] verify student exam preferences schema"
   pnpm --dir artifacts/api-server exec node ensure-student-exam-preferences.mjs
 
+  # Retire untouched legacy catalogue placeholders while preserving anything
+  # an admin has created/edited/configured or any exam with learner-visible
+  # content. This keeps the web and APK on the same intentional catalogue.
+  echo "[render-build] reconcile canonical learner catalogue"
+  pnpm --dir artifacts/api-server exec node reconcile-canonical-catalogue.mjs
+
   # Remove stale category/test-series references from Mobile Home before
   # learners fetch the shared catalogue. This does not invent replacement data;
   # an empty featured list falls back to the canonical live catalogue.
