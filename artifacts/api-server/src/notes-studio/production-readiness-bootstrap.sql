@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS catalog.exam_families (
   id UUID PRIMARY KEY,
   code TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
+  description TEXT,
   is_active BOOLEAN NOT NULL DEFAULT true
 );
 
