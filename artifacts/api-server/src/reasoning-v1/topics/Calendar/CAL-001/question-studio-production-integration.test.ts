@@ -52,9 +52,13 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
     assert.equal(question.runtimeMode, CAL_001_PRODUCTION_RELEASE.runtimeMode);
     assert.equal(question.reviewStatus, CAL_001_PRODUCTION_RELEASE.reviewStatus);
     assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
-    assert.equal(question.testEligibility, "ELIGIBLE");
-    assert.equal(question.publiclyPublishable, true);
-    assert.equal(question.mockTestEligible, true);
+    assert.equal(question.questionBankWritable, true);
+    assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(question.lifecycleStage, "BANK_ONLY");
+    assert.equal(question.productionReleaseAuthorized, false);
+    assert.equal(question.testEligibility, "INELIGIBLE");
+    assert.equal(question.publiclyPublishable, false);
+    assert.equal(question.mockTestEligible, false);
     assert.equal(question.manualApprovalRequired, true);
     assert.equal(question.automaticStudentPublication, false);
     assert.equal(question.releaseAuthority, CAL_001_PRODUCTION_RELEASE.authority);
@@ -165,7 +169,7 @@ console.log(
       auditedPersistenceEnabled: true,
       manualApprovalRequired: true,
       questionBankConversionEligibleAfterApproval: true,
-      mockTestEligibleAfterApproval: true,
+      mockTestEligibleAfterApproval: false,
       automaticStudentPublication: false,
       adminProductionPanelMounted: true,
     },
