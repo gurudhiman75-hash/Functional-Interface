@@ -10,6 +10,13 @@ export const WEB_EXAM_SECTION_TYPES = [
   "preparation",
   "topic_practice",
   "custom",
+  "details_overview",
+  "details_syllabus",
+  "details_pattern",
+  "details_preparation",
+  "details_practice",
+  "details_updates",
+  "details_custom",
 ] as const;
 
 const SECTION_TYPES = new Set<string>(WEB_EXAM_SECTION_TYPES);
@@ -98,6 +105,16 @@ export function defaultWebExamPageConfiguration() {
       { id: "syllabus", type: "syllabus", isVisible: true, sortOrder: 4, layout: "grid", columns: 2 },
       { id: "preparation", type: "preparation", isVisible: true, sortOrder: 5, layout: "grid", columns: 3 },
       { id: "topic-practice", type: "topic_practice", isVisible: true, sortOrder: 6, layout: "grid", columns: 3 },
+      { id: "details-overview", type: "details_overview", isVisible: true, sortOrder: 20, layout: "grid", columns: 3 },
+      { id: "details-syllabus", type: "details_syllabus", isVisible: true, sortOrder: 21, layout: "grid", columns: 2 },
+      { id: "details-pattern", type: "details_pattern", isVisible: true, sortOrder: 22, layout: "grid", columns: 3 },
+      { id: "details-preparation", type: "details_preparation", isVisible: true, sortOrder: 23, layout: "grid", columns: 3 },
+      { id: "details-practice", type: "details_practice", isVisible: true, sortOrder: 24, layout: "grid", columns: 3 },
+      { id: "details-updates", type: "details_updates", isVisible: true, sortOrder: 25, layout: "list", columns: 2 },
+      { id: "details-eligibility", type: "details_custom", isVisible: false, sortOrder: 26, eyebrow: "Eligibility", title: "Eligibility & selection process", layout: "grid", columns: 2 },
+      { id: "details-dates", type: "details_custom", isVisible: false, sortOrder: 27, eyebrow: "Important dates", title: "Important dates & vacancies", layout: "grid", columns: 2 },
+      { id: "details-salary", type: "details_custom", isVisible: false, sortOrder: 28, eyebrow: "Job profile", title: "Salary & job profile", layout: "grid", columns: 2 },
+      { id: "details-faq", type: "details_custom", isVisible: false, sortOrder: 29, eyebrow: "FAQ", title: "Frequently asked questions", layout: "list", columns: 1, cardStyle: "bordered" },
     ],
   });
 }
