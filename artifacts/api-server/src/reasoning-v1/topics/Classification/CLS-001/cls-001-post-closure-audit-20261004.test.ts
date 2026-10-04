@@ -129,7 +129,7 @@ for (const qlId of ["CLS-QL-001", "CLS-QL-002", "CLS-QL-003"] as const) {
 // CP002 — QL004: multilingual parity + independent relation solver.
 for (let seed = 0; seed < SEEDS; seed += 1) {
   const english = generateClsCp002Question("CLS-QL-004", "en-IN", seed);
-  const independent = independentlyVerifyClsCp002Question(english);
+  const independent = independentlyVerifyClsCp002Question(english as unknown as Parameters<typeof independentlyVerifyClsCp002Question>[0]);
   assert.equal(independent.result, "UNIQUE");
   assert.equal(independent.winningOutlierIndex, english.correctIndex);
   for (const locale of LOCALES) {
@@ -165,7 +165,7 @@ for (const qlId of ["CLS-QL-005", "CLS-QL-006"] as const) {
 // CP004 — QL007: independently solve English state, preserve it in native frozen-review overlay.
 for (let seed = 0; seed < SEEDS; seed += 1) {
   const english = generateClsCp004EnglishQuestion("CLS-QL-007", seed);
-  const independent = independentlyVerifyClsCp004Question(english);
+  const independent = independentlyVerifyClsCp004Question(english as unknown as Parameters<typeof independentlyVerifyClsCp004Question>[0]);
   assert.equal(independent.result, "UNIQUE");
   assert.equal(independent.outlierIndex, english.correctIndex);
   record(english);
@@ -226,9 +226,9 @@ for (let p = 0; p < CP007_PROTOTYPES.length; p += 1) {
     const seed = p * 17 + localSeed;
     const optionCount = seed % 2 === 0 ? 4 : 5;
     const english = generateClsCp007PermanentClusterQuestion(prototypeId, seed, optionCount);
-    const independent = independentlyVerifyClsCp007Question(english);
+    const independent = independentlyVerifyClsCp007Question(english as unknown as Parameters<typeof independentlyVerifyClsCp007Question>[0]);
     assert.equal(independent.result, "UNIQUE");
-    assert.equal(independent.outlierIndex, english.correctIndex);
+    assert.equal(independent.answerIndex, english.correctIndex);
     record(english);
     for (const locale of ["hi-IN", "pa-IN"] as const) {
       const question = generateClsCp007PostClosureFrozenClusterQuestion(
@@ -249,9 +249,9 @@ for (let p = 0; p < CP007_PROTOTYPES.length; p += 1) {
 for (let seed = 0; seed < SEEDS; seed += 1) {
   const optionCount = seed % 2 === 0 ? 4 : 5;
   const english = generateClsCp007PermanentClusterPairQuestion(seed, optionCount);
-  const independent = independentlyVerifyClsCp007PairQuestion(english);
+  const independent = independentlyVerifyClsCp007PairQuestion(english as unknown as Parameters<typeof independentlyVerifyClsCp007PairQuestion>[0]);
   assert.equal(independent.result, "UNIQUE");
-  assert.equal(independent.outlierIndex, english.correctIndex);
+  assert.equal(independent.answerIndex, english.correctIndex);
   record(english);
   for (const locale of ["hi-IN", "pa-IN"] as const) {
     const question = generateClsCp007PostClosureFrozenPairQuestion(locale, seed, optionCount);
