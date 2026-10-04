@@ -604,6 +604,45 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     );
   }
 
+
+  const hasMainsStage = stageCounts.mains > 0;
+  const scrollToTests = () => {
+    window.requestAnimationFrame(() => {
+      document.getElementById("test-catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+  const openTestView = (
+    stage: "prelims" | "mains" | "pyq",
+    type: "full-length" | "sectional" | "topic-wise" = "full-length",
+  ) => {
+    setActiveExamStage(stage);
+    setActiveTestType(type);
+    scrollToTests();
+  };
+
+  const workspaceActions = hasMainsStage
+    ? [
+        { key: "prelims", title: "Prelims Tests", text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
+        { key: "mains", title: "Mains Tests", text: stageCounts.mains + " available", icon: BookOpenCheck, action: () => openTestView("mains", "full-length"), tone: "indigo" },
+        { key: "sectional", title: "Sectional Tests", text: flatTests.filter((test) => test.type === "sectional").length + " available", icon: BarChart3, action: () => openTestView(activeExamStage === "mains" ? "mains" : "prelims", "sectional"), tone: "emerald" },
+        { key: "topic", title: "Topic-wise Tests", text: flatTests.filter((test) => test.type === "topic-wise").length + " available", icon: Target, action: () => openTestView(activeExamStage === "mains" ? "mains" : "prelims", "topic-wise"), tone: "orange" },
+        { key: "pyq", title: "Previous Year Papers", text: stageCounts.pyq + " available", icon: BookOpen, action: () => openTestView("pyq"), tone: "violet" },
+      ]
+    : [
+        { key: "tests", title: "Test Series", text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
+        { key: "sectional", title: "Sectional Tests", text: flatTests.filter((test) => test.type === "sectional").length + " available", icon: BarChart3, action: () => openTestView("prelims", "sectional"), tone: "emerald" },
+        { key: "topic", title: "Topic-wise Tests", text: flatTests.filter((test) => test.type === "topic-wise").length + " available", icon: Target, action: () => openTestView("prelims", "topic-wise"), tone: "orange" },
+        { key: "pyq", title: "Previous Year Papers", text: stageCounts.pyq + " available", icon: BookOpen, action: () => openTestView("pyq"), tone: "violet" },
+      ];
+
+  const workspaceTone: Record<string, string> = {
+    blue: "border-blue-100 bg-blue-50/70 text-blue-700",
+    indigo: "border-indigo-100 bg-indigo-50/70 text-indigo-700",
+    emerald: "border-emerald-100 bg-emerald-50/70 text-emerald-700",
+    orange: "border-orange-100 bg-orange-50/70 text-orange-700",
+    violet: "border-violet-100 bg-violet-50/70 text-violet-700",
+  };
+
   const renderSection = (section: WebExamPageSection) => {
     const manualCards = (section.cards ?? []).filter((card) => card.isVisible);
     const sectionGridClass = "grid gap-4 " + gridColumnsClass(section.columns);
@@ -674,7 +713,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
         : config.name + " " + config.yearLabel + " " + stageLabel + " " + typeLabel;
 
       const softNav = [
-        { label: section.labels.navOverview || "Overview", href: "#overview" },
+        { label: "Hub", href: "#workspace-hub" },
         { label: section.labels.navTests || "Test Series", href: "#test-catalog", active: true },
         { label: section.labels.navSyllabus || "Syllabus", href: "#syllabus" },
         { label: section.labels.navPattern || "Exam Pattern", href: "#syllabus" },
@@ -861,18 +900,68 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   };
 
   return (
-    <PublicPage
-      eyebrow={pageConfiguration.pageEyebrow || (config.name + " · " + config.yearLabel)}
-      title={pageConfiguration.pageTitle || config.hub.title}
-      description={pageConfiguration.pageDescription || config.hub.description}
-    >
-      {(catalog.error || seriesQuery.error || pageConfigQuery.error) ? (
-        <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-          Some live page information is temporarily unavailable. Available exam content is shown below.
-        </div>
-      ) : null}
-      {orderedPageSections.map(renderSection)}
-    </PublicPage>
+    <div className="bg-slate-50/45 pb-14">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+        <section id="workspace-hub" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex min-w-0 items-start gap-4">
+              {catalogExam?.icon ? (
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+                  <CategoryIcon icon={catalogExam.icon} className="h-9 w-9" />
+                </div>
+              ) : (
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700"><BookOpenCheck className="h-7 w-7" /></div>
+              )}
+              <div className="min-w-0">
+                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-600">Exam workspace</p>
+                <h1 className="mt-1 text-2xl font-black tracking-[-0.03em] text-slate-950 sm:text-3xl">{config.name} {config.yearLabel}</h1>
+                <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500">Tests, previous papers, syllabus, exam pattern, preparation resources and official updates—all from one hub.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs font-bold">
+              <span className="rounded-full bg-blue-50 px-3 py-1.5 text-blue-700">{flatTests.length} tests</span>
+              <span className="rounded-full bg-violet-50 px-3 py-1.5 text-violet-700">{config.topics.length} practice topics</span>
+            </div>
+          </div>
+
+          <div className={"mt-5 grid gap-3 sm:grid-cols-2 " + (hasMainsStage ? "lg:grid-cols-5" : "lg:grid-cols-4")}>
+            {workspaceActions.map(({ key, title, text, icon: Icon, action, tone }) => (
+              <button key={key} type="button" onClick={action} className={"group min-h-[112px] rounded-2xl border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-sm " + workspaceTone[tone]}>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80"><Icon className="h-5 w-5" /></span>
+                  <ArrowRight className="h-4 w-4 opacity-45 transition group-hover:translate-x-0.5 group-hover:opacity-80" />
+                </div>
+                <h2 className="mt-3 text-sm font-black text-slate-950">{title}</h2>
+                <p className="mt-1 text-xs font-semibold text-slate-500">{text}</p>
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <Link href={examSyllabusHref(examSlug)} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+              <BookOpen className="h-5 w-5 text-blue-600" /> Syllabus
+            </Link>
+            <a href="#syllabus" className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+              <FileText className="h-5 w-5 text-cyan-600" /> Exam Pattern
+            </a>
+            <Link href={examPreparationHref(examSlug)} className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+              <Sparkles className="h-5 w-5 text-violet-600" /> Preparation
+            </Link>
+            <a href={config.officialUrl} target="_blank" rel="noreferrer" className="flex min-h-16 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 text-sm font-bold text-slate-800 transition hover:border-blue-200 hover:bg-white">
+              <Globe2 className="h-5 w-5 text-emerald-600" /> Official Updates
+            </a>
+          </div>
+        </section>
+
+        {(catalog.error || seriesQuery.error || pageConfigQuery.error) ? (
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+            Some live page information is temporarily unavailable. Available exam content is shown below.
+          </div>
+        ) : null}
+
+        {orderedPageSections.filter((section) => section.type !== "hero").map(renderSection)}
+      </div>
+    </div>
   );
 }
 
