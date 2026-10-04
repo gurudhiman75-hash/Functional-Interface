@@ -32,6 +32,8 @@ export const CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   manualApprovalRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.manualApprovalRequired,
   questionBankStatus: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankStatus,
   questionBankWritable: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankWritable,
+  questionBankAcceptanceMode: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankAcceptanceAuthority,
   testEligibility: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligibility,
   testEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.testEligible,
   mockTestEligible: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.mockTestEligible,
@@ -39,6 +41,9 @@ export const CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   automaticStudentPublication: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.automaticStudentPublication,
   productionReleaseAuthorized: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.productionReleaseAuthorized,
   metadata: {
+    ...QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1,
+    reviewOnly: false,
+    humanReviewApproved: true,
     permanentQlRange: "CAL-QL-001..036",
     permanentQlCount: CALENDAR_PERMANENT_QL_IDS.length,
     sourceRuntime: "CAL_001_QUESTION_STUDIO_V1",
