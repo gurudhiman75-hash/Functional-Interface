@@ -494,7 +494,7 @@ function satisfyingValue(conditions: readonly DmRuleCondition[], scenario: DmSce
     if (!scenario.referenceDate) throw new Error("Age-at-date scenario is missing its reference date.");
     const numericThresholds = thresholds.filter((value): value is number => typeof value === "number");
     const offset = boundary ? 0 : 1 + (seed % 2);
-    const adjusted = conditions.flatMap((item) => typeof item.value === "number" ? [item.operator === "LTE" ? item.value - offset : item.value + offset] : []);
+    const adjusted = conditions.flatMap((item) => typeof item.value === "number" ? [item.operator === "LTE" ? Math.max(0, item.value - offset) : item.value + offset] : []);
     const exact = numericThresholds;
     const ages = [...(boundary ? exact : adjusted), ...exact, ...Array.from({ length: 101 }, (_, index) => (index + seed) % 101)];
     const age = ages.find((candidate) => conditions.every((item) => rawConditionPasses(candidate, item)));
@@ -505,7 +505,7 @@ function satisfyingValue(conditions: readonly DmRuleCondition[], scenario: DmSce
   if (numericField) {
     const numericThresholds = thresholds.filter((value): value is number => typeof value === "number");
     const offset = boundary ? 0 : 1 + (seed % 2);
-    const adjusted = conditions.flatMap((item) => typeof item.value === "number" ? [item.operator === "LTE" ? item.value - offset : item.value + offset] : []);
+    const adjusted = conditions.flatMap((item) => typeof item.value === "number" ? [item.operator === "LTE" ? Math.max(0, item.value - offset) : item.value + offset] : []);
     const candidates = [...(boundary ? numericThresholds : adjusted), ...numericThresholds, ...numericThresholds.map((value) => value + 1), ...numericThresholds.map((value) => Math.max(0, value - 1)), ...Array.from({ length: 101 }, (_, index) => (index + seed) % 101)];
     const value = candidates.find((candidate) => conditions.every((item) => rawConditionPasses(candidate, item)));
     if (value === undefined) throw new Error("DM-001 could not satisfy the numeric conditions in " + scenario.scenarioId);
