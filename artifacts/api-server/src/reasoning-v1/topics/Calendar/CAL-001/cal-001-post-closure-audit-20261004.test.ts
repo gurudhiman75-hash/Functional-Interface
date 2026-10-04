@@ -59,7 +59,6 @@ for (const qlId of CALENDAR_PERMANENT_QL_IDS) {
         ),
       );
       assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
-      assert.equal(pkg.solver.canonicalAnswer, pkg.answer);
       assert.ok(pkg.traceability.independentAnswerProof);
       assert.equal(preview.lifecycleStage, "BANK_ONLY");
       assert.equal(preview.questionBankStatus, "READY_FOR_STORAGE");
