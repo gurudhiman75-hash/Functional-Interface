@@ -2,7 +2,7 @@ import type { SifCandidateAuthority, SifDifficulty, SifLocalizedText, SifScenari
 
 const t = (en: string, hi: string, pa: string): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const guard = { evaluatesSupport: true, assumptionQuestion: false, conclusionQuestion: false, argumentQuestion: false, causeEffectQuestion: false, courseOfActionQuestion: false } as const;
-export type SifCp15To17Row = { id: string; cpId: "SIF-CP015" | "SIF-CP016" | "SIF-CP017"; difficulty: SifDifficulty; domain: SifScenarioAuthority["domain"]; mechanism: SifScenarioAuthority["mechanisms"][number]; statement: SifLocalizedText; i: SifLocalizedText; ii: SifLocalizedText; supported: "I" | "II"; explanation: SifLocalizedText };
+export type SifCp15To17Row = { id: string; cpId: "SIF-CP015" | "SIF-CP016" | "SIF-CP017"; difficulty: SifDifficulty; domain: SifScenarioAuthority["domain"]; mechanism: SifScenarioAuthority["mechanisms"][number]; statement: SifLocalizedText; i: SifLocalizedText; ii: SifLocalizedText; supported: "I" | "II"; explanation?: SifLocalizedText };
 export function makeSifCp15To17Authority(r: SifCp15To17Row): SifScenarioAuthority {
   const good = r.supported;
   const candidate = (id: "I" | "II", text: SifLocalizedText): SifCandidateAuthority => ({ id, text, follows: id === good, strength: id === good ? "STRONGLY_SUPPORTED" : "POSSIBLE_ONLY", supportFactIds: ["F1"], ...(id === good ? {} : { distractorType: "OVERGENERALISATION" as const }) });
