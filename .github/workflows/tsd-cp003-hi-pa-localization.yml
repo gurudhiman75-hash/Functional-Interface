@@ -32,12 +32,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Enforce sole final public native API
+      - name: Enforce sole approved frozen native API
         run: |
           INDEX=artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/index.ts
-          grep -q 'cp003/localization/native-final-polished-candidate' "$INDEX"
-          if grep -Eq 'cp003/localization/(native-runtime|native-editorial-review|native-reviewed-candidate|native-authoritative|native-final-candidate")' "$INDEX"; then
-            echo "A non-final CP-003 localization entry point is publicly exported"
+          grep -q 'cp003/localization/native-approved-freeze' "$INDEX"
+          if grep -Eq 'cp003/localization/(native-runtime|native-editorial-review|native-reviewed-candidate|native-authoritative|native-final-candidate|native-final-polished-candidate)' "$INDEX"; then
+            echo "A non-frozen CP-003 localization entry point is publicly exported"
             exit 1
           fi
 
