@@ -100,7 +100,7 @@ export const REASONING_V1_FINAL_TOPIC_STATUS_V1 =
       topicDirectory: "Decision-Making",
       chapterIds: ["DM-001"],
       status: "DEEP_AUDIT_CLOSED",
-      closureAuthorities: ["topics/Decision-Making/DM-001/DM-001-FINAL-DEEP-AUDIT-CLOSURE-20261003.md"],
+      closureAuthorities: ["topics/Decision-Making/DM-001/DM-001-FINAL-CLOSURE-FREEZE-20261004.md"],
       internalContentBlocker: false,
     },
     {
