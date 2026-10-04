@@ -36,8 +36,6 @@ import "@/styles/home-section-rhythm.css";
 
 const SERIES_FILTERS = ["All", "SSC", "Banking", "Railways"] as const;
 const CATEGORY_TONES = ["indigo", "emerald", "orange", "sky", "rose", "violet"] as const;
-const SERIES_BADGES = ["POPULAR", "NEW", "TRENDING"] as const;
-
 const REFERENCE_EXAMS = [
   { name: "SSC", detail: "CGL | CHSL | MTS" },
   { name: "Banking", detail: "IBPS | SBI | RBI" },
