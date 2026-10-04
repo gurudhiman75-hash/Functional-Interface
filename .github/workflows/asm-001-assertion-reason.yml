@@ -34,6 +34,9 @@ jobs:
       - name: Run ASM-001 standalone closure proof
         working-directory: artifacts/api-server
         run: pnpm dlx tsx src/reasoning-v1/topics/Assertion-and-Reason/ASM-001/asm-001-standalone-closure.test.ts
+      - name: Run ASM-001 post-closure breadth and no-repeat proof
+        working-directory: artifacts/api-server
+        run: pnpm dlx tsx src/reasoning-v1/topics/Assertion-and-Reason/ASM-001/asm-001-post-closure-audit-20261004.test.ts
       - name: Run Reasoning novelty inventory proof
         working-directory: artifacts/api-server
         run: pnpm dlx tsx src/reasoning-v1/tests/reasoning-novelty-inventory-v1.test.ts
