@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const reasoningRegistry = await import("../../../question-studio-review-registry.ts");
 const sharedGenerationEngine = await import("../../../../question-studio/shared-generation-engine.ts");
@@ -23,8 +24,12 @@ import {
   previewSta001QuestionStudioReview,
 } from "./question-studio-review.ts";
 
-function source(relativePath: string): string {
-  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+function source(...relativePaths: readonly string[]): string {
+  for (const relativePath of relativePaths) {
+    const candidate = resolve(process.cwd(), relativePath);
+    if (existsSync(candidate)) return readFileSync(candidate, "utf8");
+  }
+  throw new Error(`Unable to locate required source file from cwd ${process.cwd()}: ${relativePaths.join(", ")}`);
 }
 
 function assertReviewOnly(payload: Record<string, any>) {
@@ -158,10 +163,16 @@ for (const cpId of ["STA-CP-001", "STA-CP-002", "STA-CP-003", "STA-CP-004"] as c
   assert.ok(generated.questionPackages.every((entry: any) => entry.checkpointId === cpId));
 }
 
-const routeSource = source("../../../../routes/admin-question-studio-average.ts");
+const routeSource = source(
+  "src/routes/admin-question-studio-average.ts",
+  "artifacts/api-server/src/routes/admin-question-studio-average.ts",
+);
 assert.ok(routeSource.includes("isSta001QuestionStudioRequest"));
 assert.ok(routeSource.includes("reasoning-v1-sta-001"));
-const panelSource = source("../../../../../../admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx");
+const panelSource = source(
+  "../admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx",
+  "artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx",
+);
 for (const marker of ["STA-QL-005", "STA-QL-006", "BANK_5X5", "PUNJAB_3X4", "canonicalProblemId: qlId", "patternId: selectedProfile"]) {
   assert.ok(panelSource.includes(marker), `STA V4.1 admin panel missing marker: ${marker}`);
 }
