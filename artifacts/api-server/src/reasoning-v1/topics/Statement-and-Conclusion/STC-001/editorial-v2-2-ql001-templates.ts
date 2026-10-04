@@ -35,7 +35,7 @@ export const STC_V22_QL001_TEMPLATES: readonly StcV22Template[] = [
       [T("online ticket booking", "ऑनलाइन टिकट बुकिंग", "ਆਨਲਾਈਨ ਟਿਕਟ ਬੁਕਿੰਗ"), T("online visit-slot booking", "ऑनलाइन भ्रमण-स्लॉट बुकिंग", "ਆਨਲਾਈਨ ਦੌਰਾ-ਸਲਾਟ ਬੁਕਿੰਗ"), T("the online reservation portal", "ऑनलाइन आरक्षण पोर्टल", "ਆਨਲਾਈਨ ਰਿਜ਼ਰਵੇਸ਼ਨ ਪੋਰਟਲ"), T("advance online booking", "अग्रिम ऑनलाइन बुकिंग", "ਅਗਾਊਂ ਆਨਲਾਈਨ ਬੁਕਿੰਗ")],
       [T("scheduled maintenance", "निर्धारित रखरखाव", "ਨਿਰਧਾਰਤ ਰਖ-ਰਖਾਵ"), T("a safety inspection", "सुरक्षा निरीक्षण", "ਸੁਰੱਖਿਆ ਜਾਂਚ"), T("electrical repair work", "विद्युत मरम्मत कार्य", "ਬਿਜਲੀ ਮੁਰੰਮਤ ਕੰਮ"), T("an internal stock check", "आंतरिक सामग्री जाँच", "ਅੰਦਰੂਨੀ ਸਮੱਗਰੀ ਜਾਂਚ")],
     ],
-    statement: T("Notice: {a} will remain closed to visitors on {b} because of {d}. The following service will remain available: {c}.", "सूचना: {d} के कारण {b} को {a} में आगंतुकों का प्रवेश बंद रहेगा। यह सेवा उपलब्ध रहेगी: {c}।", "ਸੂਚਨਾ: {d} ਕਰਕੇ {b} ਨੂੰ {a} ਵਿੱਚ ਆਗੰਤੁਕਾਂ ਦਾ ਦਾਖ਼ਲਾ ਬੰਦ ਰਹੇਗਾ। ਇਹ ਸੇਵਾ ਉਪਲਬਧ ਰਹੇਗੀ: {c}।"),
+    statement: T("Notice: {a} will remain closed to visitors on {b} because of {d}. Visitors may still use {c}.", "सूचना: {d} के कारण {b} को {a} में आगंतुकों का प्रवेश बंद रहेगा। इसके बावजूद {c} का उपयोग किया जा सकेगा।", "ਸੂਚਨਾ: {d} ਕਰਕੇ {b} ਨੂੰ {a} ਵਿੱਚ ਆਗੰਤੁਕਾਂ ਦਾ ਦਾਖ਼ਲਾ ਬੰਦ ਰਹੇਗਾ। ਇਸ ਦੇ ਬਾਵਜੂਦ {c} ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾ ਸਕੇਗੀ।"),
     conclusions: [
       T("{c} will also be unavailable on {b}.", "सूचना के अनुसार {b} को {c} की सुविधा उपलब्ध नहीं होगी।", "ਸੂਚਨਾ ਅਨੁਸਾਰ {b} ਨੂੰ {c} ਦੀ ਸੇਵਾ ਉਪਲਬਧ ਨਹੀਂ ਹੋਵੇਗੀ।"),
       T("Visitors cannot enter {a} on {b} under the notice.", "सूचना के अनुसार आगंतुक {b} {a} में प्रवेश नहीं कर सकते।", "ਸੂਚਨਾ ਅਨੁਸਾਰ ਆਗੰਤੁਕ {b} {a} ਵਿੱਚ ਦਾਖ਼ਲ ਨਹੀਂ ਹੋ ਸਕਦੇ।"),
