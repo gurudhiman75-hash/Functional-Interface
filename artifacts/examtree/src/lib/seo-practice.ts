@@ -16,6 +16,22 @@ export type ExamPatternCard = {
   text: string;
 };
 
+export type ExamDetailCard = {
+  title: string;
+  text: string;
+  badge?: string;
+  ctaLabel?: string;
+  href?: string;
+};
+
+export type ExamDetailSection = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  body?: string;
+  cards: ExamDetailCard[];
+};
+
 export type ExamAcquisitionConfig = {
   slug: string;
   name: string;
@@ -52,6 +68,13 @@ export type ExamAcquisitionConfig = {
     sections: ExamSyllabusSection[];
     patternCards: ExamPatternCard[];
     verificationNote: string;
+  };
+  details?: {
+    eligibility?: ExamDetailSection;
+    dates?: ExamDetailSection;
+    salary?: ExamDetailSection;
+    faq?: ExamDetailSection;
+    updates?: ExamDetailSection;
   };
   topics: SeoPracticeTopic[];
 };
@@ -503,54 +526,125 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://www.ibps.in/index.php/management-trainees-xvi/",
     officialLabel: "ibps.in",
     meta: {
-      hubTitle: "IBPS PO 2026 Preparation, Syllabus, Mock Tests & Free Questions",
-      hubDescription: "Prepare for IBPS PO/MT XVI with prelims and mains guidance, mock tests, and free topic-wise banking questions on ExamTree.",
-      preparationTitle: "How to Prepare for IBPS PO 2026",
-      preparationDescription: "A practical IBPS PO 2026 preparation guide covering prelims speed, mains depth, banking awareness, descriptive readiness, and mock analysis.",
-      syllabusTitle: "IBPS PO 2026 Syllabus & Exam Pattern",
-      syllabusDescription: "IBPS PO/MT XVI 2026 syllabus and exam-stage overview covering the preliminary examination, main examination, and later selection stages.",
+      hubTitle: "IBPS PO 2026 (CRP PO/MT-XVI) Preparation, Syllabus, Mock Tests & Updates",
+      hubDescription: "Prepare for IBPS CRP PO/MT-XVI with the current 2026 prelims and mains pattern, detailed syllabus guidance, mock tests, official-cycle updates, and topic-wise banking practice.",
+      preparationTitle: "How to Prepare for IBPS PO 2026 (CRP PO/MT-XVI)",
+      preparationDescription: "A practical IBPS PO 2026 preparation guide aligned to the revised PO/MT-XVI pattern: separately timed prelims, 170-question mains objective paper, descriptive essay and comprehension, banking awareness, and mock analysis.",
+      syllabusTitle: "IBPS PO 2026 Syllabus & Revised Exam Pattern (CRP PO/MT-XVI)",
+      syllabusDescription: "Current IBPS PO/MT-XVI syllabus and examination structure for the 2026 recruitment cycle, including prelims, mains objective tests, descriptive paper, personality test, interview, and final merit.",
     },
     hub: {
       title: "IBPS PO 2026 preparation hub",
-      description: "Use one place for IBPS PO prelims and mains strategy, syllabus guidance, mock tests, and free topic-wise banking practice.",
-      preparationSummary: "Build prelims speed in English, Quantitative Aptitude, and Reasoning, then deepen preparation for the main examination.",
-      syllabusSummary: "Review the preliminary and main examination stages before deciding how to split your daily practice.",
-      mockSummary: "Move from topic practice to separately timed banking mocks and review speed, accuracy, and question selection after every attempt.",
+      description: "CRP PO/MT-XVI is the current IBPS Probationary Officer / Management Trainee recruitment for vacancies of 2027-28. Use this hub for prelims and mains practice, the revised 2026 exam pattern, official-cycle updates, previous papers, and topic-wise preparation.",
+      preparationSummary: "Prelims is a screening stage; for serious preparation, combine separately timed prelims practice with mains-level Reasoning, Data Analysis, Banking/Digital/Financial Awareness, English, and descriptive writing.",
+      syllabusSummary: "The XVI pattern uses 100 questions / 100 marks / 60 minutes in prelims and 170 objective questions / 200 marks / 160 minutes in mains, plus a 25-mark descriptive paper.",
+      mockSummary: "Use timed sectionals and full mocks to improve question selection. Review every slow, guessed, skipped, or incorrect question and separately track mains awareness and descriptive readiness.",
     },
     preparation: {
-      eyebrow: "IBPS PO preparation",
+      eyebrow: "IBPS PO/MT-XVI preparation",
       title: "How to prepare for IBPS PO 2026",
-      description: "Treat prelims as a speed-and-selection stage while building mains-level reasoning, data analysis, awareness, and English in parallel.",
+      description: "For the XVI cycle, prepare for the revised marks distribution rather than relying on older PO patterns. Keep prelims speed work and mains depth in parallel, with extra attention to Banking/Digital/Financial Awareness and the descriptive Essay + Comprehension paper.",
       cards: [
-        { title: "1. Build prelims speed", text: "Practise English, Quantitative Aptitude, and Reasoning in separately timed blocks so accuracy remains stable under section pressure." },
-        { title: "2. Prepare mains in parallel", text: "Do not wait for the prelims result to begin higher-level reasoning, data analysis, banking awareness, and deeper English practice." },
-        { title: "3. Review every mock", text: "Track skipped questions, slow questions, guesses, and avoidable errors; banking exams reward question selection as much as raw solving speed." },
+        { title: "1. Master the revised prelims split", text: "English carries 30 marks, Quantitative Aptitude 30 marks and Reasoning Ability 40 marks. Each section is separately timed for 20 minutes, so practise the sections independently as well as in full mocks." },
+        { title: "2. Build mains depth early", text: "Mains has 170 objective questions for 200 marks in 160 minutes: Reasoning 60 marks, Awareness 60, English 20 and Data Analysis & Interpretation 60. Do not postpone these sections until after prelims." },
+        { title: "3. Prepare descriptive + interview stages", text: "The descriptive paper is Essay and Comprehension for 25 marks in 30 minutes. After mains, shortlisted candidates must appear for the Personality Test and Interview; final merit uses Main and Interview scores in an 80:20 ratio." },
       ],
       weeklyCycle: [
-        "Take short separately timed prelims section tests.",
-        "Practise arithmetic and data-oriented Quant topics with calculation-speed drills.",
-        "Rotate puzzles, syllogism, coding-decoding, and other Reasoning sets.",
-        "Practise reading, grammar, vocabulary, and comprehension in English every day.",
-        "Revise banking, financial, and current awareness regularly for mains.",
-        "Take a full mock and analyse attempts, accuracy, time spent, and questions left unattempted.",
+        "Take separately timed 20-minute prelims section tests and track attempts, accuracy and time lost.",
+        "Practise arithmetic, approximation/series and Data Interpretation with calculation-speed drills.",
+        "Rotate puzzles, seating/arrangement, syllogism, inequality, coding-decoding, ranking and logical reasoning sets.",
+        "Practise reading comprehension, grammar, vocabulary and sentence-level English every day.",
+        "Revise General/Economy/Banking, Digital and Financial Awareness, including relevant RBI circulars, in short recurring blocks.",
+        "Write one timed essay or comprehension response each week and review clarity, structure, grammar and word economy.",
+        "Take one full mock regularly and classify every miss as concept, selection, calculation, reading, awareness recall or time-management error.",
       ],
     },
     syllabus: {
-      eyebrow: "IBPS PO syllabus",
-      title: "IBPS PO/MT XVI syllabus and exam pattern 2026",
-      description: "A learner-friendly overview of the current IBPS PO/MT XVI cycle. Verify detailed marks, timings, and later-stage rules in the latest official IBPS notification and information handouts.",
+      eyebrow: "IBPS PO/MT-XVI syllabus",
+      title: "IBPS PO/MT-XVI syllabus and revised exam pattern 2026",
+      description: "The 2026 XVI cycle uses a revised marks distribution in prelims and a 170-question mains objective paper. The exact official section names, marks and timings below reflect the current notification; topic-level practice areas are organised for preparation.",
       sections: [
-        { title: "English Language", summary: "Preliminary examination core section" },
-        { title: "Quantitative Aptitude", summary: "Preliminary examination core section" },
-        { title: "Reasoning Ability", summary: "Preliminary examination core section" },
-        { title: "Main examination", summary: "Higher-level reasoning/data analysis, awareness, English, and the current main-stage components prescribed by IBPS" },
+        { title: "Prelims · English Language", summary: "30 questions · 30 marks · 20 minutes · English medium" },
+        { title: "Prelims · Quantitative Aptitude", summary: "35 questions · 30 marks · 20 minutes · English/Hindi" },
+        { title: "Prelims · Reasoning Ability", summary: "35 questions · 40 marks · 20 minutes · English/Hindi" },
+        { title: "Mains · Reasoning", summary: "40 questions · 60 marks · 45 minutes · English/Hindi" },
+        { title: "Mains · General/Economy/Banking/Digital/Financial Awareness", summary: "50 questions · 60 marks · 35 minutes · includes RBI circulars · English/Hindi" },
+        { title: "Mains · English Language", summary: "40 questions · 20 marks · 35 minutes · English medium" },
+        { title: "Mains · Data Analysis & Interpretation", summary: "40 questions · 60 marks · 45 minutes · English/Hindi" },
+        { title: "Mains · Descriptive Paper", summary: "Essay and Comprehension · 2 questions · 25 marks · 30 minutes · English" },
       ],
       patternCards: [
-        { title: "Preliminary examination", text: "The PO/MT recruitment process begins with an online preliminary examination using separately timed sections, followed by shortlisting for the main examination." },
-        { title: "Main examination", text: "The main stage requires deeper reasoning and data-analysis ability together with banking/economy awareness and English. Use the current information handout for exact section structure." },
-        { title: "Current 2026 cycle", text: "IBPS scheduled PO/MT XVI prelims for 22-23 August 2026 and the main examination for 4 October 2026 in its 2026-27 calendar." },
+        { title: "Preliminary examination", text: "100 questions · 100 marks · 60 minutes. English, Quantitative Aptitude and Reasoning Ability are separately timed for 20 minutes each. Candidates must qualify the tests as prescribed by IBPS to be shortlisted for Mains." },
+        { title: "Main examination", text: "Objective paper: 170 questions · 200 marks · 160 minutes. Descriptive paper: Essay and Comprehension · 2 questions · 25 marks · 30 minutes. Objective sections are separately timed." },
+        { title: "Negative marking", text: "For a wrong answer in an objective test, one-fourth of the marks assigned to that question is deducted. There is no penalty for an unanswered question." },
+        { title: "Selection after Mains", text: "Shortlisted candidates must appear for the Personality Test and then the Common Interview. The Interview carries 100 marks; minimum qualifying marks are 40% for General/EWS and 35% for SC/ST/OBC/PwBD candidates." },
+        { title: "Final merit", text: "Prelims is qualifying. Final merit uses the Main Examination and Interview scores in an 80:20 weightage. Provisional allotment depends on actual vacancies reported by participating banks and candidate preferences." },
+        { title: "2026 dates", text: "Prelims: 22-23 August 2026. Main Examination: 4 October 2026. The exact time and venue on the candidate's call letter govern the individual exam appointment." },
       ],
-      verificationNote: "The CRP PO/MT-XVI cycle is active in 2026. Check the official IBPS PO/MT XVI page, notification, call-letter information handouts, and any corrigenda for exact pattern, marks, timings, vacancies, eligibility, and later selection-stage rules.",
+      verificationNote: "CRP PO/MT-XVI is for vacancies of 2027-28. IBPS issued the detailed notification on 1 July 2026 and subsequently revised the indicative vacancy position. Always verify time-sensitive dates, vacancies, eligibility, call letters, results and corrigenda on the official IBPS PO/MT-XVI page.",
+    },
+    details: {
+      eligibility: {
+        eyebrow: "Eligibility & selection",
+        title: "IBPS PO/MT-XVI eligibility and selection process",
+        description: "Core eligibility is based on the official CRP PO/MT-XVI notification. Reservation, certificate, nationality and relaxation conditions should always be checked against the full notification.",
+        cards: [
+          { title: "Educational qualification", text: "A degree (graduation) in any discipline from a university recognised by the Government of India, or an equivalent qualification recognised by the Central Government.", badge: "Eligibility" },
+          { title: "Age limit", text: "20 to 30 years as on 1 July 2026. The base date-of-birth range is 2 July 1996 to 1 July 2006, both dates inclusive.", badge: "Eligibility" },
+          { title: "Upper-age relaxation", text: "SC/ST: 5 years · OBC (Non-Creamy Layer): 3 years · PwBD: 10 years · eligible ex-servicemen/commissioned officers under the notification: 5 years. Read the notification for complete cumulative-relaxation rules.", badge: "Relaxation" },
+          { title: "Selection stages", text: "Online Preliminary Examination → Online Main Examination (objective + descriptive) → mandatory Personality Test → Common Interview → Provisional Allotment.", badge: "Selection" },
+          { title: "Interview and final merit", text: "Interview: 100 marks. Minimum qualifying marks: 40% for General/EWS and 35% for SC/ST/OBC/PwBD. Main and Interview are combined in an 80:20 ratio for final merit.", badge: "Final merit" },
+        ],
+      },
+      dates: {
+        eyebrow: "Important dates & vacancies",
+        title: "IBPS PO 2026 important dates and latest vacancy position",
+        description: "The application stage and prelims are complete. The current cycle has progressed to the Main Examination stage.",
+        cards: [
+          { title: "Detailed notification", text: "1 July 2026 · CRP PO/MT-XVI notification issued for vacancies of 2027-28.", badge: "Completed", ctaLabel: "Official notification", href: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf" },
+          { title: "Application window", text: "Online registration and fee payment: 1 July to 26 July 2026. Edit window: 29-30 July 2026.", badge: "Closed" },
+          { title: "Preliminary examination", text: "22 and 23 August 2026.", badge: "Completed" },
+          { title: "Prelims score display", text: "IBPS opened the preliminary score display on 29 September 2026; the current score-display window is scheduled through 28 October 2026.", badge: "Current update" },
+          { title: "Main examination", text: "4 October 2026. Candidates should follow the date, reporting time and venue printed on their call letter.", badge: "Current stage" },
+          { title: "Indicative vacancies", text: "7,565 vacancies in the latest Annexure I position published on 27 August 2026. Union Bank of India was shown as not reported, so the figure remains indicative rather than a final allotment total.", badge: "Updated 27 Aug 2026", ctaLabel: "Latest vacancy annexure", href: "https://www.ibps.in/wp-content/uploads/ANNEXURE-I_updated_25.08.2026.pdf" },
+          { title: "Later stages", text: "Personality Test / Interview follow the Main result and shortlisting process. Provisional allotment is expected in the later part of the recruitment cycle; candidates should follow the official IBPS updates page for final dates.", badge: "Upcoming" },
+        ],
+      },
+      salary: {
+        eyebrow: "Salary & job profile",
+        title: "IBPS PO pay scale and role",
+        description: "IBPS specifies the basic pay scale. Allowances and perquisites depend on the rules of the participating bank and place of posting, so Examtree does not publish an invented in-hand salary figure.",
+        cards: [
+          { title: "Starting basic pay", text: "₹48,480.", badge: "JMGS-I" },
+          { title: "Official basic-pay scale", text: "₹48,480-2,000/7-62,480-2,340/2-67,160-2,680/7-85,920.", badge: "Pay scale" },
+          { title: "Allowances & perquisites", text: "Eligible officers receive allowances and perquisites according to the participating bank's rules in force from time to time. These can vary by bank and posting.", badge: "Bank-specific" },
+          { title: "Role", text: "Probationary Officer / Management Trainee is an entry-level officer track in participating public sector banks, involving branch operations, customer service, credit/operations exposure, compliance and managerial responsibilities as assigned by the bank.", badge: "Job profile" },
+        ],
+      },
+      faq: {
+        eyebrow: "Frequently asked questions",
+        title: "IBPS PO 2026 FAQs",
+        description: "Quick answers for the current CRP PO/MT-XVI cycle.",
+        cards: [
+          { title: "How many IBPS PO vacancies are there in the latest update?", text: "The latest indicative vacancy annexure published on 27 August 2026 totals 7,565. Union Bank of India was shown as not reported, and provisional allotment ultimately uses actual vacancies reported by participating banks." },
+          { title: "Do prelims marks count in final merit?", text: "No. Prelims is a screening stage. Final merit is based on the Main Examination and Interview, combined in an 80:20 ratio." },
+          { title: "What is the current IBPS PO Mains pattern?", text: "170 objective questions for 200 marks in 160 minutes, plus an English descriptive paper with one Essay and one Comprehension task for 25 marks in 30 minutes." },
+          { title: "Is there negative marking?", text: "Yes. One-fourth of the marks assigned to an objective question is deducted for a wrong answer. Unanswered questions carry no penalty." },
+          { title: "What is the age limit?", text: "20-30 years as on 1 July 2026, with category-wise upper-age relaxations under the notification." },
+          { title: "What is the starting basic pay?", text: "₹48,480 in the official JMGS-I basic scale. Allowances and perquisites vary according to the allotted bank's rules." },
+        ],
+      },
+      updates: {
+        eyebrow: "Current official updates",
+        title: "IBPS PO/MT-XVI latest official status",
+        description: "Current-cycle status should follow IBPS, not coaching-site calendars.",
+        cards: [
+          { title: "Main Examination call letter", text: "The Main Examination call-letter download window opened on 24 September 2026 and closes on 4 October 2026.", badge: "24 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
+          { title: "Preliminary score display", text: "IBPS opened the Online Preliminary Examination score display on 29 September 2026, with the displayed closure date 28 October 2026.", badge: "29 Sep 2026", ctaLabel: "Official CRP PO/MT-XVI page", href: "https://www.ibps.in/index.php/management-trainees-xvi/" },
+          { title: "Latest vacancy update", text: "IBPS published a further vacancy corrigendum / updated vacancy position on 27 August 2026. The indicative total is 7,565.", badge: "27 Aug 2026", ctaLabel: "Vacancy annexure", href: "https://www.ibps.in/wp-content/uploads/ANNEXURE-I_updated_25.08.2026.pdf" },
+          { title: "Detailed notification", text: "The CRP PO/MT-XVI detailed notification was published on 1 July 2026.", badge: "1 Jul 2026", ctaLabel: "Notification PDF", href: "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf" },
+        ],
+      },
     },
     topics: BANKING_PRACTICE_TOPICS,
   },
