@@ -200,14 +200,10 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   <Search className="h-4 w-4" aria-hidden="true" />
                   <input aria-label="Search exams, tests, topics" placeholder="Search exams, tests, topics..." />
                 </div>
-                {user ? (
-                  <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
-                ) : (
-                  <>
-                    <Link href="/login/student" className="home-header-login et-interactive inline-flex items-center">Login</Link>
-                    <Link href="/login/student?mode=signup" className="home-header-signup et-interactive inline-flex items-center">Sign Up</Link>
-                  </>
-                )}
+                <>
+                  <Link href="/login/student" className="home-header-login et-interactive inline-flex items-center">Login</Link>
+                  <Link href="/login/student?mode=signup" className="home-header-signup et-interactive inline-flex items-center">Sign Up</Link>
+                </>
               </>
             ) : user ? (
               <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
