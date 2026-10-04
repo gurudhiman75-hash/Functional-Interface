@@ -73,9 +73,14 @@ function flatTestType(test: Test): ExamHubFlatTest["type"] {
   return "full-length";
 }
 
-function preferredStage(stage: "prelims" | "mains" | "general", searchText: string): "prelims" | "mains" | "general" {
+function preferredStage(
+  stage: "prelims" | "mains" | "general",
+  searchText: string,
+  testHub?: ReturnType<typeof requireConfig>["testHub"],
+): "prelims" | "mains" | "general" {
   if (stage !== "general") return stage;
-  const inferred = stageFromText(searchText);
+  if (testHub?.mode === "single") return "prelims";
+  const inferred = stageFromText(searchText, testHub);
   return inferred === "general" ? "prelims" : inferred;
 }
 
@@ -144,11 +149,20 @@ function isPyqText(value: string) {
   return /\bpyq\b|previous[ -]?year|memory[ -]?based/.test(value);
 }
 
-function stageFromText(value: string): "prelims" | "mains" | "general" {
-  const prelims = /\bprelims?\b|\bpreliminary\b|\bpre\b/.test(value);
-  const mains = /\bmains?\b|\bmain examination\b|\bmain\b/.test(value);
-  if (prelims && !mains) return "prelims";
+function stageFromText(
+  value: string,
+  testHub?: ReturnType<typeof requireConfig>["testHub"],
+): "prelims" | "mains" | "general" {
+  const text = value.toLowerCase();
+  const stage2Keywords = testHub?.stage2Keywords ?? [];
+  const stage1Keywords = testHub?.stage1Keywords ?? [];
+  if (stage2Keywords.some((keyword) => text.includes(keyword.toLowerCase()))) return "mains";
+  if (stage1Keywords.some((keyword) => text.includes(keyword.toLowerCase()))) return "prelims";
+
+  const mains = /\bmains?\b|\bmain examination\b|\btier[\s-]?(?:ii|2)\b|\bpaper[\s-]?(?:ii|2)\b/.test(text);
+  const prelims = /\bprelims?\b|\bpreliminary\b|\bpre\b|\btier[\s-]?(?:i|1)\b|\bpaper[\s-]?(?:i|1)\b/.test(text);
   if (mains && !prelims) return "mains";
+  if (prelims && !mains) return "prelims";
   return "general";
 }
 
@@ -231,12 +245,14 @@ function LoggedOutExamHubPage({
   const topicWise = flatTests.filter((test) => test.type === "topic-wise").length;
   const pyq = flatTests.filter((test) => test.type === "pyq").length;
   const fullMocks = flatTests.filter((test) => test.type === "full-length").length;
-  const hasMains = mainsFull > 0;
+  const hasMains = config.testHub?.mode === "dual" || mainsFull > 0;
+  const stage1Label = config.testHub?.stage1Label || "Prelims";
+  const stage2Label = config.testHub?.stage2Label || "Mains";
 
   const offeringCards = hasMains
     ? [
-        { value: countLabel(prelimsFull), title: "Prelims Mock Tests", text: "Full-length practice for the preliminary stage.", tone: "blue" },
-        { value: countLabel(mainsFull), title: "Mains Mock Tests", text: "Full-length practice for the main examination.", tone: "green" },
+        { value: countLabel(prelimsFull), title: stage1Label + " Mock Tests", text: "Full-length practice for the " + stage1Label + " stage.", tone: "blue" },
+        { value: countLabel(mainsFull), title: stage2Label + " Mock Tests", text: "Full-length practice for the " + stage2Label + " stage.", tone: "green" },
         { value: countLabel(sectional), title: "Sectional Tests", text: "Focused practice for individual exam sections.", tone: "orange" },
         { value: countLabel(topicWise), title: "Topic-wise Tests", text: "Target individual topics before full mocks.", tone: "violet" },
       ]
@@ -535,7 +551,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     const seriesBoundIds = new Set<string>();
     const fromSeries = examSeries.flatMap((series) => {
       const rawStage = seriesHubStage(series);
-      const stage = preferredStage(rawStage, seriesSearchText(series));
+      const stage = preferredStage(rawStage, seriesSearchText(series), config.testHub);
       const type = seriesHubType(series);
       return (series.tests ?? []).map((test) => {
         seriesBoundIds.add(String(test.testId).toLowerCase());
@@ -558,7 +574,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
     const standalone = examTests
       .filter((test) => !seriesBoundIds.has(String(test.id).toLowerCase()))
       .map((test) => {
-        const stage = preferredStage(stageFromText(testSearchText(test)), testSearchText(test));
+        const stage = preferredStage(stageFromText(testSearchText(test), config.testHub), testSearchText(test), config.testHub);
         const totalMarks = Math.max(0, Math.round(test.totalQuestions * Number(test.marksPerQuestion ?? 1)));
         return {
           id: "test-" + test.id,
@@ -577,7 +593,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
       });
 
     return [...fromSeries, ...standalone];
-  }, [examSeries, examTests]);
+  }, [examSeries, examTests, config.testHub]);
 
   const activeTests = flatTests.filter((test) =>
     activeExamStage === "pyq"
@@ -606,7 +622,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   }
 
 
-  const hasMainsStage = stageCounts.mains > 0;
+  const hasMainsStage = config.testHub?.mode === "dual" || stageCounts.mains > 0;
+  const hubStage1Label = config.testHub?.stage1Label || "Prelims";
+  const hubStage2Label = config.testHub?.stage2Label || "Mains";
   const scrollToTests = () => {
     window.requestAnimationFrame(() => {
       document.getElementById("test-catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -623,14 +641,14 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
   const workspaceActions = hasMainsStage
     ? [
-        { key: "prelims", title: "Prelims Tests", text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
-        { key: "mains", title: "Mains Tests", text: stageCounts.mains + " available", icon: BookOpenCheck, action: () => openTestView("mains", "full-length"), tone: "indigo" },
+        { key: "prelims", title: hubStage1Label + " Tests", text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
+        { key: "mains", title: hubStage2Label + " Tests", text: stageCounts.mains + " available", icon: BookOpenCheck, action: () => openTestView("mains", "full-length"), tone: "indigo" },
         { key: "sectional", title: "Sectional Tests", text: flatTests.filter((test) => test.type === "sectional").length + " available", icon: BarChart3, action: () => openTestView(activeExamStage === "mains" ? "mains" : "prelims", "sectional"), tone: "emerald" },
         { key: "topic", title: "Topic-wise Tests", text: flatTests.filter((test) => test.type === "topic-wise").length + " available", icon: Target, action: () => openTestView(activeExamStage === "mains" ? "mains" : "prelims", "topic-wise"), tone: "orange" },
         { key: "pyq", title: "Previous Year Papers", text: stageCounts.pyq + " available", icon: BookOpen, action: () => openTestView("pyq"), tone: "violet" },
       ]
     : [
-        { key: "tests", title: "Test Series", text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
+        { key: "tests", title: (config.testHub?.stage1Label ? config.testHub.stage1Label + " Test Series" : "Test Series"), text: stageCounts.prelims + " available", icon: FileText, action: () => openTestView("prelims", "full-length"), tone: "blue" },
         { key: "sectional", title: "Sectional Tests", text: flatTests.filter((test) => test.type === "sectional").length + " available", icon: BarChart3, action: () => openTestView("prelims", "sectional"), tone: "emerald" },
         { key: "topic", title: "Topic-wise Tests", text: flatTests.filter((test) => test.type === "topic-wise").length + " available", icon: Target, action: () => openTestView("prelims", "topic-wise"), tone: "orange" },
         { key: "pyq", title: "Previous Year Papers", text: stageCounts.pyq + " available", icon: BookOpen, action: () => openTestView("pyq"), tone: "violet" },
@@ -702,8 +720,8 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
     if (section.type === "test_catalog") {
       const stageLabel =
-        activeExamStage === "prelims" ? (section.labels.prelims || "Prelims") :
-        activeExamStage === "mains" ? (section.labels.mains || "Mains") :
+        activeExamStage === "prelims" ? (section.labels.prelims || hubStage1Label) :
+        activeExamStage === "mains" ? (section.labels.mains || hubStage2Label) :
         (section.labels.pyq || "Previous Year Papers");
       const typeLabel =
         activeTestType === "sectional" ? (section.labels.sectional || "Sectional Tests") :
@@ -744,12 +762,15 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           </nav>
 
           <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <div role="tablist" aria-label={config.name + " exam stage"} className="grid min-w-[560px] grid-cols-3">
-              {([
-                ["prelims", section.labels.prelims || "Prelims", stageCounts.prelims],
-                ["mains", section.labels.mains || "Mains", stageCounts.mains],
+            <div role="tablist" aria-label={config.name + " exam stage"} className={"grid min-w-[560px] " + (hasMainsStage ? "grid-cols-3" : "grid-cols-2")}>
+              {(hasMainsStage ? ([
+                ["prelims", section.labels.prelims || hubStage1Label, stageCounts.prelims],
+                ["mains", section.labels.mains || hubStage2Label, stageCounts.mains],
                 ["pyq", section.labels.pyq || "Previous Year Papers", stageCounts.pyq],
-              ] as const).map(([stage, label, count]) => {
+              ] as const) : ([
+                ["prelims", section.labels.prelims || hubStage1Label, stageCounts.prelims],
+                ["pyq", section.labels.pyq || "Previous Year Papers", stageCounts.pyq],
+              ] as const)).map(([stage, label, count]) => {
                 const selected = activeExamStage === stage;
                 return (
                   <button
