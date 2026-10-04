@@ -151,9 +151,9 @@ function exceptionRules(base: readonly DmRuleCondition[], ageLimit: number, mark
       ]),
       outcome: "REFER_TO_MANAGER",
       explanation: text(
-        "A candidate who is up to two years over the age limit and has at least five years of relevant experience must be referred to the Manager, provided all other conditions are met.",
-        "यदि अभ्यर्थी आयु-सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और वह बाकी सभी शर्तें पूरी करता है, तो मामला प्रबंधक को भेजा जाएगा।",
-        "ਜੇ ਉਮੀਦਵਾਰ ਦੀ ਉਮਰ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਦੋ ਸਾਲ ਤੱਕ ਵੱਧ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਉਹ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ ਹੈ, ਤਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "When the age excess is no more than two years and the applicant has at least five years of relevant experience, the ordinary rejection is not final; the Manager reviews the exception if every other condition is satisfied.",
+        "यदि आयु-सीमा अधिकतम दो वर्ष पार होती है और आवेदक के पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है, तो बाकी सभी शर्तें पूरी होने पर सामान्य अस्वीकृति अंतिम नहीं होगी; अपवाद की समीक्षा प्रबंधक करेगा।",
+        "ਜੇ ਉਮਰ ਦੀ ਹੱਦ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਪਾਰ ਹੁੰਦੀ ਹੈ ਅਤੇ ਬਿਨੈਕਾਰ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ, ਤਾਂ ਬਾਕੀ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ ਤੇ ਆਮ ਰੱਦਗੀ ਅੰਤਿਮ ਨਹੀਂ ਰਹੇਗੀ; ਅਪਵਾਦ ਦੀ ਸਮੀਖਿਆ ਮੈਨੇਜਰ ਕਰੇਗਾ।",
       ),
     }));
   }
@@ -171,9 +171,9 @@ function exceptionRules(base: readonly DmRuleCondition[], ageLimit: number, mark
       ]),
       outcome: "REFER_TO_COMMITTEE",
       explanation: text(
-        "A postgraduate candidate may fall short of the marks cut-off by up to five percentage points when they have at least three years of relevant experience and meet the remaining conditions; the case goes to the Review Committee.",
-        "स्नातकोत्तर अभ्यर्थी के अंक निर्धारित सीमा से अधिकतम पाँच प्रतिशत-अंक कम हो सकते हैं, यदि उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और बाकी शर्तें पूरी हों; मामला समीक्षा समिति को भेजा जाएगा।",
-        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਉਮੀਦਵਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਹੋ ਸਕਦੇ ਹਨ, ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "A postgraduate candidate may fall short of the marks cut-off by up to five percentage points when they have at least three years of relevant experience and meet the remaining conditions; the exception requires Review Committee scrutiny.",
+        "स्नातकोत्तर अभ्यर्थी के अंक निर्धारित सीमा से अधिकतम पाँच प्रतिशत-अंक कम हो सकते हैं, यदि उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और बाकी शर्तें पूरी हों; इस अपवाद की जाँच समीक्षा समिति करेगी।",
+        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਉਮੀਦਵਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਹੋ ਸਕਦੇ ਹਨ, ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਇਸ ਅਪਵਾਦ ਦੀ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕਰੇਗੀ।",
       ),
     }));
   }
@@ -199,9 +199,9 @@ function makeReferralRules(base: readonly DmRuleCondition[], policy: number, var
     conditions: Object.freeze([condition("certificate-mismatch", "certificateStatus", "EQ", "MISMATCH")]),
     outcome: "REFER_TO_MANAGER",
     explanation: text(
-      "The certificate details do not match the application, so the case must be checked by the Manager before a final decision.",
-      "प्रमाणपत्र का विवरण आवेदन से मेल नहीं खाता; अंतिम निर्णय से पहले मामला प्रबंधक से जाँचवाना होगा।",
-      "ਸਰਟੀਫਿਕੇਟ ਦਾ ਵੇਰਵਾ ਅਰਜ਼ੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ; ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਤੋਂ ਜਾਂਚਵਾਉਣਾ ਲਾਜ਼ਮੀ ਹੈ।",
+      "The certificate and application do not match. A final eligibility decision waits until the Manager reviews that discrepancy.",
+      "प्रमाणपत्र और आवेदन का विवरण मेल नहीं खाता। अंतिम पात्रता निर्णय से पहले इस अंतर की समीक्षा प्रबंधक करेगा।",
+      "ਸਰਟੀਫਿਕੇਟ ਅਤੇ ਅਰਜ਼ੀ ਦਾ ਵੇਰਵਾ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਅੰਤਿਮ ਯੋਗਤਾ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਫਰਕ ਦੀ ਸਮੀਖਿਆ ਮੈਨੇਜਰ ਕਰੇਗਾ।",
     ),
   })];
   if (variant !== 0) {
@@ -237,9 +237,9 @@ function makeReferralRules(base: readonly DmRuleCondition[], policy: number, var
       ]),
       outcome: "REFER_TO_COMMITTEE",
       explanation: text(
-        "A postgraduate applicant is one or two percentage points below the marks cut-off and has the required relevant experience; the case must go to the Review Committee.",
-        "स्नातकोत्तर आवेदक के अंक निर्धारित सीमा से एक या दो प्रतिशत-अंक कम हैं और संबंधित अनुभव की शर्त पूरी है; मामला समीक्षा समिति को भेजा जाएगा।",
-        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਇੱਕ ਜਾਂ ਦੋ ਅੰਕ ਘੱਟ ਹਨ ਅਤੇ ਸੰਬੰਧਤ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਹੈ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+        "A postgraduate applicant is one or two percentage points below the marks cut-off and has the required relevant experience; Review Committee approval is required for the relaxation.",
+        "स्नातकोत्तर आवेदक के अंक निर्धारित सीमा से एक या दो प्रतिशत-अंक कम हैं और संबंधित अनुभव की शर्त पूरी है; छूट के लिए समीक्षा समिति की स्वीकृति आवश्यक है।",
+        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਇੱਕ ਜਾਂ ਦੋ ਅੰਕ ਘੱਟ ਹਨ ਅਤੇ ਸੰਬੰਧਤ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਹੈ; ਛੂਟ ਲਈ ਸਮੀਖਿਆ ਕਮੇਟੀ ਦੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ।",
       ),
     }));
   }
@@ -379,19 +379,19 @@ function makeRelaxationRules(policy: number): { base: DmRuleCondition[]; excepti
   ];
   const exceptions: DmDecisionRule[] = [
     Object.freeze({ ruleId: "BOTH_RELAXATIONS_REFER_COMMITTEE", priority: 5, conditions: Object.freeze(both), outcome: "REFER_TO_COMMITTEE", explanation: text(
-      "A candidate exceeding the age limit and falling short of the marks cut-off receives the combined relaxation only if the postgraduate and five-year experience conditions are also met; refer the case to the Review Committee.",
-      "आयु-सीमा से अधिक और अंक-सीमा से कम होने पर संयुक्त छूट तभी मिलेगी जब स्नातकोत्तर योग्यता तथा पाँच वर्ष के अनुभव की शर्त भी पूरी हो; मामला समीक्षा समिति को भेजें।",
-      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਅਤੇ ਅੰਕ ਹੱਦ ਤੋਂ ਘੱਟ ਹੋਣ ਤੇ ਸਾਂਝੀ ਛੋਟ ਤਾਂ ਹੀ ਮਿਲੇਗੀ ਜੇ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਯੋਗਤਾ ਅਤੇ ਪੰਜ ਸਾਲ ਦੇ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਵੀ ਪੂਰੀ ਹੋਵੇ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+      "A candidate exceeding the age limit and falling short of the marks cut-off receives the combined relaxation only if the postgraduate and five-year experience conditions are also met; the combined exception is decided by the Review Committee.",
+      "आयु-सीमा से अधिक और अंक-सीमा से कम होने पर संयुक्त छूट तभी मिलेगी जब स्नातकोत्तर योग्यता तथा पाँच वर्ष के अनुभव की शर्त भी पूरी हो; संयुक्त अपवाद पर समीक्षा समिति निर्णय करेगी।",
+      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਅਤੇ ਅੰਕ ਹੱਦ ਤੋਂ ਘੱਟ ਹੋਣ ਤੇ ਸਾਂਝੀ ਛੋਟ ਤਾਂ ਹੀ ਮਿਲੇਗੀ ਜੇ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਯੋਗਤਾ ਅਤੇ ਪੰਜ ਸਾਲ ਦੇ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਵੀ ਪੂਰੀ ਹੋਵੇ; ਸਾਂਝੇ ਅਪਵਾਦ ਦਾ ਫੈਸਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕਰੇਗੀ।",
     ) }),
     Object.freeze({ ruleId: "AGE_EXPERIENCE_RELAXATION_REFER_COMMITTEE", priority: 10, conditions: Object.freeze(age), outcome: "REFER_TO_COMMITTEE", explanation: text(
-      "An applicant up to three years above the age limit may be considered only with at least five years of relevant experience and all other ordinary conditions met; refer the case to the Review Committee.",
-      "आयु-सीमा से अधिकतम तीन वर्ष अधिक आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव हो और अन्य सभी सामान्य शर्तें पूरी हों; मामला समीक्षा समिति को भेजें।",
-      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਤਿੰਨ ਸਾਲ ਵੱਧ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸਾਰੀਆਂ ਆਮ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+      "An applicant up to three years above the age limit may be considered only with at least five years of relevant experience and all other ordinary conditions met; Review Committee clearance is then required.",
+      "आयु-सीमा से अधिकतम तीन वर्ष अधिक आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव हो और अन्य सभी सामान्य शर्तें पूरी हों; इसके बाद समीक्षा समिति की मंजूरी आवश्यक है।",
+      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਤਿੰਨ ਸਾਲ ਵੱਧ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸਾਰੀਆਂ ਆਮ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਇਸ ਤੋਂ ਬਾਅਦ ਸਮੀਖਿਆ ਕਮੇਟੀ ਦੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ।",
     ) }),
     Object.freeze({ ruleId: "POSTGRADUATE_MARKS_RELAXATION_REFER_COMMITTEE", priority: 20, conditions: Object.freeze(marks), outcome: "REFER_TO_COMMITTEE", explanation: text(
-      "A postgraduate applicant within five percentage points of the marks cut-off may be considered only with at least three years of relevant experience and within the ordinary age limit; refer the case to the Review Committee.",
-      "अंक-सीमा से अधिकतम पाँच प्रतिशत-अंक कम स्नातकोत्तर आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और वह सामान्य आयु-सीमा में हो; मामला समीक्षा समिति को भेजें।",
-      "ਅੰਕ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਉਹ ਆਮ ਉਮਰ ਹੱਦ ਵਿੱਚ ਹੋਵੇ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+      "A postgraduate applicant within five percentage points of the marks cut-off may be considered only with at least three years of relevant experience and within the ordinary age limit; the Review Committee then decides the relaxation.",
+      "अंक-सीमा से अधिकतम पाँच प्रतिशत-अंक कम स्नातकोत्तर आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और वह सामान्य आयु-सीमा में हो; इसके बाद छूट पर समीक्षा समिति निर्णय करेगी।",
+      "ਅੰਕ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਉਹ ਆਮ ਉਮਰ ਹੱਦ ਵਿੱਚ ਹੋਵੇ; ਇਸ ਤੋਂ ਬਾਅਦ ਛੂਟ ਦਾ ਫੈਸਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕਰੇਗੀ।",
     ) }),
   ];
   return { base, exceptions };

@@ -42,23 +42,37 @@ for (const scenario of legacyScenarios) {
           assert.deepEqual(question.selectedCandidates, ranked.selected.map((candidate) => candidate.name));
           assert.equal(question.options[question.correctIndex], question.selectedCandidates!.join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "));
           assert.match(question.stem, /Priority order|प्राथमिकता क्रम|ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ/);
-        } else assert.equal(question.options[question.correctIndex], {
-          en: {
-            SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules", REFER_TO_MANAGER: "Refer the case to the Manager",
-            REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
-            INFORMATION_REQUIRED: "Decision cannot be made; information is required",
-          },
-          hi: {
-            SELECT: "दिए गए नियमों के अनुसार पात्र", REJECT: "दिए गए नियमों के अनुसार अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
-            REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें",
-            INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
-          },
-          pa: {
-            SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
-            REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ",
-            INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
-          },
-        }[locale][question.outcome]);
+        } else {
+          const correctOption = question.options[question.correctIndex]!;
+          if (question.outcome === "REFER_TO_MANAGER" || question.outcome === "REFER_TO_DIRECTOR" || question.outcome === "REFER_TO_COMMITTEE") {
+            const rolePattern = {
+              en: question.outcome === "REFER_TO_MANAGER" ? /Manager/ : question.outcome === "REFER_TO_DIRECTOR" ? /Director/ : /Review Committee|Committee/,
+              hi: question.outcome === "REFER_TO_MANAGER" ? /प्रबंधक/ : question.outcome === "REFER_TO_DIRECTOR" ? /निदेशक/ : /समीक्षा समिति|समिति/,
+              pa: question.outcome === "REFER_TO_MANAGER" ? /ਮੈਨੇਜਰ/ : question.outcome === "REFER_TO_DIRECTOR" ? /ਡਾਇਰੈਕਟਰ/ : /ਸਮੀਖਿਆ ਕਮੇਟੀ|ਕਮੇਟੀ/,
+            }[locale];
+            assert.match(correctOption, rolePattern, "referral option must preserve the deciding authority");
+          } else {
+            assert.equal(correctOption, {
+              en: {
+                SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules",
+                INFORMATION_REQUIRED: "Decision cannot be made; information is required",
+              },
+              hi: {
+                SELECT: "दिए गए नियमों के अनुसार पात्र", REJECT: "दिए गए नियमों के अनुसार अपात्र",
+                INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
+              },
+              pa: {
+                SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ",
+                INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+              },
+            }[locale][question.outcome as "SELECT" | "REJECT" | "INFORMATION_REQUIRED"]);
+          }
+          assert.doesNotMatch(
+            question.options.join("\n") + "\n" + question.explanation,
+            /Refer the case to the Manager|Refer the case to the Director|Refer the case to the Review Committee|मामला प्रबंधक को भेजें|मामला निदेशक को भेजें|मामला समीक्षा समिति को भेजें|ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ|ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ|ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ/,
+            "legacy overused referral wording must not return",
+          );
+        }
         assert.equal(evaluateDmDecision(question.candidate, scenario).outcome, question.outcome);
         assert.ok(question.explanationRows.length === scenario.baseConditions.length);
         assert.ok(question.stem.includes(scenario.context[locale]));

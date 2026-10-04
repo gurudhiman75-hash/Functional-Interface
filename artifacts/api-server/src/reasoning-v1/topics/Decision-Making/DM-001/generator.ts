@@ -79,27 +79,119 @@ const QUALIFICATIONS: Readonly<Record<DmLocale, readonly string[]>> = Object.fre
 
 const OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>>> = Object.freeze({
   en: {
-    SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules", REFER_TO_MANAGER: "Refer the case to the Manager",
-    REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
+    SELECT: "Eligible under the stated rules", REJECT: "Not eligible under the stated rules", REFER_TO_MANAGER: "Manager review required",
+    REFER_TO_DIRECTOR: "Director review required", REFER_TO_COMMITTEE: "Review Committee decision required",
     INFORMATION_REQUIRED: "Decision cannot be made; information is required",
     TAKE_ACTION: "Take the identified action",
     SET_RESULT: "Use the computed set result",
   },
   hi: {
-    SELECT: "दिए गए नियमों के अनुसार पात्र", REJECT: "दिए गए नियमों के अनुसार अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
-    REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें",
+    SELECT: "दिए गए नियमों के अनुसार पात्र", REJECT: "दिए गए नियमों के अनुसार अपात्र", REFER_TO_MANAGER: "प्रबंधक की समीक्षा आवश्यक",
+    REFER_TO_DIRECTOR: "निदेशक की समीक्षा आवश्यक", REFER_TO_COMMITTEE: "समीक्षा समिति का निर्णय आवश्यक",
     INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
     TAKE_ACTION: "निर्धारित कार्रवाई करें",
     SET_RESULT: "गणना किए गए सेट परिणाम का उपयोग करें",
   },
   pa: {
-    SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
-    REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ",
+    SELECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ", REJECT: "ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਅਯੋਗ", REFER_TO_MANAGER: "ਮੈਨੇਜਰ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ",
+    REFER_TO_DIRECTOR: "ਡਾਇਰੈਕਟਰ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ", REFER_TO_COMMITTEE: "ਸਮੀਖਿਆ ਕਮੇਟੀ ਦਾ ਫੈਸਲਾ ਲੋੜੀਂਦਾ ਹੈ",
     INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
     TAKE_ACTION: "ਪਛਾਣੀ ਕਾਰਵਾਈ ਕਰੋ",
     SET_RESULT: "ਗਿਣੇ ਹੋਏ ਸੈੱਟ ਨਤੀਜੇ ਦੀ ਵਰਤੋਂ ਕਰੋ",
   },
 });
+
+const REFERRAL_OUTCOME_VARIANTS: Readonly<Record<
+  DmLocale,
+  Readonly<Record<Extract<DmOutcome, "REFER_TO_MANAGER" | "REFER_TO_DIRECTOR" | "REFER_TO_COMMITTEE">, readonly string[]>>
+>> = Object.freeze({
+  en: Object.freeze({
+    REFER_TO_MANAGER: Object.freeze([
+      "Manager review required",
+      "Place before the Manager for a decision",
+      "Send for Manager-level review",
+      "Manager approval is required under the exception rule",
+      "Forward to the Manager under the stated exception",
+      "The Manager must decide this exception",
+    ]),
+    REFER_TO_DIRECTOR: Object.freeze([
+      "Director review required",
+      "Place before the Director for a decision",
+      "Send for Director-level review",
+      "Director approval is required under the exception rule",
+      "Forward to the Director under the stated exception",
+      "The Director must decide this exception",
+    ]),
+    REFER_TO_COMMITTEE: Object.freeze([
+      "Review Committee decision required",
+      "Place before the Review Committee",
+      "Send for Review Committee scrutiny",
+      "Committee review is required under the exception rule",
+      "Forward to the Review Committee under the stated exception",
+      "The Review Committee must decide this exception",
+    ]),
+  }),
+  hi: Object.freeze({
+    REFER_TO_MANAGER: Object.freeze([
+      "प्रबंधक की समीक्षा आवश्यक",
+      "निर्णय के लिए प्रबंधक के समक्ष रखें",
+      "प्रबंधक-स्तरीय समीक्षा के लिए भेजें",
+      "अपवाद नियम के तहत प्रबंधक की स्वीकृति आवश्यक",
+      "दिए गए अपवाद के तहत प्रबंधक को अग्रेषित करें",
+      "इस अपवाद पर प्रबंधक निर्णय करेगा",
+    ]),
+    REFER_TO_DIRECTOR: Object.freeze([
+      "निदेशक की समीक्षा आवश्यक",
+      "निर्णय के लिए निदेशक के समक्ष रखें",
+      "निदेशक-स्तरीय समीक्षा के लिए भेजें",
+      "अपवाद नियम के तहत निदेशक की स्वीकृति आवश्यक",
+      "दिए गए अपवाद के तहत निदेशक को अग्रेषित करें",
+      "इस अपवाद पर निदेशक निर्णय करेगा",
+    ]),
+    REFER_TO_COMMITTEE: Object.freeze([
+      "समीक्षा समिति का निर्णय आवश्यक",
+      "समीक्षा समिति के समक्ष रखें",
+      "समीक्षा समिति की जाँच के लिए भेजें",
+      "अपवाद नियम के तहत समिति की समीक्षा आवश्यक",
+      "दिए गए अपवाद के तहत समीक्षा समिति को अग्रेषित करें",
+      "इस अपवाद पर समीक्षा समिति निर्णय करेगी",
+    ]),
+  }),
+  pa: Object.freeze({
+    REFER_TO_MANAGER: Object.freeze([
+      "ਮੈਨੇਜਰ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ",
+      "ਫੈਸਲੇ ਲਈ ਮੈਨੇਜਰ ਅੱਗੇ ਰੱਖੋ",
+      "ਮੈਨੇਜਰ-ਪੱਧਰੀ ਸਮੀਖਿਆ ਲਈ ਭੇਜੋ",
+      "ਅਪਵਾਦ ਨਿਯਮ ਹੇਠ ਮੈਨੇਜਰ ਦੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+      "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਮੈਨੇਜਰ ਕੋਲ ਅੱਗੇ ਭੇਜੋ",
+      "ਇਸ ਅਪਵਾਦ ਦਾ ਫੈਸਲਾ ਮੈਨੇਜਰ ਕਰੇਗਾ",
+    ]),
+    REFER_TO_DIRECTOR: Object.freeze([
+      "ਡਾਇਰੈਕਟਰ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ",
+      "ਫੈਸਲੇ ਲਈ ਡਾਇਰੈਕਟਰ ਅੱਗੇ ਰੱਖੋ",
+      "ਡਾਇਰੈਕਟਰ-ਪੱਧਰੀ ਸਮੀਖਿਆ ਲਈ ਭੇਜੋ",
+      "ਅਪਵਾਦ ਨਿਯਮ ਹੇਠ ਡਾਇਰੈਕਟਰ ਦੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ",
+      "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਡਾਇਰੈਕਟਰ ਕੋਲ ਅੱਗੇ ਭੇਜੋ",
+      "ਇਸ ਅਪਵਾਦ ਦਾ ਫੈਸਲਾ ਡਾਇਰੈਕਟਰ ਕਰੇਗਾ",
+    ]),
+    REFER_TO_COMMITTEE: Object.freeze([
+      "ਸਮੀਖਿਆ ਕਮੇਟੀ ਦਾ ਫੈਸਲਾ ਲੋੜੀਂਦਾ ਹੈ",
+      "ਸਮੀਖਿਆ ਕਮੇਟੀ ਅੱਗੇ ਰੱਖੋ",
+      "ਸਮੀਖਿਆ ਕਮੇਟੀ ਦੀ ਜਾਂਚ ਲਈ ਭੇਜੋ",
+      "ਅਪਵਾਦ ਨਿਯਮ ਹੇਠ ਕਮੇਟੀ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ",
+      "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਅੱਗੇ ਭੇਜੋ",
+      "ਇਸ ਅਪਵਾਦ ਦਾ ਫੈਸਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕਰੇਗੀ",
+    ]),
+  }),
+});
+
+function outcomeLabel(outcome: DmOutcome, locale: DmLocale, seed: number): string {
+  if (outcome === "REFER_TO_MANAGER" || outcome === "REFER_TO_DIRECTOR" || outcome === "REFER_TO_COMMITTEE") {
+    const variants = REFERRAL_OUTCOME_VARIANTS[locale][outcome];
+    return variants[Math.abs(seed) % variants.length]!;
+  }
+  return OUTCOME_LABELS[locale][outcome];
+}
 
 const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
   en: [
@@ -246,9 +338,9 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
   en: {
     SELECT: "Every required condition is met, so the case qualifies under the stated rules.",
     REJECT: "At least one mandatory condition is not met and no exception applies, so the case does not qualify.",
-    REFER_TO_MANAGER: "The listed rule directs this case to the Manager before a final decision.",
-    REFER_TO_DIRECTOR: "The listed rule assigns this case to the Director for a decision.",
-    REFER_TO_COMMITTEE: "The listed rule assigns this case to the Review Committee.",
+    REFER_TO_MANAGER: "The stated exception requires Manager review before the eligibility decision is final.",
+    REFER_TO_DIRECTOR: "The stated exception requires a Director-level decision.",
+    REFER_TO_COMMITTEE: "The stated exception requires Review Committee scrutiny.",
     INFORMATION_REQUIRED: "A required detail is missing or an exception cannot be checked, so a final decision cannot yet be made.",
     TAKE_ACTION: "The action follows the applicable administrative principle.",
     SET_RESULT: "The answer follows from the independently computed decision for every profile.",
@@ -256,9 +348,9 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
   hi: {
     SELECT: "सभी अनिवार्य शर्तें पूरी हैं, इसलिए मामला दिए गए नियमों के अनुसार पात्र है।",
     REJECT: "कम-से-कम एक अनिवार्य शर्त पूरी नहीं है और कोई अपवाद लागू नहीं होता, इसलिए मामला पात्र नहीं है।",
-    REFER_TO_MANAGER: "दिया गया नियम अंतिम निर्णय से पहले इस मामले को प्रबंधक के पास भेजता है।",
-    REFER_TO_DIRECTOR: "दिए गए नियम के अनुसार इस मामले का निर्णय निदेशक को करना है।",
-    REFER_TO_COMMITTEE: "दिए गए नियम के अनुसार इस मामले को समीक्षा समिति के पास भेजना है।",
+    REFER_TO_MANAGER: "दिए गए अपवाद के तहत अंतिम पात्रता निर्णय से पहले प्रबंधक की समीक्षा आवश्यक है।",
+    REFER_TO_DIRECTOR: "दिए गए अपवाद के तहत निदेशक-स्तरीय निर्णय आवश्यक है।",
+    REFER_TO_COMMITTEE: "दिए गए अपवाद के तहत समीक्षा समिति की जाँच आवश्यक है।",
     INFORMATION_REQUIRED: "एक आवश्यक विवरण उपलब्ध नहीं है या अपवाद की जाँच संभव नहीं है, इसलिए अभी अंतिम निर्णय नहीं लिया जा सकता।",
     TAKE_ACTION: "यह कार्रवाई लागू प्रशासनिक सिद्धांत का पालन करती है।",
     SET_RESULT: "उत्तर प्रत्येक प्रोफाइल के स्वतंत्र रूप से निकाले गए निर्णय से मिलता है।",
@@ -266,9 +358,9 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
   pa: {
     SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਮਾਮਲਾ ਦਿੱਤੇ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਯੋਗ ਹੈ।",
     REJECT: "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲਾਜ਼ਮੀ ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਹੁੰਦੀ ਅਤੇ ਕੋਈ ਅਪਵਾਦ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ, ਇਸ ਲਈ ਮਾਮਲਾ ਯੋਗ ਨਹੀਂ ਹੈ।",
-    REFER_TO_MANAGER: "ਦਿੱਤਾ ਨਿਯਮ ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਮਾਮਲੇ ਨੂੰ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਦਾ ਹੈ।",
-    REFER_TO_DIRECTOR: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਇਸ ਮਾਮਲੇ ਦਾ ਫੈਸਲਾ ਡਾਇਰੈਕਟਰ ਨੇ ਕਰਨਾ ਹੈ।",
-    REFER_TO_COMMITTEE: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਇਸ ਮਾਮਲੇ ਨੂੰ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਣਾ ਹੈ।",
+    REFER_TO_MANAGER: "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਅੰਤਿਮ ਯੋਗਤਾ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮੈਨੇਜਰ ਦੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ ਹੈ।",
+    REFER_TO_DIRECTOR: "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਡਾਇਰੈਕਟਰ-ਪੱਧਰੀ ਫੈਸਲਾ ਲੋੜੀਂਦਾ ਹੈ।",
+    REFER_TO_COMMITTEE: "ਦਿੱਤੇ ਅਪਵਾਦ ਹੇਠ ਸਮੀਖਿਆ ਕਮੇਟੀ ਦੀ ਜਾਂਚ ਲੋੜੀਂਦੀ ਹੈ।",
     INFORMATION_REQUIRED: "ਇੱਕ ਲਾਜ਼ਮੀ ਵੇਰਵਾ ਉਪਲਬਧ ਨਹੀਂ ਜਾਂ ਅਪਵਾਦ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਇਸ ਲਈ ਹਾਲੇ ਅੰਤਿਮ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।",
     TAKE_ACTION: "ਇਹ ਕਾਰਵਾਈ ਲਾਗੂ ਪ੍ਰਸ਼ਾਸਕੀ ਸਿਧਾਂਤ ਦੀ ਪਾਲਣਾ ਕਰਦੀ ਹੈ।",
     SET_RESULT: "ਜਵਾਬ ਹਰ ਪ੍ਰੋਫਾਈਲ ਲਈ ਸੁਤੰਤਰ ਤੌਰ ਤੇ ਕੱਢੇ ਫੈਸਲੇ ਤੋਂ ਮਿਲਦਾ ਹੈ।",
@@ -629,7 +721,7 @@ function buildRankingExplanation(
   const excluded = cohort.filter((candidate) => !ranked.eligibleRanking.some((entry) => entry.candidate.name === candidate.name));
   const excludedRows = excluded.map((candidate) => {
     const result = evaluateDmDecision(candidate, scenario);
-    return candidate.name + " — " + OUTCOME_LABELS[locale][result.outcome];
+    return candidate.name + " — " + outcomeLabel(result.outcome, locale, hash(scenario.scenarioId + ":" + candidate.name));
   });
   const heading = locale === "en" ? "Ranking using the stated priority order" : locale === "hi" ? "दिए गए प्राथमिकता क्रम से वरीयता" : "ਦਿੱਤੇ ਤਰਜੀਹ ਕ੍ਰਮ ਅਨੁਸਾਰ ਦਰਜਾਬੰਦੀ";
   const eligibleHeading = locale === "en" ? "Eligible ranking" : locale === "hi" ? "पात्रता के बाद वरीयता" : "ਯੋਗਤਾ ਮਗਰੋਂ ਦਰਜਾਬੰਦੀ";
@@ -728,7 +820,7 @@ function explanationRows(result: DmDecisionResult, candidate: DmCandidateProfile
   }));
 }
 
-function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfile, scenario: DmScenario, locale: DmLocale): string {
+function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfile, scenario: DmScenario, locale: DmLocale, seed: number): string {
   const prompt = PROMPTS[locale];
   const rows = result.checks.map((check) => {
     const observed = formatCandidateValue(check.condition.field, candidate, scenario, locale);
@@ -740,7 +832,7 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
   const matchedRule = result.matchedRuleId ? scenario.decisionRules.find((rule) => rule.ruleId === result.matchedRuleId) : undefined;
   const ruleLine = asSentence(matchedRule ? matchedRule.explanation[locale] : CONCLUSIONS[locale][result.outcome], locale);
   const finalPunctuation = locale === "en" ? "." : "।";
-  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + OUTCOME_LABELS[locale][result.outcome] + finalPunctuation + "\n" + ruleLine;
+  return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + outcomeLabel(result.outcome, locale, seed) + finalPunctuation + "\n" + ruleLine;
 }
 
 const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind, string>>>> = Object.freeze({
@@ -849,7 +941,7 @@ function generateSetQuestionFromCohort(
   const question = SET_QUESTIONS[locale][kind];
   const prompt = SET_STEM_WRAPPERS[locale][(seed + questionNumber - 1) % SET_STEM_WRAPPERS[locale].length]!.replace("{q}", question);
   const stem = sharedStimulus + "\n" + prompt;
-  const resultRows = cohort.map((candidate, index) => candidate.name + " — " + OUTCOME_LABELS[locale][results[index]!.outcome]);
+  const resultRows = cohort.map((candidate, index) => candidate.name + " — " + outcomeLabel(results[index]!.outcome, locale, hash(scenario.scenarioId + ":set:" + String(index) + ":" + String(seed))));
   const finalPunctuation = locale === "en" ? "." : "।";
   const explanation = (locale === "en" ? "Each profile is decided independently" : locale === "hi" ? "हर प्रोफाइल का स्वतंत्र निर्णय" : "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ") + ":\n" + resultRows.join("\n") + "\n\n" + (locale === "en" ? "Therefore: " : locale === "hi" ? "अतः " : "ਇਸ ਲਈ ") + answer.label + finalPunctuation;
   const rows = results.flatMap((result, index) => result.checks.map((check) => Object.freeze({
@@ -933,7 +1025,7 @@ function orderedOptions(correct: DmOutcome, locale: DmLocale, seed: number): { o
     keys[index] = keys[swap]!;
     keys[swap] = current;
   }
-  const options = keys.map((key) => OUTCOME_LABELS[locale][key]);
+  const options = keys.map((key, index) => outcomeLabel(key, locale, seed + index * 17));
   if (new Set(options).size !== 4) throw new Error("DM-001 option labels must be unique in every supported locale.");
   return Object.freeze({ options: Object.freeze(options), correctIndex: keys.indexOf(correct) });
 }
@@ -1074,7 +1166,7 @@ export function generateDmQuestion(input: {
     options: options.options,
     correctIndex: options.correctIndex,
     outcome: result.outcome,
-    explanation: buildExplanation(result, candidate, scenario, locale),
+    explanation: buildExplanation(result, candidate, scenario, locale, seed),
     explanationRows: Object.freeze(explanationRows(result, candidate, scenario, locale)),
   });
 }

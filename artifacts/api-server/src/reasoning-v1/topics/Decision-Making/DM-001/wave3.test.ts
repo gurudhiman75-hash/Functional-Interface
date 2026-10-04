@@ -8,16 +8,16 @@ import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
 assert.equal(DM_001_CHECKPOINT_IDS.slice(0, 16).length, 16);
 assert.equal(DM_001_QL_IDS.slice(0, 48).length, 48);
 assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 16).length, 48);
-assert.equal(DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 16).length, 550);
+assert.equal(DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 16).length, 700);
 assertContinuousDmQlIds();
 
 const waveThreeCheckpoints = DM_001_CHECKPOINT_IDS.slice(10, 16);
 for (const checkpointId of waveThreeCheckpoints) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
-  assert.equal(scenarios.length, 50, checkpointId + " must expose 50 situational seeds");
+  assert.equal(scenarios.length, 75, checkpointId + " must expose 75 situational scenarios");
   assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
-  assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 50);
-  assert.equal(new Set(scenarios.map((scenario) => scenario.situational!.situation.en)).size, 50);
+  assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 75);
+  assert.equal(new Set(scenarios.map((scenario) => scenario.situational!.situation.en)).size, 75);
   const distractorTexts = new Set(scenarios.flatMap((scenario) => scenario.situational!.choices.slice(1).map((choice) => choice.text.en)));
   assert.ok(distractorTexts.size >= 15, checkpointId + " must use varied, scenario-relevant distractors");
   assert.ok(!distractorTexts.has("Take a final adverse action immediately without checking the record."));
@@ -93,4 +93,4 @@ for (const malformedPhrase of [
   assert.ok(!localizedSituationalCorpus.includes(malformedPhrase), "Malformed localized phrase returned: " + malformedPhrase);
 }
 
-console.log("DM-001 Wave 3 checks passed: DM-011–016, 300 situational seeds, 18 QLs, three locales, deterministic action sequencing and resource priorities.");
+console.log("DM-001 Wave 3 checks passed: DM-011–016, 450 situational scenarios, 18 QLs, three locales, deterministic action sequencing and resource priorities.");
