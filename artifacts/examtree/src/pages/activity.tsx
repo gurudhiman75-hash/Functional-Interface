@@ -5,7 +5,6 @@ import {
   BarChart3,
   BookOpen,
   Bookmark,
-  CalendarDays,
   CheckCircle2,
   ChevronRight,
   Clock3,
@@ -14,7 +13,6 @@ import {
   Globe2,
   Landmark,
   Newspaper,
-  Search,
   Target,
   Trophy,
 } from "lucide-react";
