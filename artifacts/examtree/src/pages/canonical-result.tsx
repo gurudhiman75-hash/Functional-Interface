@@ -226,6 +226,37 @@ export default function CanonicalResult() {
           </div>
         </section>
 
+        {Array.isArray(result.descriptiveResponses) && result.descriptiveResponses.length > 0 && (
+          <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BookOpen className="h-5 w-5" /></span>
+              <div>
+                <h2 className="text-lg font-bold tracking-tight text-slate-950">Descriptive responses</h2>
+                <p className="mt-1 text-sm text-slate-500">Your submitted text is preserved exactly with the attempt. Reviewed marks appear alongside it when available.</p>
+              </div>
+            </div>
+            <div className="mt-5 space-y-4">
+              {result.descriptiveResponses.map((response) => {
+                const reviewed = result.descriptiveReview?.taskScores?.find((score) => score.questionId === response.questionId);
+                return (
+                  <div key={response.questionId} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="text-sm font-bold text-slate-950">{response.taskId}</p>
+                        <p className="text-xs text-slate-500">{response.wordCount} words · {response.marks} marks</p>
+                      </div>
+                      <span className="rounded-full border border-[#ded9fa] bg-white px-2.5 py-1 text-xs font-bold text-[#6657e8]">
+                        {reviewed ? reviewed.awardedMarks + "/" + reviewed.maxMarks : "Review pending"}
+                      </span>
+                    </div>
+                    <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700">{response.text || "No response submitted."}</p>
+                    {reviewed?.comment && <p className="mt-3 rounded-xl bg-white p-3 text-xs leading-5 text-slate-600"><strong>Reviewer:</strong> {reviewed.comment}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
         <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" aria-label="Attempt analysis">
           <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
             <div className="flex items-start gap-3">
