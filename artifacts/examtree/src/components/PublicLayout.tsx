@@ -4,7 +4,6 @@ import {
   BarChart3,
   ChevronDown,
   Home,
-  Languages,
   LayoutDashboard,
   Menu,
   Newspaper,
