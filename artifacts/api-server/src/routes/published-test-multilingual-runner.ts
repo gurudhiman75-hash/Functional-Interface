@@ -4,6 +4,12 @@ import { AttemptReliabilityError } from "../lib/attempt-reliability";
 import { evaluateTestLocalizationReadiness } from "../lib/admin-test-localization";
 import { languageCodesFromSettings } from "../lib/admin-translation-operations";
 import { sqlClient } from "../lib/db";
+import {
+  inspectDescriptiveTasks,
+  readSharedStimulus,
+  stableRuntimeItemId,
+  type SharedStimulusRuntime,
+} from "../lib/test-runtime-content";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -191,6 +197,9 @@ router.get("/tests/:id", async (req, res, next) => {
           tq.position,
           tq.marks::float8 AS marks,
           tq.negative_marks::float8 AS "negativeMarks",
+          tq.settings AS "questionSettings",
+          version.question_type AS "questionType",
+          version.answer_model AS "answerModel",
           version.stem,
           COALESCE(
             json_agg(json_build_object(
@@ -205,22 +214,37 @@ router.get("/tests/:id", async (req, res, next) => {
         LEFT JOIN content.question_options option ON option.question_version_id = version.id
         WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
         GROUP BY tq.test_section_id, tq.question_version_id, tq.position,
-          tq.marks, tq.negative_marks, version.stem
+          tq.marks, tq.negative_marks, tq.settings, version.question_type, version.answer_model, version.stem
         ORDER BY tq.test_section_id, tq.position
       `,
       loadTranslations(String(test.publishedVersionId), languageCodes.filter((code) => code !== "en")),
     ]);
 
-    const questionsBySection = new Map<string, unknown[]>();
+    const questionsBySection = new Map<string, Array<Record<string, unknown>>>();
+    const stimulusBySection = new Map<string, Map<string, SharedStimulusRuntime>>();
+    const registerStimulus = (sectionId: string, stimulus: SharedStimulusRuntime | null) => {
+      if (!stimulus) return;
+      const current = stimulusBySection.get(sectionId) ?? new Map<string, SharedStimulusRuntime>();
+      current.set(stimulus.id, stimulus);
+      stimulusBySection.set(sectionId, current);
+    };
+
     questionRows.forEach((row, index) => {
       const sectionId = String(row.testSectionId);
       const options = asOptionList(row.options).map((option) => String(option.text ?? ""));
       const localized = translations.questions.get(String(row.questionVersionId));
       const hindi = localized?.get("hi");
       const punjabi = localized?.get("pa");
+      const sharedStimulus = readSharedStimulus(row.answerModel, row.questionSettings);
+      registerStimulus(sectionId, sharedStimulus);
       const list = questionsBySection.get(sectionId) ?? [];
       list.push({
         id: stableQuestionId(String(row.questionVersionId), index),
+        questionVersionId: String(row.questionVersionId),
+        testSectionId: sectionId,
+        responseType: "single_choice",
+        questionType: String(row.questionType ?? "mcq_single"),
+        sharedStimulusId: sharedStimulus?.id ?? null,
         text: String(row.stem),
         options,
         correct: -1,
@@ -233,10 +257,51 @@ router.get("/tests/:id", async (req, res, next) => {
         optionsPa: punjabi?.options ?? null,
         explanationPa: null,
         translations: Object.fromEntries(localized ?? []),
+        marks: Number(row.marks),
+        negativeMarks: Number(row.negativeMarks),
       });
       questionsBySection.set(sectionId, list);
     });
 
+    let descriptiveTaskCount = 0;
+    let descriptiveMarks = 0;
+    for (const section of sections) {
+      const sectionId = String(section.id);
+      const inspection = inspectDescriptiveTasks(section.settings);
+      if (inspection.issues.length > 0) {
+        throw new Error(`Published descriptive section ${String(section.name)} is invalid: ${inspection.issues.join(" ")}`);
+      }
+      if (inspection.tasks.length === 0) continue;
+      const list = questionsBySection.get(sectionId) ?? [];
+      for (const task of inspection.tasks) {
+        registerStimulus(sectionId, task.stimulus);
+        list.push({
+          id: stableRuntimeItemId(`descriptive:${sectionId}:${task.id}`),
+          questionVersionId: null,
+          testSectionId: sectionId,
+          responseType: "descriptive",
+          questionType: "descriptive",
+          descriptiveTaskId: task.id,
+          descriptiveKind: task.kind,
+          sharedStimulusId: task.stimulus?.id ?? null,
+          text: task.prompt,
+          options: [],
+          correct: -1,
+          section: String(section.name),
+          explanation: "",
+          marks: task.marks,
+          negativeMarks: 0,
+          minWords: task.minWords,
+          maxWords: task.maxWords,
+          instructions: task.instructions,
+        });
+        descriptiveTaskCount += 1;
+        descriptiveMarks += task.marks;
+      }
+      questionsBySection.set(sectionId, list);
+    }
+
+    const totalRuntimeItems = questionRows.length + descriptiveTaskCount;
     const navigationRules = asRecord(settings.navigationRules);
     const lockSectionNavigation = navigationRules.switchSections === false;
     const difficultyValue = String(settings.difficulty ?? "Medium");
@@ -265,7 +330,10 @@ router.get("/tests/:id", async (req, res, next) => {
       priceCents: null,
       kind: String(settings.testType ?? "full_mock") === "sectional" ? "sectional" : "full-length",
       duration: Math.max(1, Math.round(Number(test.durationSeconds) / 60)),
-      totalQuestions: questionRows.length,
+      totalQuestions: totalRuntimeItems,
+      objectiveQuestionCount: questionRows.length,
+      descriptiveTaskCount,
+      descriptiveMarks,
       attempts: 0,
       avgScore: 0,
       difficulty,
@@ -283,6 +351,7 @@ router.get("/tests/:id", async (req, res, next) => {
           nameHi: localized?.get("hi") ?? null,
           namePa: localized?.get("pa") ?? null,
           translations: Object.fromEntries(localized ?? []),
+          stimulusGroups: Array.from(stimulusBySection.get(String(section.id))?.values() ?? []),
           questions: questionsBySection.get(String(section.id)) ?? [],
         };
       }),
