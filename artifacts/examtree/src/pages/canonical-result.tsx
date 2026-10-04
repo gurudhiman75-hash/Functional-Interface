@@ -143,7 +143,13 @@ export default function CanonicalResult() {
   const accuracy = result.correct + result.wrong > 0
     ? Math.round((result.correct / (result.correct + result.wrong)) * 100)
     : 0;
-  const boundedScore = clampPercent(result.score);
+  const displayScore = result.descriptiveReviewStatus === "reviewed" && result.combinedPercentage != null
+    ? result.combinedPercentage
+    : result.score;
+  const displayActualScore = result.descriptiveReviewStatus === "reviewed" && result.combinedActualScore != null
+    ? result.combinedActualScore
+    : result.actualScore;
+  const boundedScore = clampPercent(displayScore);
   const totalQuestions = Math.max(0, result.totalQuestions || result.correct + result.wrong + result.unanswered);
   const correctShare = totalQuestions > 0 ? (result.correct / totalQuestions) * 100 : 0;
   const wrongShare = totalQuestions > 0 ? (result.wrong / totalQuestions) * 100 : 0;
@@ -171,6 +177,18 @@ export default function CanonicalResult() {
           {seriesUrl ? "Back to Test Series" : "Back to My Activity"}
         </button>
 
+        {result.descriptiveReviewStatus === "pending" && (
+          <section className="rounded-2xl border border-amber-200 bg-amber-50/80 p-4 text-sm text-amber-950">
+            <p className="font-bold">Descriptive evaluation is pending</p>
+            <p className="mt-1 leading-6">Your objective section has been scored. Essay/comprehension marks will be added after review; the submitted text is already saved with this attempt.</p>
+          </section>
+        )}
+        {result.descriptiveReviewStatus === "reviewed" && (
+          <section className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 text-sm text-emerald-950">
+            <p className="font-bold">Descriptive evaluation completed</p>
+            <p className="mt-1 leading-6">Descriptive: {result.descriptiveReview?.descriptiveAwardedMarks ?? 0}/{result.descriptiveReview?.descriptiveMaximumMarks ?? 0} marks · Objective: {result.objectiveActualScore ?? result.actualScore ?? 0} marks.</p>
+          </section>
+        )}
         <section className="overflow-hidden rounded-3xl border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_8%,rgba(108,92,241,0.14),transparent_25rem),linear-gradient(120deg,#ffffff_0%,#f8f6ff_100%)] shadow-[0_16px_44px_rgba(37,42,68,0.05)]" data-testid="result-summary">
           <div className="grid gap-7 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_310px] lg:items-center lg:p-8">
             <div className="min-w-0">
@@ -193,9 +211,9 @@ export default function CanonicalResult() {
             <div className="rounded-3xl border border-white bg-white/90 p-5 shadow-[0_12px_36px_rgba(71,61,145,0.08)]">
               <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-full p-[12px]" style={{ background: `conic-gradient(#6657e8 ${boundedScore * 3.6}deg,#ece9fb 0deg)` }}>
                 <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white text-center">
-                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Score</span>
-                  <span className="mt-1 text-4xl font-black tracking-[-0.04em] text-slate-950">{result.score}%</span>
-                  {result.actualScore != null && <span className="mt-1 text-xs font-bold text-slate-500">{result.actualScore} marks</span>}
+                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">{result.descriptiveReviewStatus === "reviewed" ? "Combined score" : result.descriptiveReviewStatus === "pending" ? "Objective score" : "Score"}</span>
+                  <span className="mt-1 text-4xl font-black tracking-[-0.04em] text-slate-950">{displayScore}%</span>
+                  {displayActualScore != null && <span className="mt-1 text-xs font-bold text-slate-500">{displayActualScore} marks</span>}
                 </div>
               </div>
               <div className="mt-5 flex items-center justify-between text-xs"><span className="font-semibold text-slate-500">Accuracy</span><strong className="text-slate-950">{accuracy}%</strong></div>
