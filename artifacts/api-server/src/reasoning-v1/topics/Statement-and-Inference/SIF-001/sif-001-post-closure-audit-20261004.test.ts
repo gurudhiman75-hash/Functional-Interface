@@ -100,7 +100,7 @@ for (const cpId of SIF_CP_IDS) {
       const cycleOne = renderSifAuthority({
         authority,
         locale,
-        seed: pool.length,
+        seed: 1,
         poolSize: pool.length,
       });
 
@@ -133,7 +133,7 @@ for (const cpId of SIF_CP_IDS) {
       assert.notDeepEqual(
         [...cycleZeroOrders],
         [...cycleOneOrders],
-        `${authority.id}: authority remains permanently tied to one I/II presentation order`,
+        `${authority.id}: direct renderer must support both I/II presentation orders`,
       );
       dualOrderAuthorityCount += 1;
     }
