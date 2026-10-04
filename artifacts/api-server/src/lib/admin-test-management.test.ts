@@ -66,6 +66,69 @@ test("reports marks mismatch", () => {
   );
 });
 
+test("accepts a descriptive-only section and includes its marks", () => {
+  const input = validDraft();
+  input.durationMinutes = 90;
+  input.totalMarks = 29;
+  input.sections.push({
+    clientKey: "descriptive",
+    name: "Descriptive English",
+    durationMinutes: 30,
+    questions: [],
+    settings: {
+      descriptiveTasks: [
+        {
+          id: "essay-1",
+          kind: "essay",
+          prompt: "Write an essay on responsible use of artificial intelligence in banking.",
+          marks: 15,
+          minWords: 200,
+          maxWords: 300,
+        },
+        {
+          id: "comprehension-1",
+          kind: "comprehension",
+          prompt: "Summarise the central argument of the passage in your own words.",
+          marks: 10,
+          maxWords: 150,
+          stimulus: {
+            id: "desc-passage-1",
+            kind: "passage",
+            text: "Digital banking improves access, but institutions must balance convenience with fraud controls and customer education.",
+          },
+        },
+      ],
+    },
+  });
+  input.sections[0].durationMinutes = 60;
+
+  const normalized = normalizeTestDraftInput(input);
+  const issues = validateTestDraftShape(normalized);
+  assert.equal(issues.some((issue) => issue.code === "STRUCTURE_EMPTY_SECTION"), false);
+  assert.equal(issues.some((issue) => issue.code === "STRUCTURE_MARKS_MISMATCH"), false);
+});
+
+test("rejects malformed descriptive word limits", () => {
+  const input = validDraft();
+  input.sections[0].settings = {
+    descriptiveTasks: [
+      {
+        id: "essay-1",
+        kind: "essay",
+        prompt: "Write an essay.",
+        marks: 10,
+        minWords: 400,
+        maxWords: 200,
+      },
+    ],
+  };
+  assert.throws(
+    () => normalizeTestDraftInput(input),
+    (error: unknown) => error instanceof TestManagementError
+      && error.code === "INVALID_DESCRIPTIVE_SECTION",
+  );
+});
+
 test("maps lifecycle actions to permissions and statuses", () => {
   assert.deepEqual(getTestLifecycleConfig("approve"), {
     status: "qa_approved",
