@@ -70,15 +70,22 @@ function assertRouteContract(route: string): void {
 }
 
 function assertRegistryContract(registry: string): void {
-  const cp015Import = 'import adminQuestionStudioArgumentsCp015Router from "./admin-question-studio-arguments-cp015";';
-  const cp014Import = 'import adminQuestionStudioArgumentsCp014Router from "./admin-question-studio-arguments-cp014";';
+  const cp015Registration = 'const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"));';
+  const cp014Registration = 'const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"));';
   const cp015Mount = "router.use(adminQuestionStudioArgumentsCp015Router);";
   const cp014Mount = "router.use(adminQuestionStudioArgumentsCp014Router);";
 
-  assertContains(registry, cp015Import, "CP015 route is not imported by the canonical Question Studio registry.");
-  assertContains(registry, cp014Import, "CP014 historical fallback import is missing from the canonical registry.");
+  assertContains(registry, cp015Registration, "CP015 route is not lazy-registered by the canonical Question Studio registry.");
+  assertContains(registry, cp014Registration, "CP014 historical fallback is not lazy-registered by the canonical registry.");
   assertContains(registry, cp015Mount, "CP015 route is not mounted by the canonical Question Studio registry.");
   assertContains(registry, cp014Mount, "CP014 historical fallback is not mounted by the canonical Question Studio registry.");
+
+  const cp015RegistrationIndex = registry.indexOf(cp015Registration);
+  const cp014RegistrationIndex = registry.indexOf(cp014Registration);
+  assert.ok(
+    cp015RegistrationIndex >= 0 && cp014RegistrationIndex >= 0 && cp015RegistrationIndex < cp014RegistrationIndex,
+    "CP015 lazy registration must remain ahead of CP014 historical fallback registration.",
+  );
 
   const cp015Index = registry.indexOf(cp015Mount);
   const cp014Index = registry.indexOf(cp014Mount);
@@ -104,6 +111,6 @@ console.log(JSON.stringify({
     studentDeliveryAuthorized: false,
     automaticStudentPublication: false,
   },
-  routingOrder: "CP015_BEFORE_CP014",
+  routingOrder: "CP015_LAZY_REGISTERED_AND_MOUNTED_BEFORE_CP014",
   generationRunsInsertArity: 16,
 }, null, 2));
