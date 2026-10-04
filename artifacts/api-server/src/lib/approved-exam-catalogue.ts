@@ -3,27 +3,17 @@ import { randomUUID } from "node:crypto";
 import { sqlClient } from "./db";
 import { logger } from "./logger";
 
-export type ApprovedExam = {
+type ApprovedExam = {
   family: "SSC" | "BANKING" | "PUNJAB";
   code: string;
   name: string;
   description: string;
 };
 
-export const APPROVED_EXAMS: readonly ApprovedExam[] = [
-  { family: "SSC", code: "SSC_CGL", name: "SSC CGL", description: "SSC Combined Graduate Level exam preparation and test series." },
-  { family: "SSC", code: "SSC_CHSL", name: "SSC CHSL", description: "SSC Combined Higher Secondary Level exam preparation and test series." },
-  { family: "SSC", code: "SSC_MTS", name: "SSC MTS", description: "SSC MTS and Havaldar exam preparation and test series." },
-  { family: "SSC", code: "SSC_CPO", name: "SSC CPO", description: "SSC CPO Sub-Inspector exam preparation and test series." },
-  { family: "SSC", code: "SSC_GD", name: "SSC GD Constable", description: "SSC GD Constable exam preparation and test series." },
-  { family: "SSC", code: "SSC_STENOGRAPHER", name: "SSC Stenographer Grade C & D", description: "SSC Stenographer Grade C and D exam preparation and test series." },
+const APPROVED_EXAMS: readonly ApprovedExam[] = [
   { family: "SSC", code: "SSC_SELECTION_POST", name: "SSC Selection Post", description: "Staff Selection Commission Selection Post exam preparation and test series." },
   { family: "SSC", code: "SSC_JE", name: "SSC JE", description: "SSC Junior Engineer exam preparation and test series." },
 
-  { family: "BANKING", code: "IBPS_PO", name: "IBPS PO", description: "IBPS Probationary Officer exam preparation and test series." },
-  { family: "BANKING", code: "IBPS_CLERK", name: "IBPS Clerk / CSA", description: "IBPS Clerk / Customer Service Associate exam preparation and test series." },
-  { family: "BANKING", code: "IBPS_RRB_PO", name: "IBPS RRB Officer Scale I", description: "IBPS RRB Officer Scale I exam preparation and test series." },
-  { family: "BANKING", code: "IBPS_RRB_CLERK", name: "IBPS RRB Office Assistant", description: "IBPS RRB Office Assistant exam preparation and test series." },
   { family: "BANKING", code: "SBI_PO", name: "SBI PO", description: "State Bank of India Probationary Officer exam preparation and test series." },
   { family: "BANKING", code: "SBI_CLERK", name: "SBI Clerk / Junior Associate", description: "SBI Junior Associate / Clerk exam preparation and test series." },
   { family: "BANKING", code: "RBI_ASSISTANT", name: "RBI Assistant", description: "Reserve Bank of India Assistant exam preparation and test series." },
