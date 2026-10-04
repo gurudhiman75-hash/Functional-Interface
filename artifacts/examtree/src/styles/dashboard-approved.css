@@ -6,7 +6,7 @@
   --dash-line:#e4ebf5;
   width:100%;
   max-width:1500px;
-  margin:0 auto;
+  margin:-26px auto 0;
   color:var(--dash-navy);
 }
 .dash-hero{
