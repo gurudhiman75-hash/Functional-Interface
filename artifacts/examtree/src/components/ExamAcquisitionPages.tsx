@@ -140,7 +140,7 @@ function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; ser
     <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-4 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex min-w-0 items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-          {test.iconUrl ? <img src={test.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-4.5 w-4.5 text-indigo-600" />}
+          {test.iconUrl ? <img src={test.iconUrl} alt="" className="h-full w-full object-contain p-1" /> : <FileText className="h-4 w-4 text-indigo-600" />}
         </div>
         <div className="min-w-0">
           <h4 className="font-semibold leading-5 text-slate-950">{test.title}</h4>
