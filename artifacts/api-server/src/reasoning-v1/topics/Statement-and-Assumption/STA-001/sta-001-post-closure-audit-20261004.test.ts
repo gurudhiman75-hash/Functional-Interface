@@ -6,11 +6,11 @@ import {
   STA_V4_PRESENTATION_PROFILES,
   STA_V4_PROFILE_IDS,
   STA_V4_QL_IDS,
-  STA_V4_SCENARIOS,
   generateStaV4Question,
   type StaV4Language,
   type StaV4Locale,
 } from "./exam-realness-v4-1-learner-runtime.ts";
+import { STA_V4_SCENARIOS } from "./exam-realness-v4-1-runtime.ts";
 import {
   assertStaV41RenderedQuestionIndependentProof,
   assertStaV41ScenarioIndependentProof,
