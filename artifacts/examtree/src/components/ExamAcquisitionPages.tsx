@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Redirect } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
@@ -1057,7 +1057,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
       section.type === "details_updates" ? config.syllabus.verificationNote :
       "");
 
-    let content: React.ReactNode = null;
+    let content: ReactNode = null;
 
     if (manualCards.length > 0) {
       content = <ConfiguredManualCards section={section} />;
