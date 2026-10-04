@@ -9,6 +9,7 @@ import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/Pub
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
 import { getStudentTestSeries, type StudentSeriesCatalogTest, type StudentSeriesSummary } from "@/lib/test-series";
+import { DEFAULT_WEB_EXAM_PAGE_CONFIGURATION, getWebExamPageConfiguration, type WebExamCardStyle, type WebExamPageSection, type WebExamSectionLayout } from "@/lib/web-exam-page";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import {
   catalogExamCodesForSlug,
@@ -145,7 +146,7 @@ function testItem(test: Test): ExamHubCatalogItem {
   };
 }
 
-function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; seriesId: string }) {
+function SeriesTestRow({ test, seriesId, ctaLabel }: { test: StudentSeriesCatalogTest; seriesId: string; ctaLabel?: string }) {
   const durationMinutes = Math.max(1, Math.ceil(Number(test.durationSeconds || 0) / 60));
   return (
     <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-4 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
@@ -165,7 +166,7 @@ function SeriesTestRow({ test, seriesId }: { test: StudentSeriesCatalogTest; ser
         href={"/test/" + encodeURIComponent(test.testId) + "?seriesId=" + encodeURIComponent(seriesId)}
         className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white transition hover:bg-[#594bd9]"
       >
-        Start test
+        {ctaLabel || "Start test"}
       </Link>
     </div>
   );
@@ -177,13 +178,35 @@ function ExamHubCatalogSection({
   description,
   items,
   emptyMessage,
+  layout = "list",
+  columns = 1,
+  cardStyle = "default",
+  ctaLabel,
 }: {
   id: string;
   title: string;
   description: string;
   items: ExamHubCatalogItem[];
   emptyMessage: string;
+  layout?: WebExamSectionLayout;
+  columns?: number;
+  cardStyle?: WebExamCardStyle;
+  ctaLabel?: string;
 }) {
+  const containerClass =
+    layout === "horizontal"
+      ? "flex snap-x gap-4 overflow-x-auto pb-2"
+      : layout === "grid" || layout === "cards"
+        ? "grid gap-4"
+        : "space-y-4";
+  const gridColumnsClass =
+    columns >= 4 ? "lg:grid-cols-4" : columns === 3 ? "lg:grid-cols-3" : columns === 2 ? "md:grid-cols-2" : "grid-cols-1";
+  const cardClass =
+    cardStyle === "minimal" ? "border-transparent shadow-none" :
+    cardStyle === "featured" ? "border-indigo-200 shadow-[0_10px_28px_rgba(79,70,229,0.08)]" :
+    cardStyle === "compact" ? "border-slate-200 shadow-none" :
+    "border-slate-200 shadow-[0_5px_18px_rgba(15,23,42,0.035)]";
+
   return (
     <section id={id} role="tabpanel" className="rounded-2xl border border-slate-200 bg-slate-50/60 p-3 sm:p-4">
       <div className="px-1 pb-3">
@@ -196,9 +219,9 @@ function ExamHubCatalogSection({
           <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className={containerClass + ((layout === "grid" || layout === "cards") ? " " + gridColumnsClass : "")}>
           {items.map((item) => item.seriesId ? (
-            <article key={item.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_5px_18px_rgba(15,23,42,0.035)]">
+            <article key={item.id} className={"overflow-hidden rounded-2xl border bg-white " + cardClass + (layout === "horizontal" ? " w-[86vw] max-w-[430px] shrink-0 snap-start" : "")}>
               <div className="p-4 sm:p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
@@ -218,7 +241,7 @@ function ExamHubCatalogSection({
 
               {item.seriesTests?.length ? (
                 <div className="border-t border-slate-200 bg-white">
-                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} />)}
+                  {item.seriesTests.map((test) => <SeriesTestRow key={test.id} test={test} seriesId={item.seriesId!} ctaLabel={ctaLabel} />)}
                 </div>
               ) : (
                 <div className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-500">
