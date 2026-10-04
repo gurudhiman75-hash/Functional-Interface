@@ -11,6 +11,9 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-independent-proof.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-post-closure.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/sta-001-post-closure-audit-20261004.test.ts
       - .github/workflows/sta-001-v4-1-freeze.yml
   workflow_dispatch:
 
@@ -60,6 +63,9 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-freeze-v4-1.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-independent-proof.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-post-closure.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/sta-001-post-closure-audit-20261004.test.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-freeze-v4-1-manifest.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-freeze-v4-1-proof.test.ts
 
@@ -70,6 +76,9 @@ jobs:
         run: |
           node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
           node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-proof.test.ts
+
+      - name: Run STA V4.1 post-closure independent answer proof
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/sta-001-post-closure-audit-20261004.test.ts
 
       - name: Replay frozen shared Question Studio integration
         working-directory: artifacts/api-server
