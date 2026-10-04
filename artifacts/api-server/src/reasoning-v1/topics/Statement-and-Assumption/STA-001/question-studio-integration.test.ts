@@ -116,7 +116,7 @@ assert.equal(registryPreview.questions[0]?.permanentQlId, "STA-QL-005");
 assert.equal(registryPreview.questions[0]?.validation.multilingualFrozen, true);
 assert.throws(
   () => persistReasoningV1QuestionStudioReview({ packageId: "STA-001", language: "en", qlId: "STA-QL-001" }),
-  /V4\.1 remains review-only|delivery stays locked/u,
+  /review only.*delivery remains locked|Question Bank\/test\/mock\/public delivery remains locked/u,
 );
 
 for (const profile of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles) {
