@@ -18,6 +18,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -47,9 +48,79 @@ jobs:
             2>&1 | tee -a tmw-001-systematic-audit-v1.log
           grep -q "PASS_TMW_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" tmw-001-systematic-audit-v1.log
 
+      - name: Bundle frozen TMW closure authorities
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-r4-exam-readiness.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-r4-exam-readiness.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-final-228ql-audit.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-final-228ql-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-distractor-resilience.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp011-distractor-resilience.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp012-coverage-closure.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp012-coverage-closure.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp013-data-sufficiency.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp013-data-sufficiency.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp014-presentation.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp014-presentation.mjs
+
+      - name: Run frozen R4 exam-readiness proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-r4-exam-readiness.mjs \
+            2>&1 | tee tmw-001-r4-exam-readiness.log
+
+      - name: Run final 228-QL multilingual and answer-position audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-final-228ql-audit.mjs \
+            2>&1 | tee tmw-001-final-228ql-audit.log
+
+      - name: Run CP011 32-seed distractor resilience
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp011-distractor-resilience.mjs \
+            2>&1 | tee tmw-001-cp011-distractor-resilience.log
+
+      - name: Run CP012 coverage closure proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp012-coverage-closure.mjs \
+            2>&1 | tee tmw-001-cp012-coverage-closure.log
+
+      - name: Run CP013 banking data-sufficiency proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp013-data-sufficiency.mjs \
+            2>&1 | tee tmw-001-cp013-data-sufficiency.log
+
+      - name: Run CP014 structured-presentation proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/.tmw-001-cp014-presentation.mjs \
+            2>&1 | tee tmw-001-cp014-presentation.log
+
       - name: Upload TMW-001 audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tmw-001-systematic-audit-v1
-          path: tmw-001-systematic-audit-v1.log
+          path: |
+            tmw-001-systematic-audit-v1.log
+            tmw-001-r4-exam-readiness.log
+            tmw-001-final-228ql-audit.log
+            tmw-001-cp011-distractor-resilience.log
+            tmw-001-cp012-coverage-closure.log
+            tmw-001-cp013-data-sufficiency.log
+            tmw-001-cp014-presentation.log
