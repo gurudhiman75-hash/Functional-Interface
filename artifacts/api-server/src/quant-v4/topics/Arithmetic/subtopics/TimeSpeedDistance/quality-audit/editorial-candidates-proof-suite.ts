@@ -8,3 +8,4 @@ import "../TSD-002/cp012/moving-surface-worked-review-v1.test";
 import "../TSD-002/cp011/wheel-worked-review-v1.test";
 import "../TSD-002/cp011/escalator-worked-review-v1.test";
 import "../TSD-002/cp010/finish-time-evidence-review-v1.test";
+import "../TSD-002/cp010/handicap-worked-review-v1.test";
