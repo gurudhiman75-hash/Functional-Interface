@@ -2056,7 +2056,6 @@
   --warm-sky:#edf5ff;
   background:linear-gradient(180deg,#fff 0,#fff 430px,var(--warm-page) 100%)!important;
 }
-.home-page>.home-hero-guest{background:inherit}
 
 .warm-featured-band,
 .warm-exam-catalog,
