@@ -10,6 +10,8 @@ Validation: full editorial proof suite passes; CP003–CP012 frozen authority pr
 
 The next source comparison confirmed a CP011 executable gap: two upward walkers with different step counts and a walking-rate ratio were declared in source inventory but absent from the solver input union. A separate 18-row trilingual unapproved candidate now implements that observation model and independently reconstructs both walks. It is supplementary to the unchanged V4 export. See CP011-SOURCE-GAP-20261005.md for scoped book-page evidence and promotion limits.
 
+A further CP012 source comparison found signed periodic ascent/slip motion absent from the positive-speed and travel/rest contracts. A separate 18-row trilingual candidate now handles partial terminal climbs and unreachable states, verified against independent stage simulation. Combined supplementary candidates are 36 rows across two additional observation models, separate from the unchanged V4 export. See CP012-SIGNED-CYCLE-SOURCE-GAP-20261005.md.
+
 ## Closure verdict: NO-GO
 
 TSD remains open. The following are not claimed complete:
