@@ -2711,3 +2711,38 @@
     transform:scale(.70)!important;
   }
 }
+
+
+/* Static clean hero artwork — replaces the previous composited hero to avoid distortion. */
+.home-page .home-static-hero{
+  order:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  overflow:hidden!important;
+  background:linear-gradient(180deg,#ddecff 0%,#eaf4ff 100%)!important;
+}
+.home-page .home-static-hero-image{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:760px!important;
+  object-fit:contain!important;
+  object-position:top center!important;
+}
+@media(max-width:760px){
+  .home-page .home-static-hero{
+    background:#ddecff!important;
+  }
+  .home-page .home-static-hero-image{
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    max-height:none!important;
+    object-fit:contain!important;
+  }
+}
