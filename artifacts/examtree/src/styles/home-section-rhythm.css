@@ -2540,3 +2540,28 @@
     min-height:auto!important;
   }
 }
+
+
+/* Ensure the hero is always the first homepage section.
+   Legacy flex order rules previously let new warm sections appear before it. */
+.home-page .home-hero-guest{
+  order:0!important;
+}
+.home-page .warm-featured-band{
+  order:1!important;
+}
+.home-page .warm-exam-catalog{
+  order:2!important;
+}
+.home-page .warm-collections-band{
+  order:3!important;
+}
+.home-page .warm-free-practice{
+  order:4!important;
+}
+.home-page .feature-wrap{
+  order:5!important;
+}
+.home-page .cta{
+  order:6!important;
+}
