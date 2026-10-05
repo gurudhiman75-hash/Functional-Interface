@@ -30,6 +30,7 @@ import { signInWithGoogle } from "@/lib/auth";
 import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
+import { HOME_STATIC_HERO_IMAGE } from "@/assets/home-static-hero-image";
 
 const HOME_CATEGORY_ICONS: Record<string, string> = {
   "SSC": "/category-icons/ssc-official.svg",
@@ -123,63 +124,8 @@ export default function Home() {
     <div className="home-page" data-testid="home-reference">
       {sampleMode ? <div className="border-b border-amber-200 bg-amber-50 text-amber-950" data-testid="home-sample-preview-badge"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 text-xs sm:px-6 lg:px-8"><span><strong>Sample data preview.</strong> Visual-only catalog data.</span><button type="button" className="min-h-10 rounded-lg px-3 font-bold hover:bg-amber-100" onClick={() => setLocation("/")}>Exit preview</button></div></div> : null}
 
-      <section className="home-hero home-hero-guest hero-layout-v2" data-testid="home-hero">
-        <div className="hero-glow one" /><div className="hero-glow two" />
-        <div className="hero-primary">
-          <div className="hero-copy">
-            <span className="hero-badge"><Users size={14} /> 5,00,000+ aspirants trust Examtree</span>
-            <h1>Practice Today<br />for a <span>Brighter Tomorrow</span></h1>
-            <p>Take exam-like tests, learn from detailed explanations and improve your rank with personalised insights.</p>
-          </div>
-
-          <div className="hero-visual" aria-label="Mock test interface preview">
-            <div className="dashboard-card mock-device">
-              <div className="mock-device-top"><span><span className="tiny-mark">E</span> English Language</span><b>◷ 00:24:17</b></div>
-              <div className="mock-device-body">
-                <div className="mock-question">
-                  <small>Q. 12 / 20</small>
-                  <h3>Find the correctly spelt word.</h3>
-                  {["Accommodate","Accomodate","Acommodate","Accomoddate"].map((option,index)=><div className={`mock-option ${index===0?"selected":""}`} key={option}><span>{String.fromCharCode(65+index)}</span>{option}</div>)}
-                </div>
-                <div className="mock-palette">
-                  <h4>Question Palette</h4>
-                  <div className="mock-legend"><span>Answered</span><span>Current</span><span>Not Visited</span></div>
-                  <div className="mock-numbers">{Array.from({length:20},(_,i)=><i className={i===11?"current":i<10?"done":""} key={i}>{i+1}</i>)}</div>
-                  <div className="mock-progress"><span>Your Progress <b>60%</b></span><div><i /></div></div>
-                  <div className="mock-score"><span>Attempted<b>12/20</b></span><span>Live Rank<b>#248</b></span></div>
-                </div>
-              </div>
-              <button className="mock-next" type="button">Next <ArrowRight /></button>
-            </div>
-          </div>
-
-          <div className="hero-search-zone">
-            <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
-              <Search aria-hidden="true" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways, Punjab Govt..." aria-label="Search exams" />
-              <button type="submit">Find Tests</button>
-            </form>
-            {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
-            <div className="hero-benefits"><span><BookOpen /> Exam-like Mock Tests</span><span><BarChart3 /> Detailed Performance Analysis</span><span><Sparkles /> Topic-wise Practice</span><span><CheckCircle2 /> Updated Syllabus &amp; Pattern</span></div>
-          </div>
-        </div>
-
-        <aside className="hero-auth-panel dark-auth-panel" data-testid="home-hero-auth-card">
-          <div className="hero-auth-card dark-auth-card">
-            <span className="dark-auth-eyebrow">START FREE</span>
-            <h2>Get started with Examtree</h2>
-            <p>Access free tests, study material and personalised learning.</p>
-            <button type="button" className="hero-google-login dark-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}>
-              <span className="google-g" aria-hidden="true">G</span>
-              <span>{googleSignInPending ? "Connecting…" : "Continue with Google"}</span>
-              <ArrowRight className="google-arrow" aria-hidden="true" />
-            </button>
-            <div className="hero-auth-divider"><span>or</span></div>
-            <button type="button" className="hero-email-login dark-email-login" onClick={() => setLocation("/login")}>Continue with email</button>
-            <p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p>
-            <div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div>
-          </div>
-        </aside>
+      <section className="home-static-hero" data-testid="home-hero">
+        <img src={HOME_STATIC_HERO_IMAGE} alt="Examtree practice tests hero" className="home-static-hero-image" />
       </section>
 
       <section className="warm-featured-band" id="test-series" data-testid="home-popular-series">
