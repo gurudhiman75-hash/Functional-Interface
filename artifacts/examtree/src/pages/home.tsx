@@ -76,13 +76,6 @@ const FREE_PRACTICE = [
   { title: "Free Mock Tests", copy: "Full-length tests", icon: CheckCircle2, href: "/mock-tests", className: "violet" },
 ] as const;
 
-function formatCount(value: number) {
-  const safe = Math.max(0, Number(value) || 0);
-  if (safe >= 1000000) return `${(safe / 1000000).toFixed(1)}M`;
-  if (safe >= 1000) return `${(safe / 1000).toFixed(safe >= 10000 ? 0 : 1)}k`;
-  return new Intl.NumberFormat("en-IN").format(safe);
-}
-
 export default function Home() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
