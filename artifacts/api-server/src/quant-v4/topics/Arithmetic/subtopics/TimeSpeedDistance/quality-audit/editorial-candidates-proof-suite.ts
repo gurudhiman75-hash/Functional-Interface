@@ -4,3 +4,4 @@ import "../TSD-002/cp007/content-review-candidate-v2.test";
 import "../TSD-002/cp009/meeting-content-review-v2.test";
 import "./cp008-cp009-worked-review-v2.test";
 import "../TSD-002/cp012/two-engine-worked-review-v1.test";
+import "../TSD-002/cp012/moving-surface-worked-review-v1.test";
