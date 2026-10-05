@@ -12,7 +12,7 @@ Validation: full editorial proof suite passes; CP003–CP012 frozen authority pr
 
 TSD remains open. The following are not claimed complete:
 
-1. Independent foundation QL001–037 replacement/source mapping.
+1. External source provenance for foundation QL001–037. Repository replacement mapping now passes an independently specified ownership check covering all 37 historical goals and 153 frozen records; see FOUNDATION-REPLACEMENT-AUDIT-20261005.md. Internal source-candidate labels do not establish exam-paper provenance.
 2. Source-based semantic breadth and scenario diversity: CP011 168 families collapse to 40 number-masked shapes; CP012 270 to 70. Numeric variation is not evidence of distinct models. Other plausible-context issues in existing frozen authority remain review items.
 3. MathJax and learner/Question Studio UI rendering evidence.
 4. Human approval and promotion of all editorial corrections. Frozen authority remains intact and CP010–CP012 remain unregistered. No Bank/test/mock/public release gate was enabled.
