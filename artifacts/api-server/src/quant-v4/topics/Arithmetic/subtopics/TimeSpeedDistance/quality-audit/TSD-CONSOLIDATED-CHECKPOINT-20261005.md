@@ -8,6 +8,8 @@ The consolidated V4 export contains 3,846 unapproved review rows: CP004 120, CP0
 
 Validation: full editorial proof suite passes; CP003–CP012 frozen authority proofs pass; current-main closure audit passes all 255 cases (171 registered cases and 84 locked candidate cases); production API build passes; full PR whitespace check passes. These checks establish computation and compatibility, not human editorial approval or independent source completeness.
 
+The next source comparison confirmed a CP011 executable gap: two upward walkers with different step counts and a walking-rate ratio were declared in source inventory but absent from the solver input union. A separate 18-row trilingual unapproved candidate now implements that observation model and independently reconstructs both walks. It is supplementary to the unchanged V4 export. See CP011-SOURCE-GAP-20261005.md for scoped book-page evidence and promotion limits.
+
 ## Closure verdict: NO-GO
 
 TSD remains open. The following are not claimed complete:

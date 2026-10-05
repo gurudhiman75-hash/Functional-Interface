@@ -12,3 +12,5 @@ import "../TSD-002/cp010/handicap-worked-review-v1.test";
 import "../TSD-002/cp010/race-evidence-worked-review-v1.test";
 import "../TSD-002/cp010/advanced-race-worked-review-v1.test";
 import "../TSD-002/cp012/journey-worked-review-v1.test";
+
+import "../TSD-002/cp011/two-walker-source-review-v1.test";
