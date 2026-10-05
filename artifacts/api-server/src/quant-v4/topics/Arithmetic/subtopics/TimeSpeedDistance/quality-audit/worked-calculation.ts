@@ -1,7 +1,7 @@
 import { add, divide, multiply, subtract, toMixedString, type Rational } from "../TSD-001/foundation/rational";
 
 export type ReviewLocale = "en-IN" | "hi-IN" | "pa-IN";
-export type CalculationUnit = "m" | "s" | "m/s" | "km" | "h" | "km/h" | "h/km" | "min" | "rev" | "rpm" | "m/min" | "";
+export type CalculationUnit = "m" | "s" | "m/s" | "km" | "h" | "km/h" | "h/km" | "min" | "rev" | "rpm" | "m/min" | "steps" | "steps/s" | "1/s" | "";
 export interface WorkedCalculation {
   readonly label: string;
   readonly expression: string;
@@ -14,6 +14,7 @@ export function calculationWriter(locale: ReviewLocale) {
   const steps: WorkedCalculation[] = [];
   const index = locale === "en-IN" ? 0 : locale === "hi-IN" ? 1 : 2;
   const units: Record<CalculationUnit, readonly [string, string, string]> = {
+    steps: ["steps", "सीढ़ियाँ", "ਪੌੜੀਆਂ"], "steps/s": ["steps/s", "सीढ़ियाँ/सेकंड", "ਪੌੜੀਆਂ/ਸਕਿੰਟ"], "1/s": ["1/s", "1/सेकंड", "1/ਸਕਿੰਟ"],
     min: ["min", "मिनट", "ਮਿੰਟ"], rev: ["revolutions", "चक्कर", "ਚੱਕਰ"], rpm: ["rpm", "चक्कर/मिनट", "ਚੱਕਰ/ਮਿੰਟ"], "m/min": ["m/min", "मीटर/मिनट", "ਮੀਟਰ/ਮਿੰਟ"],
     m: ["m", "मीटर", "ਮੀਟਰ"], s: ["s", "सेकंड", "ਸਕਿੰਟ"], "m/s": ["m/s", "मीटर/सेकंड", "ਮੀਟਰ/ਸਕਿੰਟ"],
     km: ["km", "किमी", "ਕਿਮੀ"], h: ["h", "घंटे", "ਘੰਟੇ"], "km/h": ["km/h", "किमी/घंटा", "ਕਿਮੀ/ਘੰਟਾ"], "h/km": ["h/km", "घंटे/किमी", "ਘੰਟੇ/ਕਿਮੀ"], "": ["", "", ""],
