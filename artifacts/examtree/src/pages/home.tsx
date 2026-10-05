@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
@@ -16,7 +15,6 @@ import {
   Landmark,
   Newspaper,
   Target,
-  TrainFront,
   ShieldCheck,
 } from "lucide-react";
 
@@ -24,33 +22,14 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import {
   SAMPLE_HOME_CATEGORIES,
-  SAMPLE_HOME_SERIES,
   SAMPLE_HOME_SUBCATEGORIES,
   SAMPLE_HOME_TESTS,
 } from "@/lib/home-sample-data";
-import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { signInWithGoogle } from "@/lib/auth";
 import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
-
-const REFERENCE_EXAMS = [
-  { name: "SSC", detail: "CGL | CHSL | MTS" },
-  { name: "Banking", detail: "IBPS | SBI | RBI" },
-  { name: "Punjab Govt.", detail: "PSSSB | PSPCL" },
-  { name: "State Govt.", detail: "All State Exams" },
-  { name: "Railways", detail: "RRB NTPC | Group D" },
-  { name: "Defence", detail: "NDA | CDS | Agniveer" },
-  { name: "Insurance", detail: "LIC | UIIC | NIACL" },
-] as const;
-
-const REFERENCE_SERIES = [
-  { name: "SBI PO 2025", badge: "Pre + Mains", tests: "120+ Tests", price: "₹499", oldPrice: "₹999" },
-  { name: "SSC CGL 2025", badge: "Tier 1 + Tier 2", tests: "100+ Tests", price: "₹399", oldPrice: "₹799" },
-  { name: "PSSSB Exams", badge: "All Posts", tests: "80+ Tests", price: "₹299", oldPrice: "₹599" },
-  { name: "IBPS PO 2025", badge: "Pre + Mains", tests: "100+ Tests", price: "₹399", oldPrice: "₹799" },
-] as const;
 
 const HOME_CATEGORY_ICONS: Record<string, string> = {
   "SSC": "/category-icons/ssc-official.svg",
@@ -60,12 +39,6 @@ const HOME_CATEGORY_ICONS: Record<string, string> = {
   "Railways": "/category-icons/railways-official.svg",
 };
 
-const HOME_SERIES_ICONS = [
-  "/category-icons/sbi-official.svg",
-  "/category-icons/ssc-official.svg",
-  "/category-icons/punjab-official.svg",
-  "/category-icons/ibps-official.svg",
-] as const;
 
 
 const FEATURED_SERIES_STRIP = [
@@ -122,7 +95,6 @@ export default function Home() {
   const categories = sampleMode ? SAMPLE_HOME_CATEGORIES : catalog.categories;
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
-  const seriesQuery = useQuery({ queryKey: ["student-test-series", "reference-home"], queryFn: getStudentTestSeries, enabled: !sampleMode, retry: 1, staleTime: 60_000 });
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
   const featuredGroups = examGroups.slice(0, 12);
   const filteredGroups = useMemo(() => {
@@ -130,10 +102,6 @@ export default function Home() {
     if (!needle) return featuredGroups;
     return featuredGroups.filter((group) => `${group.name} ${group.subcategories.map((item) => item.name).join(" ")}`.toLowerCase().includes(needle));
   }, [featuredGroups, query]);
-  const allSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
-  const popularSeries = useMemo(() => [...allSeries].sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 4), [allSeries]);
-  const totalTests = tests.length;
-  const totalCategories = categories.length;
   const activeExamDefinition = EXAM_TAB_DEFINITIONS.find((tab) => tab.key === activeExamTab) ?? EXAM_TAB_DEFINITIONS[0];
   const activeExamGroup = examGroups.find((group) => activeExamDefinition.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
   const activeExamItems = activeExamGroup?.subcategories?.length
