@@ -1,9 +1,9 @@
 # TSD-CP-003
 
-**Checkpoint:** Speed Changes, Schedules, Early-Late Arrival and Stops  
-**Current phase:** `POST_OVERLAP_EXAM_READINESS_REVIEW`  
-**Permanent QLs:** `0`  
-**English:** `UNFROZEN`  
+**Checkpoint:** Speed Changes, Schedules, Early-Late Arrival and Stops
+**Current phase:** `POST_OVERLAP_EXAM_READINESS_REVIEW`
+**Permanent QLs:** `0`
+**English:** `UNFROZEN`
 **Question Studio / Question Bank / tests / public delivery:** locked
 
 ## Discovery foundation

@@ -1,11 +1,11 @@
 # TSD-CP-007 — Source Saturation and Merge/Split Audit
 
-**Checkpoint:** TSD-CP-007  
-**Package:** TSD-002  
-**Status:** FINAL MERGE/SPLIT CANDIDATE — PRODUCT OWNER REVIEW REQUIRED BEFORE QL ALLOCATION  
-**Discovery candidates reviewed:** 33  
-**Retained learner authorities:** 11  
-**Permanent QLs allocated:** 0  
+**Checkpoint:** TSD-CP-007
+**Package:** TSD-002
+**Status:** FINAL MERGE/SPLIT CANDIDATE — PRODUCT OWNER REVIEW REQUIRED BEFORE QL ALLOCATION
+**Discovery candidates reviewed:** 33
+**Retained learner authorities:** 11
+**Permanent QLs allocated:** 0
 **Next available QL:** TSD-QL-084
 
 ## Boundary

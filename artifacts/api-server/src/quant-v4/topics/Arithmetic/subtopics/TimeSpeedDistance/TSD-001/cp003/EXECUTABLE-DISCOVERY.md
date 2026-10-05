@@ -1,12 +1,12 @@
 # TSD-CP-003 — Executable Discovery and Accepted Post-Overlap Candidate
 
-**Checkpoint:** `TSD-CP-003 — Speed Changes, Schedules, Early-Late Arrival and Stops`  
-**Package:** `TSD-001`  
-**Blueprint authority:** `TSD-END-TO-END-DESIGN-BLUEPRINT.md`  
-**Source inventory:** `TSD-001-CORE-MOTION-SOLVE-MODE-INVENTORY.md`  
-**Current status:** `POST_OVERLAP_EXAM_READINESS_REVIEW`  
-**Permanent QLs:** `0`  
-**English freeze:** `UNFROZEN`  
+**Checkpoint:** `TSD-CP-003 — Speed Changes, Schedules, Early-Late Arrival and Stops`
+**Package:** `TSD-001`
+**Blueprint authority:** `TSD-END-TO-END-DESIGN-BLUEPRINT.md`
+**Source inventory:** `TSD-001-CORE-MOTION-SOLVE-MODE-INVENTORY.md`
+**Current status:** `POST_OVERLAP_EXAM_READINESS_REVIEW`
+**Permanent QLs:** `0`
+**English freeze:** `UNFROZEN`
 **Question Studio / Question Bank / tests / public delivery:** locked
 
 ## 1. Broad discovery boundary

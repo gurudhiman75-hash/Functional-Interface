@@ -7,14 +7,12 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/**"
-      - ".github/workflows/quant-v4-sap-banking-question-studio-routing-p1.yml"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-banking-integration.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-QUESTION-STUDIO-ROUTING.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.test.ts"
       - "artifacts/api-server/src/question-studio/quant-exam-profile.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
   push:
     branches:
@@ -27,7 +25,6 @@ on:
       - "artifacts/api-server/src/question-studio/quant-sap-banking.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.test.ts"
       - "artifacts/api-server/src/question-studio/quant-exam-profile.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
       - ".github/workflows/quant-v4-sap-banking-question-studio-routing-p1.yml"
 
