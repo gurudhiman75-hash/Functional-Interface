@@ -10,7 +10,7 @@ import "@/styles/ssc-exam-workspace.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
-export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari"] as const;
+export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs"] as const;
 type SSCExamSlug = typeof SSC_WORKSPACE_SLUGS[number];
 const subtitles: Record<SSCExamSlug, string> = {
   "ssc-cgl": "Combined Graduate Level Examination",
@@ -19,6 +19,9 @@ const subtitles: Record<SSCExamSlug, string> = {
   "ssc-cpo": "Sub-Inspector in Delhi Police & Central Armed Police Forces",
   "psssb-clerk": "ਕਲਰਕ / ਜੂਨੀਅਰ ਸਹਾਇਕ ਪ੍ਰੀਖਿਆ",
   "punjab-patwari": "ਪੰਜਾਬ ਪਟਵਾਰੀ ਪ੍ਰੀਖਿਆ",
+  "punjab-police-constable": "ਪੰਜਾਬ ਪੁਲਿਸ ਕਾਂਸਟੇਬਲ ਪ੍ਰੀਖਿਆ",
+  "punjab-police-si": "ਪੰਜਾਬ ਪੁਲਿਸ ਸਬ-ਇੰਸਪੈਕਟਰ ਪ੍ਰੀਖਿਆ",
+  "punjab-pcs": "ਪੰਜਾਬ ਰਾਜ ਸਿਵਲ ਸੇਵਾਵਾਂ ਪ੍ਰੀਖਿਆ",
   "ibps-po": "Probationary Officer / Management Trainee Examination",
   "ibps-clerk": "Customer Service Associate Examination",
   "ibps-rrb-po": "Regional Rural Banks · Officer Scale I",
@@ -33,16 +36,18 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
 }) {
   const config = getExamAcquisitionConfig(examSlug)!;
   const isPunjab = config.categoryHref === "/category/punjab";
-  const isSingle = isPunjab || config.testHub?.mode === "single";
+  const isSingle = (isPunjab && examSlug !== "punjab-pcs") || config.testHub?.mode === "single";
+  const isPolice = examSlug.startsWith("punjab-police-");
+  const authority = isPolice ? "Punjab Police" : examSlug === "punjab-pcs" ? "PPSC" : isPunjab ? "PSSSB" : examSlug.startsWith("ibps-") ? "IBPS" : "SSC";
   const isBanking = examSlug.startsWith("ibps-");
   const familyCode = isPunjab ? "PUNJAB" : isBanking ? "BANKING" : "SSC";
-  const brand = isPunjab ? "PSSSB" : isBanking ? "IBPS" : "SSC";
+  const brand = isPolice ? "POLICE" : authority;
   const stages: { id: Stage; label: string }[] = [
-    { id: "prelims", label: isSingle ? "Test Series" : config.testHub?.stage1Label || (isBanking ? "Prelims" : "Tier I") },
-    ...(isSingle ? [] : [{ id: "mains" as const, label: config.testHub?.stage2Label || (isBanking ? "Mains" : "Tier II") }]),
+    { id: "prelims", label: isSingle ? "Test Series" : config.testHub?.stage1Label || (isBanking || examSlug === "punjab-pcs" ? "Prelims" : "Tier I") },
+    ...(isSingle ? [] : [{ id: "mains" as const, label: config.testHub?.stage2Label || (isBanking || examSlug === "punjab-pcs" ? "Mains" : "Tier II") }]),
     { id: "pyq", label: "PYQs" },
   ];
-  const examShortName = isPunjab ? (examSlug === "psssb-clerk" ? "CLERK" : "PATWARI") : ({ "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
+  const examShortName = isPunjab ? ({ "psssb-clerk": "CLERK", "punjab-patwari": "PATWARI", "punjab-police-constable": "CONSTABLE", "punjab-police-si": "SI", "punjab-pcs": "PCS" } as Record<string, string>)[examSlug] : ({ "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
   const stageSummary = isSingle ? (isPunjab ? "ਟੈਸਟ ਸੀਰੀਜ਼ · ਵਿਸ਼ੇ ਅਨੁਸਾਰ ਅਭਿਆਸ" : config.testHub?.stage1Label || "CBE") : stages.slice(0, 2).map(item => item.label).join(" & ");
   const [view, setView] = useState<"tests" | "overview">("tests");
   const [stage, setStage] = useState<Stage>("prelims");
@@ -53,8 +58,8 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const featured = series.find(item => item.learnerVisibility === "live");
   const languages = Array.from(new Set(tests.flatMap(item => item.languages ?? [])));
   const loginHref = "/login/student?next=" + encodeURIComponent("/" + examSlug);
-  const filtered = tests.filter(test => stage === "pyq" ? test.type === "pyq" : test.stage === stage && test.type === format);
-  const stageCount = (id: Stage) => tests.filter(test => id === "pyq" ? test.type === "pyq" : test.stage === id && test.type !== "pyq").length;
+  const filtered = tests.filter(test => stage === "pyq" ? test.type === "pyq" : (isSingle || test.stage === stage) && test.type === format);
+  const stageCount = (id: Stage) => tests.filter(test => id === "pyq" ? test.type === "pyq" : (isSingle || test.stage === id) && test.type !== "pyq").length;
   const activeLabel = stages.find(item => item.id === stage)!.label;
   const formatLabel = formats.find(item => item.id === format)!.label;
 
@@ -66,11 +71,11 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
         <div className="ssc-header-content">
           <div className="ssc-header-identity">
             <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} className="ssc-header-logo" />
-            <div><p className="ssc-eyebrow">{isPunjab ? "ਪੰਜਾਬ ਅਧੀਨ ਸੇਵਾਵਾਂ ਚੋਣ ਬੋਰਡ" : isBanking ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : "STAFF SELECTION COMMISSION"}</p><h1>{config.name} {config.isShell ? null : <span>{config.yearLabel}</span>}</h1><p className="ssc-exam-subtitle">{subtitles[examSlug]}</p></div>
+            <div><p className="ssc-eyebrow">{isPunjab ? (isPolice ? "ਪੰਜਾਬ ਪੁਲਿਸ" : examSlug === "punjab-pcs" ? "ਪੰਜਾਬ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ" : "ਪੰਜਾਬ ਅਧੀਨ ਸੇਵਾਵਾਂ ਚੋਣ ਬੋਰਡ") : isBanking ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : "STAFF SELECTION COMMISSION"}</p><h1>{config.name} {config.isShell ? null : <span>{config.yearLabel}</span>}</h1><p className="ssc-exam-subtitle">{subtitles[examSlug]}</p></div>
           </div>
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
         </div>
-        <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || "Date to be announced"}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {brand} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : null}</aside>
+        <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || "Date to be announced"}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : null}</aside>
       </header>
 
       <div className="ssc-main-switch" role="tablist" aria-label={config.name + " page view"}>
@@ -85,7 +90,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
-        {stage !== "pyq" ? <div className="ssc-format-tabs" role="tablist" aria-label={activeLabel + " test format"}>{formats.map(item => <button key={item.id} type="button" role="tab" aria-selected={format === item.id} onClick={() => setFormat(item.id)}>{item.label}{!loading && !unavailable ? <span>{tests.filter(test => test.stage === stage && test.type === item.id).length}</span> : null}</button>)}</div> : null}
+        {stage !== "pyq" ? <div className="ssc-format-tabs" role="tablist" aria-label={activeLabel + " test format"}>{formats.map(item => <button key={item.id} type="button" role="tab" aria-selected={format === item.id} onClick={() => setFormat(item.id)}>{item.label}{!loading && !unavailable ? <span>{tests.filter(test => (isSingle || test.stage === stage) && test.type === item.id).length}</span> : null}</button>)}</div> : null}
         <div className="ssc-test-list-heading"><h3>{stage === "pyq" ? "Previous year papers" : activeLabel + " · " + formatLabel}</h3>{!loading && !unavailable ? <span>{filtered.length} available</span> : null}</div>
         {loading ? <div className="ssc-empty-state" role="status"><Loader2 className="animate-spin" /><h3>Loading published tests…</h3></div> : unavailable ? <div className="ssc-empty-state" role="alert"><FileText /><h3>The test catalogue is temporarily unavailable.</h3><p>Your syllabus and preparation resources are still available.</p><button type="button" onClick={onRetry}>Try again</button></div> : filtered.length ? <div className="ssc-test-list">{filtered.map(test => <article key={test.id} className="ssc-test-row">
           <div className="ssc-test-row-main"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={test.iconUrl ?? undefined} className="ssc-test-logo" /><div><div className="ssc-test-title"><h3>{test.title}</h3>{test.access ? <span className={"ssc-access " + test.access}>{test.access === "free" ? "Free" : "Paid"}</span> : null}</div><p>{test.description}</p><div className="ssc-test-meta"><span><FileText />{test.questionCount} questions</span><span><Clock3 />{test.durationMinutes} min</span>{test.totalMarks > 0 ? <span>{test.totalMarks} marks</span> : null}{test.languages?.length ? <span><Languages />{test.languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div></div></div>
@@ -97,9 +102,9 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
         <section className="ssc-subject-section"><h2>{isPunjab ? "ਤਿਆਰੀ ਦੇ ਸਰੋਤ" : "Know the exam"}</h2><div>{(isPunjab ? [{icon:BookOpen,name:"ਅਧਿਕਾਰਤ ਸਿਲੇਬਸ"},{icon:Target,name:"ਤਿਆਰੀ ਦੀ ਯੋਜਨਾ"},{icon:Bell,name:"ਪ੍ਰੀਖਿਆ ਅੱਪਡੇਟ"}] : isBanking ? [{icon:Brain,name:"Reasoning"},{icon:Calculator,name:"Quantitative Aptitude"},{icon:Languages,name:examSlug.startsWith("ibps-rrb-") ? "Language" : "English"},{icon:Globe2,name:"Banking & Financial Awareness"},...(examSlug.startsWith("ibps-rrb-") ? [{icon:FileText,name:"Computer Knowledge"}] : [])] : [{icon:Brain,name:"Reasoning"},{icon:Calculator,name:"Quantitative Aptitude"},{icon:Languages,name:"English"},{icon:Globe2,name:"General Awareness"}]).map(({icon:Icon,name}) => <Link key={name} href={isPunjab && Icon === Target ? examPreparationHref(examSlug) : isPunjab && Icon === Bell ? examDetailsHref(examSlug,"updates") : examSyllabusHref(examSlug)}><span><Icon /></span><div><h3>{name}</h3><p>{isPunjab ? "ਜਾਣਕਾਰੀ ਅਤੇ ਤਿਆਰੀ ਲਈ ਸਰੋਤ" : "Syllabus and topic coverage"}</p></div><ArrowRight /></Link>)}</div></section>
       </section> : <section id="ssc-overview-panel" role="tabpanel" aria-labelledby="ssc-overview-tab" className="ssc-overview-panel">
         <div className="ssc-section-heading"><div><p className="ssc-eyebrow">KNOW YOUR EXAM</p><h2>Prepare with a clear plan.</h2><p>{isPunjab ? "ਰੋਜ਼ਾਨਾ ਅਭਿਆਸ ਕਰੋ, ਗ਼ਲਤੀਆਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ ਅਤੇ ਆਪਣੀ ਤਿਆਰੀ ਨੂੰ ਅੱਗੇ ਵਧਾਓ।" : config.hub.preparationSummary}</p></div><Link href={examDetailsHref(examSlug)}>Full exam details <ArrowRight /></Link></div>
-        <section className="ssc-overview-section"><h3>Syllabus at a glance</h3>{config.isShell ? <p>Verified syllabus and exam pattern are being prepared. Check the official PSSSB notification for current requirements.</p> : null}<div className="ssc-syllabus-grid">{config.syllabus.sections.map(item => <article key={item.title}><BookOpen /><h4>{item.title}</h4><p>{item.summary}</p></article>)}</div><Link href={examSyllabusHref(examSlug)}>Open syllabus & exam pattern <ArrowRight /></Link></section>
+        <section className="ssc-overview-section"><h3>Syllabus at a glance</h3>{config.isShell ? <p>Verified syllabus and exam pattern are being prepared. Check the official {authority} notification for current requirements.</p> : null}<div className="ssc-syllabus-grid">{config.syllabus.sections.map(item => <article key={item.title}><BookOpen /><h4>{item.title}</h4><p>{item.summary}</p></article>)}</div><Link href={examSyllabusHref(examSlug)}>Open syllabus & exam pattern <ArrowRight /></Link></section>
         <section className="ssc-overview-section"><h3>Your preparation route</h3><div className="ssc-prep-grid">{(isPunjab ? [{title:"ਰੋਜ਼ਾਨਾ ਅਭਿਆਸ",text:"ਹਰ ਰੋਜ਼ ਇੱਕ ਛੋਟਾ ਅਭਿਆਸ ਸੈੱਟ ਹੱਲ ਕਰੋ ਅਤੇ ਔਖੇ ਸਵਾਲਾਂ ਨੂੰ ਮੁੜ ਸਮਝੋ।"},{title:"ਗ਼ਲਤੀਆਂ ਤੋਂ ਸਿੱਖੋ",text:"ਗ਼ਲਤ ਜਵਾਬਾਂ ਦਾ ਕਾਰਨ ਲਿਖੋ ਅਤੇ ਕਮਜ਼ੋਰ ਵਿਸ਼ਿਆਂ ਨੂੰ ਦੁਹਰਾਓ।"},{title:"ਸਮਾਂ ਸੰਭਾਲੋ",text:"ਸਮੇਂ ਦੀ ਸੀਮਾ ਵਿੱਚ ਅਭਿਆਸ ਕਰੋ। ਪ੍ਰੀਖਿਆ ਦਾ ਢਾਂਚਾ ਅਤੇ ਨਿਯਮ ਅਧਿਕਾਰਤ ਨੋਟੀਫਿਕੇਸ਼ਨ ਤੋਂ ਵੇਖੋ।"}] : config.preparation.cards).map((item,index) => <article key={item.title}><span>{String(index+1).padStart(2,"0")}</span><h4>{item.title.replace(/^\d+\.\s*/,"")}</h4><p>{item.text}</p></article>)}</div><Link href={examPreparationHref(examSlug)}>Read preparation guide <ArrowRight /></Link></section>
-        <section className="ssc-official-note"><Globe2 /><div><h3>Stay up to date</h3><p>Check {brand}’s official notices for dates, vacancies, eligibility and changes to the exam scheme.</p><a href={config.officialUrl} target="_blank" rel="noreferrer">Visit {config.officialLabel} <ArrowRight /></a></div></section>
+        <section className="ssc-official-note"><Globe2 /><div><h3>Stay up to date</h3><p>Check {authority}’s official notices for dates, vacancies, eligibility and changes to the exam scheme.</p><a href={config.officialUrl} target="_blank" rel="noreferrer">Visit {config.officialLabel} <ArrowRight /></a></div></section>
       </section>}
     </div>
   </div>;
