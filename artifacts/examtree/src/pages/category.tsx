@@ -12,6 +12,8 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import "@/styles/category-page.css";
 
 const normalize = (value: string | undefined) => String(value ?? "").trim().toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+const CATEGORY_LABELS: Record<string, string> = { SSC: "SSC", BANKING: "Banking", PUNJAB: "Punjab", RAILWAY: "Railways" };
+const categoryLabel = (id: string, name: string) => (CATEGORY_LABELS[normalize(id)] ?? name.replace(/\s+(Exams|Examinations)$/i, ""));
 const count = (value: number) => new Intl.NumberFormat("en-IN").format(Math.max(0, value || 0));
 
 export default function CategoryPage() {
@@ -19,9 +21,10 @@ export default function CategoryPage() {
   const catalog = useExamCatalog();
   const { categories, subcategories, tests } = catalog;
   const category = categories.find((item) => normalize(item.id) === normalize(id));
+  const label = category ? categoryLabel(category.id, category.name) : "Exam";
   const [examQuery, setExamQuery] = useState("");
   const seriesQuery = useQuery({ queryKey: ["student-test-series"], queryFn: getStudentTestSeries, staleTime: 30_000 });
-  usePageMeta(category ? `${category.name} Exams, Test Series & Preparation` : "Exam Category", category ? `Explore ${category.name} exams, available test series, syllabus and preparation guides on Examtree.` : "Find your exam and preparation resources on Examtree.");
+  usePageMeta(category ? `${label} Exams, Test Series & Preparation` : "Exam Category", category ? `Explore ${label} exams, available test series, syllabus and preparation guides on Examtree.` : "Find your exam and preparation resources on Examtree.");
 
   const exams = useMemo(() => category ? getRuntimeExamGroups(category.id, categories, tests, subcategories) : [], [category, categories, tests, subcategories]);
   const query = examQuery.trim().toLowerCase();
@@ -50,25 +53,25 @@ export default function CategoryPage() {
 
   return <div className="category-redesign" data-testid="category-redesign">
     <div className="category-container">
-      <nav className="category-breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><ChevronRight size={13} /><Link href="/exams">All exams</Link><ChevronRight size={13} /><span>{category.name}</span></nav>
+      <nav className="category-breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><ChevronRight size={13} /><Link href="/exams">All exams</Link><ChevronRight size={13} /><span>{label}</span></nav>
       <section className="category-hero" aria-labelledby="category-heading">
         <div className="category-hero-copy">
           <span className="category-eyebrow"><Sparkles size={14} /> YOUR NEXT CHAPTER</span>
-          <div className="category-hero-title"><span className="category-hero-logo"><CategoryIcon icon={category.icon} className="h-10 w-10" /></span><h1 id="category-heading">{category.name} Exams</h1></div>
-          <p>{category.description || `Find your ${category.name} exam, explore its syllabus and build your preparation plan.`}</p>
+          <div className="category-hero-title"><span className="category-hero-logo"><CategoryIcon icon={category.icon} className="h-10 w-10" /></span><h1 id="category-heading">{label} Exams</h1></div>
+          <p>{`Find your ${label} exam, explore its syllabus and build your preparation plan.`}</p>
           <div className="category-hero-actions"><a href="#category-exams" className="category-primary">Explore exams <ArrowRight size={16} /></a><a href="#category-preparation" className="category-text-link">Plan your preparation <ChevronRight size={15} /></a></div>
         </div>
         <div className="category-hero-panel">
           <span className="category-eyebrow">FIND YOUR STARTING POINT</span>
           <label htmlFor="category-exam-search">Which exam are you preparing for?</label>
-          <div className="category-search"><Search size={18} /><input id="category-exam-search" type="search" value={examQuery} onChange={(event) => setExamQuery(event.target.value)} placeholder={`Search ${category.name} exams`} data-testid="category-exam-search" /></div>
+          <div className="category-search"><Search size={18} /><input id="category-exam-search" type="search" value={examQuery} onChange={(event) => setExamQuery(event.target.value)} placeholder={`Search ${label} exams`} data-testid="category-exam-search" /></div>
           <div className="category-hero-stats"><span><strong>{count(exams.length)}</strong> exams</span><span><strong>{count(categoryTests.length)}</strong> tests</span><span><strong>{count(freeCount)}</strong> free tests</span></div>
         </div>
       </section>
-      <nav className="category-switcher" aria-label="Exam categories">{categories.map((item) => <Link key={item.id} href={`/category/${encodeURIComponent(item.id)}`} aria-current={item.id === category.id ? "page" : undefined}><CategoryIcon icon={item.icon} className="h-4 w-4" />{item.name}</Link>)}</nav>
+      <nav className="category-switcher" aria-label="Exam categories">{categories.map((item) => <Link key={item.id} href={`/category/${encodeURIComponent(item.id)}`} aria-current={item.id === category.id ? "page" : undefined}><CategoryIcon icon={item.icon} className="h-4 w-4" />{categoryLabel(item.id, item.name)}</Link>)}</nav>
 
       <section className="category-section" aria-labelledby="category-featured-heading" data-testid="category-featured-series">
-        <div className="category-section-head"><div><span className="category-eyebrow">PRACTISE WITH A PURPOSE</span><h2 id="category-featured-heading">Featured Test Series</h2><p>Available practice for {category.name} exams.</p></div><span className="category-quiet-label"><ShieldCheck size={15} /> Published series</span></div>
+        <div className="category-section-head"><div><span className="category-eyebrow">PRACTISE WITH A PURPOSE</span><h2 id="category-featured-heading">Featured Test Series</h2><p>Available practice for {label} exams.</p></div><span className="category-quiet-label"><ShieldCheck size={15} /> Published series</span></div>
         {seriesQuery.isPending ? <div className="category-series-row" role="status">{[0, 1, 2].map((index) => <div key={index} className="category-skeleton" />)}<span className="sr-only">Loading test series…</span></div> : seriesQuery.isError ? <div className="category-inline-state"><p>Test series could not be loaded.</p><button type="button" onClick={() => void seriesQuery.refetch()}>Try again</button></div> : featuredSeries.length ? <div className="category-series-row">{featuredSeries.map((series) => <article className="category-series-card" key={series.id}>
           <div className="category-series-top"><span className="category-series-logo"><CategoryIcon icon={series.iconUrl || category.icon} className="h-8 w-8" /></span><span className="category-live-badge">Live</span></div>
           <span className="category-series-exam">{series.examName}</span><h3>{series.name}</h3><p>{count(series.liveTestCount)} available tests{series.questionCount > 0 ? ` · ${count(series.questionCount)} questions` : ""}</p>
@@ -77,7 +80,7 @@ export default function CategoryPage() {
       </section>
 
       <section className="category-section" id="category-exams" aria-labelledby="category-exams-heading">
-        <div className="category-section-head"><div><span className="category-eyebrow">CHOOSE YOUR EXAM</span><h2 id="category-exams-heading">All {category.name} exams</h2><p>Find the exam that fits your goal.</p></div><span className="category-quiet-label">{visibleExams.length} {query ? "matching" : "available"} exams{attemptedCount > 0 ? ` · ${attemptedCount} tests attempted` : ""}</span></div>
+        <div className="category-section-head"><div><span className="category-eyebrow">CHOOSE YOUR EXAM</span><h2 id="category-exams-heading">All {label} exams</h2><p>Find the exam that fits your goal.</p></div><span className="category-quiet-label">{visibleExams.length} {query ? "matching" : "available"} exams{attemptedCount > 0 ? ` · ${attemptedCount} tests attempted` : ""}</span></div>
         {visibleExams.length ? <div className="category-exam-grid">{visibleExams.map((exam) => {
           const examTests = categoryTests.filter((test) => exam.id.startsWith("general-") ? !test.subcategoryId : test.subcategoryId === exam.id);
           const free = examTests.filter((test) => (test.access ?? "free") === "free").length;
