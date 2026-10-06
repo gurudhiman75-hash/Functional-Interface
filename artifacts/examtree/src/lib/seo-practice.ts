@@ -1549,13 +1549,22 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://ppsc.gov.in",
     officialLabel: "ppsc.gov.in",
   }),
-  "punjab-pcs": makeExamShellConfig({
-    slug: "punjab-pcs",
-    name: "PPSC Punjab State Civil Services",
-    categoryHref: "/category/punjab",
-    officialUrl: "https://ppsc.gov.in",
-    officialLabel: "ppsc.gov.in",
-  }),
+  "punjab-pcs": {
+    ...makeExamShellConfig({
+      slug: "punjab-pcs",
+      name: "PPSC Punjab State Civil Services",
+      categoryHref: "/category/punjab",
+      officialUrl: "https://ppsc.gov.in",
+      officialLabel: "ppsc.gov.in",
+    }),
+    testHub: {
+      mode: "dual",
+      stage1Label: "Prelims",
+      stage2Label: "Mains",
+      stage1Keywords: ["prelim", "preliminary", "prelims"],
+      stage2Keywords: ["mains", "main examination"],
+    },
+  },
   "psssb-senior-assistant": makeExamShellConfig({
     slug: "psssb-senior-assistant",
     name: "PSSSB Senior Assistant",
