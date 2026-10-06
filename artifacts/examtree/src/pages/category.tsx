@@ -12,7 +12,8 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import "@/styles/category-page.css";
 
 const normalize = (value: string | undefined) => String(value ?? "").trim().toUpperCase().replace(/[^A-Z0-9]+/g, "_");
-const categoryLabel = (id: string, name: string) => ({ SSC: "SSC", BANKING: "Banking", PUNJAB: "Punjab", RAILWAY: "Railways" }[normalize(id)] ?? name.replace(/\s+(Exams|Examinations)$/i, ""));
+const CATEGORY_LABELS: Record<string, string> = { SSC: "SSC", BANKING: "Banking", PUNJAB: "Punjab", RAILWAY: "Railways" };
+const categoryLabel = (id: string, name: string) => (CATEGORY_LABELS[normalize(id)] ?? name.replace(/\s+(Exams|Examinations)$/i, ""));
 const count = (value: number) => new Intl.NumberFormat("en-IN").format(Math.max(0, value || 0));
 
 export default function CategoryPage() {
