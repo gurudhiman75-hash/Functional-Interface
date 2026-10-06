@@ -18,6 +18,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { ExamCollectionBanner } from "@/components/ExamCollectionBanner";
+import { EXAM_COLLECTIONS } from "@/lib/exam-collections";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import {
@@ -59,13 +61,6 @@ const EXAM_TAB_DEFINITIONS = [
   { key: "teaching", label: "Teaching", aliases: ["teaching", "teacher"], fallback: ["CTET", "Punjab TET", "REET", "DSSSB Teaching", "KVS", "NVS", "UGC NET", "Teaching Aptitude"] },
   { key: "defence", label: "Defence", aliases: ["defence", "defense"], fallback: ["NDA", "CDS", "AFCAT", "Agniveer", "Army GD", "Navy SSR", "Airforce Group Y", "CAPF"] },
   { key: "insurance", label: "Insurance", aliases: ["insurance"], fallback: ["LIC AAO", "LIC ADO", "NIACL AO", "NIACL Assistant", "UIIC AO", "UIIC Assistant", "NICL AO", "Insurance Assistant"] },
-] as const;
-
-const EXAM_COLLECTIONS = [
-  { title: "All Punjab Exams", copy: "PSSSB, Patwari, Punjab Police, PPSC, PSPCL and more", icon: "/category-icons/punjab-official.svg", className: "mint" },
-  { title: "Popular Banking Exams", copy: "SBI, IBPS, RBI and banking recruitment", icon: "/category-icons/rbi-official.svg", className: "blue" },
-  { title: "Popular SSC Exams", copy: "CGL, CHSL, MTS, CPO, GD and more", icon: "/category-icons/ssc-official.svg", className: "peach" },
-  { title: "Railway Exams", copy: "RRB NTPC, Group D, ALP, JE and more", icon: "/category-icons/railways-official.svg", className: "rose" },
 ] as const;
 
 const FREE_PRACTICE = [
@@ -255,17 +250,12 @@ export default function Home() {
         {visibleExamItems.length === 0 ? <p className="exam-empty-state">No exams found. Try another search or category.</p> : null}
       </section>
 
-      <section className="warm-collections-band">
+      <section className="warm-collections-band" id="collections" data-testid="home-exam-collections">
         <div className="warm-section-head">
-          <div><span className="warm-kicker"><Sparkles /> Curated</span><h2>Popular Exam Collections</h2><p>Browse exams by state, sector and eligibility.</p></div>
+          <div><span className="warm-kicker"><Sparkles /> Find your direction</span><h2>Explore Exam Collections</h2><p>Choose by your qualification, career goals or the preparation you already share.</p></div>
         </div>
-        <div className="collection-grid">
-          {EXAM_COLLECTIONS.map((item) => (
-            <button key={item.title} type="button" className={`collection-card ${item.className}`} onClick={() => setLocation("/exams")}>
-              <span className="collection-logo"><img src={item.icon} alt="" /></span>
-              <span><b>{item.title}</b><small>{item.copy}</small><em>View Exams <ArrowRight /></em></span>
-            </button>
-          ))}
+        <div className="exam-collection-banners">
+          {EXAM_COLLECTIONS.map((collection) => <ExamCollectionBanner key={collection.slug} collection={collection} />)}
         </div>
       </section>
 

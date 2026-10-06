@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { getSessionUser } from "@/lib/session-user";
 
 const AppLayout = lazy(() => import("@/components/AppLayout").then((module) => ({ default: module.AppLayout })));
+const ExamCollectionPage = lazy(() => import("@/pages/exam-collection"));
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
@@ -176,6 +177,8 @@ function Router() {
           <Route path="/account-recovery" component={() => renderPublicRoute(AccountRecovery)} />
           <Route path="/account-deletion" component={() => renderPublicRoute(AccountDeletion)} />
 
+          <Route path="/collections/:slug" component={() => renderCatalogPublicRoute(ExamCollectionPage)} />
+          <Route path="/collections" component={() => renderCatalogPublicRoute(ExamCollectionPage)} />
           <Route path="/exams" component={() => renderCatalogPublicRoute(Tests)} />
           <Route path="/tests" component={() => renderCatalogPublicRoute(Tests)} />
           <Route path="/published-tests/:id" component={() => renderPublicRoute(PublishedTest)} />
