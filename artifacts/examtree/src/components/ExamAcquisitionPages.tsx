@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
+import SSCExamWorkspace from "@/components/SSCExamWorkspace";
 import MathText from "@/components/MathText";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
@@ -49,7 +50,7 @@ function requireConfig(examSlug: string) {
   return config;
 }
 
-type ExamHubFlatTest = {
+export type ExamHubFlatTest = {
   id: string;
   title: string;
   description: string;
@@ -63,6 +64,7 @@ type ExamHubFlatTest = {
   access?: "free" | "paid";
   iconUrl?: string | null;
   seriesName?: string;
+  languages?: string[];
 };
 
 function flatTestType(test: Test): ExamHubFlatTest["type"] {
@@ -549,12 +551,13 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
   const flatTests = useMemo<ExamHubFlatTest[]>(() => {
     const seriesBoundIds = new Set<string>();
-    const fromSeries = examSeries.flatMap((series) => {
+    const fromSeries = examSeries.filter(series => examSlug !== "ssc-cgl" || series.learnerVisibility === "live").flatMap((series) => {
       const rawStage = seriesHubStage(series);
       const stage = preferredStage(rawStage, seriesSearchText(series), config.testHub);
       const type = seriesHubType(series);
       return (series.tests ?? []).map((test) => {
         seriesBoundIds.add(String(test.testId).toLowerCase());
+        const catalogTest = examTests.find(item => String(item.id).toLowerCase() === String(test.testId).toLowerCase());
         return {
           id: "series-test-" + series.id + "-" + test.testId,
           title: test.title,
@@ -567,6 +570,8 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           totalMarks: Number(test.totalMarks || 0),
           iconUrl: test.iconUrl ?? series.iconUrl,
           seriesName: series.name,
+          access: catalogTest?.access,
+          languages: catalogTest?.languages,
         } satisfies ExamHubFlatTest;
       });
     });
@@ -588,12 +593,13 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           totalMarks,
           difficulty: test.difficulty,
           access: test.access ?? "free",
+          languages: test.languages,
           iconUrl: test.iconUrl,
         } satisfies ExamHubFlatTest;
       });
 
     return [...fromSeries, ...standalone];
-  }, [examSeries, examTests, config.testHub]);
+  }, [examSeries, examTests, config.testHub, examSlug]);
 
   const activeTests = flatTests.filter((test) =>
     activeExamStage === "pyq"
@@ -608,6 +614,17 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const totalPublished = examTests.length + examSeries.filter((series) => series.learnerVisibility === "live").length;
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
   const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
+
+  if (examSlug === "ssc-cgl") {
+    return <SSCExamWorkspace
+      tests={flatTests}
+      icon={catalogExam?.icon}
+      signedIn={Boolean(sessionUser)}
+      loading={catalog.isLoading || seriesQuery.isLoading}
+      unavailable={Boolean(catalog.error || seriesQuery.error)}
+      onRetry={() => { window.location.reload(); }}
+    />;
+  }
 
   if (!sessionUser) {
     return (
@@ -1597,3 +1614,4 @@ export function ExamTopicQuestionsPage({ examSlug, topicSlug }: { examSlug: stri
     </PublicPage>
   );
 }
+
