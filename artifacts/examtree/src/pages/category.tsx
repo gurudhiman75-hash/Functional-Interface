@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, ChevronRight, ExternalLink, FileText, Search, ShieldCheck, Sparkles, Target } from "lucide-react";
-import { CategoryIcon } from "@/components/CategoryIcon";
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { usePageMeta } from "@/components/PublicPage";
 import { getAttempts } from "@/lib/storage";
 import { getRuntimeExamGroups } from "@/lib/test-bank";
@@ -57,7 +57,7 @@ export default function CategoryPage() {
       <section className="category-hero" aria-labelledby="category-heading">
         <div className="category-hero-copy">
           <span className="category-eyebrow"><Sparkles size={14} /> YOUR NEXT CHAPTER</span>
-          <div className="category-hero-title"><span className="category-hero-logo"><CategoryIcon icon={category.icon} className="h-10 w-10" /></span><h1 id="category-heading">{label} Exams</h1></div>
+          <div className="category-hero-title"><span className="category-hero-logo"><ExamIdentityIcon icon={category.icon} name={category.name} familyCode={category.id} /></span><h1 id="category-heading">{label} Exams</h1></div>
           <p>{`Find your ${label} exam, explore its syllabus and build your preparation plan.`}</p>
           <div className="category-hero-actions"><a href="#category-exams" className="category-primary">Explore exams <ArrowRight size={16} /></a><a href="#category-preparation" className="category-text-link">Plan your preparation <ChevronRight size={15} /></a></div>
         </div>
@@ -68,12 +68,12 @@ export default function CategoryPage() {
           <div className="category-hero-stats"><span><strong>{count(exams.length)}</strong> exams</span><span><strong>{count(categoryTests.length)}</strong> tests</span><span><strong>{count(freeCount)}</strong> free tests</span></div>
         </div>
       </section>
-      <nav className="category-switcher" aria-label="Exam categories">{categories.map((item) => <Link key={item.id} href={`/category/${encodeURIComponent(item.id)}`} aria-current={item.id === category.id ? "page" : undefined}><CategoryIcon icon={item.icon} className="h-4 w-4" />{categoryLabel(item.id, item.name)}</Link>)}</nav>
+      <nav className="category-switcher" aria-label="Exam categories">{categories.map((item) => <Link key={item.id} href={`/category/${encodeURIComponent(item.id)}`} aria-current={item.id === category.id ? "page" : undefined}><ExamIdentityIcon icon={item.icon} name={item.name} familyCode={item.id} />{categoryLabel(item.id, item.name)}</Link>)}</nav>
 
       <section className="category-section" aria-labelledby="category-featured-heading" data-testid="category-featured-series">
         <div className="category-section-head"><div><span className="category-eyebrow">PRACTISE WITH A PURPOSE</span><h2 id="category-featured-heading">Featured Test Series</h2><p>Available practice for {label} exams.</p></div><span className="category-quiet-label"><ShieldCheck size={15} /> Published series</span></div>
         {seriesQuery.isPending ? <div className="category-series-row" role="status">{[0, 1, 2].map((index) => <div key={index} className="category-skeleton" />)}<span className="sr-only">Loading test series…</span></div> : seriesQuery.isError ? <div className="category-inline-state"><p>Test series could not be loaded.</p><button type="button" onClick={() => void seriesQuery.refetch()}>Try again</button></div> : featuredSeries.length ? <div className="category-series-row">{featuredSeries.map((series) => <article className="category-series-card" key={series.id}>
-          <div className="category-series-top"><span className="category-series-logo"><CategoryIcon icon={series.iconUrl || category.icon} className="h-8 w-8" /></span><span className="category-live-badge">Live</span></div>
+          <div className="category-series-top"><span className="category-series-logo"><ExamIdentityIcon icon={series.iconUrl} name={series.examName} examCode={series.examCode} familyCode={series.examFamilyCode} /></span><span className="category-live-badge">Live</span></div>
           <span className="category-series-exam">{series.examName}</span><h3>{series.name}</h3><p>{count(series.liveTestCount)} available tests{series.questionCount > 0 ? ` · ${count(series.questionCount)} questions` : ""}</p>
           <Link href={`/test-series/${encodeURIComponent(series.id)}`}>View test series <ArrowRight size={16} /></Link>
         </article>)}</div> : <div className="category-inline-state"><BookOpen size={24} /><div><h3>Start with your exam guide</h3><p>Live series will appear here as they become available. Explore syllabus and preparation routes below.</p></div><a href="#category-exams">Explore exams <ArrowRight size={15} /></a></div>}
@@ -85,8 +85,8 @@ export default function CategoryPage() {
           const examTests = categoryTests.filter((test) => exam.id.startsWith("general-") ? !test.subcategoryId : test.subcategoryId === exam.id);
           const free = examTests.filter((test) => (test.access ?? "free") === "free").length;
           return <Link className="category-exam-card" key={exam.id} href={examHref(exam)} data-testid={`btn-open-exam-${exam.id}`}>
-            <span className="category-exam-logo"><CategoryIcon icon={exam.icon || category.icon} className="h-8 w-8" /></span>
-            <h3>{exam.name}</h3><p>{exam.totalTests > 0 ? `${count(exam.totalTests)} tests${free > 0 ? ` · ${count(free)} free` : ""}` : "Syllabus & preparation"}</p><span className="category-exam-action">Explore exam <ArrowRight size={15} /></span>
+            <div className="category-exam-card-top"><span className="category-exam-logo"><ExamIdentityIcon icon={exam.icon} name={exam.name} examCode={exam.id} familyCode={category.id} /></span><span className="category-exam-family">{label}</span></div>
+            <h3>{exam.name}</h3>{exam.description ? <p className="category-exam-description">{exam.description}</p> : null}<p className="category-exam-inventory">{exam.totalTests > 0 ? `${count(exam.totalTests)} tests${free > 0 ? ` · ${count(free)} free` : ""}` : "Syllabus & preparation"}</p><span className="category-exam-action">Explore exam <ArrowRight size={15} /></span>
           </Link>;
         })}</div> : <div className="category-inline-state"><Search size={24} /><div><h3>{query ? "No matching exams" : "Exams are being added"}</h3><p>{query ? "Try a shorter exam name or clear your search." : "Check back for exams in this category."}</p></div>{query ? <button type="button" onClick={() => setExamQuery("")}>Clear search</button> : null}</div>}
       </section>
