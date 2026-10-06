@@ -2746,3 +2746,53 @@
     object-fit:contain!important;
   }
 }
+
+
+/* Final mobile homepage density + static hero fit */
+.home-page .home-static-hero-image{
+  width:100%!important;
+  max-width:1440px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:top center!important;
+}
+
+@media(max-width:720px){
+  .home-page .direct-exam-grid{
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    gap:5px!important;
+  }
+  .home-page .direct-exam-card{
+    min-height:74px!important;
+    gap:4px!important;
+    border-radius:9px!important;
+    padding:6px 2px!important;
+  }
+  .home-page .direct-exam-logo{
+    width:30px!important;
+    height:30px!important;
+    flex-basis:30px!important;
+    border-radius:7px!important;
+  }
+  .home-page .direct-exam-logo img{
+    max-width:26px!important;
+    max-height:26px!important;
+  }
+  .home-page .direct-exam-logo svg{
+    width:18px!important;
+    height:18px!important;
+  }
+  .home-page .direct-exam-copy b{
+    font-size:7.2px!important;
+    line-height:1.12!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    text-align:center!important;
+  }
+  .home-page .direct-exam-copy small,
+  .home-page .direct-exam-go{
+    display:none!important;
+  }
+}
