@@ -223,6 +223,113 @@ function makeExamShellConfig(input: {
   };
 }
 
+
+function makePunjabStudyConfig(slug: "psssb-clerk" | "punjab-patwari"): ExamAcquisitionConfig {
+  const clerk = slug === "psssb-clerk";
+  const name = clerk ? "PSSSB Clerk" : "Punjab Patwari";
+  const reference = clerk ? "Clerk • Advertisement 02/2026" : "Patwari • Advertisement 02/2023 reference";
+  const syllabusUrl = clerk ? "https://sssb.punjab.gov.in/wp-content/uploads/2026/02/Clerk.pdf" : "https://cdn-images.prepp.in/public/image/Final_Patwari_syllabus_prepp_0285d067292e7e2da8155f60e72a431d.pdf";
+  const note = clerk
+    ? "Based on the board-issued Clerk examination plan for Advertisement 02/2026 and its original recruitment advertisement. Check subsequent corrigenda before applying. These rules are for Clerk; Junior Assistant notices may differ. Exam dates have not been verified here."
+    : "Preparation reference: the board-issued Patwari examination plan for Advertisement 02/2023, available as a mirrored PDF. This is a historical syllabus, not confirmation of a new recruitment. Current eligibility, vacancies and dates remain unverified.";
+  const base = makeExamShellConfig({ slug, name, categoryHref: "/category/punjab", officialUrl: "https://sssb.punjab.gov.in", officialLabel: "sssb.punjab.gov.in" });
+  return {
+    ...base, isShell: false, yearLabel: clerk ? "2026" : "2023 reference",
+    meta: {
+      hubTitle: name + " Syllabus, Preparation & Published Tests | ExamTree",
+      hubDescription: name + " study workspace with syllabus, paper structure, a weekly study plan and source links. " + reference + ".",
+      preparationTitle: name + " Preparation Plan | ExamTree",
+      preparationDescription: "Plan Punjabi, Punjab GK, reasoning, English and ICT practice. " + reference + ".",
+      syllabusTitle: name + " Syllabus & Exam Pattern | ExamTree",
+      syllabusDescription: "Two-part written-paper reference with qualifying Punjabi and merit-based Part B. " + reference + ".",
+    },
+    hub: {
+      title: name + " preparation workspace",
+      description: reference + ". " + note,
+      preparationSummary: clerk ? "ਪੰਜਾਬੀ, ਪੰਜਾਬ GK ਅਤੇ ਤਰਕ ਦਾ ਰੋਜ਼ਾਨਾ ਅਭਿਆਸ ਕਰੋ। ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਲਈ ਵੀ ਸਮਾਂ ਰੱਖੋ।" : "2023 ਦੇ ਸਿਲੇਬਸ ਅਨੁਸਾਰ ਪੰਜਾਬੀ, ਪੰਜਾਬ GK ਅਤੇ ਤਰਕ ਦੀ ਤਿਆਰੀ ਸ਼ੁਰੂ ਕਰੋ। ਨਵੀਂ ਭਰਤੀ ਦੇ ਨਿਯਮ ਅਧਿਕਾਰਤ ਨੋਟਿਸ ਤੋਂ ਵੇਖੋ।",
+      syllabusSummary: reference + ". Punjabi qualification comes before Part-B merit.",
+      mockSummary: "Only published tests mapped to this exam appear in the catalogue.",
+    },
+    testHub: { mode: "single", stage1Label: "Written paper" },
+    preparation: {
+      eyebrow: "ਤਿਆਰੀ ਦੀ ਯੋਜਨਾ", title: name + " study plan",
+      description: "A suggested weekly routine, not an official timetable. " + reference + ".",
+      cards: [
+        { title: "ਪੰਜਾਬੀ ਪਹਿਲਾਂ", text: "Spend 25 minutes on grammar, spelling, idioms and Punjabi reading. Keep a separate list of language mistakes and revise it every week." },
+        { title: "Punjab GK + reasoning", text: "Alternate Punjab history and culture with reasoning and basic numerical practice. Use short recall quizzes, then review every incorrect answer." },
+        { title: clerk ? "Typing + timed practice" : "Timed practice + review", text: clerk ? "Practise English and Punjabi typing daily using Raavi for Punjabi. Add timed mixed-subject practice and review accuracy before increasing speed." : "Rotate English and ICT across the week. Use timed mixed-subject practice and reserve equal time afterwards to review weak areas." },
+      ],
+      weeklyCycle: [
+        "Monday: Punjabi grammar + reasoning.",
+        "Tuesday: Punjab history and culture + English.",
+        "Wednesday: current affairs + basic numerical skills.",
+        "Thursday: Punjabi revision + ICT.",
+        "Friday: mixed practice + weak-topic revision.",
+        clerk ? "Saturday: timed paper practice + English/Punjabi typing." : "Saturday: timed paper practice using the historical pattern as a reference.",
+        "Sunday: review errors, revise notes and plan next week.",
+      ],
+    },
+    syllabus: {
+      eyebrow: reference, title: name + " syllabus and paper structure",
+      description: reference + ". " + (clerk ? "The board’s plan gives approximate Part-B subject weights." : "Historical reference; verify the next notice before using this as the current scheme."),
+      sections: [
+        { title: "ਪੰਜਾਬੀ • Part A", summary: "Matric-level language, idioms, spelling, grammar, Punjab history and culture." },
+        { title: "GK & current affairs", summary: clerk ? "Approx. 25 marks: polity, environment, science, economy, history, geography and current events." : "National and international current affairs, history, polity, science and environment." },
+        { title: "Punjab history & culture", summary: clerk ? "Approx. 17 marks: Punjab’s history, literature, Sikh Gurus, Sufism and freedom movements." : "Punjab’s history, language, literature, arts, faith traditions and freedom movements." },
+        { title: "Reasoning & mental ability", summary: clerk ? "Approx. 25 marks: reasoning 17, numerical skills 4 and data analysis 4." : "Logical reasoning, basic numerical skills and interpreting data." },
+        { title: "Punjabi & English • Part B", summary: clerk ? "Approx. 13 + 12 marks: language usage, vocabulary, grammar and sentence correction." : "Grammar, vocabulary, language usage and sentence correction." },
+        { title: "ICT", summary: clerk ? "Approx. 8 marks: computers, internet, networking and office tools." : "Computers, internet, networking and office productivity tools." },
+      ],
+      patternCards: [
+        { title: "Written paper", text: "150 OMR-based MCQs in 2 hours 30 minutes." },
+        { title: "Part A • qualifying Punjabi", text: "50 questions / 50 marks; minimum 25 marks. No negative marking. Part B is evaluated only after qualifying Part A." },
+        { title: "Part B • merit", text: "100 questions / 100 marks. Wrong answers lose 0.25 marks; unanswered questions carry no penalty. Merit uses Part-B marks." },
+      ],
+      verificationNote: note,
+    },
+    details: {
+      eligibility: {
+        eyebrow: clerk ? "Original 2026 advertisement" : "Current notification needed",
+        title: name + " eligibility and selection",
+        description: clerk ? "Original Advertisement 02/2026 requirements; check amendments and category-specific conditions." : "A 2023 syllabus alone does not establish eligibility for a future cycle.",
+        cards: clerk ? [
+          { title: "Educational qualification", text: "Bachelor’s degree or equivalent; prescribed 120-hour computer course or DOEACC O-level equivalent; Matric Punjabi or equivalent." },
+          { title: "Age limit", text: "Original notice: 18–37 for general category as on 1 January 2026. Reserved-category relaxations apply; check the notice and corrigenda." },
+          { title: "Selection stages", text: "Written examination → qualifying English and Punjabi typing at 30 wpm → document verification. Punjabi typing uses Unicode-compliant Raavi." },
+        ] : [
+          { title: "Eligibility status", text: "Current age limits, education, computer qualifications and selection stages must be checked in the relevant recruitment advertisement.", badge: "Awaiting verification", href: base.officialUrl, ctaLabel: "Check PSSSB notices" },
+        ],
+      },
+      dates: {
+        eyebrow: "Official schedule", title: name + " important dates",
+        description: "A countdown will appear only when a confirmed exam date is available.",
+        cards: [{ title: "Exam date", text: "No official exam date has been verified for this page. Check the board’s latest schedule and admit-card notice.", badge: "Not verified", href: base.officialUrl, ctaLabel: "Official date updates" }],
+      },
+      ...(clerk ? { salary: { eyebrow: "Original 2026 advertisement", title: "Clerk pay scale", description: "Basic pay reference, not take-home salary.", cards: [{ title: "Pay level", text: "Level 2; starting basic pay ₹19,900 in the original Advertisement 02/2026. Allowances and deductions affect take-home pay." }] } } : {}),
+      updates: {
+        eyebrow: "Sources & recruitment cycle", title: "Notices and source documents",
+        description: note,
+        cards: [
+          { title: clerk ? "Clerk examination plan • 02/2026" : "Patwari examination plan • 02/2023", text: clerk ? "Board-issued syllabus and written-paper structure." : "Historical board-issued syllabus. This PDF is hosted by a third-party mirror.", badge: clerk ? "2026 syllabus" : "Historical reference", href: syllabusUrl, ctaLabel: "Read source PDF" },
+          ...(clerk ? [{ title: "Original Clerk advertisement • 02/2026", text: "Board-issued recruitment advertisement, hosted by a third-party mirror. Check later official corrigenda.", href: "https://haryanajobs.in/wp-content/uploads/PSSSB-Clerk-Recruitment-2026-Notification.pdf", ctaLabel: "Read advertisement" },
+          { title: "Clerk syllabus • mirror copy", text: "Alternative copy of the board-issued examination plan if the official PDF is unavailable.", href: "https://syllabus4u.com/wp-content/uploads/2026/08/Clerk.pdf", ctaLabel: "Read mirror PDF" }] : []),
+          { title: "Latest official notices", text: "Verify schedule changes, vacancies, application status and corrigenda with PSSSB.", href: base.officialUrl, ctaLabel: "Visit PSSSB" },
+        ],
+      },
+      faq: {
+        eyebrow: "Common questions", title: "Before you start",
+        description: "Keep the recruitment cycle and paper stages clear.",
+        cards: [
+          { title: "Do Punjabi qualifying marks decide merit?", text: "Part A is a qualifying gate. Under the referenced plan, merit is based on Part B after qualifying Part A." },
+          { title: "Are tests available now?", text: "The Test Series tab displays live catalogue availability. No unpublished or sample tests are presented as available." },
+          { title: "Which notification applies?", text: clerk ? "These details cover Clerk Advertisement 02/2026, not a combined Clerk/Junior Assistant recruitment." : "This study reference covers Advertisement 02/2023. A future recruitment may change the rules." },
+        ],
+      },
+    },
+    topics: [],
+  };
+}
+
 export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
   "ssc-cgl": {
     slug: "ssc-cgl",
@@ -1521,20 +1628,8 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://punjabpolice.gov.in",
     officialLabel: "punjabpolice.gov.in",
   }),
-  "psssb-clerk": makeExamShellConfig({
-    slug: "psssb-clerk",
-    name: "PSSSB Clerk / Junior Assistant",
-    categoryHref: "/category/punjab",
-    officialUrl: "https://sssb.punjab.gov.in",
-    officialLabel: "sssb.punjab.gov.in",
-  }),
-  "punjab-patwari": makeExamShellConfig({
-    slug: "punjab-patwari",
-    name: "Punjab Patwari",
-    categoryHref: "/category/punjab",
-    officialUrl: "https://sssb.punjab.gov.in",
-    officialLabel: "sssb.punjab.gov.in",
-  }),
+  "psssb-clerk": makePunjabStudyConfig("psssb-clerk"),
+  "punjab-patwari": makePunjabStudyConfig("punjab-patwari"),
   "psssb-excise-taxation-inspector": makeExamShellConfig({
     slug: "psssb-excise-taxation-inspector",
     name: "PSSSB Excise & Taxation Inspector",
