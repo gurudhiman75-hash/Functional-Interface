@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
@@ -82,6 +82,7 @@ export default function Home() {
   const catalog = useExamCatalog();
   const sampleMode = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("preview") === "sample";
   const [query, setQuery] = useState("");
+  const heroPreviewRef = useRef<HTMLDivElement>(null);
   const [sessionUser, setSessionUser] = useState<User | null>(() => (typeof window === "undefined" ? null : getUser()));
   const [googleSignInPending, setGoogleSignInPending] = useState(false);
   const [activeExamTab, setActiveExamTab] = useState("all");
@@ -117,6 +118,18 @@ export default function Home() {
     `${item.name} ${item.category}`.toLowerCase().includes(query.trim().toLowerCase())
   );
   useEffect(() => {
+    const preview = heroPreviewRef.current;
+    if (!preview) return;
+    const fitPreview = () => {
+      preview.style.setProperty("--hero-preview-scale", String(Math.min(1, preview.clientWidth / 430)));
+    };
+    fitPreview();
+    const observer = new ResizeObserver(fitPreview);
+    observer.observe(preview);
+    return () => observer.disconnect();
+  }, [sessionUser]);
+
+  useEffect(() => {
     if (sessionUser) {
       setLocation("/dashboard");
       return;
@@ -148,7 +161,7 @@ export default function Home() {
             <p>Take exam-like tests, learn from detailed explanations and improve your rank with personalised insights.</p>
           </div>
 
-          <div className="hero-visual" aria-label="Mock test interface preview">
+          <div ref={heroPreviewRef} className="hero-visual" aria-label="Mock test interface preview">
             <div className="dashboard-card mock-device">
               <div className="mock-device-top"><span><span className="tiny-mark">E</span> English Language</span><b>◷ 00:24:17</b></div>
               <div className="mock-device-body">
