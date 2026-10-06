@@ -14,7 +14,7 @@ export function examIdentityAsset({ name, examCode, familyCode }: Omit<IdentityP
   else if (/\bRBI\b|RESERVE BANK/.test(text)) file = "rbi-official.svg";
   else if (/\bSSC\b|STAFF SELECTION COMMISSION/.test(text) || family === "SSC") file = "SSC-CGL.png";
   else if (/RAILWAY|\bRRB\b/.test(text) || family === "RAILWAY") file = "railways-official.svg";
-  else if (/PUNJAB|PSSSB|PPSC|PSPCL/.test(text) || family === "PUNJAB") file = "punjab.png";
+  else if (/PUNJAB|PSSSB|PPSC|PSPCL/.test(text) || family === "PUNJAB") file = "punjab-official.svg";
   return file ? `${import.meta.env.BASE_URL}category-icons/${file}` : undefined;
 }
 
