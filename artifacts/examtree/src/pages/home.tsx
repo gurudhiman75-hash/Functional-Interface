@@ -30,7 +30,6 @@ import { signInWithGoogle } from "@/lib/auth";
 import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
-import { HOME_STATIC_HERO_IMAGE } from "@/assets/home-static-hero-image";
 
 const HOME_CATEGORY_ICONS: Record<string, string> = {
   "SSC": "/category-icons/ssc-official.svg",
@@ -125,7 +124,7 @@ export default function Home() {
       {sampleMode ? <div className="border-b border-amber-200 bg-amber-50 text-amber-950" data-testid="home-sample-preview-badge"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 text-xs sm:px-6 lg:px-8"><span><strong>Sample data preview.</strong> Visual-only catalog data.</span><button type="button" className="min-h-10 rounded-lg px-3 font-bold hover:bg-amber-100" onClick={() => setLocation("/")}>Exit preview</button></div></div> : null}
 
       <section className="home-static-hero" data-testid="home-hero">
-        <img src={HOME_STATIC_HERO_IMAGE} alt="Examtree practice tests hero" className="home-static-hero-image" />
+        <img src="/home/examtree-hero.webp" alt="Examtree practice tests hero" className="home-static-hero-image" />
       </section>
 
       <section className="warm-featured-band" id="test-series" data-testid="home-popular-series">
