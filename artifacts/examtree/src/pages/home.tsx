@@ -84,7 +84,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [sessionUser, setSessionUser] = useState<User | null>(() => (typeof window === "undefined" ? null : getUser()));
   const [googleSignInPending, setGoogleSignInPending] = useState(false);
-  const [activeExamTab, setActiveExamTab] = useState("ssc");
+  const [activeExamTab, setActiveExamTab] = useState("all");
   const categories = sampleMode ? SAMPLE_HOME_CATEGORIES : catalog.categories;
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
@@ -96,10 +96,26 @@ export default function Home() {
     return featuredGroups.filter((group) => `${group.name} ${group.subcategories.map((item) => item.name).join(" ")}`.toLowerCase().includes(needle));
   }, [featuredGroups, query]);
   const activeExamDefinition = EXAM_TAB_DEFINITIONS.find((tab) => tab.key === activeExamTab) ?? EXAM_TAB_DEFINITIONS[0];
-  const activeExamGroup = examGroups.find((group) => activeExamDefinition.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
-  const activeExamItems = activeExamGroup?.subcategories?.length
-    ? activeExamGroup.subcategories.slice(0, 8).map((item) => ({ id: item.id, name: item.name, icon: activeExamGroup.icon }))
-    : activeExamDefinition.fallback.map((name, index) => ({ id: `fallback-${activeExamDefinition.key}-${index}`, name, icon: undefined }));
+  const matchingExamGroups = activeExamTab === "all"
+    ? examGroups
+    : examGroups.filter((group) => activeExamDefinition.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
+  const activeExamItems = matchingExamGroups.some((group) => group.subcategories.length > 0)
+    ? matchingExamGroups.flatMap((group) => {
+        const definition = EXAM_TAB_DEFINITIONS.find((tab) => tab.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
+        return group.subcategories.map((item) => ({
+          id: item.id, name: item.name, category: group.name,
+          definition: definition ?? activeExamDefinition, href: `/subcategory/${item.id}`,
+        }));
+      })
+    : (activeExamTab === "all" ? EXAM_TAB_DEFINITIONS : [activeExamDefinition]).flatMap((definition) =>
+        definition.fallback.map((name, index) => ({
+          id: `fallback-${definition.key}-${index}`, name, category: definition.label,
+          definition, href: "/exams",
+        }))
+      );
+  const visibleExamItems = activeExamItems.filter((item) =>
+    `${item.name} ${item.category}`.toLowerCase().includes(query.trim().toLowerCase())
+  );
   useEffect(() => {
     if (sessionUser) {
       setLocation("/dashboard");
@@ -123,8 +139,63 @@ export default function Home() {
     <div className="home-page" data-testid="home-reference">
       {sampleMode ? <div className="border-b border-amber-200 bg-amber-50 text-amber-950" data-testid="home-sample-preview-badge"><div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 text-xs sm:px-6 lg:px-8"><span><strong>Sample data preview.</strong> Visual-only catalog data.</span><button type="button" className="min-h-10 rounded-lg px-3 font-bold hover:bg-amber-100" onClick={() => setLocation("/")}>Exit preview</button></div></div> : null}
 
-      <section className="home-static-hero" data-testid="home-hero">
-        <img src="/home/examtree-hero.webp" alt="Examtree practice tests hero" className="home-static-hero-image" />
+      <section className="home-hero home-hero-guest hero-layout-v2" data-testid="home-hero">
+        <div className="hero-glow one" /><div className="hero-glow two" />
+        <div className="hero-primary">
+          <div className="hero-copy">
+            <span className="hero-badge"><Users size={14} /> 5,00,000+ aspirants trust Examtree</span>
+            <h1>Practice Today<br />for a <span>Brighter Tomorrow</span></h1>
+            <p>Take exam-like tests, learn from detailed explanations and improve your rank with personalised insights.</p>
+          </div>
+
+          <div className="hero-visual" aria-label="Mock test interface preview">
+            <div className="dashboard-card mock-device">
+              <div className="mock-device-top"><span><span className="tiny-mark">E</span> English Language</span><b>◷ 00:24:17</b></div>
+              <div className="mock-device-body">
+                <div className="mock-question">
+                  <small>Q. 12 / 20</small>
+                  <h3>Find the correctly spelt word.</h3>
+                  {["Accommodate","Accomodate","Acommodate","Accomoddate"].map((option,index)=><div className={`mock-option ${index===0?"selected":""}`} key={option}><span>{String.fromCharCode(65+index)}</span>{option}</div>)}
+                </div>
+                <div className="mock-palette">
+                  <h4>Question Palette</h4>
+                  <div className="mock-legend"><span>Answered</span><span>Current</span><span>Not Visited</span></div>
+                  <div className="mock-numbers">{Array.from({length:20},(_,i)=><i className={i===11?"current":i<10?"done":""} key={i}>{i+1}</i>)}</div>
+                  <div className="mock-progress"><span>Your Progress <b>60%</b></span><div><i /></div></div>
+                  <div className="mock-score"><span>Attempted<b>12/20</b></span><span>Live Rank<b>#248</b></span></div>
+                </div>
+              </div>
+              <button className="mock-next" type="button" onClick={() => setLocation("/mock-tests")}>Next <ArrowRight /></button>
+            </div>
+          </div>
+
+          <div className="hero-search-zone">
+            <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
+              <Search aria-hidden="true" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways, Punjab Govt..." aria-label="Search exams" />
+              <button type="submit">Find Tests</button>
+            </form>
+            {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
+            <div className="hero-benefits"><span><BookOpen /> Exam-like Mock Tests</span><span><BarChart3 /> Detailed Performance Analysis</span><span><Sparkles /> Topic-wise Practice</span><span><CheckCircle2 /> Updated Syllabus &amp; Pattern</span></div>
+          </div>
+        </div>
+
+        <aside className="hero-auth-panel dark-auth-panel" data-testid="home-hero-auth-card">
+          <div className="hero-auth-card dark-auth-card">
+            <span className="dark-auth-eyebrow">START FREE</span>
+            <h2>Get started with Examtree</h2>
+            <p>Access free tests, study material and personalised learning.</p>
+            <button type="button" className="hero-google-login dark-google-login" data-testid="home-google-login" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}>
+              <span className="google-g" aria-hidden="true">G</span>
+              <span>{googleSignInPending ? "Connecting…" : "Continue with Google"}</span>
+              <ArrowRight className="google-arrow" aria-hidden="true" />
+            </button>
+            <div className="hero-auth-divider"><span>or</span></div>
+            <button type="button" className="hero-email-login dark-email-login" onClick={() => setLocation("/login")}>Continue with email</button>
+            <p className="hero-login-copy">Already have an account? <button type="button" onClick={() => setLocation("/login")}>Login</button></p>
+            <div className="hero-auth-perks"><span><CheckCircle2 /> Free tests</span><span><BookOpen /> Study material</span><span><Sparkles /> Personalised learning</span></div>
+          </div>
+        </aside>
       </section>
 
       <section className="warm-featured-band" id="test-series" data-testid="home-popular-series">
@@ -152,21 +223,23 @@ export default function Home() {
           <button type="button" onClick={() => setLocation("/exams")}>View All Exams <ArrowRight /></button>
         </div>
         <div className="exam-switcher" role="tablist" aria-label="Exam categories">
+          <button type="button" role="tab" aria-selected={activeExamTab === "all"} className={activeExamTab === "all" ? "active" : ""} onClick={() => setActiveExamTab("all")}>All</button>
           {EXAM_TAB_DEFINITIONS.map((tab) => (
             <button key={tab.key} type="button" role="tab" aria-selected={activeExamTab === tab.key} className={activeExamTab === tab.key ? "active" : ""} onClick={() => setActiveExamTab(tab.key)}>{tab.label}</button>
           ))}
         </div>
         <div className="direct-exam-grid">
-          {activeExamItems.map((item, index) => (
-            <button key={item.id} type="button" className="direct-exam-card" onClick={() => activeExamGroup && !item.id.startsWith("fallback-") ? setLocation(`/subcategory/${item.id}`) : setLocation("/exams")}>
+          {visibleExamItems.map((item) => (
+            <button key={item.id} type="button" className="direct-exam-card" onClick={() => setLocation(item.href)} title={item.name}>
               <span className="direct-exam-logo">
-                {HOME_CATEGORY_ICONS[activeExamDefinition.label] ? <img src={HOME_CATEGORY_ICONS[activeExamDefinition.label]} alt="" /> : activeExamDefinition.key === "railway" ? <img src="/category-icons/railways-official.svg" alt="" /> : activeExamDefinition.key === "banking" ? <img src="/category-icons/rbi-official.svg" alt="" /> : activeExamDefinition.key === "punjab" ? <img src="/category-icons/punjab-official.svg" alt="" /> : activeExamDefinition.key === "ssc" ? <img src="/category-icons/ssc-official.svg" alt="" /> : activeExamDefinition.key === "teaching" ? <GraduationCap /> : activeExamDefinition.key === "defence" ? <ShieldCheck /> : <Landmark />}
+                {HOME_CATEGORY_ICONS[item.definition.label] ? <img src={HOME_CATEGORY_ICONS[item.definition.label]} alt="" /> : item.definition.key === "railway" ? <img src="/category-icons/railways-official.svg" alt="" /> : item.definition.key === "banking" ? <img src="/category-icons/rbi-official.svg" alt="" /> : item.definition.key === "punjab" ? <img src="/category-icons/punjab-official.svg" alt="" /> : item.definition.key === "ssc" ? <img src="/category-icons/ssc-official.svg" alt="" /> : item.definition.key === "teaching" ? <GraduationCap /> : item.definition.key === "defence" ? <ShieldCheck /> : <Landmark />}
               </span>
-              <span className="direct-exam-copy"><b>{item.name}</b><small>{index === 0 ? "Popular" : activeExamDefinition.label}</small></span>
+              <span className="direct-exam-copy"><b>{item.name}</b><small>{item.category}</small></span>
               <span className="direct-exam-go"><ChevronRight /></span>
             </button>
           ))}
         </div>
+        {visibleExamItems.length === 0 ? <p className="exam-empty-state">No exams found. Try another search or category.</p> : null}
       </section>
 
       <section className="warm-collections-band">
