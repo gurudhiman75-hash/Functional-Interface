@@ -2591,7 +2591,15 @@
 .home-page .direct-exam-copy small,.home-page .direct-exam-go{display:none!important}
 .exam-empty-state{padding:20px 0;color:#64728a;text-align:center}
 
-/* Scale the whole existing test preview uniformly on narrow screens. */
+/* Keep this two-column hero independent of older named grid layouts. */
+.home-page .hero-layout-v2{grid-template-areas:none!important}
+.home-page .hero-layout-v2 .hero-primary{grid-area:auto!important;grid-template-columns:minmax(0,1fr)!important}
+.home-page .hero-layout-v2 .hero-copy,
+.home-page .hero-layout-v2 .hero-visual,
+.home-page .hero-layout-v2 .hero-search-zone,
+.home-page .hero-layout-v2 .hero-auth-panel{grid-area:auto!important;min-width:0!important}
+
+/* ResizeObserver supplies a unitless scale supported by mobile browsers. */
 @media(max-width:760px){
   .home-page .hero-layout-v2 .hero-visual{
     position:relative!important;
@@ -2599,9 +2607,9 @@
     width:100%!important;
     min-height:0!important;
     height:auto!important;
-    aspect-ratio:430 / 330;
+    aspect-ratio:430 / 390;
     overflow:hidden!important;
-    container-type:inline-size;
+    --hero-preview-scale:0.75;
   }
   .home-page .hero-layout-v2 .mock-device{
     position:absolute!important;
@@ -2612,9 +2620,9 @@
     max-width:430px!important;
     min-height:300px!important;
     margin:0!important;
-    transform:translateX(-50%)!important;
+    transform:translateX(-50%) scale(var(--hero-preview-scale,0.75))!important;
     transform-origin:top center!important;
-    scale:calc(100cqw / 430px);
+    scale:none!important;
   }
   .home-page .hero-layout-v2 .mock-device-body{grid-template-columns:minmax(0,1.26fr) minmax(122px,.74fr)!important}
   .home-page .hero-layout-v2 .mock-question,.home-page .hero-layout-v2 .mock-palette{min-height:207px!important}
