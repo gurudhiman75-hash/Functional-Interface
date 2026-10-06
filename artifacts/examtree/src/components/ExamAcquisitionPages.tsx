@@ -618,6 +618,8 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   if (examSlug === "ssc-cgl") {
     return <SSCExamWorkspace
       tests={flatTests}
+      series={examSeries}
+      examDate={pageConfiguration.sections.find(section => section.type === "hero")?.labels.examDate}
       icon={catalogExam?.icon}
       signedIn={Boolean(sessionUser)}
       loading={catalog.isLoading || seriesQuery.isLoading}
