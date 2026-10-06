@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
-import SSCExamWorkspace from "@/components/SSCExamWorkspace";
+import SSCExamWorkspace, { SSC_WORKSPACE_SLUGS } from "@/components/SSCExamWorkspace";
 import MathText from "@/components/MathText";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
@@ -551,7 +551,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
   const flatTests = useMemo<ExamHubFlatTest[]>(() => {
     const seriesBoundIds = new Set<string>();
-    const fromSeries = examSeries.filter(series => examSlug !== "ssc-cgl" || series.learnerVisibility === "live").flatMap((series) => {
+    const fromSeries = examSeries.filter(series => !SSC_WORKSPACE_SLUGS.some(slug => slug === examSlug) || series.learnerVisibility === "live").flatMap((series) => {
       const rawStage = seriesHubStage(series);
       const stage = preferredStage(rawStage, seriesSearchText(series), config.testHub);
       const type = seriesHubType(series);
@@ -615,8 +615,10 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
   const comingSoonCount = examSeries.filter((series) => series.learnerVisibility === "coming_soon").length;
   const freeCount = examTests.filter((test) => (test.access ?? "free") === "free").length;
 
-  if (examSlug === "ssc-cgl") {
+  if (SSC_WORKSPACE_SLUGS.some(slug => slug === examSlug)) {
     return <SSCExamWorkspace
+      key={examSlug}
+      examSlug={examSlug as typeof SSC_WORKSPACE_SLUGS[number]}
       tests={flatTests}
       series={examSeries}
       examDate={pageConfiguration.sections.find(section => section.type === "hero")?.labels.examDate}
