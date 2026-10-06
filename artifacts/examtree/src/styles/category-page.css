@@ -72,3 +72,17 @@
 @media(max-width:1000px){.category-container{padding:24px 22px 40px}.category-hero{padding:28px;gap:24px}.category-exam-grid,.category-guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.category-preparation{grid-template-columns:1fr}.category-official{align-items:flex-start;flex-direction:column}}
 @media(max-width:720px){.category-container{padding:20px 16px 35px}.category-hero{grid-template-columns:1fr;padding:23px;gap:24px;border-radius:19px}.category-hero h1{font-size:29px}.category-hero-logo{width:54px;height:54px}.category-hero-copy>p{font-size:13px}.category-hero-panel{padding:18px}.category-hero-panel label{font-size:13px}.category-section{margin-top:28px}.category-section-head{align-items:flex-start;flex-direction:column;gap:8px}.category-section h2{font-size:23px}.category-exam-grid,.category-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category-exam-card{padding:16px 13px}.category-exam-card h3{font-size:14px}.category-exam-logo{width:44px;height:44px}.category-series-card{flex-basis:78%;min-width:230px}.category-preparation{padding:25px 22px}.category-plan-grid{grid-template-columns:1fr}.category-plan-grid article{padding:17px 18px}.category-plan-grid svg{margin:0 0 12px}.category-preparation h2{font-size:25px}.category-inline-state{flex-wrap:wrap;padding:18px}.category-inline-state>div{flex:1;min-width:170px}.category-inline-state a,.category-inline-state button{margin-left:0}.category-official{padding:22px}.category-guide-grid article{padding:13px}}
 @media(prefers-reduced-motion:reduce){.category-exam-card{transition:none}.category-exam-card:hover{transform:none}}
+
+.category-hero-logo{width:84px;height:84px;padding:11px;border-radius:20px;box-shadow:0 9px 22px -17px #294d7180}
+.category-exam-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#eef3f6 0,#fbfcfc 32%,#fff 65%);min-height:248px;padding:22px 20px 0;border-color:#dce4e8}
+.category-exam-card:before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#bca36e}
+.category-exam-card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%}
+.category-exam-logo{width:70px;height:70px;padding:9px;border-radius:18px;box-shadow:0 9px 20px -16px #203b5070}
+.category-exam-family{font-size:9px;font-weight:750;letter-spacing:.08em;color:#647c8e;border:1px solid #d8e1e6;background:#fff9;border-radius:99px;padding:5px 8px}
+.category-exam-card h3{margin-top:18px;font-size:17px}
+.category-exam-card .category-exam-description{font-size:11px;line-height:1.7;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:#6d7e8b}
+.category-exam-card .category-exam-inventory{font-size:10px;margin-bottom:17px;color:#7b8a93}
+.category-exam-action{padding:13px 0;border-top:1px solid #e5ebee;font-size:12px}
+.category-series-logo{padding:6px}
+.category-switcher a{padding:8px 13px}
+@media(max-width:720px){.category-hero-logo{width:66px;height:66px;padding:9px}.category-exam-card{min-height:236px;padding:18px 13px 0}.category-exam-logo{width:58px;height:58px;padding:7px;border-radius:15px}.category-exam-family{font-size:8px;padding:4px 6px}.category-exam-card h3{font-size:15px}.category-exam-action{font-size:11px}}

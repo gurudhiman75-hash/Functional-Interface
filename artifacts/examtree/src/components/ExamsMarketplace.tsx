@@ -18,7 +18,7 @@ import {
   Trophy,
 } from "lucide-react";
 
-import { CategoryIcon } from "@/components/CategoryIcon";
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { CatalogTestBrowser } from "@/components/CatalogTestBrowser";
 import { Button } from "@/components/ui/button";
 import { getDailyChallenge, type Test } from "@/lib/data";
@@ -49,13 +49,6 @@ const FEATURE_ICON_TONES = [
   "bg-[#fff0e7] text-[#c86a2f]",
 ] as const;
 
-const EXAM_LOGOS = [
-  { match: /\bssc\b/i, src: "https://ssc.gov.in/favicon.ico" },
-  { match: /\bibps\b|bank/i, src: "https://www.ibps.in/favicon.ico" },
-  { match: /\brrb\b|railway/i, src: "https://indianrailways.gov.in/favicon.ico" },
-  { match: /punjab police/i, src: "https://punjabpolice.gov.in/favicon.ico" },
-] as const;
-
 const SUBJECT_RULES = [
   { label: "Quantitative Aptitude", short: "Quant", icon: Sigma, keywords: ["quant", "math", "arithmetic", "numerical"] },
   { label: "Reasoning Ability", short: "Reasoning", icon: BrainCircuit, keywords: ["reasoning", "logical", "aptitude"] },
@@ -82,21 +75,9 @@ function testSearchText(test: Test) {
   ].filter(Boolean).join(" "));
 }
 
-function initials(value: string) {
-  const words = value.trim().split(/\s+/).filter(Boolean);
-  return words.length ? words.slice(0, 2).map((word) => word[0]?.toUpperCase()).join("") : "ET";
-}
-
 function ExamLogo({ name, icon, size = "md" }: { name: string; icon?: string; size?: "sm" | "md" | "lg" }) {
-  const src = icon ? null : EXAM_LOGOS.find((item) => item.match.test(name))?.src ?? null;
-  const sizeClass = size === "lg" ? "h-14 w-14" : size === "sm" ? "h-9 w-9" : "h-11 w-11";
-  const iconClass = size === "lg" ? "h-7 w-7" : size === "sm" ? "h-4 w-4" : "h-5 w-5";
-  return (
-    <span className={`relative flex ${sizeClass} shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#e4e5ec] bg-white text-xs font-black text-slate-600 shadow-[0_4px_14px_rgba(31,41,55,0.05)]`}>
-      {icon ? <CategoryIcon icon={icon} className={iconClass} /> : <span>{initials(name)}</span>}
-      {src ? <img src={src} alt={`${name} logo`} className="absolute inset-1 h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] object-contain" loading="lazy" referrerPolicy="no-referrer" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
-    </span>
-  );
+  const sizeClass = size === "lg" ? "h-14 w-14" : size === "sm" ? "h-11 w-11" : "h-12 w-12";
+  return <span className={`flex ${sizeClass} shrink-0 items-center justify-center rounded-xl border border-[#e4e5ec] bg-white p-1.5 text-[#294d71] shadow-sm`}><ExamIdentityIcon name={name} icon={icon} /></span>;
 }
 
 function SectionHeader({ eyebrow, title, description, trailing }: { eyebrow?: string; title: string; description?: string; trailing?: ReactNode }) {
