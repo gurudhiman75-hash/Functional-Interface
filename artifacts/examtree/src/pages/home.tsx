@@ -100,7 +100,7 @@ export default function Home() {
         const definition = EXAM_TAB_DEFINITIONS.find((tab) => tab.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
         return group.subcategories.map((item) => ({
           id: item.id, name: item.name, category: group.name,
-          definition: definition ?? activeExamDefinition, href: `/subcategory/${item.id}`,
+          definition: definition ?? activeExamDefinition, href: `/subcategory/${item.id}?category=${encodeURIComponent(group.id)}`,
         }));
       })
     : (activeExamTab === "all" ? EXAM_TAB_DEFINITIONS : [activeExamDefinition]).flatMap((definition) =>
