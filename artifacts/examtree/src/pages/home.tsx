@@ -11,16 +11,14 @@ import {
   Monitor,
   Trophy,
   Users,
-  GraduationCap,
-  Landmark,
   Newspaper,
   Target,
-  ShieldCheck,
 } from "lucide-react";
 
 import { ExamCollectionBanner } from "@/components/ExamCollectionBanner";
 import { EXAM_COLLECTIONS } from "@/lib/exam-collections";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import {
   SAMPLE_HOME_CATEGORIES,
@@ -33,15 +31,6 @@ import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import { examHubHrefForCatalogExam } from "@/lib/seo-practice";
 import "@/styles/home-section-rhythm.css";
-
-const HOME_CATEGORY_ICONS: Record<string, string> = {
-  "SSC": "/category-icons/ssc-official.svg",
-  "Banking": "/category-icons/rbi-official.svg",
-  "Punjab Govt.": "/category-icons/punjab-official.svg",
-  "State Govt.": "/category-icons/punjab-official.svg",
-  "Railways": "/category-icons/railways-official.svg",
-};
-
 
 
 const FEATURED_SERIES_STRIP = [
@@ -285,7 +274,11 @@ export default function Home() {
           {visibleExamItems.map((item) => (
             <button key={item.id} type="button" className="direct-exam-card" onClick={() => setLocation(item.href)} title={item.name}>
               <span className="direct-exam-logo">
-                {HOME_CATEGORY_ICONS[item.definition.label] ? <img src={HOME_CATEGORY_ICONS[item.definition.label]} alt="" /> : item.definition.key === "railway" ? <img src="/category-icons/railways-official.svg" alt="" /> : item.definition.key === "banking" ? <img src="/category-icons/rbi-official.svg" alt="" /> : item.definition.key === "punjab" ? <img src="/category-icons/punjab-official.svg" alt="" /> : item.definition.key === "ssc" ? <img src="/category-icons/ssc-official.svg" alt="" /> : item.definition.key === "teaching" ? <GraduationCap /> : item.definition.key === "defence" ? <ShieldCheck /> : <Landmark />}
+                <ExamIdentityIcon
+                  name={item.name}
+                  examCode={item.id.startsWith("fallback-") ? undefined : item.id}
+                  familyCode={item.definition.key}
+                />
               </span>
               <span className="direct-exam-copy"><b>{item.name}</b><small>{item.category}</small></span>
               <span className="direct-exam-go"><ChevronRight /></span>
