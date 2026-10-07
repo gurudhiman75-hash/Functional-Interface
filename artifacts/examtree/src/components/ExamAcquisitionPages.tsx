@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
@@ -1011,6 +1011,7 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
 
 export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   const config = requireConfig(examSlug);
+  const [activeSection, setActiveSection] = useState("overview");
   const catalog = useExamCatalog();
   const sessionUser = getSessionUser();
   const examCodes = useMemo(() => catalogExamCodesForSlug(examSlug).map((code) => code.toUpperCase()), [examSlug]);
@@ -1078,6 +1079,27 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     return section.title || "More Details";
   };
 
+  const sectionSignature = detailSections.map(sectionAnchor).join("|");
+  useEffect(() => {
+    const anchors = sectionSignature.split("|").filter(Boolean);
+    const initial = window.location.hash.slice(1);
+    setActiveSection(anchors.includes(initial) ? initial : anchors[0] || "overview");
+    const visible = new Map<string, number>();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.set(entry.target.id, entry.boundingClientRect.top);
+        else visible.delete(entry.target.id);
+      });
+      const nearest = [...visible.entries()].sort((a, b) => Math.abs(a[1] - 150) - Math.abs(b[1] - 150))[0];
+      if (nearest) setActiveSection(nearest[0]);
+    }, { rootMargin: "-110px 0px -45% 0px", threshold: 0 });
+    anchors.forEach((anchor) => {
+      const element = document.getElementById(anchor);
+      if (element) observer.observe(element);
+    });
+    return () => observer.disconnect();
+  }, [examSlug, sectionSignature]);
+
   const findDetailCard = (section: "eligibility" | "dates" | "salary" | "updates", titleIncludes: string) =>
     config.details?.[section]?.cards.find((card) => card.title.toLowerCase().includes(titleIncludes.toLowerCase()));
 
@@ -1087,7 +1109,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   const vacancyMatch = vacancyCard?.text.match(/[\d,]+/);
   const summaryFacts = [
     { label: "Official source", value: config.officialLabel, icon: Landmark },
-    ...(config.yearLabel && config.yearLabel !== "Exam" ? [{ label: "Current cycle", value: config.yearLabel, icon: CalendarDays }] : []),
+    ...(config.yearLabel && config.yearLabel !== "Exam" ? [{ label: "Reference cycle", value: config.yearLabel, icon: CalendarDays }] : []),
     ...(vacancyMatch ? [{ label: "Vacancies", value: vacancyMatch[0], icon: Users }] : []),
     ...(salaryCard ? [{ label: "Starting basic pay", value: salaryCard.text.split(".")[0], icon: FileText }] : []),
   ].slice(0, 4);
@@ -1120,14 +1142,14 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     href?: string,
   ) => {
     const inner = (
-      <div className="grid gap-2 px-0 py-5 sm:grid-cols-[210px_minmax(0,1fr)] sm:gap-7">
+      <div className="grid gap-2 px-1 py-5 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-8">
         <div>
-          {badge ? <span className="mb-2 inline-flex rounded-md bg-blue-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.1em] text-blue-700">{badge}</span> : null}
+          {badge ? <span className="mb-2 inline-flex rounded-md bg-[#edf0f7] px-2 py-1 text-[10px] font-black uppercase tracking-[0.1em] text-[#425988]">{badge}</span> : null}
           <h3 className="text-sm font-bold leading-6 text-slate-950">{title}</h3>
         </div>
         <div>
-          <p className="whitespace-pre-line text-sm leading-7 text-slate-600">{text}</p>
-          {ctaLabel && href ? <span className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-blue-700">{ctaLabel}<ArrowRight className="h-4 w-4" /></span> : null}
+          <p className="whitespace-pre-line text-[15px] leading-7 text-slate-600">{text}</p>
+          {ctaLabel && href ? <span className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-[#425988]">{ctaLabel}<ArrowRight className="h-4 w-4" /></span> : null}
         </div>
       </div>
     );
@@ -1203,7 +1225,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
               <div key={stage} className="overflow-hidden rounded-xl border border-slate-200">
                 <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-3">
                   <h3 className="font-black text-slate-950">{stage}</h3>
-                  <span className="rounded-md bg-blue-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-blue-700">{stage === "Preliminary Exam" ? "Stage 1" : "Stage 2"}</span>
+                  <span className="rounded-md bg-[#edf0f7] px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-[#425988]">{stage === "Preliminary Exam" ? "Stage 1" : "Stage 2"}</span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[560px] border-collapse text-left text-xs">
@@ -1244,14 +1266,14 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             {config.preparation.cards.map((card, index) => (
               <li key={card.title} className="grid gap-3 sm:grid-cols-[42px_minmax(0,1fr)]">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
-                <div><h3 className="font-bold text-slate-950">{card.title.replace(/^\d+\.\s*/, "")}</h3><p className="mt-1 text-sm leading-7 text-slate-600">{card.text}</p></div>
+                <div><h3 className="font-bold text-slate-950">{card.title.replace(/^\d+\.\s*/, "")}</h3><p className="mt-1 text-[15px] leading-7 text-slate-600">{card.text}</p></div>
               </li>
             ))}
           </ol>
           {config.preparation.weeklyCycle.length ? (
             <div className="border-l-4 border-blue-600 bg-slate-50 px-5 py-5">
               <h3 className="font-bold text-slate-950">Weekly preparation cycle</h3>
-              <div className="mt-3 text-sm leading-7 text-slate-600"><CheckList items={config.preparation.weeklyCycle} /></div>
+              <div className="mt-3 text-[15px] leading-7 text-slate-600"><CheckList items={config.preparation.weeklyCycle} /></div>
             </div>
           ) : null}
         </div>
@@ -1261,8 +1283,8 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
         <div className="grid gap-x-8 gap-y-0 sm:grid-cols-2">
           {config.topics.map((topic) => (
             <Link key={topic.slug} href={practiceTopicHref(topic.slug, examSlug)} className="group border-b border-slate-200 py-5">
-              <p className="text-[10px] font-black uppercase tracking-[0.12em] text-blue-600">{topic.subject}</p>
-              <div className="mt-1 flex items-start justify-between gap-4"><h3 className="font-bold text-slate-950 group-hover:text-blue-700">{topic.name}</h3><ArrowRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 group-hover:text-blue-700" /></div>
+              <p className="text-[10px] font-black uppercase tracking-[0.12em] text-[#425988]">{topic.subject}</p>
+              <div className="mt-1 flex items-start justify-between gap-4"><h3 className="font-bold text-slate-950 group-hover:text-[#425988]">{topic.name}</h3><ArrowRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 group-hover:text-[#425988]" /></div>
               <p className="mt-1 text-sm leading-6 text-slate-600">{topic.summary}</p>
             </Link>
           ))}
@@ -1280,22 +1302,22 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
     }
 
     return (
-      <section key={section.id} id={anchor} className="scroll-mt-28 border-b border-slate-200 py-9 first:pt-0 last:border-b-0">
+      <section key={section.id} id={anchor} className="scroll-mt-28 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_18px_rgba(15,23,42,0.025)] sm:p-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-700">{eyebrow}</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#425988]">{eyebrow}</p>
             <h2 className="mt-1 text-2xl font-black tracking-[-0.025em] text-slate-950 sm:text-[28px]">{title}</h2>
-            {description ? <p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-600">{description}</p> : null}
+            {description ? <p className="mt-2 whitespace-pre-line text-[15px] leading-7 text-slate-600">{description}</p> : null}
             {(section.body || canonicalCustom?.body) ? <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-700">{section.body || canonicalCustom?.body}</p> : null}
           </div>
           {section.type === "details_updates" ? (
-            <a href={section.ctaHref || config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-800">
+            <a href={section.ctaHref || config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-[#425988] hover:text-emerald-800">
               {section.ctaLabel || "Open " + config.officialLabel} <ArrowRight className="h-4 w-4" />
             </a>
           ) : section.ctaLabel && section.ctaHref ? (
             /^https?:\/\//i.test(section.ctaHref)
-              ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-blue-700">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></a>
-              : <Link href={section.ctaHref} className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-blue-700">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></Link>
+              ? <a href={section.ctaHref} target="_blank" rel="noreferrer" className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-[#425988]">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></a>
+              : <Link href={section.ctaHref} className="inline-flex min-h-10 shrink-0 items-center gap-2 text-sm font-bold text-[#425988]">{section.ctaLabel}<ArrowRight className="h-4 w-4" /></Link>
           ) : null}
         </div>
         {content}
@@ -1308,11 +1330,11 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   const signupHref = "/login/student?mode=signup&next=" + encodeURIComponent(detailsPath);
 
   return (
-    <div className="bg-white pb-16">
+    <div className="bg-[#f4f5f7] pb-16">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-5 sm:px-6 lg:px-8">
-        <header className="border-b border-slate-200 pb-6">
+        <header className="rounded-2xl border border-slate-200 bg-white px-5 py-6 shadow-[0_4px_20px_rgba(15,23,42,0.03)] sm:px-8">
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
-            <Link href={config.categoryHref} className="hover:text-blue-700">{marketingCategoryLabel(config.name)}</Link>
+            <Link href={config.categoryHref} className="hover:text-[#425988]">{marketingCategoryLabel(config.name)}</Link>
             <span>/</span>
             <span>{config.name}</span>
             <span>/</span>
@@ -1326,17 +1348,17 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
                   <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
                 </div>
               ) : (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700"><BookOpenCheck className="h-8 w-8" /></div>
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#edf0f7] text-[#425988]"><BookOpenCheck className="h-8 w-8" /></div>
               )}
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-3xl font-black tracking-[-0.035em] text-slate-950 sm:text-4xl">{config.name}</h1>
+                  <h1 className="text-3xl font-bold tracking-[-0.035em] text-[#18243b] sm:text-4xl">{config.name}</h1>
                   {config.yearLabel && config.yearLabel !== "Exam" ? <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-black text-slate-700">{config.yearLabel}</span> : null}
                 </div>
-                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">{config.meta.syllabusDescription}</p>
+                <p className="mt-2 max-w-3xl text-[15px] leading-7 text-slate-600">{config.meta.syllabusDescription}</p>
                 <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-500">
                   <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Exam information</span>
-                  <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-blue-700"><Globe2 className="h-4 w-4" /> Official source: {config.officialLabel}</a>
+                  <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#425988]"><Globe2 className="h-4 w-4" /> Official source: {config.officialLabel}</a>
                 </div>
               </div>
             </div>
@@ -1348,18 +1370,18 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             ) : (
               <div className="flex shrink-0 items-center gap-2">
                 <Link href={loginHref} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 text-sm font-bold text-slate-800 hover:bg-slate-50">Login</Link>
-                <Link href={signupHref} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700">Sign up</Link>
+                <Link href={signupHref} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#354c78] px-5 text-sm font-bold text-white hover:bg-blue-700">Sign up</Link>
               </div>
             )}
           </div>
 
           {summaryFacts.length ? (
-            <div className="mt-6 grid gap-0 overflow-hidden rounded-xl border border-slate-200 sm:grid-cols-2 lg:grid-cols-4">
-              {summaryFacts.map((fact, index) => {
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-slate-200 pt-5">
+              {summaryFacts.map((fact) => {
                 const Icon = fact.icon;
                 return (
-                  <div key={fact.label} className={"flex items-center gap-3 px-4 py-4 " + (index ? "border-t border-slate-200 sm:border-t-0 sm:border-l" : "")}>
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700"><Icon className="h-4 w-4" /></span>
+                  <div key={fact.label} className="flex min-w-[160px] items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#edf0f7] text-[#425988]"><Icon className="h-4 w-4" /></span>
                     <div className="min-w-0">
                       <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">{fact.label}</p>
                       <p className="mt-0.5 truncate text-sm font-bold text-slate-900">{fact.value}</p>
@@ -1370,59 +1392,60 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
             </div>
           ) : null}
 
-          <div className="mt-6 flex items-center gap-1 overflow-x-auto border-y border-slate-200 py-2">
+        </header>
+
+          <div className="sticky top-16 z-10 mt-5 flex items-center gap-1 overflow-x-auto rounded-xl border border-slate-200 bg-white p-2 shadow-sm lg:hidden">
             <Link href={sessionUser ? examHubHref(examSlug) : loginHref} className="mr-2 inline-flex min-h-9 shrink-0 items-center rounded-lg bg-slate-950 px-3.5 text-xs font-bold text-white">
               {sessionUser ? "Test Workspace" : "Login for Tests"}
             </Link>
             {detailSections.map((section) => (
-              <a key={section.id} href={"#" + sectionAnchor(section)} className="inline-flex min-h-9 shrink-0 items-center rounded-lg px-3.5 text-xs font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-950">
+              <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"inline-flex min-h-10 shrink-0 items-center rounded-lg px-3.5 text-xs font-semibold " + (activeSection === sectionAnchor(section) ? "bg-[#e9edf6] text-[#304877]" : "text-slate-600 hover:bg-slate-100")}>
                 {sectionDefaultLabel(section)}
               </a>
             ))}
           </div>
-        </header>
 
-        {pageConfigQuery.error ? <div className="mt-5 border-l-4 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-950">Custom details configuration is temporarily unavailable. Canonical exam information is shown below.</div> : null}
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[190px_minmax(0,1fr)] xl:grid-cols-[190px_minmax(0,1fr)_290px] xl:gap-10">
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">
+        <div className="mt-6 grid items-start gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
+          <aside className="hidden lg:sticky lg:top-24 lg:block">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_3px_18px_rgba(15,23,42,0.025)]">
               <p className="mb-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">On this page</p>
-              <nav className="border-l border-slate-200" aria-label={config.name + " detail sections"}>
+              <nav className="space-y-1" aria-label={config.name + " detail sections"}>
                 {detailSections.map((section) => (
-                  <a key={section.id} href={"#" + sectionAnchor(section)} className="block border-l-2 border-transparent px-4 py-2.5 text-sm font-semibold text-slate-600 hover:border-blue-600 hover:bg-blue-50/60 hover:text-blue-700">
+                  <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold transition " + (activeSection === sectionAnchor(section) ? "bg-[#e9edf6] text-[#304877]" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}>
                     {sectionDefaultLabel(section)}
                   </a>
                 ))}
               </nav>
-              <div className="mt-6 border-t border-slate-200 pt-5">
-                <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-700"><Globe2 className="h-4 w-4" /> Official website</a>
+              <div className="mt-5 border-t border-slate-200 pt-4">
+                <Link href={examHubHref(examSlug)} className="mb-4 flex min-h-11 items-center justify-between rounded-lg bg-[#354c78] px-3 text-sm font-semibold text-white hover:bg-slate-800">Browse test series <ArrowRight className="h-4 w-4" /></Link>
+                <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-[#425988]"><Globe2 className="h-4 w-4" /> Official website</a>
               </div>
             </div>
           </aside>
 
-          <main className="min-w-0">
+          <div className="min-w-0 space-y-5">
             {detailSections.map(renderDetailsSection)}
-          </main>
+          </div>
 
-          <aside className="hidden xl:block">
-            <div className="sticky top-24 space-y-5">
+          <aside className="lg:col-start-2">
+            <div className="grid gap-5 md:grid-cols-2">
               {config.details?.updates?.cards.length ? (
                 <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
                   <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
                     <h2 className="text-sm font-black text-slate-950">Latest Updates</h2>
-                    <a href="#updates" className="text-xs font-bold text-blue-700 hover:underline">View all</a>
+                    <a href="#updates" className="text-xs font-bold text-[#425988] hover:underline">View all</a>
                   </div>
                   <div className="divide-y divide-slate-100">
                     {config.details.updates.cards.slice(0, 3).map((card) => (
                       <div key={card.title} className="px-4 py-4">
-                        {card.badge ? <p className="text-[10px] font-black uppercase tracking-[0.08em] text-emerald-700">{card.badge}</p> : null}
+                        {card.badge ? <p className="text-[10px] font-black uppercase tracking-[0.08em] text-[#425988]">{card.badge}</p> : null}
                         <h3 className="mt-1 text-sm font-bold leading-5 text-slate-900">{card.title}</h3>
                         <p className="mt-1 line-clamp-3 text-xs leading-5 text-slate-500">{card.text}</p>
                         {card.href && card.ctaLabel ? (
                           /^https?:\/\//i.test(card.href)
-                            ? <a href={card.href} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-blue-700">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></a>
-                            : <Link href={card.href} className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-blue-700">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></Link>
+                            ? <a href={card.href} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-[#425988]">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></a>
+                            : <Link href={card.href} className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-[#425988]">{card.ctaLabel}<ArrowRight className="h-3.5 w-3.5" /></Link>
                         ) : null}
                       </div>
                     ))}
@@ -1433,7 +1456,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
               <section className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">Official information</p>
                 <p className="mt-2 text-xs leading-5 text-slate-600">Always verify time-sensitive dates, vacancies and eligibility against the responsible authority.</p>
-                <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-blue-700"><Globe2 className="h-3.5 w-3.5" /> {config.officialLabel}</a>
+                <a href={config.officialUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#425988]"><Globe2 className="h-3.5 w-3.5" /> {config.officialLabel}</a>
               </section>
             </div>
           </aside>
