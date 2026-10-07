@@ -13,7 +13,7 @@ import "@/styles/punjab-clerk-teal.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
-export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ssc-gd", "ssc-stenographer", "ssc-selection-post", "ssc-je", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs"] as const;
+export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ssc-gd", "ssc-stenographer", "ssc-selection-post", "ssc-je", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs", "psssb-excise-taxation-inspector", "punjab-naib-tehsildar", "psssb-senior-assistant", "psssb-vdo", "punjab-jail-warder", "punjab-police-intelligence-assistant", "pspcl-alm", "pspcl-revenue-accountant"] as const;
 type SSCExamSlug = typeof SSC_WORKSPACE_SLUGS[number];
 const subtitles: Record<SSCExamSlug, string> = {
   "ssc-cgl": "Combined Graduate Level Examination",
@@ -29,6 +29,14 @@ const subtitles: Record<SSCExamSlug, string> = {
   "punjab-police-constable": "ਪੰਜਾਬ ਪੁਲਿਸ ਕਾਂਸਟੇਬਲ ਪ੍ਰੀਖਿਆ",
   "punjab-police-si": "ਪੰਜਾਬ ਪੁਲਿਸ ਸਬ-ਇੰਸਪੈਕਟਰ ਪ੍ਰੀਖਿਆ",
   "punjab-pcs": "ਪੰਜਾਬ ਰਾਜ ਸਿਵਲ ਸੇਵਾਵਾਂ ਪ੍ਰੀਖਿਆ",
+  "psssb-excise-taxation-inspector": "Excise & Taxation Inspector Examination",
+  "punjab-naib-tehsildar": "Naib Tehsildar Examination",
+  "psssb-senior-assistant": "Senior Assistant Examination",
+  "psssb-vdo": "Village Development Officer / Gram Sevak Examination",
+  "punjab-jail-warder": "Jail Warder / Matron Examination",
+  "punjab-police-intelligence-assistant": "Intelligence Assistant Examination",
+  "pspcl-alm": "Assistant Lineman Examination",
+  "pspcl-revenue-accountant": "Revenue Accountant Examination",
   "ibps-po": "Probationary Officer / Management Trainee Examination",
   "ibps-clerk": "Customer Service Associate Examination",
   "ibps-rrb-po": "Regional Rural Banks · Officer Scale I",
@@ -45,7 +53,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const isPunjab = config.categoryHref === "/category/punjab";
   const isSingle = (isPunjab && examSlug !== "punjab-pcs") || config.testHub?.mode === "single";
   const isPolice = examSlug.startsWith("punjab-police-");
-  const authority = isPolice ? "Punjab Police" : examSlug === "punjab-pcs" ? "PPSC" : isPunjab ? "PSSSB" : examSlug.startsWith("ibps-") ? "IBPS" : "SSC";
+  const authority = isPolice ? "Punjab Police" : (examSlug === "punjab-pcs" || examSlug === "punjab-naib-tehsildar") ? "PPSC" : examSlug.startsWith("pspcl-") ? "PSPCL" : examSlug === "punjab-jail-warder" ? "Punjab Government" : isPunjab ? "PSSSB" : examSlug.startsWith("ibps-") ? "IBPS" : "SSC";
   const isBanking = examSlug.startsWith("ibps-");
   const familyCode = isPunjab ? "PUNJAB" : isBanking ? "BANKING" : "SSC";
   const brand = isPolice ? "POLICE" : authority;
@@ -54,7 +62,21 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
     ...(isSingle ? [] : [{ id: "mains" as const, label: config.testHub?.stage2Label || (isBanking || examSlug === "punjab-pcs" ? "Mains" : "Tier II") }]),
     { id: "pyq", label: "PYQs" },
   ];
-  const examShortName = isPunjab ? ({ "psssb-clerk": "CLERK", "punjab-patwari": "PATWARI", "punjab-police-constable": "CONSTABLE", "punjab-police-si": "SI", "punjab-pcs": "PCS" } as Record<string, string>)[examSlug] : ({ "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
+  const examShortName = isPunjab ? ({
+    "psssb-clerk": "CLERK",
+    "punjab-patwari": "PATWARI",
+    "punjab-police-constable": "CONSTABLE",
+    "punjab-police-si": "SI",
+    "punjab-pcs": "PCS",
+    "psssb-excise-taxation-inspector": "EXCISE INSPECTOR",
+    "punjab-naib-tehsildar": "NAIB TEHSILDAR",
+    "psssb-senior-assistant": "SENIOR ASSISTANT",
+    "psssb-vdo": "VDO / GRAM SEVAK",
+    "punjab-jail-warder": "JAIL WARDER",
+    "punjab-police-intelligence-assistant": "INTELLIGENCE ASST.",
+    "pspcl-alm": "ASSISTANT LINEMAN",
+    "pspcl-revenue-accountant": "REVENUE ACCOUNTANT",
+  } as Record<string, string>)[examSlug] : ({ "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
   const stageSummary = isSingle ? (isPunjab ? "Written exam" : config.testHub?.stage1Label || "CBE") : stages.slice(0, 2).map(item => item.label).join(" & ");
   const [view, setView] = useState<"tests" | "overview">("tests");
   const [stage, setStage] = useState<Stage>("prelims");
@@ -67,7 +89,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const testLanguages = Array.from(new Set(tests.flatMap(item => item.languages ?? [])));
   const isSscFamily = examSlug.startsWith("ssc-");
   const isPunjabClerk = examSlug === "psssb-clerk";
-  const languages = testLanguages.length ? testLanguages : isSscFamily ? ["en", "hi"] : isPunjabClerk ? ["pa", "en"] : [];
+  const languages = testLanguages.length ? testLanguages : isSscFamily ? ["en", "hi"] : isPunjab ? ["pa", "en"] : [];
   const loginHref = "/login/student?next=" + encodeURIComponent("/" + examSlug);
   const filtered = tests.filter(test => stage === "pyq" ? test.type === "pyq" : (isSingle || test.stage === stage) && test.type === format);
   const stageCount = (id: Stage) => tests.filter(test => id === "pyq" ? test.type === "pyq" : (isSingle || test.stage === id) && test.type !== "pyq").length;
@@ -80,7 +102,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
         <button type="button" role="tab" id="ssc-overview-tab" aria-controls="ssc-overview-panel" aria-selected={view === "overview"} onClick={() => setView("overview")}><BookOpen />Overview</button>
         <a href={config.officialUrl} target="_blank" rel="noreferrer"><Globe2 />Official website <ArrowRight /></a>
       </div>;
-  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference" : "") + (isPunjabClerk ? " punjab-clerk-teal" : "")}>
+  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference punjab-clerk-teal punjab-teal-family" : "") + (isPunjabClerk ? " punjab-clerk-page" : "")}>
     <div className="ssc-workspace-inner">
       <nav className="ssc-breadcrumb" aria-label="Breadcrumb"><Link href={config.categoryHref}>{isPunjab ? "ਪੰਜਾਬ ਦੀਆਂ ਪ੍ਰੀਖਿਆਵਾਂ" : isBanking ? "Banking exams" : "SSC exams"}</Link><span>/</span><span>{config.name}</span></nav>
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
@@ -92,14 +114,14 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
         </div>
         <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : (isSscFamily || isPunjab) ? <div className="ssc-countdown"><strong>—</strong><span>Awaiting date</span></div> : null}</aside>
-        {isPunjabClerk ? viewTabs : null}
+        {isPunjab ? viewTabs : null}
       </header>
 
-      {!isPunjabClerk ? viewTabs : null}
+      {!isPunjab ? viewTabs : null}
 
       {view === "tests" ? <section id="ssc-tests-panel" role="tabpanel" aria-labelledby="ssc-tests-tab" className="ssc-tests-panel">
         <div className="ssc-catalog-layout"><div className="ssc-catalog-main">
-        <section className="ssc-featured-series" aria-label="Featured test series">{isPunjabClerk ? <div className="clerk-banner-art"><img src="/images/exams/punjab-clerk-teal-banner.webp" alt="Punjab Clerk test series — faded Punjab map, wheat and mock exam papers" /></div> : <div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{isPunjab ? "PUNJAB" : brand}<br /><em>{examShortName}</em></strong>{isSscFamily || isPunjab ? <SSCReferenceArtwork name={config.name} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div>}<div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
+        <section className="ssc-featured-series" aria-label="Featured test series">{isPunjabClerk ? <div className="clerk-banner-art"><img src="/images/exams/punjab-clerk-teal-banner.webp" alt="Punjab Clerk test series — faded Punjab map, wheat and mock exam papers" /></div> : <div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{isPunjab ? "PUNJAB" : brand}<br /><em>{examShortName}</em></strong>{isSscFamily ? <SSCReferenceArtwork name={config.name} /> : isPunjab ? <PunjabReferenceArtwork name={config.name} shortName={examShortName} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div>}<div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
@@ -140,6 +162,27 @@ function SSCReferenceArtwork({ name }: { name: string }) {
     </g>
   </svg>;
 }
+function PunjabReferenceArtwork({ name, shortName }: { name: string; shortName: string }) {
+  return <svg className="ssc-reference-artwork punjab-reference-artwork" viewBox="0 0 320 280" aria-hidden="true">
+    <defs>
+      <linearGradient id="punjab-paper-fill" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f9feff" /><stop offset="1" stopColor="#dff7f8" /></linearGradient>
+      <linearGradient id="punjab-fold-fill" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#00697d" /><stop offset="1" stopColor="#00c7d2" /></linearGradient>
+      <filter id="punjab-paper-shadow" x="-40%" y="-40%" width="190%" height="190%"><feDropShadow dx="3" dy="7" stdDeviation="5" floodColor="#001b2a" floodOpacity=".35" /></filter>
+    </defs>
+    <path d="M175 0H320V280H38L120 214 66 118Z" fill="url(#punjab-fold-fill)" opacity=".74" />
+    <path d="m233 0 87 60-55 46 55 102-98 72-84-56 80-70-71-77Z" fill="#56dce3" opacity=".34" />
+    <g transform="translate(70 54) rotate(-16 104 96)" filter="url(#punjab-paper-shadow)">
+      <rect x="-14" y="28" width="158" height="196" rx="4" fill="#00758a" />
+      <rect x="7" y="14" width="158" height="196" rx="4" fill="#8ee1e5" />
+      <rect x="21" y="0" width="146" height="198" rx="4" fill="url(#punjab-paper-fill)" />
+      <text x="38" y="27" fontSize={name.length > 24 ? "9" : name.length > 16 ? "11" : "14"} fontWeight="800" fill="#062b42">{name}</text>
+      <text x="38" y="45" fontSize="8" fontWeight="700" fill="#00758a">{shortName}</text>
+      <path d="M37 58h108M37 69h98" stroke="#94cfd4" strokeWidth="3" />
+      {[0,1,2,3,4].map(n=><g key={n} transform={`translate(0 ${n*22})`}><path d="M37 91h52M37 99h34" stroke="#9bcfd2" strokeWidth="3" /><circle cx="112" cy="92" r="4" fill="none" stroke="#00758a" strokeWidth="1.6" /><circle cx="136" cy="92" r="4" fill="none" stroke="#00758a" strokeWidth="1.6" /></g>)}
+    </g>
+  </svg>;
+}
+
 function SSCReferenceChart() {
   return <svg className="ssc-reference-chart" viewBox="0 0 180 140" aria-hidden="true"><defs><linearGradient id="ssc-chart-fill" x1="0" y1="1" x2="1" y2="0"><stop stopColor="#7278ce" /><stop offset="1" stopColor="#b2b4f5" /></linearGradient></defs><path d="M12 124h158" stroke="#6067a9" strokeWidth="2" /><g fill="url(#ssc-chart-fill)"><rect x="20" y="112" width="21" height="12" rx="2" /><rect x="53" y="91" width="21" height="33" rx="2" /><rect x="86" y="72" width="21" height="52" rx="2" /><rect x="119" y="47" width="21" height="77" rx="2" /></g><path d="M19 72C68 68 118 43 153 14" fill="none" stroke="#a2a6ed" strokeWidth="3" /><path d="m141 15 14-4-3 14" fill="none" stroke="#a2a6ed" strokeWidth="3" /></svg>;
 }
