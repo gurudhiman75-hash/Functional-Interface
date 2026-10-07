@@ -6,7 +6,6 @@ import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCirc
 import SSCExamWorkspace, { SSC_WORKSPACE_SLUGS } from "@/components/SSCExamWorkspace";
 import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import MathText from "@/components/MathText";
-import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 import { apiRequest } from "@/lib/api";
 import type { Test } from "@/lib/data";
@@ -314,11 +313,9 @@ function LoggedOutExamHubPage({
               </div>
 
               <div className="mt-5 flex items-start gap-4">
-                {examIcon ? (
-                  <div className="hidden h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm sm:flex">
-                    <CategoryIcon icon={examIcon} className="h-12 w-12" />
+                <div className="hidden h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm sm:flex">
+                    <ExamIdentityIcon icon={examIcon || undefined} name={config.name} examCode={examSlug} className="h-12 w-12" />
                   </div>
-                ) : null}
                 <div>
                   <h1 className="text-4xl font-black tracking-[-0.045em] text-[#111b4d] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">
                     {config.name} <span className="text-blue-600">{config.yearLabel}</span>
@@ -695,13 +692,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
           <div className="grid lg:grid-cols-[minmax(0,1fr)_300px]">
             <div className="p-5 sm:p-7">
               <div className="flex items-start gap-4">
-                {catalogExam?.icon ? (
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
-                    <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
+                    <ExamIdentityIcon icon={catalogExam?.icon || undefined} name={config.name} examCode={examSlug} className="h-10 w-10" />
                   </div>
-                ) : (
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700"><BookOpenCheck className="h-8 w-8" /></div>
-                )}
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">{section.eyebrow || "Complete exam hub"}</p>
                   <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{section.title || (config.name + " " + config.yearLabel)}</h2>
@@ -949,13 +942,9 @@ export function ExamHubPage({ examSlug }: { examSlug: string }) {
         <section id="workspace-hub" className="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex min-w-0 items-start gap-4">
-              {catalogExam?.icon ? (
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
-                  <CategoryIcon icon={catalogExam.icon} className="h-9 w-9" />
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+                  <ExamIdentityIcon icon={catalogExam?.icon || undefined} name={config.name} examCode={examSlug} className="h-9 w-9" />
                 </div>
-              ) : (
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700"><BookOpenCheck className="h-7 w-7" /></div>
-              )}
               <div className="min-w-0">
                 <p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-600">Exam workspace</p>
                 <h1 className="mt-1 text-2xl font-black tracking-[-0.03em] text-slate-950 sm:text-3xl">{config.name} {config.yearLabel}</h1>
