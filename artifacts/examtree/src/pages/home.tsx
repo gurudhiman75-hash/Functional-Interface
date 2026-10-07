@@ -31,6 +31,7 @@ import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { signInWithGoogle } from "@/lib/auth";
 import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
+import { examHubHrefForCatalogExam } from "@/lib/seo-practice";
 import "@/styles/home-section-rhythm.css";
 
 const HOME_CATEGORY_ICONS: Record<string, string> = {
@@ -88,8 +89,11 @@ function normalizeExamRouteName(value: string) {
     .replace(/\s+/g, " ");
 }
 
-function resolveHomepageExamHref(name: string, fallback: string) {
-  return KNOWN_EXAM_HUB_ROUTES[normalizeExamRouteName(name)] ?? fallback;
+function resolveHomepageExamHref(id: string | undefined, name: string, fallback: string) {
+  return examHubHrefForCatalogExam(id)
+    ?? examHubHrefForCatalogExam(name)
+    ?? KNOWN_EXAM_HUB_ROUTES[normalizeExamRouteName(name)]
+    ?? fallback;
 }
 
 const EXAM_TAB_DEFINITIONS = [
@@ -141,13 +145,13 @@ export default function Home() {
         return group.subcategories.map((item) => ({
           id: item.id, name: item.name, category: group.name,
           definition: definition ?? activeExamDefinition,
-          href: resolveHomepageExamHref(item.name, `/subcategory/${item.id}?category=${encodeURIComponent(group.id)}`),
+          href: resolveHomepageExamHref(item.id, item.name, `/subcategory/${item.id}?category=${encodeURIComponent(group.id)}`),
         }));
       })
     : (activeExamTab === "all" ? EXAM_TAB_DEFINITIONS : [activeExamDefinition]).flatMap((definition) =>
         definition.fallback.map((name, index) => ({
           id: `fallback-${definition.key}-${index}`, name, category: definition.label,
-          definition, href: resolveHomepageExamHref(name, "/exams"),
+          definition, href: resolveHomepageExamHref(undefined, name, "/exams"),
         }))
       );
   const visibleExamItems = activeExamItems.filter((item) =>
