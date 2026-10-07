@@ -8,3 +8,82 @@
 
 .ssc-series-art-compact > strong { font-size: clamp(32px, 3.5vw, 46px); }
 @media (max-width: 550px) { .ssc-series-art-compact > strong { font-size: 30px; } }
+
+/* Test catalogue refinement: navy, ivory and clear practice controls. */
+.ssc-tests-panel{--catalog-accent:#263f68;--catalog-border:#e2e5e9}
+.ssc-tests-panel .ssc-featured-series{grid-template-columns:34% minmax(0,1fr);min-height:252px;background:linear-gradient(115deg,#14263f,#29456e);border:0;border-radius:18px;box-shadow:0 12px 28px #14263f14}
+.ssc-tests-panel .ssc-series-art{background:transparent;min-height:252px;padding:28px;border-right:1px solid #ffffff18}
+.ssc-tests-panel .ssc-series-art>span{color:#dfc58b;letter-spacing:.14em}
+.ssc-tests-panel .ssc-series-art>strong{font-size:clamp(38px,4vw,56px);margin:20px 0;letter-spacing:-.045em;max-width:100%}
+.ssc-tests-panel .ssc-series-art-compact>strong{font-size:clamp(30px,3vw,43px)}
+.ssc-tests-panel .ssc-series-art em{color:#e5c98e}
+.ssc-tests-panel .ssc-series-art small{color:#c3cfdf;letter-spacing:.1em}
+.ssc-series-seal{position:absolute;right:16px;top:16px;width:38px;height:38px;background:#fff;border-radius:10px;padding:5px;opacity:.95}
+.ssc-series-seal .exam-identity-icon{width:100%;height:100%}
+.ssc-tests-panel .ssc-series-content{padding:28px;color:white}
+.ssc-tests-panel .ssc-featured-label{background:#ffffff12;color:#efd6a3;letter-spacing:.12em;padding:5px 9px;border:1px solid #ffffff18}
+.ssc-tests-panel .ssc-series-content h2{font-size:26px;line-height:1.25;margin:12px 0;color:white}
+.ssc-tests-panel .ssc-series-content>p{color:#d1dae7;font-size:13px;max-width:580px}
+.ssc-series-features{display:flex;flex-wrap:wrap;gap:7px 14px;margin-top:14px}
+.ssc-series-features span{display:flex;align-items:center;gap:5px;color:#d9e1ed;font-size:11px}
+.ssc-series-features svg{width:14px;height:14px;color:#e5c98e}
+.ssc-tests-panel .ssc-series-content>a,.ssc-tests-panel .ssc-series-content>button{background:#e5c98e;color:#172b48;border-radius:9px;min-height:42px;padding:0 18px;font-size:12px}
+.ssc-tests-panel .ssc-series-content>a:hover,.ssc-tests-panel .ssc-series-content>button:hover{background:#f0d8a7;box-shadow:0 4px 14px #0002}
+.ssc-tests-panel .ssc-practice-card{border-radius:16px;padding:24px;margin-top:22px}
+.ssc-tests-panel .ssc-stage-tabs{gap:6px;border:0;background:#f1f3f7;border-radius:10px;padding:5px}
+.ssc-tests-panel .ssc-stage-tabs button{flex:1;min-height:44px;border:0;border-radius:7px;font-size:13px;color:#566479;background:transparent!important}
+.ssc-tests-panel .ssc-stage-tabs button[aria-selected=true]{background:#263f68!important;color:white;box-shadow:0 3px 9px #263f681c}
+.ssc-tests-panel .ssc-stage-tabs button[aria-selected=true] .ssc-tab-count{background:#ffffff20;color:white}
+.ssc-tests-panel .ssc-format-tabs{gap:8px;margin-top:16px;flex-wrap:wrap}
+.ssc-tests-panel .ssc-format-tabs button{min-height:38px;border-radius:8px;font-size:12px;padding:0 15px;background:white}
+.ssc-tests-panel .ssc-format-tabs button[aria-selected=true]{background:#edf1f8;border-color:#bcc9df;color:#263f68}
+.ssc-tests-panel .ssc-format-tabs button[aria-selected=true] span{color:#526b93}
+.ssc-tests-panel .ssc-test-list-heading{margin:22px 0 13px}
+.ssc-tests-panel .ssc-test-list-heading h3{font-size:13px;font-weight:650;color:#526174}
+.ssc-tests-panel .ssc-test-row{padding:17px 18px;border-radius:12px;transition:border-color .16s,box-shadow .16s}
+.ssc-tests-panel .ssc-test-row:hover{border-color:#bac9df;box-shadow:0 4px 15px #14263f08}
+.ssc-tests-panel .ssc-test-row-main{gap:14px}
+.ssc-tests-panel .ssc-test-logo{width:46px;height:46px;border-radius:10px;background:#f5f6f9;border:1px solid #e6e9ee;padding:6px}
+.ssc-tests-panel .ssc-test-title h3{font-size:14px;line-height:1.5;color:#1b2c45;overflow-wrap:anywhere}
+.ssc-tests-panel .ssc-test-meta{font-size:11px;gap:8px 13px;line-height:1.5;color:#647287}
+.ssc-test-format{background:#eef1f7;color:#40577e;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:650}
+.ssc-tests-panel .ssc-access{font-size:10px;padding:3px 7px}
+.ssc-tests-panel .ssc-access.paid{background:#f8f1e2;color:#84652d}
+.ssc-tests-panel .ssc-test-action{background:#263f68;min-height:40px;font-size:12px;border-radius:8px;padding:0 15px}
+.ssc-tests-panel .ssc-test-action:hover{background:#1c3052}
+.ssc-tests-panel .ssc-empty-state{background:#f9fafc;padding:32px 18px;border-radius:12px}
+.ssc-tests-panel .ssc-empty-icon{background:#edf1f8;color:#263f68}
+.ssc-tests-panel .ssc-empty-links a:first-child{background:#263f68;border-color:#263f68}
+.ssc-tests-panel .ssc-toolkit>section{border-radius:16px}
+.ssc-tests-panel .ssc-toolkit h2{font-size:19px}
+.ssc-tests-panel .ssc-toolkit section>a>span,.ssc-tests-panel .ssc-toolkit section>button>span{background:#edf1f8;color:#40577e;border-radius:10px}
+.ssc-tests-panel .ssc-toolkit h3{font-size:13px}
+.ssc-tests-panel .ssc-toolkit section>a p,.ssc-tests-panel .ssc-toolkit section>button p{font-size:11px}
+.ssc-tests-panel .ssc-toolkit .ssc-review-card{background:#263f68;border-color:#263f68}
+.ssc-tests-panel .ssc-review-card h2 span{color:#e5c98e}
+@media(max-width:850px){.ssc-tests-panel .ssc-featured-series{grid-template-columns:32% minmax(0,1fr)}}
+@media(max-width:550px){
+.ssc-tests-panel .ssc-featured-series{grid-template-columns:1fr;min-height:0;border-radius:14px}
+.ssc-tests-panel .ssc-series-art{min-height:0;padding:18px 20px;border-right:0;border-bottom:1px solid #ffffff18}
+.ssc-tests-panel .ssc-series-art>strong{font-size:30px;margin:10px 0;line-height:1.1}
+.ssc-tests-panel .ssc-series-art>strong br{display:none}
+.ssc-tests-panel .ssc-series-art em{margin-left:7px}
+.ssc-tests-panel .ssc-series-art small{display:none}
+.ssc-series-seal{width:44px;height:44px;right:20px;top:20px}
+.ssc-tests-panel .ssc-series-art>span{font-size:9px;max-width:calc(100% - 54px)}
+.ssc-tests-panel .ssc-series-content{padding:20px}
+.ssc-tests-panel .ssc-series-content h2{font-size:22px}
+.ssc-tests-panel .ssc-series-content>p{font-size:12px}
+.ssc-series-features{gap:7px 12px}
+.ssc-tests-panel .ssc-practice-card{padding:16px}
+.ssc-tests-panel .ssc-section-heading{flex-wrap:wrap}
+.ssc-tests-panel .ssc-stage-tabs{gap:3px}
+.ssc-tests-panel .ssc-stage-tabs button{font-size:12px;padding:0 7px;min-height:43px}
+.ssc-tests-panel .ssc-format-tabs{justify-content:flex-start;gap:6px}
+.ssc-tests-panel .ssc-format-tabs button{font-size:11px;padding:0 10px;min-height:38px}
+.ssc-tests-panel .ssc-test-row{padding:15px;gap:13px}
+.ssc-tests-panel .ssc-test-title h3{font-size:14px}
+.ssc-tests-panel .ssc-test-meta{font-size:11px;gap:7px 10px}
+.ssc-tests-panel .ssc-test-action{align-self:stretch;min-height:43px}
+}
+@media(prefers-reduced-motion:reduce){.ssc-tests-panel .ssc-test-row{transition:none}}
