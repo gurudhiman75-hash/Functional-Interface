@@ -2,3 +2,6 @@
 .exam-identity-icon img{display:block;width:100%;height:100%;object-fit:contain}
 .exam-identity-icon>svg{display:block;width:75%;height:75%;max-width:54px;max-height:54px}
 .category-switcher .exam-identity-icon{width:24px;height:24px;flex-shrink:0}
+
+/* Uploaded official artwork already has trimmed margins; never zoom or recolour it. */
+.exam-identity-icon img[src*="-library-official."]:not([src*="/punjab-"]){object-fit:contain!important;transform:none!important;filter:none!important;width:100%!important;height:100%!important}
