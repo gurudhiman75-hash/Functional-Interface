@@ -164,40 +164,20 @@ function SSCReferenceArtwork({ name }: { name: string }) {
 }
 function PunjabClerkStyleBanner({ name, shortName, authority }: { name: string; shortName: string; authority: string }) {
   return <svg className="punjab-family-clerk-banner" viewBox="0 0 1100 400" role="img" aria-label={name + " test series banner"}>
-    <defs>
-      <linearGradient id="pfb-bg" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#032b43"/><stop offset=".58" stopColor="#06465a"/><stop offset="1" stopColor="#0a6672"/></linearGradient>
-      <linearGradient id="pfb-teal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#00cbd8"/><stop offset="1" stopColor="#8ff0f3"/></linearGradient>
-      <linearGradient id="pfb-paper" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffffff"/><stop offset="1" stopColor="#e8fbfc"/></linearGradient>
-      <filter id="pfb-shadow" x="-30%" y="-30%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#001824" floodOpacity=".35"/></filter>
-    </defs>
+    <defs><linearGradient id="pfb-bg" x2="0" y2="1"><stop stopColor="#032b43"/><stop offset="1" stopColor="#001d30"/></linearGradient><filter id="pfb-shadow"><feDropShadow dx="0" dy="8" stdDeviation="8" floodOpacity=".25"/></filter></defs>
     <rect width="1100" height="400" fill="url(#pfb-bg)"/>
-    <circle cx="910" cy="60" r="180" fill="#00cbd8" opacity=".09"/>
-    <circle cx="1030" cy="350" r="230" fill="#00cbd8" opacity=".06"/>
-    <path d="M705 20c38 32 73 59 99 95l-18 52 35 44-15 68-55 31-12 62-60-28-58-7-18-57-50-38 25-55-3-63 55-21 27-52Z" fill="#00cbd8" opacity=".16"/>
-    <g opacity=".23" stroke="#6ce8ee" strokeWidth="3">
-      <path d="M30 338c105-54 164-60 272-33s203 20 306-31"/>
-      <path d="M45 360c96-43 173-45 267-19s196 19 295-22"/>
-      <path d="M62 381c82-33 151-33 237-11s176 13 282-23"/>
+    <g opacity=".13" stroke="#c6a953" strokeWidth="3" fill="none">
+      <path d="M415 22l24 24-7 23 30 30-10 26 29 27-18 30 19 35-30 20-13 31-31 8-24 35-33-16-28 12-34-30-38-6-12-28-32-18 17-35-6-33 25-25 13-31 28-8 24-24 32-11Z" fill="#126275"/>
+      {[1,-1].map(side=><g key={side} transform={side===1?"translate(0 0)":"translate(730 0) scale(-1 1)"}><path d="M365 370C190 350 160 230 180 85"/>{[0,1,2,3,4,5].map(n=><g key={n} transform={`translate(${180+n*8} ${100+n*36}) rotate(${n*6})`}><path d="M0 0C-30-20-36-36-28-49C-8-36 0-18 0 0Z" fill="#c6a953"/><path d="M0 4C26-8 41-24 36-38C15-30 3-13 0 4Z" fill="#c6a953"/></g>)}</g>)}
     </g>
-    <g transform="translate(58 62)">
-      <text x="0" y="0" fill="#9ceff2" fontSize="19" fontWeight="700" letterSpacing="4">{authority.toUpperCase()}</text>
-      <text x="0" y="58" fill="#ffffff" fontSize={shortName.length > 18 ? "48" : "58"} fontWeight="850" letterSpacing="-2">{shortName}</text>
-      <text x="0" y="98" fill="#d7f7f8" fontSize="22" fontWeight="650">{name}</text>
-      <text x="0" y="146" fill="#9ed3d8" fontSize="17">Complete test series · PYQs · Topic practice</text>
-      <g transform="translate(0 185)">
-        <rect width="152" height="42" rx="21" fill="#00cbd8"/>
-        <text x="76" y="27" textAnchor="middle" fill="#022c42" fontSize="15" fontWeight="800">PRACTISE</text>
-        <rect x="166" width="142" height="42" rx="21" fill="#ffffff" opacity=".12"/>
-        <text x="237" y="27" textAnchor="middle" fill="#e5fbfc" fontSize="15" fontWeight="700">ANALYSE</text>
-      </g>
-    </g>
-    <g transform="translate(785 58) rotate(5 120 140)" filter="url(#pfb-shadow)">
-      <rect x="-22" y="20" width="215" height="275" rx="14" fill="#0a5264"/>
-      <rect x="0" y="0" width="215" height="275" rx="14" fill="url(#pfb-paper)"/>
-      <rect x="24" y="26" width="72" height="12" rx="6" fill="#00aeb9"/>
-      <text x="24" y="70" fill="#032b43" fontSize="22" fontWeight="850">{shortName.length > 15 ? shortName.slice(0,15) + "…" : shortName}</text>
-      <text x="24" y="96" fill="#487580" fontSize="14" fontWeight="700">Mock Test</text>
-      {[0,1,2,3,4].map(n=><g key={n} transform={`translate(0 ${n*34})`}><rect x="26" y="122" width="12" height="12" rx="2" fill="none" stroke="#0a7b86" strokeWidth="2"/><path d="M51 126h118M51 135h86" stroke="#b9d8da" strokeWidth="6" strokeLinecap="round"/></g>)}
+    <g stroke="#00b9c5" opacity=".3" fill="none" strokeWidth="1.5">{[[75,60],[710,55],[90,325],[690,340]].map(([x,y],i)=><g key={i} transform={`translate(${x} ${y})`}><path d="M0-25L25 0 0 25-25 0Z M0-12L12 0 0 12-12 0Z M0-42L7-35 0-28-7-35Z M35-7L42 0 35 7 28 0Z M0 28L7 35 0 42-7 35Z M-35-7L-28 0-35 7-42 0Z"/></g>)}</g>
+    <text x="390" y="163" textAnchor="middle" fill="white" fontSize="72" fontWeight="850">PUNJAB</text>
+    <text x="390" y="255" textAnchor="middle" fill="#00ceda" fontSize={shortName.length>17?30:shortName.length>10?42:78} fontWeight="850">{shortName}</text>
+    <path d="M165 275h450" stroke="white" strokeWidth="2"/>
+    <text x="390" y="307" textAnchor="middle" fill="white" fontSize="16" letterSpacing="3">{authority.toUpperCase()} TEST SERIES</text>
+    <g filter="url(#pfb-shadow)">
+      <g transform="translate(864 43) rotate(7)"><rect width="192" height="318" fill="#f8fafc"/><text x="18" y="38" fontSize="16" fill="#152638" fontWeight="700">ਪੰਜਾਬ ਪ੍ਰੀਖਿਆ</text>{[0,1,2,3,4,5,6].map(n=><g key={n} transform={`translate(0 ${n*32})`}><path d="M20 65h145" stroke="#d6dce3" strokeWidth="4"/><circle cx="40" cy="82" r="5" stroke="#abb3c3" fill="none"/><circle cx="80" cy="82" r="5" stroke="#abb3c3" fill="none"/><circle cx="120" cy="82" r="5" stroke="#00758a" fill="none"/></g>)}</g>
+      <g transform="translate(719 76) rotate(-8)"><rect width="227" height="307" fill="white"/><text x="18" y="33" fontSize={shortName.length>15?13:19} fontWeight="700" fill="#152638">{shortName}</text><text x="18" y="57" fontSize="16" fill="#152638">Mock Test</text><path d="M18 72h188" stroke="#d6dce3" strokeWidth="2"/>{[0,1,2,3,4].map(n=><g key={n} transform={`translate(0 ${n*39})`}><text x="20" y="103" fontSize="16" fill="#152638">{n+1}.</text>{[0,1,2,3].map(a=><circle key={a} cx={66+a*39} cy="98" r="7" stroke={a===n%4?"#00758a":"#adb5c4"} fill="none" strokeWidth="2"/>)}<path d="M20 119h188" stroke="#edf0f3"/></g>)}</g>
     </g>
   </svg>;
 }
