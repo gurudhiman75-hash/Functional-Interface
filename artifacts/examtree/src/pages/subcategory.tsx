@@ -36,7 +36,7 @@ import {
 } from "@/lib/data";
 import { openRazorpayCheckoutForTest } from "@/lib/razorpay-checkout";
 import { getActiveTestSessions, getAttempts, getUser } from "@/lib/storage";
-import { getRuntimeExamGroup } from "@/lib/test-bank";
+import { getRuntimeExamGroup, getRuntimeExamGroups } from "@/lib/test-bank";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 type ExamTab = "full-length" | "sectional" | "topic-wise";
@@ -101,10 +101,16 @@ export default function SubcategoryPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
 
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
-  const exam = useMemo(
-    () => (id ? getRuntimeExamGroup(id, categories, tests, subcategories) : null),
-    [id, categories, subcategories, tests],
-  );
+  const scopedCategoryId = typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("category")
+    : null;
+  const exam = useMemo(() => {
+    if (!id) return null;
+    if (scopedCategoryId) {
+      return getRuntimeExamGroups(scopedCategoryId, categories, tests, subcategories).find((item) => item.id === id) ?? null;
+    }
+    return getRuntimeExamGroup(id, categories, tests, subcategories);
+  }, [id, scopedCategoryId, categories, subcategories, tests]);
   const category = categories.find((item) => item.id === exam?.categoryId);
   const examIcon = exam?.icon ?? category?.icon ?? "";
   const categoryTone = CATEGORY_TONES[category?.color ?? "blue"] ?? CATEGORY_TONES.blue;
