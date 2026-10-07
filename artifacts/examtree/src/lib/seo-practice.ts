@@ -1977,7 +1977,31 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
 export const SSC_CGL_PRACTICE_TOPICS = EXAM_ACQUISITION_CONFIGS["ssc-cgl"].topics;
 
 
+EXAM_ACQUISITION_CONFIGS["rrb-ntpc"] = {
+  ...makeExamShellConfig({slug:"rrb-ntpc",name:"RRB NTPC",categoryHref:"/category/railway",officialUrl:"https://www.rrbcdg.gov.in",officialLabel:"rrbcdg.gov.in"}),
+  testHub: {"mode":"dual","stage1Label":"CBT 1","stage2Label":"CBT 2","stage1Keywords":["cbt 1","cbt-1","cbt i","cbt-i","cbt1"],"stage2Keywords":["cbt 2","cbt-2","cbt ii","cbt-ii","cbt2"]}
+};
+
+EXAM_ACQUISITION_CONFIGS["rrb-group-d"] = {
+  ...makeExamShellConfig({slug:"rrb-group-d",name:"RRB Group D",categoryHref:"/category/railway",officialUrl:"https://www.rrbcdg.gov.in",officialLabel:"rrbcdg.gov.in"}),
+  testHub: {"mode":"single","stage1Label":"CBT"}
+};
+
+EXAM_ACQUISITION_CONFIGS["rrb-alp"] = {
+  ...makeExamShellConfig({slug:"rrb-alp",name:"RRB ALP",categoryHref:"/category/railway",officialUrl:"https://www.rrbcdg.gov.in",officialLabel:"rrbcdg.gov.in"}),
+  testHub: {"mode":"dual","stage1Label":"CBT 1","stage2Label":"CBT 2","stage1Keywords":["cbt 1","cbt-1","cbt i","cbt-i","cbt1"],"stage2Keywords":["cbt 2","cbt-2","cbt ii","cbt-ii","cbt2"]}
+};
+
+EXAM_ACQUISITION_CONFIGS["rrb-technician"] = {
+  ...makeExamShellConfig({slug:"rrb-technician",name:"RRB Technician",categoryHref:"/category/railway",officialUrl:"https://www.rrbcdg.gov.in",officialLabel:"rrbcdg.gov.in"}),
+  testHub: {"mode":"single","stage1Label":"CBT"}
+};
+
 const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
+  "rrb-ntpc": ["RRB_NTPC","RRB_NTPC_CBT1","RRB_NTPC_CBT2","RRB_NTPC_GRADUATE","RRB_NTPC_UNDERGRADUATE"],
+  "rrb-group-d": ["RRB_GROUP_D","RRB_GROUPD","RRB_LEVEL_1"],
+  "rrb-alp": ["RRB_ALP","RRB_ALP_CBT1","RRB_ALP_CBT2","ASSISTANT_LOCO_PILOT"],
+  "rrb-technician": ["RRB_TECHNICIAN","RRB_TECHNICIAN_GRADE_I","RRB_TECHNICIAN_GRADE_III","RRB_TECHNICIAN_GRADE_1","RRB_TECHNICIAN_GRADE_3"],
   "ssc-cgl": ["SSC_CGL"],
   "ssc-chsl": ["SSC_CHSL"],
   "ssc-mts": ["SSC_MTS"],

@@ -353,6 +353,18 @@ function Router() {
           <Route path="/pspcl-revenue-accountant-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="pspcl-revenue-accountant" />)} />
           <Route path="/pspcl-revenue-accountant-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="pspcl-revenue-accountant" />)} />
           <Route path="/pspcl-revenue-accountant/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="pspcl-revenue-accountant" />)} />
+          <Route path="/rrb-ntpc" component={() => renderCatalogPublicRoute(() => <ConfiguredExamHub examSlug="rrb-ntpc" />)} />
+          <Route path="/rrb-ntpc-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="rrb-ntpc" />)} />
+          <Route path="/rrb-ntpc-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="rrb-ntpc" />)} />
+          <Route path="/rrb-group-d" component={() => renderCatalogPublicRoute(() => <ConfiguredExamHub examSlug="rrb-group-d" />)} />
+          <Route path="/rrb-group-d-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="rrb-group-d" />)} />
+          <Route path="/rrb-group-d-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="rrb-group-d" />)} />
+          <Route path="/rrb-alp" component={() => renderCatalogPublicRoute(() => <ConfiguredExamHub examSlug="rrb-alp" />)} />
+          <Route path="/rrb-alp-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="rrb-alp" />)} />
+          <Route path="/rrb-alp-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="rrb-alp" />)} />
+          <Route path="/rrb-technician" component={() => renderCatalogPublicRoute(() => <ConfiguredExamHub examSlug="rrb-technician" />)} />
+          <Route path="/rrb-technician-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="rrb-technician" />)} />
+          <Route path="/rrb-technician-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="rrb-technician" />)} />
           <Route path="/:examSlug/details" component={() => renderCatalogPublicRoute(ConfiguredExamDetails)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
