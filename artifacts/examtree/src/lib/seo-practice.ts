@@ -330,6 +330,303 @@ function makePunjabStudyConfig(slug: "psssb-clerk" | "punjab-patwari"): ExamAcqu
   };
 }
 
+
+const PUNJAB_AUTHORITY_STUDY_DATA = {
+  "punjab-police-constable": {
+    "name": "Punjab Police Constable",
+    "year": "2026",
+    "ref": "District & Armed cadres • 2026 advertisement",
+    "url": "https://punjabpolice.gov.in",
+    "label": "punjabpolice.gov.in",
+    "source": "https://punjabpolice.gov.in/media/documents/Advertisement_No._1_of_2026.pdf",
+    "mirror": "https://www.scribd.com/document/1012665036/Advertisement-No-1-of-2026",
+    "note": "Based on the 2026 District and Armed cadre advertisement. Check official corrigenda and individual admit cards. No common exam date has been verified here.",
+    "summary": "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਨਾਲ ਪੰਜਾਬੀ ਅਤੇ ਸਰੀਰਕ ਟੈਸਟ ਦੀ ਤਿਆਰੀ ਵੀ ਜਾਰੀ ਰੱਖੋ।",
+    "sections": [
+      [
+        "General awareness",
+        "35 questions: polity, Punjab history, geography, culture, economy, health and current affairs."
+      ],
+      [
+        "Quantitative aptitude",
+        "20 questions: arithmetic, percentages, averages, ratios, interest and time/work."
+      ],
+      [
+        "Reasoning",
+        "20 questions: series, conclusions, ranking, directions and relationships."
+      ],
+      [
+        "English & Punjabi",
+        "10 questions each: comprehension, vocabulary and language skills."
+      ],
+      [
+        "Digital literacy",
+        "5 questions: computers, office tools, internet and email."
+      ],
+      [
+        "ਪੰਜਾਬੀ • qualifying",
+        "Separate Matric-level Punjabi language test."
+      ]
+    ],
+    "pattern": [
+      [
+        "Paper I • merit",
+        "100 questions / 100 marks; 2 hours."
+      ],
+      [
+        "Paper II • Punjabi",
+        "50 questions / 50 marks; 1 hour; 50% qualifying threshold. Excluded from merit."
+      ],
+      [
+        "Marking & selection",
+        "No negative marking. CBT → qualifying PST/PMT → document scrutiny."
+      ]
+    ],
+    "eligibility": [
+      [
+        "Education",
+        "10+2 or equivalent; Matric Punjabi or equivalent. Qualifications by 1 January 2026. Ex-servicemen education exception applies."
+      ],
+      [
+        "Age",
+        "18–28 as on 1 January 2026 in the original notice; category relaxations apply."
+      ],
+      [
+        "Physical standards",
+        "Original minimum height: male 5′7″, female 5′2″. Consult the notice for category-specific PST events and exemptions."
+      ]
+    ],
+    "prep": [
+      [
+        "ਪੰਜਾਬ GK + current affairs",
+        "Create short recall notes for Punjab history, geography and polity. Revise current affairs weekly, then test yourself without looking at the answers."
+      ],
+      [
+        "Numerical + reasoning practice",
+        "Alternate short numerical and reasoning sets. Record whether each mistake came from a concept, calculation or missed detail."
+      ],
+      [
+        "Punjabi + physical readiness",
+        "Practise Punjabi reading and language rules regularly. Check the applicable physical-test events early and plan your preparation around them."
+      ]
+    ],
+    "weekly": [
+      "Monday: Punjab GK + arithmetic.",
+      "Tuesday: reasoning + English.",
+      "Wednesday: Punjabi + digital literacy.",
+      "Thursday: current affairs + numerical revision.",
+      "Friday: mixed-subject practice.",
+      "Saturday: timed paper practice + error review.",
+      "Sunday: revise weak topics and check official notices. Include physical preparation in your routine."
+    ]
+  },
+  "punjab-police-si": {
+    "name": "Punjab Police Sub-Inspector",
+    "year": "2023 reference",
+    "ref": "District & Armed cadres • Advertisement 01/2023 reference",
+    "url": "https://punjabpolice.gov.in",
+    "label": "punjabpolice.gov.in",
+    "source": "https://blogmedia.testbook.com/blog/wp-content/uploads/2023/01/1118002628126701818678-55d8876a.pdf",
+    "note": "Historical study reference: Advertisement 01/2023 for District and Armed cadres. This does not confirm a new SI recruitment or apply to Technical and Support Services. Verify the next notice before relying on these rules.",
+    "summary": "ਦੋਵੇਂ ਲਿਖਤੀ ਪੇਪਰਾਂ ਲਈ ਤਿਆਰੀ ਕਰੋ। ਪੰਜਾਬੀ ਅਤੇ ਸਰੀਰਕ ਟੈਸਟ ਨੂੰ ਵੀ ਆਪਣੀ ਯੋਜਨਾ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ।",
+    "sections": [
+      [
+        "Paper I • awareness",
+        "50 questions: Indian/Punjab history, polity, economy, science, environment and current affairs."
+      ],
+      [
+        "Paper I • numerical skills",
+        "30 questions: arithmetic, mensuration, equations and speed/time/distance."
+      ],
+      [
+        "Paper I • Punjabi",
+        "20 questions: language, comprehension and translation."
+      ],
+      [
+        "Paper II • reasoning & DI",
+        "50 questions: analytical reasoning, puzzles, data interpretation and legal reasoning."
+      ],
+      [
+        "Paper II • computers & English",
+        "30 computer-awareness questions and 20 English-language questions."
+      ],
+      [
+        "Paper III • ਪੰਜਾਬੀ",
+        "Separate Matric-level Punjabi qualifying paper."
+      ]
+    ],
+    "pattern": [
+      [
+        "Papers I & II • merit",
+        "Each: 100 questions / 400 marks / 2 hours. Correct +4; wrong −1."
+      ],
+      [
+        "Paper III • qualifying",
+        "50 questions / 50 marks / 1 hour; minimum 50%. No negative marking; excluded from merit."
+      ],
+      [
+        "Selection stages",
+        "CBT → qualifying PMT/PST → document scrutiny. Merit uses normalized Papers I + II."
+      ]
+    ],
+    "eligibility": [
+      [
+        "Education • 2023 reference",
+        "Graduation or equivalent by 1 January 2023; Matric Punjabi or equivalent."
+      ],
+      [
+        "Age • 2023 reference",
+        "18–28 as on 1 January 2023; category relaxations applied."
+      ],
+      [
+        "Physical standards • reference",
+        "Minimum height: male 5′7″, female 5′2″. Consult the source for PST events and exemptions."
+      ]
+    ],
+    "prep": [
+      [
+        "Plan both merit papers",
+        "Alternate awareness/numerical practice with reasoning/computer practice. Keep a weekly checklist so neither paper is left behind."
+      ],
+      [
+        "Languages + accuracy",
+        "Use short Punjabi and English reading sessions, then practise grammar and translation. Review uncertain attempts before increasing speed."
+      ],
+      [
+        "Physical + document checklist",
+        "Read the historical physical-test requirements as a planning reference. Check your qualification documents and compare them with the relevant new notice when issued."
+      ]
+    ],
+    "weekly": [
+      "Monday: awareness + Punjabi.",
+      "Tuesday: numerical skills + English.",
+      "Wednesday: reasoning + DI.",
+      "Thursday: computers + language revision.",
+      "Friday: mixed practice from both papers.",
+      "Saturday: timed practice + review.",
+      "Sunday: revise weak areas and check official updates. Include physical preparation in your routine."
+    ]
+  },
+  "punjab-pcs": {
+    "name": "PPSC Punjab State Civil Services",
+    "year": "2025 scheme",
+    "ref": "PSCSCCE-2025 • Advertisement 20251 scheme",
+    "url": "https://ppsc.gov.in",
+    "label": "ppsc.gov.in",
+    "source": "https://www.careerpower.in/blog/wp-content/uploads/2025/01/03084758/Punjab-PCS-Notification-2025.pdf",
+    "note": "Based on the original PSCSCCE-2025 scheme, available as an advertisement mirror. This is not a new 2026 recruitment announcement. Check official amendments, service-specific conditions and stage schedules.",
+    "summary": "ਪ੍ਰੀਲਿਮਜ਼ ਦੀ ਤਿਆਰੀ ਨਾਲ ਮੇਨਜ਼ ਲਈ ਉੱਤਰ ਲਿਖਣ ਦਾ ਅਭਿਆਸ ਕਰੋ। ਪੰਜਾਬ ਦੇ ਇਤਿਹਾਸ, ਭੂਗੋਲ ਅਤੇ ਅਰਥਵਿਵਸਥਾ ਨੂੰ ਖਾਸ ਸਮਾਂ ਦਿਓ।",
+    "sections": [
+      [
+        "Prelims • General Studies",
+        "Science, history, geography, polity, economy, environment, Punjab and current events."
+      ],
+      [
+        "Prelims • CSAT",
+        "Comprehension, communication, reasoning, numerical skills and data analysis."
+      ],
+      [
+        "Mains • languages & essay",
+        "Punjabi, English and essay writing."
+      ],
+      [
+        "Mains • GS I & II",
+        "History, geography, society; Constitution, governance and international relations."
+      ],
+      [
+        "Mains • GS III & IV",
+        "Economy, statistics, security; science, environment, problem solving and decision making."
+      ],
+      [
+        "Punjab focus",
+        "Integrate Punjab history, culture, economy and geography into mains preparation."
+      ]
+    ],
+    "pattern": [
+      [
+        "Prelims",
+        "GS: 100 questions / 200 marks; CSAT: 80 / 200. Each 2 hours; no negative marking. CSAT qualifies at 40%; prelims merit uses GS."
+      ],
+      [
+        "Mains written",
+        "Seven descriptive papers, 3 hours each: Punjabi 100, English 100, Essay 150, four GS papers 250 each. Total 1,350."
+      ],
+      [
+        "Interview & final merit",
+        "Interview 150; final aggregate 1,500. Prelims marks are excluded from final merit."
+      ]
+    ],
+    "eligibility": [
+      [
+        "Education",
+        "Bachelor’s degree; the 2025 notice allows qualifying-degree students at prelims with passing proof before mains. Matric Punjabi or equivalent required, subject to exceptions."
+      ],
+      [
+        "Service-specific age",
+        "The original notice has a general 21–37 band and a separate 21–28 rule for specified Police/Prisons posts. Verify exact boundary wording, relaxations and service conditions."
+      ],
+      [
+        "Selection stages",
+        "Prelims → mains written → interview, with eligibility/document verification."
+      ]
+    ],
+    "prep": [
+      [
+        "GS + Punjab connections",
+        "Build one set of notes that links national topics with Punjab examples. Use maps, timelines and recall questions to revise."
+      ],
+      [
+        "CSAT every week",
+        "Reserve regular sessions for comprehension, reasoning and calculations. Review weak areas instead of treating CSAT as a final-week task."
+      ],
+      [
+        "Start writing early",
+        "Write one short answer daily and an essay outline weekly. Review relevance, structure, examples and whether you answered the exact question."
+      ]
+    ],
+    "weekly": [
+      "Monday: history + answer writing.",
+      "Tuesday: geography + Punjab maps.",
+      "Wednesday: polity + current affairs.",
+      "Thursday: economy + data interpretation.",
+      "Friday: science/environment + language practice.",
+      "Saturday: prelims practice + mains writing.",
+      "Sunday: essay outline, revision and error review."
+    ]
+  }
+};
+
+function makePunjabAuthorityConfig(slug: keyof typeof PUNJAB_AUTHORITY_STUDY_DATA): ExamAcquisitionConfig {
+  const d = PUNJAB_AUTHORITY_STUDY_DATA[slug];
+  const base = makeExamShellConfig({slug, name: d.name, categoryHref: "/category/punjab", officialUrl: d.url, officialLabel: d.label});
+  const cards = (pairs: string[][]) => pairs.map(([title, text]) => ({title, text}));
+  return {
+    ...base, isShell: false, yearLabel: d.year,
+    meta: {
+      hubTitle: d.name + " Syllabus, Preparation & Published Tests | ExamTree",
+      hubDescription: d.ref + ". Study plan, syllabus overview and authority source links.",
+      preparationTitle: d.name + " Preparation Plan | ExamTree",
+      preparationDescription: "A suggested study routine based on " + d.ref + ".",
+      syllabusTitle: d.name + " Syllabus & Exam Pattern | ExamTree",
+      syllabusDescription: d.ref + ". " + d.note,
+    },
+    hub: {title: d.name + " study workspace", description: d.ref + ". " + d.note, preparationSummary: d.summary, syllabusSummary: d.ref, mockSummary: "Only published tests mapped to this exam appear in the catalogue."},
+    testHub: slug === "punjab-pcs" ? {mode: "dual", stage1Label: "Prelims", stage2Label: "Mains", stage1Keywords: ["prelim", "preliminary", "prelims"], stage2Keywords: ["mains", "main examination"]} : {mode: "single", stage1Label: "Written tests"},
+    preparation: {eyebrow: "ਤਿਆਰੀ ਦੀ ਯੋਜਨਾ", title: d.name + " study plan", description: "Suggested routine, not an official timetable. " + d.ref + ".", cards: cards(d.prep), weeklyCycle: d.weekly},
+    syllabus: {eyebrow: d.ref, title: d.name + " syllabus and exam structure", description: d.ref + ". " + d.note, sections: d.sections.map(([title, summary]) => ({title, summary})), patternCards: cards(d.pattern), verificationNote: d.note},
+    details: {
+      eligibility: {eyebrow: d.ref, title: "Eligibility and selection", description: "Requirements from the referenced advertisement; check amendments and category/service-specific conditions.", cards: cards(d.eligibility)},
+      dates: {eyebrow: "Official schedule", title: "Exam dates", description: "No verified date is configured for this page.", cards: [{title: "Date status", text: "Check the latest stage schedule and your admit card. A countdown needs a confirmed date.", badge: "Not verified", href: d.url, ctaLabel: "Official updates"}]},
+      updates: {eyebrow: "Authority sources", title: "Source documents and updates", description: d.note, cards: [
+        {title: d.ref, text: slug === "punjab-police-constable" ? "Official advertisement link. If unavailable, use the mirror below and check amendments with the authority." : "Authority-issued advertisement hosted by a third-party mirror.", href: d.source, ctaLabel: "Read source", badge: d.year},
+        ...("mirror" in d ? [{title: "Advertisement mirror", text: "Third-party copy of the authority-issued document; not a current application portal.", href: d.mirror, ctaLabel: "Read mirror"}] : []),
+        {title: "Latest official notices", text: "Check current recruitment status, corrigenda, vacancies and stage schedules.", href: d.url, ctaLabel: "Visit authority"}
+      ]},
+    },
+    topics: [],
+  };
+}
+
 export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
   "ssc-cgl": {
     slug: "ssc-cgl",
@@ -1614,20 +1911,8 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://www.sebi.gov.in",
     officialLabel: "sebi.gov.in",
   }),
-  "punjab-police-constable": makeExamShellConfig({
-    slug: "punjab-police-constable",
-    name: "Punjab Police Constable",
-    categoryHref: "/category/punjab",
-    officialUrl: "https://punjabpolice.gov.in",
-    officialLabel: "punjabpolice.gov.in",
-  }),
-  "punjab-police-si": makeExamShellConfig({
-    slug: "punjab-police-si",
-    name: "Punjab Police Sub-Inspector",
-    categoryHref: "/category/punjab",
-    officialUrl: "https://punjabpolice.gov.in",
-    officialLabel: "punjabpolice.gov.in",
-  }),
+  "punjab-police-constable": makePunjabAuthorityConfig("punjab-police-constable"),
+  "punjab-police-si": makePunjabAuthorityConfig("punjab-police-si"),
   "psssb-clerk": makePunjabStudyConfig("psssb-clerk"),
   "punjab-patwari": makePunjabStudyConfig("punjab-patwari"),
   "psssb-excise-taxation-inspector": makeExamShellConfig({
@@ -1644,22 +1929,7 @@ export const EXAM_ACQUISITION_CONFIGS: Record<string, ExamAcquisitionConfig> = {
     officialUrl: "https://ppsc.gov.in",
     officialLabel: "ppsc.gov.in",
   }),
-  "punjab-pcs": {
-    ...makeExamShellConfig({
-      slug: "punjab-pcs",
-      name: "PPSC Punjab State Civil Services",
-      categoryHref: "/category/punjab",
-      officialUrl: "https://ppsc.gov.in",
-      officialLabel: "ppsc.gov.in",
-    }),
-    testHub: {
-      mode: "dual",
-      stage1Label: "Prelims",
-      stage2Label: "Mains",
-      stage1Keywords: ["prelim", "preliminary", "prelims"],
-      stage2Keywords: ["mains", "main examination"],
-    },
-  },
+  "punjab-pcs": makePunjabAuthorityConfig("punjab-pcs"),
   "psssb-senior-assistant": makeExamShellConfig({
     slug: "psssb-senior-assistant",
     name: "PSSSB Senior Assistant",
