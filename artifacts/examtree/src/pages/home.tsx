@@ -44,13 +44,53 @@ const HOME_CATEGORY_ICONS: Record<string, string> = {
 
 
 const FEATURED_SERIES_STRIP = [
-  { name: "SSC CGL 2026", meta: "Tier 1 + Tier 2", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/ssc-official.svg" },
-  { name: "SBI PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹499", oldPrice: "₹999", icon: "/category-icons/sbi-official.svg" },
-  { name: "IBPS PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/ibps-official.svg" },
-  { name: "Punjab Patwari", meta: "Full Series", tests: "100+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg" },
-  { name: "RRB NTPC", meta: "Graduate + UG", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/railways-official.svg" },
-  { name: "PSSSB Exams", meta: "All Posts", tests: "80+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg" },
+  { name: "SSC CGL 2026", meta: "Tier 1 + Tier 2", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/ssc-official.svg", href: "/ssc-cgl" },
+  { name: "SBI PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹499", oldPrice: "₹999", icon: "/category-icons/sbi-official.svg", href: "/sbi-po" },
+  { name: "IBPS PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/ibps-official.svg", href: "/ibps-po" },
+  { name: "Punjab Patwari", meta: "Full Series", tests: "100+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg", href: "/punjab-patwari" },
+  { name: "RRB NTPC", meta: "Graduate + UG", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/railways-official.svg", href: "/exams" },
+  { name: "PSSSB Exams", meta: "All Posts", tests: "80+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg", href: "/collections/punjab-government" },
 ] as const;
+
+const KNOWN_EXAM_HUB_ROUTES: Record<string, string> = {
+  "ssc cgl": "/ssc-cgl",
+  "ssc chsl": "/ssc-chsl",
+  "ssc mts": "/ssc-mts",
+  "ssc cpo": "/ssc-cpo",
+  "ssc gd": "/ssc-gd",
+  "ssc stenographer": "/ssc-stenographer",
+  "ssc selection post": "/ssc-selection-post",
+  "ssc je": "/ssc-je",
+  "ibps po": "/ibps-po",
+  "ibps clerk": "/ibps-clerk",
+  "ibps rrb po": "/ibps-rrb-po",
+  "ibps rrb clerk": "/ibps-rrb-office-assistant",
+  "ibps rrb office assistant": "/ibps-rrb-office-assistant",
+  "sbi po": "/sbi-po",
+  "sbi clerk": "/sbi-clerk",
+  "rbi assistant": "/rbi-assistant",
+  "rbi grade b": "/rbi-grade-b",
+  "punjab patwari": "/punjab-patwari",
+  "punjab pcs": "/punjab-pcs",
+  "psssb clerk": "/psssb-clerk",
+  "psssb senior assistant": "/psssb-senior-assistant",
+  "psssb vdo": "/psssb-vdo",
+  "punjab police constable": "/punjab-police-constable",
+  "punjab police si": "/punjab-police-si",
+};
+
+function normalizeExamRouteName(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\b20\d{2}\b/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function resolveHomepageExamHref(name: string, fallback: string) {
+  return KNOWN_EXAM_HUB_ROUTES[normalizeExamRouteName(name)] ?? fallback;
+}
 
 const EXAM_TAB_DEFINITIONS = [
   { key: "ssc", label: "SSC", aliases: ["ssc"], fallback: ["SSC CGL", "SSC CHSL", "SSC MTS", "SSC CPO", "SSC GD", "SSC Stenographer", "SSC Selection Post", "SSC JE"] },
@@ -100,13 +140,14 @@ export default function Home() {
         const definition = EXAM_TAB_DEFINITIONS.find((tab) => tab.aliases.some((alias) => group.name.toLowerCase().includes(alias)));
         return group.subcategories.map((item) => ({
           id: item.id, name: item.name, category: group.name,
-          definition: definition ?? activeExamDefinition, href: `/subcategory/${item.id}?category=${encodeURIComponent(group.id)}`,
+          definition: definition ?? activeExamDefinition,
+          href: resolveHomepageExamHref(item.name, `/subcategory/${item.id}?category=${encodeURIComponent(group.id)}`),
         }));
       })
     : (activeExamTab === "all" ? EXAM_TAB_DEFINITIONS : [activeExamDefinition]).flatMap((definition) =>
         definition.fallback.map((name, index) => ({
           id: `fallback-${definition.key}-${index}`, name, category: definition.label,
-          definition, href: "/exams",
+          definition, href: resolveHomepageExamHref(name, "/exams"),
         }))
       );
   const visibleExamItems = activeExamItems.filter((item) =>
@@ -214,7 +255,7 @@ export default function Home() {
         <div className="featured-marquee" aria-label="Featured test series">
           <div className="featured-marquee-track">
             {[...FEATURED_SERIES_STRIP, ...FEATURED_SERIES_STRIP].map((item, index) => (
-              <button key={`${item.name}-${index}`} type="button" className="featured-strip-card" onClick={() => setLocation("/exams")}>
+              <button key={`${item.name}-${index}`} type="button" className="featured-strip-card" onClick={() => setLocation(item.href)}>
                 <span className="featured-strip-logo"><img src={item.icon} alt="" /></span>
                 <span className="featured-strip-copy"><b>{item.name}</b><small>{item.meta}</small><em>{item.tests}</em></span>
                 <span className="featured-strip-price"><strong>{item.price}</strong><del>{item.oldPrice}</del></span>
