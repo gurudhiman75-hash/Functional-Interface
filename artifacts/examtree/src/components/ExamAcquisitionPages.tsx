@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { ArrowRight, BarChart3, BookOpen, BookOpenCheck, CalendarDays, CheckCircle2, ChevronDown, Chrome, FileText, Globe2, Landmark, Languages, Loader2, ShieldCheck, Smartphone, Sparkles, Target, Trophy, Users } from "lucide-react";
 
 import SSCExamWorkspace, { SSC_WORKSPACE_SLUGS } from "@/components/SSCExamWorkspace";
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import MathText from "@/components/MathText";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { CheckList, PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
@@ -1159,8 +1160,11 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
       : <Link key={key} href={href} className="block hover:bg-slate-50/70">{inner}</Link>;
   };
 
+  const detailIcon = (anchor: string) => ({ overview: BookOpenCheck, syllabus: BookOpen, pattern: FileText, preparation: Target, practice: Sparkles, updates: Globe2, eligibility: ShieldCheck, dates: CalendarDays, salary: Landmark, faq: Users }[anchor] || FileText);
+
   const renderDetailsSection = (section: WebExamPageSection) => {
     const anchor = sectionAnchor(section);
+    const SectionIcon = detailIcon(anchor);
     const manualCards = (section.cards ?? []).filter((card) => card.isVisible).sort((a, b) => a.sortOrder - b.sortOrder);
     const canonicalCustom = canonicalCustomSection(section);
     const title =
@@ -1305,6 +1309,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
       <section key={section.id} id={anchor} className="scroll-mt-28 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_3px_18px_rgba(15,23,42,0.025)] sm:p-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-3xl">
+            <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#eef1f8] text-[#314f86]"><SectionIcon className="h-5 w-5" /></span>
             <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#425988]">{eyebrow}</p>
             <h2 className="mt-1 text-2xl font-black tracking-[-0.025em] text-slate-950 sm:text-[28px]">{title}</h2>
             {description ? <p className="mt-2 whitespace-pre-line text-[15px] leading-7 text-slate-600">{description}</p> : null}
@@ -1330,35 +1335,29 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
   const signupHref = "/login/student?mode=signup&next=" + encodeURIComponent(detailsPath);
 
   return (
-    <div className="bg-[#f4f5f7] pb-16">
+    <div className="bg-[#f7f5ef] pb-16">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-5 sm:px-6 lg:px-8">
-        <header className="rounded-2xl border border-slate-200 bg-white px-5 py-6 shadow-[0_4px_20px_rgba(15,23,42,0.03)] sm:px-8">
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
-            <Link href={config.categoryHref} className="hover:text-[#425988]">{marketingCategoryLabel(config.name)}</Link>
+        <header className="rounded-2xl border border-[#22385b] bg-[linear-gradient(115deg,#152640,#253e66)] px-5 py-7 shadow-[0_12px_35px_rgba(21,38,64,0.16)] sm:px-8">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-300">
+            <Link href={config.categoryHref} className="hover:text-[#e5c789]">{marketingCategoryLabel(config.name)}</Link>
             <span>/</span>
             <span>{config.name}</span>
             <span>/</span>
-            <span className="text-slate-800">Exam Details</span>
+            <span className="text-slate-100">Exam Details</span>
           </div>
 
           <div className="mt-4 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex min-w-0 items-start gap-4">
-              {catalogExam?.icon ? (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white p-2.5">
-                  <CategoryIcon icon={catalogExam.icon} className="h-10 w-10" />
-                </div>
-              ) : (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#edf0f7] text-[#425988]"><BookOpenCheck className="h-8 w-8" /></div>
-              )}
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white p-3 shadow-lg"><ExamIdentityIcon icon={catalogExam?.icon || undefined} name={config.name} examCode={examSlug} className="h-14 w-14" /></div>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-3xl font-bold tracking-[-0.035em] text-[#18243b] sm:text-4xl">{config.name}</h1>
-                  {config.yearLabel && config.yearLabel !== "Exam" ? <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-black text-slate-700">{config.yearLabel}</span> : null}
+                  <h1 className="text-3xl font-bold tracking-[-0.035em] text-white sm:text-4xl">{config.name}</h1>
+                  {config.yearLabel && config.yearLabel !== "Exam" ? <span className="rounded-md bg-[#e5c789] px-2.5 py-1 text-xs font-black text-[#182b48]">{config.yearLabel}</span> : null}
                 </div>
-                <p className="mt-2 max-w-3xl text-[15px] leading-7 text-slate-600">{config.meta.syllabusDescription}</p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-500">
+                <p className="mt-2 max-w-3xl text-[15px] leading-7 text-slate-200">{config.meta.syllabusDescription}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-300">
                   <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-600" /> Exam information</span>
-                  <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#425988]"><Globe2 className="h-4 w-4" /> Official source: {config.officialLabel}</a>
+                  <a href={config.officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#e5c789]"><Globe2 className="h-4 w-4" /> Official source: {config.officialLabel}</a>
                 </div>
               </div>
             </div>
@@ -1369,22 +1368,22 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
               </Link>
             ) : (
               <div className="flex shrink-0 items-center gap-2">
-                <Link href={loginHref} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 text-sm font-bold text-slate-800 hover:bg-slate-50">Login</Link>
-                <Link href={signupHref} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#354c78] px-5 text-sm font-bold text-white hover:bg-blue-700">Sign up</Link>
+                <Link href={loginHref} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 bg-white/5 px-5 text-sm font-bold text-white hover:bg-white/10">Login</Link>
+                <Link href={signupHref} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#e5c789] px-5 text-sm font-bold text-[#182b48] hover:bg-[#f0d59c]">Sign up</Link>
               </div>
             )}
           </div>
 
           {summaryFacts.length ? (
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-slate-200 pt-5">
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/15 pt-5">
               {summaryFacts.map((fact) => {
                 const Icon = fact.icon;
                 return (
                   <div key={fact.label} className="flex min-w-[160px] items-center gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#edf0f7] text-[#425988]"><Icon className="h-4 w-4" /></span>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#e2bf74]"><Icon className="h-4 w-4" /></span>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">{fact.label}</p>
-                      <p className="mt-0.5 truncate text-sm font-bold text-slate-900">{fact.value}</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-300">{fact.label}</p>
+                      <p className="mt-0.5 truncate text-sm font-bold text-white">{fact.value}</p>
                     </div>
                   </div>
                 );
@@ -1399,7 +1398,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
               {sessionUser ? "Test Workspace" : "Login for Tests"}
             </Link>
             {detailSections.map((section) => (
-              <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"inline-flex min-h-10 shrink-0 items-center rounded-lg px-3.5 text-xs font-semibold " + (activeSection === sectionAnchor(section) ? "bg-[#e9edf6] text-[#304877]" : "text-slate-600 hover:bg-slate-100")}>
+              <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"inline-flex min-h-10 shrink-0 items-center rounded-lg px-3.5 text-xs font-semibold " + (activeSection === sectionAnchor(section) ? "bg-[#223b63] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100")}>
                 {sectionDefaultLabel(section)}
               </a>
             ))}
@@ -1412,7 +1411,7 @@ export function ExamDetailsPage({ examSlug }: { examSlug: string }) {
               <p className="mb-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">On this page</p>
               <nav className="space-y-1" aria-label={config.name + " detail sections"}>
                 {detailSections.map((section) => (
-                  <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold transition " + (activeSection === sectionAnchor(section) ? "bg-[#e9edf6] text-[#304877]" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}>
+                  <a key={section.id} href={"#" + sectionAnchor(section)} aria-current={activeSection === sectionAnchor(section) ? "location" : undefined} onClick={() => setActiveSection(sectionAnchor(section))} className={"flex min-h-11 items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold transition " + (activeSection === sectionAnchor(section) ? "bg-[#223b63] text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950")}>
                     {sectionDefaultLabel(section)}
                   </a>
                 ))}
