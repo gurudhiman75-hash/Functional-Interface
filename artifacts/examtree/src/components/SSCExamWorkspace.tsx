@@ -14,7 +14,7 @@ import "@/styles/railway-exam-reference.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
-export const SSC_WORKSPACE_SLUGS = ["rrb-ntpc", "rrb-group-d", "rrb-alp", "rrb-technician", "ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ssc-gd", "ssc-stenographer", "ssc-selection-post", "ssc-je", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs", "psssb-excise-taxation-inspector", "punjab-naib-tehsildar", "psssb-senior-assistant", "psssb-vdo", "punjab-jail-warder", "punjab-police-intelligence-assistant", "pspcl-alm", "pspcl-revenue-accountant"] as const;
+export const SSC_WORKSPACE_SLUGS = ["rrb-ntpc", "rrb-group-d", "rrb-alp", "rrb-technician", "ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ssc-gd", "ssc-stenographer", "ssc-selection-post", "ssc-je", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "sbi-po", "sbi-clerk", "rbi-assistant", "rbi-grade-b", "nabard-grade-a", "sebi-grade-a", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs", "psssb-excise-taxation-inspector", "punjab-naib-tehsildar", "psssb-senior-assistant", "psssb-vdo", "punjab-jail-warder", "punjab-police-intelligence-assistant", "pspcl-alm", "pspcl-revenue-accountant"] as const;
 type SSCExamSlug = typeof SSC_WORKSPACE_SLUGS[number];
 const subtitles: Record<SSCExamSlug, string> = {
   "rrb-ntpc": "Non-Technical Popular Categories",
@@ -46,6 +46,12 @@ const subtitles: Record<SSCExamSlug, string> = {
   "ibps-clerk": "Customer Service Associate Examination",
   "ibps-rrb-po": "Regional Rural Banks · Officer Scale I",
   "ibps-rrb-office-assistant": "Regional Rural Banks · Office Assistant (Multipurpose)",
+  "sbi-po": "Probationary Officer Examination",
+  "sbi-clerk": "Junior Associate / Customer Support & Sales Examination",
+  "rbi-assistant": "Reserve Bank of India Assistant Examination",
+  "rbi-grade-b": "RBI Grade B Officer Examination",
+  "nabard-grade-a": "Assistant Manager Grade A Examination",
+  "sebi-grade-a": "Officer Grade A Examination",
 };
 const formats: { id: Format; label: string }[] = [{ id: "full-length", label: "Full mocks" }, { id: "sectional", label: "Sectional" }, { id: "topic-wise", label: "Topic-wise" }];
 const languageNames: Record<string, string> = { en: "English", hi: "Hindi", pa: "Punjabi" };
@@ -57,10 +63,21 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const config = getExamAcquisitionConfig(examSlug)!;
   const isRailway = examSlug.startsWith("rrb-");
   const isPunjab = config.categoryHref === "/category/punjab";
+  const isBanking = config.categoryHref === "/category/banking";
   const isSingle = (isPunjab && examSlug !== "punjab-pcs") || config.testHub?.mode === "single";
   const isPolice = examSlug.startsWith("punjab-police-");
-  const authority = isPolice ? "Punjab Police" : (examSlug === "punjab-pcs" || examSlug === "punjab-naib-tehsildar") ? "PPSC" : examSlug.startsWith("pspcl-") ? "PSPCL" : examSlug === "punjab-jail-warder" ? "Punjab Government" : isPunjab ? "PSSSB" : isRailway ? "RRB" : examSlug.startsWith("ibps-") ? "IBPS" : "SSC";
-  const isBanking = examSlug.startsWith("ibps-");
+  const authority = isPolice ? "Punjab Police"
+    : (examSlug === "punjab-pcs" || examSlug === "punjab-naib-tehsildar") ? "PPSC"
+    : examSlug.startsWith("pspcl-") ? "PSPCL"
+    : examSlug === "punjab-jail-warder" ? "Punjab Government"
+    : isPunjab ? "PSSSB"
+    : isRailway ? "RRB"
+    : examSlug.startsWith("ibps-") ? "IBPS"
+    : examSlug.startsWith("sbi-") ? "SBI"
+    : examSlug.startsWith("rbi-") ? "RBI"
+    : examSlug.startsWith("nabard-") ? "NABARD"
+    : examSlug.startsWith("sebi-") ? "SEBI"
+    : "SSC";
   const familyCode = isRailway ? "RAILWAY" : isPunjab ? "PUNJAB" : isBanking ? "BANKING" : "SSC";
   const brand = isPolice ? "POLICE" : authority;
   const stages: { id: Stage; label: string }[] = [
@@ -68,6 +85,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
     ...(isSingle ? [] : [{ id: "mains" as const, label: config.testHub?.stage2Label || (isBanking || examSlug === "punjab-pcs" ? "Mains" : "Tier II") }]),
     { id: "pyq", label: "PYQs" },
   ];
+  const bankingAuthorityLabel = examSlug.startsWith("ibps-") ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : examSlug.startsWith("sbi-") ? "STATE BANK OF INDIA" : examSlug.startsWith("rbi-") ? "RESERVE BANK OF INDIA" : examSlug.startsWith("nabard-") ? "NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT" : examSlug.startsWith("sebi-") ? "SECURITIES AND EXCHANGE BOARD OF INDIA" : "BANKING EXAM";
   const examShortName = isPunjab ? ({
     "psssb-clerk": "CLERK",
     "punjab-patwari": "PATWARI",
@@ -82,7 +100,22 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
     "punjab-police-intelligence-assistant": "INTELLIGENCE ASST.",
     "pspcl-alm": "ASSISTANT LINEMAN",
     "pspcl-revenue-accountant": "REVENUE ACCOUNTANT",
-  } as Record<string, string>)[examSlug] : ({ "rrb-ntpc": "NTPC", "rrb-group-d": "GROUP D", "rrb-alp": "ALP", "rrb-technician": "TECHNICIAN", "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
+  } as Record<string, string>)[examSlug] : ({
+    "rrb-ntpc": "NTPC",
+    "rrb-group-d": "GROUP D",
+    "rrb-alp": "ALP",
+    "rrb-technician": "TECHNICIAN",
+    "ibps-po": "PO",
+    "ibps-clerk": "CSA",
+    "ibps-rrb-po": "RRB PO",
+    "ibps-rrb-office-assistant": "RRB OA",
+    "sbi-po": "PO",
+    "sbi-clerk": "CLERK",
+    "rbi-assistant": "ASSISTANT",
+    "rbi-grade-b": "GRADE B",
+    "nabard-grade-a": "GRADE A",
+    "sebi-grade-a": "GRADE A",
+  } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
   const stageSummary = isSingle ? (isPunjab ? "Written exam" : config.testHub?.stage1Label || "CBE") : stages.slice(0, 2).map(item => item.label).join(" & ");
   const [view, setView] = useState<"tests" | "overview">("tests");
   const [stage, setStage] = useState<Stage>("prelims");
@@ -115,7 +148,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
         <div className="ssc-header-content">
           <div className="ssc-header-identity">
-            <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={isPunjab ? "/category-icons/punjab-library-official.png" : isRailway ? "/category-icons/railways-library-official.png" : icon ?? undefined} className="ssc-header-logo" />
+            <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={isPunjab ? "/category-icons/punjab-library-official.png" : isRailway ? "/category-icons/railways-official.svg" : icon ?? undefined} className="ssc-header-logo" />
             <div><p className="ssc-eyebrow">{isPunjab ? (isPolice ? "ਪੰਜਾਬ ਪੁਲਿਸ" : examSlug === "punjab-pcs" ? "ਪੰਜਾਬ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ" : "ਪੰਜਾਬ ਅਧੀਨ ਸੇਵਾਵਾਂ ਚੋਣ ਬੋਰਡ") : isRailway ? "RAILWAY RECRUITMENT BOARDS" : isBanking ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : "STAFF SELECTION COMMISSION"}</p><h1>{config.name} {config.isShell ? null : <span>{config.yearLabel}</span>}</h1><p className="ssc-exam-subtitle">{subtitles[examSlug]}</p></div>
           </div>
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
