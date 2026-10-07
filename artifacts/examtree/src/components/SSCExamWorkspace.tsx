@@ -9,6 +9,7 @@ import { examCountdown } from "@/lib/exam-countdown";
 import "@/styles/ssc-exam-workspace.css";
 import "@/styles/ssc-cgl-reference.css";
 import "@/styles/punjab-exam-reference.css";
+import "@/styles/punjab-clerk-teal.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
@@ -74,7 +75,12 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const formatLabel = formats.find(item => item.id === format)!.label;
 
 
-  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference" : "")}>
+  const viewTabs = <div className="ssc-main-switch" role="tablist" aria-label={config.name + " page view"}>
+        <button type="button" role="tab" id="ssc-tests-tab" aria-controls="ssc-tests-panel" aria-selected={view === "tests"} onClick={() => setView("tests")}><FileText />Test Series</button>
+        <button type="button" role="tab" id="ssc-overview-tab" aria-controls="ssc-overview-panel" aria-selected={view === "overview"} onClick={() => setView("overview")}><BookOpen />Overview</button>
+        <a href={config.officialUrl} target="_blank" rel="noreferrer"><Globe2 />Official website <ArrowRight /></a>
+      </div>;
+  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference" : "") + (isPunjabClerk ? " punjab-clerk-teal" : "")}>
     <div className="ssc-workspace-inner">
       <nav className="ssc-breadcrumb" aria-label="Breadcrumb"><Link href={config.categoryHref}>{isPunjab ? "ਪੰਜਾਬ ਦੀਆਂ ਪ੍ਰੀਖਿਆਵਾਂ" : isBanking ? "Banking exams" : "SSC exams"}</Link><span>/</span><span>{config.name}</span></nav>
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
@@ -86,17 +92,14 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
         </div>
         <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : (isSscFamily || isPunjab) ? <div className="ssc-countdown"><strong>—</strong><span>Awaiting date</span></div> : null}</aside>
+        {isPunjabClerk ? viewTabs : null}
       </header>
 
-      <div className="ssc-main-switch" role="tablist" aria-label={config.name + " page view"}>
-        <button type="button" role="tab" id="ssc-tests-tab" aria-controls="ssc-tests-panel" aria-selected={view === "tests"} onClick={() => setView("tests")}><FileText />Test Series</button>
-        <button type="button" role="tab" id="ssc-overview-tab" aria-controls="ssc-overview-panel" aria-selected={view === "overview"} onClick={() => setView("overview")}><BookOpen />Overview</button>
-        <a href={config.officialUrl} target="_blank" rel="noreferrer"><Globe2 />Official website <ArrowRight /></a>
-      </div>
+      {!isPunjabClerk ? viewTabs : null}
 
       {view === "tests" ? <section id="ssc-tests-panel" role="tabpanel" aria-labelledby="ssc-tests-tab" className="ssc-tests-panel">
         <div className="ssc-catalog-layout"><div className="ssc-catalog-main">
-        <section className="ssc-featured-series" aria-label="Featured test series"><div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{isPunjab ? "PUNJAB" : brand}<br /><em>{examShortName}</em></strong>{isSscFamily || isPunjab ? <SSCReferenceArtwork name={config.name} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div><div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
+        <section className="ssc-featured-series" aria-label="Featured test series">{isPunjabClerk ? <div className="clerk-banner-art"><img src="/images/exams/punjab-clerk-teal-banner.webp" alt="Punjab Clerk test series — faded Punjab map, wheat and mock exam papers" /></div> : <div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{isPunjab ? "PUNJAB" : brand}<br /><em>{examShortName}</em></strong>{isSscFamily || isPunjab ? <SSCReferenceArtwork name={config.name} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div>}<div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
