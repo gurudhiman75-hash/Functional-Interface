@@ -11,11 +11,8 @@ import {
   Monitor,
   Trophy,
   Users,
-  GraduationCap,
-  Landmark,
   Newspaper,
   Target,
-  ShieldCheck,
 } from "lucide-react";
 
 import { ExamCollectionBanner } from "@/components/ExamCollectionBanner";
