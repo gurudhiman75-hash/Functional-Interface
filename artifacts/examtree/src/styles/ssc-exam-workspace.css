@@ -87,3 +87,236 @@
 .ssc-tests-panel .ssc-test-action{align-self:stretch;min-height:43px}
 }
 @media(prefers-reduced-motion:reduce){.ssc-tests-panel .ssc-test-row{transition:none}}
+
+
+/* SSC CGL acquisition hero — logged-out users get a focused exam landing experience,
+   while signed-in users keep the compact workspace header. */
+.ssc-exam-header.is-acquisition-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 340px;
+  gap:0;
+  align-items:stretch;
+  overflow:hidden;
+  padding:0;
+  border:1px solid #dfe5ef;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 20% 15%,rgba(255,255,255,.96),transparent 30%),
+    linear-gradient(120deg,#f8fbff 0%,#eef5ff 58%,#e9effa 100%);
+  box-shadow:0 18px 45px rgba(31,54,92,.08);
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-content{
+  position:relative;
+  padding:36px 38px 32px;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-content::after{
+  content:"";
+  position:absolute;
+  right:24px;
+  bottom:-80px;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:rgba(85,89,189,.07);
+  pointer-events:none;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-identity{
+  align-items:flex-start;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-logo{
+  width:88px;
+  height:88px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid #dfe5ef;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-identity .ssc-eyebrow{
+  display:block;
+  color:#526a93;
+  font-size:9px;
+  letter-spacing:.16em;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-identity h1{
+  margin-top:8px;
+  font-size:40px;
+  color:#12284a;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-identity h1 span{
+  display:inline-flex;
+  margin-left:5px;
+  border-radius:8px;
+  background:#fff;
+  padding:4px 8px;
+  font-size:14px;
+  color:#5559bd;
+  border:1px solid #d9def0;
+  vertical-align:middle;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-exam-subtitle{
+  margin-top:5px;
+  color:#64758c;
+  font-size:13px;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-description{
+  max-width:670px;
+  margin:22px 0 0 108px;
+  color:#5e6f86;
+  font-size:14px;
+  line-height:1.75;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-features{
+  margin:20px 0 0 108px;
+  gap:10px;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-features span{
+  border:1px solid #dce4f0;
+  border-radius:999px;
+  background:rgba(255,255,255,.74);
+  padding:8px 11px;
+  color:#52657d;
+  font-size:10px;
+  font-weight:650;
+}
+.ssc-exam-header.is-acquisition-hero .ssc-header-features svg{
+  color:#5559bd;
+}
+.ssc-acquisition-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:22px 0 0 108px;
+}
+.ssc-acquisition-actions button,
+.ssc-acquisition-actions a{
+  display:inline-flex;
+  min-height:43px;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border-radius:10px;
+  padding:0 17px;
+  font-size:11px;
+  font-weight:750;
+}
+.ssc-acquisition-actions button{
+  background:#5559bd;
+  color:#fff;
+}
+.ssc-acquisition-actions a{
+  border:1px solid #cfd7e5;
+  background:#fff;
+  color:#354b6b;
+}
+.ssc-acquisition-actions svg{
+  width:14px;
+  height:14px;
+}
+.ssc-cgl-login-panel{
+  min-height:100%;
+  padding:32px 28px;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(112,126,217,.30),transparent 31%),
+    linear-gradient(155deg,#17253e 0%,#243a5f 55%,#2f4770 100%);
+}
+.ssc-cgl-login-panel .ssc-eyebrow{
+  color:#c7d4f1;
+}
+.ssc-cgl-login-panel h2{
+  margin-top:13px;
+  font-size:24px;
+  line-height:1.25;
+  color:#fff;
+}
+.ssc-cgl-login-panel>p:not(.ssc-eyebrow){
+  margin-top:10px;
+  color:#c8d1de;
+  font-size:12px;
+}
+.ssc-cgl-login-panel button{
+  min-height:52px;
+  margin-top:24px;
+  border-radius:11px;
+  box-shadow:0 10px 24px rgba(0,0,0,.15);
+}
+.ssc-cgl-login-panel>a{
+  min-height:38px;
+  margin-top:10px;
+  border:1px solid #ffffff18;
+  border-radius:9px;
+  color:#dbe4f1;
+}
+.ssc-login-perks{
+  display:grid;
+  gap:8px;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid #ffffff1c;
+}
+.ssc-login-perks span{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#c8d3e3;
+  font-size:10px;
+}
+.ssc-login-perks svg{
+  width:14px;
+  height:14px;
+  color:#d8c38b;
+}
+
+@media(max-width:900px){
+  .ssc-exam-header.is-acquisition-hero{
+    grid-template-columns:1fr 300px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-content{
+    padding:28px 25px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-description,
+  .ssc-exam-header.is-acquisition-hero .ssc-header-features,
+  .ssc-acquisition-actions{
+    margin-left:0;
+  }
+}
+@media(max-width:700px){
+  .ssc-exam-header.is-acquisition-hero{
+    display:block;
+    border-radius:16px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-content{
+    padding:22px 18px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-logo{
+    width:62px;
+    height:62px;
+    border-radius:13px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-identity h1{
+    font-size:29px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-identity h1 span{
+    font-size:11px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-description{
+    margin-top:18px;
+    font-size:12px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-features{
+    margin-top:14px;
+    gap:7px;
+  }
+  .ssc-exam-header.is-acquisition-hero .ssc-header-features span{
+    padding:6px 8px;
+    font-size:9px;
+  }
+  .ssc-acquisition-actions{
+    margin-top:17px;
+  }
+  .ssc-cgl-login-panel{
+    min-height:auto;
+    padding:22px 18px;
+  }
+  .ssc-cgl-login-panel h2{
+    font-size:20px;
+  }
+}
