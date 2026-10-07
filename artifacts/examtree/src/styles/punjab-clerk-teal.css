@@ -198,7 +198,7 @@
 @media(max-width:850px){.ssc-workspace.punjab-clerk-teal .ssc-exam-header{gap:12px}.ssc-workspace.punjab-clerk-teal .ssc-main-switch{padding-left:0}.ssc-workspace.punjab-clerk-teal .ssc-header-logo{height:110px}.ssc-workspace.punjab-clerk-teal .ssc-exam-subtitle{font-size:19px}}
 @media(max-width:550px){.ssc-workspace.punjab-clerk-teal .ssc-featured-series{grid-template-columns:1fr}.ssc-workspace.punjab-clerk-teal .clerk-banner-art img{height:auto}.ssc-workspace.punjab-clerk-teal .ssc-header-logo{width:68px;height:86px}.ssc-workspace.punjab-clerk-teal .ssc-main-switch>a{font-size:9px}.ssc-workspace.punjab-clerk-teal .ssc-series-content h2{font-size:24px}.ssc-workspace.punjab-clerk-teal .ssc-exam-subtitle{font-size:16px}}
 
-.ssc-workspace.punjab-clerk-teal .ssc-header-logo img{filter:sepia(1) saturate(4) hue-rotate(5deg);transform:scale(1.1)}
+.ssc-workspace.punjab-clerk-teal .ssc-header-logo img{filter:none;transform:none}
 
 .ssc-workspace.punjab-clerk-teal{--ssc-navy:#032b43;--ssc-gold:#00758a}
 
@@ -306,8 +306,8 @@
   object-fit:contain;
 }
 .ssc-workspace.punjab-teal-family.punjab-clerk-page .ssc-header-logo img{
-  filter:sepia(1) saturate(4) hue-rotate(5deg)!important;
-  transform:scale(1.1)!important;
+  filter:none!important;
+  transform:none!important;
 }
 .ssc-workspace.punjab-teal-family.punjab-clerk-page .ssc-series-content{
   padding:20px!important;
@@ -343,3 +343,6 @@
     font-size:24px!important;
   }
 }
+
+/* Original uploaded Punjab emblem: retain its colours and proportions. */
+.ssc-workspace.punjab-teal-family.punjab-clerk-page .ssc-header-logo img{filter:none!important;transform:none!important;object-fit:cover;width:100%;height:100%}

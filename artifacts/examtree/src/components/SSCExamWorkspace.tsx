@@ -108,7 +108,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
         <div className="ssc-header-content">
           <div className="ssc-header-identity">
-            <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} className="ssc-header-logo" />
+            <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={isPunjab ? "/category-icons/punjab-library-official.png" : icon ?? undefined} className="ssc-header-logo" />
             <div><p className="ssc-eyebrow">{isPunjab ? (isPolice ? "ਪੰਜਾਬ ਪੁਲਿਸ" : examSlug === "punjab-pcs" ? "ਪੰਜਾਬ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ" : "ਪੰਜਾਬ ਅਧੀਨ ਸੇਵਾਵਾਂ ਚੋਣ ਬੋਰਡ") : isBanking ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : "STAFF SELECTION COMMISSION"}</p><h1>{config.name} {config.isShell ? null : <span>{config.yearLabel}</span>}</h1><p className="ssc-exam-subtitle">{subtitles[examSlug]}</p></div>
           </div>
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
