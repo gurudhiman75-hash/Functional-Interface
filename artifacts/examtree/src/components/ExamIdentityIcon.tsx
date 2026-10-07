@@ -9,11 +9,11 @@ export function examIdentityAsset({ name, examCode, familyCode }: Omit<IdentityP
   const text = [examCode, name].filter(Boolean).join(" ").toUpperCase().replace(/_/g, " ");
   const family = String(familyCode ?? "").toUpperCase();
   let file: string | undefined;
-  if (/\bSBI\b/.test(text)) file = "sbi-official.svg";
-  else if (/\bIBPS\b/.test(text)) file = "ibps-official.svg";
-  else if (/\bRBI\b|RESERVE BANK/.test(text)) file = "rbi-official.svg";
-  else if (/\bSSC\b|STAFF SELECTION COMMISSION/.test(text) || family === "SSC") file = "ssc-official.svg";
-  else if (/RAILWAY|\bRRB\b/.test(text) || family === "RAILWAY") file = "railways-official.svg";
+  if (/\bSBI\b/.test(text)) file = "sbi-library-official.png";
+  else if (/\bIBPS\b/.test(text)) file = "ibps-library-official.png";
+  else if (/\bRBI\b|RESERVE BANK/.test(text)) file = "rbi-library-official.png";
+  else if (/\bSSC\b|STAFF SELECTION COMMISSION/.test(text) || family === "SSC") file = "ssc-library-official.png";
+  else if (/RAILWAY|\bRRB\b/.test(text) || family === "RAILWAY") file = "railways-library-official.png";
   else if (/PUNJAB|PSSSB|PPSC|PSPCL/.test(text) || family === "PUNJAB") file = "punjab-official.svg";
   return file ? `${import.meta.env.BASE_URL}category-icons/${file}` : undefined;
 }
