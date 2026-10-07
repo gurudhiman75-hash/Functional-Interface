@@ -6,7 +6,6 @@ import type { ExamHubFlatTest } from "@/components/ExamAcquisitionPages";
 import { getExamAcquisitionConfig, examDetailsHref, examPreparationHref, examSyllabusHref, practiceTopicHref } from "@/lib/seo-practice";
 import type { StudentSeriesSummary } from "@/lib/test-series";
 import { examCountdown } from "@/lib/exam-countdown";
-import { signInWithGoogle } from "@/lib/auth";
 import "@/styles/ssc-exam-workspace.css";
 
 type Stage = "prelims" | "mains" | "pyq";
@@ -51,8 +50,6 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const examShortName = isPunjab ? ({ "psssb-clerk": "CLERK", "punjab-patwari": "PATWARI", "punjab-police-constable": "CONSTABLE", "punjab-police-si": "SI", "punjab-pcs": "PCS" } as Record<string, string>)[examSlug] : ({ "ibps-po": "PO", "ibps-clerk": "CSA", "ibps-rrb-po": "RRB PO", "ibps-rrb-office-assistant": "RRB OA" } as Record<string, string>)[examSlug] || config.name.replace(/^SSC\s+/, "");
   const stageSummary = isSingle ? (isPunjab ? "ਟੈਸਟ ਸੀਰੀਜ਼ · ਵਿਸ਼ੇ ਅਨੁਸਾਰ ਅਭਿਆਸ" : config.testHub?.stage1Label || "CBE") : stages.slice(0, 2).map(item => item.label).join(" & ");
   const [view, setView] = useState<"tests" | "overview">("tests");
-  const [googlePending, setGooglePending] = useState(false);
-  const isSscCglAcquisition = examSlug === "ssc-cgl" && !signedIn;
   const [stage, setStage] = useState<Stage>("prelims");
   const [format, setFormat] = useState<Format>("full-length");
   useEffect(() => { setStage("prelims"); setFormat("full-length"); setView("tests"); }, [examSlug]);
@@ -68,33 +65,18 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const formatLabel = formats.find(item => item.id === format)!.label;
 
 
-  return <div className="ssc-workspace">
+  return <div className={"ssc-workspace" + (examSlug === "ssc-cgl" ? " ssc-reference" : "")}>
     <div className="ssc-workspace-inner">
       <nav className="ssc-breadcrumb" aria-label="Breadcrumb"><Link href={config.categoryHref}>{isPunjab ? "ਪੰਜਾਬ ਦੀਆਂ ਪ੍ਰੀਖਿਆਵਾਂ" : isBanking ? "Banking exams" : "SSC exams"}</Link><span>/</span><span>{config.name}</span></nav>
-      <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "") + (isSscCglAcquisition ? " is-acquisition-hero" : "")}>
+      <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
         <div className="ssc-header-content">
           <div className="ssc-header-identity">
             <ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} className="ssc-header-logo" />
             <div><p className="ssc-eyebrow">{isPunjab ? (isPolice ? "ਪੰਜਾਬ ਪੁਲਿਸ" : examSlug === "punjab-pcs" ? "ਪੰਜਾਬ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ" : "ਪੰਜਾਬ ਅਧੀਨ ਸੇਵਾਵਾਂ ਚੋਣ ਬੋਰਡ") : isBanking ? "INSTITUTE OF BANKING PERSONNEL SELECTION" : "STAFF SELECTION COMMISSION"}</p><h1>{config.name} {config.isShell ? null : <span>{config.yearLabel}</span>}</h1><p className="ssc-exam-subtitle">{subtitles[examSlug]}</p></div>
           </div>
-          {isSscCglAcquisition ? <p className="ssc-header-description">Prepare for SSC CGL with full-length Tier-I and Tier-II mocks, sectional practice, PYQs, detailed solutions and a clear preparation route—all from one exam workspace.</p> : null}
-          <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}{isSscCglAcquisition ? <span><BarChart3 /> Performance review after every attempt</span> : null}</div>
-          {isSscCglAcquisition ? <div className="ssc-acquisition-actions"><button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore tests <ArrowRight /></button><Link href={examSyllabusHref(examSlug)}>View syllabus</Link></div> : null}
+          <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
         </div>
-        {isSscCglAcquisition ? <aside className="ssc-login-panel ssc-cgl-login-panel">
-          <p className="ssc-eyebrow">START FREE</p>
-          <h2>Continue your SSC CGL preparation</h2>
-          <p>Sign in to attempt tests, save progress and keep your preparation connected across devices.</p>
-          <button type="button" disabled={googlePending} onClick={() => {
-            setGooglePending(true);
-            void signInWithGoogle()
-              .then(() => window.location.assign("/ssc-cgl"))
-              .catch(() => window.location.assign(loginHref))
-              .finally(() => setGooglePending(false));
-          }}><span className="ssc-google-letter">G</span>{googlePending ? "Connecting…" : "Continue with Google"}</button>
-          <Link href={loginHref}>Use email or mobile <ArrowRight /></Link>
-          <div className="ssc-login-perks"><span><CheckCircle2 /> Free tests</span><span><CheckCircle2 /> Saved attempts</span><span><CheckCircle2 /> Personalised practice</span></div>
-        </aside> : <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : null}</aside>}
+        <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : null}</aside>
       </header>
 
       <div className="ssc-main-switch" role="tablist" aria-label={config.name + " page view"}>
@@ -105,7 +87,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
 
       {view === "tests" ? <section id="ssc-tests-panel" role="tabpanel" aria-labelledby="ssc-tests-tab" className="ssc-tests-panel">
         <div className="ssc-catalog-layout"><div className="ssc-catalog-main">
-        {examSlug !== "ssc-cgl" ? <section className="ssc-featured-series" aria-label="Featured test series"><div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{brand}<br /><em>{examShortName}</em></strong><div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div><div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || config.name + " Test Series"}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section> : null}
+        <section className="ssc-featured-series" aria-label="Featured test series"><div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{brand}<br /><em>{examShortName}</em></strong>{examSlug === "ssc-cgl" ? <div className="ssc-paper-stack"><FileText /></div> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div><div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || config.name + " Test Series"}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
