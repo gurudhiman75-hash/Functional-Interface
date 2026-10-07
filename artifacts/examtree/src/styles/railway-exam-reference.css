@@ -1,0 +1,71 @@
+/* Railway palette and photography are scoped to the four Railway exam hubs. */
+.ssc-workspace.ssc-reference.railway-reference{background:#edf2f6;color:#071d38}
+.ssc-workspace.ssc-reference.railway-reference .ssc-workspace-inner{max-width:1536px;padding:18px 36px 36px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-exam-header{min-height:170px;padding:20px 26px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-header-content{grid-template-columns:130px minmax(0,1fr);column-gap:24px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-header-logo{width:130px;height:130px;border:0;background:white;padding:0}
+.ssc-workspace.ssc-reference.railway-reference .ssc-header-identity h1{color:#071d38;font-size:42px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-main-switch{flex-direction:row}
+.ssc-workspace.ssc-reference.railway-reference .ssc-main-switch button[aria-selected=true]{color:#b50920;border-bottom-color:#c20a20;background:transparent;box-shadow:none}
+.ssc-workspace.ssc-reference.railway-reference .ssc-main-switch button:first-child{order:1}
+.ssc-workspace.ssc-reference.railway-reference .ssc-main-switch>a{order:2}
+.ssc-workspace.ssc-reference.railway-reference .ssc-date-panel>svg{color:#bc0b24}
+.ssc-workspace.ssc-reference.railway-reference .ssc-countdown strong{color:#b50920}
+.ssc-workspace.ssc-reference.railway-reference .ssc-catalog-layout{grid-template-columns:minmax(0,2.45fr) minmax(320px,1fr);gap:14px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-featured-series{grid-template-columns:67% minmax(0,1fr);min-height:245px;overflow:hidden}
+.railway-banner{container-type:inline-size;position:relative;min-width:0;aspect-ratio:2.4;background:#031b31 url('/images/exams/railway-station-banner.webp') center/cover no-repeat;color:white;display:flex;flex-direction:column;justify-content:center;padding:5% 6.5%;isolation:isolate}
+.railway-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#02152765 0%,#02152715 58%,transparent 75%);z-index:-1}
+.railway-banner>strong{font-size:12.4cqw;font-weight:900;letter-spacing:-.045em;line-height:1.02;text-shadow:0 2px 8px #0004}
+.railway-banner-name{display:block;color:#ff615b;font-weight:900;font-size:14cqw;letter-spacing:-.045em;line-height:1.02;margin-bottom:3.5%;text-shadow:0 2px 9px #0004}
+.railway-banner-name-long{font-size:9.5cqw}
+.railway-banner>small{max-width:62%;font-size:1.85cqw;text-transform:uppercase;letter-spacing:.16em;line-height:1.5;border-left:3px solid #ff615b;padding-left:10px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-series-content{padding:22px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-series-content h2{font-size:25px;color:#071d38}
+.ssc-workspace.ssc-reference.railway-reference .ssc-featured-label{color:#a9081e;background:#fff0f1;font-size:10px;letter-spacing:.06em}
+.ssc-workspace.ssc-reference.railway-reference .ssc-series-content>a,.ssc-workspace.ssc-reference.railway-reference .ssc-series-content>button,.ssc-workspace.ssc-reference.railway-reference .ssc-test-action{background:#c10a20;color:white}
+.ssc-workspace.ssc-reference.railway-reference .ssc-series-content>a:hover,.ssc-workspace.ssc-reference.railway-reference .ssc-series-content>button:hover,.ssc-workspace.ssc-reference.railway-reference .ssc-test-action:hover{background:#a3071a}
+.ssc-workspace.ssc-reference.railway-reference .ssc-stage-tabs button[aria-selected=true]{color:#b50920;border-bottom-color:#c10a20}
+.ssc-workspace.ssc-reference.railway-reference .ssc-stage-tabs button[aria-selected=true] .ssc-tab-count{background:#ffecee;color:#b50920}
+.ssc-workspace.ssc-reference.railway-reference .ssc-format-tabs button[aria-selected=true]{color:#b50920;background:#ffecee;border-color:#ffecee}
+.ssc-workspace.ssc-reference.railway-reference .ssc-format-tabs button[aria-selected=true] span{color:#b50920}
+.ssc-workspace.ssc-reference.railway-reference .ssc-toolkit section>a>span,.ssc-workspace.ssc-reference.railway-reference .ssc-toolkit section>button>span,.ssc-workspace.ssc-reference.railway-reference .ssc-subject-section a>span,.ssc-workspace.ssc-reference.railway-reference .ssc-empty-icon{color:#bb0a22;background:#ffebee}
+.ssc-workspace.ssc-reference.railway-reference .ssc-empty-links a:first-child{color:#b50920;background:white;border:1px solid #c10a20}
+.ssc-workspace.ssc-reference.railway-reference .ssc-toolkit h2,.ssc-workspace.ssc-reference.railway-reference .ssc-section-heading h2,.ssc-workspace.ssc-reference.railway-reference .ssc-subject-section h2{color:#071d38}
+.ssc-workspace.ssc-reference.railway-reference .ssc-empty-state{background:white;border:0;min-height:200px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-review-card{background:linear-gradient(100deg,#031d37e8,#031d37c7),url('/images/exams/railway-station-banner.webp') center/cover no-repeat;border-color:#09273e}
+.ssc-workspace.ssc-reference.railway-reference .ssc-review-card h2{color:white}
+.ssc-workspace.ssc-reference.railway-reference .ssc-review-card h2 span{color:white}
+.ssc-workspace.ssc-reference.railway-reference .ssc-review-card .ssc-reference-chart{color:#ff615b}
+.ssc-workspace.ssc-reference.railway-reference .ssc-reference-chart stop:first-child{stop-color:#b80b22}
+.ssc-workspace.ssc-reference.railway-reference .ssc-reference-chart stop:last-child{stop-color:#ff766b}
+.ssc-workspace.ssc-reference.railway-reference .ssc-reference-chart>path{stroke:#ff615b}
+.ssc-workspace.ssc-reference.railway-reference .ssc-subject-section>div{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ssc-workspace.ssc-reference.railway-reference .ssc-subject-section a{border:0;border-right:1px solid #e4e9f0;border-radius:0;padding:12px 16px}
+.ssc-workspace.ssc-reference.railway-reference .ssc-subject-section a:last-child{border-right:0}
+.ssc-workspace.ssc-reference.railway-reference .ssc-overview-panel .ssc-syllabus-grid svg,.ssc-workspace.ssc-reference.railway-reference .ssc-overview-panel .ssc-prep-grid article>span{color:#b50920}
+@media(max-width:1100px){
+ .ssc-workspace.ssc-reference.railway-reference .ssc-workspace-inner{padding:16px 24px 30px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-catalog-layout{grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr)}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-featured-series{grid-template-columns:1fr}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-series-content{padding:20px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-content{grid-template-columns:100px minmax(0,1fr);column-gap:18px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-logo{width:100px;height:100px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-identity h1{font-size:32px}
+}
+@media(max-width:850px){
+ .ssc-workspace.ssc-reference.railway-reference .ssc-catalog-layout{grid-template-columns:1fr}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-content{width:100%}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-subject-section>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:550px){
+ .ssc-workspace.ssc-reference.railway-reference .ssc-workspace-inner{padding:12px 14px 26px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-exam-header{padding:16px;min-height:0}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-content{grid-template-columns:70px minmax(0,1fr);column-gap:12px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-logo{width:70px;height:70px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-header-identity h1{font-size:27px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-series-content h2{font-size:24px}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-subject-section>div{grid-template-columns:1fr}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-subject-section a{border-right:0;border-bottom:1px solid #e4e9f0;padding:12px 0}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-subject-section a:last-child{border-bottom:0}
+ .ssc-workspace.ssc-reference.railway-reference .ssc-subject-section p{display:block}
+}
