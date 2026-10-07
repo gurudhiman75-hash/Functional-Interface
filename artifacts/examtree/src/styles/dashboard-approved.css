@@ -165,3 +165,74 @@
   .dash-quick-actions{grid-template-columns:repeat(2,1fr)}.dash-series-grid{grid-template-columns:1fr}
   .dash-performance-top{grid-template-columns:1fr}.dash-score-ring{margin:auto}
 }
+
+/* Student dashboard refinement. */
+.student-hub-dashboard{--dash-blue:#29466f;--dash-navy:#192d4b;--dash-muted:#69778a;--dash-line:#e2e6ed;margin:0 auto}
+.student-hub-dashboard .dash-hero{display:flex;align-items:center;justify-content:space-between;gap:28px;min-height:200px;background:linear-gradient(115deg,#172c48,#2b4771);border:0;border-radius:20px;padding:26px;color:white}
+.student-hub-dashboard .dash-hero-copy{padding:0;flex:1}
+.dash-kicker{display:block;font-size:10px;letter-spacing:.15em;font-weight:750;color:#e6cd99;margin-bottom:12px}
+.student-hub-dashboard .dash-hero-copy h1{color:white;font-size:30px;font-weight:750;line-height:1.2}
+.student-hub-dashboard .dash-hero-copy>p{color:#d4ddec;font-size:14px;margin:10px 0 18px}
+.student-hub-dashboard .dash-primary-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 15px;font-size:12px;font-weight:650;background:#29466f;box-shadow:none;border-radius:9px}
+.student-hub-dashboard .dash-primary-btn svg{width:16px;height:16px}
+.student-hub-dashboard .dash-hero-cta{background:#e6cd99;color:#172c48}
+.student-hub-dashboard .dash-focus-card{width:44%;max-width:500px;grid-template-columns:60px minmax(0,1fr);padding:20px;background:#ffffff0c;border-color:#ffffff25;box-shadow:none;backdrop-filter:none;gap:15px}
+.student-hub-dashboard .dash-focus-logo{width:56px;height:56px;background:white;border-radius:12px;padding:7px}
+.dash-focus-logo .exam-identity-icon{width:100%;height:100%}
+.student-hub-dashboard .dash-focus-main h2{font-size:19px;color:white;line-height:1.35;margin:7px 0}
+.student-hub-dashboard .dash-focus-topline{color:#d1dced;font-size:11px}
+.student-hub-dashboard .dash-focus-topline a{color:#e6cd99;text-decoration:none}
+.dash-focus-main p{font-size:12px;color:#d1dced;line-height:1.6}
+.dash-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}
+.dash-summary>div{display:flex;align-items:center;gap:14px;background:white;border:1px solid var(--dash-line);border-radius:14px;padding:19px}
+.dash-summary svg{width:23px;height:23px;color:#506b93}
+.dash-summary>div:nth-child(3){background:#f3efe5;border-color:#e8dec7}
+.dash-summary>div:nth-child(3) svg{color:#987846}
+.dash-summary b{display:block;font-size:23px;line-height:1.2;font-weight:750}
+.dash-summary small{display:block;color:#6d7b8e;font-size:11px;margin-top:4px}
+.student-hub-dashboard .dash-quick-card{min-height:76px}
+.student-hub-dashboard .dash-quick-card b{font-size:12px;line-height:1.4}
+.student-hub-dashboard .dash-quick-card small{font-size:10px}
+.student-hub-dashboard .dash-quick-icon{background:#edf1f8;color:#47638b}
+.student-hub-dashboard .dash-main-grid{grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);gap:18px;margin-top:22px}
+.student-hub-dashboard .dash-panel{padding:22px}
+.student-hub-dashboard .dash-panel-head h2{font-size:20px;font-weight:750;line-height:1.35}
+.student-hub-dashboard .dash-panel-head p{font-size:12px;line-height:1.6;max-width:450px}
+.student-hub-dashboard .dash-panel-head>a{font-size:12px;min-height:24px}
+.student-hub-dashboard .dash-practice-row{grid-template-columns:48px minmax(0,1fr) auto;padding:16px 0;gap:12px}
+.student-hub-dashboard .dash-practice-copy b{font-size:14px;line-height:1.5}
+.student-hub-dashboard .dash-practice-copy small{font-size:11px;line-height:1.6}
+.student-hub-dashboard .dash-badge{font-size:10px;padding:3px 7px}
+.student-hub-dashboard .dash-practice-icon{background:#f5f7fa;border:1px solid #e5e9f0}
+.dash-practice-icon .exam-identity-icon{width:36px;height:36px}
+.dash-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:190px;padding:24px;text-align:center;color:#738095;font-size:13px;line-height:1.7}
+.dash-empty>svg{width:29px;height:29px;color:#627c9f}
+.dash-empty h3{font-size:16px;font-weight:700;color:#233a5b}
+.dash-empty a,.dash-empty button{display:inline-flex;align-items:center;gap:7px;color:#29466f;font-weight:650;min-height:42px;padding:0 12px;border:1px solid #d8e0ec;border-radius:9px;background:#f8faff}
+.dash-empty a svg{width:15px;height:15px}
+.student-hub-dashboard .dash-performance-top{grid-template-columns:132px minmax(0,1fr)}
+.dash-performance-note{font-size:13px;color:#738095;line-height:1.8}
+.student-hub-dashboard .dash-score-ring{background:conic-gradient(#476891 0 calc(var(--score)*1%),#e8edf4 calc(var(--score)*1%) 100%)}
+.student-hub-dashboard .dash-trend-title{font-size:12px}
+.student-hub-dashboard .dash-chart{height:95px}
+.student-hub-dashboard .dash-chart span{background:#476891;min-height:0;border-radius:4px 4px 0 0}
+.student-hub-dashboard .dash-chart span i{display:none}
+.student-hub-dashboard .dash-upcoming-panel{grid-column:1/-1}
+.dash-attempt-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:18px}
+.dash-attempt-list>article{border:1px solid var(--dash-line);border-radius:12px;padding:18px}
+.dash-attempt-list b{font-size:14px;line-height:1.5;display:block}
+.dash-attempt-list small{display:block;color:#788599;font-size:11px;margin-top:7px}
+.dash-attempt-list span{display:block;color:#486285;font-size:12px;margin-top:10px}
+.dash-attempt-list a{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:650;color:#29466f;min-height:40px;margin-top:7px}
+.dash-attempt-list a svg{width:14px;height:14px}
+.dash-attempt-list>.dash-empty{grid-column:1/-1}
+.student-hub-dashboard .dash-recommended{margin-top:20px;padding:22px}
+.student-hub-dashboard .dash-series-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.student-hub-dashboard .dash-series-card{min-height:110px;padding:17px}
+.student-hub-dashboard .dash-series-copy>b{font-size:14px;white-space:normal;line-height:1.5}
+.student-hub-dashboard .dash-series-copy>small{font-size:11px;line-height:1.6}
+.student-hub-dashboard .dash-series-logo svg{color:#476891}
+.dash-access-empty{min-height:120px}
+@media(max-width:1000px){.student-hub-dashboard .dash-hero{gap:20px}.student-hub-dashboard .dash-focus-card{width:48%}.student-hub-dashboard .dash-main-grid{grid-template-columns:1fr}.dash-attempt-list{grid-template-columns:1fr}.dash-summary{gap:10px}.dash-summary>div{padding:15px;gap:10px}}
+@media(max-width:700px){.student-hub-dashboard .dash-hero{flex-direction:column;align-items:stretch;padding:22px}.student-hub-dashboard .dash-hero-copy h1{font-size:26px}.student-hub-dashboard .dash-focus-card{width:100%;max-width:none}.dash-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.student-hub-dashboard .dash-practice-row{grid-template-columns:42px minmax(0,1fr)}.student-hub-dashboard .dash-practice-row>.dash-primary-btn{grid-column:2;justify-self:start}.student-hub-dashboard .dash-practice-icon{width:40px;height:40px}.student-hub-dashboard .dash-performance-top{grid-template-columns:1fr}.student-hub-dashboard .dash-series-grid{grid-template-columns:1fr}.student-hub-dashboard .dash-panel,.student-hub-dashboard .dash-recommended{padding:18px}.student-hub-dashboard .dash-panel-head{flex-wrap:wrap}.student-hub-dashboard .dash-panel-head h2{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.student-hub-dashboard a{transition:none}.student-hub-dashboard a:hover{transform:none}}
