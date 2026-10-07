@@ -163,23 +163,12 @@ function SSCReferenceArtwork({ name }: { name: string }) {
   </svg>;
 }
 function PunjabClerkStyleBanner({ name, shortName, authority }: { name: string; shortName: string; authority: string }) {
-  return <svg className="punjab-family-clerk-banner" viewBox="0 0 1100 400" role="img" aria-label={name + " test series banner"}>
-    <defs><linearGradient id="pfb-bg" x2="0" y2="1"><stop stopColor="#032b43"/><stop offset="1" stopColor="#001d30"/></linearGradient><filter id="pfb-shadow"><feDropShadow dx="0" dy="8" stdDeviation="8" floodOpacity=".25"/></filter></defs>
-    <rect width="1100" height="400" fill="url(#pfb-bg)"/>
-    <g opacity=".13" stroke="#c6a953" strokeWidth="3" fill="none">
-      <path d="M415 22l24 24-7 23 30 30-10 26 29 27-18 30 19 35-30 20-13 31-31 8-24 35-33-16-28 12-34-30-38-6-12-28-32-18 17-35-6-33 25-25 13-31 28-8 24-24 32-11Z" fill="#126275"/>
-      {[1,-1].map(side=><g key={side} transform={side===1?"translate(0 0)":"translate(730 0) scale(-1 1)"}><path d="M365 370C190 350 160 230 180 85"/>{[0,1,2,3,4,5].map(n=><g key={n} transform={`translate(${180+n*8} ${100+n*36}) rotate(${n*6})`}><path d="M0 0C-30-20-36-36-28-49C-8-36 0-18 0 0Z" fill="#c6a953"/><path d="M0 4C26-8 41-24 36-38C15-30 3-13 0 4Z" fill="#c6a953"/></g>)}</g>)}
-    </g>
-    <g stroke="#00b9c5" opacity=".3" fill="none" strokeWidth="1.5">{[[75,60],[710,55],[90,325],[690,340]].map(([x,y],i)=><g key={i} transform={`translate(${x} ${y})`}><path d="M0-25L25 0 0 25-25 0Z M0-12L12 0 0 12-12 0Z M0-42L7-35 0-28-7-35Z M35-7L42 0 35 7 28 0Z M0 28L7 35 0 42-7 35Z M-35-7L-28 0-35 7-42 0Z"/></g>)}</g>
-    <text x="390" y="163" textAnchor="middle" fill="white" fontSize="72" fontWeight="850">PUNJAB</text>
-    <text x="390" y="255" textAnchor="middle" fill="#00ceda" fontSize={shortName.length>17?30:shortName.length>10?42:78} fontWeight="850">{shortName}</text>
-    <path d="M165 275h450" stroke="white" strokeWidth="2"/>
-    <text x="390" y="307" textAnchor="middle" fill="white" fontSize="16" letterSpacing="3">{authority.toUpperCase()} TEST SERIES</text>
-    <g filter="url(#pfb-shadow)">
-      <g transform="translate(864 43) rotate(7)"><rect width="192" height="318" fill="#f8fafc"/><text x="18" y="38" fontSize="16" fill="#152638" fontWeight="700">ਪੰਜਾਬ ਪ੍ਰੀਖਿਆ</text>{[0,1,2,3,4,5,6].map(n=><g key={n} transform={`translate(0 ${n*32})`}><path d="M20 65h145" stroke="#d6dce3" strokeWidth="4"/><circle cx="40" cy="82" r="5" stroke="#abb3c3" fill="none"/><circle cx="80" cy="82" r="5" stroke="#abb3c3" fill="none"/><circle cx="120" cy="82" r="5" stroke="#00758a" fill="none"/></g>)}</g>
-      <g transform="translate(719 76) rotate(-8)"><rect width="227" height="307" fill="white"/><text x="18" y="33" fontSize={shortName.length>15?13:19} fontWeight="700" fill="#152638">{shortName}</text><text x="18" y="57" fontSize="16" fill="#152638">Mock Test</text><path d="M18 72h188" stroke="#d6dce3" strokeWidth="2"/>{[0,1,2,3,4].map(n=><g key={n} transform={`translate(0 ${n*39})`}><text x="20" y="103" fontSize="16" fill="#152638">{n+1}.</text>{[0,1,2,3].map(a=><circle key={a} cx={66+a*39} cy="98" r="7" stroke={a===n%4?"#00758a":"#adb5c4"} fill="none" strokeWidth="2"/>)}<path d="M20 119h188" stroke="#edf0f3"/></g>)}</g>
-    </g>
-  </svg>;
+  const examTitleSize = Math.min(8.8, 62 / Math.max(shortName.length, 1));
+  return <div className="punjab-family-clerk-banner" role="img" aria-label={name + " test series banner"}>
+    <strong className="punjab-banner-heading">PUNJAB</strong>
+    <span className="punjab-banner-exam" style={{ fontSize: examTitleSize + "cqw" }}>{shortName}</span>
+    <small className="punjab-banner-caption">{authority.toUpperCase()} TEST SERIES</small>
+  </div>;
 }
 
 function PunjabReferenceArtwork({ name, shortName }: { name: string; shortName: string }) {
