@@ -1,0 +1,620 @@
+
+/* Punjab Clerk — distinct warm Punjab visual system.
+   Scoped to /psssb-clerk only through .punjab-clerk-reference. */
+.ssc-workspace.punjab-clerk-reference{
+  --pc-green:#184f45;
+  --pc-green-2:#24695d;
+  --pc-gold:#c59a4a;
+  --pc-gold-soft:#ead19a;
+  --pc-ink:#18332d;
+  --pc-muted:#6e7d77;
+  --pc-border:#dedfd6;
+  background:
+    radial-gradient(circle at 8% 2%,rgba(197,154,74,.08),transparent 22%),
+    linear-gradient(180deg,#f8f6ef 0%,#f4f3ed 100%);
+  color:var(--pc-ink);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-workspace-inner{
+  max-width:1480px;
+  padding:22px 28px 56px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-breadcrumb{
+  color:#7b837c;
+  margin-bottom:14px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-breadcrumb a{
+  color:var(--pc-green);
+}
+
+/* Exam header */
+.ssc-workspace.punjab-clerk-reference .ssc-exam-header,
+.ssc-workspace.punjab-clerk-reference .ssc-exam-header.is-signed-in{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  padding:24px;
+  border:1px solid #dddcd2;
+  border-top:4px solid var(--pc-gold);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(197,154,74,.10),transparent 24%),
+    linear-gradient(125deg,#fffef9,#f5f2e8);
+  box-shadow:0 12px 32px rgba(52,70,61,.05);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-content{
+  padding:0;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-identity{
+  gap:18px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-logo{
+  width:82px;
+  height:82px;
+  padding:8px;
+  border-radius:18px;
+  border:1px solid #e5dfd0;
+  background:#fff;
+  box-shadow:0 8px 20px rgba(35,80,69,.08);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-identity .ssc-eyebrow{
+  display:block;
+  margin:0 0 5px;
+  color:#987638;
+  font-size:9px;
+  letter-spacing:.16em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-identity h1{
+  margin:0;
+  color:#163b33;
+  font-size:34px;
+  letter-spacing:-.04em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-identity h1 span{
+  display:inline-flex;
+  align-items:center;
+  margin-left:6px;
+  padding:5px 8px;
+  border:1px solid #d9cfb8;
+  border-radius:8px;
+  background:#fffaf0;
+  color:#8f6a2e;
+  font-size:13px;
+  vertical-align:middle;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-exam-subtitle{
+  margin-top:5px;
+  color:#5f746d;
+  font-size:13px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-features{
+  margin:14px 0 0 100px;
+  gap:9px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-features span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 10px;
+  border:1px solid #dfded4;
+  border-radius:999px;
+  background:#fffdf8;
+  color:#586d66;
+  font-size:10px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-header-features svg{
+  color:var(--pc-gold);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-date-panel{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:310px;
+  max-width:430px;
+  min-height:92px;
+  padding:16px 18px;
+  border:1px solid #dbd4c5;
+  border-radius:12px;
+  background:#fffaf0;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-date-panel>svg{
+  width:30px;
+  height:30px;
+  color:var(--pc-green-2);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-date-panel p{
+  color:#89775a;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-date-panel strong{
+  color:#263f38;
+  font-size:14px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-date-panel a{
+  color:#6f7f79;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-countdown{
+  border-left-color:#ded4bf;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-countdown strong{
+  color:var(--pc-green-2);
+}
+
+/* Main navigation */
+.ssc-workspace.punjab-clerk-reference .ssc-main-switch{
+  margin-top:14px;
+  padding:0;
+  border-bottom:1px solid #dedfd8;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-main-switch button{
+  min-height:44px;
+  padding:0 18px;
+  border-radius:0;
+  border-bottom:2px solid transparent;
+  background:transparent!important;
+  color:#78827e;
+  font-size:13px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-main-switch button[aria-selected=true]{
+  border-color:var(--pc-green);
+  color:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-main-switch button svg{
+  color:var(--pc-gold);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-main-switch>a{
+  color:#71817b;
+}
+
+/* Main catalogue */
+.ssc-workspace.punjab-clerk-reference .ssc-tests-panel{
+  padding-top:18px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-catalog-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:18px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-featured-series{
+  display:grid;
+  grid-template-columns:48% minmax(0,1fr);
+  min-height:248px;
+  overflow:hidden;
+  border:0;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 14px 30px rgba(26,65,56,.08);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-art{
+  position:relative;
+  isolation:isolate;
+  min-height:248px;
+  overflow:hidden;
+  padding:28px;
+  border:0;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.03) 25%,transparent 25%) 0 0/28px 28px,
+    linear-gradient(225deg,rgba(255,255,255,.03) 25%,transparent 25%) 0 0/28px 28px,
+    linear-gradient(145deg,#133f37,#1d5d51 64%,#276e61);
+  color:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-art>span{
+  position:relative;
+  z-index:3;
+  color:#ecd69f;
+  font-size:9px;
+  letter-spacing:.17em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-art>strong{
+  position:relative;
+  z-index:3;
+  max-width:52%;
+  margin:16px 0;
+  color:#fff;
+  font-size:clamp(36px,4vw,56px);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-art em{
+  color:#f0cc7b;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-art small{
+  position:relative;
+  z-index:3;
+  color:#d8e4df;
+  font-size:8px;
+  letter-spacing:.12em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-seal{
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:12px;
+  background:#fff;
+}
+.punjab-clerk-artwork{
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:-10px;
+  width:62%;
+  height:100%;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-content{
+  padding:28px;
+  color:var(--pc-ink);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-featured-label{
+  border:1px solid #eadbb8;
+  border-radius:999px;
+  background:#fff8e9;
+  color:#9a7032;
+  font-size:9px;
+  letter-spacing:.1em;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-content h2{
+  margin:12px 0 8px;
+  color:#173d35;
+  font-size:27px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-content>p{
+  color:#71807a;
+  font-size:13px;
+  line-height:1.65;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-features{
+  display:flex;
+  gap:8px 14px;
+  margin-top:14px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-features span{
+  color:#5d7169;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-features svg{
+  color:var(--pc-gold);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-content>a,
+.ssc-workspace.punjab-clerk-reference .ssc-series-content>button{
+  min-height:42px;
+  margin-top:16px;
+  border-radius:9px;
+  background:var(--pc-green);
+  color:#fff;
+  font-size:12px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-series-content>a:hover,
+.ssc-workspace.punjab-clerk-reference .ssc-series-content>button:hover{
+  background:#103f37;
+}
+
+/* Practice block */
+.ssc-workspace.punjab-clerk-reference .ssc-practice-card{
+  margin-top:18px;
+  padding:21px;
+  border:1px solid #e1e0d7;
+  border-radius:15px;
+  background:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-section-heading h2{
+  color:#183a33;
+  font-size:23px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-published-count{
+  border-color:#dedfd6;
+  background:#f5f5ef;
+  color:#738079;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-stage-tabs{
+  gap:5px;
+  padding:5px;
+  border:0;
+  border-radius:11px;
+  background:#f0f3ef;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-stage-tabs button{
+  flex:1;
+  min-height:43px;
+  border:0;
+  border-radius:8px;
+  color:#5c6d67;
+  background:transparent!important;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-stage-tabs button[aria-selected=true]{
+  border:0;
+  background:var(--pc-green)!important;
+  color:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-stage-tabs button[aria-selected=true] .ssc-tab-count{
+  background:#ffffff1f;
+  color:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-format-tabs{
+  gap:7px;
+  margin-top:14px;
+  border:0;
+  flex-wrap:wrap;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-format-tabs button{
+  min-height:34px;
+  padding:0 13px;
+  border:1px solid #dedfd6;
+  border-radius:999px;
+  background:#fffdf9;
+  color:#61716b;
+  font-size:10px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-format-tabs button[aria-selected=true]{
+  border-color:#bfd2cb;
+  background:#eaf2ef;
+  color:#174f45;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-row{
+  padding:16px;
+  border-color:#e2e2d9;
+  border-radius:12px;
+  box-shadow:none;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-row:hover{
+  border-color:#bcd0c9;
+  box-shadow:0 5px 16px rgba(24,79,69,.06);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-logo{
+  width:46px;
+  height:46px;
+  border:1px solid #e2e1d8;
+  border-radius:11px;
+  background:#f8f6ed;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-title h3{
+  color:#183c34;
+  font-size:14px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-format{
+  background:#eef4f1;
+  color:#285f54;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-action{
+  min-height:40px;
+  border-radius:8px;
+  background:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-test-action:hover{
+  background:#103f37;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-empty-icon{
+  background:#edf3f0;
+  color:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-empty-links a:first-child{
+  border-color:var(--pc-green);
+  background:var(--pc-green);
+}
+
+/* Preparation toolkit */
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit>section{
+  padding:20px;
+  border:1px solid #e2e1d8;
+  border-radius:15px;
+  background:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit h2{
+  color:#173c34;
+  font-size:21px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>a,
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>button{
+  min-height:72px;
+  padding:15px 0;
+  border-top-color:#eeeee7;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>a>span,
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>button>span{
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  background:#edf3f0;
+  color:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit h3{
+  color:#24433c;
+  font-size:12px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>a p,
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit section>button p{
+  color:#7a8882;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit .ssc-review-card{
+  position:relative;
+  min-height:205px;
+  overflow:hidden;
+  margin-top:15px;
+  border-color:#184f45;
+  background:
+    radial-gradient(circle at 90% 15%,rgba(234,209,154,.12),transparent 28%),
+    linear-gradient(145deg,#133f37,#184f45);
+  color:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-review-card>p:first-child{
+  color:#e8d39d;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-review-card h2{
+  color:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-review-card h2 span{
+  color:#efd18e;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-review-card>p:not(:first-child){
+  max-width:64%;
+  color:#dce7e2;
+}
+.punjab-clerk-chart{
+  position:absolute;
+  right:10px;
+  bottom:20px;
+  width:38%;
+  height:auto;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-toolkit .ssc-review-card>a{
+  color:#ecd79e;
+}
+
+/* Clerk-specific study areas */
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section{
+  margin-top:18px;
+  padding:18px;
+  border:1px solid #e2e1d8;
+  border-radius:15px;
+  background:#fffdf8;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section h2{
+  color:#173b33;
+  font-size:22px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section>div{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section a{
+  position:relative;
+  overflow:hidden;
+  padding:14px;
+  border:1px solid #e2e1d8;
+  border-radius:12px;
+  background:#fff;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section a::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:3px;
+  height:100%;
+  background:linear-gradient(180deg,var(--pc-green),var(--pc-gold));
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section a>span{
+  background:#edf3f0;
+  color:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section h3{
+  color:#21453d;
+  font-size:11px;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-subject-section p{
+  display:block;
+  color:#7b8882;
+  font-size:9px;
+}
+
+/* Overview */
+.ssc-workspace.punjab-clerk-reference .ssc-overview-panel .ssc-eyebrow{
+  color:#987638;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-overview-section{
+  border-top-color:#dedfd6;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-syllabus-grid article,
+.ssc-workspace.punjab-clerk-reference .ssc-prep-grid article{
+  border-color:#e2e1d8;
+  background:#fffdf8;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-syllabus-grid svg,
+.ssc-workspace.punjab-clerk-reference .ssc-prep-grid article>span{
+  color:var(--pc-green);
+}
+.ssc-workspace.punjab-clerk-reference .ssc-official-note{
+  background:#eef3ef;
+}
+.ssc-workspace.punjab-clerk-reference .ssc-overview-section>a,
+.ssc-workspace.punjab-clerk-reference .ssc-section-heading>a,
+.ssc-workspace.punjab-clerk-reference .ssc-official-note a{
+  color:var(--pc-green);
+}
+
+@media(max-width:1050px){
+  .ssc-workspace.punjab-clerk-reference .ssc-catalog-layout{
+    grid-template-columns:minmax(0,1fr) 280px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-featured-series{
+    grid-template-columns:43% minmax(0,1fr);
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-series-art>strong{
+    font-size:42px;
+  }
+}
+@media(max-width:850px){
+  .ssc-workspace.punjab-clerk-reference .ssc-exam-header,
+  .ssc-workspace.punjab-clerk-reference .ssc-exam-header.is-signed-in{
+    flex-wrap:wrap;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-date-panel{
+    width:100%;
+    max-width:none;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-catalog-layout{
+    grid-template-columns:1fr;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-toolkit{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-toolkit .ssc-review-card{
+    margin-top:0;
+  }
+}
+@media(max-width:600px){
+  .ssc-workspace.punjab-clerk-reference .ssc-workspace-inner{
+    padding:15px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-exam-header,
+  .ssc-workspace.punjab-clerk-reference .ssc-exam-header.is-signed-in{
+    padding:18px;
+    border-radius:14px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-header-logo{
+    width:58px;
+    height:58px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-header-identity{
+    align-items:flex-start;
+    gap:12px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-header-identity h1{
+    font-size:26px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-header-identity h1 span{
+    font-size:10px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-header-features{
+    margin-left:0;
+    margin-top:15px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-featured-series{
+    grid-template-columns:1fr;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-series-art{
+    min-height:185px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-series-art>strong{
+    max-width:48%;
+    font-size:38px;
+  }
+  .punjab-clerk-artwork{
+    width:58%;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-series-content{
+    padding:20px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-practice-card{
+    padding:16px;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-toolkit{
+    grid-template-columns:1fr;
+  }
+  .ssc-workspace.punjab-clerk-reference .ssc-subject-section>div{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
