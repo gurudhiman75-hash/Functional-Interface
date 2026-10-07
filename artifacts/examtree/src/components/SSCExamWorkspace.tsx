@@ -11,13 +11,17 @@ import "@/styles/ssc-cgl-reference.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
-export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs"] as const;
+export const SSC_WORKSPACE_SLUGS = ["ssc-cgl", "ssc-chsl", "ssc-mts", "ssc-cpo", "ssc-gd", "ssc-stenographer", "ssc-selection-post", "ssc-je", "ibps-po", "ibps-clerk", "ibps-rrb-po", "ibps-rrb-office-assistant", "psssb-clerk", "punjab-patwari", "punjab-police-constable", "punjab-police-si", "punjab-pcs"] as const;
 type SSCExamSlug = typeof SSC_WORKSPACE_SLUGS[number];
 const subtitles: Record<SSCExamSlug, string> = {
   "ssc-cgl": "Combined Graduate Level Examination",
   "ssc-chsl": "Combined Higher Secondary Level Examination",
   "ssc-mts": "Multi-Tasking Staff & Havaldar Examination",
   "ssc-cpo": "Sub-Inspector in Delhi Police & Central Armed Police Forces",
+  "ssc-gd": "Constable (GD) Examination",
+  "ssc-stenographer": "Stenographer Grade C & D Examination",
+  "ssc-selection-post": "Selection Post Examination",
+  "ssc-je": "Junior Engineer Examination",
   "psssb-clerk": "ਕਲਰਕ ਪ੍ਰੀਖਿਆ",
   "punjab-patwari": "ਪੰਜਾਬ ਪਟਵਾਰੀ ਪ੍ਰੀਖਿਆ",
   "punjab-police-constable": "ਪੰਜਾਬ ਪੁਲਿਸ ਕਾਂਸਟੇਬਲ ਪ੍ਰੀਖਿਆ",
@@ -59,7 +63,8 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const countdown = examCountdown(examDate, now);
   const featured = series.find(item => item.learnerVisibility === "live");
   const testLanguages = Array.from(new Set(tests.flatMap(item => item.languages ?? [])));
-  const languages = testLanguages.length ? testLanguages : examSlug === "ssc-cgl" ? ["en", "hi"] : [];
+  const isSscFamily = examSlug.startsWith("ssc-");
+  const languages = testLanguages.length ? testLanguages : isSscFamily ? ["en", "hi"] : [];
   const loginHref = "/login/student?next=" + encodeURIComponent("/" + examSlug);
   const filtered = tests.filter(test => stage === "pyq" ? test.type === "pyq" : (isSingle || test.stage === stage) && test.type === format);
   const stageCount = (id: Stage) => tests.filter(test => id === "pyq" ? test.type === "pyq" : (isSingle || test.stage === id) && test.type !== "pyq").length;
@@ -67,7 +72,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
   const formatLabel = formats.find(item => item.id === format)!.label;
 
 
-  return <div className={"ssc-workspace" + (examSlug === "ssc-cgl" ? " ssc-reference" : "")}>
+  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "")}>
     <div className="ssc-workspace-inner">
       <nav className="ssc-breadcrumb" aria-label="Breadcrumb"><Link href={config.categoryHref}>{isPunjab ? "ਪੰਜਾਬ ਦੀਆਂ ਪ੍ਰੀਖਿਆਵਾਂ" : isBanking ? "Banking exams" : "SSC exams"}</Link><span>/</span><span>{config.name}</span></nav>
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
@@ -78,7 +83,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
           </div>
           <div className="ssc-header-features"><span><FileText /> {stageSummary}</span>{languages.length ? <span><Languages />{languages.map(code => languageNames[code] || code).join(" / ")}</span> : null}</div>
         </div>
-        <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : examSlug === "ssc-cgl" ? <div className="ssc-countdown"><strong>—</strong><span>Awaiting date</span></div> : null}</aside>
+        <aside className="ssc-date-panel" aria-label="Exam date countdown"><CalendarDays /><div><p>EXAM DATE</p><strong>{countdown?.date || (isPunjab && !config.isShell ? "Date not verified" : "Date to be announced")}</strong><a href={config.officialUrl} target="_blank" rel="noreferrer">Official {authority} updates <ArrowRight /></a></div>{countdown ? <div className="ssc-countdown"><strong>{countdown.days > 0 ? countdown.days : countdown.days === 0 ? "Today" : "Held"}</strong><span>{countdown.days > 0 ? "Days to go" : countdown.days === 0 ? "Exam day" : "Exam date passed"}</span></div> : isSscFamily ? <div className="ssc-countdown"><strong>—</strong><span>Awaiting date</span></div> : null}</aside>
       </header>
 
       <div className="ssc-main-switch" role="tablist" aria-label={config.name + " page view"}>
@@ -89,7 +94,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
 
       {view === "tests" ? <section id="ssc-tests-panel" role="tabpanel" aria-labelledby="ssc-tests-tab" className="ssc-tests-panel">
         <div className="ssc-catalog-layout"><div className="ssc-catalog-main">
-        <section className="ssc-featured-series" aria-label="Featured test series"><div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{brand}<br /><em>{examShortName}</em></strong>{examSlug === "ssc-cgl" ? <SSCReferenceArtwork /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div><div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (examSlug === "ssc-cgl" ? "Complete Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
+        <section className="ssc-featured-series" aria-label="Featured test series"><div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{brand}<br /><em>{examShortName}</em></strong>{isSscFamily ? <SSCReferenceArtwork name={config.name} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div><div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
@@ -100,7 +105,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
           <Link href={signedIn ? test.href : "/login/student?next=" + encodeURIComponent(test.href)} className="ssc-test-action">{signedIn ? test.access === "paid" ? "View test" : "Start test" : "Sign in to attempt"}<ArrowRight /></Link>
         </article>)}</div> : <div className="ssc-empty-state"><span className="ssc-empty-icon"><FileText /></span><p className="ssc-eyebrow">YOUR PREPARATION CAN START HERE</p><h3>{stage === "pyq" ? "No previous year papers published yet." : "No " + activeLabel + " " + formatLabel.toLowerCase() + " published yet."}</h3><p>Meanwhile, explore the syllabus, make your study plan or try topic practice.</p><div className="ssc-empty-links"><Link href={examSyllabusHref(examSlug)}>Explore syllabus <ArrowRight /></Link>{config.topics[0] ? <Link href={practiceTopicHref(config.topics[0].slug,examSlug)}>Try topic practice <ArrowRight /></Link> : null}</div></div>}
         </div></div>
-        <aside className="ssc-toolkit"><section><h2>{isPunjab ? "ਤਿਆਰੀ ਲਈ ਸਰੋਤ" : "Preparation Toolkit"}</h2>{[{icon:BookOpen,title:"Syllabus & pattern",text:"Subject coverage and exam structure",href:examSyllabusHref(examSlug)},{icon:FileText,title:"Previous year papers",text:"Browse published previous-year practice",href:"#ssc-practice",pyq:true},{icon:Target,title:"Preparation guide",text:"Study plan and practice resources",href:examPreparationHref(examSlug)},{icon:Bell,title:"Exam updates",text:"Official notices and important dates",href:examDetailsHref(examSlug,"updates")}].map(({icon:Icon,...item}) => item.pyq ? <button type="button" key={item.title} onClick={() => {setStage("pyq");document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"});}}><span><Icon /></span><div><h3>{item.title}</h3><p>{item.text}</p></div><ArrowRight /></button> : <Link key={item.title} href={item.href}><span><Icon /></span><div><h3>{item.title}</h3><p>{item.text}</p></div><ArrowRight /></Link>)}</section><section className="ssc-review-card"><p>MAKE EVERY ATTEMPT COUNT</p><h2>Start strong.<br /><span>Review smarter.</span></h2><p>Review mistakes and use your results to plan your next practice session.</p>{examSlug === "ssc-cgl" ? <SSCReferenceChart /> : <BarChart3 aria-hidden="true" />}{!signedIn ? <Link href={loginHref}>Sign in to save your progress <ArrowRight /></Link> : null}</section></aside>
+        <aside className="ssc-toolkit"><section><h2>{isPunjab ? "ਤਿਆਰੀ ਲਈ ਸਰੋਤ" : "Preparation Toolkit"}</h2>{[{icon:BookOpen,title:"Syllabus & pattern",text:"Subject coverage and exam structure",href:examSyllabusHref(examSlug)},{icon:FileText,title:"Previous year papers",text:"Browse published previous-year practice",href:"#ssc-practice",pyq:true},{icon:Target,title:"Preparation guide",text:"Study plan and practice resources",href:examPreparationHref(examSlug)},{icon:Bell,title:"Exam updates",text:"Official notices and important dates",href:examDetailsHref(examSlug,"updates")}].map(({icon:Icon,...item}) => item.pyq ? <button type="button" key={item.title} onClick={() => {setStage("pyq");document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"});}}><span><Icon /></span><div><h3>{item.title}</h3><p>{item.text}</p></div><ArrowRight /></button> : <Link key={item.title} href={item.href}><span><Icon /></span><div><h3>{item.title}</h3><p>{item.text}</p></div><ArrowRight /></Link>)}</section><section className="ssc-review-card"><p>MAKE EVERY ATTEMPT COUNT</p><h2>Start strong.<br /><span>Review smarter.</span></h2><p>Review mistakes and use your results to plan your next practice session.</p>{isSscFamily ? <SSCReferenceChart /> : <BarChart3 aria-hidden="true" />}{!signedIn ? <Link href={loginHref}>Sign in to save your progress <ArrowRight /></Link> : null}</section></aside>
         </div>
         <section className="ssc-subject-section"><h2>{isPunjab ? "ਤਿਆਰੀ ਦੇ ਸਰੋਤ" : "Know the exam"}</h2><div>{(isPunjab ? [{icon:BookOpen,name:"ਅਧਿਕਾਰਤ ਸਿਲੇਬਸ"},{icon:Target,name:"ਤਿਆਰੀ ਦੀ ਯੋਜਨਾ"},{icon:Bell,name:"ਪ੍ਰੀਖਿਆ ਅੱਪਡੇਟ"}] : isBanking ? [{icon:Brain,name:"Reasoning"},{icon:Calculator,name:"Quantitative Aptitude"},{icon:Languages,name:examSlug.startsWith("ibps-rrb-") ? "Language" : "English"},{icon:Globe2,name:"Banking & Financial Awareness"},...(examSlug.startsWith("ibps-rrb-") ? [{icon:FileText,name:"Computer Knowledge"}] : [])] : [{icon:Brain,name:"Reasoning"},{icon:Calculator,name:"Quantitative Aptitude"},{icon:Languages,name:"English"},{icon:Globe2,name:"General Awareness"}]).map(({icon:Icon,name}) => <Link key={name} href={isPunjab && Icon === Target ? examPreparationHref(examSlug) : isPunjab && Icon === Bell ? examDetailsHref(examSlug,"updates") : examSyllabusHref(examSlug)}><span><Icon /></span><div><h3>{name}</h3><p>{isPunjab ? "ਜਾਣਕਾਰੀ ਅਤੇ ਤਿਆਰੀ ਲਈ ਸਰੋਤ" : "Syllabus and topic coverage"}</p></div><ArrowRight /></Link>)}</div></section>
       </section> : <section id="ssc-overview-panel" role="tabpanel" aria-labelledby="ssc-overview-tab" className="ssc-overview-panel">
@@ -114,7 +119,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
 }
 
 /** Paper artwork and chart from the approved indigo storefront concept. */
-function SSCReferenceArtwork() {
+function SSCReferenceArtwork({ name }: { name: string }) {
   return <svg className="ssc-reference-artwork" viewBox="0 0 300 280" aria-hidden="true">
     <defs><linearGradient id="ssc-paper-fill" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#fff" /><stop offset="1" stopColor="#e9eafa" /></linearGradient><linearGradient id="ssc-fold-fill"><stop stopColor="#636abd" /><stop offset="1" stopColor="#b6bbf7" /></linearGradient><filter id="ssc-paper-shadow" x="-40%" y="-40%" width="190%" height="190%"><feDropShadow dx="3" dy="7" stdDeviation="5" floodColor="#101524" floodOpacity=".35" /></filter></defs>
     <path d="M170 0H300V280H34L118 213 62 122Z" fill="url(#ssc-fold-fill)" opacity=".8" />
@@ -124,7 +129,7 @@ function SSCReferenceArtwork() {
       <rect x="5" y="15" width="157" height="196" rx="3" fill="#bcc4ee" />
       <g transform="translate(62 27) rotate(-15 72 97)"><rect width="145" height="194" rx="3" fill="#edf0fc" /><path d="M17 34h104M17 46h87M17 61h107M17 79h107M17 96h95M17 114h110M17 132h103M17 150h109M17 168h92" stroke="#bcc6e6" strokeWidth="4" /></g>
       <rect x="19" y="0" width="143" height="198" rx="3" fill="url(#ssc-paper-fill)" />
-      <text x="36" y="28" fontSize="16" fontWeight="800" fill="#151b30">SSC CGL</text>
+      <text x="36" y="28" fontSize={name.length > 15 ? "11" : name.length > 10 ? "13" : "16"} fontWeight="800" fill="#151b30">{name}</text>
       <path d="M35 40h109M35 50h99M35 60h105" stroke="#a8afe2" strokeWidth="3" />
       {[0,1,2,3,4,5].map(n=><g key={n} transform={`translate(0 ${n*18})`}><path d="M35 80h45M35 86h26" stroke="#a8afe2" strokeWidth="2.8" /><circle cx="103" cy="81" r="3.2" fill="none" stroke="#555ac0" strokeWidth="1.5" /><circle cx="124" cy="81" r="3.2" fill="none" stroke="#555ac0" strokeWidth="1.5" /></g>)}
     </g>
