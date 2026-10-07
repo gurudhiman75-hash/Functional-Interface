@@ -102,7 +102,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
         <button type="button" role="tab" id="ssc-overview-tab" aria-controls="ssc-overview-panel" aria-selected={view === "overview"} onClick={() => setView("overview")}><BookOpen />Overview</button>
         <a href={config.officialUrl} target="_blank" rel="noreferrer"><Globe2 />Official website <ArrowRight /></a>
       </div>;
-  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference punjab-clerk-teal punjab-teal-family" : "") + (isPunjabClerk ? " punjab-clerk-page" : "")}>
+  return <div className={"ssc-workspace" + (isSscFamily ? " ssc-reference" : "") + (isPunjab ? " punjab-reference punjab-clerk-teal punjab-teal-family punjab-clerk-page" : "")}>
     <div className="ssc-workspace-inner">
       <nav className="ssc-breadcrumb" aria-label="Breadcrumb"><Link href={config.categoryHref}>{isPunjab ? "ਪੰਜਾਬ ਦੀਆਂ ਪ੍ਰੀਖਿਆਵਾਂ" : isBanking ? "Banking exams" : "SSC exams"}</Link><span>/</span><span>{config.name}</span></nav>
       <header className={"ssc-exam-header " + (signedIn ? "is-signed-in" : "")}>
@@ -121,7 +121,7 @@ export default function SSCExamWorkspace({ examSlug, tests, series, examDate, ic
 
       {view === "tests" ? <section id="ssc-tests-panel" role="tabpanel" aria-labelledby="ssc-tests-tab" className="ssc-tests-panel">
         <div className="ssc-catalog-layout"><div className="ssc-catalog-main">
-        <section className="ssc-featured-series" aria-label="Featured test series">{isPunjabClerk ? <div className="clerk-banner-art"><img src="/images/exams/punjab-clerk-teal-banner.webp" alt="Punjab Clerk test series — faded Punjab map, wheat and mock exam papers" /></div> : <div className={"ssc-series-art" + ((examSlug.startsWith("ibps-rrb-") || isPunjab) ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{isPunjab ? "ਪੰਜਾਬ ਸਰਕਾਰੀ ਪ੍ਰੀਖਿਆਵਾਂ" : "TARGET " + config.yearLabel}</span><strong>{isPunjab ? "PUNJAB" : brand}<br /><em>{examShortName}</em></strong>{isSscFamily ? <SSCReferenceArtwork name={config.name} /> : isPunjab ? <PunjabReferenceArtwork name={config.name} shortName={examShortName} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div>}<div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
+        <section className="ssc-featured-series" aria-label="Featured test series">{isPunjab ? <div className="clerk-banner-art">{isPunjabClerk ? <img src="/images/exams/punjab-clerk-teal-banner.webp" alt="Punjab Clerk test series — faded Punjab map, wheat and mock exam papers" /> : <PunjabClerkStyleBanner name={config.name} shortName={examShortName} authority={authority} />}</div> : <div className={"ssc-series-art" + (examSlug.startsWith("ibps-rrb-") ? " ssc-series-art-compact" : "")} aria-hidden="true"><span>{"TARGET " + config.yearLabel}</span><strong>{brand}<br /><em>{examShortName}</em></strong>{isSscFamily ? <SSCReferenceArtwork name={config.name} /> : null}<div className="ssc-series-seal"><ExamIdentityIcon name={config.name} familyCode={familyCode} icon={icon ?? undefined} /></div><small>PRACTISE · ANALYSE · IMPROVE</small></div>}<div className="ssc-series-content"><span className="ssc-featured-label">{featured ? "FEATURED" : "TEST SERIES"}</span><h2>{featured?.name || (isSscFamily ? "Complete Test Series" : isPunjab ? config.name + " Test Series" : config.name + " Test Series")}</h2><p>{featured?.description || "Full mocks, sectional tests and topic practice."}</p><div className="ssc-series-features"><span><Clock3 />Timed practice</span><span><Target />Focused revision</span><span><BarChart3 />Review attempts</span></div>{loading ? <p role="status">Loading catalogue…</p> : unavailable ? <p>Catalogue temporarily unavailable</p> : featured ? <p className="ssc-series-count"><FileText /> {featured.liveTestCount} published tests</p> : <p className="ssc-series-count"><FileText /> {tests.length ? tests.length + " published tests" : "Tests are being prepared"}</p>}{featured ? <Link href={"/test-series/" + encodeURIComponent(featured.id)}>Explore series <ArrowRight /></Link> : <button type="button" onClick={() => document.getElementById("ssc-practice")?.scrollIntoView({behavior:"smooth",block:"start"})}>Explore practice <ArrowRight /></button>}</div></section>
         <div className="ssc-practice-card" id="ssc-practice">
         <div className="ssc-section-heading"><div><h2>{isPunjab ? "ਆਪਣੇ ਢੰਗ ਨਾਲ ਅਭਿਆਸ ਕਰੋ" : "Practice your way"}</h2></div>{!loading && !unavailable ? <span className="ssc-published-count">{tests.length} published {tests.length === 1 ? "test" : "tests"}</span> : null}</div>
         <div className="ssc-stage-tabs" role="tablist" aria-label={config.name + " exam stage"}>{stages.map(item => <button key={item.id} type="button" role="tab" aria-selected={stage === item.id} onClick={() => setStage(item.id)}><span>{item.label}</span>{!loading && !unavailable ? <span className="ssc-tab-count">{stageCount(item.id)}</span> : null}</button>)}</div>
@@ -162,6 +162,46 @@ function SSCReferenceArtwork({ name }: { name: string }) {
     </g>
   </svg>;
 }
+function PunjabClerkStyleBanner({ name, shortName, authority }: { name: string; shortName: string; authority: string }) {
+  return <svg className="punjab-family-clerk-banner" viewBox="0 0 1100 400" role="img" aria-label={name + " test series banner"}>
+    <defs>
+      <linearGradient id="pfb-bg" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#032b43"/><stop offset=".58" stopColor="#06465a"/><stop offset="1" stopColor="#0a6672"/></linearGradient>
+      <linearGradient id="pfb-teal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#00cbd8"/><stop offset="1" stopColor="#8ff0f3"/></linearGradient>
+      <linearGradient id="pfb-paper" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffffff"/><stop offset="1" stopColor="#e8fbfc"/></linearGradient>
+      <filter id="pfb-shadow" x="-30%" y="-30%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#001824" floodOpacity=".35"/></filter>
+    </defs>
+    <rect width="1100" height="400" fill="url(#pfb-bg)"/>
+    <circle cx="910" cy="60" r="180" fill="#00cbd8" opacity=".09"/>
+    <circle cx="1030" cy="350" r="230" fill="#00cbd8" opacity=".06"/>
+    <path d="M705 20c38 32 73 59 99 95l-18 52 35 44-15 68-55 31-12 62-60-28-58-7-18-57-50-38 25-55-3-63 55-21 27-52Z" fill="#00cbd8" opacity=".16"/>
+    <g opacity=".23" stroke="#6ce8ee" strokeWidth="3">
+      <path d="M30 338c105-54 164-60 272-33s203 20 306-31"/>
+      <path d="M45 360c96-43 173-45 267-19s196 19 295-22"/>
+      <path d="M62 381c82-33 151-33 237-11s176 13 282-23"/>
+    </g>
+    <g transform="translate(58 62)">
+      <text x="0" y="0" fill="#9ceff2" fontSize="19" fontWeight="700" letterSpacing="4">{authority.toUpperCase()}</text>
+      <text x="0" y="58" fill="#ffffff" fontSize={shortName.length > 18 ? "48" : "58"} fontWeight="850" letterSpacing="-2">{shortName}</text>
+      <text x="0" y="98" fill="#d7f7f8" fontSize="22" fontWeight="650">{name}</text>
+      <text x="0" y="146" fill="#9ed3d8" fontSize="17">Complete test series · PYQs · Topic practice</text>
+      <g transform="translate(0 185)">
+        <rect width="152" height="42" rx="21" fill="#00cbd8"/>
+        <text x="76" y="27" textAnchor="middle" fill="#022c42" fontSize="15" fontWeight="800">PRACTISE</text>
+        <rect x="166" width="142" height="42" rx="21" fill="#ffffff" opacity=".12"/>
+        <text x="237" y="27" textAnchor="middle" fill="#e5fbfc" fontSize="15" fontWeight="700">ANALYSE</text>
+      </g>
+    </g>
+    <g transform="translate(785 58) rotate(5 120 140)" filter="url(#pfb-shadow)">
+      <rect x="-22" y="20" width="215" height="275" rx="14" fill="#0a5264"/>
+      <rect x="0" y="0" width="215" height="275" rx="14" fill="url(#pfb-paper)"/>
+      <rect x="24" y="26" width="72" height="12" rx="6" fill="#00aeb9"/>
+      <text x="24" y="70" fill="#032b43" fontSize="22" fontWeight="850">{shortName.length > 15 ? shortName.slice(0,15) + "…" : shortName}</text>
+      <text x="24" y="96" fill="#487580" fontSize="14" fontWeight="700">Mock Test</text>
+      {[0,1,2,3,4].map(n=><g key={n} transform={`translate(0 ${n*34})`}><rect x="26" y="122" width="12" height="12" rx="2" fill="none" stroke="#0a7b86" strokeWidth="2"/><path d="M51 126h118M51 135h86" stroke="#b9d8da" strokeWidth="6" strokeLinecap="round"/></g>)}
+    </g>
+  </svg>;
+}
+
 function PunjabReferenceArtwork({ name, shortName }: { name: string; shortName: string }) {
   return <svg className="ssc-reference-artwork punjab-reference-artwork" viewBox="0 0 320 280" aria-hidden="true">
     <defs>
