@@ -155,7 +155,7 @@
 .ssc-workspace.ssc-reference .ssc-header-identity>div{min-width:0}
 .ssc-workspace.ssc-reference .ssc-header-identity h1{overflow-wrap:anywhere}
 .ssc-workspace.ssc-reference .ssc-series-art{container-type:inline-size}
-.ssc-workspace.ssc-reference .ssc-series-art-compact>strong{font-size:clamp(26px,10cqw,64px);max-width:52%;overflow-wrap:normal}
+.ssc-workspace.ssc-reference .ssc-series-art-compact>strong{font-size:6cqw;max-width:52%;overflow-wrap:normal}
 .ssc-workspace.ssc-reference .ssc-series-art-compact small{font-size:clamp(6px,1.5cqw,10px);letter-spacing:.06em}
 @media(max-width:850px){
 .ssc-workspace.ssc-reference .ssc-header-content{width:100%}
