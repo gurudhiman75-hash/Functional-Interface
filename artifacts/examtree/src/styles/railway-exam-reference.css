@@ -13,7 +13,7 @@
 .ssc-workspace.ssc-reference.railway-reference .ssc-countdown strong{color:#b50920}
 .ssc-workspace.ssc-reference.railway-reference .ssc-catalog-layout{grid-template-columns:minmax(0,2.45fr) minmax(320px,1fr);gap:14px}
 .ssc-workspace.ssc-reference.railway-reference .ssc-featured-series{grid-template-columns:67% minmax(0,1fr);min-height:245px;overflow:hidden}
-.railway-banner{container-type:inline-size;position:relative;min-width:0;aspect-ratio:2.4;background:#031b31 url('/images/exams/railway-station-banner.webp') center/cover no-repeat;color:white;display:flex;flex-direction:column;justify-content:center;padding:5% 6.5%;isolation:isolate}
+.railway-banner{container-type:inline-size;position:relative;min-width:0;min-height:245px;height:100%;background:#031b31 url('/images/exams/railway-station-banner.webp') center/cover no-repeat;color:white;display:flex;flex-direction:column;justify-content:center;padding:5% 6.5%;isolation:isolate}
 .railway-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#02152765 0%,#02152715 58%,transparent 75%);z-index:-1}
 .railway-banner>strong{font-size:12.4cqw;font-weight:900;letter-spacing:-.045em;line-height:1.02;text-shadow:0 2px 8px #0004}
 .railway-banner-name{display:block;color:#ff615b;font-weight:900;font-size:14cqw;letter-spacing:-.045em;line-height:1.02;margin-bottom:3.5%;text-shadow:0 2px 9px #0004}
@@ -47,6 +47,7 @@
  .ssc-workspace.ssc-reference.railway-reference .ssc-workspace-inner{padding:16px 24px 30px}
  .ssc-workspace.ssc-reference.railway-reference .ssc-catalog-layout{grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr)}
  .ssc-workspace.ssc-reference.railway-reference .ssc-featured-series{grid-template-columns:1fr}
+ .railway-banner{height:auto;min-height:0;aspect-ratio:2.4}
  .ssc-workspace.ssc-reference.railway-reference .ssc-series-content{padding:20px}
  .ssc-workspace.ssc-reference.railway-reference .ssc-header-content{grid-template-columns:100px minmax(0,1fr);column-gap:18px}
  .ssc-workspace.ssc-reference.railway-reference .ssc-header-logo{width:100px;height:100px}
