@@ -1997,6 +1997,16 @@ EXAM_ACQUISITION_CONFIGS["rrb-technician"] = {
   testHub: {"mode":"single","stage1Label":"CBT"}
 };
 
+// Stage labels only; detailed content remains awaiting population.
+// RBI and SEBI use Phase I/II; NABARD RDBS/Legal uses preliminary/main phases.
+for (const slug of ["rbi-grade-b", "sebi-grade-a", "nabard-grade-a"]) {
+  EXAM_ACQUISITION_CONFIGS[slug].testHub = {
+    mode: "dual", stage1Label: "Phase I", stage2Label: "Phase II",
+    stage1Keywords: ["phase i", "phase-i", "phase 1", "phase-1"],
+    stage2Keywords: ["phase ii", "phase-ii", "phase 2", "phase-2"],
+  };
+}
+
 const CATALOG_EXAM_CODES_BY_SLUG: Record<string, string[]> = {
   "rrb-ntpc": ["RRB_NTPC","RRB_NTPC_CBT1","RRB_NTPC_CBT2","RRB_NTPC_GRADUATE","RRB_NTPC_UNDERGRADUATE"],
   "rrb-group-d": ["RRB_GROUP_D","RRB_GROUPD","RRB_LEVEL_1"],

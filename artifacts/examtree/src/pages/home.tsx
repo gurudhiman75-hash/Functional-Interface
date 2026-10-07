@@ -38,7 +38,7 @@ const FEATURED_SERIES_STRIP = [
   { name: "SBI PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹499", oldPrice: "₹999", icon: "/category-icons/sbi-official.svg", href: "/sbi-po" },
   { name: "IBPS PO 2026", meta: "Pre + Mains", tests: "100+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/ibps-official.svg", href: "/ibps-po" },
   { name: "Punjab Patwari", meta: "Full Series", tests: "100+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg", href: "/punjab-patwari" },
-  { name: "RRB NTPC", meta: "Graduate + UG", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/railways-official.svg", href: "/exams" },
+  { name: "RRB NTPC", meta: "Graduate + UG", tests: "120+ Tests", price: "₹399", oldPrice: "₹799", icon: "/category-icons/railways-library-official.png", href: "/rrb-ntpc" },
   { name: "PSSSB Exams", meta: "All Posts", tests: "80+ Tests", price: "₹299", oldPrice: "₹599", icon: "/category-icons/punjab-official.svg", href: "/collections/punjab-government" },
 ] as const;
 
@@ -249,7 +249,7 @@ export default function Home() {
           <div className="featured-marquee-track">
             {[...FEATURED_SERIES_STRIP, ...FEATURED_SERIES_STRIP].map((item, index) => (
               <button key={`${item.name}-${index}`} type="button" className="featured-strip-card" onClick={() => setLocation(item.href)}>
-                <span className="featured-strip-logo"><img src={item.icon} alt="" /></span>
+                <span className="featured-strip-logo"><ExamIdentityIcon name={item.name} icon={item.icon} /></span>
                 <span className="featured-strip-copy"><b>{item.name}</b><small>{item.meta}</small><em>{item.tests}</em></span>
                 <span className="featured-strip-price"><strong>{item.price}</strong><del>{item.oldPrice}</del></span>
                 <ChevronRight />
