@@ -68,6 +68,8 @@ async function installFixtures(page: Page) {
     if (path === "/learning-resources") return fulfillJson(route, { resources: [], filters: { category: null, format: null, language: null }, generatedAt: "2026-08-27T06:15:00.000Z" });
     if (path === "/users/me") return fulfillJson(route, { id: "e2e-student", email: "student.e2e@examtree.local", name: "E2E Student", role: "student" });
     if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
+    if (path === "/commerce/purchases") return fulfillJson(route, { orders: [], items: [], entitlements: [], generatedAt: "2026-08-27T07:00:00.000Z" });
+    if (path === "/attempts") return fulfillJson(route, []);
     if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
