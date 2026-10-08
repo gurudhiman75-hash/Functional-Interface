@@ -64,6 +64,22 @@ const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-stud
  */
 const router: IRouter = Router();
 
+// The current TRG-002 chapter mix is owned by the canonical multi-engine V1
+// router, not any historical ARG, SRI or chapter-compatibility endpoint.
+// Route it directly to its existing authenticated generation handler. Otherwise
+// Express walks the seven ARG lazy routers first, hydrating unrelated runtime
+// modules before any TRG-002 work can begin. On a low-CPU shared API instance
+// that can block health checks and abort the generation request.
+//
+// Keep every other package and endpoint on the established registry path.
+router.post("/runs", (req, res, next) => {
+  if (req.body?.packageId !== "TRG-002") {
+    next();
+    return;
+  }
+  adminQuestionStudioEngineV1Router(req, res, next);
+});
+
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
 router.use(adminQuestionStudioArgumentsCp015Router);
