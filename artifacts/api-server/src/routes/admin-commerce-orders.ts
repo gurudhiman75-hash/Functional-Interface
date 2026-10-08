@@ -39,7 +39,7 @@ router.get("/", requireAdminPermission("commerce.orders.read"), async (req, res)
             WHERE r.payment_attempt_id = pa.id AND r.status = 'processed'
           ), 0)::float8 AS "refundedMinor"
         FROM commerce.payment_attempts pa
-        WHERE pa.order_id = o.id AND pa.provider = 'razorpay'
+        WHERE pa.order_id = o.id AND pa.provider IN ('razorpay', 'cashfree')
         ORDER BY pa.created_at DESC, pa.id DESC
         LIMIT 1
       ) payment ON true
@@ -59,6 +59,25 @@ router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"
   if (!uuid.test(orderId)) return void res.status(400).json({ error: "Invalid order identifier", code: "INVALID_ORDER_ID" });
   if (!Number.isSafeInteger(amountMinor) || amountMinor <= 0) return void res.status(400).json({ error: "Refund amount must be a positive integer in minor currency units", code: "INVALID_REFUND_AMOUNT" });
   if (reason.length < 8) return void res.status(400).json({ error: "A clear refund reason is required", code: "REFUND_REASON_REQUIRED" });
+  // Never route a Cashfree refund through Razorpay. Until Cashfree refund
+  // processing and reconciliation are implemented, fail with an explicit
+  // safe error instead of presenting this admin action as supported.
+  try {
+    const currentPayment = await sqlClient`
+      SELECT provider FROM commerce.payment_attempts
+      WHERE order_id = ${orderId}::uuid
+      ORDER BY created_at DESC LIMIT 1
+    `;
+    if (String(currentPayment[0]?.provider ?? "") === "cashfree") {
+      return void res.status(409).json({
+        error: "Cashfree refunds are not yet supported by the ExamTree admin API. Review and process the refund through Cashfree support procedures until integration is complete.",
+        code: "CASHFREE_REFUND_NOT_READY",
+      });
+    }
+  } catch (error) {
+    console.error("Unable to identify refund provider", error);
+    return void res.status(503).json({ error: "Unable to verify payment provider", code: "REFUND_PROVIDER_LOOKUP_FAILED" });
+  }
   const keyId = process.env.RAZORPAY_KEY_ID; const keySecret = process.env.RAZORPAY_KEY_SECRET;
   if (!keyId || !keySecret) return void res.status(503).json({ error: "Refund provider is not configured", code: "PAYMENT_PROVIDER_NOT_CONFIGURED" });
   const refundId = randomUUID();
