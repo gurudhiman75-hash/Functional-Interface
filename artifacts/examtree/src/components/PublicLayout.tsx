@@ -45,7 +45,7 @@ const homeLinks = [
   { label: "Study Material", href: "/resources" },
   { label: "Current Affairs", href: "/current-affairs" },
   { label: "Free Tests", href: "/mock-tests" },
-  { label: "Blog", href: "/resources" },
+  { label: "Store", href: "/store" },
 ];
 
 const mobileStudyLinks: MobileStudyLink[] = [
