@@ -211,7 +211,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                 </>
               </>
             ) : user ? (
-              <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+              <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-[#4338ca] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#3730a3] hover:shadow-md">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 My dashboard
               </Link>
