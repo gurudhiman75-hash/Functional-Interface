@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
+import "@/styles/login-notebook.css";
 import { useLocation, useSearch } from "wouter";
 import {
   ArrowLeft,
-  BarChart3,
   BookOpen,
   CheckCircle2,
-  Chrome,
   Eye,
   EyeOff,
   Lock,
   Mail,
   ShieldCheck,
-  Sparkles,
-  Target,
   UserRound,
 } from "lucide-react";
 import { getFirebaseAuth } from "@/lib/firebase";
@@ -67,24 +64,6 @@ function getAuthErrorMessage(error: unknown): string {
 
 const FIREBASE_UNAVAILABLE_MESSAGE =
   "Firebase auth is turned off, so this screen uses a local development login instead.";
-
-const studentBenefits = [
-  {
-    icon: Target,
-    title: "Continue your preparation",
-    description: "Return to saved tests and your current test-series progress after signing in.",
-  },
-  {
-    icon: BarChart3,
-    title: "Keep attempts connected",
-    description: "Your submitted attempts, results and review history stay together in your workspace.",
-  },
-  {
-    icon: BookOpen,
-    title: "Review what you attempted",
-    description: "Open saved results and explanations from your preparation dashboard.",
-  },
-];
 
 export default function Login() {
   const [location, setLocation] = useLocation();
@@ -315,84 +294,29 @@ export default function Login() {
   const authTitle = isAdminMode
     ? "Admin sign in"
     : tab === "login"
-      ? "Welcome to examtree"
+      ? "Turn a new page."
       : "Create your ExamTree account";
   const authDescription = isAdminMode
     ? "Use an administrator account already authorized by the ExamTree backend."
     : tab === "login"
-      ? "Sign in to continue your preparation workspace."
+      ? "Sign in to your preparation space."
       : "Create a student account to keep your preparation connected.";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#f7f8fc] text-slate-950">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_4%,rgba(108,92,241,0.12),transparent_28rem),radial-gradient(circle_at_88%_10%,rgba(139,124,246,0.09),transparent_25rem)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/80 to-transparent" />
-
-      <main className="relative mx-auto grid min-h-screen w-full max-w-7xl items-center gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(430px,0.72fr)] lg:gap-10 lg:px-8 lg:py-10">
-        <section className="hidden min-h-[640px] overflow-hidden rounded-[32px] border border-[#e3dff5] bg-[linear-gradient(145deg,#ffffff_0%,#f6f3ff_54%,#fbfaff_100%)] p-8 shadow-[0_24px_70px_rgba(45,42,86,0.07)] lg:flex lg:flex-col lg:justify-between xl:p-10" aria-label="ExamTree student workspace benefits">
-          <div>
-            <button
-              type="button"
-              onClick={() => setLocation("/")}
-              className="et-interactive inline-flex min-h-11 items-center gap-3 rounded-xl pr-3 text-left"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#6657e8] text-lg font-black text-white shadow-[0_8px_24px_rgba(102,87,232,0.22)]">E</span>
-              <span className="text-lg font-black tracking-[-0.03em] text-slate-950">EXAM<span className="text-[#6657e8]">TREE</span></span>
-            </button>
-
-            <div className="mt-14 max-w-xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#ded9fa] bg-white/85 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-[#6657e8]">
-                <Sparkles className="h-3.5 w-3.5" />
-                Your preparation workspace
-              </div>
-              <h2 className="mt-5 text-4xl font-black tracking-[-0.045em] text-slate-950 xl:text-[44px] xl:leading-[1.06]">
-                Pick up your preparation exactly where you left it.
-              </h2>
-              <p className="mt-5 max-w-lg text-[15px] leading-7 text-slate-600">
-                Sign in to reach your dashboard, saved attempts, test-series progress and submitted result reviews from one place.
-              </p>
-            </div>
-
-            <div className="mt-9 grid gap-3">
-              {studentBenefits.map(({ icon: Icon, title, description }) => (
-                <div key={title} className="flex gap-4 rounded-2xl border border-white/90 bg-white/75 p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)] backdrop-blur-sm">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8]"><Icon className="h-5 w-5" /></span>
-                  <div>
-                    <h3 className="text-sm font-bold text-slate-950">{title}</h3>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">{description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex items-center gap-3 rounded-2xl border border-[#e0dcf5] bg-white/70 px-4 py-3 text-xs leading-5 text-slate-500">
-            <ShieldCheck className="h-5 w-5 shrink-0 text-[#6657e8]" />
-            Authentication is handled through the configured ExamTree sign-in provider. Your password is not stored by this page.
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-[520px] rounded-[28px] border border-[#e5e2f4] bg-white p-5 shadow-[0_20px_65px_rgba(42,42,74,0.07)] sm:p-7 lg:p-8" data-testid="auth-card">
-          <div className="flex items-center justify-between gap-4">
-            <button
-              type="button"
-              onClick={() => setLocation("/")}
-              className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-sm font-semibold text-slate-600 transition hover:text-slate-950 lg:hidden"
-              data-testid="btn-back"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Home
-            </button>
-            <div className="ml-auto inline-flex min-h-11 items-center gap-2 rounded-full border border-[#e5e2f4] bg-[#faf9ff] px-3 text-xs font-bold text-slate-600">
-              <ShieldCheck className="h-4 w-4 text-[#6657e8]" />
-              {isAdminMode ? "Restricted access" : "Secure sign in"}
-            </div>
-          </div>
-
+    <div className="notebook-login">
+      <header className="notebook-topbar">
+        <a href="/" className="notebook-brand"><BookOpen aria-hidden="true" /><span>EXAM<span>TREE</span></span></a>
+        <button type="button" onClick={() => setLocation("/")} data-testid="btn-back"><ArrowLeft aria-hidden="true" /> Back to home</button>
+      </header>
+      <main className="notebook-stage">
+        <div className="notebook-book">
+          <aside className="notebook-notes" aria-label="Preparation notebook">
+            <p>Plan.<br />Practise.<br />Progress.</p>
+            <svg viewBox="0 0 240 170" aria-hidden="true"><path d="M20 140h40v-25h40V90h40V65h40V40h35M35 105l150-85m-25 0h25v25" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M210 40V18m0 9c-20 0-22-17-22-17 20 0 22 17 22 17m0-5c20 0 22-17 22-17-20 0-22 17-22 17" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
+          </aside>
+        <section className="notebook-form" data-testid="auth-card">
           <div className="mt-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6657e8] text-white shadow-[0_9px_26px_rgba(102,87,232,0.2)]">
-              {isAdminMode ? <ShieldCheck className="h-6 w-6" /> : tab === "signup" ? <UserRound className="h-6 w-6" /> : <BookOpen className="h-6 w-6" />}
-            </div>
+            <div className="notebook-form-brand"><BookOpen aria-hidden="true" /><span>EXAMTREE</span></div>
             <h1 className="mt-5 text-2xl font-black tracking-[-0.035em] text-slate-950 sm:text-[30px]">{authTitle}</h1>
             <p className="mt-2 text-sm leading-6 text-slate-500">{authDescription}</p>
             {safeNextPath && !isAdminMode && (
@@ -434,7 +358,7 @@ export default function Login() {
                 disabled={loading}
                 data-testid="btn-google-login"
               >
-                <Chrome className="mr-2 h-4 w-4" />
+                <svg className="mr-2 h-5 w-5" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5h6.6c3.9-3.6 6.1-8.8 6.1-14.9Z"/><path fill="#34A853" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.6-5c-1.8 1.2-4.1 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.2A20 20 0 0 0 24 44Z"/><path fill="#FBBC05" d="M12.6 27.7a12 12 0 0 1 0-7.4v-5.2H5.8a20 20 0 0 0 0 17.8Z"/><path fill="#EA4335" d="M24 11.9c3 0 5.6 1 7.7 3l5.8-5.8A19.2 19.2 0 0 0 24 4 20 20 0 0 0 5.8 15.1l6.8 5.2c1.6-4.8 6.1-8.4 11.4-8.4Z"/></svg>
                 Continue with Google
               </Button>
 
@@ -549,7 +473,7 @@ export default function Login() {
               disabled={loading}
               data-testid="btn-submit"
             >
-              {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Log in to ExamTree" : "Create account"}
+              {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Sign in →" : "Create account"}
             </Button>
           </form>
 
@@ -569,7 +493,7 @@ export default function Login() {
             <>
               {tab === "signup" ? (
                 <p className="mt-5 text-center text-[11px] leading-5 text-slate-400">
-                  By creating an account, you agree to ExamTree&apos;s <a href="/terms-and-conditions" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Terms &amp; Conditions</a> and <a href="/privacy" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Privacy Policy</a>.
+                  By creating an account, you agree to ExamTree&apos;s <a href="/terms-and-conditions" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Terms &amp; Conditions</a> and <a href="/privacy-policy" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Privacy Policy</a>.
                 </p>
               ) : (
                 <p className="mt-5 text-center text-xs text-slate-500">
@@ -587,15 +511,8 @@ export default function Login() {
             </div>
           )}
 
-          <button
-            type="button"
-            onClick={() => setLocation("/")}
-            className="mx-auto mt-5 hidden min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-semibold text-slate-500 transition hover:bg-[#f7f5ff] hover:text-slate-900 lg:flex"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </button>
         </section>
+        </div>
       </main>
     </div>
   );
