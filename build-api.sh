@@ -89,6 +89,7 @@ pnpm --dir artifacts/api-server exec esbuild src/lib/student-profile-validation.
 node --test artifacts/api-server/tests/student-profile-validation.test.mjs
 (cd artifacts/api-server && node tests/student-profile-routes.test.mjs)
 (cd artifacts/api-server && node tests/commerce-sales-routes.test.mjs)
+(cd artifacts/api-server && node tests/cashfree-payments.test.mjs)
 (cd artifacts/api-server && node tests/commerce-public-mount.test.mjs)
 node artifacts/examtree/scripts/check-commerce-flow.mjs
 echo "[render-build] typecheck student app"
