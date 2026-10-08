@@ -23,6 +23,7 @@ import {
   UserRound,
 } from "lucide-react";
 
+import { PREPARATION_CATEGORIES, getPreparationPreferences } from "@/lib/preparation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -46,6 +47,7 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const user = getUser();
   const streak = getStreak();
+  const preparation = useQuery({ queryKey: ["preparation-preferences", user?.id], queryFn: getPreparationPreferences, enabled: !!user && user.role !== "admin", retry: false });
 
   const {
     data: analytics,
@@ -195,6 +197,16 @@ export default function ProfilePage() {
                 Log out
               </Button>
             </div>
+          </div>
+        </section>
+
+        <section className="mt-5 rounded-[26px] border border-border bg-card p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-bold">What I'm preparing for</h2>
+            <Link href="/preparation?edit=1" className="inline-flex min-h-11 items-center rounded-xl px-4 font-semibold text-[#7143e5]">Edit choices</Link>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {preparation.isLoading ? <p role="status">Loading choices…</p> : preparation.isError ? <button type="button" className="min-h-11" onClick={() => preparation.refetch()}>Couldn't load choices. Try again</button> : preparation.data?.categories.length ? PREPARATION_CATEGORIES.filter(category => preparation.data?.categories.includes(category.id)).map(category => <Badge key={category.id} className="bg-[#f1eeff] text-[#6236cb]">{category.label}</Badge>) : <p className="text-sm text-muted-foreground">No preparation categories selected yet.</p>}
           </div>
         </section>
 

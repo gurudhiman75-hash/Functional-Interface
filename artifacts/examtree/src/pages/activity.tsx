@@ -100,7 +100,7 @@ export default function ActivityPage() {
   }, [catalogue, realAttempts, latest?.testId]);
   const focusTest = suggestedTests[0];
   const activeAccess = purchasesQuery.data?.entitlements.filter(item => item.accessStatus === "active") ?? [];
-  const formatDate = (value: string) => new Date(value).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+  const formatDate = (value: string | Date) => new Date(value).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
   const formatTime = (value: number) => Math.round(value / 60) + " min";
   const trend = realAttempts.slice(0, 8).reverse().map(item => Math.max(0, Math.min(100, item.score)));
 

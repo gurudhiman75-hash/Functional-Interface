@@ -25,6 +25,7 @@ const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
 const Result = lazy(() => import("@/pages/canonical-result"));
+const Preparation = lazy(() => import("@/pages/preparation"));
 const Profile = lazy(() => import("@/pages/profile"));
 const Bookmarks = lazy(() => import("@/pages/bookmarks"));
 const Store = lazy(() => import("@/pages/store"));
@@ -163,6 +164,7 @@ function Router() {
           <Route path="/login" component={() => <Login />} />
           <Route path="/login/student" component={() => <Login />} />
           <Route path="/login/admin" component={() => <Login />} />
+          <Route path="/preparation" component={() => <Preparation />} />
           <Route path="/account-recovery" component={() => <AccountRecovery />} />
           <Route path="/account-deletion" component={() => renderPublicRoute(AccountDeletion)} />
 

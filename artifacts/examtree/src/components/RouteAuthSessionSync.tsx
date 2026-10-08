@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useLocation } from "wouter";
 
 function routeNeedsAuthSync(location: string) {
-  return location === "/dashboard"
+  return location === "/preparation"
+    || location === "/dashboard"
     || location.startsWith("/test-series/")
     || location.startsWith("/test/")
     || location === "/result"
