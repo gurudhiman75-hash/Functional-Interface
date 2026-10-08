@@ -17,10 +17,10 @@ assert.match(appSource, /path="\/exams" component=\{\(\) => renderCatalogPublicR
 assert.match(appSource, /path="\/category\/:id" component=\{\(\) => renderCatalogPublicRoute\(Category\)\}/, "category discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderCatalogPublicRoute\(Subcategory\)\}/, "exam discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/login\/student" component=\{\(\) => <Login \/>\}/, "student login must render its standalone auth screen without the study sidebar");
-assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
+assert.match(appSource, /path="\/dashboard" component=\{\(\) => <ProtectedRoute component=\{Dashboard\} \/>\}/, "dashboard must be session-protected and retain its preparation shell");
 assert.match(appSource, /path="\/result" component=\{\(\) => <ProtectedRoute component=\{Result\} \/>\}/, "saved results must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/bookmarks" component=\{\(\) => <ProtectedRoute component=\{Bookmarks\} \/>\}/, "bookmarks must require a student session and stay in the preparation shell");
-assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
+assert.match(appSource, /path="\/profile" component=\{\(\) => <ProtectedRoute component=\{Profile\} \/>\}/, "profile must be session-protected and retain its preparation shell");
 assert.match(appSource, /path="\/performance" component=\{\(\) => <ProtectedRoute component=\{PerformanceOverview\} \/>\}/, "performance overview must require a learner session and use canonical saved attempts");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
 assert.match(appSource, /ProtectedRoute component=\{Test\} layout="none"/, "full-screen test runner must remain outside both navigation shells");
