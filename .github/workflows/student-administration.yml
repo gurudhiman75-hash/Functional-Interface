@@ -34,7 +34,6 @@ on:
       - artifacts/admin-app/src/test/admin-navigation.test.ts
       - docs/student-administration-foundation.md
       - docs/frontend-truth-audit.md
-      - .github/workflows/student-administration.yml
   push:
     branches: [New-main]
     paths:
