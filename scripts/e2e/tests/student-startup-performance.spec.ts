@@ -140,7 +140,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
 
     await page.goto("/login/student");
     await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
-    await expect(page.getByTestId("tab-login")).toBeVisible();
+    await expect(page.getByTestId("tab-signup")).toBeVisible();
 
     await expect.poll(async () => (await localAuthChunks(page)).length).toBeGreaterThan(0);
     await expect.poll(async () => (await localFirebaseChunks(page)).length).toBeGreaterThan(0);
@@ -149,6 +149,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
 
   test("saved question review loads the isolated MathJax bundle on demand", async ({ page }) => {
     await installFixtures(page);
+    await page.addInitScript((profile) => localStorage.setItem("user", JSON.stringify(profile)), student);
     await page.goto(`/result?attemptId=${ATTEMPT_ID}`);
     await expect(page.getByRole("heading", { name: "Math Rendering Performance Test" })).toBeVisible();
     await expect(page.getByText("Solution review")).toBeVisible();
