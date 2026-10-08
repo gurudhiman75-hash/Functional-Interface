@@ -155,6 +155,10 @@ const retiredLegacyRouter = lazyRouter(() => import("./retired-legacy"));
 
 const router: IRouter = Router();
 router.use(healthRouter);
+// Public products must resolve before unrelated routers with router-wide authentication.
+// Checkout and purchase history enforce authentication inside their own handlers.
+router.use(canonicalCommerceCheckoutRouter);
+router.use(canonicalCommercePurchasesRouter);
 router.use("/account-recovery", studentAccountRecoveryRouter);
 router.use("/users", studentAccountDeletionRouter);
 router.use("/users", studentExamPreferencesRouter);
@@ -179,8 +183,6 @@ router.use(mobileAnalyticsRouter);
 router.use(webExamPagesRouter);
 router.use(learnPracticeRouter);
 router.use(publicPracticeRouter);
-router.use(canonicalCommerceCheckoutRouter);
-router.use(canonicalCommercePurchasesRouter);
 router.use(canonicalCommerceAccessGuardRouter);
 router.use(attemptReliabilityRouter);
 router.use(canonicalAttemptResultsRouter);
