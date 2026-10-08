@@ -62,6 +62,7 @@ export async function createCashfreeOrder(input: {
       customer_phone: input.phone,
       ...(input.email ? { customer_email: input.email } : {}),
     },
+    order_expiry_time: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
     order_meta: {
       return_url: publicOrigin + "/orders/" + encodeURIComponent(input.orderId),
       notify_url: publicOrigin + "/api/billing/cashfree/webhook",
