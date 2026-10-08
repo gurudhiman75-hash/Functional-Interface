@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   UserRound,
 } from "lucide-react";
+import { getPreparationPreferences } from "@/lib/preparation";
 import { getFirebaseAuth } from "@/lib/firebase";
 import {
   completeGoogleRedirectSignIn,
@@ -169,14 +170,14 @@ export default function Login() {
         const appUser = await upsertUserProfile(firebaseUser);
         routeAfterAuth(appUser.role);
       } catch {
-        routeAfterAuth();
+        // Stay on login when canonical account provisioning fails.
       }
     });
 
     return () => unsub();
   }, [isAdminMode, safeNextPath, setLocation, toast]);
 
-  const routeAfterAuth = (role?: string) => {
+  const routeAfterAuth = async (role?: string) => {
     if (isAdminMode && role && role !== "admin") {
       toast({
         title: "Admin access only",
@@ -193,6 +194,18 @@ export default function Login() {
     if (destination === "/admin" || destination.startsWith("/admin/")) {
       window.location.assign(destination === "/admin" ? "/admin/" : destination);
       return;
+    }
+    if (role === "student" && getFirebaseAuth()) {
+      try {
+        const preferences = await getPreparationPreferences();
+        if (!preferences.onboardingCompleted) {
+          setLocation(`/preparation?next=${encodeURIComponent(destination)}`);
+          return;
+        }
+      } catch {
+        setLocation(`/preparation?next=${encodeURIComponent(destination)}`);
+        return;
+      }
     }
     setLocation(destination);
   };

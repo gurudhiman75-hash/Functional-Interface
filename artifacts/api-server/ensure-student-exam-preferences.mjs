@@ -38,7 +38,9 @@ try {
     throw new Error("Student exam preferences migration completed without creating the required table");
   }
 
-  console.log("[render-build] student exam preferences schema verified");
+  const preparationMigration = await readFile(path.join(here, "migrations", "20261008_student_preparation_preferences.sql"), "utf8");
+  await sql.unsafe(preparationMigration);
+  console.log("[render-build] student exam and preparation preferences schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }

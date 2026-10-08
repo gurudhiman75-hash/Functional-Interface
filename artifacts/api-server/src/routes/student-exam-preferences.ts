@@ -30,6 +30,47 @@ function selectedIds(value: unknown): string[] | null {
   return ids;
 }
 
+const preparationCategories = new Set(["ssc", "banking", "punjab-government", "railways", "insurance", "other"]);
+
+router.get("/me/preparation-preferences", authenticate, async (req, res) => {
+  try {
+    const userId = await canonicalStudentId(req.user?.id ?? "");
+    if (!userId) return res.status(403).json({ error: "Active student account required" });
+    const [row] = await sqlClient`
+      SELECT categories, onboarding_completed AS "onboardingCompleted"
+      FROM identity.student_preparation_preferences WHERE user_id = ${userId}::uuid
+    `;
+    return res.json(row ?? { categories: [], onboardingCompleted: false });
+  } catch (error) {
+    console.error("Unable to load preparation preferences", error);
+    return res.status(500).json({ error: "Unable to load preparation preferences" });
+  }
+});
+
+router.put("/me/preparation-preferences", authenticate, async (req, res) => {
+  const categories: unknown = req.body?.categories;
+  if (!Array.isArray(categories) || categories.length > 6
+      || categories.some((item) => typeof item !== "string" || !preparationCategories.has(item))) {
+    return res.status(400).json({ error: "Choose valid preparation categories" });
+  }
+  const selected = [...new Set(categories as string[])];
+  try {
+    const userId = await canonicalStudentId(req.user?.id ?? "");
+    if (!userId) return res.status(403).json({ error: "Active student account required" });
+    const [row] = await sqlClient`
+      INSERT INTO identity.student_preparation_preferences (user_id, categories, onboarding_completed)
+      VALUES (${userId}::uuid, ${sqlClient.array(selected)}, true)
+      ON CONFLICT (user_id) DO UPDATE
+      SET categories = EXCLUDED.categories, onboarding_completed = true, updated_at = now()
+      RETURNING categories, onboarding_completed AS "onboardingCompleted"
+    `;
+    return res.json(row);
+  } catch (error) {
+    console.error("Unable to save preparation preferences", error);
+    return res.status(500).json({ error: "Unable to save preparation preferences" });
+  }
+});
+
 router.get("/exam-catalog", authenticate, async (_req, res) => {
   try {
     const [families, exams] = await Promise.all([
