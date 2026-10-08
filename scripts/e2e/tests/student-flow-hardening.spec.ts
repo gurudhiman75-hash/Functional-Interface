@@ -260,6 +260,9 @@ test.describe("student workflow hardening", () => {
     await page.goto("/");
     const series = page.getByRole("button").filter({ hasText: homeSeries.name }).first();
     await expect(series).toBeVisible();
+    // The featured strip intentionally auto-scrolls; a pointer hover pauses it.
+    // Freeze its track for a deterministic accessibility/navigation assertion.
+    await page.locator(".featured-marquee-track").evaluateAll((tracks) => tracks.forEach((track) => { (track as HTMLElement).style.animationPlayState = "paused"; }));
     await series.click();
     await expect(page).toHaveURL(/\/login\/student\?next=/);
     expect(new URL(page.url()).searchParams.get("next")).toBe("/test-series/home-series-banking");
