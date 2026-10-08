@@ -63,8 +63,10 @@ test.describe("CP02 page-level touch targets", () => {
     await page.goto("/login/student");
     await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
 
-    await expectTouchTarget(page.getByTestId("tab-login"));
     await expectTouchTarget(page.getByTestId("tab-signup"));
+    await page.getByTestId("tab-signup").click();
+    await expectTouchTarget(page.getByTestId("tab-login"));
+    await page.getByTestId("tab-login").click();
     await expectTouchTarget(page.getByTestId("btn-toggle-password"));
     await expectTouchTarget(page.getByTestId("btn-forgot-password"));
     await expectTouchTarget(page.getByTestId("btn-submit"));
