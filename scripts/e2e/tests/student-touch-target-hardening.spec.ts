@@ -20,6 +20,9 @@ async function installFixtures(page: Page) {
     if (path === "/tests" && method === "GET") return fulfillJson(route, []);
     if (path === "/published-tests") return fulfillJson(route, { tests: [], generatedAt: "2026-08-19T16:00:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-19T16:00:00.000Z" });
+    if (path === "/users/me/profile") return fulfillJson(route, { fullName: "E2E Student", email: "student.e2e@examtree.local", phoneNumber: null, dateOfBirth: null, state: null, city: null, address: null, socialCategory: null, preferredLanguageCode: "en", emailVerified: true, phoneVerified: false, hasPhoto: false });
+    if (path === "/users/me/profile/photo") return fulfillJson(route, { photo: null });
+    if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
     if (path.includes("packages") || path.includes("bundles")) return fulfillJson(route, []);
 
     return fulfillJson(route, { error: `Unhandled touch-target E2E route: ${method} ${path}` }, 404);
@@ -75,27 +78,17 @@ test.describe("CP02 page-level touch targets", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installFixtures(page);
 
+    await page.addInitScript(() => localStorage.setItem("user", JSON.stringify({ id: "e2e-student", name: "E2E Student", email: "student.e2e@examtree.local", role: "student" })));
     await page.goto("/dashboard");
-    await expectTouchTarget(page.getByRole("link", { name: "Sign in" }).last());
+    await expectTouchTarget(page.getByRole("button", { name: "Select Targeted Exam" }));
     await expectTouchTarget(page.getByRole("button", { name: "My activity", exact: true }));
     await expectTouchTarget(page.getByRole("button", { name: "User profile", exact: true }));
     await expectNoHorizontalOverflow(page);
 
     await page.goto("/profile");
-    await expectTouchTarget(page.getByRole("button", { name: "Go to Login" }));
+    await expect(page.getByRole("heading", { name: "My profile" })).toBeVisible();
+    await expectTouchTarget(page.getByRole("link", { name: "Edit choices" }));
     await expectNoHorizontalOverflow(page);
-
-    // Result pages are account-specific. Seed the same lightweight local session
-    // that ProtectedRoute consumes so this test measures the result UI rather
-    // than weakening the production auth boundary just for accessibility coverage.
-    await page.evaluate(() => {
-      window.localStorage.setItem("user", JSON.stringify({
-        id: "e2e-student",
-        email: "student.e2e@examtree.local",
-        name: "E2E Student",
-        role: "student",
-      }));
-    });
 
     await page.goto("/result");
     await expectTouchTarget(page.getByRole("button", { name: "Open My Activity" }));
