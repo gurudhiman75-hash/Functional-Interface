@@ -290,7 +290,7 @@ export default function Home() {
             <button key={tab.key} type="button" role="tab" aria-selected={activeExamTab === tab.key} className={activeExamTab === tab.key ? "active" : ""} onClick={() => setActiveExamTab(tab.key)}>{tab.label}</button>
           ))}
         </div>
-        <div className="direct-exam-grid">
+        <div className="direct-exam-grid" data-testid="home-direct-exam-grid">
           {visibleExamItems.map((item) => (
             <button key={item.id} type="button" className="direct-exam-card" onClick={() => setLocation(item.href)} title={item.name}>
               <span className="direct-exam-logo">
@@ -300,7 +300,7 @@ export default function Home() {
                   familyCode={item.definition.key}
                 />
               </span>
-              <span className="direct-exam-copy"><b>{item.name}</b><small>{item.category}{item.testCount > 0 ? ` · ${formatCount(item.testCount)} tests` : ""}</small></span>
+              <span className="direct-exam-copy"><b>{item.name}</b><small>{item.category}{item.testCount > 0 ? ` · ${formatCount(item.testCount)} ${item.testCount === 1 ? "test" : "tests"}` : ""}</small></span>
               <span className="direct-exam-go"><ChevronRight /></span>
             </button>
           ))}
