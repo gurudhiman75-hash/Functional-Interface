@@ -46,7 +46,7 @@ assert.match(testsPage, /ExamsMarketplace/, "the route page should delegate to t
 assert.match(marketplace, /buildExamTreeNodes\(categories, subcategories, tests\)/, "exam discovery must use the canonical exam tree");
 assert.match(marketplace, /data-testid="exam-discovery-command-center"/, "exam discovery should retain the compact command-center shell");
 assert.match(marketplace, /data-testid="exam-category-logo-row"/, "exam categories must expose the logo-led discovery row");
-assert.match(marketplace, /EXAM_LOGOS/, "the marketplace must retain resilient exam-logo mapping");
+assert.match(marketplace, /ExamIdentityIcon/, "the marketplace must use the shared exam-identity icon resolver with official-image fallback");
 assert.match(marketplace, /data-testid="featured-series-section"/);
 assert.match(marketplace, /attemptDelta = Number\(right\.attemptCount \?\? 0\) - Number\(left\.attemptCount \?\? 0\)/, "featured series must rank by real attempt counts");
 assert.match(marketplace, /data-testid="full-length-series-section"/);
