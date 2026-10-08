@@ -139,7 +139,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
     });
 
     await page.goto("/login/student");
-    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
     await expect(page.getByTestId("tab-login")).toBeVisible();
 
     await expect.poll(async () => (await localAuthChunks(page)).length).toBeGreaterThan(0);
