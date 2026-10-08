@@ -147,6 +147,7 @@ const canonicalAttemptResultsRouter = lazyRouter(() => import("./canonical-attem
 const canonicalStudentReadRouter = lazyRouter(() => import("./canonical-student-read"));
 const studentAccountDeletionRouter = lazyRouter(() => import("./student-account-deletion"));
 const studentAccountRecoveryRouter = lazyRouter(() => import("./student-account-recovery"));
+const studentProfileRouter = lazyRouter(() => import("./student-profile"));
 const studentExamPreferencesRouter = lazyRouter(() => import("./student-exam-preferences"));
 const studentTestSeriesRouter = lazyRouter(() => import("./student-test-series"));
 const retiredLegacyRouter = lazyRouter(() => import("./retired-legacy"));
@@ -157,6 +158,7 @@ router.use(healthRouter);
 router.use("/account-recovery", studentAccountRecoveryRouter);
 router.use("/users", studentAccountDeletionRouter);
 router.use("/users", studentExamPreferencesRouter);
+router.use("/users", studentProfileRouter);
 router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
