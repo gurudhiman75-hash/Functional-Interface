@@ -1,0 +1,16 @@
+.git
+**/node_modules
+**/dist
+**/.cache
+**/.turbo
+**/coverage
+**/.pnpm-store
+**/*.log
+**/*.pdf
+**/*.zip
+**/*.mp4
+**/*.apk
+**/build
+**/.gradle
+**/.dart_tool
+**/.flutter-plugins
