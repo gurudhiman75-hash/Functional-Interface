@@ -17,6 +17,19 @@ assert(reviewMount >= 0, "Question Studio review-page fast path is not mounted."
 assert(registryMount >= 0, "Question Studio registry is not mounted.");
 assert(capabilitiesMount < registryMount, "Capabilities must bypass the heavy registry.");
 assert(reviewMount < registryMount, "Review page must bypass the heavy registry.");
+
+const registry = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-registry.ts"),
+  "utf8",
+);
+// TRG-002 requests must reach the existing permission-checked engine without
+// importing all preceding ARG-001 / SRI heavy chapter routers.
+const trgRunFastPath = registry.indexOf('router.post("/runs", (req, res, next) => {');
+const argRouterMount = registry.indexOf("router.use(adminQuestionStudioArgumentsCp015Router);");
+assert(trgRunFastPath >= 0 && trgRunFastPath < argRouterMount, "TRG-002 generation must precede unrelated ARG engine hydration.");
+assert.match(registry, /req\.body\?\.packageId !== "TRG-002"/);
+assert.match(registry, /adminQuestionStudioEngineV1Router\(req, res, next\)/);
+assert.match(registry, /if \(req\.body\?\.packageId !== "TRG-002"\) \{\s+next\(\);/);
 assert.match(index, /lazyExactRouter\("\/capabilities"/);
 assert.match(index, /lazyExactRouter\("\/review-page"/);
 
