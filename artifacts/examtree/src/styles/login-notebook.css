@@ -29,7 +29,7 @@
 .auth-benefits span{display:flex;gap:15px;align-items:center;padding:0 30px;border-right:1px solid #ddddeb}
 .auth-benefits span:last-child{border-right:0}
 .auth-benefits svg{width:28px;height:28px;stroke-width:1.5}
-.auth-recovery{display:block;text-align:center;margin-top:22px;font-size:12px;color:#65709a}
+.auth-recovery{display:flex;min-height:44px;align-items:center;justify-content:center;text-align:center;margin-top:22px;font-size:12px;color:#65709a}
 .notebook-login button:focus-visible,.notebook-login a:focus-visible{outline:2px solid #6151db;outline-offset:3px}
 @media(max-width:600px){
 .notebook-topbar{padding:12px 18px}.notebook-brand{font-size:20px}.notebook-topbar>button{font-size:12px}
