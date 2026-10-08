@@ -6,7 +6,7 @@ import {
   accountDeletionTombstoneEmail,
 } from "../domain/student-account-deletion";
 import { sqlClient } from "../lib/db";
-import { auth } from "../lib/firebase-admin";
+import { auth, storage } from "../lib/firebase-admin";
 import { authenticate } from "../middlewares/auth";
 import { requireRecentFirebaseAuthentication } from "../middlewares/require-recent-auth";
 
@@ -227,6 +227,24 @@ async function eraseCanonicalStudent(firebaseUid: string): Promise<DeletionOpera
   });
 }
 
+// Profile photo keys are server-generated under this per-student prefix. Delete
+// all versions, including orphan objects from interrupted photo replacements.
+// Running this again is safe if the account is already tombstoned.
+async function removeStoredProfilePhotos(canonicalUserId: string | null): Promise<boolean> {
+  if (!canonicalUserId) return true;
+  if (!storage) {
+    console.error("Profile photo storage is unavailable during learner deletion");
+    return false;
+  }
+  try {
+    await storage.bucket().deleteFiles({ prefix: `student-profile-photos/${canonicalUserId}/`, force: true });
+    return true;
+  } catch (error) {
+    console.error("Unable to remove Firebase Storage profile photos during account deletion", error);
+    return false;
+  }
+}
+
 async function removeFirebaseIdentity(firebaseUid: string): Promise<boolean> {
   const lifecycle = auth as Partial<FirebaseAccountLifecycle>;
   if (typeof lifecycle.deleteUser !== "function") return false;
@@ -321,6 +339,18 @@ router.delete(
       res.status(503).json({
         error: "Account deletion could not be completed. Your account is unchanged; please try again.",
         code: "ACCOUNT_DELETION_FAILED",
+      });
+      return;
+    }
+
+    const photosDeleted = await removeStoredProfilePhotos(operation.canonicalUserId);
+    if (!photosDeleted) {
+      // Keep the Firebase identity mapping on the disabled tombstone until
+      // Storage cleanup succeeds. Do not claim deletion is complete.
+      res.status(202).json({
+        status: "pending",
+        code: "DELETION_PENDING",
+        message: "Your learner data has been erased. Profile photo cleanup is still completing. Contact support if this persists.",
       });
       return;
     }
