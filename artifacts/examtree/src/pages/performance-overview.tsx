@@ -6,7 +6,7 @@ import { ArrowRight, BarChart3, CheckCircle2, Clock3, FileText, RefreshCw, Targe
 import { getUserAttempts } from "@/lib/data";
 import { getUser } from "@/lib/storage";
 
-function formatDate(value: string) {
+function formatDate(value: string | Date) {
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? "Date unavailable" : new Intl.DateTimeFormat("en-IN", {
     day: "numeric", month: "short", year: "numeric",
