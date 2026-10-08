@@ -1,4 +1,4 @@
-import { apiRequest } from "@/lib/api";
+import { ApiError, getApiErrorCode, apiRequest } from "@/lib/api";
 
 export type CommerceProduct = {
   id: string;
@@ -68,6 +68,7 @@ export type CommercePurchaseItem = {
 };
 
 export type CommerceEntitlement = {
+  tests?: { id: string; label: string }[];
   id: string;
   orderItemId: string | null;
   orderId: string | null;
@@ -208,7 +209,16 @@ export async function openCommerceCheckout(params: {
         email: params.studentEmail ?? "",
       },
       theme: { color: "#6657e8" },
-      handler: (response: RazorpaySuccess) => {
+      handler: async (response: RazorpaySuccess) => {
+        try {
+          await apiRequest(`/commerce/orders/${encodeURIComponent(order.orderId)}/confirm`, {
+            method: "POST",
+            body: JSON.stringify({ providerPaymentId: response.razorpay_payment_id, providerSignature: response.razorpay_signature }),
+          });
+        } catch {
+          // The webhook can still complete the payment. Read authoritative status next.
+        }
+        try { window.sessionStorage.removeItem(checkoutStorageKey(params.product.id)); } catch {}
         params.onPaymentSubmitted({
           orderId: order.orderId,
           orderNumber: order.orderNumber,
@@ -225,6 +235,9 @@ export async function openCommerceCheckout(params: {
     });
     checkout.open();
   } catch (error) {
+    if (error instanceof ApiError && getApiErrorCode(error.body) === "CHECKOUT_CLOSED") {
+      try { window.sessionStorage.removeItem(checkoutStorageKey(params.product.id)); } catch {}
+    }
     params.onError?.(error instanceof Error ? error.message : "Unable to start checkout");
   }
 }
@@ -234,7 +247,8 @@ export function formatCommerceMoney(minor: number, currency: string): string {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: safeCurrency,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number(minor) % 100 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(Math.max(0, Number(minor) || 0) / 100);
 }
 

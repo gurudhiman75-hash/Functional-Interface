@@ -30,6 +30,8 @@ const Preparation = lazy(() => import("@/pages/preparation"));
 const Profile = lazy(() => import("@/pages/profile"));
 const Bookmarks = lazy(() => import("@/pages/bookmarks"));
 const Store = lazy(() => import("@/pages/store"));
+const PurchasedPackage = lazy(() => import("@/pages/purchased-package"));
+const OrderStatus = lazy(() => import("@/pages/order-status"));
 const StoreProduct = lazy(() => import("@/pages/store-product"));
 const MyPurchases = lazy(() => import("@/pages/my-purchases"));
 const Resources = lazy(() => import("@/pages/resources"));
@@ -178,6 +180,8 @@ function Router() {
           <Route path="/resources" component={() => renderPublicRoute(Resources)} />
           <Route path="/current-affairs" component={() => renderPublicRoute(Resources)} />
 
+          <Route path="/checkout/:id" component={() => <ProtectedRoute component={StoreProduct} layout="none" />} />
+          <Route path="/orders/:id" component={() => <ProtectedRoute component={OrderStatus} />} />
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
           <Route path="/packages/success/:id" component={() => <Redirect to="/my-packages" />} />
@@ -185,6 +189,7 @@ function Router() {
           <Route path="/packages" component={() => renderPublicRoute(Store)} />
 
           <Route path="/dashboard" component={() => <ProtectedRoute component={Dashboard} />} />
+          <Route path="/my-packages/:id" component={() => <ProtectedRoute component={PurchasedPackage} />} />
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />

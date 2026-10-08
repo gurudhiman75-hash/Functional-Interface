@@ -16,6 +16,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
+import { getSessionUser } from "@/lib/session-user";
 import { Button } from "@/components/ui/button";
 import { ApiError, getApiErrorCode } from "@/lib/api";
 import {
@@ -151,8 +152,8 @@ function AccessCard({ entitlement }: { entitlement: CommerceEntitlement }) {
       ) : null}
 
       {active ? (
-        <Link href="/exams" className="et-interactive mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-sm font-bold text-white shadow-sm transition hover:bg-[#594bd9]">
-          Use this access <ArrowRight className="h-4 w-4" />
+        <Link href={`/my-packages/${encodeURIComponent(entitlement.id)}`} className="et-interactive mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-sm font-bold text-white shadow-sm transition hover:bg-[#594bd9]">
+          Open package <ArrowRight className="h-4 w-4" />
         </Link>
       ) : null}
     </article>
@@ -212,6 +213,7 @@ function OrderCard({
         {!order.paidAt && order.paymentStatus ? <span className="inline-flex items-center gap-1.5"><CreditCard className="h-3.5 w-3.5" /> Payment {order.paymentStatus.replaceAll("_", " ")}</span> : null}
       </div>
 
+      <Link href={`/orders/${encodeURIComponent(order.id)}`} className="mt-4 inline-flex min-h-11 items-center text-sm font-bold text-violet-700">View payment status <ArrowRight className="ml-2 h-4 w-4" /></Link>
       <details className="mt-4 rounded-xl border border-[#ece9f4] bg-[#fbfaff] px-4 py-3 dark:border-border dark:bg-muted/25">
         <summary className="et-interactive min-h-11 cursor-pointer select-none py-3 text-sm font-bold text-slate-700 outline-none marker:text-[#6657e8] dark:text-foreground">
           Order details
@@ -240,7 +242,7 @@ function OrderCard({
 
 export default function MyPurchasesPage() {
   const purchasesQuery = useQuery({
-    queryKey: ["commerce-purchases"],
+    queryKey: ["commerce-purchases", getSessionUser()?.id],
     queryFn: getCommercePurchases,
     retry: 1,
     staleTime: 30_000,
