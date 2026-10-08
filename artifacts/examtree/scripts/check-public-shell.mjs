@@ -21,7 +21,7 @@ assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(
 assert.match(appSource, /path="\/result" component=\{\(\) => <ProtectedRoute component=\{Result\} \/>\}/, "saved results must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/bookmarks" component=\{\(\) => <ProtectedRoute component=\{Bookmarks\} \/>\}/, "bookmarks must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
-assert.match(appSource, /path="\/performance" component=\{\(\) => renderAppRoute\(AnalyticsUnavailable\)\}/, "direct analytics links must remain truthful until learner analytics is production-ready");
+assert.match(appSource, /path="\/performance" component=\{\(\) => <ProtectedRoute component=\{PerformanceOverview\} \/>\}/, "performance overview must require a learner session and use canonical saved attempts");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
 assert.match(appSource, /ProtectedRoute component=\{Test\} layout="none"/, "full-screen test runner must remain outside both navigation shells");
 
