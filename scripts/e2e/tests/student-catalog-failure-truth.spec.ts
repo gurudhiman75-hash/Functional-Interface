@@ -91,8 +91,8 @@ test.describe("CP06 catalog failure truth", () => {
     await expect(page.getByTestId("catalog-unavailable")).toHaveCount(0);
     await expect(page.getByTestId("home-reference")).toBeVisible();
     await expect(page.getByTestId("home-direct-exam-grid").getByRole("button")).toHaveCount(1);
-    await expect(page.getByTestId("home-category-grid")).toContainText("SSC");
-    await expect(page.getByTestId("home-category-grid")).toContainText("1 test");
+    await expect(page.getByTestId("home-direct-exam-grid")).toContainText("SSC");
+    await expect(page.getByTestId("home-direct-exam-grid")).toContainText("1 test");
 
     const sentinel = await page.evaluate(() =>
       (window as typeof window & { __catalogRetrySentinel?: string }).__catalogRetrySentinel,
