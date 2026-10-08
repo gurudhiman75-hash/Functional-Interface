@@ -219,7 +219,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <>
                 <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">Sign in</Link>
                 {!showStudySidebar ? (
-                  <Link href="/exams" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+                  <Link href="/exams" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-[#3730a3] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#312e81] hover:shadow-md">
                     Browse tests <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 ) : null}
