@@ -30,7 +30,7 @@ router.get(
   async (_req, res) => {
     try {
       const manifest = await loadManifest();
-      res.setHeader("Cache-Control", "private, max-age=60");
+      // This is an authenticated JSON API, not a cacheable static asset.\n      // Conditional GETs previously returned 304 with no JSON body.\n      res.setHeader("Cache-Control", "private, no-store");\n      res.setHeader("Vary", "Authorization");
       res.json(manifest);
     } catch (error) {
       console.error("Question Studio capabilities manifest load failed", error);
