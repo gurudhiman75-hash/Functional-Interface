@@ -56,3 +56,31 @@
 .auth-keyboard-open .notebook-form [data-testid=btn-google-login]{margin-top:0}
 }
 @media(prefers-reduced-motion:reduce){.notebook-login *{transition:none!important;scroll-behavior:auto!important}}
+
+.auth-signup .auth-intro h1{font-size:34px}
+.auth-recovery-page .notebook-stage{padding-top:28px}
+.auth-recovery-page .notebook-form{padding-top:30px}
+.recovery-art{display:flex;align-items:center;justify-content:center;width:68px;height:68px;background:#f1edff;border-radius:20px;margin:0 auto 18px;color:#6554de}
+.recovery-art svg{width:34px;height:34px;stroke-width:1.5}
+.auth-recovery-page .notebook-form h1{font-size:34px}
+.auth-recovery-page [role=tab]{min-height:44px;border-radius:8px}
+.auth-recovery-page [role=tab][aria-selected=true]{background:white;color:#4536cf}
+.auth-recovery-page button[type=submit]{min-height:48px;background:linear-gradient(110deg,#4840d5,#4336c4);color:white;border-radius:8px;font-weight:700}
+.auth-recovery-page textarea{font-size:16px;border-color:#d8d9ec;border-radius:8px;scroll-margin-block:90px}
+.auth-recovery-page .notebook-form .text-muted-foreground{color:#65709a}
+@media(max-width:600px){
+.auth-signup .auth-book-art{width:160px;height:85px;top:-65px}
+.auth-signup .notebook-stage{padding-top:50px}
+.auth-signup .notebook-form{padding-top:24px}
+.auth-signup .auth-intro h1,.auth-recovery-page .notebook-form h1{font-size:27px}
+.auth-signup .auth-intro h1+p{font-size:12px}
+.auth-signup .notebook-form form{gap:10px}
+.auth-signup .auth-benefits{display:none}
+.auth-recovery-page .notebook-stage{padding-top:8px}
+.auth-recovery-page .notebook-form{padding-top:22px}
+.recovery-art{width:48px;height:48px;border-radius:14px;margin-bottom:12px}
+.recovery-art svg{width:26px;height:26px}
+.auth-recovery-page .notebook-form [role=tablist]{margin-top:18px}
+.auth-recovery-page .notebook-form [role=tablist]~div{margin-top:18px}
+.auth-signup.auth-keyboard-open .notebook-stage,.auth-recovery-page.auth-keyboard-open .notebook-stage{padding-top:0}
+}
