@@ -3,14 +3,16 @@ import { Link } from "wouter";
 import { PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 
 const sections = [
-  ["Account data", "We may collect name, email, login provider, exam preferences, language preferences, and account status to operate the platform."],
+  ["Account data", "We collect account name, sign-in identifier, login provider, verified email/phone where available, selected exam categories, preferred language, and account status to provide your learner account."],
+  ["Optional profile information", "You may add your date of birth, state, city, postal address, and social category to your profile. These are optional. We store them to support your profile and, where available, relevant exam eligibility or category-specific cutoff information. We do not treat an estimated cutoff as an official result."],
+  ["Profile photographs", "If you upload a profile photo, we store it in private Firebase Storage and deliver it only through an authenticated profile request. Replacing a photo removes the previous stored object; deleting an account triggers removal of stored profile photos."],
   ["Question interaction data", "We store attempts, selected answers, time spent, flags, and review activity to provide results, analytics, saved progress, and learning workflows."],
   ["Analytics and cookies", "We may use cookies or analytics tools to understand product usage, performance, security, and reliability. Users can manage browser-level cookie controls."],
   ["Payment handling", "Payments are processed through payment providers. ExamTree does not store full card or bank credentials."],
   ["Multilingual data", "Language choices and multilingual answer interactions may be stored to support English, Hindi, and Punjabi learning experiences."],
   ["Data safety", "We use reasonable technical and operational safeguards, but no online system can be guaranteed completely secure."],
   ["Account deletion", "Learners can request account deletion from the ExamTree mobile app or the web deletion page. Learner profile data, attempts, results, active entitlements, and other learner-owned learning history are erased as part of the canonical deletion process."],
-  ["Limited retention", "Where ExamTree has a legitimate financial or security record-keeping obligation, limited order, redemption, or audit records may be retained after deletion. Retained records are attached only to an anonymized account tombstone rather than your active email/name identity."],
+  ["Limited retention", "Profile details, exam preferences, learning history, and stored profile photos are removed through the account deletion process. Where ExamTree has a legitimate financial or security record-keeping obligation, limited order, redemption, or audit records may be retained after deletion. Retained records are attached only to an anonymized account tombstone rather than your active email/name identity."],
   ["Contact", "For privacy questions or deletion assistance, contact support@examtree.in."],
 ];
 
