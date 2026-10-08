@@ -50,14 +50,44 @@ export async function adminRequest<T>(
   }
 
   const requestInit = withQuestionStudioMix(path, init);
-  const response = await fetch(`${apiBase}${path}`, {
+  const isStudioRead = path.startsWith('/admin/question-studio/')
+    && (!requestInit?.method || requestInit.method.toUpperCase() === 'GET');
+  const requestOptions: RequestInit = {
     ...requestInit,
+    // Studio GET endpoints return authenticated JSON. Never let an ETag
+    // revalidation surface a bare 304 to the JSON-only admin API client.
+    cache: isStudioRead ? 'no-store' : requestInit?.cache,
     headers: {
       Authorization: `Bearer ${await user.getIdToken()}`,
       ...(requestInit?.body ? { 'Content-Type': 'application/json' } : {}),
       ...requestInit?.headers,
     },
-  });
+  };
+  let response: Response;
+  try {
+    response = await fetch(`${apiBase}${path}`, requestOptions);
+    if (isStudioRead && response.status === 304) {
+      // Defensive fallback for proxies that ignore the first no-store hint.
+      const noCacheHeaders = new Headers(requestOptions.headers);
+      noCacheHeaders.set('Cache-Control', 'no-cache');
+      response = await fetch(`${apiBase}${path}`, {
+        ...requestOptions,
+        cache: 'reload',
+        headers: noCacheHeaders,
+      });
+    }
+  } catch (cause) {
+    throw new AdminApiError({
+      message: isStudioRead
+        ? 'Question Studio could not reach the API. Check the connection and retry.'
+        : 'The admin API could not be reached. Check the connection and retry.',
+      code: 'ADMIN_API_NETWORK_ERROR',
+      status: null,
+      details: cause instanceof Error ? cause.message : null,
+      correlationId: null,
+      affectedRecord: options?.affectedRecord ?? null,
+    });
+  }
   const body = await response.json().catch(() => null) as ({
     error?: string;
     message?: string;
