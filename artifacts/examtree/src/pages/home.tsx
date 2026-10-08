@@ -28,9 +28,6 @@ import {
   SAMPLE_HOME_TESTS,
 } from "@/lib/home-sample-data";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
-import { signInWithGoogle } from "@/lib/auth";
-import { getFirebaseAuth } from "@/lib/firebase";
-import { getPreparationPreferences } from "@/lib/preparation";
 import { getStudentTestSeries } from "@/lib/test-series";
 import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
@@ -167,13 +164,18 @@ export default function Home() {
       let active = true;
       const routeSignedInUser = async () => {
         let destination = sessionUser.role === "admin" ? "/admin/" : "/dashboard";
-        if (sessionUser.role === "student" && getFirebaseAuth()) {
-          try {
-            const preferences = await getPreparationPreferences();
-            if (!preferences.onboardingCompleted) destination = "/preparation?next=%2Fdashboard";
-          } catch {
-            // The preparation page offers a retry and safe skip path during an API outage.
-            destination = "/preparation?next=%2Fdashboard";
+        if (sessionUser.role === "student") {
+          // The guest homepage must not eagerly download Firebase/auth bundles.
+          const { getFirebaseAuth } = await import("@/lib/firebase");
+          if (getFirebaseAuth()) {
+            try {
+              const { getPreparationPreferences } = await import("@/lib/preparation");
+              const preferences = await getPreparationPreferences();
+              if (!preferences.onboardingCompleted) destination = "/preparation?next=%2Fdashboard";
+            } catch {
+              // Unresolved onboarding belongs in the retry/skip preparation flow.
+              destination = "/preparation?next=%2Fdashboard";
+            }
           }
         }
         if (active) setLocation(destination);
@@ -190,7 +192,7 @@ export default function Home() {
   const handleGoogleSignIn = async () => {
     if (googleSignInPending) return;
     setGoogleSignInPending(true);
-    try { const user = await signInWithGoogle(); setSessionUser(user); }
+    try { const { signInWithGoogle } = await import("@/lib/auth"); const user = await signInWithGoogle(); setSessionUser(user); }
     catch (error) { toast({ title: "Google sign-in failed", description: error instanceof Error ? error.message : "Please try again.", variant: "destructive" }); }
     finally { setGoogleSignInPending(false); }
   };
