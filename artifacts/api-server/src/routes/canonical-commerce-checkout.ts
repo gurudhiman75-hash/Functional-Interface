@@ -140,16 +140,31 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
 
     const prepared = await sqlClient.begin(async (tx) => {
       await tx`SELECT pg_advisory_xact_lock(hashtext(${`commerce-checkout:${userId}:${idempotencyKey}`}))`;
+      const owned = await tx`
+        SELECT e.id FROM commerce.entitlements e
+        JOIN commerce.product_versions pv ON pv.id = e.product_version_id
+        WHERE e.user_id = ${userId}::uuid AND pv.product_id = ${productId}::uuid
+          AND e.status = 'active' AND e.revoked_at IS NULL AND e.starts_at <= now()
+          AND (e.ends_at IS NULL OR e.ends_at > now()) LIMIT 1
+      `;
+      if (owned[0]) throw new CheckoutError("PRODUCT_ALREADY_OWNED", "You already have access to this package. Open it from My purchases.", 409);
       const existing = await tx`
         SELECT o.id::text AS "orderId", o.order_number::text AS "orderNumber", o.status,
-          o.total_minor::float8 AS "totalMinor", o.discount_minor::float8 AS "discountMinor", o.currency,
+          o.total_minor::float8 AS "totalMinor", o.discount_minor::float8 AS "discountMinor", o.currency, o.expires_at AS "expiresAt",
+          (SELECT oi.product_id::text FROM commerce.order_items oi WHERE oi.order_id = o.id LIMIT 1) AS "productId",
           pa.id::text AS "paymentAttemptId", pa.provider_order_id AS "providerOrderId"
         FROM commerce.orders o
         LEFT JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = 'razorpay'
         WHERE o.user_id = ${userId}::uuid AND o.idempotency_key = ${idempotencyKey}
         ORDER BY pa.created_at DESC NULLS LAST LIMIT 1
       `;
-      if (existing[0]) return { ...existing[0], existing: true };
+      if (existing[0]) {
+        if (String(existing[0].productId) !== productId) throw new CheckoutError("IDEMPOTENCY_CONFLICT", "Checkout does not match this package", 409);
+        if (!["created", "payment_pending"].includes(String(existing[0].status)) || (existing[0].expiresAt && new Date(String(existing[0].expiresAt)).getTime() <= Date.now())) {
+          throw new CheckoutError("CHECKOUT_CLOSED", "This checkout has ended. Please start checkout again.", 409);
+        }
+        return { ...existing[0], existing: true };
+      }
 
       const products = await tx`
         SELECT p.id::text AS "productId", p.current_version_number AS "versionNumber", v.id::text AS "productVersionId",

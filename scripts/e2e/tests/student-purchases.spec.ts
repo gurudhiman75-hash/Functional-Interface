@@ -155,7 +155,7 @@ test.describe("canonical student purchase history", () => {
 
     await expectTouchTarget(page.getByTestId("btn-refresh-purchases"));
     await expectTouchTarget(page.getByRole("link", { name: "Browse Store", exact: true }));
-    await expectTouchTarget(page.getByRole("link", { name: "Use this access", exact: true }));
+    await expectTouchTarget(page.getByRole("link", { name: "Open package", exact: true }));
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);

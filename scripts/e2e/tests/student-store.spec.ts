@@ -79,7 +79,7 @@ test.describe("student Store", () => {
     await page.getByTestId("btn-store-checkout").click();
     await expect(page).toHaveURL(/\/login\/student\?next=/);
     const next = await page.evaluate(() => new URL(window.location.href).searchParams.get("next"));
-    expect(next).toBe(`/store/product/${storeProduct.id}`);
+    expect(next).toBe(`/checkout/${storeProduct.id}`);
   });
 
   test("Store controls remain usable on a narrow mobile viewport", async ({ page }) => {

@@ -140,7 +140,14 @@ router.get("/commerce/purchases", authenticate, async (req, res) => {
           e.revoke_reason AS "revokeReason",
           e.grant_source AS "grantSource",
           e.created_at AS "createdAt",
-          (SELECT COUNT(*)::int FROM commerce.entitlement_tests et WHERE et.entitlement_id = e.id) AS "testCount"
+          (SELECT COUNT(*)::int FROM commerce.entitlement_tests et WHERE et.entitlement_id = e.id) AS "testCount",
+          COALESCE((
+            SELECT jsonb_agg(jsonb_build_object('id', t.id::text, 'label', COALESCE(tv.title, t.public_code)) ORDER BY t.public_code)
+            FROM commerce.entitlement_tests et
+            JOIN assessment.tests t ON t.id = et.test_id AND t.deleted_at IS NULL
+            LEFT JOIN assessment.test_versions tv ON tv.id = t.published_version_id
+            WHERE et.entitlement_id = e.id
+          ), '[]'::jsonb) AS tests
         FROM commerce.entitlements e
         JOIN commerce.product_versions pv ON pv.id = e.product_version_id
         JOIN commerce.products p ON p.id = pv.product_id

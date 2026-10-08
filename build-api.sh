@@ -88,6 +88,8 @@ echo "[render-build] validate student profile inputs"
 pnpm --dir artifacts/api-server exec esbuild src/lib/student-profile-validation.ts --bundle --platform=node --format=esm --outfile=dist/student-profile-validation.mjs
 node --test artifacts/api-server/tests/student-profile-validation.test.mjs
 (cd artifacts/api-server && node tests/student-profile-routes.test.mjs)
+(cd artifacts/api-server && node tests/commerce-sales-routes.test.mjs)
+node artifacts/examtree/scripts/check-commerce-flow.mjs
 echo "[render-build] typecheck student app"
 pnpm --dir artifacts/examtree typecheck
 
