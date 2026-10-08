@@ -11,6 +11,7 @@ import "@/styles/ssc-cgl-reference.css";
 import "@/styles/punjab-exam-reference.css";
 import "@/styles/punjab-clerk-teal.css";
 import "@/styles/railway-exam-reference.css";
+import "@/styles/exam-phone-layout.css";
 
 type Stage = "prelims" | "mains" | "pyq";
 type Format = "full-length" | "sectional" | "topic-wise";
