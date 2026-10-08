@@ -14,3 +14,15 @@
 **/.gradle
 **/.dart_tool
 **/.flutter-plugins
+
+# Never send local credentials or private material into the Docker build context.
+.env
+.env.*
+**/.env
+**/.env.*
+**/*service-account*.json
+**/*private-key*
+**/*.pem
+**/*.p12
+**/*.key
+**/credentials.json
