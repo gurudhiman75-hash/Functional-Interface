@@ -269,6 +269,46 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
 });
 
 
+/** Cashfree return-page recovery: query Cashfree server-side; never trust a browser's redirect alone. */
+router.post("/commerce/orders/:orderId/reconcile", authenticate, async (req, res) => {
+  const orderId = String(req.params.orderId ?? "");
+  if (!uuid.test(orderId)) return void res.status(400).json({ error: "Invalid order ID" });
+  try {
+    const userId = await canonicalUserId(req.user!.id);
+    const rows = await sqlClient`
+      SELECT o.id::text AS "orderId", o.status AS "orderStatus", o.total_minor::float8 AS "totalMinor",
+        o.currency, pa.provider_order_id AS "providerOrderId"
+      FROM commerce.orders o JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = 'cashfree'
+      WHERE o.id = ${orderId}::uuid AND o.user_id = ${userId}::uuid LIMIT 1
+    `;
+    const order = rows[0];
+    if (!order) throw new CheckoutError("ORDER_NOT_FOUND", "This Cashfree order is not available", 404);
+    if (["paid", "partially_refunded", "refunded"].includes(String(order.orderStatus))) {
+      res.json({ ok: true, orderId, status: order.orderStatus }); return;
+    }
+    const providerOrderId = String(order.providerOrderId ?? "");
+    if (!providerOrderId) { res.status(202).json({ pending: true }); return; }
+    const providerOrder = await fetchCashfreeOrder(providerOrderId);
+    if (providerOrder.order_id !== providerOrderId || providerOrder.order_status !== "PAID") {
+      res.status(202).json({ pending: true }); return;
+    }
+    const providerPayments = await fetchCashfreePayments(providerOrderId);
+    const payment = providerPayments.find(item => item.payment_status === "SUCCESS"
+      && Math.round(Number(item.payment_amount) * 100) === Number(order.totalMinor)
+      && String(item.payment_currency ?? "").toUpperCase() === String(order.currency).trim().toUpperCase()
+      && String(item.cf_payment_id ?? "").length > 0);
+    if (!payment) { res.status(202).json({ pending: true }); return; }
+    const finalized = await sqlClient.begin(async tx =>
+      finalizeCapturedPayment({ client: tx as typeof sqlClient, provider: "cashfree",
+        providerOrderId, providerPaymentId: String(payment.cf_payment_id),
+        amountMinor: Math.round(Number(payment.payment_amount) * 100), currency: String(payment.payment_currency).toUpperCase(),
+        capturedAt: payment.payment_time && !Number.isNaN(Date.parse(payment.payment_time)) ? new Date(payment.payment_time).toISOString() : null,
+      }));
+    res.json({ ok: true, orderId, status: "paid", alreadyFinalized: finalized.alreadyFinalized });
+  } catch (error) { sendError(res, error); }
+});
+
+
 router.post("/commerce/orders/:orderId/confirm", authenticate, async (req, res) => {
   const orderId = String(req.params.orderId ?? "").trim();
   const providerPaymentId = String(req.body?.providerPaymentId ?? "").trim();
