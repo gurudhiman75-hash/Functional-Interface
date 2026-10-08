@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { getCommercePurchases, formatCommerceMoney } from "@/lib/commerce";
 import { getSessionUser } from "@/lib/session-user";
+import { apiRequest } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 
 export default function OrderStatusPage() {
@@ -22,6 +23,13 @@ export default function OrderStatusPage() {
   const items = purchases.data?.items.filter((entry) => entry.orderId === id) ?? [];
   const hasAccess = purchases.data?.entitlements.some((entry) => entry.orderId === id && entry.accessStatus === "active");
   const pending = order && ["created", "payment_pending"].includes(order.status);
+  useEffect(() => {
+    if (!id || !pending) return;
+    // Cashfree can return before the webhook arrives. Only backend verification may finalize access.
+    void apiRequest(`/commerce/orders/${encodeURIComponent(id)}/reconcile`, { method: "POST" })
+      .then(() => purchases.refetch())
+      .catch(() => { /* The normal signed webhook/purchase polling remains authoritative. */ });
+  }, [id, Boolean(pending)]);
   const title = purchases.isLoading ? "Checking payment…" : purchases.isError ? "Unable to check payment" : !order ? "Order not found" : hasAccess ? "Your package is ready" : order.status === "paid" ? "Payment received" : order.status === "refunded" ? "Payment refunded" : order.status === "partially_refunded" ? "Payment partly refunded" : order.status === "cancelled" ? "Order cancelled" : order.status === "expired" ? "Checkout expired" : order.paymentStatus === "failed" ? "Payment unsuccessful" : "Waiting for payment confirmation";
   return <div className="mx-auto max-w-2xl px-4 py-10">
     <section className="rounded-2xl border bg-card p-6 sm:p-8" aria-live="polite">
