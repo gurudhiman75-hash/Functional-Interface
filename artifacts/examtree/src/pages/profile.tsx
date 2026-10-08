@@ -150,16 +150,16 @@ export default function ProfilePage() {
     const auth = getFirebaseAuth(); if (auth) await signOut(auth);
     clearAuth(); navigate("/");
   }
-  if (!user) return <main className="student-profile"><h1>My profile</h1><p>Sign in to view and edit your profile.</p><Link href="/login/student">Sign in <ArrowRight /></Link></main>;
-  if (query.isLoading) return <main className="student-profile"><p role="status">Loading your profile…</p></main>;
-  if (query.isError || !query.data) return <main className="student-profile"><h1>My profile</h1><p role="alert">We couldn't load your profile.</p><button className="profile-primary" onClick={() => query.refetch()}>Try again</button></main>;
+  if (!user) return <div className="student-profile"><h1>My profile</h1><p>Sign in to view and edit your profile.</p><Link href="/login/student">Sign in <ArrowRight /></Link></div>;
+  if (query.isLoading) return <div className="student-profile"><p role="status">Loading your profile…</p></div>;
+  if (query.isError || !query.data) return <div className="student-profile"><h1>My profile</h1><p role="alert">We couldn't load your profile.</p><button className="profile-primary" onClick={() => query.refetch()}>Try again</button></div>;
   const profile = query.data;
   const initials = (form.fullName || user.name).split(" ").filter(Boolean).slice(0, 2).map(part => part[0]).join("").toUpperCase();
   const dirty = JSON.stringify(form) !== JSON.stringify(fieldsFrom(profile));
   const emailVerified = profile.emailVerified && email.trim().toLowerCase() === profile.email?.toLowerCase();
   const phoneValue = phone.replace(/[\s()-]/g, "");
   const phoneVerified = profile.phoneVerified && (phoneValue.startsWith("+") ? phoneValue : "+91" + phoneValue) === profile.phoneNumber;
-  return <main className={"student-profile " + (keyboardOpen ? "profile-keyboard-open" : "")} id="main-content">
+  return <div className={"student-profile " + (keyboardOpen ? "profile-keyboard-open" : "")}>
     <header className="profile-heading"><div><h1>My profile</h1><p>Update your details whenever you like.</p></div><p>All additional details are optional.</p></header>
     <div className="profile-person">
       <div className="profile-avatar">{photo.data?.photo ? <img src={photo.data.photo} alt="Your profile" /> : initials}</div>
@@ -172,15 +172,15 @@ export default function ProfilePage() {
     <form onSubmit={event => { event.preventDefault(); void perform("save", save); }}>
       <fieldset disabled={!!busy} className="profile-panel"><legend>Personal details</legend><div className="profile-form-grid">
         <label>Full name<input value={form.fullName} maxLength={120} autoComplete="name" required onChange={event => update("fullName", event.target.value)} /></label>
-        <label>Date of birth <span>(optional)</span><input type="date" value={form.dateOfBirth ?? ""} min="1900-01-01" max={new Date().toISOString().slice(0, 10)} autoComplete="bday" onChange={event => update("dateOfBirth", event.target.value)} /></label>
-        <label>State <span>(optional)</span><select value={form.state ?? ""} autoComplete="address-level1" onChange={event => update("state", event.target.value)}><option value="">Select state</option>{states.map(state => <option key={state}>{state}</option>)}</select></label>
-        <label>District / City <span>(optional)</span><input value={form.city ?? ""} maxLength={100} autoComplete="address-level2" onChange={event => update("city", event.target.value)} placeholder="Enter district or city" /></label>
-        <label>Address <span>(optional)</span><textarea value={form.address ?? ""} maxLength={500} rows={3} autoComplete="street-address" onChange={event => update("address", event.target.value)} placeholder="Enter your address" /></label>
-        <label>Social category <span>(optional)</span><select value={form.socialCategory ?? ""} onChange={event => update("socialCategory", event.target.value)} aria-describedby="category-note"><option value="">Prefer not to say</option>{["General", "SC", "ST", "OBC", "EWS", "BC", "Other"].map(category => <option key={category}>{category}</option>)}</select><small id="category-note">For relevant exam cutoffs when available. Categories depend on the exam and state.</small></label>
+        <label><span className="profile-field-label">Date of birth <em>(optional)</em></span><input type="date" value={form.dateOfBirth ?? ""} min="1900-01-01" max={new Date().toISOString().slice(0, 10)} autoComplete="bday" onChange={event => update("dateOfBirth", event.target.value)} /></label>
+        <label><span className="profile-field-label">State <em>(optional)</em></span><select value={form.state ?? ""} autoComplete="address-level1" onChange={event => update("state", event.target.value)}><option value="">Select state</option>{states.map(state => <option key={state}>{state}</option>)}</select></label>
+        <label><span className="profile-field-label">District / City <em>(optional)</em></span><input value={form.city ?? ""} maxLength={100} autoComplete="address-level2" onChange={event => update("city", event.target.value)} placeholder="Enter district or city" /></label>
+        <label><span className="profile-field-label">Address <em>(optional)</em></span><textarea value={form.address ?? ""} maxLength={500} rows={3} autoComplete="street-address" onChange={event => update("address", event.target.value)} placeholder="Enter your address" /></label>
+        <label><span className="profile-field-label">Social category <em>(optional)</em></span><select value={form.socialCategory ?? ""} onChange={event => update("socialCategory", event.target.value)} aria-describedby="category-note"><option value="">Prefer not to say</option>{["General", "SC", "ST", "OBC", "EWS", "BC", "Other"].map(category => <option key={category}>{category}</option>)}</select><small id="category-note">For relevant exam cutoffs when available. Categories depend on the exam and state.</small></label>
       </div></fieldset>
       <fieldset disabled={!!busy} className="profile-panel"><legend>Contact &amp; preferences</legend><div className="profile-form-grid">
-        <label>Email address<div className="profile-contact-row"><input type="email" value={email} autoComplete="email" onChange={event => setEmail(event.target.value)} placeholder="Add email address" />{emailVerified ? <span className="profile-verified"><CheckCircle2 aria-hidden="true" />Verified</span> : <button type="button" className="profile-outline" onClick={() => void perform("email", verifyEmail)}>Verify</button>}</div></label>
-        <label>Mobile number<div className="profile-contact-row"><span className="profile-country">+91</span><input type="tel" value={phone} autoComplete="tel-national" onChange={event => { setPhone(event.target.value); setVerificationId(null); setOtp(""); }} placeholder="Add mobile number" />{phoneVerified ? <span className="profile-verified"><CheckCircle2 aria-hidden="true" />Verified</span> : <button type="button" className="profile-outline" onClick={() => void perform("phone", sendOtp)}>Verify</button>}</div></label>
+        <div className="profile-contact-field"><label htmlFor="profile-email">Email address</label><div className="profile-contact-row"><input id="profile-email" type="email" value={email} autoComplete="email" onChange={event => setEmail(event.target.value)} placeholder="Add email address" />{emailVerified ? <span className="profile-verified"><CheckCircle2 aria-hidden="true" />Verified</span> : <button type="button" className="profile-outline" onClick={() => void perform("email", verifyEmail)}>Verify</button>}</div></div>
+        <div className="profile-contact-field"><label htmlFor="profile-phone">Mobile number</label><div className="profile-contact-row"><span className="profile-country">+91</span><input id="profile-phone" type="tel" value={phone} autoComplete="tel-national" onChange={event => { setPhone(event.target.value); setVerificationId(null); setOtp(""); }} placeholder="Add mobile number" />{phoneVerified ? <span className="profile-verified"><CheckCircle2 aria-hidden="true" />Verified</span> : <button type="button" className="profile-outline" onClick={() => void perform("phone", sendOtp)}>Verify</button>}</div></div>
         <label>Preferred language<select value={form.preferredLanguageCode} onChange={event => update("preferredLanguageCode", event.target.value)}><option value="en">English</option><option value="hi">हिन्दी</option><option value="pa">ਪੰਜਾਬੀ</option></select></label>
         <div className="profile-preparation"><p>Preparation categories</p><div className="profile-chips">{preparation.isLoading ? <span role="status">Loading…</span> : preparation.isError ? <button type="button" className="profile-text-button" onClick={() => preparation.refetch()}>Retry choices</button> : preparation.data?.categories.length ? PREPARATION_CATEGORIES.filter(category => preparation.data?.categories.includes(category.id)).map(category => <span key={category.id}>{category.label}</span>) : <span>No categories selected</span>}</div><Link href="/preparation?edit=1" onClick={event => { if (dirty || busy) { event.preventDefault(); setError("Save or cancel your profile changes before editing preparation choices."); } }}>Edit choices</Link></div>
       </div>
@@ -201,5 +201,5 @@ export default function ProfilePage() {
     <nav className="profile-account-links" aria-label="Account options">
       <Link href="/dashboard">My activity <ArrowRight /></Link><Link href="/my-packages"><CreditCard />Purchases &amp; access</Link><Link href="/account-recovery"><KeyRound />Password &amp; recovery</Link><Link href="/account-deletion"><Trash2 />Delete account</Link><button type="button" onClick={() => void perform("logout", logout)} disabled={!!busy}><LogOut />Log out</button>
     </nav>
-  </main>;
+  </div>;
 }
