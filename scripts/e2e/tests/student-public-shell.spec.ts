@@ -97,8 +97,8 @@ test.describe("CP02 public and app shell split", () => {
     await expect(mobileNavigation).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Log in" })).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
-    await expect(mobileNavigation.getByTestId("mobile-disabled-analytics")).toHaveAttribute("aria-disabled", "true");
-    await expect(mobileNavigation.getByRole("link", { name: "Analytics", exact: true })).toHaveCount(0);
+    await expect(mobileNavigation.getByRole("link", { name: "Analytics", exact: true })).toHaveAttribute("href", "/login/student?next=%2Fperformance");
+    await expect(mobileNavigation.getByTestId("mobile-disabled-analytics")).toHaveCount(0);
     await expect(mobileNavigation.getByRole("link", { name: "Support", exact: true })).toHaveAttribute("aria-current", "page");
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
