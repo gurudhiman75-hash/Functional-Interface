@@ -66,6 +66,8 @@ async function installFixtures(page: Page) {
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T06:45:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series, generatedAt: "2026-08-27T07:00:00.000Z" });
     if (path === "/learning-resources") return fulfillJson(route, { resources: [], filters: { category: null, format: null, language: null }, generatedAt: "2026-08-27T06:15:00.000Z" });
+    if (path === "/users/me") return fulfillJson(route, { id: "e2e-student", email: "student.e2e@examtree.local", name: "E2E Student", role: "student" });
+    if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
     if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
@@ -125,13 +127,13 @@ test.describe("CP08 cross-browser shared shell polish", () => {
   test("logged-in Home routes learners into the protected dashboard", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.addInitScript(() => window.localStorage.setItem("user", JSON.stringify({
-      id: "student-1", email: "learner@example.com", name: "Aman Singh", role: "student",
+      id: "e2e-student", email: "student.e2e@examtree.local", name: "E2E Student", role: "student",
     })));
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
     await expect(page).toHaveURL(new RegExp("/dashboard$"));
     await expect(page.getByTestId("student-dashboard")).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Welcome back, Aman/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
     await expect(page.getByRole("button", { name: "Select Targeted Exam" })).toBeVisible();
     await expect(page.getByRole("link", { name: "My Exams" }).first()).toHaveAttribute("href", "/exams");
     await expectNoHorizontalOverflow(page);
@@ -193,7 +195,9 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-direct-exam-grid").getByRole("button")).toHaveCount(14);
     await expect(page.getByTestId("home-popular-series")).toBeVisible();
     await expect(page.getByTestId("home-examtree-edge")).toBeVisible();
-    await expect(page.getByTestId("home-final-cta")).toBeVisible();
+    // This optional final CTA is deliberately hidden on narrow mobile views;
+    // the exam grid and published series above remain available.
+    await expect(page.getByTestId("home-final-cta")).toBeHidden();
     await expectNoHorizontalOverflow(page);
 
     await page.getByTestId("home-direct-exam-grid").getByRole("button").filter({ hasText: "SSC CGL" }).click();
