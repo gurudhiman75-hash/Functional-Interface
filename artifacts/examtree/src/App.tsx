@@ -184,7 +184,7 @@ function Router() {
           <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/packages" component={() => renderPublicRoute(Store)} />
 
-          <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
+          <Route path="/dashboard" component={() => <ProtectedRoute component={Dashboard} />} />
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />
@@ -192,7 +192,7 @@ function Router() {
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
           <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
           <Route path="/performance" component={() => <ProtectedRoute component={PerformanceOverview} />} />
-          <Route path="/profile" component={() => renderAppRoute(Profile)} />
+          <Route path="/profile" component={() => <ProtectedRoute component={Profile} />} />
           <Route path="/report-question" component={() => renderAppRoute(ReportQuestion)} />
 
           <Route path="/about" component={() => renderPublicRoute(About)} />
