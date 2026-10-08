@@ -321,7 +321,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">{column.title}</h2>
                   <div className="mt-3 space-y-2.5">
                     {column.links.map((item) => (
-                      <Link key={item.href} href={item.href} className="et-interactive block rounded-sm text-sm font-medium text-muted-foreground hover:text-primary">{item.label}</Link>
+                      <Link key={item.href} href={item.href} className="et-interactive block rounded-sm text-sm font-medium text-foreground hover:text-primary">{item.label}</Link>
                     ))}
                   </div>
                 </div>
