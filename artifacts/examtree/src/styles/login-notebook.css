@@ -22,7 +22,7 @@
 .auth-forgot-row{text-align:right}
 .auth-forgot{min-height:32px;padding:2px 0;color:#493ddb;font-weight:500;font-size:13px}
 .notebook-form .auth-forgot-row:empty{display:none}
-.auth-inline-login{color:#493ddb;font-weight:700;min-height:36px;padding:4px}
+.auth-inline-login{color:#493ddb;font-weight:700;min-height:44px;padding:8px;border-radius:8px}
 .auth-legal{text-align:center;font-size:12px;color:#65709a;margin:18px auto 0;max-width:568px}
 .auth-legal a{color:#4536cf;text-decoration:underline}
 .auth-benefits{display:flex;justify-content:center;gap:0;margin:40px auto 0;max-width:760px;color:#46467d;font-size:14px}
