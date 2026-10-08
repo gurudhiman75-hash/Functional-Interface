@@ -24,6 +24,7 @@ import { buildExamTreeNodes } from "@/lib/exam-tree";
 import {
   SAMPLE_HOME_CATEGORIES,
   SAMPLE_HOME_SUBCATEGORIES,
+  SAMPLE_HOME_SERIES,
   SAMPLE_HOME_TESTS,
 } from "@/lib/home-sample-data";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
@@ -116,7 +117,7 @@ export default function Home() {
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
   const seriesQuery = useQuery({ queryKey: ["student-test-series"], queryFn: getStudentTestSeries, enabled: !sampleMode, staleTime: 30_000, retry: 1 });
-  const featuredSeries = (seriesQuery.data?.series ?? [])
+  const featuredSeries = (sampleMode ? SAMPLE_HOME_SERIES : seriesQuery.data?.series ?? [])
     .filter((series) => series.learnerVisibility === "live" && series.liveTestCount > 0)
     .sort((left, right) => right.attemptCount - left.attemptCount || right.liveTestCount - left.liveTestCount)
     .slice(0, 6);
