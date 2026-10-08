@@ -28,7 +28,6 @@ import { useToast } from "@/hooks/use-toast";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
@@ -287,54 +286,26 @@ export default function Login() {
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!email.trim()) {
-      toast({
-        title: "Enter your email first",
-        description: "Type your account email, then click Forgot password.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setLoading(true);
-    try {
-      const auth = getFirebaseAuth();
-      if (!auth) {
-        toast({
-          title: "Password reset unavailable",
-          description: "Development login does not send reset emails.",
-        });
-        return;
-      }
-      await sendPasswordResetEmail(auth, email.trim());
-      toast({
-        title: "Reset email sent",
-        description: "Check your inbox for password reset instructions.",
-      });
-    } catch (err) {
-      toast({
-        title: "Could not send reset email",
-        description: getAuthErrorMessage(err),
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+  const handleForgotPassword = () => {
+    const params = new URLSearchParams();
+    if (email.trim()) params.set("email", email.trim());
+    if (safeNextPath) params.set("next", safeNextPath);
+    setLocation("/account-recovery" + (params.size ? "?" + params.toString() : ""));
   };
 
   const authTitle = isAdminMode
     ? "Admin sign in"
     : tab === "login"
       ? "Welcome back"
-      : "Create your ExamTree account";
+      : "Create your account";
   const authDescription = isAdminMode
     ? "Use an administrator account already authorized by the ExamTree backend."
     : tab === "login"
       ? "Sign in and pick up where you left off."
-      : "Create a student account to keep your preparation connected.";
+      : "Start your preparation with ExamTree.";
 
   return (
-    <div ref={loginRoot} className={`notebook-login centered-login ${keyboardOpen ? "auth-keyboard-open" : ""}`}>
+    <div ref={loginRoot} className={`notebook-login centered-login ${tab === "signup" ? "auth-signup" : ""} ${keyboardOpen ? "auth-keyboard-open" : ""}`}>
       <header className="notebook-topbar">
         <a href="/" className="notebook-brand"><span>EXAM<span>TREE</span></span></a>
         <button type="button" onClick={() => setLocation("/")} data-testid="btn-back">Back to home <ArrowRight aria-hidden="true" /></button>
@@ -521,8 +492,7 @@ export default function Login() {
             <>
               {tab === "signup" ? (
                 <p className="mt-5 text-center text-[11px] leading-5 text-slate-400">
-                  Already have an account? <button type="button" data-testid="tab-login" onClick={() => setTab("login")} className="auth-inline-login">Sign in</button><br />
-                  By creating an account, you agree to ExamTree&apos;s <a href="/terms-and-conditions" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Terms &amp; Conditions</a> and <a href="/privacy-policy" className="font-semibold text-slate-600 underline-offset-2 hover:underline">Privacy Policy</a>.
+                  Already have an account? <button type="button" data-testid="tab-login" onClick={() => setTab("login")} className="auth-inline-login">Sign in</button>
                 </p>
               ) : (
                 <p className="mt-5 text-center text-xs text-slate-500">
