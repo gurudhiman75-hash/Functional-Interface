@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { usePageMeta } from "@/components/PublicPage";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -114,6 +115,11 @@ export default function Login() {
   }, []);
   const isAdminMode = location.startsWith("/login/admin");
   const firebaseAvailable = Boolean(getFirebaseAuth());
+  // This standalone route bypasses PublicLayout, so apply private-page SEO here.
+  usePageMeta("ExamTree Account", "Sign in securely to your ExamTree learner account.", {
+    robots: "noindex,follow",
+    canonicalPath: isAdminMode ? "/login/admin" : "/login/student",
+  });
 
   const passwordStrength = Math.min(
     100,
