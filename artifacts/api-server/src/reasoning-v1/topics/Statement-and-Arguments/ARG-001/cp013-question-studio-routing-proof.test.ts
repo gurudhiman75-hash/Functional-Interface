@@ -19,11 +19,11 @@ const registryPath = registryCandidates.find((candidate) => existsSync(candidate
 assert.ok(registryPath, `admin Question Studio registry was not found; checked: ${registryCandidates.join(", ")}`);
 const registry = readFileSync(registryPath, "utf8");
 
-const cp013Import = registry.indexOf('adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013"');
-const cp012Import = registry.indexOf('adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012"');
-const cp010Import = registry.indexOf('adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010"');
-const cp007Import = registry.indexOf('adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2"');
-const cp005Import = registry.indexOf('adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments"');
+const cp013Import = registry.indexOf('const adminQuestionStudioArgumentsCp013Router = lazyRouter(() => import("./admin-question-studio-arguments-cp013"), isArgumentsRequest)');
+const cp012Import = registry.indexOf('const adminQuestionStudioArgumentsCp012Router = lazyRouter(() => import("./admin-question-studio-arguments-cp012"), isArgumentsRequest)');
+const cp010Import = registry.indexOf('const adminQuestionStudioArgumentsCp010Router = lazyRouter(() => import("./admin-question-studio-arguments-cp010"), isArgumentsRequest)');
+const cp007Import = registry.indexOf('const adminQuestionStudioArgumentsCp007Router = lazyRouter(() => import("./admin-question-studio-arguments-cp007-v2"), isArgumentsRequest)');
+const cp005Import = registry.indexOf('const adminQuestionStudioArgumentsRouter = lazyRouter(() => import("./admin-question-studio-arguments"), isArgumentsRequest)');
 assert.ok(cp013Import >= 0 && cp012Import >= 0 && cp010Import >= 0 && cp007Import >= 0 && cp005Import >= 0, "ARG route imports are incomplete");
 
 const cp013Mount = registry.indexOf("router.use(adminQuestionStudioArgumentsCp013Router)");
