@@ -43,6 +43,7 @@ async function expectTouchTarget(locator: Locator) {
 test.describe("CP02 preparation chrome accessibility", () => {
   test("exposes keyboard-operable exam selector and 44px-class primary controls", async ({ page }) => {
     await installFixtures(page);
+    await page.addInitScript(() => localStorage.setItem("user", JSON.stringify({ id: "app-chrome-student", name: "Chrome Student", email: "chrome@example.test", role: "student" })));
     await page.goto("/dashboard");
 
     const selector = page.getByRole("button", { name: "Select Targeted Exam" });
@@ -62,9 +63,9 @@ test.describe("CP02 preparation chrome accessibility", () => {
     await expectTouchTarget(selector);
     await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
     await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
-    await expectTouchTarget(page.getByRole("link", { name: "Tests & Exams" }));
-    await expectTouchTarget(page.getByRole("link", { name: "Login" }));
+    await expectTouchTarget(page.getByRole("link", { name: "My Exams" }));
+    await expectTouchTarget(page.getByRole("link", { name: "Profile", exact: true }).first());
 
-    await expect(page.getByRole("link", { name: "ExamTree home" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "ExamTree dashboard" })).toBeVisible();
   });
 });
