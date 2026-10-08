@@ -58,12 +58,13 @@ test.describe("CP02 public and app shell split", () => {
     await expect(page.getByText("Logic Engine v2.4")).toHaveCount(0);
     await expect(page.getByText("API Docs")).toHaveCount(0);
 
+    await page.addInitScript(() => localStorage.setItem("user", JSON.stringify({ id: "shell-student", name: "Shell Student", email: "shell@example.test", role: "student" })));
     await page.goto("/dashboard");
 
     await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "Primary navigation" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Your activity follows you across devices/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Welcome back, Shell/i })).toBeVisible();
   });
 
   test("keeps non-study desktop header navigation at the 44px interaction contract", async ({ page }) => {
