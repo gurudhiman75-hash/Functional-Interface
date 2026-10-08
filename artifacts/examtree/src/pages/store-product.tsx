@@ -211,7 +211,7 @@ export default function StoreProductPage() {
 
         <section className="mt-5 grid gap-3 md:grid-cols-3" aria-label="Purchase information">
           {[
-            [CreditCard, "Checkout", "Review your package and price before paying securely with Razorpay."],
+            [CreditCard, "Checkout", "Review your package and price before paying through the available secure payment provider."],
             [ShieldCheck, "Verification", "Your payment status updates automatically after confirmation."],
             [CheckCircle2, "Entitlement", "Open your purchased package and start its included tests from My purchases."],
           ].map(([Icon, title, copy]) => {
