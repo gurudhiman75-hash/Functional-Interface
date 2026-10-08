@@ -37,6 +37,7 @@ export default function PreparationPage() {
     finally { setSaving(false); }
   }
   const ready = !!preferences.data && !preferences.isError;
+  const canContinueWithoutSaving = !editing && preferences.isError;
   return <main className="preparation-screen" id="main-content">
     <section className="preparation-card" aria-labelledby="preparation-heading">
       <a className="preparation-brand" href="/">Exam<span>tree</span></a>
@@ -44,7 +45,7 @@ export default function PreparationPage() {
       <h1 id="preparation-heading">What are you preparing for?</h1>
       <p className="preparation-subtitle">Choose one or more exam categories</p>
       {preferences.isLoading && <p role="status">Loading your choices…</p>}
-      {preferences.isError && <div role="alert"><p>We couldn't load your choices.</p><button type="button" onClick={() => preferences.refetch()}>Try again</button></div>}
+      {preferences.isError && <div role="alert"><p>We couldn't load your choices. You can retry, or continue without saving and choose your exams from your profile later.</p><button type="button" onClick={() => void preferences.refetch()}>Try again</button></div>}
       <div className="preparation-grid" role="group" aria-label="Exam categories">
         {PREPARATION_CATEGORIES.map((category, index) => {
           const Icon = icons[index]; const active = selected.includes(category.id);
@@ -55,7 +56,7 @@ export default function PreparationPage() {
       </div>
       {error && <p role="alert" className="preparation-error">{error}</p>}
       <button className="preparation-continue" type="button" disabled={!ready || saving || selected.length === 0} onClick={() => finish()}>{saving ? "Saving…" : editing ? "Save choices" : "Continue"}<ArrowRight aria-hidden="true" /></button>
-      <button className="preparation-skip" type="button" disabled={!ready || saving} onClick={() => editing ? navigate("/profile") : finish(true)}>{editing ? "Cancel" : "Skip for now"}</button>
+      <button className="preparation-skip" type="button" disabled={saving || (!ready && !canContinueWithoutSaving && !editing)} onClick={() => editing ? navigate("/profile") : canContinueWithoutSaving ? navigate(destination) : void finish(true)}>{editing ? "Cancel" : canContinueWithoutSaving ? "Continue without saving" : "Skip for now"}</button>
       <p className="preparation-note">You can update these in your profile anytime.</p>
     </section>
   </main>;
