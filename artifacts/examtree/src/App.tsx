@@ -144,17 +144,6 @@ function AnalyticsUnavailable() {
   );
 }
 
-function LoginRecoveryShortcut({ location }: { location: string }) {
-  if (location !== "/login" && !location.startsWith("/login/student")) return null;
-  return (
-    <a
-      href="/account-recovery"
-      className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full border bg-background px-4 py-2 text-sm font-medium text-primary shadow-lg hover:bg-muted"
-    >
-      Can’t access your account?
-    </a>
-  );
-}
 
 function Router() {
   const [location] = useLocation();
@@ -171,7 +160,7 @@ function Router() {
       <div key={location} className="animate-fadeInUp">
         <Switch>
           <Route path="/" component={() => renderCatalogPublicRoute(Home)} />
-          <Route path="/login" component={() => renderPublicRoute(Login)} />
+          <Route path="/login" component={() => <Login />} />
           <Route path="/login/student" component={() => renderPublicRoute(Login)} />
           <Route path="/login/admin" component={() => renderPublicRoute(Login)} />
           <Route path="/account-recovery" component={() => renderPublicRoute(AccountRecovery)} />
@@ -373,7 +362,6 @@ function Router() {
           <Route path="/admin/generator" component={() => <AdminRedirect to="/admin/content/questions/generate" />} />
           <Route component={() => renderPublicRoute(NotFound)} />
         </Switch>
-        <LoginRecoveryShortcut location={location} />
       </div>
     </Suspense>
   );
