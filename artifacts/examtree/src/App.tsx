@@ -188,7 +188,7 @@ function Router() {
 
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
-          <Route path="/packages/success/:id" component={() => renderPublicRoute(StoreProduct)} />
+          <Route path="/packages/success/:id" component={() => <Redirect to="/my-packages" />} />
           <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/packages" component={() => renderPublicRoute(Store)} />
 
