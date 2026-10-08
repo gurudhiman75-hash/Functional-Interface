@@ -52,7 +52,7 @@ assert.match(playwrightConfig, /devices\["Desktop Safari"\]/);
 assert.match(playwrightConfig, /cross-browser-polish/);
 assert.match(workflow, /playwright install --with-deps chromium firefox webkit/);
 
-assert.match(proof, /\["firefox", "webkit"\]/);
+assert.match(proof, /\["chromium", "firefox", "webkit"\]/);
 assert.match(proof, /width: 390, height: 844/);
 assert.match(proof, /scrollWidth <= window\.innerWidth \+ 1/);
 assert.match(proof, /keyboard\.press\("Escape"\)/);
