@@ -1,0 +1,94 @@
+import assert from "node:assert/strict";
+import { createHmac } from "node:crypto";
+import { build } from "esbuild";
+
+// Never call Cashfree in this test: all provider responses are simulated.
+await build({
+  entryPoints: ["src/lib/cashfree-payments.ts"],
+  outfile: "dist/cashfree-payments-fixture.mjs",
+  platform: "node",
+  format: "esm",
+  bundle: true,
+  packages: "external",
+});
+const {
+  cashfreeMode, cashfreeSelected, createCashfreeOrder,
+  fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
+} = await import("../dist/cashfree-payments-fixture.mjs");
+
+const previousEnv = Object.fromEntries([
+  "CASHFREE_CLIENT_ID", "CASHFREE_CLIENT_SECRET", "CASHFREE_ENV",
+  "EXAMTREE_PAYMENT_PROVIDER", "EXAMTREE_PUBLIC_ORIGIN",
+].map(key => [key, process.env[key]]));
+const originalFetch = globalThis.fetch;
+
+try {
+  process.env.CASHFREE_CLIENT_ID = "sandbox-test-client";
+  process.env.CASHFREE_CLIENT_SECRET = "sandbox-test-secret";
+  process.env.CASHFREE_ENV = "sandbox";
+  process.env.EXAMTREE_PAYMENT_PROVIDER = "cashfree";
+  process.env.EXAMTREE_PUBLIC_ORIGIN = "https://examtree-new.onrender.com";
+
+  assert.equal(cashfreeSelected(), true);
+  assert.equal(cashfreeMode(), "sandbox");
+  const timestamp = "1760000000";
+  const raw = '{"type":"PAYMENT_SUCCESS_WEBHOOK","data":{"payment":{"payment_status":"SUCCESS"}}}';
+  const signature = createHmac("sha256", process.env.CASHFREE_CLIENT_SECRET)
+    .update(timestamp + raw).digest("base64");
+  assert.equal(verifyCashfreeWebhook(raw, signature, timestamp), true);
+  assert.equal(verifyCashfreeWebhook(raw.replace("SUCCESS", "FAILED"), signature, timestamp), false);
+  assert.equal(verifyCashfreeWebhook(raw, signature.slice(0, -2) + "00", timestamp), false);
+  assert.equal(verifyCashfreeWebhook(raw, signature, ""), false);
+  assert.equal(verifyCashfreeWebhook(raw, signature, "not-a-timestamp"), false);
+
+  const requests = [];
+  globalThis.fetch = async (url, init) => {
+    const endpoint = String(url);
+    requests.push({ url: endpoint, init });
+    const response = endpoint.endsWith("/payments")
+      ? [{ cf_payment_id: 123, payment_status: "SUCCESS" }]
+      : { order_id: "order-test-123", payment_session_id: "sandbox-payment-session" };
+    return new Response(JSON.stringify(response), { status: 200, headers: { "content-type": "application/json" } });
+  };
+
+  const order = await createCashfreeOrder({
+    orderId: "order-test-123", userId: "11111111-1111-4111-8111-111111111111",
+    amountMinor: 2199, currency: "INR", phone: "9876543210", email: "test@example.invalid",
+  });
+  assert.equal(order.order_id, "order-test-123");
+  assert.equal(requests[0].url, "https://sandbox.cashfree.com/pg/orders");
+  assert.equal(requests[0].init.headers["x-api-version"], "2025-01-01");
+  const body = JSON.parse(requests[0].init.body);
+  assert.equal(body.order_amount, 21.99);
+  assert.equal(body.customer_details.customer_phone, "9876543210");
+  assert.equal(body.order_meta.notify_url, "https://examtree-new.onrender.com/api/billing/cashfree/webhook");
+  assert.equal(body.order_meta.return_url, "https://examtree-new.onrender.com/orders/order-test-123");
+  assert.ok(new Date(body.order_expiry_time).getTime() > Date.now());
+
+  await fetchCashfreeOrder("order-test-123");
+  await fetchCashfreePayments("order-test-123");
+  assert.equal(requests[1].url, "https://sandbox.cashfree.com/pg/orders/order-test-123");
+  assert.equal(requests[2].url, "https://sandbox.cashfree.com/pg/orders/order-test-123/payments");
+
+  process.env.EXAMTREE_PUBLIC_ORIGIN = "http://unsafe.example";
+  await assert.rejects(createCashfreeOrder({
+    orderId: "another", userId: "student", amountMinor: 500, currency: "INR", phone: "9876543210",
+  }), /INVALID_CHECKOUT_ORIGIN/);
+  assert.equal(requests.length, 3, "Invalid callback origin must not call the provider");
+
+  process.env.EXAMTREE_PUBLIC_ORIGIN = "https://examtree-new.onrender.com";
+  process.env.CASHFREE_ENV = "production";
+  assert.equal(cashfreeMode(), "production");
+  await fetchCashfreeOrder("order-test-123");
+  assert.equal(requests[3].url, "https://api.cashfree.com/pg/orders/order-test-123");
+
+  globalThis.fetch = async () => new Response('{"message":"provider rejected"}', { status: 403 });
+  await assert.rejects(fetchCashfreeOrder("order-test-123"), /HTTP 403/);
+  console.log("PASS: Cashfree signature validation, origin guard, sandbox and production endpoints, order metadata and rejected provider calls. No real payments.");
+} finally {
+  globalThis.fetch = originalFetch;
+  for (const [key, value] of Object.entries(previousEnv)) {
+    if (value === undefined) delete process.env[key];
+    else process.env[key] = value;
+  }
+}
