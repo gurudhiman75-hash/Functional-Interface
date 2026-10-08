@@ -116,7 +116,7 @@ test.describe("free resources hub", () => {
     await expect(page.getByRole("heading", { name: currentAffairs.title, exact: true })).toBeVisible();
     await expect(page.getByTestId("resource-body")).toContainText("published canonical brief");
     await expect(page.getByTestId("resource-body")).toContainText("Remember the policy decision");
-    await expect(page.getByText("IBPS PO", { exact: true })).toBeVisible();
+    await expect(page.getByTestId("resource-detail-page").getByText("IBPS PO", { exact: true }).first()).toBeVisible();
   });
 
   test("shows a truthful empty state when no canonical learning resources are published", async ({ page }) => {
