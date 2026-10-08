@@ -74,6 +74,23 @@ try {
   await rm(capabilitiesBuilderPath, { force: true });
 }
 
+// A separate ESM worker bundle keeps expensive TRG-002 authority imports
+// entirely outside the live API/health-check event loop.
+await esbuild({
+  entryPoints: [path.resolve(artifactDir, "src/question-studio/trg002-generation-worker.ts")],
+  platform: "node",
+  bundle: true,
+  format: "esm",
+  outfile: path.resolve(distDir, "question-studio-trg002-worker.mjs"),
+  logLevel: "info",
+  sourcemap: false,
+  external: ["*.node", "sharp", "better-sqlite3", "sqlite3", "canvas", "postgres"],
+  banner: {
+    js: `import { createRequire as __trgCrReq } from 'node:module';
+globalThis.require = __trgCrReq(import.meta.url);`,
+  },
+});
+
 await esbuild({
   entryPoints: [path.resolve(artifactDir, "src/index.ts")],
   platform: "node",
