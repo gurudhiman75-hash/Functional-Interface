@@ -68,10 +68,12 @@ export async function adminRequest<T>(
     response = await fetch(`${apiBase}${path}`, requestOptions);
     if (isStudioRead && response.status === 304) {
       // Defensive fallback for proxies that ignore the first no-store hint.
+      const noCacheHeaders = new Headers(requestOptions.headers);
+      noCacheHeaders.set('Cache-Control', 'no-cache');
       response = await fetch(`${apiBase}${path}`, {
         ...requestOptions,
         cache: 'reload',
-        headers: { ...requestOptions.headers, 'Cache-Control': 'no-cache' },
+        headers: noCacheHeaders,
       });
     }
   } catch (cause) {
