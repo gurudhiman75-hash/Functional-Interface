@@ -127,7 +127,7 @@ export default function PackageCheckout() {
 
             if (verifyResult.ok) {
               setProcessingPayment(false);
-              setLocation(`/packages/success/${packageId}`);
+              setLocation("/my-packages");
             } else {
               setProcessingPayment(false);
               toast({
