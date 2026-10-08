@@ -1,5 +1,6 @@
 import { execFile } from "node:child_process";
 import { createRequire } from "node:module";
+import { Worker } from "node:worker_threads";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { mkdir, rm } from "node:fs/promises";
@@ -73,6 +74,71 @@ try {
 } finally {
   await rm(capabilitiesBuilderPath, { force: true });
 }
+
+// A separate ESM worker bundle keeps expensive TRG-002 authority imports
+// entirely outside the live API/health-check event loop.
+await esbuild({
+  entryPoints: [path.resolve(artifactDir, "src/question-studio/trg002-generation-worker.ts")],
+  platform: "node",
+  bundle: true,
+  format: "esm",
+  outfile: path.resolve(distDir, "question-studio-trg002-worker.mjs"),
+  logLevel: "info",
+  sourcemap: false,
+  external: ["*.node", "sharp", "better-sqlite3", "sqlite3", "canvas", "postgres"],
+  banner: {
+    js: `import { createRequire as __trgCrReq } from 'node:module';
+globalThis.require = __trgCrReq(import.meta.url);`,
+  },
+});
+
+// Smoke-test the compiled worker with the approved medium-difficulty chapter
+// mix. This catches broken bundle paths and actual generator failures before
+// a deployment can expose an unusable Generate button.
+const workerSmoke = await new Promise((resolve, reject) => {
+  const worker = new Worker(path.resolve(distDir, "question-studio-trg002-worker.mjs"), {
+    workerData: {
+      request: {
+        engineId: "quant-v4",
+        packageId: "TRG-002",
+        exam: "SSC CGL Tier 1",
+        subject: "Quantitative Aptitude",
+        topic: "Advanced Mathematics",
+        subtopic: "Trigonometry — Heights & Distances",
+        language: "en",
+        difficulty: "Medium",
+        count: 1,
+        seed: "trg002-build-worker-smoke-v1",
+      },
+      selectedCpIds: [],
+      count: 1,
+    },
+  });
+  let settled = false;
+  const settle = (error, result) => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    void worker.terminate();
+    if (error) reject(error);
+    else resolve(result);
+  };
+  const timer = setTimeout(() => settle(new Error("TRG-002 compiled worker smoke timed out")), 120_000);
+  worker.once("message", (data) => {
+    if (!data?.ok) {
+      settle(new Error(data?.error?.message || "TRG-002 compiled worker smoke failed"));
+      return;
+    }
+    settle(null, data.batch);
+  });
+  worker.once("error", (error) => settle(error));
+  worker.once("exit", (code) => { if (code !== 0) settle(new Error("TRG-002 smoke worker exited " + code)); });
+});
+if (!workerSmoke || workerSmoke.questions?.length !== 1
+    || workerSmoke.questions[0]?.packageId !== "TRG-002") {
+  throw new Error("TRG-002 compiled worker produced an invalid smoke batch");
+}
+console.log("[render-build] TRG-002 off-thread Medium English generation smoke passed");
 
 await esbuild({
   entryPoints: [path.resolve(artifactDir, "src/index.ts")],

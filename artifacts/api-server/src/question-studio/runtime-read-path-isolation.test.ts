@@ -43,6 +43,28 @@ assert.match(runtimeBuild, /question-studio-capabilities\.json/);
 assert.match(runtimeBuild, /QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT/);
 assert.match(runtimeBuild, /execFileAsync/);
 
+const app = readFileSync(resolve(sourceRoot, "app.ts"), "utf8");
+const offThreadRouter = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-trg002-worker.ts"), "utf8",
+);
+const offThreadWorker = readFileSync(
+  resolve(sourceRoot, "question-studio/trg002-generation-worker.ts"), "utf8",
+);
+const workerMount = app.indexOf('app.use("/api/admin/question-studio", adminRequestObservability, (req, res, next) => {');
+const legacyMount = app.indexOf('app.use("/api", adminRequestObservability, (req, res, next) => {');
+assert(workerMount >= 0 && workerMount < legacyMount, "TRG-002 worker must precede the legacy API import.");
+assert.match(app, /req\.body\?\.packageId !== "TRG-002"/);
+assert.match(offThreadRouter, /new Worker\(workerFile/);
+assert.match(offThreadRouter, /requireAdminPermission\("content\.generation\.run"\)/);
+assert.match(offThreadRouter, /sqlClient\.begin/);
+assert.match(offThreadRouter, /TRG002_GENERATOR_BUSY/);
+assert.doesNotMatch(offThreadRouter, /engine-registry|quant-v4-adapter/);
+assert.match(offThreadWorker, /generateProfiledQuantBatch/);
+assert.match(offThreadWorker, /generateTrg002V4QuestionStudioBatch/);
+assert.doesNotMatch(offThreadWorker, /engine-registry|quant-v4-adapter/);
+assert.match(runtimeBuild, /trg002-generation-worker\.ts/);
+assert.match(runtimeBuild, /question-studio-trg002-worker\.mjs/);
+
 const manifestBuilder = readFileSync(
   resolve(sourceRoot, "question-studio/build-question-studio-capabilities-manifest.ts"),
   "utf8",
