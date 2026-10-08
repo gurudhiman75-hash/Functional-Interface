@@ -33,6 +33,9 @@ const e2eAuthUser = e2eAuthToken
 const e2eAuthInstance = e2eAuthUser
   ? ({
       currentUser: e2eAuthUser,
+      // Modular signOut delegates to auth.signOut(). Implement it for the
+      // synthetic browser-test Auth so logout journeys exercise actual cleanup.
+      signOut: async () => { if (e2eAuthInstance) e2eAuthInstance.currentUser = null; },
       onAuthStateChanged: (
         observer:
           | ((user: FirebaseUser | null) => void)
