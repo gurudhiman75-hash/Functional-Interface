@@ -118,6 +118,20 @@ app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAff
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsSelectedProcessingRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsPackEditorialRouter);
 
+// TRG-002 generation is CPU-heavy on a 0.15-CPU Render Free instance.
+// Handle only that package in an isolated worker-backed endpoint, before
+// importing the legacy API graph. All other Question Studio paths stay intact.
+const trg002OffThreadRouter = lazyRouter(
+  () => import("./routes/admin-question-studio-trg002-worker"),
+);
+app.use("/api/admin/question-studio", adminRequestObservability, (req, res, next) => {
+  if (req.method !== "POST" || req.path !== "/runs" || req.body?.packageId !== "TRG-002") {
+    next();
+    return;
+  }
+  trg002OffThreadRouter(req, res, next);
+});
+
 // The legacy API router pulls in Question Studio generators and large static
 // content registries. Keep it out of the startup path so Render can bind /health
 // within the 512 MiB service envelope. The router is loaded once, on the first
