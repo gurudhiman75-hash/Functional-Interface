@@ -52,6 +52,7 @@ const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore Exams", href: "/exams", icon: LayoutDashboard },
   { label: "Free Resources", href: "/resources", icon: Newspaper },
+  { label: "Previous Papers", href: "/pyqs", icon: Newspaper },
   { label: "Store", href: "/store", icon: ShoppingBag },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
   { label: "Analytics", href: "/performance", icon: BarChart3, authNext: "/performance" },
