@@ -161,8 +161,8 @@ function Router() {
         <Switch>
           <Route path="/" component={() => renderCatalogPublicRoute(Home)} />
           <Route path="/login" component={() => <Login />} />
-          <Route path="/login/student" component={() => renderPublicRoute(Login)} />
-          <Route path="/login/admin" component={() => renderPublicRoute(Login)} />
+          <Route path="/login/student" component={() => <Login />} />
+          <Route path="/login/admin" component={() => <Login />} />
           <Route path="/account-recovery" component={() => renderPublicRoute(AccountRecovery)} />
           <Route path="/account-deletion" component={() => renderPublicRoute(AccountDeletion)} />
 
