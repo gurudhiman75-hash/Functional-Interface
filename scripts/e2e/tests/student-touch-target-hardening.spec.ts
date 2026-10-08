@@ -58,7 +58,7 @@ test.describe("CP02 page-level touch targets", () => {
     });
 
     await page.goto("/login/student");
-    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
 
     await expectTouchTarget(page.getByTestId("tab-login"));
     await expectTouchTarget(page.getByTestId("tab-signup"));
