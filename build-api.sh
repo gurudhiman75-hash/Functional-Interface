@@ -83,6 +83,14 @@ else
   (cd artifacts/api-server && node dist/notes-studio-v2-migrate.mjs)
 fi
 
+# Validate profile input before publishing either profile form or API.
+echo "[render-build] validate student profile inputs"
+pnpm --dir artifacts/api-server exec esbuild src/lib/student-profile-validation.ts --bundle --platform=node --format=esm --outfile=dist/student-profile-validation.mjs
+node --test artifacts/api-server/tests/student-profile-validation.test.mjs
+(cd artifacts/api-server && node tests/student-profile-routes.test.mjs)
+echo "[render-build] typecheck student app"
+pnpm --dir artifacts/examtree typecheck
+
 # Build the student app. Its build also generates the public prerender files.
 echo "[render-build] build student app"
 pnpm --dir artifacts/examtree build

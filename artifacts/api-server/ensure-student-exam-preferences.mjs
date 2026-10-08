@@ -40,7 +40,9 @@ try {
 
   const preparationMigration = await readFile(path.join(here, "migrations", "20261008_student_preparation_preferences.sql"), "utf8");
   await sql.unsafe(preparationMigration);
-  console.log("[render-build] student exam and preparation preferences schema verified");
+  const profileMigration = await readFile(path.join(here, "migrations", "20261008_student_profile_details.sql"), "utf8");
+  await sql.unsafe(profileMigration);
+  console.log("[render-build] student exam, preparation and editable profile schemas verified");
 } finally {
   await sql.end({ timeout: 5 });
 }

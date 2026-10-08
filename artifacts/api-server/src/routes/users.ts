@@ -131,7 +131,7 @@ async function ensureCanonicalUser(input: {
         UPDATE identity.users
         SET email = COALESCE(${normalizedEmail}, email),
             phone = COALESCE(${normalizedPhone}, phone),
-            display_name = ${displayName},
+            display_name = COALESCE((SELECT full_name FROM identity.student_profile_details WHERE user_id = ${userId}::uuid), ${displayName}),
             last_login_at = now(),
             updated_at = now()
         WHERE id = ${userId}::uuid
