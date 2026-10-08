@@ -163,7 +163,7 @@ function Router() {
           <Route path="/login" component={() => <Login />} />
           <Route path="/login/student" component={() => <Login />} />
           <Route path="/login/admin" component={() => <Login />} />
-          <Route path="/account-recovery" component={() => renderPublicRoute(AccountRecovery)} />
+          <Route path="/account-recovery" component={() => <AccountRecovery />} />
           <Route path="/account-deletion" component={() => renderPublicRoute(AccountDeletion)} />
 
           <Route path="/collections/:slug" component={() => renderCatalogPublicRoute(ExamCollectionPage)} />
