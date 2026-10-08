@@ -523,14 +523,14 @@ test.describe("canonical student reliability", () => {
     await installApiFixtures(page, { completedFirst: true, serverDraft: null });
     await openAsStudent(page, "/dashboard");
 
-    await expect(page.getByRole("heading", { name: "Welcome back, E2E Student" })).toBeVisible();
-    await expect(page.getByText("Foundation Mock")).toBeVisible();
-    await expect(page.getByText("1 saved")).toBeVisible();
-    await expect(page.getByText(/2 correct, 0 wrong/)).toBeVisible();
+    await expect(page.getByTestId("student-dashboard")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Recent attempts" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "View result" })).toHaveAttribute(
+    await expect(page.getByText("Foundation Mock").first()).toBeVisible();
+    await expect(page.getByText(/Score 100% · Accuracy 100%/)).toBeVisible();
+    await expect(page.getByRole("link", { name: /Review mistakes/ }).first()).toHaveAttribute(
       "href",
-      "/result?attemptId=attempt-result-1&testId=test-1",
+      "/result?attemptId=attempt-result-1",
     );
   });
 });

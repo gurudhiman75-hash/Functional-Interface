@@ -45,7 +45,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     const hubResponse = await request.get("/ssc-cgl.html");
     expect(hubResponse.ok()).toBe(true);
     const hubHtml = await hubResponse.text();
-    expect(hubHtml).toContain("<title>SSC CGL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree</title>");
+    expect(hubHtml).toContain("<title>SSC CGL Preparation, Syllabus, Mock Tests &amp; Free Questions | ExamTree</title>");
     expect(hubHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-cgl"`);
     expect(hubHtml).toContain("SSC CGL preparation hub");
 
@@ -60,7 +60,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     const hubResponse = await request.get("/ssc-chsl.html");
     expect(hubResponse.ok()).toBe(true);
     const hubHtml = await hubResponse.text();
-    expect(hubHtml).toContain("<title>SSC CHSL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree</title>");
+    expect(hubHtml).toContain("<title>SSC CHSL Preparation, Syllabus, Mock Tests &amp; Free Questions | ExamTree</title>");
     expect(hubHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-chsl"`);
     expect(hubHtml).toContain("SSC CHSL preparation hub");
 

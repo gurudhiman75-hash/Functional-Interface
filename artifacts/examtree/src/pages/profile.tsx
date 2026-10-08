@@ -150,16 +150,16 @@ export default function ProfilePage() {
     const auth = getFirebaseAuth(); if (auth) await signOut(auth);
     clearAuth(); navigate("/");
   }
-  if (!user) return <div className="student-profile"><h1>My profile</h1><p>Sign in to view and edit your profile.</p><Link href="/login/student">Sign in <ArrowRight /></Link></div>;
-  if (query.isLoading) return <div className="student-profile"><p role="status">Loading your profile…</p></div>;
-  if (query.isError || !query.data) return <div className="student-profile"><h1>My profile</h1><p role="alert">We couldn't load your profile.</p><button className="profile-primary" onClick={() => query.refetch()}>Try again</button></div>;
+  if (!user) return <div className="min-h-screen bg-background student-profile"><h1>My profile</h1><p>Sign in to view and edit your profile.</p><Link href="/login/student">Sign in <ArrowRight /></Link></div>;
+  if (query.isLoading) return <div className="min-h-screen bg-background student-profile"><p role="status">Loading your profile…</p></div>;
+  if (query.isError || !query.data) return <div className="min-h-screen bg-background student-profile"><h1>My profile</h1><p role="alert">We couldn't load your profile.</p><button className="profile-primary" onClick={() => query.refetch()}>Try again</button></div>;
   const profile = query.data;
   const initials = (form.fullName || user.name).split(" ").filter(Boolean).slice(0, 2).map(part => part[0]).join("").toUpperCase();
   const dirty = JSON.stringify(form) !== JSON.stringify(fieldsFrom(profile));
   const emailVerified = profile.emailVerified && email.trim().toLowerCase() === profile.email?.toLowerCase();
   const phoneValue = phone.replace(/[\s()-]/g, "");
   const phoneVerified = profile.phoneVerified && (phoneValue.startsWith("+") ? phoneValue : "+91" + phoneValue) === profile.phoneNumber;
-  return <div className={"student-profile " + (keyboardOpen ? "profile-keyboard-open" : "")}>
+  return <div className={"min-h-screen bg-background student-profile " + (keyboardOpen ? "profile-keyboard-open" : "")}>
     <header className="profile-heading"><div><h1>My profile</h1><p>Update your details whenever you like.</p></div><p>All additional details are optional.</p></header>
     <div className="profile-person">
       <div className="profile-avatar">{photo.data?.photo ? <img src={photo.data.photo} alt="Your profile" /> : initials}</div>

@@ -107,6 +107,8 @@ const homeSeries = {
   durationSeconds: 43200,
   questionCount: 1200,
   attemptCount: 2400,
+  learnerVisibility: "live",
+  learnerMessage: "",
 };
 
 async function fulfillJson(route: Route, body: unknown, status = 200) {
@@ -167,6 +169,9 @@ async function installStudentFixtures(page: Page) {
       return fulfillJson(route, { series: [homeSeries], generatedAt: "2026-08-29T00:00:00.000Z" });
     }
     if (path === "/users/me") return fulfillJson(route, student);
+    if (path === "/users/me/profile") return fulfillJson(route, { fullName: student.name, email: student.email, phoneNumber: null, dateOfBirth: null, state: null, city: null, address: null, socialCategory: null, preferredLanguageCode: "en", emailVerified: true, phoneVerified: false, hasPhoto: false });
+    if (path === "/users/me/profile/photo") return fulfillJson(route, { photo: null });
+    if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
     if (path === "/analytics") {
       return fulfillJson(route, { averageScore: 0, highestScore: 0, totalAttempts: 0, recentAttempts: [] });
     }
@@ -192,7 +197,7 @@ test.describe("student workflow hardening", () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
-    const signup = page.getByTestId("public-header-actions").getByRole("link", { name: "Sign up", exact: true });
+    const signup = page.getByTestId("public-header-actions").getByRole("link", { name: "Sign Up", exact: true });
     await expect(signup).toHaveAttribute("href", "/login/student?mode=signup");
   });
 
@@ -211,8 +216,8 @@ test.describe("student workflow hardening", () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/profile");
 
-    await expect(page.getByRole("heading", { name: "Welcome back, Flow Student" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Tests & Exams", exact: true })).toHaveAttribute("href", "/exams");
+    await expect(page.getByRole("heading", { name: "My profile" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "My activity" }).last()).toHaveAttribute("href", "/dashboard");
     await expect(page.getByRole("button", { name: "Select Targeted Exam", exact: true })).toBeVisible();
   });
 
@@ -222,49 +227,44 @@ test.describe("student workflow hardening", () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/profile");
 
-    await expect(page.getByRole("heading", { name: "Welcome back, Flow Student" })).toBeVisible();
-    await page.locator("#main-content").getByRole("button", { name: "Log out", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "My profile" })).toBeVisible();
+    await page.getByRole("navigation", { name: "Account options" }).getByRole("button", { name: "Log out", exact: true }).click();
 
     await expect(page).toHaveURL(/\/$/);
     const savedUser = await page.evaluate(() => window.localStorage.getItem("user"));
     expect(savedUser).toBeNull();
-    await expect(page.getByTestId("public-header-actions").getByRole("link", { name: "Log in", exact: true })).toBeVisible();
+    await expect(page.getByTestId("public-header-actions").getByRole("link", { name: "Login", exact: true })).toBeVisible();
   });
 
-  test("homepage opens SSC Banking Punjab categories, all exams, and the selected test series", async ({ page }) => {
+  test("homepage opens the correct SSC, Banking and Punjab exams and protects a selected published series", async ({ page }) => {
     await installStudentFixtures(page);
-    await seedStudent(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
-    const categoryGrid = page.getByTestId("home-category-grid");
-    const ssc = categoryGrid.getByRole("button").filter({ hasText: "SSC" });
-    const banking = categoryGrid.getByRole("button").filter({ hasText: "Banking" });
-    const punjab = categoryGrid.getByRole("button").filter({ hasText: "Punjab State Exams" });
-    await expect(ssc).toBeVisible();
-    await expect(banking).toBeVisible();
-    await expect(punjab).toBeVisible();
+    const grid = page.getByTestId("home-direct-exam-grid");
+    await expect(grid.getByRole("button").filter({ hasText: "SSC CGL" })).toBeVisible();
+    await expect(grid.getByRole("button").filter({ hasText: "IBPS PO" })).toBeVisible();
+    await expect(grid.getByRole("button").filter({ hasText: "Punjab Police" })).toBeVisible();
 
-    await ssc.click();
-    await expect(page).toHaveURL(/\/category\/ssc$/);
+    await grid.getByRole("button").filter({ hasText: "SSC CGL" }).click();
+    await expect(page).toHaveURL(/\/ssc-cgl$/);
 
     await page.goto("/");
-    await categoryGrid.getByRole("button").filter({ hasText: "Banking" }).click();
-    await expect(page).toHaveURL(/\/category\/banking$/);
+    await grid.getByRole("button").filter({ hasText: "IBPS PO" }).click();
+    await expect(page).toHaveURL(/\/ibps-po$/);
 
     await page.goto("/");
-    await categoryGrid.getByRole("button").filter({ hasText: "Punjab State Exams" }).click();
-    await expect(page).toHaveURL(/\/category\/punjab-state$/);
+    await grid.getByRole("button").filter({ hasText: "Punjab Police" }).click();
+    await expect(page).toHaveURL(/\/subcategory\/punjab-police(?:\?.*)?$/);
 
     await page.goto("/");
-    await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Exams", exact: true }).click();
-    await expect(page).toHaveURL(/\/exams$/);
-
-    await page.goto("/");
-    const seriesCard = page.getByRole("article").filter({ hasText: homeSeries.name });
-    await expect(seriesCard).toBeVisible();
-    await seriesCard.getByRole("button", { name: "View series", exact: true }).click();
-    await expect(page).toHaveURL(/\/test-series\/home-series-banking$/);
-    await expect(page.getByRole("heading", { name: homeSeries.name, exact: true })).toBeVisible();
+    const series = page.getByRole("button").filter({ hasText: homeSeries.name }).first();
+    await expect(series).toBeVisible();
+    // The featured strip intentionally auto-scrolls; a pointer hover pauses it.
+    // Freeze its track for a deterministic accessibility/navigation assertion.
+    await page.locator(".featured-marquee-track").evaluateAll((tracks) => tracks.forEach((track) => { (track as HTMLElement).style.animationPlayState = "paused"; }));
+    await series.click();
+    await expect(page).toHaveURL(/\/login\/student\?next=/);
+    expect(new URL(page.url()).searchParams.get("next")).toBe("/test-series/home-series-banking");
   });
 });

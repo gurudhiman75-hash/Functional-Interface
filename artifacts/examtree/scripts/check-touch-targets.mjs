@@ -30,7 +30,7 @@ assert.match(accessibility, /a\.fixed\[href="\/account-recovery"\][\s\S]*?min-bl
 assert.match(login, /data-testid="tab-login"/, "login tab must remain covered by browser proof");
 assert.match(login, /data-testid="btn-toggle-password"/, "password visibility control must remain covered by browser proof");
 assert.match(login, /data-testid="btn-forgot-password"/, "forgot-password control must remain covered by browser proof");
-assert.match(activity, /size="sm"[\s\S]*?View result/, "small Activity result action must inherit the hardened shared target");
+assert.match(activity, /min-h-11[\s\S]*?href=\{"\/result\?attemptId="[\s\S]*?Review mistakes/, "dashboard saved-result links must meet the 44px target and include a canonical attempt id");
 assert.match(examsMarketplace, /size="sm"[\s\S]*?Start Free/, "small exam-marketplace action must inherit the hardened shared target");
 assert.match(result, /size="sm"[\s\S]*?setFilter/, "small result filter actions must inherit the hardened shared target");
 

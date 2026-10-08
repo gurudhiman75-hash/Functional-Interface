@@ -64,6 +64,9 @@ async function installApiFixtures(page: Page, attempts: ReturnType<typeof attemp
     if (path === "/published-tests") return fulfillJson(route, { tests: [], generatedAt: "2026-07-21T06:00:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-07-21T06:00:00.000Z" });
     if (path === "/users/me" && method === "GET") return fulfillJson(route, student);
+    if (path === "/users/me/profile" && method === "GET") return fulfillJson(route, { fullName: student.name, email: student.email, phoneNumber: null, dateOfBirth: null, state: null, city: null, address: null, socialCategory: null, preferredLanguageCode: "en", emailVerified: true, phoneVerified: false, hasPhoto: false });
+    if (path === "/users/me/profile/photo") return fulfillJson(route, { photo: null });
+    if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
     if (path === "/users" && method === "POST") return fulfillJson(route, student, 201);
     if (path === "/users/me/entitlements") return fulfillJson(route, { testIds: [] });
     if (path === "/analytics") {
@@ -172,15 +175,16 @@ test.describe("CP01B student production hardening", () => {
 
     await openAsStudent(page, "/profile");
 
-    await expect(page.getByRole("heading", { name: /Welcome back, E2E Student/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "My profile" })).toBeVisible();
     await expect(page.getByText("Member since")).toHaveCount(0);
-    await expect(page.getByRole("link", { name: "Performance" })).toHaveCount(0);
+    await expect(page.getByText("Predicted percentile")).toHaveCount(0);
 
+    await page.getByText("Recent results", { exact: true }).click();
     const firstAttemptLink = page.locator('a[href^="/result?"]').first();
     await expect(firstAttemptLink).toHaveAttribute("href", /attemptId=attempt-result-1/);
     await expect(firstAttemptLink).toHaveAttribute("href", /testId=test-1/);
-    await expect(page.getByRole("link", { name: "View all attempts" })).toHaveAttribute("href", "/dashboard");
-    await expect(page.locator('a[href="/dashboard"]').filter({ hasText: "My Activity" }).last()).toHaveAttribute("href", "/dashboard");
+    await expect(page.getByRole("link", { name: "My activity" }).last()).toHaveAttribute("href", "/dashboard");
+    await expect(page.getByRole("link", { name: "Purchases & access" })).toHaveAttribute("href", "/my-packages");
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);

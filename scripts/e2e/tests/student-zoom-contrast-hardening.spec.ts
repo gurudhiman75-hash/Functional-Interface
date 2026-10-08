@@ -32,6 +32,9 @@ async function installFixtures(page: Page) {
       return fulfillJson(route, { series: [], generatedAt: "2026-08-19T10:00:00.000Z" });
     }
     if (path === "/users/me" && method === "GET") return fulfillJson(route, student);
+    if (path === "/users/me/profile" && method === "GET") return fulfillJson(route, { fullName: student.name, email: student.email, phoneNumber: null, dateOfBirth: null, state: null, city: null, address: null, socialCategory: null, preferredLanguageCode: "en", emailVerified: true, phoneVerified: false, hasPhoto: false });
+    if (path === "/users/me/profile/photo") return fulfillJson(route, { photo: null });
+    if (path === "/users/me/preparation-preferences") return fulfillJson(route, { categories: ["ssc"], onboardingCompleted: true });
     if (path === "/analytics") {
       return fulfillJson(route, {
         totalAttempts: 0,
@@ -123,6 +126,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     await expect(publicCta).toBeVisible();
     expect(await contrastRatio(publicCta)).toBeGreaterThanOrEqual(4.5);
 
+    await page.addInitScript((profile) => localStorage.setItem("user", JSON.stringify(profile)), student);
     await page.goto("/dashboard");
     const activity = page.getByRole("button", { name: "My activity" });
     const profile = page.getByRole("button", { name: "User profile" });
@@ -132,7 +136,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     expect(await contrastRatio(activity)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(profile)).toBeGreaterThanOrEqual(4.5);
 
-    const sidebarTests = page.getByRole("link", { name: "Tests & Exams" });
+    const sidebarTests = page.getByRole("link", { name: "My Exams" });
     await expect(sidebarTests).toBeVisible();
     expect(await contrastRatio(sidebarTests)).toBeGreaterThanOrEqual(4.5);
   });
@@ -146,6 +150,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     await expect(page.getByRole("heading").first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
+    await page.addInitScript((profile) => localStorage.setItem("user", JSON.stringify(profile)), student);
     await page.goto("/dashboard");
     await expect(page.getByRole("button", { name: "Select Targeted Exam" })).toBeVisible();
     await expect(page.getByRole("button", { name: "My activity" })).toBeVisible();
@@ -155,7 +160,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
 
     await seedProfile(page);
     await page.goto("/profile");
-    await expect(page.getByRole("heading", { name: "Welcome back, Zoom Student" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "My profile" })).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 
@@ -169,8 +174,8 @@ test.describe("CP02 zoom reflow and contrast", () => {
       document.documentElement.classList.add("dark");
     });
 
-    const heading = page.getByRole("heading", { name: "Welcome back, Zoom Student" });
-    const supportingCopy = page.getByText("Review your saved attempts, package history, and account details.");
+    const heading = page.getByRole("heading", { name: "My profile" });
+    const supportingCopy = page.getByText("Update your details whenever you like.");
     await expect(heading).toBeVisible();
     await expect(supportingCopy).toBeVisible();
     expect(await contrastRatio(heading)).toBeGreaterThanOrEqual(4.5);

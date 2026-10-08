@@ -45,16 +45,17 @@ const homeLinks = [
   { label: "Study Material", href: "/resources" },
   { label: "Current Affairs", href: "/current-affairs" },
   { label: "Free Tests", href: "/mock-tests" },
-  { label: "Blog", href: "/resources" },
+  { label: "Store", href: "/store" },
 ];
 
 const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore Exams", href: "/exams", icon: LayoutDashboard },
   { label: "Free Resources", href: "/resources", icon: Newspaper },
+  { label: "Previous Papers", href: "/pyqs", icon: Newspaper },
   { label: "Store", href: "/store", icon: ShoppingBag },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
-  { label: "Analytics", icon: BarChart3, disabled: true },
+  { label: "Analytics", href: "/performance", icon: BarChart3, authNext: "/performance" },
   { label: "Support", href: "/contact", icon: ArrowRight },
   { label: "Settings", href: "/profile", icon: Settings, authNext: "/profile" },
 ];
@@ -210,7 +211,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                 </>
               </>
             ) : user ? (
-              <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+              <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-[#4338ca] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#3730a3] hover:shadow-md">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 My dashboard
               </Link>
@@ -218,7 +219,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <>
                 <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">Sign in</Link>
                 {!showStudySidebar ? (
-                  <Link href="/exams" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+                  <Link href="/exams" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-[#3730a3] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#312e81] hover:shadow-md">
                     Browse tests <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 ) : null}
@@ -320,7 +321,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">{column.title}</h2>
                   <div className="mt-3 space-y-2.5">
                     {column.links.map((item) => (
-                      <Link key={item.href} href={item.href} className="et-interactive block rounded-sm text-sm font-medium text-muted-foreground hover:text-primary">{item.label}</Link>
+                      <Link key={item.href} href={item.href} className="et-interactive block rounded-sm text-sm font-medium text-foreground hover:text-primary">{item.label}</Link>
                     ))}
                   </div>
                 </div>

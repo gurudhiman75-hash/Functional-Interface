@@ -34,7 +34,6 @@ on:
       - artifacts/admin-app/src/test/admin-navigation.test.ts
       - docs/student-administration-foundation.md
       - docs/frontend-truth-audit.md
-      - .github/workflows/student-administration.yml
   push:
     branches: [New-main]
     paths:
@@ -131,7 +130,7 @@ jobs:
           grep -F 'SESSION_REVOKED' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'ACCOUNT_RECOVERY_COMPLETED' artifacts/examtree/src/lib/auth.ts
           grep -F 'account-recovery-completed' artifacts/examtree/src/lib/auth.ts
-          grep -F 'Can’t access your account?' artifacts/examtree/src/App.tsx
+          grep -F 'Can’t access your account?' artifacts/examtree/src/pages/login.tsx
           grep -F '/account-recovery' artifacts/examtree/src/App.tsx
           grep -F 'sendPasswordResetEmail' artifacts/examtree/src/pages/account-recovery.tsx
           grep -F '/account-recovery/request' artifacts/examtree/src/pages/account-recovery.tsx

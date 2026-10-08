@@ -17,6 +17,8 @@ const files = {
 
 const forbidden = [
   ["home", "Current Active Users", "Do not present derived attempt counts as live-user telemetry."],
+  ["home", "FEATURED_SERIES_STRIP", "Do not show static featured-series prices or test totals."],
+  ["home", "5,00,000+ aspirants", "Do not display unsupported learner totals."],
   ["home", "Questions Generated:", "Do not present generated-question marketing counters without a canonical metric."],
   ["home", "Most Advanced", "Avoid unverifiable product superlatives on production surfaces."],
   ["home", "Amandeep K.", "Prototype testimonial must not appear in production."],
@@ -64,8 +66,8 @@ const required = [
   ["home", 'setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)', "Homepage category discovery must preserve preview routing and canonical production category routing."],
   ["home", 'setLocation("/mock-tests")', "Homepage should retain a direct live mock-test action."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
-  ["category", "The exam catalog is temporarily unavailable. Please try again.", "Category-page errors should use student-safe recovery copy."],
-  ["category", "Browse Packages", "Category commerce CTA should remain neutral rather than inventing an offer."],
+  ["category", "The exam catalogue is temporarily unavailable.", "Category-page errors should use student-safe recovery copy."],
+  ["category", "Published series", "Category pages must show live published inventory rather than unsupported bundle offers."],
   ["subcategory", "The exam catalog is temporarily unavailable. Please try again.", "Exam-page errors should use student-safe recovery copy."],
   ["subcategory", "attemptId=${encodeURIComponent(latestAttempt.id)}", "Exam-page review actions must carry the exact saved attempt id."],
   ["subcategory", "Each published test uses its configured duration and section rules.", "Exam-page timing copy must describe configured product data rather than unverifiable official parity."],

@@ -20,16 +20,16 @@
 .notebook-form [data-testid=btn-submit]:hover{background:#382aaf}
 .notebook-form form{margin-top:0}
 .auth-forgot-row{text-align:right}
-.auth-forgot{min-height:32px;padding:2px 0;color:#493ddb;font-weight:500;font-size:13px}
+.auth-forgot{min-height:44px;padding:2px 0;color:#493ddb;font-weight:500;font-size:13px}
 .notebook-form .auth-forgot-row:empty{display:none}
-.auth-inline-login{color:#493ddb;font-weight:700;min-height:36px;padding:4px}
+.auth-inline-login{color:#493ddb;font-weight:700;min-height:44px;padding:8px;border-radius:8px}
 .auth-legal{text-align:center;font-size:12px;color:#65709a;margin:18px auto 0;max-width:568px}
 .auth-legal a{color:#4536cf;text-decoration:underline}
 .auth-benefits{display:flex;justify-content:center;gap:0;margin:40px auto 0;max-width:760px;color:#46467d;font-size:14px}
 .auth-benefits span{display:flex;gap:15px;align-items:center;padding:0 30px;border-right:1px solid #ddddeb}
 .auth-benefits span:last-child{border-right:0}
 .auth-benefits svg{width:28px;height:28px;stroke-width:1.5}
-.auth-recovery{display:block;text-align:center;margin-top:22px;font-size:12px;color:#65709a}
+.auth-recovery{display:flex;min-height:44px;align-items:center;justify-content:center;text-align:center;margin-top:22px;font-size:12px;color:#65709a}
 .notebook-login button:focus-visible,.notebook-login a:focus-visible{outline:2px solid #6151db;outline-offset:3px}
 @media(max-width:600px){
 .notebook-topbar{padding:12px 18px}.notebook-brand{font-size:20px}.notebook-topbar>button{font-size:12px}

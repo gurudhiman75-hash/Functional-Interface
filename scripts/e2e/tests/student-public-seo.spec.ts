@@ -76,7 +76,7 @@ test.describe("CP03 public SEO metadata", () => {
     });
 
     await page.goto("/login/student?next=%2Fdashboard");
-    await expect(page.getByRole("heading", { name: "Welcome to examtree" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible();
     expect(new URL(page.url()).pathname).toBe("/login/student");
     const meta = await metadata(page);
     const origin = new URL(page.url()).origin;

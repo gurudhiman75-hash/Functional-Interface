@@ -57,9 +57,9 @@ assert.match(proof, /expect\(page\.getByText\("0 published tests", \{ exact: tru
 assert.match(proof, /getByRole\("button", \{ name: "Retry catalog" \}\)\.click\(\)/);
 assert.match(proof, /__catalogRetrySentinel = "preserved"/);
 assert.match(proof, /expect\(page\.getByTestId\("home-reference"\)\)\.toBeVisible\(\)/);
-assert.match(proof, /getByTestId\("home-category-grid"\)\.getByRole\("button"\)\)\.toHaveCount\(1\)/);
-assert.match(proof, /getByTestId\("home-category-grid"\)\)\.toContainText\("SSC"\)/);
-assert.match(proof, /getByTestId\("home-category-grid"\)\)\.toContainText\("1\+ tests"\)/);
+assert.match(proof, /getByTestId\("home-direct-exam-grid"\)\.getByRole\("button"\)\)\.toHaveCount\(1\)/);
+assert.match(proof, /getByTestId\("home-direct-exam-grid"\)\)\.toContainText\("SSC"\)/);
+assert.match(proof, /getByTestId\("home-direct-exam-grid"\)\)\.toContainText\("1 test"\)/);
 assert.match(proof, /No mock tests are published yet/);
 assert.match(proof, /expect\(page\.getByTestId\("catalog-unavailable"\)\)\.toHaveCount\(0\)/);
 assert.match(proof, /state\.requests\)\.toBeGreaterThanOrEqual\(3\)/);

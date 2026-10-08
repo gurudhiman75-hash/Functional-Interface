@@ -16,12 +16,12 @@ assert.match(appSource, /path="\/" component=\{\(\) => renderCatalogPublicRoute\
 assert.match(appSource, /path="\/exams" component=\{\(\) => renderCatalogPublicRoute\(Tests\)\}/, "test discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/category\/:id" component=\{\(\) => renderCatalogPublicRoute\(Category\)\}/, "category discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderCatalogPublicRoute\(Subcategory\)\}/, "exam discovery must use the acquisition shell while retaining catalog context");
-assert.match(appSource, /path="\/login\/student" component=\{\(\) => renderPublicRoute\(Login\)\}/, "student login must not be trapped inside the preparation sidebar");
-assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
+assert.match(appSource, /path="\/login\/student" component=\{\(\) => <Login \/>\}/, "student login must render its standalone auth screen without the study sidebar");
+assert.match(appSource, /path="\/dashboard" component=\{\(\) => <ProtectedRoute component=\{Dashboard\} \/>\}/, "dashboard must be session-protected and retain its preparation shell");
 assert.match(appSource, /path="\/result" component=\{\(\) => <ProtectedRoute component=\{Result\} \/>\}/, "saved results must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/bookmarks" component=\{\(\) => <ProtectedRoute component=\{Bookmarks\} \/>\}/, "bookmarks must require a student session and stay in the preparation shell");
-assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
-assert.match(appSource, /path="\/performance" component=\{\(\) => renderAppRoute\(AnalyticsUnavailable\)\}/, "direct analytics links must remain truthful until learner analytics is production-ready");
+assert.match(appSource, /path="\/profile" component=\{\(\) => <ProtectedRoute component=\{Profile\} \/>\}/, "profile must be session-protected and retain its preparation shell");
+assert.match(appSource, /path="\/performance" component=\{\(\) => <ProtectedRoute component=\{PerformanceOverview\} \/>\}/, "performance overview must require a learner session and use canonical saved attempts");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
 assert.match(appSource, /ProtectedRoute component=\{Test\} layout="none"/, "full-screen test runner must remain outside both navigation shells");
 
@@ -36,7 +36,7 @@ assert.match(publicLayout, /aria-current=\{active \? "page" : undefined\}/, "pub
 assert.match(publicLayout, /href="#main-content"/, "public shell must preserve skip navigation");
 assert.match(publicLayout, /id="main-content" tabIndex=\{-1\}/, "public shell must expose a focusable main landmark");
 assert.match(publicLayout, /mobileStudyLinks/, "mobile navigation must mirror the study-shell hierarchy");
-assert.match(publicLayout, /label: "Analytics"[\s\S]{0,80}disabled: true/, "mobile study navigation must mark learner analytics unavailable instead of linking to it");
+assert.match(publicLayout, /label: "Analytics", href: "\/performance"[\s\S]{0,90}authNext: "\/performance"/, "mobile analytics must link to the authenticated performance overview");
 assert.match(publicLayout, /data-testid=\{`mobile-disabled-\$\{item\.label\.toLowerCase\(\)\.replace\(\/\\s\+\/g, "-"\)\}`\}/, "mobile unavailable features need a stable browser-proof hook");
 assert.match(publicLayout, /inline-flex min-h-\[45px\] items-center rounded-lg px-3 py-2 text-sm font-semibold/, "desktop public navigation links must exceed the 44px interaction contract to avoid fractional-pixel underflow");
 assert.match(publicLayout, /href="\/login\/student" className="et-interactive inline-flex min-h-\[45px\]/, "desktop sign-in action must exceed the 44px interaction contract");
@@ -70,11 +70,11 @@ for (const href of ["/", "/exams", "/dashboard", "/bookmarks", "/profile", "/con
 }
 assert.match(publicHomeSidebar, /href: "\/bookmarks"[\s\S]{0,120}label: "Bookmarks"[\s\S]{0,120}authNext: "\/bookmarks"/, "Bookmarks must be a live protected study-sidebar destination once implemented");
 assert.doesNotMatch(publicHomeSidebar, /label: "Bookmarks"[\s\S]{0,80}disabled: true/, "implemented Bookmarks must not remain disabled in the public study sidebar");
-assert.doesNotMatch(publicHomeSidebar, /href: "\/performance"/, "learner analytics must not be advertised as a live sidebar destination while its route is unavailable");
+assert.match(publicHomeSidebar, /href: "\/performance", label: "Analytics"[\s\S]{0,100}authNext: "\/performance"/, "study sidebar analytics must lead to the authenticated canonical overview");
 for (const label of ["Home", "Explore Exams", "My Tests", "Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards", "Support", "Settings"]) {
   assert.match(publicHomeSidebar, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `public sidebar must expose reference navigation label: ${label}`);
 }
-for (const futureFeature of ["Analytics", "Downloads", "Study Plan", "Rewards"]) {
+for (const futureFeature of ["Downloads", "Study Plan", "Rewards"]) {
   assert.match(publicHomeSidebar, new RegExp(`label: "${futureFeature}"[\\s\\S]{0,80}disabled: true`), `${futureFeature} must be visible but non-navigating until implemented`);
 }
 assert.match(publicHomeSidebar, /aria-disabled="true"/, "future sidebar features must expose disabled semantics");

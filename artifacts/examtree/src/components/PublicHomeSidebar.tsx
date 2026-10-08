@@ -31,7 +31,7 @@ const mainItems: SidebarItem[] = [
   { href: "/my-packages", label: "My Purchases", icon: ReceiptText, authNext: "/my-packages" },
   { href: "/dashboard", label: "My Tests", icon: LayoutDashboard, authNext: "/dashboard" },
   { href: "/bookmarks", label: "Bookmarks", icon: Bookmark, authNext: "/bookmarks" },
-  { label: "Analytics", icon: BarChart3, disabled: true },
+  { href: "/performance", label: "Analytics", icon: BarChart3, authNext: "/performance" },
   { label: "Downloads", icon: Download, disabled: true },
   { label: "Study Plan", icon: CalendarDays, disabled: true },
   { label: "Rewards", icon: Gift, disabled: true },

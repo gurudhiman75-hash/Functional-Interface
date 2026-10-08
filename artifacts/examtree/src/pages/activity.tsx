@@ -99,7 +99,7 @@ export default function ActivityPage() {
     }).slice(0, 4);
   }, [catalogue, realAttempts, latest?.testId]);
   const focusTest = suggestedTests[0];
-  const activeAccess = purchasesQuery.data?.entitlements.filter(item => item.accessStatus === "active") ?? [];
+  const activeAccess = purchasesQuery.data?.entitlements?.filter(item => item.accessStatus === "active") ?? [];
   const formatDate = (value: string | Date) => new Date(value).toLocaleDateString("en-IN", { day: "numeric", month: "short" });
   const formatTime = (value: number) => Math.round(value / 60) + " min";
   const trend = realAttempts.slice(0, 8).reverse().map(item => Math.max(0, Math.min(100, item.score)));
@@ -163,14 +163,14 @@ export default function ActivityPage() {
         <article className="dash-panel dash-upcoming-panel">
           <div className="dash-panel-head"><h2>Recent attempts</h2><Link href="/performance">View all <ArrowRight /></Link></div>
           <div className="dash-attempt-list">
-            {attemptsQuery.isLoading ? <p className="dash-empty" role="status">Loading attempts…</p> : attemptsQuery.isError ? <p className="dash-empty">Recent attempts are unavailable. Try refreshing your performance data.</p> : realAttempts.length ? realAttempts.slice(0,3).map((item,index) => <article key={item.id || index}><div><b>{item.testName}</b><small>{formatDate(item.createdAt)} · {formatTime(item.timeSpent)}</small><span>Score {item.score}% · Accuracy {item.totalQuestions ? Math.round(item.correct/item.totalQuestions*100) : 0}%</span></div><Link href={"/result?attemptId="+encodeURIComponent(item.id)}>Review mistakes <ArrowRight /></Link></article>) : <div className="dash-empty"><Clock3 /><h3>No attempts yet</h3><p>Complete a test to review your answers here.</p></div>}
+            {attemptsQuery.isLoading ? <p className="dash-empty" role="status">Loading attempts…</p> : attemptsQuery.isError ? <p className="dash-empty">Recent attempts are unavailable. Try refreshing your performance data.</p> : realAttempts.length ? realAttempts.slice(0,3).map((item,index) => <article key={item.id || index}><div><b>{item.testName}</b><small>{formatDate(item.createdAt)} · {formatTime(item.timeSpent)}</small><span>Score {item.score}% · Accuracy {item.totalQuestions ? Math.round(item.correct/item.totalQuestions*100) : 0}%</span></div><Link className="et-interactive inline-flex min-h-11 items-center gap-2" href={"/result?attemptId="+encodeURIComponent(item.id)}>Review mistakes <ArrowRight /></Link></article>) : <div className="dash-empty"><Clock3 /><h3>No attempts yet</h3><p>Complete a test to review your answers here.</p></div>}
           </div>
         </article>
       </section>
 
       <section className="dash-recommended">
-        <div className="dash-panel-head"><div><h2>My series &amp; packages</h2><p>Your active purchased or granted access</p></div><Link href="/my-purchases">Manage purchases <ArrowRight /></Link></div>
-        {purchasesQuery.isLoading ? <p className="dash-empty" role="status">Loading your access…</p> : purchasesQuery.isError ? <div className="dash-empty"><p>Your packages could not be loaded.</p><button onClick={() => void purchasesQuery.refetch()}>Try again</button></div> : activeAccess.length ? <div className="dash-series-grid">{activeAccess.slice(0,4).map(item => <Link className="dash-series-card" href="/my-purchases" key={item.id}><span className="dash-series-logo"><BookOpen /></span><span className="dash-series-copy"><b>{item.productTitle}</b><small>{item.testCount} tests · Active access</small><small>{item.endsAt ? "Valid until " + formatDate(item.endsAt) : "No end date"}</small></span><span className="dash-series-arrow"><ChevronRight /></span></Link>)}</div> : <div className="dash-empty dash-access-empty"><BookOpen /><p>Your active series and packages will appear here.</p><Link href="/store">Explore store <ArrowRight /></Link></div>}
+        <div className="dash-panel-head"><div><h2>My series &amp; packages</h2><p>Your active purchased or granted access</p></div><Link href="/my-packages">Manage purchases <ArrowRight /></Link></div>
+        {purchasesQuery.isLoading ? <p className="dash-empty" role="status">Loading your access…</p> : purchasesQuery.isError ? <div className="dash-empty"><p>Your packages could not be loaded.</p><button onClick={() => void purchasesQuery.refetch()}>Try again</button></div> : activeAccess.length ? <div className="dash-series-grid">{activeAccess.slice(0,4).map(item => <Link className="dash-series-card" href="/my-packages" key={item.id}><span className="dash-series-logo"><BookOpen /></span><span className="dash-series-copy"><b>{item.productTitle}</b><small>{item.testCount} tests · Active access</small><small>{item.endsAt ? "Valid until " + formatDate(item.endsAt) : "No end date"}</small></span><span className="dash-series-arrow"><ChevronRight /></span></Link>)}</div> : <div className="dash-empty dash-access-empty"><BookOpen /><p>Your active series and packages will appear here.</p><Link href="/store">Explore store <ArrowRight /></Link></div>}
       </section>
     </div>
   );

@@ -18,6 +18,7 @@ const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
 const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
+const PerformanceOverview = lazy(() => import("@/pages/performance-overview"));
 const Tests = lazy(() => import("@/pages/tests"));
 const TestSeries = lazy(() => import("@/pages/test-series"));
 const PublishedTest = lazy(() => import("@/pages/published-test"));
@@ -136,15 +137,6 @@ function ProtectedRoute({ component: Component, layout = "app" }: ProtectedRoute
   );
 }
 
-function AnalyticsUnavailable() {
-  return (
-    <UnavailableFeature
-      title="Performance analytics is being rebuilt"
-      description="Server-backed rankings, percentiles, weak-area analysis, and cross-device progress will appear here after the canonical analytics APIs are complete."
-    />
-  );
-}
-
 
 function Router() {
   const [location] = useLocation();
@@ -188,19 +180,19 @@ function Router() {
 
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
-          <Route path="/packages/success/:id" component={() => renderPublicRoute(StoreProduct)} />
+          <Route path="/packages/success/:id" component={() => <Redirect to="/my-packages" />} />
           <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/packages" component={() => renderPublicRoute(Store)} />
 
-          <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
+          <Route path="/dashboard" component={() => <ProtectedRoute component={Dashboard} />} />
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
           <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
-          <Route path="/performance" component={() => renderAppRoute(AnalyticsUnavailable)} />
-          <Route path="/profile" component={() => renderAppRoute(Profile)} />
+          <Route path="/performance" component={() => <ProtectedRoute component={PerformanceOverview} />} />
+          <Route path="/profile" component={() => <ProtectedRoute component={Profile} />} />
           <Route path="/report-question" component={() => renderAppRoute(ReportQuestion)} />
 
           <Route path="/about" component={() => renderPublicRoute(About)} />
