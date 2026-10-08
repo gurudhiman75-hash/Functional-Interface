@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { BarChart3, Bell, ChevronDown, CircleUserRound, Compass, Flame, Search } from "lucide-react";
+import { BarChart3, ChevronDown, CircleUserRound, Compass, Search } from "lucide-react";
 import { useLocation } from "wouter";
 
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
-import { getUser } from "@/lib/storage";
 
 function routeId(location: string, prefix: string) {
   return location.startsWith(prefix)
@@ -17,7 +16,6 @@ function routeId(location: string, prefix: string) {
 export function StickyHeader() {
   const [location, setLocation] = useLocation();
   const { categories, subcategories, tests } = useExamCatalog();
-  const user = getUser();
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
 
@@ -77,41 +75,6 @@ export function StickyHeader() {
     ? [selected.category.name, selected.subcategory?.name, selected.test?.name].filter(Boolean).join(" > ")
     : "Select Targeted Exam";
 
-  if (location === "/dashboard") {
-    const initials = (user?.name || "Student").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
-    return (
-      <header className="et-chrome et-shell-header fixed inset-x-0 top-0 z-50 border-b py-2 md:left-[var(--sidebar-width)]" data-testid="app-sticky-header">
-        <div className="flex min-h-12 items-center gap-3 px-4 sm:px-6 lg:px-8">
-          <SidebarTrigger className="h-10 w-10 shrink-0 rounded-xl border border-border bg-card/90 text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground" />
-          <label className="relative hidden w-full max-w-xl md:block">
-            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#577097]" aria-hidden="true" />
-            <input
-              className="h-10 w-full rounded-xl border border-[#e1e8f3] bg-[#f3f7fc] pl-11 pr-4 text-xs text-[#314a70] outline-none placeholder:text-[#8190a8] focus:border-[#9cbcff] focus:bg-white"
-              placeholder="Search exams, tests, topics..."
-              aria-label="Search exams, tests, topics"
-              onKeyDown={(event) => {
-                if (event.key === "Enter") setLocation("/exams");
-              }}
-            />
-          </label>
-          <div className="ml-auto flex items-center gap-2 sm:gap-3">
-            <button type="button" onClick={() => setLocation("/dashboard")} className="hidden min-h-10 items-center gap-2 rounded-xl px-3 text-left hover:bg-muted sm:flex">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-[#fff0e5] text-[#f26d21]"><Flame className="h-4 w-4" /></span>
-              <span className="leading-tight"><b className="block text-xs text-[#10234a]">12 days</b><small className="text-[9px] text-[#75839c]">Study Streak</small></span>
-            </button>
-            <button type="button" className="relative grid h-10 w-10 place-items-center rounded-xl text-[#27466f] hover:bg-muted" aria-label="Notifications">
-              <Bell className="h-5 w-5" /><i className="absolute right-2 top-2 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white" />
-            </button>
-            <button type="button" onClick={() => setLocation("/profile")} className="flex min-h-10 items-center gap-2 rounded-xl px-2 hover:bg-muted">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-[#2c72ed] text-[10px] font-black text-white">{initials || "ST"}</span>
-              <span className="hidden max-w-32 truncate text-xs font-bold text-[#10234a] sm:block">{user?.name || "Student"}</span>
-              <ChevronDown className="hidden h-3.5 w-3.5 text-[#6880a2] sm:block" />
-            </button>
-          </div>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <header
