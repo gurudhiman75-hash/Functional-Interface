@@ -30,20 +30,22 @@ const e2eAuthUser = e2eAuthToken
     } as unknown as FirebaseUser)
   : null;
 
+let e2eSignedInUser: FirebaseUser | null = e2eAuthUser;
+
 const e2eAuthInstance = e2eAuthUser
   ? ({
-      currentUser: e2eAuthUser,
-      // Modular signOut delegates to auth.signOut(). Implement it for the
-      // synthetic browser-test Auth so logout journeys exercise actual cleanup.
-      signOut: async () => { if (e2eAuthInstance) e2eAuthInstance.currentUser = null; },
+      get currentUser() { return e2eSignedInUser; },
+      // Modular signOut delegates to auth.signOut(). Keep a separate mutable
+      // state because Firebase Auth marks currentUser as read-only.
+      signOut: async () => { e2eSignedInUser = null; },
       onAuthStateChanged: (
         observer:
           | ((user: FirebaseUser | null) => void)
           | { next?: (user: FirebaseUser | null) => void },
       ) => {
         queueMicrotask(() => {
-          if (typeof observer === "function") observer(e2eAuthUser);
-          else observer.next?.(e2eAuthUser);
+          if (typeof observer === "function") observer(e2eSignedInUser);
+          else observer.next?.(e2eSignedInUser);
         });
         return () => {};
       },
