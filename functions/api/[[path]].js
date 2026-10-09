@@ -26,6 +26,7 @@ export async function onRequest({ request }) {
     "host", "origin", "referer", "connection", "content-length",
     "x-forwarded-host", "x-forwarded-proto", "x-forwarded-for", "x-real-ip",
     "cf-connecting-ip", "cf-ray", "cf-ipcountry", "cf-visitor",
+    "if-none-match", "if-modified-since",
   ]) headers.delete(key);
   try {
     const upstream = await fetch(new Request(url, {
@@ -33,6 +34,7 @@ export async function onRequest({ request }) {
       headers,
       body: ["GET", "HEAD"].includes(request.method) ? undefined : request.body,
       redirect: "manual",
+      duplex: "half",
     }));
     const responseHeaders = new Headers(upstream.headers);
     responseHeaders.set("Cache-Control", "private, no-store");
