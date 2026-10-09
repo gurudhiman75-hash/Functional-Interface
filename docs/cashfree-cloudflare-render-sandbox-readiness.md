@@ -36,7 +36,7 @@
 2. Confirm Cashfree merchant website whitelisting for the actual checkout domain.
 3. Verify webhook delivery and signature, success, failure, repeat delivery, expired order, and interrupted redirect.
 4. Verify one paid entitlement is granted **once** and the matching package/tests unlock for the correct signed-in user.
-5. Verify a safe Cashfree refund workflow, its reconciliation, and entitlement revocation policy. Current admin Cashfree refunds deliberately fail with `CASHFREE_REFUND_NOT_READY` rather than routing to Razorpay.
+5. Verify a safe Cashfree refund workflow, its reconciliation, and entitlement revocation policy. Cashfree sandbox refund requests now use Cashfree's own API, are verified through Cashfree's refund status endpoint (or signed status webhook), and only a verified full refund revokes entitlements. Production refunds remain disabled unless `CASHFREE_REFUNDS_ENABLED=true` is explicitly configured in a reviewed rollout. Verify pending, success, failure, webhook replay, and full/partial refund access policy before production rollout.
 6. Review Privacy Policy, Terms, Contact and Refund Policy, customer-facing support details and any applicable charges.
 7. Verify actual merchant processing fee / promotional eligibility in Cashfree Dashboard before displaying fee estimates as a guaranteed rate. Public promotional pricing is not proof of account-specific pricing.
 8. Complete CI, sandbox acceptance and production rollback checks before merging or enabling live payment settings.

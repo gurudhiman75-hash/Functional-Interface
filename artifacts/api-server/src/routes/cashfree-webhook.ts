@@ -1,6 +1,8 @@
 import { randomUUID, createHash } from "node:crypto";
 import type { Request, Response } from "express";
-import { classifyCashfreeNonSuccess, verifyCashfreeWebhook } from "../lib/cashfree-payments";
+import { classifyCashfreeNonSuccess, refundUuidFromCashfreeReference, verifyCashfreeWebhook } from "../lib/cashfree-payments";
+import { reconcileCashfreeRefundRecord } from "../lib/cashfree-refunds";
+import { CommerceRefundError } from "../lib/canonical-commerce-refunds";
 import { finalizeCapturedPayment, CommercePaymentError } from "../lib/canonical-commerce-payments";
 import { sqlClient } from "../lib/db";
 import { logger } from "../lib/logger";
@@ -10,6 +12,7 @@ type WebhookPayload = {
   data?: {
     order?: { order_id?: string; order_amount?: number; order_currency?: string };
     payment?: { cf_payment_id?: string | number; payment_status?: string; payment_amount?: number; payment_currency?: string; payment_time?: string };
+    refund?: { refund_id?: string; cf_refund_id?: string | number; refund_status?: string };
   };
 };
 
@@ -27,6 +30,27 @@ export default async function cashfreeWebhook(req: Request, res: Response): Prom
   try { event = JSON.parse(rawBody) as WebhookPayload; }
   catch { res.status(400).json({ error: "Invalid JSON" }); return; }
   const kind = String(event.type ?? "unknown").slice(0, 120);
+  // Refund callbacks never mutate access from webhook data alone. Retrieve
+  // authoritative Cashfree status and check payment, currency and amount first.
+  if (kind === "REFUND_STATUS_WEBHOOK" || kind === "AUTO_REFUND_STATUS_WEBHOOK") {
+    const refundId = refundUuidFromCashfreeReference(event.data?.refund?.refund_id);
+    if (!refundId) { res.json({ ok: true, processed: false, reason: "non_canonical_refund" }); return; }
+    try {
+      const result = await reconcileCashfreeRefundRecord(refundId);
+      const eventKey = (kind + ":" + String(event.data?.refund?.cf_refund_id ?? refundId) + ":" +
+        String(event.data?.refund?.refund_status ?? "unknown")).slice(0, 180);
+      await sqlClient`
+        INSERT INTO commerce.payment_events (id, provider, provider_event_id, event_type, signature_verified, payload, received_at, processed_at)
+        VALUES (${randomUUID()}::uuid, 'cashfree', ${eventKey}, ${kind}, true, ${sqlClient.json(event)}, now(), now())
+        ON CONFLICT (provider, provider_event_id) DO NOTHING
+      `;
+      res.json({ ok: true, processed: result.status === "processed", refundId, status: result.status });
+    } catch (error) {
+      logger.error({ error, refundId, kind }, "Cashfree refund reconciliation failed");
+      res.status(error instanceof CommerceRefundError ? error.statusCode : 500).json({ error: "Cashfree refund status could not be verified" });
+    }
+    return;
+  }
   const payment = event.data?.payment;
   const order = event.data?.order;
   // Cashfree delivery can repeat; use the same event identifier for every retry.

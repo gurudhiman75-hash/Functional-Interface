@@ -14,6 +14,7 @@ await build({
 const {
   cashfreeMode, cashfreeSelected, classifyCashfreeNonSuccess, createCashfreeOrder,
   fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
+  cashfreeRefundReference, refundUuidFromCashfreeReference, createCashfreeRefund, fetchCashfreeRefund,
 } = await import("../dist/cashfree-payments-fixture.mjs");
 
 const previousEnv = Object.fromEntries([
@@ -112,9 +113,39 @@ try {
   }), /INVALID_CHECKOUT_ORIGIN/);
   assert.equal(requests.length, 5, "Invalid webhook origin must not call the provider");
 
+  // Cashfree refund IDs are deterministic and gateway refunds use rupees,
+  // while our canonical database uses paise.
+  const canonicalRefundId = "d3eb72fa-7f39-41f4-b1c1-22085b4f6084";
+  const merchantRefundId = cashfreeRefundReference(canonicalRefundId);
+  assert.equal(merchantRefundId, "etd3eb72fa7f3941f4b1c122085b4f6084");
+  assert.equal(refundUuidFromCashfreeReference(merchantRefundId), canonicalRefundId);
+  assert.equal(refundUuidFromCashfreeReference("not-a-refund"), null);
+  assert.throws(() => cashfreeRefundReference("invalid"), /INVALID_REFUND_ID/);
+  const refundCalls = [];
+  globalThis.fetch = async (url, init) => {
+    refundCalls.push({ url: String(url), init });
+    return new Response(JSON.stringify({
+      refund_id: merchantRefundId, cf_refund_id: "cf_refund_123", order_id: "order-test-123",
+      cf_payment_id: "123", refund_amount: 10, refund_currency: "INR", refund_status: "PENDING",
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  };
+  const createdRefund = await createCashfreeRefund({
+    orderId: "order-test-123", refundUuid: canonicalRefundId, amountMinor: 1000, reason: "Sandbox complete refund check",
+  });
+  assert.equal(createdRefund.refund_status, "PENDING");
+  assert.equal(refundCalls[0].url, "https://sandbox.cashfree.com/pg/orders/order-test-123/refunds");
+  assert.equal(refundCalls[0].init.headers["x-idempotency-key"], merchantRefundId);
+  const refundBody = JSON.parse(refundCalls[0].init.body);
+  assert.equal(refundBody.refund_amount, 10);
+  assert.equal(refundBody.refund_id, merchantRefundId);
+  assert.equal(refundBody.refund_speed, "STANDARD");
+  await fetchCashfreeRefund("order-test-123", canonicalRefundId);
+  assert.equal(refundCalls[1].url, "https://sandbox.cashfree.com/pg/orders/order-test-123/refunds/" + merchantRefundId);
+  assert.equal(refundCalls[1].init.method, "GET");
+
   globalThis.fetch = async () => new Response('{"message":"provider rejected"}', { status: 403 });
   await assert.rejects(fetchCashfreeOrder("order-test-123"), /HTTP 403/);
-  console.log("PASS: Cashfree signature validation, separate Pages return and Render webhook origins, origin guard, sandbox and production endpoints, order metadata and rejected provider calls. No real payments.");
+  console.log("PASS: Cashfree signatures, origins, idempotent refund creation and status fetching, sandbox/production endpoints, and rejection handling. No real payments.");
 } finally {
   globalThis.fetch = originalFetch;
   for (const [key, value] of Object.entries(previousEnv)) {

@@ -3,6 +3,8 @@ import { Router } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
+import { cashfreeMode, cashfreeRefundReference, createCashfreeRefund } from "../lib/cashfree-payments";
+import { reconcileCashfreeRefundRecord } from "../lib/cashfree-refunds";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
@@ -59,49 +61,97 @@ router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"
   if (!uuid.test(orderId)) return void res.status(400).json({ error: "Invalid order identifier", code: "INVALID_ORDER_ID" });
   if (!Number.isSafeInteger(amountMinor) || amountMinor <= 0) return void res.status(400).json({ error: "Refund amount must be a positive integer in minor currency units", code: "INVALID_REFUND_AMOUNT" });
   if (reason.length < 8) return void res.status(400).json({ error: "A clear refund reason is required", code: "REFUND_REASON_REQUIRED" });
-  // Never route a Cashfree refund through Razorpay. Until Cashfree refund
-  // processing and reconciliation are implemented, fail with an explicit
-  // safe error instead of presenting this admin action as supported.
+  let provider: "razorpay" | "cashfree";
   try {
-    const currentPayment = await sqlClient`
+    const payments = await sqlClient`
       SELECT provider FROM commerce.payment_attempts
-      WHERE order_id = ${orderId}::uuid
+      WHERE order_id = ${orderId}::uuid AND provider IN ('razorpay','cashfree')
+        AND status IN ('captured','partially_refunded')
       ORDER BY created_at DESC LIMIT 1
     `;
-    if (String(currentPayment[0]?.provider ?? "") === "cashfree") {
-      return void res.status(409).json({
-        error: "Cashfree refunds are not yet supported by the ExamTree admin API. Review and process the refund through Cashfree support procedures until integration is complete.",
-        code: "CASHFREE_REFUND_NOT_READY",
-      });
-    }
+    const selected = String(payments[0]?.provider ?? "");
+    if (selected !== "razorpay" && selected !== "cashfree")
+      return void res.status(409).json({ error: "No refundable captured payment was found", code: "PAYMENT_NOT_REFUNDABLE" });
+    provider = selected;
   } catch (error) {
     console.error("Unable to identify refund provider", error);
     return void res.status(503).json({ error: "Unable to verify payment provider", code: "REFUND_PROVIDER_LOOKUP_FAILED" });
   }
+  // A production Cashfree refund is disabled unless the merchant explicitly
+  // enables it after sandbox reconciliation has been accepted.
+  if (provider === "cashfree" && cashfreeMode() === "production" && process.env.CASHFREE_REFUNDS_ENABLED !== "true")
+    return void res.status(409).json({ error: "Cashfree production refunds have not been enabled", code: "CASHFREE_REFUNDS_NOT_ENABLED" });
   const keyId = process.env.RAZORPAY_KEY_ID; const keySecret = process.env.RAZORPAY_KEY_SECRET;
-  if (!keyId || !keySecret) return void res.status(503).json({ error: "Refund provider is not configured", code: "PAYMENT_PROVIDER_NOT_CONFIGURED" });
+  if (provider === "razorpay" && (!keyId || !keySecret))
+    return void res.status(503).json({ error: "Refund provider is not configured", code: "PAYMENT_PROVIDER_NOT_CONFIGURED" });
   const refundId = randomUUID();
   try {
     const prepared = await sqlClient.begin(async (tx) => {
       await tx`SELECT pg_advisory_xact_lock(hashtext(${`commerce-refund:${orderId}`}))`;
       const rows = await tx`
-        SELECT pa.id::text AS "paymentAttemptId", pa.provider_payment_id AS "providerPaymentId", pa.amount_minor::float8 AS "capturedMinor", pa.status AS "paymentStatus",
-          o.order_number::text AS "orderNumber", o.status AS "orderStatus",
+        SELECT pa.id::text AS "paymentAttemptId", pa.provider_order_id AS "providerOrderId",
+          pa.provider_payment_id AS "providerPaymentId", pa.amount_minor::float8 AS "capturedMinor",
+          pa.status AS "paymentStatus", pa.currency, o.order_number::text AS "orderNumber",
           COALESCE((SELECT SUM(r.amount_minor) FROM commerce.refunds r WHERE r.payment_attempt_id = pa.id AND r.status IN ('created','processed')),0)::float8 AS "reservedRefundMinor"
-        FROM commerce.orders o JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = 'razorpay'
-        WHERE o.id = ${orderId}::uuid ORDER BY pa.created_at DESC LIMIT 1 FOR UPDATE OF o, pa
+        FROM commerce.orders o JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = ${provider}
+        WHERE o.id = ${orderId}::uuid AND o.status IN ('paid','partially_refunded')
+        ORDER BY pa.created_at DESC LIMIT 1 FOR UPDATE OF o, pa
       `;
       const row = rows[0];
-      if (!row || !row.providerPaymentId || !["captured","partially_refunded"].includes(String(row.paymentStatus))) throw Object.assign(new Error("Only captured payments can be refunded"), { statusCode: 409, code: "PAYMENT_NOT_REFUNDABLE" });
+      if (!row || !row.providerPaymentId || !["captured","partially_refunded"].includes(String(row.paymentStatus)))
+        throw Object.assign(new Error("Only captured payments can be refunded"), { statusCode: 409, code: "PAYMENT_NOT_REFUNDABLE" });
+      if (provider === "cashfree" && (!row.providerOrderId || String(row.currency) !== "INR"))
+        throw Object.assign(new Error("Cashfree order reference or currency is invalid"), { statusCode: 409, code: "CASHFREE_ORDER_INVALID" });
       const remainingMinor = Number(row.capturedMinor) - Number(row.reservedRefundMinor);
-      if (amountMinor > remainingMinor) throw Object.assign(new Error("Refund exceeds the remaining captured amount"), { statusCode: 409, code: "REFUND_EXCEEDS_REMAINING", details: { remainingMinor } });
-      await tx`INSERT INTO commerce.refunds (id, payment_attempt_id, status, amount_minor, reason, created_by, created_at) VALUES (${refundId}::uuid, ${String(row.paymentAttemptId)}::uuid, 'created', ${amountMinor}, ${reason}, ${req.adminSession!.user.id}::uuid, now())`;
+      if (amountMinor > remainingMinor)
+        throw Object.assign(new Error("Refund exceeds the remaining captured amount"), { statusCode: 409, code: "REFUND_EXCEEDS_REMAINING", details: { remainingMinor } });
+      await tx`INSERT INTO commerce.refunds (id, payment_attempt_id, status, amount_minor, reason, created_by, created_at)
+        VALUES (${refundId}::uuid, ${String(row.paymentAttemptId)}::uuid, 'created', ${amountMinor}, ${reason}, ${req.adminSession!.user.id}::uuid, now())`;
       await tx`
         INSERT INTO platform.audit_events (id, actor_type, actor_user_id, action_key, entity_type, entity_id, summary, metadata)
-        VALUES (${randomUUID()}::uuid, 'user'::audit_actor_type, ${req.adminSession!.user.id}::uuid, 'commerce.refund.requested', 'commerce_order', ${orderId}::uuid, ${`Requested refund for order ${String(row.orderNumber)}`}, ${tx.json({ refundId, amountMinor, reason })})
+        VALUES (${randomUUID()}::uuid, 'user'::audit_actor_type, ${req.adminSession!.user.id}::uuid, 'commerce.refund.requested', 'commerce_order',
+          ${orderId}::uuid, ${`Requested refund for order ${String(row.orderNumber)}`}, ${tx.json({ refundId, amountMinor, reason, provider })})
       `;
-      return { providerPaymentId: String(row.providerPaymentId), remainingMinor };
+      return { providerPaymentId: String(row.providerPaymentId), providerOrderId: String(row.providerOrderId ?? ""), remainingMinor };
     });
+
+    if (provider === "cashfree") {
+      let gatewayRefund;
+      try {
+        gatewayRefund = await createCashfreeRefund({
+          orderId: prepared.providerOrderId, refundUuid: refundId, amountMinor, reason,
+        });
+      } catch (error) {
+        // A timeout/5xx is ambiguous: Cashfree may have accepted the refund.
+        // Keep the idempotently-addressable request reserved for reconciliation.
+        const httpStatus = Number((error as { providerHttpStatus?: number }).providerHttpStatus);
+        if (httpStatus >= 400 && httpStatus < 500 && httpStatus !== 409 && httpStatus !== 429)
+          await sqlClient`UPDATE commerce.refunds SET status = 'failed' WHERE id = ${refundId}::uuid AND status = 'created'`;
+        throw error;
+      }
+      if (String(gatewayRefund.refund_id ?? "") !== cashfreeRefundReference(refundId)
+          || String(gatewayRefund.order_id ?? "") !== prepared.providerOrderId
+          || String(gatewayRefund.cf_payment_id ?? "") !== prepared.providerPaymentId
+          || Math.round(Number(gatewayRefund.refund_amount) * 100) !== amountMinor
+          || String(gatewayRefund.refund_currency ?? "").toUpperCase() !== "INR"
+          || !gatewayRefund.cf_refund_id) {
+        throw Object.assign(new Error("Cashfree refund receipt did not match the captured payment; reconcile before retrying"), { statusCode: 502, code: "CASHFREE_REFUND_RECEIPT_MISMATCH" });
+      }
+      await sqlClient`UPDATE commerce.refunds SET provider_refund_id = ${String(gatewayRefund.cf_refund_id)}
+        WHERE id = ${refundId}::uuid AND status = 'created'`;
+      // An immediate SUCCESS still must be verified through Cashfree's GET API.
+      let status = "created";
+      if (gatewayRefund.refund_status === "SUCCESS") {
+        try {
+          const verified = await reconcileCashfreeRefundRecord(refundId, orderId);
+          status = verified.status;
+        } catch (error) {
+          console.error("Cashfree refund accepted but immediate verification could not complete", error);
+        }
+      }
+      res.status(202).json({ refundId, providerRefundId: String(gatewayRefund.cf_refund_id), status, amountMinor });
+      return;
+    }
 
     const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(prepared.providerPaymentId)}/refund`, {
       method: "POST",
@@ -119,6 +169,22 @@ router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"
     const typed = error as { statusCode?: number; code?: string; details?: unknown; message?: string };
     console.error("Unable to request commerce refund", error);
     res.status(typed.statusCode ?? 500).json({ error: typed.message ?? "Unable to request refund", code: typed.code ?? "REFUND_REQUEST_FAILED", details: typed.details });
+  }
+});
+
+
+router.post("/:orderId/refunds/:refundId/reconcile", requireAdminPermission("commerce.orders.manage"), async (req, res) => {
+  const orderId = String(req.params.orderId ?? "");
+  const refundId = String(req.params.refundId ?? "");
+  if (!uuid.test(orderId) || !uuid.test(refundId))
+    return void res.status(400).json({ error: "Invalid order or refund identifier", code: "INVALID_REFUND_REFERENCE" });
+  try {
+    const result = await reconcileCashfreeRefundRecord(refundId, orderId);
+    res.json(result);
+  } catch (error) {
+    const typed = error as { statusCode?: number; code?: string; message?: string };
+    console.error("Unable to reconcile Cashfree refund", error);
+    res.status(typed.statusCode ?? 503).json({ error: typed.message ?? "Unable to verify provider refund", code: typed.code ?? "REFUND_RECONCILE_FAILED" });
   }
 });
 
@@ -140,7 +206,7 @@ router.get("/:orderId", requireAdminPermission("commerce.orders.read"), async (r
       sqlClient`SELECT r.id::text AS id, r.provider_refund_id AS "providerRefundId", r.status, r.amount_minor::float8 AS "amountMinor", r.reason, r.created_at AS "createdAt", r.processed_at AS "processedAt" FROM commerce.refunds r JOIN commerce.payment_attempts pa ON pa.id = r.payment_attempt_id WHERE pa.order_id = ${orderId}::uuid ORDER BY r.created_at DESC`,
     ]);
     const refundedMinor = refunds.filter((r) => String(r.status) === "processed").reduce((sum, r) => sum + Number(r.amountMinor), 0);
-    res.json({ order: orders[0], items, payments, events, entitlements, refunds, refundedMinor, refundableMinor: Math.max(0, Number(orders[0].totalMinor) - refundedMinor), generatedAt: new Date().toISOString(), readOnly: false });
+    res.json({ order: orders[0], items, payments, events, entitlements, refunds, refundedMinor, refundableMinor: Math.max(0, Number(orders[0].totalMinor) - refunds.filter((r) => ["processed", "created"].includes(String(r.status))).reduce((sum, r) => sum + Number(r.amountMinor), 0)), generatedAt: new Date().toISOString(), readOnly: false });
   } catch (error) { console.error("Unable to load commerce order detail", error); res.status(500).json({ error: "Unable to load order detail" }); }
 });
 

@@ -23,7 +23,7 @@ function credentials() {
   return { id, secret };
 }
 
-export async function cashfreeApi<T>(method: "GET" | "POST", route: string, body?: unknown): Promise<T> {
+export async function cashfreeApi<T>(method: "GET" | "POST", route: string, body?: unknown, idempotencyKey?: string): Promise<T> {
   const { id, secret } = credentials();
   const response = await fetch(cashfreeOrigin() + "/pg" + route, {
     method,
@@ -33,11 +33,12 @@ export async function cashfreeApi<T>(method: "GET" | "POST", route: string, body
       "x-api-version": "2025-01-01",
       "Content-Type": "application/json",
       "Accept": "application/json",
+      ...(idempotencyKey ? { "x-idempotency-key": idempotencyKey } : {}),
     },
     body: body === undefined ? undefined : JSON.stringify(body),
     signal: AbortSignal.timeout(15000),
   });
-  if (!response.ok) throw new Error("Cashfree gateway request failed: HTTP " + response.status);
+  if (!response.ok) throw Object.assign(new Error("Cashfree gateway request failed: HTTP " + response.status), { providerHttpStatus: response.status });
   return await response.json() as T;
 }
 
@@ -98,3 +99,36 @@ export function verifyCashfreeWebhook(raw: string, signature: unknown, timestamp
   const supplied = Buffer.from(signature, "utf8");
   return expected.length === supplied.length && timingSafeEqual(expected, supplied);
 }
+
+/** The merchant refund reference is derived from the immutable canonical UUID.
+ * This makes retries safe even when a provider response was lost.
+ */
+export function cashfreeRefundReference(refundUuid: string): string {
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(refundUuid)) throw new Error("INVALID_REFUND_ID");
+  return "et" + refundUuid.replace(/-/g, "").toLowerCase();
+}
+export function refundUuidFromCashfreeReference(reference: unknown): string | null {
+  if (typeof reference !== "string" || !/^et[0-9a-f]{32}$/i.test(reference)) return null;
+  const id = reference.slice(2).toLowerCase();
+  const uuid = [id.slice(0,8), id.slice(8,12), id.slice(12,16), id.slice(16,20), id.slice(20)].join("-");
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(uuid) ? uuid : null;
+}
+export type CashfreeRefund = {
+  refund_id?: string; cf_refund_id?: string | number; order_id?: string;
+  cf_payment_id?: string | number; refund_amount?: number; refund_currency?: string;
+  refund_status?: string; processed_at?: string | null;
+};
+export const createCashfreeRefund = (input: {
+  orderId: string; refundUuid: string; amountMinor: number; reason: string;
+}) => cashfreeApi<CashfreeRefund>(
+  "POST", "/orders/" + encodeURIComponent(input.orderId) + "/refunds",
+  {
+    refund_id: cashfreeRefundReference(input.refundUuid),
+    refund_amount: input.amountMinor / 100,
+    refund_note: input.reason.slice(0, 100),
+    refund_speed: "STANDARD",
+  },
+  cashfreeRefundReference(input.refundUuid),
+);
+export const fetchCashfreeRefund = (orderId: string, refundUuid: string) =>
+  cashfreeApi<CashfreeRefund>("GET", "/orders/" + encodeURIComponent(orderId) + "/refunds/" + encodeURIComponent(cashfreeRefundReference(refundUuid)));
