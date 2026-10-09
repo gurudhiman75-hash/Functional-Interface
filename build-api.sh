@@ -124,6 +124,7 @@ node scripts/assemble-hosting.mjs
 # that protected API routes proxy correctly and admin deep links stay intact.
 echo "[render-build] verify Cloudflare Pages contract"
 node --test tests/cloudflare-pages-proxy.test.mjs tests/cloudflare-pages-admin-router.test.mjs
+node --test tests/number-system-question-studio-fast-route.test.mjs
 node tests/cloudflare-pages-output.test.mjs
 
 # Production only starts dist/index.mjs. Use the runtime-only bundler instead
