@@ -1,6 +1,7 @@
 name: Validate shared Question Studio Cloud Run compute
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/question-studio/num001-generation-worker.ts"
       - "artifacts/api-server/build-shared-worker.mjs"
@@ -9,12 +10,15 @@ on:
       - "artifacts/api-server/src/question-studio/remote-shared-studio-client.ts"
       - "Dockerfile.question-studio-shared"
       - "scripts/deploy-shared-question-studio-staging.sh"
-      - ".github/workflows/shared-question-studio-cloudrun.yml"
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   isolated-generation:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,7 +41,7 @@ jobs:
         run: |
           node artifacts/api-server/shared-question-studio-worker-service.mjs > /tmp/shared-studio-worker.log 2>&1 &
           PID=$!
-          trap 'kill "$PID" 2>/dev/null || true' EXIT
+          trap 'status=$?; if [ "$status" -ne 0 ]; then echo "Shared worker failed. Response:"; cat /tmp/shared-batch.json 2>/dev/null || true; echo "Worker log:"; tail -n 55 /tmp/shared-studio-worker.log; fi; kill "$PID" 2>/dev/null || true' EXIT
           for i in $(seq 1 35); do
             if curl --silent --fail http://localhost:8080/health >/dev/null; then break; fi
             sleep 1
