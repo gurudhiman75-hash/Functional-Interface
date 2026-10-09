@@ -13,6 +13,7 @@ import {
   type ReviseGenerationItemInput,
 } from './api';
 import { notifyQuestionStudioRefresh, QUESTION_STUDIO_REFRESH_EVENT } from './events';
+import { AdminApiError } from '@/lib/admin-api-error';
 
 const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
   runs: [],
@@ -110,7 +111,16 @@ export function useQuestionStudio() {
       return result;
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : 'Question generation failed.';
-      setError(message);
+      // Show safe operational metadata in the banner so a screenshot can
+      // distinguish a gateway timeout from package-validation errors.
+      const diagnostics = caught instanceof AdminApiError
+        ? [
+            caught.status ? `HTTP ${caught.status}` : null,
+            caught.code ? `Code: ${caught.code}` : null,
+            caught.correlationId ? `Request ID: ${caught.correlationId}` : null,
+          ].filter(Boolean)
+        : [];
+      setError(diagnostics.length ? `${message} (${diagnostics.join(' · ')})` : message);
       throw caught;
     } finally {
       setGenerating(false);
