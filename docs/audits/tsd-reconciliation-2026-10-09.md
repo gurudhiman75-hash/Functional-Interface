@@ -1,6 +1,6 @@
 # TSD reconciliation against New-main — 2026-10-09
 
-Status: **IN PROGRESS / DO NOT MERGE OR RELEASE**
+Status: **TSD-owned file transplant committed / validation pending / DO NOT MERGE OR RELEASE**
 
 ## Source and target
 - Target: `New-main` at initial review head `dc6ed1b4bc525847740cdd4e69e1367758d19596`.
@@ -25,4 +25,6 @@ Status: **IN PROGRESS / DO NOT MERGE OR RELEASE**
 ## Current actions
 - Created a separate reconciliation branch from New-main.
 - Confirmed branch divergence and missing CP003 and CI files.
-- **No executable TSD files transplanted**, no suite run, no merge or activation.
+- On 2026-10-09 recovered untruncated recursive trees: source TSD file count 662, target 150. Ported all 513 differences (512 additions, one modified TSD-001 barrel file) by Git object SHA onto this branch. Integration commit `525cf05d72f2cda9a129119885620867dbe7be1e`.
+- Verified CP003 README and this audit document remain readable on integration branch.
+- **Shared changes outside TimeSpeedDistance not yet reconciled**, no suite run, no merge or activation.
