@@ -15,6 +15,11 @@ await build({entryPoints:['src/routes/canonical-commerce-checkout.ts'],outfile:'
  b.onResolve({filter:/^\.\.\/middlewares\/auth$/},()=>({path:'auth',namespace:'fixture'}));
  b.onLoad({filter:/.*/,namespace:'fixture'},({path})=>({loader:'js',contents:path==='auth'?'export function authenticate(req,res,next){if(!req.headers["x-user"])return res.status(401).json({});req.user={id:req.headers["x-user"]};next();}':'export const sqlClient=async(...args)=>globalThis.salesFixture(...args);sqlClient.begin=fn=>fn(sqlClient);'}));
 }}]});
+const previousProvider = process.env.EXAMTREE_PAYMENT_PROVIDER;
+// This fixture exercises the Razorpay legacy path, regardless of deployment settings.
+// The Render sandbox sets EXAMTREE_PAYMENT_PROVIDER=cashfree without providing
+// sandbox credentials during the build; inherited runtime flags must not affect CI.
+process.env.EXAMTREE_PAYMENT_PROVIDER='razorpay';
 process.env.RAZORPAY_KEY_ID='fixture';process.env.RAZORPAY_KEY_SECRET='fixture';
 const {default:router}=await import('../dist/sales-route-fixture.mjs');
 const app=express();app.use(express.json());app.use(router);const server=app.listen(0,'127.0.0.1');await once(server,'listening');
@@ -28,4 +33,8 @@ try {
  mode='provider-change';assert.equal((await request()).body.code,'CHECKOUT_PROVIDER_CHANGED');
  mode='pending';const resumed=await request();assert.equal(resumed.status,200);assert.equal(resumed.body.providerOrderId,'provider');
  console.log('PASS: checkout authentication, owned package, expired/paid order, product mismatch, provider mismatch and pending order reuse. No provider calls made.');
-} finally {server.close();}
+} finally {
+ server.close();
+ if(previousProvider===undefined) delete process.env.EXAMTREE_PAYMENT_PROVIDER;
+ else process.env.EXAMTREE_PAYMENT_PROVIDER=previousProvider;
+}
