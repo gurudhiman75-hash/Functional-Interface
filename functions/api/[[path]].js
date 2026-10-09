@@ -36,6 +36,21 @@ export async function onRequest({ request }) {
       redirect: "manual",
       duplex: "half",
     }));
+    // Render or its gateway may return an HTML 502/503/504 during restarts.
+    // Keep this API route JSON-only: otherwise the admin UI loses the HTTP
+    // status and falls back to "Unable to create the generation run".
+    const upstreamContentType = upstream.headers.get("Content-Type") || "";
+    const isJSON = /\\b(?:application\\/json|[^;]+\\+json)\\b/i.test(upstreamContentType);
+    if (upstream.status !== 204 && !isJSON) {
+      const status = upstream.ok ? 502 : upstream.status;
+      return Response.json({
+        code: upstream.ok ? "API_UPSTREAM_NON_JSON_RESPONSE" : "API_UPSTREAM_HTTP_ERROR",
+        error: `ExamTree API returned HTTP ${upstream.status} without JSON. The backend or gateway may be unavailable. Check the Review queue before retrying a generation run.`,
+      }, {
+        status,
+        headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" },
+      });
+    }
     const responseHeaders = new Headers(upstream.headers);
     responseHeaders.set("Cache-Control", "private, no-store");
     responseHeaders.set("X-Content-Type-Options", "nosniff");
