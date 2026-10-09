@@ -56,3 +56,40 @@ test("API proxy returns controlled errors when Render is unavailable", async () 
     globalThis.fetch = old;
   }
 });
+
+
+test("generation POST maps Render HTML 502 to a diagnostic JSON error", async () => {
+  const previous = globalThis.fetch;
+  globalThis.fetch = async () => new Response("<html>Bad Gateway</html>", {
+    status: 502, headers: { "Content-Type": "text/html" },
+  });
+  try {
+    const reply = await onRequest({ request: req("https://examtree-web.pages.dev/api/admin/question-studio/runs", "POST", {
+      headers: { Origin: "https://examtree-web.pages.dev", "Content-Type": "application/json" },
+      body: '{"count":3}',
+    }) });
+    assert.equal(reply.status, 502);
+    assert.match(reply.headers.get("Content-Type") ?? "", /json/);
+    const payload = await reply.json();
+    assert.equal(payload.code, "API_UPSTREAM_HTTP_ERROR");
+    assert.match(payload.error, /HTTP 502/);
+    assert.match(payload.error, /Review queue/);
+  } finally {
+    globalThis.fetch = previous;
+  }
+});
+
+test("non-generation API responses keep binary and non-JSON content intact", async () => {
+  const previous = globalThis.fetch;
+  globalThis.fetch = async () => new Response("%PDF", {
+    status: 200, headers: { "Content-Type": "application/pdf" },
+  });
+  try {
+    const reply = await onRequest({ request: req("https://examtree-web.pages.dev/api/admin/reports/download") });
+    assert.equal(reply.status, 200);
+    assert.equal(reply.headers.get("Content-Type"), "application/pdf");
+    assert.equal(await reply.text(), "%PDF");
+  } finally {
+    globalThis.fetch = previous;
+  }
+});
