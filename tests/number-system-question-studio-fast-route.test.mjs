@@ -14,12 +14,12 @@ assert.ok(start > 0 && legacy > start, "Number System fast-path precedes heavywe
 const fastPath = registry.slice(start, legacy);
 
 test("NUM-001 is handled by existing canonical multi-engine authority", () => {
-  assert.match(fastPath, /packageId === "TRG-002" \\|\\| packageId === "NUM-001"/);
-  assert.match(fastPath, /adminQuestionStudioEngineV1Router\\(req, res, next\\)/);
+  assert.ok(fastPath.includes('packageId === "TRG-002" || packageId === "NUM-001"'));
+  assert.ok(fastPath.includes('adminQuestionStudioEngineV1Router(req, res, next)'));
 });
 
 test("NUM-002 retains CP014 then CP013 then the existing legacy owner", () => {
-  assert.match(fastPath, /if \\(packageId === "NUM-002"\\)/);
+  assert.ok(fastPath.includes('if (packageId === "NUM-002")'));
   const cp014 = fastPath.indexOf("adminQuestionStudioCp014Router(req, res,");
   const cp013 = fastPath.indexOf("adminQuestionStudioCp013Router(req, res,");
   const legacyOwner = fastPath.indexOf("adminQuestionStudioAverageRouter(req, res, next)");
@@ -28,7 +28,7 @@ test("NUM-002 retains CP014 then CP013 then the existing legacy owner", () => {
 
 test("the single selected NUM-002 CP gets forwarded to legacy selectors", () => {
   assert.match(fastPath, /selectedCpIds.length === 1/);
-  assert.match(fastPath, /canonicalProblemId: selectedCpIds\\[0\\]/);
+  assert.ok(fastPath.includes('canonicalProblemId: selectedCpIds[0]'));
 });
 
 test("lazy failed imports must be retried on another request", () => {
