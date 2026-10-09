@@ -10,6 +10,7 @@ export async function reconcileProcessedRefund(input: {
   client: SqlExecutor;
   provider?: "razorpay" | "cashfree";
   providerRefundId: string;
+  canonicalRefundId?: string;
   providerPaymentId: string;
   amountMinor: number;
   processedAt?: string | null;
@@ -20,6 +21,8 @@ export async function reconcileProcessedRefund(input: {
     FROM commerce.refunds r
     JOIN commerce.payment_attempts pa ON pa.id = r.payment_attempt_id
     WHERE pa.provider = ${input.provider ?? 'razorpay'}
+      AND pa.provider_payment_id = ${input.providerPaymentId}
+      AND (${input.canonicalRefundId ?? null}::uuid IS NULL OR r.id = ${input.canonicalRefundId ?? null}::uuid)
       AND (r.provider_refund_id = ${input.providerRefundId} OR (r.provider_refund_id IS NULL AND pa.provider_payment_id = ${input.providerPaymentId} AND r.amount_minor = ${input.amountMinor}))
     ORDER BY r.created_at DESC LIMIT 1 FOR UPDATE OF r, pa
   `;
