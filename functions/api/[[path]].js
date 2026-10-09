@@ -40,7 +40,7 @@ export async function onRequest({ request }) {
     // Keep this API route JSON-only: otherwise the admin UI loses the HTTP
     // status and falls back to "Unable to create the generation run".
     const upstreamContentType = upstream.headers.get("Content-Type") || "";
-    const isJSON = /\\b(?:application\\/json|[^;]+\\+json)\\b/i.test(upstreamContentType);
+    const isJSON = upstreamContentType.toLowerCase().includes("application/json") || upstreamContentType.toLowerCase().includes("+json");
     if (upstream.status !== 204 && !isJSON) {
       const status = upstream.ok ? 502 : upstream.status;
       return Response.json({
