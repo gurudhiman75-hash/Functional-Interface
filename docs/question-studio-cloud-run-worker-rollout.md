@@ -66,3 +66,28 @@ The current worker uses application-level token authentication over HTTPS. With 
 - Replace synchronous long-running HTTP generation with a durable, idempotent queue and `202 + jobId` status/progress. The old `generation_jobs` table belongs to the **separate** pattern generator and must not be confused with `content.generation_runs` review records.
 - Add job deduplication, retries, timeouts, cancellation and a dead-letter strategy before allowing several cloud instances.
 - Move frontend static hosting to Cloudflare Pages and keep the student API separate from the admin-generation service if needed. Test Neon connection latency and pool sizing from the chosen region.
+
+## October 2026 — one-command staging workflow
+
+A guarded staging script and dedicated Cloud Build configuration have been added:
+
+- `cloudbuild.trg002.yaml` — builds the compute-only Dockerfile, not the student/admin/API server.
+- `scripts/deploy-trg002-cloudrun-staging.sh` — creates a dedicated minimal runtime identity, protected Secret Manager token, Mumbai Artifact Registry and the **staging** Cloud Run service; deploys with 2 GiB, 1 vCPU, min 0, max 1, concurrency 1; checks that unauthenticated generation is rejected and that one- and three-question generation both work.
+- The normal production-build smoke now also generates **three questions**, catching simple capacity regressions before deployment.
+
+**Preconditions (interactive Google Cloud Shell):**
+
+1. Select your intended Google Cloud project and enable billing. Create a budget and email alerts under **Billing → Budgets & alerts**. Where available, configure an eligible Cloud Run spend-cap budget. Budget alerts alone are not spending caps.
+2. If this is the Firebase project's underlying Google Cloud project, confirm its billing scope and existing services before choosing it; you may prefer a dedicated project to isolate expenditure.
+3. Ensure your current Google identity can create Cloud Run services, create Secret Manager secrets/service accounts, enable APIs and submit Cloud Builds. Cloud Build's service account must be allowed to push images to Artifact Registry (e.g. `roles/artifactregistry.writer`).
+4. Open Google Cloud Shell, clone the latest **New-main** repository using your normal GitHub authorization, then from the repository root run:
+
+```bash
+EXAMTREE_BUDGET_READY=yes bash scripts/deploy-trg002-cloudrun-staging.sh YOUR_GOOGLE_CLOUD_PROJECT_ID
+```
+
+The script is **manual**, not triggered by git merges. It uploads source to Cloud Build (build charges/storage may apply), creates/uses a dedicated secret, and prints the staging HTTPS URL after authentication and generation checks. It does not alter your Render environment variables or production routing. Run it only after reviewing any expected Google charges and permissions.
+
+**Credential handoff:** The API and Cloud Run must use the same `QUESTION_STUDIO_WORKER_TOKEN`. Retrieve it directly inside your authenticated Google Cloud Shell or use a secure secret-delivery mechanism to populate Render's private environment settings; never place it in a GitHub source file, frontend Vite environment variable, terminal transcript sent to another user, or this chat. Add `QUESTION_STUDIO_TRG002_WORKER_URL` only after the staging review/storage tests have passed.
+
+**Important:** The worker deliberately uses an application token over HTTPS and enables public Cloud Run ingress for compatibility with Render. Unauthorized compute is rejected before heavy authority import. A future version should use native Cloud Run IAM / short-lived identity tokens rather than a shared token, if the API moves to Google Cloud or workload identity can be established.

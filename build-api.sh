@@ -29,6 +29,7 @@ node --check artifacts/api-server/ensure-current-affairs.mjs
 # Catch malformed remote-worker code without starting a generator or DB migration.
 node --check artifacts/api-server/trg002-worker-service.mjs
 node --check artifacts/api-server/build-trg002-worker.mjs
+bash -n scripts/deploy-trg002-cloudrun-staging.sh
 node --test artifacts/api-server/tests/trg002-worker-service.test.mjs
 
 # The GitHub Render-equivalent build intentionally has no production database
