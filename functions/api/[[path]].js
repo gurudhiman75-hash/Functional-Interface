@@ -41,7 +41,7 @@ export async function onRequest({ request }) {
     // status and falls back to "Unable to create the generation run".
     const upstreamContentType = upstream.headers.get("Content-Type") || "";
     const isJSON = upstreamContentType.toLowerCase().includes("application/json") || upstreamContentType.toLowerCase().includes("+json");
-    if (upstream.status !== 204 && !isJSON) {
+    if (incoming.pathname === "/api/admin/question-studio/runs" && request.method === "POST" && upstream.status !== 204 && !isJSON) {
       const status = upstream.ok ? 502 : upstream.status;
       return Response.json({
         code: upstream.ok ? "API_UPSTREAM_NON_JSON_RESPONSE" : "API_UPSTREAM_HTTP_ERROR",
