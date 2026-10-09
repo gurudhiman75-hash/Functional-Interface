@@ -3,7 +3,14 @@ import { Router, type IRouter, type RequestHandler } from "express";
 function lazyRouter(loader: () => Promise<{ default: IRouter }>): RequestHandler {
   let routerPromise: Promise<IRouter> | null = null;
   return (req, res, next) => {
-    routerPromise ??= loader().then((module) => module.default);
+    routerPromise ??= loader()
+      .then((module) => module.default)
+      .catch((error) => {
+        // A transient OOM/restart/import error must not poison this route
+        // for the rest of the process lifetime.
+        routerPromise = null;
+        throw error;
+      });
     void routerPromise
       .then((loadedRouter) => loadedRouter(req, res, next))
       .catch(next);
@@ -64,20 +71,41 @@ const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-stud
  */
 const router: IRouter = Router();
 
-// The current TRG-002 chapter mix is owned by the canonical multi-engine V1
-// router, not any historical ARG, SRI or chapter-compatibility endpoint.
-// Route it directly to its existing authenticated generation handler. Otherwise
-// Express walks the seven ARG lazy routers first, hydrating unrelated runtime
-// modules before any TRG-002 work can begin. On a low-CPU shared API instance
-// that can block health checks and abort the generation request.
-//
-// Keep every other package and endpoint on the established registry path.
+// Run-generation dispatch must not import unrelated Question Studio engines.
+// Earlier, NUM-001/NUM-002 loaded a long sequence of ARG/COM/SRI routers just
+// to reach their Quant owner, which could stall Render's 0.15-vCPU API.
+// Preserve each chapter's existing persistence and lifecycle authority:
+//   TRG-002 -> canonical V1 (the API app also has an earlier off-thread mount)
+//   NUM-001 -> canonical V1 review route
+//   NUM-002 -> governed CP014 -> CP013 -> legacy Number System route.
+// Only intercept explicitly named packages; every other endpoint retains its
+// established registry precedence, including read/review operations.
 router.post("/runs", (req, res, next) => {
-  if (req.body?.packageId !== "TRG-002") {
-    next();
+  const packageId = req.body?.packageId;
+  if (packageId === "TRG-002" || packageId === "NUM-001") {
+    adminQuestionStudioEngineV1Router(req, res, next);
     return;
   }
-  adminQuestionStudioEngineV1Router(req, res, next);
+  if (packageId === "NUM-002") {
+    // Cockpit sends CP selection as cpIds[], while governed CP013/CP014 and
+    // legacy NUM-002 routers expect canonicalProblemId. Normalize one selected
+    // CP here so its explicit authority is never silently discarded.
+    const selectedCpIds = Array.isArray(req.body?.cpIds)
+      ? [...new Set(req.body.cpIds.filter((cp: unknown): cp is string => typeof cp === "string" && cp.trim()).map((cp: string) => cp.trim()))]
+      : [];
+    if (selectedCpIds.length === 1 && !req.body?.canonicalProblemId && !req.body?.cpId) {
+      req.body = { ...req.body, canonicalProblemId: selectedCpIds[0] };
+    }
+    adminQuestionStudioCp014Router(req, res, (firstError?: unknown) => {
+      if (firstError) { next(firstError); return; }
+      adminQuestionStudioCp013Router(req, res, (secondError?: unknown) => {
+        if (secondError) { next(secondError); return; }
+        adminQuestionStudioAverageRouter(req, res, next);
+      });
+    });
+    return;
+  }
+  next();
 });
 
 router.use(adminQuestionStudioBulkHardeningRouter);

@@ -95,6 +95,23 @@ export async function adminRequest<T>(
     details?: unknown;
   } & T) | null;
 
+  if (!response.ok && !body && path === '/admin/question-studio/runs') {
+    // Cloudflare / Render can return an HTML gateway error when the API process
+    // is restarting. The normal fallback hid the status, making that look like
+    // a content-generation defect. A lost response is ambiguous: NEVER
+    // automatically retry a run without checking Review queue for duplicates.
+    const gatewayFailure = response.status >= 500;
+    throw new AdminApiError({
+      message: gatewayFailure
+        ? `Question Studio API returned HTTP ${response.status} without JSON. Render may be restarting or the gateway may have timed out. Check the Review queue before retrying.`
+        : `Question Studio API returned HTTP ${response.status} without diagnostic details. Check your admin session and try again.`,
+      code: gatewayFailure ? 'QUESTION_STUDIO_UPSTREAM_HTTP_ERROR' : 'QUESTION_STUDIO_HTTP_ERROR',
+      status: response.status,
+      details: null,
+      correlationId: response.headers.get('X-Correlation-Id'),
+      affectedRecord: options?.affectedRecord ?? null,
+    });
+  }
   if (!response.ok) {
     throw adminApiErrorFromResponse(
       response,
