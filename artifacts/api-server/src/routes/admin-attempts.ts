@@ -21,17 +21,17 @@ router.get('/', requireAdminPermission('users.students.read'), async (req, res) 
   if (!STATUSES.has(status)) return res.status(400).json({ error: 'Unsupported attempt status', code: 'INVALID_ATTEMPT_STATUS' });
 
   try {
-    const stalePredicate = sqlClient`a.status::text = 'in_progress' AND a.updated_at < now() - GREATEST(interval '6 hours', make_interval(secs => GREATEST(tv.duration_seconds * 2, 3600)))`;
+    const stalePredicate = sqlClient`a.status::text = 'in_progress' AND COALESCE(a.last_activity_at, a.updated_at) < now() - GREATEST(interval '6 hours', make_interval(secs => GREATEST(tv.duration_seconds * 2, 3600)))`;
     const [rows, totals, stats] = await Promise.all([
       sqlClient`
         SELECT
           a.id::text AS id, a.attempt_number AS "attemptNumber", a.status::text AS status,
           a.started_at AS "startedAt", a.submitted_at AS "submittedAt", a.evaluated_at AS "evaluatedAt",
-          a.updated_at AS "updatedAt", a.time_spent_seconds AS "timeSpentSeconds",
+          a.updated_at AS "updatedAt", a.last_activity_at AS "lastActivityAt", a.abandoned_at AS "abandonedAt", a.abandonment_reason AS "abandonmentReason", a.time_spent_seconds AS "timeSpentSeconds",
           a.raw_score AS "rawScore", a.final_score AS "finalScore", a.correct_count AS "correctCount",
           a.incorrect_count AS "incorrectCount", a.unattempted_count AS "unattemptedCount",
           (${stalePredicate}) AS stale,
-          CASE WHEN ${stalePredicate} THEN EXTRACT(EPOCH FROM (now() - a.updated_at))::int ELSE 0 END AS "inactiveSeconds",
+          CASE WHEN ${stalePredicate} THEN EXTRACT(EPOCH FROM (now() - COALESCE(a.last_activity_at, a.updated_at)))::int ELSE 0 END AS "inactiveSeconds",
           u.id::text AS "studentId", u.display_name AS "studentName", u.email AS "studentEmail",
           sp.registration_code AS "registrationCode", t.id::text AS "testId", t.public_code AS "testPublicCode",
           tv.title AS "testTitle", tv.duration_seconds AS "durationSeconds",
@@ -91,7 +91,7 @@ async function abandonAttempt(tx: typeof sqlClient, input: {
   actorRole: string | null;
 }) {
   const rows = await tx`
-    SELECT a.status::text AS status, a.updated_at AS "updatedAt", a.result_snapshot AS "resultSnapshot",
+    SELECT a.status::text AS status, a.updated_at AS "updatedAt", a.last_activity_at AS "lastActivityAt", a.result_snapshot AS "resultSnapshot",
       a.raw_score AS "rawScore", a.final_score AS "finalScore", tv.duration_seconds AS "durationSeconds",
       u.display_name AS "studentName", sp.registration_code AS "registrationCode", tv.title AS "testTitle"
     FROM learning.attempts a
@@ -109,10 +109,10 @@ async function abandonAttempt(tx: typeof sqlClient, input: {
     throw Object.assign(new Error('The attempt changed after it was loaded. Refresh and review it again.'), { status: 409, code: 'ATTEMPT_STATE_CHANGED' });
   }
   const staleAfterSeconds = Math.max(21600, Math.max(Number(attempt.durationSeconds || 0) * 2, 3600));
-  const inactiveSeconds = Math.floor((Date.now() - new Date(String(attempt.updatedAt)).getTime()) / 1000);
+  const inactiveSeconds = Math.floor((Date.now() - new Date(String(attempt.lastActivityAt ?? attempt.updatedAt)).getTime()) / 1000);
   if (inactiveSeconds < staleAfterSeconds) throw Object.assign(new Error('This attempt is still within its active reliability window and cannot be abandoned'), { status: 409, code: 'ATTEMPT_NOT_STALE' });
 
-  await tx`UPDATE learning.attempts SET status = 'abandoned', updated_at = now() WHERE id = ${input.attemptId}::uuid`;
+  await tx`UPDATE learning.attempts SET status = 'abandoned', abandoned_at = now(), abandonment_reason = ${input.reason.slice(0,80)}, updated_at = now() WHERE id = ${input.attemptId}::uuid`;
   const auditEventId = randomUUID();
   await tx`
     INSERT INTO platform.audit_events (
@@ -207,8 +207,8 @@ router.get('/:attemptId', requireAdminPermission('users.students.read'), async (
           a.updated_at AS "updatedAt", a.time_spent_seconds AS "timeSpentSeconds", a.raw_score AS "rawScore",
           a.final_score AS "finalScore", a.correct_count AS "correctCount", a.incorrect_count AS "incorrectCount",
           a.unattempted_count AS "unattemptedCount", a.result_snapshot AS "resultSnapshot",
-          (a.status::text = 'in_progress' AND a.updated_at < now() - GREATEST(interval '6 hours', make_interval(secs => GREATEST(tv.duration_seconds * 2, 3600)))) AS stale,
-          EXTRACT(EPOCH FROM (now() - a.updated_at))::int AS "inactiveSeconds",
+          (a.status::text = 'in_progress' AND COALESCE(a.last_activity_at, a.updated_at) < now() - GREATEST(interval '6 hours', make_interval(secs => GREATEST(tv.duration_seconds * 2, 3600)))) AS stale,
+          EXTRACT(EPOCH FROM (now() - COALESCE(a.last_activity_at, a.updated_at)))::int AS "inactiveSeconds",
           GREATEST(21600, GREATEST(tv.duration_seconds * 2, 3600))::int AS "staleAfterSeconds",
           u.id::text AS "studentId", u.display_name AS "studentName", u.email AS "studentEmail",
           u.status::text AS "studentStatus", sp.registration_code AS "registrationCode",
