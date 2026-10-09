@@ -17,7 +17,6 @@ on:
       - artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-orders-payments.yml
   push:
     branches: [New-main]
     paths:
@@ -34,7 +33,6 @@ on:
       - artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-orders-payments.yml
   workflow_dispatch:
 
 permissions:
