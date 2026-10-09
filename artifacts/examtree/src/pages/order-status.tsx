@@ -30,7 +30,7 @@ export default function OrderStatusPage() {
       .then(() => purchases.refetch())
       .catch(() => { /* The normal signed webhook/purchase polling remains authoritative. */ });
   }, [id, Boolean(pending)]);
-  const title = purchases.isLoading ? "Checking payment…" : purchases.isError ? "Unable to check payment" : !order ? "Order not found" : hasAccess ? "Your package is ready" : order.status === "paid" ? "Payment received" : order.status === "refunded" ? "Payment refunded" : order.status === "partially_refunded" ? "Payment partly refunded" : order.status === "cancelled" ? "Order cancelled" : order.status === "expired" ? "Checkout expired" : order.paymentStatus === "failed" ? "Payment unsuccessful" : "Waiting for payment confirmation";
+  const title = purchases.isLoading ? "Checking payment…" : purchases.isError ? "Unable to check payment" : !order ? "Order not found" : hasAccess ? "Your package is ready" : order.status === "paid" ? "Payment received" : order.status === "refunded" ? "Payment refunded" : order.status === "partially_refunded" ? "Payment partly refunded" : order.status === "cancelled" ? "Order cancelled" : order.status === "expired" ? "Checkout expired" : order.paymentStatus === "failed" ? "Payment unsuccessful — you can retry" : order.paymentStatus === "cancelled" ? "Payment not completed — you can retry" : "Waiting for payment confirmation";
   return <div className="mx-auto max-w-2xl px-4 py-10">
     <section className="rounded-2xl border bg-card p-6 sm:p-8" aria-live="polite">
       <h1 className="text-2xl font-bold">{title}</h1>
