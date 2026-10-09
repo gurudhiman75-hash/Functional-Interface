@@ -3,7 +3,14 @@ import { Router, type IRouter, type RequestHandler } from "express";
 function lazyRouter(loader: () => Promise<{ default: IRouter }>): RequestHandler {
   let routerPromise: Promise<IRouter> | null = null;
   return (req, res, next) => {
-    routerPromise ??= loader().then((module) => module.default);
+    routerPromise ??= loader()
+      .then((module) => module.default)
+      .catch((error) => {
+        // A transient OOM/restart/import error must not poison this route
+        // for the rest of the process lifetime.
+        routerPromise = null;
+        throw error;
+      });
     void routerPromise
       .then((loadedRouter) => loadedRouter(req, res, next))
       .catch(next);
@@ -80,6 +87,15 @@ router.post("/runs", (req, res, next) => {
     return;
   }
   if (packageId === "NUM-002") {
+    // Cockpit sends CP selection as cpIds[], while governed CP013/CP014 and
+    // legacy NUM-002 routers expect canonicalProblemId. Normalize one selected
+    // CP here so its explicit authority is never silently discarded.
+    const selectedCpIds = Array.isArray(req.body?.cpIds)
+      ? [...new Set(req.body.cpIds.filter((cp: unknown): cp is string => typeof cp === "string" && cp.trim()).map((cp: string) => cp.trim()))]
+      : [];
+    if (selectedCpIds.length === 1 && !req.body?.canonicalProblemId && !req.body?.cpId) {
+      req.body = { ...req.body, canonicalProblemId: selectedCpIds[0] };
+    }
     adminQuestionStudioCp014Router(req, res, (firstError?: unknown) => {
       if (firstError) { next(firstError); return; }
       adminQuestionStudioCp013Router(req, res, (secondError?: unknown) => {
