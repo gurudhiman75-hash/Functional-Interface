@@ -36,9 +36,61 @@ export function OrdersPaymentsWorkspacePage() {
   const load = async () => { setLoading(true); try { const params = new URLSearchParams(); if (appliedSearch) params.set('search', appliedSearch); setData(await request<OrdersResponse>(`/admin/commerce/orders?${params}`)); } catch (error) { showToast.error('Unable to load orders', error instanceof Error ? error.message : 'Request failed.'); } finally { setLoading(false); } };
   useEffect(() => { void load(); }, [appliedSearch]);
   return <div className="space-y-5">
-    <PageHeader title="Orders & Payments" description="Canonical order ledger, frozen pricing evidence, provider reconciliation, refunds and entitlement consequences." icon={<ShoppingCart className="h-5 w-5" />} actions={<Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button>} />
+    <PageHeader title="Orders & Payments" description="Canonical order ledger, frozen pricing evidence, provider reconciliation, refunds and entitlement consequences." icon={<ShoppingCart className="h-5 w-5" />} actions={<div className="flex gap-2"><Button asChild><Link to="/commerce/refunds"><RotateCcw className="mr-1.5 h-4 w-4" />Refunds</Link></Button><Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button></div>} />
     <Card><CardContent className="flex gap-2 p-4"><Input value={search} onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') setAppliedSearch(search.trim()); }} placeholder="Search order number, student email or name" /><Button onClick={() => setAppliedSearch(search.trim())}><Search className="mr-1.5 h-4 w-4" />Search</Button></CardContent></Card>
     <Card><CardHeader><CardTitle className="text-base">Canonical order ledger</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Order</TableHead><TableHead>Student</TableHead><TableHead>Status</TableHead><TableHead>Payment</TableHead><TableHead className="text-right">Items</TableHead><TableHead className="text-right">Entitlements</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader><TableBody>{data?.orders.length ? data.orders.map((row) => <TableRow key={row.id}><TableCell><Link className="font-medium hover:underline" to={`/commerce/orders/${row.id}`}>#{row.orderNumber}</Link><p className="text-xs text-muted-foreground">{dateTime(row.createdAt)}</p></TableCell><TableCell><p>{row.displayName || 'Student'}</p><p className="text-xs text-muted-foreground">{row.email}</p></TableCell><TableCell><StatusBadge tone={row.status === 'paid' ? 'success' : row.status === 'refunded' ? 'neutral' : row.status === 'payment_failed' ? 'destructive' : 'warning'}>{row.status}</StatusBadge></TableCell><TableCell>{row.paymentStatus || '—'}</TableCell><TableCell className="text-right">{row.itemCount}</TableCell><TableCell className="text-right">{row.entitlementCount}</TableCell><TableCell className="text-right">{money(row.totalMinor, row.currency)}{Number(row.refundedMinor || 0) > 0 && <p className="text-xs text-muted-foreground">{money(Number(row.refundedMinor), row.currency)} refunded</p>}</TableCell></TableRow>) : <TableRow><TableCell colSpan={7} className="py-12 text-center text-muted-foreground">{loading ? 'Loading canonical orders…' : 'No canonical orders match this search.'}</TableCell></TableRow>}</TableBody></Table></CardContent></Card>
+  </div>;
+}
+
+
+/**
+ * Refund entry point. Read access only; actual refund initiation remains on
+ * an individual order and always requires commerce.orders.manage on the API.
+ */
+export function RefundsWorkspacePage() {
+  const [search, setSearch] = useState('');
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const [data, setData] = useState<OrdersResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const load = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (appliedSearch) params.set('search', appliedSearch);
+      setData(await request<OrdersResponse>(`/admin/commerce/orders?${params}`));
+    } catch (error) {
+      showToast.error('Unable to load refund orders', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => { void load(); }, [appliedSearch]);
+  // Keep refunded orders visible for status checks and historical evidence.
+  const refundableOrders = (data?.orders ?? []).filter((order) =>
+    ['paid', 'partially_refunded', 'refunded'].includes(order.status)
+    || Number(order.refundedMinor ?? 0) > 0
+  );
+  return <div className="space-y-5">
+    <PageHeader title="Refunds" description="Find captured purchases, request an authorized refund, and review completed refunds." icon={<RotateCcw className="h-5 w-5" />} actions={<div className="flex gap-2"><Button asChild variant="outline"><Link to="/commerce/orders">All orders</Link></Button><Button variant="outline" disabled={loading} onClick={() => void load()}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button></div>} />
+    <p className="text-sm text-muted-foreground">Open a paid order to request a refund. Full refunds revoke access only after Cashfree confirms success; pending or partial refunds do not revoke access automatically.</p>
+    <Card><CardContent className="flex gap-2 p-4">
+      <Input value={search} onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') setAppliedSearch(search.trim()); }} placeholder="Find order number, student email or name" aria-label="Find refundable orders" />
+      <Button onClick={() => setAppliedSearch(search.trim())}><Search className="mr-1.5 h-4 w-4" />Search</Button>
+    </CardContent></Card>
+    <Card><CardHeader><CardTitle className="text-base">Paid and refunded orders</CardTitle></CardHeader><CardContent className="p-0"><Table>
+      <TableHeader><TableRow><TableHead>Order</TableHead><TableHead>Student</TableHead><TableHead>Status</TableHead><TableHead>Total</TableHead><TableHead>Refunded</TableHead><TableHead className="text-right">Action</TableHead></TableRow></TableHeader>
+      <TableBody>{refundableOrders.length ? refundableOrders.map((order) =>
+        <TableRow key={order.id}>
+          <TableCell className="font-medium">#{order.orderNumber}</TableCell>
+          <TableCell><p className="text-sm">{order.displayName || 'Student'}</p><p className="text-xs text-muted-foreground">{order.email}</p></TableCell>
+          <TableCell><StatusBadge tone={order.status === 'paid' ? 'success' : 'neutral'}>{order.status}</StatusBadge></TableCell>
+          <TableCell>{money(order.totalMinor, order.currency)}</TableCell>
+          <TableCell>{money(Number(order.refundedMinor ?? 0), order.currency)}</TableCell>
+          <TableCell className="text-right"><Button asChild size="sm" variant="outline"><Link to={`/commerce/orders/${order.id}`}>{order.status === 'refunded' ? 'View refund' : 'Review / refund'}</Link></Button></TableCell>
+        </TableRow>) :
+        <TableRow><TableCell colSpan={6} className="py-12 text-center text-sm text-muted-foreground">{loading ? 'Loading paid orders…' : 'No paid or refunded orders match this search.'}</TableCell></TableRow>}
+      </TableBody>
+    </Table></CardContent></Card>
   </div>;
 }
 

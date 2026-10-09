@@ -15,10 +15,10 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'web-app', 'mobile-app', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(51);
+    expect(items).toHaveLength(52);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Notes Studio', 'Notes Studio v2', 'Content Review', 'Learning Resources', 'Current Affairs', 'Coverage Planner', 'Sections & Topics',
-      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Exam Page Builder', 'Layout Composer', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Students', 'Admin Team',
+      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Exam Page Builder', 'Layout Composer', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Refunds', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
@@ -73,6 +73,7 @@ describe('admin navigation roadmap', () => {
       '/mobile/analytics',
       '/commerce/packages',
       '/commerce/orders',
+      '/commerce/refunds',
       '/commerce/coupons',
       '/commerce/entitlements',
       '/users/students',
@@ -97,7 +98,7 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 46, in_progress: 1, planned: 4 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 47, in_progress: 1, planned: 4 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -121,6 +122,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/mobile/content-planning']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/configuration']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/analytics']?.permission).toBe('content.taxonomy.read');
+    expect(NAV_LOOKUP['/commerce/refunds']?.permission).toBe('commerce.orders.read');
     expect(NAV_LOOKUP['/users/students']?.permission).toBe('users.students.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
     expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');

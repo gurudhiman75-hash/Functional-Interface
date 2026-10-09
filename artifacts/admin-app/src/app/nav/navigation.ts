@@ -2,7 +2,7 @@ import {
   Activity, AlertTriangle, BarChart3, Bell, BookOpen, Box, CalendarClock, ClipboardCheck, ClipboardList, FileJson, FileQuestion,
   FileText, HeartPulse, Image as ImageIcon, KeyRound, Languages, LayoutDashboard,
   Layers, LifeBuoy, ListChecks, Lock, Network, Palette, Plug, ScrollText, Settings,
-  ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users, Smartphone, Megaphone, Home,
+  ShieldCheck, ShoppingCart, RotateCcw, Sparkles, Target, Ticket, TrendingUp, Users, Smartphone, Megaphone, Home,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -58,6 +58,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: 'commerce', label: 'Commerce', items: [
     { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'live', permission: 'commerce.products.read', summary: 'Canonical package inventory with immutable versions, minor-unit pricing, ordered test membership and audited lifecycle controls.' },
     { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical order ledger, frozen pricing snapshots, signature-verified provider events, captured-payment reconciliation, verified refunds and entitlement evidence.' },
+    { label: 'Refunds', path: '/commerce/refunds', icon: RotateCcw, status: 'live', permission: 'commerce.orders.read', summary: 'Review paid and partially-refunded orders, open an order to request an authorized refund, and verify pending refund results.' },
     { label: 'Coupons', path: '/commerce/coupons', icon: Ticket, status: 'live', permission: 'commerce.coupons.read', summary: 'Canonical fixed and percentage discounts with package scope, campaign windows, redemption limits and paid-order evidence.' },
     { label: 'Entitlements', path: '/commerce/entitlements', icon: KeyRound, status: 'live', permission: 'commerce.entitlements.read', summary: 'Canonical student access ledger with paid and manual grants, immutable test membership, expiry and audited revocation.', milestone: 'Paid-test delivery and attempt creation are server-enforced.' },
   ] },
