@@ -30,6 +30,7 @@ export async function finalizeCapturedPayment(input: {
       pa.id::text AS "paymentAttemptId",
       pa.order_id::text AS "orderId",
       pa.status AS "paymentStatus",
+      pa.provider_payment_id AS "providerPaymentId",
       pa.amount_minor::float8 AS "paymentAmountMinor",
       pa.currency AS "paymentCurrency",
       o.status AS "orderStatus",
@@ -65,6 +66,15 @@ export async function finalizeCapturedPayment(input: {
     ORDER BY e.created_at
   `;
   if (String(row.orderStatus) === "paid" && String(row.paymentStatus) === "captured") {
+    const capturedPaymentId = String(row.providerPaymentId ?? "");
+    if (capturedPaymentId && capturedPaymentId !== input.providerPaymentId) {
+      throw new CommercePaymentError(
+        "PAYMENT_ID_MISMATCH",
+        "This order was already captured with a different provider payment id",
+        409,
+        { capturedPaymentId, receivedPaymentId: input.providerPaymentId },
+      );
+    }
     return { orderId: String(row.orderId), entitlementIds: existingEntitlements.map((entry) => String(entry.id)), alreadyFinalized: true };
   }
 
