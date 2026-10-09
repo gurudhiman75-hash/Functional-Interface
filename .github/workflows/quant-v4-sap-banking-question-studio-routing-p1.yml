@@ -6,13 +6,13 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/**"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-banking-integration.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-QUESTION-STUDIO-ROUTING.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.test.ts"
       - "artifacts/api-server/src/question-studio/quant-exam-profile.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
   push:
     branches:
@@ -25,7 +25,6 @@ on:
       - "artifacts/api-server/src/question-studio/quant-sap-banking.ts"
       - "artifacts/api-server/src/question-studio/quant-sap-banking.test.ts"
       - "artifacts/api-server/src/question-studio/quant-exam-profile.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
       - ".github/workflows/quant-v4-sap-banking-question-studio-routing-p1.yml"
 
@@ -54,6 +53,8 @@ jobs:
         run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-SPEED-PROFILE.test.ts
       - name: Existing SAP Question Studio chapter acceptance
         run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-CHAPTER-ACCEPTANCE.test.ts
+      - name: SAP exact fraction option collision regression
+        run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-006/fraction-option-collision.test.ts
       - name: Quant V4 central exam-profile conformance
         run: npx --yes tsx src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts
       - name: Patch hygiene

@@ -46,7 +46,20 @@ export function itemStem(payload: Record<string, unknown> | null): string {
 }
 
 export function itemExplanation(payload: Record<string, unknown> | null): string {
-  return asText(payload?.explanation);
+  const explanation = payload?.explanation;
+  if (typeof explanation === 'string') return explanation.trim();
+  // Review exports retain authored calculation steps rather than flattening them.
+  // Only accept known text fields; never stringify objects into learner content.
+  const steps = (value: unknown): string[] => Array.isArray(value)
+    ? value.map(asText).filter(Boolean)
+    : [];
+  if (Array.isArray(explanation)) return steps(explanation).join('\n');
+  const structured = asRecord(explanation);
+  return [
+    asText(structured.method),
+    ...steps(structured.steps),
+    asText(structured.conclusion) || asText(structured.finalAnswer),
+  ].filter(Boolean).join('\n');
 }
 
 export function itemOptionValues(payload: Record<string, unknown> | null): string[] {
