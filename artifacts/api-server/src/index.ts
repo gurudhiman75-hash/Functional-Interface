@@ -3,6 +3,7 @@ import "dotenv/config";
 import app from "./app";
 import { startGenerationJobWorker } from "./lib/generation-jobs";
 import { startMobileNotificationWorker } from "./lib/mobile-notification-delivery";
+import { startOutboxPublisher } from "./lib/outbox-publisher";
 import { logger } from "./lib/logger";
 import { validateAIProviderStartup } from "./lib/ai-providers";
 import { ensureApprovedExamCatalogue } from "./lib/approved-exam-catalogue";
@@ -40,6 +41,7 @@ if (process.env.NODE_ENV !== "production" || process.env.GENERATION_JOB_WORKER_E
   logger.info("Legacy generation-job worker disabled in production API");
 }
 startMobileNotificationWorker();
+startOutboxPublisher();
 
 app.listen(port, "0.0.0.0", () => {
   logger.info(`API server running on http://0.0.0.0:${port}`);
