@@ -64,20 +64,32 @@ const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-stud
  */
 const router: IRouter = Router();
 
-// The current TRG-002 chapter mix is owned by the canonical multi-engine V1
-// router, not any historical ARG, SRI or chapter-compatibility endpoint.
-// Route it directly to its existing authenticated generation handler. Otherwise
-// Express walks the seven ARG lazy routers first, hydrating unrelated runtime
-// modules before any TRG-002 work can begin. On a low-CPU shared API instance
-// that can block health checks and abort the generation request.
-//
-// Keep every other package and endpoint on the established registry path.
+// Run-generation dispatch must not import unrelated Question Studio engines.
+// Earlier, NUM-001/NUM-002 loaded a long sequence of ARG/COM/SRI routers just
+// to reach their Quant owner, which could stall Render's 0.15-vCPU API.
+// Preserve each chapter's existing persistence and lifecycle authority:
+//   TRG-002 -> canonical V1 (the API app also has an earlier off-thread mount)
+//   NUM-001 -> canonical V1 review route
+//   NUM-002 -> governed CP014 -> CP013 -> legacy Number System route.
+// Only intercept explicitly named packages; every other endpoint retains its
+// established registry precedence, including read/review operations.
 router.post("/runs", (req, res, next) => {
-  if (req.body?.packageId !== "TRG-002") {
-    next();
+  const packageId = req.body?.packageId;
+  if (packageId === "TRG-002" || packageId === "NUM-001") {
+    adminQuestionStudioEngineV1Router(req, res, next);
     return;
   }
-  adminQuestionStudioEngineV1Router(req, res, next);
+  if (packageId === "NUM-002") {
+    adminQuestionStudioCp014Router(req, res, (firstError?: unknown) => {
+      if (firstError) { next(firstError); return; }
+      adminQuestionStudioCp013Router(req, res, (secondError?: unknown) => {
+        if (secondError) { next(secondError); return; }
+        adminQuestionStudioAverageRouter(req, res, next);
+      });
+    });
+    return;
+  }
+  next();
 });
 
 router.use(adminQuestionStudioBulkHardeningRouter);
