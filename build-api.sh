@@ -29,6 +29,11 @@ node --check artifacts/api-server/ensure-current-affairs.mjs
 # Catch malformed remote-worker code without starting a generator or DB migration.
 node --check artifacts/api-server/trg002-worker-service.mjs
 node --check artifacts/api-server/build-trg002-worker.mjs
+node --check artifacts/api-server/shared-question-studio-worker-service.mjs
+node --check artifacts/api-server/build-shared-worker.mjs
+bash -n scripts/deploy-shared-question-studio-staging.sh
+node --test artifacts/api-server/tests/shared-question-studio-worker-service.test.mjs
+node --test tests/shared-studio-architecture.test.mjs
 bash -n scripts/deploy-trg002-cloudrun-staging.sh
 node --test artifacts/api-server/tests/trg002-worker-service.test.mjs
 
