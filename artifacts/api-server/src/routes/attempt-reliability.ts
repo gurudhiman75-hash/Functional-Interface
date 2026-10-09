@@ -151,6 +151,7 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
           await sql`
             UPDATE learning.attempts
             SET result_snapshot = ${JSON.stringify(snapshot)}::jsonb,
+                last_activity_at = now(),
                 updated_at = now()
             WHERE id = ${String(row.id)}::uuid
           `;
@@ -185,6 +186,7 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
           started_at,
           time_spent_seconds,
           result_snapshot,
+          last_activity_at,
           created_at,
           updated_at
         ) VALUES (
@@ -195,6 +197,7 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
           now(),
           0,
           ${JSON.stringify(snapshot)}::jsonb,
+          now(),
           now(),
           now()
         )
@@ -338,6 +341,7 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
       await sql`
         UPDATE learning.attempts
         SET result_snapshot = ${JSON.stringify(next)}::jsonb,
+            last_activity_at = now(),
             updated_at = now()
         WHERE id = ${attemptId}::uuid
       `;
