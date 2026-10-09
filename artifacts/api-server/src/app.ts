@@ -1,4 +1,5 @@
 import express, { type Express, type RequestHandler } from "express";
+import { randomUUID } from "node:crypto";
 import cors, { type CorsOptions } from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
@@ -119,6 +120,44 @@ app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAff
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsEditorialActivationRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsSelectedProcessingRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsPackEditorialRouter);
+
+// Log the START of every generation POST, before loading either the
+// dedicated chapter worker or the large legacy Question Studio route graph.
+// If the process stalls/restarts, pino-http's end-of-response log never fires;
+// this small ingress log preserves package, count, correlation and memory.
+// Never log seeds, questions, auth headers or request bodies.
+app.use("/api/admin/question-studio", (req, res, next) => {
+  if (req.method !== "POST" || req.path !== "/runs") {
+    next();
+    return;
+  }
+  const received = req.headers["x-correlation-id"];
+  const correlationId = typeof received === "string" && received.length > 0
+    ? received.slice(0, 120)
+    : randomUUID();
+  req.headers["x-correlation-id"] = correlationId;
+  res.setHeader("X-Correlation-Id", correlationId);
+  const packageId = typeof req.body?.packageId === "string"
+    ? req.body.packageId.slice(0, 80) : "unspecified";
+  const engineId = typeof req.body?.engineId === "string"
+    ? req.body.engineId.slice(0, 80) : "unspecified";
+  const count = Number.isInteger(req.body?.count) ? req.body.count : null;
+  const started = Date.now();
+  req.log.info({ correlationId, packageId, engineId, count, rssBytes: process.memoryUsage().rss }, "Question Studio generation request received");
+  res.once("finish", () => {
+    req.log.info({
+      correlationId, packageId, engineId, count,
+      statusCode: res.statusCode, elapsedMs: Date.now() - started,
+      rssBytes: process.memoryUsage().rss,
+    }, "Question Studio generation request finished");
+  });
+  res.once("close", () => {
+    if (!res.writableEnded) {
+      req.log.warn({ correlationId, packageId, engineId, count, elapsedMs: Date.now() - started }, "Question Studio generation request connection closed before response");
+    }
+  });
+  next();
+});
 
 // TRG-002 generation is CPU-heavy on a 0.15-CPU Render Free instance.
 // Handle only that package in an isolated worker-backed endpoint, before
