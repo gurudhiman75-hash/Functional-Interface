@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ChevronDown, GraduationCap, PanelLeftClose, PanelLeft } from 'lucide-react';
 
@@ -48,7 +48,15 @@ function statusDotClass(status: AdminWorkspaceStatus) {
 
 export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
   const { hasPermission } = useAdminPermissions();
+  const location = useLocation();
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(initialOpenGroups);
+
+  // Keep the active workspace's section discoverable even when a previous
+  // visit stored the section as collapsed.
+  useEffect(() => {
+    const active = NAV_GROUPS.find((group) => group.items.some((item) => location.pathname === item.path || location.pathname.startsWith(item.path + '/')));
+    if (active) setOpenGroups((current) => current[active.id] ? current : { ...current, [active.id]: true });
+  }, [location.pathname]);
 
   useEffect(() => {
     localStorage.setItem(OPEN_GROUPS_STORAGE_KEY, JSON.stringify(openGroups));
