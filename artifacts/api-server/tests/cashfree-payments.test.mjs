@@ -18,7 +18,7 @@ const {
 
 const previousEnv = Object.fromEntries([
   "CASHFREE_CLIENT_ID", "CASHFREE_CLIENT_SECRET", "CASHFREE_ENV",
-  "EXAMTREE_PAYMENT_PROVIDER", "EXAMTREE_PUBLIC_ORIGIN",
+  "EXAMTREE_PAYMENT_PROVIDER", "EXAMTREE_PUBLIC_ORIGIN", "EXAMTREE_API_ORIGIN",
 ].map(key => [key, process.env[key]]));
 const originalFetch = globalThis.fetch;
 
@@ -28,6 +28,7 @@ try {
   process.env.CASHFREE_ENV = "sandbox";
   process.env.EXAMTREE_PAYMENT_PROVIDER = "cashfree";
   process.env.EXAMTREE_PUBLIC_ORIGIN = "https://examtree-new.onrender.com";
+  process.env.EXAMTREE_API_ORIGIN = "https://examtree-new.onrender.com";
 
   assert.equal(cashfreeSelected(), true);
   assert.equal(cashfreeMode(), "sandbox");
@@ -82,9 +83,29 @@ try {
   await fetchCashfreeOrder("order-test-123");
   assert.equal(requests[3].url, "https://api.cashfree.com/pg/orders/order-test-123");
 
+  // Split deployment: checkout returns to Cloudflare Pages, but the signed
+  // provider webhook must be delivered directly to the Render API.
+  process.env.CASHFREE_ENV = "sandbox";
+  process.env.EXAMTREE_PUBLIC_ORIGIN = "https://functional-interface.pages.dev";
+  process.env.EXAMTREE_API_ORIGIN = "https://examtree-new.onrender.com";
+  await createCashfreeOrder({
+    orderId: "order-test-123", userId: "11111111-1111-4111-8111-111111111111",
+    amountMinor: 2199, currency: "INR", phone: "9876543210",
+  });
+  assert.equal(requests[4].url, "https://sandbox.cashfree.com/pg/orders");
+  const splitBody = JSON.parse(requests[4].init.body);
+  assert.equal(splitBody.order_meta.return_url, "https://functional-interface.pages.dev/orders/order-test-123");
+  assert.equal(splitBody.order_meta.notify_url, "https://examtree-new.onrender.com/api/billing/cashfree/webhook");
+
+  process.env.EXAMTREE_API_ORIGIN = "http://unsafe.example";
+  await assert.rejects(createCashfreeOrder({
+    orderId: "another", userId: "student", amountMinor: 500, currency: "INR", phone: "9876543210",
+  }), /INVALID_CHECKOUT_ORIGIN/);
+  assert.equal(requests.length, 5, "Invalid webhook origin must not call the provider");
+
   globalThis.fetch = async () => new Response('{"message":"provider rejected"}', { status: 403 });
   await assert.rejects(fetchCashfreeOrder("order-test-123"), /HTTP 403/);
-  console.log("PASS: Cashfree signature validation, origin guard, sandbox and production endpoints, order metadata and rejected provider calls. No real payments.");
+  console.log("PASS: Cashfree signature validation, separate Pages return and Render webhook origins, origin guard, sandbox and production endpoints, order metadata and rejected provider calls. No real payments.");
 } finally {
   globalThis.fetch = originalFetch;
   for (const [key, value] of Object.entries(previousEnv)) {
