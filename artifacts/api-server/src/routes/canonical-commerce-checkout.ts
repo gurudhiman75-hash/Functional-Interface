@@ -5,7 +5,7 @@ import Razorpay from "razorpay";
 import { sqlClient } from "../lib/db";
 import { finalizeCapturedPayment } from "../lib/canonical-commerce-payments";
 import { authenticate } from "../middlewares/auth";
-import { cashfreeMode, cashfreeSelected, createCashfreeOrder, fetchCashfreeOrder, fetchCashfreePayments } from "../lib/cashfree-payments";
+import { cashfreeMode, cashfreeSelected, classifyCashfreeNonSuccess, createCashfreeOrder, fetchCashfreeOrder, fetchCashfreePayments } from "../lib/cashfree-payments";
 
 const router = Router();
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -289,10 +289,41 @@ router.post("/commerce/orders/:orderId/reconcile", authenticate, async (req, res
     const providerOrderId = String(order.providerOrderId ?? "");
     if (!providerOrderId) { res.status(202).json({ pending: true }); return; }
     const providerOrder = await fetchCashfreeOrder(providerOrderId);
-    if (providerOrder.order_id !== providerOrderId || providerOrder.order_status !== "PAID") {
-      res.status(202).json({ pending: true }); return;
+    if (providerOrder.order_id !== providerOrderId) {
+      throw new CheckoutError("CASHFREE_ORDER_MISMATCH", "Cashfree returned a different order", 502);
     }
     const providerPayments = await fetchCashfreePayments(providerOrderId);
+    if (providerOrder.order_status !== "PAID") {
+      // An order can remain ACTIVE after FAILED / USER_DROPPED and still be
+      // retried. The canonical order therefore stays pending until capture or
+      // expiry; only the last verified provider payment outcome is shown.
+      const ordered = [...providerPayments].sort((a, b) => {
+        const aTime = Date.parse(a.payment_time ?? "") || 0;
+        const bTime = Date.parse(b.payment_time ?? "") || 0;
+        return bTime - aTime;
+      });
+      const last = ordered[0];
+      const outcome = classifyCashfreeNonSuccess(last?.payment_status);
+      if (outcome && !providerPayments.some(item => item.payment_status === "SUCCESS")) {
+        await sqlClient`
+          UPDATE commerce.payment_attempts pa
+          SET status = ${outcome},
+              failure_code = ${String(last?.payment_status ?? "")},
+              failure_message = ${outcome === "failed" ? "Cashfree payment failed" : "Customer left Cashfree payment flow"},
+              failed_at = ${outcome === "failed" ? new Date().toISOString() : null}::timestamptz,
+              updated_at = now()
+          WHERE pa.provider = 'cashfree' AND pa.provider_order_id = ${providerOrderId}
+            AND pa.status <> 'captured'
+            AND EXISTS (
+              SELECT 1 FROM commerce.orders o
+              WHERE o.id = pa.order_id AND o.status IN ('created', 'payment_pending')
+            )
+        `;
+        res.json({ ok: true, orderId, status: "payment_pending", paymentStatus: outcome, retryable: true });
+        return;
+      }
+      res.status(202).json({ pending: true }); return;
+    }
     const payment = providerPayments.find(item => item.payment_status === "SUCCESS"
       && Math.round(Number(item.payment_amount) * 100) === Number(order.totalMinor)
       && String(item.payment_currency ?? "").toUpperCase() === String(order.currency).trim().toUpperCase()

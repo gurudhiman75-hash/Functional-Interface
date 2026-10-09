@@ -3,6 +3,15 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 export const cashfreeSelected = () => process.env.EXAMTREE_PAYMENT_PROVIDER === "cashfree";
 export const cashfreeMode = () => process.env.CASHFREE_ENV === "production" ? "production" : "sandbox";
 
+/** A failed or abandoned gateway attempt must never grant test access.
+ * Cashfree may still accept a later successful retry on the same order.
+ */
+export function classifyCashfreeNonSuccess(status: unknown): "failed" | "cancelled" | null {
+  if (status === "FAILED") return "failed";
+  if (status === "USER_DROPPED" || status === "CANCELLED") return "cancelled";
+  return null;
+}
+
 function cashfreeOrigin() {
   return cashfreeMode() === "production" ? "https://api.cashfree.com" : "https://sandbox.cashfree.com";
 }
