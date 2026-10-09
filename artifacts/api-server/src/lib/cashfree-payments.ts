@@ -51,8 +51,14 @@ export async function createCashfreeOrder(input: {
   orderId: string; userId: string; amountMinor: number; currency: string; phone: string; email?: string;
 }) {
   const publicOrigin = (process.env.EXAMTREE_PUBLIC_ORIGIN || "https://examtree-new.onrender.com").replace(/\/$/, "");
-  const url = new URL(publicOrigin);
-  if (url.protocol !== "https:" && !(url.hostname === "localhost" && url.protocol === "http:")) throw new Error("INVALID_CHECKOUT_ORIGIN");
+  // The browser may be hosted on Cloudflare Pages while the API/webhook lives on Render.
+  // Never send Cashfree server-to-server webhooks to a static Pages origin.
+  const apiOrigin = (process.env.EXAMTREE_API_ORIGIN || "https://examtree-new.onrender.com").replace(/\/$/, "");
+  for (const origin of [publicOrigin, apiOrigin]) {
+    const url = new URL(origin);
+    if ((url.protocol !== "https:" && !(url.hostname === "localhost" && url.protocol === "http:"))
+      || url.origin !== origin || url.username || url.password) throw new Error("INVALID_CHECKOUT_ORIGIN");
+  }
   return cashfreeApi<CashfreeOrder>("POST", "/orders", {
     order_id: input.orderId,
     order_amount: input.amountMinor / 100,
@@ -65,7 +71,7 @@ export async function createCashfreeOrder(input: {
     order_expiry_time: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
     order_meta: {
       return_url: publicOrigin + "/orders/" + encodeURIComponent(input.orderId),
-      notify_url: publicOrigin + "/api/billing/cashfree/webhook",
+      notify_url: apiOrigin + "/api/billing/cashfree/webhook",
     },
   });
 }
