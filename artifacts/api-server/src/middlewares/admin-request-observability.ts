@@ -39,6 +39,10 @@ export function adminRequestObservability(req: Request, res: Response, next: Nex
 
   res.on("finish", () => {
     if (res.statusCode < 400) return;
+    // Expected auth/permission and client-validation responses are not operational failures.
+    // Keeping them out of request_failures prevents routine unauthenticated admin probes
+    // from drowning real 5xx/backend defects in the health dashboard.
+    if (res.statusCode === 401 || res.statusCode === 403 || res.statusCode === 404 || res.statusCode === 409 || res.statusCode === 422) return;
     const parsed = safeBody(responseBody);
     recordAdminRequestFailure({
       correlationId,
