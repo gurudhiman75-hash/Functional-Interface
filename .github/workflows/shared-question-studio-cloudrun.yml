@@ -39,7 +39,10 @@ jobs:
         env:
           QUESTION_STUDIO_WORKER_TOKEN: test-only-not-a-real-production-secret-123456789012
         run: |
-          node artifacts/api-server/shared-question-studio-worker-service.mjs > /tmp/shared-studio-worker.log 2>&1 &
+          # Match Docker's /dist layout exactly: worker bundles are adjacent
+          # to the service entrypoint when deployed.
+          cp artifacts/api-server/shared-question-studio-worker-service.mjs artifacts/api-server/dist/shared-question-studio-worker-service.mjs
+          node artifacts/api-server/dist/shared-question-studio-worker-service.mjs > /tmp/shared-studio-worker.log 2>&1 &
           PID=$!
           trap 'status=$?; if [ "$status" -ne 0 ]; then echo "Shared worker failed. Response:"; cat /tmp/shared-batch.json 2>/dev/null || true; echo "Worker log:"; tail -n 55 /tmp/shared-studio-worker.log; fi; kill "$PID" 2>/dev/null || true' EXIT
           for i in $(seq 1 35); do
