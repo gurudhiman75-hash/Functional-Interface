@@ -119,6 +119,11 @@ VITE_API_URL=/api EXAMTREE_RENDER_BUILD=1 pnpm --dir artifacts/admin-app exec vi
 # Assemble the single static tree served by the API service.
 echo "[render-build] assemble hosting tree"
 node scripts/assemble-hosting.mjs
+# Cloudflare Pages reuse the exact student/admin artifacts built above; verify
+# that protected API routes proxy correctly and admin deep links stay intact.
+echo "[render-build] verify Cloudflare Pages contract"
+node --test tests/cloudflare-pages-proxy.test.mjs
+node tests/cloudflare-pages-output.test.mjs
 
 # Production only starts dist/index.mjs. Use the runtime-only bundler instead
 # of build.mjs, which intentionally also emits migration scripts, validators,
