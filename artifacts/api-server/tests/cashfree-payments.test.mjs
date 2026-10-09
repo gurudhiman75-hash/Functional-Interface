@@ -12,7 +12,7 @@ await build({
   packages: "external",
 });
 const {
-  cashfreeMode, cashfreeSelected, createCashfreeOrder,
+  cashfreeMode, cashfreeSelected, classifyCashfreeNonSuccess, createCashfreeOrder,
   fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
 } = await import("../dist/cashfree-payments-fixture.mjs");
 
@@ -32,6 +32,15 @@ try {
 
   assert.equal(cashfreeSelected(), true);
   assert.equal(cashfreeMode(), "sandbox");
+
+  // Failed and user-abandoned payments must not count as successful captures.
+  assert.equal(classifyCashfreeNonSuccess("FAILED"), "failed");
+  assert.equal(classifyCashfreeNonSuccess("USER_DROPPED"), "cancelled");
+  assert.equal(classifyCashfreeNonSuccess("CANCELLED"), "cancelled");
+  assert.equal(classifyCashfreeNonSuccess("SUCCESS"), null);
+  assert.equal(classifyCashfreeNonSuccess("PENDING"), null);
+  assert.equal(classifyCashfreeNonSuccess("NOT_ATTEMPTED"), null);
+
   const timestamp = "1760000000";
   const raw = '{"type":"PAYMENT_SUCCESS_WEBHOOK","data":{"payment":{"payment_status":"SUCCESS"}}}';
   const signature = createHmac("sha256", process.env.CASHFREE_CLIENT_SECRET)
