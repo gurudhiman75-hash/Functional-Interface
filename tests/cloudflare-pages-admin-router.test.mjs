@@ -20,6 +20,23 @@ function envWith(body = indexHTML, status = 200) {
   };
 }
 
+test("bare /admin redirects to the canonical admin entry rather than returning 404", async () => {
+  const { env, fetched } = envWith();
+  const req = new Request(URL_BASE + "/admin", { method: "GET" });
+  const res = await onRequest({ request: req, env });
+  assert.equal(res.status, 308);
+  assert.equal(res.headers.get("Location"), URL_BASE + "/admin/");
+  assert.deepEqual(fetched, []);
+});
+
+test("admin root with trailing slash serves the admin SPA", async () => {
+  const { env, fetched } = envWith();
+  const res = await onRequest({ request: new Request(URL_BASE + "/admin/"), env });
+  assert.equal(res.status, 200);
+  assert.equal(await res.text(), indexHTML);
+  assert.deepEqual(fetched, [URL_BASE + "/admin/"]);
+});
+
 test("deep admin navigation uses /admin/ directory shell without redirect loop", async () => {
   const { env, fetched } = envWith();
   const req = new Request(URL_BASE + "/admin/question-studio", { method: "GET" });
