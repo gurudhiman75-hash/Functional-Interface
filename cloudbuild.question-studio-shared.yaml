@@ -1,0 +1,7 @@
+# Manual staging-only build for shared Question Studio generation.
+# Builds two isolated chapter workers, not the admin/student/API app.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '--file', 'Dockerfile.question-studio-shared', '--tag', '${_IMAGE}', '.']
+images: ['${_IMAGE}']
+timeout: 1800s

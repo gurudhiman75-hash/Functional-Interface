@@ -1,0 +1,72 @@
+name: Validate shared Question Studio Cloud Run compute
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/question-studio/num001-generation-worker.ts"
+      - "artifacts/api-server/build-shared-worker.mjs"
+      - "artifacts/api-server/shared-question-studio-worker-service.mjs"
+      - "artifacts/api-server/src/routes/admin-question-studio-num001-remote.ts"
+      - "artifacts/api-server/src/question-studio/remote-shared-studio-client.ts"
+      - "Dockerfile.question-studio-shared"
+      - "scripts/deploy-shared-question-studio-staging.sh"
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  isolated-generation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated Question Studio graph
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Validate service protocol and source route contracts
+        run: |
+          node --test artifacts/api-server/tests/shared-question-studio-worker-service.test.mjs
+          node --test tests/shared-studio-architecture.test.mjs
+      - name: Bundle TRG-002 and NUM-001 worker authorities
+        run: node artifacts/api-server/build-shared-worker.mjs
+      - name: Smoke generate NUM-001 and TRG-002 one-question batches
+        env:
+          QUESTION_STUDIO_WORKER_TOKEN: test-only-not-a-real-production-secret-123456789012
+        run: |
+          # Match Docker's /dist layout exactly: worker bundles are adjacent
+          # to the service entrypoint when deployed.
+          cp artifacts/api-server/shared-question-studio-worker-service.mjs artifacts/api-server/dist/shared-question-studio-worker-service.mjs
+          node artifacts/api-server/dist/shared-question-studio-worker-service.mjs > /tmp/shared-studio-worker.log 2>&1 &
+          PID=$!
+          trap 'status=$?; if [ "$status" -ne 0 ]; then echo "Shared worker failed. Response:"; cat /tmp/shared-batch.json 2>/dev/null || true; echo "Worker log:"; tail -n 55 /tmp/shared-studio-worker.log; fi; kill "$PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 35); do
+            if curl --silent --fail http://localhost:8080/health >/dev/null; then break; fi
+            sleep 1
+          done
+          for PKG in TRG-002 NUM-001; do
+            if [ "$PKG" = TRG-002 ]; then
+              CP=TRG-CP-007
+              SUBTOPIC="Trigonometry — Heights & Distances"
+              TOPIC="Advanced Mathematics"
+              MODE=RELEASED
+              DIFF=Medium
+            else
+              CP=NUM-CP-001
+              TOPIC="Arithmetic"
+              SUBTOPIC="Number System"
+              MODE=QUESTION_STUDIO_ACTIVE
+              DIFF=Mixed
+            fi
+            PAYLOAD="$(PKG="$PKG" CP="$CP" SUBTOPIC="$SUBTOPIC" TOPIC="$TOPIC" MODE="$MODE" DIFF="$DIFF" node -e 'console.log(JSON.stringify({request:{engineId:"quant-v4",packageId:process.env.PKG,count:1,exam:"SSC CGL Tier 1",subject:"Quantitative Aptitude",topic:process.env.TOPIC,subtopic:process.env.SUBTOPIC,language:"en",difficulty:process.env.DIFF,runtimeMode:process.env.MODE,seed:"ci-shared-"+process.env.PKG},selectedCpIds:[process.env.CP],count:1}))')"
+            curl --fail-with-body --silent --show-error --max-time 155 \
+              -H "Content-Type: application/json" \
+              -H "X-Examtree-Worker-Token: $QUESTION_STUDIO_WORKER_TOKEN" \
+              -d "$PAYLOAD" http://localhost:8080/internal/question-studio/generate > /tmp/shared-batch.json
+            node -e 'const o=JSON.parse(require("fs").readFileSync("/tmp/shared-batch.json","utf8"));if(!o.ok||o.batch?.questions?.length!==1)process.exit(2);console.log("PASS: "+o.batch.questions.length+" questions")'
+          done

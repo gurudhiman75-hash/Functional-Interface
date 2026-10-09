@@ -120,6 +120,21 @@ app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAff
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsSelectedProcessingRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsPackEditorialRouter);
 
+// NUM-001 compute is opt-in: without this URL the established local route
+// remains fully unchanged. When configured, errors fail closed rather than
+// falling back to a 512 MiB/0.15-CPU Render generation attempt.
+const num001RemoteRouter = lazyRouter(
+  () => import("./routes/admin-question-studio-num001-remote"),
+);
+app.use("/api/admin/question-studio", adminRequestObservability, (req, res, next) => {
+  if (req.method !== "POST" || req.path !== "/runs" || req.body?.packageId !== "NUM-001"
+      || !process.env.QUESTION_STUDIO_SHARED_WORKER_URL?.trim()) {
+    next();
+    return;
+  }
+  num001RemoteRouter(req, res, next);
+});
+
 // TRG-002 generation is CPU-heavy on a 0.15-CPU Render Free instance.
 // Handle only that package in an isolated worker-backed endpoint, before
 // importing the legacy API graph. All other Question Studio paths stay intact.
