@@ -1,0 +1,18 @@
+import "../TSD-001/cp004/localization/native-review-v2.test";
+import "../TSD-001/cp005/departure-review-v1.test";
+import "../TSD-002/cp007/content-review-candidate-v2.test";
+import "../TSD-002/cp009/meeting-content-review-v2.test";
+import "./cp008-cp009-worked-review-v2.test";
+import "../TSD-002/cp012/two-engine-worked-review-v1.test";
+import "../TSD-002/cp012/moving-surface-worked-review-v1.test";
+import "../TSD-002/cp011/wheel-worked-review-v1.test";
+import "../TSD-002/cp011/escalator-worked-review-v1.test";
+import "../TSD-002/cp010/finish-time-evidence-review-v1.test";
+import "../TSD-002/cp010/handicap-worked-review-v1.test";
+import "../TSD-002/cp010/race-evidence-worked-review-v1.test";
+import "../TSD-002/cp010/advanced-race-worked-review-v1.test";
+import "../TSD-002/cp012/journey-worked-review-v1.test";
+
+import "../TSD-002/cp011/two-walker-source-review-v1.test";
+
+import "../TSD-002/cp012/signed-cycle-source-review-v1.test";

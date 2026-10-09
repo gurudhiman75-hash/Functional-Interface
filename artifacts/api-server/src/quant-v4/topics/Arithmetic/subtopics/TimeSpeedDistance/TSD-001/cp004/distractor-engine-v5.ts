@@ -1,0 +1,131 @@
+import { add, compare, divide, equals, isPositive, multiply, rational, subtract } from "../foundation/rational";
+import { deriveStrongCp004WrongWorkingsV3 } from "./distractor-engine-v3";
+import type { TsdCp004CoreInput, TsdCp004CoreSolution, TsdCp004CoreSolveMode } from "./relative-motion-foundation";
+import type { TsdCp004WrongWorking } from "./runtime-types";
+
+function rowsFor(answer: TsdCp004CoreSolution["answer"]) {
+  const rows: TsdCp004WrongWorking[] = [];
+  const push = (
+    misconceptionId: TsdCp004WrongWorking["misconceptionId"],
+    value: typeof answer,
+    calculation: string,
+    diagnosis: string,
+  ) => {
+    if (!isPositive(value) || equals(value, answer) || rows.some((entry) => equals(entry.value, value))) return;
+    rows.push(Object.freeze({ misconceptionId, value, calculation, diagnosis }));
+  };
+  return { rows, push };
+}
+
+export function deriveStrongCp004WrongWorkingsV5(
+  mode: TsdCp004CoreSolveMode,
+  input: TsdCp004CoreInput,
+  solution: TsdCp004CoreSolution,
+): readonly TsdCp004WrongWorking[] {
+  if (mode === "findRelativeSpeedSameDirection") {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const closing = subtract(faster, slower);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_ONE_SPEED_ONLY", slower, "report the slower vehicle's speed as the closing rate", "The learner uses one vehicle's absolute speed instead of the rate at which the faster vehicle gains on it.");
+    push("USE_AVERAGE_SPEED", divide(add(faster, slower), rational(2)), "average the two vehicle speeds", "The learner averages the two absolute speeds even though same-direction relative speed is their difference.");
+    push("USE_AVERAGE_SPEED", divide(closing, rational(2)), "split the closing speed equally between the two vehicles", "The learner assumes both vehicles contribute equal halves to the gap-closing rate and therefore reports only half of the true closing speed.");
+    push("USE_ONE_SPEED_ONLY", faster, "report the faster vehicle's absolute speed", "The faster vehicle's own speed is mistaken for its speed relative to the slower vehicle ahead.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong closing-speed distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findCatchUpTimeFromHeadStartDistance" || (mode === "findMeetingTimeFromInitialSeparation" && input.directionCase === "SAME")) {
+    const faster = input.speedA!;
+    const slower = input.speedB!;
+    const gap = mode === "findCatchUpTimeFromHeadStartDistance" ? input.headStartDistance! : input.initialSeparation!;
+    const averageSpeed = divide(add(faster, slower), rational(2));
+    const halfClosingRate = subtract(faster, averageSpeed);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_ONE_SPEED_ONLY", divide(gap, slower), "gap ÷ slower vehicle speed", "The learner divides the lead by the vehicle ahead's absolute speed instead of by the speed at which the lead is being closed.");
+    push("USE_AVERAGE_SPEED", divide(gap, averageSpeed), "gap ÷ average of the two vehicle speeds", "The learner substitutes the average of the two absolute speeds for the same-direction closing speed.");
+    push("USE_AVERAGE_SPEED", divide(gap, halfClosingRate), "gap ÷ (faster speed − average speed)", "The learner first averages the vehicle speeds and then compares only the faster vehicle with that average, effectively using half of the true closing rate.");
+    push("USE_ONE_SPEED_ONLY", divide(gap, faster), "gap ÷ faster vehicle speed", "The learner treats the pursuer as if the vehicle ahead were stationary and therefore uses the pursuer's full speed.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} competitive same-direction time distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findMeetingClockTime" || mode === "findDepartureClockTimeFromMeetingState") {
+    const a = input.speedA!;
+    const b = input.speedB!;
+    const gap = input.initialSeparation!;
+    const averageSpeed = divide(add(a, b), rational(2));
+    const minutes = rational(60);
+    const wrongDurationA = divide(gap, a);
+    const wrongDurationB = divide(gap, b);
+    const wrongDurationAverage = divide(gap, averageSpeed);
+    const { rows, push } = rowsFor(solution.answer);
+
+    if (mode === "findMeetingClockTime") {
+      const departure = input.departureMinute!;
+      push("USE_ONE_SPEED_ONLY", add(departure, multiply(wrongDurationA, minutes)), "departure time + gap ÷ speed A", "The clock shift is performed correctly, but the meeting duration is calculated as if only the first vehicle were moving.");
+      push("USE_ONE_SPEED_ONLY", add(departure, multiply(wrongDurationB, minutes)), "departure time + gap ÷ speed B", "The learner converts a one-vehicle travel time into a clock time instead of using the two-body relative speed.");
+      push("USE_AVERAGE_SPEED", add(departure, multiply(wrongDurationAverage, minutes)), "departure time + gap ÷ average speed", "The learner uses average absolute speed to obtain the duration and then applies that wrong duration correctly to the clock.");
+      push("COPY_DEPARTURE_CLOCK", departure, "copy the departure clock time", "The motion calculation is skipped and the starting clock time is returned as the meeting time.");
+    } else {
+      const meeting = input.meetingClockMinute!;
+      push("USE_ONE_SPEED_ONLY", subtract(meeting, multiply(wrongDurationA, minutes)), "meeting time − gap ÷ speed A", "The learner shifts the clock backwards correctly but reconstructs the duration using only the first vehicle's speed.");
+      push("USE_ONE_SPEED_ONLY", subtract(meeting, multiply(wrongDurationB, minutes)), "meeting time − gap ÷ speed B", "The departure clock is reconstructed from a one-vehicle travel time instead of the relative-motion duration.");
+      push("USE_AVERAGE_SPEED", subtract(meeting, multiply(wrongDurationAverage, minutes)), "meeting time − gap ÷ average speed", "Average absolute speed is incorrectly used for the relative-motion duration before the clock subtraction.");
+      push("COPY_MEETING_CLOCK", meeting, "copy the meeting clock time", "The learner reports the known meeting time without subtracting the travel duration to recover departure.");
+    }
+
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong clock-state distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findSeparationAfterMovingApart") {
+    const initial = input.initialSeparation!;
+    const time = input.elapsedTime!;
+    const a = input.speedA!;
+    const b = input.speedB!;
+    const difference = compare(a, b) >= 0 ? subtract(a, b) : subtract(b, a);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_DIFFERENCE_INSTEAD_OF_SUM", add(initial, multiply(difference, time)), "initial gap + speed difference × time", "The learner treats two vehicles moving apart as if their separation changed only by the speed difference.");
+    push("IGNORE_INITIAL_GAP", multiply(add(a, b), time), "sum of speeds × time", "The learner calculates only the increase in separation and forgets to add the gap that already existed at the start.");
+    push("USE_ONE_SPEED_ONLY", add(initial, multiply(a, time)), "initial gap + first vehicle distance", "Only the first vehicle's movement is added to the initial gap, so the other vehicle's contribution is ignored.");
+    push("USE_ONE_SPEED_ONLY", add(initial, multiply(b, time)), "initial gap + second vehicle distance", "Only the second vehicle's movement is added to the initial gap, so the first vehicle's contribution is ignored.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong separation distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findInitialGapFromLaterSeparation") {
+    const later = input.specifiedSeparation!;
+    const time = input.elapsedTime!;
+    const a = input.speedA!;
+    const b = input.speedB!;
+    const difference = compare(a, b) >= 0 ? subtract(a, b) : subtract(b, a);
+    const { rows, push } = rowsFor(solution.answer);
+    push("USE_DIFFERENCE_INSTEAD_OF_SUM", subtract(later, multiply(difference, time)), "later separation − speed difference × time", "The learner removes only the same-direction speed difference from the later gap instead of the full opposite-direction opening rate.");
+    push("USE_ONE_SPEED_ONLY", subtract(later, multiply(a, time)), "later separation − first vehicle distance", "The learner subtracts only one vehicle's travelled distance while reconstructing the earlier separation.");
+    push("USE_ONE_SPEED_ONLY", subtract(later, multiply(b, time)), "later separation − second vehicle distance", "The learner removes only the second vehicle's travelled distance and leaves the first vehicle's contribution inside the gap.");
+    push("IGNORE_INITIAL_GAP", multiply(add(a, b), time), "sum of speeds × elapsed time", "The increase in separation during the interval is mistaken for the separation that existed before the vehicles started moving apart.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong inverse-separation distractors`);
+    return Object.freeze(rows);
+  }
+
+  if (mode === "findTimeUntilSpecifiedSeparation") {
+    const initial = input.initialSeparation!;
+    const target = input.specifiedSeparation!;
+    const a = input.speedA!;
+    const b = input.speedB!;
+    const same = input.directionCase === "SAME";
+    const change = same ? subtract(initial, target) : subtract(target, initial);
+    const correctRelative = same ? subtract(a, b) : add(a, b);
+    const wrongRelative = same ? add(a, b) : subtract(a, b);
+    const { rows, push } = rowsFor(solution.answer);
+    push(same ? "USE_SUM_INSTEAD_OF_DIFFERENCE" : "USE_DIFFERENCE_INSTEAD_OF_SUM", divide(change, wrongRelative), "required change in gap ÷ relative speed from the wrong direction rule", "The learner finds the correct change in separation but divides it by the wrong relative-speed rule.");
+    push("IGNORE_INITIAL_GAP", divide(target, correctRelative), "target separation ÷ correct relative speed", "The final separation itself is treated as the distance that must be gained or opened, instead of using the change from the initial gap.");
+    push("IGNORE_INITIAL_GAP", divide(initial, correctRelative), "initial separation ÷ correct relative speed", "The starting gap is divided by the relative speed even though only the change between the two stated gaps matters.");
+    push("REVERSE_RELATIVE_DECOMPOSITION", divide(add(initial, target), correctRelative), "(initial separation + target separation) ÷ relative speed", "The two gap values are added instead of differenced before converting the required change into time.");
+    if (rows.length < 3) throw new Error(`${mode}: V5 produced only ${rows.length} strong target-separation distractors`);
+    return Object.freeze(rows);
+  }
+
+  return deriveStrongCp004WrongWorkingsV3(mode, input, solution);
+}
