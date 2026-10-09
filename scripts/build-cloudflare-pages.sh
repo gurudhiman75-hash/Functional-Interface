@@ -22,6 +22,6 @@ test -f "$DIST/index.html"
 test -f "$DIST/admin/index.html"
 test -f "$DIST/_redirects"
 test -f "$DIST/_routes.json"
-node --test tests/cloudflare-pages-proxy.test.mjs
+node --test tests/cloudflare-pages-proxy.test.mjs tests/cloudflare-pages-admin-router.test.mjs
 node tests/cloudflare-pages-output.test.mjs
 echo "[cloudflare-pages] Build complete: $DIST"

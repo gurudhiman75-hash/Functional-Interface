@@ -49,3 +49,11 @@ Cloudflare should discover root `functions/` automatically when building with Gi
 - This edge proxy strips incoming browser Origin only after rejecting cross-site Origin headers; Render continues handling authentication and authorization. Do not treat the proxy itself as authentication.
 - Cloudflare Pages Functions Free requests count against the Workers daily cap (100,000/day on the standard free plan at the time of this rollout), even though static file serving is unlimited. Do not proxy images or CDN assets through the function.
 - For compliance, preserve exact payment webhooks, auth redirect domains, Content-Security-Policy and SEO canonical URLs.
+
+## Cloudflare Pages first deployment routing correction (October 9)
+
+First Pages deployment `d742ab4f` succeeded, but the deployment log rejected `/admin/* /admin/index.html 200` and `/* /index.html 200` as **infinite redirect loops**. Do not restore those rules: Pages normalizes `/admin/index.html` to `/admin/` and does not support rewrite-style rules as a general workaround.
+
+The corrected architecture deliberately relies on Cloudflare Pages' built-in root SPA fallback (with no root `404.html`) and uses `functions/admin/[[path]].js` to serve a verified admin shell from the actual static `/admin/` asset on deep admin navigation. `_routes.json` calls Functions for `/api/*` and admin navigation only, excluding `/admin/assets/*` and `/admin/index.html` to preserve static asset handling.
+
+**Follow-up check:** After the Cloudflare redeploy, open the **deployment log** and verify there are **no** `Found invalid redirect lines` entries. Then directly open `/admin/question-studio` and confirm the Admin login or Question Studio UI loads instead of the student home page. Also verify `/ssc-cgl`, `/admin/assets/*`, the homepage and `/api/*`. A successful build or publish alone is not proof that every browser navigation works.
