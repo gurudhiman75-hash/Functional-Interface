@@ -9,6 +9,12 @@ export async function onRequest({ request, env }) {
     return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
   }
   const url = new URL(request.url);
+  // The bare /admin entry must work: redirect to the canonical directory
+  // before Cloudflare Pages or the SPA attempts to resolve the document.
+  if (url.pathname === "/admin") {
+    url.pathname = "/admin/";
+    return Response.redirect(url.toString(), 308);
+  }
   if (!url.pathname.startsWith("/admin/")) {
     return new Response("Not found", { status: 404 });
   }
