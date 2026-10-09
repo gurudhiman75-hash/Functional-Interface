@@ -8,6 +8,7 @@ export class CommerceRefundError extends Error {
 
 export async function reconcileProcessedRefund(input: {
   client: SqlExecutor;
+  provider?: "razorpay" | "cashfree";
   providerRefundId: string;
   providerPaymentId: string;
   amountMinor: number;
@@ -18,7 +19,7 @@ export async function reconcileProcessedRefund(input: {
       pa.id::text AS "paymentAttemptId", pa.order_id::text AS "orderId", pa.amount_minor::float8 AS "capturedAmountMinor"
     FROM commerce.refunds r
     JOIN commerce.payment_attempts pa ON pa.id = r.payment_attempt_id
-    WHERE pa.provider = 'razorpay'
+    WHERE pa.provider = ${input.provider ?? 'razorpay'}
       AND (r.provider_refund_id = ${input.providerRefundId} OR (r.provider_refund_id IS NULL AND pa.provider_payment_id = ${input.providerPaymentId} AND r.amount_minor = ${input.amountMinor}))
     ORDER BY r.created_at DESC LIMIT 1 FOR UPDATE OF r, pa
   `;

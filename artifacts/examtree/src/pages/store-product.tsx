@@ -80,6 +80,7 @@ export default function StoreProductPage() {
   const user = getSessionUser();
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [customerPhone, setCustomerPhone] = useState("");
 
   const productsQuery = useQuery({
     queryKey: ["commerce-products"],
@@ -112,10 +113,15 @@ export default function StoreProductPage() {
       return;
     }
 
+    if (productsQuery.data?.checkoutProvider === "cashfree" && !/^[6-9][0-9]{9}$/.test(customerPhone.replace(/[^0-9]/g, ""))) {
+      setCheckoutError("Enter a valid 10-digit Indian mobile number for secure Cashfree checkout.");
+      return;
+    }
     setCheckoutBusy(true);
     setCheckoutError(null);
     await openCommerceCheckout({
       product,
+      customerPhone: customerPhone.replace(/[^0-9]/g, ""),
       studentName: user.name,
       studentEmail: user.email,
       onPaymentSubmitted: (details) => {
@@ -193,6 +199,13 @@ export default function StoreProductPage() {
 
                 {purchasesQuery.isError ? <div role="alert" className="mt-4 text-sm">We could not check your existing access. <button className="underline min-h-11" onClick={() => purchasesQuery.refetch()}>Try again</button></div> : null}
                 {isCheckout ? <p className="mt-4 text-sm">Review the package and price, then continue to secure payment. <a className="underline" href="/refund-policy">Refund policy</a> · <a className="underline" href="/terms-and-conditions">Terms</a></p> : null}
+                {isCheckout && productsQuery.data?.checkoutProvider === "cashfree" && !ownsProduct && !isFree ? (
+                  <div className="mt-4">
+                    <label htmlFor="checkout-mobile-number" className="mb-2 block text-xs font-semibold text-slate-700 dark:text-foreground">Mobile number for payment</label>
+                    <input id="checkout-mobile-number" type="tel" inputMode="numeric" autoComplete="tel-national" maxLength={10} value={customerPhone} onChange={(event) => setCustomerPhone(event.target.value.replace(/[^0-9]/g, ""))} placeholder="10-digit Indian mobile number" className="min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-950 dark:border-border dark:bg-background dark:text-foreground" aria-describedby="checkout-phone-description" />
+                    <p id="checkout-phone-description" className="mt-2 text-xs text-slate-500 dark:text-muted-foreground">Required by the payment provider to process this order. You can manage your profile details separately.</p>
+                  </div>
+                ) : null}
                 {checkoutError ? (
                   <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs leading-5 text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300" role="alert">{checkoutError}</div>
                 ) : null}
@@ -211,7 +224,7 @@ export default function StoreProductPage() {
 
         <section className="mt-5 grid gap-3 md:grid-cols-3" aria-label="Purchase information">
           {[
-            [CreditCard, "Checkout", "Review your package and price before paying securely with Razorpay."],
+            [CreditCard, "Checkout", "Review your package and price before paying through the available secure payment provider."],
             [ShieldCheck, "Verification", "Your payment status updates automatically after confirmation."],
             [CheckCircle2, "Entitlement", "Open your purchased package and start its included tests from My purchases."],
           ].map(([Icon, title, copy]) => {

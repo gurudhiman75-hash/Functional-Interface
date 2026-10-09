@@ -300,6 +300,11 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <Link href="/resources" className="hover:text-white">Resources</Link>
               <Link href="/store" className="hover:text-white">Store</Link>
               <Link href="/faq" className="hover:text-white">Help</Link>
+              <Link href="/about" className="hover:text-white">About</Link>
+              <Link href="/contact" className="hover:text-white">Contact</Link>
+              <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
+              <Link href="/terms-and-conditions" className="hover:text-white">Terms</Link>
+              <Link href="/cancellation-refund-policy" className="hover:text-white">Refund Policy</Link>
             </nav>
           </div>
           <div className="mx-auto max-w-7xl border-t border-white/[0.06] px-4 py-5 text-[9px] text-white/28 sm:px-6 lg:px-8">© 2026 ExamTree. Built for India&apos;s aspirants.</div>

@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
+import cashfreeWebhookHandler from "./routes/cashfree-webhook";
 import adminSessionRouter from "./routes/admin-session";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
@@ -88,6 +89,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.options("/api/{*splat}", cors(corsOptions));
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
+app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json" }), webhookRateLimit, cashfreeWebhookHandler);
 
 app.use(
   express.json({

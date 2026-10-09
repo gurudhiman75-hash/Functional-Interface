@@ -7,7 +7,7 @@ globalThis.salesFixture = (strings, ...values) => {
  const query=strings.join('?');
  if(query.includes('SELECT u.id::text')) return [{id:'11111111-1111-4111-8111-111111111111'}];
  if(query.includes('SELECT e.id FROM commerce.entitlements')) return mode==='owned'?[{id:'entitlement'}]:[];
- if(query.includes('o.id::text AS "orderId"')) return [{productId:mode==='mismatch'?'another-product':'22222222-2222-4222-8222-222222222222',status:mode==='paid'?'paid':'payment_pending',expiresAt:mode==='expired'?'2000-01-01':null,providerOrderId:'provider',orderId:'order',orderNumber:'10',currency:'INR',totalMinor:100}];
+ if(query.includes('o.id::text AS "orderId"')) return [{productId:mode==='mismatch'?'another-product':'22222222-2222-4222-8222-222222222222',status:mode==='paid'?'paid':'payment_pending',expiresAt:mode==='expired'?'2000-01-01':null,providerOrderId:'provider',paymentAttemptId:mode==='provider-change'?null:'attempt',orderId:'order',orderNumber:'10',currency:'INR',totalMinor:100}];
  return [];
 };
 await build({entryPoints:['src/routes/canonical-commerce-checkout.ts'],outfile:'dist/sales-route-fixture.mjs',bundle:true,platform:'node',format:'esm',packages:'external',plugins:[{name:'fixtures',setup(b){
@@ -25,6 +25,7 @@ try {
  mode='expired';assert.equal((await request()).body.code,'CHECKOUT_CLOSED');
  mode='paid';assert.equal((await request()).body.code,'CHECKOUT_CLOSED');
  mode='mismatch';assert.equal((await request()).body.code,'IDEMPOTENCY_CONFLICT');
+ mode='provider-change';assert.equal((await request()).body.code,'CHECKOUT_PROVIDER_CHANGED');
  mode='pending';const resumed=await request();assert.equal(resumed.status,200);assert.equal(resumed.body.providerOrderId,'provider');
- console.log('PASS: checkout authentication, owned package, expired/paid order, product mismatch and pending order reuse. No provider calls made.');
+ console.log('PASS: checkout authentication, owned package, expired/paid order, product mismatch, provider mismatch and pending order reuse. No provider calls made.');
 } finally {server.close();}

@@ -28,7 +28,7 @@ export default function RefundPolicy() {
           A failed or pending payment is not treated as a completed purchase until the payment provider confirms capture. If money was debited without a confirmed purchase, contact support with the provider reference.
         </PublicCard>
         <PublicCard title="Refund processing">
-          Approved refunds are sent through the supported payment workflow. The time for the amount to appear can vary by bank, card network, UPI provider, wallet, or other original payment method.
+          After a refund request is verified and approved, ExamTree initiates it through the supported payment provider and shares the transaction reference when available. The time for the amount to appear depends on the provider, bank, UPI network, card issuer, or original payment method. If the expected credit does not arrive, contact support with the order and refund reference.
         </PublicCard>
         <PublicCard title="How to request review">
           <p>Contact support with the account identifier, payment ID, purchase date, amount, affected product, and a concise description of the issue. Do not send card numbers, CVV codes, OTPs, UPI PINs, or passwords.</p>

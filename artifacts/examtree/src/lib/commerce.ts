@@ -16,6 +16,7 @@ export type CommerceProduct = {
 
 type CommerceProductsResponse = {
   products: CommerceProduct[];
+  checkoutProvider?: "razorpay" | "cashfree";
   generatedAt: string;
 };
 
@@ -26,7 +27,9 @@ export type CommerceCheckoutOrder = {
   amountMinor: number;
   discountMinor: number;
   currency: string;
-  provider: "razorpay";
+  provider: "razorpay" | "cashfree";
+  paymentSessionId?: string;
+  mode?: "sandbox" | "production";
   providerOrderId: string;
   keyId: string;
 };
@@ -110,6 +113,7 @@ type RazorpayFailure = {
 
 declare global {
   interface Window {
+    Cashfree?: (options: { mode: "sandbox" | "production" }) => { checkout: (options: { paymentSessionId: string; redirectTarget: "_self" }) => Promise<{ error?: { message?: string } } | void> };
     Razorpay?: new (options: Record<string, unknown>) => {
       open: () => void;
       on?: (event: string, handler: (response: RazorpayFailure) => void) => void;
@@ -153,11 +157,12 @@ function checkoutIdempotencyKey(productId: string): string {
   }
 }
 
-export async function createCommerceOrder(productId: string): Promise<CommerceCheckoutOrder> {
+export async function createCommerceOrder(productId: string, customerPhone?: string): Promise<CommerceCheckoutOrder> {
   return apiRequest<CommerceCheckoutOrder>("/commerce/orders", {
     method: "POST",
     body: JSON.stringify({
       productId,
+      customerPhone,
       idempotencyKey: checkoutIdempotencyKey(productId),
     }),
   });
@@ -184,8 +189,29 @@ function loadRazorpayScript(): Promise<void> {
   });
 }
 
+function loadCashfreeScript(): Promise<void> {
+  if (typeof window === "undefined") return Promise.resolve();
+  if (window.Cashfree) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    const existing = document.querySelector<HTMLScriptElement>('script[src="' + src + '"]');
+    if (existing) {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener("error", () => reject(new Error("Could not load Cashfree checkout")), { once: true });
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Could not load Cashfree checkout"));
+    document.body.appendChild(script);
+  });
+}
+
 export async function openCommerceCheckout(params: {
   product: CommerceProduct;
+  customerPhone?: string;
   studentName?: string;
   studentEmail?: string;
   onPaymentSubmitted: (details: { orderId: string; orderNumber: string; paymentId: string }) => void;
@@ -193,7 +219,18 @@ export async function openCommerceCheckout(params: {
   onError?: (message: string) => void;
 }): Promise<void> {
   try {
-    const order = await createCommerceOrder(params.product.id);
+    const order = await createCommerceOrder(params.product.id, params.customerPhone);
+    if (order.provider === "cashfree") {
+      if (!order.paymentSessionId) throw new Error("Cashfree payment session is not available");
+      await loadCashfreeScript();
+      if (!window.Cashfree) throw new Error("Cashfree failed to initialize");
+      const cashfree = window.Cashfree({ mode: order.mode === "production" ? "production" : "sandbox" });
+      const result = await cashfree.checkout({ paymentSessionId: order.paymentSessionId, redirectTarget: "_self" });
+      if (result && result.error) throw new Error(result.error.message || "Cashfree checkout could not be opened");
+      // A browser redirect is not payment proof. Only the server can grant purchased access.
+      params.onPaymentSubmitted({ orderId: order.orderId, orderNumber: order.orderNumber, paymentId: "" });
+      return;
+    }
     await loadRazorpayScript();
     if (!window.Razorpay) throw new Error("Razorpay failed to initialize");
 

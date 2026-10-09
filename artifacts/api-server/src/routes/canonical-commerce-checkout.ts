@@ -5,6 +5,7 @@ import Razorpay from "razorpay";
 import { sqlClient } from "../lib/db";
 import { finalizeCapturedPayment } from "../lib/canonical-commerce-payments";
 import { authenticate } from "../middlewares/auth";
+import { cashfreeMode, cashfreeSelected, createCashfreeOrder, fetchCashfreeOrder, fetchCashfreePayments } from "../lib/cashfree-payments";
 
 const router = Router();
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -62,7 +63,7 @@ router.get("/commerce/products", async (_req, res) => {
         AND (v.sale_end_at IS NULL OR v.sale_end_at > now())
       ORDER BY p.updated_at DESC
     `;
-    res.json({ products: rows, generatedAt: new Date().toISOString() });
+    res.json({ products: rows, checkoutProvider: cashfreeSelected() ? "cashfree" : "razorpay", generatedAt: new Date().toISOString() });
   } catch (error) { sendError(res, error); }
 });
 
@@ -129,13 +130,17 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
   const productId = String(req.body?.productId ?? "");
   const couponCode = String(req.body?.couponCode ?? "").trim().toUpperCase().slice(0, 80);
   const idempotencyKey = String(req.body?.idempotencyKey ?? "").trim().slice(0, 160);
+  const provider = cashfreeSelected() ? "cashfree" : "razorpay";
+  const customerPhone = String(req.body?.customerPhone ?? "").replace(/[^0-9]/g, "");
   if (!uuid.test(productId)) return void res.status(400).json({ error: "Invalid package identifier", code: "INVALID_PRODUCT_ID" });
   if (idempotencyKey.length < 12) return void res.status(400).json({ error: "A stable checkout idempotency key is required", code: "IDEMPOTENCY_KEY_REQUIRED" });
 
   try {
     const keyId = process.env.RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
-    if (!keyId || !keySecret) throw new CheckoutError("PAYMENT_PROVIDER_NOT_CONFIGURED", "Online payments are not configured", 503);
+    if (provider === "razorpay" && (!keyId || !keySecret)) throw new CheckoutError("PAYMENT_PROVIDER_NOT_CONFIGURED", "Online payments are not configured", 503);
+    if (provider === "cashfree" && (!process.env.CASHFREE_CLIENT_ID || !process.env.CASHFREE_CLIENT_SECRET)) throw new CheckoutError("PAYMENT_PROVIDER_NOT_CONFIGURED", "Online payments are not configured", 503);
+    if (provider === "cashfree" && !/^[6-9][0-9]{9}$/.test(customerPhone)) throw new CheckoutError("CUSTOMER_PHONE_REQUIRED", "Enter a valid 10-digit mobile number to continue with Cashfree", 400);
     const userId = await canonicalUserId(req.user!.id);
 
     const prepared = await sqlClient.begin(async (tx) => {
@@ -154,12 +159,13 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
           (SELECT oi.product_id::text FROM commerce.order_items oi WHERE oi.order_id = o.id LIMIT 1) AS "productId",
           pa.id::text AS "paymentAttemptId", pa.provider_order_id AS "providerOrderId"
         FROM commerce.orders o
-        LEFT JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = 'razorpay'
+        LEFT JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = ${provider}
         WHERE o.user_id = ${userId}::uuid AND o.idempotency_key = ${idempotencyKey}
         ORDER BY pa.created_at DESC NULLS LAST LIMIT 1
       `;
       if (existing[0]) {
         if (String(existing[0].productId) !== productId) throw new CheckoutError("IDEMPOTENCY_CONFLICT", "Checkout does not match this package", 409);
+        if (!existing[0].paymentAttemptId) throw new CheckoutError("CHECKOUT_PROVIDER_CHANGED", "This checkout was started with a different payment provider; start a new checkout", 409);
         if (!["created", "payment_pending"].includes(String(existing[0].status)) || (existing[0].expiresAt && new Date(String(existing[0].expiresAt)).getTime() <= Date.now())) {
           throw new CheckoutError("CHECKOUT_CLOSED", "This checkout has ended. Please start checkout again.", 409);
         }
@@ -218,12 +224,28 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
         INSERT INTO commerce.payment_attempts (
           id, order_id, provider, status, amount_minor, currency, idempotency_key, created_at, updated_at
         ) VALUES (
-          ${paymentAttemptId}::uuid, ${orderId}::uuid, 'razorpay', 'created', ${totalMinor},
+          ${paymentAttemptId}::uuid, ${orderId}::uuid, ${provider}, 'created', ${totalMinor},
           ${String(product.currency).trim()}, ${idempotencyKey}, now(), now()
         )
       `;
       return { orderId, orderNumber: String(orders[0].orderNumber), status: "created", totalMinor, discountMinor, currency: String(product.currency).trim(), paymentAttemptId, providerOrderId: null, existing: false };
     });
+
+    if (provider === "cashfree") {
+      if (Number(prepared.totalMinor) < 100 || String(prepared.currency).trim() !== "INR") throw new CheckoutError("CASHFREE_AMOUNT_UNSUPPORTED", "This order cannot be checked out through Cashfree", 409);
+      const buyer = await sqlClient`SELECT email FROM identity.users WHERE id = ${userId}::uuid LIMIT 1`;
+      const gatewayOrderId = String(prepared.providerOrderId || prepared.orderId);
+      const cfOrder = prepared.providerOrderId
+        ? await fetchCashfreeOrder(gatewayOrderId)
+        : await createCashfreeOrder({ orderId: gatewayOrderId, userId, amountMinor: Number(prepared.totalMinor), currency: String(prepared.currency).trim(), phone: customerPhone, email: String(buyer[0]?.email ?? "") });
+      if (cfOrder.order_id !== gatewayOrderId || !cfOrder.payment_session_id) throw new CheckoutError("CASHFREE_SESSION_UNAVAILABLE", "Secure checkout session is unavailable; contact support if you have paid", 503);
+      await sqlClient.begin(async (tx) => {
+        await tx`UPDATE commerce.payment_attempts SET provider_order_id = ${gatewayOrderId}, updated_at = now() WHERE id = ${String(prepared.paymentAttemptId)}::uuid AND provider = 'cashfree' AND (provider_order_id IS NULL OR provider_order_id = ${gatewayOrderId})`;
+        await tx`UPDATE commerce.orders SET status = 'payment_pending', updated_at = now() WHERE id = ${String(prepared.orderId)}::uuid AND status = 'created'`;
+      });
+      res.status(prepared.existing ? 200 : 201).json({ orderId: prepared.orderId, orderNumber: prepared.orderNumber, status: "payment_pending", amountMinor: Number(prepared.totalMinor), discountMinor: Number(prepared.discountMinor), currency: String(prepared.currency).trim(), provider: "cashfree", providerOrderId: gatewayOrderId, paymentSessionId: cfOrder.payment_session_id, mode: cashfreeMode() });
+      return;
+    }
 
     if (prepared.providerOrderId) {
       res.json({ orderId: prepared.orderId, orderNumber: prepared.orderNumber, status: prepared.status, amountMinor: prepared.totalMinor, discountMinor: prepared.discountMinor, currency: String(prepared.currency).trim(), provider: "razorpay", providerOrderId: prepared.providerOrderId, keyId });
@@ -243,6 +265,46 @@ router.post("/commerce/orders", authenticate, async (req, res) => {
       orderId: prepared.orderId, orderNumber: prepared.orderNumber, status: "payment_pending", amountMinor: Number(prepared.totalMinor),
       discountMinor: Number(prepared.discountMinor), currency: String(prepared.currency).trim(), provider: "razorpay", providerOrderId: providerOrder.id, keyId,
     });
+  } catch (error) { sendError(res, error); }
+});
+
+
+/** Cashfree return-page recovery: query Cashfree server-side; never trust a browser's redirect alone. */
+router.post("/commerce/orders/:orderId/reconcile", authenticate, async (req, res) => {
+  const orderId = String(req.params.orderId ?? "");
+  if (!uuid.test(orderId)) return void res.status(400).json({ error: "Invalid order ID" });
+  try {
+    const userId = await canonicalUserId(req.user!.id);
+    const rows = await sqlClient`
+      SELECT o.id::text AS "orderId", o.status AS "orderStatus", o.total_minor::float8 AS "totalMinor",
+        o.currency, pa.provider_order_id AS "providerOrderId"
+      FROM commerce.orders o JOIN commerce.payment_attempts pa ON pa.order_id = o.id AND pa.provider = 'cashfree'
+      WHERE o.id = ${orderId}::uuid AND o.user_id = ${userId}::uuid LIMIT 1
+    `;
+    const order = rows[0];
+    if (!order) throw new CheckoutError("ORDER_NOT_FOUND", "This Cashfree order is not available", 404);
+    if (["paid", "partially_refunded", "refunded"].includes(String(order.orderStatus))) {
+      res.json({ ok: true, orderId, status: order.orderStatus }); return;
+    }
+    const providerOrderId = String(order.providerOrderId ?? "");
+    if (!providerOrderId) { res.status(202).json({ pending: true }); return; }
+    const providerOrder = await fetchCashfreeOrder(providerOrderId);
+    if (providerOrder.order_id !== providerOrderId || providerOrder.order_status !== "PAID") {
+      res.status(202).json({ pending: true }); return;
+    }
+    const providerPayments = await fetchCashfreePayments(providerOrderId);
+    const payment = providerPayments.find(item => item.payment_status === "SUCCESS"
+      && Math.round(Number(item.payment_amount) * 100) === Number(order.totalMinor)
+      && String(item.payment_currency ?? "").toUpperCase() === String(order.currency).trim().toUpperCase()
+      && String(item.cf_payment_id ?? "").length > 0);
+    if (!payment) { res.status(202).json({ pending: true }); return; }
+    const finalized = await sqlClient.begin(async tx =>
+      finalizeCapturedPayment({ client: tx as typeof sqlClient, provider: "cashfree",
+        providerOrderId, providerPaymentId: String(payment.cf_payment_id),
+        amountMinor: Math.round(Number(payment.payment_amount) * 100), currency: String(payment.payment_currency).toUpperCase(),
+        capturedAt: payment.payment_time && !Number.isNaN(Date.parse(payment.payment_time)) ? new Date(payment.payment_time).toISOString() : null,
+      }));
+    res.json({ ok: true, orderId, status: "paid", alreadyFinalized: finalized.alreadyFinalized });
   } catch (error) { sendError(res, error); }
 });
 
