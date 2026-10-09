@@ -92,7 +92,7 @@ globalThis.require = __trgCrReq(import.meta.url);`,
   },
 });
 
-// Smoke-test the compiled worker with the approved medium-difficulty chapter
+// Smoke-test three questions in the compiled worker with the approved medium-difficulty chapter
 // mix. This catches broken bundle paths and actual generator failures before
 // a deployment can expose an unusable Generate button.
 const workerSmoke = await new Promise((resolve, reject) => {
@@ -107,11 +107,11 @@ const workerSmoke = await new Promise((resolve, reject) => {
         subtopic: "Trigonometry — Heights & Distances",
         language: "en",
         difficulty: "Medium",
-        count: 1,
-        seed: "trg002-build-worker-smoke-v1",
+        count: 3,
+        seed: "trg002-build-worker-smoke-three-v1",
       },
       selectedCpIds: [],
-      count: 1,
+      count: 3,
     },
   });
   let settled = false;
@@ -134,7 +134,7 @@ const workerSmoke = await new Promise((resolve, reject) => {
   worker.once("error", (error) => settle(error));
   worker.once("exit", (code) => { if (code !== 0) settle(new Error("TRG-002 smoke worker exited " + code)); });
 });
-if (!workerSmoke || workerSmoke.questions?.length !== 1
+if (!workerSmoke || workerSmoke.questions?.length !== 3
     || workerSmoke.questions[0]?.packageId !== "TRG-002") {
   throw new Error("TRG-002 compiled worker produced an invalid smoke batch");
 }
