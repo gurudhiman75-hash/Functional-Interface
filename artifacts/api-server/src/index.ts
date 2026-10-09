@@ -31,7 +31,14 @@ await ensureApprovedExamTestSeries().catch((error) => {
   logger.error({ error }, "Unable to ensure approved exam test series during startup");
 });
 
-startGenerationJobWorker();
+// This legacy pattern-generation poller executes heavyweight work inside the
+// API process. Keep it disabled on the 512 MiB production API by default.
+// Deploy it as a separate worker and opt in with GENERATION_JOB_WORKER_ENABLED=true.
+if (process.env.NODE_ENV !== "production" || process.env.GENERATION_JOB_WORKER_ENABLED === "true") {
+  startGenerationJobWorker();
+} else {
+  logger.info("Legacy generation-job worker disabled in production API");
+}
 startMobileNotificationWorker();
 
 app.listen(port, "0.0.0.0", () => {

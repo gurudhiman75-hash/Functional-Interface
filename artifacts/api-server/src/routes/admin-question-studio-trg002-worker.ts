@@ -6,6 +6,7 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 import type { QuestionStudioGenerationRequest } from "../question-studio/engine-types";
+import { remoteTrg002Configured, runRemoteTrg002 } from "../question-studio/remote-trg002-client";
 
 const router = Router();
 const allowedCpIds = new Set(["TRG-CP-007", "TRG-CP-008", "TRG-CP-009", "TRG-CP-010"]);
@@ -167,16 +168,22 @@ router.post(
 
     workerBusy = true;
     const startedAt = Date.now();
-    req.log.info({ packageId: "TRG-002", count, cpCount: cpIds.length }, "Question Studio off-thread generation started");
+    const computeBackend = remoteTrg002Configured() ? "remote" : "local-thread";
+    const computeInput = {
+      request: generationRequest,
+      count,
+      selectedCpIds: cpIds,
+      examProfileId: req.body?.examProfileId,
+      difficultyPreset: req.body?.difficultyPreset,
+      difficultyDistribution: req.body?.difficultyDistribution,
+    };
+    req.log.info({ packageId: "TRG-002", count, cpCount: cpIds.length, computeBackend, rssBytes: process.memoryUsage().rss }, "Question Studio generation started");
     try {
-      const batch = await generateOffThread({
-        request: generationRequest,
-        count,
-        selectedCpIds: cpIds,
-        examProfileId: req.body?.examProfileId,
-        difficultyPreset: req.body?.difficultyPreset,
-        difficultyDistribution: req.body?.difficultyDistribution,
-      });
+      // A configured remote worker is mandatory: never silently fall back to
+      // the local thread after an error (that can OOM the 512 MiB web service).
+      const batch: GenerationBatch = remoteTrg002Configured()
+        ? await runRemoteTrg002(computeInput)
+        : await generateOffThread(computeInput);
       const generatedQuestions = batch.questions;
       const plan = batch.plan;
       if (generatedQuestions.length !== count) {
@@ -264,7 +271,7 @@ router.post(
         `;
       });
 
-      req.log.info({ packageId: "TRG-002", count, elapsedMs: Date.now() - startedAt, runId }, "Question Studio off-thread generation saved");
+      req.log.info({ packageId: "TRG-002", count, computeBackend, elapsedMs: Date.now() - startedAt, rssBytes: process.memoryUsage().rss, runId }, "Question Studio generation saved");
       res.status(201).json({
         id: runId, publicCode, status: "review", itemCount: generatedQuestions.length,
         generationSystem: "quant-v4", engineId: "quant-v4",
@@ -275,7 +282,7 @@ router.post(
       });
     } catch (caught) {
       const failure = caught as Failure;
-      req.log.error({ code: failure.code, error: failure.message, elapsedMs: Date.now() - startedAt }, "Question Studio off-thread generation failed");
+      req.log.error({ code: failure.code, error: failure.message, computeBackend, elapsedMs: Date.now() - startedAt, rssBytes: process.memoryUsage().rss }, "Question Studio generation failed");
       const statusCode = Number(failure.statusCode);
       res.status(statusCode >= 400 && statusCode < 600 ? statusCode : 500).json({
         error: failure.message || "TRG-002 generation failed",

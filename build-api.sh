@@ -25,6 +25,11 @@ pnpm install \
 # CI intentionally runs without production database credentials.
 echo "[render-build] syntax-check production bootstrap scripts"
 node --check artifacts/api-server/ensure-current-affairs.mjs
+# These contract checks are compute-only and must not require Firebase/Neon.
+# Catch malformed remote-worker code without starting a generator or DB migration.
+node --check artifacts/api-server/trg002-worker-service.mjs
+node --check artifacts/api-server/build-trg002-worker.mjs
+node --test artifacts/api-server/tests/trg002-worker-service.test.mjs
 
 # The GitHub Render-equivalent build intentionally has no production database
 # credentials. Skip DB mutation only in that exact environment. Real Render is
