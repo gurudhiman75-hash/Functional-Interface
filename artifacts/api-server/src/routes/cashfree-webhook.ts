@@ -1,6 +1,6 @@
 import { randomUUID, createHash } from "node:crypto";
 import type { Request, Response } from "express";
-import { verifyCashfreeWebhook } from "../lib/cashfree-payments";
+import { classifyCashfreeNonSuccess, verifyCashfreeWebhook } from "../lib/cashfree-payments";
 import { finalizeCapturedPayment, CommercePaymentError } from "../lib/canonical-commerce-payments";
 import { sqlClient } from "../lib/db";
 import { logger } from "../lib/logger";
@@ -40,6 +40,51 @@ export default async function cashfreeWebhook(req: Request, res: Response): Prom
         ON CONFLICT (provider, provider_event_id) DO NOTHING RETURNING id
       `;
       if (!rows[0]) return { duplicate: true };
+      const nonSuccess = classifyCashfreeNonSuccess(payment?.payment_status);
+      const verifiedOutcomeKind =
+        (kind === "PAYMENT_FAILED_WEBHOOK" && nonSuccess === "failed") ||
+        (kind === "PAYMENT_USER_DROPPED_WEBHOOK" && payment?.payment_status === "USER_DROPPED");
+      if (nonSuccess && verifiedOutcomeKind && order?.order_id) {
+        const providerOrderId = String(order.order_id);
+        // Lock the canonical record. A delayed failure must never undo a
+        // successful payment or revoke an already-granted entitlement.
+        const attempts = await tx`
+          SELECT pa.id::text AS id
+          FROM commerce.payment_attempts pa
+          JOIN commerce.orders o ON o.id = pa.order_id
+          WHERE pa.provider = 'cashfree' AND pa.provider_order_id = ${providerOrderId}
+          LIMIT 1 FOR UPDATE OF pa, o
+        `;
+        if (attempts[0]) {
+          await tx`
+            UPDATE commerce.payment_attempts pa
+            SET status = ${nonSuccess},
+                failure_code = ${String(payment?.payment_status ?? "")},
+                failure_message = ${nonSuccess === "failed" ? "Cashfree payment failed" : "Customer left Cashfree payment flow"},
+                failed_at = ${nonSuccess === "failed" ? new Date().toISOString() : null}::timestamptz,
+                updated_at = now()
+            WHERE pa.id = ${String(attempts[0].id)}::uuid
+              AND pa.status <> 'captured'
+              AND EXISTS (
+                SELECT 1 FROM commerce.orders o
+                WHERE o.id = pa.order_id AND o.status IN ('created', 'payment_pending')
+              )
+          `;
+          // Keep the order payment_pending: Cashfree permits another attempt
+          // before the order expires, even after an unsuccessful payment.
+          await tx`
+            UPDATE commerce.payment_events
+            SET payment_attempt_id = ${String(attempts[0].id)}::uuid, processed_at = now()
+            WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}
+          `;
+        } else {
+          await tx`
+            UPDATE commerce.payment_events SET processed_at = now()
+            WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}
+          `;
+        }
+        return { duplicate: false, processed: Boolean(attempts[0]), paymentStatus: nonSuccess };
+      }
       if (kind === "PAYMENT_SUCCESS_WEBHOOK" && payment?.payment_status === "SUCCESS") {
         const providerOrderId = String(order?.order_id ?? "");
         const amount = Number(payment.payment_amount);
