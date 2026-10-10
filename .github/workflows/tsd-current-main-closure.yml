@@ -8,6 +8,8 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
       - "artifacts/api-server/src/question-studio/quant-time-speed-distance.ts"
+      - "artifacts/admin-app/src/features/question-studio/quality.ts"
+      - "artifacts/admin-app/src/test/question-studio-quality.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/**"
 
 permissions:
@@ -74,6 +76,9 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.log
+
+      - name: Verify Studio authored explanation compatibility
+        run: pnpm --dir artifacts/admin-app exec vitest run src/test/question-studio-quality.test.ts
 
       - name: Verify SAP Hindi Punjabi two-seed parity
         run: |

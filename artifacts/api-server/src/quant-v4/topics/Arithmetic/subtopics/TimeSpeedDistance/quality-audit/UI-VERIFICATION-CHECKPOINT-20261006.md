@@ -20,3 +20,13 @@ This verifies extraction compatibility for raw review-export shapes. It does not
 - Source breadth, scenario diversity, approval and promotion remain separate closure requirements.
 
 No candidate or lifecycle locks changed. This checkpoint must not be counted as completed UI verification.
+
+## Reconciliation verification — 2026-10-10
+
+The string-array/structured explanation helper described above was missing from the New-main reconciliation branch. It has now been restored from the reviewed source diff, retaining legacy string behavior and accepting only authored string fields. This is review-payload compatibility; it does not establish that production adapters previously lost explanations.
+
+The new `studio-review-presentation-proof.test.ts` executes the actual Studio `itemStem` and `itemExplanation` functions on all 3,846 V4 rows and the 72 supplemental source-review rows. All 3,918 rows retain nonempty stems/explanations and every authored calculation step, without object serialization artifacts. Six Studio quality tests pass, including structured Hindi, Punjabi string arrays and malformed-object rejection. Admin TypeScript passes.
+
+The proof is included in the full TSD editorial suite and the workflow now watches the exact helper/test paths and runs the focused Studio quality test. No release gate or candidate registration changes.
+
+Visual evidence remains PARTIAL: no desktop/mobile screenshots, glyph/font inspection, overflow measurements or actual MathJax typesetting assertions were obtained in this pass. Text extraction success must not be reported as visual or live Studio integration closure.

@@ -71,3 +71,11 @@ Status: **Local integration gates pass / final-head CI pending / DO NOT MERGE OR
 - Closed the scoped delayed-departure Q22 follow-up: unsigned separation permits both 50 and 10 km/h for the earlier car, with all four positions inside the 800 km route. The existing CP012 inverse solver and CP004 pursuit authority reconstruct both cases. No extra learner batch or permanent QL was needed.
 - Closed the scoped tangent-track Q6 maximum-distance follow-up: 240 m requires simultaneous outermost-point positions, but the exact lap phases give incompatible odd/even doubled-time classes. Existing CP011 rate translation verifies lap periods without approximating pi. Arbitrary two-track geometry remains unverified.
 - Added both regression proofs to the full editorial suite; all pass locally. Supplemental review counts remain 72 and frozen V4 remains unchanged. Whole-source completeness, foundation provenance, UI evidence and human editorial promotion remain pending.
+
+## Studio review presentation reconciliation — 2026-10-10
+
+- Exact previous head `c97fe172`: 69 workflows passed, none failed, one simulation still running at inspection.
+- Recovered the missing shared Studio explanation helper change. Structured authored steps and string arrays are now accepted without serializing arbitrary objects; legacy strings remain supported.
+- Added a durable full-corpus presentation proof for 3,918 rows (V4 3,846 plus 72 supplemental source-review rows). All retain stems and every authored calculation line through the actual Studio helpers. Full editorial suite, six focused Studio quality tests and Admin TypeScript pass locally.
+- Added helper/test path coverage and focused Studio tests to the existing TSD workflow, retaining the central adapter workflow ownership policy.
+- UI status remains partial: visual fonts, mobile/desktop overflow and real MathJax rendering evidence remain unverified. No live registration or release approval is implied by extraction compatibility.
