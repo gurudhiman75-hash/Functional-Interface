@@ -1,6 +1,18 @@
 import { parentPort, workerData } from "node:worker_threads";
 import type { QuestionStudioGenerationRequest } from "./engine-types";
 
+// A bundled worker is NOT a CLI tool. Many lazily imported legacy Quant and
+// Reasoning authorities include "if (import.meta.url === file://${process.argv[1]})"
+// export-tool guards. esbuild places all imported modules in this ONE ESM file,
+// so those checks can become true when process.argv[1] is the worker file.
+// Without this isolation, NUM-001 unexpectedly runs unrelated BLR/PNL audit
+// exporters and writes to the read-only /app container filesystem.
+//
+// Change argv[1] before any dynamic chapter imports. This affects only this
+// short-lived worker thread; the API/server process keeps its real argv.
+// Preserve import.meta.url itself because approved libraries use it for paths.
+process.argv[1] = "/__examtree_shared_generation_worker_not_cli__.mjs";
+
 type Input = {
   request: QuestionStudioGenerationRequest;
   count: number;
