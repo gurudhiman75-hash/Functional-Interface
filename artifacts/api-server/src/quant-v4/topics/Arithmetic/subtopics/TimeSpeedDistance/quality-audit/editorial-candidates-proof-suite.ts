@@ -22,3 +22,5 @@ import "./delayed-departure-source-proof.test";
 import "./tangent-tracks-source-proof.test";
 import "./studio-review-presentation-proof.test";
 import "./circular-applications-source-proof.test";
+import "./clock-applications-source-proof.test";
+import "./remaining-applications-source-proof.test";
