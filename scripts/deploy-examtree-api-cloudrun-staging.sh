@@ -2,6 +2,9 @@
 set -euo pipefail
 
 # Safe first deployment of the Express API; no public traffic changes.
+# The existing Neon main database contains TEST DATA ONLY per the owner.
+# Use its URL only via Google Secret Manager; no second Neon compute needed.
+# Do NOT activate duplicate background pollers while Render is still live.
 PROJECT="${1:-sarbedutech}"
 REGION="asia-south1"
 SERVICE="examtree-api-staging"
@@ -39,7 +42,7 @@ for secret in "$SECRET" "$TOKEN_SECRET"; do
 done
 FULL_REVISION="$(git rev-parse HEAD)"
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/$REGISTRY/examtree-api:$FULL_REVISION"
-echo "[api-staging] Building revision $FULL_REVISION"
+echo "[api-staging] Building revision $FULL_REVISION against existing Neon TEST data"
 gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
   --config="$ROOT/cloudbuild.examtree-cloudrun-api.yaml" \
   --ignore-file="$ROOT/Dockerfile.question-studio-worker.dockerignore" \
@@ -77,7 +80,8 @@ console.log("PASS: API health 200");
 NODE
 bash "$ROOT/scripts/smoke-examtree-api-staging.sh" "$URL"
 
-# Do not run the job against live Neon while Render might still dispatch work.
+# Do not EXECUTE or SCHEDULE this job while Render still dispatches
+# notifications/outbox events against the same TEST database.
 gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
   --image="$IMAGE" --service-account="$SA" \
   --memory=2Gi --cpu=1 --tasks=1 --parallelism=1 --task-timeout=600 \
@@ -89,4 +93,5 @@ gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
 echo "EXAMTREE API STAGING READY: $URL"
 echo "Cloud Run job '$JOB' is deployed but NOT scheduled or executed."
 echo "Cloudflare and mobile still use Render. Cashfree webhooks remain unchanged."
+echo "Existing Neon main test DB was reused; no new Neon compute required."
 echo "Do not turn off Render until auth, attempt, payment, webhook, and scheduled-job checks pass."
