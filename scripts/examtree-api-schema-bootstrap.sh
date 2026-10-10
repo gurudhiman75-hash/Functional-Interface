@@ -4,11 +4,11 @@ set -euo pipefail
 # Explicit database migration step, separate from image building or serving
 # HTTP requests. Never run against production without reviewed migrations,
 # a current backup/PITR plan, and EXAMTREE_SCHEMA_MIGRATION_APPROVED=yes.
-if [[ "\${EXAMTREE_SCHEMA_MIGRATION_APPROVED:-}" != "yes" || -z "\${DATABASE_URL:-}" ]]; then
+if [[ "${EXAMTREE_SCHEMA_MIGRATION_APPROVED:-}" != "yes" || -z "${DATABASE_URL:-}" ]]; then
   echo "Refusing schema migration. Set EXAMTREE_SCHEMA_MIGRATION_APPROVED=yes and DATABASE_URL securely." >&2
   exit 2
 fi
-ROOT="$(cd "$(dirname "\${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 corepack enable
 corepack prepare pnpm@10.33.0 --activate
