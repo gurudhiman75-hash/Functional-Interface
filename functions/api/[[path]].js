@@ -1,10 +1,24 @@
-// Same-origin Cloudflare Pages API forwarder. Render remains the authoritative
-// backend for authenticated state, payments, and test attempts; static never
-// invokes this function (see _routes.json).
-const API_ORIGIN = "https://examtree-new.onrender.com";
+// Same-origin Cloudflare Pages API forwarder. The default remains Render
+// during staging. Once Cloud Run passes E2E checks, set the Pages environment
+// variable EXAMTREE_API_UPSTREAM_ORIGIN to the validated Cloud Run API URL.
+// Never take a destination from user headers or query parameters.
+const LEGACY_API_ORIGIN = "https://examtree-new.onrender.com";
+export function configuredApiOrigin(env = {}) {
+  const candidate = env.EXAMTREE_API_UPSTREAM_ORIGIN?.trim();
+  if (!candidate) return LEGACY_API_ORIGIN;
+  let url;
+  try { url = new URL(candidate); }
+  catch { throw new Error("Cloudflare API upstream configuration is not a URL"); }
+  if (url.protocol !== "https:" || url.username || url.password ||
+      url.pathname !== "/" || url.search || url.hash ||
+      !(url.hostname.endsWith(".run.app") || url.origin === LEGACY_API_ORIGIN)) {
+    throw new Error("Cloudflare API upstream must be an HTTPS Cloud Run service origin");
+  }
+  return url.origin;
+}
 const METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]);
 
-export async function onRequest({ request }) {
+export async function onRequest({ request, env = {} }) {
   const incoming = new URL(request.url);
   if (!(incoming.pathname === "/api" || incoming.pathname.startsWith("/api/"))) {
     return new Response("Not found", { status: 404 });
@@ -20,7 +34,12 @@ export async function onRequest({ request }) {
       status: 403, headers: { "Cache-Control": "no-store" },
     });
   }
-  const url = new URL(incoming.pathname + incoming.search, API_ORIGIN);
+  let upstreamOrigin;
+  try { upstreamOrigin = configuredApiOrigin(env); }
+  catch {
+    return Response.json({ error: "The ExamTree API gateway is not configured correctly.", code: "API_GATEWAY_MISCONFIGURED" }, { status: 503 });
+  }
+  const url = new URL(incoming.pathname + incoming.search, upstreamOrigin);
   const headers = new Headers(request.headers);
   for (const key of [
     "host", "origin", "referer", "connection", "content-length",
@@ -41,11 +60,11 @@ export async function onRequest({ request }) {
     responseHeaders.set("X-Content-Type-Options", "nosniff");
     responseHeaders.delete("Access-Control-Allow-Origin");
     responseHeaders.delete("Access-Control-Allow-Credentials");
-    // Keep the browser on the Pages origin if Render redirects to itself.
+    // Preserve same-origin browser navigation when the backend redirects to itself.
     const location = responseHeaders.get("location");
     if (location) {
-      const redirect = new URL(location, API_ORIGIN);
-      if (redirect.origin === API_ORIGIN) {
+      const redirect = new URL(location, upstreamOrigin);
+      if (redirect.origin === upstreamOrigin) {
         responseHeaders.set("location", incoming.origin + redirect.pathname + redirect.search + redirect.hash);
       }
     }
