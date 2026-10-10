@@ -40,6 +40,9 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /max-instances=1/);
   assert.match(deploy, /set-secrets/);
   assert.match(deploy, /smoke-examtree-api-staging/);
+  for (const shell of [deploy, scheduler, schema, read("scripts/smoke-examtree-api-staging.sh")]) {
+    assert.equal(shell.includes("\\${"), false, "Bash variables must not be shell-escaped literals");
+  }
   assert.doesNotMatch(deploy, /cloudflare\.request|render\.com\/(?:api|web)|delete-service/);
   assert.match(schema, /EXAMTREE_SCHEMA_MIGRATION_APPROVED/);
   assert.match(schema, /ensure-current-affairs\.mjs/);
