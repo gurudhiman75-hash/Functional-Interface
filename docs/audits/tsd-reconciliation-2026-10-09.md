@@ -64,3 +64,10 @@ Status: **Local integration gates pass / final-head CI pending / DO NOT MERGE OR
 - Read Arun Sharma PDF413–416 text and compared the source observations to executable input contracts. Confirmed CP010 lacks an inverse form for two different time headstarts and a first-race distance margin. Added a separate 18-row trilingual review candidate; the source case yields an exact faster speed of 50/3 m/s and slower speed of 10 m/s.
 - Both races reconstruct independently for all six numerical states; invalid observations, option uniqueness, worked calculations and release locks pass. The complete editorial candidate suite passes with this added proof. Frozen content and live registrations are unchanged.
 - Recorded scoped circular-track, tangent-track, clock ownership and contradictory source-wording follow-ups in `CP010-TIME-HEADSTARTS-SOURCE-20261010.md`. These are triage findings, not whole-source or UI closure claims. Supplemental source-review rows total 72, separate from V4.
+
+## Scoped source semantic proofs — 2026-10-10
+
+- Head `0e0b9bab`: 69 successful workflows, no failures and one simulation still running at inspection.
+- Closed the scoped delayed-departure Q22 follow-up: unsigned separation permits both 50 and 10 km/h for the earlier car, with all four positions inside the 800 km route. The existing CP012 inverse solver and CP004 pursuit authority reconstruct both cases. No extra learner batch or permanent QL was needed.
+- Closed the scoped tangent-track Q6 maximum-distance follow-up: 240 m requires simultaneous outermost-point positions, but the exact lap phases give incompatible odd/even doubled-time classes. Existing CP011 rate translation verifies lap periods without approximating pi. Arbitrary two-track geometry remains unverified.
+- Added both regression proofs to the full editorial suite; all pass locally. Supplemental review counts remain 72 and frozen V4 remains unchanged. Whole-source completeness, foundation provenance, UI evidence and human editorial promotion remain pending.

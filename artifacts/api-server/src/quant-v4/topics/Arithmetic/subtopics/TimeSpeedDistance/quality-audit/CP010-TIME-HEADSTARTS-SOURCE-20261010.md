@@ -23,10 +23,10 @@ Validation independently reconstructs finish positions in both races; it does no
 | Location | Source form | Audit disposition |
 | --- | --- | --- |
 | PDF415 Q1–5, Q7–8 | Circular-track encounters, lap timing and meeting positions | CP006 is the owner. Existing input supports track length, directions, phase, delay and event index; individual source-form executions remain to be verified. Presence of fields alone is not a completeness proof. |
-| PDF415 Q6 | Straight-line separation on two externally tangent tracks with different radii | CP006 has one track-length state and no pair of radii or geometric separation target. Ownership with geometry/Trigonometry and an executable projection remains unresolved; no new solver is claimed here. |
+| PDF415 Q6 | Straight-line separation on two externally tangent tracks with different radii | CP006 has one track-length state and no pair of radii or geometric separation target. The specific 240 m maximum question is now proven impossible by exact lap phases; see TANGENT-TRACKS-SOURCE-20261010.md. General geometric separation and integration ownership remain unresolved. |
 | PDF415 Q9–10; PDF416 Q11–15, Q17–20 | Clock hand movement and faulty clock readings | Ordinary hand arithmetic belongs to CLK-001 under its cross-chapter ownership amendment. Faulty-clock ownership needs a separate check; these book questions do not automatically require new TSD QLs. |
 | PDF416 Q21 | Reversal after a speed reduction | Extracted source wording calls the bike faster but gives the bike:auto ratio as 1:5. Treat as contradictory evidence until resolved against page/solution; do not copy it into a learner stem. |
-| PDF416 Q22 | Delayed departure with an unsigned separation observation | Requires checking both possible orders and route endpoints before deciding uniqueness. Not verified by this batch. |
+| PDF416 Q22 | Delayed departure with an unsigned separation observation | Both signed position states are now independently verified; 50 and 10 km/h are feasible, so the speed is not unique. See DELAYED-DEPARTURE-SOURCE-20261010.md. |
 
 ## Promotion and closure limits
 

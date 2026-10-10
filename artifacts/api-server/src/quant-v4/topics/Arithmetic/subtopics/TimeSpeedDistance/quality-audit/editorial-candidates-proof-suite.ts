@@ -18,3 +18,5 @@ import "../TSD-002/cp011/two-walker-source-review-v1.test";
 import "../TSD-002/cp012/signed-cycle-source-review-v1.test";
 import "../TSD-002/cp012/slowdown-observations-source-review-v1.test";
 import "../TSD-002/cp010/time-headstarts-source-review-v1.test";
+import "./delayed-departure-source-proof.test";
+import "./tangent-tracks-source-proof.test";
