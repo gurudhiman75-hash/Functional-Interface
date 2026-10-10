@@ -70,3 +70,11 @@ export function generateLocalizedTrg002Cp008QuestionCompat(
     locale,
   );
 }
+
+export function buildTrg002Cp008LocalizedReviewBankCompat(locale: Trg002Cp008LocalizedLocale, seedsPerQl = 12) {
+  return TRG_002_CP008_LOCALIZATION_QL_IDS.flatMap(qlId =>
+    Array.from({ length: seedsPerQl }, (_, index) => generateLocalizedTrg002Cp008QuestionCompat(
+      qlId, `trg002-cp008-localization-v1-${String(index + 1).padStart(2, "0")}`, locale,
+    )),
+  );
+}

@@ -1,6 +1,8 @@
+import { tsdAuditReviewEnginePackage, generateTsdAuditReviewBatch } from "../quant-tsd-audit-review";
 import {
   generateQuestion as generateQuantV4Question,
   listQuantV4Packages,
+  QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
 } from "../../quant-v4/generation-engine";
 import {
   generateQuestion as generateQuantV4QuestionStudioQuestion,
@@ -167,6 +169,11 @@ import {
   tmw001EnginePackage,
 } from "../quant-time-work";
 import {
+  generateTsdEngineBatch,
+  tsd001EnginePackage,
+  tsd002EnginePackage,
+} from "../quant-time-speed-distance";
+import {
   generateSapBankingEngineBatch,
 } from "../quant-sap-banking";
 import {
@@ -224,7 +231,11 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     subtopic: asString(pkg.subtopic),
     label: asString(pkg.label) || asString(pkg.packageId),
     enabled: Boolean(pkg.enabled),
-    cpIds: asStringArray(pkg.cpIds),
+    cpIds: Array.isArray(pkg.cpIds)
+      ? asStringArray(pkg.cpIds)
+      : Array.isArray(pkg.canonicalProblems)
+        ? pkg.canonicalProblems.map((entry) => asString((entry as Record<string, unknown>).id)).filter(Boolean)
+        : [],
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
     supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
     difficultyFilterSupported:
@@ -238,7 +249,13 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     lifecycleStage:
       pkg.lifecycleStage === "REVIEW_ONLY" || pkg.lifecycleStage === "BANK_ONLY"
         ? pkg.lifecycleStage
-        : undefined,
+        : pkg.lifecycleStage === undefined
+          && pkg.questionBankWritable === false
+          && pkg.testEligible === false
+          && pkg.publiclyPublishable === false
+          && pkg.productionReleaseAuthorized === false
+          ? "REVIEW_ONLY"
+          : undefined,
     reviewSurfaceRequired:
       typeof pkg.reviewSurfaceRequired === "boolean"
         ? pkg.reviewSurfaceRequired
@@ -548,7 +565,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
   listPackages() {
-    const packages = listQuantV4Packages().map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
+    const packages = listQuantV4Packages()
+      // Mixed Percentage selection is not a separate executable package;
+      // Calendar keeps its native reasoning owner.
+      .filter((pkg) => pkg.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID && pkg.packageId !== "CAL-001")
+      .map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
 
     const replaceOrPush = (packageId: string, card: Record<string, unknown>) => {
       const shared = toSharedPackage(card);
@@ -670,6 +691,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg001EnginePackage(),
       trg002EnginePackage(),
       tmw001EnginePackage(),
+      tsd001EnginePackage(),
+      tsd002EnginePackage(),
+      tsdAuditReviewEnginePackage(),
       toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
@@ -703,6 +727,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
+
+    const auditedTsd = generateTsdAuditReviewBatch(request);
+    if (auditedTsd) return auditedTsd;
+    const timeSpeedDistance = await generateTsdEngineBatch(request);
+    if (timeSpeedDistance) return timeSpeedDistance;
 
     const sapBanking = await generateSapBankingEngineBatch(request);
     if (sapBanking) return sapBanking;

@@ -1,0 +1,102 @@
+name: Validate TSD current-main closure
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
+      - "artifacts/api-server/src/question-studio/quant-time-speed-distance.ts"
+      - "artifacts/admin-app/src/features/question-studio/quality.ts"
+      - "artifacts/admin-app/src/test/question-studio-quality.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tsd-current-main-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tsd-current-main-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle TSD current-main closure audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/tsd-current-main-closure
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/tsd-current-main-closure-audit.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.mjs
+
+      - name: Run TSD current-main closure audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
+          grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-current-main-closure-audit.log
+
+      - name: Bundle final CP003-CP012 proof authorities
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/tsd-frozen-checkpoint-proof-suite.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs
+
+      - name: Run final CP003-CP012 proof authorities
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
+          grep -q '"verdict": "PASS"' artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-frozen-checkpoint-proof-suite.log
+
+      - name: Prove unapproved TSD editorial correction candidates
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/quality-audit/editorial-candidates-proof-suite.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.log
+
+      - name: Verify Studio authored explanation compatibility
+        run: pnpm --dir artifacts/admin-app exec vitest run src/test/question-studio-quality.test.ts
+
+      - name: Verify SAP Hindi Punjabi two-seed parity
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-HUMAN-QUALITY-AUDIT.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/sap-parity.mjs
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/sap-parity.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/sap-parity.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload TSD closure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-current-main-closure
+          path: artifacts/api-server/dist/quant-v4/tsd-current-main-closure/*.log
+          if-no-files-found: error

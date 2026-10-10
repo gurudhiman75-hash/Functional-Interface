@@ -5,7 +5,26 @@ import {
   analyzeItemQuality,
   findDuplicateMatches,
   qualityWithDuplicate,
+  itemExplanation,
 } from '@/features/question-studio/quality';
+
+describe('authored review explanation presentation', () => {
+  it('keeps native calculation steps in their authored order', () => {
+    expect(itemExplanation({ explanation: { method: 'गति का अंतर', steps: ['दूरी = 60 किमी', 'समय = 2 घंटे'], finalAnswer: 'गति = 30 किमी/घंटा' } }))
+      .toBe('गति का अंतर\nदूरी = 60 किमी\nसमय = 2 घंटे\nगति = 30 किमी/घंटा');
+    expect(itemExplanation({ explanation: ['ਦੂਰੀ = 60 ਕਿਮੀ', 'ਸਮਾਂ = 2 ਘੰਟੇ', 'ਰਫ਼ਤਾਰ = 30 ਕਿਮੀ/ਘੰਟਾ'] }))
+      .toBe('ਦੂਰੀ = 60 ਕਿਮੀ\nਸਮਾਂ = 2 ਘੰਟੇ\nਰਫ਼ਤਾਰ = 30 ਕਿਮੀ/ਘੰਟਾ');
+  });
+  it('keeps legacy strings and uses an authored conclusion once', () => {
+    expect(itemExplanation({ explanation: '  Distance / time = speed.  ' })).toBe('Distance / time = speed.');
+    expect(itemExplanation({ explanation: { steps: ['A calculation'], conclusion: 'Final result', finalAnswer: 'Final result' } }))
+      .toBe('A calculation\nFinal result');
+  });
+  it('rejects malformed objects without exposing serialized payloads', () => {
+    expect(itemExplanation({ explanation: { steps: [{ secret: 'not learner text' }], method: 12 } })).toBe('');
+    expect(itemExplanation({ explanation: [{ invalid: true }, null, 'Valid authored step'] })).toBe('Valid authored step');
+  });
+});
 
 function runWithStems(...stems: string[]): QuestionStudioRun {
   return {

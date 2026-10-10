@@ -1,0 +1,72 @@
+export const TSD_CP006_DISCOVERY_CANDIDATES = Object.freeze([
+  "findCircularFirstMeetingTimeSameDirection",
+  "findCircularFirstMeetingTimeOppositeDirections",
+  "findFirstOvertakeTime",
+  "findLapDifferenceAfterTime",
+  "findMeetingCountInTimeWindow",
+  "findOvertakeCountInTimeWindow",
+  "findNthMeetingTime",
+  "findNthOvertakeTime",
+  "findDistinctMeetingPointCount",
+  "findMeetingPointLocation",
+  "findCircularMeetingPointFromSpeedRatio",
+  "findCircularSpeedRatioFromMeetingPoint",
+  "findTrackLengthFromMeetingTime",
+  "findRunnerSpeedFromMeetingCount",
+  "findTimeBothReturnToStart",
+  "findFirstSimultaneousStartPointReturn",
+  "findThreeRunnerSimultaneousReturn",
+  "findThreeRunnerFirstCommonMeeting",
+  "findPairwiseMeetingScheduleForThreeRunners",
+  "findMeetingWithInitialArcGap",
+  "findInitialArcGapFromMeetingTime",
+  "findMeetingWithStaggeredStarts",
+  "findStartDelayFromCircularMeeting",
+  "findMeetingAfterDirectionReversal",
+  "findMeetingWithLapRest",
+  "findNumberOfCompletedLaps",
+  "findLocationAfterGivenTime",
+  "findFirstMeetingAtStartingPoint",
+  "distinguishMeetingAnywhereVsAtStart",
+  "distinguishTotalMeetingsVsDistinctPoints",
+  "reconstructCircularMotionFromCheckpointTable",
+  "classifyCircularStateAsPossibleUniqueOrMultiple",
+  "verifyCircularTrackClaim",
+  "solveCircularTrackDataSufficiency",
+] as const);
+
+export type TsdCp006SolveMode = typeof TSD_CP006_DISCOVERY_CANDIDATES[number];
+
+export const TSD_CP006_DISCOVERY_AUTHORITY = Object.freeze({
+  checkpointId: "TSD-CP-006" as const,
+  chapterId: "TSD-001" as const,
+  title: "Circular and Closed-Track Motion",
+  dependencyCheckpoints: Object.freeze(["TSD-CP-001"] as const),
+  sourceCandidateCount: TSD_CP006_DISCOVERY_CANDIDATES.length,
+  executableSolveModeCount: TSD_CP006_DISCOVERY_CANDIDATES.length,
+  ownership: Object.freeze([
+    "closed-track modular position",
+    "laps and simultaneous returns",
+    "same-direction overtakes",
+    "opposite-direction meetings",
+    "meeting counts and distinct meeting points",
+    "staggered starts, initial arc gaps, reversals and lap rests",
+    "three-runner closed-track schedules",
+    "circular reconstruction, verification and data sufficiency",
+  ] as const),
+  exclusions: Object.freeze([
+    "straight-line race leads and handicaps belong to TSD-CP-010",
+    "side-dependent polygon schedules belong to TSD-CP-012 unless the track is uniform",
+    "bounded-line endpoint turnaround remains TSD-CP-005",
+  ] as const),
+  permanentQlCount: 0 as const,
+  nextAvailableQl: "TSD-QL-071" as const,
+  questionStudioEnabled: false as const,
+  questionBankStatus: "NOT_STORED" as const,
+  testEligibility: "INELIGIBLE" as const,
+  publiclyPublishable: false as const,
+});
+
+if (TSD_CP006_DISCOVERY_CANDIDATES.length !== 34) {
+  throw new Error(`TSD-CP-006 discovery inventory drift: expected 34 candidates, found ${TSD_CP006_DISCOVERY_CANDIDATES.length}.`);
+}
