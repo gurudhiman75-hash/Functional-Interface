@@ -8,7 +8,6 @@ on:
       - scripts/verify-examtree-neon-backup.sh
       - tests/neon-backup-encryption.test.sh
       - docs/neon-backup-and-recovery-runbook.md
-      - .github/workflows/examtree-neon-backup-safety.yml
 
 permissions:
   contents: read
