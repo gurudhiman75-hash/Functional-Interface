@@ -9,6 +9,7 @@ import {
   Clock3,
   CreditCard,
   LoaderCircle,
+  BookOpen,
   Landmark,
   LockKeyhole,
   Package,
