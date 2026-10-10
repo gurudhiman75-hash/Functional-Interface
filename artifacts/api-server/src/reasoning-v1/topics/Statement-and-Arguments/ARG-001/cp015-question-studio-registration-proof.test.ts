@@ -70,8 +70,8 @@ function assertRouteContract(route: string): void {
 }
 
 function assertRegistryContract(registry: string): void {
-  const cp015Registration = 'const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"));';
-  const cp014Registration = 'const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"));';
+  const cp015Registration = 'const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"), isArgumentsRequest);';
+  const cp014Registration = 'const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"), isArgumentsRequest);';
   const cp015Mount = "router.use(adminQuestionStudioArgumentsCp015Router);";
   const cp014Mount = "router.use(adminQuestionStudioArgumentsCp014Router);";
 

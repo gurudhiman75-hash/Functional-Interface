@@ -72,7 +72,7 @@ function semanticSetFromOption(
 
   const labels = option.match(/\b(?:I|II|III|IV)\b/gu) ?? [];
   const indices = [...new Set(labels.map((label) => ROMAN_TO_INDEX[label as keyof typeof ROMAN_TO_INDEX]))]
-    .filter((index): index is number => Number.isInteger(index) && index < argumentCount)
+    .filter((index) => Number.isInteger(index) && index < argumentCount)
     .sort((a, b) => a - b);
 
   if (indices.length === 0) {

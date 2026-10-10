@@ -1,29 +1,73 @@
 import { Router, type IRouter, type RequestHandler } from "express";
 
-function lazyRouter(loader: () => Promise<{ default: IRouter }>): RequestHandler {
+type RouteMatch = (req: Parameters<RequestHandler>[0]) => boolean;
+
+function lazyRouter(
+  loader: () => Promise<{ default: IRouter }>,
+  matches?: RouteMatch,
+): RequestHandler {
   let routerPromise: Promise<IRouter> | null = null;
   return (req, res, next) => {
-    routerPromise ??= loader().then((module) => module.default);
+    // Express runs every router.use middleware in order. Without this check,
+    // even unrelated /runs and /items requests import every chapter engine.
+    // On Render's small shared API instance that causes severe load spikes.
+    if (matches && !matches(req)) {
+      next();
+      return;
+    }
+    routerPromise ??= loader().then((module) => module.default).catch((error) => {
+      // Allow retry if a dynamic import fails instead of poisoning all requests.
+      routerPromise = null;
+      throw error;
+    });
     void routerPromise
       .then((loadedRouter) => loadedRouter(req, res, next))
       .catch(next);
   };
 }
 
+// Dedicated ARG-001 generations must remain ahead of the general engine.
+// Identify them from the same package/pattern/CP selectors used by legacy
+// authoring requests; other subjects must never hydrate the seven ARG engines.
+const isArgumentsRequest: RouteMatch = (req) => {
+  if (req.path === "/capabilities") return true;
+  if (req.method !== "POST" || req.path !== "/runs") return false;
+  const body = (req.body ?? {}) as Record<string, unknown>;
+  const selectors = [
+    body.packageId, body.patternId, body.cpId, body.canonicalProblemId,
+    body.qlId, body.topic, body.subtopic,
+  ];
+  return selectors.some((value) =>
+    typeof value === "string"
+    && (/(?:^|[^a-z])arg(?:[-_\s]|$)/i.test(value)
+      || /statement\s*(?:&|and)\s*arguments?/i.test(value)),
+  );
+};
+
+const isSriRequest: RouteMatch = (req) => {
+  if (req.path === "/capabilities") return true;
+  if (req.method !== "POST" || req.path !== "/runs") return false;
+  const body = (req.body ?? {}) as Record<string, unknown>;
+  return [body.packageId, body.patternId, body.topic, body.subtopic, body.canonicalProblemId]
+    .some((value) => typeof value === "string"
+      && (/(?:^|[^a-z])sri(?:[-_\s]|$)/i.test(value)
+        || /surds?\s*(?:&|and)\s*indices/i.test(value)));
+};
+
 // Keep governed Question Studio packages isolated. Loading the registry must
 // not hydrate every chapter engine/content authority into the 512 MiB web
 // process; each package is imported only when request flow reaches it.
-const adminQuestionStudioBulkHardeningRouter = lazyRouter(() => import("./admin-question-studio-bulk-hardening"));
-const adminQuestionStudioQualityRouter = lazyRouter(() => import("./admin-question-studio-quality"));
-const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"));
-const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"));
-const adminQuestionStudioArgumentsCp013Router = lazyRouter(() => import("./admin-question-studio-arguments-cp013"));
-const adminQuestionStudioArgumentsCp012Router = lazyRouter(() => import("./admin-question-studio-arguments-cp012"));
-const adminQuestionStudioArgumentsCp010Router = lazyRouter(() => import("./admin-question-studio-arguments-cp010"));
-const adminQuestionStudioArgumentsCp007Router = lazyRouter(() => import("./admin-question-studio-arguments-cp007-v2"));
-const adminQuestionStudioArgumentsRouter = lazyRouter(() => import("./admin-question-studio-arguments"));
-const adminQuestionStudioCom003Router = lazyRouter(() => import("./admin-question-studio-com003"));
-const adminQuestionStudioSriRouter = lazyRouter(() => import("./admin-question-studio-sri"));
+const adminQuestionStudioBulkHardeningRouter = lazyRouter(() => import("./admin-question-studio-bulk-hardening"), (req) => req.path === "/items/bulk");
+const adminQuestionStudioQualityRouter = lazyRouter(() => import("./admin-question-studio-quality"), (req) => req.path === "/items/bulk" || /^\/items\/[^/]+\/revision$/.test(req.path));
+const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"), isArgumentsRequest);
+const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"), isArgumentsRequest);
+const adminQuestionStudioArgumentsCp013Router = lazyRouter(() => import("./admin-question-studio-arguments-cp013"), isArgumentsRequest);
+const adminQuestionStudioArgumentsCp012Router = lazyRouter(() => import("./admin-question-studio-arguments-cp012"), isArgumentsRequest);
+const adminQuestionStudioArgumentsCp010Router = lazyRouter(() => import("./admin-question-studio-arguments-cp010"), isArgumentsRequest);
+const adminQuestionStudioArgumentsCp007Router = lazyRouter(() => import("./admin-question-studio-arguments-cp007-v2"), isArgumentsRequest);
+const adminQuestionStudioArgumentsRouter = lazyRouter(() => import("./admin-question-studio-arguments"), isArgumentsRequest);
+const adminQuestionStudioCom003Router = lazyRouter(() => import("./admin-question-studio-com003"), (req) => req.path.startsWith("/computer/com003/"));
+const adminQuestionStudioSriRouter = lazyRouter(() => import("./admin-question-studio-sri"), isSriRequest);
 const adminQuestionStudioEngineV1Router = lazyRouter(() => import("./admin-question-studio-engine-v1"));
 const adminQuestionStudioDataSufficiencyCurrentRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency-current"));
 const adminQuestionStudioCp014Router = lazyRouter(() => import("./admin-question-studio-cp014"));

@@ -20,9 +20,9 @@ const registryPath = registryCandidates.find((candidate) => existsSync(candidate
 assert.ok(registryPath, `admin Question Studio registry was not found; checked: ${registryCandidates.join(", ")}`);
 const registry = readFileSync(registryPath, "utf8");
 
-const cp014Import = registry.indexOf('adminQuestionStudioArgumentsCp014Router from "./admin-question-studio-arguments-cp014"');
-const cp013Import = registry.indexOf('adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013"');
-const cp012Import = registry.indexOf('adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012"');
+const cp014Import = registry.indexOf('const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"), isArgumentsRequest)');
+const cp013Import = registry.indexOf('const adminQuestionStudioArgumentsCp013Router = lazyRouter(() => import("./admin-question-studio-arguments-cp013"), isArgumentsRequest)');
+const cp012Import = registry.indexOf('const adminQuestionStudioArgumentsCp012Router = lazyRouter(() => import("./admin-question-studio-arguments-cp012"), isArgumentsRequest)');
 assert.ok(cp014Import >= 0 && cp013Import >= 0 && cp012Import >= 0, "ARG CP014/CP013/CP012 route imports are incomplete");
 assert.ok(cp014Import < cp013Import, "CP014 import must precede CP013");
 
