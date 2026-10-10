@@ -35,6 +35,8 @@ git checkout New-main
 git pull --ff-only origin New-main
 EXAMTREE_BUDGET_READY=yes bash scripts/deploy-examtree-api-cloudrun-staging.sh sarbedutech
 ```
+The Docker image build runs `scripts/smoke-examtree-cloudrun-startup.mjs` to verify the actual production-mode Express bundle can bind `/health` with a deliberately unreachable local PostgreSQL socket and no AI extraction API key; no external credentials are used. Only `EXAMTREE_CLOUDRUN_STAGING=true` on the explicitly tagged Cloud Run staging service can start without an AI provider. Production Render and future production Cloud Run deployments continue to require an AI extraction provider key unless deliberately redesigned. Catalogue reconciliation is deferred until after Cloud Run binds its port, rather than gating startup on Neon cold starts.
+
 The script builds a standalone API image, mounts the **existing Neon main test-database URL** from Secret Manager, deploys `examtree-api-staging`, checks `/health` and safe negative E2E tests for unauthorized Question Studio generation and unsigned Cashfree webhooks, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode. The canonical Neon client remains unchanged. Limit Cloud Run instance count until production DB connection headroom is measured; the current driver default can open up to 10 connections per instance.
 
 ## Acceptance gates before Cloudflare cutover
