@@ -15,7 +15,11 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 await build({
   entryPoints: [path.join(root, "src/cloud-run-background.ts")],
   outdir: path.join(root, "dist"),
-  entryNames: "cloud-run-background",
+  // esbuild-plugin-pino appends its own transport/worker entry points.
+  // A constant name makes all of those entries collide with our worker.
+  // Keep the source worker output cloud-run-background.mjs while giving
+  // plugin-supplied entries unique names, as in build-runtime.mjs.
+  entryNames: "[name]",
   chunkNames: "background-[name]-[hash]",
   format: "esm",
   outExtension: { ".js": ".mjs" },
