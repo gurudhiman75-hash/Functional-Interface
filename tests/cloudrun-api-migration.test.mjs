@@ -10,6 +10,7 @@ const db = read("artifacts/api-server/src/lib/db.ts");
 const docker = read("Dockerfile.examtree-cloudrun-api");
 const deploy = read("scripts/deploy-examtree-api-cloudrun-staging.sh");
 const background = read("artifacts/api-server/src/cloud-run-background.ts");
+const scheduler = read("scripts/enable-examtree-api-background-scheduler.sh");
 
 test("Cloud Run API never starts request-throttled background loops", () => {
   assert.match(entry, /EXAMTREE_API_RUNTIME === "cloud-run"/);
@@ -38,6 +39,9 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /max-instances=1/);
   assert.match(deploy, /set-secrets/);
   assert.doesNotMatch(deploy, /cloudflare\.request|render\.com\/(?:api|web)|delete-service/);
+  assert.match(scheduler, /EXAMTREE_RENDER_STOPPED/);
+  assert.match(scheduler, /EXAMTREE_BACKGROUND_JOB_VERIFIED/);
+  assert.match(scheduler, /examtree-api-background-every-5m/);
   assert.match(docker, /USER node/);
   assert.match(docker, /cloud-run-preload\.mjs/);
   assert.match(docker, /build-runtime\.mjs/);
