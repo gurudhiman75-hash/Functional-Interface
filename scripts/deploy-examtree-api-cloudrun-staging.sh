@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Safe first deployment of the Express API; no public traffic changes.
-PROJECT="\${1:-sarbedutech}"
+PROJECT="${1:-sarbedutech}"
 REGION="asia-south1"
 SERVICE="examtree-api-staging"
 JOB="examtree-api-background-staging"
@@ -10,11 +10,11 @@ ACCOUNT="examtree-api-runtime"
 SECRET="examtree-api-database-url"
 TOKEN_SECRET="examtree-trg002-worker-token"
 REGISTRY="examtree-workers"
-if [[ "$PROJECT" != "sarbedutech" || "\${EXAMTREE_BUDGET_READY:-}" != "yes" ]]; then
+if [[ "$PROJECT" != "sarbedutech" || "${EXAMTREE_BUDGET_READY:-}" != "yes" ]]; then
   echo "Usage: EXAMTREE_BUDGET_READY=yes bash scripts/deploy-examtree-api-cloudrun-staging.sh sarbedutech" >&2
   exit 2
 fi
-ROOT="$(cd "$(dirname "\${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 gcloud config set project "$PROJECT" >/dev/null
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com secretmanager.googleapis.com --project "$PROJECT" >/dev/null
@@ -75,6 +75,7 @@ const result = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 if (result.status !== 'ok') process.exit(1);
 console.log("PASS: API health 200");
 NODE
+bash "$ROOT/scripts/smoke-examtree-api-staging.sh" "$URL"
 
 # Do not run the job against live Neon while Render might still dispatch work.
 gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
