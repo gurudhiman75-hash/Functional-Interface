@@ -39,6 +39,7 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /set-secrets/);
   assert.doesNotMatch(deploy, /cloudflare\.request|render\.com\/(?:api|web)|delete-service/);
   assert.match(docker, /USER node/);
+  assert.match(docker, /cloud-run-preload\\.mjs/);
   assert.match(docker, /build-runtime\.mjs/);
   assert.match(docker, /build-cloud-run-background\.mjs/);
 });
