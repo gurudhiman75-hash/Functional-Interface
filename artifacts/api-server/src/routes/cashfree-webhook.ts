@@ -1,6 +1,6 @@
 import { randomUUID, createHash } from "node:crypto";
 import type { Request, Response } from "express";
-import { classifyCashfreeNonSuccess, refundUuidFromCashfreeReference, verifyCashfreeWebhook } from "../lib/cashfree-payments";
+import { classifyCashfreeNonSuccess, parseCashfreeJson, refundUuidFromCashfreeReference, verifyCashfreeWebhook } from "../lib/cashfree-payments";
 import { reconcileCashfreeRefundRecord } from "../lib/cashfree-refunds";
 import { CommerceRefundError } from "../lib/canonical-commerce-refunds";
 import { finalizeCapturedPayment, CommercePaymentError } from "../lib/canonical-commerce-payments";
@@ -27,7 +27,7 @@ export default async function cashfreeWebhook(req: Request, res: Response): Prom
     res.status(400).json({ error: "Invalid Cashfree webhook signature" }); return;
   }
   let event: WebhookPayload;
-  try { event = JSON.parse(rawBody) as WebhookPayload; }
+  try { event = parseCashfreeJson<WebhookPayload>(rawBody); }
   catch { res.status(400).json({ error: "Invalid JSON" }); return; }
   const kind = String(event.type ?? "unknown").slice(0, 120);
   // Refund callbacks never mutate access from webhook data alone. Retrieve

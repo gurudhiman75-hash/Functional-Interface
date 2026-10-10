@@ -39,7 +39,16 @@ export async function cashfreeApi<T>(method: "GET" | "POST", route: string, body
     signal: AbortSignal.timeout(15000),
   });
   if (!response.ok) throw Object.assign(new Error("Cashfree gateway request failed: HTTP " + response.status), { providerHttpStatus: response.status });
-  return await response.json() as T;
+  // Cashfree identifiers can exceed JavaScript's 53-bit safe integer range.
+  // Preserve their exact decimal digits before JSON.parse can round them.
+  // Amounts remain numeric for their separate paise validation.
+  return parseCashfreeJson<T>(await response.text());
+
+}
+
+export function parseCashfreeJson<T>(raw: string): T {
+  const lossless = raw.replace(/("(?:cf_payment_id|cf_refund_id)"\s*:\s*)(\d+)(?=\s*[,}])/g, '$1"$2"');
+  return JSON.parse(lossless) as T;
 }
 
 export type CashfreeOrder = {
@@ -142,6 +151,30 @@ export function assessCashfreeRefundAcknowledgement(receipt: CashfreeRefund, exp
   const providerRefundId = receipt.cf_refund_id == null || String(receipt.cf_refund_id).length === 0
     ? null : String(receipt.cf_refund_id);
   return { conflicts, providerRefundId: conflicts.length ? null : providerRefundId };
+}
+
+export function assessCashfreeRefundEvidence(receipt: CashfreeRefund, expected: {
+  orderId: string; paymentId: string; refundId: string; amountMinor: number; currency: string;
+}): { missing: string[]; mismatched: string[]; providerRefundId: string | null; status: string | null; amountMinor: number | null } {
+  const missing: string[] = [];
+  const mismatched: string[] = [];
+  const compare = (field: string, actual: unknown, value: string) => {
+    if (actual == null || String(actual).trim() === "") missing.push(field);
+    else if (String(actual).trim() !== value) mismatched.push(field);
+  };
+  compare("refund_id", receipt.refund_id, cashfreeRefundReference(expected.refundId));
+  compare("order_id", receipt.order_id, expected.orderId);
+  compare("cf_payment_id", receipt.cf_payment_id, expected.paymentId);
+  compare("refund_currency", receipt.refund_currency?.trim().toUpperCase(), expected.currency);
+  if (receipt.cf_refund_id == null || String(receipt.cf_refund_id).trim() === "") missing.push("cf_refund_id");
+  const providerRefundId = receipt.cf_refund_id == null ? null : String(receipt.cf_refund_id).trim() || null;
+  const amountMinor = receipt.refund_amount == null ? null : Math.round(Number(receipt.refund_amount) * 100);
+  if (amountMinor === null) missing.push("refund_amount");
+  else if (!Number.isSafeInteger(amountMinor) || amountMinor !== expected.amountMinor) mismatched.push("refund_amount");
+  const status = receipt.refund_status == null ? null : String(receipt.refund_status).trim().toUpperCase();
+  if (!status) missing.push("refund_status");
+  else if (!["PENDING", "ONHOLD", "SUCCESS", "FAILED", "CANCELLED"].includes(status)) mismatched.push("refund_status");
+  return { missing, mismatched, providerRefundId, status, amountMinor };
 }
 
 export const createCashfreeRefund = (input: {
