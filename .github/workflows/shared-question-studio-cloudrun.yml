@@ -90,7 +90,16 @@ jobs:
           # undeclared runtime dependencies on source files.
           kill "$PID"
           wait "$PID" 2>/dev/null || true
-          (cd "$(mktemp -d)" && PORT=8081 node "$GITHUB_WORKSPACE/artifacts/api-server/dist/shared-question-studio-worker-service.mjs" > /tmp/shared-isolated-worker.log 2>&1) &
+          # Mirror Dockerfile.question-studio-shared: only frozen JSON
+          # authority data is present under the production /app-like cwd.
+          ISOLATED_ROOT="$(mktemp -d)"
+          PNL_SRC="$GITHUB_WORKSPACE/artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          PNL_DST="$ISOLATED_ROOT/artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          for CP in CP-001 CP-002 CP-003 CP-004 CP-005 CP-006; do
+            mkdir -p "$PNL_DST/$CP"
+            cp "$PNL_SRC/$CP/"*.json "$PNL_DST/$CP/"
+          done
+          (cd "$ISOLATED_ROOT" && PORT=8081 node "$GITHUB_WORKSPACE/artifacts/api-server/dist/shared-question-studio-worker-service.mjs" > /tmp/shared-isolated-worker.log 2>&1) &
           ISOLATED_PID=$!
           trap 'status=$?; if [ "$status" -ne 0 ]; then echo "Isolated worker error:"; cat /tmp/isolated-response.json 2>/dev/null || true; tail -n 30 /tmp/shared-isolated-worker.log; fi; kill "$ISOLATED_PID" 2>/dev/null || true' EXIT
           for i in $(seq 1 30); do
