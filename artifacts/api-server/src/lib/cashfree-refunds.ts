@@ -1,4 +1,4 @@
-import { assessCashfreeRefundEvidence, fetchCashfreeRefund } from "./cashfree-payments";
+import { assessCashfreeRefundEvidence, fetchCashfreeRefund, isRoundedCashfreePaymentReference } from "./cashfree-payments";
 import { CommerceRefundError, reconcileProcessedRefund } from "./canonical-commerce-refunds";
 import { sqlClient } from "./db";
 
@@ -8,6 +8,7 @@ import { sqlClient } from "./db";
 export async function reconcileCashfreeRefundRecord(refundId: string, canonicalOrderId?: string) {
   const rows = await sqlClient`
     SELECT r.id::text AS "refundId", r.status AS "refundStatus", r.amount_minor::float8 AS "amountMinor",
+      pa.id::text AS "paymentAttemptId", pa.amount_minor::float8 AS "capturedAmountMinor",
       pa.provider_order_id AS "providerOrderId", pa.provider_payment_id AS "providerPaymentId",
       o.id::text AS "orderId", pa.currency
     FROM commerce.refunds r
@@ -28,7 +29,16 @@ export async function reconcileCashfreeRefundRecord(refundId: string, canonicalO
     paymentId: String(row.providerPaymentId),
     amountMinor: Number(row.amountMinor), currency: String(row.currency),
   });
-  if (evidence.mismatched.length || evidence.missing.length) {
+  // Historical payment captures could store a rounded 19-digit gateway ID.
+  // Never treat a different payment ID as valid without BOTH exact provider
+  // refund GET evidence AND an independently signed and processed payment
+  // success event for the same order, captured amount and currency.
+  const verifiedPaymentId = String(response.cf_payment_id ?? "");
+  const repairCandidate =
+    evidence.mismatched.length === 1 && evidence.mismatched[0] === "cf_payment_id"
+    && evidence.missing.length === 0
+    && isRoundedCashfreePaymentReference(String(row.providerPaymentId), verifiedPaymentId);
+  if (!repairCandidate && (evidence.mismatched.length || evidence.missing.length)) {
     // Report only field names, never payment numbers, provider secrets or the
     // raw gateway response. A mismatch must NEVER mark a refund processed.
     const fields = { mismatched: evidence.mismatched, missing: evidence.missing };
@@ -55,12 +65,61 @@ export async function reconcileCashfreeRefundRecord(refundId: string, canonicalO
       throw new CommerceRefundError("CASHFREE_REFUND_ID_MISMATCH", "Cashfree refund reference changed", 409);
     if (locked[0].status === "processed") return { refundId, status: "processed", fullRefund: false, alreadyProcessed: true };
     if (locked[0].status === "failed") return { refundId, status: "failed", fullRefund: false };
+    if (repairCandidate) {
+      // Recheck the canonical record under lock before correcting a rounding
+      // artifact. Never overwrite a legitimate different provider payment.
+      const payment = await tx`
+        SELECT id::text AS id, provider_payment_id AS "paymentId", status, 
+          amount_minor::float8 AS "capturedMinor", currency, provider_order_id AS "providerOrderId"
+        FROM commerce.payment_attempts
+        WHERE id = ${String(row.paymentAttemptId)}::uuid AND provider = 'cashfree'
+        FOR UPDATE
+      `;
+      const captured = payment[0];
+      if (!captured || captured.status !== "captured"
+          || String(captured.paymentId) !== String(row.providerPaymentId)
+          || Number(captured.capturedMinor) !== Number(row.capturedAmountMinor)
+          || String(captured.providerOrderId) !== String(row.providerOrderId)
+          || String(captured.currency) !== String(row.currency)) {
+        throw new CommerceRefundError("CASHFREE_PAYMENT_REFERENCE_CHANGED",
+          "Captured Cashfree payment reference changed during verification", 409);
+      }
+      // This is a second, independent signature-verified payment statement,
+      // tied to the same canonical attempt; mere rounded numeric similarity
+      // is never sufficient evidence to rewrite payment records.
+      const proof = await tx`
+        SELECT pe.id FROM commerce.payment_events pe
+        WHERE pe.provider = 'cashfree'
+          AND pe.payment_attempt_id = ${String(row.paymentAttemptId)}::uuid
+          AND pe.event_type = 'PAYMENT_SUCCESS_WEBHOOK'
+          AND pe.signature_verified = true AND pe.processed_at IS NOT NULL
+          AND pe.provider_event_id = ${"PAYMENT_SUCCESS_WEBHOOK:" + verifiedPaymentId}
+          AND pe.payload #>> '{data,order,order_id}' = ${String(row.providerOrderId)}
+          AND pe.payload #>> '{data,payment,cf_payment_id}' = ${verifiedPaymentId}
+          AND pe.payload #>> '{data,payment,payment_status}' = 'SUCCESS'
+          AND pe.payload #>> '{data,payment,payment_currency}' = ${String(row.currency)}
+          AND (pe.payload #>> '{data,payment,payment_amount}')::numeric * 100 = ${Number(row.capturedAmountMinor)}
+        LIMIT 1
+      `;
+      if (!proof[0]) {
+        throw new CommerceRefundError("CASHFREE_PAYMENT_PROOF_REQUIRED",
+          "Cashfree refund payment ID differs; matching signed payment evidence is required", 409);
+      }
+      await tx`
+        UPDATE commerce.payment_attempts
+        SET provider_payment_id = ${verifiedPaymentId}, updated_at = now()
+        WHERE id = ${String(row.paymentAttemptId)}::uuid
+          AND provider_payment_id = ${String(row.providerPaymentId)}
+      `;
+      console.info("Repaired legacy rounded Cashfree payment reference from verified GET and signed success event",
+        { refundId });
+    }
     if (status === "SUCCESS") {
       const processedAt = response.processed_at && !Number.isNaN(Date.parse(response.processed_at))
         ? new Date(response.processed_at).toISOString() : null;
       const result = await reconcileProcessedRefund({
         client: tx as typeof sqlClient, provider: "cashfree", canonicalRefundId: refundId,
-        providerRefundId, providerPaymentId: String(row.providerPaymentId), amountMinor, processedAt,
+        providerRefundId, providerPaymentId: repairCandidate ? verifiedPaymentId : String(row.providerPaymentId), amountMinor, processedAt,
       });
       return { refundId, status: "processed", ...result };
     }

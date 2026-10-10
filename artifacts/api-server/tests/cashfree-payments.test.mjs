@@ -16,6 +16,7 @@ const {
   fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
   cashfreeRefundReference, refundUuidFromCashfreeReference, createCashfreeRefund, fetchCashfreeRefund,
   assessCashfreeRefundAcknowledgement, assessCashfreeRefundEvidence, parseCashfreeJson,
+  isRoundedCashfreePaymentReference,
 } = await import("../dist/cashfree-payments-fixture.mjs");
 
 const previousEnv = Object.fromEntries([
@@ -172,7 +173,24 @@ try {
 
   // IDs from real Cashfree gateway payloads can be 19 decimal digits.
   // JSON.parse would round some of them, causing false mismatches.
-  const bigPayment = "1461997756726467584";
+  const correctCaptured = "1462287015601527808";
+  const roundedCaptured = "1462287015601527800";
+  assert.equal(String(Number(correctCaptured)), roundedCaptured,
+    "This historic 19-digit ID was rounded by JSON.parse");
+  assert.equal(isRoundedCashfreePaymentReference(roundedCaptured, correctCaptured), true);
+  assert.equal(isRoundedCashfreePaymentReference(correctCaptured, correctCaptured), false);
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527801", correctCaptured), false);
+  // Two distinct 19-digit IDs may collide under IEEE-754 rounding.
+  // This guard deliberately accepts both as possible rounding artifacts;
+  // the independently signed exact-ID webhook decides which is real.
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "1462287015601527908"), true);
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "1462287015601529008"), false);
+  assert.equal(isRoundedCashfreePaymentReference("other", correctCaptured), false);
+  assert.equal(isRoundedCashfreePaymentReference("1234", "1235"), false);
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "146228701560152780A"), false);
+  // A payment reference that differs but is NOT a known Number rounding
+  // artifact must remain forbidden, even if the refund GET is successful.
+    const bigPayment = "1461997756726467584";
   const numericRefund = "1319911206123456789";
   const parsed = parseCashfreeJson('{"cf_payment_id":' + bigPayment
     + ',"cf_refund_id":' + numericRefund + ',"refund_amount":5}');
