@@ -315,8 +315,8 @@ export default function OrderStatusPage() {
               )}
             </div>
 
-            <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-[#e2eee7] bg-[#f8fcf9] px-3.5 py-3 text-[10px] leading-5 text-slate-600 sm:ml-[72px] sm:text-[11px]">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+            <div className={"mt-5 flex items-start gap-2.5 rounded-xl border px-3.5 py-3 text-[10px] leading-5 text-slate-600 sm:ml-[72px] sm:text-[11px] " + (viewState === "ready" ? "border-[#e2eee7] bg-[#f8fcf9]" : viewState === "pending" || viewState === "activating" || viewState === "loading" ? "border-amber-200 bg-amber-50/70" : viewState === "failed" || viewState === "cancelled" || viewState === "expired" ? "border-rose-200 bg-rose-50/70" : "border-blue-200 bg-blue-50/70")}>
+              <StatusIcon className={"mt-0.5 h-4 w-4 shrink-0 " + (viewState === "ready" ? "text-emerald-700" : viewState === "pending" || viewState === "activating" || viewState === "loading" ? "text-amber-700" : viewState === "failed" || viewState === "cancelled" || viewState === "expired" ? "text-rose-700" : "text-blue-700")} />
               <span>{status.cardCopy} {hasOrder && order ? "Order status: " + humanizeStatus(order.status) + "." : ""}</span>
             </div>
           </section>
