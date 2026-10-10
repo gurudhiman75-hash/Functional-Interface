@@ -52,14 +52,24 @@ gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
 # service account uses ADC and the existing Firebase project directly.
 # 0 minimum instances + 1 maximum protects staging cost; scheduled jobs are
 # deliberately not activated by this script.
-gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
+# Capture the actual Cloud Run application failure without leaking secrets.
+# A failed revision does not route traffic and must not be treated as ready.
+if ! gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
   --platform=managed --image="$IMAGE" \
   --service-account="$SA" \
   --memory=2Gi --cpu=1 --concurrency=10 \
   --min-instances=0 --max-instances=1 --timeout=180 \
   --cpu-throttling --allow-unauthenticated \
-  --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,EXAMTREE_PUBLIC_ORIGIN=https://functional-interface.pages.dev,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,QUESTION_STUDIO_SHARED_WORKER_URL=https://examtree-generation-staging-1083299267005.asia-south1.run.app,QUESTION_STUDIO_TRG002_WORKER_URL=https://examtree-trg002-staging-ttnfjefqka-el.a.run.app" \
-  --set-secrets="DATABASE_URL=$SECRET:latest,QUESTION_STUDIO_WORKER_TOKEN=$TOKEN_SECRET:latest" --quiet
+  --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=true,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,EXAMTREE_PUBLIC_ORIGIN=https://functional-interface.pages.dev,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,QUESTION_STUDIO_SHARED_WORKER_URL=https://examtree-generation-staging-1083299267005.asia-south1.run.app,QUESTION_STUDIO_TRG002_WORKER_URL=https://examtree-trg002-staging-ttnfjefqka-el.a.run.app" \
+  --set-secrets="DATABASE_URL=$SECRET:latest,QUESTION_STUDIO_WORKER_TOKEN=$TOKEN_SECRET:latest" --quiet; then
+  echo "FAILED: Cloud Run API revision did not become ready." >&2
+  echo "Recent application startup errors (never paste private environment values):" >&2
+  gcloud logging read \
+    "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"$SERVICE\"" \
+    --project="$PROJECT" --freshness=30m --limit=35 \
+    --format='table(timestamp,severity,textPayload,jsonPayload.message)' >&2 || true
+  exit 1
+fi
 
 URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$REGION" --format='value(status.url)')"
 [[ "$URL" == https://*.run.app ]] || { echo "Cloud Run did not return an HTTPS URL" >&2; exit 1; }
