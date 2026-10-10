@@ -118,6 +118,32 @@ export type CashfreeRefund = {
   cf_payment_id?: string | number; refund_amount?: number; refund_currency?: string;
   refund_status?: string; processed_at?: string | null;
 };
+/**
+ * A successful POST does not by itself prove a completed refund. Some gateway
+ * acknowledgements may omit fields that are present in the subsequent GET.
+ * Treat omitted fields as unverified, but flag actual contradictory fields.
+ * Only reconcileCashfreeRefundRecord(GET) can change order/access state.
+ */
+export function assessCashfreeRefundAcknowledgement(receipt: CashfreeRefund, expected: {
+  orderId: string; paymentId: string; refundId: string; amountMinor: number; currency: string;
+}): { conflicts: string[]; providerRefundId: string | null } {
+  const conflicts: string[] = [];
+  const compare = (name: string, actual: unknown, value: string) => {
+    if (actual !== undefined && actual !== null && String(actual) !== value) conflicts.push(name);
+  };
+  compare("refund_id", receipt.refund_id, cashfreeRefundReference(expected.refundId));
+  compare("order_id", receipt.order_id, expected.orderId);
+  compare("cf_payment_id", receipt.cf_payment_id, expected.paymentId);
+  compare("refund_currency", receipt.refund_currency, expected.currency);
+  if (receipt.refund_amount !== undefined && receipt.refund_amount !== null) {
+    const minor = Math.round(Number(receipt.refund_amount) * 100);
+    if (!Number.isSafeInteger(minor) || minor !== expected.amountMinor) conflicts.push("refund_amount");
+  }
+  const providerRefundId = receipt.cf_refund_id == null || String(receipt.cf_refund_id).length === 0
+    ? null : String(receipt.cf_refund_id);
+  return { conflicts, providerRefundId: conflicts.length ? null : providerRefundId };
+}
+
 export const createCashfreeRefund = (input: {
   orderId: string; refundUuid: string; amountMinor: number; reason: string;
 }) => cashfreeApi<CashfreeRefund>(
