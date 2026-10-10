@@ -84,3 +84,25 @@ jobs:
             fi
             COUNT="$COUNT" node -e 'const n=Number(process.env.COUNT);const x=JSON.parse(require("fs").readFileSync("/tmp/shared-batch.json","utf8"));if(!x.ok||x.batch?.questions?.length!==n)process.exit(2);console.log("PASS: NUM-001 staging-parity "+n+" questions")'
           done
+          # CI normally runs from the repository checkout, which contains
+          # source JSON libraries. Cloud Run runs from /app with only the
+          # final image assets. Re-test from an empty cwd to find accidentally
+          # undeclared runtime dependencies on source files.
+          kill "$PID"
+          wait "$PID" 2>/dev/null || true
+          (cd "$(mktemp -d)" && PORT=8081 node "$GITHUB_WORKSPACE/artifacts/api-server/dist/shared-question-studio-worker-service.mjs" > /tmp/shared-isolated-worker.log 2>&1) &
+          ISOLATED_PID=$!
+          trap 'status=$?; if [ "$status" -ne 0 ]; then echo "Isolated worker error:"; cat /tmp/isolated-response.json 2>/dev/null || true; tail -n 30 /tmp/shared-isolated-worker.log; fi; kill "$ISOLATED_PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://localhost:8081/health >/dev/null; then break; fi
+            sleep 1
+          done
+          PAYLOAD="$(node -e 'console.log(JSON.stringify({request:{engineId:"quant-v4",packageId:"NUM-001",count:1,exam:"SSC CGL Tier 1",subject:"Quantitative Aptitude",topic:"Arithmetic",subtopic:"Number System",language:"en",difficulty:"Mixed",runtimeMode:"QUESTION_STUDIO_ACTIVE",seed:"shared-worker-smoke-NUM-001-1"},selectedCpIds:["NUM-CP-001"],count:1}))')"
+          if ! curl --fail-with-body --silent --show-error --max-time 155 \
+            -H "Content-Type: application/json" \
+            -H "X-Examtree-Worker-Token: $QUESTION_STUDIO_WORKER_TOKEN" \
+            -d "$PAYLOAD" http://localhost:8081/internal/question-studio/generate > /tmp/isolated-response.json; then
+            node -e 'const d=JSON.parse(require("fs").readFileSync("/tmp/isolated-response.json","utf8"));console.error(JSON.stringify({kind:"isolated-cwd-num001",code:d.code,error:d.error}))'
+            exit 1
+          fi
+          node -e 'const d=JSON.parse(require("fs").readFileSync("/tmp/isolated-response.json","utf8"));if(!d.ok||d.batch?.questions?.length!==1)process.exit(2);console.log("PASS: isolated cwd NUM-001 question")'
