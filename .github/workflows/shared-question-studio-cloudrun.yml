@@ -70,3 +70,17 @@ jobs:
               -d "$PAYLOAD" http://localhost:8080/internal/question-studio/generate > /tmp/shared-batch.json
             node -e 'const o=JSON.parse(require("fs").readFileSync("/tmp/shared-batch.json","utf8"));if(!o.ok||o.batch?.questions?.length!==1)process.exit(2);console.log("PASS: "+o.batch.questions.length+" questions")'
           done
+          # Reproduce Cloud Run's exact NUM-001 1/3-question staging seeds.
+          # The earlier one-question-only CI used a different seed, so it
+          # could not detect a seed-specific NUM-001 generator defect.
+          for COUNT in 1 3; do
+            PAYLOAD="$(COUNT="$COUNT" node -e 'const n=Number(process.env.COUNT); console.log(JSON.stringify({request:{engineId:"quant-v4",packageId:"NUM-001",count:n,exam:"SSC CGL Tier 1",subject:"Quantitative Aptitude",topic:"Arithmetic",subtopic:"Number System",language:"en",difficulty:"Mixed",runtimeMode:"QUESTION_STUDIO_ACTIVE",seed:"shared-worker-smoke-NUM-001-"+n},selectedCpIds:["NUM-CP-001"],count:n}))')"
+            if ! curl --fail-with-body --silent --show-error --max-time 155 \
+              -H "Content-Type: application/json" \
+              -H "X-Examtree-Worker-Token: $QUESTION_STUDIO_WORKER_TOKEN" \
+              -d "$PAYLOAD" http://localhost:8080/internal/question-studio/generate > /tmp/shared-batch.json; then
+              node -e 'const x=JSON.parse(require("fs").readFileSync("/tmp/shared-batch.json","utf8"));console.error(JSON.stringify({kind:"staging-parity-error",count:Number(process.env.COUNT),code:x.code,error:x.error}))'
+              exit 1
+            fi
+            COUNT="$COUNT" node -e 'const n=Number(process.env.COUNT);const x=JSON.parse(require("fs").readFileSync("/tmp/shared-batch.json","utf8"));if(!x.ok||x.batch?.questions?.length!==n)process.exit(2);console.log("PASS: NUM-001 staging-parity "+n+" questions")'
+          done
