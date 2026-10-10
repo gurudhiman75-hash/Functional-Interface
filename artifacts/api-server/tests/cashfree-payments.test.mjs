@@ -15,6 +15,7 @@ const {
   cashfreeMode, cashfreeSelected, classifyCashfreeNonSuccess, createCashfreeOrder,
   fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
   cashfreeRefundReference, refundUuidFromCashfreeReference, createCashfreeRefund, fetchCashfreeRefund,
+  assessCashfreeRefundAcknowledgement,
 } = await import("../dist/cashfree-payments-fixture.mjs");
 
 const previousEnv = Object.fromEntries([
@@ -142,6 +143,32 @@ try {
   await fetchCashfreeRefund("order-test-123", canonicalRefundId);
   assert.equal(refundCalls[1].url, "https://sandbox.cashfree.com/pg/orders/order-test-123/refunds/" + merchantRefundId);
   assert.equal(refundCalls[1].init.method, "GET");
+
+  // Cashfree can acknowledge a request with a sparse POST receipt.
+  // An omitted field is NOT proof of a mismatch, but a contradicting value is.
+  const expected = {
+    orderId: "order-test-123", paymentId: "123", refundId: canonicalRefundId,
+    amountMinor: 1000, currency: "INR",
+  };
+  const completeReceipt = {
+    refund_id: merchantRefundId, cf_refund_id: "cf_refund_123",
+    order_id: "order-test-123", cf_payment_id: "123",
+    refund_amount: 10, refund_currency: "INR", refund_status: "PENDING",
+  };
+  assert.deepEqual(assessCashfreeRefundAcknowledgement(completeReceipt, expected),
+    { conflicts: [], providerRefundId: "cf_refund_123" });
+  assert.deepEqual(assessCashfreeRefundAcknowledgement(
+    { refund_status: "PENDING" }, expected
+  ), { conflicts: [], providerRefundId: null });
+  assert.deepEqual(assessCashfreeRefundAcknowledgement(
+    { cf_refund_id: 71332, refund_amount: 10 }, expected
+  ), { conflicts: [], providerRefundId: "71332" });
+  const inconsistent = assessCashfreeRefundAcknowledgement(
+    { ...completeReceipt, order_id: "different-order", refund_amount: 11 }, expected
+  );
+  assert.deepEqual(inconsistent.conflicts, ["order_id", "refund_amount"]);
+  assert.equal(inconsistent.providerRefundId, null,
+    "Untrusted provider ID must not be stored when the acknowledgement conflicts");
 
   globalThis.fetch = async () => new Response('{"message":"provider rejected"}', { status: 403 });
   await assert.rejects(fetchCashfreeOrder("order-test-123"), /HTTP 403/);
