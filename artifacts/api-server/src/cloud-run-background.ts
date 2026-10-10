@@ -17,7 +17,9 @@ try {
   for (let i = 0; i < 5; i++) {
     const result = await runMobileNotificationDelivery();
     logger.info({ status: result.status }, "Cloud Run scheduled notification iteration");
-    if (result.status === "idle" || result.status === "provider_unavailable") break;
+    if (result.status === "failed") throw new Error("Notification campaign delivery failed");
+    if (result.status === "provider_unavailable") throw new Error("Firebase Messaging provider unavailable");
+    if (result.status === "idle") break;
   }
 } finally {
   await sqlClient.end({ timeout: 5 });
