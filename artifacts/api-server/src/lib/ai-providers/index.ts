@@ -228,13 +228,19 @@ export function isAIProviderConfigured(
 }
 
 export function validateAIProviderStartup() {
+  // Cloud Run *staging* deliberately tests authentication, DB and routing
+  // before migrating provider API keys. AI-backed routes still fail at their
+  // own provider authorization boundary when their key is absent.
+  // Production, Render and any explicitly-required extraction remain strict.
+  const isolatedCloudRunStaging =
+    process.env["EXAMTREE_API_RUNTIME"] === "cloud-run" &&
+    process.env["EXAMTREE_API_STAGING"] === "true";
   const required =
     process.env["AI_EXTRACTION_REQUIRED"] ===
       "true" ||
     process.env["OPENAI_EXTRACTION_REQUIRED"] ===
       "true" ||
-    process.env["NODE_ENV"] ===
-      "production";
+    (process.env["NODE_ENV"] === "production" && !isolatedCloudRunStaging);
   const provider = resolveAIProvider();
   const adapter = getAIProvider(provider);
 

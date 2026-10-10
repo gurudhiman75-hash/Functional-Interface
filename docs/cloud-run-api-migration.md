@@ -28,6 +28,11 @@ Important: Cloud Run staging and Render will temporarily share the **same databa
 3. The pre-existing Secret Manager secret `examtree-trg002-worker-token` is reused. A dedicated Cloud Run runtime service account `examtree-api-runtime` authenticates to Firebase using ADC; grant only necessary Firebase/Firestore/Storage/FCM permissions if the service reports authorization failures. No JSON private key should be copied from Render.
 4. Verify Google Cloud billing alerts and Artifact Registry storage. Deployment images, CPU/RAM/requests, Neon egress, Secret Manager and future Scheduler can incur charges. min-instances=0 is not a guarantee of no bill.
 
+### Staging AI provider policy
+The existing API's production mode normally requires an AI extraction provider key. This staging deployment intentionally **does not require AI keys for the basic API health/auth/DB smoke checks**, using the narrow gate `EXAMTREE_API_RUNTIME=cloud-run` and `EXAMTREE_API_STAGING=true`. AI-powered routes cannot successfully call a provider without credentials. **Before production Cloud Run cutover**, configure the real AI provider keys through Secret Manager and deploy without `EXAMTREE_API_STAGING`; the strict startup check then applies again. Do not use this staging configuration as the final production backend.
+
+Catalogue/test-series initialization is deliberately NOT performed on every Cloud Run startup; run the separately approved schema/catalogue bootstrap first. Render behavior is unchanged.
+
 ## Stage the new API after CI
 ```bash
 cd ~/Functional-Interface

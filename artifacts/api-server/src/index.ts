@@ -25,12 +25,20 @@ if (Number.isNaN(port) || port <= 0) {
 
 validateAIProviderStartup();
 
-await ensureApprovedExamCatalogue().catch((error) => {
-  logger.error({ error }, "Unable to ensure approved exam catalogue during startup");
-});
-await ensureApprovedExamTestSeries().catch((error) => {
-  logger.error({ error }, "Unable to ensure approved exam test series during startup");
-});
+// Cloud Run must bind PORT promptly. Running Neon writes on every autoscaled
+// replica startup adds network latency, startup failures and duplicate writes.
+// The separate, review-gated schema/catalogue bootstrap owns these writes.
+// Retain Render's original startup behavior for rollback compatibility.
+if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") {
+  logger.info("Cloud Run API: catalogue bootstrapping skipped; run the approved out-of-band bootstrap");
+} else {
+  await ensureApprovedExamCatalogue().catch((error) => {
+    logger.error({ error }, "Unable to ensure approved exam catalogue during startup");
+  });
+  await ensureApprovedExamTestSeries().catch((error) => {
+    logger.error({ error }, "Unable to ensure approved exam test series during startup");
+  });
+}
 
 // This legacy pattern-generation poller executes heavyweight work inside the
 // API process. Keep it disabled on the 512 MiB production API by default.

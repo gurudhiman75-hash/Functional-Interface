@@ -10,6 +10,7 @@ const db = read("artifacts/api-server/src/lib/db.ts");
 const docker = read("Dockerfile.examtree-cloudrun-api");
 const deploy = read("scripts/deploy-examtree-api-cloudrun-staging.sh");
 const background = read("artifacts/api-server/src/cloud-run-background.ts");
+const providers = read("artifacts/api-server/src/lib/ai-providers/index.ts");
 const scheduler = read("scripts/enable-examtree-api-background-scheduler.sh");
 const schema = read("scripts/examtree-api-schema-bootstrap.sh");
 
@@ -17,6 +18,9 @@ test("Cloud Run API never starts request-throttled background loops", () => {
   assert.match(entry, /EXAMTREE_API_RUNTIME === "cloud-run"/);
   assert.match(entry, /startMobileNotificationWorker\(\)/);
   assert.match(entry, /startOutboxPublisher\(\)/);
+  assert.match(entry, /catalogue bootstrapping skipped/);
+  assert.match(providers, /EXAMTREE_API_STAGING/);
+  assert.match(providers, /AI_EXTRACTION_REQUIRED/);
   assert.match(background, /runMobileNotificationDelivery\(\)/);
   assert.match(background, /runOutboxPublisherOnce\(\)/);
   assert.match(background, /sqlClient\.end/);
@@ -38,6 +42,8 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /min-instances=0/);
   assert.match(deploy, /max-instances=1/);
   assert.match(deploy, /set-secrets/);
+  assert.match(deploy, /EXAMTREE_API_STAGING=true/);
+  assert.match(deploy, /gcloud logging read/);
   assert.match(deploy, /smoke-examtree-api-staging/);
   for (const shell of [deploy, scheduler, schema, read("scripts/smoke-examtree-api-staging.sh")]) {
     assert.equal(shell.includes("\\${"), false, "Bash variables must not be shell-escaped literals");

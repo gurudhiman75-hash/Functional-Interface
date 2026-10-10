@@ -1,0 +1,98 @@
+name: Validate Examtree Cloud Run API final image
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "Dockerfile.examtree-cloudrun-api"
+      - "Dockerfile.question-studio-worker.dockerignore"
+      - "artifacts/api-server/build-runtime.mjs"
+      - "artifacts/api-server/build-cloud-run-background.mjs"
+      - "artifacts/api-server/cloud-run-preload.mjs"
+      - "artifacts/api-server/src/index.ts"
+      - "artifacts/api-server/src/app.ts"
+      - "artifacts/api-server/src/lib/ai-providers/index.ts"
+      - "scripts/deploy-examtree-api-cloudrun-staging.sh"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  image-startup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the actual final API image
+        run: |
+          # Use the same ignored paths as gcloud builds submit.
+          cp Dockerfile.question-studio-worker.dockerignore .dockerignore
+          docker build --file Dockerfile.examtree-cloudrun-api \
+            --tag examtree-cloudrun-api-startup-ci .
+      - name: Start the non-root production image in explicit staging mode
+        run: |
+          set -euo pipefail
+          docker run --detach --name examtree-api-ci \
+            --env EXAMTREE_API_STAGING=true \
+            --env FIREBASE_PROJECT_ID=sarbedutech \
+            --env DATABASE_URL='postgresql://ci:ci@127.0.0.1:1/examtree_ci' \
+            --env QUESTION_STUDIO_SHARED_WORKER_URL=https://examtree-generation-staging-1083299267005.asia-south1.run.app \
+            --publish 127.0.0.1:18084:8080 \
+            examtree-cloudrun-api-startup-ci
+          trap 'status=$?; if [ "$status" -ne 0 ]; then echo "FAIL: final-image API startup logs:"; docker logs examtree-api-ci 2>&1 | tail -n 90; fi; docker rm --force examtree-api-ci >/dev/null 2>&1 || true' EXIT
+          READY=false
+          for n in $(seq 1 70); do
+            if curl --fail --silent --max-time 2 \
+                http://127.0.0.1:18084/health > /tmp/examtree-api-health.json; then
+              READY=true
+              break
+            fi
+            if [ "$(docker inspect --format '{{.State.Running}}' examtree-api-ci)" != true ]; then
+              echo "FAIL: Examtree API container exited before health"
+              exit 1
+            fi
+            sleep 2
+          done
+          if [ "$READY" != true ]; then
+            echo "FAIL: API did not start on port 8080"
+            exit 1
+          fi
+          node -e 'const d=require("/tmp/examtree-api-health.json");if(d.status!=="ok")process.exit(1)'
+          echo "PASS: final non-root Docker image serves /health on port 8080"
+
+          STATUS="$(curl --silent --show-error --max-time 20 \
+            --output /tmp/examtree-admin-denied.json --write-out '%{http_code}' \
+            --header 'Content-Type: application/json' \
+            --data '{}' http://127.0.0.1:18084/api/admin/session/bootstrap)"
+          if [ "$STATUS" != 401 ] && [ "$STATUS" != 403 ]; then
+            echo "FAIL: unauthenticated admin bootstrap returned $STATUS"
+            cat /tmp/examtree-admin-denied.json
+            exit 1
+          fi
+          echo "PASS: admin bootstrap denies unauthenticated request ($STATUS)"
+
+          STATUS="$(curl --silent --show-error --max-time 30 \
+            --output /tmp/examtree-num001-denied.json --write-out '%{http_code}' \
+            --header 'Content-Type: application/json' \
+            --data '{"packageId":"NUM-001","engineId":"quant-v4","count":1,"language":"en","difficulty":"Easy","cpIds":["NUM-CP-001"]}' \
+            http://127.0.0.1:18084/api/admin/question-studio/runs)"
+          if [ "$STATUS" != 401 ] && [ "$STATUS" != 403 ]; then
+            echo "FAIL: unauthenticated NUM-001 route returned $STATUS"
+            cat /tmp/examtree-num001-denied.json
+            exit 1
+          fi
+          echo "PASS: Question Studio denies unauthenticated generation ($STATUS)"
+
+          STATUS="$(curl --silent --show-error --max-time 20 \
+            --output /tmp/examtree-webhook-denied.json --write-out '%{http_code}' \
+            --header 'Content-Type: application/json' \
+            --data '{"type":"PAYMENT_SUCCESS_WEBHOOK"}' \
+            http://127.0.0.1:18084/api/billing/cashfree/webhook)"
+          if [ "$STATUS" != 400 ] && [ "$STATUS" != 503 ]; then
+            echo "FAIL: unsigned Cashfree webhook returned $STATUS"
+            cat /tmp/examtree-webhook-denied.json
+            exit 1
+          fi
+          echo "PASS: unsigned Cashfree webhook denied ($STATUS)"
