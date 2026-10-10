@@ -1,4 +1,4 @@
-import { cashfreeRefundReference, fetchCashfreeRefund } from "./cashfree-payments";
+import { assessCashfreeRefundEvidence, fetchCashfreeRefund } from "./cashfree-payments";
 import { CommerceRefundError, reconcileProcessedRefund } from "./canonical-commerce-refunds";
 import { sqlClient } from "./db";
 
@@ -23,17 +23,27 @@ export async function reconcileCashfreeRefundRecord(refundId: string, canonicalO
     throw new CommerceRefundError("REFUND_PAYMENT_MISSING", "Captured Cashfree payment reference is missing", 409);
   if (row.refundStatus === "failed") return { refundId, status: "failed", fullRefund: false };
   const response = await fetchCashfreeRefund(String(row.providerOrderId), refundId);
-  const amountMinor = Math.round(Number(response.refund_amount) * 100);
-  const providerRefundId = String(response.cf_refund_id ?? "");
-  const status = String(response.refund_status ?? "").toUpperCase();
-  if (String(response.refund_id ?? "") !== cashfreeRefundReference(refundId)
-      || String(response.order_id ?? "") !== String(row.providerOrderId)
-      || String(response.cf_payment_id ?? "") !== String(row.providerPaymentId)
-      || String(response.refund_currency ?? "").toUpperCase() !== String(row.currency)
-      || !Number.isSafeInteger(amountMinor) || amountMinor !== Number(row.amountMinor)
-      || !providerRefundId || !["PENDING","ONHOLD","SUCCESS","FAILED","CANCELLED"].includes(status)) {
-    throw new CommerceRefundError("CASHFREE_REFUND_MISMATCH", "Cashfree refund evidence does not match the captured payment", 409);
+  const evidence = assessCashfreeRefundEvidence(response, {
+    refundId, orderId: String(row.providerOrderId),
+    paymentId: String(row.providerPaymentId),
+    amountMinor: Number(row.amountMinor), currency: String(row.currency),
+  });
+  if (evidence.mismatched.length || evidence.missing.length) {
+    // Report only field names, never payment numbers, provider secrets or the
+    // raw gateway response. A mismatch must NEVER mark a refund processed.
+    const fields = { mismatched: evidence.mismatched, missing: evidence.missing };
+    console.warn("Cashfree refund evidence verification incomplete", { refundId, fields });
+    throw new CommerceRefundError(
+      evidence.mismatched.length ? "CASHFREE_REFUND_MISMATCH" : "CASHFREE_REFUND_EVIDENCE_INCOMPLETE",
+      evidence.mismatched.length
+        ? "Cashfree refund evidence disagrees on: " + evidence.mismatched.join(", ")
+        : "Cashfree refund evidence is missing: " + evidence.missing.join(", "),
+      409, fields,
+    );
   }
+  const amountMinor = evidence.amountMinor!;
+  const providerRefundId = evidence.providerRefundId!;
+  const status = evidence.status!;
   return sqlClient.begin(async tx => {
     const locked = await tx`
       SELECT r.status, r.provider_refund_id AS "providerRefundId" FROM commerce.refunds r
