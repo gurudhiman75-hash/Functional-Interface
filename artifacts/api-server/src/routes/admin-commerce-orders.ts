@@ -54,6 +54,82 @@ router.get("/", requireAdminPermission("commerce.orders.read"), async (req, res)
   } catch (error) { console.error("Unable to load commerce orders", error); res.status(500).json({ error: "Unable to load orders" }); }
 });
 
+/**
+ * Read-only financial reconciliation queue for operators.
+ * Preserve signed historical evidence; a mismatched Cashfree payment ID is
+ * flagged for provider verification, never automatically captured/refunded.
+ */
+router.get("/reconciliation/health", requireAdminPermission("commerce.orders.read"), async (_req, res) => {
+  try {
+    const [conflictingSuccesses, unresolvedRefunds, expiredPendingOrders] = await Promise.all([
+      sqlClient`
+        SELECT pa.order_id::text AS "orderId", o.status AS "orderStatus",
+          pa.status AS "paymentStatus",
+          COUNT(*) FILTER (
+            WHERE pe.payload#>>'{data,payment,cf_payment_id}'
+              IS DISTINCT FROM pa.provider_payment_id
+          )::int AS "conflictingSuccessEvents",
+          COUNT(*) FILTER (WHERE pe.processing_error IS NOT NULL)::int AS "flaggedEvents",
+          COUNT(*)::int AS "signedSuccessEvents"
+        FROM commerce.payment_events pe
+        JOIN commerce.payment_attempts pa ON pa.id = pe.payment_attempt_id
+        JOIN commerce.orders o ON o.id = pa.order_id
+        WHERE pe.provider = 'cashfree'
+          AND pe.event_type = 'PAYMENT_SUCCESS_WEBHOOK'
+          AND pe.signature_verified = true AND pe.processed_at IS NOT NULL
+          AND pa.provider_payment_id IS NOT NULL
+        GROUP BY pa.order_id, o.status, pa.status
+        HAVING COUNT(*) FILTER (
+          WHERE pe.payload#>>'{data,payment,cf_payment_id}'
+            IS DISTINCT FROM pa.provider_payment_id
+        ) > 0
+        ORDER BY "conflictingSuccessEvents" DESC, pa.order_id
+        LIMIT 100
+      `,
+      sqlClient`
+        SELECT r.id::text AS "refundId", o.id::text AS "orderId",
+          r.status AS "refundStatus", r.amount_minor::float8 AS "amountMinor",
+          r.created_at AS "createdAt",
+          r.provider_refund_id IS NOT NULL AS "providerReferencePresent"
+        FROM commerce.refunds r
+        JOIN commerce.payment_attempts pa ON pa.id = r.payment_attempt_id
+        JOIN commerce.orders o ON o.id = pa.order_id
+        WHERE pa.provider = 'cashfree'
+          AND r.status NOT IN ('processed', 'failed', 'cancelled')
+        ORDER BY r.created_at ASC LIMIT 100
+      `,
+      sqlClient`
+        SELECT o.id::text AS "orderId", o.status AS "orderStatus",
+          o.expires_at AS "expiresAt", pa.status AS "paymentStatus"
+        FROM commerce.orders o
+        JOIN commerce.payment_attempts pa ON pa.order_id = o.id
+        WHERE pa.provider = 'cashfree'
+          AND o.status = 'payment_pending'
+          AND o.expires_at < now()
+        ORDER BY o.expires_at ASC LIMIT 100
+      `,
+    ]);
+    res.json({
+      requiresProviderVerification: true,
+      summary: {
+        conflictingSuccessOrders: conflictingSuccesses.length,
+        unresolvedRefunds: unresolvedRefunds.length,
+        expiredPendingOrders: expiredPendingOrders.length,
+      },
+      conflictingSuccesses,
+      unresolvedRefunds,
+      expiredPendingOrders,
+      // Counts are bounded to 100 rows per category; do not mistake limits
+      // for proof of a clean ledger if the queue reaches that threshold.
+      truncated: [conflictingSuccesses, unresolvedRefunds, expiredPendingOrders].some((rows) => rows.length === 100),
+      generatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Unable to load commerce reconciliation health", error);
+    res.status(500).json({ error: "Unable to load commerce reconciliation health", code: "COMMERCE_RECONCILIATION_HEALTH_FAILED" });
+  }
+});
+
 router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"), async (req, res) => {
   const orderId = String(req.params.orderId ?? "");
   const amountMinor = Math.floor(Number(req.body?.amountMinor));
