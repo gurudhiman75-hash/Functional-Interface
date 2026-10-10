@@ -41,6 +41,27 @@ export class AttemptReliabilityError extends Error {
   }
 }
 
+/** Submitted and abandoned attempts are immutable. Never expose an old draft
+ * as resumable merely because a snapshot still exists in storage. */
+export function attemptSessionLifecycleError(status: unknown, snapshot?: unknown): AttemptReliabilityError | null {
+  const value = String(status);
+  if (value === "in_progress") return null;
+  if (value === "evaluated" || value === "practice_evaluated") {
+    return new AttemptReliabilityError(
+      "ATTEMPT_ALREADY_SUBMITTED",
+      "This attempt has already been submitted",
+      409,
+      { result: snapshot },
+    );
+  }
+  return new AttemptReliabilityError(
+    "ATTEMPT_SESSION_NOT_ACTIVE",
+    "This attempt is no longer active",
+    409,
+    { status: value },
+  );
+}
+
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
