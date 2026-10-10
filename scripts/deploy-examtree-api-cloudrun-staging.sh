@@ -39,7 +39,7 @@ if [[ "$CASHFREE_SANDBOX" == "yes" ]]; then
 fi
 for required in "${REQUIRED_SECRETS[@]}"; do
   gcloud secrets describe "$required" --project="$PROJECT" >/dev/null || {
-    echo "Missing Secret Manager secret $required. Create it securely as described in docs/cloud-run-api-migration.md." >&2; exit 1;
+    echo "Missing Secret Manager secret $required. Follow docs/examtree-cashfree-cloudrun-staging-setup.md for sandbox credentials." >&2; exit 1;
   }
   gcloud secrets versions list "$required" --project="$PROJECT" --filter='state:enabled' --format='value(name)' | grep -q . || {
     echo "Secret $required has no enabled version" >&2; exit 1;
@@ -148,6 +148,9 @@ gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
 
 echo "EXAMTREE API STAGING READY: $URL"
 echo "Cloud Run job '$JOB' is deployed but NOT scheduled or executed."
-echo "Cloudflare and mobile still use Render. Cashfree webhooks remain unchanged."
+echo "Cloudflare and mobile still use Render; no production webhook subscriptions were modified."
+if [[ "$CASHFREE_SANDBOX" == "yes" ]]; then
+  echo "New staging Cashfree SANDBOX checkout orders will notify the Cloud Run staging webhook URL."
+fi
 echo "Existing Neon main test DB was reused; no new Neon compute required."
 echo "Do not turn off Render until auth, attempt, payment, webhook, and scheduled-job checks pass."
