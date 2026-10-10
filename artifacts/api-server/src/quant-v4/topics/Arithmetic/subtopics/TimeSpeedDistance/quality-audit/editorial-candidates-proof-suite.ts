@@ -24,3 +24,4 @@ import "./studio-review-presentation-proof.test";
 import "./circular-applications-source-proof.test";
 import "./clock-applications-source-proof.test";
 import "./remaining-applications-source-proof.test";
+import "./reflected-meetings-source-regression.test";

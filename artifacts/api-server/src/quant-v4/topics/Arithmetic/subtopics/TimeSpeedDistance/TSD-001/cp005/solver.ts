@@ -70,8 +70,35 @@ function firstMeetingPoint(route: Rational, speedA: Rational, speedB: Rational):
   return divide(multiply(route, speedA), add(speedA, speedB));
 }
 
+function meetingHalfPeriods(route: Rational, speedA: Rational, speedB: Rational): Rational[] {
+  const periods = [divide(route, add(speedA, speedB))];
+  const difference = subtract(speedA, speedB);
+  if (difference.numerator !== 0n) periods.push(divide(route, rational(difference.numerator < 0n ? -difference.numerator : difference.numerator, difference.denominator)));
+  return periods;
+}
+
 function nthMeetingTime(route: Rational, speedA: Rational, speedB: Rational, n: number): Rational {
-  return divide(multiply(rational(2 * n - 1), route), add(speedA, speedB));
+  const periods = meetingHalfPeriods(route, speedA, speedB);
+  const indices = periods.map(() => 0);
+  let time = rational(0);
+  for (let event = 0; event < n; event += 1) {
+    const candidates = periods.map((period, index) => multiply(period, rational(2 * indices[index]! + 1)));
+    time = candidates.reduce((earliest, candidate) => compare(candidate, earliest) < 0 ? candidate : earliest);
+    // A boundary meeting can satisfy both congruences: count it once.
+    candidates.forEach((candidate, index) => { if (equals(candidate, time)) indices[index]! += 1; });
+  }
+  return time;
+}
+
+function repeatedMeetingCount(route: Rational, speedA: Rational, speedB: Rational, window: Rational): bigint {
+  const periods = meetingHalfPeriods(route, speedA, speedB);
+  const count = (halfPeriod: Rational) => floorRational(divide(add(divide(window, halfPeriod), rational(1)), rational(2)));
+  if (periods.length === 1) return count(periods[0]!);
+  const ratio = divide(periods[0]!, periods[1]!);
+  // Odd-multiple sequences overlap iff both reduced ratio terms are odd.
+  const overlaps = ratio.numerator % 2n !== 0n && ratio.denominator % 2n !== 0n
+    ? count(multiply(periods[0]!, rational(ratio.denominator))) : 0n;
+  return count(periods[0]!) + count(periods[1]!) - overlaps;
 }
 
 function oneTravellerTurnMeetingTime(route: Rational, speedA: Rational, speedB: Rational): Rational {
@@ -158,7 +185,7 @@ export function solveCp005(mode: TsdCp005SolveMode, input: TsdCp005Input): TsdCp
     case "findMeetingAfterBothTurnAtEndpoints": {
       const { route, speedA, speedB } = sumSpeeds(input);
       const time = nthMeetingTime(route, speedA, speedB, 2);
-      return valueSolution(mode, time, "HOUR", [`second meeting occurs after combined path 3L`, `time = 3L ÷ (speedA + speedB) = ${toCanonicalString(time)}`]);
+      return valueSolution(mode, time, "HOUR", [`Find the second event across both reflected meeting sequences`, `time = ${toCanonicalString(time)}`]);
     }
 
     case "findSecondMeetingPointAfterEndpointTurnaround": {
@@ -172,7 +199,7 @@ export function solveCp005(mode: TsdCp005SolveMode, input: TsdCp005Input): TsdCp
       const { route, speedA, speedB } = sumSpeeds(input);
       const n = positiveInteger(input.nthMeeting, "nthMeeting");
       const time = nthMeetingTime(route, speedA, speedB, n);
-      return valueSolution(mode, time, "HOUR", [`nth meeting requires combined path (2n-1)L`, `time = ${toCanonicalString(time)}`]);
+      return valueSolution(mode, time, "HOUR", [`Merge the head-on and same-direction reflection congruences, deduplicating endpoint meetings`, `time = ${toCanonicalString(time)}`]);
     }
 
     case "findNthMeetingPointOnLine": {
@@ -186,10 +213,8 @@ export function solveCp005(mode: TsdCp005SolveMode, input: TsdCp005Input): TsdCp
     case "findRepeatedMeetingCountInTimeWindow": {
       const { route, speedA, speedB } = sumSpeeds(input);
       const window = positive(required(input.timeWindow, "timeWindow"), "timeWindow");
-      const scaled = divide(multiply(add(speedA, speedB), window), route);
-      const count = floorRational(divide(add(scaled, rational(1)), rational(2)));
-      const bounded = count < 0n ? 0n : count;
-      return valueSolution(mode, rational(bounded), "COUNT", [`meetings occur at odd multiples of L/(u+v)`, `count = ${bounded}`]);
+      const count = repeatedMeetingCount(route, speedA, speedB, window);
+      return valueSolution(mode, rational(count), "COUNT", ["Count both odd-multiple meeting sequences and subtract their common endpoint events", `count = ${count}`]);
     }
 
     case "findMeetingAfterOneTravellerTurnsBack":

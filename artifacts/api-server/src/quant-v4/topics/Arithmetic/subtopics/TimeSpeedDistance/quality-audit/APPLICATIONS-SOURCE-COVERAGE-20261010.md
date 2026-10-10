@@ -64,3 +64,7 @@ PDF417–420 (printed III.173–176) adds Q23–26, the answer key and worked so
 - Q8 solution refers to a diametrically-opposite condition absent from the extracted question. An image-level reading is still required before a faithful correction can be chosen.
 
 Proofs are in the editorial suite. Existing CLK foundation source checks, independent reflection/second-hand oracles, and quarantine records are distinguished from learner-runtime coverage. Full exercise review is complete; the TSD chapter is not closed.
+
+## CP005 owner verification and correction
+
+Repeated endpoint reflection is already declared in CP005. Its nth-event and count implementations incorrectly used only odd multiples of L/(u+v), omitting the same-direction catch sequence at odd multiples of L/|u-v|. A route182, speed5:2 counterexample has its second meeting at182/3, before the old claimed78. The solver now merges both sequences and counts their overlap once; the verifier independently advances piecewise trajectories to actual endpoint turns. 2,997 checks across81 speed pairs pass, including equal speeds, reversed speed ordering, counts, points and itineraries. Source Q3/Q4 are now reconstructed through CP005, superseding the earlier unconfirmed-owner status. Frozen exports and lifecycle gates are unchanged.

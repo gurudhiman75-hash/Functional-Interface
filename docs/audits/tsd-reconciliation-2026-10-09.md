@@ -79,3 +79,11 @@ Status: **Local integration gates pass / final-head CI pending / DO NOT MERGE OR
 - Added a durable full-corpus presentation proof for 3,918 rows (V4 3,846 plus 72 supplemental source-review rows). All retain stems and every authored calculation line through the actual Studio helpers. Full editorial suite, six focused Studio quality tests and Admin TypeScript pass locally.
 - Added helper/test path coverage and focused Studio tests to the existing TSD workflow, retaining the central adapter workflow ownership policy.
 - UI status remains partial: visual fonts, mobile/desktop overflow and real MathJax rendering evidence remain unverified. No live registration or release approval is implied by extraction compatibility.
+
+## Source audit and reflection correction — 10 October
+
+The full26-question Applications exercise on PDF415–420 is now adjudicated. Ten clock cases execute existing exact CLK foundations; other cases use existing source candidates or independent reconstruction/counterexamples. Source key errors Q18/Q19, missing directions Q25, ratio reversal Q21, and nonunique Q22 are explicitly retained rather than copied into learner content. The wider PDF401–405 and421–438 review has a model-level gap ledger; this does not claim every mixed-block question belongs to TSD or that all source cases have executed learner models.
+
+A genuine CP005 defect was fixed: reflected nth meeting/count used only head-on odd multiples of L/(u+v), missing same-direction catches. Solver merges both exact congruence streams with endpoint deduplication; verifier independently advances piecewise endpoint trajectories. New regression passes2,997 checks across81 speed pairs, including points/counts/itineraries. CP005 proof, full revision/editorial/frozen/current-main closure suite255, and API build pass locally. Build retains pre-existing unrelated duplicate-key warnings. Source candidates remain unapproved, CP010–012 unregistered, and all Bank/test/mock/public locks remain unchanged.
+
+Broader coverage still requires state-transition models such as both-runner speed exchange, queued dispatch and diagram-grounded geometry; actual visual UI evidence and human multilingual approval remain open. New source image retrieval returned403; no new image inspection is claimed.

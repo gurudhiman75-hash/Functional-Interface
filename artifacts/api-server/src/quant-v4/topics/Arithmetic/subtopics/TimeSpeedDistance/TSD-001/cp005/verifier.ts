@@ -26,6 +26,34 @@ function reflectedPosition(distanceTravelled: Rational, route: Rational): Ration
   return compare(r, route) <= 0 ? r : subtract(period, r);
 }
 
+// Independent piecewise trajectory oracle: advance to actual endpoint turns,
+// solve local linear coincidence, and include each positive event once.
+export function reflectedMeetingEvents(route: Rational, speedA: Rational, speedB: Rational, nth?: number, window?: Rational): Rational[] {
+  let a = rational(0), b = route, time = rational(0);
+  let dirA = 1, dirB = -1;
+  const events: Rational[] = [];
+  for (let segment = 0; segment < 100000; segment += 1) {
+    const va = multiply(speedA, rational(dirA)), vb = multiply(speedB, rational(dirB));
+    const nextA = divide(dirA > 0 ? subtract(route, a) : a, speedA);
+    const nextB = divide(dirB > 0 ? subtract(route, b) : b, speedB);
+    let dt = compare(nextA, nextB) <= 0 ? nextA : nextB;
+    if (window && compare(add(time, dt), window) > 0) dt = subtract(window, time);
+    const relative = subtract(va, vb);
+    if (relative.numerator !== 0n) {
+      const tau = divide(subtract(b, a), relative);
+      if (compare(tau, rational(0)) > 0 && compare(tau, dt) <= 0) {
+        events.push(add(time, tau));
+        if (nth && events.length === nth) return events;
+      }
+    }
+    a = add(a, multiply(va, dt)); b = add(b, multiply(vb, dt)); time = add(time, dt);
+    if (window && compare(time, window) >= 0) return events;
+    if (equals(a, rational(0)) || equals(a, route)) dirA *= -1;
+    if (equals(b, rational(0)) || equals(b, route)) dirB *= -1;
+  }
+  throw new Error("CP005 independent reflection oracle exceeded supported event budget");
+}
+
 function meetingPoint(route: Rational, speedA: Rational, speedB: Rational): Rational {
   const time = divide(route, add(speedA, speedB));
   return multiply(speedA, time);
@@ -127,7 +155,7 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const speedB = required(input.speedB, "speedB", errors);
         const time = solutionValue(solution, errors);
         const n = mode === "findNthMeetingTimeOnLine" ? input.nthMeeting : 2;
-        if (route && speedA && speedB && time && n && !equals(multiply(add(speedA, speedB), time), multiply(rational(2 * n - 1), route))) errors.push("meeting time fails reflected-line combined-path invariant");
+        if (route && speedA && speedB && time && n && !equals(time, reflectedMeetingEvents(route, speedA, speedB, n)[n - 1]!)) errors.push("meeting time differs from independent endpoint trajectory");
         break;
       }
 
@@ -139,7 +167,7 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const point = solutionValue(solution, errors);
         const n = mode === "findNthMeetingPointOnLine" ? input.nthMeeting : 2;
         if (route && speedA && speedB && point && n) {
-          const time = divide(multiply(rational(2 * n - 1), route), add(speedA, speedB));
+          const time = reflectedMeetingEvents(route, speedA, speedB, n)[n - 1]!;
           const a = reflectedPosition(multiply(speedA, time), route);
           const bFromRight = reflectedPosition(multiply(speedB, time), route);
           const b = subtract(route, bFromRight);
@@ -156,12 +184,7 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const window = required(input.timeWindow, "timeWindow", errors);
         const countValue = solutionValue(solution, errors);
         if (route && speedA && speedB && window && countValue) {
-          let count = 0;
-          for (let n = 1; n <= 10000; n += 1) {
-            const t = divide(multiply(rational(2 * n - 1), route), add(speedA, speedB));
-            if (compare(t, window) <= 0) count += 1;
-            else break;
-          }
+          const count = reflectedMeetingEvents(route, speedA, speedB, undefined, window).length;
           if (!equals(countValue, rational(count))) errors.push("meeting count does not equal independently enumerated event count");
         }
         break;
@@ -309,7 +332,7 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const paths = solution.values;
         if (!n || !time || !paths || paths.length !== 2 || !solution.meetingPointFromA) errors.push("itinerary solution missing time, paths or meeting point");
         else if (route && speedA && speedB) {
-          if (!equals(multiply(add(speedA, speedB), time), multiply(rational(2 * n - 1), route))) errors.push("itinerary time is not nth meeting time");
+          if (!equals(time, reflectedMeetingEvents(route, speedA, speedB, n)[n - 1]!)) errors.push("itinerary time differs from independently reconstructed nth event");
           if (!equals(paths[0]!, multiply(speedA, time)) || !equals(paths[1]!, multiply(speedB, time))) errors.push("itinerary path totals mismatch speeds and time");
           if (!equals(solution.meetingPointFromA, reflectedPosition(paths[0]!, route))) errors.push("itinerary meeting point mismatch");
         }
@@ -323,7 +346,7 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const speedB = required(input.speedB, "speedB", errors);
         const n = input.nthMeeting ?? 1;
         if (route && speedA && speedB) {
-          const expectedTime = divide(multiply(rational(2 * n - 1), route), add(speedA, speedB));
+          const expectedTime = reflectedMeetingEvents(route, speedA, speedB, n)[n - 1]!;
           const expectedPoint = reflectedPosition(multiply(speedA, expectedTime), route);
           const valid = (!input.claimedMeetingTime || equals(input.claimedMeetingTime, expectedTime)) && (!input.claimedMeetingPoint || equals(input.claimedMeetingPoint, expectedPoint));
           const expectedBoolean = mode === "detectContradictoryMeetingStatements" ? !valid : valid;
