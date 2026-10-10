@@ -153,6 +153,18 @@ export function assessCashfreeRefundAcknowledgement(receipt: CashfreeRefund, exp
   return { conflicts, providerRefundId: conflicts.length ? null : providerRefundId };
 }
 
+/**
+ * Historical Cashfree payment references may have been written after JSON.parse
+ * rounded unsafe 19-digit numeric IDs. Only allow this exact class of repair:
+ * a verified gateway ID whose JavaScript Number rendering equals the old ID.
+ * This is a guard, not evidence by itself; signed success-event proof is also required.
+ */
+export function isRoundedCashfreePaymentReference(stored: string, exact: string): boolean {
+  if (!/^\\d{16,20}$/.test(stored) || !/^\\d{16,20}$/.test(exact) || stored === exact) return false;
+  const asNumber = Number(exact);
+  return Number.isFinite(asNumber) && !Number.isSafeInteger(asNumber) && String(asNumber) === stored;
+}
+
 export function assessCashfreeRefundEvidence(receipt: CashfreeRefund, expected: {
   orderId: string; paymentId: string; refundId: string; amountMinor: number; currency: string;
 }): { missing: string[]; mismatched: string[]; providerRefundId: string | null; status: string | null; amountMinor: number | null } {
