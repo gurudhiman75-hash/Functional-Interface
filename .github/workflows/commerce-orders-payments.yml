@@ -10,6 +10,7 @@ on:
       - artifacts/api-server/src/lib/cashfree-refunds.ts
       - artifacts/api-server/src/routes/cashfree-webhook.ts
       - artifacts/api-server/tests/cashfree-payments.test.mjs
+      - artifacts/api-server/tests/admin-commerce-reconciliation-health.test.mjs
       - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
       - artifacts/api-server/src/routes/billing-webhook.ts
       - artifacts/api-server/src/routes/admin-commerce-orders.ts
@@ -26,6 +27,7 @@ on:
       - artifacts/api-server/src/lib/cashfree-refunds.ts
       - artifacts/api-server/src/routes/cashfree-webhook.ts
       - artifacts/api-server/tests/cashfree-payments.test.mjs
+      - artifacts/api-server/tests/admin-commerce-reconciliation-health.test.mjs
       - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
       - artifacts/api-server/src/routes/billing-webhook.ts
       - artifacts/api-server/src/routes/admin-commerce-orders.ts
@@ -79,6 +81,8 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Test Cashfree refund and signature helpers
         run: (cd artifacts/api-server && node tests/cashfree-payments.test.mjs)
+      - name: Check reconciliation diagnostics are read-only and permissioned
+        run: node --test artifacts/api-server/tests/admin-commerce-reconciliation-health.test.mjs
       - name: Typecheck admin application
         run: pnpm run typecheck:admin
       - name: Test admin application
