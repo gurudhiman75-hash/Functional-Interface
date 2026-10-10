@@ -220,6 +220,10 @@ export const COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE = {
   supportedRuntimeModes: [COA_CP012_RUNTIME_MODE],
   reviewStatus: COA_CP012_REVIEW_STATUS,
   reviewOnly: false,
+  // Preserve CP012's approved internal gates without the inherited CP011
+  // review-only lifecycle label.
+  lifecycleId: undefined,
+  lifecycleStage: undefined,
   manualApprovalRequired: false,
   persistenceAllowed: true,
   questionBankStatus: "WRITABLE",

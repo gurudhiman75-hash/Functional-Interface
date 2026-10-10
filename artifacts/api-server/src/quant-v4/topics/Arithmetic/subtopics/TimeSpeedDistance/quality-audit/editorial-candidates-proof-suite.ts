@@ -16,3 +16,4 @@ import "../TSD-002/cp012/journey-worked-review-v1.test";
 import "../TSD-002/cp011/two-walker-source-review-v1.test";
 
 import "../TSD-002/cp012/signed-cycle-source-review-v1.test";
+import "../TSD-002/cp012/slowdown-observations-source-review-v1.test";

@@ -1,6 +1,6 @@
 # TSD reconciliation against New-main — 2026-10-09
 
-Status: **TSD-owned file transplant committed / validation pending / DO NOT MERGE OR RELEASE**
+Status: **Local integration gates pass / final-head CI pending / DO NOT MERGE OR RELEASE**
 
 ## Source and target
 - Target: `New-main` at initial review head `dc6ed1b4bc525847740cdd4e69e1367758d19596`.
@@ -37,5 +37,15 @@ Status: **TSD-owned file transplant committed / validation pending / DO NOT MERG
 - CP003–CP012 frozen proof suite and the full editorial candidate proof suite pass locally. Candidates remain unapproved and frozen corpus is unchanged.
 - API production build passed after the TSD routing restoration.
 - Reproduced all four previously reported SAP QL007/QL037 Hindi/Punjabi parity failures across the full 844-state gate. QL007 now handles parenthesized multiplication groups; QL037 reconstructs its numeric expression from all four English frames instead of retaining malformed translated instructions.
-- Added shared-adapter/workflow/localization path coverage and the full SAP two-seed quality gate to the closure workflow.
+- Added localization path coverage and the full SAP two-seed quality gate to the closure workflow. Shared-adapter coverage belongs to the central adapter workflow under repository fanout policy.
 - Closure remains **NO-GO / DRAFT**: external foundation source provenance, semantic breadth/scenario review, MathJax/UI evidence and editorial promotion are still outstanding. CP010–CP012 and all TSD public/test/bank release locks are preserved.
+
+## Shared compatibility and source review — 2026-10-10
+
+- Prior head `3d660009` passed GitHub TSD closure, but CI exposed forbidden chapter workflow path filters, a SAP CP006 duplicate fractional option, and conflicting shared registry lifecycle metadata.
+- Removed forbidden self/shared-adapter workflow triggers without a policy exception. Fraction options now compare rational equivalence and choose three distinct misconceptions; CP006 300-question review and the SAP 833-case chapter acceptance gate pass locally.
+- Reconciled legacy package declarations with current shared registry validation. Named lifecycle authorities still require matching stages; explicit review-only locks remain enforced. Removed inherited lifecycle labels that contradicted already-approved PRB/TRG/PGK/COA gates, explicitly marked BLR/CAE review stages, and excluded PCT aggregate/CAL legacy proxy cards from executable Quant registrations. No release permission was added.
+- Shared registry regression passes; 20 integration tests covering SAP Banking, AVG, NUM, TRG and TMW pass, and Punjab GK adapter proof passes. Final API production build passes.
+- Added 18 English/Hindi/Punjabi slowdown-observation editorial candidates across six numerical states, using the existing CP012 coupled inverse solver. Source: Arun Sharma (2018), PDF page 423, printed III.179, Review Test 2 Q1. The source case independently resolves to 20 km/h and 78 km; five other states are explicitly authored parameter variants. Text extraction was reviewed; visual layout and authenticated PYQ provenance were not established.
+- All 18 independent journey reconstructions and candidate-lock checks pass. Full editorial suite and 255-case unified TSD closure pass. These are one additional observation structure within an existing model, not six new semantic models. The frozen 3,846-question corpus remains unchanged; supplemental editorial rows total 54.
+- Remaining blockers: wider source provenance and semantic breadth audit, learner/Studio MathJax rendering evidence, human multilingual editorial approval, and final-head CI verification. TSD remains NO-GO; CP010–CP012 remain unregistered and every release lock remains intact.

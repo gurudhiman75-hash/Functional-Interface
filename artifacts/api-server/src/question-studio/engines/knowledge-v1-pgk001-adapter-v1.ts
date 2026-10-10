@@ -377,7 +377,6 @@ export const PGK_001_PRODUCTION_PACKAGE_V1: QuestionStudioPackageDefinition = {
   difficultyFilterSupported: true,
   runtimeMode: PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
   supportedRuntimeModes: [PGK_001_QUESTION_STUDIO_RUNTIME_MODE_V1],
-  lifecycleStage: "BANK_ONLY",
   reviewSurfaceRequired: true,
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,
