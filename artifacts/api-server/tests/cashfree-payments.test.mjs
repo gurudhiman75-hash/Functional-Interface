@@ -15,7 +15,7 @@ const {
   cashfreeMode, cashfreeSelected, classifyCashfreeNonSuccess, createCashfreeOrder,
   fetchCashfreeOrder, fetchCashfreePayments, verifyCashfreeWebhook,
   cashfreeRefundReference, refundUuidFromCashfreeReference, createCashfreeRefund, fetchCashfreeRefund,
-  assessCashfreeRefundAcknowledgement,
+  assessCashfreeRefundAcknowledgement, assessCashfreeRefundEvidence, parseCashfreeJson,
 } = await import("../dist/cashfree-payments-fixture.mjs");
 
 const previousEnv = Object.fromEntries([
@@ -169,6 +169,59 @@ try {
   assert.deepEqual(inconsistent.conflicts, ["order_id", "refund_amount"]);
   assert.equal(inconsistent.providerRefundId, null,
     "Untrusted provider ID must not be stored when the acknowledgement conflicts");
+
+  // IDs from real Cashfree gateway payloads can be 19 decimal digits.
+  // JSON.parse would round some of them, causing false mismatches.
+  const bigPayment = "1461997756726467584";
+  const numericRefund = "1319911206123456789";
+  const parsed = parseCashfreeJson('{"cf_payment_id":' + bigPayment
+    + ',"cf_refund_id":' + numericRefund + ',"refund_amount":5}');
+  assert.equal(parsed.cf_payment_id, bigPayment);
+  assert.equal(parsed.cf_refund_id, numericRefund);
+  assert.equal(parsed.refund_amount, 5);
+  assert.notEqual(String(JSON.parse('{"cf_payment_id":' + bigPayment + '}').cf_payment_id), bigPayment);
+
+  const evidence = {
+    orderId: "order-test-123", paymentId: bigPayment,
+    refundId: canonicalRefundId, amountMinor: 500, currency: "INR",
+  };
+  const responseEvidence = {
+    refund_id: merchantRefundId, cf_refund_id: numericRefund,
+    order_id: evidence.orderId, cf_payment_id: bigPayment,
+    refund_amount: 5, refund_currency: "INR", refund_status: "SUCCESS",
+  };
+  const match = assessCashfreeRefundEvidence(responseEvidence, evidence);
+  assert.deepEqual(match.mismatched, []);
+  assert.deepEqual(match.missing, []);
+  assert.equal(match.providerRefundId, numericRefund);
+  assert.equal(match.status, "SUCCESS");
+  assert.equal(match.amountMinor, 500);
+  const absent = assessCashfreeRefundEvidence({ refund_id: merchantRefundId }, evidence);
+  assert.deepEqual(absent.mismatched, []);
+  assert.ok(absent.missing.includes("cf_payment_id"));
+  assert.ok(absent.missing.includes("refund_amount"));
+  assert.ok(absent.missing.includes("refund_status"));
+  const conflict = assessCashfreeRefundEvidence(
+    { ...responseEvidence, cf_payment_id: "different", refund_amount: 6 }, evidence,
+  );
+  assert.deepEqual(conflict.mismatched, ["cf_payment_id", "refund_amount"]);
+  assert.deepEqual(conflict.missing, []);
+  assert.deepEqual(assessCashfreeRefundEvidence(
+    { ...responseEvidence, refund_status: "PENDING" }, evidence,
+  ).mismatched, []);
+  assert.deepEqual(assessCashfreeRefundEvidence(
+    { ...responseEvidence, refund_status: "UNRECOGNIZED" }, evidence,
+  ).mismatched, ["refund_status"]);
+  // GET endpoint also receives the lossless provider ID.
+  globalThis.fetch = async () => new Response(
+    '{"refund_id":"' + merchantRefundId + '","cf_payment_id":' + bigPayment
+      + ',"cf_refund_id":' + numericRefund
+      + ',"refund_amount":5,"refund_currency":"INR","refund_status":"SUCCESS"}',
+    { status: 200 },
+  );
+  const fromGateway = await fetchCashfreeRefund("order-test-123", canonicalRefundId);
+  assert.equal(fromGateway.cf_payment_id, bigPayment);
+  assert.equal(fromGateway.cf_refund_id, numericRefund);
 
   globalThis.fetch = async () => new Response('{"message":"provider rejected"}', { status: 403 });
   await assert.rejects(fetchCashfreeOrder("order-test-123"), /HTTP 403/);
