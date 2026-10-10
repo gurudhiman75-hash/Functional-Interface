@@ -57,3 +57,10 @@ Status: **Local integration gates pass / final-head CI pending / DO NOT MERGE OR
 - Restored the missing source-branch test reconciliations, CP008 compatibility review-bank helper, mathematical symbol allowlist and whitespace cleanup. Existing runtime permissions and release locks were not changed. Compatibility rendering preserves canonical GUY_WIRE_ANCHOR identity and its semantic fingerprint.
 - Local corrected Probability profile, Trigonometry route contract, 192-question native leakage, Blood Relations standard/CP007 production proofs, and all 422 SAP Hindi/Punjabi authored release cases pass; six 50-question SAP cockpit runs pass. Full patch whitespace against the original New-main base passes.
 - These follow-up fixes require their own exact-head CI run. TSD source breadth, UI rendering and human editorial blockers remain open; passing CI does not close the chapter.
+
+## Source breadth continuation — 2026-10-10
+
+- Exact head `1b639dc6`: 68 workflow successes, no failures, one cancelled run and one simulation still running at inspection. All TSD gates and the central adapter gate passed.
+- Read Arun Sharma PDF413–416 text and compared the source observations to executable input contracts. Confirmed CP010 lacks an inverse form for two different time headstarts and a first-race distance margin. Added a separate 18-row trilingual review candidate; the source case yields an exact faster speed of 50/3 m/s and slower speed of 10 m/s.
+- Both races reconstruct independently for all six numerical states; invalid observations, option uniqueness, worked calculations and release locks pass. The complete editorial candidate suite passes with this added proof. Frozen content and live registrations are unchanged.
+- Recorded scoped circular-track, tangent-track, clock ownership and contradictory source-wording follow-ups in `CP010-TIME-HEADSTARTS-SOURCE-20261010.md`. These are triage findings, not whole-source or UI closure claims. Supplemental source-review rows total 72, separate from V4.
