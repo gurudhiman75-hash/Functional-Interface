@@ -31,7 +31,7 @@ git checkout New-main
 git pull --ff-only origin New-main
 EXAMTREE_BUDGET_READY=yes bash scripts/deploy-examtree-api-cloudrun-staging.sh sarbedutech
 ```
-The script builds a standalone API image, mounts a staging DB URL from Secret Manager, deploys `examtree-api-staging`, checks `/health`, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode.
+The script builds a standalone API image, mounts a staging DB URL from Secret Manager, deploys `examtree-api-staging`, checks `/health` and safe negative E2E tests for unauthorized Question Studio generation and unsigned Cashfree webhooks, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode.
 
 ## Acceptance gates before Cloudflare cutover
 - [ ] `GET /health` 200, and configured API functions do not return 502/503.
