@@ -57,6 +57,25 @@ and verifies the decrypted `pg_restore --list` catalogue without extracting
 any data. The output consists of private
 `examtree-neon-<UTC>-<pid>.dump.gpg` and its `.sha256` manifest.
 
+On Google Cloud Shell, libpq's default `~/.postgresql/root.crt` is often
+absent. The script now selects a readable system CA bundle (normally
+`/etc/ssl/certs/ca-certificates.crt`) for `PGSSLROOTCERT` while retaining
+`PGSSLMODE=verify-full`. If a trusted bundle cannot be found, the script
+fails before creating any backup. To supply the OS bundle explicitly:
+
+```bash
+test -s /etc/ssl/certs/ca-certificates.crt
+PGSSLROOTCERT=/etc/ssl/certs/ca-certificates.crt \
+DATABASE_URL="$(gcloud secrets versions access latest \
+  --project=sarbedutech --secret=examtree-api-database-url)" \
+bash scripts/backup-examtree-neon.sh "$HOME/examtree-private-backups"
+```
+
+Do **not** work around missing CA roots by lowering `PGSSLMODE` to
+`require`, `prefer`, or `disable`. PostgreSQL 16+ also supports
+`PGSSLROOTCERT=system` where the client TLS library is configured with
+OS root certificates. An explicit OS CA file is preferred for Cloud Shell.
+
 It rejects output inside the repository. If any step fails, the intermediate
 encrypted file is deleted. It never changes main, creates a customer order,
 calls Cashfree, or starts a background worker. It also does **not**
