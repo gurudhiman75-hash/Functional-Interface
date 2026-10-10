@@ -12,6 +12,7 @@ const categoryIconFiles = fs.readdirSync(categoryIconDirectory);
 const categoryIconFileKeys = categoryIconFiles.map((filename) => filename.toLowerCase());
 const login = read("../src/pages/login.tsx");
 const api = read("../src/lib/api.ts");
+const auth = read("../src/lib/auth.ts");
 const mathBoundary = read("../src/components/RouteMathBoundary.tsx");
 const mathProvider = read("../src/providers/MathJaxRouteProvider.tsx");
 const catalogBoundary = read("../src/components/RouteCatalogBoundary.tsx");
@@ -71,6 +72,13 @@ assert.match(api, /function requestMayNeedFirebaseAuth\(\)/, "shared API client 
 assert.match(api, /if \(!requestMayNeedFirebaseAuth\(\)\) return \{\};/, "anonymous API requests must exit before importing Firebase");
 assert.match(api, /await import\("@\/lib\/firebase"\)/, "authenticated API requests must dynamically load the Firebase helper");
 assert.match(api, /window\.location\.pathname === "\/login"[\s\S]*?startsWith\("\/login\/"\)/, "first login profile request must still be allowed to acquire a Firebase token before setUser");
+
+// Google auth can be initiated directly from the anonymous homepage. It must
+// pass the new Firebase credential before the shared API's local-session gate.
+assert.match(auth, /const token = await firebaseUser\.getIdToken\(\)/, "profile bootstrap must get the signed-in Firebase ID token");
+assert.match(auth, /const headers = \{ Authorization: `Bearer \$\{token\}` \}/, "profile bootstrap must construct an explicit bearer header");
+assert.match(auth, /apiRequest<User>\("\/users\/me", \{ headers \}\)/, "homepage sign-in must authenticate the profile read");
+assert.match(auth, /apiRequest<User>\("\/users", \{\s*method: "POST",\s*headers,/, "homepage sign-in must authenticate profile creation");
 
 assert.doesNotMatch(app, /import \{ syncAuthSession \}/, "application root must not statically import Firebase-backed auth synchronization");
 assert.match(app, /<RouteAuthSessionSync \/>/, "router must mount route-aware auth synchronization");
@@ -135,4 +143,4 @@ assert.match(proof, /localFirebaseChunks\(page\)\)\.toEqual\(\[\]\)/, "anonymous
 assert.match(proof, /localFirebaseChunks\(page\)\)\.length\)\.toBeGreaterThan\(0\)/, "login must prove the Firebase helper chunk loads on demand");
 assert.match(proof, /\$x = 2\$/);
 
-console.log("Startup performance audit passed (99 assertions).");
+console.log("Startup performance audit passed (103 assertions).");
