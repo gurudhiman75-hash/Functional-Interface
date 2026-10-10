@@ -10,9 +10,44 @@ case "$OUT_DIR/" in
   "$REPO_ROOT/"*) echo "Refusing to store a database backup inside the repository" >&2; exit 2 ;;
 esac
 
-for command in python3 pg_dump pg_restore gpg sha256sum mktemp; do
+for command in python3 gpg sha256sum mktemp; do
   command -v "$command" >/dev/null 2>&1 || { echo "Missing command: $command" >&2; exit 2; }
 done
+
+# Neon currently runs PostgreSQL 17. Cloud Shell can have pg_dump 16 as
+# its default even after postgresql-client-17 has been installed alongside it.
+# Resolve both utilities from the same versioned installation and fail early.
+PG_BIN_DIR="${EXAMTREE_PG_BIN_DIR:-}"
+if [[ -z "$PG_BIN_DIR" ]]; then
+  for candidate in /usr/lib/postgresql/17/bin /usr/local/pgsql/bin; do
+    if [[ -x "$candidate/pg_dump" && -x "$candidate/pg_restore" ]]; then
+      PG_BIN_DIR="$candidate"
+      break
+    fi
+  done
+fi
+if [[ -n "$PG_BIN_DIR" ]]; then
+  PG_DUMP="$PG_BIN_DIR/pg_dump"
+  PG_RESTORE="$PG_BIN_DIR/pg_restore"
+else
+  PG_DUMP="$(command -v pg_dump || true)"
+  PG_RESTORE="$(command -v pg_restore || true)"
+fi
+if [[ -z "$PG_DUMP" || -z "$PG_RESTORE" || ! -x "$PG_DUMP" || ! -x "$PG_RESTORE" ]]; then
+  echo "PostgreSQL 17 client tools required: install postgresql-client-17." >&2
+  exit 2
+fi
+DUMP_VERSION="$("$PG_DUMP" --version)"
+RESTORE_VERSION="$("$PG_RESTORE" --version)"
+DUMP_MAJOR="$(printf '%s\n' "$DUMP_VERSION" | awk '{ split($3, version, "."); print version[1] }')"
+RESTORE_MAJOR="$(printf '%s\n' "$RESTORE_VERSION" | awk '{ split($3, version, "."); print version[1] }')"
+if [[ ! "$DUMP_MAJOR" =~ ^[0-9]+$ || ! "$RESTORE_MAJOR" =~ ^[0-9]+$ ]] ||
+   (( DUMP_MAJOR < 17 || RESTORE_MAJOR < 17 || DUMP_MAJOR != RESTORE_MAJOR )); then
+  echo "Unsupported PostgreSQL client version: pg_dump=$DUMP_MAJOR pg_restore=$RESTORE_MAJOR; Neon server is PostgreSQL 17." >&2
+  echo "Install postgresql-client-17, then use EXAMTREE_PG_BIN_DIR=/usr/lib/postgresql/17/bin if needed." >&2
+  exit 2
+fi
+echo "PostgreSQL backup client: pg_dump $DUMP_MAJOR / pg_restore $RESTORE_MAJOR"
 [[ -n "${DATABASE_URL:-}" ]] || { echo "DATABASE_URL must be provided securely in environment" >&2; exit 2; }
 
 # Parse URL into libpq env values to keep password OFF process arguments.
@@ -97,13 +132,13 @@ trap 'rm -f -- "$tmp"; unset PGPASSWORD BACKUP_PASSPHRASE 2>/dev/null || true' E
 
 echo "Creating encrypted PostgreSQL archive; no plaintext dump is written."
 if [[ "$USE_KEY_FILE" == true ]]; then
-  pg_dump --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
+  "$PG_DUMP" --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
     --dbname="$PGDATABASE" | gpg "${GPG_ARGS[@]}" --symmetric --output "$tmp"
-  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" | pg_restore --list >/dev/null
+  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" | "$PG_RESTORE" --list >/dev/null
 else
-  pg_dump --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
+  "$PG_DUMP" --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
     --dbname="$PGDATABASE" | gpg "${GPG_ARGS[@]}" --symmetric --output "$tmp" 3<<<"$BACKUP_PASSPHRASE"
-  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" 3<<<"$BACKUP_PASSPHRASE" | pg_restore --list >/dev/null
+  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" 3<<<"$BACKUP_PASSPHRASE" | "$PG_RESTORE" --list >/dev/null
 fi
 test -s "$tmp"
 mv -- "$tmp" "$final"
