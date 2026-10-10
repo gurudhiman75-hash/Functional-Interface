@@ -233,8 +233,12 @@ export function validateAIProviderStartup() {
       "true" ||
     process.env["OPENAI_EXTRACTION_REQUIRED"] ===
       "true" ||
-    process.env["NODE_ENV"] ===
-      "production";
+    // Only the isolated, non-production Cloud Run staging service may start
+    // with extraction unavailable. Live Cloud Run / Render still enforce keys.
+    // Explicit AI_EXTRACTION_REQUIRED=true always wins.
+    (process.env["NODE_ENV"] === "production" &&
+      !(process.env.EXAMTREE_API_RUNTIME === "cloud-run" &&
+        process.env.EXAMTREE_CLOUDRUN_STAGING === "true"));
   const provider = resolveAIProvider();
   const adapter = getAIProvider(provider);
 
