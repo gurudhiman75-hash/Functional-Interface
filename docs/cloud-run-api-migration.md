@@ -42,7 +42,7 @@ The script builds a standalone API image, mounts a staging DB URL from Secret Ma
 - [ ] Check current affairs, learn resources, mobile Home promotions and notification delivery using staging data.
 - [ ] Validate Neon connection pool while Cloud Run scales; ensure background job is bounded and never runs concurrently with Render's timers against the same data.
 - [ ] Verify custom domain, cookie/CORS, Firebase Auth authorized domains, Cloudflare proxy routing, Android build/base URL, all payment callback redirects and webhook registration.
-- [ ] Confirm a separate schema migration workflow before shutting down Render's `build-api.sh` migration authority. The Cloud Run image build deliberately **does not run database migrations**.
+- [ ] Use the checked-in `scripts/examtree-api-schema-bootstrap.sh` as the separate schema migration authority: run it with `EXAMTREE_SCHEMA_MIGRATION_APPROVED=yes` and the securely provided `DATABASE_URL` only after reviewing the latest migrations and database recovery plan. Never run migrations implicitly in the container build. Confirm this process works before shutting down Render's `build-api.sh` migration authority. The Cloud Run image build deliberately **does not run database migrations**.
 
 ## Cutover — only after acceptance
 1. Decide API origin for mobile (prefer stable `api.examtree.in`, if DNS and TLS are configured; direct Cloud Run URL may be used temporarily), test on a new APK.
