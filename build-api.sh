@@ -31,6 +31,9 @@ node --check artifacts/api-server/trg002-worker-service.mjs
 node --check artifacts/api-server/build-trg002-worker.mjs
 node --check artifacts/api-server/shared-question-studio-worker-service.mjs
 node --check artifacts/api-server/build-shared-worker.mjs
+node --check artifacts/api-server/build-cloud-run-background.mjs
+bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
+node --test tests/cloudrun-api-migration.test.mjs
 bash -n scripts/deploy-shared-question-studio-staging.sh
 node --test artifacts/api-server/tests/shared-question-studio-worker-service.test.mjs
 node --test tests/shared-studio-architecture.test.mjs
