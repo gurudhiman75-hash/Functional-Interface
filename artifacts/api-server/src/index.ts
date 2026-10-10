@@ -25,12 +25,22 @@ if (Number.isNaN(port) || port <= 0) {
 
 validateAIProviderStartup();
 
-await ensureApprovedExamCatalogue().catch((error) => {
-  logger.error({ error }, "Unable to ensure approved exam catalogue during startup");
-});
-await ensureApprovedExamTestSeries().catch((error) => {
-  logger.error({ error }, "Unable to ensure approved exam test series during startup");
-});
+// Database catalogue reconciliations are not required for HTTP readiness.
+// On Cloud Run, Neon may be cold or cross-region; allow /health and public
+// requests to begin instead of failing the instance startup probe. Keep the
+// previous ordered startup behavior on Render for safe rollback.
+async function ensureStartupCatalogues(): Promise<void> {
+  await ensureApprovedExamCatalogue().catch((error) => {
+    logger.error({ error }, "Unable to ensure approved exam catalogue");
+  });
+  await ensureApprovedExamTestSeries().catch((error) => {
+    logger.error({ error }, "Unable to ensure approved exam test series");
+  });
+}
+
+if (process.env.EXAMTREE_API_RUNTIME !== "cloud-run") {
+  await ensureStartupCatalogues();
+}
 
 // This legacy pattern-generation poller executes heavyweight work inside the
 // API process. Keep it disabled on the 512 MiB production API by default.
@@ -53,3 +63,10 @@ if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") {
 app.listen(port, "0.0.0.0", () => {
   logger.info(`API server running on http://0.0.0.0:${port}`);
 });
+
+if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") {
+  // This is idempotent catalogue reconciliation, not an HTTP prerequisite.
+  // Do not block the readiness probe on remote Neon startup. Retain errors
+  // in Cloud Logging so an unavailable schema is visible, not hidden.
+  void ensureStartupCatalogues();
+}
