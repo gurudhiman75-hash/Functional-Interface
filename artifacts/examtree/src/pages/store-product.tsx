@@ -107,7 +107,7 @@ function CheckoutPage({
   onBack,
   onStartCheckout,
 }: CheckoutPageProps) {
-  const amount = formatCommerceMoney(product.salePriceMinor, product.currency);
+  const amount = ownsProduct ? "Already owned" : isFree ? "Free" : formatCommerceMoney(product.salePriceMinor, product.currency);
   const validity = product.validityDays && product.validityDays > 0
     ? product.validityDays + " days of access"
     : "Validity details shown in your package";
@@ -200,16 +200,12 @@ function CheckoutPage({
               </div>
             ) : null}
             <div className="mt-3.5 flex items-end justify-between border-t border-white/15 pt-3.5">
-              <span className="pb-1 text-sm font-semibold">Total payable</span>
+              <span className="pb-1 text-sm font-semibold">{ownsProduct ? "Package status" : "Total payable"}</span>
               <span className="text-[32px] font-black leading-none tracking-[-0.055em] sm:text-[36px]">{amount}</span>
             </div>
-            <p className="mt-2 text-[10px] text-blue-100/55">Final amount for this package. No coupon is required.</p>
+            <p className="mt-2 text-[10px] text-blue-100/55">Displayed total reflects the current package price.</p>
           </div>
 
-          <div className="mt-5 flex items-center gap-2 text-[11px] text-blue-100/60 lg:mt-auto lg:pt-6">
-            <LockKeyhole className="h-3.5 w-3.5 shrink-0 text-[#f3c65d]" />
-            Secure checkout powered by Razorpay
-          </div>
         </div>
       </section>
 
@@ -267,7 +263,7 @@ function CheckoutPage({
               </div>
               <div className="mt-3 flex items-start gap-2.5 rounded-xl bg-[#f5f8fc] px-3.5 py-3 text-[11px] leading-5 text-slate-600">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1769ed]" />
-                <span>Payment details are entered in Razorpay. Examtree does not store your card or UPI details.</span>
+                <span>Enter your payment details in Razorpay's secure checkout. Payment is verified before access is granted.</span>
               </div>
             </section>
           ) : null}
@@ -306,7 +302,7 @@ function CheckoutPage({
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#e4e9f0] bg-white/95 px-4 py-3 shadow-[0_-8px_24px_rgba(20,34,62,0.08)] backdrop-blur sm:px-8 lg:static lg:mx-auto lg:mt-6 lg:max-w-[640px] lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
           <div className="mx-auto flex max-w-[640px] items-center gap-3 lg:block">
             <div className="min-w-[88px] lg:hidden">
-              <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-slate-500">Total</span>
+              <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-slate-500">{ownsProduct ? "Status" : "Total"}</span>
               <span className="block text-[17px] font-black leading-tight tracking-[-0.04em] text-[#101a33]">{amount}</span>
             </div>
             <Button
