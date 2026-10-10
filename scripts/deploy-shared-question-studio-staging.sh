@@ -83,10 +83,24 @@ print(json.dumps({
 }))
 PY
 )"
-    curl --fail-with-body --silent --show-error --max-time 165 \
+    if ! curl --fail-with-body --silent --show-error --max-time 165 \
       --header "Content-Type: application/json" \
       --header "X-Examtree-Worker-Token: $TOKEN" \
-      --data "$BODY" --output "$RESULT" "$URL/internal/question-studio/generate"
+      --data "$BODY" --output "$RESULT" "$URL/internal/question-studio/generate"; then
+      # curl --output writes even non-2xx JSON responses. Report the safe error
+      # code and message, never the token or the full question payload.
+      python3 - "$RESULT" "$COUNT" "$PKG" <<'PYERROR'
+import json, sys
+try:
+    with open(sys.argv[1], encoding="utf-8") as stream:
+        result = json.load(stream)
+    print(f"FAILED: {sys.argv[3]} ({sys.argv[2]} questions): "
+          f"{result.get('code','UNKNOWN')}: {result.get('error','unknown error')}", file=sys.stderr)
+except (OSError, ValueError) as exc:
+    print(f"FAILED: {sys.argv[3]} ({sys.argv[2]} questions); non-JSON upstream error: {type(exc).__name__}", file=sys.stderr)
+PYERROR
+      exit 1
+    fi
     python3 - "$RESULT" "$COUNT" "$PKG" <<'PY'
 import json, sys
 with open(sys.argv[1], encoding="utf-8") as source:
