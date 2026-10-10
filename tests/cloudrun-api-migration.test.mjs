@@ -11,6 +11,8 @@ const docker = read("Dockerfile.examtree-cloudrun-api");
 const deploy = read("scripts/deploy-examtree-api-cloudrun-staging.sh");
 const background = read("artifacts/api-server/src/cloud-run-background.ts");
 const scheduler = read("scripts/enable-examtree-api-background-scheduler.sh");
+const ai = read("artifacts/api-server/src/lib/ai-providers/index.ts");
+const buildScript = read("build-api.sh");
 const schema = read("scripts/examtree-api-schema-bootstrap.sh");
 
 test("Cloud Run API never starts request-throttled background loops", () => {
@@ -52,4 +54,8 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(docker, /cloud-run-preload\.mjs/);
   assert.match(docker, /build-runtime\.mjs/);
   assert.match(docker, /build-cloud-run-background\.mjs/);
+  assert.match(deploy, /EXAMTREE_CLOUDRUN_STAGING=true/);
+  assert.match(ai, /EXAMTREE_CLOUDRUN_STAGING === "true"/);
+  assert.match(buildScript, /smoke-examtree-cloudrun-startup/);
+  assert.match(docker, /smoke-examtree-cloudrun-startup/);
 });
