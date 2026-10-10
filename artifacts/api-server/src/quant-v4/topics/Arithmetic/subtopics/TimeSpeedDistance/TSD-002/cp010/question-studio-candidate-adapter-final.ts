@@ -277,7 +277,7 @@ function hash(value: string) {
   return result >>> 0;
 }
 
-function optionsFor(solution: TsdCp010ExecutableSolution, language: TsdCp010StudioCandidateLanguage, seed: string) {
+export function optionsFor(solution: TsdCp010ExecutableSolution, language: TsdCp010StudioCandidateLanguage, seed: string) {
   const values = [answerText(solution, language), ...alternativeSolutions(solution).map((x) => answerText(x, language))];
   if (new Set(values).size !== 4) throw new Error(`CP010 candidate options are not unique for ${answerText(solution, language)}`);
   const correct = values[0]!;

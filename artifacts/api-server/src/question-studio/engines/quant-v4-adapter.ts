@@ -1,3 +1,4 @@
+import { tsdAuditReviewEnginePackage, generateTsdAuditReviewBatch } from "../quant-tsd-audit-review";
 import {
   generateQuestion as generateQuantV4Question,
   listQuantV4Packages,
@@ -692,6 +693,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       tmw001EnginePackage(),
       tsd001EnginePackage(),
       tsd002EnginePackage(),
+      tsdAuditReviewEnginePackage(),
       toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
@@ -726,6 +728,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
 
+    const auditedTsd = generateTsdAuditReviewBatch(request);
+    if (auditedTsd) return auditedTsd;
     const timeSpeedDistance = await generateTsdEngineBatch(request);
     if (timeSpeedDistance) return timeSpeedDistance;
 

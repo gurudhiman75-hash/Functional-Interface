@@ -282,7 +282,7 @@ function misconceptionValues(input: TsdCp011ExecutableInput, solution: TsdCp011E
   return Object.freeze(distinct.slice(0, 3));
 }
 
-function optionsFor(input: TsdCp011ExecutableInput, solution: TsdCp011ExecutableSolution, language: TsdCp011StudioLanguage, seed: string) {
+export function optionsFor(input: TsdCp011ExecutableInput, solution: TsdCp011ExecutableSolution, language: TsdCp011StudioLanguage, seed: string) {
   const values = [solution.answer, ...misconceptionValues(input, solution)];
   const correct = formatValue(solution.answer, solution.unit, language);
   const options = shuffled(values.map((value) => formatValue(value, solution.unit, language)), seed);

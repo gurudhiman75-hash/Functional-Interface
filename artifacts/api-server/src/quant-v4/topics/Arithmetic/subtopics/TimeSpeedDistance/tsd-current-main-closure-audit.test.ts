@@ -142,7 +142,7 @@ for (const entry of TSD_CANONICAL_LIFECYCLE) {
 const package1 = tsd001EnginePackage();
 const package2 = tsd002EnginePackage();
 assert.deepEqual(package1.cpIds, ["TSD-CP-005", "TSD-CP-006"]);
-assert.deepEqual(package2.cpIds, ["TSD-CP-007", "TSD-CP-008", "TSD-CP-009"]);
+assert.deepEqual(package2.cpIds, ["TSD-CP-007", "TSD-CP-008", "TSD-CP-009", "TSD-CP-010", "TSD-CP-011", "TSD-CP-012"]);
 for (const pkg of [package1, package2]) {
   assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
   assert.equal(pkg.questionBankWritable, false);
@@ -158,13 +158,13 @@ const visibleTsdCpIds = adapterPackages
   .filter((pkg) => pkg.packageId === "TSD-001" || pkg.packageId === "TSD-002")
   .flatMap((pkg) => [...pkg.cpIds, ...(pkg.dynamicCandidateCpIds ?? [])]);
 for (const lockedCp of ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"]) {
-  assert.ok(!visibleTsdCpIds.includes(lockedCp), `${lockedCp}: frozen-but-locked checkpoint leaked into Studio selector`);
+  assert.ok(visibleTsdCpIds.includes(lockedCp), `${lockedCp}: integrated review checkpoint missing from Studio selector`);
 }
 
 let registeredStudioCases = 0;
 for (const [cpId, qlIds] of Object.entries(CP_QL_IDS).filter(([cp]) => {
   const ordinal = Number(cp.slice(-3));
-  return ordinal >= 5 && ordinal <= 9;
+  return ordinal >= 5 && ordinal <= 12;
 })) {
   const ordinal = Number(cpId.slice(-3));
   const packageId = ordinal <= 6 ? "TSD-001" : "TSD-002";
@@ -180,6 +180,7 @@ for (const [cpId, qlIds] of Object.entries(CP_QL_IDS).filter(([cp]) => {
         count: 1,
       });
       assert.ok(result, `${packageId}/${cpId}/${qlId}/${language}: generator declined registered TSD request`);
+      JSON.stringify(result);
       assert.equal(result.questions.length, 1, `${packageId}/${cpId}/${qlId}/${language}: expected one generated review item`);
       assertReviewQuestion(
         result.questions[0] as Record<string, unknown>,
@@ -192,22 +193,7 @@ for (const [cpId, qlIds] of Object.entries(CP_QL_IDS).filter(([cp]) => {
     }
   }
 }
-assert.equal(registeredStudioCases, 171, "Expected 57 registered TSD QLs across three languages");
-
-for (const lockedCp of ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"]) {
-  await assert.rejects(
-    () => quantV4QuestionStudioAdapter.generate({
-      engineId: "quant-v4",
-      packageId: "TSD-002",
-      canonicalProblemId: lockedCp,
-      language: "en",
-      count: 1,
-      seed: `tsd-lock-check:${lockedCp}`,
-    }),
-    /Question Studio locked/u,
-    `${lockedCp}: unified Studio bridge no longer enforces canonical lock`,
-  );
-}
+assert.equal(registeredStudioCases, 255, "Expected 85 registered TSD QLs across three languages");
 
 for (const pkg of [
   TSD_CP010_STUDIO_CANDIDATE_PACKAGE,
@@ -283,7 +269,7 @@ assert.equal(lockedCandidateCases, 84, "Expected 28 locked candidate QLs across 
 
 assert.deepEqual(
   [...TSD_CURRENT_STUDIO_AUTHORITY.frozenStudioLockedCheckpointIds],
-  ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"],
+  [],
 );
 
 console.log(JSON.stringify({
@@ -293,11 +279,12 @@ console.log(JSON.stringify({
   permanentQlCount: allQlIds.length,
   frozenCheckpointCount: TSD_CANONICAL_LIFECYCLE.filter((entry) => entry.lifecycle === "FROZEN").length,
   registeredStudioPackages: ["TSD-001", "TSD-002"],
-  registeredStudioCheckpointIds: ["TSD-CP-005", "TSD-CP-006", "TSD-CP-007", "TSD-CP-008", "TSD-CP-009"],
-  frozenStudioLockedCheckpointIds: ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"],
+  registeredStudioCheckpointIds: [...TSD_CURRENT_STUDIO_AUTHORITY.registeredCheckpointIds],
+  frozenStudioLockedCheckpointIds: [],
   registeredStudioCases,
   lockedCandidateCases,
   totalCurrentMainAuditCases: registeredStudioCases + lockedCandidateCases,
+  originalCandidateArtifactsRetainHistoricalLocks: true,
   questionBankWritable: false,
   testEligible: false,
   publiclyPublishable: false,

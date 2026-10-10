@@ -180,7 +180,7 @@ function setOptions(question: ReviewQuestion, solution: Extract<TsdCp012Executab
   }));
   return finalize(records, seed, "MISCONCEPTION_BACKED_COMPLETE_SET_REVIEW");
 }
-function optionsFor(question: ReviewQuestion, language: TsdCp012StudioLanguage, seed: string) {
+export function optionsFor(question: ReviewQuestion, language: TsdCp012StudioLanguage, seed: string) {
   return question.solution.kind === "SET"
     ? setOptions(question, question.solution, language, seed)
     : scalarOptions(question, question.solution, language, seed);

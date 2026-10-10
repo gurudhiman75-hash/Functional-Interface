@@ -319,7 +319,7 @@ function answerText(value: Rational, unit: TsdCp008ValueUnit, familyId: string, 
   return `${text(display.value)}${display.suffix}`;
 }
 
-function optionSet(value: Rational, unit: TsdCp008ValueUnit, familyId: string, language: TsdCp008QuestionStudioLanguage, salt: number): Readonly<{ options: readonly string[]; correctIndex: number }> {
+export function optionSet(value: Rational, unit: TsdCp008ValueUnit, familyId: string, language: TsdCp008QuestionStudioLanguage, salt: number): Readonly<{ options: readonly string[]; correctIndex: number }> {
   const display = displayValue(value, unit, familyId, language);
   const one = rational(1);
   const two = rational(2);

@@ -134,7 +134,7 @@ export const TSD_CANONICAL_LIFECYCLE = Object.freeze([
     canonicalFreezeAuthorityPath: "TSD-002/cp010/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
     studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
-    note: "Official-paper V3 English/native content and QLs are frozen; Studio/Bank/tests/publication remain locked by CP010 preregistration proofs.",
+    note: "Official-paper V3 content/QL freeze remains; unified Studio review explicitly integrated on 2026-10-10. Historical candidate artifacts remain unchanged; Bank/tests/publication stay locked.",
   },
   {
     checkpoint: "CP011",
@@ -144,7 +144,7 @@ export const TSD_CANONICAL_LIFECYCLE = Object.freeze([
     canonicalFreezeAuthorityPath: "TSD-002/cp011/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
     studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
-    note: "The 168-per-locale polished English/Hindi/Punjabi surface and QLs 125–131 are frozen; production capabilities remain locked pending explicit promotion.",
+    note: "The 168-per-locale surface and QLs 125–131 remain frozen. Unified Studio review integrated on 2026-10-10; learner Bank/tests/publication stay locked.",
   },
   {
     checkpoint: "CP012",
@@ -154,7 +154,7 @@ export const TSD_CANONICAL_LIFECYCLE = Object.freeze([
     canonicalFreezeAuthorityPath: "TSD-002/cp012/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
     studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
-    note: "The 270-per-locale target-exhaustive English/Hindi/Punjabi surface and QLs 132–142 are frozen; Studio distractor/options and all production capabilities remain separately locked.",
+    note: "The 270-per-locale surface and QLs 132–142 remain frozen. Unified Studio review integrated on 2026-10-10 with candidate misconception options; learner Bank/tests/publication stay locked.",
   },
 ] as const satisfies readonly TsdCanonicalLifecycleEntry[]);
 

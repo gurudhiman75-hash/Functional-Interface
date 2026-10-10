@@ -259,16 +259,16 @@ function answerText(solution: TsdCp009ExecutableSolution, language: TsdCp009Ques
   return duration(solution.value, language);
 }
 
-function optionTexts(solution: TsdCp009ExecutableSolution, language: TsdCp009QuestionStudioLanguage): readonly string[] {
+export function optionTexts(solution: TsdCp009ExecutableSolution, language: TsdCp009QuestionStudioLanguage): readonly string[] {
   if (solution.unit === "METRE_PER_SECOND") {
     const n = kmhValue(solution.value);
-    const candidates = [n, n - 2n, n + 2n, n + 4n].filter((value) => value > 0n);
+    const candidates = [n, n - 2n, n + 2n, n + 4n, n + 6n].filter((value) => value > 0n);
     if (new Set(candidates.map(String)).size < 4) throw new Error("speed distractors not unique");
     return Object.freeze(candidates.slice(0, 4).map((value) => language === "hi" ? `${value} किमी/घंटा` : language === "pa" ? `${value} ਕਿਮੀ/ਘੰਟਾ` : `${value} km/h`));
   }
   if (solution.unit === "METRE") {
     const n = kmValue(solution.value);
-    const candidates = [n, n - 1n, n + 1n, n + 2n].filter((value) => value > 0n);
+    const candidates = [n, n - 1n, n + 1n, n + 2n, n + 3n].filter((value) => value > 0n);
     if (new Set(candidates.map(String)).size < 4) throw new Error("distance distractors not unique");
     return Object.freeze(candidates.slice(0, 4).map((value) => language === "hi" ? `${value} किमी` : language === "pa" ? `${value} ਕਿਮੀ` : `${value} km`));
   }

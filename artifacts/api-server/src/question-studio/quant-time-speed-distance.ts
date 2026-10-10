@@ -1,3 +1,6 @@
+import { previewTsdCp010StudioCandidate } from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-candidate-adapter-exam-real";
+import { previewTsdCp011StudioCandidate } from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-candidate";
+import { previewTsdCp012StudioCandidate } from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-candidate";
 import {
   TSD_001_QUESTION_STUDIO_CP_IDS,
   TSD_001_QUESTION_STUDIO_LANGUAGES,
@@ -33,13 +36,12 @@ const TSD_002_REGISTERED_CP_IDS = [
   "TSD-CP-007",
   "TSD-CP-008",
   "TSD-CP-009",
-] as const;
-
-const TSD_STUDIO_LOCKED_CP_IDS = [
   "TSD-CP-010",
   "TSD-CP-011",
   "TSD-CP-012",
 ] as const;
+
+const TSD_STUDIO_LOCKED_CP_IDS: readonly string[] = [];
 
 type Tsd002RegisteredCpId = (typeof TSD_002_REGISTERED_CP_IDS)[number];
 
@@ -70,7 +72,7 @@ function legacyDifficulty(value: unknown): "EASY" | "MEDIUM" | undefined {
   const difficulty = normalizeDifficulty(value);
   if (!difficulty) return undefined;
   if (difficulty === "Hard") {
-    throw new Error("TSD-002 CP007-CP009 frozen review surfaces support Easy and Medium only.");
+    throw new Error("TSD-002 CP007-CP012 review surfaces support Easy and Medium only.");
   }
   return difficulty.toUpperCase() as "EASY" | "MEDIUM";
 }
@@ -191,7 +193,9 @@ export function tsd002EnginePackage(): QuestionStudioPackageDefinition {
         TSD_CP009_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
       cp009DeterministicMultilingualCombinations:
         TSD_CP009_QUESTION_STUDIO_DETERMINISTIC_REVIEW_COMBINATIONS,
-      sourceAuthority: "TSD-002 frozen multilingual CP007-CP009 authorities",
+      sourceAuthority: "TSD-002 CP007-CP009 frozen authorities and explicitly integrated CP010-CP012 review candidates",
+      integrationAuthority: "USER_REQUEST_FINISH_REMAINING_WORK_20261010",
+      candidateCheckpointIds: ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"],
     },
   };
 }
@@ -224,6 +228,13 @@ function flattenExplanation(value: unknown): string {
   return parts.join("\n\n");
 }
 
+function transportSafe(value: unknown): unknown {
+  if (typeof value === "bigint") return String(value);
+  if (Array.isArray(value)) return value.map(transportSafe);
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, transportSafe(item)]));
+  return value;
+}
+
 function withReviewLifecycle(
   source: Readonly<Record<string, unknown>>,
   checkpointId: string,
@@ -242,7 +253,11 @@ function withReviewLifecycle(
       : {};
 
   return {
-    ...source,
+    ...(transportSafe(source) as Readonly<Record<string, unknown>>),
+    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
+    routeMounted: true,
+    productionSelectorVisible: true,
+    persistenceAllowed: false,
     text: String(source.text ?? source.stem ?? ""),
     stem: String(source.stem ?? source.text ?? ""),
     options,
@@ -273,7 +288,7 @@ function withReviewLifecycle(
     questionLanguageId: qlId || String(source.questionLanguageId ?? "") || undefined,
     language,
     validation: {
-      ...validationSource,
+      ...(transportSafe(validationSource) as Record<string, unknown>),
       valid: validationSource.valid !== false,
     },
     ...lifecycleFields(),
@@ -281,7 +296,7 @@ function withReviewLifecycle(
     publicReleaseAuthorized: false,
     metadata: {
       ...(source.metadata && typeof source.metadata === "object"
-        ? source.metadata as Record<string, unknown>
+        ? transportSafe(source.metadata) as Record<string, unknown>
         : {}),
       packageId,
       canonicalProblemId: checkpointId,
@@ -346,6 +361,9 @@ function previewTsd002Checkpoint(
   if (checkpointId === "TSD-CP-008") {
     return previewTsdCp008QuestionStudioReview(common as never) as unknown as Readonly<Record<string, unknown>>;
   }
+  if (checkpointId === "TSD-CP-010") return previewTsdCp010StudioCandidate(common as never) as unknown as Readonly<Record<string, unknown>>;
+  if (checkpointId === "TSD-CP-011") return previewTsdCp011StudioCandidate(common as never) as unknown as Readonly<Record<string, unknown>>;
+  if (checkpointId === "TSD-CP-012") return previewTsdCp012StudioCandidate(common as never) as unknown as Readonly<Record<string, unknown>>;
   return previewTsdCp009QuestionStudioReview(common as never) as unknown as Readonly<Record<string, unknown>>;
 }
 
