@@ -68,3 +68,7 @@ Proofs are in the editorial suite. Existing CLK foundation source checks, indepe
 ## CP005 owner verification and correction
 
 Repeated endpoint reflection is already declared in CP005. Its nth-event and count implementations incorrectly used only odd multiples of L/(u+v), omitting the same-direction catch sequence at odd multiples of L/|u-v|. A route182, speed5:2 counterexample has its second meeting at182/3, before the old claimed78. The solver now merges both sequences and counts their overlap once; the verifier independently advances piecewise trajectories to actual endpoint turns. 2,997 checks across81 speed pairs pass, including equal speeds, reversed speed ordering, counts, points and itineraries. Source Q3/Q4 are now reconstructed through CP005, superseding the earlier unconfirmed-owner status. Frozen exports and lifecycle gates are unchanged.
+
+## Image-level resolution
+
+The full PDF was subsequently materialized successfully. PDF415 was rendered and visually inspected: Q8 has the same missing distance reference as the extraction, with no omitted diagram or hidden diametrically-opposite condition. Its source solution's different condition is a book-level mismatch. Q8 remains quarantined; image retrieval403 was worked around through the actual PDF, not accepted as a reason to stop.

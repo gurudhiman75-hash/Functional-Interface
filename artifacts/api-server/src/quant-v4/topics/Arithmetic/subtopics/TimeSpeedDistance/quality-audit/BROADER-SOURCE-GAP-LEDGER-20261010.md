@@ -40,3 +40,20 @@ These are model-level audit findings, not inflated numeric variant counts. Other
 ## Remaining closure evidence
 
 The26-question Applications exercise is adjudicated, with source errors and omissions retained in its ledger. Broader individual source execution, the combined state gaps above, diagram images, actual desktop/mobile Studio rendering, and human multilingual correction approval remain open. No full TSD closure or source-completeness claim is made.
+
+## Combined-state gaps now have locked review solvers
+
+`source-transition-review-solvers.ts` implements two distinct source-backed state machines, separate from existing learner contracts and candidate rows:
+
+1. Review3 Q6–9: reverse directions and exchange speed magnitudes at meetings except at the common start. Exact modular coordinates, cumulative distances and time are returned with all editorial locks. The source3:1 ratio yields meeting coordinates3/4,1/2,1/4,0lap; Helitabh distance toM3 is7/4lap (49pi km, source154 underpi22/7).144 exact modular event checks plus explicit independent velocity transitions pass.
+2. Taste Q16–17: queued messages are acknowledged only at station visits; machines visited in encountered order; optional nearest-station return with ties to origin. SourceE acknowledgement occurs after140m at14s with origin-only return, or120m at12s with nearest-station return. Tests verify first-trip message deferral, changed visit order, invalid duplicate IDs and delivery locks.
+
+These close the absence of executable review mathematics for those two source models. They do not create authored trilingual question batches, new permanentQLs, registration, bank persistence or learner delivery. The3918-row presentation corpus count is unchanged. Diagram grounding, other pending source executions and human approvals are still separate requirements.
+
+## Further foundation scan and evidence limits
+
+The source PDF itself is now available and its chapter theory plus LODI/II/III question text was inspected through local extraction (PDF370–414 includes preceding Time/Work; only the TSD section is relevant). Core chapter theory covers proportionalities, unit conversion, equal-time/equal-distance averages, straight relative motion, reflected routes, train passage, scalar river motion, circular meetings/returns and clocks. These align with CP001–CP010 and the documented CLK ownership. The source theory itself qualifies the odd-distance reflection shortcut to situations where both participants turn between meetings, supporting the CP005 correction.
+
+Additional breadth items include sound-report catch-up (LODI23), bird shuttling and infinite idealized trips (LODII41–43), separate travel/rest and direction reversals, and the continuous-acceleration/calculus questions in LODIII. These are not established merely by existing numeric pool size. The entire195-question LOD collection has not received question-by-question executed source mapping in this pass; no false221-question closure count is made.
+
+Initial image API403 was bypassed by successfully materializing the original PDF. Rendered PDF415 confirms the Q8 wording omission visually. Other diagram-heavy questions still require individual rendered inspection. Local Chromium is unavailable; no real Studio mobile/desktop screenshots or MathJax typesetting result is claimed. Full combined revision/editorial/frozen/closure suite passes after the two new review solvers;3918-row presentation count remains unchanged.
