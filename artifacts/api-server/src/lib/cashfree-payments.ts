@@ -47,7 +47,7 @@ export async function cashfreeApi<T>(method: "GET" | "POST", route: string, body
 }
 
 export function parseCashfreeJson<T>(raw: string): T {
-  const lossless = raw.replace(/("(?:cf_payment_id|cf_refund_id)"\\s*:\\s*)(\\d+)(?=\\s*[,}])/g, '$1"$2"');
+  const lossless = raw.replace(/("(?:cf_payment_id|cf_refund_id)"\s*:\s*)(\d+)(?=\s*[,}])/g, '$1"$2"');
   return JSON.parse(lossless) as T;
 }
 
