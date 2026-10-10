@@ -153,6 +153,8 @@ if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
   echo "[ci-cloudrun] build standalone background job bundle"
   node artifacts/api-server/build-cloud-run-background.mjs
   test -s artifacts/api-server/dist/cloud-run-background.mjs
+  echo "[ci-cloudrun] start real production-mode API with offline Neon and no AI key"
+  node scripts/smoke-examtree-cloudrun-startup.mjs
 fi
 
 # The free Render service has a 512 MiB runtime limit. A previous regression
