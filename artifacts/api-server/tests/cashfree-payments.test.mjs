@@ -180,7 +180,11 @@ try {
   assert.equal(isRoundedCashfreePaymentReference(roundedCaptured, correctCaptured), true);
   assert.equal(isRoundedCashfreePaymentReference(correctCaptured, correctCaptured), false);
   assert.equal(isRoundedCashfreePaymentReference("1462287015601527801", correctCaptured), false);
-  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "1462287015601527908"), false);
+  // Two distinct 19-digit IDs may collide under IEEE-754 rounding.
+  // This guard deliberately accepts both as possible rounding artifacts;
+  // the independently signed exact-ID webhook decides which is real.
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "1462287015601527908"), true);
+  assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "1462287015601529008"), false);
   assert.equal(isRoundedCashfreePaymentReference("other", correctCaptured), false);
   assert.equal(isRoundedCashfreePaymentReference("1234", "1235"), false);
   assert.equal(isRoundedCashfreePaymentReference("1462287015601527800", "146228701560152780A"), false);
