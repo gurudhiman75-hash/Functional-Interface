@@ -1,0 +1,31 @@
+name: Validate Neon backup encryption safety
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - scripts/backup-examtree-neon.sh
+      - scripts/verify-examtree-neon-backup.sh
+      - tests/neon-backup-encryption.test.sh
+      - docs/neon-backup-and-recovery-runbook.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: examtree-neon-backup-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  encryption-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate backup Bash syntax
+        run: |
+          bash -n scripts/backup-examtree-neon.sh
+          bash -n scripts/verify-examtree-neon-backup.sh
+          bash -n tests/neon-backup-encryption.test.sh
+      - name: Simulate backup and checksum failure with fake PostgreSQL I/O
+        run: bash tests/neon-backup-encryption.test.sh
