@@ -15,6 +15,8 @@ set -euo pipefail
 [[ "$PGHOST" == "test-neon.neon.tech" ]]
 [[ "$PGDATABASE" == "demo" ]]
 [[ "$PGPASSWORD" == "test-only" ]]
+[[ "$PGSSLMODE" == "verify-full" ]]
+[[ "${PGSSLROOTCERT:-}" == "system" || ( -s "$PGSSLROOTCERT" && -r "$PGSSLROOTCERT" ) ]]
 printf 'PGDMP-FIXTURE-ONLY-DATA-NEVER-A-REAL-DATABASE'
 MOCK
 cat > "$WORK/bin/pg_restore" <<'MOCK'
