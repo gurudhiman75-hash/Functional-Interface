@@ -28,3 +28,14 @@ Status: **TSD-owned file transplant committed / validation pending / DO NOT MERG
 - On 2026-10-09 recovered untruncated recursive trees: source TSD file count 662, target 150. Ported all 513 differences (512 additions, one modified TSD-001 barrel file) by Git object SHA onto this branch. Integration commit `525cf05d72f2cda9a129119885620867dbe7be1e`.
 - Verified CP003 README and this audit document remain readable on integration branch.
 - **Shared changes outside TimeSpeedDistance not yet reconciled**, no suite run, no merge or activation.
+
+## Continuation — 2026-10-10
+
+- Diagnosed closure run `38030248516` on head `b2764fca`: bundling passed after the bridge restoration, but unified package registration failed (`0 !== 1`).
+- Restored TSD-001/TSD-002 package listing and generation dispatch in the current unified Quant adapter, preserving the newer TRG, TMW, SAP and NUM handlers.
+- Strengthened the closure gate to generate all 171 registered multilingual cases through the unified adapter and reject CP010–CP012 through that same entry point. Together with the 84 locked previews, all 255 cases pass locally.
+- CP003–CP012 frozen proof suite and the full editorial candidate proof suite pass locally. Candidates remain unapproved and frozen corpus is unchanged.
+- API production build passed after the TSD routing restoration.
+- Reproduced all four previously reported SAP QL007/QL037 Hindi/Punjabi parity failures across the full 844-state gate. QL007 now handles parenthesized multiplication groups; QL037 reconstructs its numeric expression from all four English frames instead of retaining malformed translated instructions.
+- Added shared-adapter/workflow/localization path coverage and the full SAP two-seed quality gate to the closure workflow.
+- Closure remains **NO-GO / DRAFT**: external foundation source provenance, semantic breadth/scenario review, MathJax/UI evidence and editorial promotion are still outstanding. CP010–CP012 and all TSD public/test/bank release locks are preserved.

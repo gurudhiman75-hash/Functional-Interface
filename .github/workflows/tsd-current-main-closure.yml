@@ -8,6 +8,9 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
       - "artifacts/api-server/src/question-studio/quant-time-speed-distance.ts"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/**"
+      - ".github/workflows/tsd-current-main-closure.yml"
 
 permissions:
   contents: read
@@ -73,6 +76,16 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/tsd-editorial-candidates.log
+
+      - name: Verify SAP Hindi Punjabi two-seed parity
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-LOCALIZATION-HUMAN-QUALITY-AUDIT.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/tsd-current-main-closure/sap-parity.mjs
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tsd-current-main-closure/sap-parity.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/tsd-current-main-closure/sap-parity.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

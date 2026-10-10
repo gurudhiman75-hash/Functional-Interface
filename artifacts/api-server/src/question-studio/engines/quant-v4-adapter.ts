@@ -167,6 +167,11 @@ import {
   tmw001EnginePackage,
 } from "../quant-time-work";
 import {
+  generateTsdEngineBatch,
+  tsd001EnginePackage,
+  tsd002EnginePackage,
+} from "../quant-time-speed-distance";
+import {
   generateSapBankingEngineBatch,
 } from "../quant-sap-banking";
 import {
@@ -670,6 +675,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg001EnginePackage(),
       trg002EnginePackage(),
       tmw001EnginePackage(),
+      tsd001EnginePackage(),
+      tsd002EnginePackage(),
       toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
@@ -703,6 +710,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
+
+    const timeSpeedDistance = await generateTsdEngineBatch(request);
+    if (timeSpeedDistance) return timeSpeedDistance;
 
     const sapBanking = await generateSapBankingEngineBatch(request);
     if (sapBanking) return sapBanking;

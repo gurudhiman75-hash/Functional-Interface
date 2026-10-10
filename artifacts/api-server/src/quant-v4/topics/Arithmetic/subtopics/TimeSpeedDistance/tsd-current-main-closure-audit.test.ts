@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 
 import {
-  generateTsdEngineBatch,
   tsd001EnginePackage,
   tsd002EnginePackage,
   TSD_CURRENT_STUDIO_AUTHORITY,
@@ -171,7 +170,7 @@ for (const [cpId, qlIds] of Object.entries(CP_QL_IDS).filter(([cp]) => {
   const packageId = ordinal <= 6 ? "TSD-001" : "TSD-002";
   for (const qlId of qlIds) {
     for (const language of LANGUAGES) {
-      const result = await generateTsdEngineBatch({
+      const result = await quantV4QuestionStudioAdapter.generate({
         engineId: "quant-v4",
         packageId,
         canonicalProblemId: cpId,
@@ -197,7 +196,7 @@ assert.equal(registeredStudioCases, 171, "Expected 57 registered TSD QLs across 
 
 for (const lockedCp of ["TSD-CP-010", "TSD-CP-011", "TSD-CP-012"]) {
   await assert.rejects(
-    () => generateTsdEngineBatch({
+    () => quantV4QuestionStudioAdapter.generate({
       engineId: "quant-v4",
       packageId: "TSD-002",
       canonicalProblemId: lockedCp,
