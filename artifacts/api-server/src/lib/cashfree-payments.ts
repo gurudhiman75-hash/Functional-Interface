@@ -160,7 +160,7 @@ export function assessCashfreeRefundAcknowledgement(receipt: CashfreeRefund, exp
  * This is a guard, not evidence by itself; signed success-event proof is also required.
  */
 export function isRoundedCashfreePaymentReference(stored: string, exact: string): boolean {
-  if (!/^\\d{16,20}$/.test(stored) || !/^\\d{16,20}$/.test(exact) || stored === exact) return false;
+  if (!/^\d{16,20}$/.test(stored) || !/^\d{16,20}$/.test(exact) || stored === exact) return false;
   const asNumber = Number(exact);
   return Number.isFinite(asNumber) && !Number.isSafeInteger(asNumber) && String(asNumber) === stored;
 }
