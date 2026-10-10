@@ -41,7 +41,7 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /set-secrets/);
   assert.doesNotMatch(deploy, /cloudflare\.request|render\.com\/(?:api|web)|delete-service/);
   assert.match(schema, /EXAMTREE_SCHEMA_MIGRATION_APPROVED/);
-  assert.match(schema, /ensure-current-affairs\\.mjs/);
+  assert.match(schema, /ensure-current-affairs\.mjs/);
   assert.match(scheduler, /EXAMTREE_RENDER_STOPPED/);
   assert.match(scheduler, /EXAMTREE_BACKGROUND_JOB_VERIFIED/);
   assert.match(scheduler, /examtree-api-background-every-5m/);
