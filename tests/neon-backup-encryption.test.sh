@@ -32,7 +32,7 @@ bash "$ROOT/scripts/backup-examtree-neon.sh" "$WORK/backups"
 archive="$(find "$WORK/backups" -maxdepth 1 -name '*.dump.gpg' -type f | head -n 1)"
 [[ -n "$archive" ]]
 [[ -f "$archive.sha256" ]]
-[[ "$(cat "$archive" | head -c 5)" != "PGDMP" ]]
+[[ "$(head -c 5 "$archive")" != "PGDMP" ]]
 bash "$ROOT/scripts/verify-examtree-neon-backup.sh" "$archive"
 
 # A changed encrypted archive must be rejected BEFORE any restore command.
