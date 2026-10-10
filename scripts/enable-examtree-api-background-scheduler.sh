@@ -7,9 +7,9 @@ REGION="asia-south1"
 JOB="examtree-api-background"
 SCHEDULER="examtree-api-background-every-5m"
 SCHEDULER_SA="examtree-cloud-scheduler"
-if [[ "\${EXAMTREE_CUTOVER_READY:-}" != "yes"
-   || "\${EXAMTREE_RENDER_STOPPED:-}" != "yes"
-   || "\${EXAMTREE_BACKGROUND_JOB_VERIFIED:-}" != "yes" ]]; then
+if [[ "${EXAMTREE_CUTOVER_READY:-}" != "yes"
+   || "${EXAMTREE_RENDER_STOPPED:-}" != "yes"
+   || "${EXAMTREE_BACKGROUND_JOB_VERIFIED:-}" != "yes" ]]; then
   echo "Refusing to schedule: require EXAMTREE_CUTOVER_READY=yes EXAMTREE_RENDER_STOPPED=yes EXAMTREE_BACKGROUND_JOB_VERIFIED=yes" >&2
   exit 2
 fi
