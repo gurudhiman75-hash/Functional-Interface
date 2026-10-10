@@ -81,6 +81,9 @@ export async function runOutboxPublisherOnce(): Promise<void> {
     }
   } catch (error) {
     logger.error({ error }, "Outbox publisher tick failed");
+    // A scheduled Cloud Run Job must report DB/publisher failure to its
+    // execution status. The legacy Render interval keeps its old resilience.
+    if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") throw error;
   } finally {
     running = false;
   }
