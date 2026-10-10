@@ -1,0 +1,52 @@
+.exam-collection-banners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.exam-collection-banner{--collection-accent:#174b38;position:relative;display:flex;align-items:center;min-height:260px;overflow:hidden;border-radius:22px;padding:28px;color:#23362e;border:1px solid #e6dfd0;text-decoration:none;isolation:isolate;box-shadow:0 12px 28px -22px #59482b50;transition:transform .2s,box-shadow .2s}
+.exam-collection-banner:hover{transform:translateY(-3px);box-shadow:0 18px 32px -22px #59482b70}
+.theme-emerald{--collection-accent:#174b38;background:#faf7ee;color:#174b38}
+.theme-copper{--collection-accent:#86531d;background:#fbf5e8;color:#493722}
+.theme-navy{--collection-accent:#294d71;background:#f3f4f1;color:#243d55}
+.theme-plum{--collection-accent:#745367;background:#f7f1ed;color:#513d4b}
+.collection-banner-copy{position:relative;z-index:2;width:74%;max-width:460px}
+.collection-banner-label{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:750;letter-spacing:.03em;color:var(--collection-accent)}
+.collection-banner-copy h3,.collection-banner-copy h1{margin:14px 0 10px;font-size:clamp(22px,2.1vw,30px);line-height:1.13;font-weight:850;letter-spacing:-.025em;color:inherit}
+.collection-banner-copy p{font-size:12px;line-height:1.65;opacity:1;max-width:350px}
+.collection-banner-chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.collection-banner-chips span{border:1px solid #00000014;background:#ffffff80;border-radius:99px;padding:4px 8px;font-size:10px;opacity:1}
+.collection-banner-link{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:#fff;background:var(--collection-accent);padding:10px 14px;border-radius:10px}
+.collection-banner-link svg{transition:transform .2s}.exam-collection-banner:hover .collection-banner-link svg{transform:translateX(4px)}
+.collection-banner-art{position:absolute;right:-20px;bottom:-18px;width:220px;height:220px;color:var(--collection-accent);opacity:.18;transform:rotate(-12deg);transition:transform .3s;pointer-events:none}
+.collection-banner-art>svg{position:absolute;inset:45px;width:130px;height:130px}
+.collection-art-orbit{position:absolute;inset:12px;border:1px solid currentColor;border-radius:50%}.collection-art-orbit.second{inset:0;transform:scale(1.25)}
+.collection-art-badge{position:absolute;right:30px;top:20px;display:grid;place-items:center;width:48px;height:48px;border:1px solid currentColor;border-radius:12px}
+.exam-collection-banner:hover .collection-banner-art{transform:rotate(-6deg) translateY(-5px)}
+.collection-page{max-width:1180px;margin:auto;padding:30px 24px 60px;color:#142443}
+.collection-breadcrumb{display:inline-flex;gap:8px;align-items:center;margin-bottom:20px;color:#59708e;font-size:13px}
+.collection-page .exam-collection-banner{min-height:300px}.collection-page .collection-banner-copy{max-width:700px}
+.collection-page .collection-banner-copy h1{font-size:clamp(28px,4vw,46px)}
+.collection-section{margin-top:36px}.collection-section h2{font-size:23px;font-weight:800;margin-bottom:8px}
+.collection-section>p{font-size:14px;color:#64748b;line-height:1.7}
+.collection-group{margin-top:25px}.collection-group h3{font-size:17px;font-weight:750}.collection-group>p{margin:7px 0 15px;color:#64748b;font-size:13px;line-height:1.7}
+.collection-exam-grid,.collection-test-grid,.collection-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.collection-exam-card,.collection-test-card,.collection-plan-card{min-width:0;border:1px solid #e2e8f0;border-radius:16px;background:#fff;padding:20px}
+.collection-exam-card h4,.collection-test-card h3,.collection-plan-card h3{font-size:16px;font-weight:750;line-height:1.4}
+.collection-exam-card p,.collection-plan-card p{font-size:12px;line-height:1.7;color:#64748b;margin:10px 0}
+.collection-exam-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}.collection-exam-links a{font-size:11px;font-weight:700;color:#1d5bd1}
+.collection-exam-primary,.collection-test-card>a{display:inline-flex;align-items:center;gap:8px;font-weight:750;font-size:13px;color:#1d5bd1;margin-top:12px}
+.collection-test-card p{font-size:12px;color:#64748b;margin-top:9px}
+.collection-plan-card>span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eef4ff;color:#245cc4;font-weight:800;margin-bottom:12px}
+.collection-notice{background:#f4f7fb;border-radius:14px;padding:18px;font-size:12px;line-height:1.7;color:#536681;margin-top:24px}
+.collection-resource-links{display:flex;flex-wrap:wrap;gap:12px}.collection-resource-links a{border:1px solid #d9e4f2;border-radius:12px;background:#fff;padding:15px 20px;color:#1d5bd1;font-size:13px;font-weight:700}
+@media(max-width:720px){.exam-collection-banners{grid-template-columns:1fr;gap:14px}.exam-collection-banner{min-height:235px;padding:23px}.collection-banner-copy{width:78%}.collection-banner-art{right:-55px;opacity:.24}.collection-page{padding:22px 16px 40px}.collection-exam-grid,.collection-test-grid,.collection-plan-grid{grid-template-columns:1fr}.collection-page .exam-collection-banner{min-height:260px}.collection-page .collection-banner-copy h1{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.exam-collection-banner,.collection-banner-art,.collection-banner-link svg{transition:none}.exam-collection-banner:hover,.exam-collection-banner:hover .collection-banner-art,.exam-collection-banner:hover .collection-banner-link svg{transform:none}}
+
+
+.collection-punjab{min-height:300px;padding-right:20px}
+.collection-punjab .collection-banner-copy{width:60%;max-width:640px}
+.collection-punjab [lang="pa"]{font-family:"Noto Sans Gurmukhi","Raavi","Nirmala UI",sans-serif}
+.collection-punjab .collection-banner-copy h3{font-size:clamp(25px,2.1vw,31px);line-height:1.45;letter-spacing:0;margin-top:12px}
+.collection-punjab .collection-banner-copy p{line-height:1.9}
+.collection-punjab-art{position:absolute;right:20px;bottom:12px;width:37%;height:88%;pointer-events:none}
+.collection-punjab-art img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
+.collection-phulkari{position:absolute;right:0;top:0;bottom:0;width:12px;border-left:1px solid #d7b77180;background:repeating-conic-gradient(from 45deg,#b98a32 0 25%,#f5eddc 0 50%,#315e47 0 75%,#f5eddc 0 100%) 0 0/12px 12px;opacity:.8}
+.collection-page> .collection-punjab{min-height:320px}
+.collection-page .collection-punjab .collection-banner-copy h1{line-height:1.45;letter-spacing:0}
+@media(max-width:720px){.collection-punjab{min-height:300px}.collection-punjab .collection-banner-copy{width:61%}.collection-punjab .collection-banner-copy h3{font-size:25px}.collection-punjab-art{right:15px;width:35%;height:74%}.collection-punjab .collection-banner-label{font-size:9px}.collection-punjab .collection-banner-chips{gap:4px}.collection-punjab .collection-banner-chips span{font-size:9px;padding:4px 6px}.collection-page .collection-punjab .collection-banner-copy h1{font-size:30px}}
