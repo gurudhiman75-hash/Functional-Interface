@@ -3,7 +3,6 @@ on:
   pull_request:
     branches: [New-main]
     paths:
-      - ".github/workflows/examtree-cloudrun-api-image.yml"
       - "Dockerfile.examtree-cloudrun-api"
       - "Dockerfile.question-studio-worker.dockerignore"
       - "artifacts/api-server/build-runtime.mjs"
