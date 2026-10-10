@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { onRequest } from "../functions/api/[[path]].js";
+import { onRequest, configuredApiOrigin } from "../functions/api/[[path]].js";
 
 function req(url, method = "GET", opts = {}) {
   return new Request(url, { method, ...opts });
@@ -55,4 +55,44 @@ test("API proxy returns controlled errors when Render is unavailable", async () 
   } finally {
     globalThis.fetch = old;
   }
+});
+
+test("Cloudflare API proxy supports validated Cloud Run cutover without exposing an open proxy", async () => {
+  assert.equal(configuredApiOrigin({}), "https://examtree-new.onrender.com");
+  const cloudRun = "https://examtree-api-staging-1083299267005.asia-south1.run.app";
+  assert.equal(configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun }), cloudRun);
+  for (const candidate of [
+    "http://examtree-api-staging-1083299267005.asia-south1.run.app",
+    "https://attacker.example",
+    "https://examtree-api-staging-1083299267005.asia-south1.run.app/evil",
+    "https://examtree-new.onrender.com.evil.example",
+  ]) {
+    assert.throws(() => configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: candidate }));
+  }
+  const old = globalThis.fetch;
+  let observed;
+  globalThis.fetch = async (request) => {
+    observed = request;
+    return new Response(null, {
+      status: 302,
+      headers: { Location: cloudRun + "/api/admin/login", "Cache-Control": "public, max-age=600" },
+    });
+  };
+  try {
+    const reply = await onRequest({
+      request: req("https://functional-interface.pages.dev/api/admin/login", "GET"),
+      env: { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun },
+    });
+    assert.equal(observed.url, cloudRun + "/api/admin/login");
+    assert.equal(reply.headers.get("location"), "https://functional-interface.pages.dev/api/admin/login");
+    assert.equal(reply.headers.get("cache-control"), "private, no-store");
+    assert.equal(reply.status, 302);
+  } finally { globalThis.fetch = old; }
+
+  const rejected = await onRequest({
+    request: req("https://functional-interface.pages.dev/api/exams"),
+    env: { EXAMTREE_API_UPSTREAM_ORIGIN: "https://attacker.example" },
+  });
+  assert.equal(rejected.status, 503);
+  assert.equal((await rejected.json()).code, "API_GATEWAY_MISCONFIGURED");
 });
