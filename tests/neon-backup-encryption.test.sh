@@ -12,6 +12,10 @@ chmod 600 "$WORK/test-key"
 cat > "$WORK/bin/pg_dump" <<'MOCK'
 #!/usr/bin/env bash
 set -euo pipefail
+if [[ "${1:-}" == "--version" ]]; then
+  echo "pg_dump (PostgreSQL) ${MOCK_PG_MAJOR:-17}.9"
+  exit 0
+fi
 [[ "$PGHOST" == "test-neon.neon.tech" ]]
 [[ "$PGDATABASE" == "demo" ]]
 [[ "$PGPASSWORD" == "test-only" ]]
@@ -22,13 +26,28 @@ MOCK
 cat > "$WORK/bin/pg_restore" <<'MOCK'
 #!/usr/bin/env bash
 set -euo pipefail
+if [[ "${1:-}" == "--version" ]]; then
+  echo "pg_restore (PostgreSQL) ${MOCK_PG_MAJOR:-17}.9"
+  exit 0
+fi
 [[ "$1" == "--list" ]]
 [[ "$(cat)" == "PGDMP-FIXTURE-ONLY-DATA-NEVER-A-REAL-DATABASE" ]]
 MOCK
 chmod 700 "$WORK/bin/pg_dump" "$WORK/bin/pg_restore"
 export PATH="$WORK/bin:$PATH"
+# Never touch a real client or a real database in this test.
+export EXAMTREE_PG_BIN_DIR="$WORK/bin"
 export EXAMTREE_BACKUP_KEY_FILE="$WORK/test-key"
 export DATABASE_URL='postgresql://tester:test-only@test-neon.neon.tech/demo?sslmode=require'
+
+# A PostgreSQL 16 client must be rejected BEFORE opening a network connection,
+# writing an archive, or prompting for encryption credentials.
+if MOCK_PG_MAJOR=16 bash "$ROOT/scripts/backup-examtree-neon.sh" "$WORK/backups" >"$WORK/old-client.log" 2>&1; then
+  echo "FAIL: outdated PostgreSQL 16 client was accepted" >&2
+  exit 1
+fi
+grep -q 'Unsupported PostgreSQL client version' "$WORK/old-client.log"
+[[ -z "$(find "$WORK/backups" -maxdepth 1 -name '*.dump.gpg' -print -quit)" ]]
 
 bash "$ROOT/scripts/backup-examtree-neon.sh" "$WORK/backups"
 archive="$(find "$WORK/backups" -maxdepth 1 -name '*.dump.gpg' -type f | head -n 1)"
