@@ -62,6 +62,8 @@ jobs:
           grep -E "permission:[[:space:]]*'commerce\.entitlements\.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "Intl.DateTimeFormat('en-US'" artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
           ! grep -E '@/data/|prototype entitlement|demo entitlement' artifacts/admin-app/src/pages/commerce/EntitlementsWorkspacePage.tsx
+      - name: Verify canonical commerce test lookup
+        run: node scripts/verify-commerce-test-lookup.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
