@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   AttemptReliabilityError,
+  attemptSessionLifecycleError,
   advanceAttemptSessionSnapshot,
   createAttemptSessionSnapshot,
   normalizeAttemptDraftState,
@@ -110,4 +111,25 @@ test("legacy in-progress rows receive a valid session snapshot", () => {
   assert.equal(snapshot.kind, "attempt_session");
   assert.equal(snapshot.testId, testId);
   assert.equal(snapshot.revision, 0);
+});
+
+test("active sessions alone may be resumed or saved", () => {
+  assert.equal(attemptSessionLifecycleError("in_progress"), null);
+
+  const submitted = attemptSessionLifecycleError("evaluated", { id: "submitted-result" });
+  assert.equal(submitted?.code, "ATTEMPT_ALREADY_SUBMITTED");
+  assert.equal(submitted?.statusCode, 409);
+  assert.deepEqual(submitted?.details, { result: { id: "submitted-result" } });
+
+  const practice = attemptSessionLifecycleError("practice_evaluated", { id: "practice-result" });
+  assert.equal(practice?.code, "ATTEMPT_ALREADY_SUBMITTED");
+
+  const abandoned = attemptSessionLifecycleError("abandoned", { answers: { 101: 2 } });
+  assert.equal(abandoned?.code, "ATTEMPT_SESSION_NOT_ACTIVE");
+  assert.equal(abandoned?.statusCode, 409);
+  // Keep the archived draft in Neon, but never return it in the inactive response.
+  assert.deepEqual(abandoned?.details, { status: "abandoned" });
+
+  const cancelled = attemptSessionLifecycleError("cancelled");
+  assert.equal(cancelled?.code, "ATTEMPT_SESSION_NOT_ACTIVE");
 });
