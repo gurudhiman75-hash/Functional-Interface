@@ -3,6 +3,7 @@ import { Router, type IRouter } from "express";
 import { sqlClient } from "../lib/db";
 import {
   AttemptReliabilityError,
+  attemptSessionLifecycleError,
   advanceAttemptSessionSnapshot,
   createAttemptSessionSnapshot,
   readAttemptSessionSnapshot,
@@ -264,12 +265,13 @@ router.get("/attempt-sessions/:id", authenticate, async (req, res) => {
       res.status(404).json({ error: "Attempt session not found", code: "ATTEMPT_SESSION_NOT_FOUND" });
       return;
     }
-    if (["evaluated", "practice_evaluated"].includes(String(row.status))) {
-      res.status(409).json({ error: "This attempt has already been submitted", code: "ATTEMPT_ALREADY_SUBMITTED", result: row.resultSnapshot });
-      return;
-    }
-    if (String(row.status) !== "in_progress") {
-      res.status(409).json({ error: "This attempt is no longer active", code: "ATTEMPT_SESSION_NOT_ACTIVE", status: String(row.status) });
+    const lifecycleError = attemptSessionLifecycleError(row.status, row.resultSnapshot);
+    if (lifecycleError) {
+      res.status(lifecycleError.statusCode).json({
+        error: lifecycleError.message,
+        code: lifecycleError.code,
+        ...lifecycleError.details as Record<string, unknown>,
+      });
       return;
     }
     const snapshot = readAttemptSessionSnapshot(row.resultSnapshot, {
@@ -316,15 +318,8 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
       `;
       const row = rows[0] as Record<string, unknown> | undefined;
       if (!row) throw new AttemptReliabilityError("ATTEMPT_SESSION_NOT_FOUND", "Attempt session not found", 404);
-      if (String(row.status) !== "in_progress") {
-        const submitted = ["evaluated", "practice_evaluated"].includes(String(row.status));
-        throw new AttemptReliabilityError(
-          submitted ? "ATTEMPT_ALREADY_SUBMITTED" : "ATTEMPT_SESSION_NOT_ACTIVE",
-          submitted ? "This attempt has already been submitted" : "This attempt is no longer active",
-          409,
-          submitted ? { result: row.resultSnapshot } : { status: String(row.status) },
-        );
-      }
+      const lifecycleError = attemptSessionLifecycleError(row.status, row.resultSnapshot);
+      if (lifecycleError) throw lifecycleError;
       const current = readAttemptSessionSnapshot(row.resultSnapshot, {
         testId: String(row.testId),
         testVersionId: String(row.testVersionId),
