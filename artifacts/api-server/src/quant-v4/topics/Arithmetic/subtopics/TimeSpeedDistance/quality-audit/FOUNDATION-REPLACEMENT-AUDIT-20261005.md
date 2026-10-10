@@ -45,4 +45,3 @@ This proves repository ownership and frozen corpus trace coverage. Source-candid
 | TSD-QL-037 | compareSegmentedJourneyPlans | compareSegmentedJourneyPlans | 4 |
 
 All 153 records retain null permanent QL allocation and locked Question Studio, Bank, test and public delivery.
-

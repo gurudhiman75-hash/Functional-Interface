@@ -152,13 +152,13 @@ assert.deepEqual(
 
 const repoRoot = resolve(import.meta.dirname, "../../../../../../..");
 const routeIndex = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/index.ts"), "utf8");
-const commonRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio.ts"), "utf8");
+const commonRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"), "utf8");
 const bulkRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"), "utf8");
 const operationsPage = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
 const engine = readFileSync(resolve(repoRoot, "artifacts/api-server/src/quant-v4/generation-engine.ts"), "utf8");
 
-assert.match(commonRoute, /router\.get\("\/capabilities"/);
-assert.match(commonRoute, /router\.post\("\/runs"/);
+assert.match(commonRoute, /router\.get\(\s*"\/capabilities"/);
+assert.match(commonRoute, /router\.post\(\s*"\/runs"/);
 assert.match(commonRoute, /generation_run_items/);
 assert.match(bulkRoute, /approvalMode/);
 assert.match(bulkRoute, /review_only/);
