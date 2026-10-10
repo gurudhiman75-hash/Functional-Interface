@@ -9,7 +9,12 @@ import {
   Clock3,
   CreditCard,
   LoaderCircle,
+  BookOpen,
+  Landmark,
+  LockKeyhole,
   Package,
+  Smartphone,
+  TreePine,
   ShieldCheck,
   ShoppingBag,
 } from "lucide-react";
@@ -68,6 +73,257 @@ function ProductSummary({ product }: { product: CommerceProduct }) {
           <p className="mt-2 text-sm font-black text-slate-950 dark:text-foreground">{saleEnd ? `Until ${saleEnd}` : "No end date configured"}</p>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+type CheckoutPageProps = {
+  product: CommerceProduct;
+  user: ReturnType<typeof getSessionUser>;
+  discount: number;
+  isFree: boolean;
+  ownsProduct: boolean | undefined;
+  checkoutBusy: boolean;
+  checkoutError: string | null;
+  purchasesLoading: boolean;
+  purchasesError: boolean;
+  onRetryPurchaseCheck: () => void;
+  onBack: () => void;
+  onStartCheckout: () => void;
+};
+
+function CheckoutPage({
+  product,
+  user,
+  discount,
+  isFree,
+  ownsProduct,
+  checkoutBusy,
+  checkoutError,
+  purchasesLoading,
+  purchasesError,
+  onRetryPurchaseCheck,
+  onBack,
+  onStartCheckout,
+}: CheckoutPageProps) {
+  const amount = ownsProduct ? "Already owned" : isFree ? "Free" : formatCommerceMoney(product.salePriceMinor, product.currency);
+  const validity = product.validityDays && product.validityDays > 0
+    ? product.validityDays + " days of access"
+    : "Validity details shown in your package";
+  const paymentMethods = [
+    { label: "UPI", Icon: Smartphone },
+    { label: "Cards", Icon: CreditCard },
+    { label: "Net banking", Icon: Landmark },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white text-[#111b36] lg:grid lg:grid-cols-[minmax(340px,0.82fr)_minmax(0,1.18fr)]" data-testid="store-product-page">
+      <section className="relative isolate overflow-hidden bg-[#071a38] px-5 py-6 text-white sm:px-8 sm:py-8 lg:min-h-screen lg:px-10 lg:py-9 xl:px-14">
+        <div aria-hidden="true" className="pointer-events-none absolute -left-28 -top-28 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl" />
+        <div aria-hidden="true" className="pointer-events-none absolute -bottom-44 -left-28 h-[26rem] w-[26rem] rounded-full border border-white/[0.07]">
+          <div className="absolute inset-8 rounded-full border border-white/[0.06]" />
+          <div className="absolute inset-16 rounded-full border border-white/[0.05]" />
+        </div>
+        <div className="relative z-10 mx-auto flex max-w-[560px] flex-col lg:ml-auto lg:mr-0">
+          <div className="flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#f3c65d] text-[#071a38] shadow-[0_5px_18px_rgba(243,198,93,0.22)]">
+              <TreePine className="h-5 w-5" strokeWidth={2.4} />
+            </span>
+            <span className="text-[19px] font-extrabold tracking-[-0.04em]">Examtree</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={onBack}
+            className="mt-8 inline-flex min-h-10 w-fit items-center gap-2 rounded-lg text-sm font-semibold text-white/70 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-300"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to packages
+          </button>
+
+          <div className="mt-5 sm:mt-7">
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#f3c65d]">A clearer path to your next goal</p>
+            <h1 className="mt-3 max-w-lg text-[34px] font-black leading-[1.03] tracking-[-0.055em] sm:text-[42px] lg:text-[46px]">
+              Your next chapter starts here.
+            </h1>
+            <p className="mt-3 max-w-md text-sm leading-6 text-blue-100/70 sm:text-[15px]">
+              Everything included in your package, together in one place.
+            </p>
+          </div>
+
+          <div className="mt-6 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-3.5 sm:mt-7 sm:gap-5 sm:p-4">
+            <div className="relative grid h-[88px] w-[72px] shrink-0 place-items-center overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#163d78] to-[#0b2550] text-[#f3c65d] shadow-[0_10px_24px_rgba(0,0,0,0.22)] sm:h-[100px] sm:w-[82px]">
+              <div aria-hidden="true" className="absolute -right-6 -top-6 h-20 w-20 rounded-full border border-[#f3c65d]/20" />
+              <div aria-hidden="true" className="absolute -right-3 -top-3 h-14 w-14 rounded-full border border-[#f3c65d]/15" />
+              <TreePine className="relative h-9 w-9" strokeWidth={1.5} />
+              <span className="absolute bottom-2 text-[8px] font-black uppercase tracking-[0.16em] text-white/70">Exam prep</span>
+            </div>
+            <div className="min-w-0">
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-white/10 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.13em] text-blue-100">{product.code}</span>
+                {discount > 0 ? <span className="rounded-full bg-emerald-300/15 px-2.5 py-1 text-[9px] font-extrabold text-emerald-200">{discount}% off</span> : null}
+              </div>
+              <h2 className="text-[16px] font-extrabold leading-snug tracking-[-0.02em] sm:text-[18px]">{product.title}</h2>
+              <p className="mt-1.5 text-xs text-blue-100/65">
+                {validity} <span className="px-1">·</span> {product.testCount} {product.testCount === 1 ? "test" : "tests"}
+              </p>
+            </div>
+          </div>
+
+          <ul className="mt-5 grid gap-3 text-[13px] text-blue-50/85 sm:mt-6">
+            <li className="flex items-center gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/[0.09] text-[#f3c65d]"><BookOpen className="h-3.5 w-3.5" /></span>
+              {product.testCount} included {product.testCount === 1 ? "test" : "tests"}
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/[0.09] text-[#f3c65d]"><Clock3 className="h-3.5 w-3.5" /></span>
+              {validity}
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/[0.09] text-[#f3c65d]"><ShieldCheck className="h-3.5 w-3.5" /></span>
+              Access appears in My purchases after payment confirmation
+            </li>
+          </ul>
+
+          <div className="mt-6 border-t border-white/15 pt-4 sm:mt-7 sm:pt-5">
+            <div className="flex items-center justify-between text-[13px] text-blue-100/75">
+              <span>{discount > 0 ? "List price" : "Package price"}</span>
+              <span className={discount > 0 ? "text-white/55 line-through" : "font-semibold text-white"}>
+                {isFree ? "Free" : formatCommerceMoney(discount > 0 ? product.listPriceMinor : product.salePriceMinor, product.currency)}
+              </span>
+            </div>
+            {discount > 0 ? (
+              <div className="mt-2.5 flex items-center justify-between text-[13px]">
+                <span className="text-blue-100/75">Your savings</span>
+                <span className="font-bold text-emerald-300">−{formatCommerceMoney(product.listPriceMinor - product.salePriceMinor, product.currency)}</span>
+              </div>
+            ) : null}
+            <div className="mt-3.5 flex items-end justify-between border-t border-white/15 pt-3.5">
+              <span className="pb-1 text-sm font-semibold">{ownsProduct ? "Package status" : "Total payable"}</span>
+              <span className="text-[32px] font-black leading-none tracking-[-0.055em] sm:text-[36px]">{amount}</span>
+            </div>
+            <p className="mt-2 text-[10px] text-blue-100/55">Displayed total reflects the current package price.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section className="min-w-0 bg-white px-5 pb-32 pt-6 sm:px-8 sm:pb-32 sm:pt-8 lg:px-11 lg:pb-10 lg:pt-9 xl:px-16">
+        <div className="mx-auto max-w-[640px]">
+          <div className="mb-7 flex items-center justify-end gap-2 text-[11px] font-semibold text-slate-500 sm:mb-8">
+            <LockKeyhole className="h-4 w-4 text-[#1769ed]" />
+            Secure checkout
+          </div>
+
+          <div className="mb-6 flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.14em] sm:mb-8 sm:text-[11px]">
+            <div className="flex items-center gap-2 text-[#1769ed]">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#eaf2ff]"><Check className="h-3.5 w-3.5" /></span>
+              Account
+            </div>
+            <span aria-hidden="true" className="h-px flex-1 bg-[#dbe4f0]" />
+            <div className="flex items-center gap-2 text-[#111b36]" aria-current="step">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1769ed] text-white shadow-[0_4px_12px_rgba(23,105,237,0.25)]">2</span>
+              Payment
+            </div>
+          </div>
+
+          <header>
+            <h2 className="text-[30px] font-black leading-tight tracking-[-0.055em] text-[#101a33] sm:text-[36px]">Checkout</h2>
+            <p className="mt-1.5 text-[13px] text-slate-500 sm:text-sm">Review your account and continue to payment.</p>
+          </header>
+
+          <div className="mt-6 flex items-center gap-3.5 border-b border-[#e5eaf1] pb-5 sm:mt-7 sm:pb-6">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#e8f1ff] text-sm font-extrabold text-[#1769ed]">
+              {user ? (user.name || user.email).trim().slice(0, 1).toUpperCase() : "?"}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[13px] font-extrabold text-[#111b36] sm:text-sm">{user?.name || "Sign in required"}</p>
+              <p className="mt-0.5 truncate text-xs text-slate-500">{user?.email || "Sign in to continue to secure payment"}</p>
+            </div>
+            {user ? <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700">Signed in</span> : null}
+          </div>
+
+          {!isFree && !ownsProduct ? (
+            <section className="mt-6" aria-labelledby="payment-methods-title">
+              <h3 id="payment-methods-title" className="text-[18px] font-extrabold tracking-[-0.03em] text-[#111b36]">Payment method</h3>
+              <p className="mt-1 text-xs text-slate-500 sm:text-[13px]">Choose your method in the secure Razorpay checkout.</p>
+              <div className="mt-3.5 grid grid-cols-3 gap-2 sm:gap-3">
+                {paymentMethods.map((method) => {
+                  const MethodIcon = method.Icon;
+                  return (
+                    <div key={method.label} className="flex min-h-[76px] flex-col items-center justify-center gap-2 rounded-xl border border-[#e2e8f0] bg-white px-2 py-3 text-center shadow-[0_3px_14px_rgba(17,27,54,0.025)] sm:min-h-[84px] sm:flex-row sm:justify-start sm:gap-2.5 sm:px-3.5 sm:text-left">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f0f6ff] text-[#1769ed]">
+                        <MethodIcon className="h-4 w-4" />
+                      </span>
+                      <span className="text-[10px] font-bold text-[#263653] sm:text-xs">{method.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-3 flex items-start gap-2.5 rounded-xl bg-[#f5f8fc] px-3.5 py-3 text-[11px] leading-5 text-slate-600">
+                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#1769ed]" />
+                <span>Enter your payment details in Razorpay's secure checkout. Payment is verified before access is granted.</span>
+              </div>
+            </section>
+          ) : null}
+
+          {isFree ? (
+            <div className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 text-sm text-emerald-900">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+              <p>This package is free. Continue to access its included tests.</p>
+            </div>
+          ) : null}
+
+          {ownsProduct ? (
+            <div className="mt-6 flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50/70 p-4 text-sm text-blue-900">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+              <p>You already have access to this package. Open it from My purchases.</p>
+            </div>
+          ) : null}
+
+          {purchasesError ? (
+            <div role="alert" className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-xs leading-5 text-amber-900">
+              We could not verify existing access. <button className="min-h-10 font-bold underline underline-offset-2" onClick={onRetryPurchaseCheck}>Try again</button>
+            </div>
+          ) : null}
+
+          {checkoutError ? (
+            <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-xs leading-5 text-rose-700">
+              {checkoutError}
+            </div>
+          ) : null}
+
+          <p className="mt-5 text-[10px] leading-5 text-slate-400 sm:text-[11px]">
+            By continuing, you agree to our <a className="font-semibold text-slate-600 underline underline-offset-2" href="/terms-and-conditions">Terms</a> and <a className="font-semibold text-slate-600 underline underline-offset-2" href="/refund-policy">Refund Policy</a>.
+          </p>
+        </div>
+
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#e4e9f0] bg-white/95 px-4 py-3 shadow-[0_-8px_24px_rgba(20,34,62,0.08)] backdrop-blur sm:px-8 lg:static lg:mx-auto lg:mt-6 lg:max-w-[640px] lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0">
+          <div className="mx-auto flex max-w-[640px] items-center gap-3 lg:block">
+            <div className="min-w-[88px] lg:hidden">
+              <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-slate-500">{ownsProduct ? "Status" : "Total"}</span>
+              <span className="block text-[17px] font-black leading-tight tracking-[-0.04em] text-[#101a33]">{amount}</span>
+            </div>
+            <Button
+              className="min-h-[52px] flex-1 rounded-xl bg-[#1769ed] px-5 text-sm font-extrabold text-white shadow-[0_7px_18px_rgba(23,105,237,0.22)] hover:bg-[#1258ce] disabled:opacity-60 lg:w-full"
+              onClick={onStartCheckout}
+              disabled={checkoutBusy || (!!user && (purchasesLoading || purchasesError))}
+              data-testid="btn-store-checkout"
+            >
+              {checkoutBusy ? <><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Opening secure checkout…</> : (
+                <>
+                  {ownsProduct ? "Open my package" : isFree ? "Access included tests" : user ? "Continue to secure payment" : "Sign in to continue"}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
+            <p className="mt-3 hidden text-center text-[10px] text-slate-400 lg:block">
+              <LockKeyhole className="mr-1 inline h-3 w-3" /> Secure checkout powered by Razorpay
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -166,6 +422,25 @@ export default function StoreProductPage() {
 
   const discount = commerceDiscountPercent(product);
   const isFree = product.salePriceMinor <= 0;
+
+  if (isCheckout) {
+    return (
+      <CheckoutPage
+        product={product}
+        user={user}
+        discount={discount}
+        isFree={isFree}
+        ownsProduct={ownsProduct}
+        checkoutBusy={checkoutBusy}
+        checkoutError={checkoutError}
+        purchasesLoading={purchasesQuery.isLoading}
+        purchasesError={purchasesQuery.isError}
+        onRetryPurchaseCheck={() => purchasesQuery.refetch()}
+        onBack={() => setLocation("/store")}
+        onStartCheckout={startCheckout}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f7f8fc] dark:bg-background" data-testid="store-product-page">

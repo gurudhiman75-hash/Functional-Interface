@@ -181,7 +181,7 @@ function Router() {
           <Route path="/current-affairs" component={() => renderPublicRoute(Resources)} />
 
           <Route path="/checkout/:id" component={() => <ProtectedRoute component={StoreProduct} layout="none" />} />
-          <Route path="/orders/:id" component={() => <ProtectedRoute component={OrderStatus} />} />
+          <Route path="/orders/:id" component={() => <ProtectedRoute component={OrderStatus} layout="none" />} />
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
           <Route path="/packages/success/:id" component={() => <Redirect to="/my-packages" />} />
