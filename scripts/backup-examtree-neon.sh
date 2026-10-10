@@ -40,6 +40,31 @@ PY
 eval "$PG_EXPORTS"
 unset PG_EXPORTS DATABASE_URL
 
+# PostgreSQL's verify-full TLS mode otherwise searches ~/.postgresql/root.crt,
+# which is not normally present in Google Cloud Shell. Prefer the system trust
+# bundle explicitly while retaining CA and hostname verification.
+# Honour an operator-supplied PGSSLROOTCERT, but fail closed if it is missing.
+if [[ -z "${PGSSLROOTCERT:-}" ]]; then
+  for bundle in \
+    /etc/ssl/certs/ca-certificates.crt \
+    /etc/pki/tls/certs/ca-bundle.crt \
+    /etc/ssl/cert.pem; do
+    if [[ -s "$bundle" && -r "$bundle" ]]; then
+      export PGSSLROOTCERT="$bundle"
+      break
+    fi
+  done
+fi
+if [[ -z "${PGSSLROOTCERT:-}" ]]; then
+  echo "No trusted system root CA bundle found. Set PGSSLROOTCERT to a readable trusted CA bundle; TLS verification remains required." >&2
+  exit 2
+fi
+if [[ "$PGSSLROOTCERT" != "system" && ! -s "$PGSSLROOTCERT" ]]; then
+  echo "PGSSLROOTCERT does not point to a non-empty trusted CA bundle; refusing unverified TLS." >&2
+  exit 2
+fi
+echo "PostgreSQL TLS: verify-full with a configured trusted root certificate."
+
 # Passphrase is off argv. For noninteractive jobs a chmod-600 private key
 # file can be provided; never put that key in this repository or backup dir.
 GPG_ARGS=(--batch --yes --no-tty --pinentry-mode loopback --cipher-algo AES256)
