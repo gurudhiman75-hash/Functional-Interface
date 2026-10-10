@@ -31,6 +31,14 @@ node --check artifacts/api-server/trg002-worker-service.mjs
 node --check artifacts/api-server/build-trg002-worker.mjs
 node --check artifacts/api-server/shared-question-studio-worker-service.mjs
 node --check artifacts/api-server/build-shared-worker.mjs
+node --check artifacts/api-server/build-cloud-run-background.mjs
+bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
+bash -n scripts/enable-examtree-api-background-scheduler.sh
+bash -n scripts/examtree-api-schema-bootstrap.sh
+bash -n scripts/smoke-examtree-api-staging.sh
+node --check scripts/check-examtree-cloudflare-cutover.mjs
+node --test tests/cloudflare-pages-cutover-preflight.test.mjs
+node --test tests/cloudrun-api-migration.test.mjs
 bash -n scripts/deploy-shared-question-studio-staging.sh
 node --test artifacts/api-server/tests/shared-question-studio-worker-service.test.mjs
 node --test tests/shared-studio-architecture.test.mjs

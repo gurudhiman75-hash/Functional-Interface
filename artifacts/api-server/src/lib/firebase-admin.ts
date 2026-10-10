@@ -26,7 +26,7 @@ const firebaseClientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 
 const hasSeparateVars = firebaseProjectId && firebasePrivateKey && firebaseClientEmail;
 
-if (!serviceAccountKey && !hasSeparateVars) {
+if (!serviceAccountKey && !hasSeparateVars && !(process.env.EXAMTREE_API_RUNTIME === "cloud-run" && firebaseProjectId)) {
   if (isProd) {
     throw new Error(
       "Firebase credentials are required in production. " +
@@ -53,6 +53,20 @@ if (serviceAccountKey) {
   if (!admin.apps || admin.apps.length === 0) {
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(serviceAccountKey)),
+      storageBucket,
+    });
+  }
+  authInstance = admin.auth();
+  firestoreInstance = admin.firestore();
+  storageInstance = admin.storage();
+  messagingInstance = admin.messaging();
+ } else if (process.env.EXAMTREE_API_RUNTIME === "cloud-run" && firebaseProjectId) {
+  // The Cloud Run service account provides short-lived credentials via the
+  // metadata server. Never copy a long-lived private key into Cloud Run.
+  if (!admin.apps || admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.applicationDefault(),
+      projectId: firebaseProjectId,
       storageBucket,
     });
   }

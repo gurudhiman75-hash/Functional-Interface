@@ -65,7 +65,7 @@ async function markFailed(id: string, error: unknown): Promise<void> {
   `;
 }
 
-async function tick(): Promise<void> {
+export async function runOutboxPublisherOnce(): Promise<void> {
   if (running) return;
   running = true;
   try {
@@ -81,6 +81,9 @@ async function tick(): Promise<void> {
     }
   } catch (error) {
     logger.error({ error }, "Outbox publisher tick failed");
+    // A scheduled Cloud Run Job must report DB/publisher failure to its
+    // execution status. The legacy Render interval keeps its old resilience.
+    if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") throw error;
   } finally {
     running = false;
   }
@@ -89,8 +92,8 @@ async function tick(): Promise<void> {
 export function startOutboxPublisher(): void {
   if (started || process.env.OUTBOX_PUBLISHER_ENABLED === "false") return;
   started = true;
-  const timer = setInterval(() => void tick(), POLL_INTERVAL_MS);
+  const timer = setInterval(() => void runOutboxPublisherOnce(), POLL_INTERVAL_MS);
   timer.unref();
-  void tick();
+  void runOutboxPublisherOnce();
   logger.info({ intervalMs: POLL_INTERVAL_MS, batchSize: BATCH_SIZE }, "Outbox publisher started");
 }

@@ -1,0 +1,7 @@
+# Manual, staging-first API container build. No production frontend,
+# database migrations, or changes to existing Render/Cloudflare routing.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '--file', 'Dockerfile.examtree-cloudrun-api', '--tag', '${_IMAGE}', '.']
+images: ['${_IMAGE}']
+timeout: 1800s

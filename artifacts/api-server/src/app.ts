@@ -57,6 +57,7 @@ app.use(
 const localhostOriginPattern = /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?$/;
 const defaultAllowedOrigins = [
   "https://examtree-new.onrender.com",
+  "https://functional-interface.pages.dev",
   "https://sarbedutech.web.app",
   "https://sarbedutech.firebaseapp.com",
   "https://examtree.in",
@@ -168,7 +169,7 @@ app.use("/api", adminRequestObservability, (req, res, next) => {
 // ── Serve frontend static files ───────────────────────────────────────────────
 // In production, serve both built Vite applications so one Render service can
 // handle the student site, the complete admin panel, and the API.
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" && process.env.EXAMTREE_API_RUNTIME !== "cloud-run") {
   const staticDir = path.resolve(__dirname, "../../examtree/dist/public");
   const studentIndex = path.join(staticDir, "index.html");
   const adminIndex = path.join(staticDir, "admin", "index.html");
