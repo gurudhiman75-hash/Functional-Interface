@@ -26,3 +26,4 @@ import "./clock-applications-source-proof.test";
 import "./remaining-applications-source-proof.test";
 import "./reflected-meetings-source-regression.test";
 import "./source-transition-review-solvers.test";
+import "./river-source-boundary-proof.test";

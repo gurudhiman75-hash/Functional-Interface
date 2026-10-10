@@ -29,4 +29,21 @@ const source={routeDistance:rational(182),speedA:rational(7),speedB:rational(6)}
 eq(solveCp005("findNthMeetingTimeOnLine",{...source,nthMeeting:7}).value,rational(182));
 eq(solveCp005("findNthMeetingTimeOnLine",{...source,nthMeeting:11}).value,rational(294));
 eq(solveCp005("findNthMeetingPointOnLine",{...source,nthMeeting:11}).value,rational(126));
-console.log(`PASS: ${checks} reflected meeting checks across81 exact speed pairs; overtakes included and endpoint duplicates removed; source Q3/Q4 reconstructed.`);
+// LOD I Q85 (printed III.149): the unqualified third meeting includes
+// the same-direction catch at hour5. The book's312.5km counts only head-on events.
+const lod85={routeDistance:rational(100),speedA:rational(50),speedB:rational(30)};
+const lod85Events=reflectedMeetingEvents(lod85.routeDistance,lod85.speedA,lod85.speedB,4);
+for(const [index,time] of [rational(5,4),rational(15,4),rational(5),rational(25,4)].entries())eq(lod85Events[index],time);
+const lod85Third=solveCp005("findNthMeetingTimeOnLine",{...lod85,nthMeeting:3});
+eq(lod85Third.value,rational(5));
+assert.equal(independentlyVerifyCp005({...lod85,nthMeeting:3},lod85Third).valid,true);
+eq(solveCp005("findNthMeetingPointOnLine",{...lod85,nthMeeting:3}).value,rational(50));
+// At hour5 Ram has travelled250km; both positions are50km and both head towards B.
+eq(solveCp005("findRepeatedMeetingCountInTimeWindow",{...lod85,timeWindow:rational(25,4)}).value,rational(4));
+// LOD II Q53/Q54 use metres and seconds. Normalize to CP005's km/hour
+// contract rather than silently relabelling the returned hour as a second.
+const lod53={routeDistance:rational(1,10),speedA:rational(36),speedB:rational(72,5),nthMeeting:3};
+eq(solveCp005("findNthMeetingTimeOnLine",lod53).value,rational(1,168)); //150/7 seconds
+eq(solveCp005("findNthMeetingPointOnLine",lod53).value,rational(1,70)); //100/7 metres
+assert.equal(independentlyVerifyCp005(lod53,solveCp005("findNthMeetingTimeOnLine",lod53)).valid,true);
+console.log(`PASS: ${checks} reflected meeting sweep checks across81 exact speed pairs, plus LOD I Q85 source adjudication; overtakes included and endpoint duplicates removed; source Q3/Q4 reconstructed.`);

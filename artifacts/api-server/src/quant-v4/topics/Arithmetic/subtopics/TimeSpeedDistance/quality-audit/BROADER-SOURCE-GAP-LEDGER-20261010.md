@@ -57,3 +57,15 @@ The source PDF itself is now available and its chapter theory plus LODI/II/III q
 Additional breadth items include sound-report catch-up (LODI23), bird shuttling and infinite idealized trips (LODII41–43), separate travel/rest and direction reversals, and the continuous-acceleration/calculus questions in LODIII. These are not established merely by existing numeric pool size. The entire195-question LOD collection has not received question-by-question executed source mapping in this pass; no false221-question closure count is made.
 
 Initial image API403 was bypassed by successfully materializing the original PDF. Rendered PDF415 confirms the Q8 wording omission visually. Other diagram-heavy questions still require individual rendered inspection. Local Chromium is unavailable; no real Studio mobile/desktop screenshots or MathJax typesetting result is claimed. Full combined revision/editorial/frozen/closure suite passes after the two new review solvers;3918-row presentation count remains unchanged.
+
+## Additional individual adjudications
+
+| Source | Executed evidence | Outcome and ownership limit |
+| --- | --- | --- |
+| LOD I Q85, printed III.149 | CP005 nth time, point, count and independent endpoint trajectory | Meetings at5/4,15/4,5,25/4hours. Third meeting at5hours, point50km, Ram distance250km. Printed312.5km is fourth meeting; quarantine source key unless stem explicitly limits head-on meetings. |
+| LOD II Q53–54, printed III.154 | CP005 with metres/seconds normalized to km/hour; independent verifier | Third meeting150/7seconds, point100/7metres from Dhoni's start. Matches source rounded21.42seconds/14.28metres. |
+| Taste Q27, PDF430 | Independent exact squared-speed algebra | Current8/3mph, body speed4sqrt(10)/3mph. Both6hour and1hour time-difference equations verified. Irrational inverse not proven by existing rational CP009 input/output union. |
+| Taste Q78, PDF436 | Independent vector cancellation and exact squared transverse speed | Resultant2sqrt(91)km/h; nearest option19. CP009 executable union inspected: scalar assisted/opposed modes do not supply vector crossing ownership. |
+| Taste Q107, PDF438 | Rendered original page plus exact round-trip time-ratio algebra | Correct option(b), sqrt(7):2. PDF text extraction drops the radical; this is an extraction defect, not a bad source option. Exact radical inverse remains outside demonstrated rational solver coverage. |
+
+`river-source-boundary-proof.test.ts` preserves these algebra findings without claiming a new runtime model. `reflected-meetings-source-regression.test.ts` exercises the actual CP005 solver for the additional LOD cases. These checks add no authored candidate rows and do not change3918. The195-question LOD collection still needs complete individual mapping.
