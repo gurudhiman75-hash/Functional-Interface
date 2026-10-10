@@ -268,6 +268,10 @@ router.get("/attempt-sessions/:id", authenticate, async (req, res) => {
       res.status(409).json({ error: "This attempt has already been submitted", code: "ATTEMPT_ALREADY_SUBMITTED", result: row.resultSnapshot });
       return;
     }
+    if (String(row.status) !== "in_progress") {
+      res.status(409).json({ error: "This attempt is no longer active", code: "ATTEMPT_SESSION_NOT_ACTIVE", status: String(row.status) });
+      return;
+    }
     const snapshot = readAttemptSessionSnapshot(row.resultSnapshot, {
       testId: String(row.testId),
       testVersionId: String(row.testVersionId),
@@ -313,11 +317,12 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
       const row = rows[0] as Record<string, unknown> | undefined;
       if (!row) throw new AttemptReliabilityError("ATTEMPT_SESSION_NOT_FOUND", "Attempt session not found", 404);
       if (String(row.status) !== "in_progress") {
+        const submitted = ["evaluated", "practice_evaluated"].includes(String(row.status));
         throw new AttemptReliabilityError(
-          "ATTEMPT_ALREADY_SUBMITTED",
-          "This attempt has already been submitted",
+          submitted ? "ATTEMPT_ALREADY_SUBMITTED" : "ATTEMPT_SESSION_NOT_ACTIVE",
+          submitted ? "This attempt has already been submitted" : "This attempt is no longer active",
           409,
-          { result: row.resultSnapshot },
+          submitted ? { result: row.resultSnapshot } : { status: String(row.status) },
         );
       }
       const current = readAttemptSessionSnapshot(row.resultSnapshot, {
