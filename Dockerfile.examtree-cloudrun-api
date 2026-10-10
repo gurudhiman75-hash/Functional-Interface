@@ -7,6 +7,9 @@ COPY . .
 RUN pnpm install --frozen-lockfile --filter @workspace/api-server...
 RUN node artifacts/api-server/build-runtime.mjs
 RUN node artifacts/api-server/build-cloud-run-background.mjs
+# Exercise the compiled API's actual production startup before publishing an
+# image: no external secrets, no live Neon, no Firebase reads.
+RUN node scripts/smoke-examtree-cloudrun-startup.mjs
 
 # Bundle only runtime JSON/metadata; no exported review images, private keys,
 # dev audit files or source TypeScript. Source-file readers remain supported.
