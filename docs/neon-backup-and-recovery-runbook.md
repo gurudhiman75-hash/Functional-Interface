@@ -126,6 +126,19 @@ decryption and successful parsing of the PostgreSQL archive catalogue.
 It does not connect to or modify a database. This is a catalogue/integrity
 test, NOT a full-row restore verification.
 
+**Large backup caveat:** `pg_restore --list` reads only the archive
+catalogue, then exits. If GPG decrypts into a simple pipeline ending at
+`pg_restore --list`, GPG can get `handle plaintext failed: Broken pipe`
+because there are additional archive bytes left to write. Both Examtree
+backup scripts now retain the pipe reader and silently drain all remaining
+decrypted bytes to `/dev/null` **after** the catalogue is successfully
+checked. Bash `pipefail` ensures that GPG decryption errors still fail the
+backup. No plaintext file is created.
+
+The standalone verifier also automatically uses the versioned PostgreSQL
+17 `pg_restore` binary (or `EXAMTREE_PG_BIN_DIR`) when Cloud Shell's
+unqualified `pg_restore` remains version 16.
+
 ## 3. Full restore drill (required before production acceptance)
 
 Do NOT restore this archive over `main` or over the currently used Cloud

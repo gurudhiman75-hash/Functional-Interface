@@ -3,6 +3,8 @@ set -euo pipefail
 umask 077
 
 # Offline, encrypted backup. No uploads, paid resources, or plaintext .dump.
+# pg_restore --list reads only the archive catalogue; drain remaining decrypted
+# bytes with cat so GPG can finish without EPIPE under bash pipefail.
 OUT_DIR="${1:-$HOME/examtree-private-backups}"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT_DIR="$(realpath -m -- "$OUT_DIR")"
@@ -134,11 +136,11 @@ echo "Creating encrypted PostgreSQL archive; no plaintext dump is written."
 if [[ "$USE_KEY_FILE" == true ]]; then
   "$PG_DUMP" --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
     --dbname="$PGDATABASE" | gpg "${GPG_ARGS[@]}" --symmetric --output "$tmp"
-  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" | "$PG_RESTORE" --list >/dev/null
+  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" | { "$PG_RESTORE" --list >/dev/null; cat >/dev/null; }
 else
   "$PG_DUMP" --format=custom --compress=6 --no-owner --no-acl --lock-wait-timeout=5s \
     --dbname="$PGDATABASE" | gpg "${GPG_ARGS[@]}" --symmetric --output "$tmp" 3<<<"$BACKUP_PASSPHRASE"
-  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" 3<<<"$BACKUP_PASSPHRASE" | "$PG_RESTORE" --list >/dev/null
+  gpg "${GPG_ARGS[@]}" --decrypt "$tmp" 3<<<"$BACKUP_PASSPHRASE" | { "$PG_RESTORE" --list >/dev/null; cat >/dev/null; }
 fi
 test -s "$tmp"
 mv -- "$tmp" "$final"
