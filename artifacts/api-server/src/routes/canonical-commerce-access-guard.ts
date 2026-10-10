@@ -9,12 +9,28 @@ const router = Router();
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
 
 async function canonicalTestId(identifier: string): Promise<string | null> {
-  const isUuid = uuid.test(identifier);
+  const normalized = identifier.trim();
+  if (!normalized) return null;
+
+  // The combined UUID/public-code predicate failed to resolve a known existing
+  // published test on staging while the canonical test details route found it.
+  // Keep each identifier form as a simple, explicit database query.
+  if (uuid.test(normalized)) {
+    const rows = await sqlClient`
+      SELECT id::text AS id
+      FROM assessment.tests
+      WHERE id = ${normalized}::uuid
+        AND deleted_at IS NULL
+      LIMIT 1
+    `;
+    return rows[0] ? String(rows[0].id) : null;
+  }
+
   const rows = await sqlClient`
     SELECT id::text AS id
     FROM assessment.tests
-    WHERE deleted_at IS NULL
-      AND ((${isUuid}::boolean AND id = ${isUuid ? identifier : null}::uuid) OR lower(public_code) = lower(${identifier}))
+    WHERE lower(public_code) = lower(${normalized})
+      AND deleted_at IS NULL
     LIMIT 1
   `;
   return rows[0] ? String(rows[0].id) : null;
