@@ -2,7 +2,7 @@
 set -euo pipefail
 # Read-only/negative staging checks: no login token, no test attempts, no
 # successful payment webhook, and no generation jobs are created.
-URL="\${1:-}"
+URL="${1:-}"
 if [[ ! "$URL" =~ ^https://[a-zA-Z0-9.-]+\.run\.app$ ]]; then
   echo "Usage: bash scripts/smoke-examtree-api-staging.sh https://YOUR-SERVICE.run.app" >&2
   exit 2
