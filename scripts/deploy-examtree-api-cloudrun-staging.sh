@@ -81,7 +81,7 @@ gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
   --image="$IMAGE" --service-account="$SA" \
   --memory=2Gi --cpu=1 --tasks=1 --parallelism=1 --task-timeout=600 \
   --max-retries=0 --command=node \
-  --args="artifacts/api-server/dist/cloud-run-background.mjs" \
+  --args="--import=/app/artifacts/api-server/cloud-run-preload.mjs,artifacts/api-server/dist/cloud-run-background.mjs" \
   --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,DB_POOL_MAX=4" \
   --set-secrets="DATABASE_URL=$SECRET:latest" --quiet >/dev/null
 
