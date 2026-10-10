@@ -58,4 +58,6 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(ai, /EXAMTREE_CLOUDRUN_STAGING === "true"/);
   assert.match(buildScript, /smoke-examtree-cloudrun-startup/);
   assert.match(docker, /smoke-examtree-cloudrun-startup/);
+  assert.match(docker, /RUN node scripts\/smoke-examtree-cloudrun-startup\.mjs/);
+  assert.match(docker, /COPY --from=builder \/src\/scripts\/smoke-examtree-cloudrun-startup\.mjs/);
 });
