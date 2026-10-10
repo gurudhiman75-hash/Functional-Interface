@@ -53,7 +53,7 @@ for secret in "${REQUIRED_SECRETS[@]}"; do
   gcloud secrets add-iam-policy-binding "$secret" --project="$PROJECT" \
     --member="serviceAccount:$SA" --role=roles/secretmanager.secretAccessor >/dev/null
 done
-API_ENV_VARS="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=true,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,EXAMTREE_PUBLIC_ORIGIN=https://functional-interface.pages.dev,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,QUESTION_STUDIO_SHARED_WORKER_URL=https://examtree-generation-staging-1083299267005.asia-south1.run.app,QUESTION_STUDIO_TRG002_WORKER_URL=https://examtree-trg002-staging-ttnfjefqka-el.a.run.app"
+API_ENV_VARS="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=true,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,EXAMTREE_PUBLIC_ORIGIN=https://examtree.in,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,QUESTION_STUDIO_SHARED_WORKER_URL=https://examtree-generation-staging-1083299267005.asia-south1.run.app,QUESTION_STUDIO_TRG002_WORKER_URL=https://examtree-trg002-staging-ttnfjefqka-el.a.run.app"
 API_SECRETS="DATABASE_URL=$SECRET:latest,QUESTION_STUDIO_WORKER_TOKEN=$TOKEN_SECRET:latest"
 if [[ "$CASHFREE_SANDBOX" == "yes" ]]; then
   API_ENV_VARS+=",EXAMTREE_PAYMENT_PROVIDER=cashfree,CASHFREE_ENV=sandbox"

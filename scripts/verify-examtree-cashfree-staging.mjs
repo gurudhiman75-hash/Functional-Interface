@@ -15,6 +15,7 @@ for (const mandatory of [
   '--set-secrets="$API_SECRETS"',
   'result.checkoutProvider !== \'cashfree\'',
   'if [[ "$UNSIGNED_STATUS" != "400" ]]',
+  'EXAMTREE_PUBLIC_ORIGIN=https://examtree.in',
   'GENERATION_JOB_WORKER_ENABLED=false',
   'OUTBOX_PUBLISHER_ENABLED=false',
 ]) {

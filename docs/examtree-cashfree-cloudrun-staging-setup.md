@@ -63,7 +63,8 @@ and references both secrets via Secret Manager. It uses the correct Cloud Run
 staging `EXAMTREE_API_ORIGIN`, so newly created sandbox orders point
 `order_meta.notify_url` directly to
 `https://examtree-api-staging-1083299267005.asia-south1.run.app/api/billing/cashfree/webhook`.
-The return URL points to `https://functional-interface.pages.dev/orders/:orderId`.
+The return URL points to the verified primary Cloudflare Pages domain
+`https://examtree.in/orders/:orderId` (not the Pages preview hostname).
 **Note:** the live frontend still calls Render; a staging API smoke test requires
 an explicit staging API request with an authorized Firebase user.
 
