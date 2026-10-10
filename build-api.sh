@@ -35,6 +35,7 @@ node --check artifacts/api-server/build-cloud-run-background.mjs
 bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
 bash -n scripts/enable-examtree-api-background-scheduler.sh
 bash -n scripts/examtree-api-schema-bootstrap.sh
+bash -n scripts/smoke-examtree-api-staging.sh
 node --test tests/cloudrun-api-migration.test.mjs
 bash -n scripts/deploy-shared-question-studio-staging.sh
 node --test artifacts/api-server/tests/shared-question-studio-worker-service.test.mjs
