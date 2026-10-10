@@ -25,6 +25,10 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+      - name: Validate Cloud Run staging deploy script safety
+        run: |
+          bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
+          node scripts/verify-examtree-cashfree-staging.mjs
       - name: Build the actual final API image
         run: |
           # Use the same ignored paths as gcloud builds submit.
