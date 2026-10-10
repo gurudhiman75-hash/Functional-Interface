@@ -117,13 +117,36 @@ export default async function cashfreeWebhook(req: Request, res: Response): Prom
         if (!providerOrderId || !paymentId || !Number.isFinite(amount) || amount <= 0 || !Number.isSafeInteger(amountMinor) || !/^[A-Z]{3}$/.test(currency)) {
           throw new CommercePaymentError("MALFORMED_CASHFREE_EVENT", "Cashfree payment evidence is incomplete", 409);
         }
-        const finalized = await finalizeCapturedPayment({
-          client: tx as typeof sqlClient, provider: "cashfree", providerOrderId,
-          providerPaymentId: paymentId, amountMinor, currency,
-          capturedAt: payment.payment_time && !Number.isNaN(Date.parse(payment.payment_time)) ? new Date(payment.payment_time).toISOString() : null,
-        });
-        await tx`UPDATE commerce.payment_events SET payment_attempt_id = (SELECT id FROM commerce.payment_attempts WHERE provider = 'cashfree' AND provider_order_id = ${providerOrderId} LIMIT 1), processed_at = now() WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}`;
-        return { duplicate: false, processed: true, orderId: finalized.orderId };
+        try {
+          const finalized = await finalizeCapturedPayment({
+            client: tx as typeof sqlClient, provider: "cashfree", providerOrderId,
+            providerPaymentId: paymentId, amountMinor, currency,
+            capturedAt: payment.payment_time && !Number.isNaN(Date.parse(payment.payment_time)) ? new Date(payment.payment_time).toISOString() : null,
+          });
+          await tx`UPDATE commerce.payment_events SET payment_attempt_id = (SELECT id FROM commerce.payment_attempts WHERE provider = 'cashfree' AND provider_order_id = ${providerOrderId} LIMIT 1), processed_at = now() WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}`;
+          return { duplicate: false, processed: true, orderId: finalized.orderId };
+        } catch (error) {
+          if (error instanceof CommercePaymentError && error.code === "PAYMENT_ID_MISMATCH") {
+            // Preserve independently signed evidence of a second successful provider payment.
+            // The canonical order/entitlement remains untouched and operations can reconcile it.
+            const attempts = await tx`
+              SELECT id::text AS id, order_id::text AS "orderId"
+              FROM commerce.payment_attempts
+              WHERE provider = 'cashfree' AND provider_order_id = ${providerOrderId}
+              LIMIT 1
+            `;
+            await tx`
+              UPDATE commerce.payment_events
+              SET payment_attempt_id = ${attempts[0]?.id ? String(attempts[0].id) : null}::uuid,
+                  processed_at = now(),
+                  processing_error = ${"PAYMENT_ID_MISMATCH: " + error.message}
+              WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}
+            `;
+            logger.error({ providerEventId, providerOrderId, providerPaymentId: paymentId, details: error.details }, "Cashfree duplicate-success payment requires reconciliation");
+            return { duplicate: false, processed: false, reconciliationRequired: true, orderId: attempts[0]?.orderId ? String(attempts[0].orderId) : undefined };
+          }
+          throw error;
+        }
       }
       await tx`UPDATE commerce.payment_events SET processed_at = now() WHERE provider = 'cashfree' AND provider_event_id = ${providerEventId}`;
       return { duplicate: false, processed: false };
