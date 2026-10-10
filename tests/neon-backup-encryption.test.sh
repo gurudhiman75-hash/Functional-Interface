@@ -22,6 +22,9 @@ fi
 [[ "$PGSSLMODE" == "verify-full" ]]
 [[ "${PGSSLROOTCERT:-}" == "system" || ( -s "$PGSSLROOTCERT" && -r "$PGSSLROOTCERT" ) ]]
 printf 'PGDMP-FIXTURE-ONLY-DATA-NEVER-A-REAL-DATABASE'
+# pg_restore --list consumes only a small catalogue portion of a real dump.
+# Four MiB of decoded trailing bytes reproduces GPG EPIPE in a naive pipeline.
+head -c 4194304 /dev/zero
 MOCK
 cat > "$WORK/bin/pg_restore" <<'MOCK'
 #!/usr/bin/env bash
@@ -31,7 +34,9 @@ if [[ "${1:-}" == "--version" ]]; then
   exit 0
 fi
 [[ "$1" == "--list" ]]
-[[ "$(cat)" == "PGDMP-FIXTURE-ONLY-DATA-NEVER-A-REAL-DATABASE" ]]
+# Deliberately read ONLY the catalogue prefix, like real pg_restore --list.
+# If the caller does not drain the rest, GPG gets a broken pipe.
+[[ "$(head -c 5)" == "PGDMP" ]]
 MOCK
 chmod 700 "$WORK/bin/pg_dump" "$WORK/bin/pg_restore"
 export PATH="$WORK/bin:$PATH"
@@ -55,6 +60,12 @@ archive="$(find "$WORK/backups" -maxdepth 1 -name '*.dump.gpg' -type f | head -n
 [[ -f "$archive.sha256" ]]
 [[ "$(head -c 5 "$archive")" != "PGDMP" ]]
 bash "$ROOT/scripts/verify-examtree-neon-backup.sh" "$archive"
+# The standalone verifier must select a compatible PostgreSQL 17 client.
+if MOCK_PG_MAJOR=16 bash "$ROOT/scripts/verify-examtree-neon-backup.sh" "$archive" >"$WORK/old-verifier.log" 2>&1; then
+  echo "FAIL: PostgreSQL 16 archive verifier was accepted" >&2
+  exit 1
+fi
+grep -q 'PostgreSQL 17+ pg_restore required' "$WORK/old-verifier.log"
 
 # A changed encrypted archive must be rejected BEFORE any restore command.
 printf 'garbage' >> "$archive"
