@@ -143,8 +143,13 @@ async function terminateRevokedStudentSession(): Promise<void> {
 async function fetchOrCreateUserProfile(
   firebaseUser: FirebaseUser,
 ): Promise<User> {
+  // Homepage Google sign-in runs before a local session marker exists. Pass the
+  // freshly signed-in Firebase user's token explicitly for profile bootstrap;
+  // the shared API client's anonymous-route optimization must remain intact.
+  const token = await firebaseUser.getIdToken();
+  const headers = { Authorization: `Bearer ${token}` };
   try {
-    const existing = await apiRequest<User>("/users/me");
+    const existing = await apiRequest<User>("/users/me", { headers });
     setUser(existing);
     return existing;
   } catch (error) {
@@ -161,6 +166,7 @@ async function fetchOrCreateUserProfile(
     try {
       const created = await apiRequest<User>("/users", {
         method: "POST",
+        headers,
         body: JSON.stringify({
           id: firebaseUser.uid,
           email: firebaseUser.email ?? "",
