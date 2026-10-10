@@ -25,7 +25,28 @@ storage or a real isolated restore drill. No new paid features are enabled.
   Neon PostgreSQL database.
 - `pg_dump`, `pg_restore`, `gpg`, `python3`, and `sha256sum`. The
   PostgreSQL client major version must be **17 or newer** for Neon PostgreSQL 17.
-  Check: `pg_dump --version` and `pg_restore --version`.
+  Cloud Shell may ship PostgreSQL 16.15. Install client 17 with:
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install -y postgresql-client-17
+  ```
+
+  If the package is unavailable, configure the official PostgreSQL apt repository:
+
+  ```bash
+  sudo apt-get install -y postgresql-common ca-certificates
+  sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+  sudo apt-get update
+  sudo apt-get install -y postgresql-client-17
+  ```
+
+  Confirm `/usr/lib/postgresql/17/bin/pg_dump --version` and
+  `/usr/lib/postgresql/17/bin/pg_restore --version` both show PostgreSQL 17.
+  The backup script automatically uses the versioned binary directory even
+  if the unqualified `pg_dump --version` still says 16. If installed elsewhere,
+  set `EXAMTREE_PG_BIN_DIR=/path/to/version17/bin` for the backup invocation.
+  A PostgreSQL 16 client is rejected before the backup starts.
 - Adequate private disk space and a **separate private destination outside
   Neon and Cloud Shell**. Do not store a database archive in Git, a public
   bucket, an issue attachment, a shared conversation or an app static folder.
