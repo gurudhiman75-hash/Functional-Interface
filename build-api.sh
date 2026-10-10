@@ -145,6 +145,16 @@ node tests/cloudflare-pages-output.test.mjs
 echo "[render-build] build API runtime"
 node artifacts/api-server/build-runtime.mjs
 
+# Google Cloud's API Dockerfile also builds a separate scheduled-worker bundle.
+# Compile it in CI with the same dependency graph so an ESM-only build-script
+# regression (e.g. esbuild-plugin-pino requiring globalThis.require) is caught
+# before asking the owner to pay for another Cloud Build. Render remains unchanged.
+if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
+  echo "[ci-cloudrun] build standalone background job bundle"
+  node artifacts/api-server/build-cloud-run-background.mjs
+  test -s artifacts/api-server/dist/cloud-run-background.mjs
+fi
+
 # The free Render service has a 512 MiB runtime limit. A previous regression
 # collapsed the lazy Question Studio graph into the entry chunk and produced
 # an 88 MiB index.mjs, which expanded past 512 MiB during Node cold start.
