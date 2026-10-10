@@ -10,16 +10,7 @@ if (!connectionString) {
 }
 
 /** The single canonical ExamTree PostgreSQL client. */
-// Bound the total Neon connection count when Cloud Run scales horizontally.
-// The default Render pool is retained for rollback compatibility.
-const apiPoolMax = process.env.EXAMTREE_API_RUNTIME === "cloud-run"
-  ? Math.min(8, Math.max(1, Number.parseInt(process.env.DB_POOL_MAX ?? "4", 10) || 4))
-  : 10;
-export const sqlClient = postgres(connectionString, {
-  max: apiPoolMax,
-  connect_timeout: 15,
-  idle_timeout: 20,
-});
+export const sqlClient = postgres(connectionString);
 
 type JsonCapableSql = {
   json?: (value: unknown) => unknown;
