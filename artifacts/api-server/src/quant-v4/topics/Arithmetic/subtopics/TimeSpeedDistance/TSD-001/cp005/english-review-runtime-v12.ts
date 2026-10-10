@@ -2,7 +2,7 @@ import { add, divide, multiply, rational, subtract, type Rational } from "../fou
 import { formatDurationHours, formatExamNumber } from "../cp003/generation-support";
 import type { TsdCp005EnglishReviewQuestion, TsdCp005ReviewExplanation } from "./english-review-runtime";
 import { generateCp005EnglishAuditPoolV11, generateCp005ReviewSetV11 } from "./english-review-runtime-v11";
-import { sqrtRationalExact } from "./solver";
+import { nthMeetingTime, sqrtRationalExact } from "./solver";
 
 function required(value: Rational | undefined, name: string): Rational {
   if (!value) throw new Error(`CP005 V12 missing ${name}`);
@@ -306,81 +306,27 @@ function compactExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Re
       });
     }
     case "findSecondMeetingTimeAfterEndpointTurnaround":
-    case "findMeetingAfterBothTurnAtEndpoints": {
-      const L = required(i.routeDistance, "routeDistance");
-      const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      return Object.freeze({
-        method: "By the second meeting, combined travel equals 3PQ.",
-        steps: Object.freeze([
-          `Combined speed = ${n(u)} + ${n(v)} = ${kmph(add(u, v))}.`,
-          `Time = 3×${n(L)}/${n(add(u, v))} = ${answer}.`,
-        ]),
-        shortcut: "Second meeting time = 3L/(u+v).",
-        finalAnswer: `Answer: ${answer}.`,
-      });
-    }
-    case "findNthMeetingTimeOnLine": {
-      const L = required(i.routeDistance, "routeDistance");
-      const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      const meeting = i.nthMeeting!;
-      const odd = 2 * meeting - 1;
-      return Object.freeze({
-        method: "Repeated meetings occur at odd multiples of PQ in combined travel.",
-        steps: Object.freeze([
-          `For the ${ordinal(meeting)} meeting, combined distance = ${odd}×${n(L)} = ${km(multiply(rational(odd), L))}.`,
-          `Time = ${n(multiply(rational(odd), L))}/${n(add(u, v))} = ${answer}.`,
-        ]),
-        shortcut: "nth meeting: (2n−1)L/(u+v).",
-        finalAnswer: `Answer: ${answer}.`,
-      });
-    }
-    case "findTimeBetweenFirstAndSecondMeetings": {
-      const L = required(i.routeDistance, "routeDistance");
-      const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      return Object.freeze({
-        method: "From meeting 1 to meeting 2, combined travel increases by 2PQ.",
-        steps: Object.freeze([
-          `Combined speed = ${kmph(add(u, v))}.`,
-          `Gap = 2×${n(L)}/${n(add(u, v))} = ${answer}.`,
-        ]),
-        shortcut: "First-to-second gap = 2L/(u+v).",
-        finalAnswer: `Answer: ${answer}.`,
-      });
-    }
+    case "findMeetingAfterBothTurnAtEndpoints":
+    case "findNthMeetingTimeOnLine":
+    case "findTimeBetweenFirstAndSecondMeetings":
     case "findSecondMeetingPointAfterEndpointTurnaround":
-    case "findNthMeetingPointOnLine": {
-      const L = required(i.routeDistance, "routeDistance");
-      const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      const meeting = question.solveMode === "findSecondMeetingPointAfterEndpointTurnaround" ? 2 : i.nthMeeting!;
-      const odd = 2 * meeting - 1;
-      const t = divide(multiply(rational(odd), L), add(u, v));
-      const travelled = multiply(u, t);
-      return Object.freeze({
-        method: "Find the meeting time, then reflect A's travelled path back onto PQ.",
-        steps: Object.freeze([
-          `${ordinal(meeting)} meeting time = ${odd}×${n(L)}/${n(add(u, v))} = ${time(t)}.`,
-          `A travels ${n(u)}×${n(t)} = ${km(travelled)}; after reflection the point is ${answer} from P.`,
-        ]),
-        shortcut: "Travelled distance and physical position are different after a turn.",
-        finalAnswer: `Answer: ${answer} from P.`,
-      });
-    }
+    case "findNthMeetingPointOnLine":
     case "findRepeatedMeetingCountInTimeWindow": {
       const L = required(i.routeDistance, "routeDistance");
       const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      const window = required(i.timeWindow, "timeWindow");
-      const countValue = required(question.solution.value, "count");
-      const count = Number(countValue.numerator / countValue.denominator);
-      const last = divide(multiply(rational(2 * count - 1), L), add(u, v));
-      const next = divide(multiply(rational(2 * count + 1), L), add(u, v));
+      const countMode = question.solveMode === "findRepeatedMeetingCountInTimeWindow";
+      const gapMode = question.solveMode === "findTimeBetweenFirstAndSecondMeetings";
+      const meeting = countMode ? Number(required(question.solution.value, "count").numerator) : (i.nthMeeting ?? 2);
+      const times = Array.from({ length: Math.max(2, meeting + (countMode ? 1 : 0)) }, (_, k) => nthMeetingTime(L, u, v, k + 1));
       return Object.freeze({
-        method: "Check the odd-multiple meeting times against the time limit.",
+        method: "Order all reflected meeting events, including overtakes.",
         steps: Object.freeze([
-          `${ordinal(count)} meeting is at ${time(last)}, within ${time(window)}.`,
-          `${ordinal(count + 1)} meeting is at ${time(next)}, beyond the limit.`,
+          `t = ${times.map(n).join(", ")} h.`,
+          gapMode ? `t₂ − t₁ = ${n(times[1]!)} − ${n(times[0]!)} = ${answer}.` : countMode ? `t${meeting} ≤ ${n(required(i.timeWindow, "timeWindow"))} < t${meeting + 1}.` : `t${meeting} = ${time(times[meeting - 1]!)}.`,
+          question.solveMode.includes("Point") ? `A travels ${n(u)}×${n(times[meeting - 1]!)} = ${km(multiply(u, times[meeting - 1]!))}; after reflection the point is ${answer} from P.` : `Answer: ${answer}.`,
         ]),
-        shortcut: "Count odd-multiple meeting times not exceeding the window.",
-        finalAnswer: `Answer: ${answer} meetings.`,
+        shortcut: "Count coincident positions after each endpoint reflection.",
+        finalAnswer: `Answer: ${answer}.`,
       });
     }
     case "findMeetingAfterOneTravellerTurnsBack":
@@ -444,14 +390,14 @@ function compactExplanation(question: TsdCp005EnglishReviewQuestion): TsdCp005Re
     }
     case "findDistanceBetweenEndpointsFromRepeatedMeetings": {
       const u = required(i.speedA, "speedA"), v = required(i.speedB, "speedB");
-      const gap = subtract(required(i.observedSecondMeetingTime, "observedSecondMeetingTime"), required(i.observedFirstMeetingTime, "observedFirstMeetingTime"));
+      const first = required(i.observedFirstMeetingTime, "observedFirstMeetingTime");
       return Object.freeze({
-        method: "Between the first two meetings, combined travel equals 2PQ.",
+        method: "Order all reflected meeting events, including overtakes.",
         steps: Object.freeze([
-          `Combined speed = ${kmph(add(u, v))}; time gap = ${time(gap)}.`,
-          `PQ = ${n(add(u, v))}×${n(gap)}/2 = ${answer}.`,
+          `Combined speed = ${kmph(add(u, v))}.`,
+          `PQ = ${n(add(u, v))}×${n(first)} = ${answer}.`,
         ]),
-        shortcut: "PQ = (u+v) × meeting gap / 2.",
+        shortcut: "Count coincident positions after each endpoint reflection.",
         finalAnswer: `Answer: ${answer}.`,
       });
     }

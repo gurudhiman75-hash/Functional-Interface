@@ -37,8 +37,8 @@ function base(seed: string) {
   return { index, route, speedA, speedB, totalSpeed, firstTime, firstPoint, postMeetingTimeA, postMeetingTimeB, speedRatio };
 }
 
-function nthTime(route: Rational, totalSpeed: Rational, n: number): Rational {
-  return divide(multiply(rational(2 * n - 1), route), totalSpeed);
+function nthTime(state: ReturnType<typeof base>, n: number): Rational {
+  return solveCp005("findNthMeetingTimeOnLine", {routeDistance:state.route,speedA:state.speedA,speedB:state.speedB,nthMeeting:n}).value!;
 }
 
 export function buildCp005Input(mode: TsdCp005SolveMode, seed: string): TsdCp005Input {
@@ -79,8 +79,8 @@ export function buildCp005Input(mode: TsdCp005SolveMode, seed: string): TsdCp005
 
     case "findRepeatedMeetingCountInTimeWindow": {
       const targetCount = 3 + (state.index % 5);
-      const targetTime = nthTime(state.route, state.totalSpeed, targetCount);
-      const nextTime = nthTime(state.route, state.totalSpeed, targetCount + 1);
+      const targetTime = nthTime(state, targetCount);
+      const nextTime = nthTime(state, targetCount + 1);
       const window = divide(add(targetTime, nextTime), rational(2));
       return Object.freeze({ ...common, timeWindow: window });
     }
@@ -123,13 +123,13 @@ export function buildCp005Input(mode: TsdCp005SolveMode, seed: string): TsdCp005
 
     case "findDistanceBetweenEndpointsFromRepeatedMeetings": {
       const observedFirstMeetingTime = state.firstTime;
-      const observedSecondMeetingTime = nthTime(state.route, state.totalSpeed, 2);
+      const observedSecondMeetingTime = nthTime(state, 2);
       return Object.freeze({ speedA: state.speedA, speedB: state.speedB, observedFirstMeetingTime, observedSecondMeetingTime });
     }
 
     case "detectContradictoryMeetingStatements": {
       const n = 1 + (state.index % 4);
-      const time = nthTime(state.route, state.totalSpeed, n);
+      const time = nthTime(state, n);
       const point = bouncePosition(multiply(state.speedA, time), state.route);
       return Object.freeze({ ...common, nthMeeting: n, claimedMeetingTime: time, claimedMeetingPoint: add(point, rational(1)) });
     }
@@ -143,7 +143,7 @@ export function buildCp005Input(mode: TsdCp005SolveMode, seed: string): TsdCp005
 
     case "verifyPostMeetingClaim": {
       const n = 1 + (state.index % 4);
-      const time = nthTime(state.route, state.totalSpeed, n);
+      const time = nthTime(state, n);
       const point = bouncePosition(multiply(state.speedA, time), state.route);
       return state.index % 2 === 0
         ? Object.freeze({ ...common, nthMeeting: n, claimedMeetingTime: time, claimedMeetingPoint: point })

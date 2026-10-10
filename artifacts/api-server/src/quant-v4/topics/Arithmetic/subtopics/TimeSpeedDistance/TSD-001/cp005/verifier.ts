@@ -309,7 +309,10 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const speedA = required(input.speedA, "speedA", errors);
         const speedB = required(input.speedB, "speedB", errors);
         const gap = solutionValue(solution, errors);
-        if (route && speedA && speedB && gap && !equals(multiply(add(speedA, speedB), gap), multiply(rational(2), route))) errors.push("first-to-second meeting gap fails 2L combined-path identity");
+        if (route && speedA && speedB && gap) {
+          const events = reflectedMeetingEvents(route, speedA, speedB, 2);
+          if (!equals(gap, subtract(events[1]!, events[0]!))) errors.push("first-to-second gap fails independent endpoint trajectory");
+        }
         break;
       }
 
@@ -319,7 +322,10 @@ export function independentlyVerifyCp005(input: TsdCp005Input, solution: TsdCp00
         const first = required(input.observedFirstMeetingTime, "observedFirstMeetingTime", errors);
         const second = required(input.observedSecondMeetingTime, "observedSecondMeetingTime", errors);
         const route = solutionValue(solution, errors);
-        if (speedA && speedB && first && second && route && !equals(multiply(add(speedA, speedB), subtract(second, first)), multiply(rational(2), route))) errors.push("reconstructed endpoint distance fails repeated-meeting gap identity");
+        if (speedA && speedB && first && second && route) {
+          const events = reflectedMeetingEvents(route, speedA, speedB, 2);
+          if (!equals(first, events[0]!) || !equals(second, events[1]!)) errors.push("reconstructed endpoint distance fails both observed events");
+        }
         break;
       }
 

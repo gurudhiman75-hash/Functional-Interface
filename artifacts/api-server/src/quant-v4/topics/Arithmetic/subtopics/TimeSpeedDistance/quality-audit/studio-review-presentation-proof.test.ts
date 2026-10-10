@@ -18,8 +18,9 @@ import { TSD_CP011_TWO_WALKER_REVIEW_V1 as twoWalker } from "../TSD-002/cp011/tw
 import { TSD_CP012_SIGNED_CYCLE_REVIEW_V1 as signedCycle } from "../TSD-002/cp012/signed-cycle-source-review-v1";
 import { TSD_CP012_SLOWDOWN_OBSERVATIONS_REVIEW_V1 as slowdown } from "../TSD-002/cp012/slowdown-observations-source-review-v1";
 import { TSD_CP010_TIME_HEADSTARTS_REVIEW_V1 as headstarts } from "../TSD-002/cp010/time-headstarts-source-review-v1";
+import { TSD_SOURCE_MOTION_EXTENSION_REVIEW as motionExtensions } from "./source-motion-extension-review";
 const groups={cp004,cp005,cp008,cp009,cp010Time,cp010Handicap,cp010Evidence,cp010Advanced,cp011Wheel,cp011Escalator,cp012Inverse,cp012Surface,cp012Journey,cp007:buildCp007ContentReviewCandidateV2()};
-const supplements={twoWalker,signedCycle,slowdown,headstarts};
+const supplements={twoWalker,signedCycle,slowdown,headstarts,motionExtensions};
 let count=0;
 for(const rows of Object.values({...groups,...supplements}))for(const row of rows){
  const payload=row as unknown as Record<string,unknown>;
@@ -33,5 +34,5 @@ for(const rows of Object.values({...groups,...supplements}))for(const row of row
  for(const step of expected)if(typeof step==="string"&&step.trim())assert.ok(rendered.includes(step.trim()),"Authored calculation step lost");
  count++;
 }
-assert.equal(count,3918);
-console.log("PASS: all 3918 V4 and supplemental review rows retain stems and every authored calculation step through the actual Studio helpers.");
+assert.equal(count,3963);
+console.log("PASS: all 3963 V4 and supplemental review rows retain stems and every authored calculation step through the actual Studio helpers.");

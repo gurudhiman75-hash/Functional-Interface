@@ -7,11 +7,19 @@ const eq=(a:Rational|undefined,b:Rational)=>assert.ok(a && equals(a,b));
 // route182, speeds5:2 has an additional same-direction catch at182/3.
 const counter={routeDistance:rational(182),speedA:rational(5),speedB:rational(2),nthMeeting:2};
 eq(solveCp005("findNthMeetingTimeOnLine",counter).value,rational(182,3));
+assert.throws(()=>solveCp005("findEndpointRestTimeFromNextMeeting",{...counter,observedSecondMeetingTime:rational(100)}),/return legs/);
+assert.throws(()=>solveCp005("findDistanceBetweenEndpointsFromRepeatedMeetings",{speedA:rational(5),speedB:rational(2),observedFirstMeetingTime:rational(26),observedSecondMeetingTime:rational(78)}),/first two/);
 // Sweep exact endpoint trajectories with unequal, equal and reversed speed order.
 let checks=0;
 for(let u=1;u<=9;u++)for(let v=1;v<=9;v++) {
  const base={routeDistance:rational(182),speedA:rational(u),speedB:rational(v)};
  const events=reflectedMeetingEvents(base.routeDistance,base.speedA,base.speedB,12);
+ const gapResult=solveCp005("findTimeBetweenFirstAndSecondMeetings",base);
+ assert.equal(independentlyVerifyCp005(base,gapResult).valid,true);
+ const inverseInput={speedA:base.speedA,speedB:base.speedB,observedFirstMeetingTime:events[0]!,observedSecondMeetingTime:events[1]!};
+ const inverseResult=solveCp005("findDistanceBetweenEndpointsFromRepeatedMeetings",inverseInput);
+ eq(inverseResult.value,base.routeDistance);
+ assert.equal(independentlyVerifyCp005(inverseInput,inverseResult).valid,true);
  for(let n=1;n<=12;n++)for(const mode of ["findNthMeetingTimeOnLine","findNthMeetingPointOnLine","reconstructCompleteLinearItinerary"] as const) {
   const input={...base,nthMeeting:n}; const result=solveCp005(mode,input);
   assert.equal(independentlyVerifyCp005(input,result).valid,true,`${u}:${v} ${mode} ${n}`);
@@ -47,3 +55,16 @@ eq(solveCp005("findNthMeetingTimeOnLine",lod53).value,rational(1,168)); //150/7 
 eq(solveCp005("findNthMeetingPointOnLine",lod53).value,rational(1,70)); //100/7 metres
 assert.equal(independentlyVerifyCp005(lod53,solveCp005("findNthMeetingTimeOnLine",lod53)).valid,true);
 console.log(`PASS: ${checks} reflected meeting sweep checks across81 exact speed pairs, plus LOD I Q85 source adjudication; overtakes included and endpoint duplicates removed; source Q3/Q4 reconstructed.`);
+
+// Learner explanations must enumerate the same independent reflected events.
+const { generateCp005ReviewSetV12 } = await import("../TSD-001/cp005/english-review-runtime-v12");
+const { formatExamNumber } = await import("../TSD-001/cp003/generation-support");
+for (const row of generateCp005ReviewSetV12(6)) {
+ if (!["findNthMeetingTimeOnLine", "findNthMeetingPointOnLine", "findRepeatedMeetingCountInTimeWindow"].includes(row.solveMode)) continue;
+ const input = row.input;
+ const number = row.solveMode === "findRepeatedMeetingCountInTimeWindow" ? Number(row.solution.value!.numerator) + 1 : input.nthMeeting!;
+ const events = reflectedMeetingEvents(input.routeDistance!, input.speedA!, input.speedB!, Math.max(2, number));
+ assert.equal(row.explanation.steps[0], `t = ${events.map(formatExamNumber).join(", ")} h.`);
+ assert.doesNotMatch(JSON.stringify(row.explanation), /odd multiples|odd-multiple|2n−1/);
+}
+console.log("CP005 worked reflected-event explanations: PASS");

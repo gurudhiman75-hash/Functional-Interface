@@ -1,0 +1,12 @@
+import {mkdirSync,writeFileSync} from "node:fs";
+import {dirname,resolve} from "node:path";
+import {TSD_SOURCE_MOTION_EXTENSION_REVIEW as rows} from "./source-motion-extension-review";
+import {TSD_CHAPTER_SOURCE_INVENTORY as inventory} from "./chapter-source-inventory";
+const folder=resolve(process.argv[2]??"dist/tsd-source-review");mkdirSync(folder,{recursive:true});
+const review=resolve(folder,"TSD-SOURCE-MOTION-REVIEW-20261010.md");
+const lines=["# TSD source motion review","","45 authored rows:15 states across14 mathematical models, in English/Hindi/Punjabi. These are unapproved review candidates. Four particle/acceleration/optimization families are advanced source extensions; no claim of core SSC/Banking eligibility is made. Source-tagged authored variants are identified explicitly. Existing V4 remains3846rows; combined authored review corpus is3963rows.","","No question-bank, test, mock or public-release permission is enabled.",""];
+for(const row of rows)lines.push(`## ${row.familyId} · ${row.locale}`,"",`Source: ${row.sourceObservation}${row.advancedSourceOnly?" · advanced source extension":""}`,"",row.stem,"",...row.options.map((o,i)=>`${"ABCD"[i]}. ${o}`),"",`**Answer: ${"ABCD"[row.correctIndex]}. ${row.answerText}**`,"",...row.explanation.steps.map((step,i)=>`${i+1}. ${step}`),"");
+writeFileSync(review,lines.join("\n"));
+const map=resolve(folder,"TSD-195-SOURCE-INVENTORY-20261010.md");mkdirSync(dirname(map),{recursive:true});
+writeFileSync(map,["# TSD195-question source inventory","","Arun Sharma2018 chapter, printedIII.145–159. Individual family mapping is distinct from executed learner-answer certification. All26Applications questions are adjudicated in the separate existing ledger.","","| Level | Question | Owner | Observation | Disposition | Note |","| --- | ---: | --- | --- | --- | --- |",...inventory.map(row=>`| ${row.level} | ${row.question} | ${row.owner} | ${row.model} | ${row.disposition} | ${row.note} |`),""].join("\n"));
+console.log(JSON.stringify({review,map,authoredRows:rows.length,sourceInventoryRows:inventory.length}));

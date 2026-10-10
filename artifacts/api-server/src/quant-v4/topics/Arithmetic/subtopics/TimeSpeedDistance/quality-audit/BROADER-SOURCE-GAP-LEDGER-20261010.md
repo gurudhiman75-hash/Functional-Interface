@@ -41,6 +41,8 @@ These are model-level audit findings, not inflated numeric variant counts. Other
 
 The26-question Applications exercise is adjudicated, with source errors and omissions retained in its ledger. Broader individual source execution, the combined state gaps above, diagram images, actual desktop/mobile Studio rendering, and human multilingual correction approval remain open. No full TSD closure or source-completeness claim is made.
 
+**Superseded by the final continuation below:** the quoted state was an intermediate checkpoint. The195-question inventory, additional motion models and diagram adjudications now exist. Their release and visual evidence limits remain explicit.
+
 ## Combined-state gaps now have locked review solvers
 
 `source-transition-review-solvers.ts` implements two distinct source-backed state machines, separate from existing learner contracts and candidate rows:
@@ -69,3 +71,23 @@ Initial image API403 was bypassed by successfully materializing the original PDF
 | Taste Q107, PDF438 | Rendered original page plus exact round-trip time-ratio algebra | Correct option(b), sqrt(7):2. PDF text extraction drops the radical; this is an extraction defect, not a bad source option. Exact radical inverse remains outside demonstrated rational solver coverage. |
 
 `river-source-boundary-proof.test.ts` preserves these algebra findings without claiming a new runtime model. `reflected-meetings-source-regression.test.ts` exercises the actual CP005 solver for the additional LOD cases. These checks add no authored candidate rows and do not change3918. The195-question LOD collection still needs complete individual mapping.
+
+## Final source continuation —10 October
+
+`chapter-source-inventory.ts` now maps every LOD question individually:85+60+50=195, with a mechanically checked contiguous inventory. Each row identifies the observation family, mathematical owner and disposition. MAPPED means family ownership, not a certificate that the literal book answer ran through the learner runtime. Defective, rounded and underspecified source observations are quarantined; work, ratios and pure geometry questions are assigned explicitly rather than inflated into TSD motion coverage.
+
+`source-motion-extension-solvers.ts` adds12 separate, locked mathematical models: directly opposite river crossing, doubled boat round-trip ratio, sound intervals for an approaching receiver, repeated bird intercepts with infinite-limit classification, bounded closest approach, polynomial motion with separate distance/displacement, constant acceleration with stop-at-zero braking, highway departure optimization, accelerated catch, general geometric lap-time recurrence, return-lift inverse and shared-ride dropoff/pickup. Together with the prior speed-exchange and station-dispatch models, these supply14 executable review extensions. They are not silently added to the rational scalar CP009 contract, registered as learner authorities, or counted as authored questions.
+
+`diagram-source-adjudication.test.ts` uses visually inspected original PDF428–430 and434–438. It checks route geometry, both fuel graph units, three park triangles,120degree return paths, angle-based departure timing and concentric ring/chord travel. TasteQ9 has no exact52.5km option under its given speeds; TasteQ67 omits the correct(A2,C2) state. TasteQ107's sqrt(7):2 option is correct; text extraction dropped its radical. Diagram inspection is now done for the enumerated mixed-review cases; this is not a screenshot of the Studio UI.
+
+`mixed-source-case-adjudication.test.ts` reconstructs the remaining enumerated mixed-review motion observations, including32days of both train departure streams and a16-rake physical reuse schedule. Two different positive relay time allocations demonstrate why Review3Q2 is nonunique. Polynomial examples distinguish signed displacement from absolute distance; LODIIIQ21/Q26 and the exactly-at18m wording ofQ27 are quarantined rather than copied into correct-answer keys.
+
+The CP005 correction now also covers first-to-second time gap and route inverse from BOTH observed times. The inverse rejects an observation that skips an earlier overtake. Generator windows and claims use the complete event sequence. Independent endpoint trajectories verify both modes across all81 speed pairs. The endpoint-rest scalar inverse now checks its two-return-leg domain and rejects overtake/waiting states that the path-balance shortcut cannot uniquely certify.
+
+Remaining release evidence is specific: real Studio font/overflow/MathJax browser verification, multilingual editorial promotion and authored/registered learner integration of the review extensions. The local Chromium download produced invalid archives; the cloud browser rejected a data-URL render page under its URL security policy. No bypass or fabricated screenshot was used. The existing3918 authored review rows,171 registered Studio cases and84 locked previews retain their actual lifecycle states. Complete individual mapping is now achieved;195 literal learner-runtime answers and full learner-source coverage are not claimed.
+
+### New source questions authored and previewed
+
+The subsequent authoring pass supplies45additional review rows in `source-motion-extension-review.ts`:15states across14models, each in English/Hindi/Punjabi, with worked calculations, distinct options and rotated correct positions. Physically extreme book ride examples are replaced by explicitly labelled realistic authored parameter variants. Four advanced particle/acceleration/optimization families are labelled advanced source extensions rather than assigned automatic SSC/Banking eligibility. Script leakage, answer-option correctness, equation results and lifecycle locks pass.
+
+The authored corpus is now3963=3846V4+72prior supplements+45new rows. The actual Studio-helper presentation gate covers all3963. `source-motion-extension-studio-preview.ts` builds45JSON-safe preview payloads using the real extraction helpers; it does not mount a live route, allocate permanent QLs, enable registration or grant release approval. The remaining content step is promotion after review, not missing authored questions. The full human-readable new-question export and195-row inventory are committed under `docs/audits/tsd-source-review/`.

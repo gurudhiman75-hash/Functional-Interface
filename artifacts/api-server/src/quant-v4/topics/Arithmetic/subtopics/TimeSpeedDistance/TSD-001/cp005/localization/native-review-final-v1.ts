@@ -51,6 +51,9 @@ function nativeInline(text: string, language: TsdCp005NativeLanguage): string {
 
 function renderNativeStep(english: string, language: TsdCp005NativeLanguage): string {
   const hi = language === "hi";
+  if (/^t(?: =|[0-9₂])/.test(english)) return (hi ? "समय: " : "ਸਮਾਂ: ") + nativeInline(english, language);
+  if (english.startsWith("Answer:")) return (hi ? "उत्तर: " : "ਉੱਤਰ: ") + nativeInline(english.slice(8), language);
+  if (/^PQ =/.test(english)) return nativeInline(english, language);
   let m: RegExpMatchArray | null;
 
   m = english.match(/^Use minutes: tA = (.+), tB = (.+); so tB:tA = (.+)\.$/u);

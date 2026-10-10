@@ -328,6 +328,7 @@ const METHODS = Object.freeze({
   "First get the speed ratio; then use the known route length.": { hi: "पहले गति अनुपात निकालें, फिर दी गई कुल दूरी का उपयोग करें।", pa: "ਪਹਿਲਾਂ ਰਫ਼ਤਾਰ ਅਨੁਪਾਤ ਕੱਢੋ, ਫਿਰ ਦਿੱਤੀ ਕੁੱਲ ਦੂਰੀ ਵਰਤੋ।" },
   "The first meeting divides PQ in the speed ratio.": { hi: "पहली मुलाकात P–Q को गति अनुपात में बाँटती है।", pa: "ਪਹਿਲੀ ਮੁਲਾਕਾਤ P–Q ਨੂੰ ਰਫ਼ਤਾਰ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਦੀ ਹੈ।" },
   "By the second meeting, combined travel equals 3PQ.": { hi: "दूसरी मुलाकात तक दोनों की कुल चली दूरी 3P–Q के बराबर होती है।", pa: "ਦੂਜੀ ਮੁਲਾਕਾਤ ਤੱਕ ਦੋਵਾਂ ਦੀ ਕੁੱਲ ਤੈਅ ਦੂਰੀ 3P–Q ਦੇ ਬਰਾਬਰ ਹੁੰਦੀ ਹੈ।" },
+  "Order all reflected meeting events, including overtakes.": { hi: "वापसी और आगे निकलने पर होने वाली सभी मुलाकातों को समय के क्रम में रखें।", pa: "ਵਾਪਸੀ ਅਤੇ ਅੱਗੇ ਲੰਘਣ ਵੇਲੇ ਹੋਣ ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਮੁਲਾਕਾਤਾਂ ਨੂੰ ਸਮੇਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।" },
   "Repeated meetings occur at odd multiples of PQ in combined travel.": { hi: "बार-बार मुलाकातें संयुक्त दूरी के P–Q के विषम गुणकों पर होती हैं।", pa: "ਵਾਰ-ਵਾਰ ਮੁਲਾਕਾਤਾਂ ਕੁੱਲ ਦੂਰੀ ਦੇ P–Q ਦੇ ਵਿਸ਼ਮ ਗੁਣਕਾਂ ਉੱਤੇ ਹੁੰਦੀਆਂ ਹਨ।" },
   "From meeting 1 to meeting 2, combined travel increases by 2PQ.": { hi: "पहली से दूसरी मुलाकात तक संयुक्त दूरी 2P–Q बढ़ती है।", pa: "ਪਹਿਲੀ ਤੋਂ ਦੂਜੀ ਮੁਲਾਕਾਤ ਤੱਕ ਕੁੱਲ ਦੂਰੀ 2P–Q ਵੱਧਦੀ ਹੈ।" },
   "Find the meeting time, then reflect A's travelled path back onto PQ.": { hi: "पहले मुलाकात का समय निकालें, फिर A की चली दूरी को P–Q पर वापसी के अनुसार दर्शाएँ।", pa: "ਪਹਿਲਾਂ ਮੁਲਾਕਾਤ ਦਾ ਸਮਾਂ ਕੱਢੋ, ਫਿਰ A ਦੀ ਤੈਅ ਦੂਰੀ ਨੂੰ P–Q ਉੱਤੇ ਵਾਪਸੀ ਅਨੁਸਾਰ ਦਰਸਾਓ।" },
@@ -345,6 +346,7 @@ const SHORTCUTS = Object.freeze({
   "The two remaining legs together make the whole route.": { hi: "मुलाकात के बाद की दोनों दूरियों का योग पूरा मार्ग है।", pa: "ਮੁਲਾਕਾਤ ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਦੋਵੇਂ ਦੂਰੀਆਂ ਦਾ ਜੋੜ ਪੂਰਾ ਰਸਤਾ ਹੈ।" },
   "Ratio first, route equation second.": { hi: "पहले अनुपात, फिर कुल दूरी का समीकरण।", pa: "ਪਹਿਲਾਂ ਅਨੁਪਾਤ, ਫਿਰ ਕੁੱਲ ਦੂਰੀ ਦਾ ਸਮੀਕਰਨ।" },
   "Find A:B, then divide PQ in that ratio.": { hi: "पहले A:B निकालें, फिर P–Q को उसी अनुपात में बाँटें।", pa: "ਪਹਿਲਾਂ A:B ਕੱਢੋ, ਫਿਰ P–Q ਨੂੰ ਉਸੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੋ।" },
+  "Count coincident positions after each endpoint reflection.": { hi: "हर वापसी के बाद समान स्थान पर पहुँचने की घटनाएँ गिनें।", pa: "ਹਰ ਵਾਪਸੀ ਤੋਂ ਬਾਅਦ ਇੱਕੋ ਥਾਂ ਪਹੁੰਚਣ ਦੀਆਂ ਘਟਨਾਵਾਂ ਗਿਣੋ।" },
   "Second meeting time = 3L/(u+v).": { hi: "दूसरी मुलाकात का समय = 3L/(u+v)।", pa: "ਦੂਜੀ ਮੁਲਾਕਾਤ ਦਾ ਸਮਾਂ = 3L/(u+v)।" },
   "nth meeting: (2n−1)L/(u+v).": { hi: "nवीं मुलाकात: (2n−1)L/(u+v)।", pa: "nਵੀਂ ਮੁਲਾਕਾਤ: (2n−1)L/(u+v)।" },
   "First-to-second gap = 2L/(u+v).": { hi: "पहली से दूसरी मुलाकात का अंतर = 2L/(u+v)।", pa: "ਪਹਿਲੀ ਤੋਂ ਦੂਜੀ ਮੁਲਾਕਾਤ ਦਾ ਅੰਤਰ = 2L/(u+v)।" },
@@ -370,7 +372,7 @@ function nativeShortcut(text: string, language: TsdCp005NativeLanguage): string 
 }
 
 function nativeStep(text: string, language: TsdCp005NativeLanguage): string {
-  let out = text;
+  let out = text.replace(/^Answer:/, language === "hi" ? "उत्तर:" : "ਉੱਤਰ:");
   if (language === "hi") {
     out = out
       .replace(/(\d+)(st|nd|rd|th) meeting/g, "$1वीं मुलाकात")

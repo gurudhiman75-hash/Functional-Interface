@@ -77,7 +77,7 @@ function meetingHalfPeriods(route: Rational, speedA: Rational, speedB: Rational)
   return periods;
 }
 
-function nthMeetingTime(route: Rational, speedA: Rational, speedB: Rational, n: number): Rational {
+export function nthMeetingTime(route: Rational, speedA: Rational, speedB: Rational, n: number): Rational {
   const periods = meetingHalfPeriods(route, speedA, speedB);
   const indices = periods.map(() => 0);
   let time = rational(0);
@@ -305,13 +305,27 @@ export function solveCp005(mode: TsdCp005SolveMode, input: TsdCp005Input): TsdCp
       const secondMeetingTime = positive(required(input.observedSecondMeetingTime, "observedSecondMeetingTime"), "observedSecondMeetingTime");
       const rest = divide(subtract(multiply(add(speedA, speedB), secondMeetingTime), multiply(rational(3), route)), speedA);
       if (compare(rest, rational(0)) < 0) throw new Error("CP005 observed second meeting implies negative endpoint rest");
+      // This inverse is a two-return-leg, head-on observation contract. An
+      // unrestricted next meeting can instead be an overtake or a meeting
+      // with A waiting at an endpoint, and may not uniquely determine rest.
+      const arrivalA = divide(route, speedA), arrivalB = divide(route, speedB);
+      const restEnd = add(arrivalA, rest);
+      if (compare(speedA,multiply(rational(2),speedB))>0 || compare(speedB,multiply(rational(2),speedA))>0
+        || compare(secondMeetingTime,restEnd)<0 || compare(secondMeetingTime,arrivalB)<0
+        || compare(secondMeetingTime,add(multiply(rational(2),arrivalA),rest))>0
+        || compare(secondMeetingTime,multiply(rational(2),arrivalB))>=0
+        || compare(restEnd,multiply(rational(2),arrivalB))>=0) {
+        throw new Error("CP005 rest inverse requires the next meeting on both return legs; overtake/waiting observations need separate classification");
+      }
       return valueSolution(mode, rest, "HOUR", [`combined moving distance by second meeting = 3L + speedA × rest`, `rest = ${toCanonicalString(rest)}`]);
     }
 
     case "findTimeBetweenFirstAndSecondMeetings": {
       const { route, speedA, speedB } = sumSpeeds(input);
-      const gap = divide(multiply(rational(2), route), add(speedA, speedB));
-      return valueSolution(mode, gap, "HOUR", [`between consecutive reflected-line meetings the combined distance increases by 2L`, `time gap = ${toCanonicalString(gap)}`]);
+      const first = nthMeetingTime(route, speedA, speedB, 1);
+      const second = nthMeetingTime(route, speedA, speedB, 2);
+      const gap = subtract(second, first);
+      return valueSolution(mode, gap, "HOUR", [`First two events include same-direction catches`, `time gap = ${toCanonicalString(second)} - ${toCanonicalString(first)} = ${toCanonicalString(gap)}`]);
     }
 
     case "findDistanceBetweenEndpointsFromRepeatedMeetings": {
@@ -321,8 +335,10 @@ export function solveCp005(mode: TsdCp005SolveMode, input: TsdCp005Input): TsdCp
       const second = positive(required(input.observedSecondMeetingTime, "observedSecondMeetingTime"), "observedSecondMeetingTime");
       const gap = subtract(second, first);
       if (compare(gap, rational(0)) <= 0) throw new Error("CP005 second meeting must occur after first meeting");
-      const route = divide(multiply(add(speedA, speedB), gap), rational(2));
-      return valueSolution(mode, route, "KM", [`meeting-time gap = ${toCanonicalString(gap)}`, `route = (speedA + speedB) × gap ÷ 2 = ${toCanonicalString(route)}`]);
+      const route = multiply(add(speedA, speedB), first);
+      const expectedSecond = nthMeetingTime(route, speedA, speedB, 2);
+      if (!equals(second, expectedSecond)) throw new Error("CP005 observed times are not the first two reflected meetings");
+      return valueSolution(mode, route, "KM", [`First event fixes route = (speedA + speedB) × first time`, `Second event independently satisfies the complete reflection sequence`, `route = ${toCanonicalString(route)}`]);
     }
 
     case "reconstructCompleteLinearItinerary": {
