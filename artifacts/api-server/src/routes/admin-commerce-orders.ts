@@ -3,7 +3,7 @@ import { Router } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
-import { cashfreeMode, cashfreeRefundReference, createCashfreeRefund } from "../lib/cashfree-payments";
+import { assessCashfreeRefundAcknowledgement, cashfreeMode, createCashfreeRefund } from "../lib/cashfree-payments";
 import { reconcileCashfreeRefundRecord } from "../lib/cashfree-refunds";
 import { authenticate } from "../middlewares/auth";
 
@@ -129,27 +129,43 @@ router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"
           await sqlClient`UPDATE commerce.refunds SET status = 'failed' WHERE id = ${refundId}::uuid AND status = 'created'`;
         throw error;
       }
-      if (String(gatewayRefund.refund_id ?? "") !== cashfreeRefundReference(refundId)
-          || String(gatewayRefund.order_id ?? "") !== prepared.providerOrderId
-          || String(gatewayRefund.cf_payment_id ?? "") !== prepared.providerPaymentId
-          || Math.round(Number(gatewayRefund.refund_amount) * 100) !== amountMinor
-          || String(gatewayRefund.refund_currency ?? "").toUpperCase() !== "INR"
-          || !gatewayRefund.cf_refund_id) {
-        throw Object.assign(new Error("Cashfree refund receipt did not match the captured payment; reconcile before retrying"), { statusCode: 502, code: "CASHFREE_REFUND_RECEIPT_MISMATCH" });
+      const receipt = assessCashfreeRefundAcknowledgement(gatewayRefund, {
+        orderId: prepared.providerOrderId, paymentId: prepared.providerPaymentId,
+        refundId, amountMinor, currency: "INR",
+      });
+      if (receipt.conflicts.length) {
+        // Do not trust conflicting POST fields. The provider has already
+        // acknowledged the request, so a second POST could double-refund.
+        console.warn("Cashfree refund acknowledgement needs independent verification", {
+          refundId, conflictingFields: receipt.conflicts,
+        });
       }
-      await sqlClient`UPDATE commerce.refunds SET provider_refund_id = ${String(gatewayRefund.cf_refund_id)}
-        WHERE id = ${refundId}::uuid AND status = 'created'`;
-      // An immediate SUCCESS still must be verified through Cashfree's GET API.
+      if (receipt.providerRefundId) {
+        await sqlClient`UPDATE commerce.refunds SET provider_refund_id = ${receipt.providerRefundId}
+          WHERE id = ${refundId}::uuid AND status = 'created'
+            AND (provider_refund_id IS NULL OR provider_refund_id = ${receipt.providerRefundId})`;
+      }
+      // Always read the refund by its deterministic merchant reference.
+      // A successful POST can have a sparse receipt; only verified GET
+      // evidence may mark it processed or revoke student access.
       let status = "created";
-      if (gatewayRefund.refund_status === "SUCCESS") {
-        try {
-          const verified = await reconcileCashfreeRefundRecord(refundId, orderId);
-          status = verified.status;
-        } catch (error) {
-          console.error("Cashfree refund accepted but immediate verification could not complete", error);
-        }
+      let verified = false;
+      try {
+        const checked = await reconcileCashfreeRefundRecord(refundId, orderId);
+        status = checked.status;
+        verified = true;
+      } catch (error) {
+        console.warn("Cashfree refund accepted but GET verification is pending", {
+          refundId, reason: error instanceof Error ? error.message : "Gateway check unavailable",
+        });
       }
-      res.status(202).json({ refundId, providerRefundId: String(gatewayRefund.cf_refund_id), status, amountMinor });
+      res.status(202).json({
+        refundId, providerRefundId: receipt.providerRefundId,
+        status, verified, amountMinor,
+        message: verified
+          ? "Cashfree refund status verified."
+          : "Refund request was sent to Cashfree. Verification is pending; do not submit another refund. Use Check Cashfree status.",
+      });
       return;
     }
 
