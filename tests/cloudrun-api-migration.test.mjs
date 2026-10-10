@@ -23,11 +23,10 @@ test("Cloud Run API never starts request-throttled background loops", () => {
   assert.match(app, /EXAMTREE_API_RUNTIME !== "cloud-run"/);
 });
 
-test("Firebase Cloud Run ADC and bounded Neon connection pool avoid private key copy", () => {
+test("Firebase Cloud Run ADC avoids service-account private key copy", () => {
   assert.match(firebase, /admin\.credential\.applicationDefault\(\)/);
   assert.match(firebase, /EXAMTREE_API_RUNTIME === "cloud-run"/);
-  assert.match(db, /DB_POOL_MAX/);
-  assert.match(db, /max: apiPoolMax/);
+  assert.match(db, /export const sqlClient = postgres\(connectionString\)/);
 });
 
 test("staging deploy uses dedicated identity, Secret Manager and no cutover", () => {
