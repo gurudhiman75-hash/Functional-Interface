@@ -6,7 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
-const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 async function canonicalTestId(identifier: string): Promise<string | null> {
   const normalized = identifier.trim();
