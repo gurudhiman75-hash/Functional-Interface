@@ -29,6 +29,7 @@ gcloud secrets describe "$SECRET" --project="$PROJECT" >/dev/null
 gcloud secrets add-iam-policy-binding "$SECRET" --member="serviceAccount:$SA_EMAIL" --role="roles/secretmanager.secretAccessor" --project="$PROJECT" >/dev/null
 
 VERSION="$(git rev-parse --short HEAD)"
+echo "Building $SERVICE from commit $(git rev-parse HEAD) in project $PROJECT ($REGION)"
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/$REGISTRY/generation-worker:$VERSION"
 gcloud builds submit "$ROOT" --project "$PROJECT" --region "$REGION" \
   --config "$ROOT/cloudbuild.question-studio-shared.yaml" \
