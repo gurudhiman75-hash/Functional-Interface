@@ -65,7 +65,7 @@ URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$R
 gcloud run services update "$SERVICE" --project="$PROJECT" --region="$REGION" \
   --update-env-vars="EXAMTREE_API_ORIGIN=$URL" --quiet >/dev/null
 
-echo "[api-staging] Verifying public health endpoint"
+echo "[api-staging] Verifying health and protected endpoint failures"
 RESULT="$(mktemp)"
 trap 'rm -f "$RESULT"' EXIT
 curl --fail-with-body --silent --show-error --retry 2 --retry-delay 3 --max-time 75 "$URL/health" --output "$RESULT"
