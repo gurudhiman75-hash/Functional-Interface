@@ -40,8 +40,15 @@ if (process.env.NODE_ENV !== "production" || process.env.GENERATION_JOB_WORKER_E
 } else {
   logger.info("Legacy generation-job worker disabled in production API");
 }
-startMobileNotificationWorker();
-startOutboxPublisher();
+// Cloud Run request-based CPU stops outside incoming requests. Run background
+// work via a separately scheduled Cloud Run Job, not timers in the API replica.
+// Other environments retain the established always-on worker behavior.
+if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") {
+  logger.info("Cloud Run API: in-process notification and outbox polling disabled; use the scheduled background job");
+} else {
+  startMobileNotificationWorker();
+  startOutboxPublisher();
+}
 
 app.listen(port, "0.0.0.0", () => {
   logger.info(`API server running on http://0.0.0.0:${port}`);
