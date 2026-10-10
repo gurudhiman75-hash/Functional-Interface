@@ -3,6 +3,7 @@ import { Router, type IRouter } from "express";
 import { sqlClient } from "../lib/db";
 import {
   AttemptReliabilityError,
+  attemptSessionLifecycleError,
   advanceAttemptSessionSnapshot,
   createAttemptSessionSnapshot,
   readAttemptSessionSnapshot,
@@ -264,8 +265,13 @@ router.get("/attempt-sessions/:id", authenticate, async (req, res) => {
       res.status(404).json({ error: "Attempt session not found", code: "ATTEMPT_SESSION_NOT_FOUND" });
       return;
     }
-    if (["evaluated", "practice_evaluated"].includes(String(row.status))) {
-      res.status(409).json({ error: "This attempt has already been submitted", code: "ATTEMPT_ALREADY_SUBMITTED", result: row.resultSnapshot });
+    const lifecycleError = attemptSessionLifecycleError(row.status, row.resultSnapshot);
+    if (lifecycleError) {
+      res.status(lifecycleError.statusCode).json({
+        error: lifecycleError.message,
+        code: lifecycleError.code,
+        ...lifecycleError.details as Record<string, unknown>,
+      });
       return;
     }
     const snapshot = readAttemptSessionSnapshot(row.resultSnapshot, {
@@ -312,14 +318,8 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
       `;
       const row = rows[0] as Record<string, unknown> | undefined;
       if (!row) throw new AttemptReliabilityError("ATTEMPT_SESSION_NOT_FOUND", "Attempt session not found", 404);
-      if (String(row.status) !== "in_progress") {
-        throw new AttemptReliabilityError(
-          "ATTEMPT_ALREADY_SUBMITTED",
-          "This attempt has already been submitted",
-          409,
-          { result: row.resultSnapshot },
-        );
-      }
+      const lifecycleError = attemptSessionLifecycleError(row.status, row.resultSnapshot);
+      if (lifecycleError) throw lifecycleError;
       const current = readAttemptSessionSnapshot(row.resultSnapshot, {
         testId: String(row.testId),
         testVersionId: String(row.testVersionId),
