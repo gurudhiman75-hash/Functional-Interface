@@ -1,0 +1,547 @@
+{
+  "status": "PASS",
+  "mathematicalCases": 720,
+  "generatedPackages": 216,
+  "samples": [
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-1",
+      "mode": "lines",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "9 points lie in a plane, with no three collinear. How many distinct straight lines are determined by these points?",
+      "options": [
+        "84",
+        "36",
+        "72",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "36",
+      "explanation": [
+        "Every pair determines a line.",
+        "C(9, 2) = 36",
+        "Required number: 36"
+      ],
+      "independentAnswer": 36,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-1",
+      "mode": "lines",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "एक समतल में 9 बिंदु हैं और कोई तीन बिंदु एक सीधी रेखा पर नहीं हैं। इन बिंदुओं से कितनी अलग-अलग सीधी रेखाएँ बनती हैं?",
+      "options": [
+        "84",
+        "36",
+        "72",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "36",
+      "explanation": [
+        "हर दो बिंदु एक रेखा निर्धारित करते हैं।",
+        "C(9, 2) = 36",
+        "आवश्यक संख्या: 36"
+      ],
+      "independentAnswer": 36,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-1",
+      "mode": "lines",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "ਇੱਕ ਸਮਤਲ ਵਿੱਚ 9 ਬਿੰਦੂ ਹਨ ਅਤੇ ਕੋਈ ਵੀ ਤਿੰਨ ਬਿੰਦੂ ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਨਹੀਂ ਹਨ। ਇਨ੍ਹਾਂ ਬਿੰਦੂਆਂ ਤੋਂ ਕਿੰਨੀਆਂ ਵੱਖ-ਵੱਖ ਸਿੱਧੀਆਂ ਰੇਖਾਵਾਂ ਬਣਦੀਆਂ ਹਨ?",
+      "options": [
+        "84",
+        "36",
+        "72",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "36",
+      "explanation": [
+        "ਹਰ ਦੋ ਬਿੰਦੂ ਇੱਕ ਰੇਖਾ ਨਿਰਧਾਰਤ ਕਰਦੇ ਹਨ।",
+        "C(9, 2) = 36",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 36"
+      ],
+      "independentAnswer": 36,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-2",
+      "mode": "linesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "Of 9 points in a plane, 5 lie on one straight line. No other set of three points is collinear. How many distinct straight lines are determined by these points?",
+      "options": [
+        "36",
+        "27",
+        "26",
+        "25"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "Pairs on the same line all determine one line; remove their duplicate count.",
+        "C(9, 2) − C(5, 2) + 1 = 36 − 10 + 1 = 27",
+        "Required number: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-2",
+      "mode": "linesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "एक समतल में 9 बिंदुओं में से 5 एक सीधी रेखा पर हैं। इनके अलावा कोई तीन बिंदु एक सीधी रेखा पर नहीं हैं। इन बिंदुओं से कितनी अलग-अलग सीधी रेखाएँ बनती हैं?",
+      "options": [
+        "36",
+        "27",
+        "26",
+        "25"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "एक ही रेखा पर स्थित बिंदुओं के सभी जोड़े एक ही रेखा बनाते हैं; दोहराव घटाएँ।",
+        "C(9, 2) − C(5, 2) + 1 = 36 − 10 + 1 = 27",
+        "आवश्यक संख्या: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-2",
+      "mode": "linesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "ਇੱਕ ਸਮਤਲ ਵਿੱਚ 9 ਬਿੰਦੂਆਂ ਵਿੱਚੋਂ 5 ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਤੋਂ ਇਲਾਵਾ ਕੋਈ ਵੀ ਤਿੰਨ ਬਿੰਦੂ ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਨਹੀਂ ਹਨ। ਇਨ੍ਹਾਂ ਬਿੰਦੂਆਂ ਤੋਂ ਕਿੰਨੀਆਂ ਵੱਖ-ਵੱਖ ਸਿੱਧੀਆਂ ਰੇਖਾਵਾਂ ਬਣਦੀਆਂ ਹਨ?",
+      "options": [
+        "36",
+        "27",
+        "26",
+        "25"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "ਇੱਕੋ ਰੇਖਾ ਉੱਤੇ ਪਏ ਬਿੰਦੂਆਂ ਦੇ ਸਾਰੇ ਜੋੜੇ ਇੱਕੋ ਰੇਖਾ ਬਣਾਉਂਦੇ ਹਨ; ਦੁਹਰਾਈ ਘਟਾਓ।",
+        "C(9, 2) − C(5, 2) + 1 = 36 − 10 + 1 = 27",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-3",
+      "mode": "triangles",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "9 points lie in a plane, with no three collinear. How many triangles have vertices among these points?",
+      "options": [
+        "36",
+        "84",
+        "168",
+        "83"
+      ],
+      "correctIndex": 1,
+      "answer": "84",
+      "explanation": [
+        "Choose three vertices.",
+        "C(9, 3) = 84",
+        "Required number: 84"
+      ],
+      "independentAnswer": 84,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-3",
+      "mode": "triangles",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "एक समतल में 9 बिंदु हैं और कोई तीन बिंदु एक सीधी रेखा पर नहीं हैं। इन बिंदुओं को शीर्ष मानकर कितने त्रिभुज बन सकते हैं?",
+      "options": [
+        "36",
+        "84",
+        "168",
+        "83"
+      ],
+      "correctIndex": 1,
+      "answer": "84",
+      "explanation": [
+        "तीन शीर्ष चुनें।",
+        "C(9, 3) = 84",
+        "आवश्यक संख्या: 84"
+      ],
+      "independentAnswer": 84,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-3",
+      "mode": "triangles",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "ਇੱਕ ਸਮਤਲ ਵਿੱਚ 9 ਬਿੰਦੂ ਹਨ ਅਤੇ ਕੋਈ ਵੀ ਤਿੰਨ ਬਿੰਦੂ ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਨਹੀਂ ਹਨ। ਇਨ੍ਹਾਂ ਬਿੰਦੂਆਂ ਨੂੰ ਸਿਖਰ ਮੰਨ ਕੇ ਕਿੰਨੇ ਤਿਕੋਣ ਬਣ ਸਕਦੇ ਹਨ?",
+      "options": [
+        "36",
+        "84",
+        "168",
+        "83"
+      ],
+      "correctIndex": 1,
+      "answer": "84",
+      "explanation": [
+        "ਤਿੰਨ ਸਿਖਰ ਚੁਣੋ।",
+        "C(9, 3) = 84",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 84"
+      ],
+      "independentAnswer": 84,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-4",
+      "mode": "trianglesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "Of 9 points in a plane, 5 lie on one straight line. No other set of three points is collinear. How many triangles have vertices among these points?",
+      "options": [
+        "84",
+        "74",
+        "79",
+        "75"
+      ],
+      "correctIndex": 1,
+      "answer": "74",
+      "explanation": [
+        "Subtract selections whose three vertices lie on the same line.",
+        "C(9, 3) − C(5, 3) = 84 − 10 = 74",
+        "Required number: 74"
+      ],
+      "independentAnswer": 74,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-4",
+      "mode": "trianglesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "एक समतल में 9 बिंदुओं में से 5 एक सीधी रेखा पर हैं। इनके अलावा कोई तीन बिंदु एक सीधी रेखा पर नहीं हैं। इन बिंदुओं को शीर्ष मानकर कितने त्रिभुज बन सकते हैं?",
+      "options": [
+        "84",
+        "74",
+        "79",
+        "75"
+      ],
+      "correctIndex": 1,
+      "answer": "74",
+      "explanation": [
+        "एक ही रेखा पर स्थित तीन बिंदुओं वाले चयन घटाएँ।",
+        "C(9, 3) − C(5, 3) = 84 − 10 = 74",
+        "आवश्यक संख्या: 74"
+      ],
+      "independentAnswer": 74,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-4",
+      "mode": "trianglesWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "ਇੱਕ ਸਮਤਲ ਵਿੱਚ 9 ਬਿੰਦੂਆਂ ਵਿੱਚੋਂ 5 ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਤੋਂ ਇਲਾਵਾ ਕੋਈ ਵੀ ਤਿੰਨ ਬਿੰਦੂ ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਨਹੀਂ ਹਨ। ਇਨ੍ਹਾਂ ਬਿੰਦੂਆਂ ਨੂੰ ਸਿਖਰ ਮੰਨ ਕੇ ਕਿੰਨੇ ਤਿਕੋਣ ਬਣ ਸਕਦੇ ਹਨ?",
+      "options": [
+        "84",
+        "74",
+        "79",
+        "75"
+      ],
+      "correctIndex": 1,
+      "answer": "74",
+      "explanation": [
+        "ਇੱਕੋ ਰੇਖਾ ਉੱਤੇ ਪਏ ਤਿੰਨ ਬਿੰਦੂਆਂ ਵਾਲੀਆਂ ਚੋਣਾਂ ਘਟਾਓ।",
+        "C(9, 3) − C(5, 3) = 84 − 10 = 74",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 74"
+      ],
+      "independentAnswer": 74,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-5",
+      "mode": "quadrilateralsWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "Of 9 points in a plane, 5 lie on one straight line. No other set of three points is collinear. How many sets of four points can be chosen as vertices of a quadrilateral?",
+      "options": [
+        "126",
+        "81",
+        "121",
+        "86"
+      ],
+      "correctIndex": 1,
+      "answer": "81",
+      "explanation": [
+        "Exclude sets with all four vertices on the line and sets with exactly three vertices on the line.",
+        "C(9, 4) − C(5, 4) − C(5, 3) × 4 = 126 − 5 − 40 = 81",
+        "Required number: 81"
+      ],
+      "independentAnswer": 81,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-5",
+      "mode": "quadrilateralsWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "एक समतल में 9 बिंदुओं में से 5 एक सीधी रेखा पर हैं। इनके अलावा कोई तीन बिंदु एक सीधी रेखा पर नहीं हैं। इनमें से चार बिंदुओं के कितने समूह चतुर्भुज के शीर्ष बन सकते हैं?",
+      "options": [
+        "126",
+        "81",
+        "121",
+        "86"
+      ],
+      "correctIndex": 1,
+      "answer": "81",
+      "explanation": [
+        "एक ही रेखा पर चार बिंदुओं वाले और ठीक तीन बिंदुओं वाले चयन घटाएँ।",
+        "C(9, 4) − C(5, 4) − C(5, 3) × 4 = 126 − 5 − 40 = 81",
+        "आवश्यक संख्या: 81"
+      ],
+      "independentAnswer": 81,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-5",
+      "mode": "quadrilateralsWithCollinearBlock",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "ਇੱਕ ਸਮਤਲ ਵਿੱਚ 9 ਬਿੰਦੂਆਂ ਵਿੱਚੋਂ 5 ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਹਨ। ਇਨ੍ਹਾਂ ਤੋਂ ਇਲਾਵਾ ਕੋਈ ਵੀ ਤਿੰਨ ਬਿੰਦੂ ਇੱਕ ਸਿੱਧੀ ਰੇਖਾ ਉੱਤੇ ਨਹੀਂ ਹਨ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਚਾਰ ਬਿੰਦੂਆਂ ਦੇ ਕਿੰਨੇ ਸਮੂਹ ਚਤੁਰਭੁਜ ਦੇ ਸਿਖਰ ਬਣ ਸਕਦੇ ਹਨ?",
+      "options": [
+        "126",
+        "81",
+        "121",
+        "86"
+      ],
+      "correctIndex": 1,
+      "answer": "81",
+      "explanation": [
+        "ਇੱਕੋ ਰੇਖਾ ਉੱਤੇ ਚਾਰ ਬਿੰਦੂਆਂ ਵਾਲੀਆਂ ਅਤੇ ਠੀਕ ਤਿੰਨ ਬਿੰਦੂਆਂ ਵਾਲੀਆਂ ਚੋਣਾਂ ਘਟਾਓ।",
+        "C(9, 4) − C(5, 4) − C(5, 3) × 4 = 126 − 5 − 40 = 81",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 81"
+      ],
+      "independentAnswer": 81,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-6",
+      "mode": "polygonDiagonals",
+      "seed": "source-geometry:0",
+      "language": "en",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "How many diagonals does a convex polygon with 9 vertices have?",
+      "options": [
+        "36",
+        "27",
+        "54",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "Every vertex pair gives a side or a diagonal; subtract the sides.",
+        "C(9, 2) − 9 = 36 − 9 = 27",
+        "Required number: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-6",
+      "mode": "polygonDiagonals",
+      "seed": "source-geometry:0",
+      "language": "hi",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "9 शीर्षों वाले उत्तल बहुभुज में कितने विकर्ण होते हैं?",
+      "options": [
+        "36",
+        "27",
+        "54",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "दो शीर्षों का हर जोड़ा एक भुजा या विकर्ण देता है; भुजाओं की संख्या घटाएँ।",
+        "C(9, 2) − 9 = 36 − 9 = 27",
+        "आवश्यक संख्या: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "packageId": "PNC-SOURCE-GEOMETRY-REVIEW",
+      "canonicalProblemId": "PNC-CP-003",
+      "questionLanguageId": "PNC-SOURCE-GEO-6",
+      "mode": "polygonDiagonals",
+      "seed": "source-geometry:0",
+      "language": "pa",
+      "parameters": {
+        "n": 9,
+        "k": 5
+      },
+      "stem": "9 ਸਿਖਰਾਂ ਵਾਲੇ ਉੱਤਲ ਬਹੁਭੁਜ ਵਿੱਚ ਕਿੰਨੇ ਵਿਕਰਣ ਹੁੰਦੇ ਹਨ?",
+      "options": [
+        "36",
+        "27",
+        "54",
+        "35"
+      ],
+      "correctIndex": 1,
+      "answer": "27",
+      "explanation": [
+        "ਦੋ ਸਿਖਰਾਂ ਦਾ ਹਰ ਜੋੜਾ ਇੱਕ ਭੁਜਾ ਜਾਂ ਵਿਕਰਣ ਦਿੰਦਾ ਹੈ; ਭੁਜਾਵਾਂ ਦੀ ਗਿਣਤੀ ਘਟਾਓ।",
+        "C(9, 2) − 9 = 36 − 9 = 27",
+        "ਲੋੜੀਂਦੀ ਗਿਣਤੀ: 27"
+      ],
+      "independentAnswer": 27,
+      "valid": true,
+      "publiclyPublishable": false,
+      "reviewStatus": "REVIEW_REQUIRED"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+source_id,level,question,pdf_page_candidate,section_pdf_pages,runtime_mapping,audit_status
+PNC-AS2018-LODI-001,I,1,824,824-829,PNC-QL-083,STRUCTURAL_MODEL_MATCH; No-zero digits without repetition; same counting structure. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-002,I,2,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-003,I,3,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-004,I,4,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-005,I,5,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-006,I,6,824,824-829,PNC-QL-003,STRUCTURAL_MODEL_MATCH; Two independent route stages. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-007,I,7,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-008,I,8,824,824-829,PNC-SOURCE-GEOMETRY-REVIEW/lines,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=8, k=3 checked; student release locked."
+PNC-AS2018-LODI-009,I,9,824,824-829,PNC-QL-074,STRUCTURAL_MODEL_MATCH; Complementary combination indices; existing QL changes the unknown. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-010,I,10,824,824-829,PNC-QL-059/060,STRUCTURAL_MODEL_MATCH; All letters distinct; factorial permutation. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-011,I,11,824,824-829,PNC-QL-075/076,STRUCTURAL_MODEL_MATCH; Repeated-letter permutation; clarify whether original arrangement is excluded before literal reproduction. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-012,I,12,824,824-829,PNC-QL-079/080,STRUCTURAL_MODEL_MATCH; Fix first letter and permute remaining multiset. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-013,I,13,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-014,I,14,824,824-829,PNC-QL-072,STRUCTURAL_MODEL_MATCH; Inverse combination parameter. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-015,I,15,824,824-829,PNC-QL-066,STRUCTURAL_MODEL_MATCH; Inverse selected permutation count. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-016,I,16,824,824-829,PNC-QL-084,STRUCTURAL_MODEL_MATCH; Zero allowed in digit pool but not leading position. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-017,I,17,824,824-829,PNC-QL-086,STRUCTURAL_MODEL_MATCH; Repeated digits with nonzero first digit. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-018,I,18,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-019,I,19,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-020,I,20,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-021,I,21,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-022,I,22,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-023,I,23,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-024,I,24,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-025,I,25,825,824-829,PNC-QL-064,STRUCTURAL_MODEL_MATCH; Two distinct roles assigned to distinct players. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-026,I,26,825,824-829,PNC-QL-004,STRUCTURAL_MODEL_MATCH; Product of envelope and stamp choices. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-027,I,27,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-028,I,28,825,824-829,CP011 grouping,STRUCTURAL_MODEL_MATCH; Labelled groups with fixed unequal occupancies; no within-room ordering. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-029,I,29,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-030,I,30,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-031,I,31,825,824-829,PNC-SOURCE-SUBSET-REVIEW/atMostDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-032,I,32,825,824-829,CP007 restrictions,STRUCTURAL_MODEL_MATCH; Subtract arrangements with specified adjacent pair. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-033,I,33,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-034,I,34,825,824-829,PNC-QL-009,STRUCTURAL_MODEL_MATCH; Three independent clothing choices. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-035,I,35,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-036,I,36,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-037,I,37,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/linesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
+PNC-AS2018-LODI-038,I,38,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
+PNC-AS2018-LODI-039,I,39,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/quadrilateralsWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
+PNC-AS2018-LODI-040,I,40,,824-829,PNC-QL-062,STRUCTURAL_MODEL_MATCH; Ordered selection without replacement. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-041,I,41,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-042,I,42,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-043,I,43,,824-829,PNC-QL-067,STRUCTURAL_MODEL_MATCH; Unordered selection from distinct socks. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-044,I,44,,824-829,PNC-QL-068,STRUCTURAL_MODEL_MATCH; Unordered group without repetition. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-045,I,45,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-046,I,46,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-047,I,47,,824-829,PNC-QL-078,"STRUCTURAL_MODEL_MATCH; Two repeated digit types, no zero. Source parameter reproduction and localization pending."
+PNC-AS2018-LODI-048,I,48,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-049,I,49,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-050,I,50,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-051,I,51,826,824-829,PNC-SOURCE-SUBSET-REVIEW/boundedIdentical,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-052,I,52,826,824-829,PNC-SOURCE-SUBSET-REVIEW/nonemptyDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-053,I,53,826,824-829,PNC-SOURCE-SUBSET-REVIEW/eachDistinctCategory,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-054,I,54,826,824-829,PNC-SOURCE-SUBSET-REVIEW/optionalQuestions,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-055,I,55,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-056,I,56,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-057,I,57,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-058,I,58,827,824-829,CP009 all-or-none specified members,STRUCTURAL_MODEL_MATCH; Both chosen or neither chosen. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-059,I,59,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-060,I,60,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-061,I,61,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-062,I,62,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-063,I,63,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-064,I,64,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-065,I,65,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-066,I,66,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-067,I,67,827,824-829,PNC-QL-106,STRUCTURAL_MODEL_MATCH; Multiset lexicographic rank; source word differs. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-068,I,68,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-069,I,69,827,824-829,PNC-SOURCE-GEOMETRY-REVIEW/triangles,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=9, k=3 checked; student release locked."
+PNC-AS2018-LODI-070,I,70,827,824-829,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=9, k=3 checked; student release locked."
+PNC-AS2018-LODI-071,I,71,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-072,I,72,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-073,I,73,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-074,I,74,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-075,I,75,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-076,I,76,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-077,I,77,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-078,I,78,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-079,I,79,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-080,I,80,828,824-829,PNC-QL-062,STRUCTURAL_MODEL_MATCH; Distinct symbols without replacement. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-081,I,81,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-082,I,82,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-083,I,83,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-084,I,84,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-085,I,85,828,824-829,CP011 identical-object distribution,STRUCTURAL_MODEL_MATCH; Weak composition over three labelled chocolate types. Source parameter reproduction and localization pending.
+PNC-AS2018-LODI-086,I,86,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-087,I,87,829,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-001,II,1,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-002,II,2,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-003,II,3,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-004,II,4,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-005,II,5,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-006,II,6,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-007,II,7,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-008,II,8,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-009,II,9,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-010,II,10,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-011,II,11,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-012,II,12,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-013,II,13,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-014,II,14,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-015,II,15,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-016,II,16,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-017,II,17,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-018,II,18,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-019,II,19,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-020,II,20,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-021,II,21,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-022,II,22,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-023,II,23,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-024,II,24,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-025,II,25,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-026,II,26,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-027,II,27,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-028,II,28,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-029,II,29,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-030,II,30,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-031,II,31,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-032,II,32,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-033,II,33,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-034,II,34,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-035,II,35,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-036,II,36,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-037,II,37,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-038,II,38,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-039,II,39,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-040,II,40,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-041,II,41,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-042,II,42,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-043,II,43,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-044,II,44,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-045,II,45,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-046,II,46,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-047,II,47,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-048,II,48,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-049,II,49,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODII-050,II,50,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-001,III,1,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-002,III,2,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-003,III,3,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-004,III,4,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-005,III,5,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-006,III,6,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-007,III,7,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-008,III,8,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-009,III,9,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-010,III,10,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-011,III,11,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-012,III,12,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-013,III,13,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-014,III,14,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-015,III,15,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-016,III,16,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-017,III,17,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-018,III,18,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-019,III,19,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-020,III,20,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-021,III,21,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-022,III,22,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-023,III,23,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-024,III,24,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-025,III,25,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-026,III,26,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-027,III,27,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-028,III,28,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-029,III,29,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-030,III,30,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-031,III,31,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-032,III,32,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-033,III,33,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-034,III,34,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-035,III,35,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-036,III,36,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-037,III,37,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-038,III,38,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-039,III,39,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-040,III,40,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-041,III,41,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-042,III,42,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-043,III,43,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-044,III,44,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-045,III,45,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-046,III,46,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-047,III,47,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-048,III,48,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-049,III,49,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODIII-050,III,50,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
