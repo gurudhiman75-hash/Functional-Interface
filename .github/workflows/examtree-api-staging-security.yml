@@ -35,6 +35,11 @@ on:
       - scripts/deploy-examtree-api-cloudrun-production-candidate.sh
       - scripts/validate-examtree-production-neon-url.py
       - tests/examtree-production-candidate-safety.test.py
+      - artifacts/api-server/src/app.ts
+      - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+      - artifacts/examtree/src/pages/store-product.tsx
+      - artifacts/examtree/src/lib/commerce.ts
+      - tests/examtree-sales-cutover-guard.test.py
       - scripts/inspect-examtree-migration-operations.py
       - tests/examtree-migration-operations-readonly.test.py
       - scripts/verify-examtree-cloudrun-num001-review.py
@@ -74,6 +79,8 @@ jobs:
         run: |
           bash -n scripts/refresh-examtree-cloudrun-staging-sandbox.sh
           python3 tests/examtree-staging-sandbox-refresh.test.py
+      - name: Verify purchases-paused cutover API and UI
+        run: python3 tests/examtree-sales-cutover-guard.test.py
       - name: Guard private production candidate setup
         run: |
           bash -n scripts/deploy-examtree-api-cloudrun-production-candidate.sh
