@@ -1,4 +1,6 @@
-export type Bns001TaskKind = "NEXT_TERM" | "MISSING_TERM";
+export type Bns001Language = "en" | "hi" | "pa";
+
+export type Bns001TaskKind = "NEXT_TERM" | "MISSING_TERM" | "WRONG_TERM";
 
 export type Bns001PatternKind =
   | "ARITHMETIC_DIFFERENCE"
@@ -19,7 +21,7 @@ export type Bns001Question = Readonly<{
   packageId: "BNS-001";
   questionId: string;
   seed: string;
-  language: "en";
+  language: Bns001Language;
   examProfile: "BANKING_PRELIMS";
   optionCount: 5;
   taskKind: Bns001TaskKind;
@@ -46,7 +48,7 @@ export type Bns001Question = Readonly<{
   }>;
   traceability: Readonly<{
     packageId: "BNS-001";
-    contractVersion: "BNS-001-PHASE0-V1";
+    contractVersion: "BNS-001-CONTENT-REVIEW-V2";
     ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES";
     numberSystemOwnership: false;
     reasoningLetterSeriesOwnership: false;
