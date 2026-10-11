@@ -54,27 +54,52 @@ def daily_pairs(paths):
     return sorted(x for x in dumps if x + ".sha256" in names)
 
 
+def lifecycle_rules(bucket):
+    """Both JSON API metadata and gcloud's normalized bucket output."""
+    if not isinstance(bucket, dict):
+        return []
+    for key in ("lifecycle", "lifecycle_config"):
+        value = bucket.get(key)
+        if isinstance(value, dict) and isinstance(value.get("rule"), list):
+            return value["rule"]
+    return []
+
+
 def has_lifecycle_rule(bucket):
-    rule = (bucket.get("lifecycle") or {}).get("rule") or []
-    for item in rule:
+    for item in lifecycle_rules(bucket):
+        if not isinstance(item, dict):
+            continue
         action, condition = item.get("action") or {}, item.get("condition") or {}
-        prefixes = condition.get("matchesPrefix") or []
-        if action.get("type") == "Delete" and "neon-backups/daily/" in prefixes and condition.get("age") == 30:
+        prefixes = condition.get("matchesPrefix", condition.get("matches_prefix", [])) or []
+        if (action.get("type") == "Delete" and "neon-backups/daily/" in prefixes
+                and condition.get("age") == 30):
             return True
     return False
 
 
 def bucket_access_protected(bucket):
-    """GCS places publicAccessPrevention inside iamConfiguration.
+    """Check both gcloud-normalized and raw GCS JSON API fields; fail closed.
 
-    Do not treat a missing field as proof that access is protected.
+    gcloud storage buckets describe --format=json normally uses top-level
+    uniform_bucket_level_access and public_access_prevention, unlike the
+    Storage JSON API's nested iamConfiguration names.
     """
     if not isinstance(bucket, dict):
         return False
-    iam = bucket.get("iamConfiguration") or {}
-    uniform = (iam.get("uniformBucketLevelAccess") or {}).get("enabled") is True
-    pap = iam.get("publicAccessPrevention", bucket.get("publicAccessPrevention"))
-    return uniform and isinstance(pap, str) and pap.lower() == "enforced"
+    iam = bucket.get("iamConfiguration") or bucket.get("iam_configuration") or {}
+    uniform = bucket.get("uniform_bucket_level_access",
+                         bucket.get("uniformBucketLevelAccess"))
+    if uniform is None:
+        uniform = iam.get("uniformBucketLevelAccess",
+                          iam.get("uniform_bucket_level_access"))
+    if isinstance(uniform, dict):
+        uniform = uniform.get("enabled")
+    pap = bucket.get("public_access_prevention",
+                     bucket.get("publicAccessPrevention"))
+    if pap is None:
+        pap = iam.get("publicAccessPrevention",
+                      iam.get("public_access_prevention"))
+    return uniform is True and isinstance(pap, str) and pap.lower() == "enforced"
 
 
 def schedule_matches(s, cron, tz):

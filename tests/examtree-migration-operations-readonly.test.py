@@ -47,6 +47,46 @@ class OpsPreflightTests(unittest.TestCase):
         }))
         self.assertFalse(ops.bucket_access_protected(None))
 
+    def test_gcloud_normalized_bucket_security(self):
+        normalized = {
+            "uniform_bucket_level_access": True,
+            "public_access_prevention": "enforced",
+        }
+        self.assertTrue(ops.bucket_access_protected(normalized))
+        self.assertFalse(ops.bucket_access_protected({
+            **normalized, "public_access_prevention": "inherited",
+        }))
+        self.assertFalse(ops.bucket_access_protected({
+            **normalized, "uniform_bucket_level_access": False,
+        }))
+        nested_normalized = {"iam_configuration": {
+            "uniform_bucket_level_access": {"enabled": True},
+            "public_access_prevention": "enforced",
+        }}
+        self.assertTrue(ops.bucket_access_protected(nested_normalized))
+
+    def test_gcloud_normalized_lifecycle(self):
+        policy = {"lifecycle_config": {"rule": [{
+            "action": {"type": "Delete"},
+            "condition": {"age": 30, "matchesPrefix": ["neon-backups/daily/"]},
+        }]}}
+        self.assertTrue(ops.has_lifecycle_rule(policy))
+        self.assertFalse(ops.has_lifecycle_rule({"lifecycle_config": {"rule": [{
+            "action": {"type": "Delete"}, "condition": {"age": 7,
+                "matchesPrefix": ["neon-backups/daily/"]},
+        }]}}))
+        self.assertFalse(ops.has_lifecycle_rule({"lifecycle_config": {"rule": [{
+            "action": {"type": "Delete"}, "condition": {"age": 30,
+                "matchesPrefix": ["neon-backups/"]},
+        }]}}))
+
+    def test_retention_guard_checks_both_metadata_formats(self):
+        shell = (Path(__file__).resolve().parents[1] /
+                 "ops/neon-daily-backup/retention-30-days.sh").read_text()
+        self.assertIn("('lifecycle', 'lifecycle_config')", shell)
+        self.assertIn("Existing lifecycle policy found", shell)
+        self.assertIn("matchesPrefix", shell)
+
     def test_daily_backup_schedule(self):
         self.assertTrue(ops.schedule_matches({"state": "ENABLED",
             "schedule": "30 3 * * *", "timeZone": "Asia/Kolkata"}, "30 3 * * *", "Asia/Kolkata"))
