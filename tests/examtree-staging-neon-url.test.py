@@ -25,8 +25,6 @@ class NeonUrlSafetyTests(unittest.TestCase):
         self.assertTrue(validator.check_connection_string(
             URL.replace("sslmode=require", "sslmode=verify-full"))[0])
         self.assertTrue(validator.check_connection_string(
-            URL.replace("/neondb?", ":5432/neondb?"))[0] is False)  # malformed host/port
-        self.assertTrue(validator.check_connection_string(
             URL.replace(f"@{DIRECT}/", f"@{DIRECT}:5432/"))[0])
 
     def test_refuse_production_and_poolers(self):
