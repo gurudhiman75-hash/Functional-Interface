@@ -48,7 +48,11 @@ SELECT json_build_object(
       AND pe.payload#>>'{data,payment,payment_status}' = 'SUCCESS'
       AND pe.payload#>>'{data,payment,payment_currency}' = pa.currency
       AND CASE
-        WHEN pe.payload#>>'{data,payment,payment_amount}' ~ '^[0-9]+([.][0-9]+)?
+        WHEN pe.payload#>>'{data,payment,payment_amount}' SIMILAR TO '[0-9]+([.][0-9]+)?'
+        THEN (pe.payload#>>'{data,payment,payment_amount}')::numeric * 100 = pa.amount_minor
+        ELSE false
+      END
+  ),
   'unresolved_refunds', (
     SELECT COALESCE(json_agg(json_build_object(
       'id', r.id::text, 'status', r.status, 'amount_minor', r.amount_minor,
