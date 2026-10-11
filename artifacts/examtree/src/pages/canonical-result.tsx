@@ -15,7 +15,6 @@ import {
   Target,
   Timer,
   TrendingUp,
-  TrendingDown,
   XCircle,
 } from "lucide-react";
 
@@ -347,7 +346,7 @@ export default function CanonicalResult() {
                   <CartesianGrid stroke="#edf0f7" strokeDasharray="3 4" horizontal={false} />
                   <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} />
                   <YAxis dataKey="name" type="category" width={112} tick={{ fontSize: 11 }} />
-                  <Tooltip formatter={(value: number, name: string) => [value == null ? "Not available" : value + "%", name]} />
+                  <Tooltip />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
                   <Bar dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
@@ -499,7 +498,11 @@ export default function CanonicalResult() {
                         const selected = optionIndex === item.selected;
                         return (
                           <div key={optionIndex} className={`rounded-xl border px-3 py-3 text-sm leading-6 ${correct ? "border-emerald-200 bg-emerald-50/70" : selected ? "border-rose-200 bg-rose-50/70" : "border-[#eceaf2] bg-white"}`}>
-                            <div className="flex items-start gap-2"><strong className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[11px] ${correct ? "bg-emerald-100 text-emerald-700" : selected ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-500"}`}>{String.fromCharCode(65 + optionIndex)}</strong><div className="min-w-0 text-slate-700"><QuestionRichText content={option} lang="en" /></div></div>
+                            <div className="flex items-start gap-2"><strong className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[11px] ${correct ? "bg-emerald-100 text-emerald-700" : selected ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-500"}`}>{String.fromCharCode(65 + optionIndex)}</strong><div className="min-w-0 text-slate-700">
+                              <QuestionRichText content={option} lang="en" />
+                              {correct && <span className="mt-1 inline-block text-[11px] font-bold text-emerald-700">Correct answer</span>}
+                              {selected && !correct && <span className="mt-1 inline-block text-[11px] font-bold text-rose-700">Your answer</span>}
+                            </div></div>
                           </div>
                         );
                       })}
