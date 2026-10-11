@@ -80,6 +80,36 @@ These tests do not establish signed provider webhook delivery, attempt writes,
 idempotent refunds, or background job readiness. Render and public routing
 remain untouched pending separate evidence and explicit approval.
 
+
+## Expired paid-test access preflight (2026-10-11)
+
+The Neon main TEST dataset currently has only one live published test,
+`T-CF-SANDBOX-20261009`, with three scored questions and a paid product link.
+Both historical one-day sandbox entitlements are past their validity end:
+one was refunded and revoked; the other retains database status `active`
+but expired at 2026-10-11 03:26:43 UTC. Effective paid access must therefore
+remain DENIED; a student account should not silently regain access because
+the ledger status is still `active`.
+
+Verify the actual Cloud Run staging entitlement middleware using an existing
+test-student Firebase ID token entered at a hidden prompt:
+
+    bash scripts/verify-examtree-cloudrun-paid-test-expiry.sh
+
+The script sends GETs only and checks that effective entitlement access
+returns `allowed=false`, `paidAccessRequired=true`, and
+`reason=entitlement_required`, and that test questions are rejected with
+403. It makes no checkout, attempt, refund or manual entitlement changes.
+Authentication middleware can still update identity/login metadata.
+
+**Positive test submission is blocked until a deliberate fixture is prepared.**
+Do NOT extend the expired paid entitlements, create a new Cashfree payment,
+rewrite order status, or bypass `requireTestAccess` merely to make the test
+pass. The next phase should use an isolated, approved free test publication
+or an explicitly approved, correctly audited disposable entitlement before
+starting/saving/submitting any new attempt. Staging and Render share Neon
+main, so fixture creation affects both APIs and needs operator approval.
+
 ## Acceptance gates before Cloudflare cutover
 - [ ] `GET /health` 200, and configured API functions do not return 502/503.
 - [ ] Firebase Google and mobile-number auth verified using Google-managed service identity; admin RBAC denied to ordinary student and allowed for superadmin.
