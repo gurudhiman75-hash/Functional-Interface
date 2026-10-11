@@ -168,7 +168,7 @@ export function buildSriOptions(
   const correctIndex = rotated.findIndex((option) => option.canonicalKey === correct.canonicalKey);
   if (correctIndex < 0 || correctIndex > 3) throw new Error("Correct option missing after deterministic rotation");
   return {
-    options: rotated as SriDiscoveryQuestion["options"],
+    options: [rotated[0]!, rotated[1]!, rotated[2]!, rotated[3]!],
     correctIndex: correctIndex as 0 | 1 | 2 | 3,
   };
 }

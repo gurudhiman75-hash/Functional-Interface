@@ -102,6 +102,7 @@ assert.equal(audit.freezeId, SRI_PERMANENT_MULTILINGUAL_FREEZE_ID_V1);
 assert.equal(audit.artifactId, 9684834606);
 assert.equal(audit.englishFrozen, true);
 assert.equal(audit.multilingualFrozen, true);
+assert.equal(audit.questionStudioReviewEnabled, true);
 assert.equal(audit.downstreamLocked, true);
 
 console.log(JSON.stringify({

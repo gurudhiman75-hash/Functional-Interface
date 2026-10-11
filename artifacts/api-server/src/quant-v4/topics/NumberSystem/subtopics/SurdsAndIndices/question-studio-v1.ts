@@ -46,8 +46,8 @@ const PACKAGE_LABELS: Readonly<Record<SriPermanentPackageId, string>> = Object.f
 });
 
 const PACKAGE_CHECKPOINTS: Readonly<Record<SriPermanentPackageId, readonly SriCheckpointId[]>> = Object.freeze({
-  "SRI-001": Object.freeze(["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"]),
-  "SRI-002": Object.freeze(["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"]),
+  "SRI-001": Object.freeze(["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"] as const),
+  "SRI-002": Object.freeze(["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"] as const),
 });
 
 /**
@@ -431,6 +431,7 @@ function eligibleAllocations(request: SriQuestionStudioRequestV1, difficulty: Sr
   if (explicitQl && !isSriQlId(explicitQl)) throw new Error(`${explicitQl} is not a permanent SRI QL.`);
 
   if (explicitQl) {
+    if (!isSriQlId(explicitQl)) throw new Error(`${explicitQl} is not a permanent SRI QL.`);
     const allocation = getSriPermanentAllocationByQlId(explicitQl);
     if (packageId && allocation.packageId !== packageId) throw new Error(`${explicitQl} is not owned by ${packageId}.`);
     if (checkpointId && allocation.checkpointId !== checkpointId) throw new Error(`${explicitQl} is not owned by ${checkpointId}.`);
