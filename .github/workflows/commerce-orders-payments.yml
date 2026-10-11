@@ -5,6 +5,8 @@ on:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/lib/commerce-capture-state.ts
+      - artifacts/api-server/tests/commerce-capture-state.test.mjs
       - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/lib/cashfree-payments.ts
       - artifacts/api-server/src/lib/cashfree-refunds.ts
@@ -23,6 +25,8 @@ on:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/lib/commerce-capture-state.ts
+      - artifacts/api-server/tests/commerce-capture-state.test.mjs
       - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/lib/cashfree-payments.ts
       - artifacts/api-server/src/lib/cashfree-refunds.ts
@@ -83,6 +87,8 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Test Cashfree refund and signature helpers
         run: (cd artifacts/api-server && node tests/cashfree-payments.test.mjs)
+      - name: Assert capture terminal-state safety
+        run: (cd artifacts/api-server && node tests/commerce-capture-state.test.mjs)
       - name: Check reconciliation diagnostics are read-only and permissioned
         run: node --test artifacts/api-server/tests/admin-commerce-reconciliation-health.test.mjs
       - name: Check provider-verified refund reconciliation administrator audit
