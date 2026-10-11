@@ -154,57 +154,70 @@ identity. Those cannot be inferred from the mere presence of a service
 definition. The eventual public promotion and job activation are **separate**
 cutover decisions.
 
-## Approved phased cutover: purchases paused, no sandbox keys on live Neon
+## Approved phased cutover: student API on Cloud Run, Render temporarily retained
 
-Owner selected a web API switch **before Cashfree live activation**, with new
-purchases explicitly disabled. Never point Cloudflare at
-`examtree-api-staging`: that service uses a copied **staging database**.
+Owner approved a web backend switch **before Cashfree live activation**, with
+new purchases disabled. It is a **phased** move, not full Render shutdown:
 
-The new guarded production candidate accepts
-`EXAMTREE_PRODUCTION_SALES_PAUSED=yes`. In this mode it requires the
-**production MAIN Neon** database secret and the production AI API key but
-**does not require or mount Cashfree production or sandbox credentials**.
-It deploys `EXAMTREE_SALES_DISABLED=true` and
-`EXAMTREE_PAYMENT_PROVIDER=none`; new checkout writes (canonical + legacy)
-are blocked with HTTP 503 before any database writes or provider calls.
-Public catalog reports `salesEnabled:false` and
-`checkoutProvider:"disabled"`, which the student checkout UI uses to show
-a clear temporary sales pause.
+- The new Cloud Run **production** API uses the existing live Neon MAIN
+  database. **Never** route students to isolated `examtree-api-staging`.
+- Set `EXAMTREE_PRODUCTION_SALES_PAUSED=yes` so the production API blocks
+  canonical and legacy purchase creation before any writes, and the student
+  checkout is visibly unavailable.
+- Set `EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER=yes` to enable the
+  temporary no-AI-key bridge. This mode is permitted only while sales remain
+  paused: `EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=true`.
+  Cloudflare keeps **all** `/api/admin/*` endpoints (including Question Studio
+  and admin session) on Render, while direct Cloud Run admin routes fail closed.
+  No OpenAI production key is required for this **limited student API** mode.
+- Cloudflare likewise keeps existing provider webhooks, old-order confirm and
+  reconciliation, legacy payment verification and admin finance on Render.
+  Purchases are OFF. There are **no live or sandbox Cashfree credentials on
+  the Cloud Run production API**.
+- Render continues handling existing payment callbacks, the admin panel and
+  background polling during the transition. Do **not** stop Render, activate
+  a second worker/scheduler, revoke its payment keys, or change Cashfree's
+  registered webhook.
+- Older Android APKs have embedded Render endpoints. New mobile builds use
+  `https://examtree.in/api`; older builds keep using Render until upgraded.
 
-**Important separate blocker:** AI extraction currently requires
-`examtree-openai-api-key` in Secret Manager for a production API to start.
-Do NOT circumvent production AI startup checks silently. A production key
-can be moved into Secret Manager privately; it must never enter GitHub,
-chat, shell history or frontend bundles.
+This temporary bridge is suitable only for a phased migration, not the final
+claim that Render has been retired. It makes student-facing API service
+availability possible without live Cashfree or OpenAI credentials **provided
+that the production Cloud Run candidate is built and passes verification**.
+AI/admin remains available from Render rather than degrading Question Studio.
 
-After provisioning and verifying this AI secret, a **private candidate** can
-be built by the previously approved, cost-gated deployment script:
+From a clean up-to-date `New-main` Cloud Shell checkout after explicit
+cost/candidate approval:
 
 ```bash
 EXAMTREE_PRODUCTION_SALES_PAUSED=yes \
+EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER=yes \
 EXAMTREE_PRODUCTION_CANDIDATE_APPROVED=yes \
 EXAMTREE_BUDGET_READY=yes \
 bash scripts/deploy-examtree-api-cloudrun-production-candidate.sh
 ```
 
-This does NOT perform a public cutover: it creates the separate private
-`examtree-api` service and inert production background job only.
-Review authenticated production candidate readiness and public invocation
-security before changing Cloudflare.
+This creates a PRIVATE production `examtree-api` service and an inert
+`examtree-api-background` job. It does NOT switch the public API route,
+change Render/Cashfree, or start a worker. The only required existing
+secret is `examtree-api-database-url`; validation rejects staging Neon.
+The script fails rather than overwriting any existing production API/job.
 
-The Cloudflare Pages API proxy additionally blocks staging hostnames and
-keeps existing in-flight payment callback endpoints
-`/api/billing/{cashfree/}webhook` and
-`/api/commerce/orders/:id/{reconcile,confirm}` on **Render**, even when the
-other API paths later point at Cloud Run. Do not decommission Render or
-change its Cashfree webhook configuration until live payment reconciliation
-and old installed Android clients no longer depend on it. The temporary
-payment fallback must be removed during the separate live payments handover.
+Next, validate the private candidate's authenticated health, catalog
+(`salesEnabled:false`), blocked checkout (503 with
+`SALES_TEMPORARILY_UNAVAILABLE`), delegated admin requests
+(`ADMIN_HANDLED_BY_RENDER_DURING_CUTOVER`), Firebase permissions, and
+no worker execution. Prove the Cloudflare Pages deployment includes its
+staging-host reject rule and temporary Render admin/payment bypass.
+**Only then**, authorize public invoker and update the Pages Production
+`EXAMTREE_API_UPSTREAM_ORIGIN` to the verified dedicated `examtree-api`
+production URL. Independently recheck live endpoints and rollback.
 
-**Rollback:** Clear the Pages `EXAMTREE_API_UPSTREAM_ORIGIN` production
-override to restore Render, without changing production Neon. Confirm
-Cloud Run Scheduler has not started and Render timers remain active. No
-existing-customer entitlement should depend on staging Neon.
+Rollback: clear that Pages variable to restore Render immediately; avoid
+changing Neon or worker settings during rollback. The payment/admin Render
+bypass must be removed only at a **later** production merchant/AI cutover,
+with its own verification and plan.
 
 ## Safe sequence to finish actual migration
 
