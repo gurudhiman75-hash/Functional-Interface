@@ -2,15 +2,15 @@
 set -euo pipefail
 
 # Safe first deployment of the Express API; no public traffic changes.
-# The existing Neon main database contains TEST DATA ONLY per the owner.
-# Use its URL only via Google Secret Manager; no second Neon compute needed.
+# Never use the live Render/Neon main database for Cloud Run staging.
+# The existing isolated branch has a separate compute endpoint.
 # Do NOT activate duplicate background pollers while Render is still live.
 PROJECT="${1:-sarbedutech}"
 REGION="asia-south1"
 SERVICE="examtree-api-staging"
 JOB="examtree-api-background-staging"
 ACCOUNT="examtree-api-runtime"
-SECRET="examtree-api-database-url"
+SECRET="examtree-api-staging-database-url"
 TOKEN_SECRET="examtree-trg002-worker-token"
 # Default remains unconfigured/disabled for Cashfree. Explicitly opting into
 # sandbox requires two dedicated sandbox secrets and never changes production.
@@ -45,6 +45,20 @@ for required in "${REQUIRED_SECRETS[@]}"; do
     echo "Secret $required has no enabled version" >&2; exit 1;
   }
 done
+# Secret data is streamed (not logged); fail closed if a main connection was stored.
+if ! gcloud secrets versions access latest --secret="$SECRET" --project="$PROJECT" |
+  python3 -c 'import sys
+from urllib.parse import urlsplit,parse_qs
+try:
+ u=urlsplit(sys.stdin.read())
+ assert u.scheme in ("postgres","postgresql")
+ assert u.hostname=="ep-wild-water-atrzmssw.c-9.us-east-1.aws.neon.tech"
+ assert u.path=="/neondb" and u.username and u.password
+ assert parse_qs(u.query).get("sslmode")==["require"]
+except (AssertionError,ValueError): sys.exit(1)' ; then
+  echo "FAIL: staging database secret does not point at the isolated Neon branch; no build/deploy." >&2
+  exit 1
+fi
 SA="$ACCOUNT@$PROJECT.iam.gserviceaccount.com"
 if ! gcloud iam service-accounts describe "$SA" --project="$PROJECT" >/dev/null 2>&1; then
   gcloud iam service-accounts create "$ACCOUNT" --project="$PROJECT" --display-name="Examtree Cloud Run API" >/dev/null
@@ -65,7 +79,7 @@ fi
 
 FULL_REVISION="$(git rev-parse HEAD)"
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/$REGISTRY/examtree-api:$FULL_REVISION"
-echo "[api-staging] Building revision $FULL_REVISION against existing Neon TEST data"
+echo "[api-staging] Building revision $FULL_REVISION against isolated Neon staging branch"
 gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
   --config="$ROOT/cloudbuild.examtree-cloudrun-api.yaml" \
   --ignore-file="$ROOT/Dockerfile.question-studio-worker.dockerignore" \
@@ -143,7 +157,7 @@ gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
   --memory=2Gi --cpu=1 --tasks=1 --parallelism=1 --task-timeout=600 \
   --max-retries=0 --command=node \
   --args="--import=/app/artifacts/api-server/cloud-run-preload.mjs,artifacts/api-server/dist/cloud-run-background.mjs" \
-  --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app" \
+  --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=true,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app" \
   --set-secrets="DATABASE_URL=$SECRET:latest" --quiet >/dev/null
 
 echo "EXAMTREE API STAGING READY: $URL"
@@ -152,5 +166,5 @@ echo "Cloudflare and mobile still use Render; no production webhook subscription
 if [[ "$CASHFREE_SANDBOX" == "yes" ]]; then
   echo "New staging Cashfree SANDBOX checkout orders will notify the Cloud Run staging webhook URL."
 fi
-echo "Existing Neon main test DB was reused; no new Neon compute required."
+echo "An isolated Neon staging branch was used, not the live Neon main database."
 echo "Do not turn off Render until auth, attempt, payment, webhook, and scheduled-job checks pass."
