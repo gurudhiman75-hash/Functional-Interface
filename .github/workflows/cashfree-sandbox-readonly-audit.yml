@@ -1,0 +1,28 @@
+name: Validate Cashfree Sandbox Read-Only Audit
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - scripts/audit-cashfree-sandbox-readonly.py
+      - tests/cashfree-sandbox-readonly-audit.test.py
+      - docs/cashfree-sandbox-readonly-reconciliation-2026-10-11.md
+      - .github/workflows/cashfree-sandbox-readonly-audit.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cashfree-readonly-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  read-only-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: python3 -m py_compile scripts/audit-cashfree-sandbox-readonly.py tests/cashfree-sandbox-readonly-audit.test.py
+      - name: Verify offline mocked Cashfree evidence and GET-only network guard
+        run: python3 tests/cashfree-sandbox-readonly-audit.test.py
