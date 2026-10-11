@@ -2,7 +2,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
+trap 'status=$?; if (( status != 0 )); then echo "FAIL: daily backup fixture exited $status; captured mock logs:" >&2; for f in "$WORK"/*.log; do if [[ -f "$f" ]]; then echo "--- ${f##*/} ---" >&2; tail -n 35 "$f" >&2; fi; done; fi; rm -rf "$WORK"' EXIT
 mkdir -p "$WORK/bin" "$WORK/gcs"
 
 cat > "$WORK/bin/pg_dump" <<'MOCK'
