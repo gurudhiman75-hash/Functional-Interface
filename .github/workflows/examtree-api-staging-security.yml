@@ -22,6 +22,8 @@ on:
       - tests/examtree-migration-operations-readonly.test.py
       - scripts/verify-examtree-cloudrun-num001-review.py
       - tests/examtree-cloudrun-num001-review.test.py
+      - scripts/verify-examtree-question-studio-review-reads.py
+      - tests/examtree-question-studio-review-reads.test.py
   push:
     branches: [New-main]
     paths:
@@ -63,3 +65,5 @@ jobs:
         run: python3 tests/examtree-migration-operations-readonly.test.py
       - name: Guard authenticated NUM-001 staging review-only smoke
         run: python3 tests/examtree-cloudrun-num001-review.test.py
+      - name: Guard authenticated admin review-page GET verification
+        run: python3 tests/examtree-question-studio-review-reads.test.py
