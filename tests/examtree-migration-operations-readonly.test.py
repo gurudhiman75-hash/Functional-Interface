@@ -24,6 +24,29 @@ class OpsPreflightTests(unittest.TestCase):
         self.assertFalse(ops.has_lifecycle_rule({"lifecycle": {"rule": [{
             "action": {"type": "Delete"}, "condition": {"age": 30, "matchesPrefix": ["neon-backups/"]}}]}}))
 
+    def test_bucket_security_reads_iam_configuration(self):
+        protected = {"iamConfiguration": {
+            "uniformBucketLevelAccess": {"enabled": True},
+            "publicAccessPrevention": "enforced",
+        }}
+        self.assertTrue(ops.bucket_access_protected(protected))
+        self.assertFalse(ops.bucket_access_protected({
+            "iamConfiguration": {"uniformBucketLevelAccess": {"enabled": True}},
+        }))
+        self.assertFalse(ops.bucket_access_protected({
+            "iamConfiguration": {
+                "uniformBucketLevelAccess": {"enabled": False},
+                "publicAccessPrevention": "enforced",
+            },
+        }))
+        self.assertFalse(ops.bucket_access_protected({
+            "iamConfiguration": {
+                "uniformBucketLevelAccess": {"enabled": True},
+                "publicAccessPrevention": "inherited",
+            },
+        }))
+        self.assertFalse(ops.bucket_access_protected(None))
+
     def test_daily_backup_schedule(self):
         self.assertTrue(ops.schedule_matches({"state": "ENABLED",
             "schedule": "30 3 * * *", "timeZone": "Asia/Kolkata"}, "30 3 * * *", "Asia/Kolkata"))
