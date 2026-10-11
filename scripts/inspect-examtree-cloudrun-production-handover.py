@@ -115,9 +115,14 @@ def main():
                 and secrets.get("CASHFREE_CLIENT_ID") is not None
                 and secrets.get("CASHFREE_CLIENT_SECRET") is not None)
         gate("production financial mode: sales explicitly paused OR real Cashfree configured", paused or live)
-        gate("AI provider configured in production with secret-mapped key",
-             any(secrets.get(key) for key in
-                 ("OPENAI_API_KEY", "DEEPSEEK_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY")))
+        ai_delegated = (env.get("EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER") == "true"
+                        and env.get("EXAMTREE_SALES_DISABLED") == "true"
+                        and env.get("EXAMTREE_API_STAGING") == "false"
+                        and not any(secrets.get(key) for key in
+                                    ("OPENAI_API_KEY","DEEPSEEK_API_KEY","GEMINI_API_KEY","ANTHROPIC_API_KEY")))
+        ai_present = any(secrets.get(key) for key in
+                         ("OPENAI_API_KEY", "DEEPSEEK_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY"))
+        gate("production AI configured OR explicitly delegated to live Render admin", ai_present or ai_delegated)
 
     job = json_command("gcloud", "run", "jobs", "describe", PROD_JOB,
                        "--project=" + PROJECT, "--region=" + REGION)
