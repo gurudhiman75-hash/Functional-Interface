@@ -10,8 +10,10 @@ on:
       - tests/examtree-cloudrun-authenticated.test.sh
       - scripts/verify-examtree-cloudrun-paid-test-expiry.sh
       - scripts/verify-examtree-cloudrun-attempt-persistence.sh
+      - scripts/verify-examtree-cloudrun-scored-attempt.sh
       - tests/examtree-cloudrun-paid-test-expiry.test.sh
       - tests/examtree-cloudrun-attempt-persistence.test.sh
+      - tests/examtree-cloudrun-scored-attempt.test.sh
   push:
     branches: [New-main]
     paths:
@@ -43,3 +45,5 @@ jobs:
         run: bash tests/examtree-cloudrun-paid-test-expiry.test.sh
       - name: Guard disposable positive attempt test (static only)
         run: bash tests/examtree-cloudrun-attempt-persistence.test.sh
+      - name: Guard scored attempt smoke test (static only)
+        run: bash tests/examtree-cloudrun-scored-attempt.test.sh
