@@ -254,6 +254,55 @@ def evaluate(local, gateway_order, payments, refund_results):
     return sorted(set(alerts)), len(success_ids)
 
 
+def refund_readiness(local, payments, refund_results):
+    """Assess proof links without ever authorizing a financial mutation.
+
+    Provider success + signed and processed webhook evidence may still be
+    insufficient for repair: the production API independently checks that
+    the old 19-digit value matches precisely the legacy Number() rounding.
+    """
+    reports = []
+    successes = [
+        p for p in payments if isinstance(p, dict)
+        and p.get("payment_status") == "SUCCESS" and p.get("cf_payment_id") is not None
+    ] if isinstance(payments, list) else []
+    verified_success_ids = {
+        str(p["cf_payment_id"]) for p in successes
+        if money_minor(p.get("payment_amount")) == int(local.get("payment_amount_minor") or -1)
+        and str(p.get("payment_currency") or "").upper() == str(local.get("currency") or "").upper()
+    }
+    signed_ids = {str(x) for x in local.get("signed_payment_ids") or [] if x is not None}
+    for refund in local.get("unresolved_refunds") or []:
+        code, receipt = refund_results.get(str(refund.get("id")), (0, None))
+        if code != 200 or not isinstance(receipt, dict):
+            reports.append({
+                "ref": "provider_unverified", "gateway_payment": "unverified",
+                "signed_payment": "unverified", "required_fields": "unverified",
+            })
+            continue
+        raw_id = receipt.get("cf_payment_id")
+        exact = str(raw_id) if raw_id is not None else ""
+        required = (
+            "refund_id", "order_id", "cf_payment_id", "cf_refund_id",
+            "refund_amount", "refund_currency", "refund_status",
+        )
+        missing = sorted(field for field in required if receipt.get(field) in (None, ""))
+        reference_ok = (
+            receipt.get("refund_id") == "et" + str(refund.get("id") or "").replace("-", "").lower()
+            and receipt.get("order_id") == local.get("provider_order")
+            and money_minor(receipt.get("refund_amount")) == int(refund.get("amount_minor") or -1)
+            and str(receipt.get("refund_currency") or "").upper() == str(local.get("currency") or "").upper()
+            and str(receipt.get("refund_status") or "").upper() == "SUCCESS"
+        )
+        reports.append({
+            "ref": "consistent" if reference_ok else "not_verified",
+            "gateway_payment": "yes" if exact in verified_success_ids else "no",
+            "signed_payment": "yes" if exact in signed_ids else "no",
+            "required_fields": "complete" if not missing else "missing:" + ",".join(missing),
+        })
+    return reports
+
+
 def main():
     if len(sys.argv) != 1:
         raise RuntimeError("Usage: python3 scripts/audit-cashfree-sandbox-readonly.py")
@@ -298,6 +347,13 @@ def main():
             alerts.append("provider_payments_GET_HTTP_" + str(pay_code))
         if alerts:
             count_alert += 1
+        for diagnostic in refund_readiness(row, payments if pay_code == 200 else None, refund_results):
+            print("REFUND_REVIEW " + label
+                  + ": provider_refund=" + diagnostic["ref"]
+                  + " exact_gateway_success=" + diagnostic["gateway_payment"]
+                  + " signed_success_event=" + diagnostic["signed_payment"]
+                  + " required_evidence=" + diagnostic["required_fields"]
+                  + " action=manual_review_only")
         print("ORDER " + label + ": local_order=" + str(row.get("order_status")) +
               " local_payment=" + str(row.get("payment_status")) +
               " provider_success_count=" + str(success_count) +
