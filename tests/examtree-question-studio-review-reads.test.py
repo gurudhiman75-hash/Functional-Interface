@@ -5,6 +5,8 @@ import json
 from email.message import Message
 from urllib.error import HTTPError
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 import unittest
 
 PATH = Path(__file__).resolve().parents[1] / "scripts/verify-examtree-question-studio-review-reads.py"
@@ -132,6 +134,49 @@ class ReviewReadContractTests(unittest.TestCase):
         body = sample()
         body["runs"][0]["items"][2]["payload"]["correctIndex"] = 5
         self.assertFalse(self.validate(body)[0])
+
+    def test_cloudflare_get_uses_curl_with_token_only_on_stdin(self):
+        fake_token = "signed.token.example"
+        observed = {}
+
+        def execute(cmd, **kwargs):
+            observed["cmd"] = cmd
+            observed["kwargs"] = kwargs
+            return SimpleNamespace(returncode=0, stdout=b'{"runs":[]}\nEXAMTREE_CURL_STATUS:200')
+
+        with patch.object(mod.subprocess, "run", side_effect=execute):
+            data, error = mod.fetch_curl(mod.FRONTEND_ORIGIN, "GEN-20261011-635BA10F", fake_token)
+        self.assertIsNone(error)
+        self.assertEqual(data, {"runs": []})
+        self.assertNotIn(fake_token, repr(observed["cmd"]))
+        self.assertNotIn("Authorization", repr(observed["cmd"]))
+        self.assertIn(b"Authorization: Bearer " + fake_token.encode("ascii"), observed["kwargs"]["input"])
+        self.assertIn("--config", observed["cmd"])
+        self.assertIn("--disable", observed["cmd"])
+        self.assertIn("--proto", observed["cmd"])
+        self.assertNotIn("--location", observed["cmd"])
+        self.assertNotIn("--location-trusted", observed["cmd"])
+        self.assertNotIn("--data", observed["cmd"])
+
+    def test_cloudflare_anonymous_denial_is_expected_not_false_403(self):
+        with patch.object(mod.subprocess, "run", return_value=SimpleNamespace(
+            returncode=0, stdout=b'{"error":"No token provided"}\nEXAMTREE_CURL_STATUS:401')):
+            data, error = mod.fetch_curl(mod.PAGES_ORIGIN, "GEN-20261011-635BA10F", "")
+        self.assertIsNone(data)
+        self.assertEqual(error, "HTTP 401 (curl GET)")
+
+    def test_cloudflare_403_is_not_silently_accepted(self):
+        with patch.object(mod.subprocess, "run", return_value=SimpleNamespace(
+            returncode=0, stdout=b'{"status":403}\nEXAMTREE_CURL_STATUS:403')):
+            data, error = mod.fetch_curl(mod.FRONTEND_ORIGIN, "GEN-20261011-635BA10F", "x.y.z")
+        self.assertIsNone(data)
+        self.assertEqual(error, "HTTP 403 (curl GET)")
+
+    def test_curl_rejects_unsupported_host_and_header_injection(self):
+        with patch.object(mod.subprocess, "run") as run:
+            self.assertIsNotNone(mod.fetch_curl(mod.RENDER_ORIGIN, "GEN-20261011-635BA10F", "x.y.z")[1])
+            self.assertIsNotNone(mod.fetch_curl(mod.FRONTEND_ORIGIN, "GEN-20261011-635BA10F", "bad\\nheader")[1])
+            run.assert_not_called()
 
     def test_no_auto_publish_code_and_only_safe_methods(self):
         source = PATH.read_text()
