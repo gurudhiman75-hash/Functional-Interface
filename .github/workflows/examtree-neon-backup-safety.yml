@@ -9,6 +9,9 @@ on:
       - tests/neon-backup-encryption.test.sh
       - docs/neon-backup-and-recovery-runbook.md
       - ops/neon-daily-backup/**
+      - ops/neon-backup-freshness/**
+      - tests/neon-backup-freshness.test.py
+      - tests/neon-backup-freshness-deploy.test.sh
       - tests/neon-daily-backup.test.sh
       - tests/neon-backup-bucket-security.test.sh
       - tests/neon-backup-serviceaccount.test.sh
@@ -34,7 +37,9 @@ jobs:
           bash -n tests/neon-daily-backup.test.sh
           bash -n tests/neon-backup-bucket-security.test.sh
           bash -n tests/neon-backup-serviceaccount.test.sh
-          for script in ops/neon-daily-backup/*.sh; do bash -n "$script"; done
+          for script in ops/neon-daily-backup/*.sh ops/neon-backup-freshness/*.sh; do bash -n "$script"; done
+          python3 -m py_compile ops/neon-backup-freshness/check_freshness.py tests/neon-backup-freshness.test.py
+          bash -n tests/neon-backup-freshness-deploy.test.sh
       - name: Simulate backup and checksum failure with fake PostgreSQL I/O
         run: bash tests/neon-backup-encryption.test.sh
       - name: Simulate daily Cloud Run backup and GCS failure modes
@@ -43,3 +48,7 @@ jobs:
         run: bash tests/neon-backup-bucket-security.test.sh
       - name: Simulate IAM service-account visibility and binding propagation
         run: bash tests/neon-backup-serviceaccount.test.sh
+      - name: Validate independent missing-backup watchdog date boundaries and failure modes
+        run: python3 tests/neon-backup-freshness.test.py
+      - name: Verify missing backups cannot silently enable watchdog schedule
+        run: bash tests/neon-backup-freshness-deploy.test.sh
