@@ -101,10 +101,11 @@ export default function PerformanceOverview() {
   const topics = useMemo(() => aggregateTopics(selected), [selected]);
   const trend = useMemo(() => scoreTrend(selected), [selected]);
   const focusTopics = useMemo(() => topics.filter((t) => t.answered >= 5), [topics]);
-  const weakTopics = focusTopics.slice(0, 5);
+  const weakTopics = focusTopics.filter((topic) => topic.accuracy < 70).slice(0, 5);
   const strongTopics = [...focusTopics].sort((a, b) => b.accuracy - a.accuracy || b.answered - a.answered).slice(0, 5);
   const measuredSections = sections.filter((s) => s.answered >= 5 && s.accuracy !== null);
-  const weakestSection = measuredSections.length > 0 ? measuredSections[measuredSections.length - 1] : null;
+  const belowTarget = measuredSections.filter((section) => (section.accuracy ?? 100) < 70);
+  const weakestSection = belowTarget.length > 0 ? belowTarget[belowTarget.length - 1] : null;
   const responseMix = [
     { name: "Correct", value: summary.correct, color: "#16a085" },
     { name: "Incorrect", value: summary.wrong, color: "#f97373" },
@@ -258,19 +259,19 @@ export default function PerformanceOverview() {
                   )}
                 </Panel>
 
-                <Panel title="Areas to improve" subtitle="Focus suggestions require at least five answered questions per section or topic.">
+                <Panel title="Areas to improve" subtitle="Focus signals are sections or topics below 70% accuracy, with at least five answered questions. This is a study threshold, not an exam cutoff.">
                   {weakestSection ? <div className="mb-4 rounded-xl border border-amber-100 bg-amber-50 p-4">
                     <p className="text-xs font-bold uppercase tracking-wide text-amber-700">Section to review</p>
                     <p className="mt-1 text-lg font-extrabold text-slate-900">{weakestSection.name}</p>
                     <p className="mt-1 text-sm text-slate-600">{pct(weakestSection.accuracy)} accuracy across {weakestSection.answered} answered questions.</p>
-                  </div> : <p className="mb-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">More answered questions are needed for a reliable section suggestion.</p>}
+                  </div> : <p className="mb-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">{measuredSections.length > 0 ? "No section is below the 70% focus threshold in this selection." : "More answered questions are needed for a reliable section suggestion."}</p>}
                   {weakTopics.length > 0 ? <div className="space-y-4">
                     <h3 className="text-xs font-bold uppercase tracking-wide text-slate-500">Topics needing attention</h3>
                     {weakTopics.map((topic) => <div key={topic.section + "|" + topic.topic}>
                       <div className="flex items-start justify-between gap-2 text-xs"><div><p className="font-semibold text-slate-800">{topic.topic}</p><p className="text-slate-500">{topic.section} · {topic.answered} answered</p></div><span className="font-bold text-amber-700">{pct(topic.accuracy)}</span></div>
                       <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-amber-400" style={{ width: String(topic.accuracy) + "%" }} /></div>
                     </div>)}
-                  </div> : <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">Topic-level insights will appear when saved questions have topic tags and sufficient answered questions.</p>}
+                  </div> : <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">{focusTopics.length > 0 ? "No tagged topic is below the 70% focus threshold in this selection." : "Topic-level insights will appear when saved questions have topic tags and sufficient answered questions."}</p>}
                 </Panel>
               </div>
 
