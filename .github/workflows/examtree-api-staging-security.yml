@@ -30,6 +30,9 @@ on:
       - scripts/enable-examtree-api-background-scheduler.sh
       - scripts/inspect-examtree-cloudrun-production-handover.py
       - tests/examtree-production-handover.test.py
+      - scripts/deploy-examtree-api-cloudrun-production-candidate.sh
+      - scripts/validate-examtree-production-neon-url.py
+      - tests/examtree-production-candidate-safety.test.py
       - scripts/inspect-examtree-migration-operations.py
       - tests/examtree-migration-operations-readonly.test.py
       - scripts/verify-examtree-cloudrun-num001-review.py
@@ -65,6 +68,10 @@ jobs:
           bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
           node --test tests/examtree-staging-db-isolation.test.mjs tests/cloudrun-api-migration.test.mjs
           python3 tests/examtree-staging-neon-url.test.py
+      - name: Guard private production candidate setup
+        run: |
+          bash -n scripts/deploy-examtree-api-cloudrun-production-candidate.sh
+          python3 tests/examtree-production-candidate-safety.test.py
       - name: Verify Cloud Run production worker handover safeguards
         run: |
           bash -n scripts/enable-examtree-api-background-scheduler.sh
