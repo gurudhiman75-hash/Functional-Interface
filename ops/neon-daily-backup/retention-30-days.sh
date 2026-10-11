@@ -13,8 +13,14 @@ import json,sys
 bucket=json.load(open(sys.argv[1]))
 if bucket.get('name')!='sarbedutech':
     sys.exit('Refusing to alter another bucket')
-if bucket.get('lifecycle',{}).get('rule'):
-    sys.exit('Existing lifecycle policy found: merge manually, do not overwrite.')
+# gcloud's standard JSON uses lifecycle_config; the raw API uses lifecycle.
+# A policy on the shared bucket must never be overwritten.
+for key in ('lifecycle', 'lifecycle_config'):
+    existing = bucket.get(key) or {}
+    if not isinstance(existing, dict):
+        sys.exit('Unrecognized lifecycle metadata: refusing update.')
+    if existing.get('rule'):
+        sys.exit('Existing lifecycle policy found: merge manually, do not overwrite.')
 policy={'rule':[{'action':{'type':'Delete'},'condition':{'age':30,'matchesPrefix':['neon-backups/daily/']}}]}
 with open(sys.argv[2],'w') as f: json.dump(policy,f)
 PY
