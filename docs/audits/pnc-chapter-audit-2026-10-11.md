@@ -48,3 +48,11 @@ Added `source-review/geometry-counting.ts`: six explicit models for general line
 Verification: **720 mathematical domain cases** passed against independent vertex-set/line-identity enumeration; **216 localized generated packages** passed determinism, correct-option and publication-gate checks. Book parameter checks: Level I Q8 = 28, Q37 = 280, Q38 = 2,265, Q39 = 11,985, Q69 = 84, Q70 = 83. Q39's printed key is (d), “None of these,” which agrees with 11,985; it is not a source-key defect.
 
 Saved evidence: `pnc-source-review/PNC-269-RUNTIME-AUDIT-SUMMARY-20261011.json`, `PNC-GEOMETRY-REVIEW-SAMPLES-20261011.json` (one seed per model/language), and the updated 187-row source inventory. Source mapping, worked-example enumeration, full editorial checks, PNC-001 localization and unified review integration remain open.
+
+## Subset source-gap pass
+
+Added five English review models: non-empty subsets of distinct objects, non-empty selection from each distinct category, bounded quantities of identical items, optional questions with internal alternatives, and distinct subsets up to a maximum size. Explanations show the calculated factors and clarify whether the empty selection is included. Each package has four unique numeric options and remains locked for student publication.
+
+Independent membership/quantity/question-outcome enumeration passed 42 domain cases plus five source-parameter regressions: Level I Q31 = 4,944 (empty selection included), Q51 = 149, Q52 = 16,383, Q53 = 13,671, Q54 = 14,348,906. Excluding the empty selection from Q31 gives 4,943; authored stems state the convention explicitly. Scoped TypeScript validation passed for the new production module.
+
+The inventory now contains 23 structural matches and 11 implemented source mappings, with 153 exercises pending. The new subset candidates still need localization and unified review integration; this is progress evidence, not chapter closure.

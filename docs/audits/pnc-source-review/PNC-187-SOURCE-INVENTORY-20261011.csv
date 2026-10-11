@@ -29,7 +29,7 @@ PNC-AS2018-LODI-027,I,27,825,824-829,PENDING,INVENTORIED; page candidate needs v
 PNC-AS2018-LODI-028,I,28,825,824-829,CP011 grouping,STRUCTURAL_MODEL_MATCH; Labelled groups with fixed unequal occupancies; no within-room ordering. Source parameter reproduction and localization pending.
 PNC-AS2018-LODI-029,I,29,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-030,I,30,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-031,I,31,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-031,I,31,825,824-829,PNC-SOURCE-SUBSET-REVIEW/atMostDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
 PNC-AS2018-LODI-032,I,32,825,824-829,CP007 restrictions,STRUCTURAL_MODEL_MATCH; Subtract arrangements with specified adjacent pair. Source parameter reproduction and localization pending.
 PNC-AS2018-LODI-033,I,33,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-034,I,34,825,824-829,PNC-QL-009,STRUCTURAL_MODEL_MATCH; Three independent clothing choices. Source parameter reproduction and localization pending.
@@ -49,10 +49,10 @@ PNC-AS2018-LODI-047,I,47,,824-829,PNC-QL-078,"STRUCTURAL_MODEL_MATCH; Two repeat
 PNC-AS2018-LODI-048,I,48,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-049,I,49,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-050,I,50,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-051,I,51,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-052,I,52,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-053,I,53,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-054,I,54,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
+PNC-AS2018-LODI-051,I,51,826,824-829,PNC-SOURCE-SUBSET-REVIEW/boundedIdentical,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-052,I,52,826,824-829,PNC-SOURCE-SUBSET-REVIEW/nonemptyDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-053,I,53,826,824-829,PNC-SOURCE-SUBSET-REVIEW/eachDistinctCategory,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
+PNC-AS2018-LODI-054,I,54,826,824-829,PNC-SOURCE-SUBSET-REVIEW/optionalQuestions,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
 PNC-AS2018-LODI-055,I,55,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-056,I,56,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
 PNC-AS2018-LODI-057,I,57,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
