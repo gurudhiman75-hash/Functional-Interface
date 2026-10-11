@@ -73,7 +73,7 @@ if [[ "$MODE" == student || "$MODE" == both ]]; then
   echo 'STUDENT: use an EXISTING disposable student login, not the superadmin.'
   read_one_token student
   STUDENT_TOKEN="$TOKEN_RESULT"; TOKEN_RESULT=''
-  expect_200 "student profile" "$STUDENT_TOKEN" /api/me/profile 'email,preferredLanguageCode'
+  expect_200 "student profile" "$STUDENT_TOKEN" /api/users/me/profile 'email,preferredLanguageCode'
   expect_200 "student purchases" "$STUDENT_TOKEN" /api/commerce/purchases 'orders,items,entitlements'
   student_denied "admin order list" /api/admin/commerce/orders
   student_denied "admin reconciliation" /api/admin/commerce/orders/reconciliation/health
