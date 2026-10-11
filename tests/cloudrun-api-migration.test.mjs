@@ -38,7 +38,9 @@ test("staging deploy uses dedicated identity, Secret Manager and no cutover", ()
   assert.match(deploy, /examtree-api-background-staging/);
   assert.match(deploy, /examtree-api-runtime/);
   assert.match(deploy, /EXAMTREE_BUDGET_READY/);
-  assert.match(deploy, /examtree-api-database-url/);
+  assert.match(deploy, /examtree-api-staging-database-url/);
+  assert.doesNotMatch(deploy, /SECRET="examtree-api-database-url"/);
+  assert.match(deploy, /ep-wild-water-atrzmssw/);
   assert.match(deploy, /min-instances=0/);
   assert.match(deploy, /max-instances=1/);
   assert.match(deploy, /set-secrets/);
