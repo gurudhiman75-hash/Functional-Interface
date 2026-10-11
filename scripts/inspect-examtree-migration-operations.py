@@ -126,10 +126,15 @@ def main():
         states.append(record("PASS" if history == [] else "CHECK",
                              "staging background job has no executions"
                              if history == [] else "staging background job executions present or unavailable; inspect before proceeding"))
-    prod_sched = schedule(PRODUCTION_SCHEDULER, "asia-south1")
-    states.append(record("PASS" if prod_sched is None else "CHECK",
-                         "production outbox/FCM scheduler not enabled"
-                         if prod_sched is None else "production background scheduler exists: check overlapping Render workers"))
+    prod_scheds = get_json("gcloud", "scheduler", "jobs", "list",
+                           "--project=" + PROJECT, "--location=asia-south1")
+    scheduled = (isinstance(prod_scheds, list) and any(
+        x.get("name", "").endswith("/" + PRODUCTION_SCHEDULER)
+        for x in prod_scheds if isinstance(x, dict)))
+    scheduler_known = isinstance(prod_scheds, list)
+    states.append(record("PASS" if scheduler_known and not scheduled else "CHECK",
+                         "production outbox/FCM scheduler absent"
+                         if scheduler_known and not scheduled else "production scheduler present or list unavailable: check overlapping Render workers"))
 
     backup_job = description(BACKUP_JOB, "jobs", "us-east1")
     states.append(record("PASS" if backup_job else "PENDING",
