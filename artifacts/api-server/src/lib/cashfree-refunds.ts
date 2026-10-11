@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { assessCashfreeRefundEvidence, fetchCashfreeRefund, isRoundedCashfreePaymentReference } from "./cashfree-payments";
 import { CommerceRefundError, reconcileProcessedRefund } from "./canonical-commerce-refunds";
 import { sqlClient } from "./db";
@@ -5,7 +6,7 @@ import { sqlClient } from "./db";
 /** Confirm all refund details directly with Cashfree before changing paid access.
  * No browser input or standalone webhook body can mark a refund processed.
  */
-export async function reconcileCashfreeRefundRecord(refundId: string, canonicalOrderId?: string) {
+export async function reconcileCashfreeRefundRecord(refundId: string, canonicalOrderId?: string, adminActorUserId?: string) {
   const rows = await sqlClient`
     SELECT r.id::text AS "refundId", r.status AS "refundStatus", r.amount_minor::float8 AS "amountMinor",
       pa.id::text AS "paymentAttemptId", pa.amount_minor::float8 AS "capturedAmountMinor",
@@ -121,6 +122,33 @@ export async function reconcileCashfreeRefundRecord(refundId: string, canonicalO
         client: tx as typeof sqlClient, provider: "cashfree", canonicalRefundId: refundId,
         providerRefundId, providerPaymentId: repairCandidate ? verifiedPaymentId : String(row.providerPaymentId), amountMinor, processedAt,
       });
+      // Administrator-driven reconciliation changes the financial ledger.
+      // Store its evidence-safe audit event in the SAME transaction, so the
+      // refund cannot commit without the corresponding audit record.
+      // Provider webhooks have separate signed event evidence and do not
+      // impersonate an administrator.
+      if (adminActorUserId) {
+        await tx`
+          INSERT INTO platform.audit_events (
+            id, actor_type, actor_user_id, action_key, entity_type, entity_id,
+            summary, metadata
+          )
+          VALUES (
+            ${randomUUID()}::uuid, 'user'::audit_actor_type,
+            ${adminActorUserId}::uuid, 'commerce.refund.reconciled',
+            'commerce_order', ${String(row.orderId)}::uuid,
+            'Administrator verified Cashfree refund using provider GET and signed payment evidence',
+            ${tx.json({
+              refundId,
+              provider: "cashfree",
+              amountMinor,
+              refundStatus: "processed",
+              repairedRoundedPaymentId: repairCandidate,
+              fullRefund: result.fullRefund,
+            })}
+          )
+        `;
+      }
       return { refundId, status: "processed", ...result };
     }
     if (status === "FAILED" || status === "CANCELLED") {
