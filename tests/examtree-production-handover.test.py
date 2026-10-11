@@ -33,8 +33,8 @@ def job(staging=False):
     env = [entry("EXAMTREE_API_RUNTIME", "cloud-run"),
            entry("EXAMTREE_API_STAGING", "true" if staging else "false"),
            secret("DATABASE_URL", m.STAGING_SECRET if staging else m.MAIN_SECRET)]
-    return {"spec": {"template": {"spec": {"template": {"spec": {
-        "containers": [{"env": env}]}}}}}}}
+    task_spec = {"containers": [{"env": env}]}
+    return {"spec": {"template": {"spec": {"template": {"spec": task_spec}}}}}
 
 
 class ProductionHandoverTests(unittest.TestCase):
