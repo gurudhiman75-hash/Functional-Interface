@@ -178,7 +178,62 @@ def resolve_staging_url():
     return url
 
 
+def fetch_curl(origin, code, token):
+    """Use the same curl transport that passed Cloud Shell Cloudflare probes.
+
+    urllib's default requests received a Cloudflare 403 on both Pages hosts,
+    even without authentication, while the equivalent curl GET succeeded.
+    Never place the Firebase token in argv, environment variables or logs:
+    supply its Authorization header using curl's --config - via stdin.
+    Redirects are disabled, the endpoint is fixed, and only GET is allowed.
+    """
+    if origin not in (FRONTEND_ORIGIN, PAGES_ORIGIN):
+        return None, "unsupported curl origin"
+    if token and not re.fullmatch(r"[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+", token):
+        return None, "invalid Firebase token format"
+    url = origin + "/api/admin/question-studio/review-page?" + urlencode({
+        "search": code, "packageId": "NUM-001", "page": 1, "pageSize": 10,
+    })
+    cmd = [
+        "curl", "--disable", "--config", "-", "--silent", "--show-error",
+        "--max-time", "90", "--max-filesize", str(MAX_RESPONSE_BYTES),
+        "--proto", "=https", "--max-redirs", "0", "--request", "GET",
+        "--header", "Accept: application/json",
+        "--header", "Cache-Control: no-store",
+        "--write-out", "\\nEXAMTREE_CURL_STATUS:%{http_code}",
+        "--url", url,
+    ]
+    config = ('header = "Authorization: Bearer ' + token + '"\\n') if token else ""
+    try:
+        # --config - reads stdin, not a real .curlrc; stderr may contain
+        # request diagnostics but is NEVER displayed or returned.
+        completed = subprocess.run(
+            cmd, input=config.encode("ascii"), stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL, timeout=100, check=False,
+        )
+    except (subprocess.TimeoutExpired, OSError):
+        return None, "curl unavailable or timed out"
+    if completed.returncode != 0:
+        return None, "curl request failed (no credentials logged)"
+    output = completed.stdout
+    match = re.search(rb"\\nEXAMTREE_CURL_STATUS:(\\d{3})$", output)
+    if match is None:
+        return None, "missing curl HTTP status"
+    status = int(match.group(1))
+    data = output[:match.start()]
+    if len(data) > MAX_RESPONSE_BYTES:
+        return None, "response exceeds 3 MiB limit"
+    if status != 200:
+        return None, "HTTP " + str(status) + " (curl GET)"
+    try:
+        return json.loads(data), None
+    except (ValueError, UnicodeDecodeError):
+        return None, "invalid response JSON"
+
+
 def fetch(opener, origin, code, token):
+    if origin in (FRONTEND_ORIGIN, PAGES_ORIGIN):
+        return fetch_curl(origin, code, token)
     url = origin + "/api/admin/question-studio/review-page?" + urlencode({
         "search": code, "packageId": "NUM-001", "page": 1, "pageSize": 10,
     })
@@ -205,7 +260,7 @@ def main():
     if len(sys.argv) != 1:
         fail("usage: python3 scripts/verify-examtree-question-studio-review-reads.py")
     staging = resolve_staging_url()
-    print("Question Studio review GET validation: Cloud Run, direct Render and Cloudflare proxy.")
+    print("Question Studio review GET validation: urllib for Render/staging; curl for Cloudflare Pages (same safe Cloud Shell transport as earlier 200).")
     print("READ ONLY: no generation, review approvals, publication or worker actions.")
     print("Firebase auth may update last-login metadata in the respective live MAIN or isolated STAGING database.")
     token = getpass.getpass("Existing superadmin Firebase ID token (hidden): ").strip()
