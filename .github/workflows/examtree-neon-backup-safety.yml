@@ -11,6 +11,7 @@ on:
       - ops/neon-daily-backup/**
       - tests/neon-daily-backup.test.sh
       - tests/neon-backup-bucket-security.test.sh
+      - tests/neon-backup-serviceaccount.test.sh
 
 permissions:
   contents: read
@@ -32,6 +33,7 @@ jobs:
           bash -n tests/neon-backup-encryption.test.sh
           bash -n tests/neon-daily-backup.test.sh
           bash -n tests/neon-backup-bucket-security.test.sh
+          bash -n tests/neon-backup-serviceaccount.test.sh
           for script in ops/neon-daily-backup/*.sh; do bash -n "$script"; done
       - name: Simulate backup and checksum failure with fake PostgreSQL I/O
         run: bash tests/neon-backup-encryption.test.sh
@@ -39,3 +41,5 @@ jobs:
         run: bash tests/neon-daily-backup.test.sh
       - name: Check secure GCS preflight supports Cloud SDK and raw metadata
         run: bash tests/neon-backup-bucket-security.test.sh
+      - name: Simulate IAM service-account visibility and binding propagation
+        run: bash tests/neon-backup-serviceaccount.test.sh
