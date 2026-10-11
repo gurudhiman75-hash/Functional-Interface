@@ -63,7 +63,7 @@ router.get("/commerce/products", async (_req, res) => {
         AND (v.sale_end_at IS NULL OR v.sale_end_at > now())
       ORDER BY p.updated_at DESC
     `;
-    res.json({ products: rows, checkoutProvider: cashfreeSelected() ? "cashfree" : "razorpay", generatedAt: new Date().toISOString() });
+    res.json({ products: rows, salesEnabled: process.env.EXAMTREE_SALES_DISABLED !== "true", checkoutProvider: process.env.EXAMTREE_SALES_DISABLED === "true" ? "disabled" : cashfreeSelected() ? "cashfree" : "razorpay", generatedAt: new Date().toISOString() });
   } catch (error) { sendError(res, error); }
 });
 
@@ -127,6 +127,12 @@ async function resolveCoupon(input: {
 }
 
 router.post("/commerce/orders", authenticate, async (req, res) => {
+  // A second fail-closed guard for direct router mounting and test fixtures.
+  // No canonical order, payment_attempt or provider checkout session is created.
+  if (process.env.EXAMTREE_SALES_DISABLED === "true") {
+    res.status(503).json({ code: "SALES_TEMPORARILY_UNAVAILABLE", error: "New purchases are temporarily paused. Existing packages remain available." });
+    return;
+  }
   const productId = String(req.body?.productId ?? "");
   const couponCode = String(req.body?.couponCode ?? "").trim().toUpperCase().slice(0, 80);
   const idempotencyKey = String(req.body?.idempotencyKey ?? "").trim().slice(0, 160);
