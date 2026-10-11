@@ -7,6 +7,7 @@ on:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
       - artifacts/api-server/src/lib/commerce-capture-state.ts
       - artifacts/api-server/tests/commerce-capture-state.test.mjs
+      - artifacts/api-server/tests/cashfree-terminal-webhook-audit.test.mjs
       - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/lib/cashfree-payments.ts
       - artifacts/api-server/src/lib/cashfree-refunds.ts
@@ -27,6 +28,7 @@ on:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
       - artifacts/api-server/src/lib/commerce-capture-state.ts
       - artifacts/api-server/tests/commerce-capture-state.test.mjs
+      - artifacts/api-server/tests/cashfree-terminal-webhook-audit.test.mjs
       - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/lib/cashfree-payments.ts
       - artifacts/api-server/src/lib/cashfree-refunds.ts
@@ -89,6 +91,8 @@ jobs:
         run: (cd artifacts/api-server && node tests/cashfree-payments.test.mjs)
       - name: Assert capture terminal-state safety
         run: (cd artifacts/api-server && node tests/commerce-capture-state.test.mjs)
+      - name: Preserve late signed provider evidence without recapture
+        run: (cd artifacts/api-server && node tests/cashfree-terminal-webhook-audit.test.mjs)
       - name: Check reconciliation diagnostics are read-only and permissioned
         run: node --test artifacts/api-server/tests/admin-commerce-reconciliation-health.test.mjs
       - name: Check provider-verified refund reconciliation administrator audit
