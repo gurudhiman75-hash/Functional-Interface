@@ -91,14 +91,44 @@ def inventory(database_url):
         "PGPASSWORD": unquote(u.password), "PGDATABASE": "neondb",
         "PGSSLMODE": "verify-full", "PGSSLROOTCERT": CA_FILE,
         "PGCONNECT_TIMEOUT": "15", "PGAPPNAME": "examtree-cashfree-sandbox-readonly-audit",
-        "PGOPTIONS": "-c default_transaction_read_only=on -c statement_timeout=20000",
     })
-    command = [psql, "-X", "-A", "-t", "-q", "-v", "ON_ERROR_STOP=1", "-c", INVENTORY_SQL]
+    # Cloud Shell may inherit libpq startup settings which Neon pooling can
+    # reject. Enforce READ ONLY within the server-side transaction instead;
+    # NEVER allow SQL writes or run provider POST requests from this audit.
+    env.pop("PGOPTIONS", None)
+    env.pop("PGSERVICE", None)
+    transaction_sql = (
+        "BEGIN TRANSACTION READ ONLY;\n"
+        "SET LOCAL statement_timeout = '20s';\n"
+        + INVENTORY_SQL + "\nCOMMIT;"
+    )
+    command = [
+        psql, "-X", "-A", "-t", "-q",
+        "-v", "ON_ERROR_STOP=1",
+        "-v", "VERBOSITY=sqlstate",
+        "-c", transaction_sql,
+    ]
     try:
         result = subprocess.run(command, env=env, stdout=subprocess.PIPE,
-                                stderr=subprocess.DEVNULL, timeout=40, check=True, text=True)
-    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
-        raise RuntimeError("Read-only Neon inventory query failed") from None
+                                stderr=subprocess.PIPE, timeout=40, check=True, text=True)
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("Read-only Neon inventory timed out") from None
+    except subprocess.CalledProcessError as exc:
+        # Never echo raw Postgres errors: they may contain host, username,
+        # database connection details, or snippets from returned data.
+        message = (exc.stderr or "").lower()
+        if "password authentication failed" in message:
+            category = "authentication"
+        elif "certificate verify failed" in message or "ssl" in message and "error" in message:
+            category = "TLS verification"
+        elif "could not translate host name" in message or "connection to server" in message:
+            category = "network/connection"
+        elif "permission denied" in message:
+            category = "database permissions"
+        else:
+            sqlstate = re.search(r"(?m)(?:ERROR|FATAL):\\s*([0-9A-Z]{5})\\b", exc.stderr or "")
+            category = "PostgreSQL SQLSTATE " + sqlstate.group(1) if sqlstate else "query/startup"
+        raise RuntimeError("Read-only Neon inventory failed (" + category + ")") from None
     try:
         return [json.loads(line) for line in result.stdout.splitlines() if line.strip()]
     except json.JSONDecodeError:
