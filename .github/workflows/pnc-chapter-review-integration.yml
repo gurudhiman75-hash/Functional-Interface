@@ -1,16 +1,18 @@
 name: PNC chapter review integration
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - 'artifacts/api-server/src/question-studio/quant-pnc*'
-      - 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**'
-      - '.github/workflows/pnc-chapter-review-integration.yml'
       - 'artifacts/api-server/scripts/audits/*pnc*'
       - 'docs/audits/pnc-source-review/**'
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: pnc-review-integration-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   pnc-review-integration:
     runs-on: ubuntu-latest
