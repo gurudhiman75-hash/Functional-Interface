@@ -76,16 +76,16 @@ test("Cloudflare API proxy supports validated Cloud Run cutover without exposing
     observed = request;
     return new Response(null, {
       status: 302,
-      headers: { Location: cloudRun + "/api/admin/login", "Cache-Control": "public, max-age=600" },
+      headers: { Location: cloudRun + "/api/tests", "Cache-Control": "public, max-age=600" },
     });
   };
   try {
     const reply = await onRequest({
-      request: req("https://functional-interface.pages.dev/api/admin/login", "GET"),
+      request: req("https://functional-interface.pages.dev/api/tests", "GET"),
       env: { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun },
     });
-    assert.equal(observed.url, cloudRun + "/api/admin/login");
-    assert.equal(reply.headers.get("location"), "https://functional-interface.pages.dev/api/admin/login");
+    assert.equal(observed.url, cloudRun + "/api/tests");
+    assert.equal(reply.headers.get("location"), "https://functional-interface.pages.dev/api/tests");
     assert.equal(reply.headers.get("cache-control"), "private, no-store");
     assert.equal(reply.status, 302);
   } finally { globalThis.fetch = old; }
@@ -123,7 +123,7 @@ test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks
       const response = await onRequest({
         request: req("https://examtree.in" + path, method, {
           headers: { "content-type": "application/json" },
-          body: "{}",
+          body: method === "GET" || method === "HEAD" ? undefined : "{}",
         }),
         env,
       });
