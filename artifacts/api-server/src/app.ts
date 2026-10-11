@@ -89,6 +89,30 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.options("/api/{*splat}", cors(corsOptions));
+// During a production Cloud Run cutover without live merchant credentials,
+// block ALL known new-order entrypoints BEFORE authentication, database writes,
+// provider API calls, or legacy fallback handlers. Existing purchase reads,
+// refund reconciliation, and signed provider webhook callbacks remain routed.
+// Old payment orders continue to be reconciled by the existing Render webhook
+// until the financial migration is explicitly approved.
+const salesCreationPaths = new Set([
+  "/api/commerce/orders",
+  "/api/packages/create-order",
+  "/api/billing/razorpay/create-order",
+  "/api/billing/mock-unlock",
+]);
+app.use((req, res, next) => {
+  if (process.env.EXAMTREE_SALES_DISABLED === "true" &&
+      req.method === "POST" && salesCreationPaths.has(req.path)) {
+    res.status(503).json({
+      code: "SALES_TEMPORARILY_UNAVAILABLE",
+      error: "New purchases are temporarily paused. Your existing packages remain available.",
+    });
+    return;
+  }
+  next();
+});
+
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json" }), webhookRateLimit, cashfreeWebhookHandler);
 
