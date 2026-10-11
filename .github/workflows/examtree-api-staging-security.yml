@@ -18,6 +18,10 @@ on:
       - tests/examtree-cashfree-webhook-replay.test.py
       - scripts/close-examtree-cashfree-staging-expired-orders.py
       - tests/examtree-cashfree-expired-order-closure.test.py
+      - scripts/isolate-examtree-cloudrun-staging-neon.sh
+      - scripts/deploy-examtree-api-cloudrun-staging.sh
+      - tests/examtree-staging-db-isolation.test.mjs
+      - artifacts/api-server/src/cloud-run-background.ts
       - scripts/inspect-examtree-migration-operations.py
       - tests/examtree-migration-operations-readonly.test.py
       - scripts/verify-examtree-cloudrun-num001-review.py
@@ -47,6 +51,11 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Validate guarded staging database isolation
+        run: |
+          bash -n scripts/isolate-examtree-cloudrun-staging-neon.sh
+          bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
+          node --test tests/examtree-staging-db-isolation.test.mjs tests/cloudrun-api-migration.test.mjs
       - name: Confirm non-mutating staging diagnostics
         run: bash tests/examtree-cloudrun-staging-security.test.sh
       - name: Guard hidden Firebase ID-token read checks
