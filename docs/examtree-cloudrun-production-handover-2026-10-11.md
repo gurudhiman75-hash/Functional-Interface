@@ -56,6 +56,45 @@ service, live Cashfree secrets, AI provider key mapping, the separate
 This inspector NEVER runs jobs, fetches secret values, triggers payments,
 or changes the production API gateway.
 
+## Proceed using sandbox keys while production credentials are unavailable
+
+**Decision 2026-10-11:** Production Cashfree client ID/secret and production
+OpenAI API key are not yet present in Google Secret Manager. **Do not**
+substitute Cashfree sandbox keys into `examtree-api` while it points at live
+Neon main. That would create mixed-environment orders and risk misleading
+payment status and entitlement records.
+
+Instead, reuse **existing** `examtree-api-staging` connected to isolated Neon
+`examtree-api-staging-database-url` and Cashfree **sandbox** secrets. The
+historical read-only operational preflight already confirmed the staging
+payment mode and disabled API background pollers; never assume those settings
+cannot have changed without checking them again.
+
+The checked-in staging deployment script creates a new container image and
+recreates the staging background job. For the **existing sandbox environment**,
+prefer the more conservative
+`scripts/refresh-examtree-cloudrun-staging-sandbox.sh`. It checks that staging
+still has the isolated database/sandbox credentials/worker flags, requires
+explicit build-cost approval, builds reviewed New-main, updates **only the
+staging API image**, and checks those conditions again. It neither modifies
+the inert `examtree-api-background-staging` Job nor executes it. It uses
+read-only health/catalogue GETs after deployment.
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+EXAMTREE_STAGING_SANDBOX_REFRESH_APPROVED=yes EXAMTREE_BUDGET_READY=yes \
+  bash scripts/refresh-examtree-cloudrun-staging-sandbox.sh
+```
+
+Production Render, Cashfree live settings, Cloudflare routing and deployed
+Android apps remain unchanged. Prior student + Cashfree sandbox tests do not
+need to be repeated unless the changed code materially affects the feature.
+
+**Production cutover remains blocked** until production merchant credentials,
+AI provider configuration, a private production candidate, explicit
+webhook/worker handover and rollback acceptance are complete.
+
 ## Provision the PRIVATE production candidate (separate approval)
 
 The read-only preflight originally reported **2 passed / 3 pending**:

@@ -22,6 +22,8 @@ on:
       - tests/examtree-staging-neon-url.test.py
       - scripts/isolate-examtree-cloudrun-staging-neon.sh
       - scripts/deploy-examtree-api-cloudrun-staging.sh
+      - scripts/refresh-examtree-cloudrun-staging-sandbox.sh
+      - tests/examtree-staging-sandbox-refresh.test.py
       - tests/examtree-staging-db-isolation.test.mjs
       - artifacts/api-server/src/cloud-run-background.ts
       - artifacts/api-server/src/lib/outbox-publisher.ts
@@ -68,6 +70,10 @@ jobs:
           bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
           node --test tests/examtree-staging-db-isolation.test.mjs tests/cloudrun-api-migration.test.mjs
           python3 tests/examtree-staging-neon-url.test.py
+      - name: Guard Cashfree SANDBOX staging-only image refresh
+        run: |
+          bash -n scripts/refresh-examtree-cloudrun-staging-sandbox.sh
+          python3 tests/examtree-staging-sandbox-refresh.test.py
       - name: Guard private production candidate setup
         run: |
           bash -n scripts/deploy-examtree-api-cloudrun-production-candidate.sh
