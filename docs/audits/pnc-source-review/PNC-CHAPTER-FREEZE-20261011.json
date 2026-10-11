@@ -37,8 +37,8 @@
   "mockTestEligible": false,
   "contentHashes": {
     ".github/workflows/pnc-chapter-review-integration.yml": "19d9396942b8cc1e7773085a2f48cd170ac4dcc84c0c7aed36ddbb1a3dbb469d",
-    "artifacts/api-server/scripts/audits/pnc-chapter-freeze-audit.ts": "09a75d5cc338a5a4958aae9e1e630d3496263c1fc0345a1b676b415a07de2137",
-    "artifacts/api-server/scripts/audits/verify-pnc-freeze.ts": "ce96682f2f4eaca4eee3b2acfe5b9a29e7e9daa7c801cd39a2e90293ac1649c9",
+    "artifacts/api-server/scripts/audits/pnc-chapter-freeze-audit.ts": "1a57ced3ef94d8e1b72d8020a8391e19ef32464200454ed927291086b8cb3102",
+    "artifacts/api-server/scripts/audits/verify-pnc-freeze.ts": "598e98cf063b031726e3012929bc2cdf57ee2a360c2d3101535aa6966e626344",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/constraint-profiles.library.json": "22573ae9d0c2e02dc1c4dd41dcd3e99c1cccd84ea5853315a884a22ab6dea231",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/coverage-targets.library.json": "4294978bf6067f1c4c07c65897308d6b44b16064ce480ff43e1206d0a746b5eb",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/distribution-targets.library.json": "823b21dd53d6cfa1987d38893a4912969d10c6daebf86c79b7a8099d44683710",
@@ -301,8 +301,12 @@
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/theory-illustrations.ts": "f0a68130eae4f012b440d98c81450168079e34b0bb4df5a24f77f3af0693ad33",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/worked-source-cases.test.ts": "9a020cd332cffbf4f7df91a7b5885523437022ad741fd5de8cae8d1315b29c44",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/worked-source-cases.ts": "3def03532369bc74f89558a177390d87ce824687a0ea6ecc74e7a03ee9301204",
-    "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts": "a83a2c92674b2985b3d4da195d07a32048a9315d7ffae58e675aa67475462b6f",
     "artifacts/api-server/src/question-studio/quant-pnc-review.ts": "61a31758d1012e2b233b3690ba1243e0b02fac53aeeff95d326d9e4282775a19",
     "artifacts/api-server/src/question-studio/quant-pnc-source-review.ts": "d241704c794bc62147fa62f6e728d6834cd815f4ee4f1eee0405a8ffcd37031c"
+  },
+  "integrationProjection": {
+    "path": "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts",
+    "algorithm": "PNC_LINES_V1",
+    "sha256": "734bb63975ac0259a57ec687ce466c2e8e01a13881be432eeac264e9c4e08723"
   }
 }

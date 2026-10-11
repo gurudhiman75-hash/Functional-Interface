@@ -26,7 +26,7 @@ Eleven targeted regression suites pass, including independent digit enumeration 
 
 English core editorial authority is retained from the package maturity reviews. New source stems explicitly include shared caselet givens and interpretation conventions, use authored workings and preserve exact answers. Native additions are **authored review candidates**, not recorded human-approved translations. Mathematical notation is reused from the same answer authority, with native stems, reasoning and conclusion. This technical review freeze does not certify external human editorial signoff.
 
-The freeze manifest records hashes for the runtime, content and integration files. `verify-pnc-freeze.ts` fails if frozen content changes or review release gates are opened. Changes to this content require a new reviewed checkpoint rather than silently changing a frozen chapter.
+The freeze manifest records hashes for 267 chapter/runtime files and a semantic hash of the eight PNC integration lines. Unrelated changes to the shared Quant adapter do not invalidate the chapter freeze. `verify-pnc-freeze.ts` fails if frozen content changes or review release gates are opened. Changes to this content require a new reviewed checkpoint rather than silently changing a frozen chapter.
 
 Public/Bank/test/mock eligibility and persistence remain false. The separate release steps are the user's deferred live verification and any required native human/publication approvals. They do not leave implementation gaps in this frozen REVIEW_ONLY checkpoint.
 
