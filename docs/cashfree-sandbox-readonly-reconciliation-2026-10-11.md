@@ -51,3 +51,18 @@ payment retry and delayed webhook delivery need an explicit reviewed policy.
 Once reviewed, proceed to authenticated Cloud Run staging payment, attempt,
 superadmin RBAC and negative authorization tests before frontend/API cutover.
 No live traffic or production provider webhook changes are authorized here.
+
+## Exact payment/refund evidence for historical rounding
+
+The audit emits a separate anonymized REFUND_REVIEW line for each unresolved
+refund. It checks whether the refund's exact Cashfree payment ID appears both in
+a successful provider payment GET and in a verified, processed webhook tied to
+the same order, capture amount and currency. It also flags missing mandatory
+refund details. This information is **diagnostic only**; it does not mutate
+the local payment ID or refund status.
+
+To process a successful refund, the existing API must independently verify
+the complete refund evidence and (where needed) its strict legacy JavaScript
+Number rounding predicate, then perform an idempotent, transactionally safe
+reconciliation. Gateway success alone never authorizes a blind SQL update.
+A partial refund leaves the student's existing entitlement active.

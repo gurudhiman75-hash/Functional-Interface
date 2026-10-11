@@ -91,6 +91,44 @@ class ReadOnlyAuditTests(unittest.TestCase):
         problems, _ = aud.evaluate(local, ORDER, PAYMENTS, {refund_id: (200, refund_ok)})
         self.assertIn("provider_refund_success_needs_local_reconciliation", problems)
 
+    def test_refund_exact_signed_and_provider_success_links(self):
+        refund_id = "47e6b778-a44a-4c74-bdc0-57efbfa71d13"
+        exact_id = "1382529476889230123"
+        local = dict(LOCAL, provider_payment="1382529476889230000",
+                     signed_payment_ids=[exact_id],
+                     unresolved_refunds=[{"id": refund_id, "amount_minor": 500, "status": "created"}])
+        receipt = {
+            "refund_id": "et" + refund_id.replace("-", ""),
+            "order_id": local["provider_order"],
+            "cf_payment_id": exact_id,
+            "cf_refund_id": "rfx-998877", "refund_amount": "5.00",
+            "refund_currency": "INR", "refund_status": "SUCCESS",
+        }
+        proof = aud.refund_readiness(local, PAYMENTS, {refund_id: (200, receipt)})[0]
+        self.assertEqual(proof["ref"], "consistent")
+        self.assertEqual(proof["gateway_payment"], "yes")
+        self.assertEqual(proof["signed_payment"], "yes")
+        self.assertEqual(proof["required_fields"], "complete")
+        # The audit never corrects a stored provider ID or marks a refund processed.
+        self.assertEqual(local["provider_payment"], "1382529476889230000")
+        self.assertEqual(local["unresolved_refunds"][0]["status"], "created")
+
+    def test_refund_readiness_does_not_trust_singular_provider_evidence(self):
+        refund_id = "47e6b778-a44a-4c74-bdc0-57efbfa71d13"
+        local = dict(LOCAL, signed_payment_ids=[],
+                     unresolved_refunds=[{"id": refund_id, "amount_minor": 500}])
+        receipt = {
+            "refund_id": "et" + refund_id.replace("-", ""),
+            "order_id": local["provider_order"], "cf_payment_id": "1382529476889230123",
+            "cf_refund_id": "rfx-998877", "refund_amount": "5.00",
+            "refund_status": "SUCCESS",
+        }
+        proof = aud.refund_readiness(local, PAYMENTS, {refund_id: (200, receipt)})[0]
+        self.assertEqual(proof["gateway_payment"], "yes")
+        self.assertEqual(proof["signed_payment"], "no")
+        self.assertIn("refund_currency", proof["required_fields"])
+        self.assertEqual(proof["ref"], "not_verified")
+
     def test_hardcoded_https_sandbox_get_only(self):
         def fake_open(request, timeout, context):
             self.assertTrue(request.full_url.startswith("https://sandbox.cashfree.com/pg/"))
