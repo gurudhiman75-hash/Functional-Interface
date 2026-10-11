@@ -88,11 +88,12 @@ assert e.get("GENERATION_JOB_WORKER_ENABLED")=="false"
   exit 1
 fi
 
-# Set staging job's database first, and explicitly mark it non-executable by
-# code-level EXAMTREE_API_STAGING guard in cloud-run-background.ts.
+# Disable the currently deployed background command with /usr/bin/false; a
+# future deployed image additionally checks EXAMTREE_API_STAGING at runtime.
 gcloud run jobs update "$JOB" --project="$PROJECT" --region="$REGION" \
   --update-secrets="DATABASE_URL=$SECRET:latest" \
-  --update-env-vars="EXAMTREE_API_STAGING=true" --quiet >/dev/null
+  --update-env-vars="EXAMTREE_API_STAGING=true" \
+  --command=/usr/bin/false --quiet >/dev/null
 echo "PASS: inert staging background job now references isolated Neon secret (NOT EXECUTED)."
 
 # Trigger a revision ONLY for the staging API, without changing traffic or webhook URLs.
