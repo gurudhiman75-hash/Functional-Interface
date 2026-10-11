@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "qls": 269,
+  "seedsPerQl": 12,
+  "packages": 3228,
+  "findings": [],
+  "limitations": [
+    "Automated evidence does not certify exam prose quality or source equivalence.",
+    "English runtime audit only; native approval is separate."
+  ]
+}
