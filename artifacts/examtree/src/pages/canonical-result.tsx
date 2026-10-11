@@ -32,11 +32,13 @@ type CanonicalResult = TestAttempt & {
   seriesId?: string | null;
 };
 
-function formatDuration(minutes: number): string {
-  const safe = Math.max(0, Math.round(minutes));
-  if (safe < 60) return `${safe} min`;
-  const hours = Math.floor(safe / 60);
-  const remaining = safe % 60;
+function formatDuration(seconds: number): string {
+  const safe = Math.max(0, Math.round(seconds));
+  if (safe < 60) return `${safe} sec`;
+  const minutes = Math.floor(safe / 60);
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const remaining = minutes % 60;
   return remaining ? `${hours} hr ${remaining} min` : `${hours} hr`;
 }
 
