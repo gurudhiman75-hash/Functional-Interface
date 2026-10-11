@@ -16,6 +16,8 @@ on:
       - tests/examtree-cloudrun-scored-attempt.test.sh
       - scripts/verify-examtree-cashfree-cloudrun-webhook-replay.py
       - tests/examtree-cashfree-webhook-replay.test.py
+      - scripts/close-examtree-cashfree-staging-expired-orders.py
+      - tests/examtree-cashfree-expired-order-closure.test.py
   push:
     branches: [New-main]
     paths:
@@ -51,3 +53,5 @@ jobs:
         run: bash tests/examtree-cloudrun-scored-attempt.test.sh
       - name: Check fixed-order sandbox signed webhook replay safeguards
         run: python3 tests/examtree-cashfree-webhook-replay.test.py
+      - name: Check provider-verified expired-order closure safeguards
+        run: python3 tests/examtree-cashfree-expired-order-closure.test.py

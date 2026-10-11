@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 
 import { sqlClient } from "./db";
+import { captureDisposition } from "./commerce-capture-state";
 
 type SqlExecutor = typeof sqlClient;
 
@@ -65,7 +66,8 @@ export async function finalizeCapturedPayment(input: {
     WHERE oi.order_id = ${String(row.orderId)}::uuid
     ORDER BY e.created_at
   `;
-  if (String(row.orderStatus) === "paid" && String(row.paymentStatus) === "captured") {
+  const disposition = captureDisposition(String(row.orderStatus), String(row.paymentStatus));
+  if (disposition === "already_finalized") {
     const capturedPaymentId = String(row.providerPaymentId ?? "");
     if (capturedPaymentId && capturedPaymentId !== input.providerPaymentId) {
       throw new CommercePaymentError(
@@ -76,6 +78,12 @@ export async function finalizeCapturedPayment(input: {
       );
     }
     return { orderId: String(row.orderId), entitlementIds: existingEntitlements.map((entry) => String(entry.id)), alreadyFinalized: true };
+  }
+
+  if (disposition !== "process") {
+    // Terminal orders and finalized refunds must not be reopened by delayed,
+    // duplicate, or inconsistent provider success callbacks.
+    throw new CommercePaymentError("PAYMENT_ORDER_NOT_OPEN", "Order cannot be captured in its current state", 409);
   }
 
   await client`
