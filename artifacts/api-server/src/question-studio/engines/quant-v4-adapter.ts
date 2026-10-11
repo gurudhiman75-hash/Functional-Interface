@@ -1,3 +1,5 @@
+import { numberSystemEnginePackages, generateNumberSystemEngineBatch } from "../quant-number-system";
+import { interestAlgebraEnginePackages, generateInterestAlgebraEngineBatch } from "../quant-interest-algebra";
 import {pncSourceReviewPackage, generatePncSourceReviewBatch} from "../quant-pnc-source-review";
 import {pncReviewPackages, generatePncReviewBatch} from "../quant-pnc-review";
 import { sriEnginePackages, generateSriEngineBatch } from "../quant-surds-indices";
@@ -180,7 +182,6 @@ import {
   generateSapBankingEngineBatch,
 } from "../quant-sap-banking";
 import {
-  generateNum001EngineBatch,
   num001EnginePackageCard,
 } from "../quant-number-system-num001";
 import type {
@@ -708,6 +709,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       else packages.push(specializedPackage);
     }
 
+    for (const pkg of [...numberSystemEnginePackages(), ...interestAlgebraEnginePackages()]) replaceOrPush(pkg.packageId, pkg);
+
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
@@ -749,7 +752,10 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const sapBanking = await generateSapBankingEngineBatch(request);
     if (sapBanking) return sapBanking;
 
-    const numberSystem = await generateNum001EngineBatch(request);
+    const integratedChapter = await generateInterestAlgebraEngineBatch(request);
+    if (integratedChapter) return integratedChapter;
+
+    const numberSystem = await generateNumberSystemEngineBatch(request);
     if (numberSystem) return numberSystem;
 
     const diMixRequest = toDiMixRequest(request);

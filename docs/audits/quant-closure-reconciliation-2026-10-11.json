@@ -1,6 +1,6 @@
 {
   "scope": "REGISTRY_AND_EXISTING_AUTHORITY_RECONCILIATION",
-  "sourceHead": "8ad6519756556abaddecf67c96b8f901ef07bd1c",
+  "sourceHead": "a4719f052c7be8ce0c39972587f4bb4e121d7d8d",
   "freshChapterSourceAuditCertified": false,
   "liveVerification": "DEFERRED_BY_USER",
   "existingClosurePreserved": [
@@ -15,6 +15,79 @@
     "DI"
   ],
   "unifiedPackages": [
+    {
+      "packageId": "ALGEBRA",
+      "chapter": "Algebra",
+      "cpIds": [
+        "ALG-CP-001",
+        "ALG-CP-002",
+        "ALG-CP-003",
+        "ALG-CP-004",
+        "ALG-CP-005",
+        "ALG-CP-006",
+        "ALG-CP-007",
+        "ALG-CP-008",
+        "ALG-CP-009",
+        "ALG-CP-010",
+        "ALG-CP-011",
+        "ALG-CP-012",
+        "ALG-CP-013",
+        "ALG-CP-014"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "BANK_ONLY",
+      "permanentQlCount": 43,
+      "permanentQlIds": [
+        "ALG-QL-001",
+        "ALG-QL-002",
+        "ALG-QL-003",
+        "ALG-QL-004",
+        "ALG-QL-005",
+        "ALG-QL-006",
+        "ALG-QL-007",
+        "ALG-QL-008",
+        "ALG-QL-009",
+        "ALG-QL-010",
+        "ALG-QL-011",
+        "ALG-QL-012",
+        "ALG-QL-013",
+        "ALG-QL-014",
+        "ALG-QL-015",
+        "ALG-QL-016",
+        "ALG-QL-017",
+        "ALG-QL-018",
+        "ALG-QL-019",
+        "ALG-QL-020",
+        "ALG-QL-021",
+        "ALG-QL-022",
+        "ALG-QL-023",
+        "ALG-QL-024",
+        "ALG-QL-025",
+        "ALG-QL-026",
+        "ALG-QL-027",
+        "ALG-QL-028",
+        "ALG-QL-029",
+        "ALG-QL-030",
+        "ALG-QL-031",
+        "ALG-QL-032",
+        "ALG-QL-033",
+        "ALG-QL-034",
+        "ALG-QL-035",
+        "ALG-QL-036",
+        "ALG-QL-037",
+        "ALG-QL-038",
+        "ALG-QL-039",
+        "ALG-QL-040",
+        "ALG-QL-041",
+        "ALG-QL-042",
+        "ALG-QL-043"
+      ],
+      "cpLanguagePolicy": null
+    },
     {
       "packageId": "AVG-001",
       "chapter": "Average",
@@ -32,6 +105,8 @@
         "pa"
       ],
       "stage": "BANK_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -46,6 +121,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -60,6 +137,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -76,6 +155,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -92,6 +173,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -109,6 +192,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -124,6 +209,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -138,6 +225,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -153,6 +242,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -167,6 +258,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -181,6 +274,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -195,6 +290,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -209,6 +306,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -223,6 +322,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -237,6 +338,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -249,6 +352,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -276,6 +381,167 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "INT-001",
+      "chapter": "Interest",
+      "cpIds": [
+        "INT-CP-001",
+        "INT-CP-002",
+        "INT-CP-003",
+        "INT-CP-004",
+        "INT-CP-005",
+        "INT-CP-006",
+        "INT-CP-007",
+        "INT-CP-008",
+        "INT-CP-009",
+        "INT-CP-010"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "permanentQlCount": 133,
+      "permanentQlIds": [
+        "INT-QL-001",
+        "INT-QL-002",
+        "INT-QL-003",
+        "INT-QL-004",
+        "INT-QL-005",
+        "INT-QL-006",
+        "INT-QL-007",
+        "INT-QL-008",
+        "INT-QL-009",
+        "INT-QL-010",
+        "INT-QL-011",
+        "INT-QL-012",
+        "INT-QL-013",
+        "INT-QL-014",
+        "INT-QL-015",
+        "INT-QL-016",
+        "INT-QL-017",
+        "INT-QL-018",
+        "INT-QL-019",
+        "INT-QL-020",
+        "INT-QL-021",
+        "INT-QL-022",
+        "INT-QL-023",
+        "INT-QL-024",
+        "INT-QL-025",
+        "INT-QL-026",
+        "INT-QL-027",
+        "INT-QL-028",
+        "INT-QL-029",
+        "INT-QL-030",
+        "INT-QL-031",
+        "INT-QL-032",
+        "INT-QL-033",
+        "INT-QL-034",
+        "INT-QL-035",
+        "INT-QL-036",
+        "INT-QL-037",
+        "INT-QL-038",
+        "INT-QL-039",
+        "INT-QL-040",
+        "INT-QL-041",
+        "INT-QL-042",
+        "INT-QL-043",
+        "INT-QL-044",
+        "INT-QL-045",
+        "INT-QL-046",
+        "INT-QL-047",
+        "INT-QL-048",
+        "INT-QL-049",
+        "INT-QL-050",
+        "INT-QL-051",
+        "INT-QL-052",
+        "INT-QL-053",
+        "INT-QL-054",
+        "INT-QL-055",
+        "INT-QL-056",
+        "INT-QL-057",
+        "INT-QL-058",
+        "INT-QL-059",
+        "INT-QL-060",
+        "INT-QL-061",
+        "INT-QL-062",
+        "INT-QL-063",
+        "INT-QL-064",
+        "INT-QL-065",
+        "INT-QL-066",
+        "INT-QL-067",
+        "INT-QL-068",
+        "INT-QL-069",
+        "INT-QL-070",
+        "INT-QL-071",
+        "INT-QL-072",
+        "INT-QL-073",
+        "INT-QL-074",
+        "INT-QL-075",
+        "INT-QL-076",
+        "INT-QL-077",
+        "INT-QL-078",
+        "INT-QL-079",
+        "INT-QL-080",
+        "INT-QL-081",
+        "INT-QL-082",
+        "INT-QL-083",
+        "INT-QL-084",
+        "INT-QL-085",
+        "INT-QL-086",
+        "INT-QL-087",
+        "INT-QL-088",
+        "INT-QL-089",
+        "INT-QL-090",
+        "INT-QL-091",
+        "INT-QL-092",
+        "INT-QL-093",
+        "INT-QL-095",
+        "INT-QL-096",
+        "INT-QL-097",
+        "INT-QL-098",
+        "INT-QL-099",
+        "INT-QL-100",
+        "INT-QL-101",
+        "INT-QL-102",
+        "INT-QL-103",
+        "INT-QL-104",
+        "INT-QL-105",
+        "INT-QL-106",
+        "INT-QL-107",
+        "INT-QL-108",
+        "INT-QL-109",
+        "INT-QL-110",
+        "INT-QL-111",
+        "INT-QL-112",
+        "INT-QL-113",
+        "INT-QL-114",
+        "INT-QL-115",
+        "INT-QL-116",
+        "INT-QL-117",
+        "INT-QL-118",
+        "INT-QL-119",
+        "INT-QL-120",
+        "INT-QL-121",
+        "INT-QL-122",
+        "INT-QL-123",
+        "INT-QL-124",
+        "INT-QL-125",
+        "INT-QL-126",
+        "INT-QL-127",
+        "INT-QL-128",
+        "INT-QL-129",
+        "INT-QL-130",
+        "INT-QL-131",
+        "INT-QL-132",
+        "INT-QL-133",
+        "INT-QL-134"
+      ],
       "cpLanguagePolicy": null
     },
     {
@@ -295,6 +561,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -310,6 +578,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -324,6 +594,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -350,15 +622,20 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
       "packageId": "NUM-001",
       "chapter": "Number System",
       "cpIds": [
-        "NUM-CP-001",
         "NUM-CP-003",
-        "NUM-CP-004"
+        "NUM-CP-004",
+        "NUM-CP-005",
+        "NUM-CP-006",
+        "NUM-CP-001",
+        "NUM-CP-002"
       ],
       "languages": [
         "en",
@@ -366,17 +643,357 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": 139,
+      "permanentQlIds": [
+        "NUM-QL-001",
+        "NUM-QL-002",
+        "NUM-QL-003",
+        "NUM-QL-004",
+        "NUM-QL-005",
+        "NUM-QL-006",
+        "NUM-QL-007",
+        "NUM-QL-008",
+        "NUM-QL-009",
+        "NUM-QL-010",
+        "NUM-QL-011",
+        "NUM-QL-012",
+        "NUM-QL-013",
+        "NUM-QL-014",
+        "NUM-QL-015",
+        "NUM-QL-016",
+        "NUM-QL-017",
+        "NUM-QL-018",
+        "NUM-QL-019",
+        "NUM-QL-020",
+        "NUM-QL-021",
+        "NUM-QL-022",
+        "NUM-QL-023",
+        "NUM-QL-024",
+        "NUM-QL-025",
+        "NUM-QL-026",
+        "NUM-QL-027",
+        "NUM-QL-028",
+        "NUM-QL-029",
+        "NUM-QL-030",
+        "NUM-QL-031",
+        "NUM-QL-032",
+        "NUM-QL-033",
+        "NUM-QL-034",
+        "NUM-QL-035",
+        "NUM-QL-036",
+        "NUM-QL-037",
+        "NUM-QL-038",
+        "NUM-QL-039",
+        "NUM-QL-040",
+        "NUM-QL-041",
+        "NUM-QL-042",
+        "NUM-QL-043",
+        "NUM-QL-044",
+        "NUM-QL-045",
+        "NUM-QL-046",
+        "NUM-QL-047",
+        "NUM-QL-048",
+        "NUM-QL-049",
+        "NUM-QL-050",
+        "NUM-QL-051",
+        "NUM-QL-052",
+        "NUM-QL-053",
+        "NUM-QL-054",
+        "NUM-QL-055",
+        "NUM-QL-056",
+        "NUM-QL-057",
+        "NUM-QL-058",
+        "NUM-QL-059",
+        "NUM-QL-060",
+        "NUM-QL-061",
+        "NUM-QL-062",
+        "NUM-QL-063",
+        "NUM-QL-064",
+        "NUM-QL-065",
+        "NUM-QL-066",
+        "NUM-QL-067",
+        "NUM-QL-068",
+        "NUM-QL-069",
+        "NUM-QL-070",
+        "NUM-QL-071",
+        "NUM-QL-072",
+        "NUM-QL-073",
+        "NUM-QL-074",
+        "NUM-QL-075",
+        "NUM-QL-076",
+        "NUM-QL-077",
+        "NUM-QL-078",
+        "NUM-QL-079",
+        "NUM-QL-080",
+        "NUM-QL-081",
+        "NUM-QL-082",
+        "NUM-QL-083",
+        "NUM-QL-084",
+        "NUM-QL-085",
+        "NUM-QL-086",
+        "NUM-QL-087",
+        "NUM-QL-088",
+        "NUM-QL-089",
+        "NUM-QL-090",
+        "NUM-QL-091",
+        "NUM-QL-092",
+        "NUM-QL-093",
+        "NUM-QL-094",
+        "NUM-QL-095",
+        "NUM-QL-096",
+        "NUM-QL-097",
+        "NUM-QL-124",
+        "NUM-QL-125",
+        "NUM-QL-126",
+        "NUM-QL-127",
+        "NUM-QL-128",
+        "NUM-QL-129",
+        "NUM-QL-130",
+        "NUM-QL-131",
+        "NUM-QL-132",
+        "NUM-QL-133",
+        "NUM-QL-134",
+        "NUM-QL-135",
+        "NUM-QL-136",
+        "NUM-QL-137",
+        "NUM-QL-138",
+        "NUM-QL-139",
+        "NUM-QL-140",
+        "NUM-QL-141",
+        "NUM-QL-142",
+        "NUM-QL-143",
+        "NUM-QL-144",
+        "NUM-QL-145",
+        "NUM-QL-146",
+        "NUM-QL-147",
+        "NUM-QL-148",
+        "NUM-QL-149",
+        "NUM-QL-150",
+        "NUM-QL-151",
+        "NUM-QL-152",
+        "NUM-QL-153",
+        "NUM-QL-154",
+        "NUM-QL-155",
+        "NUM-QL-156",
+        "NUM-QL-157",
+        "NUM-QL-158",
+        "NUM-QL-159",
+        "NUM-QL-160",
+        "NUM-QL-161",
+        "NUM-QL-162",
+        "NUM-QL-163",
+        "NUM-QL-164",
+        "NUM-QL-165"
+      ],
       "cpLanguagePolicy": {
+        "NUM-CP-003": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-004": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-005": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-006": [
+          "en",
+          "hi",
+          "pa"
+        ],
         "NUM-CP-001": [
           "en",
           "hi",
           "pa"
         ],
-        "NUM-CP-003": [
-          "en"
+        "NUM-CP-002": [
+          "en",
+          "hi",
+          "pa"
+        ]
+      }
+    },
+    {
+      "packageId": "NUM-002",
+      "chapter": "Number System",
+      "cpIds": [
+        "NUM-CP-007",
+        "NUM-CP-008",
+        "NUM-CP-009",
+        "NUM-CP-010",
+        "NUM-CP-011",
+        "NUM-CP-012",
+        "NUM-CP-013",
+        "NUM-CP-014"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "permanentQlCount": 114,
+      "permanentQlIds": [
+        "NUM-QL-098",
+        "NUM-QL-099",
+        "NUM-QL-100",
+        "NUM-QL-101",
+        "NUM-QL-102",
+        "NUM-QL-103",
+        "NUM-QL-104",
+        "NUM-QL-105",
+        "NUM-QL-106",
+        "NUM-QL-107",
+        "NUM-QL-108",
+        "NUM-QL-109",
+        "NUM-QL-110",
+        "NUM-QL-111",
+        "NUM-QL-112",
+        "NUM-QL-113",
+        "NUM-QL-114",
+        "NUM-QL-115",
+        "NUM-QL-116",
+        "NUM-QL-117",
+        "NUM-QL-118",
+        "NUM-QL-119",
+        "NUM-QL-120",
+        "NUM-QL-121",
+        "NUM-QL-122",
+        "NUM-QL-123",
+        "NUM-QL-166",
+        "NUM-QL-167",
+        "NUM-QL-168",
+        "NUM-QL-169",
+        "NUM-QL-170",
+        "NUM-QL-171",
+        "NUM-QL-172",
+        "NUM-QL-173",
+        "NUM-QL-174",
+        "NUM-QL-175",
+        "NUM-QL-176",
+        "NUM-QL-177",
+        "NUM-QL-178",
+        "NUM-QL-179",
+        "NUM-QL-180",
+        "NUM-QL-181",
+        "NUM-QL-182",
+        "NUM-QL-183",
+        "NUM-QL-184",
+        "NUM-QL-185",
+        "NUM-QL-186",
+        "NUM-QL-187",
+        "NUM-QL-188",
+        "NUM-QL-189",
+        "NUM-QL-190",
+        "NUM-QL-191",
+        "NUM-QL-192",
+        "NUM-QL-193",
+        "NUM-QL-194",
+        "NUM-QL-195",
+        "NUM-QL-196",
+        "NUM-QL-197",
+        "NUM-QL-198",
+        "NUM-QL-199",
+        "NUM-QL-200",
+        "NUM-QL-201",
+        "NUM-QL-202",
+        "NUM-QL-203",
+        "NUM-QL-204",
+        "NUM-QL-205",
+        "NUM-QL-206",
+        "NUM-QL-207",
+        "NUM-QL-208",
+        "NUM-QL-209",
+        "NUM-QL-210",
+        "NUM-QL-211",
+        "NUM-QL-212",
+        "NUM-QL-213",
+        "NUM-QL-214",
+        "NUM-QL-215",
+        "NUM-QL-216",
+        "NUM-QL-217",
+        "NUM-QL-218",
+        "NUM-QL-219",
+        "NUM-QL-220",
+        "NUM-QL-221",
+        "NUM-QL-222",
+        "NUM-QL-223",
+        "NUM-QL-224",
+        "NUM-QL-225",
+        "NUM-QL-226",
+        "NUM-QL-227",
+        "NUM-QL-228",
+        "NUM-QL-229",
+        "NUM-QL-230",
+        "NUM-QL-231",
+        "NUM-QL-232",
+        "NUM-QL-233",
+        "NUM-QL-234",
+        "NUM-QL-235",
+        "NUM-QL-236",
+        "NUM-QL-237",
+        "NUM-QL-238",
+        "NUM-QL-239",
+        "NUM-QL-240",
+        "NUM-QL-241",
+        "NUM-QL-242",
+        "NUM-QL-243",
+        "NUM-QL-244",
+        "NUM-QL-245",
+        "NUM-QL-246",
+        "NUM-QL-247",
+        "NUM-QL-248",
+        "NUM-QL-249",
+        "NUM-QL-250",
+        "NUM-QL-251",
+        "NUM-QL-252",
+        "NUM-QL-253"
+      ],
+      "cpLanguagePolicy": {
+        "NUM-CP-007": [
+          "en",
+          "hi",
+          "pa"
         ],
-        "NUM-CP-004": [
-          "en"
+        "NUM-CP-008": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-009": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-010": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-011": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-012": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-013": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-014": [
+          "en",
+          "hi",
+          "pa"
         ]
       }
     },
@@ -395,6 +1012,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -416,6 +1035,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -437,6 +1058,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -458,6 +1081,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -479,6 +1104,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -500,6 +1127,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -521,6 +1150,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -540,6 +1171,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -559,6 +1192,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -578,6 +1213,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -597,6 +1234,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -615,6 +1254,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -632,6 +1273,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -652,6 +1295,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -671,6 +1316,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -690,6 +1337,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -712,6 +1361,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -737,6 +1388,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -756,6 +1409,38 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": 29,
+      "permanentQlIds": [
+        "SRI-001-QL-001",
+        "SRI-001-QL-002",
+        "SRI-001-QL-003",
+        "SRI-001-QL-004",
+        "SRI-001-QL-005",
+        "SRI-001-QL-006",
+        "SRI-001-QL-007",
+        "SRI-001-QL-008",
+        "SRI-001-QL-009",
+        "SRI-001-QL-010",
+        "SRI-001-QL-011",
+        "SRI-001-QL-012",
+        "SRI-001-QL-013",
+        "SRI-001-QL-014",
+        "SRI-001-QL-015",
+        "SRI-001-QL-016",
+        "SRI-001-QL-017",
+        "SRI-001-QL-018",
+        "SRI-001-QL-019",
+        "SRI-001-QL-020",
+        "SRI-001-QL-021",
+        "SRI-001-QL-022",
+        "SRI-001-QL-023",
+        "SRI-001-QL-024",
+        "SRI-001-QL-025",
+        "SRI-001-QL-026",
+        "SRI-001-QL-027",
+        "SRI-001-QL-028",
+        "SRI-001-QL-029"
+      ],
       "cpLanguagePolicy": null
     },
     {
@@ -775,6 +1460,38 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": 29,
+      "permanentQlIds": [
+        "SRI-002-QL-001",
+        "SRI-002-QL-002",
+        "SRI-002-QL-003",
+        "SRI-002-QL-004",
+        "SRI-002-QL-005",
+        "SRI-002-QL-006",
+        "SRI-002-QL-007",
+        "SRI-002-QL-008",
+        "SRI-002-QL-009",
+        "SRI-002-QL-010",
+        "SRI-002-QL-011",
+        "SRI-002-QL-012",
+        "SRI-002-QL-013",
+        "SRI-002-QL-014",
+        "SRI-002-QL-015",
+        "SRI-002-QL-016",
+        "SRI-002-QL-017",
+        "SRI-002-QL-018",
+        "SRI-002-QL-019",
+        "SRI-002-QL-020",
+        "SRI-002-QL-021",
+        "SRI-002-QL-022",
+        "SRI-002-QL-023",
+        "SRI-002-QL-024",
+        "SRI-002-QL-025",
+        "SRI-002-QL-026",
+        "SRI-002-QL-027",
+        "SRI-002-QL-028",
+        "SRI-002-QL-029"
+      ],
       "cpLanguagePolicy": null
     },
     {
@@ -787,6 +1504,8 @@
         "en"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -799,6 +1518,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -811,6 +1532,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -823,6 +1546,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -835,6 +1560,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -847,6 +1574,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -859,6 +1588,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -871,6 +1602,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -883,6 +1616,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -895,6 +1630,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -907,6 +1644,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -919,6 +1658,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -931,6 +1672,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -943,6 +1686,8 @@
         "en"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -970,6 +1715,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -989,6 +1736,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -1006,6 +1755,8 @@
         "pa"
       ],
       "stage": "LEGACY_DECLARED_GATES",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -1021,6 +1772,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -1040,6 +1793,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     },
     {
@@ -1064,6 +1819,8 @@
         "pa"
       ],
       "stage": "REVIEW_ONLY",
+      "permanentQlCount": null,
+      "permanentQlIds": null,
       "cpLanguagePolicy": null
     }
   ],
@@ -1080,7 +1837,7 @@
       ],
       "stage": "BANK_ONLY",
       "authority": "algebra-question-bank-activation-v1.ts",
-      "unifiedRegistered": false
+      "unifiedRegistered": true
     },
     {
       "packageId": "INT-001",
@@ -1094,21 +1851,35 @@
       ],
       "stage": "REVIEW_ONLY",
       "authority": "int-001-chapter-question-studio-admin-adapter-v1.ts",
-      "unifiedRegistered": false
+      "unifiedRegistered": true
     },
     {
-      "packageId": "NUM-002",
-      "chapter": "Number System CP008–014",
-      "permanentQls": 88,
-      "checkpoints": 7,
+      "packageId": "NUM-001",
+      "chapter": "Number System CP001–006",
+      "permanentQls": 139,
+      "checkpoints": 6,
       "languages": [
         "en",
         "hi",
         "pa"
       ],
       "stage": "REVIEW_ONLY",
-      "authority": "shared-generation-engine-cp014.ts",
-      "unifiedRegistered": false
+      "authority": "number-system-final-allocation/direct-checkpoint-runtimes",
+      "unifiedRegistered": true
+    },
+    {
+      "packageId": "NUM-002",
+      "chapter": "Number System CP007–014",
+      "permanentQls": 114,
+      "checkpoints": 8,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "number-system-final-allocation/direct-checkpoint-runtimes",
+      "unifiedRegistered": true
     },
     {
       "packageId": "SRI-001",
@@ -1139,47 +1910,7 @@
       "unifiedRegistered": true
     }
   ],
-  "confirmedRemainingUnifiedRoutingGaps": [
-    {
-      "packageId": "ALGEBRA",
-      "chapter": "Algebra",
-      "permanentQls": 43,
-      "checkpoints": 14,
-      "languages": [
-        "en",
-        "hi",
-        "pa"
-      ],
-      "stage": "BANK_ONLY",
-      "authority": "algebra-question-bank-activation-v1.ts"
-    },
-    {
-      "packageId": "INT-001",
-      "chapter": "Interest",
-      "permanentQls": 133,
-      "checkpoints": 10,
-      "languages": [
-        "en",
-        "hi",
-        "pa"
-      ],
-      "stage": "REVIEW_ONLY",
-      "authority": "int-001-chapter-question-studio-admin-adapter-v1.ts"
-    },
-    {
-      "packageId": "NUM-002",
-      "chapter": "Number System CP008–014",
-      "permanentQls": 88,
-      "checkpoints": 7,
-      "languages": [
-        "en",
-        "hi",
-        "pa"
-      ],
-      "stage": "REVIEW_ONLY",
-      "authority": "shared-generation-engine-cp014.ts"
-    }
-  ],
+  "confirmedRemainingUnifiedRoutingGaps": [],
   "resolvedInThisChange": {
     "chapter": "Surds & Indices",
     "packages": [
@@ -1198,8 +1929,24 @@
     "reviewOptionOrderChanged": true,
     "scopedProductionTypeCheck": "PASS"
   },
+  "additionalUnifiedIntegration": {
+    "chapters": [
+      "Number System",
+      "Interest",
+      "Algebra"
+    ],
+    "permanentQls": [
+      253,
+      133,
+      43
+    ],
+    "sourceStatusesPreserved": true,
+    "unifiedSurfacesChecked": 1416,
+    "boundedCp004SourceChecks": 6720,
+    "numberSystemTrilingualStateParity": "PASS",
+    "uniqueMultilingualReviewIdentities": "PASS"
+  },
   "capabilityReconciliationFollowups": [
-    "NUM-001 unified card exposes CP001/003/004; reconcile CP002/005/006/007 histories with the 14-CP final allocation before claiming whole-chapter unified exposure.",
     "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",
     "Statistics advertises English, consistent with its explicit Paper-II closure scope and disabled localization; this does not reopen mathematical closure.",
     "DI-MIX-001 advertises English while individual DI packages advertise EN/HI/PA; review mix capability separately from individual chapter closure."

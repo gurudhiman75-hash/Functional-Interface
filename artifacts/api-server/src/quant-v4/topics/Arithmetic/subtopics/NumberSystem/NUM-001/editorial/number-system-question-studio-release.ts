@@ -224,13 +224,17 @@ function generateCp004(
   seed: string,
 ) {
   const allocation = getNumCp004PermanentAllocation(qlId);
-  const numericSeed = (hash(seed) % 2_000_000_000) + 1;
+  // The retained verifier enumerates divisors up to its generated integer.
+  // Bound the source seed to 240 to keep the independent verifier finite and practical.
+  const numericSeed = (hash(seed) % 240) + 1;
   const question = runNumCp004PermanentPipeline({
     questionLanguageId: qlId,
     seed: numericSeed,
     language: "en",
   });
-  return buildReleasedQuestion("NUM-CP-004", allocation, question);
+  const released = buildReleasedQuestion("NUM-CP-004", allocation, question);
+  return Object.freeze({...released, traceability: Object.freeze({...released.traceability,
+    requestSeed: seed, numericSourceSeed: numericSeed, sourceSeedPolicy: "NUM-CP004-QS-BOUNDED-240-V1"})});
 }
 
 export function getNum001QuestionStudioQlIds(

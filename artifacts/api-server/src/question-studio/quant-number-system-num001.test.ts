@@ -8,11 +8,12 @@ import {
 import { generateProfiledQuantBatch } from "./quant-exam-profile";
 import { isNum001EngineRequest } from "./quant-number-system-num001";
 
-test("NUM-001 shared capabilities expose guarded CP001/003/004 review surface", () => {
+test("NUM-001 shared capabilities expose all six governed checkpoints", () => {
   const pkg = listQuestionStudioPackages().find((entry) => entry.packageId === "NUM-001");
   assert.ok(pkg);
   assert.equal(pkg!.engineId, "quant-v4");
-  assert.deepEqual(pkg!.cpIds, ["NUM-CP-001", "NUM-CP-003", "NUM-CP-004"]);
+  assert.deepEqual([...pkg!.cpIds].sort(), ["NUM-CP-001", "NUM-CP-002", "NUM-CP-003", "NUM-CP-004", "NUM-CP-005", "NUM-CP-006"]);
+  assert.equal(pkg!.metadata?.permanentQlCount, 139);
   assert.deepEqual(pkg!.supportedLanguages, ["en", "hi", "pa"]);
   assert.deepEqual(pkg!.supportedDifficulties, ["Easy", "Medium", "Hard"]);
   assert.equal(pkg!.difficultyFilterSupported, false);
@@ -28,8 +29,8 @@ test("NUM-001 shared capabilities expose guarded CP001/003/004 review surface", 
 
   const policy = pkg!.metadata?.cpLanguagePolicy as Record<string, string[]>;
   assert.deepEqual(policy["NUM-CP-001"], ["en", "hi", "pa"]);
-  assert.deepEqual(policy["NUM-CP-003"], ["en"]);
-  assert.deepEqual(policy["NUM-CP-004"], ["en"]);
+  assert.deepEqual(policy["NUM-CP-003"], ["en", "hi", "pa"]);
+  assert.deepEqual(policy["NUM-CP-004"], ["en", "hi", "pa"]);
 });
 
 test("NUM-CP-001 keeps multilingual controlled-review runtime", async () => {
@@ -38,7 +39,6 @@ test("NUM-CP-001 keeps multilingual controlled-review runtime", async () => {
     packageId: "NUM-001",
     canonicalProblemId: "NUM-CP-001",
     questionLanguageId: "NUM-QL-124",
-    difficulty: "Medium",
     language: "pa",
     seed: "num001-unified:cp001:pa",
     count: 1,
@@ -58,7 +58,7 @@ test("NUM-CP-001 keeps multilingual controlled-review runtime", async () => {
   assert.equal(question.publiclyPublishable, false);
 });
 
-test("NUM-CP-003/004 remain English-only", async () => {
+test("NUM-CP-003/004 retain English release and controlled native review", async () => {
   const english = await generateQuestionStudioQuestions({
     engineId: "quant-v4",
     packageId: "NUM-001",
@@ -71,23 +71,15 @@ test("NUM-CP-003/004 remain English-only", async () => {
   assert.equal((english.questions[0] as any).canonicalProblemId, "NUM-CP-003");
   assert.equal((english.questions[0] as any).language, "en");
 
-  await assert.rejects(
-    () => generateQuestionStudioQuestions({
-      engineId: "quant-v4",
-      packageId: "NUM-001",
-      canonicalProblemId: "NUM-CP-003",
-      questionLanguageId: "NUM-QL-001",
-      language: "hi",
-      seed: "num001-unified:cp003:hi-reject",
-      count: 1,
-    }),
-    (error: any) => {
-      assert.equal(error?.statusCode, 400);
-      assert.equal(error?.code, "NUM001_REQUEST_INVALID");
-      assert.match(String(error?.message), /Hindi\/Punjabi.*NUM-CP-001/u);
-      return true;
-    },
-  );
+  const native = await generateQuestionStudioQuestions({
+    engineId: "quant-v4", packageId: "NUM-001", canonicalProblemId: "NUM-CP-003",
+    questionLanguageId: "NUM-QL-001", language: "hi", seed: "num001-unified:controlled-hi", count: 1,
+  });
+  const q = native.questions[0];
+  assert.equal(q.language, "hi");
+  assert.equal(q.reviewStatus, "MULTILINGUAL_CONTROLLED_REVIEW");
+  assert.equal(q.questionBankWritable, false);
+  assert.equal(q.publiclyPublishable, false);
 });
 
 test("NUM-001 unified profile planner can generate all active CPs in one batch", async () => {
