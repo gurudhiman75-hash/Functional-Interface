@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import {
@@ -36,7 +36,7 @@ function dateLabel(value: string | Date): string {
     new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(parsed);
 }
 
-function Panel({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+function Panel({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   return (
     <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="mb-5">
@@ -48,7 +48,7 @@ function Panel({ title, subtitle, children }: { title: string; subtitle?: string
   );
 }
 
-function BlankChart({ children }: { children: React.ReactNode }) {
+function BlankChart({ children }: { children: ReactNode }) {
   return <p className="flex min-h-44 items-center justify-center rounded-xl bg-slate-50 p-5 text-center text-sm text-slate-500">{children}</p>;
 }
 
