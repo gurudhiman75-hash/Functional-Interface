@@ -50,7 +50,11 @@ export async function onRequest({ request, env = {} }) {
   // approved production merchant/webhook handover.
   const financialHandoverPath =
     /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
-    /^\/api\/commerce\/orders\/[^/]+\/(?:reconcile|confirm)$/.test(incoming.pathname);
+    /^\/api\/commerce\/orders\/[^/]+\/(?:reconcile|confirm)$/.test(incoming.pathname) ||
+    incoming.pathname === "/api/billing/razorpay/verify" ||
+    incoming.pathname === "/api/packages/verify" ||
+    incoming.pathname === "/api/admin/commerce/orders" ||
+    incoming.pathname.startsWith("/api/admin/commerce/orders/");
   const actualUpstream = financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin;
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
