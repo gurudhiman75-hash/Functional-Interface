@@ -18,6 +18,8 @@ on:
       - tests/examtree-cashfree-webhook-replay.test.py
       - scripts/close-examtree-cashfree-staging-expired-orders.py
       - tests/examtree-cashfree-expired-order-closure.test.py
+      - scripts/validate-examtree-staging-neon-url.py
+      - tests/examtree-staging-neon-url.test.py
       - scripts/isolate-examtree-cloudrun-staging-neon.sh
       - scripts/deploy-examtree-api-cloudrun-staging.sh
       - tests/examtree-staging-db-isolation.test.mjs
@@ -56,6 +58,7 @@ jobs:
           bash -n scripts/isolate-examtree-cloudrun-staging-neon.sh
           bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
           node --test tests/examtree-staging-db-isolation.test.mjs tests/cloudrun-api-migration.test.mjs
+          python3 tests/examtree-staging-neon-url.test.py
       - name: Confirm non-mutating staging diagnostics
         run: bash tests/examtree-cloudrun-staging-security.test.sh
       - name: Guard hidden Firebase ID-token read checks
