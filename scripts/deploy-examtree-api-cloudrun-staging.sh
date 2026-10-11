@@ -45,18 +45,11 @@ for required in "${REQUIRED_SECRETS[@]}"; do
     echo "Secret $required has no enabled version" >&2; exit 1;
   }
 done
-# Secret data is streamed (not logged); fail closed if a main connection was stored.
+# Never show a secret URL; reuse the exact audited, reason-coded staging
+# branch validator before building or deploying a revision.
 if ! gcloud secrets versions access latest --secret="$SECRET" --project="$PROJECT" |
-  python3 -c 'import sys
-from urllib.parse import urlsplit,parse_qs
-try:
- u=urlsplit(sys.stdin.read())
- assert u.scheme in ("postgres","postgresql")
- assert u.hostname=="ep-wild-water-atrzmssw.c-9.us-east-1.aws.neon.tech"
- assert u.path=="/neondb" and u.username and u.password
- assert parse_qs(u.query).get("sslmode")==["require"]
-except (AssertionError,ValueError): sys.exit(1)' ; then
-  echo "FAIL: staging database secret does not point at the isolated Neon branch; no build/deploy." >&2
+  python3 "$ROOT/scripts/validate-examtree-staging-neon-url.py"; then
+  echo "FAIL: staging URL is unsafe/incorrect; no build or deployment." >&2
   exit 1
 fi
 SA="$ACCOUNT@$PROJECT.iam.gserviceaccount.com"

@@ -24,7 +24,7 @@ test('staging isolation requires approval, exact Neon branch, and separate GCP s
 
 test('staging deploy and review writes cannot reuse main Neon', () => {
   assert.match(deploy, /SECRET="examtree-api-staging-database-url"/);
-  assert.match(deploy, /u\.hostname=="ep-wild-water-atrzmssw/);
+  assert.match(deploy, /validate-examtree-staging-neon-url\.py/);
   assert.doesNotMatch(deploy, /SECRET="examtree-api-database-url"/);
   assert.match(worker, /EXAMTREE_API_STAGING === "true"/);
   assert.match(worker, /Staging background job execution is forbidden/);

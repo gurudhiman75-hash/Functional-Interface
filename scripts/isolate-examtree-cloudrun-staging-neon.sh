@@ -44,23 +44,11 @@ echo "Retrieve the connection string for branch examtree-cloudrun-api-staging-20
 read -r -s -p "Neon STAGING branch DATABASE_URL (hidden): " STAGING_DATABASE_URL
 echo
 trap 'unset STAGING_DATABASE_URL' EXIT
-# The URL is supplied only through stdin. Never print it or put it on a command line.
-if ! printf '%s' "$STAGING_DATABASE_URL" | python3 -c '
-import sys
-from urllib.parse import urlsplit, parse_qs
-s=sys.stdin.read()
-try:
- u=urlsplit(s)
- assert u.scheme in ("postgres","postgresql")
- assert u.hostname == "ep-wild-water-atrzmssw.c-9.us-east-1.aws.neon.tech"
- assert u.hostname != "ep-polished-king-atj47i5y.c-9.us-east-1.aws.neon.tech"
- assert u.path == "/neondb"
- assert u.username and u.password and u.port in (None, 5432)
- assert parse_qs(u.query).get("sslmode")==["require"]
-except (AssertionError,ValueError):
- sys.exit(1)
-' ; then
-  echo "FAIL: URL is not the exact STAGING branch, PostgreSQL database, and required TLS. Nothing changed." >&2
+# Validate without revealing credentials. Fail with an actionable nonsecret reason.
+# This guard must run BEFORE any Secret Manager or Cloud Run mutation.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if ! printf '%s' "$STAGING_DATABASE_URL" | python3 "$SCRIPT_DIR/validate-examtree-staging-neon-url.py"; then
+  echo "No Google Cloud changes were made. Correct the Neon connection dialog and rerun." >&2
   exit 1
 fi
 if ! gcloud secrets describe "$SECRET" --project="$PROJECT" >/dev/null 2>&1; then
