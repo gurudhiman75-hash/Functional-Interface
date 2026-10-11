@@ -6,6 +6,7 @@ starts jobs, edits Render/Pages settings, or affects students. Exit 2 if any
 cutover prerequisite is unverified. No automatic cutover is authorized.
 """
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -62,8 +63,8 @@ def check_service(resource, staging):
     values, secrets = runtime_env(resource)
     return bool(values) and all([
         values.get("EXAMTREE_API_RUNTIME") == "cloud-run",
-        values.get("EXAMTREE_API_STAGING") == ("true" if staging else None)
-            if staging else values.get("EXAMTREE_API_STAGING") != "true",
+        (values.get("EXAMTREE_API_STAGING") == "true") if staging
+        else (values.get("EXAMTREE_API_STAGING") != "true"),
         secrets.get("DATABASE_URL") == (STAGING_SECRET if staging else MAIN_SECRET),
         values.get("GENERATION_JOB_WORKER_ENABLED") == "false",
         values.get("OUTBOX_PUBLISHER_ENABLED") == "false",
@@ -117,16 +118,30 @@ def main():
     gate("dedicated production worker job mapped to live Neon, not staging",
          check_job(job))
 
-    scheduled = json_command("gcloud", "scheduler", "jobs", "describe", SCHEDULER,
-                             "--project=" + PROJECT, "--location=" + REGION)
-    gate("scheduler remains absent until Render pollers verified off", scheduled is None)
+    scheduled_jobs = json_command("gcloud", "scheduler", "jobs", "list",
+                                  "--project=" + PROJECT, "--location=" + REGION)
+    scheduler_absent = isinstance(scheduled_jobs, list) and not any(
+        (entry.get("name") or "").endswith("/" + SCHEDULER)
+        for entry in scheduled_jobs if isinstance(entry, dict)
+    )
+    gate("scheduler remains absent until Render pollers verified off", scheduler_absent)
 
-    # Do not assume the build succeeded just because GitHub source has /api.
+    # Inspect actual compiled .js/.html, not just Vite source env files.
     pages_dist = Path("artifacts/examtree/dist/public")
-    gate("locally compiled Cloudflare Pages output exists for cutover scan",
-         pages_dist.is_dir() and (pages_dist / "admin/index.html").is_file())
+    pages_built = pages_dist.is_dir() and (pages_dist / "admin/index.html").is_file()
+    if pages_built:
+        environment = dict(os.environ)
+        environment.update(VITE_API_BASE_URL="/api", VITE_API_URL="/api")
+        try:
+            result = subprocess.run(["node", "scripts/check-examtree-cloudflare-cutover.mjs"],
+                                    capture_output=True, timeout=30, env=environment)
+            pages_built = result.returncode == 0
+        except (subprocess.TimeoutExpired, OSError):
+            pages_built = False
+    gate("compiled student+admin Pages assets contain no direct Render API URLs", pages_built)
 
-    print(f"SUMMARY: passed checks={7-failed if prod else 5-failed} pending={failed}")
+    expected = 7 if isinstance(prod, dict) else 5
+    print(f"SUMMARY: passed={expected-failed} pending={failed}")
     print("NOTE: This inspector does not verify merchant dashboard/webhook settings, Android APK rollout, Render worker stop, or rollback.")
     if failed:
         raise SystemExit(2)
