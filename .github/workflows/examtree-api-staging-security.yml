@@ -1,0 +1,29 @@
+name: Verify Examtree Cloud Run Staging Security Smoke
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - scripts/verify-examtree-cloudrun-staging-security.sh
+      - tests/examtree-cloudrun-staging-security.test.sh
+  push:
+    branches: [New-main]
+    paths:
+      - scripts/verify-examtree-cloudrun-staging-security.sh
+      - tests/examtree-cloudrun-staging-security.test.sh
+
+permissions:
+  contents: read
+
+concurrency:
+  group: examtree-api-staging-security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm non-mutating staging diagnostics
+        run: bash tests/examtree-cloudrun-staging-security.test.sh
