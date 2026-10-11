@@ -27,7 +27,7 @@ s=Path(sys.argv[1]).read_text()
 assert "echo \"$STUDENT_TOKEN\"" not in s
 assert "echo \"$ADMIN_TOKEN\"" not in s
 assert "set -x" not in s
-assert 'tmp="$(mktemp -d)"' not in s.lower()
+assert 'TMP="$(mktemp -d)"' in s
 assert "rm -rf \"$TMP\"" in s
 assert "identity mapping" in s
 print("PASS: hidden Firebase bearer handling; no explicit finance or attempt mutation")
