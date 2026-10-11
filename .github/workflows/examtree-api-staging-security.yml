@@ -14,6 +14,8 @@ on:
       - tests/examtree-cloudrun-paid-test-expiry.test.sh
       - tests/examtree-cloudrun-attempt-persistence.test.sh
       - tests/examtree-cloudrun-scored-attempt.test.sh
+      - scripts/verify-examtree-cashfree-cloudrun-webhook-replay.py
+      - tests/examtree-cashfree-webhook-replay.test.py
   push:
     branches: [New-main]
     paths:
@@ -47,3 +49,5 @@ jobs:
         run: bash tests/examtree-cloudrun-attempt-persistence.test.sh
       - name: Guard scored attempt smoke test (static only)
         run: bash tests/examtree-cloudrun-scored-attempt.test.sh
+      - name: Check fixed-order sandbox signed webhook replay safeguards
+        run: python3 tests/examtree-cashfree-webhook-replay.test.py
