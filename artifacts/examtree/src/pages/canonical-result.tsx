@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionRichText } from "@/components/QuestionRichText";
 import { getAttemptById } from "@/lib/data";
+import { aggregateTopics } from "@/lib/performance-metrics";
 import type { TestAttempt } from "@/lib/storage";
 
 type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
@@ -31,11 +32,13 @@ type CanonicalResult = TestAttempt & {
   seriesId?: string | null;
 };
 
-function formatDuration(minutes: number): string {
-  const safe = Math.max(0, Math.round(minutes));
-  if (safe < 60) return `${safe} min`;
-  const hours = Math.floor(safe / 60);
-  const remaining = safe % 60;
+function formatDuration(seconds: number): string {
+  const safe = Math.max(0, Math.round(seconds));
+  if (safe < 60) return `${safe} sec`;
+  const minutes = Math.floor(safe / 60);
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const remaining = minutes % 60;
   return remaining ? `${hours} hr ${remaining} min` : `${hours} hr`;
 }
 
@@ -151,6 +154,10 @@ export default function CanonicalResult() {
   const submittedAt = formatSubmittedAt(result.submittedAt ?? result.createdAt);
   const seriesUrl = result.seriesId ? `/test-series/${encodeURIComponent(result.seriesId)}` : null;
   const retryUrl = `/test/${encodeURIComponent(result.testId)}${result.seriesId ? `?seriesId=${encodeURIComponent(result.seriesId)}` : ""}`;
+  const answered = Math.max(0, result.correct + result.wrong);
+  const attemptRate = totalQuestions > 0 ? Math.round((answered / totalQuestions) * 100) : null;
+  const secondsPerAnswer = result.timeSpent > 0 && answered > 0 ? Math.round(result.timeSpent / answered) : null;
+  const topicMetrics = aggregateTopics([result]).filter((topic) => topic.answered >= 3);
   const sections = result.sectionStats ?? [];
   const strongestSection = sections.length > 0
     ? [...sections].sort((left, right) => right.accuracy - left.accuracy)[0]
@@ -208,6 +215,24 @@ export default function CanonicalResult() {
           </div>
         </section>
 
+        <section className="grid gap-3 sm:grid-cols-3" aria-label="Attempt diagnostics">
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Attempt rate</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{attemptRate == null ? "—" : String(attemptRate) + "%"}</p>
+            <p className="mt-1 text-xs text-slate-500">{answered} of {totalQuestions} questions answered</p>
+          </div>
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Average time per answer</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{secondsPerAnswer == null ? "—" : String(secondsPerAnswer) + "s"}</p>
+            <p className="mt-1 text-xs text-slate-500">Recorded test duration divided by answered questions</p>
+          </div>
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Questions attempted accurately</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{answered > 0 ? String(accuracy) + "%" : "—"}</p>
+            <p className="mt-1 text-xs text-slate-500">Correct answers out of questions attempted</p>
+          </div>
+        </section>
+
         <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" aria-label="Attempt analysis">
           <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
             <div className="flex items-start gap-3">
@@ -258,6 +283,26 @@ export default function CanonicalResult() {
                     <div className="rounded-xl border border-rose-100 bg-white px-2 py-2"><p className="text-sm font-black text-rose-700">{section.wrong}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Wrong</p></div>
                     <div className="rounded-xl border border-amber-100 bg-white px-2 py-2"><p className="text-sm font-black text-amber-700">{section.unanswered}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Skipped</p></div>
                   </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {topicMetrics.length > 0 && (
+          <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="topic-performance">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><Target className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Topic performance</h2><p className="mt-1 text-sm text-slate-500">Based only on tagged questions in this attempt with at least three answered per topic.</p></div>
+            </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {topicMetrics.map((topic) => (
+                <div key={topic.section + "|" + topic.topic} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div><p className="text-sm font-bold text-slate-950">{topic.topic}</p><p className="mt-1 text-xs text-slate-500">{topic.section} · {topic.correct}/{topic.answered} correct</p></div>
+                    <span className="text-lg font-black text-[#6657e8]">{topic.accuracy}%</span>
+                  </div>
+                  <Progress value={topic.accuracy} className="mt-3 h-2" />
                 </div>
               ))}
             </div>
