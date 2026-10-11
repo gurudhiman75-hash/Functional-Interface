@@ -12,6 +12,11 @@ DB_SECRET=examtree-api-database-url
 CASHFREE_ID_SECRET=examtree-cashfree-production-client-id
 CASHFREE_KEY_SECRET=examtree-cashfree-production-client-secret
 AI_SECRET=examtree-openai-api-key
+SALES_PAUSED="${EXAMTREE_PRODUCTION_SALES_PAUSED:-no}"
+if [[ "$SALES_PAUSED" != "yes" && "$SALES_PAUSED" != "no" ]]; then
+  echo "REFUSED: EXAMTREE_PRODUCTION_SALES_PAUSED must be yes or no." >&2
+  exit 2
+fi
 REGISTRY=examtree-workers
 
 if [[ "$(printenv EXAMTREE_PRODUCTION_CANDIDATE_APPROVED 2>/dev/null || true)" != "yes" ||
@@ -43,7 +48,11 @@ gcloud artifacts repositories describe "$REGISTRY" --project="$PROJECT" --locati
   exit 1
 }
 
-for key in "$DB_SECRET" "$CASHFREE_ID_SECRET" "$CASHFREE_KEY_SECRET" "$AI_SECRET"; do
+REQUIRED_SECRETS=("$DB_SECRET" "$AI_SECRET")
+if [[ "$SALES_PAUSED" == "no" ]]; then
+  REQUIRED_SECRETS+=("$CASHFREE_ID_SECRET" "$CASHFREE_KEY_SECRET")
+fi
+for key in "${REQUIRED_SECRETS[@]}"; do
   if ! gcloud secrets describe "$key" --project="$PROJECT" >/dev/null 2>&1 ||
      ! gcloud secrets versions list "$key" --project="$PROJECT" --filter='state:enabled' --format='value(name)' | grep -q .; then
     echo "PENDING: enabled production Secret Manager secret '$key' not found. No Cloud Run resources changed." >&2
@@ -58,7 +67,10 @@ if ! gcloud secrets versions access latest --secret="$DB_SECRET" --project="$PRO
   exit 1
 fi
 
-echo "PRECHECK: live Neon main, distinct production Cashfree/AI secrets, and existing registry."
+echo "PRECHECK: live Neon main, production AI provider secret, and existing registry."
+if [[ "$SALES_PAUSED" == "yes" ]]; then
+  echo "PRECHECK: new purchases will be blocked. No sandbox OR production payment credentials are bound to this candidate."
+fi
 echo "PRECHECK: this creates a PRIVATE Cloud Run service and an INERT job; no public traffic/webhook changes."
 FULL_REVISION="$(git rev-parse HEAD)"
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/$REGISTRY/examtree-api:$FULL_REVISION"
@@ -66,7 +78,7 @@ SA="$ACCOUNT@$PROJECT.iam.gserviceaccount.com"
 if ! gcloud iam service-accounts describe "$SA" --project="$PROJECT" >/dev/null 2>&1; then
   gcloud iam service-accounts create "$ACCOUNT" --project="$PROJECT" --display-name="Examtree production Cloud Run runtime" >/dev/null
 fi
-for key in "$DB_SECRET" "$CASHFREE_ID_SECRET" "$CASHFREE_KEY_SECRET" "$AI_SECRET"; do
+for key in "${REQUIRED_SECRETS[@]}"; do
   gcloud secrets add-iam-policy-binding "$key" --project="$PROJECT" --member="serviceAccount:$SA" --role=roles/secretmanager.secretAccessor >/dev/null
 done
 
@@ -75,13 +87,23 @@ gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
   --ignore-file="$ROOT/Dockerfile.question-studio-worker.dockerignore" \
   --substitutions="_IMAGE=$IMAGE"
 
+# Sales-paused mode is EXPLICIT. Never bind sandbox keys to live Neon.
+# Existing orders and provider webhook handling remain on Render during cutover.
+API_ENV_VARS="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=false,EXAMTREE_PUBLIC_ORIGIN=https://examtree.in,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,AI_EXTRACTION_PROVIDER=openai"
+API_SECRETS="DATABASE_URL=$DB_SECRET:latest,OPENAI_API_KEY=$AI_SECRET:latest"
+if [[ "$SALES_PAUSED" == "yes" ]]; then
+  API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=true,EXAMTREE_PAYMENT_PROVIDER=none"
+else
+  API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=false,EXAMTREE_PAYMENT_PROVIDER=cashfree,CASHFREE_ENV=production"
+  API_SECRETS+=",CASHFREE_CLIENT_ID=$CASHFREE_ID_SECRET:latest,CASHFREE_CLIENT_SECRET=$CASHFREE_KEY_SECRET:latest"
+fi
 # Absolutely no public IAM invocation while Render handles real customers.
 gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
   --platform=managed --image="$IMAGE" --service-account="$SA" \
   --memory=2Gi --cpu=1 --concurrency=10 --min-instances=0 --max-instances=1 \
   --timeout=180 --cpu-throttling --no-allow-unauthenticated \
-  --set-env-vars="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=false,EXAMTREE_PUBLIC_ORIGIN=https://examtree.in,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,AI_EXTRACTION_PROVIDER=openai,EXAMTREE_PAYMENT_PROVIDER=cashfree,CASHFREE_ENV=production" \
-  --set-secrets="DATABASE_URL=$DB_SECRET:latest,CASHFREE_CLIENT_ID=$CASHFREE_ID_SECRET:latest,CASHFREE_CLIENT_SECRET=$CASHFREE_KEY_SECRET:latest,OPENAI_API_KEY=$AI_SECRET:latest" \
+  --set-env-vars="$API_ENV_VARS" \
+  --set-secrets="$API_SECRETS" \
   --quiet
 
 # Set the future callback origin to the candidate's own Cloud Run URL while
@@ -125,10 +147,17 @@ assert env["EXAMTREE_API_RUNTIME"]["value"]=="cloud-run"
 assert env["EXAMTREE_API_STAGING"]["value"]=="false"
 assert env["OUTBOX_PUBLISHER_ENABLED"]["value"]=="false"
 assert env["GENERATION_JOB_WORKER_ENABLED"]["value"]=="false"
-assert env["CASHFREE_ENV"]["value"]=="production"
+assert env["EXAMTREE_SALES_DISABLED"]["value"] in ("true","false")
+if env["EXAMTREE_SALES_DISABLED"]["value"]=="true":
+ assert "CASHFREE_CLIENT_ID" not in env and "CASHFREE_CLIENT_SECRET" not in env
+ assert "CASHFREE_ENV" not in env
+ assert env["EXAMTREE_PAYMENT_PROVIDER"]["value"]=="none"
+else:
+ assert env["CASHFREE_ENV"]["value"]=="production"
+ assert env["EXAMTREE_PAYMENT_PROVIDER"]["value"]=="cashfree"
 assert env["DATABASE_URL"]["valueFrom"]["secretKeyRef"]["name"]=="examtree-api-database-url"
 assert env["OPENAI_API_KEY"]["valueFrom"]["secretKeyRef"]["name"]=="examtree-openai-api-key"
-print("PASS: production API candidate has main Neon secret, live Cashfree config and disabled API workers")
+print("PASS: production API candidate uses main Neon, correct sales mode, and disabled API workers")
 '
 echo "PASS: production Cloud Run PRIVATE candidate and INERT job defined."
 echo "NOT DONE: public invocation, background scheduler, live payment webhooks, Cloudflare cutover, Render shutdown."
