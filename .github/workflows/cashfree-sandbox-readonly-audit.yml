@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/audit-cashfree-sandbox-readonly.py
       - tests/cashfree-sandbox-readonly-audit.test.py
+      - tests/cashfree-audit-db-readonly.test.py
       - docs/cashfree-sandbox-readonly-reconciliation-2026-10-11.md
 
 permissions:
@@ -24,4 +25,6 @@ jobs:
       - name: Syntax check
         run: python3 -m py_compile scripts/audit-cashfree-sandbox-readonly.py tests/cashfree-sandbox-readonly-audit.test.py
       - name: Verify offline mocked Cashfree evidence and GET-only network guard
-        run: python3 tests/cashfree-sandbox-readonly-audit.test.py
+        run: |
+          python3 tests/cashfree-sandbox-readonly-audit.test.py
+          python3 tests/cashfree-audit-db-readonly.test.py
