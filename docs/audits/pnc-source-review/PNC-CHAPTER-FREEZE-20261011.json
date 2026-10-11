@@ -280,8 +280,8 @@
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/variable-ranges.library.json": "25ff81383522996439f02bcdb29790998e0e27abcafabef2182c3c12a12ed197",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/bounded-score-counting.test.ts": "9241b818e3c6a4975efc6ddf033fea43a66690daefb4cbee63e38a9a34b3a9f1",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/bounded-score-counting.ts": "74d7d7bee5bf0ea86fe434816f35471c7530fb02f4a685325e44eabcd22bf52e",
-    "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/complete-source-catalogue.test.ts": "e3afb874c8afa8d272874670a21148fc5f7f68000c996b1273b3bc33e3c17278",
-    "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/complete-source-catalogue.ts": "1fc1b09da825275e3773b1644d730d2844e8210a0d6c35f24c7fd669ee662b85",
+    "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/complete-source-catalogue.test.ts": "29f2f443d1199cbfdea05cf50a741e03271145cf52f5ab43b27cdf8d77db70b8",
+    "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/complete-source-catalogue.ts": "251478f824139419d2f72a46bd7fd98f12bed72f67f9f675cc2e615381324b3c",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/constrained-digits.test.ts": "0eac6f6e7a147e7d8508d3a97368add8ee5b5fbda64beae619d9646b9be13df9",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/constrained-digits.ts": "d229c109aab9354776fa147b26666661a764eca743c1c0dd0d35fa8f2704883d",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/digit-source-cases.ts": "83eb002e76060fcb3dac447dc77b72e6afcb93b743f50b6a65eeb905dfe175dc",
@@ -302,7 +302,7 @@
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/worked-source-cases.test.ts": "9a020cd332cffbf4f7df91a7b5885523437022ad741fd5de8cae8d1315b29c44",
     "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/worked-source-cases.ts": "3def03532369bc74f89558a177390d87ce824687a0ea6ecc74e7a03ee9301204",
     "artifacts/api-server/src/question-studio/quant-pnc-review.ts": "61a31758d1012e2b233b3690ba1243e0b02fac53aeeff95d326d9e4282775a19",
-    "artifacts/api-server/src/question-studio/quant-pnc-source-review.ts": "d241704c794bc62147fa62f6e728d6834cd815f4ee4f1eee0405a8ffcd37031c"
+    "artifacts/api-server/src/question-studio/quant-pnc-source-review.ts": "d7e78fe1460efa1b173025e1179b1086d4f50559fcd953dab432ff69adcfa22a"
   },
   "integrationProjection": {
     "path": "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts",

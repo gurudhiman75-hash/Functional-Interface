@@ -4,7 +4,7 @@ import {digitSourceCases,digitSourceAnswer} from './digit-source-cases';
 import {countConstrainedDigits} from './constrained-digits';
 import {extendedSourceCases} from './extended-source-cases';
 import {workedSourceCases} from './worked-source-cases';
-export interface SourceCatalogueRow {id:string;group:string;language:string;stem:string;answer:string;explanation:string[];options:string[];correctIndex:number;difficulty:string;assumptions?:string}
+export interface SourceCatalogueRow {id:string;group:string;language:string;stem:string;answer:string;explanation:string[];options:string[];correctIndex:number;difficulty:string;assumptions?:string;exactIntegerAnswer?:string}
 let cached:SourceCatalogueRow[]|undefined;
 function numericOptions(answer:string,index:number):{options:string[];correctIndex:number} {
  if(/^\d+$/.test(answer)){const value=BigInt(answer),step=value>20n?value/7n:1n;const candidates=new Set([answer]);for(const n of [value+step,value>step?value-step:value+2n*step,value*2n+1n,value+3n*step,value+4n*step])if(n>=0)candidates.add(String(n));const options=[...candidates].slice(0,4),correctIndex=index%4;[options[0],options[correctIndex]]=[options[correctIndex],options[0]];return {options,correctIndex};}
@@ -41,7 +41,17 @@ export function completeSourceCatalogue():SourceCatalogueRow[] {
   explanation.push(`Answer: ${answer}.`);return {id:c.id,stem:c.stem,answer,explanation,assumptions:c.interpretation};
  });
  for(const c of [...extendedSourceCases,...workedSourceCases])items.push({id:c.id,stem:c.stem,answer:c.answer,explanation:[c.working,...(c.assumptions?[`Convention: ${c.assumptions}`]:[]),`Answer: ${c.answer}.`],assumptions:c.assumptions});
- cached=items.map((c,index)=>({...c,...numericOptions(c.answer,index),language:'en',group:c.id.startsWith('WORKED')?'PNC-SOURCE-WORKED':'PNC-SOURCE-EXERCISES',difficulty:c.id.startsWith('I-')?'Easy':c.id.startsWith('II-')?'Medium':'Hard'}));
+ const symbolic:Record<string,string[]>={
+ 'II-013':['99!','99!/2','2×99!','100!'],
+ 'III-010':['36×24!','18×24!','2×24!','26!'],
+ 'III-011':['2×18!','18!','19!','2×19!'],
+ 'III-045':['100!/2','100!','99!','99!/2'],
+ 'III-049':['62!/[20!×(12!)²×(5!)³]','62!/[20!×12!×5!]','62!','62!/[20!×12!]']};
+ cached=items.map((original,index)=>{
+ const values=symbolic[original.id];const exactIntegerAnswer=/^\d+$/.test(original.answer)?original.answer:undefined;
+ const c=values?{...original,answer:values[0],explanation:original.explanation.map(line=>line===`Answer: ${original.answer}.`?`Answer: ${values[0]}.`:line)}:original;
+ let optionBundle:ReturnType<typeof numericOptions>;if(values){const options=[...values],correctIndex=index%4;[options[0],options[correctIndex]]=[options[correctIndex],options[0]];optionBundle={options,correctIndex};}else optionBundle=numericOptions(c.answer,index);
+ return {...c,exactIntegerAnswer,...optionBundle,language:'en',group:c.id.startsWith('WORKED')?'PNC-SOURCE-WORKED':'PNC-SOURCE-EXERCISES',difficulty:c.id.startsWith('I-')?'Easy':c.id.startsWith('II-')?'Medium':'Hard'};});
  }
  return cached.flatMap(q=>[{...q,options:[...q.options],explanation:[...q.explanation]},localizeSourceReview(q,'hi'),localizeSourceReview(q,'pa')]);
 }
