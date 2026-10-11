@@ -54,7 +54,7 @@ function normalizeQuestion(source: any, packageId: string, cpId: string, languag
     canonicalAnswer: answer, richExplanation: explanation, explanation: lines.join("\n"),
     difficulty: String(source.difficulty).toLowerCase().replace(/^./, (s: string) => s.toUpperCase()),
     difficultyLabel: String(source.difficulty).toLowerCase().replace(/^./, (s: string) => s.toUpperCase()),
-    sourceLifecycle: source.lifecycle, sourceVerifierAnswer: source.verifierAnswer, sourceReviewStatus: source.reviewStatus,
+    sourceMathematicalState: source.hiddenState, sourceLifecycle: source.lifecycle, sourceVerifierAnswer: source.verifierAnswer, sourceReviewStatus: source.reviewStatus,
     runtimeMode: "QUESTION_STUDIO_ACTIVE", questionStudioDiscoverable: true,
     traceability: { ...source.traceability, sourceRuntimeLifecycle: source.lifecycle, sourceReviewStatus: source.reviewStatus } };
 }
@@ -92,16 +92,23 @@ export async function generateNumberSystemEngineBatch(request: QuestionStudioGen
       const input = {questionLanguageId: qlId, seed: numericSeed, locale: language === "hi" ? "hi-IN" : "pa-IN"} as any;
       if (cpNumber === 1 || language === "en" && [3,4].includes(cpNumber)) {
         const result = await generateNum001EngineBatch({...request, packageId: "NUM-001", canonicalProblemId: cp, questionLanguageId: qlId, seed, count: 1, difficulty: undefined});
-        questions.push({...result!.questions[0], qlId, permanentQlId: qlId, questionLanguageId: qlId, canonicalProblemId: cp, checkpointId: cp, stem: result!.questions[0].stem ?? result!.questions[0].text});
+        questions.push({...result!.questions[0], sourceMathematicalState: (result!.questionPackages as any[])[0].hiddenState, qlId, permanentQlId: qlId, questionLanguageId: qlId, canonicalProblemId: cp, checkpointId: cp, stem: result!.questions[0].stem ?? result!.questions[0].text});
       } else if (cpNumber >= 8) {
         const provider = checkpointProviders[cpNumber]!;
         const result = await provider({...request, packageId: "NUM-002", canonicalProblemId: cp, questionLanguageId: qlId, seed, count: 1, difficulty: undefined});
-        questions.push({...result.questions[0], qlId, permanentQlId: qlId, questionLanguageId: qlId, canonicalProblemId: cp, checkpointId: cp, stem: result.questions[0].stem ?? result.questions[0].text});
+        questions.push({...result.questions[0], sourceMathematicalState: result.questions[0].proceduralLogic ?? result.questionPackages[0].hiddenState, qlId, permanentQlId: qlId, questionLanguageId: qlId, canonicalProblemId: cp, checkpointId: cp, stem: result.questions[0].stem ?? result.questions[0].text});
       } else {
         let source: any;
         if (cpNumber === 2) source = language === "en" ? runNumCp002PermanentPipeline(input) : runNumCp002LocalizedFinalPipeline(input);
-        if (cpNumber === 3) source = runNumCp003LocalizedFinalV2ForQl(qlId as any, seed, language as any);
-        if (cpNumber === 4) source = runNumCp004LocalizedReviewFinalForQl(qlId as any, numericSeed, language as any);
+        if (cpNumber === 3 || cpNumber === 4) {
+          // Native review must use the exact source state selected by approved English delivery.
+          const english = await generateNum001EngineBatch({...request, packageId: "NUM-001", canonicalProblemId: cp,
+            questionLanguageId: qlId, language: "en", seed, count: 1, difficulty: undefined});
+          const authority = (english!.questionPackages as any[])[0];
+          source = cpNumber === 3
+            ? runNumCp003LocalizedFinalV2ForQl(qlId as any, authority.seed, language as any)
+            : runNumCp004LocalizedReviewFinalForQl(qlId as any, authority.seed, language as any);
+        }
         if (cpNumber === 5) source = language === "en" ? runNumCp005PermanentPipeline(input) : generateNumCp005LocalizedQuestion(input);
         if (cpNumber === 6) source = language === "en" ? runNumCp006PermanentPipeline(input) : generateNumCp006LocalizedQuestion(input);
         if (cpNumber === 7) source = language === "en" ? runNumCp007PermanentPipeline(input) : generateNumCp007LocalizedQuestion(input);

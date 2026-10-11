@@ -1940,8 +1940,11 @@
       133,
       43
     ],
-    "expectedLearnerSurfaces": 1416,
-    "sourceStatusesPreserved": true
+    "sourceStatusesPreserved": true,
+    "unifiedSurfacesChecked": 1416,
+    "boundedCp004SourceChecks": 6720,
+    "numberSystemTrilingualStateParity": "PASS",
+    "uniqueMultilingualReviewIdentities": "PASS"
   },
   "capabilityReconciliationFollowups": [
     "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",

@@ -45,7 +45,7 @@ const result = {
     frozenEnglishRuntimeChecks: 928, frozenNativeRuntimeChecks: 2784,
     frozenAuthorityContentChanged: false, reviewOptionOrderChanged: true,
     scopedProductionTypeCheck: "PASS" },
-  additionalUnifiedIntegration: { chapters: ["Number System", "Interest", "Algebra"], permanentQls: [253, 133, 43], expectedLearnerSurfaces: 1416, sourceStatusesPreserved: true },
+  additionalUnifiedIntegration: { chapters: ["Number System", "Interest", "Algebra"], permanentQls: [253, 133, 43], unifiedSurfacesChecked: 1416, boundedCp004SourceChecks: 6720, numberSystemTrilingualStateParity: "PASS", uniqueMultilingualReviewIdentities: "PASS", sourceStatusesPreserved: true },
   capabilityReconciliationFollowups: [
     "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",
     "Statistics advertises English, consistent with its explicit Paper-II closure scope and disabled localization; this does not reopen mathematical closure.",

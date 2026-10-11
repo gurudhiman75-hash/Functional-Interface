@@ -30,6 +30,7 @@ function verify(q: Record<string, any>, qlId: string, language: string, bank = f
 }
 let surfaces = 0;
 const numberSystemIdentities = new Set<string>();
+const numberSystemStates = new Map<string, string>();
 for (const allocation of allocations) for (let n = allocation.firstQlNumber; n <= allocation.lastQlNumber; n++) for (const language of ["en", "hi", "pa"] as const) {
   const qlId = formatNumberSystemQlId(n);
   const request = {packageId: allocation.packageId, canonicalProblemId: allocation.cpId, questionLanguageId: qlId, language, seed: `num-unified:${qlId}`, count: 1};
@@ -37,6 +38,10 @@ for (const allocation of allocations) for (let n = allocation.firstQlNumber; n <
   verify(result.questions[0], qlId, language);
   assert.ok(!numberSystemIdentities.has(String(result.questions[0].questionId)), "Number System review identity collision");
   numberSystemIdentities.add(String(result.questions[0].questionId));
+  const sourceState = JSON.stringify(result.questions[0].sourceMathematicalState);
+  assert.ok(sourceState, `${qlId}: missing canonical source state`);
+  if (language === "en") numberSystemStates.set(qlId, sourceState);
+  else assert.equal(sourceState, numberSystemStates.get(qlId), `${qlId}: native mathematical state drift`);
   assert.equal(result.questions[0].canonicalProblemId, allocation.cpId);
   assert.deepEqual((await adapter.generate(request)).questions, result.questions);
   assert.doesNotThrow(() => JSON.stringify(result));
