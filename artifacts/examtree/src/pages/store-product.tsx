@@ -89,6 +89,7 @@ type CheckoutPageProps = {
   purchasesLoading: boolean;
   purchasesError: boolean;
   checkoutProvider: string | undefined;
+  salesEnabled: boolean;
   requiresPhone: boolean;
   customerPhone: string;
   onCustomerPhoneChange: (value: string) => void;
@@ -108,6 +109,7 @@ function CheckoutPage({
   purchasesLoading,
   purchasesError,
   checkoutProvider,
+  salesEnabled,
   requiresPhone,
   customerPhone,
   onCustomerPhoneChange,
@@ -304,6 +306,10 @@ function CheckoutPage({
             </div>
           ) : null}
 
+          {!salesEnabled && !ownsProduct ? (
+            <div role="status" className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium text-amber-900">Purchases are temporarily paused while we upgrade ExamTree. Your existing tests and packages remain available.</div>
+          ) : null}
+
           {checkoutError ? (
             <div role="alert" aria-live="polite" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-xs leading-5 text-rose-700">
               {checkoutError}
@@ -324,12 +330,12 @@ function CheckoutPage({
             <Button
               className="min-h-[52px] flex-1 rounded-xl bg-[#1769ed] px-5 text-sm font-extrabold text-white shadow-[0_7px_18px_rgba(23,105,237,0.22)] hover:bg-[#1258ce] disabled:opacity-60 lg:w-full"
               onClick={onStartCheckout}
-              disabled={checkoutBusy || (!!user && (purchasesLoading || purchasesError))}
+              disabled={checkoutBusy || (!salesEnabled && !ownsProduct) || (!!user && (purchasesLoading || purchasesError))}
               data-testid="btn-store-checkout"
             >
               {checkoutBusy ? <><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Opening secure checkout…</> : (
                 <>
-                  {ownsProduct ? "Open my package" : isFree ? "Access included tests" : user ? "Continue to secure payment" : "Sign in to continue"}
+                  {ownsProduct ? "Open my package" : !salesEnabled ? "Purchases temporarily paused" : isFree ? "Access included tests" : user ? "Continue to secure payment" : "Sign in to continue"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}
@@ -373,6 +379,7 @@ export default function StoreProductPage() {
 
   const startCheckout = async () => {
     if (!product) return;
+    if (!productsQuery.data?.salesEnabled && !ownsProduct) { setCheckoutError("Purchases are temporarily paused. Your existing packages remain available."); return; }
     if (ownsProduct) { const owned = purchasesQuery.data?.entitlements.find((entry) => entry.productId === productId && entry.accessStatus === "active"); setLocation(owned ? `/my-packages/${owned.id}` : "/my-packages"); return; }
     if (!isCheckout) { setLocation(`/checkout/${encodeURIComponent(product.id)}`); return; }
     if (purchasesQuery.isLoading || purchasesQuery.isError) return;
@@ -458,6 +465,7 @@ export default function StoreProductPage() {
         purchasesLoading={purchasesQuery.isLoading}
         purchasesError={purchasesQuery.isError}
         checkoutProvider={productsQuery.data?.checkoutProvider}
+        salesEnabled={productsQuery.data?.salesEnabled !== false}
         requiresPhone={productsQuery.data?.checkoutProvider === "cashfree" && !ownsProduct && !isFree}
         customerPhone={customerPhone}
         onCustomerPhoneChange={setCustomerPhone}
