@@ -64,6 +64,19 @@ def has_lifecycle_rule(bucket):
     return False
 
 
+def bucket_access_protected(bucket):
+    """GCS places publicAccessPrevention inside iamConfiguration.
+
+    Do not treat a missing field as proof that access is protected.
+    """
+    if not isinstance(bucket, dict):
+        return False
+    iam = bucket.get("iamConfiguration") or {}
+    uniform = (iam.get("uniformBucketLevelAccess") or {}).get("enabled") is True
+    pap = iam.get("publicAccessPrevention", bucket.get("publicAccessPrevention"))
+    return uniform and isinstance(pap, str) and pap.lower() == "enforced"
+
+
 def schedule_matches(s, cron, tz):
     if not isinstance(s, dict):
         return False
@@ -160,13 +173,10 @@ def main():
     states.append(record("PASS" if policy else "PENDING",
                          "30-day lifecycle on daily-backup prefix "
                          + ("configured" if policy else "not verified")))
-    if isinstance(bucket, dict):
-        access = bucket.get("iamConfiguration") or {}
-        uniform = bool((access.get("uniformBucketLevelAccess") or {}).get("enabled"))
-        pap = bucket.get("publicAccessPrevention")
-        states.append(record("PASS" if uniform and pap == "enforced" else "CHECK",
-                             "backup bucket uniform access and public access prevention "
-                             + ("enforced" if uniform and pap == "enforced" else "not fully verified")))
+    protected = bucket_access_protected(bucket)
+    states.append(record("PASS" if protected else "CHECK",
+                         "backup bucket uniform access and public access prevention "
+                         + ("enforced" if protected else "not fully verified")))
 
     freshness_job = description(FRESHNESS_JOB, "jobs", "us-east1")
     states.append(record("PASS" if freshness_job else "PENDING",
