@@ -36,7 +36,7 @@ export default function RefundPolicy() {
           <Link href="/billing-help" className="mt-3 inline-flex font-semibold text-indigo-700 hover:underline">See Payment & Billing Help</Link>
         </PublicCard>
       </div>
-      <p className="mt-6 text-sm text-slate-700">Website and service: <strong>ExamTree</strong>. For payment and refund queries, contact <a className="font-semibold text-indigo-700 underline underline-offset-4" href="mailto:support@examtree.in">support@examtree.in</a>.</p>
+      <p className="mt-6 text-sm text-slate-700">Website and service: <strong>ExamTree</strong>. Legal business name: <strong>Baljit Kaur</strong>. For payment and refund queries, contact <a className="font-semibold text-indigo-700 underline underline-offset-4" href="mailto:support@examtree.in">support@examtree.in</a>.</p>
     </PublicPage>
   );
 }
