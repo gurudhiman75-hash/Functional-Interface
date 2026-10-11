@@ -14,17 +14,21 @@ import {
   RotateCcw,
   Target,
   Timer,
+  TrendingUp,
+  TrendingDown,
   XCircle,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionRichText } from "@/components/QuestionRichText";
-import { getAttemptById } from "@/lib/data";
+import { getAttemptById, getUserAttempts } from "@/lib/data";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { analyzeDifficulty, analyzeMarking, analyzeResultSections, attemptComparison, previousSavedAttempt } from "@/lib/individual-test-analysis";
 import { aggregateTopics } from "@/lib/performance-metrics";
 import type { TestAttempt } from "@/lib/storage";
 
-type ReviewFilter = "all" | "wrong" | "flagged" | "unanswered";
+type ReviewFilter = "all" | "correct" | "wrong" | "flagged" | "unanswered";
 type CanonicalResult = TestAttempt & {
   attemptNumber?: number;
   submittedAt?: string;
@@ -77,14 +81,22 @@ export default function CanonicalResult() {
   });
 
   const result = resultQuery.data as CanonicalResult | undefined;
+  const historyQuery = useQuery({
+    queryKey: ["canonical-result-history", result?.testId],
+    queryFn: () => getUserAttempts(),
+    enabled: Boolean(result?.testId),
+    staleTime: 60_000,
+    retry: false,
+  });
   const review = result?.questionReview ?? [];
   const counts = useMemo(() => ({
     all: review.length,
+    correct: review.filter((item) => reviewState(item) === "correct").length,
     wrong: review.filter((item) => reviewState(item) === "wrong").length,
     flagged: review.filter((item) => item.flagged).length,
     unanswered: review.filter((item) => reviewState(item) === "unanswered").length,
   }), [review]);
-  const filteredReview = useMemo(() => review.filter((item) => {
+  const filteredReview = useMemo(() => review.map((item, index) => ({ item, questionNumber: index + 1 })).filter(({ item }) => {
     if (filter === "all") return true;
     if (filter === "flagged") return item.flagged;
     return reviewState(item) === filter;
@@ -158,13 +170,18 @@ export default function CanonicalResult() {
   const attemptRate = totalQuestions > 0 ? Math.round((answered / totalQuestions) * 100) : null;
   const secondsPerAnswer = result.timeSpent > 0 && answered > 0 ? Math.round(result.timeSpent / answered) : null;
   const topicMetrics = aggregateTopics([result]).filter((topic) => topic.answered >= 3);
-  const sections = result.sectionStats ?? [];
-  const strongestSection = sections.length > 0
-    ? [...sections].sort((left, right) => right.accuracy - left.accuracy)[0]
-    : null;
-  const focusSection = sections.length > 1
-    ? [...sections].sort((left, right) => left.accuracy - right.accuracy)[0]
-    : null;
+  const sections = analyzeResultSections(result);
+  const difficulty = analyzeDifficulty(review);
+  const marking = analyzeMarking(result);
+  const prior = historyQuery.isSuccess ? previousSavedAttempt(result, historyQuery.data ?? []) : null;
+  const comparison = attemptComparison(result, prior);
+  const measuredSections = sections.filter((section) => section.answered >= 5 && section.accuracy != null);
+  const strongestSection = [...measuredSections].sort((left, right) => (right.accuracy ?? 0) - (left.accuracy ?? 0))[0] ?? null;
+  const weakSections = measuredSections.filter((section) => (section.accuracy ?? 100) < 70)
+    .sort((left, right) => (left.accuracy ?? 0) - (right.accuracy ?? 0));
+  const focusSection = weakSections[0] ?? null;
+  const focusTopics = topicMetrics.filter((topic) => topic.accuracy < 70).slice(0, 3);
+  const durationAvailable = result.timeSpent > 0;
 
   return (
     <div className="min-w-0 bg-[#f7f8fc] py-5 sm:py-7">
@@ -254,7 +271,7 @@ export default function CanonicalResult() {
           <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
             <div className="flex items-start gap-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><Award className="h-5 w-5" /></span>
-              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Performance insights</h2><p className="mt-1 text-sm text-slate-500">Derived only from your section results in this attempt.</p></div>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Performance insights</h2><p className="mt-1 text-sm text-slate-500">Only sections with at least five answers qualify for strength and focus suggestions.</p></div>
             </div>
             {strongestSection ? (
               <div className="mt-5 space-y-3">
@@ -276,16 +293,22 @@ export default function CanonicalResult() {
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               {sections.map((section) => (
                 <div key={section.name} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4 sm:p-5">
-                  <div className="flex items-center justify-between gap-3"><strong className="truncate text-sm text-slate-950">{section.name}</strong><span className="rounded-full border border-[#ded9fa] bg-white px-2.5 py-1 text-xs font-black text-[#6657e8]">{section.accuracy}%</span></div>
-                  <Progress value={section.accuracy} className="mt-4 h-2" />
+                  <div className="flex items-center justify-between gap-3"><strong className="truncate text-sm text-slate-950">{section.name}</strong><span className="rounded-full border border-[#ded9fa] bg-white px-2.5 py-1 text-xs font-black text-[#6657e8]">{section.accuracy == null ? "—" : String(section.accuracy) + "%"}</span></div>
+                  <Progress value={section.accuracy ?? 0} className="mt-4 h-2" />
                   <div className="mt-4 grid grid-cols-3 gap-2 text-center">
                     <div className="rounded-xl border border-emerald-100 bg-white px-2 py-2"><p className="text-sm font-black text-emerald-700">{section.correct}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Correct</p></div>
                     <div className="rounded-xl border border-rose-100 bg-white px-2 py-2"><p className="text-sm font-black text-rose-700">{section.wrong}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Wrong</p></div>
                     <div className="rounded-xl border border-amber-100 bg-white px-2 py-2"><p className="text-sm font-black text-amber-700">{section.unanswered}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Skipped</p></div>
                   </div>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
+                    <span className="rounded-lg bg-white px-2.5 py-1.5">{section.attemptRate == null ? "—" : section.attemptRate + "%"} attempted</span>
+                    <span className="rounded-lg bg-white px-2.5 py-1.5">{section.seconds == null ? "Time not recorded" : formatDuration(section.seconds) + " recorded"}</span>
+                    {section.netMarks != null && <span className="rounded-lg bg-white px-2.5 py-1.5">{section.netMarks} net marks*</span>}
+                  </div>
                 </div>
               ))}
             </div>
+            {marking && <p className="mt-3 text-xs text-slate-500">*Section net marks are calculated from the recorded question marking rules, not an independently recorded section score.</p>}
           </section>
         )}
 
@@ -316,7 +339,7 @@ export default function CanonicalResult() {
               <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Solution review</h2><p className="mt-1 text-sm leading-6 text-slate-500">Answers and explanations come from the immutable submitted test version.</p></div>
             </div>
             <div className="flex flex-wrap gap-2">
-              {(["all", "wrong", "flagged", "unanswered"] as ReviewFilter[]).map((item) => (
+              {(["all", "correct", "wrong", "flagged", "unanswered"] as ReviewFilter[]).map((item) => (
                 <Button key={item} className={`min-h-11 rounded-xl ${filter === item ? "bg-[#6657e8] text-white hover:bg-[#594bd9]" : "border-[#dedbea] bg-white text-slate-600 hover:bg-[#f7f5ff]"}`} size="sm" variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>
                   {item[0]!.toUpperCase() + item.slice(1)} ({counts[item]})
                 </Button>
@@ -327,12 +350,12 @@ export default function CanonicalResult() {
           <div className="mt-5 space-y-4">
             {filteredReview.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-8 text-center text-sm text-slate-500">No questions match this filter.</div>
-            ) : filteredReview.map((item, index) => {
+            ) : filteredReview.map(({ item, questionNumber }) => {
               const state = reviewState(item);
               return (
                 <article key={item.questionId} className="overflow-hidden rounded-2xl border border-[#e9e7f1] bg-white">
                   <div className="flex items-start justify-between gap-4 border-b border-[#efedf5] bg-[#fbfaff] px-4 py-4 sm:px-5">
-                    <div className="min-w-0"><p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Question {index + 1} · {item.section}</p><div className="mt-2 font-semibold leading-6 text-slate-950"><QuestionRichText content={item.text} lang="en" /></div></div>
+                    <div className="min-w-0"><p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Question {questionNumber} · {item.section}</p><div className="mt-2 font-semibold leading-6 text-slate-950"><QuestionRichText content={item.text} lang="en" /></div></div>
                     <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-black ${state === "correct" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : state === "wrong" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>
                       {state === "correct" ? <CheckCircle2 className="h-3.5 w-3.5" /> : state === "wrong" ? <XCircle className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />}
                       {state === "correct" ? "Correct" : state === "wrong" ? "Wrong" : "Unanswered"}
