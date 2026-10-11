@@ -250,6 +250,56 @@ export default function CanonicalResult() {
           </div>
         </section>
 
+
+        <section className="grid gap-4 lg:grid-cols-2" aria-label="Marks and progress" data-testid="result-extended-diagnostics">
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700"><Target className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold text-slate-950">Marks & negative marking</h2><p className="mt-1 text-xs text-slate-500">Calculated only when the saved marking rules are available.</p></div>
+            </div>
+            {marking ? (
+              <>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-xl bg-emerald-50 px-2 py-4"><p className="text-xs font-semibold text-emerald-700">Earned</p><p className="mt-1 text-xl font-extrabold text-slate-950">+{marking.marksGained}</p></div>
+                  <div className="rounded-xl bg-rose-50 px-2 py-4"><p className="text-xs font-semibold text-rose-700">Penalty</p><p className="mt-1 text-xl font-extrabold text-slate-950">−{marking.marksLost}</p></div>
+                  <div className="rounded-xl bg-indigo-50 px-2 py-4"><p className="text-xs font-semibold text-indigo-700">Calculated net</p><p className="mt-1 text-xl font-extrabold text-slate-950">{marking.calculatedNet}</p></div>
+                </div>
+                <p className="mt-3 text-xs leading-5 text-slate-500">
+                  {result.correct} correct × {result.marksPerQuestion} marks; {result.wrong} wrong × {result.negativeMarks} penalty.
+                  {marking.reportedNet != null && marking.reportedNet !== marking.calculatedNet
+                    ? " Official saved marks: " + marking.reportedNet + ". The calculation differs; the saved score remains authoritative."
+                    : ""}
+                </p>
+              </>
+            ) : (
+              <div className="mt-5 rounded-2xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                Per-question marking and penalty settings are not both recorded for this attempt.
+                {result.actualScore != null ? " Saved official marks: " + result.actualScore + "." : " The percentage result above is still available."}
+              </div>
+            )}
+          </div>
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700"><TrendingUp className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold text-slate-950">Compared with last attempt</h2><p className="mt-1 text-xs text-slate-500">Only an earlier saved real attempt of this exact test.</p></div>
+            </div>
+            {comparison ? (
+              <>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Previous score</p><p className="mt-1 text-xl font-extrabold text-slate-900">{comparison.previousScore}%</p></div>
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Score change</p><p className={"mt-1 text-xl font-extrabold " + (comparison.scoreDelta > 0 ? "text-emerald-700" : comparison.scoreDelta < 0 ? "text-rose-700" : "text-slate-900")}>{comparison.scoreDelta > 0 ? "+" : ""}{comparison.scoreDelta} pp</p></div>
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Accuracy change</p><p className="mt-1 text-xl font-extrabold text-slate-900">{comparison.accuracyDelta == null ? "—" : (comparison.accuracyDelta > 0 ? "+" : "") + comparison.accuracyDelta + " pp"}</p></div>
+                </div>
+                <p className="mt-3 text-xs text-slate-500">Answered questions: {comparison.answeredDelta > 0 ? "+" : ""}{comparison.answeredDelta} compared with the earlier attempt. Percentage-point comparisons are not a rank or percentile.</p>
+              </>
+            ) : (
+              <div className="mt-5 rounded-2xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                {historyQuery.isLoading ? "Checking your earlier saved tests…" : historyQuery.isError ? "Previous-attempt history could not be loaded. This test result is still valid." : "No earlier confirmed real attempt of this test is available to compare."}
+              </div>
+            )}
+          </div>
+        </section>
+
         <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" aria-label="Attempt analysis">
           <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
             <div className="flex items-start gap-3">
@@ -290,6 +340,20 @@ export default function CanonicalResult() {
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><ListChecks className="h-5 w-5" /></span>
               <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Section performance</h2><p className="mt-1 text-sm text-slate-500">Accuracy and answer mix from the committed attempt.</p></div>
             </div>
+
+            <div role="img" aria-label="Section accuracy and attempt-rate comparison" className="mt-5 h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={sections} layout="vertical" margin={{ top: 4, left: 2, right: 18, bottom: 4 }}>
+                  <CartesianGrid stroke="#edf0f7" strokeDasharray="3 4" horizontal={false} />
+                  <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} />
+                  <YAxis dataKey="name" type="category" width={112} tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(value: number, name: string) => [value == null ? "Not available" : value + "%", name]} />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               {sections.map((section) => (
                 <div key={section.name} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4 sm:p-5">
@@ -312,6 +376,44 @@ export default function CanonicalResult() {
           </section>
         )}
 
+
+        <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="difficulty-analysis">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BarChart3 className="h-5 w-5" /></span>
+            <div>
+              <h2 className="text-lg font-bold tracking-tight text-slate-950">Difficulty-wise analysis</h2>
+              <p className="mt-1 text-sm text-slate-500">Question counts grouped by their saved Easy, Medium and Hard labels. {difficulty.taggedQuestions} of {difficulty.reviewQuestions} reviewed questions have a difficulty label.</p>
+            </div>
+          </div>
+          {difficulty.rows.length > 0 ? (
+            <>
+              <div role="img" aria-label="Correct, wrong and unanswered saved questions by recorded difficulty" className="mt-5 h-56 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={difficulty.rows} margin={{ top: 8, left: -18, right: 8, bottom: 0 }}>
+                    <CartesianGrid vertical={false} stroke="#edf0f7" strokeDasharray="3 4" />
+                    <XAxis dataKey="difficulty" tick={{ fontSize: 11 }} />
+                    <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                    <Tooltip />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="correct" name="Correct" stackId="answers" fill="#10b981" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="wrong" name="Wrong" stackId="answers" fill="#f43f5e" />
+                    <Bar dataKey="unanswered" name="Skipped" stackId="answers" fill="#fbbf24" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                {difficulty.rows.map((row) => (
+                  <div key={row.difficulty} className="rounded-xl border border-slate-100 bg-[#fbfaff] p-4">
+                    <p className="text-sm font-bold text-slate-900">{row.difficulty}</p>
+                    <p className="mt-1 text-lg font-black text-indigo-700">{row.accuracy == null ? "—" : row.accuracy + "%"} <span className="text-xs font-normal text-slate-500">accuracy</span></p>
+                    <p className="mt-1 text-xs text-slate-500">{row.answered}/{row.total} attempted · {row.unanswered} skipped</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : <p className="mt-5 rounded-xl bg-slate-50 p-5 text-sm text-slate-600">Difficulty tags were not saved with these questions, so an Easy/Medium/Hard breakdown cannot be calculated.</p>}
+        </section>
+
         {topicMetrics.length > 0 && (
           <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="topic-performance">
             <div className="flex items-center gap-3">
@@ -331,6 +433,35 @@ export default function CanonicalResult() {
             </div>
           </section>
         )}
+
+
+        <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="next-step-recommendations">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><Target className="h-5 w-5" /></span>
+            <div><h2 className="text-lg font-bold text-slate-950">Your next practice priorities</h2><p className="mt-1 text-sm text-slate-500">Focus threshold: below 70% accuracy, with at least five section answers or three tagged topic answers. These are study suggestions, not exam cutoffs.</p></div>
+          </div>
+          {weakSections.length > 0 || focusTopics.length > 0 ? (
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {weakSections.slice(0, 3).map((section) => (
+                <div key={section.name} className="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Review section</p>
+                  <p className="mt-1 font-bold text-slate-900">{section.name} · {section.accuracy}%</p>
+                  <p className="mt-2 text-sm leading-5 text-slate-600">{section.correct} correct from {section.answered} answers. Revisit mistakes and skipped questions before your next test.</p>
+                </div>
+              ))}
+              {focusTopics.map((topic) => (
+                <div key={topic.section + "|" + topic.topic} className="rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-indigo-700">Practice topic</p>
+                  <p className="mt-1 font-bold text-slate-900">{topic.topic} · {topic.accuracy}%</p>
+                  <p className="mt-2 text-sm leading-5 text-slate-600">{topic.section} · {topic.correct} correct out of {topic.answered} tagged answers.</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-5 rounded-xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">{measuredSections.length > 0 || topicMetrics.length > 0 ? "No section or topic currently meets the focus threshold. Continue practicing and review your incorrect answers below." : "Not enough saved section or tagged topic data for reliable priorities. Review your incorrect answers below."}</p>
+          )}
+          {durationAvailable && <p className="mt-4 text-xs text-slate-500">Average recorded pace: {secondsPerAnswer} seconds per answered question. Per-question timing is not available in this saved result.</p>}
+        </section>
 
         <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="solution-review">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
