@@ -29,6 +29,13 @@ def service():
 
 
 class Tests(unittest.TestCase):
+    def test_no_unsupported_difficulty_claim(self):
+        script = PATH.read_text()
+        self.assertIn('"difficulty": "Mixed"', script)
+        self.assertNotIn('"difficulty": "Easy"', script)
+        self.assertIn("NUM-001 source authority does NOT support filtering", script)
+
+
     def test_exact_safe_staging_configuration(self):
         self.assertEqual(gate.staging_configuration(service()), (True, service()["status"]["url"]))
 
