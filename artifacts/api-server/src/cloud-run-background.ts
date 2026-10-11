@@ -8,6 +8,9 @@ import { runMobileNotificationDelivery } from "./lib/mobile-notification-deliver
 import { sqlClient } from "./lib/db";
 import { logger } from "./lib/logger";
 
+if (process.env.EXAMTREE_API_STAGING === "true") {
+  throw new Error("Staging background job execution is forbidden");
+}
 if (process.env.EXAMTREE_API_RUNTIME !== "cloud-run") {
   throw new Error("Cloud Run background job requires EXAMTREE_API_RUNTIME=cloud-run");
 }
