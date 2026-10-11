@@ -37,7 +37,7 @@ import { generateNumCp013Permanent } from "./NUM-002/NUM-CP-013/permanent-runtim
 import { NUM_CP014_PERMANENT_QL_IDS } from "./NUM-002/NUM-CP-014/permanent-allocation";
 import { generateNumCp014Permanent } from "./NUM-002/NUM-CP-014/permanent-runtime";
 
-const SEEDS_PER_QL = 8;
+const SEEDS_PER_QL = 32;
 const MACHINE_STEM_PATTERNS = [
   /\bcalculate the answer\b/iu,
   /\bfind the answer\b/iu,
@@ -71,19 +71,8 @@ function flattenText(value: any): string {
   }
   if (Array.isArray(value)) return value.map(flattenText).filter(Boolean).join("\n");
   if (typeof value === "object") {
-    const preferred = [
-      value.lines,
-      value.steps,
-      value.fullDerivation,
-      value.examShortcut,
-      value.stepByStepSolution,
-      value.mainRule,
-      value.strategy,
-      value.coreConcept,
-      value.concept,
-      value.finalAnswer,
-    ].filter((item) => item !== undefined);
-    if (preferred.length > 0) return preferred.map(flattenText).filter(Boolean).join("\n");
+    // Explanation schemas differ across checkpoints. Include every section; a
+    // preferred subset silently discarded solution and stepByStep evidence.
     return Object.values(value).map(flattenText).filter(Boolean).join("\n");
   }
   return String(value);
@@ -257,6 +246,8 @@ for (const spec of SPECS) {
       structures: new Set<string>(),
       answers: new Set<string>(),
       numericSignatures: new Set<string>(),
+      learnerNumericSignatures: new Set<string>(),
+      mathematicalStates: new Set<string>(),
       explanations: new Set<string>(),
       minExplanationLength: Number.POSITIVE_INFINITY,
       machinePatterns: new Set<string>(),
@@ -311,6 +302,8 @@ for (const spec of SPECS) {
       row.structures.add(normalizedStem(stem));
       row.answers.add(answer);
       row.numericSignatures.add(numericSignature(stem));
+      row.learnerNumericSignatures.add(numericSignature([stem, ...options].join("\n")));
+      row.mathematicalStates.add(stable(pkg.hiddenState ?? pkg.proceduralLogic ?? { stem, options }));
       row.explanations.add(normalizedStem(explanation));
       row.minExplanationLength = Math.min(row.minExplanationLength, explanation.length);
       for (const pattern of MACHINE_STEM_PATTERNS) {
@@ -335,6 +328,8 @@ const perQl = [...metrics.entries()].map(([qlId, row]) => ({
   normalizedStemStructureCount: row.structures.size,
   answerCount: row.answers.size,
   numericSignatureCount: row.numericSignatures.size,
+  learnerNumericSignatureCount: row.learnerNumericSignatures.size,
+  mathematicalStateCount: row.mathematicalStates.size,
   explanationStructureCount: row.explanations.size,
   minExplanationLength: Number.isFinite(row.minExplanationLength) ? row.minExplanationLength : 0,
   machineStemPatterns: [...row.machinePatterns],
