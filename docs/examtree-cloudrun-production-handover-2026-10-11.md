@@ -154,6 +154,58 @@ identity. Those cannot be inferred from the mere presence of a service
 definition. The eventual public promotion and job activation are **separate**
 cutover decisions.
 
+## Approved phased cutover: purchases paused, no sandbox keys on live Neon
+
+Owner selected a web API switch **before Cashfree live activation**, with new
+purchases explicitly disabled. Never point Cloudflare at
+`examtree-api-staging`: that service uses a copied **staging database**.
+
+The new guarded production candidate accepts
+`EXAMTREE_PRODUCTION_SALES_PAUSED=yes`. In this mode it requires the
+**production MAIN Neon** database secret and the production AI API key but
+**does not require or mount Cashfree production or sandbox credentials**.
+It deploys `EXAMTREE_SALES_DISABLED=true` and
+`EXAMTREE_PAYMENT_PROVIDER=none`; new checkout writes (canonical + legacy)
+are blocked with HTTP 503 before any database writes or provider calls.
+Public catalog reports `salesEnabled:false` and
+`checkoutProvider:"disabled"`, which the student checkout UI uses to show
+a clear temporary sales pause.
+
+**Important separate blocker:** AI extraction currently requires
+`examtree-openai-api-key` in Secret Manager for a production API to start.
+Do NOT circumvent production AI startup checks silently. A production key
+can be moved into Secret Manager privately; it must never enter GitHub,
+chat, shell history or frontend bundles.
+
+After provisioning and verifying this AI secret, a **private candidate** can
+be built by the previously approved, cost-gated deployment script:
+
+```bash
+EXAMTREE_PRODUCTION_SALES_PAUSED=yes \
+EXAMTREE_PRODUCTION_CANDIDATE_APPROVED=yes \
+EXAMTREE_BUDGET_READY=yes \
+bash scripts/deploy-examtree-api-cloudrun-production-candidate.sh
+```
+
+This does NOT perform a public cutover: it creates the separate private
+`examtree-api` service and inert production background job only.
+Review authenticated production candidate readiness and public invocation
+security before changing Cloudflare.
+
+The Cloudflare Pages API proxy additionally blocks staging hostnames and
+keeps existing in-flight payment callback endpoints
+`/api/billing/{cashfree/}webhook` and
+`/api/commerce/orders/:id/{reconcile,confirm}` on **Render**, even when the
+other API paths later point at Cloud Run. Do not decommission Render or
+change its Cashfree webhook configuration until live payment reconciliation
+and old installed Android clients no longer depend on it. The temporary
+payment fallback must be removed during the separate live payments handover.
+
+**Rollback:** Clear the Pages `EXAMTREE_API_UPSTREAM_ORIGIN` production
+override to restore Render, without changing production Neon. Confirm
+Cloud Run Scheduler has not started and Render timers remain active. No
+existing-customer entitlement should depend on staging Neon.
+
 ## Safe sequence to finish actual migration
 
 A. Prepare and build the final **production** Cloud Run API image from the
