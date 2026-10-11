@@ -126,7 +126,7 @@ function CheckoutPage({
     { label: "Cards", Icon: CreditCard },
     { label: "Net banking", Icon: Landmark },
   ];
-  const providerLabel = checkoutProvider === "cashfree" ? "Cashfree" : "Razorpay";
+  const providerLabel = checkoutProvider === "cashfree" ? "Cashfree" : checkoutProvider === "disabled" ? "unavailable" : "Razorpay";
 
   return (
     <div className="min-h-screen bg-white text-[#111b36] lg:grid lg:grid-cols-[minmax(340px,0.82fr)_minmax(0,1.18fr)]" data-testid="store-product-page">
@@ -241,7 +241,7 @@ function CheckoutPage({
 
           <header>
             <h2 className="text-[30px] font-black leading-tight tracking-[-0.055em] text-[#101a33] sm:text-[36px]">Checkout</h2>
-            <p className="mt-1.5 text-[13px] text-slate-500 sm:text-sm">Review your account and continue to payment.</p>
+            <p className="mt-1.5 text-[13px] text-slate-500 sm:text-sm">{salesEnabled ? "Review your account and continue to payment." : "Purchases are temporarily paused while we upgrade ExamTree."}</p>
           </header>
 
           <div className="mt-6 flex items-center gap-3.5 border-b border-[#e5eaf1] pb-5 sm:mt-7 sm:pb-6">
@@ -255,7 +255,7 @@ function CheckoutPage({
             {user ? <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700">Signed in</span> : null}
           </div>
 
-          {!isFree && !ownsProduct ? (
+          {salesEnabled && !isFree && !ownsProduct ? (
             <section className="mt-6" aria-labelledby="payment-methods-title">
               <h3 id="payment-methods-title" className="text-[18px] font-extrabold tracking-[-0.03em] text-[#111b36]">Payment method</h3>
               <p className="mt-1 text-xs text-slate-500 sm:text-[13px]">Choose your method in the secure {providerLabel} checkout.</p>
@@ -341,7 +341,7 @@ function CheckoutPage({
               )}
             </Button>
             <p className="mt-3 hidden text-center text-[10px] text-slate-400 lg:block">
-              <LockKeyhole className="mr-1 inline h-3 w-3" /> Secure checkout powered by {providerLabel}
+              <LockKeyhole className="mr-1 inline h-3 w-3" /> {salesEnabled ? <>Secure checkout powered by {providerLabel}</> : "Purchases will reopen when secure payments are available."}
             </p>
           </div>
         </div>
