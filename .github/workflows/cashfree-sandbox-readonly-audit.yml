@@ -7,7 +7,6 @@ on:
       - scripts/audit-cashfree-sandbox-readonly.py
       - tests/cashfree-sandbox-readonly-audit.test.py
       - docs/cashfree-sandbox-readonly-reconciliation-2026-10-11.md
-      - .github/workflows/cashfree-sandbox-readonly-audit.yml
 
 permissions:
   contents: read
