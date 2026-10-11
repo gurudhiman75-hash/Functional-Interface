@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Read-only auth check: Cloud Run staging + live Pages/Render Question Studio review.
 
-Fetch only two known disposable NUM-001 generation runs. Validate the shape the
+Fetch the historical NUM-001 generation runs on MAIN and verify the older staging
+Neon snapshot does not contain them after isolation. Validate the shape the
 admin cockpit expects, without fetching tokens/secrets from disk or printing
 question contents. No generation requests, review actions or deployments.
 Firebase authentication middleware may update last-login metadata.
@@ -206,7 +207,7 @@ def main():
     staging = resolve_staging_url()
     print("Question Studio review GET validation: Cloud Run, direct Render and Cloudflare proxy.")
     print("READ ONLY: no generation, review approvals, publication or worker actions.")
-    print("Firebase auth may update last-login metadata in the shared TEST database.")
+    print("Firebase auth may update last-login metadata in the respective live MAIN or isolated STAGING database.")
     token = getpass.getpass("Existing superadmin Firebase ID token (hidden): ").strip()
     if not re.fullmatch(r"[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+", token):
         fail("invalid Firebase ID token format; don't paste credentials into chat")
@@ -217,7 +218,6 @@ def main():
     opener = build_opener(RejectRedirect())
     results = []
     for label, origin in (
-        ("Cloud Run staging", staging),
         ("Render direct (diagnostic)", RENDER_ORIGIN),
         ("Pages default domain", PAGES_ORIGIN),
         ("Cloudflare custom domain", FRONTEND_ORIGIN),
@@ -231,8 +231,20 @@ def main():
             valid, reason = validate_review_page(data, run_id, code, count)
             print(f"{'PASS' if valid else 'CHECK'}: {label}: {code}: {reason}")
             results.append(valid)
+    # The staging Neon branch was snapshotted Oct 10; these four Oct 11
+    # main-branch smoke items must not appear there after isolation.
+    for code, (run_id, _) in RUNS.items():
+        data, error = fetch(opener, staging, code, token)
+        isolated = not error and isinstance(data, dict) and isinstance(data.get("runs"), list)
+        isolated = isolated and not any(
+            isinstance(run, dict) and run.get("id") == run_id for run in data["runs"]
+        )
+        print(("PASS" if isolated else "CHECK") +
+              ": Cloud Run isolated staging (historical main run absent): " + code +
+              ("" if not error else " " + error))
+        results.append(bool(isolated))
     token = ""
-    print(f"RESULT: {sum(results)}/{len(results)} exact authenticated read contracts passed")
+    print(f"RESULT: {sum(results)}/{len(results)} isolated-main + authenticated read contracts passed")
     # An unauthenticated GET is intentional: 401 demonstrates a functioning
     # auth boundary; 403 on both authenticated and anonymous probes points
     # toward an upstream/edge rule instead of a bad Firebase token.
