@@ -18,6 +18,8 @@ on:
       - tests/examtree-cashfree-webhook-replay.test.py
       - scripts/close-examtree-cashfree-staging-expired-orders.py
       - tests/examtree-cashfree-expired-order-closure.test.py
+      - scripts/inspect-examtree-migration-operations.py
+      - tests/examtree-migration-operations-readonly.test.py
   push:
     branches: [New-main]
     paths:
@@ -55,3 +57,5 @@ jobs:
         run: python3 tests/examtree-cashfree-webhook-replay.test.py
       - name: Check provider-verified expired-order closure safeguards
         run: python3 tests/examtree-cashfree-expired-order-closure.test.py
+      - name: Verify read-only cutover operational inspectors
+        run: python3 tests/examtree-migration-operations-readonly.test.py
