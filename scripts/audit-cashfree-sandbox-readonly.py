@@ -12,6 +12,7 @@ import re
 import ssl
 import subprocess
 import sys
+from decimal import Decimal, InvalidOperation
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, unquote, urlsplit
 from urllib.request import Request, urlopen
@@ -125,6 +126,19 @@ def tag(value):
     return hashlib.sha256(str(value).encode("utf-8")).hexdigest()[:12]
 
 
+def money_minor(value):
+    """Validate provider decimal rupees without floating-point rounding."""
+    try:
+        amount = Decimal(str(value))
+        minor = amount * 100
+        if not minor.is_finite() or minor != minor.to_integral_value():
+            return None
+        result = int(minor)
+        return result if result >= 0 else None
+    except (ValueError, TypeError, InvalidOperation):
+        return None
+
+
 def evaluate(local, gateway_order, payments, refund_results):
     """Pure, conservative classifier. Never changes provider or local state."""
     alerts = []
@@ -136,6 +150,11 @@ def evaluate(local, gateway_order, payments, refund_results):
         if str(gateway_order.get("order_id", "")) != str(local.get("provider_order", "")):
             alerts.append("provider_order_id_conflict")
         provider_order_status = str(gateway_order.get("order_status", ""))
+        expected_minor = int(local.get("payment_amount_minor", -1))
+        if money_minor(gateway_order.get("order_amount")) != expected_minor:
+            alerts.append("provider_order_amount_missing_or_mismatch")
+        if str(gateway_order.get("order_currency", "")).upper() != str(local.get("currency", "")).upper():
+            alerts.append("provider_order_currency_missing_or_mismatch")
         if order_state in ("paid", "partially_refunded", "refunded") and provider_order_status != "PAID":
             alerts.append("paid_order_provider_status_not_PAID")
         if order_state == "payment_pending" and provider_order_status == "PAID":
@@ -145,12 +164,17 @@ def evaluate(local, gateway_order, payments, refund_results):
     if not isinstance(payments, list):
         alerts.append("provider_payments_not_verified")
     else:
-        success_ids = {
-            str(x.get("cf_payment_id"))
-            for x in payments
+        successes = [
+            x for x in payments
             if isinstance(x, dict) and x.get("payment_status") == "SUCCESS"
             and x.get("cf_payment_id") is not None
-        }
+        ]
+        success_ids = {str(x["cf_payment_id"]) for x in successes}
+        for x in successes:
+            if money_minor(x.get("payment_amount")) != int(local.get("payment_amount_minor", -1)):
+                alerts.append("provider_success_amount_missing_or_mismatch")
+            if str(x.get("payment_currency", "")).upper() != str(local.get("currency", "")).upper():
+                alerts.append("provider_success_currency_missing_or_mismatch")
         stored = str(local.get("provider_payment") or "")
         if status in ("captured", "refunded", "partially_refunded") and stored not in success_ids:
             alerts.append("stored_payment_id_not_in_provider_successes")
@@ -180,13 +204,13 @@ def evaluate(local, gateway_order, payments, refund_results):
                 alerts.append("refund_reference_conflict")
             if str(response.get("order_id", "")) != str(local.get("provider_order", "")):
                 alerts.append("refund_order_conflict")
-            raw_amount = response.get("refund_amount")
-            try:
-                refund_minor = round(float(raw_amount) * 100)
-            except (TypeError, ValueError):
-                refund_minor = -1
+            refund_minor = money_minor(response.get("refund_amount"))
             if refund_minor != int(refund.get("amount_minor", -999)):
                 alerts.append("refund_amount_conflict")
+            if response.get("cf_payment_id") is not None and str(response["cf_payment_id"]) != str(local.get("provider_payment")):
+                alerts.append("refund_payment_reference_conflict")
+            if response.get("refund_currency") is not None and str(response["refund_currency"]).upper() != str(local.get("currency", "")).upper():
+                alerts.append("refund_currency_conflict")
             if response.get("refund_status") != "SUCCESS":
                 alerts.append("unresolved_refund_provider_state_" + str(response.get("refund_status", "unknown"))[:32])
             else:
