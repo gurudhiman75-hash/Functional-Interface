@@ -176,13 +176,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          charts: ["recharts"],
-        },
-      },
-    },
+    // Keep charting libraries in the routes that request them. Forcing a
+    // shared Recharts chunk can make an otherwise lazy chart dependency
+    // reachable from the static application entry graph.
   },
   server: {
     port,
