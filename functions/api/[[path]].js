@@ -39,7 +39,17 @@ export async function onRequest({ request, env = {} }) {
   catch {
     return Response.json({ error: "The ExamTree API gateway is not configured correctly.", code: "API_GATEWAY_MISCONFIGURED" }, { status: 503 });
   }
-  const url = new URL(incoming.pathname + incoming.search, upstreamOrigin);
+  // During the sales-paused Cloud Run migration, existing provider callbacks
+  // and in-flight payment confirmation MUST continue reaching the still-live
+  // Render payment handler. Cloud Run production intentionally has no Cashfree
+  // credentials. Never send payment webhooks into the staging database.
+  // Remove this narrowly scoped exception only during the separately
+  // approved production merchant/webhook handover.
+  const financialHandoverPath =
+    /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
+    /^\/api\/commerce\/orders\/[^/]+\/(?:reconcile|confirm)$/.test(incoming.pathname);
+  const actualUpstream = financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin;
+  const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
   for (const key of [
     "host", "origin", "referer", "connection", "content-length",
@@ -63,8 +73,8 @@ export async function onRequest({ request, env = {} }) {
     // Preserve same-origin browser navigation when the backend redirects to itself.
     const location = responseHeaders.get("location");
     if (location) {
-      const redirect = new URL(location, upstreamOrigin);
-      if (redirect.origin === upstreamOrigin) {
+      const redirect = new URL(location, actualUpstream);
+      if (redirect.origin === actualUpstream) {
         responseHeaders.set("location", incoming.origin + redirect.pathname + redirect.search + redirect.hash);
       }
     }
