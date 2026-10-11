@@ -23,6 +23,7 @@ REGION = "asia-south1"
 SERVICE = "examtree-api-staging"
 FRONTEND_ORIGIN = "https://examtree.in"
 RENDER_ORIGIN = "https://examtree-new.onrender.com"
+PAGES_ORIGIN = "https://functional-interface.pages.dev"
 RUNS = {
     "GEN-20261011-7535FFC2": ("802f5472-41f5-4c61-904e-2187fedd01a3", 1),
     "GEN-20261011-635BA10F": ("5682e459-7b2d-46ba-b57b-778a3b2ce0b4", 3),
@@ -73,11 +74,29 @@ def safe_http_error(exc):
     if content_type == "application/json":
         try:
             data = json.loads(exc.read(4096))
-            raw_code = data.get("code") if isinstance(data, dict) else None
-            if isinstance(raw_code, str) and re.fullmatch(r"[A-Z_0-9]{2,80}", raw_code):
-                code = " api_code=" + raw_code
-            elif isinstance(data, dict) and data.get("permission") == "content.generation.read":
-                code = " api_permission=content.generation.read"
+            if isinstance(data, dict):
+                raw_code = data.get("code")
+                if isinstance(raw_code, str) and re.fullmatch(r"[A-Z_0-9]{2,80}", raw_code):
+                    code += " api_code=" + raw_code
+                if data.get("permission") == "content.generation.read":
+                    code += " api_permission=content.generation.read"
+                # Exact allowlist only: never print arbitrary upstream error texts,
+                # diagnostics, URLs, headers, user data or tokens.
+                public_errors = {
+                    "Administrator permission required": "admin-rbac-denied",
+                    "No token provided": "token-not-forwarded",
+                    "Invalid token": "firebase-token-rejected",
+                    "Authentication required": "authentication-required",
+                    "Access denied": "access-denied",
+                    "Forbidden": "forbidden",
+                    "Cross-origin API request not permitted": "origin-check-denied",
+                }
+                if isinstance(data.get("error"), str) and data["error"] in public_errors:
+                    code += " reason=" + public_errors[data["error"]]
+                code += " json_keys=" + ",".join(sorted(
+                    key for key in data if isinstance(key, str)
+                    and key in {"error", "message", "code", "permission", "success",
+                                 "status", "errors", "result", "details"}))
         except (ValueError, UnicodeDecodeError):
             pass
     mitigated = " challenge=true" if (headers.get("cf-mitigated") or "").lower() == "challenge" else ""
@@ -200,7 +219,8 @@ def main():
     for label, origin in (
         ("Cloud Run staging", staging),
         ("Render direct (diagnostic)", RENDER_ORIGIN),
-        ("Cloudflare/Render", FRONTEND_ORIGIN),
+        ("Pages default domain", PAGES_ORIGIN),
+        ("Cloudflare custom domain", FRONTEND_ORIGIN),
     ):
         for code, (run_id, count) in RUNS.items():
             data, error = fetch(opener, origin, code, token)
@@ -213,6 +233,18 @@ def main():
             results.append(valid)
     token = ""
     print(f"RESULT: {sum(results)}/{len(results)} exact authenticated read contracts passed")
+    # An unauthenticated GET is intentional: 401 demonstrates a functioning
+    # auth boundary; 403 on both authenticated and anonymous probes points
+    # toward an upstream/edge rule instead of a bad Firebase token.
+    print("ANONYMOUS GATEWAY PROBE (expected 401 for review endpoint):")
+    for label, origin in (
+        ("Render direct", RENDER_ORIGIN),
+        ("Pages default domain", PAGES_ORIGIN),
+        ("Cloudflare custom domain", FRONTEND_ORIGIN),
+    ):
+        data, error = fetch(opener, origin, "GEN-20261011-635BA10F", "")
+        print(f"PROBE: {label}: " + (error or
+              "unexpected HTTP 200 review response; CHECK AUTHORIZATION BOUNDARY"))
     if not all(results):
         fail("review-page read contract incomplete. No writes requested. Report the output.")
 
