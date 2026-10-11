@@ -120,7 +120,7 @@ export default function StorePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-2 text-xs font-semibold text-slate-600 dark:text-muted-foreground">
                 <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><ShieldCheck className="h-4 w-4 text-[#6657e8]" /> Server-verified access</span>
-                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><CreditCard className="h-4 w-4 text-[#6657e8]" /> Razorpay checkout</span>
+                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><CreditCard className="h-4 w-4 text-[#6657e8]" /> {productsQuery.data?.salesEnabled === false ? "Purchases paused" : "Secure checkout"}</span>
                 <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><CheckCircle2 className="h-4 w-4 text-[#6657e8]" /> Canonical entitlements</span>
               </div>
             </div>

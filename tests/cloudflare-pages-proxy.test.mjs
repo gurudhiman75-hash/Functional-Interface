@@ -59,12 +59,13 @@ test("API proxy returns controlled errors when Render is unavailable", async () 
 
 test("Cloudflare API proxy supports validated Cloud Run cutover without exposing an open proxy", async () => {
   assert.equal(configuredApiOrigin({}), "https://examtree-new.onrender.com");
-  const cloudRun = "https://examtree-api-staging-1083299267005.asia-south1.run.app";
+  const cloudRun = "https://examtree-api-1083299267005.asia-south1.run.app";
   assert.equal(configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun }), cloudRun);
   for (const candidate of [
     "http://examtree-api-staging-1083299267005.asia-south1.run.app",
     "https://attacker.example",
-    "https://examtree-api-staging-1083299267005.asia-south1.run.app/evil",
+    "https://examtree-api-staging-1083299267005.asia-south1.run.app",
+    "https://examtree-api-1083299267005.asia-south1.run.app/evil",
     "https://examtree-new.onrender.com.evil.example",
   ]) {
     assert.throws(() => configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: candidate }));
@@ -75,16 +76,16 @@ test("Cloudflare API proxy supports validated Cloud Run cutover without exposing
     observed = request;
     return new Response(null, {
       status: 302,
-      headers: { Location: cloudRun + "/api/admin/login", "Cache-Control": "public, max-age=600" },
+      headers: { Location: cloudRun + "/api/tests", "Cache-Control": "public, max-age=600" },
     });
   };
   try {
     const reply = await onRequest({
-      request: req("https://functional-interface.pages.dev/api/admin/login", "GET"),
+      request: req("https://functional-interface.pages.dev/api/tests", "GET"),
       env: { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun },
     });
-    assert.equal(observed.url, cloudRun + "/api/admin/login");
-    assert.equal(reply.headers.get("location"), "https://functional-interface.pages.dev/api/admin/login");
+    assert.equal(observed.url, cloudRun + "/api/tests");
+    assert.equal(reply.headers.get("location"), "https://functional-interface.pages.dev/api/tests");
     assert.equal(reply.headers.get("cache-control"), "private, no-store");
     assert.equal(reply.status, 302);
   } finally { globalThis.fetch = old; }
@@ -95,4 +96,47 @@ test("Cloudflare API proxy supports validated Cloud Run cutover without exposing
   });
   assert.equal(rejected.status, 503);
   assert.equal((await rejected.json()).code, "API_GATEWAY_MISCONFIGURED");
+});
+
+test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks", async () => {
+  const cloudRun = "https://examtree-api-1083299267005.asia-south1.run.app";
+  const original = globalThis.fetch;
+  const forwarded = [];
+  globalThis.fetch = async (request) => {
+    forwarded.push({ url: request.url, method: request.method });
+    return Response.json({ ok: true });
+  };
+  try {
+    const env = { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun };
+    for (const [path, method] of [
+      ["/api/billing/cashfree/webhook", "POST"],
+      ["/api/billing/webhook", "POST"],
+      ["/api/commerce/orders/aaa-bbb/reconcile", "POST"],
+      ["/api/commerce/orders/aaa-bbb/confirm", "POST"],
+      ["/api/admin/commerce/orders/reconciliation/health", "GET"],
+      ["/api/admin/commerce/orders/a-refund-id/reconcile", "POST"],
+      ["/api/admin/question-studio/review-page", "GET"],
+      ["/api/admin/session", "GET"],
+      ["/api/billing/razorpay/verify", "POST"],
+      ["/api/packages/verify", "POST"],
+    ]) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path, method, {
+          headers: { "content-type": "application/json" },
+          body: method === "GET" || method === "HEAD" ? undefined : "{}",
+        }),
+        env,
+      });
+      assert.equal(response.status, 200);
+    }
+    const ordinary = await onRequest({
+      request: req("https://examtree.in/api/attempts"),
+      env,
+    });
+    assert.equal(ordinary.status, 200);
+    assert.ok(forwarded.slice(0, 10).every(x => x.url.startsWith("https://examtree-new.onrender.com/")));
+    assert.equal(forwarded[10].url, cloudRun + "/api/attempts");
+  } finally {
+    globalThis.fetch = original;
+  }
 });

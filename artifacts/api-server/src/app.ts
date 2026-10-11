@@ -89,6 +89,47 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.options("/api/{*splat}", cors(corsOptions));
+// During a production Cloud Run cutover without live merchant credentials,
+// block ALL known new-order entrypoints BEFORE authentication, database writes,
+// provider API calls, or legacy fallback handlers. Existing purchase reads,
+// refund reconciliation, and signed provider webhook callbacks remain routed.
+// Old payment orders continue to be reconciled by the existing Render webhook
+// until the financial migration is explicitly approved.
+const salesCreationPaths = new Set([
+  "/api/commerce/orders",
+  "/api/packages/create-order",
+  "/api/billing/razorpay/create-order",
+  "/api/billing/mock-unlock",
+]);
+app.use((req, res, next) => {
+  if (process.env.EXAMTREE_SALES_DISABLED === "true" &&
+      req.method === "POST" && salesCreationPaths.has(req.path)) {
+    res.status(503).json({
+      code: "SALES_TEMPORARILY_UNAVAILABLE",
+      error: "New purchases are temporarily paused. Your existing packages remain available.",
+    });
+    return;
+  }
+  next();
+});
+
+// The temporary no-AI student cutover is safe only if admin work stays on
+// Render. Never let a direct Cloud Run URL bypass the Cloudflare bridge and
+// invoke AI/admin routes without configured production provider credentials.
+app.use((req, res, next) => {
+  const delegated = process.env.EXAMTREE_API_RUNTIME === "cloud-run" &&
+    process.env.EXAMTREE_API_STAGING === "false" &&
+    process.env.EXAMTREE_SALES_DISABLED === "true" &&
+    process.env.EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER === "true";
+  if (delegated && (req.path === "/api/admin" || req.path.startsWith("/api/admin/"))) {
+    res.status(503).json({
+      code: "ADMIN_HANDLED_BY_RENDER_DURING_CUTOVER",
+      error: "Use the primary Examtree website for administrator tools during the migration.",
+    });
+    return;
+  }
+  next();
+});
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json" }), webhookRateLimit, cashfreeWebhookHandler);
 

@@ -235,12 +235,22 @@ export function validateAIProviderStartup() {
   const isolatedCloudRunStaging =
     process.env["EXAMTREE_API_RUNTIME"] === "cloud-run" &&
     process.env["EXAMTREE_API_STAGING"] === "true";
+  // The only supported exception for no production API key is a deliberate
+  // temporary split: checkout is locked, and ALL admin APIs are delegated
+  // back to Render by the trusted Cloudflare gateway. Direct Cloud Run admin
+  // requests are rejected in app.ts. Remove this exception before fully
+  // retiring Render or enabling AI-backed work on the Cloud Run instance.
+  const temporaryAdminRenderBridge =
+    process.env["EXAMTREE_API_RUNTIME"] === "cloud-run" &&
+    process.env["EXAMTREE_API_STAGING"] === "false" &&
+    process.env["EXAMTREE_SALES_DISABLED"] === "true" &&
+    process.env["EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER"] === "true";
   const required =
     process.env["AI_EXTRACTION_REQUIRED"] ===
       "true" ||
     process.env["OPENAI_EXTRACTION_REQUIRED"] ===
       "true" ||
-    (process.env["NODE_ENV"] === "production" && !isolatedCloudRunStaging);
+    (process.env["NODE_ENV"] === "production" && !isolatedCloudRunStaging && !temporaryAdminRenderBridge);
   const provider = resolveAIProvider();
   const adapter = getAIProvider(provider);
 

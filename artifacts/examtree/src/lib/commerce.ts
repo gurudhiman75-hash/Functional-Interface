@@ -16,7 +16,8 @@ export type CommerceProduct = {
 
 type CommerceProductsResponse = {
   products: CommerceProduct[];
-  checkoutProvider?: "razorpay" | "cashfree";
+  checkoutProvider?: "razorpay" | "cashfree" | "disabled";
+  salesEnabled?: boolean;
   generatedAt: string;
 };
 

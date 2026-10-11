@@ -26,6 +26,23 @@ class ProductionCandidateSafetyTests(unittest.TestCase):
             ok, reason = m.validate(candidate)
             self.assertNotIn("example_secret", reason)
 
+    def test_sales_paused_mode_never_binds_payment_keys(self):
+        script=(ROOT/"scripts/deploy-examtree-api-cloudrun-production-candidate.sh").read_text()
+        self.assertIn("EXAMTREE_PRODUCTION_SALES_PAUSED",script)
+        self.assertIn('REQUIRED_SECRETS=("$DB_SECRET")',script)
+        self.assertIn('if [[ "$ADMIN_DEFERRED" == "no" ]]',script)
+        self.assertIn('REQUIRED_SECRETS+=("$AI_SECRET")',script)
+        self.assertIn('EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER',script)
+        self.assertIn('EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=true',script)
+        self.assertIn('assert "OPENAI_API_KEY" not in env',script)
+        self.assertIn('if [[ "$SALES_PAUSED" == "no" ]]',script)
+        self.assertIn('API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=true,EXAMTREE_PAYMENT_PROVIDER=none"',script)
+        self.assertIn("CASHFREE_ENV=production",script)
+        self.assertIn('API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=false',script)
+        self.assertIn('assert "CASHFREE_CLIENT_ID" not in env',script)
+        self.assertIn('assert "CASHFREE_CLIENT_ID" not in env and "CASHFREE_CLIENT_SECRET" not in env',script)
+        self.assertIn('--no-allow-unauthenticated',script)
+
     def test_explicit_cost_and_deployment_consent(self):
         s = (ROOT / "scripts/deploy-examtree-api-cloudrun-production-candidate.sh").read_text()
         self.assertIn("EXAMTREE_PRODUCTION_CANDIDATE_APPROVED", s)
