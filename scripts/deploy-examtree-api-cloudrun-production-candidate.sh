@@ -84,6 +84,26 @@ gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
   --set-secrets="DATABASE_URL=$DB_SECRET:latest,CASHFREE_CLIENT_ID=$CASHFREE_ID_SECRET:latest,CASHFREE_CLIENT_SECRET=$CASHFREE_KEY_SECRET:latest,OPENAI_API_KEY=$AI_SECRET:latest" \
   --quiet
 
+# Set the future callback origin to the candidate's own Cloud Run URL while
+# it is still PRIVATE; no Cashfree provider webhook registration changes here.
+URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$REGION" --format='value(status.url)')"
+if [[ "$URL" != https://*.run.app ]]; then
+  echo "FAIL: unexpected production candidate hostname, no cutover." >&2
+  exit 1
+fi
+gcloud run services update "$SERVICE" --project="$PROJECT" --region="$REGION" \
+  --update-env-vars="EXAMTREE_API_ORIGIN=$URL" --quiet >/dev/null
+
+# Never promote a candidate with the broad public invoker role.
+gcloud run services get-iam-policy "$SERVICE" --project="$PROJECT" --region="$REGION" --format=json |
+python3 -c '
+import sys,json
+policy=json.load(sys.stdin)
+for binding in policy.get("bindings",[]):
+ assert not any(member in ("allUsers","allAuthenticatedUsers") for member in binding.get("members",[]))
+print("PASS: production API candidate has no public Cloud Run invoker bindings")
+'
+
 # Inert job definition only: NO execution and NO Cloud Scheduler. This job
 # cannot dispatch notifications/outbox while Render is still live.
 gcloud run jobs deploy "$JOB" --project="$PROJECT" --region="$REGION" \
