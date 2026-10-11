@@ -116,7 +116,10 @@ def staging_safe(service):
     if len(containers) != 1:
         return False
     env = {e.get("name"): e.get("value") for e in containers[0].get("env") or []}
+    secrets = {item.get("name"): ((item.get("valueFrom") or {}).get("secretKeyRef") or {}).get("name")
+               for item in containers[0].get("env") or []}
     return all([
+        secrets.get("DATABASE_URL") == "examtree-api-staging-database-url",
         env.get("EXAMTREE_API_RUNTIME") == "cloud-run",
         env.get("EXAMTREE_API_STAGING") == "true",
         env.get("EXAMTREE_PAYMENT_PROVIDER") == "cashfree",

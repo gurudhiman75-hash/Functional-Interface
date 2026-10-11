@@ -22,6 +22,8 @@ def service():
             value("OUTBOX_PUBLISHER_ENABLED", "false"),
             value("EXAMTREE_API_ORIGIN", "https://examtree-api-staging-test.a.run.app"),
             value("QUESTION_STUDIO_SHARED_WORKER_URL", "https://examtree-generation-staging-test.a.run.app"),
+            {"name": "DATABASE_URL",
+             "valueFrom": {"secretKeyRef": {"name": "examtree-api-staging-database-url"}}},
             {"name": "QUESTION_STUDIO_WORKER_TOKEN",
              "valueFrom": {"secretKeyRef": {"name": "examtree-trg002-worker-token"}}},
         ]}]}}}
@@ -56,9 +58,14 @@ class Tests(unittest.TestCase):
 
     def test_staging_rejects_nonsecret_token(self):
         data = service()
-        data["spec"]["template"]["spec"]["containers"][0]["env"][8] = {
+        data["spec"]["template"]["spec"]["containers"][0]["env"][9] = {
             "name": "QUESTION_STUDIO_WORKER_TOKEN", "value": "plain-text"
         }
+        self.assertEqual(gate.staging_configuration(data), (False, None))
+
+    def test_staging_rejects_main_db_secret(self):
+        data = service()
+        data["spec"]["template"]["spec"]["containers"][0]["env"][8]["valueFrom"]["secretKeyRef"]["name"] = "examtree-api-database-url"
         self.assertEqual(gate.staging_configuration(data), (False, None))
 
     def test_only_one_or_three_review_items_counted(self):

@@ -2,7 +2,7 @@
 """One explicit authenticated NUM-001 review-only generation via Cloud Run staging.
 
 May create a content.generation_runs REVIEW record, item versions, an audit
-event and an outbox event on the existing shared Neon TEST database. It never
+event and an outbox event on the isolated Neon STAGING branch. It never
 publishes to the Question Bank, launches a scheduled job, purchases anything,
 or changes Render/Cloudflare traffic. Do NOT blindly repeat on timeout.
 """
@@ -45,6 +45,8 @@ def staging_configuration(data):
         flag("GENERATION_JOB_WORKER_ENABLED") == "false",
         flag("OUTBOX_PUBLISHER_ENABLED") == "false",
         bool(flag("QUESTION_STUDIO_SHARED_WORKER_URL")),
+        (e.get("DATABASE_URL") or {}).get("valueFrom", {}).get("secretKeyRef", {}).get("name")
+            == "examtree-api-staging-database-url",
         (e.get("QUESTION_STUDIO_WORKER_TOKEN") or {}).get("valueFrom", {}).get("secretKeyRef", {}).get("name")
             == "examtree-trg002-worker-token",
         origin == published,

@@ -102,6 +102,7 @@ class OpsPreflightTests(unittest.TestCase):
             {"name": "CASHFREE_ENV", "value": "sandbox"},
             {"name": "OUTBOX_PUBLISHER_ENABLED", "value": "false"},
             {"name": "GENERATION_JOB_WORKER_ENABLED", "value": "false"},
+            {"name": "DATABASE_URL", "valueFrom": {"secretKeyRef": {"name": "examtree-api-staging-database-url"}}},
         ]
         def service(items):
             return {"spec": {"template": {"spec": {"containers": [{"env": items}]}}}}
@@ -110,6 +111,10 @@ class OpsPreflightTests(unittest.TestCase):
         modified[4]["value"] = "true"
         self.assertFalse(ops.staging_safe(service(modified)))
         self.assertFalse(ops.staging_safe({}))
+        main_secret = [dict(x) for x in env]
+        main_secret[-1] = {"name": "DATABASE_URL", "valueFrom":
+                           {"secretKeyRef": {"name": "examtree-api-database-url"}}}
+        self.assertFalse(ops.staging_safe(service(main_secret)))
 
 
 if __name__ == "__main__":

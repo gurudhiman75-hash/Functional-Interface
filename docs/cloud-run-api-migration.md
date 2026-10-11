@@ -12,21 +12,74 @@
 | Mobile app direct Render API | New Cloud Run URL or first-party API domain | Requires separate client/APK rollout |
 | Cashfree webhook registered URL | Switch to the validated first-party API endpoint **after** payment sandbox and production verification | No change yet |
 
-## Existing Neon test database and secrets — one-time preparation
-The owner confirmed that **Neon `main` currently contains test accounts and test attempts only**, with no real student data. Therefore **no second Neon compute endpoint or permanent database is required** for this migration. Use the existing Neon connection, retaining existing test data. A separate Neon branch `examtree-cloudrun-api-staging-20261010` was created without compute during planning; it is **not needed** for this phase and will not be connected or billed for a compute endpoint.
+## Live Neon database and staging isolation — mandatory
 
-Important: Cloud Run staging and Render will temporarily share the **same database**. Initial API startup can ensure approved exam/test-series catalogue rows. This is acceptable for today's disposable test environment, but do not run duplicate payment/webhook or notification jobs, do not trigger real refunds, and do not enable schema migrations while the two APIs overlap. Test accounts may be used; preserve any test records you want to keep. Reassess isolation before onboarding real students.
+**Correction (2026-10-11):** Render and Cloud Run staging initially both used the
+**live production Neon main branch**, project `empty-sunset-07552954`, branch
+`br-morning-bar-atttdxj4`. Calling it a "TEST database" was incorrect:
+whether any existing records are disposable must not be assumed. The NUM-001
+review-only generation smokes on 2026-10-11 saved **four real generated
+questions** (one plus three) into this live shared branch, although review
+locks prevented student publication. Never rerun those writes against main.
 
-1. Retrieve the **existing Neon main connection string** privately in the Neon dashboard (or the provider's credentials UI). Do **not** paste credentials here.
-2. In Google Cloud Shell, create the Secret Manager secret `examtree-api-database-url` if it does not exist: `gcloud secrets create examtree-api-database-url --project=sarbedutech --replication-policy=automatic`. Add a version using a hidden shell prompt:
-   ```bash
-   read -srp "Paste EXISTING Neon main URL (test data only): " EXAMTREE_DATABASE_URL; echo
-   printf '%s' "$EXAMTREE_DATABASE_URL" | gcloud secrets versions add examtree-api-database-url --project=sarbedutech --data-file=-
-   unset EXAMTREE_DATABASE_URL
-   ```
-   Never paste the database URL, password, or Cloud Run worker token into chat. This secret is for **staging with test data only**; before live enrollment, rotate/split deployment credentials if required.
-3. The pre-existing Secret Manager secret `examtree-trg002-worker-token` is reused. A dedicated Cloud Run runtime service account `examtree-api-runtime` authenticates to Firebase using ADC; grant only necessary Firebase/Firestore/Storage/FCM permissions if the service reports authorization failures. No JSON private key should be copied from Render.
-4. Verify Google Cloud billing alerts and Artifact Registry storage. Deployment images, CPU/RAM/requests, Neon egress, Secret Manager and future Scheduler can incur charges. min-instances=0 is not a guarantee of no bill.
+An existing copy-on-write branch `examtree-cloudrun-api-staging-20261010`
+(`br-tiny-dust-at9gpdbj`) has now been provisioned with its own **0.25 CU**
+compute `ep-wild-water-atrzmssw.c-9.us-east-1.aws.neon.tech`. It is a
+snapshot from October 10 and does not automatically contain subsequent
+generation runs or changes made to main.
+
+**The branch's existence alone does not isolate the Cloud Run service.**
+Until the separate Secret Manager binding is installed and the revised
+Cloud Run staging revision is healthy, staging **still uses production Neon**.
+Do not run any staging generation, payment, attempt, migration or outbox-write
+tests before that change is verified.
+
+From Cloud Shell, with the branch's connection URL copied **privately** from
+Neon (do not put it in chat or in a shell command), run:
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+EXAMTREE_STAGING_DB_SWITCH_APPROVED=yes \
+  bash scripts/isolate-examtree-cloudrun-staging-neon.sh
+```
+
+The script uses hidden input, validates the **exact staging endpoint host**,
+checks TLS and database name, stores the URL only in the dedicated
+`examtree-api-staging-database-url` secret, grants staging runtime identity
+access, and rebinds only the Cloud Run **staging** API and inert staging job.
+It disables the staging job command as well as setting
+`EXAMTREE_API_STAGING=true`, and verifies the service's disabled
+`OUTBOX_PUBLISHER_ENABLED` and `GENERATION_JOB_WORKER_ENABLED` flags.
+It does **not** touch Render, Cloudflare routing, Cloud Run production
+services, Firebase Auth, Cashfree production credentials or actual job
+executions. This step creates a new Secret Manager version and Cloud Run
+staging revisions, and can incur Google Cloud/Neon usage. Never publish
+connection strings, Firebase tokens or payment keys in logs.
+
+Future staging image deployment
+(`scripts/deploy-examtree-api-cloudrun-staging.sh`) now requires this
+dedicated secret and rejects a URL that points at the live Neon main endpoint.
+Staging generation smoke refuses to proceed if the service has the old
+main-database secret binding.
+
+The existing Neon main URL/secret `examtree-api-database-url` must remain
+available to Render and the verified daily backup/restore system. Do not
+rotate or overwrite it as part of staging isolation.
+
+### One-time staging prerequisites
+
+- Verify Google Cloud billing alerts. The new Neon compute may use
+  additional plan allowance; the account did not permit a custom
+  autosuspend timeout, so inspect its actual configured suspend setting.
+- Keep `EXAMTREE_API_STAGING=true`, Cashfree sandbox only, no worker
+  scheduler, and no live student traffic.
+- The staging Cloud Run runtime service account
+  `examtree-api-runtime@sarbedutech.iam.gserviceaccount.com` uses
+  Firebase ADC and Secret Manager. Never copy Render's private JSON key.
+- New **staging** run IDs after isolation will not appear in Render's
+  admin UI, which correctly continues to use Neon main. Verify staging
+  reads via the Cloud Run staging API, not the live website.
 
 ### Staging AI provider policy
 The existing API's production mode normally requires an AI extraction provider key. This staging deployment intentionally **does not require AI keys for the basic API health/auth/DB smoke checks**, using the narrow gate `EXAMTREE_API_RUNTIME=cloud-run` and `EXAMTREE_API_STAGING=true`. AI-powered routes cannot successfully call a provider without credentials. **Before production Cloud Run cutover**, configure the real AI provider keys through Secret Manager and deploy without `EXAMTREE_API_STAGING`; the strict startup check then applies again. Do not use this staging configuration as the final production backend.
@@ -40,7 +93,7 @@ git checkout New-main
 git pull --ff-only origin New-main
 EXAMTREE_BUDGET_READY=yes bash scripts/deploy-examtree-api-cloudrun-staging.sh sarbedutech
 ```
-The script builds a standalone API image, mounts the **existing Neon main test-database URL** from Secret Manager, deploys `examtree-api-staging`, checks `/health` and safe negative E2E tests for unauthorized Question Studio generation and unsigned Cashfree webhooks, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode. The canonical Neon client remains unchanged. Limit Cloud Run instance count until production DB connection headroom is measured; the current driver default can open up to 10 connections per instance.
+The script builds a standalone API image, mounts the **isolated Neon staging database URL** from Secret Manager, deploys `examtree-api-staging`, checks `/health` and safe negative E2E tests for unauthorized Question Studio generation and unsigned Cashfree webhooks, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode. The canonical Neon client remains unchanged. Limit Cloud Run instance count until production DB connection headroom is measured; the current driver default can open up to 10 connections per instance.
 
 
 ## Authenticated staging acceptance using existing test identities
@@ -73,7 +126,7 @@ PATCH, DELETE, refund, attempt, or background job requests.
 
 CAUTION: Examtree authentication middleware can reconcile a verified Firebase
 identity and update the last-login timestamp even on GET routes. These are
-existing application side effects in the shared Neon test database, so use
+existing application side effects in the database currently bound to Cloud Run, so use
 established disposable test users, not real student identities.
 
 These tests do not establish signed provider webhook delivery, attempt writes,
@@ -83,7 +136,7 @@ remain untouched pending separate evidence and explicit approval.
 
 ## Expired paid-test access preflight (2026-10-11)
 
-The Neon main TEST dataset currently has only one live published test,
+The Neon main dataset at the time of the earlier smoke had one published test,
 `T-CF-SANDBOX-20261009`, with three scored questions and a paid product link.
 Both historical one-day sandbox entitlements are past their validity end:
 one was refunded and revoked; the other retains database status `active`
@@ -107,7 +160,7 @@ Do NOT extend the expired paid entitlements, create a new Cashfree payment,
 rewrite order status, or bypass `requireTestAccess` merely to make the test
 pass. The next phase should use an isolated, approved free test publication
 or an explicitly approved, correctly audited disposable entitlement before
-starting/saving/submitting any new attempt. Staging and Render share Neon
+starting/saving/submitting any new attempt. Staging and Render shared Neon before isolation
 main, so fixture creation affects both APIs and needs operator approval.
 
 ### Authenticated NUM-001 staging persistence — 2026-10-11
@@ -135,7 +188,7 @@ main, so fixture creation affects both APIs and needs operator approval.
 ## Acceptance gates before Cloudflare cutover
 - [ ] `GET /health` 200, and configured API functions do not return 502/503.
 - [ ] Firebase Google and mobile-number auth verified using Google-managed service identity; admin RBAC denied to ordinary student and allowed for superadmin.
-- [ ] Student discovery, category/exam/test-series views, active test session creation, answer saves, submit, analytics and attempt retrieval; confirm all test writes persist in **existing Neon main** (and can be distinguished from earlier Render test runs).
+- [ ] Student discovery, category/exam/test-series views, active test session creation, answer saves, submit, analytics and attempt retrieval; confirm all test writes persist in **isolated Neon staging** (and can be distinguished from earlier Render test runs).
 - [ ] Question Studio NUM-001 (1/3 questions) through **authenticated** admin endpoint; generated question versions remain REVIEW_ONLY, not automatically inserted into Question Bank; TRG-002 and NUM-002 unchanged.
 - [ ] Cashfree **sandbox** checkout, signed payment callbacks, captured entitlement, failed/user-dropped attempts, refund evidence check; ensure raw webhook body and idempotency preserved. Production merchant webhook URL is NOT changed until complete.
 - [ ] Check current affairs, learn resources, mobile Home promotions and notification delivery using explicitly disposable test data.
@@ -145,7 +198,7 @@ main, so fixture creation affects both APIs and needs operator approval.
 
 ## Cutover — only after acceptance
 1. Decide API origin for mobile (prefer stable `api.examtree.in`, if DNS and TLS are configured; direct Cloud Run URL may be used temporarily), test on a new APK.
-2. Confirm the existing Neon main test database will become the production source of truth only after final schema, payment and privacy reviews. Move to separate runtime credentials and validate backups/point-in-time recovery before live student onboarding.
+2. Confirm that Neon main remains the production source of truth, while Cloud Run staging uses its separate branch. Move to separate runtime credentials and validate backups/point-in-time recovery before live student onboarding.
 3. Deploy production Cloud Run API with production secret mapping and independent runtime identity. Validate all endpoints and rollback before moving public traffic.
 4. **First rebuild BOTH Vite frontends to use the same-origin API proxy:** set `VITE_API_BASE_URL=/api` for the student app and `VITE_API_URL=/api` for the admin app in the Cloudflare production build environment, then rebuild/redeploy Cloudflare Pages. The checked-in `artifacts/examtree/.env.production` and `artifacts/admin-app/.env.production` still contain direct Render URLs, so changing only the Pages Function upstream would leave the browser calling Render. With both build-time variables set and the final Pages output assembled, run `VITE_API_BASE_URL=/api VITE_API_URL=/api node scripts/check-examtree-cloudflare-cutover.mjs` and require PASS. Before any Cloud Run cutover, verify same-origin Pages proxy continues to pass all auth/session flows with Render fallback. The preflight checks actual compiled .js/.html assets, not just index.html. The Android app also needs its own API endpoint update and released APK.
 5. Set Cloudflare Pages Production **environment variable** `EXAMTREE_API_UPSTREAM_ORIGIN=https://<validated-cloud-run-host>.run.app`, preserving the existing Pages build. The Pages Function ignores client-supplied upstream parameters and supports rollback by removing that variable.
