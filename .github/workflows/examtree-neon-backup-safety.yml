@@ -8,6 +8,8 @@ on:
       - scripts/verify-examtree-neon-backup.sh
       - tests/neon-backup-encryption.test.sh
       - docs/neon-backup-and-recovery-runbook.md
+      - ops/neon-daily-backup/**
+      - tests/neon-daily-backup.test.sh
 
 permissions:
   contents: read
@@ -27,5 +29,9 @@ jobs:
           bash -n scripts/backup-examtree-neon.sh
           bash -n scripts/verify-examtree-neon-backup.sh
           bash -n tests/neon-backup-encryption.test.sh
+          bash -n tests/neon-daily-backup.test.sh
+          for script in ops/neon-daily-backup/*.sh; do bash -n "$script"; done
       - name: Simulate backup and checksum failure with fake PostgreSQL I/O
         run: bash tests/neon-backup-encryption.test.sh
+      - name: Simulate daily Cloud Run backup and GCS failure modes
+        run: bash tests/neon-daily-backup.test.sh
