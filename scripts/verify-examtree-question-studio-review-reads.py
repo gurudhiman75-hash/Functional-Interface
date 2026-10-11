@@ -189,7 +189,8 @@ def fetch_curl(origin, code, token):
     """
     if origin not in (FRONTEND_ORIGIN, PAGES_ORIGIN):
         return None, "unsupported curl origin"
-    if token and not re.fullmatch(r"[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+", token):
+    if token and (token.count(".") != 2 or any(
+            not re.fullmatch("[A-Za-z0-9_-]+", part) for part in token.split("."))):
         return None, "invalid Firebase token format"
     url = origin + "/api/admin/question-studio/review-page?" + urlencode({
         "search": code, "packageId": "NUM-001", "page": 1, "pageSize": 10,
@@ -216,11 +217,13 @@ def fetch_curl(origin, code, token):
     if completed.returncode != 0:
         return None, "curl request failed (no credentials logged)"
     output = completed.stdout
-    match = re.search(rb"\\nEXAMTREE_CURL_STATUS:(\\d{3})$", output)
-    if match is None:
+    marker = b"\nEXAMTREE_CURL_STATUS:"
+    marker_index = output.rfind(marker)
+    status_bytes = output[marker_index + len(marker):] if marker_index >= 0 else b""
+    if not (marker_index >= 0 and len(status_bytes) == 3 and status_bytes.isdigit()):
         return None, "missing curl HTTP status"
-    status = int(match.group(1))
-    data = output[:match.start()]
+    status = int(status_bytes)
+    data = output[:marker_index]
     if len(data) > MAX_RESPONSE_BYTES:
         return None, "response exceeds 3 MiB limit"
     if status != 200:
