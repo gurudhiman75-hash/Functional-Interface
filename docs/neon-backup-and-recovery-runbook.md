@@ -14,9 +14,12 @@ A separate Cloud Run staging branch
 copy-on-write branch is NOT a periodically updated, independent backup and
 cannot be used to recover later writes on main.
 
-This runbook adds a secure **operator-invoked** logical backup path and an
-archive-verification path. They are not a replacement for scheduled offsite
-storage or a real isolated restore drill. No new paid features are enabled.
+This runbook provides an operator-invoked encrypted logical backup,
+offsite archive verification, and an isolated restore-drill procedure.
+**An actual encrypted offsite backup and isolated restore succeeded on
+2026-10-11**, as recorded below. This does NOT replace scheduled, retained
+backups, recurring restore drills, or broader application recovery controls.
+No paid Neon plan features were enabled.
 
 ## Prerequisites
 
@@ -184,10 +187,60 @@ Separate backup/security controls must cover those systems.
 - Keep Render and Cloud Run API connection strings and background workers
   stable until application migration is explicitly approved.
 
-## Verification boundary
+## Actual encrypted offsite backup and isolated restore: PASSED (2026-10-11)
 
-As of this change, the repository provides an encryption+archive-verification
-implementation and offline fixture CI. **No actual backup has yet been
-produced or independently stored offsite**, and **no full restore drill**
-has been run. Do not mark database disaster-recovery readiness complete until
-those operational steps pass.
+- **Backup:** `examtree-neon-20261010T154110Z-4733.dump.gpg`;
+  AES-256 GPG encryption; SHA-256 manifest
+  `examtree-neon-20261010T154110Z-4733.dump.gpg.sha256`. The encrypted
+  archive was uploaded to private Google Cloud Storage at
+  `gs://sarbedutech/neon-backups/` (the GPG passphrase was not uploaded).
+  Public Access Prevention was enforced and Uniform Bucket-Level Access
+  enabled; legacy project Editor and Viewer bucket grants were removed.
+  NOTE: project-level `roles/storage.admin` held by the Firebase Admin SDK
+  service account still inherits backup access, and remains a least-privilege
+  review item.
+- **Independent storage verification:** downloaded the uploaded archive
+  from GCS and verified SHA-256, full GPG decryption, and
+  `pg_restore --list` with PostgreSQL 17. **Passed.** No unencrypted
+  database dump was saved to disk.
+- **Isolated restore:** created throwaway Neon branch
+  `examtree-neon-backup-restore-drill-20261011`
+  (`br-tiny-hill-at26nl9k`) and a distinct initially empty database
+  `examtree_backup_restore_20261011`, with a temporary 0.25-CU compute
+  and no application connections. Restored via
+  `scripts/restore-examtree-neon-drill-20261011.sh` using a fixed
+  isolated endpoint, verified TLS, production-host guard, preflight
+  empty-database guard, and `pg_restore --single-transaction --exit-on-error`.
+  **Passed; 176 user tables.**
+- **Database-structure checks:** 176 tables, 354 foreign keys, 685 indexes,
+  **0 unvalidated foreign keys**, **0 other connections**, and **0
+  operations.jobs**. Two unvalidated identity/users CHECK constraints
+  (`identity_users_contact_required` and `identity_users_phone_e164`)
+  exist identically on production and were **not** introduced by restore.
+- **Sample data-count comparison:** 18 categories matched live `main`
+  at verification time, including exams 34, tests 4, test versions 6,
+  test questions 21, questions 589, question versions 590, question
+  options 2360, learning attempts 23, attempt responses 68, orders 4,
+  payment attempts 4, payment events 4, refunds 2, entitlements 2,
+  outbox events 15, generation runs 20, and mobile analytics 187.
+  Equal counts do not prove every individual row is identical; they
+  support a successful schema/data recovery drill, not a bit-for-bit
+  comparison.
+- **Cleanup verified:** deleted the temporary Neon compute and branch
+  after the test; the test branch is absent from `list_branches`.
+  Original production `main` (`br-morning-bar-atttdxj4`) remains
+  primary/default. No application services or external payment providers
+  were connected to the throwaway restore database.
+
+### Remaining disaster-recovery gaps
+
+This completed an actual recoverability test, but Examtree still needs a
+**recurring backup schedule**, suitable retention/deletion protection,
+independent monitoring and alerts, an agreed RPO/RTO, periodic repeat restore
+drills, and least-privilege review of project-wide Cloud Storage roles.
+The GCS backup is independent of Neon and Cloud Shell, but still shares the
+`sarbedutech` Google Cloud project and its IAM trust boundary. Firebase
+Authentication, Firebase Storage app assets, Cashfree provider data,
+Cloud Run settings, secrets, and Neon project settings are outside the
+logical PostgreSQL backup's scope. Do **not** consider the entire
+production disaster-recovery program complete yet.
