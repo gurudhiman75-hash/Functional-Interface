@@ -33,10 +33,18 @@ if [[ "${1:-}" == "--version" ]]; then
   echo "pg_restore (PostgreSQL) ${MOCK_PG_MAJOR:-17}.9"
   exit 0
 fi
-[[ "$1" == "--list" ]]
-# Deliberately read ONLY the catalogue prefix, like real pg_restore --list.
-# If the caller does not drain the rest, GPG gets a broken pipe.
-[[ "$(head -c 5)" == "PGDMP" ]]
+if [[ "$1" == "--list" ]]; then
+  # Deliberately read ONLY the catalogue prefix, like real pg_restore --list.
+  [[ "$(head -c 5)" == "PGDMP" ]]
+else
+  [[ " $* " == *" --dbname=examtree_backup_restore_20261011 "* ]]
+  [[ " $* " == *" --single-transaction "* ]]
+  [[ " $* " == *" --exit-on-error "* ]]
+  [[ "$PGHOST" == "ep-green-king-atrz5vrx.c-9.us-east-1.aws.neon.tech" ]]
+  [[ "$PGDATABASE" == "examtree_backup_restore_20261011" ]]
+  [[ "$PGSSLMODE" == "verify-full" ]]
+  [[ "$(head -c 5)" == "PGDMP" ]]
+fi
 MOCK
 chmod 700 "$WORK/bin/pg_dump" "$WORK/bin/pg_restore"
 export PATH="$WORK/bin:$PATH"
@@ -60,6 +68,39 @@ archive="$(find "$WORK/backups" -maxdepth 1 -name '*.dump.gpg' -type f | head -n
 [[ -f "$archive.sha256" ]]
 [[ "$(head -c 5 "$archive")" != "PGDMP" ]]
 bash "$ROOT/scripts/verify-examtree-neon-backup.sh" "$archive"
+
+# Exercise guarded restore without ever connecting to a real database.
+cat > "$WORK/bin/psql" <<'MOCK'
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ "${1:-}" == "--version" ]]; then
+  echo "psql (PostgreSQL) ${MOCK_PG_MAJOR:-17}.9"
+  exit 0
+fi
+[[ "$PGHOST" == "ep-green-king-atrz5vrx.c-9.us-east-1.aws.neon.tech" ]]
+[[ "$PGDATABASE" == "examtree_backup_restore_20261011" ]]
+[[ "$PGSSLMODE" == "verify-full" ]]
+if [[ " $* " == *" current_database() "* ]]; then
+  echo "examtree_backup_restore_20261011|${MOCK_RESTORE_TABLES:-0}"
+else
+  echo 176
+fi
+MOCK
+chmod 700 "$WORK/bin/psql"
+export DATABASE_URL="postgresql://tester:test-only@ep-polished-king-atj47i5y.c-9.us-east-1.aws.neon.tech/neondb"
+bash "$ROOT/scripts/restore-examtree-neon-drill-20261011.sh" "$archive"
+if MOCK_RESTORE_TABLES=10 bash "$ROOT/scripts/restore-examtree-neon-drill-20261011.sh" "$archive" >"$WORK/not-empty.log" 2>&1; then
+  echo "FAIL: restore into a nonempty destination was allowed" >&2
+  exit 1
+fi
+grep -q 'not the expected EMPTY test database' "$WORK/not-empty.log"
+if DATABASE_URL='postgresql://tester:test-only@other.neon.tech/neondb' bash "$ROOT/scripts/restore-examtree-neon-drill-20261011.sh" "$archive" >"$WORK/wrong-source.log" 2>&1; then
+  echo "FAIL: unrecognized source connection was accepted" >&2
+  exit 1
+fi
+grep -q 'not the expected Examtree main Neon endpoint' "$WORK/wrong-source.log"
+export DATABASE_URL='postgresql://tester:test-only@test-neon.neon.tech/demo?sslmode=require'
+
 # The standalone verifier must select a compatible PostgreSQL 17 client.
 if MOCK_PG_MAJOR=16 bash "$ROOT/scripts/verify-examtree-neon-backup.sh" "$archive" >"$WORK/old-verifier.log" 2>&1; then
   echo "FAIL: PostgreSQL 16 archive verifier was accepted" >&2
