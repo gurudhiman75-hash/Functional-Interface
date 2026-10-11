@@ -8,6 +8,8 @@ on:
       - tests/examtree-cloudrun-staging-security.test.sh
       - scripts/verify-examtree-cloudrun-authenticated.sh
       - tests/examtree-cloudrun-authenticated.test.sh
+      - scripts/verify-examtree-cloudrun-paid-test-expiry.sh
+      - tests/examtree-cloudrun-paid-test-expiry.test.sh
   push:
     branches: [New-main]
     paths:
@@ -15,6 +17,8 @@ on:
       - tests/examtree-cloudrun-staging-security.test.sh
       - scripts/verify-examtree-cloudrun-authenticated.sh
       - tests/examtree-cloudrun-authenticated.test.sh
+      - scripts/verify-examtree-cloudrun-paid-test-expiry.sh
+      - tests/examtree-cloudrun-paid-test-expiry.test.sh
 
 permissions:
   contents: read
@@ -33,3 +37,5 @@ jobs:
         run: bash tests/examtree-cloudrun-staging-security.test.sh
       - name: Guard hidden Firebase ID-token read checks
         run: bash tests/examtree-cloudrun-authenticated.test.sh
+      - name: Guard paid-test entitlement expiry negative check
+        run: bash tests/examtree-cloudrun-paid-test-expiry.test.sh
