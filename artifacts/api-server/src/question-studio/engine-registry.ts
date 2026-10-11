@@ -74,17 +74,13 @@ export function validateQuestionStudioPackage(
     fail(`runtimeMode ${pkg.runtimeMode} is not listed in supportedRuntimeModes.`);
   }
 
-  const declaresManagedLifecycle =
-    Boolean(pkg.lifecycleId)
-    || Boolean(pkg.lifecycleStage)
-    || pkg.questionBankWritable !== undefined
-    || pkg.testEligible !== undefined
-    || pkg.mockTestEligible !== undefined
-    || pkg.publiclyPublishable !== undefined
-    || pkg.productionReleaseAuthorized !== undefined;
+  // Legacy cards already declare individual delivery gates without adopting
+  // the standard lifecycle authority. Require a stage when that authority is
+  // declared; keep legacy gates intact rather than inferring a new release stage.
+  const declaresManagedLifecycle = Boolean(pkg.lifecycleId) || Boolean(pkg.lifecycleStage);
 
   if (declaresManagedLifecycle && !pkg.lifecycleStage) {
-    fail("packages that declare lifecycle gates must declare lifecycleStage.");
+    fail("packages that declare a lifecycle authority must declare lifecycleStage.");
   }
 
   if (pkg.lifecycleStage === "REVIEW_ONLY") {
@@ -126,6 +122,20 @@ export function getQuestionStudioEngine(
 export function listQuestionStudioPackages(): QuestionStudioPackageDefinition[] {
   const packages = [...adapters.values()]
     .flatMap((adapter) => adapter.listPackages())
+    .map((pkg) => {
+      // Older adapters advertise difficulty capabilities in metadata.
+      // Promote that declaration before validating the shared package schema.
+      const difficulties = pkg.supportedDifficulties ?? pkg.metadata?.supportedDifficulties;
+      return {
+        ...pkg,
+        supportedDifficulties: Array.isArray(difficulties)
+          ? difficulties as QuestionStudioPackageDefinition["supportedDifficulties"]
+          : pkg.supportedDifficulties,
+        difficultyFilterSupported: pkg.difficultyFilterSupported
+          ?? (typeof pkg.metadata?.difficultyFilterSupported === "boolean"
+            ? pkg.metadata.difficultyFilterSupported : undefined),
+      };
+    })
     .map(enrichQuestionStudioPackageCpTitles)
     .map(validateQuestionStudioPackage);
 

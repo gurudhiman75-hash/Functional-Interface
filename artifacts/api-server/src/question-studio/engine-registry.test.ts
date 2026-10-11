@@ -20,6 +20,71 @@ const packages = listQuestionStudioPackages();
 assert.equal(packages.length > 0, true);
 assert.equal(packages.every((pkg) => pkg.packageId.length > 0), true);
 assert.equal(packages.every((pkg) => pkg.supportedLanguages.length > 0), true);
+assert.ok(packages.find((pkg) => pkg.packageId === "PCT-001")?.cpIds.length,
+  "Legacy canonicalProblems must retain executable Percentage CP selectors.");
+assert.equal(packages.some((pkg) => pkg.packageId === "PCT-ALL"), false,
+  "The mixed Percentage selector must not be registered as an executable package.");
+assert.equal(packages.find((pkg) => pkg.packageId === "CAL-001")?.engineId, "reasoning-v1",
+  "Calendar must retain its native reasoning engine owner.");
+for (const packageId of ["PRB-001", "PRB-002", "TRG-001", "TRG-002"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg);
+  assert.equal(pkg.lifecycleStage, undefined, `${packageId}: incompatible standard stage`);
+  assert.equal(pkg.questionBankAcceptanceMode, "FULL_RELEASE");
+  assert.equal(pkg.publiclyPublishable, false);
+}
+assert.deepEqual(packages.find((pkg) => pkg.packageId === "TRG-002")?.supportedDifficulties,
+  ["Easy", "Medium", "Hard"], "Legacy lowercase Trigonometry difficulties must survive normalization.");
+for (const packageId of ["BLR-001", "CAE-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg);
+  assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
+  assert.equal(pkg.questionBankWritable, false);
+  assert.equal(pkg.testEligible, false);
+  assert.equal(pkg.publiclyPublishable, false);
+}
+for (const packageId of ["PGK-001", "PGK-001-MTF-V1", "COA-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg);
+  assert.equal(pkg.lifecycleStage, undefined, `${packageId}: conflicting inherited stage`);
+  assert.equal(pkg.testEligible, true, `${packageId}: existing approval gate changed`);
+  assert.equal(pkg.mockTestEligible, true, `${packageId}: existing approval gate changed`);
+}
+
+const legacyLifecycleCard = {
+  engineId: "quant-v4" as const,
+  packageId: "LEGACY-REVIEW",
+  topic: "Arithmetic",
+  subtopic: "Legacy review",
+  label: "Legacy review",
+  enabled: true,
+  cpIds: ["LEGACY-CP-001"],
+  supportedLanguages: ["en" as const],
+  supportedDifficulties: ["Easy" as const],
+  questionBankWritable: false,
+  testEligible: false,
+  mockTestEligible: false,
+  publiclyPublishable: false,
+  productionReleaseAuthorized: false,
+};
+assert.equal(validateQuestionStudioPackage(legacyLifecycleCard), legacyLifecycleCard);
+// Older released cards also keep their declared gates without an invented
+// REVIEW_ONLY or BANK_ONLY stage.
+const legacyReleasedCard = {
+  ...legacyLifecycleCard,
+  packageId: "LEGACY-RELEASED",
+  questionBankWritable: true,
+  testEligible: true,
+  publiclyPublishable: true,
+};
+assert.equal(validateQuestionStudioPackage(legacyReleasedCard), legacyReleasedCard);
+assert.throws(
+  () => validateQuestionStudioPackage({
+    ...legacyLifecycleCard,
+    lifecycleId: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.lifecycleId,
+  }),
+  /declare a lifecycle authority must declare lifecycleStage/,
+);
 assert.equal(
   new Set(packages.map((pkg) => pkg.packageId)).size,
   packages.length,
@@ -124,6 +189,8 @@ assert.deepEqual(com001.cpIds, [
   "COM-001-CP-007",
 ]);
 assert.deepEqual(com001.supportedLanguages, ["en", "hi", "pa"]);
+assert.deepEqual(com001.supportedDifficulties, ["Easy", "Medium"]);
+assert.equal(com001.difficultyFilterSupported, true);
 assert.equal(com001.runtimeMode, "review-only");
 assert.equal(com001.questionBankStatus, bankLifecycle.questionBankStatus);
 assert.equal(com001.testEligibility, bankLifecycle.testEligibility);

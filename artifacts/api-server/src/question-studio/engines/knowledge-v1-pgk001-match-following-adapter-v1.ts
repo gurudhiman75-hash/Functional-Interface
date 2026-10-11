@@ -138,7 +138,6 @@ export const PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1: QuestionStudioPackag
   difficultyFilterSupported: true,
   runtimeMode: PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1,
   supportedRuntimeModes: [PGK_001_MATCH_FOLLOWING_RUNTIME_MODE_V1],
-  lifecycleStage: "BANK_ONLY",
   reviewSurfaceRequired: true,
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,

@@ -15,7 +15,6 @@ import type {
   QuestionStudioPackageDefinition,
 } from "./engine-types";
 import { deriveQuestionStudioCpTitles } from "./package-metadata";
-import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "./standard-lifecycle";
 
 const TRG_001_FULL_INTERNAL = TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.execution;
 
@@ -134,7 +133,10 @@ function toSharedPackage(card: Record<string, unknown>): QuestionStudioPackageDe
           entry === "en" || entry === "hi" || entry === "pa")
       : ["en"],
     supportedDifficulties: Array.isArray(card.supportedDifficulties)
-      ? card.supportedDifficulties.map(String).filter((entry): entry is "Easy" | "Medium" | "Hard" =>
+      ? card.supportedDifficulties.map((value) => {
+          const text = String(value).trim().toLowerCase();
+          return text === "easy" ? "Easy" : text === "medium" ? "Medium" : text === "hard" ? "Hard" : "";
+        }).filter((entry): entry is "Easy" | "Medium" | "Hard" =>
           entry === "Easy" || entry === "Medium" || entry === "Hard")
       : ["Easy", "Medium", "Hard"],
     runtimeMode: typeof card.runtimeMode === "string" ? card.runtimeMode : undefined,
@@ -176,9 +178,9 @@ function toSharedPackage(card: Record<string, unknown>): QuestionStudioPackageDe
 export function trg001EnginePackage(): QuestionStudioPackageDefinition {
   return toSharedPackage({
     ...TRG_001_QUESTION_STUDIO_PACKAGE,
-    lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
-    lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
-    reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+    // Existing internal test/mock authority is broader than BANK_ONLY.
+    // Keep its gates and acceptance authority without a conflicting stage.
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     questionBankAcceptanceMode: "FULL_RELEASE",
     questionBankAcceptanceAuthority: TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1.version,
@@ -196,9 +198,7 @@ export function trg001EnginePackage(): QuestionStudioPackageDefinition {
 export function trg002EnginePackage(): QuestionStudioPackageDefinition {
   return toSharedPackage({
     ...TRG_002_V4_QUESTION_STUDIO_PACKAGE,
-    lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,
-    lifecycleStage: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.stage,
-    reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     questionBankAcceptanceMode: "FULL_RELEASE",
     questionBankAcceptanceAuthority: "TRG-002-V4-HUMAN-APPROVED-INTERNAL",

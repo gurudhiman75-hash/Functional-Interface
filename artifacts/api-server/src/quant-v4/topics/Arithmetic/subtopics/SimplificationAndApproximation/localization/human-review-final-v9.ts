@@ -48,8 +48,13 @@ function polishStem(base: any, current: string, language: SapTranslationLanguage
 
   if (ql === "SAP-QL-007") {
     stem = stem
-      .replace(/(\{[^}]+\})\s+का\s+(\d+(?:\.\d+)?)/u, "$2 × $1")
-      .replace(/(\{[^}]+\})\s+ਦਾ\s+(\d+(?:\.\d+)?)/u, "$2 × $1");
+      .replace(/(\{[^}]+\}|\([^)]*\)|\[[^\]]*\])\s+का\s+(\d+(?:\.\d+)?)/u, "$2 × $1")
+      .replace(/(\{[^}]+\}|\([^)]*\)|\[[^\]]*\])\s+ਦਾ\s+(\d+(?:\.\d+)?)/u, "$2 × $1");
+  }
+
+  if (ql === "SAP-QL-037") {
+    const expression = directExpression(english.replace(/^Which of the following is equal to\s*/u, ""));
+    stem = L(language, `मान ज्ञात कीजिए: ${expression}`, `ਮੁੱਲ ਕੱਢੋ: ${expression}`);
   }
 
   if (["SAP-QL-057","SAP-QL-058","SAP-QL-062","SAP-QL-065","SAP-QL-066","SAP-QL-184"].includes(ql)) {

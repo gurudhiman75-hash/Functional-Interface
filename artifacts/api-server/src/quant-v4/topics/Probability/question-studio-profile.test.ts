@@ -14,7 +14,8 @@ async function main() {
     assert(definition.optionCountByExamProfile?.SSC_CGL_CHSL === 4, `${packageId} SSC option count is incorrect.`);
     assert(definition.optionCountByExamProfile?.BANKING_MAINS === 5, `${packageId} banking option count is incorrect.`);
     assert(definition.runtimeMode === "ENGLISH_MOCK_READY", `${packageId} runtime mode is not English mock-ready.`);
-    assert(definition.lifecycleStage === "BANK_ONLY", `${packageId} lifecycle stage is not BANK_ONLY.`);
+    assert(definition.lifecycleStage === undefined, `${packageId} must not claim the incompatible standard BANK_ONLY stage.`);
+    assert(definition.lifecycleId === undefined, `${packageId} must retain its English mock-ready release authority.`);
     assert(definition.reviewSurfaceRequired === true, `${packageId} review surface must remain required.`);
     assert(definition.manualApprovalRequired === true, `${packageId} must remain manually governed.`);
     assert(definition.questionBankAcceptanceMode === "FULL_RELEASE", `${packageId} Question Bank acceptance mode is incorrect.`);

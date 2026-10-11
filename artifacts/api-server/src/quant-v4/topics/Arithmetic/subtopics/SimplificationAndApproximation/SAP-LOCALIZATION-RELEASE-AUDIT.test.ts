@@ -10,7 +10,7 @@ const INLINE_MATH = /\\\([\s\S]*?\\\)/gu;
 const DEVANAGARI_LETTERS = /[\u0900-\u0963\u0970-\u097F]/u;
 const GURMUKHI_LETTERS = /[\u0A01-\u0A74]/u;
 const LATIN_TOKEN = /\b[A-Za-z]+\b/gu;
-const ALLOWED_LATIN = new Set(["A", "B", "C", "D", "E", "I", "II", "III", "IV", "x", "y", "m", "n", "k"]);
+const ALLOWED_LATIN = new Set(["A", "B", "C", "D", "E", "I", "II", "III", "IV", "x", "y", "m", "n", "k", "p", "q"]);
 const OUTPUT = resolve(process.cwd(), "dist/quant-v4/sap-localization-release-review");
 mkdirSync(OUTPUT, { recursive: true });
 

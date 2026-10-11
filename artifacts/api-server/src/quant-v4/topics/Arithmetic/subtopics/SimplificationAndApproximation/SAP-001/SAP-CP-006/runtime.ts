@@ -239,6 +239,28 @@ function categoricalOptions(
   return Object.freeze(rotate(items, seed % 4));
 }
 
+function equivalentFractionOptions(a: number, b: number, p: number, seed: number, prefix = ""): readonly SapCp006Option[] {
+  const denominator = b * 100;
+  const correct = rat(a * 100 + p * b, denominator);
+  const candidates = [
+    { n: a + p, d: b + 100, misconceptionId: prefix ? "ILLEGAL_FRACTION_ADDITION" : "ADDS_NUMERATORS_AND_DENOMINATORS", analysis: "This adds numerators and denominators directly instead of using a common denominator." },
+    { n: a * 100 + p, d: denominator, misconceptionId: prefix ? "PERCENT_NUMERATOR_NOT_SCALED" : "PERCENT_DENOMINATOR_FACTOR_MISSED", analysis: "This omits the factor b when rewriting the percentage over denominator 100b." },
+    { n: a + p * b, d: denominator, misconceptionId: prefix ? "FRACTION_NUMERATOR_NOT_SCALED" : "FRACTION_SCALE_FACTOR_MISSED", analysis: "This omits the factor 100 when rewriting the original fraction over denominator 100b." },
+    { n: a * 100 - p * b, d: denominator, misconceptionId: "PERCENT_SUBTRACTED", analysis: "This subtracts the percentage instead of adding it." },
+    { n: a * 100 + 100 * p * b, d: denominator, misconceptionId: "PERCENT_AS_WHOLE_NUMBER", analysis: "This adds p as a whole number instead of converting p% to p/100." },
+  ];
+  const selected: { value: string; misconceptionId: string; analysis: string }[] = [];
+  const seen: Rational[] = [correct];
+  for (const candidate of candidates) {
+    const value = rat(candidate.n, candidate.d);
+    if (seen.some(previous => cmp(previous, value) === 0)) continue;
+    seen.push(value);
+    selected.push({ value: `${prefix}${candidate.n}/${candidate.d}`, misconceptionId: candidate.misconceptionId, analysis: candidate.analysis });
+    if (selected.length === 3) break;
+  }
+  return categoricalOptions(`${prefix}${a * 100 + p * b}/${denominator}`, selected, seed);
+}
+
 interface Built {
   stem: string;
   answer: string;
@@ -405,12 +427,7 @@ function build(prototypeId: SapCp006PrototypeId, seed: number): Built {
       const [a,b] = pick(random, FRACTIONS), p = pickInt(random, 10, 60);
       const numerator = a*100 + p*b, denominator = b*100;
       const answer = `${numerator}/${denominator}`;
-      const wrong = [
-        { value: `${a+p}/${b+100}`, misconceptionId: "ADDS_NUMERATORS_AND_DENOMINATORS", analysis: "This incorrectly adds numerators and denominators across unlike fraction representations instead of using a common denominator." },
-        { value: `${a*100+p}/${denominator}`, misconceptionId: "PERCENT_DENOMINATOR_FACTOR_MISSED", analysis: "This treats p% as p/(100b) without multiplying the percentage numerator by the fraction denominator b." },
-        { value: `${a+p*b}/${denominator}`, misconceptionId: "FRACTION_SCALE_FACTOR_MISSED", analysis: "This fails to multiply the original fraction numerator by 100 when converting both terms to denominator 100b." },
-      ];
-      const options = categoricalOptions(answer, wrong, seed);
+      const options = equivalentFractionOptions(a, b, p, seed);
       return {
         stem: `Which fraction is exactly equivalent to ${a}/${b} + ${p}%?`,
         answer, options, data: { a,b,p,numerator,denominator },
@@ -423,12 +440,7 @@ function build(prototypeId: SapCp006PrototypeId, seed: number): Built {
       const [a,b] = pick(random, FRACTIONS), p = pickInt(random, 10, 60), numerator = a*100+p*b, denominator=b*100;
       const prefix = `${a}/${b} + ${p}%`;
       const answer = `${prefix} = ${numerator}/${denominator}`;
-      const wrong = [
-        { value: `${prefix} = ${a+p}/${b+100}`, misconceptionId: "ILLEGAL_FRACTION_ADDITION", analysis: "This adds the two denominators directly, which is not a valid rule for adding fractions with different denominators." },
-        { value: `${prefix} = ${a*100+p}/${denominator}`, misconceptionId: "PERCENT_NUMERATOR_NOT_SCALED", analysis: "This omits the factor b required when p/100 is rewritten over the common denominator 100b." },
-        { value: `${prefix} = ${a+p*b}/${denominator}`, misconceptionId: "FRACTION_NUMERATOR_NOT_SCALED", analysis: "This omits the factor 100 required when a/b is rewritten over the common denominator 100b." },
-      ];
-      const options = categoricalOptions(answer, wrong, seed);
+      const options = equivalentFractionOptions(a, b, p, seed, `${prefix} = `);
       return {
         stem: `Which simplification statement is correct?`,
         answer, options, data: { a,b,p,numerator,denominator },

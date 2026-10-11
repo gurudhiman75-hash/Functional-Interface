@@ -29,6 +29,7 @@ export const BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   runtimeMode: "review-only",
   supportedRuntimeModes: ["review-only"],
   ...QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1,
+  lifecycleStage: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.stage,
   metadata: {
     sourcePackageCount: SOURCE_PACKAGES.length,
     qlCount: ALL_QL_IDS.length,

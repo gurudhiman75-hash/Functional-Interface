@@ -37,7 +37,9 @@ assert.equal(legacyAggregateTrg001.localizationStatus, "MULTILINGUAL_FROZEN_ACTI
 
 const engineTrg001 = trg001EnginePackage();
 assert.equal(engineTrg001.packageId, "TRG-001");
-assert.equal(engineTrg001.lifecycleStage, "BANK_ONLY");
+// Legacy full-internal approval uses its release flags, not a BANK_ONLY stage.
+assert.equal(engineTrg001.lifecycleStage, undefined);
+assert.equal(engineTrg001.lifecycleId, undefined);
 assert.equal(engineTrg001.reviewSurfaceRequired, true);
 assert.equal(engineTrg001.manualApprovalRequired, true);
 assert.equal(engineTrg001.questionBankAcceptanceMode, "FULL_RELEASE");
@@ -50,7 +52,8 @@ assert.equal(engineTrg001.productionReleaseAuthorized, false);
 
 const engineTrg002 = trg002EnginePackage();
 assert.equal(engineTrg002.packageId, "TRG-002");
-assert.equal(engineTrg002.lifecycleStage, "BANK_ONLY");
+assert.equal(engineTrg002.lifecycleStage, undefined);
+assert.equal(engineTrg002.lifecycleId, undefined);
 assert.equal(engineTrg002.reviewSurfaceRequired, true);
 assert.equal(engineTrg002.manualApprovalRequired, true);
 assert.equal(engineTrg002.questionBankAcceptanceMode, "FULL_RELEASE");

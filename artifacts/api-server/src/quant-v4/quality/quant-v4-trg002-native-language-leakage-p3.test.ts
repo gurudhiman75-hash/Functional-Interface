@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 
 import { buildTrg002Cp007LocalizedReviewBank } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp007-v1";
-import { buildTrg002Cp008LocalizedReviewBank } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp008-v1";
+import { buildTrg002Cp008LocalizedReviewBankCompat as buildTrg002Cp008LocalizedReviewBank } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp008-v1-compat";
 import { buildTrg002Cp009LocalizedReviewBank } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp009-v1";
 import { buildTrg002Cp010LocalizedReviewBank } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/localization-cp010-v1";
 

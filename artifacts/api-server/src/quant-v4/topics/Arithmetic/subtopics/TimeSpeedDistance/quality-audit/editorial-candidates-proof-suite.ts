@@ -1,0 +1,35 @@
+import "../TSD-001/cp004/localization/native-review-v2.test";
+import "../TSD-001/cp005/departure-review-v1.test";
+import "../TSD-002/cp007/content-review-candidate-v2.test";
+import "../TSD-002/cp009/meeting-content-review-v2.test";
+import "./cp008-cp009-worked-review-v2.test";
+import "../TSD-002/cp012/two-engine-worked-review-v1.test";
+import "../TSD-002/cp012/moving-surface-worked-review-v1.test";
+import "../TSD-002/cp011/wheel-worked-review-v1.test";
+import "../TSD-002/cp011/escalator-worked-review-v1.test";
+import "../TSD-002/cp010/finish-time-evidence-review-v1.test";
+import "../TSD-002/cp010/handicap-worked-review-v1.test";
+import "../TSD-002/cp010/race-evidence-worked-review-v1.test";
+import "../TSD-002/cp010/advanced-race-worked-review-v1.test";
+import "../TSD-002/cp012/journey-worked-review-v1.test";
+
+import "../TSD-002/cp011/two-walker-source-review-v1.test";
+
+import "../TSD-002/cp012/signed-cycle-source-review-v1.test";
+import "../TSD-002/cp012/slowdown-observations-source-review-v1.test";
+import "../TSD-002/cp010/time-headstarts-source-review-v1.test";
+import "./delayed-departure-source-proof.test";
+import "./tangent-tracks-source-proof.test";
+import "./studio-review-presentation-proof.test";
+import "./circular-applications-source-proof.test";
+import "./clock-applications-source-proof.test";
+import "./remaining-applications-source-proof.test";
+import "./reflected-meetings-source-regression.test";
+import "./source-transition-review-solvers.test";
+import "./river-source-boundary-proof.test";
+import "./chapter-source-inventory.test";
+import "./source-motion-extension-solvers.test";
+import "./diagram-source-adjudication.test";
+import "./mixed-source-case-adjudication.test";
+import "./source-motion-extension-review.test";
+import "./source-motion-extension-studio-preview.test";

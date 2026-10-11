@@ -1,0 +1,33 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
+import { TSD_CP007_FROZEN_HINDI_LOCALIZATION, TSD_CP007_FROZEN_PUNJABI_LOCALIZATION } from "./localization-freeze-registry";
+import { buildCp007ContentReviewCandidateV2 } from "./content-review-candidate-v2";
+import { independentlyVerifyCp007Authority } from "./executable-verifier";
+const digest = () => createHash("sha256").update(JSON.stringify([TSD_CP007_FROZEN_ENGLISH_REGISTRY, TSD_CP007_FROZEN_HINDI_LOCALIZATION, TSD_CP007_FROZEN_PUNJABI_LOCALIZATION])).digest("hex");
+const before = digest();
+const rows = buildCp007ContentReviewCandidateV2();
+assert.equal(rows.length, 1854);
+assert.equal(digest(), before);
+for (const row of rows) {
+  assert.equal(row.options.length, 4);
+  assert.equal(new Set(row.options).size, 4);
+  assert.equal(row.options[row.correctIndex], row.answer);
+  assert.equal(row.optionProvenance.filter(o => o.misconceptionId === "CORRECT").length, 1);
+  assert.equal(new Set(row.optionProvenance.map(o => o.misconceptionId)).size, 4);
+  assert.ok(row.optionProvenance.every(o => o.calculation.length > 0));
+  assert.ok(independentlyVerifyCp007Authority(row.solution.authorityKey, row.input, row.solution).valid);
+  assert.ok(row.explanation.steps.every(s => s.includes(" = ")));
+  assert.equal(row.explanation.conclusion, row.answer);
+  assert.equal(row.reviewStatus, "UNAPPROVED_CONTENT_REVIEW_CANDIDATE");
+  assert.equal(row.validation.frozenAuthority, false);
+  assert.equal(row.candidateLifecycle.contentApproved, false);
+  assert.equal(row.candidateLifecycle.questionStudioRegistered, false);
+  assert.equal(row.questionBankWritable, false);
+  assert.equal(row.testEligible, false);
+  assert.equal(row.mockTestEligible, false);
+  assert.equal(row.publiclyPublishable, false);
+  if (row.language === "hi") assert.match(row.explanation.steps.join(" "), /[\u0900-\u097F]/u);
+  if (row.language === "pa") assert.match(row.explanation.steps.join(" "), /[\u0A00-\u0A7F]/u);
+}
+console.log(`CP007 V2 review candidate: PASS (${rows.length} multilingual rows; frozen source digest unchanged)`);
