@@ -142,7 +142,7 @@ class ReviewReadContractTests(unittest.TestCase):
         def execute(cmd, **kwargs):
             observed["cmd"] = cmd
             observed["kwargs"] = kwargs
-            return SimpleNamespace(returncode=0, stdout=b'{"runs":[]}\\nEXAMTREE_CURL_STATUS:200')
+            return SimpleNamespace(returncode=0, stdout=b'{"runs":[]}\nEXAMTREE_CURL_STATUS:200')
 
         with patch.object(mod.subprocess, "run", side_effect=execute):
             data, error = mod.fetch_curl(mod.FRONTEND_ORIGIN, "GEN-20261011-635BA10F", fake_token)
@@ -160,14 +160,14 @@ class ReviewReadContractTests(unittest.TestCase):
 
     def test_cloudflare_anonymous_denial_is_expected_not_false_403(self):
         with patch.object(mod.subprocess, "run", return_value=SimpleNamespace(
-            returncode=0, stdout=b'{"error":"No token provided"}\\nEXAMTREE_CURL_STATUS:401')):
+            returncode=0, stdout=b'{"error":"No token provided"}\nEXAMTREE_CURL_STATUS:401')):
             data, error = mod.fetch_curl(mod.PAGES_ORIGIN, "GEN-20261011-635BA10F", "")
         self.assertIsNone(data)
         self.assertEqual(error, "HTTP 401 (curl GET)")
 
     def test_cloudflare_403_is_not_silently_accepted(self):
         with patch.object(mod.subprocess, "run", return_value=SimpleNamespace(
-            returncode=0, stdout=b'{"status":403}\\nEXAMTREE_CURL_STATUS:403')):
+            returncode=0, stdout=b'{"status":403}\nEXAMTREE_CURL_STATUS:403')):
             data, error = mod.fetch_curl(mod.FRONTEND_ORIGIN, "GEN-20261011-635BA10F", "x.y.z")
         self.assertIsNone(data)
         self.assertEqual(error, "HTTP 403 (curl GET)")
