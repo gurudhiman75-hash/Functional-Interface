@@ -1,4 +1,9 @@
+import base64
 import importlib.util
+import io
+import json
+from email.message import Message
+from urllib.error import HTTPError
 from pathlib import Path
 import unittest
 
@@ -38,6 +43,38 @@ class ReviewReadContractTests(unittest.TestCase):
     def validate(self, data):
         return mod.validate_review_page(data, "5682e459-7b2d-46ba-b57b-778a3b2ce0b4",
                                         "GEN-20261011-635BA10F", 3)
+
+    def test_token_freshness_checks_expiry_and_firebase_project(self):
+        def jwt(claims):
+            payload = base64.urlsafe_b64encode(json.dumps(claims).encode()).decode().rstrip("=")
+            return "eyJhbGciOiJSUzI1NiJ9." + payload + ".signature"
+        valid = {"aud": "sarbedutech",
+                 "iss": "https://securetoken.google.com/sarbedutech",
+                 "exp": 5000}
+        self.assertTrue(mod.jwt_freshness(jwt(valid), now=1000)[0])
+        self.assertFalse(mod.jwt_freshness(jwt(valid), now=4900)[0])
+        self.assertFalse(mod.jwt_freshness(jwt({**valid, "aud": "other-project"}), now=1000)[0])
+        self.assertFalse(mod.jwt_freshness("garbage.jwt.x", now=1000)[0])
+
+    def test_http_denials_redact_html_and_preserve_only_safe_codes(self):
+        headers = Message()
+        headers["Content-Type"] = "text/html"
+        headers["Server"] = "cloudflare"
+        headers["CF-Ray"] = "some-nonsecret-ray-id"
+        html = b"<html><script>secret stuff</script></html>"
+        denied = HTTPError("https://examtree.in/api/x", 403, "Forbidden", headers, io.BytesIO(html))
+        summary = mod.safe_http_error(denied)
+        self.assertIn("HTTP 403", summary)
+        self.assertIn("cloudflare-edge-or-proxy", summary)
+        self.assertNotIn("script", summary)
+        self.assertNotIn("ray-id", summary)
+
+        headers2 = Message()
+        headers2["Content-Type"] = "application/json"
+        denied_api = HTTPError("https://service.run.app", 401, "Unauthorized",
+                               headers2, io.BytesIO(b'{"code":"AUTH_TOKEN_INVALID"}'))
+        summary = mod.safe_http_error(denied_api)
+        self.assertIn("AUTH_TOKEN_INVALID", summary)
 
     def test_valid_admin_response(self):
         self.assertEqual(self.validate(sample()), (True,
