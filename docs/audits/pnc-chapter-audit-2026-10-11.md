@@ -1,58 +1,33 @@
-# Permutation & Combination chapter audit
+# Permutation & Combination chapter freeze
 
-Status: audit opened; chapter closure is pending. Live verification is reserved for the user.
+Status: **TECHNICAL_REVIEW_FROZEN**. Implementation and source mathematical coverage are closed for the authored review scope. Live verification is deferred to the user. Publication remains locked; no native human approval is invented.
 
-Baseline: New-main commit `5448d74d`, isolated branch `audit/pnc-source-deep-audit-20261011`. PNC runtime files match the previously tested TSD checkout.
+| Coverage | Frozen result |
+|---|---:|
+| Core QLs, CP001–012 | 269 |
+| Core English/Hindi/Punjabi surfaces | 807 |
+| Core seed/language regression checks | 9684 |
+| Numbered source exercises | 187 / 187 implemented |
+| Worked problems | 46 / 46 implemented |
+| Theory illustrations and inline student tasks | 12 + 4 checked |
+| Exercise/worked language surfaces | 699 |
+| Registered supplementary review rows | 948 |
+| Unassessed exercises / missing mathematical exercise models | 0 / 0 |
 
-## Verified baseline
+The unified Quant adapter registers PNC-001, PNC-002 and PNC-SOURCE-REVIEW. Every split CP011/012 runtime is dispatched. PNC-001 now has 106 authored templates in each native language, with placeholder parity and solver-owned answers. PNC-002 retains its existing approved native authority. Supplementary exercise and worked candidates support all three languages, including their existing review selectors.
 
-| Package | Scope | Result |
-|---|---|---|
-| PNC-001 | 106 QLs, CP001–006; 12 seeds per QL | 1,272 generated packages passed the existing runtime suite |
-| PNC-002 | 163 QLs, CP007–012; 130 solve modes | Existing final family readiness suite passed |
-| PNC-002 native | 163 QLs × Hindi/Punjabi × 2 seeds | 652 localized packages passed the approved localization suite |
+The new reusable models cover bounded and variable-length digit strings, numeric thresholds, exact occurrence, leading zero, residue/parity, distinct-digit counts, ending uniqueness, constrained repeated multisets, fixed positions, forbidden patterns, group quotas, mixed identical/distinct selections, bounded compositions, office assignments, grids, collinear blocks, inverse pair counts, graph impossibility and source caselets. Large factorials and MCQ options remain exact decimal strings; no floating-point conversion is used for the large source answers.
 
-Tests: `pnc-001.test.ts`, `pnc-002-final-family-readiness.test.ts`, and `pnc-002-localization-complete-approved.test.ts`. These establish existing test coverage, not complete source or editorial coverage.
+All 187 exercises have explicit source-case selectors. Ambiguous statements use labelled, ordered, repetition or endpoint conventions stated in the authored stem. Symbolic source statements have reusable formulas and concrete instances. Conceptual underdetermination remains a valid answer where source information is insufficient. These are not claims that ambiguous original wording has a uniquely recoverable answer or that the preparation book proves original CAT/PYQ provenance.
 
-## Source inventory
+Worked coverage includes visual inspection and coordinate/counting repairs for diagram-dependent problems 17.28, 17.29, 17.38 and 17.43. Worked 17.28 has 30 valid multiset arrangements rather than the printed explanation's 24. Worked 17.23 needs coin values to determine distinct sums. The correction ledger records these and the other explicit source conventions. The chapter PDF is SHA-256 `758bcede219eeb34dbd548ff64a9d807348f396cb0f5c1caac972a29acb736c4`; concepts/examples occupy pages 813–823, exercises 824–835 and keys/solutions 836–845.
 
-Source: Arun Sharma, *How to Prepare for Quantitative Aptitude for the CAT*, McGraw Hill Education (2018), chapter 17. SHA-256: `758bcede219eeb34dbd548ff64a9d807348f396cb0f5c1caac972a29acb736c4`.
+Eleven targeted regression suites pass, including independent digit enumeration (432 cases), extended arrangement/distribution/committee/grid checks (155 cases), geometry enumeration (720 cases), score and exact-digit checks, all source/worked candidates and both unified review providers. Prime valuation has 305 additional checks. Scoped production TypeScript passes. The frozen core also passes 269 × 3 languages × 12 seeds, repeated-seed determinism, numeric language parity, unique options, serialization and release-gate checks. Correct-option positions are 2454/2382/2379/2469 across the 9684 core surfaces; this is measured distribution, not a per-QL balance guarantee.
 
-| Section | PDF pages (1-based) | Numbered questions |
-|---|---|---|
-| Chapter concepts and worked examples | 813–823 | Separate enumeration pending |
-| Level I | 824–829 | 1–87 |
-| Level II | 830–832 | 1–50 |
-| Level III | 833–835 | 1–50 |
-| Answer key, hints and solutions | 836–845 | Reference material |
+English core editorial authority is retained from the package maturity reviews. New source stems explicitly include shared caselet givens and interpretation conventions, use authored workings and preserve exact answers. Native additions are **authored review candidates**, not recorded human-approved translations. Mathematical notation is reused from the same answer authority, with native stems, reasoning and conclusion. This technical review freeze does not certify external human editorial signoff.
 
-The companion CSV inventories all **187 numbered exercise questions**. Individual page candidates are machine extracted and require visual confirmation. Shared passage directions must remain attached during mapping. The 187 exercises are distinct from the 269 existing QLs; no one-to-one mapping or source coverage closure is claimed. This preparation book does not establish original CAT/PYQ provenance.
+The freeze manifest records hashes for the runtime, content and integration files. `verify-pnc-freeze.ts` fails if frozen content changes or review release gates are opened. Changes to this content require a new reviewed checkpoint rather than silently changing a frozen chapter.
 
-## Open implementation findings
+Public/Bank/test/mock eligibility and persistence remain false. The separate release steps are the user's deferred live verification and any required native human/publication approvals. They do not leave implementation gaps in this frozen REVIEW_ONLY checkpoint.
 
-1. No PNC registration was found in the current unified `question-studio/engines/quant-v4-adapter.ts`, `quant-v4/question-studio-review-engine.ts`, or `question-studio-review-registry.ts`. Standalone runtime readiness does not establish unified review integration.
-2. PNC-002 has approved native localization authority. No PNC-001 localization files were found in its package. Chapter-wide trilingual completeness remains unproven.
-3. Every source exercise still needs mapping to a supported runtime model, an explicit repair, or a documented exception. Worked examples need their own inventory.
-4. Generated learner stems, worked explanations, options, answer position balance, scenario diversity and deterministic serialization need chapter-wide checks beyond the existing baseline tests.
-
-Publication remains governed by the existing review gates. This audit does not approve student release or merge the separate TSD branch.
-
-## Chapter-wide runtime pass and first source-gap implementation
-
-The new `scripts/audits/pnc-chapter-runtime-audit.ts` checks all active split runtime authorities across **269 QLs × 12 seeds = 3,228 packages**. Result: PASS, zero findings. Checks cover repeated-seed determinism, JSON serialization, existing runtime validation, four unique options, correct-option identity, independent answer agreement, unresolved content, worked explanation presence and publication gates. It also emits learner samples, distinct stem counts and answer-position distributions for editorial review. Distribution output is evidence, not an assertion that every QL has balanced positions.
-
-The source inventory now has **23 structural model matches**, **6 exact-parameter geometry mappings**, and **158 pending rows**. Structural matches do not imply the current generator can reproduce the book's exact values or wording. In particular, “new words” may require excluding the original word; that ambiguity is recorded rather than silently treated as an ordinary multiset permutation.
-
-Added `source-review/geometry-counting.ts`: six explicit models for general lines, lines with one collinear block, general triangles, triangles with one collinear block, quadrilateral vertex sets with one collinear block, and convex polygon diagonals. Stems explicitly state the collinearity assumptions. Each model has calculated EN/HI/PA explanations and independent enumeration. These are review candidates, not approved localization authority or unified Question Studio integration.
-
-Verification: **720 mathematical domain cases** passed against independent vertex-set/line-identity enumeration; **216 localized generated packages** passed determinism, correct-option and publication-gate checks. Book parameter checks: Level I Q8 = 28, Q37 = 280, Q38 = 2,265, Q39 = 11,985, Q69 = 84, Q70 = 83. Q39's printed key is (d), “None of these,” which agrees with 11,985; it is not a source-key defect.
-
-Saved evidence: `pnc-source-review/PNC-269-RUNTIME-AUDIT-SUMMARY-20261011.json`, `PNC-GEOMETRY-REVIEW-SAMPLES-20261011.json` (one seed per model/language), and the updated 187-row source inventory. Source mapping, worked-example enumeration, full editorial checks, PNC-001 localization and unified review integration remain open.
-
-## Subset source-gap pass
-
-Added five English review models: non-empty subsets of distinct objects, non-empty selection from each distinct category, bounded quantities of identical items, optional questions with internal alternatives, and distinct subsets up to a maximum size. Explanations show the calculated factors and clarify whether the empty selection is included. Each package has four unique numeric options and remains locked for student publication.
-
-Independent membership/quantity/question-outcome enumeration passed 42 domain cases plus five source-parameter regressions: Level I Q31 = 4,944 (empty selection included), Q51 = 149, Q52 = 16,383, Q53 = 13,671, Q54 = 14,348,906. Excluding the empty selection from Q31 gives 4,943; authored stems state the convention explicitly. Scoped TypeScript validation passed for the new production module.
-
-The inventory now contains 23 structural matches and 11 implemented source mappings, with 153 exercises pending. The new subset candidates still need localization and unified review integration; this is progress evidence, not chapter closure.
+Evidence: `pnc-source-review/PNC-CHAPTER-FREEZE-20261011.json`, `PNC-FINAL-REGRESSION-20261011.json`, `PNC-187-SOURCE-INVENTORY-20261011.csv`, `PNC-46-WORKED-INVENTORY-20261011.csv`, `PNC-SOURCE-CORRECTIONS-20261011.md` and `PNC-FROZEN-LEARNER-SAMPLES-20261011.json`. The full learner export is reproducible with `scripts/audits/pnc-chapter-freeze-audit.ts`; the committed sample file states its reduced sample scope.

@@ -1,0 +1,28 @@
+{
+  "sourceExercises": 187,
+  "unassessed": 0,
+  "unimplemented": 0,
+  "coverageClosed": true,
+  "coverageMeaning": "Every numbered exercise has a tested exact mathematical case, explicit authored interpretation/parameter instance, or conceptual underdetermination answer; original provenance and ambiguous source conventions are not fabricated.",
+  "workedProblems": 46,
+  "theoryIllustrations": 12,
+  "inlineStudentTasks": 4,
+  "coreQLs": 269,
+  "coreLanguages": [
+    "en",
+    "hi",
+    "pa"
+  ],
+  "sourceCandidateLanguages": [
+    "en",
+    "hi",
+    "pa"
+  ],
+  "status": "TECHNICAL_REVIEW_FROZEN",
+  "remainingImplementationWork": [],
+  "releaseGates": {
+    "liveVerification": "USER_DEFERRED",
+    "nativeHumanApproval": "PNC-001 and supplement authored candidates; no human approval claimed",
+    "publicationApproved": false
+  }
+}

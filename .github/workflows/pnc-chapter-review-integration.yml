@@ -1,0 +1,43 @@
+name: PNC chapter review integration
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/question-studio/quant-pnc*'
+      - 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**'
+      - '.github/workflows/pnc-chapter-review-integration.yml'
+      - 'artifacts/api-server/scripts/audits/*pnc*'
+      - 'docs/audits/pnc-source-review/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pnc-review-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Check all new counting and learner review surfaces
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review
+          files=("$base/geometry-counting.test.ts" "$base/subset-counting.test.ts" "$base/exact-digit-counting.test.ts" "$base/bounded-score-counting.test.ts" "$base/constrained-digits.test.ts" "$base/extended-counting.test.ts" "$base/worked-source-cases.test.ts" "$base/theory-illustrations.test.ts" "$base/complete-source-catalogue.test.ts" src/question-studio/quant-pnc-review.test.ts src/question-studio/quant-pnc-source-review.test.ts)
+          for file in "${files[@]}"; do
+            pnpm exec esbuild "$file" --bundle --platform=node --format=esm --packages=external --outfile=dist/pnc-integration-check.js
+            node dist/pnc-integration-check.js
+          done
+      - name: Scoped integration type check
+        working-directory: artifacts/api-server
+        run: pnpm exec tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --skipLibCheck --resolveJsonModule --esModuleInterop src/question-studio/quant-pnc-review.ts src/question-studio/quant-pnc-source-review.ts
+      - name: Verify frozen content hashes and release gates
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild scripts/audits/verify-pnc-freeze.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/pnc-verify-freeze.js
+          node dist/pnc-verify-freeze.js

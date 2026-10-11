@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+const root=resolve('../..');
+const freeze=JSON.parse(readFileSync(resolve(root,'docs/audits/pnc-source-review/PNC-CHAPTER-FREEZE-20261011.json'),'utf8'));
+assert.equal(freeze.status,'TECHNICAL_REVIEW_FROZEN');assert.equal(freeze.sourceExercises,187);assert.equal(freeze.workedProblems,46);assert.equal(freeze.coreSeedLanguageChecks,9684);assert.equal(freeze.registeredSourceRows,948);
+assert.equal(freeze.sourceCoverageClosed,true);assert.equal(freeze.unimplementedExerciseModels,0);assert.equal(freeze.publicationApproval,false);assert.equal(freeze.publiclyPublishable,false);assert.equal(freeze.questionBankWritable,false);assert.equal(freeze.testEligible,false);assert.equal(freeze.mockTestEligible,false);
+for(const [path,expected]of Object.entries(freeze.contentHashes))assert.equal(createHash('sha256').update(readFileSync(resolve(root,path))).digest('hex'),expected,`Frozen content changed: ${path}`);
+const inventory=readFileSync(resolve(root,'docs/audits/pnc-source-review/PNC-187-SOURCE-INVENTORY-20261011.csv'),'utf8').trim().split('\n');assert.equal(inventory.length,188);for(const row of inventory.slice(1))assert.ok(/,IMPLEMENTED_(?:SOURCE_CASE|EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE),en;hi;pa,false$/.test(row.trim()),'Non-closed current source status');
+console.log(JSON.stringify({status:'PASS',frozenFiles:Object.keys(freeze.contentHashes).length,freezeScope:'TECHNICAL_REVIEW',publicationApproval:false}));

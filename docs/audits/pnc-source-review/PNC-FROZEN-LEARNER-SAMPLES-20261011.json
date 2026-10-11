@@ -1,0 +1,1835 @@
+{
+  "sampleScope": "One core QL per CP/language plus source edge cases; complete 807+699 surface export reproducible via pnc-chapter-freeze-audit.ts.",
+  "core": [
+    {
+      "qlId": "PNC-QL-001",
+      "canonicalProblemId": "PNC-CP-001",
+      "language": "en",
+      "stem": "A shop has 3 shirt designs and 5 trouser designs. How many different shirt-trouser outfits can be formed?",
+      "options": [
+        "15",
+        "8",
+        "20",
+        "3"
+      ],
+      "correctIndex": 0,
+      "answer": "15",
+      "explanation": "An outfit is complete only after choosing both a shirt and a trouser.\n\nEvery shirt can be paired with every trouser, so the count is \\(3 \\times 5\\).\n\nThat gives 15 different outfits."
+    },
+    {
+      "qlId": "PNC-QL-001",
+      "canonicalProblemId": "PNC-CP-001",
+      "language": "hi",
+      "stem": "कमीज़ और पतलून के क्रमशः 3 और 5 विकल्प हैं। हर पहला विकल्प हर दूसरे विकल्प के साथ चुना जा सकता है। एक-एक विकल्प चुनकर कितने अलग जोड़े बन सकते हैं?",
+      "options": [
+        "15",
+        "8",
+        "20",
+        "3"
+      ],
+      "correctIndex": 0,
+      "answer": "15",
+      "explanation": "हर चरण का एक विकल्प चुनना है, इसलिए स्वतंत्र विकल्पों की संख्याएँ गुणा करें।\n\n3 \\times 5 = 15\n\nअतः उत्तर 15 है।"
+    },
+    {
+      "qlId": "PNC-QL-001",
+      "canonicalProblemId": "PNC-CP-001",
+      "language": "pa",
+      "stem": "ਕਮੀਜ਼ ਅਤੇ ਪਤਲੂਨ ਲਈ ਕ੍ਰਮਵਾਰ 3 ਅਤੇ 5 ਚੋਣਾਂ ਹਨ। ਹਰ ਪਹਿਲੀ ਚੋਣ ਹਰ ਦੂਜੀ ਚੋਣ ਨਾਲ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। ਇੱਕ-ਇੱਕ ਚੋਣ ਨਾਲ ਕਿੰਨੇ ਵੱਖਰੇ ਜੋੜੇ ਬਣ ਸਕਦੇ ਹਨ?",
+      "options": [
+        "15",
+        "8",
+        "20",
+        "3"
+      ],
+      "correctIndex": 0,
+      "answer": "15",
+      "explanation": "ਹਰ ਪੜਾਅ ਵਿੱਚੋਂ ਇੱਕ ਚੋਣ ਕਰਨੀ ਹੈ, ਇਸ ਲਈ ਸੁਤੰਤਰ ਚੋਣਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਗੁਣਾ ਕਰੋ।\n\n3 \\times 5 = 15\n\nਇਸ ਲਈ ਉੱਤਰ 15 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-059",
+      "canonicalProblemId": "PNC-CP-002",
+      "language": "en",
+      "stem": "In how many different ways can 5 students stand in a row?",
+      "options": [
+        "25",
+        "120",
+        "24",
+        "5"
+      ],
+      "correctIndex": 1,
+      "answer": "120",
+      "explanation": "All students are distinct, and changing their order creates a new line.\n\nFilling every position gives the factorial count \\({}^{ 5 }P_{ 5 } = 5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120\\).\n\nSo the students can stand in 120 different ways."
+    },
+    {
+      "qlId": "PNC-QL-059",
+      "canonicalProblemId": "PNC-CP-002",
+      "language": "hi",
+      "stem": "5 अलग विद्यार्थियों को एक पंक्ति में कितने तरीकों से खड़ा किया जा सकता है?",
+      "options": [
+        "25",
+        "120",
+        "24",
+        "5"
+      ],
+      "correctIndex": 1,
+      "answer": "120",
+      "explanation": "क्रम महत्व रखता है। हर अगले स्थान पर बची अलग वस्तुओं की संख्या से गुणा करें।\n\n{}^{5}P_{5} = 5! = 120\n\nअतः उत्तर 120 है।"
+    },
+    {
+      "qlId": "PNC-QL-059",
+      "canonicalProblemId": "PNC-CP-002",
+      "language": "pa",
+      "stem": "5 ਵੱਖਰੇ ਵਿਦਿਆਰਥੀਆਂ ਨੂੰ ਇੱਕ ਕਤਾਰ ਵਿੱਚ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਖੜ੍ਹਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?",
+      "options": [
+        "25",
+        "120",
+        "24",
+        "5"
+      ],
+      "correctIndex": 1,
+      "answer": "120",
+      "explanation": "ਕ੍ਰਮ ਮਹੱਤਵ ਰੱਖਦਾ ਹੈ। ਹਰ ਅਗਲੇ ਸਥਾਨ ਉੱਤੇ ਬਚੀਆਂ ਵੱਖਰੀਆਂ ਵਸਤੂਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।\n\n{}^{5}P_{5} = 5! = 120\n\nਇਸ ਲਈ ਉੱਤਰ 120 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-067",
+      "canonicalProblemId": "PNC-CP-003",
+      "language": "en",
+      "stem": "In how many ways can 3 students be selected from 5 students?",
+      "options": [
+        "6",
+        "10",
+        "60",
+        "125"
+      ],
+      "correctIndex": 1,
+      "answer": "10",
+      "explanation": "Only the selected group matters; the order in which the students are chosen does not.\n\nCount the unordered selections using \\(\\binom{ 5 }{ 3 } = 60 \\div 6 = 10\\).\n\nSo 10 groups can be formed."
+    },
+    {
+      "qlId": "PNC-QL-067",
+      "canonicalProblemId": "PNC-CP-003",
+      "language": "hi",
+      "stem": "5 विद्यार्थियों में से 3 का समूह कितने तरीकों से चुना जा सकता है?",
+      "options": [
+        "6",
+        "10",
+        "60",
+        "125"
+      ],
+      "correctIndex": 1,
+      "answer": "10",
+      "explanation": "चयन का क्रम महत्व नहीं रखता। क्रमचय को चुनी वस्तुओं के क्रमगुणित से भाग दें।\n\n{}^{5}C_{3} = \\frac{60}{6} = 10\n\nअतः उत्तर 10 है।"
+    },
+    {
+      "qlId": "PNC-QL-067",
+      "canonicalProblemId": "PNC-CP-003",
+      "language": "pa",
+      "stem": "5 ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ 3 ਦਾ ਸਮੂਹ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਚੁਣਿਆ ਜਾ ਸਕਦਾ ਹੈ?",
+      "options": [
+        "6",
+        "10",
+        "60",
+        "125"
+      ],
+      "correctIndex": 1,
+      "answer": "10",
+      "explanation": "ਚੋਣ ਦਾ ਕ੍ਰਮ ਮਹੱਤਵ ਨਹੀਂ ਰੱਖਦਾ। ਕ੍ਰਮਚਯ ਨੂੰ ਚੁਣੀਆਂ ਵਸਤੂਆਂ ਦੇ ਫੈਕਟੋਰੀਅਲ ਨਾਲ ਭਾਗ ਦਿਓ।\n\n{}^{5}C_{3} = \\frac{60}{6} = 10\n\nਇਸ ਲਈ ਉੱਤਰ 10 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-075",
+      "canonicalProblemId": "PNC-CP-005",
+      "language": "en",
+      "stem": "How many distinct arrangements can be formed from all the letters of the word APPLE?",
+      "options": [
+        "60",
+        "2",
+        "24",
+        "120"
+      ],
+      "correctIndex": 0,
+      "answer": "60",
+      "explanation": "If all letters were different there would be a full factorial count, but the two P's are indistinguishable.\n\nDivide out the swap of the identical P's: \\(\\frac{ 5! }{ 2! } = 120 \\div 2 = 60\\).\n\nSo APPLE has 60 distinct arrangements."
+    },
+    {
+      "qlId": "PNC-QL-075",
+      "canonicalProblemId": "PNC-CP-005",
+      "language": "hi",
+      "stem": "APPLE के सभी अक्षरों से कितने अलग क्रम बन सकते हैं?",
+      "options": [
+        "60",
+        "2",
+        "24",
+        "120"
+      ],
+      "correctIndex": 0,
+      "answer": "60",
+      "explanation": "सभी क्रमों की संख्या को प्रत्येक दोहराए प्रकार के क्रमगुणित से भाग दें।\n\n\\frac{5!}{2!} = 60\n\nअतः उत्तर 60 है।"
+    },
+    {
+      "qlId": "PNC-QL-075",
+      "canonicalProblemId": "PNC-CP-005",
+      "language": "pa",
+      "stem": "APPLE ਦੇ ਸਾਰੇ ਅੱਖਰਾਂ ਤੋਂ ਕਿੰਨੇ ਵੱਖਰੇ ਕ੍ਰਮ ਬਣ ਸਕਦੇ ਹਨ?",
+      "options": [
+        "60",
+        "2",
+        "24",
+        "120"
+      ],
+      "correctIndex": 0,
+      "answer": "60",
+      "explanation": "ਸਾਰੇ ਕ੍ਰਮਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ ਹਰ ਦੁਹਰਾਈ ਕਿਸਮ ਦੇ ਫੈਕਟੋਰੀਅਲ ਨਾਲ ਭਾਗ ਦਿਓ।\n\n\\frac{5!}{2!} = 60\n\nਇਸ ਲਈ ਉੱਤਰ 60 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-083",
+      "canonicalProblemId": "PNC-CP-004",
+      "language": "en",
+      "stem": "Using the digits 1 through 4, how many 3-digit numbers can be formed without repetition?",
+      "options": [
+        "6",
+        "12",
+        "64",
+        "24"
+      ],
+      "correctIndex": 3,
+      "answer": "24",
+      "explanation": "A 3-digit number has ordered positions, and no digit may be used twice.\n\nFill the positions successively without replacement: \\(4 \\times 3 \\times 2 = 24\\).\n\nSo 24 such numbers can be formed."
+    },
+    {
+      "qlId": "PNC-QL-083",
+      "canonicalProblemId": "PNC-CP-004",
+      "language": "hi",
+      "stem": "1 से 4 तक के अंकों से बिना दोहराव के कितनी 3-अंकीय संख्याएँ बन सकती हैं?",
+      "options": [
+        "6",
+        "12",
+        "64",
+        "24"
+      ],
+      "correctIndex": 3,
+      "answer": "24",
+      "explanation": "पहला अंक शून्य नहीं हो सकता। अंतिम अंक और अन्य दी गई शर्तों के अनुसार अलग स्थितियाँ गिनें; बिना दोहराव में पहले इस्तेमाल हुए अंक हटाएँ।\n\n4 \\times 3 \\times 2 = 24\n\nअतः उत्तर 24 है।"
+    },
+    {
+      "qlId": "PNC-QL-083",
+      "canonicalProblemId": "PNC-CP-004",
+      "language": "pa",
+      "stem": "1 ਤੋਂ 4 ਤੱਕ ਦੇ ਅੰਕਾਂ ਤੋਂ ਬਿਨਾਂ ਦੁਹਰਾਓ ਦੇ ਕਿੰਨੀਆਂ 3-ਅੰਕੀ ਸੰਖਿਆਵਾਂ ਬਣ ਸਕਦੀਆਂ ਹਨ?",
+      "options": [
+        "6",
+        "12",
+        "64",
+        "24"
+      ],
+      "correctIndex": 3,
+      "answer": "24",
+      "explanation": "ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਆਖ਼ਰੀ ਅੰਕ ਅਤੇ ਹੋਰ ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਮੁਤਾਬਕ ਵੱਖਰੀਆਂ ਸਥਿਤੀਆਂ ਗਿਣੋ; ਬਿਨਾਂ ਦੁਹਰਾਓ ਵਿੱਚ ਪਹਿਲਾਂ ਵਰਤੇ ਅੰਕ ਹਟਾਓ।\n\n4 \\times 3 \\times 2 = 24\n\nਇਸ ਲਈ ਉੱਤਰ 24 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-095",
+      "canonicalProblemId": "PNC-CP-006",
+      "language": "en",
+      "stem": "From 6 students, a committee of 3 is to be formed and one committee member is to be appointed chairperson. In how many ways can this be done?",
+      "options": [
+        "23",
+        "20",
+        "60",
+        "3"
+      ],
+      "correctIndex": 2,
+      "answer": "60",
+      "explanation": "There are two decisions: form the committee and then choose its chairperson.\n\nMultiply the committee choices by the chair choices within each committee: \\(\\binom{ 6 }{ 3 } \\times {}^{ 3 }P_{ 1 } = 20 \\times 3 = 60\\).\n\nThus, the complete process can be carried out in 60 ways."
+    },
+    {
+      "qlId": "PNC-QL-095",
+      "canonicalProblemId": "PNC-CP-006",
+      "language": "hi",
+      "stem": "6 विद्यार्थियों में से 3 की समिति चुनकर उसके एक सदस्य को अध्यक्ष बनाना है। कितने परिणाम हैं?",
+      "options": [
+        "23",
+        "20",
+        "60",
+        "3"
+      ],
+      "correctIndex": 2,
+      "answer": "60",
+      "explanation": "पहले बिना क्रम के समूह चुनें, फिर चुने सदस्यों को अलग पद दें।\n\n{}^{6}C_{3} \\times {}^{3}P_{1} = 60\n\nअतः उत्तर 60 है।"
+    },
+    {
+      "qlId": "PNC-QL-095",
+      "canonicalProblemId": "PNC-CP-006",
+      "language": "pa",
+      "stem": "6 ਵਿਦਿਆਰਥੀਆਂ ਵਿੱਚੋਂ 3 ਦੀ ਕਮੇਟੀ ਚੁਣ ਕੇ ਉਸ ਦੇ ਇੱਕ ਮੈਂਬਰ ਨੂੰ ਪ੍ਰਧਾਨ ਬਣਾਉਣਾ ਹੈ। ਕਿੰਨੇ ਨਤੀਜੇ ਹਨ?",
+      "options": [
+        "23",
+        "20",
+        "60",
+        "3"
+      ],
+      "correctIndex": 2,
+      "answer": "60",
+      "explanation": "ਪਹਿਲਾਂ ਬਿਨਾਂ ਕ੍ਰਮ ਦੇ ਸਮੂਹ ਚੁਣੋ, ਫਿਰ ਚੁਣੇ ਮੈਂਬਰਾਂ ਨੂੰ ਵੱਖਰੇ ਅਹੁਦੇ ਦਿਓ।\n\n{}^{6}C_{3} \\times {}^{3}P_{1} = 60\n\nਇਸ ਲਈ ਉੱਤਰ 60 ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-107",
+      "canonicalProblemId": "PNC-CP-007",
+      "language": "en",
+      "stem": "In how many different ways can 8 people be seated in a straight row if two particular people must sit next to each other?",
+      "options": [
+        "1,440 arrangements",
+        "5,040 arrangements",
+        "40,320 arrangements",
+        "10,080 arrangements"
+      ],
+      "correctIndex": 3,
+      "answer": "10,080 arrangements",
+      "explanation": "📌 Core Concept — Tie the Required People into One Block\nTreat the two particular people as one temporary unit because they must occupy consecutive places.\nThe required people move together as one outer unit, but their different orders inside that block must still be counted.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** Treat the two particular people as one temporary unit because they must occupy consecutive places.\n2. **Count the next stage:** This leaves 7 units to arrange, and the two people can switch places inside their unit.\n3. **Expand the arrangement factor:** $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$.\n4. **Expand the arrangement factor:** $2! = 2 \\times 1 = 2$.\n5. **Combine the evaluated stages:** $$5040 \\times 2 = 10080$$\n6. **Final answer:** 10,080 arrangements.\n\n⚡ Exam Speed Shortcut\nTie the required items into one block, arrange the outer units and multiply by the internal block orders: $7! \\times 2! = 10080$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (1,440 arrangements). This happens when you use an incomplete block or complement count, with an outside arrangement, internal order or subtraction factor missing.\nDon't fall for Option B (5,040 arrangements). This happens when you count only $7! = 5,040$ and stop before the remaining required factor or restriction.\nDon't fall for Option C (40,320 arrangements). This happens when you use the unrestricted factorial and ignore the condition."
+    },
+    {
+      "qlId": "PNC-QL-107",
+      "canonicalProblemId": "PNC-CP-007",
+      "language": "hi",
+      "stem": "8 व्यक्तियों को एक सीधी पंक्ति में बैठाना है। यदि दो निश्चित व्यक्तियों को एक-दूसरे के पास बैठना हो, तो कुल कितने तरीके हैं?",
+      "options": [
+        "1,440 तरीके",
+        "5,040 तरीके",
+        "40,320 तरीके",
+        "10,080 तरीके"
+      ],
+      "correctIndex": 3,
+      "answer": "10,080 तरीके",
+      "explanation": "📌 मूल अवधारणा — दो व्यक्तियों को एक ब्लॉक मानना\nदो निश्चित व्यक्तियों को एक अस्थायी ब्लॉक मानिए, क्योंकि उन्हें लगातार स्थानों पर बैठना है।\nजरूरी व्यक्ति बाहर से एक इकाई की तरह चलते हैं, लेकिन ब्लॉक के भीतर उनके सभी अलग क्रम भी गिने जाते हैं।\n\n📝 चरण-दर-चरण हल\n1. **शर्त को समझें:** दो निश्चित व्यक्तियों को एक अस्थायी ब्लॉक मानिए, क्योंकि उन्हें लगातार स्थानों पर बैठना है।\n2. **अगली गणना करें:** अब 7 इकाइयों को सजाना है और ब्लॉक के भीतर दोनों व्यक्ति अपनी जगह बदल सकते हैं।\n3. **फैक्टोरियल का मान निकालें:** $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$.\n4. **फैक्टोरियल का मान निकालें:** $2! = 2 \\times 1 = 2$.\n5. **सभी चरण मिलाएँ:** $$5040 \\times 2 = 10080$$\n6. **अंतिम उत्तर:** 10,080 तरीके\n\n⚡ परीक्षा में तेज़ तरीका\nहर जरूरी समूह को एक ब्लॉक मानिए, बाहर बनी इकाइयों को सजाइए और हर ब्लॉक के भीतर के क्रमों से गुणा कीजिए: $7! \\times 2! = 10080$.\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (1,440 तरीके) से सावधान रहें। यह संख्या आम तौर पर तब मिलती है जब बाहरी इकाइयों की व्यवस्था, ब्लॉक के भीतर का क्रम या जरूरी घटाव—इनमें से कोई चरण छूट जाता है।\nविकल्प B (5,040 तरीके) से सावधान रहें। ऐसा तब होता है जब आप केवल $7! = 5,040$ गिनकर रुक जाते हैं और बाकी जरूरी गुणक या शर्त नहीं लगाते।\nविकल्प C (40,320 तरीके) से सावधान रहें। ऐसा तब होता है जब आप बिना-शर्त फैक्टोरियल लगा देते हैं और दी गई शर्त को नज़रअंदाज़ कर देते हैं।"
+    },
+    {
+      "qlId": "PNC-QL-107",
+      "canonicalProblemId": "PNC-CP-007",
+      "language": "pa",
+      "stem": "8 ਵਿਅਕਤੀਆਂ ਨੂੰ ਇੱਕ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਬਿਠਾਉਣਾ ਹੈ। ਜੇ ਦੋ ਖਾਸ ਵਿਅਕਤੀ ਨਾਲ-ਨਾਲ ਬੈਠਣ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੇ ਤਰੀਕੇ ਹਨ?",
+      "options": [
+        "1,440 ਤਰੀਕੇ",
+        "5,040 ਤਰੀਕੇ",
+        "40,320 ਤਰੀਕੇ",
+        "10,080 ਤਰੀਕੇ"
+      ],
+      "correctIndex": 3,
+      "answer": "10,080 ਤਰੀਕੇ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਦੋ ਵਿਅਕਤੀਆਂ ਨੂੰ ਇੱਕ ਬਲਾਕ ਮੰਨਣਾ\nਦੋ ਖਾਸ ਵਿਅਕਤੀਆਂ ਨੂੰ ਇੱਕ ਅਸਥਾਈ ਬਲਾਕ ਮੰਨੋ, ਕਿਉਂਕਿ ਉਹਨਾਂ ਨੇ ਲਗਾਤਾਰ ਥਾਵਾਂ ਉੱਤੇ ਬੈਠਣਾ ਹੈ।\nਲੋੜੀਂਦੇ ਵਿਅਕਤੀ ਬਾਹਰੋਂ ਇੱਕ ਇਕਾਈ ਵਾਂਗ ਚਲਦੇ ਹਨ, ਪਰ ਬਲਾਕ ਦੇ ਅੰਦਰ ਉਹਨਾਂ ਦੇ ਸਾਰੇ ਵੱਖਰੇ ਕ੍ਰਮ ਵੀ ਗਿਣੇ ਜਾਂਦੇ ਹਨ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਸ਼ਰਤ ਨੂੰ ਸਮਝੋ:** ਦੋ ਖਾਸ ਵਿਅਕਤੀਆਂ ਨੂੰ ਇੱਕ ਅਸਥਾਈ ਬਲਾਕ ਮੰਨੋ, ਕਿਉਂਕਿ ਉਹਨਾਂ ਨੇ ਲਗਾਤਾਰ ਥਾਵਾਂ ਉੱਤੇ ਬੈਠਣਾ ਹੈ।\n2. **ਅਗਲੀ ਗਿਣਤੀ ਕਰੋ:** ਹੁਣ 7 ਇਕਾਈਆਂ ਨੂੰ ਲਗਾਉਣਾ ਹੈ ਅਤੇ ਬਲਾਕ ਦੇ ਅੰਦਰ ਦੋਵੇਂ ਵਿਅਕਤੀ ਆਪਣੀ ਥਾਂ ਬਦਲ ਸਕਦੇ ਹਨ।\n3. **ਫੈਕਟੋਰੀਅਲ ਦਾ ਮੁੱਲ ਕੱਢੋ:** $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$.\n4. **ਫੈਕਟੋਰੀਅਲ ਦਾ ਮੁੱਲ ਕੱਢੋ:** $2! = 2 \\times 1 = 2$.\n5. **ਸਾਰੇ ਕਦਮ ਇਕੱਠੇ ਕਰੋ:** $$5040 \\times 2 = 10080$$\n6. **ਅੰਤਿਮ ਉੱਤਰ:** 10,080 ਤਰੀਕੇ\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਹਰ ਲੋੜੀਂਦੇ ਸਮੂਹ ਨੂੰ ਇੱਕ ਬਲਾਕ ਮੰਨੋ, ਬਾਹਰ ਬਣੀਆਂ ਇਕਾਈਆਂ ਨੂੰ ਲਗਾਓ ਅਤੇ ਹਰ ਬਲਾਕ ਦੇ ਅੰਦਰਲੇ ਕ੍ਰਮਾਂ ਨਾਲ ਗੁਣਾ ਕਰੋ: $7! \\times 2! = 10080$.\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (1,440 ਤਰੀਕੇ) ਤੋਂ ਸਾਵਧਾਨ ਰਹੋ। ਇਹ ਗਿਣਤੀ ਆਮ ਤੌਰ ਉੱਤੇ ਉਦੋਂ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਬਾਹਰਲੀਆਂ ਇਕਾਈਆਂ ਦੀ ਵਿਵਸਥਾ, ਬਲਾਕ ਦੇ ਅੰਦਰਲਾ ਕ੍ਰਮ ਜਾਂ ਲੋੜੀਂਦਾ ਘਟਾਅ—ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਕਦਮ ਛੁੱਟ ਜਾਂਦਾ ਹੈ।\nਚੋਣ B (5,040 ਤਰੀਕੇ) ਤੋਂ ਸਾਵਧਾਨ ਰਹੋ। ਇਹ ਉਦੋਂ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਸਿਰਫ਼ $7! = 5,040$ ਗਿਣ ਕੇ ਰੁਕ ਜਾਂਦੇ ਹੋ ਅਤੇ ਬਾਕੀ ਲੋੜੀਂਦਾ ਗੁਣਕ ਜਾਂ ਸ਼ਰਤ ਨਹੀਂ ਲਗਾਉਂਦੇ।\nਚੋਣ C (40,320 ਤਰੀਕੇ) ਤੋਂ ਸਾਵਧਾਨ ਰਹੋ। ਇਹ ਉਦੋਂ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਬਿਨਾਂ-ਸ਼ਰਤ ਫੈਕਟੋਰੀਅਲ ਲਗਾ ਦਿੰਦੇ ਹੋ ਅਤੇ ਦਿੱਤੀ ਸ਼ਰਤ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰ ਦਿੰਦੇ ਹੋ।"
+    },
+    {
+      "qlId": "PNC-QL-125",
+      "canonicalProblemId": "PNC-CP-008",
+      "language": "en",
+      "stem": "In how many ways can 6 different people be seated in a straight row if one particular person must occupy position 2?",
+      "options": [
+        "720 arrangements",
+        "120 arrangements",
+        "24 arrangements",
+        "119 arrangements"
+      ],
+      "correctIndex": 1,
+      "answer": "120 arrangements",
+      "explanation": "📌 Core Concept — Reserve the Restricted Positions First\nThe particular person is already fixed at position 2, so that place contributes no further choice.\nIn This arrangement question, fill the compulsory or allowed positions first and arrange the remaining items only after those places are fixed.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** The particular person is already fixed at position 2, so that place contributes no further choice.\n2. **Count the next stage:** Only the remaining 5 people need to be arranged in the remaining positions.\n3. **Expand the arrangement factor:** $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$.\n4. **Final answer:** 120 arrangements.\n\n⚡ Exam Speed Shortcut\nPlace every compulsory item in its fixed position first, then arrange only the unrestricted items: $5! = 120$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (720 arrangements). This happens when you use the unrestricted count and ignore the stated restriction.\nDon't fall for Option C (24 arrangements). This happens when you use the wrong admissible positions, gaps or relative-order factor.\nDon't fall for Option D (119 arrangements). This is one less than the correct total, so recheck the final arithmetic."
+    },
+    {
+      "qlId": "PNC-QL-125",
+      "canonicalProblemId": "PNC-CP-008",
+      "language": "hi",
+      "stem": "6 अलग-अलग व्यक्तियों को सीधी पंक्ति में खड़ा करना है। यदि एक निश्चित व्यक्ति को स्थान 2 पर ही खड़ा होना हो, तो कुल कितने तरीके हैं?",
+      "options": [
+        "720 तरीके",
+        "120 तरीके",
+        "24 तरीके",
+        "119 तरीके"
+      ],
+      "correctIndex": 1,
+      "answer": "120 तरीके",
+      "explanation": "📌 मूल अवधारणा — एक निश्चित स्थान भरना\nपहले निश्चित व्यक्ति या वस्तु के लिए आवश्यक स्थान तय कीजिए।\nफिर बचे हुए अलग-अलग सदस्यों को बाकी स्थानों पर स्वतंत्र रूप से सजाइए।\n\n📝 चरण-दर-चरण हल\n1. **निश्चित स्थान पहचानें:** शर्त के अनुसार पहले आरक्षित स्थान या स्थानों को अलग कीजिए।\n2. **बचे स्थान गिनें:** अब देखें कि बाकी अलग-अलग सदस्यों के लिए कितने स्थान खुले हैं।\n3. **स्वतंत्र क्रम बनाएं:** बचे सदस्यों को खुले स्थानों पर सजाने की गणना लिखिए। यहाँ $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$ प्राप्त होता है।\n4. **गणना सरल करें:** फैक्टोरियल और गुणन को क्रम से खोलकर मान निकालिए। इसलिए सही उत्तर 120 तरीके है।\n\n⚡ परीक्षा में तेज़ तरीका\nनिश्चित स्थान पहले काट दें; फिर केवल बचे स्थानों का फैक्टोरियल या आवश्यक सिरा-गुणक लगाएँ। यहाँ $5! = 120$ प्राप्त होता है।\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (720 तरीके): यह उत्तर निश्चित स्थान को फिर से चुनने की गलती से बन सकता है।\nविकल्प C (24 तरीके): यहाँ बचे हुए सदस्यों की संख्या या उनके खुले स्थान गलत गिने गए हैं।\nविकल्प D (119 तरीके): सिरों या दिए गए स्थानों के संभव आपसी क्रमों में से कोई गुणक छूट गया है।"
+    },
+    {
+      "qlId": "PNC-QL-125",
+      "canonicalProblemId": "PNC-CP-008",
+      "language": "pa",
+      "stem": "6 ਵੱਖ-ਵੱਖ ਵਿਅਕਤੀਆਂ ਨੂੰ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਖੜ੍ਹਾ ਕਰਨਾ ਹੈ। ਜੇ ਇੱਕ ਖਾਸ ਵਿਅਕਤੀ ਨੇ ਥਾਂ 2 ਉੱਤੇ ਹੀ ਖੜ੍ਹਨਾ ਹੋਵੇ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੇ ਤਰੀਕੇ ਹਨ?",
+      "options": [
+        "720 ਤਰੀਕੇ",
+        "120 ਤਰੀਕੇ",
+        "24 ਤਰੀਕੇ",
+        "119 ਤਰੀਕੇ"
+      ],
+      "correctIndex": 1,
+      "answer": "120 ਤਰੀਕੇ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਇੱਕ ਪੱਕੀ ਥਾਂ ਭਰਨਾ\nਪਹਿਲਾਂ ਖਾਸ ਵਿਅਕਤੀ ਜਾਂ ਵਸਤੂ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਪੱਕੀ ਕਰੋ।\nਫਿਰ ਬਚੇ ਹੋਏ ਵੱਖ-ਵੱਖ ਮੈਂਬਰਾਂ ਨੂੰ ਬਾਕੀ ਥਾਵਾਂ ਉੱਤੇ ਆਪਣੀ ਮਰਜ਼ੀ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਓ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਪੱਕੀ ਥਾਂ ਪਛਾਣੋ:** ਸ਼ਰਤ ਮੁਤਾਬਕ ਪਹਿਲਾਂ ਰਾਖਵੀਂ ਥਾਂ ਜਾਂ ਥਾਵਾਂ ਵੱਖ ਕਰੋ।\n2. **ਬਚੀਆਂ ਥਾਵਾਂ ਗਿਣੋ:** ਹੁਣ ਵੇਖੋ ਕਿ ਬਾਕੀ ਵੱਖ-ਵੱਖ ਮੈਂਬਰਾਂ ਲਈ ਕਿੰਨੀਆਂ ਥਾਵਾਂ ਖੁੱਲ੍ਹੀਆਂ ਹਨ।\n3. **ਖੁੱਲ੍ਹਾ ਕ੍ਰਮ ਬਣਾਓ:** ਬਚੇ ਮੈਂਬਰਾਂ ਨੂੰ ਖੁੱਲ੍ਹੀਆਂ ਥਾਵਾਂ ਉੱਤੇ ਲਗਾਉਣ ਦੀ ਗਿਣਤੀ ਲਿਖੋ। ਇੱਥੇ $5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$ ਮਿਲਦਾ ਹੈ।\n4. **ਗਿਣਤੀ ਸੌਖੀ ਕਰੋ:** ਫੈਕਟੋਰੀਅਲ ਅਤੇ ਗੁਣਾ ਨੂੰ ਕ੍ਰਮ ਨਾਲ ਖੋਲ੍ਹ ਕੇ ਮੁੱਲ ਕੱਢੋ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ 120 ਤਰੀਕੇ ਹੈ।\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਪੱਕੀਆਂ ਥਾਵਾਂ ਪਹਿਲਾਂ ਕੱਟ ਦਿਓ; ਫਿਰ ਸਿਰਫ਼ ਬਚੀਆਂ ਥਾਵਾਂ ਦਾ ਫੈਕਟੋਰੀਅਲ ਜਾਂ ਲੋੜੀਂਦਾ ਸਿਰਾ-ਗੁਣਕ ਲਗਾਓ। ਇੱਥੇ $5! = 120$ ਮਿਲਦਾ ਹੈ।\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (720 ਤਰੀਕੇ): ਇਹ ਉੱਤਰ ਪੱਕੀ ਥਾਂ ਨੂੰ ਮੁੜ ਚੁਣਨ ਦੀ ਗਲਤੀ ਨਾਲ ਬਣ ਸਕਦਾ ਹੈ।\nਚੋਣ C (24 ਤਰੀਕੇ): ਇੱਥੇ ਬਚੇ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਉਹਨਾਂ ਦੀਆਂ ਖੁੱਲ੍ਹੀਆਂ ਥਾਵਾਂ ਗਲਤ ਗਿਣੀਆਂ ਗਈਆਂ ਹਨ।\nਚੋਣ D (119 ਤਰੀਕੇ): ਸਿਰਿਆਂ ਜਾਂ ਦਿੱਤੀਆਂ ਥਾਵਾਂ ਦੇ ਸੰਭਵ ਆਪਸੀ ਕ੍ਰਮਾਂ ਵਿੱਚੋਂ ਕੋਈ ਗੁਣਕ ਛੁੱਟ ਗਿਆ ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-148",
+      "canonicalProblemId": "PNC-CP-009",
+      "language": "en",
+      "stem": "A committee of 4 is to be selected from 9 people. In how many ways can it be formed if one particular person must be included?",
+      "options": [
+        "84 selections",
+        "126 selections",
+        "56 selections",
+        "70 selections"
+      ],
+      "correctIndex": 2,
+      "answer": "56 selections",
+      "explanation": "📌 Core Concept — Reserve the Compulsory Members\nThe compulsory person already occupies one place in the committee.\nPlace every compulsory member into the committee first; reduce both the available pool and the number of seats still to fill.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** The compulsory person already occupies one place in the committee.\n2. **Count the next stage:** Choose the remaining 3 members from the 8 people who are still available.\n3. **Evaluate the selection factor for committee selection:** $\\binom{8}{3} = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$.\n4. **Final answer:** 56 selections.\n\n⚡ Exam Speed Shortcut\nWrite one combination for each category after adjusting compulsory or excluded members, then multiply the independent selections: $\\binom{8}{3} = 56$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (84 selections). This happens when you use the wrong eligible pool, specified-member count or category quota range.\nDon't fall for Option B (126 selections). This happens when you use the unrestricted count and ignore the stated restriction.\nDon't fall for Option D (70 selections). This happens when you use the wrong eligible pool, specified-member count or category quota range."
+    },
+    {
+      "qlId": "PNC-QL-148",
+      "canonicalProblemId": "PNC-CP-009",
+      "language": "hi",
+      "stem": "एक समिति बनानी है, जिसमें 4 सदस्य होंगे। उपलब्ध 9 व्यक्तियों में से एक निश्चित व्यक्ति को ज़रूर शामिल करना हो, तो समिति कितने तरीकों से बन सकती है?",
+      "options": [
+        "84 चयन",
+        "126 चयन",
+        "56 चयन",
+        "70 चयन"
+      ],
+      "correctIndex": 2,
+      "answer": "56 चयन",
+      "explanation": "📌 मूल अवधारणा — एक अनिवार्य व्यक्ति के साथ समिति\nअनिवार्य सदस्यों को पहले चुनकर और बाहर रखे सदस्यों को उपलब्ध समूह से हटाकर शेष स्थान भरिए।\nनामित सदस्यों के बाद बची जगह और उपलब्ध व्यक्तियों की संख्या ही संयोजन में जाएगी।\n\n📝 चरण-दर-चरण हल\n1. **शर्त समझें:** अनिवार्य सदस्यों को पहले चुनकर और बाहर रखे सदस्यों को उपलब्ध समूह से हटाकर शेष स्थान भरिए।\n2. **संभव चयन गिनें:** नामित सदस्यों के बाद बची जगह और उपलब्ध व्यक्तियों की संख्या ही संयोजन में जाएगी।\n3. **संयोजन लगाएँ:** हर स्वतंत्र चयन के संयोजन लिखकर आवश्यक गुणा या योग कीजिए। यहाँ $\\binom{8}{3} = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$ प्राप्त होता है।\n4. **अंतिम योग निकालें:** गणना सरल करके विकल्पों से सही मान मिलाइए। इसलिए सही उत्तर 56 चयन है।\n\n⚡ परीक्षा में तेज़ तरीका\nनामित सदस्यों के बाद बची जगह और उपलब्ध व्यक्तियों की संख्या ही संयोजन में जाएगी। यहाँ $\\binom{8}{3} = 56$ प्राप्त होता है।\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (84 चयन): अनिवार्य सदस्य को दोबारा चुना गया है।\nविकल्प B (126 चयन): बाहर रखा सदस्य उपलब्ध समूह में गिना गया है।\nविकल्प D (70 चयन): बची जगह या उपलब्ध व्यक्तियों की संख्या गलत ली गई है।"
+    },
+    {
+      "qlId": "PNC-QL-148",
+      "canonicalProblemId": "PNC-CP-009",
+      "language": "pa",
+      "stem": "ਇੱਕ ਕਮੇਟੀ ਬਣਾਉਣੀ ਹੈ, ਜਿਸ ਵਿੱਚ 4 ਮੈਂਬਰ ਹੋਣਗੇ। ਉਪਲਬਧ 9 ਵਿਅਕਤੀਆਂ ਵਿੱਚੋਂ ਇੱਕ ਖਾਸ ਵਿਅਕਤੀ ਨੂੰ ਲਾਜ਼ਮੀ ਸ਼ਾਮਲ ਕਰਨਾ ਹੋਵੇ, ਤਾਂ ਕਮੇਟੀ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਬਣ ਸਕਦੀ ਹੈ?",
+      "options": [
+        "84 ਚੋਣਾਂ",
+        "126 ਚੋਣਾਂ",
+        "56 ਚੋਣਾਂ",
+        "70 ਚੋਣਾਂ"
+      ],
+      "correctIndex": 2,
+      "answer": "56 ਚੋਣਾਂ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਇੱਕ ਲਾਜ਼ਮੀ ਵਿਅਕਤੀ ਨਾਲ ਕਮੇਟੀ\nਲਾਜ਼ਮੀ ਮੈਂਬਰ ਪਹਿਲਾਂ ਚੁਣੋ ਅਤੇ ਬਾਹਰ ਰੱਖੇ ਮੈਂਬਰ ਉਪਲਬਧ ਗਰੁੱਪ ਵਿੱਚੋਂ ਹਟਾ ਕੇ ਬਚੀਆਂ ਥਾਵਾਂ ਭਰੋ।\nਖਾਸ ਮੈਂਬਰਾਂ ਤੋਂ ਬਾਅਦ ਬਚੀਆਂ ਥਾਵਾਂ ਅਤੇ ਉਪਲਬਧ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ਹੀ ਜੋੜ ਵਿੱਚ ਆਵੇਗੀ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਸ਼ਰਤ ਸਮਝੋ:** ਲਾਜ਼ਮੀ ਮੈਂਬਰ ਪਹਿਲਾਂ ਚੁਣੋ ਅਤੇ ਬਾਹਰ ਰੱਖੇ ਮੈਂਬਰ ਉਪਲਬਧ ਗਰੁੱਪ ਵਿੱਚੋਂ ਹਟਾ ਕੇ ਬਚੀਆਂ ਥਾਵਾਂ ਭਰੋ।\n2. **ਸੰਭਵ ਚੋਣਾਂ ਗਿਣੋ:** ਖਾਸ ਮੈਂਬਰਾਂ ਤੋਂ ਬਾਅਦ ਬਚੀਆਂ ਥਾਵਾਂ ਅਤੇ ਉਪਲਬਧ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ਹੀ ਜੋੜ ਵਿੱਚ ਆਵੇਗੀ।\n3. **ਚੋਣ ਦਾ ਜੋੜ ਲਗਾਓ:** ਹਰ ਸੁਤੰਤਰ ਚੋਣ ਦਾ ਜੋੜ ਲਿਖ ਕੇ ਲੋੜੀਂਦਾ ਗੁਣਾ ਜਾਂ ਜੋੜ ਕਰੋ। ਇੱਥੇ $\\binom{8}{3} = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$ ਮਿਲਦਾ ਹੈ।\n4. **ਅੰਤਿਮ ਜੋੜ ਕੱਢੋ:** ਗਿਣਤੀ ਸੌਖੀ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਸਹੀ ਮੁੱਲ ਮਿਲਾਓ। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ 56 ਚੋਣਾਂ ਹੈ।\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਖਾਸ ਮੈਂਬਰਾਂ ਤੋਂ ਬਾਅਦ ਬਚੀਆਂ ਥਾਵਾਂ ਅਤੇ ਉਪਲਬਧ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ਹੀ ਜੋੜ ਵਿੱਚ ਆਵੇਗੀ। ਇੱਥੇ $\\binom{8}{3} = 56$ ਮਿਲਦਾ ਹੈ।\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (84 ਚੋਣਾਂ): ਲਾਜ਼ਮੀ ਮੈਂਬਰ ਨੂੰ ਦੁਬਾਰਾ ਚੁਣਿਆ ਗਿਆ ਹੈ।\nਚੋਣ B (126 ਚੋਣਾਂ): ਬਾਹਰ ਰੱਖਿਆ ਮੈਂਬਰ ਉਪਲਬਧ ਗਰੁੱਪ ਵਿੱਚ ਗਿਣਿਆ ਗਿਆ ਹੈ।\nਚੋਣ D (70 ਚੋਣਾਂ): ਬਚੀਆਂ ਥਾਵਾਂ ਜਾਂ ਉਪਲਬਧ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ਗਲਤ ਲਈ ਗਈ ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-177",
+      "canonicalProblemId": "PNC-CP-010",
+      "language": "en",
+      "stem": "In how many different ways can 9 people sit around a round table if rotations of the same seating are treated as identical?",
+      "options": [
+        "20,160 seatings",
+        "40,320 seatings",
+        "362,880 seatings",
+        "80,640 seatings"
+      ],
+      "correctIndex": 1,
+      "answer": "40,320 seatings",
+      "explanation": "📌 Core Concept — Fix One Reference in the Circle\nRotationally identical seatings are removed by fixing one person as the circular reference.\nFix one person or object as the reference before applying the remaining condition, because rotating the entire circle does not create a new arrangement.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** Rotationally identical seatings are removed by fixing one person as the circular reference.\n2. **Remove rotational duplicates:** Fix one reference position first; only the remaining positions are freely arranged around the circle.\n3. **Expand the circular factorial:** $(9 - 1)! = 8! = 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 40320$.\n4. **Final answer:** 40,320 seatings.\n\n⚡ Exam Speed Shortcut\nFix one reference before applying the restriction; divide by 2 only when mirror images are also identical. Check with $(9 - 1)! = 40320$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (20,160 seatings). This happens when you use a linear count or the wrong rotation/reflection symmetry factor.\nDon't fall for Option C (362,880 seatings). This happens when you use the unrestricted factorial and ignore the condition.\nDon't fall for Option D (80,640 seatings). This happens when you use a linear count or the wrong rotation/reflection symmetry factor."
+    },
+    {
+      "qlId": "PNC-QL-177",
+      "canonicalProblemId": "PNC-CP-010",
+      "language": "hi",
+      "stem": "9 व्यक्तियों को गोल मेज़ के चारों ओर कितने अलग तरीकों से बैठाया जा सकता है, यदि केवल घुमाने से बनने वाली बैठकें एक ही मानी जाएँ?",
+      "options": [
+        "20,160 बैठने के तरीके",
+        "40,320 बैठने के तरीके",
+        "362,880 बैठने के तरीके",
+        "80,640 बैठने के तरीके"
+      ],
+      "correctIndex": 1,
+      "answer": "40,320 बैठने के तरीके",
+      "explanation": "📌 मूल अवधारणा — मूल गोल-मेज़ बैठक\nगोल मेज़ पर केवल सापेक्ष क्रम महत्वपूर्ण होता है, इसलिए एक व्यक्ति को स्थिर मानकर घुमाव की पुनरावृत्ति हटाइए।\nसामान्य गोल बैठक से शुरू करके साथ या अलग बैठने की शर्त को सीधे लागू कीजिए।\n\n📝 चरण-दर-चरण हल\n1. **शर्त समझें:** गोल मेज़ पर केवल सापेक्ष क्रम महत्वपूर्ण होता है, इसलिए एक व्यक्ति को स्थिर मानकर घुमाव की पुनरावृत्ति हटाइए।\n2. **गिनती की योजना:** सामान्य गोल बैठक से शुरू करके साथ या अलग बैठने की शर्त को सीधे लागू कीजिए।\n3. **गणना करें:** अब आवश्यक संयोजन, क्रमचय, गुणा, जोड़ या घटाव को उसी क्रम में पूरा कीजिए। यहाँ $(9 - 1)! = 8! = 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 40320$ प्राप्त होता है।\n4. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 40,320 बैठने के तरीके है।\n\n⚡ परीक्षा में तेज़ तरीका\nसामान्य गोल बैठक से शुरू करके साथ या अलग बैठने की शर्त को सीधे लागू कीजिए। यहाँ $(9 - 1)! = 40320$ प्राप्त होता है।\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (20,160 बैठने के तरीके): सीधी पंक्ति वाला क्रमचय लगा दिया गया है।\nविकल्प C (362,880 बैठने के तरीके): घुमाव से बनी समान बैठकें अलग गिनी गई हैं।\nविकल्प D (80,640 बैठने के तरीके): साथ या अलग बैठने की शर्त गलत लागू की गई है।"
+    },
+    {
+      "qlId": "PNC-QL-177",
+      "canonicalProblemId": "PNC-CP-010",
+      "language": "pa",
+      "stem": "9 ਵਿਅਕਤੀਆਂ ਨੂੰ ਗੋਲ ਮੇਜ਼ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿੰਨੇ ਵੱਖ ਤਰੀਕਿਆਂ ਨਾਲ ਬਿਠਾਇਆ ਜਾ ਸਕਦਾ ਹੈ, ਜੇ ਸਿਰਫ਼ ਘੁਮਾਉਣ ਨਾਲ ਬਣੀਆਂ ਬੈਠਕਾਂ ਇੱਕੋ ਮੰਨੀਆਂ ਜਾਣ?",
+      "options": [
+        "20,160 ਬੈਠਣ ਦੇ ਤਰੀਕੇ",
+        "40,320 ਬੈਠਣ ਦੇ ਤਰੀਕੇ",
+        "362,880 ਬੈਠਣ ਦੇ ਤਰੀਕੇ",
+        "80,640 ਬੈਠਣ ਦੇ ਤਰੀਕੇ"
+      ],
+      "correctIndex": 1,
+      "answer": "40,320 ਬੈਠਣ ਦੇ ਤਰੀਕੇ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਮੂਲ ਗੋਲ-ਮੇਜ਼ ਬੈਠਕ\nਗੋਲ ਮੇਜ਼ ਉੱਤੇ ਸਿਰਫ਼ ਆਪਸੀ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਇੱਕ ਵਿਅਕਤੀ ਨੂੰ ਅਟੱਲ ਮੰਨ ਕੇ ਘੁਮਾਵ ਦੀ ਦੁਹਰਾਈ ਹਟਾਓ।\nਆਮ ਗੋਲ ਬੈਠਕ ਤੋਂ ਸ਼ੁਰੂ ਕਰਕੇ ਇਕੱਠੇ ਜਾਂ ਵੱਖ ਬੈਠਣ ਦੀ ਸ਼ਰਤ ਸਿੱਧੀ ਲਗਾਓ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਸ਼ਰਤ ਸਮਝੋ:** ਗੋਲ ਮੇਜ਼ ਉੱਤੇ ਸਿਰਫ਼ ਆਪਸੀ ਕ੍ਰਮ ਮਹੱਤਵਪੂਰਨ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਇੱਕ ਵਿਅਕਤੀ ਨੂੰ ਅਟੱਲ ਮੰਨ ਕੇ ਘੁਮਾਵ ਦੀ ਦੁਹਰਾਈ ਹਟਾਓ।\n2. **ਗਿਣਤੀ ਦੀ ਯੋਜਨਾ:** ਆਮ ਗੋਲ ਬੈਠਕ ਤੋਂ ਸ਼ੁਰੂ ਕਰਕੇ ਇਕੱਠੇ ਜਾਂ ਵੱਖ ਬੈਠਣ ਦੀ ਸ਼ਰਤ ਸਿੱਧੀ ਲਗਾਓ।\n3. **ਹਿਸਾਬ ਕਰੋ:** ਹੁਣ ਲੋੜੀਂਦੀ ਚੋਣ, ਕ੍ਰਮ, ਗੁਣਾ, ਜੋੜ ਜਾਂ ਘਟਾਉ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੂਰਾ ਕਰੋ। ਇੱਥੇ $(9 - 1)! = 8! = 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 40320$ ਮਿਲਦਾ ਹੈ।\n4. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 40,320 ਬੈਠਣ ਦੇ ਤਰੀਕੇ ਹੈ।\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਆਮ ਗੋਲ ਬੈਠਕ ਤੋਂ ਸ਼ੁਰੂ ਕਰਕੇ ਇਕੱਠੇ ਜਾਂ ਵੱਖ ਬੈਠਣ ਦੀ ਸ਼ਰਤ ਸਿੱਧੀ ਲਗਾਓ। ਇੱਥੇ $(9 - 1)! = 40320$ ਮਿਲਦਾ ਹੈ।\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (20,160 ਬੈਠਣ ਦੇ ਤਰੀਕੇ): ਸਿੱਧੀ ਕਤਾਰ ਵਾਲਾ ਕ੍ਰਮ ਲਗਾ ਦਿੱਤਾ ਗਿਆ ਹੈ।\nਚੋਣ C (362,880 ਬੈਠਣ ਦੇ ਤਰੀਕੇ): ਘੁਮਾਵ ਨਾਲ ਬਣੀਆਂ ਇੱਕੋ ਬੈਠਕਾਂ ਵੱਖ ਗਿਣੀਆਂ ਗਈਆਂ ਹਨ।\nਚੋਣ D (80,640 ਬੈਠਣ ਦੇ ਤਰੀਕੇ): ਇਕੱਠੇ ਜਾਂ ਵੱਖ ਬੈਠਣ ਦੀ ਸ਼ਰਤ ਗਲਤ ਲਗਾਈ ਗਈ ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-209",
+      "canonicalProblemId": "PNC-CP-011",
+      "language": "en",
+      "stem": "In how many ways can 7 different trainees be divided between two named teams containing 3 and 4 trainees respectively?",
+      "options": [
+        "17 groupings",
+        "34 groupings",
+        "5,040 groupings",
+        "35 groupings"
+      ],
+      "correctIndex": 3,
+      "answer": "35 groupings",
+      "explanation": "📌 Core Concept — Form the Named Groups Directly\nThe two teams are named, so exchanging their complete memberships creates a different division.\nThe group names make the groups different, so swapping complete groups gives a new outcome; divide only for order inside a group.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** The two teams are named, so exchanging their complete memberships creates a different division.\n2. **Count the next stage:** Choose the required members for one team; the remaining trainees automatically form the other named team.\n3. **Expand the arrangement factor:** $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$.\n4. **Expand the arrangement factor:** $3! = 3 \\times 2 \\times 1 = 6$.\n5. **Expand the arrangement factor:** $4! = 4 \\times 3 \\times 2 \\times 1 = 24$.\n6. **Combine the evaluated stages:** $$\\frac{5040}{6 \\times 24} = 35$$\n7. **Final answer:** 35 groupings.\n\n⚡ Exam Speed Shortcut\nThe group names already distinguish whole groups, so divide only for internal order within each group: $\\frac{7!}{3!\\,4!} = 35$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (17 groupings). This happens when you divide incorrectly for permutations of whole groups even though the group names distinguish them.\nDon't fall for Option B (34 groupings). This is one less than the correct total, so recheck the final arithmetic.\nDon't fall for Option C (5,040 groupings). This happens when you count only $7! = 5,040$ and stop before the remaining required factor or restriction."
+    },
+    {
+      "qlId": "PNC-QL-209",
+      "canonicalProblemId": "PNC-CP-011",
+      "language": "hi",
+      "stem": "7 अलग प्रशिक्षुओं को दो नामित टीमों में बाँटना है, जिनमें क्रमशः 3 और 4 प्रशिक्षु हों। यह बाँट कितने तरीकों से हो सकती है?",
+      "options": [
+        "17 समूह बनाने के तरीके",
+        "34 समूह बनाने के तरीके",
+        "5,040 समूह बनाने के तरीके",
+        "35 समूह बनाने के तरीके"
+      ],
+      "correctIndex": 3,
+      "answer": "35 समूह बनाने के तरीके",
+      "explanation": "📌 मूल अवधारणा — नामित और बिना नाम वाले समूह\nपहले तय कीजिए कि समूहों की पहचान बनी रहती है या समान समूहों की अदला-बदली नई बाँट नहीं बनाती।\nक्रम से सदस्य चुनिए; बिना नाम वाले समान आकार के समूहों के लिए समूहों की अदला-बदली से आई पुनरावृत्ति हटाइए।\n\n📝 चरण-दर-चरण हल\n1. **शर्त समझें:** पहले तय कीजिए कि समूहों की पहचान बनी रहती है या समान समूहों की अदला-बदली नई बाँट नहीं बनाती।\n2. **गिनती की योजना:** क्रम से सदस्य चुनिए; बिना नाम वाले समान आकार के समूहों के लिए समूहों की अदला-बदली से आई पुनरावृत्ति हटाइए।\n3. **गणना करें:** अब आवश्यक संयोजन, क्रमचय, गुणा, जोड़ या घटाव को उसी क्रम में पूरा कीजिए। यहाँ $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$ प्राप्त होता है।\n4. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 35 समूह बनाने के तरीके है। यहाँ $3! = 3 \\times 2 \\times 1 = 6$ प्राप्त होता है।\n5. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 35 समूह बनाने के तरीके है। यहाँ $4! = 4 \\times 3 \\times 2 \\times 1 = 24$ प्राप्त होता है।\n6. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 35 समूह बनाने के तरीके है। यहाँ $$\\frac{5040}{6 \\times 24} = 35$$ प्राप्त होता है।\n7. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 35 समूह बनाने के तरीके है।\n\n⚡ परीक्षा में तेज़ तरीका\nक्रम से सदस्य चुनिए; बिना नाम वाले समान आकार के समूहों के लिए समूहों की अदला-बदली से आई पुनरावृत्ति हटाइए। यहाँ $\\frac{7!}{3!\\,4!} = 35$ प्राप्त होता है।\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (17 समूह बनाने के तरीके): नामित और बिना नाम वाले समूहों को एक जैसा माना गया है।\nविकल्प B (34 समूह बनाने के तरीके): समान समूहों की अदला-बदली से बनी पुनरावृत्ति नहीं हटाई गई है।\nविकल्प C (5,040 समूह बनाने के तरीके): निर्धारित जोड़ी की साथ या अलग समूह वाली शर्त गलत लागू हुई है। यहाँ $7! = 5,040$ प्राप्त होता है।"
+    },
+    {
+      "qlId": "PNC-QL-209",
+      "canonicalProblemId": "PNC-CP-011",
+      "language": "pa",
+      "stem": "7 ਵੱਖ ਸਿਖਿਆਰਥੀਆਂ ਨੂੰ ਦੋ ਨਾਮ ਵਾਲੀਆਂ ਟੀਮਾਂ ਵਿੱਚ ਵੰਡਣਾ ਹੈ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ 3 ਅਤੇ 4 ਸਿਖਿਆਰਥੀ ਹੋਣ। ਇਹ ਵੰਡ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਹੋ ਸਕਦੀ ਹੈ?",
+      "options": [
+        "17 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ",
+        "34 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ",
+        "5,040 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ",
+        "35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ"
+      ],
+      "correctIndex": 3,
+      "answer": "35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਨਾਮ ਵਾਲੇ ਅਤੇ ਬਿਨਾਂ ਨਾਮ ਵਾਲੇ ਗਰੁੱਪ\nਪਹਿਲਾਂ ਤੈਅ ਕਰੋ ਕਿ ਗਰੁੱਪਾਂ ਦੀ ਪਛਾਣ ਕਾਇਮ ਰਹਿੰਦੀ ਹੈ ਜਾਂ ਇੱਕੋ ਜਿਹੇ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਵੀਂ ਵੰਡ ਨਹੀਂ ਬਣਾਉਂਦੀ।\nਕ੍ਰਮ ਨਾਲ ਮੈਂਬਰ ਚੁਣੋ; ਬਿਨਾਂ ਨਾਮ ਵਾਲੇ ਇੱਕੋ ਆਕਾਰ ਦੇ ਗਰੁੱਪਾਂ ਲਈ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਾਲ ਆਈ ਦੁਹਰਾਈ ਹਟਾਓ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਸ਼ਰਤ ਸਮਝੋ:** ਪਹਿਲਾਂ ਤੈਅ ਕਰੋ ਕਿ ਗਰੁੱਪਾਂ ਦੀ ਪਛਾਣ ਕਾਇਮ ਰਹਿੰਦੀ ਹੈ ਜਾਂ ਇੱਕੋ ਜਿਹੇ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਵੀਂ ਵੰਡ ਨਹੀਂ ਬਣਾਉਂਦੀ।\n2. **ਗਿਣਤੀ ਦੀ ਯੋਜਨਾ:** ਕ੍ਰਮ ਨਾਲ ਮੈਂਬਰ ਚੁਣੋ; ਬਿਨਾਂ ਨਾਮ ਵਾਲੇ ਇੱਕੋ ਆਕਾਰ ਦੇ ਗਰੁੱਪਾਂ ਲਈ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਾਲ ਆਈ ਦੁਹਰਾਈ ਹਟਾਓ।\n3. **ਹਿਸਾਬ ਕਰੋ:** ਹੁਣ ਲੋੜੀਂਦੀ ਚੋਣ, ਕ੍ਰਮ, ਗੁਣਾ, ਜੋੜ ਜਾਂ ਘਟਾਉ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੂਰਾ ਕਰੋ। ਇੱਥੇ $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5040$ ਮਿਲਦਾ ਹੈ।\n4. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ ਹੈ। ਇੱਥੇ $3! = 3 \\times 2 \\times 1 = 6$ ਮਿਲਦਾ ਹੈ।\n5. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ ਹੈ। ਇੱਥੇ $4! = 4 \\times 3 \\times 2 \\times 1 = 24$ ਮਿਲਦਾ ਹੈ।\n6. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ ਹੈ। ਇੱਥੇ $$\\frac{5040}{6 \\times 24} = 35$$ ਮਿਲਦਾ ਹੈ।\n7. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 35 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ ਹੈ।\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਕ੍ਰਮ ਨਾਲ ਮੈਂਬਰ ਚੁਣੋ; ਬਿਨਾਂ ਨਾਮ ਵਾਲੇ ਇੱਕੋ ਆਕਾਰ ਦੇ ਗਰੁੱਪਾਂ ਲਈ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਾਲ ਆਈ ਦੁਹਰਾਈ ਹਟਾਓ। ਇੱਥੇ $\\frac{7!}{3!\\,4!} = 35$ ਮਿਲਦਾ ਹੈ।\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (17 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ): ਨਾਮ ਵਾਲੇ ਅਤੇ ਬਿਨਾਂ ਨਾਮ ਵਾਲੇ ਗਰੁੱਪ ਇੱਕੋ ਮੰਨ ਲਏ ਗਏ ਹਨ।\nਚੋਣ B (34 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ): ਇੱਕੋ ਜਿਹੇ ਗਰੁੱਪਾਂ ਦੀ ਅਦਲਾ-ਬਦਲੀ ਨਾਲ ਬਣੀ ਦੁਹਰਾਈ ਨਹੀਂ ਹਟਾਈ ਗਈ।\nਚੋਣ C (5,040 ਗਰੁੱਪ ਬਣਾਉਣ ਦੇ ਤਰੀਕੇ): ਖਾਸ ਜੋੜੇ ਦੀ ਇੱਕੋ ਜਾਂ ਵੱਖ ਗਰੁੱਪ ਵਾਲੀ ਸ਼ਰਤ ਗਲਤ ਲਗਾਈ ਗਈ ਹੈ। ਇੱਥੇ $7! = 5,040$ ਮਿਲਦਾ ਹੈ।"
+    },
+    {
+      "qlId": "PNC-QL-242",
+      "canonicalProblemId": "PNC-CP-012",
+      "language": "en",
+      "stem": "A committee of 2 women and 3 men is chosen from 6 women and 6 men. In how many ways can the committee be formed and then assigned a chairperson and a secretary?",
+      "options": [
+        "120 ways",
+        "300 ways",
+        "6,000 ways",
+        "3,000 ways"
+      ],
+      "correctIndex": 2,
+      "answer": "6,000 ways",
+      "explanation": "📌 Core Concept — Select the Quota, Then Assign Two Ordered Offices\nChoose the required women and men before assigning any office.\nChoose the required number from each category separately. Multiply within one valid quota case and add only when several disjoint quota cases are allowed.\n\n📝 Step-by-Step Solution\n1. **Interpret the condition:** Choose the required women and men before assigning any office.\n2. **Count the next stage:** The selected committee has 5 members, so chairperson and secretary are ordered roles.\n3. **Evaluate the selection factor for committee selection:** $\\binom{6}{2} = \\frac{6 \\times 5}{2 \\times 1} = 15$.\n4. **Evaluate the selection factor for committee selection:** $\\binom{6}{3} = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$.\n5. **Evaluate the ordered-role factor for committee selection:** ${}^{5}P_{2} = 5 \\times 4 = 20$.\n6. **Combine the evaluated stages:** $$15 \\times 20 \\times 20 = 6000$$\n7. **Final answer:** 6,000 ways.\n\n⚡ Exam Speed Shortcut\nChoose the required women and men first, then multiply by the ordered choices for the two offices: $\\binom{6}{2}\\binom{6}{3}\\,{}^{5}P_{2}=6000$.\n\n⚠️ Common Traps & Mistakes\nDon't fall for Option A (120 ways). This happens when you use the wrong team or committee selection before the role choices are applied.\nDon't fall for Option B (300 ways). This happens when you selects the committee but omit the ordered office assignments.\nDon't fall for Option D (3,000 ways). This happens when you use the wrong team or committee selection before the role choices are applied."
+    },
+    {
+      "qlId": "PNC-QL-242",
+      "canonicalProblemId": "PNC-CP-012",
+      "language": "hi",
+      "stem": "6 महिलाओं और 6 पुरुषों में से 2 महिलाओं तथा 3 पुरुषों की समिति चुननी है। समिति बनने के बाद एक अध्यक्ष और एक सचिव नियुक्त करना हो, तो कुल कितने तरीके संभव हैं?",
+      "options": [
+        "120 तरीके",
+        "300 तरीके",
+        "6,000 तरीके",
+        "3,000 तरीके"
+      ],
+      "correctIndex": 2,
+      "answer": "6,000 तरीके",
+      "explanation": "📌 मूल अवधारणा — समिति चयन के बाद पद-नियुक्ति\nपहले शर्त के अनुसार समिति चुनिए और फिर चुने हुए सदस्यों में से अलग पदों के लिए पात्र व्यक्तियों का क्रमबद्ध चयन कीजिए।\nसमिति-चयन की संख्या को अध्यक्ष, सचिव, कोषाध्यक्ष जैसे अलग पदों की मान्य नियुक्तियों से गुणा कीजिए।\n\n📝 चरण-दर-चरण हल\n1. **शर्त समझें:** पहले शर्त के अनुसार समिति चुनिए और फिर चुने हुए सदस्यों में से अलग पदों के लिए पात्र व्यक्तियों का क्रमबद्ध चयन कीजिए।\n2. **गिनती की योजना:** समिति-चयन की संख्या को अध्यक्ष, सचिव, कोषाध्यक्ष जैसे अलग पदों की मान्य नियुक्तियों से गुणा कीजिए।\n3. **गणना करें:** अब आवश्यक संयोजन, क्रमचय, गुणा, जोड़ या घटाव को उसी क्रम में पूरा कीजिए। यहाँ $\\binom{6}{2} = \\frac{6 \\times 5}{2 \\times 1} = 15$ प्राप्त होता है।\n4. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 6,000 तरीके है। यहाँ $\\binom{6}{3} = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$ प्राप्त होता है।\n5. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 6,000 तरीके है। यहाँ ${}^{5}P_{2} = 5 \\times 4 = 20$ प्राप्त होता है।\n6. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 6,000 तरीके है। यहाँ $$15 \\times 20 \\times 20 = 6000$$ प्राप्त होता है।\n7. **उत्तर जाँचें:** गणना सरल करके विकल्पों से मिलाने पर सही उत्तर 6,000 तरीके है।\n\n⚡ परीक्षा में तेज़ तरीका\nसमिति-चयन की संख्या को अध्यक्ष, सचिव, कोषाध्यक्ष जैसे अलग पदों की मान्य नियुक्तियों से गुणा कीजिए। यहाँ $\\binom{6}{2}\\binom{6}{3}\\,{}^{5}P_{2}=6000$ प्राप्त होता है।\n\n⚠️ सामान्य गलतियाँ\nविकल्प A (120 तरीके): पदों को समान मान लिया गया है।\nविकल्प B (300 तरीके): पद के लिए पात्रता की शर्त अनदेखी की गई है।\nविकल्प D (3,000 तरीके): समिति चुनने और पद बाँटने की गणनाएँ गुणा नहीं की गई हैं।"
+    },
+    {
+      "qlId": "PNC-QL-242",
+      "canonicalProblemId": "PNC-CP-012",
+      "language": "pa",
+      "stem": "6 ਔਰਤਾਂ ਅਤੇ 6 ਮਰਦਾਂ ਵਿੱਚੋਂ 2 ਔਰਤਾਂ ਅਤੇ 3 ਮਰਦਾਂ ਦੀ ਕਮੇਟੀ ਚੁਣਨੀ ਹੈ। ਕਮੇਟੀ ਬਣਨ ਤੋਂ ਬਾਅਦ ਇੱਕ ਪ੍ਰਧਾਨ ਅਤੇ ਇੱਕ ਸਕੱਤਰ ਨਿਯੁਕਤ ਕਰਨਾ ਹੋਵੇ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੇ ਤਰੀਕੇ ਸੰਭਵ ਹਨ?",
+      "options": [
+        "120 ਤਰੀਕੇ",
+        "300 ਤਰੀਕੇ",
+        "6,000 ਤਰੀਕੇ",
+        "3,000 ਤਰੀਕੇ"
+      ],
+      "correctIndex": 2,
+      "answer": "6,000 ਤਰੀਕੇ",
+      "explanation": "📌 ਮੁੱਖ ਵਿਚਾਰ — ਕਮੇਟੀ ਚੋਣ ਤੋਂ ਬਾਅਦ ਅਹੁਦੇ\nਪਹਿਲਾਂ ਸ਼ਰਤ ਅਨੁਸਾਰ ਕਮੇਟੀ ਚੁਣੋ ਅਤੇ ਫਿਰ ਚੁਣੇ ਮੈਂਬਰਾਂ ਵਿੱਚੋਂ ਵੱਖ ਅਹੁਦਿਆਂ ਲਈ ਯੋਗ ਵਿਅਕਤੀਆਂ ਦੀ ਕ੍ਰਮ ਵਾਲੀ ਚੋਣ ਕਰੋ।\nਕਮੇਟੀ ਦੀ ਚੋਣ ਨੂੰ ਪ੍ਰਧਾਨ, ਸਕੱਤਰ ਅਤੇ ਖ਼ਜ਼ਾਨਚੀ ਵਰਗੇ ਵੱਖ ਅਹੁਦਿਆਂ ਦੀਆਂ ਸਹੀ ਨਿਯੁਕਤੀਆਂ ਨਾਲ ਗੁਣਾ ਕਰੋ।\n\n📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ\n1. **ਸ਼ਰਤ ਸਮਝੋ:** ਪਹਿਲਾਂ ਸ਼ਰਤ ਅਨੁਸਾਰ ਕਮੇਟੀ ਚੁਣੋ ਅਤੇ ਫਿਰ ਚੁਣੇ ਮੈਂਬਰਾਂ ਵਿੱਚੋਂ ਵੱਖ ਅਹੁਦਿਆਂ ਲਈ ਯੋਗ ਵਿਅਕਤੀਆਂ ਦੀ ਕ੍ਰਮ ਵਾਲੀ ਚੋਣ ਕਰੋ।\n2. **ਗਿਣਤੀ ਦੀ ਯੋਜਨਾ:** ਕਮੇਟੀ ਦੀ ਚੋਣ ਨੂੰ ਪ੍ਰਧਾਨ, ਸਕੱਤਰ ਅਤੇ ਖ਼ਜ਼ਾਨਚੀ ਵਰਗੇ ਵੱਖ ਅਹੁਦਿਆਂ ਦੀਆਂ ਸਹੀ ਨਿਯੁਕਤੀਆਂ ਨਾਲ ਗੁਣਾ ਕਰੋ।\n3. **ਹਿਸਾਬ ਕਰੋ:** ਹੁਣ ਲੋੜੀਂਦੀ ਚੋਣ, ਕ੍ਰਮ, ਗੁਣਾ, ਜੋੜ ਜਾਂ ਘਟਾਉ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੂਰਾ ਕਰੋ। ਇੱਥੇ $\\binom{6}{2} = \\frac{6 \\times 5}{2 \\times 1} = 15$ ਮਿਲਦਾ ਹੈ।\n4. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 6,000 ਤਰੀਕੇ ਹੈ। ਇੱਥੇ $\\binom{6}{3} = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$ ਮਿਲਦਾ ਹੈ।\n5. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 6,000 ਤਰੀਕੇ ਹੈ। ਇੱਥੇ ${}^{5}P_{2} = 5 \\times 4 = 20$ ਮਿਲਦਾ ਹੈ।\n6. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 6,000 ਤਰੀਕੇ ਹੈ। ਇੱਥੇ $$15 \\times 20 \\times 20 = 6000$$ ਮਿਲਦਾ ਹੈ।\n7. **ਉੱਤਰ ਜਾਂਚੋ:** ਹਿਸਾਬ ਸੌਖਾ ਕਰਕੇ ਚੋਣਾਂ ਨਾਲ ਮਿਲਾਉਣ ਉੱਤੇ ਸਹੀ ਉੱਤਰ 6,000 ਤਰੀਕੇ ਹੈ।\n\n⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ\nਕਮੇਟੀ ਦੀ ਚੋਣ ਨੂੰ ਪ੍ਰਧਾਨ, ਸਕੱਤਰ ਅਤੇ ਖ਼ਜ਼ਾਨਚੀ ਵਰਗੇ ਵੱਖ ਅਹੁਦਿਆਂ ਦੀਆਂ ਸਹੀ ਨਿਯੁਕਤੀਆਂ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਇੱਥੇ $\\binom{6}{2}\\binom{6}{3}\\,{}^{5}P_{2}=6000$ ਮਿਲਦਾ ਹੈ।\n\n⚠️ ਆਮ ਗਲਤੀਆਂ\nਚੋਣ A (120 ਤਰੀਕੇ): ਅਹੁਦਿਆਂ ਨੂੰ ਇੱਕੋ ਜਿਹਾ ਮੰਨ ਲਿਆ ਗਿਆ ਹੈ।\nਚੋਣ B (300 ਤਰੀਕੇ): ਅਹੁਦੇ ਲਈ ਯੋਗਤਾ ਦੀ ਸ਼ਰਤ ਅਣਡਿੱਠੀ ਕੀਤੀ ਗਈ ਹੈ।\nਚੋਣ D (3,000 ਤਰੀਕੇ): ਕਮੇਟੀ ਚੁਣਨ ਅਤੇ ਅਹੁਦੇ ਦੇਣ ਦੀਆਂ ਗਿਣਤੀਆਂ ਗੁਣਾ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ।"
+    }
+  ],
+  "source": [
+    {
+      "id": "III-030",
+      "stem": "How many six-digit integers contain exactly four distinct digits?",
+      "answer": "294840",
+      "explanation": [
+        "Count positive integers; initial zero is excluded.",
+        "For a chosen four-digit set, onto strings of length six number 4^6−4×3^6+6×2^6−4=1560. Choose four nonzero digits: C(9,4)×1560=196560. Sets with zero: C(9,3); subtract zero-leading onto strings, 4^5−3×3^5+3×2^5−1=390. Their contribution is 84×1170=98280. Total 294840.",
+        "Retain only strings using between 4 and 4 distinct digit values.",
+        "6-digit cases, split by the first digit: 1 → 32760; 2 → 32760; 3 → 32760; 4 → 32760; 5 → 32760; 6 → 32760; 7 → 32760; 8 → 32760; 9 → 32760. Subtotal = 294840.",
+        "The length cases and first-digit cases are disjoint. Total = 294840 = 294840.",
+        "Answer: 294840."
+      ],
+      "options": [
+        "252720",
+        "336960",
+        "294840",
+        "589681"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-030:hi",
+      "stem": "केवल 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 अंकों से सकारात्मक दशमलव संख्याएँ बनाएँ। लंबाई 6 है। अंकों का दोहराव मान्य है। पहला अंक शून्य नहीं हो सकता। अलग अंक-मूल्यों की संख्या 4 से 4 तक हो। कितने परिणाम दी गई सभी शर्तें पूरी करते हैं?",
+      "answer": "294840",
+      "explanation": [
+        "पहले अंक और अंतिम अंक की पाबंदियाँ लागू करें। दोहराव की अनुमति के अनुसार बीच के स्थानों के विकल्प गिनें। अलग लंबाइयों और उपयुक्त अंतिम अंकों के मामलों को जोड़ें।",
+        "गणना:\n4^6−4×3^6+6×2^6−4=1560\nC(9,4)×1560=196560\n4^5−3×3^5+3×2^5−1=390\n84×1170=98280\n= 294840\n= 294840 = 294840",
+        "अतः उत्तर: 294840."
+      ],
+      "options": [
+        "252720",
+        "336960",
+        "294840",
+        "589681"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-030:pa",
+      "stem": "ਸਿਰਫ਼ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ਅੰਕਾਂ ਤੋਂ ਧਨਾਤਮਕ ਦਸ਼ਮਲਵ ਸੰਖਿਆਵਾਂ ਬਣਾਓ। ਲੰਬਾਈ 6 ਹੈ। ਅੰਕਾਂ ਦਾ ਦੁਹਰਾਓ ਮਨਜ਼ੂਰ ਹੈ। ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਵੱਖਰੇ ਅੰਕ-ਮੁੱਲਾਂ ਦੀ ਗਿਣਤੀ 4 ਤੋਂ 4 ਤੱਕ ਹੋਵੇ। ਕਿੰਨੇ ਨਤੀਜੇ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ?",
+      "answer": "294840",
+      "explanation": [
+        "ਪਹਿਲੇ ਅੰਕ ਅਤੇ ਆਖ਼ਰੀ ਅੰਕ ਦੀਆਂ ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰੋ। ਦੁਹਰਾਓ ਦੀ ਆਗਿਆ ਮੁਤਾਬਕ ਵਿਚਲੇ ਸਥਾਨਾਂ ਦੀਆਂ ਚੋਣਾਂ ਗਿਣੋ। ਵੱਖਰੀਆਂ ਲੰਬਾਈਆਂ ਅਤੇ ਢੁਕਵੇਂ ਆਖ਼ਰੀ ਅੰਕਾਂ ਦੇ ਮਾਮਲੇ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n4^6−4×3^6+6×2^6−4=1560\nC(9,4)×1560=196560\n4^5−3×3^5+3×2^5−1=390\n84×1170=98280\n= 294840\n= 294840 = 294840",
+        "ਇਸ ਲਈ ਉੱਤਰ: 294840."
+      ],
+      "options": [
+        "252720",
+        "336960",
+        "294840",
+        "589681"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-031",
+      "stem": "How many integers with at least three digits, smaller than 200000000, use only 0, 1 and 2 and are divisible by 3? Repetition is allowed.",
+      "answer": "4371",
+      "explanation": [
+        "Count positive integers; initial zero is excluded.",
+        "For lengths 3..8, residues of sums of the final digits are evenly distributed; counts are 2×3^(k−2), summing to 2184. Nine-digit numbers below the bound start with 1, leaving 3^8/3=2187 divisible cases. Total 4371.",
+        "As a digit d is appended to a prefix with remainder r, the new remainder is (10r+d) mod 3. Keep final remainder 0.",
+        "3-digit cases, split by the first digit: 1 → 3; 2 → 3. Subtotal = 6.",
+        "4-digit cases, split by the first digit: 1 → 9; 2 → 9. Subtotal = 18.",
+        "5-digit cases, split by the first digit: 1 → 27; 2 → 27. Subtotal = 54.",
+        "6-digit cases, split by the first digit: 1 → 81; 2 → 81. Subtotal = 162.",
+        "7-digit cases, split by the first digit: 1 → 243; 2 → 243. Subtotal = 486.",
+        "8-digit cases, split by the first digit: 1 → 729; 2 → 729. Subtotal = 1458.",
+        "9-digit cases, split by the first digit: 1 → 2187. Subtotal = 2187.",
+        "The length cases and first-digit cases are disjoint. Total = 6 + 18 + 54 + 162 + 486 + 1458 + 2187 = 4371.",
+        "Answer: 4371."
+      ],
+      "options": [
+        "8743",
+        "4995",
+        "3747",
+        "4371"
+      ],
+      "correctIndex": 3,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-031:hi",
+      "stem": "केवल 0, 1, 2 अंकों से सकारात्मक दशमलव संख्याएँ बनाएँ। लंबाई 3 से 9 है। अंकों का दोहराव मान्य है। पहला अंक शून्य नहीं हो सकता। मान अधिकतम 199999999 हो। 3 से भाग देने पर शेष 0 हो। कितने परिणाम दी गई सभी शर्तें पूरी करते हैं?",
+      "answer": "4371",
+      "explanation": [
+        "पहले अंक और अंतिम अंक की पाबंदियाँ लागू करें। दोहराव की अनुमति के अनुसार बीच के स्थानों के विकल्प गिनें। अलग लंबाइयों और उपयुक्त अंतिम अंकों के मामलों को जोड़ें।",
+        "गणना:\n2×3^(k−2), 2184\n1, 3^8/3=2187\n(10r+) 3\n= 6\n= 18\n= 54\n= 162\n= 486\n= 1458\n= 2187\n= 6 + 18 + 54 + 162 + 486 + 1458 + 2187 = 4371",
+        "अतः उत्तर: 4371."
+      ],
+      "options": [
+        "8743",
+        "4995",
+        "3747",
+        "4371"
+      ],
+      "correctIndex": 3,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-031:pa",
+      "stem": "ਸਿਰਫ਼ 0, 1, 2 ਅੰਕਾਂ ਤੋਂ ਧਨਾਤਮਕ ਦਸ਼ਮਲਵ ਸੰਖਿਆਵਾਂ ਬਣਾਓ। ਲੰਬਾਈ 3 ਤੋਂ 9 ਹੈ। ਅੰਕਾਂ ਦਾ ਦੁਹਰਾਓ ਮਨਜ਼ੂਰ ਹੈ। ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਮੁੱਲ ਵੱਧ ਤੋਂ ਵੱਧ 199999999 ਹੋਵੇ। 3 ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ ਬਾਕੀ 0 ਹੋਵੇ। ਕਿੰਨੇ ਨਤੀਜੇ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ?",
+      "answer": "4371",
+      "explanation": [
+        "ਪਹਿਲੇ ਅੰਕ ਅਤੇ ਆਖ਼ਰੀ ਅੰਕ ਦੀਆਂ ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰੋ। ਦੁਹਰਾਓ ਦੀ ਆਗਿਆ ਮੁਤਾਬਕ ਵਿਚਲੇ ਸਥਾਨਾਂ ਦੀਆਂ ਚੋਣਾਂ ਗਿਣੋ। ਵੱਖਰੀਆਂ ਲੰਬਾਈਆਂ ਅਤੇ ਢੁਕਵੇਂ ਆਖ਼ਰੀ ਅੰਕਾਂ ਦੇ ਮਾਮਲੇ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n2×3^(k−2), 2184\n1, 3^8/3=2187\n(10r+) 3\n= 6\n= 18\n= 54\n= 162\n= 486\n= 1458\n= 2187\n= 6 + 18 + 54 + 162 + 486 + 1458 + 2187 = 4371",
+        "ਇਸ ਲਈ ਉੱਤਰ: 4371."
+      ],
+      "options": [
+        "8743",
+        "4995",
+        "3747",
+        "4371"
+      ],
+      "correctIndex": 3,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-040",
+      "stem": "How many eight-digit telephone codes end in an odd digit and contain exactly one 9? Initial zero and repetition of other digits are allowed.",
+      "answer": "19663317",
+      "explanation": [
+        "Count fixed-width codes; initial zero is permitted unless a fixed prefix excludes it.",
+        "Last digit 9: 9^7 choices. Last digit 1,3,5,7: four choices, seven positions for 9 and 9^6 fills. Total 9^7+28×9^6=19663317.",
+        "As a digit d is appended to a prefix with remainder r, the new remainder is (10r+d) mod 2. Keep final remainder 1.",
+        "Keep exactly 1 occurrence(s) of 9; reject a branch as soon as it exceeds this count.",
+        "8-digit cases, split by the first digit: 0 → 1948617; 1 → 1948617; 2 → 1948617; 3 → 1948617; 4 → 1948617; 5 → 1948617; 6 → 1948617; 7 → 1948617; 8 → 1948617; 9 → 2125764. Subtotal = 19663317.",
+        "The length cases and first-digit cases are disjoint. Total = 19663317 = 19663317.",
+        "Answer: 19663317."
+      ],
+      "options": [
+        "39326635",
+        "22472362",
+        "16854272",
+        "19663317"
+      ],
+      "correctIndex": 3,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-040:hi",
+      "stem": "केवल 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 अंकों से निश्चित लंबाई के दशमलव कोड बनाएँ। लंबाई 8 है। अंकों का दोहराव मान्य है। पहला अंक शून्य हो सकता है। 2 से भाग देने पर शेष 1 हो। 9 ठीक 1 बार आए। कितने परिणाम दी गई सभी शर्तें पूरी करते हैं?",
+      "answer": "19663317",
+      "explanation": [
+        "पहले अंक और अंतिम अंक की पाबंदियाँ लागू करें। दोहराव की अनुमति के अनुसार बीच के स्थानों के विकल्प गिनें। अलग लंबाइयों और उपयुक्त अंतिम अंकों के मामलों को जोड़ें।",
+        "गणना:\n9: 9^7\n1,3,5,7: , 9 9^6\n9^7+28×9^6=19663317\n(10r+) 2\n= 19663317\n= 19663317 = 19663317",
+        "अतः उत्तर: 19663317."
+      ],
+      "options": [
+        "39326635",
+        "22472362",
+        "16854272",
+        "19663317"
+      ],
+      "correctIndex": 3,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-040:pa",
+      "stem": "ਸਿਰਫ਼ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ਅੰਕਾਂ ਤੋਂ ਨਿਸ਼ਚਿਤ ਲੰਬਾਈ ਦੇ ਦਸ਼ਮਲਵ ਕੋਡ ਬਣਾਓ। ਲੰਬਾਈ 8 ਹੈ। ਅੰਕਾਂ ਦਾ ਦੁਹਰਾਓ ਮਨਜ਼ੂਰ ਹੈ। ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਹੋ ਸਕਦਾ ਹੈ। 2 ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ ਬਾਕੀ 1 ਹੋਵੇ। 9 ਠੀਕ 1 ਵਾਰ ਆਵੇ। ਕਿੰਨੇ ਨਤੀਜੇ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ?",
+      "answer": "19663317",
+      "explanation": [
+        "ਪਹਿਲੇ ਅੰਕ ਅਤੇ ਆਖ਼ਰੀ ਅੰਕ ਦੀਆਂ ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰੋ। ਦੁਹਰਾਓ ਦੀ ਆਗਿਆ ਮੁਤਾਬਕ ਵਿਚਲੇ ਸਥਾਨਾਂ ਦੀਆਂ ਚੋਣਾਂ ਗਿਣੋ। ਵੱਖਰੀਆਂ ਲੰਬਾਈਆਂ ਅਤੇ ਢੁਕਵੇਂ ਆਖ਼ਰੀ ਅੰਕਾਂ ਦੇ ਮਾਮਲੇ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n9: 9^7\n1,3,5,7: , 9 9^6\n9^7+28×9^6=19663317\n(10r+) 2\n= 19663317\n= 19663317 = 19663317",
+        "ਇਸ ਲਈ ਉੱਤਰ: 19663317."
+      ],
+      "options": [
+        "39326635",
+        "22472362",
+        "16854272",
+        "19663317"
+      ],
+      "correctIndex": 3,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-041",
+      "stem": "How many eight-digit telephone codes end in an odd digit that occurs nowhere else, and contain exactly one 9? Initial zero and repetition of other digits are allowed.",
+      "answer": "12123001",
+      "explanation": [
+        "Count fixed-width codes; initial zero is permitted unless a fixed prefix excludes it.",
+        "Last digit 9: 9^7 choices. Otherwise the ending has four choices, the unique 9 has seven positions and six remaining positions avoid both 9 and the ending: 8^6. Total 9^7+28×8^6=12123001.",
+        "As a digit d is appended to a prefix with remainder r, the new remainder is (10r+d) mod 2. Keep final remainder 1.",
+        "Keep exactly 1 occurrence(s) of 9; reject a branch as soon as it exceeds this count.",
+        "8-digit cases, split by the first digit: 0 → 1317873; 1 → 1121265; 2 → 1317873; 3 → 1121265; 4 → 1317873; 5 → 1121265; 6 → 1317873; 7 → 1121265; 8 → 1317873; 9 → 1048576. Subtotal = 12123001.",
+        "The length cases and first-digit cases are disjoint. Total = 12123001 = 12123001.",
+        "Answer: 12123001."
+      ],
+      "options": [
+        "12123001",
+        "13854858",
+        "10391144",
+        "24246003"
+      ],
+      "correctIndex": 0,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-041:hi",
+      "stem": "केवल 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 अंकों से निश्चित लंबाई के दशमलव कोड बनाएँ। लंबाई 8 है। अंकों का दोहराव मान्य है। पहला अंक शून्य हो सकता है। 2 से भाग देने पर शेष 1 हो। 9 ठीक 1 बार आए। अंतिम अंक किसी अन्य स्थान पर न आए। कितने परिणाम दी गई सभी शर्तें पूरी करते हैं?",
+      "answer": "12123001",
+      "explanation": [
+        "पहले अंक और अंतिम अंक की पाबंदियाँ लागू करें। दोहराव की अनुमति के अनुसार बीच के स्थानों के विकल्प गिनें। अलग लंबाइयों और उपयुक्त अंतिम अंकों के मामलों को जोड़ें।",
+        "गणना:\n9: 9^7\n9 9 : 8^6\n9^7+28×8^6=12123001\n(10r+) 2\n= 12123001\n= 12123001 = 12123001",
+        "अतः उत्तर: 12123001."
+      ],
+      "options": [
+        "12123001",
+        "13854858",
+        "10391144",
+        "24246003"
+      ],
+      "correctIndex": 0,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-041:pa",
+      "stem": "ਸਿਰਫ਼ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ਅੰਕਾਂ ਤੋਂ ਨਿਸ਼ਚਿਤ ਲੰਬਾਈ ਦੇ ਦਸ਼ਮਲਵ ਕੋਡ ਬਣਾਓ। ਲੰਬਾਈ 8 ਹੈ। ਅੰਕਾਂ ਦਾ ਦੁਹਰਾਓ ਮਨਜ਼ੂਰ ਹੈ। ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਹੋ ਸਕਦਾ ਹੈ। 2 ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ ਬਾਕੀ 1 ਹੋਵੇ। 9 ਠੀਕ 1 ਵਾਰ ਆਵੇ। ਆਖ਼ਰੀ ਅੰਕ ਕਿਸੇ ਹੋਰ ਸਥਾਨ ਉੱਤੇ ਨਾ ਆਵੇ। ਕਿੰਨੇ ਨਤੀਜੇ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੇ ਹਨ?",
+      "answer": "12123001",
+      "explanation": [
+        "ਪਹਿਲੇ ਅੰਕ ਅਤੇ ਆਖ਼ਰੀ ਅੰਕ ਦੀਆਂ ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰੋ। ਦੁਹਰਾਓ ਦੀ ਆਗਿਆ ਮੁਤਾਬਕ ਵਿਚਲੇ ਸਥਾਨਾਂ ਦੀਆਂ ਚੋਣਾਂ ਗਿਣੋ। ਵੱਖਰੀਆਂ ਲੰਬਾਈਆਂ ਅਤੇ ਢੁਕਵੇਂ ਆਖ਼ਰੀ ਅੰਕਾਂ ਦੇ ਮਾਮਲੇ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n9: 9^7\n9 9 : 8^6\n9^7+28×8^6=12123001\n(10r+) 2\n= 12123001\n= 12123001 = 12123001",
+        "ਇਸ ਲਈ ਉੱਤਰ: 12123001."
+      ],
+      "options": [
+        "12123001",
+        "13854858",
+        "10391144",
+        "24246003"
+      ],
+      "correctIndex": 0,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "I-039",
+      "stem": "Among 25 points, seven lie on one line with no other collinear triples. Count four-point sets with no collinear triple.",
+      "answer": "11985",
+      "explanation": [
+        "C(25,4)−C(7,3)×18−C(7,4) = 12650−630−35 = 11985.",
+        "Convention: Counts nondegenerate four-vertex sets; no convexity requirement.",
+        "Answer: 11985."
+      ],
+      "assumptions": "Counts nondegenerate four-vertex sets; no convexity requirement.",
+      "options": [
+        "13697",
+        "11985",
+        "10273",
+        "23971"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-039:hi",
+      "stem": "25 बिंदुओं में सात एक रेखा पर हैं और कोई अन्य समरेखीय त्रिक नहीं है। ऐसे चार-बिंदु समुच्चय कितने हैं जिनमें कोई समरेखीय त्रिक न हो? उत्तल होना आवश्यक नहीं है।",
+      "answer": "11985",
+      "explanation": [
+        "समूह में चयन का क्रम महत्व नहीं रखता, इसलिए C(n,r) का प्रयोग करें। नामित समूह और अलग पद अलग परिणाम देते हैं। वितरण में समान वस्तुओं की मात्राएँ गिनें और दी गई सीमाएँ लागू करें।",
+        "गणना:\nC(25,4)−C(7,3)×18−C(7,4) = 12650−630−35 = 11985",
+        "अतः उत्तर: 11985."
+      ],
+      "assumptions": "Counts nondegenerate four-vertex sets; no convexity requirement.",
+      "options": [
+        "13697",
+        "11985",
+        "10273",
+        "23971"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-039:pa",
+      "stem": "25 ਬਿੰਦੂਆਂ ਵਿੱਚ ਸੱਤ ਇੱਕ ਰੇਖਾ ਉੱਤੇ ਹਨ ਅਤੇ ਕੋਈ ਹੋਰ ਸਮਰੇਖੀ ਤਿਕੜੀ ਨਹੀਂ ਹੈ। ਅਜਿਹੇ ਚਾਰ-ਬਿੰਦੂ ਸਮੂਹ ਕਿੰਨੇ ਹਨ ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਕੋਈ ਸਮਰੇਖੀ ਤਿਕੜੀ ਨਾ ਹੋਵੇ? ਉੱਤਲ ਹੋਣਾ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੈ।",
+      "answer": "11985",
+      "explanation": [
+        "ਸਮੂਹ ਵਿੱਚ ਚੋਣ ਦਾ ਕ੍ਰਮ ਮਹੱਤਵ ਨਹੀਂ ਰੱਖਦਾ, ਇਸ ਲਈ C(n,r) ਵਰਤੋ। ਨਾਮਿਤ ਸਮੂਹ ਅਤੇ ਵੱਖਰੇ ਅਹੁਦੇ ਵੱਖਰੇ ਨਤੀਜੇ ਦਿੰਦੇ ਹਨ। ਵੰਡ ਵਿੱਚ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ ਦੀਆਂ ਮਾਤਰਾਵਾਂ ਗਿਣੋ ਅਤੇ ਦਿੱਤੀਆਂ ਹੱਦਾਂ ਲਾਗੂ ਕਰੋ।",
+        "ਗਿਣਤੀ:\nC(25,4)−C(7,3)×18−C(7,4) = 12650−630−35 = 11985",
+        "ਇਸ ਲਈ ਉੱਤਰ: 11985."
+      ],
+      "assumptions": "Counts nondegenerate four-vertex sets; no convexity requirement.",
+      "options": [
+        "13697",
+        "11985",
+        "10273",
+        "23971"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-060",
+      "stem": "Five boxes each contain one ball of each of five colours. Draw without replacement from successive boxes until an unused colour appears, keeping that ball. The first two successes required one draw each. What is the largest total number of draws to finish?",
+      "answer": "14",
+      "explanation": [
+        "At stages 3,4,5 the maximum draws are 3,4,5 because 2,3,4 colours are already used. Including the first two draws: 1+1+3+4+5=14.",
+        "Convention: Defines a trial as one ball draw, with sequential boxes and discarded rejected balls. The source does not define this process precisely.",
+        "Answer: 14."
+      ],
+      "assumptions": "Defines a trial as one ball draw, with sequential boxes and discarded rejected balls. The source does not define this process precisely.",
+      "options": [
+        "15",
+        "14",
+        "13",
+        "29"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-060:hi",
+      "stem": "पाँच डिब्बों में हर रंग की एक गेंद है, कुल पाँच रंग हैं। क्रम से डिब्बे लें, बिना वापसी के गेंदें निकालें जब तक पहले न चुना रंग मिले। अस्वीकृत गेंदें अलग रखें। पहले दो सफल रंग एक-एक निकासी में मिले। पाँच रंग पूरे करने की अधिकतम कुल निकासियाँ कितनी हैं?",
+      "answer": "14",
+      "explanation": [
+        "दी गई शर्तों के पूर्णांक मान जाँचें। अलग स्थितियों की गणनाएँ जोड़ें और साथ होने वाले स्वतंत्र चरणों की संख्याएँ गुणा करें।",
+        "गणना:\n1+1+3+4+5=14",
+        "अतः उत्तर: 14."
+      ],
+      "assumptions": "Defines a trial as one ball draw, with sequential boxes and discarded rejected balls. The source does not define this process precisely.",
+      "options": [
+        "15",
+        "14",
+        "13",
+        "29"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-060:pa",
+      "stem": "ਪੰਜ ਡੱਬਿਆਂ ਵਿੱਚ ਹਰ ਰੰਗ ਦੀ ਇੱਕ ਗੇਂਦ ਹੈ, ਕੁੱਲ ਪੰਜ ਰੰਗ ਹਨ। ਕ੍ਰਮ ਨਾਲ ਡੱਬੇ ਲਓ, ਬਿਨਾਂ ਵਾਪਸੀ ਦੇ ਗੇਂਦਾਂ ਕੱਢੋ ਜਦੋਂ ਤੱਕ ਪਹਿਲਾਂ ਨਾ ਚੁਣਿਆ ਰੰਗ ਮਿਲੇ। ਰੱਦ ਗੇਂਦਾਂ ਅਲੱਗ ਰੱਖੋ। ਪਹਿਲੇ ਦੋ ਸਫਲ ਰੰਗ ਇੱਕ-ਇੱਕ ਕੱਢਣ ਵਿੱਚ ਮਿਲੇ। ਪੰਜ ਰੰਗ ਪੂਰੇ ਕਰਨ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਕੁੱਲ ਕਿੰਨੀਆਂ ਗੇਂਦਾਂ ਕੱਢਣੀਆਂ ਪੈਣਗੀਆਂ?",
+      "answer": "14",
+      "explanation": [
+        "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਦੇ ਪੂਰਨ ਅੰਕ ਮੁੱਲ ਜਾਂਚੋ। ਵੱਖਰੀਆਂ ਸਥਿਤੀਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਇਕੱਠੇ ਹੋਣ ਵਾਲੇ ਸੁਤੰਤਰ ਪੜਾਵਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਗੁਣਾ ਕਰੋ।",
+        "ਗਿਣਤੀ:\n1+1+3+4+5=14",
+        "ਇਸ ਲਈ ਉੱਤਰ: 14."
+      ],
+      "assumptions": "Defines a trial as one ball draw, with sequential boxes and discarded rejected balls. The source does not define this process precisely.",
+      "options": [
+        "15",
+        "14",
+        "13",
+        "29"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-067",
+      "stem": "All distinct arrangements of ALLAHABAD are alphabetically sorted with rank one for the first. What is the rank of LABADALAH?",
+      "answer": "6269",
+      "explanation": [
+        "First position smaller than L: A contributes 3360 and B,D,H contribute 840 each. Third position A contributes 360; fifth position A contributes 24; seventh position A,H contribute 2 each. Rank = 3360+840+840+840+360+24+2+2+1 = 6269.",
+        "Answer: 6269."
+      ],
+      "options": [
+        "6269",
+        "7164",
+        "5374",
+        "12539"
+      ],
+      "correctIndex": 0,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-067:hi",
+      "stem": "ALLAHABAD के सभी अलग अक्षर-क्रम शब्दकोश के क्रम में हैं, पहला स्थान 1 है। LABADALAH का स्थान क्या है?",
+      "answer": "6269",
+      "explanation": [
+        "दी गई शर्तों के पूर्णांक मान जाँचें। अलग स्थितियों की गणनाएँ जोड़ें और साथ होने वाले स्वतंत्र चरणों की संख्याएँ गुणा करें।",
+        "गणना:\n= 3360+840+840+840+360+24+2+2+1 = 6269",
+        "अतः उत्तर: 6269."
+      ],
+      "options": [
+        "6269",
+        "7164",
+        "5374",
+        "12539"
+      ],
+      "correctIndex": 0,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "I-067:pa",
+      "stem": "ALLAHABAD ਦੇ ਸਾਰੇ ਵੱਖਰੇ ਅੱਖਰ-ਕ੍ਰਮ ਸ਼ਬਦਕੋਸ਼ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਹਨ, ਪਹਿਲਾ ਦਰਜਾ 1 ਹੈ। LABADALAH ਦਾ ਦਰਜਾ ਕੀ ਹੈ?",
+      "answer": "6269",
+      "explanation": [
+        "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਦੇ ਪੂਰਨ ਅੰਕ ਮੁੱਲ ਜਾਂਚੋ। ਵੱਖਰੀਆਂ ਸਥਿਤੀਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਇਕੱਠੇ ਹੋਣ ਵਾਲੇ ਸੁਤੰਤਰ ਪੜਾਵਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਗੁਣਾ ਕਰੋ।",
+        "ਗਿਣਤੀ:\n= 3360+840+840+840+360+24+2+2+1 = 6269",
+        "ਇਸ ਲਈ ਉੱਤਰ: 6269."
+      ],
+      "options": [
+        "6269",
+        "7164",
+        "5374",
+        "12539"
+      ],
+      "correctIndex": 0,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Easy"
+    },
+    {
+      "id": "II-002",
+      "stem": "Using the digit inventory 0,1,2,3,4,5,6,6, select four occurrences to form a four-digit integer divisible by 5. Equal 6s are indistinguishable. How many different integers are possible?",
+      "answer": "249",
+      "explanation": [
+        "End in 0: 135 distinct prefixes. End in 5: 114 nonzero-leading prefixes. Total 249.",
+        "Answer: 249."
+      ],
+      "options": [
+        "284",
+        "249",
+        "214",
+        "499"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-002:hi",
+      "stem": "0,1,2,3,4,5,6,6 की उपलब्ध प्रतियों से चार-अंकीय संख्या बनाएँ, जो 5 से विभाज्य हो। समान 6 अलग नहीं हैं और पहला अंक शून्य नहीं हो सकता। कितनी संख्याएँ हैं?",
+      "answer": "249",
+      "explanation": [
+        "पहले अंक और अंतिम अंक की पाबंदियाँ लागू करें। दोहराव की अनुमति के अनुसार बीच के स्थानों के विकल्प गिनें। अलग लंबाइयों और उपयुक्त अंतिम अंकों के मामलों को जोड़ें।",
+        "गणना:\n249",
+        "अतः उत्तर: 249."
+      ],
+      "options": [
+        "284",
+        "249",
+        "214",
+        "499"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-002:pa",
+      "stem": "0,1,2,3,4,5,6,6 ਦੀਆਂ ਉਪਲਬਧ ਕਾਪੀਆਂ ਤੋਂ ਚਾਰ-ਅੰਕੀ ਸੰਖਿਆ ਬਣਾਓ, ਜੋ 5 ਨਾਲ ਭਾਗਯੋਗ ਹੋਵੇ। ਇੱਕੋ ਜਿਹੇ 6 ਵੱਖਰੇ ਨਹੀਂ ਹਨ ਅਤੇ ਪਹਿਲਾ ਅੰਕ ਸਿਫ਼ਰ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਕਿੰਨੀਆਂ ਸੰਖਿਆਵਾਂ ਹਨ?",
+      "answer": "249",
+      "explanation": [
+        "ਪਹਿਲੇ ਅੰਕ ਅਤੇ ਆਖ਼ਰੀ ਅੰਕ ਦੀਆਂ ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰੋ। ਦੁਹਰਾਓ ਦੀ ਆਗਿਆ ਮੁਤਾਬਕ ਵਿਚਲੇ ਸਥਾਨਾਂ ਦੀਆਂ ਚੋਣਾਂ ਗਿਣੋ। ਵੱਖਰੀਆਂ ਲੰਬਾਈਆਂ ਅਤੇ ਢੁਕਵੇਂ ਆਖ਼ਰੀ ਅੰਕਾਂ ਦੇ ਮਾਮਲੇ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n249",
+        "ਇਸ ਲਈ ਉੱਤਰ: 249."
+      ],
+      "options": [
+        "284",
+        "249",
+        "214",
+        "499"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-008",
+      "stem": "From four men and four women form a five-person committee with two distinct offices and three interchangeable secretary posts. At least three members and at least one office holder must be women. How many committees are possible?",
+      "answer": "512",
+      "explanation": [
+        "Three women: C(4,3)C(4,2)[P(5,2)−P(2,2)]=24×18=432. Four women: C(4,4)C(4,1)×20=80. Total 512.",
+        "Answer: 512."
+      ],
+      "options": [
+        "439",
+        "585",
+        "512",
+        "1025"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-008:hi",
+      "stem": "चार पुरुष और चार महिलाएँ हैं। पाँच-सदस्यीय समिति में दो अलग पद और तीन समान सचिव-पद हैं। कम से कम तीन सदस्य और कम से कम एक मुख्य पदाधिकारी महिला हो। कितनी समितियाँ हैं?",
+      "answer": "512",
+      "explanation": [
+        "समूह में चयन का क्रम महत्व नहीं रखता, इसलिए C(n,r) का प्रयोग करें। नामित समूह और अलग पद अलग परिणाम देते हैं। वितरण में समान वस्तुओं की मात्राएँ गिनें और दी गई सीमाएँ लागू करें।",
+        "गणना:\nC(4,3)C(4,2)[P(5,2)−P(2,2)]=24×18=432\nC(4,4)C(4,1)×20=80",
+        "अतः उत्तर: 512."
+      ],
+      "options": [
+        "439",
+        "585",
+        "512",
+        "1025"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-008:pa",
+      "stem": "ਚਾਰ ਮਰਦ ਅਤੇ ਚਾਰ ਔਰਤਾਂ ਹਨ। ਪੰਜ-ਮੈਂਬਰੀ ਕਮੇਟੀ ਵਿੱਚ ਦੋ ਵੱਖਰੇ ਅਹੁਦੇ ਅਤੇ ਤਿੰਨ ਇੱਕੋ ਜਿਹੇ ਸਕੱਤਰ-ਅਹੁਦੇ ਹਨ। ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਮੈਂਬਰ ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੁੱਖ ਅਹੁਦੇਦਾਰ ਔਰਤ ਹੋਵੇ। ਕਿੰਨੀਆਂ ਕਮੇਟੀਆਂ ਹਨ?",
+      "answer": "512",
+      "explanation": [
+        "ਸਮੂਹ ਵਿੱਚ ਚੋਣ ਦਾ ਕ੍ਰਮ ਮਹੱਤਵ ਨਹੀਂ ਰੱਖਦਾ, ਇਸ ਲਈ C(n,r) ਵਰਤੋ। ਨਾਮਿਤ ਸਮੂਹ ਅਤੇ ਵੱਖਰੇ ਅਹੁਦੇ ਵੱਖਰੇ ਨਤੀਜੇ ਦਿੰਦੇ ਹਨ। ਵੰਡ ਵਿੱਚ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ ਦੀਆਂ ਮਾਤਰਾਵਾਂ ਗਿਣੋ ਅਤੇ ਦਿੱਤੀਆਂ ਹੱਦਾਂ ਲਾਗੂ ਕਰੋ।",
+        "ਗਿਣਤੀ:\nC(4,3)C(4,2)[P(5,2)−P(2,2)]=24×18=432\nC(4,4)C(4,1)×20=80",
+        "ਇਸ ਲਈ ਉੱਤਰ: 512."
+      ],
+      "options": [
+        "439",
+        "585",
+        "512",
+        "1025"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-016",
+      "stem": "Split six distinct objects equally among three labelled groups. Objects have no order within a group. How many assignments are possible?",
+      "answer": "90",
+      "explanation": [
+        "6!/(2!)³=90. If group labels are removed, divide by 3! to obtain 15.",
+        "Convention: Labelled groups specified; unlabelled groups are a separate interpretation.",
+        "Answer: 90."
+      ],
+      "assumptions": "Labelled groups specified; unlabelled groups are a separate interpretation.",
+      "options": [
+        "78",
+        "102",
+        "90",
+        "181"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-016:hi",
+      "stem": "छह अलग वस्तुएँ तीन नामित समूहों में बराबर बाँटें। समूह के भीतर क्रम महत्व नहीं रखता। कितने वितरण हैं?",
+      "answer": "90",
+      "explanation": [
+        "अलग वस्तुओं के स्थान या अलग पद महत्व रखते हैं। बिना दोहराव में प्रत्येक अगले स्थान पर एक विकल्प कम होता है; सभी स्थान भरने पर क्रमगुणित मिलता है।",
+        "गणना:\n6!/(2!)³=90\n3! 15",
+        "अतः उत्तर: 90."
+      ],
+      "assumptions": "Labelled groups specified; unlabelled groups are a separate interpretation.",
+      "options": [
+        "78",
+        "102",
+        "90",
+        "181"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "II-016:pa",
+      "stem": "ਛੇ ਵੱਖਰੀਆਂ ਵਸਤੂਆਂ ਤਿੰਨ ਨਾਮਿਤ ਸਮੂਹਾਂ ਵਿੱਚ ਬਰਾਬਰ ਵੰਡੋ। ਸਮੂਹ ਅੰਦਰ ਕ੍ਰਮ ਮਹੱਤਵ ਨਹੀਂ ਰੱਖਦਾ। ਕਿੰਨੀਆਂ ਵੰਡਾਂ ਹਨ?",
+      "answer": "90",
+      "explanation": [
+        "ਵੱਖਰੀਆਂ ਵਸਤੂਆਂ ਦੇ ਸਥਾਨ ਜਾਂ ਵੱਖਰੇ ਅਹੁਦੇ ਮਹੱਤਵ ਰੱਖਦੇ ਹਨ। ਬਿਨਾਂ ਦੁਹਰਾਓ ਵਿੱਚ ਹਰ ਅਗਲੇ ਸਥਾਨ ਉੱਤੇ ਇੱਕ ਚੋਣ ਘੱਟ ਹੁੰਦੀ ਹੈ; ਸਾਰੇ ਸਥਾਨ ਭਰਨ ਉੱਤੇ ਫੈਕਟੋਰੀਅਲ ਮਿਲਦਾ ਹੈ।",
+        "ਗਿਣਤੀ:\n6!/(2!)³=90\n3! 15",
+        "ਇਸ ਲਈ ਉੱਤਰ: 90."
+      ],
+      "assumptions": "Labelled groups specified; unlabelled groups are a separate interpretation.",
+      "options": [
+        "78",
+        "102",
+        "90",
+        "181"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "III-002",
+      "stem": "Ten points include seven collinear points. With no information about concyclicity or other collinearity, is the number of distinct circles determined?",
+      "answer": "Cannot be determined",
+      "explanation": [
+        "Three noncollinear points determine a circle, but several triples can determine the same circle. The stated point counts do not fix these coincidences.",
+        "Convention: No extra general-position assumption is imposed.",
+        "Answer: Cannot be determined."
+      ],
+      "assumptions": "No extra general-position assumption is imposed.",
+      "options": [
+        "Always 16",
+        "Always 15",
+        "Cannot be determined",
+        "Always 10"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-002:hi",
+      "stem": "दस बिंदुओं में सात समरेखीय हैं। अन्य समरेखीयता या एक वृत्त पर बिंदुओं की जानकारी नहीं है। क्या अलग वृत्तों की संख्या निर्धारित है?",
+      "answer": "निर्धारित नहीं किया जा सकता",
+      "explanation": [
+        "तीन असमरेखीय बिंदु एक वृत्त निर्धारित करते हैं, पर अलग त्रिक उसी वृत्त पर हो सकते हैं। दी गई जानकारी इस दोहरी गणना को तय नहीं करती।",
+        "गणना:\nनिर्धारित नहीं किया जा सकता",
+        "अतः उत्तर: निर्धारित नहीं किया जा सकता."
+      ],
+      "assumptions": "No extra general-position assumption is imposed.",
+      "options": [
+        "हमेशा 16",
+        "हमेशा 15",
+        "निर्धारित नहीं किया जा सकता",
+        "हमेशा 10"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-002:pa",
+      "stem": "ਦਸ ਬਿੰਦੂਆਂ ਵਿੱਚ ਸੱਤ ਸਮਰੇਖੀ ਹਨ। ਹੋਰ ਸਮਰੇਖੀਤਾ ਜਾਂ ਇੱਕ ਚੱਕਰ ਉੱਤੇ ਬਿੰਦੂਆਂ ਦੀ ਜਾਣਕਾਰੀ ਨਹੀਂ ਹੈ। ਕੀ ਵੱਖਰੇ ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਹੈ?",
+      "answer": "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+      "explanation": [
+        "ਤਿੰਨ ਅਸਮਰੇਖੀ ਬਿੰਦੂ ਇੱਕ ਚੱਕਰ ਨਿਰਧਾਰਤ ਕਰਦੇ ਹਨ, ਪਰ ਵੱਖਰੀਆਂ ਤਿਕੜੀਆਂ ਉਸੇ ਚੱਕਰ ਉੱਤੇ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਇਸ ਦੋਹਰੀ ਗਿਣਤੀ ਨੂੰ ਤੈਅ ਨਹੀਂ ਕਰਦੀ।",
+        "ਗਿਣਤੀ:\nਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+        "ਇਸ ਲਈ ਉੱਤਰ: ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ."
+      ],
+      "assumptions": "No extra general-position assumption is imposed.",
+      "options": [
+        "ਹਮੇਸ਼ਾ 16",
+        "ਹਮੇਸ਼ਾ 15",
+        "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+        "ਹਮੇਸ਼ਾ 10"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-013",
+      "stem": "Integer scores on four papers have maxima 50,50,50,100. How many score tuples total exactly 150?",
+      "answer": "110551",
+      "explanation": [
+        "Unbounded C(153,3); subtract 3C(102,3)+C(52,3); restore 3C(51,3). Total 110551.",
+        "Answer: 110551."
+      ],
+      "options": [
+        "110551",
+        "126344",
+        "94758",
+        "221103"
+      ],
+      "correctIndex": 0,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-013:hi",
+      "stem": "चार प्रश्नपत्रों के पूर्णांक अंक 0 से क्रमशः 50,50,50,100 तक हैं। कुल ठीक 150 अंक देने वाले कितने क्रमित चौकड़े हैं?",
+      "answer": "110551",
+      "explanation": [
+        "पहले सभी परिणाम गिनें। प्रतिबंध तोड़ने वाले परिणाम घटाएँ; जो एक से अधिक बार घटे हैं, उन्हें प्रतिच्छेद की गणना से वापस जोड़ें।",
+        "गणना:\n3C(102,3)+C(52,3)",
+        "अतः उत्तर: 110551."
+      ],
+      "options": [
+        "110551",
+        "126344",
+        "94758",
+        "221103"
+      ],
+      "correctIndex": 0,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-013:pa",
+      "stem": "ਚਾਰ ਪ੍ਰਸ਼ਨ-ਪੱਤਰਾਂ ਦੇ ਪੂਰਨ ਅੰਕ 0 ਤੋਂ ਕ੍ਰਮਵਾਰ 50,50,50,100 ਤੱਕ ਹਨ। ਕੁੱਲ ਠੀਕ 150 ਅੰਕ ਦੇਣ ਵਾਲੀਆਂ ਕਿੰਨੀਆਂ ਕ੍ਰਮਵਾਰ ਚੌਕੜੀਆਂ ਹਨ?",
+      "answer": "110551",
+      "explanation": [
+        "ਪਹਿਲਾਂ ਸਾਰੇ ਨਤੀਜੇ ਗਿਣੋ। ਪਾਬੰਦੀ ਤੋੜਨ ਵਾਲੇ ਨਤੀਜੇ ਘਟਾਓ; ਜੋ ਇੱਕ ਤੋਂ ਵੱਧ ਵਾਰ ਘਟੇ ਹਨ, ਉਨ੍ਹਾਂ ਨੂੰ ਸਾਂਝੇ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਵਾਪਸ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n3C(102,3)+C(52,3)",
+        "ਇਸ ਲਈ ਉੱਤਰ: 110551."
+      ],
+      "options": [
+        "110551",
+        "126344",
+        "94758",
+        "221103"
+      ],
+      "correctIndex": 0,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-045",
+      "stem": "One hundred distinct articles are arranged in a line. Article 28 must precede article 29, without an adjacency requirement. How many arrangements are possible?",
+      "answer": "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+      "explanation": [
+        "Swap the two specified labels: each ordering is paired with one having the opposite order. Exactly half the 100! arrangements qualify: 100!/2.",
+        "Answer: 46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000."
+      ],
+      "options": [
+        "53329265967968087246685279346438114566123410436789497982053122225838628567559951776537979414946581877859255954758413576143534406238208000000000000000000000000",
+        "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+        "39996949475976065435013959509828585924592557827592123486539841669378971425669963832403484561209936408394441966068810182107650804678656000000000000000000000000",
+        "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000001"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-045:hi",
+      "stem": "सौ अलग वस्तुएँ पंक्ति में रखें। वस्तु 28 पहले आए और वस्तु 29 बाद में, पास होना आवश्यक नहीं। कितने क्रम हैं?",
+      "answer": "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+      "explanation": [
+        "अलग वस्तुओं के स्थान या अलग पद महत्व रखते हैं। बिना दोहराव में प्रत्येक अगले स्थान पर एक विकल्प कम होता है; सभी स्थान भरने पर क्रमगुणित मिलता है।",
+        "गणना:\n100! : 100!/2",
+        "अतः उत्तर: 46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000."
+      ],
+      "options": [
+        "53329265967968087246685279346438114566123410436789497982053122225838628567559951776537979414946581877859255954758413576143534406238208000000000000000000000000",
+        "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+        "39996949475976065435013959509828585924592557827592123486539841669378971425669963832403484561209936408394441966068810182107650804678656000000000000000000000000",
+        "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000001"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-045:pa",
+      "stem": "ਸੌ ਵੱਖਰੀਆਂ ਵਸਤੂਆਂ ਕਤਾਰ ਵਿੱਚ ਰੱਖੋ। ਵਸਤੂ 28 ਪਹਿਲਾਂ ਆਵੇ ਅਤੇ ਵਸਤੂ 29 ਬਾਅਦ ਵਿੱਚ, ਨਾਲ ਹੋਣਾ ਜ਼ਰੂਰੀ ਨਹੀਂ। ਕਿੰਨੇ ਕ੍ਰਮ ਹਨ?",
+      "answer": "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+      "explanation": [
+        "ਵੱਖਰੀਆਂ ਵਸਤੂਆਂ ਦੇ ਸਥਾਨ ਜਾਂ ਵੱਖਰੇ ਅਹੁਦੇ ਮਹੱਤਵ ਰੱਖਦੇ ਹਨ। ਬਿਨਾਂ ਦੁਹਰਾਓ ਵਿੱਚ ਹਰ ਅਗਲੇ ਸਥਾਨ ਉੱਤੇ ਇੱਕ ਚੋਣ ਘੱਟ ਹੁੰਦੀ ਹੈ; ਸਾਰੇ ਸਥਾਨ ਭਰਨ ਉੱਤੇ ਫੈਕਟੋਰੀਅਲ ਮਿਲਦਾ ਹੈ।",
+        "ਗਿਣਤੀ:\n100! : 100!/2",
+        "ਇਸ ਲਈ ਉੱਤਰ: 46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000."
+      ],
+      "options": [
+        "53329265967968087246685279346438114566123410436789497982053122225838628567559951776537979414946581877859255954758413576143534406238208000000000000000000000000",
+        "46663107721972076340849619428133350245357984132190810734296481947608799996614957804470731988078259143126848960413611879125592605458432000000000000000000000000",
+        "39996949475976065435013959509828585924592557827592123486539841669378971425669963832403484561209936408394441966068810182107650804678656000000000000000000000000",
+        "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000001"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-050",
+      "stem": "Four integer section scores are each between zero and 45 inclusive. How many tuples score exactly 90?",
+      "answer": "64906",
+      "explanation": [
+        "Unbounded C(93,3), subtract four upper-bound violations C(47,3). Two simultaneous violations are impossible. 129766−4×16215=64906.",
+        "Convention: Exactly 90 specified. Qualifying at least 90 instead has 2271181 tuples.",
+        "Answer: 64906."
+      ],
+      "assumptions": "Exactly 90 specified. Qualifying at least 90 instead has 2271181 tuples.",
+      "options": [
+        "55634",
+        "74178",
+        "64906",
+        "129813"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-050:hi",
+      "stem": "चार खंडों के पूर्णांक अंक प्रत्येक 0 से 45 तक हैं। कुल ठीक 90 देने वाले कितने क्रमित चौकड़े हैं?",
+      "answer": "64906",
+      "explanation": [
+        "पहले सभी परिणाम गिनें। प्रतिबंध तोड़ने वाले परिणाम घटाएँ; जो एक से अधिक बार घटे हैं, उन्हें प्रतिच्छेद की गणना से वापस जोड़ें।",
+        "गणना:\n129766−4×16215=64906",
+        "अतः उत्तर: 64906."
+      ],
+      "assumptions": "Exactly 90 specified. Qualifying at least 90 instead has 2271181 tuples.",
+      "options": [
+        "55634",
+        "74178",
+        "64906",
+        "129813"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "III-050:pa",
+      "stem": "ਚਾਰ ਭਾਗਾਂ ਦੇ ਪੂਰਨ ਅੰਕ ਹਰ ਇੱਕ 0 ਤੋਂ 45 ਤੱਕ ਹਨ। ਕੁੱਲ ਠੀਕ 90 ਦੇਣ ਵਾਲੀਆਂ ਕਿੰਨੀਆਂ ਕ੍ਰਮਵਾਰ ਚੌਕੜੀਆਂ ਹਨ?",
+      "answer": "64906",
+      "explanation": [
+        "ਪਹਿਲਾਂ ਸਾਰੇ ਨਤੀਜੇ ਗਿਣੋ। ਪਾਬੰਦੀ ਤੋੜਨ ਵਾਲੇ ਨਤੀਜੇ ਘਟਾਓ; ਜੋ ਇੱਕ ਤੋਂ ਵੱਧ ਵਾਰ ਘਟੇ ਹਨ, ਉਨ੍ਹਾਂ ਨੂੰ ਸਾਂਝੇ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਵਾਪਸ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n129766−4×16215=64906",
+        "ਇਸ ਲਈ ਉੱਤਰ: 64906."
+      ],
+      "assumptions": "Exactly 90 specified. Qualifying at least 90 instead has 2271181 tuples.",
+      "options": [
+        "55634",
+        "74178",
+        "64906",
+        "129813"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-EXERCISES",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-023",
+      "stem": "Four coins have different unspecified positive denominations. Is the number of different nonempty subset sums fixed?",
+      "answer": "Cannot be determined",
+      "explanation": [
+        "Values 1,2,5,10 give 15 sums, whereas 1,2,3,4 give only ten sums because different subsets can have equal totals.",
+        "Convention: Different denominations alone do not ensure different subset sums.",
+        "Answer: Cannot be determined."
+      ],
+      "assumptions": "Different denominations alone do not ensure different subset sums.",
+      "options": [
+        "Always 15",
+        "Cannot be determined",
+        "Always 16",
+        "Always 10"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-023:hi",
+      "stem": "चार सिक्कों के अलग-अलग सकारात्मक मूल्य हैं, पर मूल्य नहीं बताए गए। क्या अलग गैरखाली उपसमुच्चय-योगों की संख्या निश्चित है?",
+      "answer": "निर्धारित नहीं किया जा सकता",
+      "explanation": [
+        "अलग मूल्य अलग उपसमुच्चय-योग सुनिश्चित नहीं करते। 1,2,5,10 से 15 योग हैं; 1,2,3,4 से केवल 10। इसलिए संख्या निर्धारित नहीं है।",
+        "गणना:\nनिर्धारित नहीं किया जा सकता",
+        "अतः उत्तर: निर्धारित नहीं किया जा सकता."
+      ],
+      "assumptions": "Different denominations alone do not ensure different subset sums.",
+      "options": [
+        "हमेशा 15",
+        "निर्धारित नहीं किया जा सकता",
+        "हमेशा 16",
+        "हमेशा 10"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-023:pa",
+      "stem": "ਚਾਰ ਸਿੱਕਿਆਂ ਦੇ ਵੱਖਰੇ ਧਨਾਤਮਕ ਮੁੱਲ ਹਨ, ਪਰ ਮੁੱਲ ਨਹੀਂ ਦੱਸੇ ਗਏ। ਕੀ ਵੱਖਰੇ ਗੈਰ-ਖਾਲੀ ਉਪਸਮੂਹ-ਜੋੜਾਂ ਦੀ ਗਿਣਤੀ ਨਿਸ਼ਚਿਤ ਹੈ?",
+      "answer": "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+      "explanation": [
+        "ਵੱਖਰੇ ਮੁੱਲ ਵੱਖਰੇ ਉਪਸਮੂਹ-ਜੋੜ ਯਕੀਨੀ ਨਹੀਂ ਕਰਦੇ। 1,2,5,10 ਤੋਂ 15 ਜੋੜ ਹਨ; 1,2,3,4 ਤੋਂ ਸਿਰਫ਼ 10। ਇਸ ਲਈ ਗਿਣਤੀ ਨਿਰਧਾਰਤ ਨਹੀਂ ਹੈ।",
+        "ਗਿਣਤੀ:\nਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+        "ਇਸ ਲਈ ਉੱਤਰ: ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ."
+      ],
+      "assumptions": "Different denominations alone do not ensure different subset sums.",
+      "options": [
+        "ਹਮੇਸ਼ਾ 15",
+        "ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+        "ਹਮੇਸ਼ਾ 16",
+        "ਹਮੇਸ਼ਾ 10"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-028",
+      "stem": "Arrange two identical balls of each of three colours in six consecutive cells, with no equal adjacent colours. How many patterns are possible?",
+      "answer": "30",
+      "explanation": [
+        "Inclusion–exclusion on the three equal-colour adjacency events: 6!/(2!)³−3×5!/(2!)²+3×4!/2!−3!=90−90+36−6=30.",
+        "Convention: The printed worked solution says 24, but independent multiset enumeration gives 30.",
+        "Answer: 30."
+      ],
+      "assumptions": "The printed worked solution says 24, but independent multiset enumeration gives 30.",
+      "options": [
+        "26",
+        "34",
+        "30",
+        "61"
+      ],
+      "correctIndex": 2,
+      "language": "en",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-028:hi",
+      "stem": "तीन रंगों की दो-दो समान गेंदें छह लगातार कोशिकाओं में रखें। पड़ोसी गेंदों का रंग अलग हो। कितने पैटर्न हैं?",
+      "answer": "30",
+      "explanation": [
+        "पहले सभी परिणाम गिनें। प्रतिबंध तोड़ने वाले परिणाम घटाएँ; जो एक से अधिक बार घटे हैं, उन्हें प्रतिच्छेद की गणना से वापस जोड़ें।",
+        "गणना:\n– - : 6!/(2!)³−3×5!/(2!)²+3×4!/2!−3!=90−90+36−6=30",
+        "अतः उत्तर: 30."
+      ],
+      "assumptions": "The printed worked solution says 24, but independent multiset enumeration gives 30.",
+      "options": [
+        "26",
+        "34",
+        "30",
+        "61"
+      ],
+      "correctIndex": 2,
+      "language": "hi",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-028:pa",
+      "stem": "ਤਿੰਨ ਰੰਗਾਂ ਦੀਆਂ ਦੋ-ਦੋ ਇੱਕੋ ਜਿਹੀਆਂ ਗੇਂਦਾਂ ਛੇ ਲਗਾਤਾਰ ਖਾਨਿਆਂ ਵਿੱਚ ਰੱਖੋ। ਗੁਆਂਢੀ ਗੇਂਦਾਂ ਦਾ ਰੰਗ ਵੱਖਰਾ ਹੋਵੇ। ਕਿੰਨੇ ਨਮੂਨੇ ਹਨ?",
+      "answer": "30",
+      "explanation": [
+        "ਪਹਿਲਾਂ ਸਾਰੇ ਨਤੀਜੇ ਗਿਣੋ। ਪਾਬੰਦੀ ਤੋੜਨ ਵਾਲੇ ਨਤੀਜੇ ਘਟਾਓ; ਜੋ ਇੱਕ ਤੋਂ ਵੱਧ ਵਾਰ ਘਟੇ ਹਨ, ਉਨ੍ਹਾਂ ਨੂੰ ਸਾਂਝੇ ਮਾਮਲਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਵਾਪਸ ਜੋੜੋ।",
+        "ਗਿਣਤੀ:\n– - : 6!/(2!)³−3×5!/(2!)²+3×4!/2!−3!=90−90+36−6=30",
+        "ਇਸ ਲਈ ਉੱਤਰ: 30."
+      ],
+      "assumptions": "The printed worked solution says 24, but independent multiset enumeration gives 30.",
+      "options": [
+        "26",
+        "34",
+        "30",
+        "61"
+      ],
+      "correctIndex": 2,
+      "language": "pa",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-029",
+      "stem": "Three unit squares sit side by side in one strip. Both diagonals are drawn in each square. Including triangles larger than one square, how many triangles have all three sides on drawn segments?",
+      "answer": "28",
+      "explanation": [
+        "Each square contributes eight triangles. Each adjacent square pair contributes two more. Total 3×8+2×2=28.",
+        "Answer: 28."
+      ],
+      "options": [
+        "57",
+        "32",
+        "24",
+        "28"
+      ],
+      "correctIndex": 3,
+      "language": "en",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-029:hi",
+      "stem": "तीन इकाई वर्ग एक कतार में जुड़े हैं। हर वर्ग के दोनों विकर्ण खींचे हैं। खींचे खंडों पर सभी भुजाओं वाले छोटे-बड़े कुल कितने त्रिभुज हैं?",
+      "answer": "28",
+      "explanation": [
+        "दी गई शर्तों के पूर्णांक मान जाँचें। अलग स्थितियों की गणनाएँ जोड़ें और साथ होने वाले स्वतंत्र चरणों की संख्याएँ गुणा करें।",
+        "गणना:\n3×8+2×2=28",
+        "अतः उत्तर: 28."
+      ],
+      "options": [
+        "57",
+        "32",
+        "24",
+        "28"
+      ],
+      "correctIndex": 3,
+      "language": "hi",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-029:pa",
+      "stem": "ਤਿੰਨ ਇਕਾਈ ਵਰਗ ਇੱਕ ਕਤਾਰ ਵਿੱਚ ਜੁੜੇ ਹਨ। ਹਰ ਵਰਗ ਦੇ ਦੋਵੇਂ ਵਿਕਰਣ ਖਿੱਚੇ ਹਨ। ਖਿੱਚੇ ਖੰਡਾਂ ਉੱਤੇ ਸਾਰੀਆਂ ਭੁਜਾਵਾਂ ਵਾਲੇ ਛੋਟੇ-ਵੱਡੇ ਕੁੱਲ ਕਿੰਨੇ ਤਿਕੋਣ ਹਨ?",
+      "answer": "28",
+      "explanation": [
+        "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਦੇ ਪੂਰਨ ਅੰਕ ਮੁੱਲ ਜਾਂਚੋ। ਵੱਖਰੀਆਂ ਸਥਿਤੀਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਇਕੱਠੇ ਹੋਣ ਵਾਲੇ ਸੁਤੰਤਰ ਪੜਾਵਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਗੁਣਾ ਕਰੋ।",
+        "ਗਿਣਤੀ:\n3×8+2×2=28",
+        "ਇਸ ਲਈ ਉੱਤਰ: 28."
+      ],
+      "options": [
+        "57",
+        "32",
+        "24",
+        "28"
+      ],
+      "correctIndex": 3,
+      "language": "pa",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-038",
+      "stem": "Choose three cell centres from a 3×4 square-cell grid, with the centres not collinear. How many sets are possible?",
+      "answer": "200",
+      "explanation": [
+        "All C(12,3)=220 triples, minus twelve horizontal, four vertical and four diagonal triples. Answer 200.",
+        "Answer: 200."
+      ],
+      "options": [
+        "200",
+        "228",
+        "172",
+        "401"
+      ],
+      "correctIndex": 0,
+      "language": "en",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-038:hi",
+      "stem": "3×4 इकाई-वर्ग ग्रिड के तीन कोशिका-केंद्र चुनें, वे समरेखीय न हों। कितने चयन हैं?",
+      "answer": "200",
+      "explanation": [
+        "समूह में चयन का क्रम महत्व नहीं रखता, इसलिए C(n,r) का प्रयोग करें। नामित समूह और अलग पद अलग परिणाम देते हैं। वितरण में समान वस्तुओं की मात्राएँ गिनें और दी गई सीमाएँ लागू करें।",
+        "गणना:\nC(12,3)=220",
+        "अतः उत्तर: 200."
+      ],
+      "options": [
+        "200",
+        "228",
+        "172",
+        "401"
+      ],
+      "correctIndex": 0,
+      "language": "hi",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-038:pa",
+      "stem": "3×4 ਇਕਾਈ-ਵਰਗ ਜਾਲ ਦੇ ਤਿੰਨ ਖਾਨਾ-ਕੇਂਦਰ ਚੁਣੋ, ਉਹ ਸਮਰੇਖੀ ਨਾ ਹੋਣ। ਕਿੰਨੀਆਂ ਚੋਣਾਂ ਹਨ?",
+      "answer": "200",
+      "explanation": [
+        "ਸਮੂਹ ਵਿੱਚ ਚੋਣ ਦਾ ਕ੍ਰਮ ਮਹੱਤਵ ਨਹੀਂ ਰੱਖਦਾ, ਇਸ ਲਈ C(n,r) ਵਰਤੋ। ਨਾਮਿਤ ਸਮੂਹ ਅਤੇ ਵੱਖਰੇ ਅਹੁਦੇ ਵੱਖਰੇ ਨਤੀਜੇ ਦਿੰਦੇ ਹਨ। ਵੰਡ ਵਿੱਚ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ ਦੀਆਂ ਮਾਤਰਾਵਾਂ ਗਿਣੋ ਅਤੇ ਦਿੱਤੀਆਂ ਹੱਦਾਂ ਲਾਗੂ ਕਰੋ।",
+        "ਗਿਣਤੀ:\nC(12,3)=220",
+        "ਇਸ ਲਈ ਉੱਤਰ: 200."
+      ],
+      "options": [
+        "200",
+        "228",
+        "172",
+        "401"
+      ],
+      "correctIndex": 0,
+      "language": "pa",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-043",
+      "stem": "A grid has horizontal row lengths 2,2,6,6,2,2. Place eight identical balls in different cells: six in one row and two in exactly one other row. How many patterns are possible?",
+      "answer": "38",
+      "explanation": [
+        "The six-ball row has two choices. The other row contributes four two-cell rows or fifteen pairs in the remaining six-cell row: 2×(4+15)=38.",
+        "Answer: 38."
+      ],
+      "options": [
+        "43",
+        "38",
+        "33",
+        "77"
+      ],
+      "correctIndex": 1,
+      "language": "en",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-043:hi",
+      "stem": "ग्रिड की क्षैतिज पंक्ति-लंबाइयाँ 2,2,6,6,2,2 हैं। आठ समान गेंदें अलग कोशिकाओं में रखें: एक पंक्ति में छह और केवल एक अन्य पंक्ति में दो। कितने पैटर्न हैं?",
+      "answer": "38",
+      "explanation": [
+        "दी गई शर्तों के पूर्णांक मान जाँचें। अलग स्थितियों की गणनाएँ जोड़ें और साथ होने वाले स्वतंत्र चरणों की संख्याएँ गुणा करें।",
+        "गणना:\n2×(4+15)=38",
+        "अतः उत्तर: 38."
+      ],
+      "options": [
+        "43",
+        "38",
+        "33",
+        "77"
+      ],
+      "correctIndex": 1,
+      "language": "hi",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "WORKED-043:pa",
+      "stem": "ਜਾਲ ਦੀਆਂ ਖਿਤਿਜੀ ਕਤਾਰ-ਲੰਬਾਈਆਂ 2,2,6,6,2,2 ਹਨ। ਅੱਠ ਇੱਕੋ ਜਿਹੀਆਂ ਗੇਂਦਾਂ ਵੱਖਰੇ ਖਾਨਿਆਂ ਵਿੱਚ ਰੱਖੋ: ਇੱਕ ਕਤਾਰ ਵਿੱਚ ਛੇ ਅਤੇ ਸਿਰਫ਼ ਇੱਕ ਹੋਰ ਕਤਾਰ ਵਿੱਚ ਦੋ। ਕਿੰਨੇ ਨਮੂਨੇ ਹਨ?",
+      "answer": "38",
+      "explanation": [
+        "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਦੇ ਪੂਰਨ ਅੰਕ ਮੁੱਲ ਜਾਂਚੋ। ਵੱਖਰੀਆਂ ਸਥਿਤੀਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਇਕੱਠੇ ਹੋਣ ਵਾਲੇ ਸੁਤੰਤਰ ਪੜਾਵਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਗੁਣਾ ਕਰੋ।",
+        "ਗਿਣਤੀ:\n2×(4+15)=38",
+        "ਇਸ ਲਈ ਉੱਤਰ: 38."
+      ],
+      "options": [
+        "43",
+        "38",
+        "33",
+        "77"
+      ],
+      "correctIndex": 1,
+      "language": "pa",
+      "group": "PNC-SOURCE-WORKED",
+      "difficulty": "Hard"
+    }
+  ],
+  "theoryIllustrations": [
+    {
+      "id": "THEORY-001",
+      "pdfPage": 813,
+      "description": "Unordered selection of two of three people",
+      "answer": "3"
+    },
+    {
+      "id": "THEORY-002",
+      "pdfPage": 814,
+      "description": "Two distinct offices from three people",
+      "answer": "6"
+    },
+    {
+      "id": "THEORY-003",
+      "pdfPage": 814,
+      "description": "Three-digit numbers from five nonzero digits, no repetition",
+      "answer": "60"
+    },
+    {
+      "id": "THEORY-004",
+      "pdfPage": 814,
+      "description": "ALLAHABAD repeated-letter arrangements",
+      "answer": "7560"
+    },
+    {
+      "id": "THEORY-005",
+      "pdfPage": 814,
+      "description": "Four distinguishable rings on three named fingers; order ignored",
+      "answer": "81"
+    },
+    {
+      "id": "THEORY-006",
+      "pdfPage": 814,
+      "description": "Select five of one hundred identical marbles",
+      "answer": "1"
+    },
+    {
+      "id": "THEORY-007",
+      "pdfPage": 814,
+      "description": "Twenty-seven identical marbles to four named people, empty permitted",
+      "answer": "4060"
+    },
+    {
+      "id": "THEORY-008",
+      "pdfPage": 815,
+      "description": "Distinct monomials of (a+b+c)^2 after collecting like terms",
+      "answer": "6"
+    },
+    {
+      "id": "THEORY-009",
+      "pdfPage": 815,
+      "description": "Trailing decimal zeroes of 1000!",
+      "answer": "249"
+    },
+    {
+      "id": "THEORY-010",
+      "pdfPage": 815,
+      "description": "Exponent of prime 3 in 24!",
+      "answer": "10"
+    },
+    {
+      "id": "THEORY-011",
+      "pdfPage": 816,
+      "description": "Axis-aligned squares in a 3×3 grid",
+      "answer": "14"
+    },
+    {
+      "id": "THEORY-012",
+      "pdfPage": 816,
+      "description": "Axis-aligned rectangles in a 3×3 grid",
+      "answer": "36"
+    },
+    {
+      "id": "TASK-001",
+      "pdfPage": 817,
+      "description": "Three specified letters together among seven distinct letters",
+      "answer": "720"
+    },
+    {
+      "id": "TASK-002",
+      "pdfPage": 817,
+      "description": "Specified pair never together among seven distinct letters",
+      "answer": "3600"
+    },
+    {
+      "id": "TASK-003",
+      "pdfPage": 817,
+      "description": "BEGINS with B and S at endpoints, either orientation",
+      "answer": "48"
+    },
+    {
+      "id": "TASK-004",
+      "pdfPage": 818,
+      "description": "Distinct positive sums of coin values 500,100,50,25,10,3,2,1",
+      "answer": "223"
+    }
+  ],
+  "theoryCorrections": [
+    {
+      "pdfPage": 815,
+      "reference": "Important result 18",
+      "correction": "Zero-or-more mixed selection count is (p+1)(q+1)2^r. For a nonempty selection subtract one from the entire product, not from only the distinct-object factor."
+    },
+    {
+      "pdfPage": 815,
+      "reference": "Prime exponent corollary",
+      "correction": "Use Σ floor(n/p^j), not floor(n!/p^j)."
+    },
+    {
+      "pdfPage": 813,
+      "reference": "Factorial domain",
+      "correction": "Elementary factorial is defined for nonnegative integers, including zero."
+    }
+  ]
+}
