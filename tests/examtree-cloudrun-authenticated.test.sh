@@ -13,9 +13,7 @@ for expected in \
   '/api/admin/commerce/orders/reconciliation/health' \
   '[[ "$status" == 403 ]]' \
   'requiresProviderVerification' \
-  "NODE"; do
-  # "NODE" is replaced below because the script intentionally uses Python.
-  [[ "$expected" == "NODE" ]] && continue
+  "identity mapping"; do
   grep -F -- "$expected" "$FILE" >/dev/null || { echo "FAIL: expected guard missing: $expected" >&2; exit 1; }
 done
 if grep -E -- 'curl .*--(data|data-raw|form)|--request (POST|PUT|PATCH|DELETE)|gcloud run jobs execute|gcloud scheduler jobs create|createCashfreeRefund' "$FILE" | grep -v '^#'; then
