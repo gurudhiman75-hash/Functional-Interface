@@ -16,7 +16,13 @@ case "$*" in
   "iam service-accounts create "*) ;;
   "monitoring policies list "*) echo 'Examtree - daily Neon backup failed' ;;
   "storage buckets add-iam-policy-binding "*) ;;
-  "run jobs deploy "*) ;;
+  "run jobs deploy "*)
+    # Gen2 rejects <512Mi with always-allocated 1 vCPU.
+    case " $* " in
+      *' --memory=512Mi --cpu=1 '*) ;;
+      *) echo 'FAIL: watchdog deploy did not request 512Mi with 1 CPU' >&2; exit 21 ;;
+    esac
+    ;;
   "run jobs add-iam-policy-binding "*) ;;
   "run jobs execute "*)
     echo 'ERROR: test-only simulated read-only freshness probe failed' >&2
@@ -36,6 +42,7 @@ if bash "$ROOT/ops/neon-backup-freshness/deploy.sh" --apply > "$WORK/output.log"
 fi
 grep -q 'backup freshness deployment stopped at: check real private daily backup objects today' "$WORK/output.log"
 grep -q 'run jobs execute examtree-neon-backup-freshness' "$WORK/calls.log"
+grep -q -- '--memory=512Mi --cpu=1' "$WORK/calls.log"
 if grep -q 'scheduler jobs create' "$WORK/calls.log" || grep -q 'monitoring policies create' "$WORK/calls.log"; then
   echo 'FAIL: unexpected schedule or alert after first probe failure' >&2
   exit 1
