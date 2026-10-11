@@ -1,5 +1,6 @@
 import {pncSourceReviewPackage, generatePncSourceReviewBatch} from "../quant-pnc-source-review";
 import {pncReviewPackages, generatePncReviewBatch} from "../quant-pnc-review";
+import { sriEnginePackages, generateSriEngineBatch } from "../quant-surds-indices";
 import { tsdAuditReviewEnginePackage, generateTsdAuditReviewBatch } from "../quant-tsd-audit-review";
 import {
   generateQuestion as generateQuantV4Question,
@@ -580,6 +581,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       else packages.push(shared);
     };
 
+    for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
+
     const avgPackage = listQuantV4QuestionStudioPackages()
       .find((pkg: any) => pkg.packageId === "AVG-001");
     if (avgPackage) {
@@ -709,6 +712,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    const sri = await generateSriEngineBatch(request);
+    if (sri) return sri;
     if (isAverageEngineRequest(request)) {
       return generateQuantV4QuestionStudioQuestion({
         packageId: "AVG-001",

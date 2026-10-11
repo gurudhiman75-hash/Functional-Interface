@@ -123,10 +123,11 @@ export function auditSriPermanentMultilingualFreezeV1() {
     frozenSolveModeCount: SRI_CHAPTER_MANIFEST.frozenSolveModeCount,
     englishFrozen: SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen,
     multilingualFrozen: SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen,
+    questionStudioReviewEnabled:
+      SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable
+      && SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled,
     downstreamLocked:
-      !SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable
-      && !SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled
-      && !SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled
+      !SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled
       && !SRI_CHAPTER_MANIFEST.lifecycle.testEligibilityEnabled
       && !SRI_CHAPTER_MANIFEST.lifecycle.publicPublicationEnabled,
   });

@@ -1,0 +1,1207 @@
+{
+  "scope": "REGISTRY_AND_EXISTING_AUTHORITY_RECONCILIATION",
+  "sourceHead": "8ad6519756556abaddecf67c96b8f901ef07bd1c",
+  "freshChapterSourceAuditCertified": false,
+  "liveVerification": "DEFERRED_BY_USER",
+  "existingClosurePreserved": [
+    "PNC",
+    "TSD",
+    "SAP",
+    "TMW",
+    "RAP",
+    "Mensuration",
+    "Probability",
+    "Statistics",
+    "DI"
+  ],
+  "unifiedPackages": [
+    {
+      "packageId": "AVG-001",
+      "chapter": "Average",
+      "cpIds": [
+        "AVG-CP-001",
+        "AVG-CP-002",
+        "AVG-CP-003",
+        "AVG-CP-004",
+        "AVG-CP-005",
+        "AVG-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "BANK_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-001",
+      "chapter": "Table Interpretation",
+      "cpIds": [
+        "DI-CP-001"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-002",
+      "chapter": "Advanced Table",
+      "cpIds": [
+        "DI-CP-002"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-003",
+      "chapter": "Grouped Bar Chart",
+      "cpIds": [
+        "DI-CP-003",
+        "DI-CP-003-SINGLE",
+        "DI-CP-003-STACKED"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-004",
+      "chapter": "Line Graph",
+      "cpIds": [
+        "DI-CP-004",
+        "DI-CP-004-SINGLE",
+        "DI-CP-004-MULTI"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-005",
+      "chapter": "Pie Chart",
+      "cpIds": [
+        "DI-CP-005",
+        "DI-CP-005-FULLY-VISIBLE",
+        "DI-CP-005-COMPARATIVE",
+        "DI-CP-005-DONUT"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-006",
+      "chapter": "Caselet",
+      "cpIds": [
+        "DI-CP-006",
+        "DI-CP-006-ADVANCED"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-007",
+      "chapter": "Missing Data",
+      "cpIds": [
+        "DI-CP-007"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-008",
+      "chapter": "Arithmetic DI",
+      "cpIds": [
+        "DI-CP-008",
+        "DI-CP-008-ADVANCED"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-009",
+      "chapter": "Histogram",
+      "cpIds": [
+        "DI-CP-009"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-010",
+      "chapter": "Frequency Polygon",
+      "cpIds": [
+        "DI-CP-010"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-011",
+      "chapter": "Mixed / Multi-Chart DI",
+      "cpIds": [
+        "DI-CP-011"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-012",
+      "chapter": "Advanced Variable / Multi-Missing DI",
+      "cpIds": [
+        "DI-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-013",
+      "chapter": "Radar / Web Chart",
+      "cpIds": [
+        "DI-CP-013"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-014",
+      "chapter": "Radar + Pie Hybrid",
+      "cpIds": [
+        "DI-CP-014"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "DI-MIX-001",
+      "chapter": "Chapter Delivery Mix",
+      "cpIds": [
+        "DI-CP-MIX-001"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "GEO-001",
+      "chapter": "Geometry",
+      "cpIds": [
+        "GEO-CP-001",
+        "GEO-CP-002",
+        "GEO-CP-003",
+        "GEO-CP-004",
+        "GEO-CP-005",
+        "GEO-CP-006",
+        "GEO-CP-007",
+        "GEO-CP-008",
+        "GEO-CP-009",
+        "GEO-CP-010",
+        "GEO-CP-011",
+        "GEO-CP-012",
+        "GEO-CP-013",
+        "GEO-CP-014"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "MAL-001",
+      "chapter": "Mixture & Alligation",
+      "cpIds": [
+        "MAL-CP-001",
+        "MAL-CP-002",
+        "MAL-CP-003",
+        "MAL-CP-004",
+        "MAL-CP-005",
+        "MAL-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "MEN-001",
+      "chapter": "Mensuration",
+      "cpIds": [
+        "MEN-CP-001",
+        "MEN-CP-002"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "MEN-002",
+      "chapter": "Mensuration",
+      "cpIds": [
+        "MEN-CP-009"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "MENSURATION",
+      "chapter": "Mensuration",
+      "cpIds": [
+        "MEN-CP-001",
+        "MEN-CP-002",
+        "MEN-CP-003",
+        "MEN-CP-004",
+        "MEN-CP-005",
+        "MEN-CP-006",
+        "MEN-CP-007",
+        "MEN-CP-008",
+        "MEN-CP-009",
+        "MEN-CP-010",
+        "MEN-CP-011",
+        "MEN-CP-012",
+        "MEN-CP-013"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "NUM-001",
+      "chapter": "Number System",
+      "cpIds": [
+        "NUM-CP-001",
+        "NUM-CP-003",
+        "NUM-CP-004"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": {
+        "NUM-CP-001": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "NUM-CP-003": [
+          "en"
+        ],
+        "NUM-CP-004": [
+          "en"
+        ]
+      }
+    },
+    {
+      "packageId": "PCT-001",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-002",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-003",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-004",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-005",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-006",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PCT-007",
+      "chapter": "Percentage",
+      "cpIds": [
+        "PCT-CP-001",
+        "PCT-CP-002",
+        "PCT-CP-003",
+        "PCT-CP-004",
+        "PCT-CP-005",
+        "PCT-CP-006",
+        "PCT-CP-007",
+        "PCT-CP-008",
+        "PCT-CP-009",
+        "PCT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PNC-001",
+      "chapter": "Permutation & Combination",
+      "cpIds": [
+        "PNC-CP-001",
+        "PNC-CP-002",
+        "PNC-CP-003",
+        "PNC-CP-004",
+        "PNC-CP-005",
+        "PNC-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PNC-002",
+      "chapter": "Permutation & Combination",
+      "cpIds": [
+        "PNC-CP-007",
+        "PNC-CP-008",
+        "PNC-CP-009",
+        "PNC-CP-010",
+        "PNC-CP-011",
+        "PNC-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PNC-SOURCE-REVIEW",
+      "chapter": "Permutation & Combination",
+      "cpIds": [
+        "PNC-SOURCE-GEOMETRY",
+        "PNC-SOURCE-SUBSET",
+        "PNC-SOURCE-EXACT-DIGIT",
+        "PNC-SOURCE-BOUNDED-SCORE",
+        "PNC-SOURCE-EXERCISES",
+        "PNC-SOURCE-WORKED"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PNL-001",
+      "chapter": "Profit & Loss",
+      "cpIds": [
+        "PNL-CP-001",
+        "PNL-CP-002",
+        "PNL-CP-003",
+        "PNL-CP-004",
+        "PNL-CP-005",
+        "PNL-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PRB-001",
+      "chapter": "Probability",
+      "cpIds": [
+        "PRB-CP-001",
+        "PRB-CP-002",
+        "PRB-CP-003",
+        "PRB-CP-004",
+        "PRB-CP-005"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PRB-002",
+      "chapter": "Probability",
+      "cpIds": [
+        "PRB-CP-006",
+        "PRB-CP-007",
+        "PRB-CP-008",
+        "PRB-CP-009"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "PRT-001",
+      "chapter": "Partnership",
+      "cpIds": [
+        "PRT-CP-001",
+        "PRT-CP-002",
+        "PRT-CP-003",
+        "PRT-CP-004",
+        "PRT-CP-005",
+        "PRT-CP-006",
+        "PRT-CP-007"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "RAP-001",
+      "chapter": "Ratio & Proportion",
+      "cpIds": [
+        "RAP-CP-001",
+        "RAP-CP-002",
+        "RAP-CP-003",
+        "RAP-CP-004",
+        "RAP-CP-005",
+        "RAP-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "RAP-002",
+      "chapter": "Ratio & Proportion",
+      "cpIds": [
+        "RAP-CP-007",
+        "RAP-CP-008",
+        "RAP-CP-009",
+        "RAP-CP-010",
+        "RAP-CP-011",
+        "RAP-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "RAP-003",
+      "chapter": "Ratio & Proportion",
+      "cpIds": [
+        "RAP-CP-014",
+        "RAP-CP-015",
+        "RAP-CP-016",
+        "RAP-CP-017",
+        "RAP-CP-018",
+        "RAP-CP-019",
+        "RAP-CP-020",
+        "RAP-CP-021",
+        "RAP-CP-022"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "SAP",
+      "chapter": "Simplification & Approximation",
+      "cpIds": [
+        "SAP-CP-001",
+        "SAP-CP-002",
+        "SAP-CP-003",
+        "SAP-CP-004",
+        "SAP-CP-005",
+        "SAP-CP-006",
+        "SAP-CP-007",
+        "SAP-CP-008",
+        "SAP-CP-009",
+        "SAP-CP-010",
+        "SAP-CP-011",
+        "SAP-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "SRI-001",
+      "chapter": "Surds & Indices",
+      "cpIds": [
+        "SRI-CP-001",
+        "SRI-CP-002",
+        "SRI-CP-003",
+        "SRI-CP-004",
+        "SRI-CP-005",
+        "SRI-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "SRI-002",
+      "chapter": "Surds & Indices",
+      "cpIds": [
+        "SRI-CP-007",
+        "SRI-CP-008",
+        "SRI-CP-009",
+        "SRI-CP-010",
+        "SRI-CP-011",
+        "SRI-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-001",
+      "chapter": "Measures of Central Tendency",
+      "cpIds": [
+        "STAT-CP-001"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-002",
+      "chapter": "Standard Deviation",
+      "cpIds": [
+        "STAT-CP-002"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-003",
+      "chapter": "Frequency Distribution & Central Tendency",
+      "cpIds": [
+        "STAT-CP-003"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-004",
+      "chapter": "Data Foundations",
+      "cpIds": [
+        "STAT-CP-004"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-005",
+      "chapter": "Partition Values & Dispersion",
+      "cpIds": [
+        "STAT-CP-005"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-006",
+      "chapter": "Moments, Skewness & Kurtosis",
+      "cpIds": [
+        "STAT-CP-006"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-007",
+      "chapter": "Correlation and Regression",
+      "cpIds": [
+        "STAT-CP-007"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-008",
+      "chapter": "Probability Theory",
+      "cpIds": [
+        "STAT-CP-008"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-009",
+      "chapter": "Random Variables and Probability Distributions",
+      "cpIds": [
+        "STAT-CP-009"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-010",
+      "chapter": "Sampling Theory",
+      "cpIds": [
+        "STAT-CP-010"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-011",
+      "chapter": "Statistical Inference",
+      "cpIds": [
+        "STAT-CP-011"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-012",
+      "chapter": "Analysis of Variance",
+      "cpIds": [
+        "STAT-CP-012"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-013",
+      "chapter": "Time Series Analysis",
+      "cpIds": [
+        "STAT-CP-013"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "STAT-014",
+      "chapter": "Index Numbers",
+      "cpIds": [
+        "STAT-CP-014"
+      ],
+      "languages": [
+        "en"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TMW-001",
+      "chapter": "Time & Work",
+      "cpIds": [
+        "TMW-CP-001",
+        "TMW-CP-002",
+        "TMW-CP-003",
+        "TMW-CP-004",
+        "TMW-CP-005",
+        "TMW-CP-006",
+        "TMW-CP-007",
+        "TMW-CP-008",
+        "TMW-CP-009",
+        "TMW-CP-010",
+        "TMW-CP-011",
+        "TMW-CP-012",
+        "TMW-CP-013",
+        "TMW-CP-014"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TRG-001",
+      "chapter": "Trigonometry — Ratios, Values & Identities",
+      "cpIds": [
+        "TRG-CP-001",
+        "TRG-CP-002",
+        "TRG-CP-003",
+        "TRG-CP-004",
+        "TRG-CP-005",
+        "TRG-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TRG-002",
+      "chapter": "Trigonometry — Heights & Distances",
+      "cpIds": [
+        "TRG-CP-007",
+        "TRG-CP-008",
+        "TRG-CP-009",
+        "TRG-CP-010"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "LEGACY_DECLARED_GATES",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TSD-001",
+      "chapter": "Time, Speed & Distance",
+      "cpIds": [
+        "TSD-CP-005",
+        "TSD-CP-006"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TSD-002",
+      "chapter": "Time, Speed & Distance",
+      "cpIds": [
+        "TSD-CP-007",
+        "TSD-CP-008",
+        "TSD-CP-009",
+        "TSD-CP-010",
+        "TSD-CP-011",
+        "TSD-CP-012"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    },
+    {
+      "packageId": "TSD-AUDIT-REVIEW",
+      "chapter": "Time, Speed & Distance",
+      "cpIds": [
+        "TSD-CP-003",
+        "TSD-CP-004",
+        "TSD-CP-005",
+        "TSD-CP-006",
+        "TSD-CP-007",
+        "TSD-CP-008",
+        "TSD-CP-009",
+        "TSD-CP-010",
+        "TSD-CP-011",
+        "TSD-CP-012",
+        "TSD-SOURCE-EXTENSIONS"
+      ],
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "cpLanguagePolicy": null
+    }
+  ],
+  "dedicatedAuthorities": [
+    {
+      "packageId": "ALGEBRA",
+      "chapter": "Algebra",
+      "permanentQls": 43,
+      "checkpoints": 14,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "BANK_ONLY",
+      "authority": "algebra-question-bank-activation-v1.ts",
+      "unifiedRegistered": false
+    },
+    {
+      "packageId": "INT-001",
+      "chapter": "Interest",
+      "permanentQls": 133,
+      "checkpoints": 10,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "int-001-chapter-question-studio-admin-adapter-v1.ts",
+      "unifiedRegistered": false
+    },
+    {
+      "packageId": "NUM-002",
+      "chapter": "Number System CP008–014",
+      "permanentQls": 88,
+      "checkpoints": 7,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "shared-generation-engine-cp014.ts",
+      "unifiedRegistered": false
+    },
+    {
+      "packageId": "SRI-001",
+      "chapter": "Surds & Indices",
+      "permanentQls": 29,
+      "checkpoints": 6,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "SurdsAndIndices/question-studio-v1.ts",
+      "unifiedRegistered": true
+    },
+    {
+      "packageId": "SRI-002",
+      "chapter": "Surds & Indices",
+      "permanentQls": 29,
+      "checkpoints": 6,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "SurdsAndIndices/question-studio-v1.ts",
+      "unifiedRegistered": true
+    }
+  ],
+  "confirmedRemainingUnifiedRoutingGaps": [
+    {
+      "packageId": "ALGEBRA",
+      "chapter": "Algebra",
+      "permanentQls": 43,
+      "checkpoints": 14,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "BANK_ONLY",
+      "authority": "algebra-question-bank-activation-v1.ts"
+    },
+    {
+      "packageId": "INT-001",
+      "chapter": "Interest",
+      "permanentQls": 133,
+      "checkpoints": 10,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "int-001-chapter-question-studio-admin-adapter-v1.ts"
+    },
+    {
+      "packageId": "NUM-002",
+      "chapter": "Number System CP008–014",
+      "permanentQls": 88,
+      "checkpoints": 7,
+      "languages": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "stage": "REVIEW_ONLY",
+      "authority": "shared-generation-engine-cp014.ts"
+    }
+  ],
+  "resolvedInThisChange": {
+    "chapter": "Surds & Indices",
+    "packages": [
+      "SRI-001",
+      "SRI-002"
+    ],
+    "permanentQls": 58,
+    "unifiedSurfacesChecked": 696,
+    "languageDifficultyBatches": 18,
+    "checkpointRoutes": 12,
+    "dedicatedLanguageChecks": 174,
+    "dedicatedSeedDiversityChecks": 696,
+    "frozenEnglishRuntimeChecks": 928,
+    "frozenNativeRuntimeChecks": 2784,
+    "frozenAuthorityContentChanged": false,
+    "reviewOptionOrderChanged": true,
+    "scopedProductionTypeCheck": "PASS"
+  },
+  "capabilityReconciliationFollowups": [
+    "NUM-001 unified card exposes CP001/003/004; reconcile CP002/005/006/007 histories with the 14-CP final allocation before claiming whole-chapter unified exposure.",
+    "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",
+    "Statistics advertises English, consistent with its explicit Paper-II closure scope and disabled localization; this does not reopen mathematical closure.",
+    "DI-MIX-001 advertises English while individual DI packages advertise EN/HI/PA; review mix capability separately from individual chapter closure."
+  ]
+}

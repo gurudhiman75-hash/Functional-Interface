@@ -21,6 +21,7 @@ export const SRI_QUESTION_STUDIO_RELEASE_ID_V1 = "SRI-QS-MULTILINGUAL-FROZEN-V1"
 export const SRI_QUESTION_STUDIO_LANGUAGES_V1 = ["en", "hi", "pa"] as const;
 export const SRI_QUESTION_STUDIO_DIFFICULTIES_V1 = ["Easy", "Medium", "Hard"] as const;
 export const SRI_QUESTION_STUDIO_DIFFICULTY_POLICY_V1 = "SRI-QS-PERMANENT-CONTRACT-DIFFICULTY-V2" as const;
+export const SRI_QUESTION_STUDIO_OPTION_POLICY_V1 = "SRI-QS-SEEDED-BALANCED-ROTATION-V1" as const;
 
 export type SriQuestionStudioLanguageV1 = typeof SRI_QUESTION_STUDIO_LANGUAGES_V1[number];
 export type SriQuestionStudioDifficultyV1 = typeof SRI_QUESTION_STUDIO_DIFFICULTIES_V1[number];
@@ -46,8 +47,8 @@ const PACKAGE_LABELS: Readonly<Record<SriPermanentPackageId, string>> = Object.f
 });
 
 const PACKAGE_CHECKPOINTS: Readonly<Record<SriPermanentPackageId, readonly SriCheckpointId[]>> = Object.freeze({
-  "SRI-001": Object.freeze(["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"]),
-  "SRI-002": Object.freeze(["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"]),
+  "SRI-001": Object.freeze(["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"] as const),
+  "SRI-002": Object.freeze(["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"] as const),
 });
 
 /**
@@ -130,6 +131,14 @@ function stableOffset(value: string, modulo: number) {
   return digest.readUInt32BE(0) % modulo;
 }
 
+/** Balance within a batch and across numbered seed families without changing frozen authorities. */
+function optionOffset(batchSeed: string): number {
+  const numbered = /^(.*):(\d+)$/.exec(batchSeed);
+  return numbered
+    ? (stableOffset(`${numbered[1]}:option-order`, 4) + Number(BigInt(numbered[2]!) % 4n)) % 4
+    : stableOffset(`${batchSeed}:option-order`, 4);
+}
+
 function localeForLanguage(language: SriQuestionStudioLanguageV1) {
   return language === "en" ? "en-IN" as const : language === "hi" ? "hi-IN" as const : "pa-IN" as const;
 }
@@ -190,6 +199,7 @@ function normalizeFrozenQuestion(
   language: SriQuestionStudioLanguageV1,
   requestSeed: string,
   difficulty: SriQuestionStudioDifficultyV1,
+  presentationCorrectIndex: 0 | 1 | 2 | 3,
 ) {
   const question = authority.question as SriDiscoveryQuestion;
   if (
@@ -209,12 +219,16 @@ function normalizeFrozenQuestion(
   }
 
   const explanation = buildExplanation(question.explanation, language);
+  const rotation = (question.correctIndex - presentationCorrectIndex + 4) % 4;
+  const presentationOptions = [...question.options.slice(rotation), ...question.options.slice(0, rotation)];
   const identity = createHash("sha256").update(JSON.stringify({
     qlId: allocation.qlId,
     locale: localeForLanguage(language),
     seed: authority.sourceSeed,
     stem: question.stem,
     answer: question.answer.canonicalKey,
+    optionPresentationPolicy: SRI_QUESTION_STUDIO_OPTION_POLICY_V1,
+    presentationCorrectIndex,
   })).digest("hex").slice(0, 20);
 
   return Object.freeze({
@@ -227,13 +241,14 @@ function normalizeFrozenQuestion(
     retainedGroupId: allocation.retainedGroupId,
     questionId: `SRI-${allocation.qlId.slice(4)}-${language.toUpperCase()}-${identity}`,
     stem: question.stem,
-    options: Object.freeze(question.options.map((option) => option.text)),
-    optionMetadata: Object.freeze(question.options.map((option) => Object.freeze({
+    options: Object.freeze(presentationOptions.map((option) => option.text)),
+    optionMetadata: Object.freeze(presentationOptions.map((option) => Object.freeze({
       canonicalKey: option.canonicalKey,
       misconceptionId: option.misconceptionId,
       isCorrect: option.canonicalKey === question.answer.canonicalKey,
     }))),
-    correctIndex: question.correctIndex,
+    correctIndex: presentationCorrectIndex,
+    optionPresentationPolicy: SRI_QUESTION_STUDIO_OPTION_POLICY_V1,
     answer: question.answer.text,
     canonicalAnswerKey: question.answer.canonicalKey,
     difficultyBand: difficulty,
@@ -278,6 +293,8 @@ function normalizeFrozenQuestion(
       sourceSeed: authority.sourceSeed,
       englishFingerprint: authority.englishFingerprint,
       difficultyPolicy: SRI_QUESTION_STUDIO_DIFFICULTY_POLICY_V1,
+      optionPresentationPolicy: SRI_QUESTION_STUDIO_OPTION_POLICY_V1,
+      sourceCorrectIndex: question.correctIndex,
       questionStudioDiscoverable: true as const,
       questionStudioGenerationEnabled: true as const,
       questionBankWritable: false as const,
@@ -312,6 +329,7 @@ function toPreview(pkg: ReturnType<typeof normalizeFrozenQuestion>, index: numbe
     difficulty: pkg.difficultyBand,
     difficultyLabel: pkg.difficultyBand,
     difficultyPolicy: pkg.difficultyPolicy,
+    optionPresentationPolicy: pkg.optionPresentationPolicy,
     patternId: pkg.packageId,
     section: "Quant",
     subject: "Quantitative Aptitude",
@@ -431,6 +449,7 @@ function eligibleAllocations(request: SriQuestionStudioRequestV1, difficulty: Sr
   if (explicitQl && !isSriQlId(explicitQl)) throw new Error(`${explicitQl} is not a permanent SRI QL.`);
 
   if (explicitQl) {
+    if (!isSriQlId(explicitQl)) throw new Error(`${explicitQl} is not a permanent SRI QL.`);
     const allocation = getSriPermanentAllocationByQlId(explicitQl);
     if (packageId && allocation.packageId !== packageId) throw new Error(`${explicitQl} is not owned by ${packageId}.`);
     if (checkpointId && allocation.checkpointId !== checkpointId) throw new Error(`${explicitQl} is not owned by ${checkpointId}.`);
@@ -455,6 +474,7 @@ export async function generateSriQuestionStudioBatchV1(request: SriQuestionStudi
   const allocations = eligibleAllocations(request, requestedDifficulty);
   const batchSeed = request.seed?.trim() || `question-studio:SRI:${language}:${randomUUID()}`;
   const offset = stableOffset(`${batchSeed}:ql-offset`, allocations.length);
+  const optionStart = optionOffset(batchSeed);
   const questionPackages = [];
   const questions = [];
 
@@ -463,7 +483,7 @@ export async function generateSriQuestionStudioBatchV1(request: SriQuestionStudi
     const itemSeed = `${batchSeed}:${allocation.qlId}:${index}`;
     const difficulty = difficultyForAllocation(allocation);
     const authority = generateFrozenAuthority(allocation.qlId, itemSeed, language);
-    const normalized = normalizeFrozenQuestion(authority, allocation, language, itemSeed, difficulty);
+    const normalized = normalizeFrozenQuestion(authority, allocation, language, itemSeed, difficulty, ((optionStart + index) % 4) as 0 | 1 | 2 | 3);
     questionPackages.push(normalized);
     questions.push(toPreview(normalized, index, count));
   }

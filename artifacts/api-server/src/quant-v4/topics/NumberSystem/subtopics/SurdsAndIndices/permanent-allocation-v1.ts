@@ -49,7 +49,7 @@ export interface SriPermanentAllocationEntryV1 {
   readonly publiclyPublishable: false;
 }
 
-const retainedById = new Map(SRI_RETAINED_CONTRACTS_R1.map((group) => [group.retainedGroupId, group] as const));
+const retainedById = new Map<string, SriRetainedContractR1>(SRI_RETAINED_CONTRACTS_R1.map((group) => [group.retainedGroupId, group] as const));
 const unresolvedGroupIds = new Set(SRI_R1_UNRESOLVED_SOURCE_GATES.map((item) => item.retainedGroupId));
 
 function localId(packageId: SriPermanentPackageId, kind: "QL" | "SM", index: number): SriPermanentQlId | SriPermanentSolveModeId {
@@ -98,7 +98,7 @@ export const SRI_PERMANENT_ALLOCATION_V1: readonly SriPermanentAllocationEntryV1
 ];
 
 const allocationByQlId = new Map(SRI_PERMANENT_ALLOCATION_V1.map((entry) => [entry.qlId, entry] as const));
-const allocationByRetainedGroupId = new Map(SRI_PERMANENT_ALLOCATION_V1.map((entry) => [entry.retainedGroupId, entry] as const));
+const allocationByRetainedGroupId = new Map<string, SriPermanentAllocationEntryV1>(SRI_PERMANENT_ALLOCATION_V1.map((entry) => [entry.retainedGroupId, entry] as const));
 
 export function getSriPermanentAllocationByQlId(qlId: SriPermanentQlId): SriPermanentAllocationEntryV1 {
   const entry = allocationByQlId.get(qlId);

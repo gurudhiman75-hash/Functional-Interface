@@ -25,7 +25,7 @@ export function textAnswer(text: string, canonicalKey = `T:${text}`): SriCandida
 }
 
 export function rationalDistractors(value: Rational): SriDistractor[] {
-  const candidates: readonly [Rational, string][] = [
+  const candidates: readonly (readonly [Rational, string])[] = [
     [addRational(value, rational(1)), "OFF_BY_ONE"],
     [subtractRational(value, rational(1)), "OFF_BY_ONE"],
     [multiplyRational(value, rational(2)), "DOUBLE_RESULT"],
