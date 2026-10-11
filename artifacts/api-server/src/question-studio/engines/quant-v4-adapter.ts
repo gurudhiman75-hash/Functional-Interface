@@ -1,3 +1,5 @@
+import {pncSourceReviewPackage, generatePncSourceReviewBatch} from "../quant-pnc-source-review";
+import {pncReviewPackages, generatePncReviewBatch} from "../quant-pnc-review";
 import { tsdAuditReviewEnginePackage, generateTsdAuditReviewBatch } from "../quant-tsd-audit-review";
 import {
   generateQuestion as generateQuantV4Question,
@@ -694,6 +696,8 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       tsd001EnginePackage(),
       tsd002EnginePackage(),
       tsdAuditReviewEnginePackage(),
+      ...pncReviewPackages(),
+      pncSourceReviewPackage(),
       toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
@@ -728,6 +732,10 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
 
+    const pncSource = generatePncSourceReviewBatch(request);
+    if (pncSource) return pncSource;
+    const pnc = generatePncReviewBatch(request);
+    if (pnc) return pnc;
     const auditedTsd = generateTsdAuditReviewBatch(request);
     if (auditedTsd) return auditedTsd;
     const timeSpeedDistance = await generateTsdEngineBatch(request);

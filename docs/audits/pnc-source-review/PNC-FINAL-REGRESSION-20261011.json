@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/geometry-counting.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"mathematicalCases\":720,\"generatedPackages\":216}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/subset-counting.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"checked\":42,\"sourceCases\":5}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/exact-digit-counting.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"domainCases\":114,\"sourceCases\":3}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/bounded-score-counting.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"domainCases\":54,\"source13\":110551,\"source50Exactly\":64906,\"source50AtLeast\":2271181}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/constrained-digits.test.ts",
+      "status": "PASS",
+      "evidence": "I-019 63\n{\"domains\":432,\"sourceCases\":44,\"status\":\"PASS\"}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/extended-counting.test.ts",
+      "status": "PASS",
+      "evidence": "{\"domains\":155,\"sourceCases\":143,\"allSourceExercises\":187,\"status\":\"PASS\"}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/worked-source-cases.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"workedProblems\":46,\"sourceCorrection\":\"17.28 \u2192 30\"}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/theory-illustrations.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"theoryAndInlineTasks\":16,\"valuationCases\":305}"
+    },
+    {
+      "test": "src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/source-review/complete-source-catalogue.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"sourceExerciseSurfaces\":561,\"workedSurfaces\":138,\"rows\":699}"
+    },
+    {
+      "test": "src/question-studio/quant-pnc-review.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"learnerSurfaces\":807,\"difficultyBatches\":6}"
+    },
+    {
+      "test": "src/question-studio/quant-pnc-source-review.test.ts",
+      "status": "PASS",
+      "evidence": "{\"status\":\"PASS\",\"rows\":948,\"languageDifficultyBatches\":9}"
+    }
+  ],
+  "scopedTypeScript": "PASS"
+}

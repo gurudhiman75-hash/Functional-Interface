@@ -1,188 +1,188 @@
-source_id,level,question,pdf_page_candidate,section_pdf_pages,runtime_mapping,audit_status
-PNC-AS2018-LODI-001,I,1,824,824-829,PNC-QL-083,STRUCTURAL_MODEL_MATCH; No-zero digits without repetition; same counting structure. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-002,I,2,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-003,I,3,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-004,I,4,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-005,I,5,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-006,I,6,824,824-829,PNC-QL-003,STRUCTURAL_MODEL_MATCH; Two independent route stages. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-007,I,7,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-008,I,8,824,824-829,PNC-SOURCE-GEOMETRY-REVIEW/lines,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=8, k=3 checked; student release locked."
-PNC-AS2018-LODI-009,I,9,824,824-829,PNC-QL-074,STRUCTURAL_MODEL_MATCH; Complementary combination indices; existing QL changes the unknown. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-010,I,10,824,824-829,PNC-QL-059/060,STRUCTURAL_MODEL_MATCH; All letters distinct; factorial permutation. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-011,I,11,824,824-829,PNC-QL-075/076,STRUCTURAL_MODEL_MATCH; Repeated-letter permutation; clarify whether original arrangement is excluded before literal reproduction. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-012,I,12,824,824-829,PNC-QL-079/080,STRUCTURAL_MODEL_MATCH; Fix first letter and permute remaining multiset. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-013,I,13,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-014,I,14,824,824-829,PNC-QL-072,STRUCTURAL_MODEL_MATCH; Inverse combination parameter. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-015,I,15,824,824-829,PNC-QL-066,STRUCTURAL_MODEL_MATCH; Inverse selected permutation count. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-016,I,16,824,824-829,PNC-QL-084,STRUCTURAL_MODEL_MATCH; Zero allowed in digit pool but not leading position. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-017,I,17,824,824-829,PNC-QL-086,STRUCTURAL_MODEL_MATCH; Repeated digits with nonzero first digit. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-018,I,18,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-019,I,19,824,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-020,I,20,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-021,I,21,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-022,I,22,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-023,I,23,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-024,I,24,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-025,I,25,825,824-829,PNC-QL-064,STRUCTURAL_MODEL_MATCH; Two distinct roles assigned to distinct players. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-026,I,26,825,824-829,PNC-QL-004,STRUCTURAL_MODEL_MATCH; Product of envelope and stamp choices. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-027,I,27,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-028,I,28,825,824-829,CP011 grouping,STRUCTURAL_MODEL_MATCH; Labelled groups with fixed unequal occupancies; no within-room ordering. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-029,I,29,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-030,I,30,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-031,I,31,825,824-829,PNC-SOURCE-SUBSET-REVIEW/atMostDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
-PNC-AS2018-LODI-032,I,32,825,824-829,CP007 restrictions,STRUCTURAL_MODEL_MATCH; Subtract arrangements with specified adjacent pair. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-033,I,33,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-034,I,34,825,824-829,PNC-QL-009,STRUCTURAL_MODEL_MATCH; Three independent clothing choices. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-035,I,35,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-036,I,36,825,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-037,I,37,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/linesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
-PNC-AS2018-LODI-038,I,38,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
-PNC-AS2018-LODI-039,I,39,825,824-829,PNC-SOURCE-GEOMETRY-REVIEW/quadrilateralsWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=25, k=7 checked; student release locked."
-PNC-AS2018-LODI-040,I,40,,824-829,PNC-QL-062,STRUCTURAL_MODEL_MATCH; Ordered selection without replacement. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-041,I,41,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-042,I,42,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-043,I,43,,824-829,PNC-QL-067,STRUCTURAL_MODEL_MATCH; Unordered selection from distinct socks. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-044,I,44,,824-829,PNC-QL-068,STRUCTURAL_MODEL_MATCH; Unordered group without repetition. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-045,I,45,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-046,I,46,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-047,I,47,,824-829,PNC-QL-078,"STRUCTURAL_MODEL_MATCH; Two repeated digit types, no zero. Source parameter reproduction and localization pending."
-PNC-AS2018-LODI-048,I,48,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-049,I,49,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-050,I,50,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-051,I,51,826,824-829,PNC-SOURCE-SUBSET-REVIEW/boundedIdentical,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
-PNC-AS2018-LODI-052,I,52,826,824-829,PNC-SOURCE-SUBSET-REVIEW/nonemptyDistinct,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
-PNC-AS2018-LODI-053,I,53,826,824-829,PNC-SOURCE-SUBSET-REVIEW/eachDistinctCategory,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
-PNC-AS2018-LODI-054,I,54,826,824-829,PNC-SOURCE-SUBSET-REVIEW/optionalQuestions,REVIEW_MODEL_IMPLEMENTED; source parameters checked by independent enumeration; English only; localization and integration pending.
-PNC-AS2018-LODI-055,I,55,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-056,I,56,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-057,I,57,826,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-058,I,58,827,824-829,CP009 all-or-none specified members,STRUCTURAL_MODEL_MATCH; Both chosen or neither chosen. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-059,I,59,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-060,I,60,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-061,I,61,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-062,I,62,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-063,I,63,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-064,I,64,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-065,I,65,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-066,I,66,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-067,I,67,827,824-829,PNC-QL-106,STRUCTURAL_MODEL_MATCH; Multiset lexicographic rank; source word differs. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-068,I,68,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-069,I,69,827,824-829,PNC-SOURCE-GEOMETRY-REVIEW/triangles,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=9, k=3 checked; student release locked."
-PNC-AS2018-LODI-070,I,70,827,824-829,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,"REVIEW_MODEL_IMPLEMENTED; exact source parameters n=9, k=3 checked; student release locked."
-PNC-AS2018-LODI-071,I,71,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-072,I,72,827,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-073,I,73,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-074,I,74,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-075,I,75,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-076,I,76,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-077,I,77,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-078,I,78,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-079,I,79,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-080,I,80,828,824-829,PNC-QL-062,STRUCTURAL_MODEL_MATCH; Distinct symbols without replacement. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-081,I,81,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-082,I,82,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-083,I,83,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-084,I,84,828,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-085,I,85,828,824-829,CP011 identical-object distribution,STRUCTURAL_MODEL_MATCH; Weak composition over three labelled chocolate types. Source parameter reproduction and localization pending.
-PNC-AS2018-LODI-086,I,86,,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODI-087,I,87,829,824-829,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-001,II,1,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-002,II,2,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-003,II,3,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-004,II,4,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-005,II,5,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-006,II,6,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-007,II,7,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-008,II,8,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-009,II,9,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-010,II,10,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-011,II,11,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-012,II,12,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-013,II,13,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-014,II,14,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-015,II,15,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-016,II,16,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-017,II,17,830,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-018,II,18,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-019,II,19,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-020,II,20,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-021,II,21,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-022,II,22,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-023,II,23,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-024,II,24,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-025,II,25,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-026,II,26,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-027,II,27,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-028,II,28,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-029,II,29,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-030,II,30,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-031,II,31,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-032,II,32,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-033,II,33,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-034,II,34,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-035,II,35,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-036,II,36,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-037,II,37,831,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-038,II,38,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-039,II,39,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-040,II,40,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-041,II,41,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-042,II,42,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-043,II,43,,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-044,II,44,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-045,II,45,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-046,II,46,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-047,II,47,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-048,II,48,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-049,II,49,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODII-050,II,50,832,830-832,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-001,III,1,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-002,III,2,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-003,III,3,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-004,III,4,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-005,III,5,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-006,III,6,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-007,III,7,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-008,III,8,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-009,III,9,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-010,III,10,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-011,III,11,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-012,III,12,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-013,III,13,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-014,III,14,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-015,III,15,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-016,III,16,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-017,III,17,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-018,III,18,833,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-019,III,19,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-020,III,20,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-021,III,21,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-022,III,22,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-023,III,23,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-024,III,24,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-025,III,25,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-026,III,26,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-027,III,27,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-028,III,28,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-029,III,29,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-030,III,30,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-031,III,31,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-032,III,32,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-033,III,33,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-034,III,34,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-035,III,35,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-036,III,36,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-037,III,37,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-038,III,38,834,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-039,III,39,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-040,III,40,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-041,III,41,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-042,III,42,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-043,III,43,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-044,III,44,,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-045,III,45,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-046,III,46,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-047,III,47,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-048,III,48,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-049,III,49,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
-PNC-AS2018-LODIII-050,III,50,835,833-835,PENDING,INVENTORIED; page candidate needs visual confirmation
+source_id,level,question,pdf_page,section_pdf_pages,runtime_mapping,previous_runtime_mapping,audit_status,language_candidates,publication_approved
+PNC-AS2018-LODI-001,I,1,824,824-829,PNC-SOURCE-EXERCISES/I-001/constrained-digits,PNC-QL-083,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-002,I,2,824,824-829,PNC-SOURCE-EXERCISES/I-002/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-003,I,3,824,824-829,PNC-SOURCE-EXERCISES/I-003/extended-counting,PNC-QL-219; distinct invitations assigned to labelled distributors,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-004,I,4,824,824-829,PNC-SOURCE-EXERCISES/I-004/extended-counting,PNC-QL-219; distinguishable prizes assigned to labelled recipients,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-005,I,5,824,824-829,PNC-SOURCE-EXERCISES/I-005/extended-counting,CP007 multi-block arrangement; three categories need three-block generalization,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-006,I,6,824,824-829,PNC-SOURCE-EXERCISES/I-006/extended-counting,PNC-QL-003,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-007,I,7,824,824-829,PNC-SOURCE-EXERCISES/I-007/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-008,I,8,824,824-829,PNC-SOURCE-EXERCISES/I-008/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/lines,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-009,I,9,824,824-829,PNC-SOURCE-EXERCISES/I-009/extended-counting,PNC-QL-074,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-010,I,10,824,824-829,PNC-SOURCE-EXERCISES/I-010/extended-counting,PNC-QL-059/060,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-011,I,11,824,824-829,PNC-SOURCE-EXERCISES/I-011/extended-counting,PNC-QL-075/076,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-012,I,12,824,824-829,PNC-SOURCE-EXERCISES/I-012/extended-counting,PNC-QL-079/080,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-013,I,13,824,824-829,PNC-SOURCE-EXERCISES/I-013/extended-counting,CP005 fixed-position multiset; two endpoints need two-position extension,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-014,I,14,824,824-829,PNC-SOURCE-EXERCISES/I-014/extended-counting,PNC-QL-072,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-015,I,15,824,824-829,PNC-SOURCE-EXERCISES/I-015/extended-counting,PNC-QL-066,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-016,I,16,824,824-829,PNC-SOURCE-EXERCISES/I-016/constrained-digits,PNC-QL-084,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-017,I,17,824,824-829,PNC-SOURCE-EXERCISES/I-017/constrained-digits,PNC-QL-086,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-018,I,18,824,824-829,PNC-SOURCE-EXERCISES/I-018/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-019,I,19,824,824-829,PNC-SOURCE-EXERCISES/I-019/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-020,I,20,825,824-829,PNC-SOURCE-EXERCISES/I-020/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-021,I,21,825,824-829,PNC-SOURCE-EXERCISES/I-021/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-022,I,22,825,824-829,PNC-SOURCE-EXERCISES/I-022/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-023,I,23,825,824-829,PNC-SOURCE-EXERCISES/I-023/extended-counting,PNC-QL-230,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-024,I,24,825,824-829,PNC-SOURCE-EXERCISES/I-024/constrained-digits,PNC-QL-085; relabel five nonzero symbols,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-025,I,25,825,824-829,PNC-SOURCE-EXERCISES/I-025/extended-counting,PNC-QL-064,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-026,I,26,825,824-829,PNC-SOURCE-EXERCISES/I-026/extended-counting,PNC-QL-004,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-027,I,27,825,824-829,PNC-SOURCE-EXERCISES/I-027/extended-counting,CP001 independent choices after deduplicating letter types; occurrence distinction must be explicit,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-028,I,28,825,824-829,PNC-SOURCE-EXERCISES/I-028/extended-counting,CP011 grouping,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-029,I,29,825,824-829,PNC-SOURCE-EXERCISES/I-029/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-030,I,30,825,824-829,PNC-SOURCE-EXERCISES/I-030/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-031,I,31,825,824-829,PNC-SOURCE-EXERCISES/I-031/extended-counting,PNC-SOURCE-SUBSET-REVIEW/atMostDistinct,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-032,I,32,825,824-829,PNC-SOURCE-EXERCISES/I-032/extended-counting,CP007 restrictions,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-033,I,33,825,824-829,PNC-SOURCE-EXERCISES/I-033/extended-counting,PNC-QL-108,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-034,I,34,825,824-829,PNC-SOURCE-EXERCISES/I-034/extended-counting,PNC-QL-009,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-035,I,35,825,824-829,PNC-SOURCE-EXERCISES/I-035/constrained-digits,PNC-QL-084 if a four-digit number; code interpretation permits leading zero and gives a different answer,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-036,I,36,825,824-829,PNC-SOURCE-EXERCISES/I-036/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-037,I,37,825,824-829,PNC-SOURCE-EXERCISES/I-037/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/linesWithCollinearBlock,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-038,I,38,825,824-829,PNC-SOURCE-EXERCISES/I-038/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-039,I,39,825,824-829,PNC-SOURCE-EXERCISES/I-039/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/quadrilateralsWithCollinearBlock,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-040,I,40,826,824-829,PNC-SOURCE-EXERCISES/I-040/extended-counting,PNC-QL-062,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-041,I,41,826,824-829,PNC-SOURCE-EXERCISES/I-041/extended-counting,PNC-QL-249,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-042,I,42,826,824-829,PNC-SOURCE-EXERCISES/I-042/extended-counting,PNC-QL-245 plus arrange selected team; only one compulsory member,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-043,I,43,826,824-829,PNC-SOURCE-EXERCISES/I-043/extended-counting,PNC-QL-067,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-044,I,44,826,824-829,PNC-SOURCE-EXERCISES/I-044/extended-counting,PNC-QL-068,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-045,I,45,826,824-829,PNC-SOURCE-EXERCISES/I-045/extended-counting,PNC-QL-148; compulsory head boy plus two others from remaining 29,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-046,I,46,826,824-829,PNC-SOURCE-EXERCISES/I-046/extended-counting,CP008 fixed positions; distinct letters with two fixed endpoints,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-047,I,47,826,824-829,PNC-SOURCE-EXERCISES/I-047/extended-counting,PNC-QL-078,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-048,I,48,826,824-829,PNC-SOURCE-EXERCISES/I-048/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-049,I,49,826,824-829,PNC-SOURCE-EXERCISES/I-049/extended-counting,CP012 quota selection plus permutations; capital first letter is fixed category,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-050,I,50,826,824-829,PNC-SOURCE-EXERCISES/I-050/extended-counting,PNC-QL-072; inverse pair count,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-051,I,51,826,824-829,PNC-SOURCE-EXERCISES/I-051/extended-counting,PNC-SOURCE-SUBSET-REVIEW/boundedIdentical,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-052,I,52,826,824-829,PNC-SOURCE-EXERCISES/I-052/extended-counting,PNC-SOURCE-SUBSET-REVIEW/nonemptyDistinct,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-053,I,53,826,824-829,PNC-SOURCE-EXERCISES/I-053/extended-counting,PNC-SOURCE-SUBSET-REVIEW/eachDistinctCategory,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-054,I,54,826,824-829,PNC-SOURCE-EXERCISES/I-054/extended-counting,PNC-SOURCE-SUBSET-REVIEW/optionalQuestions,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-055,I,55,826,824-829,PNC-SOURCE-EXERCISES/I-055/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-056,I,56,826,824-829,PNC-SOURCE-EXERCISES/I-056/extended-counting,PNC-QL-197,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-057,I,57,826,824-829,PNC-SOURCE-EXERCISES/I-057/extended-counting,PNC-QL-166,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-058,I,58,827,824-829,PNC-SOURCE-EXERCISES/I-058/extended-counting,CP009 all-or-none specified members,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-059,I,59,827,824-829,PNC-SOURCE-EXERCISES/I-059/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-060,I,60,827,824-829,PNC-SOURCE-EXERCISES/I-060/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODI-061,I,61,827,824-829,PNC-SOURCE-EXERCISES/I-061/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-062,I,62,827,824-829,PNC-SOURCE-EXERCISES/I-062/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-063,I,63,827,824-829,PNC-SOURCE-EXERCISES/I-063/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-064,I,64,827,824-829,PNC-SOURCE-EXERCISES/I-064/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-065,I,65,827,824-829,PNC-SOURCE-EXERCISES/I-065/extended-counting,PNC-QL-233; shift each minimum by five,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-066,I,66,827,824-829,PNC-SOURCE-EXERCISES/I-066/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-067,I,67,827,824-829,PNC-SOURCE-EXERCISES/I-067/extended-counting,PNC-QL-106,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-068,I,68,827,824-829,PNC-SOURCE-EXERCISES/I-068/extended-counting,PNC-QL-263; shift lower bound and enforce upper bound,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-069,I,69,827,824-829,PNC-SOURCE-EXERCISES/I-069/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/triangles,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-070,I,70,827,824-829,PNC-SOURCE-EXERCISES/I-070/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/trianglesWithCollinearBlock,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-071,I,71,827,824-829,PNC-SOURCE-EXERCISES/I-071/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-072,I,72,827,824-829,PNC-SOURCE-EXERCISES/I-072/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-073,I,73,828,824-829,PNC-SOURCE-EXERCISES/I-073/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-074,I,74,828,824-829,PNC-SOURCE-EXERCISES/I-074/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-075,I,75,828,824-829,PNC-SOURCE-EXERCISES/I-075/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-076,I,76,828,824-829,PNC-SOURCE-EXERCISES/I-076/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-077,I,77,828,824-829,PNC-SOURCE-EXERCISES/I-077/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-078,I,78,828,824-829,PNC-SOURCE-EXERCISES/I-078/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-079,I,79,828,824-829,PNC-SOURCE-EXERCISES/I-079/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-080,I,80,828,824-829,PNC-SOURCE-EXERCISES/I-080/extended-counting,PNC-QL-062,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-081,I,81,828,824-829,PNC-SOURCE-EXERCISES/I-081/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-082,I,82,828,824-829,PNC-SOURCE-EXERCISES/I-082/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-083,I,83,828,824-829,PNC-SOURCE-EXERCISES/I-083/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-084,I,84,828,824-829,PNC-SOURCE-EXERCISES/I-084/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-085,I,85,828,824-829,PNC-SOURCE-EXERCISES/I-085/extended-counting,CP011 identical-object distribution,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-086,I,86,829,824-829,PNC-SOURCE-EXERCISES/I-086/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODI-087,I,87,829,824-829,PNC-SOURCE-EXERCISES/I-087/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-001,II,1,830,830-832,PNC-SOURCE-EXERCISES/II-001/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-002,II,2,830,830-832,PNC-SOURCE-EXERCISES/II-002/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-003,II,3,830,830-832,PNC-SOURCE-EXERCISES/II-003/extended-counting,PNC-QL-136,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-004,II,4,830,830-832,PNC-SOURCE-EXERCISES/II-004/extended-counting,PNC-QL-079; fix an ending letter rather than a starting letter,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-005,II,5,830,830-832,PNC-SOURCE-EXERCISES/II-005/constrained-digits,PNC-QL-084,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-006,II,6,830,830-832,PNC-SOURCE-EXERCISES/II-006/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-007,II,7,830,830-832,PNC-SOURCE-EXERCISES/II-007/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-008,II,8,830,830-832,PNC-SOURCE-EXERCISES/II-008/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-009,II,9,830,830-832,PNC-SOURCE-EXERCISES/II-009/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-010,II,10,830,830-832,PNC-SOURCE-EXERCISES/II-010/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-011,II,11,830,830-832,PNC-SOURCE-EXERCISES/II-011/extended-counting,PNC-QL-136,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-012,II,12,830,830-832,PNC-SOURCE-EXERCISES/II-012/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-013,II,13,830,830-832,PNC-SOURCE-EXERCISES/II-013/extended-counting,PNC-QL-107 plus fixed internal block order,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-014,II,14,830,830-832,PNC-SOURCE-EXERCISES/II-014/extended-counting,"PNC-QL-070; count all vertex pairs, no side subtraction",IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-015,II,15,830,830-832,PNC-SOURCE-EXERCISES/II-015/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-016,II,16,830,830-832,PNC-SOURCE-EXERCISES/II-016/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-017,II,17,830,830-832,PNC-SOURCE-EXERCISES/II-017/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-018,II,18,831,830-832,PNC-SOURCE-EXERCISES/II-018/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-019,II,19,831,830-832,PNC-SOURCE-EXERCISES/II-019/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-020,II,20,831,830-832,PNC-SOURCE-EXERCISES/II-020/constrained-digits,PNC-QL-085,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-021,II,21,831,830-832,PNC-SOURCE-EXERCISES/II-021/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-022,II,22,831,830-832,PNC-SOURCE-EXERCISES/II-022/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-023,II,23,831,830-832,PNC-SOURCE-EXERCISES/II-023/extended-counting,PNC-QL-158,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-024,II,24,831,830-832,PNC-SOURCE-EXERCISES/II-024/extended-counting,PNC-QL-157,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-025,II,25,831,830-832,PNC-SOURCE-EXERCISES/II-025/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-026,II,26,831,830-832,PNC-SOURCE-EXERCISES/II-026/extended-counting,PNC-QL-131; relative order chain,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-027,II,27,831,830-832,PNC-SOURCE-EXERCISES/II-027/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-028,II,28,831,830-832,PNC-SOURCE-EXERCISES/II-028/extended-counting,PNC-QL-254; exactly n−1 fixed points is impossible,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-029,II,29,831,830-832,PNC-SOURCE-EXERCISES/II-029/extended-counting,PNC-QL-254; exactly n−2 fixed points,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-030,II,30,831,830-832,PNC-SOURCE-EXERCISES/II-030/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODII-031,II,31,831,830-832,PNC-SOURCE-EXERCISES/II-031/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-032,II,32,831,830-832,PNC-SOURCE-EXERCISES/II-032/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-033,II,33,831,830-832,PNC-SOURCE-EXERCISES/II-033/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-034,II,34,831,830-832,PNC-SOURCE-EXERCISES/II-034/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-035,II,35,831,830-832,PNC-SOURCE-EXERCISES/II-035/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-036,II,36,831,830-832,PNC-SOURCE-EXERCISES/II-036/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-037,II,37,831,830-832,PNC-SOURCE-EXERCISES/II-037/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-038,II,38,832,830-832,PNC-SOURCE-EXERCISES/II-038/extended-counting,PNC-QL-196,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-039,II,39,832,830-832,PNC-SOURCE-EXERCISES/II-039/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-040,II,40,832,830-832,PNC-SOURCE-EXERCISES/II-040/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-041,II,41,832,830-832,PNC-SOURCE-EXERCISES/II-041/extended-counting,PNC-QL-064,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-042,II,42,832,830-832,PNC-SOURCE-EXERCISES/II-042/extended-counting,PNC-QL-095; choose an unordered team with one distinct role,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-043,II,43,832,830-832,PNC-SOURCE-EXERCISES/II-043/extended-counting,PNC-QL-230,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-044,II,44,832,830-832,PNC-SOURCE-EXERCISES/II-044/extended-counting,PNC-QL-219,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-045,II,45,832,830-832,PNC-SOURCE-EXERCISES/II-045/constrained-digits,PNC-QL-087,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-046,II,46,832,830-832,PNC-SOURCE-EXERCISES/II-046/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-047,II,47,832,830-832,PNC-SOURCE-EXERCISES/II-047/constrained-digits,PNC-QL-083,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-048,II,48,832,830-832,PNC-SOURCE-EXERCISES/II-048/constrained-digits,PNC-SOURCE-EXACT-DIGIT-REVIEW,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-049,II,49,832,830-832,PNC-SOURCE-EXERCISES/II-049/constrained-digits,PNC-SOURCE-EXACT-DIGIT-REVIEW,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODII-050,II,50,832,830-832,PNC-SOURCE-EXERCISES/II-050/constrained-digits,PNC-SOURCE-EXACT-DIGIT-REVIEW,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-001,III,1,833,833-835,PNC-SOURCE-EXERCISES/III-001/extended-counting,PNC-QL-131,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-002,III,2,833,833-835,PNC-SOURCE-EXERCISES/III-002/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-003,III,3,833,833-835,PNC-SOURCE-EXERCISES/III-003/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-004,III,4,833,833-835,PNC-SOURCE-EXERCISES/III-004/extended-counting,PNC-SOURCE-GEOMETRY-REVIEW/polygonDiagonals,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-005,III,5,833,833-835,PNC-SOURCE-EXERCISES/III-005/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-006,III,6,833,833-835,PNC-SOURCE-EXERCISES/III-006/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-007,III,7,833,833-835,PNC-SOURCE-EXERCISES/III-007/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-008,III,8,833,833-835,PNC-SOURCE-EXERCISES/III-008/extended-counting,CP008 prescribed relative order; interpret one occurrence of each face,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-009,III,9,833,833-835,PNC-SOURCE-EXERCISES/III-009/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-010,III,10,833,833-835,PNC-SOURCE-EXERCISES/III-010/extended-counting,PNC-QL-138; exact distance between two objects,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-011,III,11,833,833-835,PNC-SOURCE-EXERCISES/III-011/extended-counting,PNC-QL-191; two possible orientations need explicit treatment,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-012,III,12,833,833-835,PNC-SOURCE-EXERCISES/III-012/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-013,III,13,833,833-835,PNC-SOURCE-EXERCISES/III-013/extended-counting,PNC-SOURCE-BOUNDED-SCORE-REVIEW,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-014,III,14,833,833-835,PNC-SOURCE-EXERCISES/III-014/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-015,III,15,833,833-835,PNC-SOURCE-EXERCISES/III-015/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-016,III,16,833,833-835,PNC-SOURCE-EXERCISES/III-016/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-017,III,17,833,833-835,PNC-SOURCE-EXERCISES/III-017/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-018,III,18,833,833-835,PNC-SOURCE-EXERCISES/III-018/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-019,III,19,834,833-835,PNC-SOURCE-EXERCISES/III-019/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-020,III,20,834,833-835,PNC-SOURCE-EXERCISES/III-020/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-021,III,21,834,833-835,PNC-SOURCE-EXERCISES/III-021/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-022,III,22,834,833-835,PNC-SOURCE-EXERCISES/III-022/extended-counting,PNC-QL-110; specified group not all consecutive,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-023,III,23,834,833-835,PNC-SOURCE-EXERCISES/III-023/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-024,III,24,834,833-835,PNC-SOURCE-EXERCISES/III-024/extended-counting,PNC-QL-222; at least one labelled receiver unused,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-025,III,25,834,833-835,PNC-SOURCE-EXERCISES/III-025/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-026,III,26,834,833-835,PNC-SOURCE-EXERCISES/III-026/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-027,III,27,834,833-835,PNC-SOURCE-EXERCISES/III-027/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-028,III,28,834,833-835,PNC-SOURCE-EXERCISES/III-028/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-029,III,29,834,833-835,PNC-SOURCE-EXERCISES/III-029/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-030,III,30,834,833-835,PNC-SOURCE-EXERCISES/III-030/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-031,III,31,834,833-835,PNC-SOURCE-EXERCISES/III-031/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-032,III,32,834,833-835,PNC-SOURCE-EXERCISES/III-032/extended-counting,PNC-QL-266; two identical colours and all labelled boxes occupied,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-033,III,33,834,833-835,PNC-SOURCE-EXERCISES/III-033/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-034,III,34,834,833-835,PNC-SOURCE-EXERCISES/III-034/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-035,III,35,834,833-835,PNC-SOURCE-EXERCISES/III-035/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-036,III,36,834,833-835,PNC-SOURCE-EXERCISES/III-036/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-037,III,37,834,833-835,PNC-SOURCE-EXERCISES/III-037/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-038,III,38,834,833-835,PNC-SOURCE-EXERCISES/III-038/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-039,III,39,835,833-835,PNC-SOURCE-EXERCISES/III-039/extended-counting,PNC-QL-253; derangement,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-040,III,40,835,833-835,PNC-SOURCE-EXERCISES/III-040/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-041,III,41,835,833-835,PNC-SOURCE-EXERCISES/III-041/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-042,III,42,835,833-835,PNC-SOURCE-EXERCISES/III-042/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-043,III,43,835,833-835,PNC-SOURCE-EXERCISES/III-043/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-044,III,44,835,833-835,PNC-SOURCE-EXERCISES/III-044/constrained-digits,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-045,III,45,835,833-835,PNC-SOURCE-EXERCISES/III-045/extended-counting,CP008 prescribed relative order; huge exact factorial needs safe serialization,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-046,III,46,835,833-835,PNC-SOURCE-EXERCISES/III-046/extended-counting,PNC-QL-105; distinct-letter lexicographic rank,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-047,III,47,835,833-835,PNC-SOURCE-EXERCISES/III-047/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-048,III,48,835,833-835,PNC-SOURCE-EXERCISES/III-048/extended-counting,GAP_OR_INTERPRETATION_REQUIRED,IMPLEMENTED_SOURCE_CASE,en;hi;pa,false
+PNC-AS2018-LODIII-049,III,49,835,833-835,PNC-SOURCE-EXERCISES/III-049/extended-counting,PNC-QL-078; multiple repeated categories; distribution wording requires arrangement interpretation,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false
+PNC-AS2018-LODIII-050,III,50,835,833-835,PNC-SOURCE-EXERCISES/III-050/extended-counting,PNC-SOURCE-BOUNDED-SCORE-REVIEW,IMPLEMENTED_EXPLICIT_INTERPRETATION_OR_PARAMETER_INSTANCE,en;hi;pa,false

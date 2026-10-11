@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {workedSourceCases,drawnTrianglesInCrossedSquares,noncollinearGridTriples,distinctSubsetSums} from './worked-source-cases';
+import {enumerateMultiset,countMultiset,countComposition,enumerateComposition} from './extended-counting';
+assert.equal(workedSourceCases.length,46);assert.equal(new Set(workedSourceCases.map(c=>c.id)).size,46);
+assert.equal(drawnTrianglesInCrossedSquares(1),8);assert.equal(drawnTrianglesInCrossedSquares(2),18);assert.equal(drawnTrianglesInCrossedSquares(3),28);
+assert.equal(noncollinearGridTriples(3,4),200n);assert.equal(distinctSubsetSums([1,2,3,4]),10);assert.equal(distinctSubsetSums([1,2,5,10]),15);
+assert.equal(enumerateMultiset({symbols:['R','B','W'],counts:[2,2,2],noEqualAdjacent:true}),30n);
+const q={total:5,minimum:[1,1,1],maximum:[3,3,3],weights:[3,3,3] as number[]};assert.equal(countComposition(q),108n);assert.equal(enumerateComposition(q),108n);
+const expected=['360','60','1440','24','967680','32','144','1080','4368','969','35','15','63','455','35; 120','144','806','1024','45','12','55','15','Cannot be determined','84','30; 78','108','0','30','28','10','91','601','150','46','35','55','7','200','496','1440','11','624','38','15','20; 0','42'];
+for(const [i,c]of workedSourceCases.entries())assert.equal(c.answer,expected[i],c.id);
+console.log(JSON.stringify({status:'PASS',workedProblems:46,sourceCorrection:'17.28 → 30'}));
