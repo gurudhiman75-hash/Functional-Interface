@@ -16,6 +16,20 @@ class SalesPausedCutoverTests(unittest.TestCase):
         self.assertLess(app.index("salesCreationPaths"),app.index('app.post("/api/billing/cashfree/webhook"'))
         self.assertIn('req.method === "POST"',app)
 
+    def test_no_ai_student_bridge_delegates_all_admin_routes(self):
+        app=(ROOT/"artifacts/api-server/src/app.ts").read_text()
+        ai=(ROOT/"artifacts/api-server/src/lib/ai-providers/index.ts").read_text()
+        proxy=(ROOT/"functions/api/[[path]].js").read_text()
+        self.assertIn("EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER",app)
+        self.assertIn("ADMIN_HANDLED_BY_RENDER_DURING_CUTOVER",app)
+        self.assertIn('req.path.startsWith("/api/admin/")',app)
+        self.assertIn("temporaryAdminRenderBridge",ai)
+        self.assertIn("EXAMTREE_SALES_DISABLED",ai)
+        self.assertIn("!temporaryAdminRenderBridge",ai)
+        self.assertIn('incoming.pathname.startsWith("/api/admin/")',proxy)
+        self.assertIn('url.hostname.startsWith("examtree-api-staging-")',proxy)
+        self.assertIn('financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin',proxy)
+
     def test_catalog_and_frontend_agree_on_sales_paused(self):
         checkout=(ROOT/"artifacts/api-server/src/routes/canonical-commerce-checkout.ts").read_text()
         self.assertIn('salesEnabled: process.env.EXAMTREE_SALES_DISABLED !== "true"', checkout)
