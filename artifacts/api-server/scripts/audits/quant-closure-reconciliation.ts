@@ -39,8 +39,10 @@ const result = {
   confirmedRemainingUnifiedRoutingGaps: dedicated.filter(p => !cards.some(c => c.packageId === p.packageId)),
   resolvedInThisChange: { chapter: "Surds & Indices", packages: ["SRI-001", "SRI-002"],
     permanentQls: 58, unifiedSurfacesChecked: 696, languageDifficultyBatches: 18, checkpointRoutes: 12,
+    dedicatedLanguageChecks: 174, dedicatedSeedDiversityChecks: 696,
     frozenEnglishRuntimeChecks: 928, frozenNativeRuntimeChecks: 2784,
-    learnerContentChanged: false, scopedProductionTypeCheck: "PASS" },
+    frozenAuthorityContentChanged: false, reviewOptionOrderChanged: true,
+    scopedProductionTypeCheck: "PASS" },
   capabilityReconciliationFollowups: [
     "NUM-001 unified card exposes CP001/003/004; reconcile CP002/005/006/007 histories with the 14-CP final allocation before claiming whole-chapter unified exposure.",
     "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",

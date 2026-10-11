@@ -31,10 +31,13 @@ The unified adapter now lists SRI-001/SRI-002 once each and dispatches their exi
 
 Type corrections fix readonly distractor tuples, four-option tuple construction, lookup key types, literal checkpoint arrays and QL narrowing. A stale multilingual audit previously included active Question Studio review in `downstreamLocked`, causing its final assertion to fail despite Bank/test/public gates being closed. It now reports `questionStudioReviewEnabled` separately and verifies the three downstream release locks explicitly.
 
+The dedicated integration regression also exposed concentrated correct-option placement across active review seeds. The review presentation now uses deterministic cyclic rotation, balances positions within each batch and cycles positions across numbered seed families. Frozen authority option arrays, text, distractors and canonical answers are untouched; source correct indices and the presentation policy are retained in traceability. Review question IDs include the delivery policy and position.
+
 Validation passed:
 
 - 696 actual unified learner surfaces: 58 QLs × 3 languages × 4 seeds, with identical content to dedicated delivery, deterministic repeats, exact canonical-answer parity and release locks.
 - 18 language/difficulty batches, all 12 checkpoint routes, QL-only and chapter-alias routing, and invalid-request cases.
+- The dedicated review regression: 174 language surfaces and 696 seed-diversity checks, including option-position spread; a 12-question single-QL batch also places three correct answers in each position.
 - All 58 stored English fingerprints and 928 frozen English runtime checks.
 - 2,784 frozen native runtime checks, deterministic/content parity and deep immutability.
 - Scoped production TypeScript and patch hygiene.

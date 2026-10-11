@@ -1190,9 +1190,12 @@
     "unifiedSurfacesChecked": 696,
     "languageDifficultyBatches": 18,
     "checkpointRoutes": 12,
+    "dedicatedLanguageChecks": 174,
+    "dedicatedSeedDiversityChecks": 696,
     "frozenEnglishRuntimeChecks": 928,
     "frozenNativeRuntimeChecks": 2784,
-    "learnerContentChanged": false,
+    "frozenAuthorityContentChanged": false,
+    "reviewOptionOrderChanged": true,
     "scopedProductionTypeCheck": "PASS"
   },
   "capabilityReconciliationFollowups": [

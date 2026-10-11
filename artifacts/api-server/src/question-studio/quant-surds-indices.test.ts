@@ -70,6 +70,8 @@ const qlOnly = await adapter.generate({questionLanguageId: "SRI-002-QL-029", see
 assert.equal(qlOnly.questions[0]?.packageId, "SRI-002");
 const alias = await adapter.generate({topic: "Number System", subtopic: "Surds & Indices", seed: "alias", count: 1});
 assert.match(String(alias.questions[0]?.packageId), /^SRI-/);
+const balancedBatch = await adapter.generate({questionLanguageId: "SRI-001-QL-001", seed: "balanced-options", count: 12});
+assert.deepEqual([0, 1, 2, 3].map(position => balancedBatch.questions.filter(q => q.correctIndex === position).length), [3, 3, 3, 3]);
 for (const request of [
   {packageId: "SRI-003"}, {packageId: "SRI-001", canonicalProblemId: "SRI-CP-012"},
   {packageId: "SRI-001", questionLanguageId: "SRI-002-QL-029"},
