@@ -110,6 +110,28 @@ or an explicitly approved, correctly audited disposable entitlement before
 starting/saving/submitting any new attempt. Staging and Render share Neon
 main, so fixture creation affects both APIs and needs operator approval.
 
+### Authenticated NUM-001 staging persistence — 2026-10-11
+- One question generated through the deployed Cloud Run API and the shared remote
+  Question Studio worker (run `802f5472-41f5-4c61-904e-2187fedd01a3`,
+  public code `GEN-20261011-7535FFC2`).
+- Independent Neon read: one `review` generation run, one unreviewed item and
+  version, one audit event, one outbox event. Saved stem, four options,
+  correct answer and explanation were mathematically consistent.
+- Both run and item lifecycle prohibit Question Bank writes, automatic
+  publication and mock/student test eligibility. `validationResult=pending`
+  retains manual editorial review.
+- **Difficulty contract discrepancy:** the API smoke requested `Easy`;
+  planner allocated `Easy: 1`; persisted item still has source label `Hard`.
+  This is explained by NUM-001 Number System's declared
+  `difficultyFilterSupported: false`: profile generation preserves the
+  original source label instead of forcing it to match a quota. Do not
+  claim that E/M/H output filter works, change source labels, or mark the
+  per-tier generation gate passed. The staging smoke has been changed to
+  `Mixed` for further infrastructure validation. Difficulty-filter support
+  and accurate UI/API descriptions require a separate content-engine fix.
+- A three-question authenticated run, independent payload check and admin UI
+  generation flow are still pending.
+
 ## Acceptance gates before Cloudflare cutover
 - [ ] `GET /health` 200, and configured API functions do not return 502/503.
 - [ ] Firebase Google and mobile-number auth verified using Google-managed service identity; admin RBAC denied to ordinary student and allowed for superadmin.
