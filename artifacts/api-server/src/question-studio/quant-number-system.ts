@@ -46,7 +46,8 @@ function normalizeQuestion(source: any, packageId: string, cpId: string, languag
   const explanation = source.explanation;
   const lines = [explanation.coreConcept ?? explanation.concept, explanation.strategy,
     ...(explanation.solution ?? explanation.steps ?? []), explanation.finalAnswer].filter(Boolean);
-  return { ...source, ...locks, packageId, canonicalProblemId: cpId, checkpointId: cpId,
+  const reviewIdentity = createHash("sha256").update(JSON.stringify({sourceQuestionId: source.questionId, language, seed, policy: "NUMBER-SYSTEM-UNIFIED-REVIEW-V1"})).digest("hex").slice(0, 20);
+  return { ...source, ...locks, questionId: `NUM-QS-${source.permanentQlId}-${language}-${reviewIdentity}`, canonicalQuestionId: source.questionId, packageId, canonicalProblemId: cpId, checkpointId: cpId,
     qlId: source.permanentQlId, questionLanguageId: source.permanentQlId,
     language, seed, sourceSeed: source.seed, topic: "Arithmetic", subtopic: "Number System", subject: "Quantitative Aptitude",
     text: source.stem, options, optionMetadata: source.options, correct: source.correctIndex, answer,

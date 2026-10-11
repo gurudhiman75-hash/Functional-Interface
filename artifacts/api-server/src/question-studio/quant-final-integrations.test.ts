@@ -29,11 +29,14 @@ function verify(q: Record<string, any>, qlId: string, language: string, bank = f
   if (language !== "en") assert.match(q.stem + q.explanation, language === "hi" ? /\p{Script=Devanagari}/u : /\p{Script=Gurmukhi}/u);
 }
 let surfaces = 0;
+const numberSystemIdentities = new Set<string>();
 for (const allocation of allocations) for (let n = allocation.firstQlNumber; n <= allocation.lastQlNumber; n++) for (const language of ["en", "hi", "pa"] as const) {
   const qlId = formatNumberSystemQlId(n);
   const request = {packageId: allocation.packageId, canonicalProblemId: allocation.cpId, questionLanguageId: qlId, language, seed: `num-unified:${qlId}`, count: 1};
   const result = await adapter.generate(request);
   verify(result.questions[0], qlId, language);
+  assert.ok(!numberSystemIdentities.has(String(result.questions[0].questionId)), "Number System review identity collision");
+  numberSystemIdentities.add(String(result.questions[0].questionId));
   assert.equal(result.questions[0].canonicalProblemId, allocation.cpId);
   assert.deepEqual((await adapter.generate(request)).questions, result.questions);
   assert.doesNotThrow(() => JSON.stringify(result));
