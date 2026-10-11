@@ -6,11 +6,13 @@ admin cockpit expects, without fetching tokens/secrets from disk or printing
 question contents. No generation requests, review actions or deployments.
 Firebase authentication middleware may update last-login metadata.
 """
+import base64
 import getpass
 import json
 import re
 import subprocess
 import sys
+import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -19,6 +21,7 @@ PROJECT = "sarbedutech"
 REGION = "asia-south1"
 SERVICE = "examtree-api-staging"
 FRONTEND_ORIGIN = "https://examtree.in"
+RENDER_ORIGIN = "https://examtree-new.onrender.com"
 RUNS = {
     "GEN-20261011-7535FFC2": ("802f5472-41f5-4c61-904e-2187fedd01a3", 1),
     "GEN-20261011-635BA10F": ("5682e459-7b2d-46ba-b57b-778a3b2ce0b4", 3),
@@ -33,6 +36,51 @@ def fail(message):
 class RejectRedirect(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         raise ValueError("Unexpected redirect; do not forward the Firebase token")
+
+
+def jwt_freshness(token, now=None):
+    """Read claims locally for diagnostics only; server still verifies signature."""
+    try:
+        parts = token.split(".")
+        if len(parts) != 3:
+            return False, "not a three-part Firebase ID token"
+        payload = json.loads(base64.urlsafe_b64decode(
+            parts[1] + "=" * (-len(parts[1]) % 4)))
+        if not isinstance(payload, dict):
+            return False, "invalid JWT payload"
+        if payload.get("aud") != PROJECT or payload.get("iss") != (
+            "https://securetoken.google.com/" + PROJECT):
+            return False, "Firebase project/issuer does not match sarbedutech"
+        exp = payload.get("exp")
+        if type(exp) is not int:
+            return False, "missing JWT expiry timestamp"
+        remaining = exp - (int(now) if now is not None else int(time.time()))
+        if remaining <= 120:
+            return False, "Firebase ID token expired or has under 2 minutes remaining; refresh from the signed-in admin session"
+        return True, "Firebase ID token has valid project and unexpired local claims (signature not checked here)"
+    except (ValueError, TypeError, KeyError, UnicodeDecodeError):
+        return False, "invalid JWT claims"
+
+
+def safe_http_error(exc):
+    """Never log the Authorization header, token, CF request dumps or HTML."""
+    headers = exc.headers
+    content_type = (headers.get("Content-Type") or "").split(";")[0].lower()
+    server = (headers.get("Server") or "").lower()
+    layer = "cloudflare-edge-or-proxy" if ("cloudflare" in server or headers.get("CF-Ray")) else "upstream-or-other"
+    code = ""
+    if content_type == "application/json":
+        try:
+            data = json.loads(exc.read(4096))
+            raw_code = data.get("code") if isinstance(data, dict) else None
+            if isinstance(raw_code, str) and re.fullmatch(r"[A-Z_0-9]{2,80}", raw_code):
+                code = " api_code=" + raw_code
+            elif isinstance(data, dict) and data.get("permission") == "content.generation.read":
+                code = " api_permission=content.generation.read"
+        except (ValueError, UnicodeDecodeError):
+            pass
+    mitigated = " challenge=true" if (headers.get("cf-mitigated") or "").lower() == "challenge" else ""
+    return f"HTTP {exc.code} ({layer}, content_type={content_type or 'unknown'}{code}{mitigated})"
 
 
 def validate_review_page(data, run_id, code, expected_count):
@@ -127,7 +175,7 @@ def fetch(opener, origin, code, token):
                 return None, "response exceeds 3 MiB limit"
             return json.loads(content), None
     except HTTPError as exc:
-        return None, "HTTP " + str(exc.code)
+        return None, safe_http_error(exc)
     except (URLError, ValueError, TimeoutError, json.JSONDecodeError):
         return None, "network, redirect or JSON error"
 
@@ -136,15 +184,23 @@ def main():
     if len(sys.argv) != 1:
         fail("usage: python3 scripts/verify-examtree-question-studio-review-reads.py")
     staging = resolve_staging_url()
-    print("Question Studio review GET validation: Cloud Run staging and Cloudflare/Render.")
+    print("Question Studio review GET validation: Cloud Run, direct Render and Cloudflare proxy.")
     print("READ ONLY: no generation, review approvals, publication or worker actions.")
     print("Firebase auth may update last-login metadata in the shared TEST database.")
     token = getpass.getpass("Existing superadmin Firebase ID token (hidden): ").strip()
     if not re.fullmatch(r"[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+", token):
         fail("invalid Firebase ID token format; don't paste credentials into chat")
+    fresh, detail = jwt_freshness(token)
+    print(("PASS" if fresh else "CHECK") + ": " + detail)
+    if not fresh:
+        fail("no authenticated requests sent; use a freshly refreshed Firebase ID token from the admin session")
     opener = build_opener(RejectRedirect())
     results = []
-    for label, origin in (("Cloud Run staging", staging), ("Cloudflare/Render", FRONTEND_ORIGIN)):
+    for label, origin in (
+        ("Cloud Run staging", staging),
+        ("Render direct (diagnostic)", RENDER_ORIGIN),
+        ("Cloudflare/Render", FRONTEND_ORIGIN),
+    ):
         for code, (run_id, count) in RUNS.items():
             data, error = fetch(opener, origin, code, token)
             if error:
