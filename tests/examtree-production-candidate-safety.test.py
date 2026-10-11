@@ -29,7 +29,12 @@ class ProductionCandidateSafetyTests(unittest.TestCase):
     def test_sales_paused_mode_never_binds_payment_keys(self):
         script=(ROOT/"scripts/deploy-examtree-api-cloudrun-production-candidate.sh").read_text()
         self.assertIn("EXAMTREE_PRODUCTION_SALES_PAUSED",script)
-        self.assertIn('REQUIRED_SECRETS=("$DB_SECRET" "$AI_SECRET")',script)
+        self.assertIn('REQUIRED_SECRETS=("$DB_SECRET")',script)
+        self.assertIn('if [[ "$ADMIN_DEFERRED" == "no" ]]',script)
+        self.assertIn('REQUIRED_SECRETS+=("$AI_SECRET")',script)
+        self.assertIn('EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER',script)
+        self.assertIn('EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=true',script)
+        self.assertIn('assert "OPENAI_API_KEY" not in env',script)
         self.assertIn('if [[ "$SALES_PAUSED" == "no" ]]',script)
         self.assertIn('API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=true,EXAMTREE_PAYMENT_PROVIDER=none"',script)
         self.assertIn("CASHFREE_ENV=production",script)
