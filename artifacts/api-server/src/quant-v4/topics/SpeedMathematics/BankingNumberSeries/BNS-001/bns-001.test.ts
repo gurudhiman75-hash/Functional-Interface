@@ -5,6 +5,7 @@ import {
   generateBns001Question,
   independentlyVerifyBns001Question,
   independentGrammarMatches,
+  independentWrongTermRepairs,
   supportedGrammarMatches,
   type Bns001PatternKind,
   type Bns001TaskKind,
@@ -139,6 +140,60 @@ for (const [familyKey, states] of fingerprints) {
   assert(states.size >= minimum, `${familyKey} produced only ${states.size} distinct visible states; Phase-0 floor is ${minimum}.`);
 }
 
+let wrongTermChecks = 0;
+for (const patternKind of patterns) {
+  const positions = new Set<number>();
+  const answerIndexes = new Set<number>();
+  for (let i = 0; i < 100; i += 1) {
+    const input = { seed: `BNS-WRONG-${patternKind}-${i}`, taskKind: "WRONG_TERM" as const, patternKind };
+    const question = generateBns001Question(input);
+    assert(stable(question) === stable(generateBns001Question(input)), "Wrong-term replay changed.");
+    assert(question.visibleSeries.length === 8, "Wrong-term proof requires eight visible terms.");
+    assert(independentlyVerifyBns001Question(question).valid, "Wrong-term independent verification failed.");
+    const repairs = independentWrongTermRepairs(question.visibleSeries.map(Number));
+    assert(repairs.length === 1, "Wrong-term series has multiple admissible repairs.");
+    assert(question.answer === String(question.visibleSeries[repairs[0]!.index]), "Wrong-term answer must identify the displayed error.");
+    assert(question.answer !== String(repairs[0]!.replacement), "Wrong-term answer confuses error and replacement.");
+    assert(question.options.every((n) => question.visibleSeries.includes(Number(n))), "Wrong-term choices must be displayed terms.");
+    assert(new Set(question.options).size === 5, "Wrong-term options contain duplicates.");
+    assert(question.explanation.working.some((line) => line.includes("replace it with")), "Wrong-term explanation lacks replacement.");
+    const forged = { ...question, proof: { ...question.proof, fullSeries: Array(9).fill(999), canonicalNext: -1 } };
+    assert(independentlyVerifyBns001Question(forged).valid, "Verifier improperly trusts generator arithmetic proof.");
+    const damaged = { ...question, visibleSeries: question.visibleSeries.map((n, index) => index === 0 ? Number(n) + 101 : n) };
+    assert(!independentlyVerifyBns001Question(damaged).valid, "Verifier accepted two corrupted terms.");
+    positions.add(question.proof.hiddenIndex!);
+    answerIndexes.add(question.correctIndex);
+    wrongTermChecks += 1;
+  }
+  assert(positions.size === 3 && answerIndexes.size === 5, "Wrong-term positions or answer indexes lack coverage.");
+}
+assert(independentWrongTermRepairs([12, 41, 18, 47, 26, 53]).length === 0, "Six-term wrong-series package must not pass the unique-repair contract.");
+
+let localizedChecks = 0;
+for (const patternKind of patterns) {
+  for (const taskKind of [...tasks, "WRONG_TERM"] as const) {
+    for (let i = 0; i < 32; i += 1) {
+      const input = { seed: `BNS-NATIVE-${patternKind}-${taskKind}-${i}`, taskKind, patternKind };
+      const english = generateBns001Question(input);
+      for (const language of ["hi", "pa"] as const) {
+        const native = generateBns001Question({ ...input, language });
+        assert(stable(native.options) === stable(english.options) && native.answer === english.answer,
+          "Localization changed mathematical options or answer.");
+        assert(independentlyVerifyBns001Question(native).valid, "Native question failed independent verification.");
+        assert(stable(native) === stable(generateBns001Question({ ...input, language })), "Native replay changed.");
+        const text = native.stem + native.explanation.keyRule + native.explanation.working.join(" ") + native.explanation.trap;
+        assert(!/[A-Za-z]/u.test(text), "Native learner text contains English fallback.");
+        assert(native.explanation.working.length >= 2 && /[=]/u.test(text), "Native explanation lacks calculations.");
+        localizedChecks += 1;
+      }
+    }
+  }
+}
+// Publisher practice examples, independently adjudicated; these are not PYQs.
+for (const series of [[49,71,100,136,179,229], [38,45,53,62,72,83]]) {
+  assert(independentGrammarMatches(series).includes("PROGRESSIVE_DIFFERENCE"), "Source progressive-difference fixture failed.");
+}
+
 const scope = dirname(fileURLToPath(import.meta.url));
 // These packages retain the mathematically correct answer but violate the
 // learner contract. The independent verifier must reject them nonetheless.
@@ -148,7 +203,7 @@ const malformedFixtures = [
   { ...missingFixture, options: missingFixture.options.filter((_option, index) => index !== wrongIndex) },
   { ...missingFixture, options: [...missingFixture.options, "999999"] },
   { ...missingFixture, optionCount: 4 },
-  { ...missingFixture, taskKind: "WRONG_TERM" },
+  { ...missingFixture, taskKind: "UNKNOWN_TASK" },
   { ...missingFixture, proof: { ...missingFixture.proof, hiddenIndex: 0 } },
   { ...missingFixture, visibleSeries: [...missingFixture.visibleSeries, 999] },
 ];
@@ -156,7 +211,7 @@ for (const fixture of malformedFixtures) {
   assert(!independentlyVerifyBns001Question(fixture as typeof missingFixture).valid,
     "Independent BNS verifier accepted a malformed learner package with a correct mathematical answer.");
 }
-for (const input of [{ taskKind: "WRONG_TERM" }, { patternKind: "UNKNOWN_GRAMMAR" }]) {
+for (const input of [{ taskKind: "UNKNOWN_TASK" }, { patternKind: "UNKNOWN_GRAMMAR" }]) {
   let rejected = false;
   try { generateBns001Question(input as Parameters<typeof generateBns001Question>[0]); }
   catch (error) { rejected = error instanceof Error && /unsupported/u.test(error.message); }
@@ -169,8 +224,11 @@ for (const file of walkFiles(scope).filter((path) => path.endsWith(".ts"))) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_BNS_001_BANKING_NUMBER_SERIES_PHASE0",
+  status: "PASS_BNS_001_CONTENT_REVIEW_V2",
   questions: questionCount,
+  wrongTermChecks,
+  localizedChecks,
+  totalQuestions: questionCount + wrongTermChecks,
   deterministicReplayChecks,
   independentVerificationChecks,
   distractorGrammarChecks,

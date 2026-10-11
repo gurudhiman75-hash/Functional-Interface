@@ -1,0 +1,128 @@
+{
+  "status": "PASS_BNS_001_CONTENT_REVIEW_V2",
+  "questions": 1000,
+  "wrongTermChecks": 500,
+  "localizedChecks": 960,
+  "totalQuestions": 1500,
+  "deterministicReplayChecks": 1000,
+  "independentVerificationChecks": 1000,
+  "distractorGrammarChecks": 4000,
+  "internalIndependentParityChecks": 1000,
+  "families": 10,
+  "malformedPackageRejections": 6,
+  "answerPositionCoverage": {
+    "ARITHMETIC_DIFFERENCE:NEXT_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "ARITHMETIC_DIFFERENCE:MISSING_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "PROGRESSIVE_DIFFERENCE:NEXT_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "PROGRESSIVE_DIFFERENCE:MISSING_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "GEOMETRIC_MULTIPLICATION:NEXT_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "GEOMETRIC_MULTIPLICATION:MISSING_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "MULTIPLY_AND_ADD:NEXT_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "MULTIPLY_AND_ADD:MISSING_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "INTERLEAVED_ARITHMETIC:NEXT_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "INTERLEAVED_ARITHMETIC:MISSING_TERM": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "hiddenPositionCoverage": {
+    "ARITHMETIC_DIFFERENCE": [
+      2,
+      3,
+      4
+    ],
+    "PROGRESSIVE_DIFFERENCE": [
+      2,
+      3,
+      4
+    ],
+    "GEOMETRIC_MULTIPLICATION": [
+      2,
+      3,
+      4
+    ],
+    "MULTIPLY_AND_ADD": [
+      2,
+      3,
+      4
+    ],
+    "INTERLEAVED_ARITHMETIC": [
+      2,
+      3,
+      4
+    ]
+  },
+  "distinctVisibleStates": {
+    "ARITHMETIC_DIFFERENCE:NEXT_TERM": 34,
+    "ARITHMETIC_DIFFERENCE:MISSING_TERM": 59,
+    "PROGRESSIVE_DIFFERENCE:NEXT_TERM": 79,
+    "PROGRESSIVE_DIFFERENCE:MISSING_TERM": 95,
+    "GEOMETRIC_MULTIPLICATION:NEXT_TERM": 10,
+    "GEOMETRIC_MULTIPLICATION:MISSING_TERM": 29,
+    "MULTIPLY_AND_ADD:NEXT_TERM": 41,
+    "MULTIPLY_AND_ADD:MISSING_TERM": 73,
+    "INTERLEAVED_ARITHMETIC:NEXT_TERM": 78,
+    "INTERLEAVED_ARITHMETIC:MISSING_TERM": 88
+  },
+  "scopedTypeScript": "PASS",
+  "chapterFrozen": false,
+  "sourceSaturation": false,
+  "humanApprovalAsserted": false
+}

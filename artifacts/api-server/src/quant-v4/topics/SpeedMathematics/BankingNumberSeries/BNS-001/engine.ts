@@ -1,5 +1,8 @@
+import { localizeBns001 } from "./localization";
+import { independentWrongTermRepairs } from "./independent-verifier";
 import type {
   Bns001Difficulty,
+  Bns001Language,
   Bns001Option,
   Bns001PatternKind,
   Bns001Question,
@@ -130,9 +133,9 @@ function buildPatternState(seed: string, patternKind: Bns001PatternKind, attempt
   }
 
   if (patternKind === "PROGRESSIVE_DIFFERENCE") {
-    const start = pick(random, [9, 14, 20, 27, 35]);
-    const firstDiff = pick(random, [3, 4, 5, 6]);
-    const step = pick(random, [2, 3, 4]);
+    const start = pick(random, [9, 14, 20, 27, 35, 38, 49]);
+    const firstDiff = pick(random, [3, 4, 5, 6, 7, 21, 22]);
+    const step = pick(random, [1, 2, 3, 4, 7]);
     const series = [start];
     for (let transition = 0; transition < 6; transition += 1) {
       series.push(series[series.length - 1]! + firstDiff + transition * step);
@@ -230,6 +233,7 @@ function buildPatternState(seed: string, patternKind: Bns001PatternKind, attempt
 
 function questionStem(taskKind: Bns001TaskKind, visible: readonly (number | "?")[]): string {
   const sequence = visible.join(", ");
+  if (taskKind === "WRONG_TERM") return `Which number is wrong in the series? ${sequence}`;
   return taskKind === "NEXT_TERM"
     ? `What should come next in the series? ${sequence}, ?`
     : `What number should replace the question mark in the series? ${sequence}`;
@@ -358,7 +362,7 @@ function missingTermWorking(state: PatternState, hiddenIndex: number): readonly 
   ];
 }
 
-export function generateBns001Question(input: {
+function generateBaseBns001Question(input: {
   seed?: string;
   taskKind?: Bns001TaskKind;
   patternKind?: Bns001PatternKind;
@@ -367,7 +371,7 @@ export function generateBns001Question(input: {
   const random = seededRandom(`${seed}:selector`);
   const taskKind = input.taskKind ?? pick(random, ["NEXT_TERM", "MISSING_TERM"] as const);
   const requestedPattern = input.patternKind ?? pick(random, PATTERNS);
-  if (taskKind !== "NEXT_TERM" && taskKind !== "MISSING_TERM") {
+  if (taskKind !== "NEXT_TERM" && taskKind !== "MISSING_TERM" && taskKind !== "WRONG_TERM") {
     throw new Error(`BNS-001 unsupported task kind: ${String(taskKind)}.`);
   }
   if (!PATTERNS.includes(requestedPattern)) {
@@ -375,17 +379,68 @@ export function generateBns001Question(input: {
   }
 
   for (let attempt = 0; attempt < 64; attempt += 1) {
-    const state = buildPatternState(seed, requestedPattern, attempt);
+    const initial = buildPatternState(seed, requestedPattern, attempt);
+    const extended = [...initial.series];
+    if (taskKind === "WRONG_TERM") {
+      while (extended.length < 9) {
+        const n = extended.length;
+        const firstDifference = extended[1]! - extended[0]!;
+        const rise = extended[2]! - 2 * extended[1]! + extended[0]!;
+        const multiplier = (extended[2]! - extended[1]!) / firstDifference;
+        const next = requestedPattern === "ARITHMETIC_DIFFERENCE" ? extended[n - 1]! + firstDifference
+          : requestedPattern === "PROGRESSIVE_DIFFERENCE" ? extended[n - 1]! + firstDifference + (n - 1) * rise
+          : requestedPattern === "GEOMETRIC_MULTIPLICATION" ? extended[n - 1]! * (extended[1]! / extended[0]!)
+          : requestedPattern === "MULTIPLY_AND_ADD" ? extended[n - 1]! * multiplier + extended[1]! - extended[0]! * multiplier
+          : extended[n - 2]! + extended[n % 2 + 2]! - extended[n % 2]!;
+        extended.push(next);
+      }
+    }
+    const state: PatternState = { ...initial, series: extended };
     if (state.series.some((value) => value > 50_000)) continue;
     const fullMatches = supportedGrammarMatches(state.series);
     if (fullMatches.length !== 1 || fullMatches[0] !== requestedPattern) continue;
 
-    const hiddenIndex = taskKind === "MISSING_TERM"
+    const hiddenIndex = taskKind !== "NEXT_TERM"
       ? pick(seededRandom(`${seed}:${attempt}:hidden`), [2, 3, 4] as const)
       : null;
     const visible: Array<number | "?"> = taskKind === "NEXT_TERM"
       ? [...state.series.slice(0, 6)]
       : state.series.slice(0, 6).map((value, index) => index === hiddenIndex ? "?" : value);
+
+    if (taskKind === "WRONG_TERM") {
+      const incorrect = state.series[hiddenIndex!]! + pick(seededRandom(`${seed}:${attempt}:corruption`), [-3, -2, -1, 1, 2, 3]);
+      const corrupted = state.series.slice(0, 8).map((n, i) => i === hiddenIndex ? incorrect : n);
+      if (new Set(corrupted).size !== 8) continue;
+      const repairs = independentWrongTermRepairs(corrupted);
+      if (repairs.length !== 1 || repairs[0]!.index !== hiddenIndex || repairs[0]!.pattern !== requestedPattern) continue;
+      const distractors = corrupted.filter((_n, i) => i !== hiddenIndex).slice(0, 4);
+      const metadata = shuffle(seededRandom(`${seed}:options`), [
+        { text: String(incorrect), misconceptionId: "CORRECT", derivation: "This displayed term alone breaks the governing rule." },
+        ...distractors.map((n) => ({ text: String(n), misconceptionId: "REJECT_VALID_TERM", derivation: "Rejects a term that already fits the corrected series." })),
+      ]);
+      const correctIndex = metadata.findIndex((o) => o.misconceptionId === "CORRECT");
+      return {
+        packageId: "BNS-001", questionId: `BNS-001-${hashSeed(`${seed}:${taskKind}:${requestedPattern}`).toString(36)}`,
+        seed, language: "en", examProfile: "BANKING_PRELIMS", optionCount: 5,
+        taskKind, patternKind: requestedPattern, difficulty: state.difficulty,
+        visibleSeries: corrupted, stem: questionStem(taskKind, corrupted),
+        options: metadata.map((o) => o.text), optionMetadata: metadata, correctIndex, answer: String(incorrect),
+        explanation: {
+          keyRule: state.keyRule,
+          working: [...missingTermWorking(state, hiddenIndex!).map((line) => line.replace(/Missing term|missing term/g, "Required term")),
+            `Position ${hiddenIndex! + 1} should contain ${state.series[hiddenIndex!]}, but the series shows ${incorrect}.`,
+            `The wrong number is ${incorrect}; replace it with ${state.series[hiddenIndex!]}.`],
+          shortcut: "Check the pattern on both sides of the suspected wrong term.",
+          trap: "The answer is the wrong displayed number, while the replacement belongs in the explanation.",
+        },
+        proof: { fullSeries: state.series, hiddenIndex, canonicalNext: state.series[8]!,
+          supportedGrammarMatches: fullMatches, independentVerifier: "PASS" },
+        traceability: { packageId: "BNS-001", contractVersion: "BNS-001-CONTENT-REVIEW-V2",
+          ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES", numberSystemOwnership: false,
+          reasoningLetterSeriesOwnership: false, reviewStatus: "UNREVIEWED", questionStudioDiscoverable: false,
+          questionBankStatus: "NOT_STORED", testEligibility: "INELIGIBLE", publiclyPublishable: false },
+      };
+    }
 
     try {
       const optionPackage = buildOptions(seed, taskKind, state.series, visible, hiddenIndex, state);
@@ -434,7 +489,7 @@ export function generateBns001Question(input: {
         },
         traceability: {
           packageId: "BNS-001",
-          contractVersion: "BNS-001-PHASE0-V1",
+          contractVersion: "BNS-001-CONTENT-REVIEW-V2",
           ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES",
           numberSystemOwnership: false,
           reasoningLetterSeriesOwnership: false,
@@ -451,4 +506,15 @@ export function generateBns001Question(input: {
   }
 
   throw new Error(`BNS-001 could not construct a unique ${requestedPattern} / ${taskKind} question for seed ${seed}.`);
+}
+
+export function generateBns001Question(input: {
+  seed?: string;
+  taskKind?: Bns001TaskKind;
+  patternKind?: Bns001PatternKind;
+  language?: Bns001Language;
+} = {}): Bns001Question {
+  const language = input.language ?? "en";
+  if (!["en", "hi", "pa"].includes(language)) throw new Error(`BNS-001 unsupported language: ${String(language)}.`);
+  return localizeBns001(generateBaseBns001Question(input), language);
 }

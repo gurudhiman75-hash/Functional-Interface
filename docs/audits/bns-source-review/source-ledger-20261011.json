@@ -1,0 +1,208 @@
+{
+  "sourceSaturation": false,
+  "scope": "Two retrieved publisher practice pages; no official PYQ certification",
+  "sources": [
+    {
+      "id": "PM-20250707",
+      "url": "https://www.practicemock.com/blog/most-asked-number-series-questions-for-sbi-po-download-free-pdf/",
+      "kind": "PUBLISHER_PRACTICE_NOT_PYQ",
+      "retrieved": "2026-10-11",
+      "items": 5
+    },
+    {
+      "id": "BA-20190127",
+      "url": "https://www.bankersadda.com/number-series-for-ibps-exams/",
+      "kind": "PUBLISHER_PRACTICE_NOT_PYQ",
+      "retrieved": "2026-10-11",
+      "items": 15
+    }
+  ],
+  "items": [
+    {
+      "source": "PM-20250707",
+      "item": 1,
+      "task": "MISSING_TERM",
+      "family": "POWER_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 87,
+      "replacement": null
+    },
+    {
+      "source": "PM-20250707",
+      "item": 2,
+      "task": "MISSING_TERM",
+      "family": "QUADRATIC_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 135,
+      "replacement": null
+    },
+    {
+      "source": "PM-20250707",
+      "item": 3,
+      "task": "MISSING_TERM",
+      "family": "UNRESOLVED",
+      "status": "SOURCE_HOLD",
+      "independently_inferred_answer": null,
+      "replacement": null
+    },
+    {
+      "source": "PM-20250707",
+      "item": 4,
+      "task": "MISSING_TERM",
+      "family": "PROGRESSIVE_DIFFERENCE",
+      "status": "SUPPORTED",
+      "independently_inferred_answer": 100,
+      "replacement": null
+    },
+    {
+      "source": "PM-20250707",
+      "item": 5,
+      "task": "MISSING_TERM",
+      "family": "PROGRESSIVE_DIFFERENCE",
+      "status": "SUPPORTED",
+      "independently_inferred_answer": 72,
+      "replacement": null
+    },
+    {
+      "source": "BA-20190127",
+      "item": 1,
+      "task": "WRONG_TERM",
+      "family": "QUADRATIC_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 224,
+      "replacement": 220
+    },
+    {
+      "source": "BA-20190127",
+      "item": 2,
+      "task": "WRONG_TERM",
+      "family": "VARIABLE_MULTIPLY_SUBTRACT",
+      "status": "GAP",
+      "independently_inferred_answer": 246,
+      "replacement": 248
+    },
+    {
+      "source": "BA-20190127",
+      "item": 3,
+      "task": "WRONG_TERM",
+      "family": "DESCENDING_CUBE_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 439,
+      "replacement": 437
+    },
+    {
+      "source": "BA-20190127",
+      "item": 4,
+      "task": "WRONG_TERM",
+      "family": "VARIABLE_MULTIPLY_ADD",
+      "status": "GAP",
+      "independently_inferred_answer": 780,
+      "replacement": 777
+    },
+    {
+      "source": "BA-20190127",
+      "item": 5,
+      "task": "WRONG_TERM",
+      "family": "FRACTIONAL_GEOMETRIC",
+      "status": "GAP",
+      "independently_inferred_answer": 630,
+      "replacement": 625
+    },
+    {
+      "source": "BA-20190127",
+      "item": 6,
+      "task": "WRONG_TERM",
+      "family": "VARIABLE_FRACTIONAL_MULTIPLIER",
+      "status": "GAP",
+      "independently_inferred_answer": 520,
+      "replacement": 525
+    },
+    {
+      "source": "BA-20190127",
+      "item": 7,
+      "task": "WRONG_TERM",
+      "family": "PRIME_SECOND_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 131,
+      "replacement": 129
+    },
+    {
+      "source": "BA-20190127",
+      "item": 8,
+      "task": "WRONG_TERM",
+      "family": "UNRESOLVED",
+      "status": "SOURCE_HOLD",
+      "independently_inferred_answer": null,
+      "replacement": null
+    },
+    {
+      "source": "BA-20190127",
+      "item": 9,
+      "task": "WRONG_TERM",
+      "family": "ALTERNATING_MULTIPLY_DIVIDE",
+      "status": "GAP",
+      "independently_inferred_answer": 10,
+      "replacement": 9
+    },
+    {
+      "source": "BA-20190127",
+      "item": 10,
+      "task": "WRONG_TERM",
+      "family": "INTERLEAVED_PROGRESSIVE_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 48.5,
+      "replacement": 48
+    },
+    {
+      "source": "BA-20190127",
+      "item": 11,
+      "task": "WRONG_TERM",
+      "family": "ODD_SQUARE_DIFFERENCE",
+      "status": "GAP",
+      "independently_inferred_answer": 5531,
+      "replacement": 5555
+    },
+    {
+      "source": "BA-20190127",
+      "item": 12,
+      "task": "WRONG_TERM",
+      "family": "GEOMETRIC_DIFFERENCE",
+      "status": "MATCHER_SUPPORTED_GENERATOR_GAP",
+      "independently_inferred_answer": 26,
+      "replacement": 21
+    },
+    {
+      "source": "BA-20190127",
+      "item": 13,
+      "task": "WRONG_TERM",
+      "family": "VARIABLE_MULTIPLY_ADD",
+      "status": "GAP",
+      "independently_inferred_answer": 760,
+      "replacement": 770
+    },
+    {
+      "source": "BA-20190127",
+      "item": 14,
+      "task": "WRONG_TERM",
+      "family": "VARIABLE_FRACTIONAL_DIVISOR",
+      "status": "GAP",
+      "independently_inferred_answer": 1,
+      "replacement": 2
+    },
+    {
+      "source": "BA-20190127",
+      "item": 15,
+      "task": "WRONG_TERM",
+      "family": "CONSECUTIVE_CUBES",
+      "status": "GAP",
+      "independently_inferred_answer": 243,
+      "replacement": 343
+    }
+  ],
+  "notes": [
+    "Answers are independently inferred; publisher solution images were not retrieved.",
+    "Unresolved items remain holds; no guessed answer or silent repair.",
+    "Status SUPPORTED means grammar expressible, not exact production-state coverage.",
+    "Wrong-term V2 uses eight visible terms and unique repairs; this does not claim exact six-term source representation."
+  ]
+}

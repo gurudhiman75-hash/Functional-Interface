@@ -81,6 +81,49 @@ export function independentGrammarMatches(series: readonly number[]): Bns001Patt
   return PATTERNS.filter((pattern) => independentlyMatches(pattern, series));
 }
 
+export type Bns001Repair = Readonly<{ index: number; replacement: number; pattern: Bns001PatternKind }>;
+
+// Recover candidates from unaffected observations. Never consult generator proof
+// values, the declared answer, or generator matching code.
+export function independentWrongTermRepairs(series: readonly number[]): Bns001Repair[] {
+  if (series.length !== 8 || series.some((n) => !Number.isSafeInteger(n) || n <= 0)) return [];
+  const repairs: Bns001Repair[] = [];
+  for (let gap = 0; gap < series.length; gap += 1) {
+    const known = series.map((_n, i) => i).filter((i) => i !== gap);
+    const candidates = new Set<number>();
+    const [a, b, c] = known as [number, number, number, ...number[]];
+    candidates.add(series[a]! + (gap - a) * (series[b]! - series[a]!) / (b - a));
+    // Quadratic interpolation recovers progressive first differences.
+    candidates.add([a, b, c].reduce((sum, i) => sum + series[i]! *
+      [a, b, c].filter((j) => j !== i).reduce((factor, j) => factor * (gap - j) / (i - j), 1), 0));
+    const row = known.filter((i) => i % 2 === gap % 2);
+    if (row.length >= 2) {
+      const [r, t] = row as [number, number, ...number[]];
+      candidates.add(series[r]! + (gap - r) * (series[t]! - series[r]!) / (t - r));
+    }
+    for (const m of [2, 3, 4]) {
+      candidates.add(series[a]! * m ** (gap - a));
+      const pair = known.find((i) => known.includes(i + 1));
+      if (pair === undefined) continue;
+      const add = series[pair + 1]! - m * series[pair]!;
+      let value = series[a]!;
+      for (let i = a; i < gap; i += 1) value = value * m + add;
+      for (let i = a; i > gap; i -= 1) value = (value - add) / m;
+      candidates.add(value);
+    }
+    for (const raw of candidates) {
+      const replacement = Math.round(raw);
+      if (Math.abs(raw - replacement) > 1e-7 || replacement <= 0 || replacement === series[gap]) continue;
+      const completed = series.map((n, i) => i === gap ? replacement : n);
+      for (const pattern of independentGrammarMatches(completed)) {
+        if (!repairs.some((r) => r.index === gap && r.replacement === replacement && r.pattern === pattern))
+          repairs.push({ index: gap, replacement, pattern });
+      }
+    }
+  }
+  return repairs;
+}
+
 function completedWithOption(question: Bns001Question, optionText: string): number[] {
   const candidate = Number(optionText);
   if (!Number.isSafeInteger(candidate) || candidate <= 0) return [];
@@ -112,16 +155,34 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
     new Set(question.options).size === 5 &&
     Number.isInteger(question.correctIndex) &&
     question.correctIndex >= 0 && question.correctIndex < 5 &&
-    question.visibleSeries.length === 6 &&
+    question.visibleSeries.length === (question.taskKind === "WRONG_TERM" ? 8 : 6) &&
     PATTERNS.includes(question.patternKind) &&
     (question.taskKind === "NEXT_TERM"
       ? hiddenIndex === null && question.visibleSeries.every((value) => typeof value === "number")
-      : question.taskKind === "MISSING_TERM" && hiddenIndex !== null &&
+      : question.taskKind === "WRONG_TERM"
+        ? hiddenIndex !== null && [2, 3, 4].includes(hiddenIndex) &&
+          question.visibleSeries.every((value) => typeof value === "number")
+        : question.taskKind === "MISSING_TERM" && hiddenIndex !== null &&
         [2, 3, 4].includes(hiddenIndex) &&
         question.visibleSeries[hiddenIndex] === "?" &&
         question.visibleSeries.filter((value) => value === "?").length === 1);
   if (!shapeValid) {
     return { valid: false, correctOptionCount: 0, matchingOptionIndexes: [], canonicalGrammarMatches: [] };
+  }
+  if (question.taskKind === "WRONG_TERM") {
+    const repairs = independentWrongTermRepairs(question.visibleSeries.map(Number));
+    const repair = repairs.length === 1 ? repairs[0] : undefined;
+    const count = question.options.filter((option) => option === question.answer).length;
+    const indexes = repair ? question.options.flatMap((option, i) =>
+      Number(option) === question.visibleSeries[repair.index] ? [i] : []) : [];
+    return {
+      valid: !!repair && repair.pattern === question.patternKind && repair.index === hiddenIndex &&
+        count === 1 && indexes.length === 1 && indexes[0] === question.correctIndex &&
+        question.options[question.correctIndex] === question.answer,
+      correctOptionCount: count,
+      matchingOptionIndexes: indexes,
+      canonicalGrammarMatches: repair ? [repair.pattern] : [],
+    };
   }
   const matchingOptionIndexes: number[] = [];
 
