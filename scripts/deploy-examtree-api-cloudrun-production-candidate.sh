@@ -13,6 +13,16 @@ CASHFREE_ID_SECRET=examtree-cashfree-production-client-id
 CASHFREE_KEY_SECRET=examtree-cashfree-production-client-secret
 AI_SECRET=examtree-openai-api-key
 SALES_PAUSED="${EXAMTREE_PRODUCTION_SALES_PAUSED:-no}"
+ADMIN_DEFERRED="${EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER:-no}"
+if [[ "$ADMIN_DEFERRED" != "yes" && "$ADMIN_DEFERRED" != "no" ]]; then
+  echo "REFUSED: EXAMTREE_PRODUCTION_ADMIN_DEFERRED_TO_RENDER must be yes or no." >&2
+  exit 2
+fi
+if [[ "$ADMIN_DEFERRED" == "yes" && "$SALES_PAUSED" != "yes" ]]; then
+  echo "REFUSED: an AI-less student cutover is allowed only with sales disabled." >&2
+  exit 2
+fi
+
 if [[ "$SALES_PAUSED" != "yes" && "$SALES_PAUSED" != "no" ]]; then
   echo "REFUSED: EXAMTREE_PRODUCTION_SALES_PAUSED must be yes or no." >&2
   exit 2
@@ -48,7 +58,10 @@ gcloud artifacts repositories describe "$REGISTRY" --project="$PROJECT" --locati
   exit 1
 }
 
-REQUIRED_SECRETS=("$DB_SECRET" "$AI_SECRET")
+REQUIRED_SECRETS=("$DB_SECRET")
+if [[ "$ADMIN_DEFERRED" == "no" ]]; then
+  REQUIRED_SECRETS+=("$AI_SECRET")
+fi
 if [[ "$SALES_PAUSED" == "no" ]]; then
   REQUIRED_SECRETS+=("$CASHFREE_ID_SECRET" "$CASHFREE_KEY_SECRET")
 fi
@@ -67,7 +80,7 @@ if ! gcloud secrets versions access latest --secret="$DB_SECRET" --project="$PRO
   exit 1
 fi
 
-echo "PRECHECK: live Neon main, production AI provider secret, and existing registry."
+echo "PRECHECK: live Neon main and existing container registry. Production AI key required unless admin traffic stays on Render."
 if [[ "$SALES_PAUSED" == "yes" ]]; then
   echo "PRECHECK: new purchases will be blocked. No sandbox OR production payment credentials are bound to this candidate."
 fi
@@ -89,8 +102,15 @@ gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
 
 # Sales-paused mode is EXPLICIT. Never bind sandbox keys to live Neon.
 # Existing orders and provider webhook handling remain on Render during cutover.
-API_ENV_VARS="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=false,EXAMTREE_PUBLIC_ORIGIN=https://examtree.in,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false,AI_EXTRACTION_PROVIDER=openai"
-API_SECRETS="DATABASE_URL=$DB_SECRET:latest,OPENAI_API_KEY=$AI_SECRET:latest"
+API_ENV_VARS="NODE_ENV=production,EXAMTREE_API_RUNTIME=cloud-run,EXAMTREE_API_STAGING=false,EXAMTREE_PUBLIC_ORIGIN=https://examtree.in,FIREBASE_PROJECT_ID=$PROJECT,FIREBASE_STORAGE_BUCKET=$PROJECT.firebasestorage.app,GENERATION_JOB_WORKER_ENABLED=false,OUTBOX_PUBLISHER_ENABLED=false"
+API_SECRETS="DATABASE_URL=$DB_SECRET:latest"
+if [[ "$ADMIN_DEFERRED" == "yes" ]]; then
+  API_ENV_VARS+=",EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=true"
+  echo "PRECHECK: Cloudflare must keep /api/admin routed to Render; direct Cloud Run admin requests will be denied."
+else
+  API_ENV_VARS+=",EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=false,AI_EXTRACTION_PROVIDER=openai"
+  API_SECRETS+=",OPENAI_API_KEY=$AI_SECRET:latest"
+fi
 if [[ "$SALES_PAUSED" == "yes" ]]; then
   API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=true,EXAMTREE_PAYMENT_PROVIDER=none"
 else
@@ -156,7 +176,11 @@ else:
  assert env["CASHFREE_ENV"]["value"]=="production"
  assert env["EXAMTREE_PAYMENT_PROVIDER"]["value"]=="cashfree"
 assert env["DATABASE_URL"]["valueFrom"]["secretKeyRef"]["name"]=="examtree-api-database-url"
-assert env["OPENAI_API_KEY"]["valueFrom"]["secretKeyRef"]["name"]=="examtree-openai-api-key"
+if env["EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER"]["value"]=="true":
+ assert env["EXAMTREE_SALES_DISABLED"]["value"]=="true"
+ assert "OPENAI_API_KEY" not in env
+else:
+ assert env["OPENAI_API_KEY"]["valueFrom"]["secretKeyRef"]["name"]=="examtree-openai-api-key"
 print("PASS: production API candidate uses main Neon, correct sales mode, and disabled API workers")
 '
 echo "PASS: production Cloud Run PRIVATE candidate and INERT job defined."
