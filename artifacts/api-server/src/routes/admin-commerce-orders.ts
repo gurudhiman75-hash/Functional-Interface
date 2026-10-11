@@ -227,7 +227,7 @@ router.post("/:orderId/refunds", requireAdminPermission("commerce.orders.manage"
       let status = "created";
       let verified = false;
       try {
-        const checked = await reconcileCashfreeRefundRecord(refundId, orderId);
+        const checked = await reconcileCashfreeRefundRecord(refundId, orderId, req.adminSession!.user.id);
         status = checked.status;
         verified = true;
       } catch (error) {
@@ -271,7 +271,7 @@ router.post("/:orderId/refunds/:refundId/reconcile", requireAdminPermission("com
   if (!uuid.test(orderId) || !uuid.test(refundId))
     return void res.status(400).json({ error: "Invalid order or refund identifier", code: "INVALID_REFUND_REFERENCE" });
   try {
-    const result = await reconcileCashfreeRefundRecord(refundId, orderId);
+    const result = await reconcileCashfreeRefundRecord(refundId, orderId, req.adminSession!.user.id);
     res.json(result);
   } catch (error) {
     const typed = error as { statusCode?: number; code?: string; message?: string };
