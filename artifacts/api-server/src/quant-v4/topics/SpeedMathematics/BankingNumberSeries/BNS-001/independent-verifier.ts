@@ -102,6 +102,27 @@ export type Bns001IndependentVerification = Readonly<{
 }>;
 
 export function independentlyVerifyBns001Question(question: Bns001Question): Bns001IndependentVerification {
+  // Reject malformed learner packages before verifying their arithmetic. A
+  // correct continuation alone cannot validate an item with missing choices
+  // or an unsupported task silently interpreted as a missing-term question.
+  const hiddenIndex = question.proof.hiddenIndex;
+  const shapeValid =
+    question.optionCount === 5 &&
+    question.options.length === 5 &&
+    new Set(question.options).size === 5 &&
+    Number.isInteger(question.correctIndex) &&
+    question.correctIndex >= 0 && question.correctIndex < 5 &&
+    question.visibleSeries.length === 6 &&
+    PATTERNS.includes(question.patternKind) &&
+    (question.taskKind === "NEXT_TERM"
+      ? hiddenIndex === null && question.visibleSeries.every((value) => typeof value === "number")
+      : question.taskKind === "MISSING_TERM" && hiddenIndex !== null &&
+        [2, 3, 4].includes(hiddenIndex) &&
+        question.visibleSeries[hiddenIndex] === "?" &&
+        question.visibleSeries.filter((value) => value === "?").length === 1);
+  if (!shapeValid) {
+    return { valid: false, correctOptionCount: 0, matchingOptionIndexes: [], canonicalGrammarMatches: [] };
+  }
   const matchingOptionIndexes: number[] = [];
 
   question.options.forEach((option, index) => {

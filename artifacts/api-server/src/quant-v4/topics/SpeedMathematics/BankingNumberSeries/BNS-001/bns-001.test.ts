@@ -140,6 +140,28 @@ for (const [familyKey, states] of fingerprints) {
 }
 
 const scope = dirname(fileURLToPath(import.meta.url));
+// These packages retain the mathematically correct answer but violate the
+// learner contract. The independent verifier must reject them nonetheless.
+const missingFixture = generateBns001Question({ seed: "BNS-SHAPE-REGRESSION", taskKind: "MISSING_TERM" });
+const wrongIndex = missingFixture.options.findIndex((_option, index) => index !== missingFixture.correctIndex);
+const malformedFixtures = [
+  { ...missingFixture, options: missingFixture.options.filter((_option, index) => index !== wrongIndex) },
+  { ...missingFixture, options: [...missingFixture.options, "999999"] },
+  { ...missingFixture, optionCount: 4 },
+  { ...missingFixture, taskKind: "WRONG_TERM" },
+  { ...missingFixture, proof: { ...missingFixture.proof, hiddenIndex: 0 } },
+  { ...missingFixture, visibleSeries: [...missingFixture.visibleSeries, 999] },
+];
+for (const fixture of malformedFixtures) {
+  assert(!independentlyVerifyBns001Question(fixture as typeof missingFixture).valid,
+    "Independent BNS verifier accepted a malformed learner package with a correct mathematical answer.");
+}
+for (const input of [{ taskKind: "WRONG_TERM" }, { patternKind: "UNKNOWN_GRAMMAR" }]) {
+  let rejected = false;
+  try { generateBns001Question(input as Parameters<typeof generateBns001Question>[0]); }
+  catch (error) { rejected = error instanceof Error && /unsupported/u.test(error.message); }
+  assert(rejected, "BNS generation must reject unsupported selectors before emitting learner content.");
+}
 const forbiddenRandomToken = "Math" + ".random(";
 for (const file of walkFiles(scope).filter((path) => path.endsWith(".ts"))) {
   const source = readFileSync(file, "utf8");
@@ -154,6 +176,7 @@ console.log(JSON.stringify({
   distractorGrammarChecks,
   internalIndependentParityChecks,
   families: patterns.length * tasks.length,
+  malformedPackageRejections: malformedFixtures.length,
   answerPositionCoverage: Object.fromEntries([...answerPositions].map(([key, value]) => [key, [...value].sort()])),
   hiddenPositionCoverage: Object.fromEntries([...hiddenPositions].map(([key, value]) => [key, [...value].sort()])),
   distinctVisibleStates: Object.fromEntries([...fingerprints].map(([key, value]) => [key, value.size])),

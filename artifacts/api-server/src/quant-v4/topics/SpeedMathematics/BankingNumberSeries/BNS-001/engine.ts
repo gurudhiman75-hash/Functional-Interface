@@ -295,6 +295,69 @@ function buildOptions(
   return { options: shuffled.map((option) => option.text), optionMetadata: shuffled, correctIndex };
 }
 
+function missingTermWorking(state: PatternState, hiddenIndex: number): readonly string[] {
+  const series = state.series;
+  const before = series[hiddenIndex - 1]!;
+  const correct = series[hiddenIndex]!;
+  const after = series[hiddenIndex + 1]!;
+  if (state.patternKind === "INTERLEAVED_ARITHMETIC") {
+    const positions = [0, 1, 2, 3, 4, 5].filter((index) => index % 2 === hiddenIndex % 2 && index !== hiddenIndex);
+    const first = positions[0]!;
+    const second = positions[1]!;
+    const jumps = (second - first) / 2;
+    const increment = (series[second]! - series[first]!) / jumps;
+    const previous = series[hiddenIndex - 2]!;
+    return [
+      "Treat the odd-position and even-position terms as separate rows.",
+      `In the row containing the gap, positions ${first + 1} and ${second + 1} give (${series[second]} - ${series[first]}) ÷ ${jumps} = ${increment} per jump.`,
+      `Missing term = ${previous} + ${increment} = ${correct}.`,
+      ...(hiddenIndex + 2 < 6 ? [`Check the next term in this row: ${correct} + ${increment} = ${series[hiddenIndex + 2]}.`] : []),
+    ];
+  }
+  if (state.patternKind === "ARITHMETIC_DIFFERENCE" || state.patternKind === "PROGRESSIVE_DIFFERENCE") {
+    const gapDifference = correct - before;
+    const followingDifference = after - correct;
+    // A visible triple exists after a gap at position 3, or before later gaps.
+    const start = hiddenIndex === 2 ? 3 : 0;
+    const first = series[start]!;
+    const second = series[start + 1]!;
+    const third = series[start + 2]!;
+    const rise = (third - second) - (second - first);
+    const offset = hiddenIndex - 1 - start;
+    return [
+      state.keyRule,
+      `Visible differences include ${second} - ${first} = ${second - first} and ${third} - ${second} = ${third - second}.`,
+      ...(state.patternKind === "PROGRESSIVE_DIFFERENCE" ? [
+        `Difference into the gap = ${second - first} ${offset < 0 ? "−" : "+"} ${Math.abs(offset)} × ${rise} = ${gapDifference}.`,
+      ] : []),
+      `The difference into position ${hiddenIndex + 1} is ${gapDifference}; missing term = ${before} + ${gapDifference} = ${correct}.`,
+      `Check the following step: ${correct} + ${followingDifference} = ${after}.`,
+    ];
+  }
+  const start = hiddenIndex === 2 ? 3 : 0;
+  const first = series[start]!;
+  const second = series[start + 1]!;
+  const third = series[start + 2]!;
+  if (state.patternKind === "GEOMETRIC_MULTIPLICATION") {
+    const multiplier = second / first;
+    return [
+      `Visible ratios: ${second} ÷ ${first} = ${multiplier} and ${third} ÷ ${second} = ${multiplier}.`,
+      `Missing term = ${before} × ${multiplier} = ${correct}.`,
+      `Check the following step: ${correct} × ${multiplier} = ${after}.`,
+    ];
+  }
+  const multiplier = (third - second) / (second - first);
+  const addend = second - first * multiplier;
+  const operation = `× ${multiplier}${addend === 0 ? "" : ` ${addend < 0 ? "−" : "+"} ${Math.abs(addend)}`}`;
+  return [
+    `Two visible differences are ${second - first} and ${third - second}; their ratio is ${multiplier}.`,
+    `The fixed addend is ${second} − ${first} × ${multiplier} = ${addend}.`,
+    `The rule is multiply by ${multiplier}${addend === 0 ? "" : `, then ${addend < 0 ? "subtract" : "add"} ${Math.abs(addend)}`}: ${first} ${operation} = ${second}.`,
+    `Missing term = ${before} ${operation} = ${correct}.`,
+    `Check the following step: ${correct} ${operation} = ${after}.`,
+  ];
+}
+
 export function generateBns001Question(input: {
   seed?: string;
   taskKind?: Bns001TaskKind;
@@ -304,6 +367,12 @@ export function generateBns001Question(input: {
   const random = seededRandom(`${seed}:selector`);
   const taskKind = input.taskKind ?? pick(random, ["NEXT_TERM", "MISSING_TERM"] as const);
   const requestedPattern = input.patternKind ?? pick(random, PATTERNS);
+  if (taskKind !== "NEXT_TERM" && taskKind !== "MISSING_TERM") {
+    throw new Error(`BNS-001 unsupported task kind: ${String(taskKind)}.`);
+  }
+  if (!PATTERNS.includes(requestedPattern)) {
+    throw new Error(`BNS-001 unsupported pattern kind: ${String(requestedPattern)}.`);
+  }
 
   for (let attempt = 0; attempt < 64; attempt += 1) {
     const state = buildPatternState(seed, requestedPattern, attempt);
@@ -330,7 +399,7 @@ export function generateBns001Question(input: {
       const questionId = `BNS-001-${hashSeed(`${seed}:${taskKind}:${requestedPattern}`).toString(36)}`;
       const working = taskKind === "NEXT_TERM"
         ? state.working
-        : [state.keyRule, `The missing ${hiddenIndex! + 1}${hiddenIndex === 2 ? "rd" : "th"} term must be ${correct} for the rule to hold on both sides.`];
+        : missingTermWorking(state, hiddenIndex!);
 
       return {
         packageId: "BNS-001",
