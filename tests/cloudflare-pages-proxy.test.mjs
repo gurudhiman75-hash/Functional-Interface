@@ -59,12 +59,13 @@ test("API proxy returns controlled errors when Render is unavailable", async () 
 
 test("Cloudflare API proxy supports validated Cloud Run cutover without exposing an open proxy", async () => {
   assert.equal(configuredApiOrigin({}), "https://examtree-new.onrender.com");
-  const cloudRun = "https://examtree-api-staging-1083299267005.asia-south1.run.app";
+  const cloudRun = "https://examtree-api-1083299267005.asia-south1.run.app";
   assert.equal(configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun }), cloudRun);
   for (const candidate of [
     "http://examtree-api-staging-1083299267005.asia-south1.run.app",
     "https://attacker.example",
-    "https://examtree-api-staging-1083299267005.asia-south1.run.app/evil",
+    "https://examtree-api-staging-1083299267005.asia-south1.run.app",
+    "https://examtree-api-1083299267005.asia-south1.run.app/evil",
     "https://examtree-new.onrender.com.evil.example",
   ]) {
     assert.throws(() => configuredApiOrigin({ EXAMTREE_API_UPSTREAM_ORIGIN: candidate }));
