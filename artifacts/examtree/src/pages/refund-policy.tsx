@@ -32,9 +32,11 @@ export default function RefundPolicy() {
         </PublicCard>
         <PublicCard title="How to request review">
           <p>Contact support with the account identifier, payment ID, purchase date, amount, affected product, and a concise description of the issue. Do not send card numbers, CVV codes, OTPs, UPI PINs, or passwords.</p>
+          <p className="mt-3">Email: <a href="mailto:support@examtree.in" className="font-semibold text-indigo-700 underline underline-offset-4">support@examtree.in</a></p>
           <Link href="/billing-help" className="mt-3 inline-flex font-semibold text-indigo-700 hover:underline">See Payment & Billing Help</Link>
         </PublicCard>
       </div>
+      <p className="mt-6 text-sm text-slate-700">Website and service: <strong>ExamTree</strong>. For payment and refund queries, contact <a className="font-semibold text-indigo-700 underline underline-offset-4" href="mailto:support@examtree.in">support@examtree.in</a>.</p>
     </PublicPage>
   );
 }
