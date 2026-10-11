@@ -68,10 +68,10 @@ for attempt in 1 2 3 4 5; do
 done
 
 stage="deploy isolated Cloud Run freshness job"
+# Gen2 execution environment with unthrottled 1 vCPU requires at least 512Mi.
 gcloud run jobs deploy "$JOB" --source "$ROOT" \
   --project="$PROJECT" --region="$REGION" \
   --service-account="$SERVICE_ACCOUNT" --tasks=1 --parallelism=1 \
-  # Gen2 execution environment with unthrottled 1 vCPU requires at least 512Mi.
   --max-retries=0 --task-timeout=120s --memory=512Mi --cpu=1 \
   --set-env-vars='BACKUP_BUCKET=sarbedutech,BACKUP_PREFIX=neon-backups/daily'
 
