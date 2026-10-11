@@ -35,7 +35,7 @@ class ProductionCandidateSafetyTests(unittest.TestCase):
         self.assertIn("CASHFREE_ENV=production",script)
         self.assertIn('API_ENV_VARS+=",EXAMTREE_SALES_DISABLED=false',script)
         self.assertIn('assert "CASHFREE_CLIENT_ID" not in env',script)
-        self.assertIn('assert "CASHFREE_CLIENT_SECRET" not in env',script)
+        self.assertIn('assert "CASHFREE_CLIENT_ID" not in env and "CASHFREE_CLIENT_SECRET" not in env',script)
         self.assertIn('--no-allow-unauthenticated',script)
 
     def test_explicit_cost_and_deployment_consent(self):
