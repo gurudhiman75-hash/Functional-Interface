@@ -56,6 +56,29 @@ class ReviewReadContractTests(unittest.TestCase):
         self.assertFalse(mod.jwt_freshness(jwt({**valid, "aud": "other-project"}), now=1000)[0])
         self.assertFalse(mod.jwt_freshness("garbage.jwt.x", now=1000)[0])
 
+    def test_safe_json_403_classification_is_allowlisted(self):
+        headers = Message()
+        headers["Content-Type"] = "application/json"
+        headers["Server"] = "cloudflare"
+        denied = HTTPError("https://examtree.in/api/x", 403, "Forbidden", headers,
+                           io.BytesIO(b'{"error":"Administrator permission required","permission":"content.generation.read"}'))
+        result = mod.safe_http_error(denied)
+        self.assertIn("reason=admin-rbac-denied", result)
+        self.assertIn("api_permission=content.generation.read", result)
+        self.assertNotIn("Authorization", result)
+        denied_other = HTTPError("https://examtree.in/api/x", 403, "Forbidden", headers,
+                                 io.BytesIO(b'{"error":"secret user@example.com","details":"private auth data"}'))
+        result2 = mod.safe_http_error(denied_other)
+        self.assertNotIn("user@example.com", result2)
+        self.assertNotIn("private auth data", result2)
+
+    def test_default_pages_and_anonymous_probe_are_present(self):
+        source = PATH.read_text()
+        self.assertIn("https://functional-interface.pages.dev", source)
+        self.assertIn("ANONYMOUS GATEWAY PROBE", source)
+        self.assertIn('("Cloudflare custom domain", FRONTEND_ORIGIN)', source)
+        self.assertIn('("Pages default domain", PAGES_ORIGIN)', source)
+
     def test_http_denials_redact_html_and_preserve_only_safe_codes(self):
         headers = Message()
         headers["Content-Type"] = "text/html"
