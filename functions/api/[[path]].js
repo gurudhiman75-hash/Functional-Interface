@@ -11,8 +11,11 @@ export function configuredApiOrigin(env = {}) {
   catch { throw new Error("Cloudflare API upstream configuration is not a URL"); }
   if (url.protocol !== "https:" || url.username || url.password ||
       url.pathname !== "/" || url.search || url.hash ||
-      !(url.hostname.endsWith(".run.app") || url.origin === LEGACY_API_ORIGIN)) {
-    throw new Error("Cloudflare API upstream must be an HTTPS Cloud Run service origin");
+      !((url.hostname.startsWith("examtree-api-") &&
+          !url.hostname.startsWith("examtree-api-staging-") &&
+          (url.hostname.endsWith(".asia-south1.run.app") || url.hostname.endsWith(".a.run.app")))
+        || url.origin === LEGACY_API_ORIGIN)) {
+    throw new Error("Cloudflare API upstream must be the dedicated production ExamTree Cloud Run service, never staging");
   }
   return url.origin;
 }
