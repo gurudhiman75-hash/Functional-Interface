@@ -24,6 +24,12 @@ on:
       - scripts/deploy-examtree-api-cloudrun-staging.sh
       - tests/examtree-staging-db-isolation.test.mjs
       - artifacts/api-server/src/cloud-run-background.ts
+      - artifacts/api-server/src/lib/outbox-publisher.ts
+      - artifacts/api-server/src/lib/mobile-notification-delivery.ts
+      - tests/examtree-cloudrun-background-handover.test.mjs
+      - scripts/enable-examtree-api-background-scheduler.sh
+      - scripts/inspect-examtree-cloudrun-production-handover.py
+      - tests/examtree-production-handover.test.py
       - scripts/inspect-examtree-migration-operations.py
       - tests/examtree-migration-operations-readonly.test.py
       - scripts/verify-examtree-cloudrun-num001-review.py
@@ -59,6 +65,11 @@ jobs:
           bash -n scripts/deploy-examtree-api-cloudrun-staging.sh
           node --test tests/examtree-staging-db-isolation.test.mjs tests/cloudrun-api-migration.test.mjs
           python3 tests/examtree-staging-neon-url.test.py
+      - name: Verify Cloud Run production worker handover safeguards
+        run: |
+          bash -n scripts/enable-examtree-api-background-scheduler.sh
+          node --test tests/examtree-cloudrun-background-handover.test.mjs
+          python3 tests/examtree-production-handover.test.py
       - name: Confirm non-mutating staging diagnostics
         run: bash tests/examtree-cloudrun-staging-security.test.sh
       - name: Guard hidden Firebase ID-token read checks

@@ -22,7 +22,13 @@ async function dispatch(event: ClaimedEvent): Promise<void> {
   logger.info({ outboxEventId: event.id, eventType: event.eventType, aggregateType: event.aggregateType, aggregateId: event.aggregateId }, "Outbox event published");
 }
 
-async function claimBatch(): Promise<ClaimedEvent[]> {
+// Process a single event within the SAME transaction that holds its row lock.
+// The previous implementation released the SELECT FOR UPDATE SKIP LOCKED claim
+// before dispatch/markPublished; two workers could then process one event.
+// Today's dispatch is a durable log only. If external side effects are added,
+// require per-destination idempotency: a DB lock alone cannot provide exactly
+// once delivery to an outside provider after a process crash.
+async function publishOneLocked(): Promise<boolean> {
   return sqlClient.begin(async (tx) => {
     const rows = await tx`
       SELECT id::text AS id,
@@ -34,55 +40,48 @@ async function claimBatch(): Promise<ClaimedEvent[]> {
       WHERE published_at IS NULL
         AND available_at <= now()
       ORDER BY available_at ASC, occurred_at ASC
-      LIMIT ${BATCH_SIZE}
+      LIMIT 1
       FOR UPDATE SKIP LOCKED
     `;
-    if (rows.length === 0) return [];
+    if (!rows[0]) return false;
+    const event = rows[0] as unknown as ClaimedEvent;
     await tx`
       UPDATE platform.outbox_events
       SET attempts = attempts + 1
-      WHERE id = ANY(${rows.map((row) => String(row.id))}::uuid[])
+      WHERE id = ${event.id}::uuid AND published_at IS NULL
     `;
-    return rows as unknown as ClaimedEvent[];
+    try {
+      await dispatch(event);
+      await tx`
+        UPDATE platform.outbox_events
+        SET published_at = now(), last_error = NULL
+        WHERE id = ${event.id}::uuid AND published_at IS NULL
+      `;
+    } catch (error) {
+      const message = (error instanceof Error ? error.message : String(error)).slice(0, 2000);
+      logger.error({ error, outboxEventId: event.id, eventType: event.eventType }, "Outbox event publish failed");
+      await tx`
+        UPDATE platform.outbox_events
+        SET last_error = ${message},
+            available_at = now() + interval '1 minute'
+        WHERE id = ${event.id}::uuid AND published_at IS NULL
+      `;
+    }
+    return true;
   });
-}
-
-async function markPublished(id: string): Promise<void> {
-  await sqlClient`
-    UPDATE platform.outbox_events
-    SET published_at = now(), last_error = NULL
-    WHERE id = ${id}::uuid AND published_at IS NULL
-  `;
-}
-
-async function markFailed(id: string, error: unknown): Promise<void> {
-  const message = (error instanceof Error ? error.message : String(error)).slice(0, 2000);
-  await sqlClient`
-    UPDATE platform.outbox_events
-    SET last_error = ${message},
-        available_at = now() + interval '1 minute'
-    WHERE id = ${id}::uuid AND published_at IS NULL
-  `;
 }
 
 export async function runOutboxPublisherOnce(): Promise<void> {
   if (running) return;
   running = true;
   try {
-    const events = await claimBatch();
-    for (const event of events) {
-      try {
-        await dispatch(event);
-        await markPublished(event.id);
-      } catch (error) {
-        logger.error({ error, outboxEventId: event.id, eventType: event.eventType }, "Outbox event publish failed");
-        await markFailed(event.id, error);
-      }
+    for (let i = 0; i < BATCH_SIZE; i += 1) {
+      if (!(await publishOneLocked())) break;
     }
   } catch (error) {
     logger.error({ error }, "Outbox publisher tick failed");
-    // A scheduled Cloud Run Job must report DB/publisher failure to its
-    // execution status. The legacy Render interval keeps its old resilience.
+    // A Cloud Run Job must fail visibly for database/publisher failure;
+    // the legacy Render timer keeps its established resilience.
     if (process.env.EXAMTREE_API_RUNTIME === "cloud-run") throw error;
   } finally {
     running = false;
