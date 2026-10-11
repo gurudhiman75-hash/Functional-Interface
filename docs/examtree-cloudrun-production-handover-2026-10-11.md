@@ -56,6 +56,65 @@ service, live Cashfree secrets, AI provider key mapping, the separate
 This inspector NEVER runs jobs, fetches secret values, triggers payments,
 or changes the production API gateway.
 
+## Provision the PRIVATE production candidate (separate approval)
+
+The read-only preflight originally reported **2 passed / 3 pending**:
+staging isolated, scheduler absent, while the production Cloud Run API and
+production background Job did not yet exist. It also found no locally compiled
+Pages artifacts in the Cloud Shell checkout. That last result does **not**
+establish that the published website has broken API routing; published
+Question Studio reads already passed through Pages.
+
+A separate, guarded deployment script now exists:
+`scripts/deploy-examtree-api-cloudrun-production-candidate.sh`.
+
+It fails *before any new GCP resources* unless these **four Secret Manager
+secrets have enabled versions** (names only; never paste values into chat):
+
+- `examtree-api-database-url` — Neon live MAIN, never the staging snapshot
+- `examtree-cashfree-production-client-id` — production merchant, NOT sandbox
+- `examtree-cashfree-production-client-secret` — production merchant, NOT sandbox
+- `examtree-openai-api-key` — production API-backed AI features
+
+If any is missing, use the official production merchant/provider dashboards
+and Secret Manager secure entry to provision it. **Do not** invent credentials,
+use sandbox keys as production, copy a service-account JSON key to GitHub,
+or expose any key in messages or command output.
+
+To provision after verifying cloud budget and explicitly approving a
+PRIVATE staging-independent production candidate, from a clean New-main
+Cloud Shell checkout run:
+
+```bash
+git switch New-main
+git pull --ff-only origin New-main
+EXAMTREE_PRODUCTION_CANDIDATE_APPROVED=yes EXAMTREE_BUDGET_READY=yes \
+  bash scripts/deploy-examtree-api-cloudrun-production-candidate.sh
+```
+
+The script creates or reuses a dedicated **production runtime service account**
+and grants only the required Secret Manager access, builds the approved API
+image, deploys `examtree-api` with **no unauthenticated invoker**, binds
+`EXAMTREE_API_ORIGIN` to the candidate's Cloud Run URL, and defines a distinct
+`examtree-api-background` Job with the command `/usr/bin/false` to make it
+**inert**. It **does not execute the job, schedule it, register a Cashfree
+webhook, switch Cloudflare/DNS, deploy Render, change staging, or release an APK**.
+Google Cloud billing may increase. It refuses to overwrite any existing
+production Cloud Run API or Job; in a partial deployment, inspect manually
+rather than forcing reruns.
+
+Afterward, re-run the read-only inspector:
+
+```bash
+python3 scripts/inspect-examtree-cloudrun-production-handover.py
+```
+
+The private API requires an IAM-authenticated smoke, independent Firebase
+roles review and properly scoped FCM permission for the eventual worker
+identity. Those cannot be inferred from the mere presence of a service
+definition. The eventual public promotion and job activation are **separate**
+cutover decisions.
+
 ## Safe sequence to finish actual migration
 
 A. Prepare and build the final **production** Cloud Run API image from the
