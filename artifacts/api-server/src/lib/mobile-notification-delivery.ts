@@ -125,6 +125,9 @@ export async function runMobileNotificationDelivery(){
 }
 
 export function startMobileNotificationWorker(){
+  // Production handover: disable Render's FCM timer before enabling a
+  // Cloud Run Scheduler. Defaults ON for existing Render behavior.
+  if (process.env.MOBILE_NOTIFICATION_WORKER_ENABLED === "false") return;
   if(started)return;started=true;
   const tick=async()=>{if(running)return;running=true;try{for(let i=0;i<5;i+=1){const result=await runMobileNotificationDelivery();if(result.status==="idle"||result.status==="provider_unavailable")break;}}finally{running=false;}};
   const timer=setInterval(()=>void tick(),POLL_MS);timer.unref();
