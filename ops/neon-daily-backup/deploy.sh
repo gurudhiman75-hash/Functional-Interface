@@ -31,17 +31,7 @@ done
 bucket_json="$(mktemp)"
 trap 'rm -f "$bucket_json"' EXIT
 gcloud storage buckets describe "gs://$BUCKET" --format=json > "$bucket_json"
-python3 - "$bucket_json" <<'PY'
-import json,sys
-x=json.load(open(sys.argv[1]))
-config=x.get('iamConfiguration',{})
-if x.get('name')!='sarbedutech':
-    sys.exit('Wrong Cloud Storage bucket')
-if config.get('publicAccessPrevention')!='enforced':
-    sys.exit('Public access prevention is not enforced on sarbedutech')
-if not config.get('uniformBucketLevelAccess',{}).get('enabled',False):
-    sys.exit('Uniform bucket-level access must be enabled on sarbedutech')
-PY
+python3 "$DIR/check_bucket_security.py" < "$bucket_json"
 
 echo 'Creating dedicated service accounts, narrow IAM and a Cloud Run backup job.'
 echo 'Cloud Run, Cloud Scheduler, Cloud Build, Secrets and GCS may incur charges.'
