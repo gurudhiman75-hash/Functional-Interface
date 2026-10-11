@@ -201,10 +201,10 @@ def fetch_curl(origin, code, token):
         "--proto", "=https", "--max-redirs", "0", "--request", "GET",
         "--header", "Accept: application/json",
         "--header", "Cache-Control: no-store",
-        "--write-out", "\\nEXAMTREE_CURL_STATUS:%{http_code}",
+        "--write-out", "\nEXAMTREE_CURL_STATUS:%{http_code}",
         "--url", url,
     ]
-    config = ('header = "Authorization: Bearer ' + token + '"\\n') if token else ""
+    config = ('header = "Authorization: Bearer ' + token + '"\n') if token else ""
     try:
         # --config - reads stdin, not a real .curlrc; stderr may contain
         # request diagnostics but is NEVER displayed or returned.
