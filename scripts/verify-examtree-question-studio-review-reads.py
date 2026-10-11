@@ -7,6 +7,7 @@ question contents. No generation requests, review actions or deployments.
 Firebase authentication middleware may update last-login metadata.
 """
 import base64
+import binascii
 import getpass
 import json
 import re
@@ -58,7 +59,7 @@ def jwt_freshness(token, now=None):
         if remaining <= 120:
             return False, "Firebase ID token expired or has under 2 minutes remaining; refresh from the signed-in admin session"
         return True, "Firebase ID token has valid project and unexpired local claims (signature not checked here)"
-    except (ValueError, TypeError, KeyError, UnicodeDecodeError):
+    except (ValueError, TypeError, KeyError, UnicodeDecodeError, binascii.Error):
         return False, "invalid JWT claims"
 
 
