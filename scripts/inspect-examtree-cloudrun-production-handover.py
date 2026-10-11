@@ -104,11 +104,17 @@ def main():
          check_service(prod, staging=False))
     if isinstance(prod, dict):
         env, secrets = runtime_env(prod)
-        gate("production Cashfree configuration and Secret Manager credentials",
-             env.get("EXAMTREE_PAYMENT_PROVIDER") == "cashfree"
-             and env.get("CASHFREE_ENV") in ("production", "prod")
-             and secrets.get("CASHFREE_CLIENT_ID") is not None
-             and secrets.get("CASHFREE_CLIENT_SECRET") is not None)
+        paused = (env.get("EXAMTREE_SALES_DISABLED") == "true"
+                  and env.get("EXAMTREE_PAYMENT_PROVIDER") == "none"
+                  and env.get("CASHFREE_ENV") is None
+                  and not secrets.get("CASHFREE_CLIENT_ID")
+                  and not secrets.get("CASHFREE_CLIENT_SECRET"))
+        live = (env.get("EXAMTREE_SALES_DISABLED") == "false"
+                and env.get("EXAMTREE_PAYMENT_PROVIDER") == "cashfree"
+                and env.get("CASHFREE_ENV") == "production"
+                and secrets.get("CASHFREE_CLIENT_ID") is not None
+                and secrets.get("CASHFREE_CLIENT_SECRET") is not None)
+        gate("production financial mode: sales explicitly paused OR real Cashfree configured", paused or live)
         gate("AI provider configured in production with secret-mapped key",
              any(secrets.get(key) for key in
                  ("OPENAI_API_KEY", "DEEPSEEK_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY")))
