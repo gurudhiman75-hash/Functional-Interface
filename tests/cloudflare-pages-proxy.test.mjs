@@ -96,3 +96,40 @@ test("Cloudflare API proxy supports validated Cloud Run cutover without exposing
   assert.equal(rejected.status, 503);
   assert.equal((await rejected.json()).code, "API_GATEWAY_MISCONFIGURED");
 });
+
+test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks", async () => {
+  const cloudRun = "https://examtree-api-1083299267005.asia-south1.run.app";
+  const original = globalThis.fetch;
+  const forwarded = [];
+  globalThis.fetch = async (request) => {
+    forwarded.push({ url: request.url, method: request.method });
+    return Response.json({ ok: true });
+  };
+  try {
+    const env = { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun };
+    for (const [path, method] of [
+      ["/api/billing/cashfree/webhook", "POST"],
+      ["/api/billing/webhook", "POST"],
+      ["/api/commerce/orders/aaa-bbb/reconcile", "POST"],
+      ["/api/commerce/orders/aaa-bbb/confirm", "POST"],
+    ]) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path, method, {
+          headers: { "content-type": "application/json" },
+          body: "{}",
+        }),
+        env,
+      });
+      assert.equal(response.status, 200);
+    }
+    const ordinary = await onRequest({
+      request: req("https://examtree.in/api/attempts"),
+      env,
+    });
+    assert.equal(ordinary.status, 200);
+    assert.ok(forwarded.slice(0, 4).every(x => x.url.startsWith("https://examtree-new.onrender.com/")));
+    assert.equal(forwarded[4].url, cloudRun + "/api/attempts");
+  } finally {
+    globalThis.fetch = original;
+  }
+});
