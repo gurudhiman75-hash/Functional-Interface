@@ -20,11 +20,12 @@ LOCAL = {
     "payment_status": "captured",
     "provider_payment": "1382529476889230123",
     "payment_amount_minor": 10000,
+    "currency": "INR",
     "signed_payment_ids": ["1382529476889230123"],
     "unresolved_refunds": [],
 }
-ORDER = {"order_id": "et_order_128", "order_status": "PAID"}
-PAYMENTS = [{"cf_payment_id": 1382529476889230123, "payment_status": "SUCCESS"}]
+ORDER = {"order_id": "et_order_128", "order_status": "PAID", "order_amount": 100, "order_currency": "INR"}
+PAYMENTS = [{"cf_payment_id": 1382529476889230123, "payment_status": "SUCCESS", "payment_amount": "100.00", "payment_currency": "INR"}]
 
 
 class StubResponse(io.BytesIO):
@@ -36,6 +37,21 @@ class ReadOnlyAuditTests(unittest.TestCase):
         problems, n = aud.evaluate(LOCAL, ORDER, PAYMENTS, {})
         self.assertEqual(problems, [])
         self.assertEqual(n, 1)
+
+    def test_provider_amount_and_currency_mismatches_block_certification(self):
+        order = dict(ORDER, order_amount="99.99", order_currency="USD")
+        payment = [dict(PAYMENTS[0], payment_amount=99.99, payment_currency="USD")]
+        problems, _ = aud.evaluate(LOCAL, order, payment, {})
+        self.assertIn("provider_order_amount_missing_or_mismatch", problems)
+        self.assertIn("provider_order_currency_missing_or_mismatch", problems)
+        self.assertIn("provider_success_amount_missing_or_mismatch", problems)
+        self.assertIn("provider_success_currency_missing_or_mismatch", problems)
+
+    def test_amount_minor_decimal_exactness(self):
+        self.assertEqual(aud.money_minor("0.01"), 1)
+        self.assertEqual(aud.money_minor("100.00"), 10000)
+        self.assertIsNone(aud.money_minor("0.001"))
+        self.assertIsNone(aud.money_minor("NaN"))
 
     def test_historical_signed_conflicting_payment_evidence_never_silently_accepted(self):
         local = dict(LOCAL, signed_payment_ids=["1382529476889230000"])
