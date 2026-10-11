@@ -44,6 +44,8 @@ else
   [[ "$PGDATABASE" == "examtree_backup_restore_20261011" ]]
   [[ "$PGSSLMODE" == "verify-full" ]]
   [[ "$(head -c 5)" == "PGDMP" ]]
+  # Unlike --list, restore must read all bytes before exiting.
+  cat >/dev/null
 fi
 MOCK
 chmod 700 "$WORK/bin/pg_dump" "$WORK/bin/pg_restore"
