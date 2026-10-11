@@ -88,6 +88,7 @@ def main():
     print("PASS: Cloud Run sandbox staging and remote shared worker configured; outbox publisher OFF")
     print("ONE request will write", count, "NUM-001 REVIEW_ONLY question(s) into the shared Neon TEST database.")
     print("Question Bank publication, test eligibility and student delivery remain disabled.")
+    print("Difficulty uses Mixed because NUM-001 source authority does NOT support filtering; inspect actual saved tier labels.")
     print("If the request times out, DO NOT RETRY before checking generation runs.")
     typed = input("Type GENERATE-REVIEW-ONLY to authorize one generation request: ").strip()
     if typed != "GENERATE-REVIEW-ONLY":
@@ -97,7 +98,7 @@ def main():
         abort("expected Firebase JWT; do not paste tokens into chat")
     body = {
         "packageId": "NUM-001", "count": count, "cpIds": ["NUM-CP-001"],
-        "language": "en", "difficulty": "Easy", "engineId": "quant-v4",
+        "language": "en", "difficulty": "Mixed", "engineId": "quant-v4",
         "runtimeMode": "QUESTION_STUDIO_ACTIVE", "exam": "SSC CGL Tier 1",
     }
     req = Request(origin + "/api/admin/question-studio/runs",
@@ -120,6 +121,7 @@ def main():
     print("PASS: authenticated Cloud Run NUM-001 generation, count=", count, sep="")
     print("PASS: API returned REVIEW_ONLY run: " + data["id"])
     print("PASS: public code: " + data["publicCode"])
+    print("NOTE: This test verifies batch persistence, not per-difficulty quota compliance.")
     print("NEXT: independently query the generation run and item payload lifecycle before closing gate")
     print("NOTE: API reply alone does not verify persisted item payloads")
 
