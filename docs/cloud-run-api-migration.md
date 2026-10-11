@@ -42,6 +42,44 @@ EXAMTREE_BUDGET_READY=yes bash scripts/deploy-examtree-api-cloudrun-staging.sh s
 ```
 The script builds a standalone API image, mounts the **existing Neon main test-database URL** from Secret Manager, deploys `examtree-api-staging`, checks `/health` and safe negative E2E tests for unauthorized Question Studio generation and unsigned Cashfree webhooks, and creates a scheduled-worker Cloud Run Job definition without executing it or creating a Scheduler trigger. It does not modify Render, Cloudflare, Firebase Auth allowed domains, Cashfree merchant webhooks, or the mobile app. Node API background timers do not start in Cloud Run mode. The canonical Neon client remains unchanged. Limit Cloud Run instance count until production DB connection headroom is measured; the current driver default can open up to 10 connections per instance.
 
+
+## Authenticated staging acceptance using existing test identities
+
+After basic security and CORS checks pass, validate Firebase identity using
+existing, disposable test-student and bootstrapped-superadmin accounts.
+
+    cd ~/Functional-Interface
+    git switch New-main
+    git pull --ff-only origin New-main
+    bash scripts/verify-examtree-cloudrun-authenticated.sh student
+
+When the student checks pass, test the separate superadmin account:
+
+    bash scripts/verify-examtree-cloudrun-authenticated.sh admin
+
+The script interactively requests a fresh Firebase ID token via HIDDEN
+terminal input. NEVER paste a token into ChatGPT, logs, repository, or shell
+command arguments; these are bearer credentials. Do not substitute a Google
+Cloud IAM identity token. To obtain your own current Firebase ID token, log
+in to the Examtree website, open browser DevTools Network, and select an
+authenticated API request with its Authorization Bearer header. Copy only the
+token (not the header name) to the hidden Cloud Shell prompt, never the chat.
+Use disposable accounts and avoid sharing screenshots with bearer tokens.
+
+Student mode reads profile and purchases and verifies student finance RBAC is
+denied. Superadmin mode reads orders and Cashfree reconciliation diagnostics.
+The script resolves the actual Cloud Run staging URL, and never sends POST,
+PATCH, DELETE, refund, attempt, or background job requests.
+
+CAUTION: Examtree authentication middleware can reconcile a verified Firebase
+identity and update the last-login timestamp even on GET routes. These are
+existing application side effects in the shared Neon test database, so use
+established disposable test users, not real student identities.
+
+These tests do not establish signed provider webhook delivery, attempt writes,
+idempotent refunds, or background job readiness. Render and public routing
+remain untouched pending separate evidence and explicit approval.
+
 ## Acceptance gates before Cloudflare cutover
 - [ ] `GET /health` 200, and configured API functions do not return 502/503.
 - [ ] Firebase Google and mobile-number auth verified using Google-managed service identity; admin RBAC denied to ordinary student and allowed for superadmin.
