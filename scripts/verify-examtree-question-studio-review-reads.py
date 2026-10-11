@@ -104,7 +104,7 @@ def resolve_staging_url():
             stderr=subprocess.DEVNULL, text=True, timeout=35).strip()
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired, OSError):
         fail("could not resolve the deployed Cloud Run staging service")
-    if not re.fullmatch(r"https://examtree-api-staging-[a-zA-Z0-9.-]+\\.run\\.app", url):
+    if not re.fullmatch(r"https://examtree-api-staging-[a-zA-Z0-9.-]+\.run\.app", url):
         fail("untrusted Cloud Run staging URL")
     return url
 
@@ -140,7 +140,7 @@ def main():
     print("READ ONLY: no generation, review approvals, publication or worker actions.")
     print("Firebase auth may update last-login metadata in the shared TEST database.")
     token = getpass.getpass("Existing superadmin Firebase ID token (hidden): ").strip()
-    if not re.fullmatch(r"[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+", token):
+    if not re.fullmatch(r"[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+", token):
         fail("invalid Firebase ID token format; don't paste credentials into chat")
     opener = build_opener(RejectRedirect())
     results = []
