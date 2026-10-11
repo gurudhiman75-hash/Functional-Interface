@@ -115,6 +115,8 @@ test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks
       ["/api/commerce/orders/aaa-bbb/confirm", "POST"],
       ["/api/admin/commerce/orders/reconciliation/health", "GET"],
       ["/api/admin/commerce/orders/a-refund-id/reconcile", "POST"],
+      ["/api/admin/question-studio/review-page", "GET"],
+      ["/api/admin/session", "GET"],
       ["/api/billing/razorpay/verify", "POST"],
       ["/api/packages/verify", "POST"],
     ]) {
@@ -132,8 +134,8 @@ test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks
       env,
     });
     assert.equal(ordinary.status, 200);
-    assert.ok(forwarded.slice(0, 8).every(x => x.url.startsWith("https://examtree-new.onrender.com/")));
-    assert.equal(forwarded[8].url, cloudRun + "/api/attempts");
+    assert.ok(forwarded.slice(0, 10).every(x => x.url.startsWith("https://examtree-new.onrender.com/")));
+    assert.equal(forwarded[10].url, cloudRun + "/api/attempts");
   } finally {
     globalThis.fetch = original;
   }
