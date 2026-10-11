@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { analyzeDifficulty, analyzeMarking, analyzeResultSections, previousSavedAttempt, attemptComparison } from "../src/lib/individual-test-analysis.ts";
 import {
   aggregateSections, aggregateTopics, confirmedRealAttempts,
   scoreTrend, summarizePerformance,
@@ -57,5 +58,37 @@ const noTiming = summarizePerformance([{ ...base, timeSpent: 0 }]);
 assert.equal(noTiming.secondsPerAnswered, null, "missing time must never be presented as a speed measurement");
 const mixedTiming = summarizePerformance([base, { ...latest, timeSpent: 0 }]);
 assert.equal(mixedTiming.secondsPerAnswered, 12, "exclude answers from untimed attempts when calculating seconds per answer");
+
+const individual = {
+  ...base, marksPerQuestion: 2, negativeMarks: 0.5, actualScore: 5,
+  sectionTimeSpent: [{ name: "Reasoning", minutesSpent: 1.5 }],
+  questionReview: [
+    { questionId: 1, difficulty: "Easy", section: "Reasoning", selected: 0, correct: 0 },
+    { questionId: 2, difficulty: "Easy", section: "Reasoning", selected: 1, correct: 0 },
+    { questionId: 3, difficulty: "Medium", section: "Reasoning", selected: null, correct: 0 },
+    { questionId: 4, difficulty: null, section: "Reasoning", selected: 0, correct: 0 },
+  ],
+};
+const difficult = analyzeDifficulty(individual.questionReview);
+assert.equal(difficult.taggedQuestions, 3, "unknown difficulty must not be classified");
+assert.equal(difficult.rows.find((r) => r.difficulty === "Easy").accuracy, 50);
+assert.equal(difficult.rows.find((r) => r.difficulty === "Medium").attemptRate, 0);
+assert.equal(difficult.rows.find((r) => r.difficulty === "Medium").accuracy, null);
+assert.equal(analyzeMarking(individual).marksGained, 6);
+assert.equal(analyzeMarking(individual).marksLost, 1);
+assert.equal(analyzeMarking(individual).calculatedNet, 5);
+assert.equal(analyzeMarking({ ...individual, negativeMarks: undefined }), null, "unknown negative marking is not zero marking");
+assert.equal(analyzeResultSections(individual)[0].seconds, 90);
+assert.equal(analyzeResultSections(individual)[0].netMarks, 5);
+assert.equal(analyzeResultSections({ ...individual, sectionTimeSpent: undefined })[0].seconds, null);
+const secondRun = { ...individual, id: "second-run", score: 72, correct: 4, wrong: 1, createdAt: "2026-08-03T10:00:00Z" };
+assert.equal(previousSavedAttempt(secondRun, [secondRun, individual, { ...individual, id: "practice-only", score: 99, attemptType: "PRACTICE" }]).id, "one");
+assert.equal(previousSavedAttempt({ ...secondRun, attemptType: "PRACTICE" }, [individual]), null);
+assert.equal(previousSavedAttempt(secondRun, [{ ...individual, testId: "different" }]), null);
+const comparison = attemptComparison(secondRun, individual);
+assert.equal(comparison.scoreDelta, 12);
+assert.equal(comparison.accuracyDelta, 20);
+assert.equal(comparison.answeredDelta, 0);
+assert.equal(attemptComparison(secondRun, null), null);
 
 console.log("Student performance metrics tests passed");
