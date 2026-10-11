@@ -2,14 +2,14 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { quantV4QuestionStudioAdapter } from "../../src/question-studio/engines/quant-v4-adapter";
-import { listQuestionStudioPackages as listCumulativePackages } from "../../src/question-studio/shared-generation-engine-cp014";
+import { numberSystemEnginePackages } from "../../src/question-studio/quant-number-system";
 import { ALGEBRA_QUESTION_STUDIO_BANK_ONLY_PACKAGE_V1 as algebra } from "../../src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-bank-activation-v1";
 import { INT_001_CHAPTER_ADMIN_QUESTION_STUDIO_PACKAGE as interest } from "../../src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-adapter-v1";
 import { listSriQuestionStudioPackagesV1 } from "../../src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/question-studio-v1";
 
 const cards = quantV4QuestionStudioAdapter.listPackages().filter(p =>
   !p.packageId.startsWith("REASONING_") && p.packageId !== "IOP-001");
-const cumulative = listCumulativePackages();
+const cumulative = numberSystemEnginePackages();
 const num002 = cumulative.find(p => String(p.packageId) === "NUM-002");
 if (!num002) throw new Error("Dedicated NUM-002 aggregate missing");
 const dedicated = [
@@ -19,9 +19,10 @@ const dedicated = [
   { packageId: interest.packageId, chapter: "Interest", permanentQls: interest.permanentQlCount,
     checkpoints: interest.checkpointCount, languages: interest.supportedLanguages,
     stage: "REVIEW_ONLY", authority: "int-001-chapter-question-studio-admin-adapter-v1.ts" },
-  { packageId: String(num002.packageId), chapter: "Number System CP008–014", permanentQls: Number(num002.permanentQlCount),
+  { packageId: "NUM-001", chapter: "Number System CP001–006", permanentQls: 139, checkpoints: 6, languages: ["en", "hi", "pa"], stage: "REVIEW_ONLY", authority: "number-system-final-allocation/direct-checkpoint-runtimes" },
+  { packageId: String(num002.packageId), chapter: "Number System CP007–014", permanentQls: Number(num002.metadata.permanentQlCount),
     checkpoints: num002.cpIds.length, languages: num002.supportedLanguages,
-    stage: "REVIEW_ONLY", authority: "shared-generation-engine-cp014.ts" },
+    stage: "REVIEW_ONLY", authority: "number-system-final-allocation/direct-checkpoint-runtimes" },
   ...listSriQuestionStudioPackagesV1().map(p => ({ packageId: p.packageId, chapter: "Surds & Indices",
     permanentQls: p.permanentQlCount, checkpoints: p.cpIds.length, languages: p.supportedLanguages,
     stage: p.lifecycleStage, authority: "SurdsAndIndices/question-studio-v1.ts" })),
@@ -34,6 +35,7 @@ const result = {
   existingClosurePreserved: ["PNC", "TSD", "SAP", "TMW", "RAP", "Mensuration", "Probability", "Statistics", "DI"],
   unifiedPackages: cards.map(p => ({ packageId: p.packageId, chapter: p.subtopic,
     cpIds: p.cpIds, languages: p.supportedLanguages, stage: p.lifecycleStage ?? "LEGACY_DECLARED_GATES",
+    permanentQlCount: p.metadata?.permanentQlCount ?? null, permanentQlIds: p.metadata?.permanentQlIds ?? null,
     cpLanguagePolicy: p.metadata?.cpLanguagePolicy ?? null })),
   dedicatedAuthorities: dedicated.map(p => ({ ...p, unifiedRegistered: cards.some(c => c.packageId === p.packageId) })),
   confirmedRemainingUnifiedRoutingGaps: dedicated.filter(p => !cards.some(c => c.packageId === p.packageId)),
@@ -43,8 +45,8 @@ const result = {
     frozenEnglishRuntimeChecks: 928, frozenNativeRuntimeChecks: 2784,
     frozenAuthorityContentChanged: false, reviewOptionOrderChanged: true,
     scopedProductionTypeCheck: "PASS" },
+  additionalUnifiedIntegration: { chapters: ["Number System", "Interest", "Algebra"], permanentQls: [253, 133, 43], expectedLearnerSurfaces: 1416, sourceStatusesPreserved: true },
   capabilityReconciliationFollowups: [
-    "NUM-001 unified card exposes CP001/003/004; reconcile CP002/005/006/007 histories with the 14-CP final allocation before claiming whole-chapter unified exposure.",
     "Percentage cards advertise English; compare actual localized delivery before deciding whether a card or runtime change is required.",
     "Statistics advertises English, consistent with its explicit Paper-II closure scope and disabled localization; this does not reopen mathematical closure.",
     "DI-MIX-001 advertises English while individual DI packages advertise EN/HI/PA; review mix capability separately from individual chapter closure.",
