@@ -62,7 +62,7 @@ It sets `EXAMTREE_PAYMENT_PROVIDER=cashfree`, `CASHFREE_ENV=sandbox`,
 and references both secrets via Secret Manager. It uses the correct Cloud Run
 staging `EXAMTREE_API_ORIGIN`, so newly created sandbox orders point
 `order_meta.notify_url` directly to
-`https://examtree-api-staging-1083299267005.asia-south1.run.app/api/billing/cashfree/webhook`.
+`the currently deployed Cloud Run staging service URL (returned by gcloud run services describe examtree-api-staging --region=asia-south1), followed by /api/billing/cashfree/webhook`.
 The return URL points to the verified primary Cloudflare Pages domain
 `https://examtree.in/orders/:orderId` (not the Pages preview hostname).
 **Note:** the live frontend still calls Render; a staging API smoke test requires
@@ -105,3 +105,27 @@ provider env and sandbox credential secret mounts. This does not cancel existing
 sandbox orders; reconcile those separately before decommissioning any webhook.
 
 This script does not activate the Cloud Run background job.
+
+
+## 2a. Verify unauthenticated API security before authenticated testing
+
+The initial staging deploy smoke confirms health, public catalog and an unsigned
+webhook rejection. It does not confirm student identity, protected purchase
+history, administrator finance RBAC, or the deployed source commit.
+
+After pulling the approved New-main commit, run the **GET-only** security gate:
+
+    bash scripts/verify-examtree-cloudrun-staging-security.sh
+
+This resolves the currently deployed Cloud Run staging URL directly from
+Google Cloud and verifies the deployed image source includes the approved
+Cashfree refund reconciliation patch. It checks health, Cashfree catalog,
+missing/forged Firebase tokens, protected purchase and entitlement views,
+admin order and reconciliation endpoints, attempt-session access, and the
+approved/foreign Origin CORS behavior. All HTTP requests are GET; no
+refunding, new checkout, ledger updates, job executions or traffic cutover.
+
+Passing the script does NOT establish authorized student/admin sessions,
+successful paid checkout, signed gateway delivery, or worker correctness.
+Those require separate end-to-end acceptance with disposable test accounts and
+an explicit operator review before database-changing actions.
