@@ -6,11 +6,15 @@ on:
     paths:
       - scripts/verify-examtree-cloudrun-staging-security.sh
       - tests/examtree-cloudrun-staging-security.test.sh
+      - scripts/verify-examtree-cloudrun-authenticated.sh
+      - tests/examtree-cloudrun-authenticated.test.sh
   push:
     branches: [New-main]
     paths:
       - scripts/verify-examtree-cloudrun-staging-security.sh
       - tests/examtree-cloudrun-staging-security.test.sh
+      - scripts/verify-examtree-cloudrun-authenticated.sh
+      - tests/examtree-cloudrun-authenticated.test.sh
 
 permissions:
   contents: read
@@ -27,3 +31,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Confirm non-mutating staging diagnostics
         run: bash tests/examtree-cloudrun-staging-security.test.sh
+      - name: Guard hidden Firebase ID-token read checks
+        run: bash tests/examtree-cloudrun-authenticated.test.sh
