@@ -19,7 +19,7 @@ case "$*" in
   'storage buckets describe '*) printf '%s\n' '{"name":"sarbedutech","public_access_prevention":"enforced","uniform_bucket_level_access":true}' ;;
   'services enable '*) ;;
   'iam service-accounts describe '*)
-    email="$4"
+    email="$3"
     key="${email%@*}"
     key="${key##*-}"
     countfile="$FAKE_GCLOUD_STATE/$key.count"
