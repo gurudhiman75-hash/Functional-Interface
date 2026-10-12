@@ -13,7 +13,6 @@ on:
       - 'cloudbuild.question-studio-universal.yaml'
       - 'tests/question-studio-universal-dispatcher.test.mjs'
       - 'scripts/smoke-question-studio-universal-local.mjs'
-      - '.github/workflows/question-studio-universal-cloudrun.yml'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
