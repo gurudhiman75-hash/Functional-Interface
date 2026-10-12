@@ -360,6 +360,48 @@ all validated. Keep payment purchases disabled, and keep Render live as the
 temporary admin, finance, and old-Android backend. The student API phase
 **is not** a complete Render shutdown.
 
+## Private production student HTTP 401 diagnosis (2026-10-12)
+
+Production /health and Neon-backed catalog pass; the initial **Firebase
+student GET returned 401**, so public cutover is still **BLOCKED**. It is
+not yet evidence of a broken production database.
+
+The original verification sent a Firebase `Authorization: Bearer` header
+through the local `gcloud run services proxy`, which also authenticates
+Cloud Run invocations. That makes a proxy-injected IAM credential vs.
+application Firebase credential collision a possible explanation; an expired
+Firebase ID token, wrong Firebase project or missing account verification
+permissions are also possible. **Do not guess or relax Firebase checks.**
+
+The revised `scripts/verify-examtree-cloudrun-production-student-auth.sh`
+preflights only the token's untrusted *claims* locally (Firebase project,
+issuer and expiry; the production API still cryptographically verifies it).
+The script then invokes the **PRIVATE** production `*.run.app` endpoint
+with **two distinct credentials**, passing a Cloud Shell invoker ID token
+via `X-Serverless-Authorization` and the existing student's freshly
+refreshed Firebase ID token via the normal `Authorization` header. Cloud
+Run's IAM layer checks the former and forwards the latter to the app.
+See Google's Cloud Run service-to-service authentication documentation.
+Neither token is printed or passed as a command argument; response
+bodies are withheld, with only sanitized application error codes shown.
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+gcloud config set project sarbedutech
+bash scripts/verify-examtree-cloudrun-production-student-auth.sh
+```
+
+If `AUTH_TOKEN_INVALID` or `SESSION_REVOKED` persists with a fresh,
+existing disposable-student Firebase ID token, investigate production
+Cloud Run runtime service-account **Firebase Authentication access** and
+the `verifyIdToken(token, true)` revocation check, versus Render's auth.
+Do not make Firebase token revocation optional or print tokens in logs.
+If the result is `AUTH_TOKEN_REQUIRED`, inspect header forwarding.
+If the request is rejected by Cloud Run IAM before it reaches the app,
+inspect Cloud Shell invoker permissions and token audience. **No public
+routing changes or background job execution** until checks pass.
+
 ## Safe sequence to finish actual migration
 
 A. Prepare and build the final **production** Cloud Run API image from the
