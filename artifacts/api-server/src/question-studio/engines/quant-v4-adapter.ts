@@ -629,69 +629,31 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     replaceOrPush("DI-007", di007QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-008", di008QuestionStudioPackageCard() as unknown as Record<string, unknown>);
 
-    if (!packages.some((pkg) => pkg.packageId === "DI-009")) {
-      packages.push(toSharedPackage(di009QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-010")) {
-      packages.push(toSharedPackage(di010QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-011")) {
-      packages.push(toSharedPackage(di011QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-012")) {
-      packages.push(toSharedPackage(di012QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-013")) {
-      packages.push(toSharedPackage(di013QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-014")) {
-      packages.push(toSharedPackage(di014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "DI-MIX-001")) {
-      packages.push(toSharedPackage(diDeliveryNoveltyMixPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-001")) {
-      packages.push(toSharedPackage(stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-002")) {
-      packages.push(toSharedPackage(stat002QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-003")) {
-      packages.push(toSharedPackage(stat003QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-004")) {
-      packages.push(toSharedPackage(stat004QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-005")) {
-      packages.push(toSharedPackage(stat005QuestionStudioCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-006")) {
-      packages.push(toSharedPackage(stat006QuestionStudioCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-007")) {
-      packages.push(toSharedPackage(stat007QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-008")) {
-      packages.push(toSharedPackage(stat008QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-009")) {
-      packages.push(toSharedPackage(stat009QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-010")) {
-      packages.push(toSharedPackage(stat010QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-011")) {
-      packages.push(toSharedPackage(stat011QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-012")) {
-      packages.push(toSharedPackage(stat012QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-013")) {
-      packages.push(toSharedPackage(stat013QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
-    if (!packages.some((pkg) => pkg.packageId === "STAT-014")) {
-      packages.push(toSharedPackage(stat014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
-    }
+    // Filesystem-discovered Quant cards can precede specialized DI/Statistics
+    // adapters. Never retain a generic card just because its packageId exists:
+    // its CP, supported-language, lifecycle, and review-only gates may be stale.
+    // The dedicated executable adapter is the source of truth for each package.
+    replaceOrPush("DI-009", di009QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-010", di010QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-011", di011QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-012", di012QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-013", di013QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-014", di014QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-MIX-001", diDeliveryNoveltyMixPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-001", stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-002", stat002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-003", stat003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-004", stat004QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-005", stat005QuestionStudioCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-006", stat006QuestionStudioCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-007", stat007QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-008", stat008QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-009", stat009QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-010", stat010QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-011", stat011QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-012", stat012QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-013", stat013QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("STAT-014", stat014QuestionStudioPackageCard() as unknown as Record<string, unknown>);
 
     for (const specializedPackage of [
       trg001EnginePackage(),
