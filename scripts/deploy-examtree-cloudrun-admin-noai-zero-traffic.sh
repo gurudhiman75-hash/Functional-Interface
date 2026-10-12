@@ -145,6 +145,18 @@ print("PASS: candidate refuses finance admin calls (Render remains owner)")
 PY
 CODE="$(curl -sS --max-time 90 -o "$TMP/auth" -w '%{http_code}' "$CANDIDATE_URL/api/admin/question-studio/capabilities")"
 [[ "$CODE" == 401 ]] || { echo "FAIL: candidate admin auth barrier HTTP $CODE" >&2; exit 1; }
+# No credential can be supplied at this stage; all unverified admin and
+# AI-backed routes must be blocked even via the direct tagged run.app URL.
+for path in /api/admin/notes-studio-v2/capabilities /api/admin/current-affairs /api/admin/students; do
+  CODE="$(curl -sS --max-time 60 -o "$TMP/blocked" -w '%{http_code}' "$CANDIDATE_URL$path")"
+  BLOCK_STATUS="$CODE" python3 - "$TMP/blocked" <<'PY'
+import json,os,sys
+with open(sys.argv[1]) as f:d=json.load(f)
+assert os.environ['BLOCK_STATUS']=='503'
+assert d.get('code')=='ADMIN_FEATURE_HANDLED_BY_RENDER_DURING_CUTOVER'
+print('PASS: unverified admin / AI route blocked directly')
+PY
+done
 CODE="$(curl -sS --max-time 75 -o "$TMP/products" -w '%{http_code}' "$CANDIDATE_URL/api/commerce/products")"
 python3 - "$TMP/products" "$CODE" <<'PY'
 import json,sys
