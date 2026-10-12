@@ -281,6 +281,46 @@ Render bypass. Only then consider a controlled public invoker change and
 same-domain Cloudflare production upstream override. Never switch public
 traffic merely because Cloud Build or `/health` passed.
 
+## Authenticated student HTTP 401 investigation (2026-10-12)
+
+After the private production preflight passed, the first disposable-student
+Firebase read check returned `HTTP 401` at `GET /api/users/me/profile`.
+No Cloudflare routing changed, and no mutation was attempted. This is **not**
+proof the production API can authenticate students. The previous script
+tested the application token through `gcloud run services proxy`, which
+also attaches Cloud Run IAM authentication and can interfere with the
+application's Authorization header. An expired ID token, wrong Firebase
+project, missing production service account Firebase permission or revoked
+student session are also possible causes.
+
+The next revision of
+`scripts/verify-examtree-cloudrun-production-student-auth.sh` requires
+an **up-to-date** ID token for an **already-used disposable student** and
+does a local, non-cryptographic JWT audience/expiration check before any
+request. Google's Cloud Run IAM token is sent explicitly as
+`X-Serverless-Authorization`; the **original** Firebase JWT remains in
+`Authorization`. This separation is documented by Cloud Run. The backend
+still performs all signature/revocation checks. The tester logs only an HTTP
+status and safe API `code` if a request fails; never display JWT values,
+emails, names or full responses.
+
+Run from Cloud Shell with newly refreshed test-user token, paste only into
+hidden prompt:
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+gcloud config set project sarbedutech
+bash scripts/verify-examtree-cloudrun-production-student-auth.sh
+```
+
+If `AUTH_TOKEN_INVALID` persists after a refreshed valid-audience token,
+investigate the dedicated production Cloud Run service account's ability to
+perform Firebase revocation lookups (`verifyIdToken(token, true)` uses a
+Firebase Auth account lookup), including Cloud Logging. Do not relax token
+validation, create a new production account, or change the live frontend
+route merely to pass the smoke.
+
 ## Student account acceptance after private production catalog gate (2026-10-12)
 
 The owner ran `bash scripts/verify-examtree-cloudrun-production-private.sh`
