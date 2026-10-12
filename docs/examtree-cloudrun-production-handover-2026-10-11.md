@@ -281,6 +281,45 @@ Render bypass. Only then consider a controlled public invoker change and
 same-domain Cloudflare production upstream override. Never switch public
 traffic merely because Cloud Build or `/health` passed.
 
+## Student account acceptance after private production catalog gate (2026-10-12)
+
+The owner ran `bash scripts/verify-examtree-cloudrun-production-private.sh`
+against deployed revision `examtree-api-00002-mch`, image
+`0125146f0254f1f2`. All results passed: private IAM, inert job,
+absent scheduler, /health 200, MAIN Neon-backed catalogue HTTP 200 with
+`salesEnabled:false` and one product, empty anonymous order blocked 503,
+and direct admin delegated 503. Public Cloudflare routing was unchanged.
+
+**Next run the existing disposable-student, hidden-token GET-only check:**
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+gcloud config set project sarbedutech
+bash scripts/verify-examtree-cloudrun-production-student-auth.sh
+```
+
+Use an **already used disposable student account**, never a superadmin,
+real paying customer or a new signup. Paste the Firebase ID token into the
+hidden Cloud Shell prompt, never in chat. The script starts and stops an
+authenticated local proxy; it checks structured student profile and purchases
+GET responses, and that direct admin remains delegated. It never requests
+refunds, attempts, purchase creation, workers, Firebase secret values, or
+public Cloud Run invocation changes. Some Firebase middleware updates the
+user-to-Neon identity mapping during GET; this is why only an existing
+disposable student may be used.
+
+Only if it passes, independently verify Cloudflare proxy routes all
+`/api/admin/*`, legacy Cashfree/Razorpay verification, existing-order
+confirm/reconcile, and webhooks to Render; verify production Pages has
+deployed the matching function code. Public Cloud Run access is **not**
+configured yet. Do not set `EXAMTREE_API_UPSTREAM_ORIGIN` on `examtree.in`
+until Cloud Run's public invoker policy is ready and origin controls, JWT
+authorization, Firebase student reads, rollback steps, and smoke tests are
+all validated. Keep payment purchases disabled, and keep Render live as the
+temporary admin, finance, and old-Android backend. The student API phase
+**is not** a complete Render shutdown.
+
 ## Safe sequence to finish actual migration
 
 A. Prepare and build the final **production** Cloud Run API image from the

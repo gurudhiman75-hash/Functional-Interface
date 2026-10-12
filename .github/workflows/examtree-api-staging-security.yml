@@ -32,6 +32,8 @@ on:
       - scripts/enable-examtree-api-background-scheduler.sh
       - scripts/inspect-examtree-cloudrun-production-handover.py
       - tests/examtree-production-handover.test.py
+      - scripts/verify-examtree-cloudrun-production-student-auth.sh
+      - tests/examtree-cloudrun-production-student-auth.test.py
       - scripts/verify-examtree-cloudrun-production-private.sh
       - tests/examtree-cloudrun-private-acceptance.test.py
       - scripts/deploy-examtree-api-cloudrun-production-candidate.sh
@@ -83,6 +85,10 @@ jobs:
           python3 tests/examtree-staging-sandbox-refresh.test.py
       - name: Verify purchases-paused cutover API and UI
         run: python3 tests/examtree-sales-cutover-guard.test.py
+      - name: Guard disposable production student identity checks
+        run: |
+          bash -n scripts/verify-examtree-cloudrun-production-student-auth.sh
+          python3 tests/examtree-cloudrun-production-student-auth.test.py
       - name: Ensure private production acceptance is nonmutating
         run: |
           bash -n scripts/verify-examtree-cloudrun-production-private.sh
