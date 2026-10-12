@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+// Run provider-free admin guards as part of the existing production-build proxy suite.
+import "./examtree-admin-noai-cutover.test.mjs";
 import test from "node:test";
 import { onRequest, configuredApiOrigin } from "../functions/api/[[path]].js";
 
