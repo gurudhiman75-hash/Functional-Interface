@@ -21,6 +21,7 @@ on:
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
       - artifacts/api-server/src/question-studio/engines/**
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
+      - tests/question-studio-quant-card-authority.test.mjs
   push:
     branches:
       - New-main
@@ -40,6 +41,7 @@ on:
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
       - artifacts/api-server/src/question-studio/engines/**
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
+      - tests/question-studio-quant-card-authority.test.mjs
   workflow_dispatch:
 
 permissions:
@@ -67,6 +69,9 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Validate dedicated DI and Statistics Question Studio card authority
+        run: node --test tests/question-studio-quant-card-authority.test.mjs
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
