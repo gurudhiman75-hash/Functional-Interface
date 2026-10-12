@@ -45,7 +45,13 @@ This script verifies student traffic is 100% on the previous healthy revision, b
 
 ### D. Acceptance before cutover
 
-With an existing disposable superadmin account and a fresh Firebase ID token, verify through tagged candidate:
+Run the guarded read-only acceptance script in Cloud Shell. It discovers the candidate's 0%-traffic tag itself and prompts for a fresh superadmin ID token without displaying it:
+
+```bash
+bash scripts/verify-examtree-cloudrun-admin-tagged-readonly.sh
+```
+
+With an existing disposable superadmin account and a fresh Firebase ID token, also verify:
 - Read-only `GET /api/admin/question-studio/capabilities` and `GET /api/admin/question-studio/review-page` (200); student account (403), anonymous (401).
 - Admin bootstrap and RBAC, Notes Studio read, student/exam management read, Storage media permissions.
 - Finance always returns 503 direct Cloud Run and stays Render-proxied through Cloudflare.
