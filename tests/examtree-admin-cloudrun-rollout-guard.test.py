@@ -5,6 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKER = (ROOT / 'scripts/deploy-examtree-cloudrun-production-question-workers.sh').read_text()
 ADMIN = (ROOT / 'scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh').read_text()
 SECRET = (ROOT / 'scripts/configure-examtree-cloudrun-admin-provider-secret.sh').read_text()
+VERIFY = (ROOT / 'scripts/verify-examtree-cloudrun-admin-tagged-readonly.sh').read_text()
 
 class AdminRolloutSafetyTest(unittest.TestCase):
     def test_prod_worker_independent(self):
@@ -57,6 +58,16 @@ class AdminRolloutSafetyTest(unittest.TestCase):
         self.assertNotIn('echo "$KEY"',SECRET)
         self.assertNotIn('gcloud run deploy',SECRET)
         self.assertNotIn('git push',SECRET)
+
+    def test_readonly_admin_acceptance(self):
+        for literal in ('read -r -s', '--max-time 120', 'Authorization: Bearer',
+                        'admin-candidate', 'question-studio/capabilities',
+                        'question-studio/review-page', 'notes-studio-v2/capabilities',
+                        'notes-studio-v2/periods', '[[ -t 0 ]]',
+                        'int(tag.get(\'percent\',0))==0'):
+            self.assertIn(literal, VERIFY)
+        self.assertNotIn('curl -X POST',VERIFY)
+        self.assertNotIn('gcloud run services update-traffic',VERIFY)
 
 if __name__ == '__main__':
     unittest.main()
