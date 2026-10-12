@@ -7,6 +7,7 @@ on:
       - 'scripts/configure-examtree-cloudrun-admin-provider-secret.sh'
       - 'scripts/deploy-examtree-cloudrun-production-question-workers.sh'
       - 'scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh'
+      - 'scripts/verify-examtree-cloudrun-admin-tagged-readonly.sh'
       - 'tests/examtree-admin-cloudrun-rollout-guard.test.py'
   push:
     branches: [New-main]
@@ -14,6 +15,7 @@ on:
       - 'scripts/configure-examtree-cloudrun-admin-provider-secret.sh'
       - 'scripts/deploy-examtree-cloudrun-production-question-workers.sh'
       - 'scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh'
+      - 'scripts/verify-examtree-cloudrun-admin-tagged-readonly.sh'
       - 'tests/examtree-admin-cloudrun-rollout-guard.test.py'
   workflow_dispatch:
 
@@ -35,6 +37,7 @@ jobs:
           bash -n scripts/configure-examtree-cloudrun-admin-provider-secret.sh
           bash -n scripts/deploy-examtree-cloudrun-production-question-workers.sh
           bash -n scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh
+          bash -n scripts/verify-examtree-cloudrun-admin-tagged-readonly.sh
       - name: Validate safe deployment contracts
         run: python3 tests/examtree-admin-cloudrun-rollout-guard.test.py
       - name: Check whitespace
