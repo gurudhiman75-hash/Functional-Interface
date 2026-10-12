@@ -409,11 +409,21 @@ function replaceTag(html, matcher, replacement, label) {
 }
 
 function buildFallbackMarkup(route) {
+  // Keep merchant identity crawlable even if a KYC reviewer does not run JavaScript.
+  const publicLegalRoutes = new Set([
+    "/contact",
+    "/privacy-policy",
+    "/terms-and-conditions",
+    "/cancellation-refund-policy",
+  ]);
+  const merchantIdentity = publicLegalRoutes.has(route.path)
+    ? '<section aria-label="Business and contact information" style="margin-top:24px;padding:16px;border:1px solid #e2e8f0;border-radius:12px"><h2>Business and contact information</h2><p>Website and brand: ExamTree</p><p>Legal business name: Baljit Kaur</p><p>Support email: <a href="mailto:support@examtree.in">support@examtree.in</a></p></section>'
+    : "";
   const links = discoveryLinks
     .filter(([, href]) => href !== route.path)
     .map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`)
     .join(" · ");
-  return `<div id="root"><main data-prerender-fallback style="max-width:760px;margin:0 auto;padding:48px 20px;font-family:Inter,Arial,sans-serif;line-height:1.6;color:#1e293b"><a href="/" style="font-weight:700;color:#1e1b4b">ExamTree</a><h1 style="margin:24px 0 12px;color:#0f172a">${escapeHtml(route.heading)}</h1><p>${escapeHtml(route.description)}</p><nav aria-label="Explore ExamTree" style="margin-top:24px">${links}</nav><p style="margin-top:28px;font-size:14px;color:#64748b">Interactive catalog and account features load when JavaScript is available.</p></main></div>`;
+  return `<div id="root"><main data-prerender-fallback style="max-width:760px;margin:0 auto;padding:48px 20px;font-family:Inter,Arial,sans-serif;line-height:1.6;color:#1e293b"><a href="/" style="font-weight:700;color:#1e1b4b">ExamTree</a><h1 style="margin:24px 0 12px;color:#0f172a">${escapeHtml(route.heading)}</h1><p>${escapeHtml(route.description)}</p>${merchantIdentity}<nav aria-label="Explore ExamTree" style="margin-top:24px">${links}</nav><p style="margin-top:28px;font-size:14px;color:#64748b">Interactive catalog and account features load when JavaScript is available.</p></main></div>`;
 }
 
 function renderRoute(baseHtml, route, publicOrigin) {
