@@ -8,6 +8,8 @@ on:
       - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/api-server/src/question-studio/build-question-studio-capabilities-manifest.ts'
+      - 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
+      - 'tests/question-studio-quant-card-authority.test.mjs'
       - 'artifacts/api-server/src/question-studio/runtime-read-path-isolation.test.ts'
       - 'artifacts/api-server/build.mjs'
       - '.github/workflows/question-studio-route-registry.yml'
@@ -17,6 +19,8 @@ on:
       - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/api-server/src/question-studio/build-question-studio-capabilities-manifest.ts'
+      - 'artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts'
+      - 'tests/question-studio-quant-card-authority.test.mjs'
       - 'artifacts/api-server/src/question-studio/runtime-read-path-isolation.test.ts'
       - 'artifacts/api-server/build.mjs'
       - '.github/workflows/question-studio-route-registry.yml'
@@ -82,6 +86,9 @@ jobs:
           set -euo pipefail
           cd artifacts/api-server
           node --experimental-strip-types src/question-studio/runtime-read-path-isolation.test.ts
+
+      - name: Validate Quant Question Studio card authority
+        run: node --test tests/question-studio-quant-card-authority.test.mjs
 
       - name: Report focused CI contract
         run: echo 'Question Studio route registry + runtime read isolation PASS'
