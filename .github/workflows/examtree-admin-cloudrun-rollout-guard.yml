@@ -1,0 +1,41 @@
+name: Guard Examtree production admin Cloud Run rollout
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/configure-examtree-cloudrun-admin-provider-secret.sh'
+      - 'scripts/deploy-examtree-cloudrun-production-question-workers.sh'
+      - 'scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh'
+      - 'tests/examtree-admin-cloudrun-rollout-guard.test.py'
+  push:
+    branches: [New-main]
+    paths:
+      - 'scripts/configure-examtree-cloudrun-admin-provider-secret.sh'
+      - 'scripts/deploy-examtree-cloudrun-production-question-workers.sh'
+      - 'scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh'
+      - 'tests/examtree-admin-cloudrun-rollout-guard.test.py'
+  workflow_dispatch:
+
+concurrency:
+  group: examtree-admin-cloudrun-rollout-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Cloud Shell scripts parse
+        run: |
+          bash -n scripts/configure-examtree-cloudrun-admin-provider-secret.sh
+          bash -n scripts/deploy-examtree-cloudrun-production-question-workers.sh
+          bash -n scripts/deploy-examtree-cloudrun-admin-zero-traffic.sh
+      - name: Validate safe deployment contracts
+        run: python3 tests/examtree-admin-cloudrun-rollout-guard.test.py
+      - name: Check whitespace
+        run: git diff --check
