@@ -241,6 +241,46 @@ changing Neon or worker settings during rollback. The payment/admin Render
 bypass must be removed only at a **later** production merchant/AI cutover,
 with its own verification and plan.
 
+## One-command private candidate acceptance (2026-10-12)
+
+The `examtree-api` production candidate exists, has a private Cloud Run
+invoker policy, and is separate from the isolated `examtree-api-staging`.
+**A deployed revision is NOT proof of live Neon connectivity.**
+
+Run the following **read-only and non-mutating** acceptance gate using Cloud
+Shell's authenticated Cloud Run proxy:
+
+```bash
+cd ~/Functional-Interface
+git switch New-main && git pull --ff-only origin New-main
+gcloud config set project sarbedutech
+bash scripts/verify-examtree-cloudrun-production-private.sh
+```
+
+The script checks the existing private service and inert background job,
+Firebase project, worker-off settings, Neon MAIN Secret Manager reference,
+sales disabled and admin delegated, absence of public invoker and scheduler,
+and that the latest production revision is ready. It then starts a local
+`gcloud run services proxy` for authenticated access to the **private**
+production service; verifies `GET /health`, live Neon catalog
+`GET /api/commerce/products` with `salesEnabled:false`, blocked anonymous
+empty-body `POST /api/commerce/orders` (503 before any order write), and
+rejected direct Cloud Run `GET /api/admin/session` (503, leaving admin on
+Render). The script stops its proxy automatically and never displays tokens,
+credentials, customer data or catalog contents. It cannot issue real orders,
+execute workers, or change production routing.
+
+Any failure = **NO CUTOVER**. In particular a recognized Neon pooler hostname
+does not establish DB connectivity until `/api/commerce/products` returns
+HTTP 200 from the production Cloud Run service.
+
+Once this gate passes, separately verify authenticated student test reads
+via the PRIVATE production candidate using a fresh disposable-student Firebase
+ID token, and confirm live Cloudflare Pages has the checked-in admin/payment
+Render bypass. Only then consider a controlled public invoker change and
+same-domain Cloudflare production upstream override. Never switch public
+traffic merely because Cloud Build or `/health` passed.
+
 ## Safe sequence to finish actual migration
 
 A. Prepare and build the final **production** Cloud Run API image from the
