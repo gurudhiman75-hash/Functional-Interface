@@ -37,7 +37,8 @@ class ProductionCandidateSafetyTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertIn("MAIN POOLER", reason)
         self.assertNotIn("example_secret", reason)
-        self.assertFalse(m.validate(valid_pooler + ".invalid")[0])
+        self.assertFalse(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, m.PRODUCTION_POOLER_HOST + ".invalid"))[0])
 
     def test_safe_reason_does_not_expose_connection_string(self):
         for candidate in (PRODUCTION, "postgresql://prod:example_secret@evil.example/neondb?sslmode=require"):
