@@ -15,7 +15,7 @@ class PrivateProductionStudentAuth(unittest.TestCase):
             '/api/users/me/profile', '/api/commerce/purchases',
             'ADMIN_HANDLED_BY_RENDER_DURING_CUTOVER',
             'trap cleanup EXIT', 'p.get("aud")=="sarbedutech"',
-            'p["exp"]>now+120', 'Signature checked by server',
+            'p["exp"]>now+120', 'signature checked by server',
             'diagnose_status()', 'IAM_TOKEN=\'\''):
             self.assertIn(good,SCRIPT,good)
         for bad in (
