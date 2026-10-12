@@ -183,3 +183,60 @@ test("admin promotion is opt-in and keeps finance plus callbacks on Render", asy
     globalThis.fetch = savedFetch;
   }
 });
+
+
+test("no-AI admin mode migrates only session and deterministic Question Studio", async () => {
+  const old = globalThis.fetch;
+  const upstream = "https://examtree-api-1083299267005.asia-south1.run.app";
+  const legacy = "https://examtree-new.onrender.com";
+  const seen = [];
+  globalThis.fetch = async (request) => {
+    seen.push(request.url);
+    return Response.json({ ok: true });
+  };
+  try {
+    const env = {
+      EXAMTREE_API_UPSTREAM_ORIGIN: upstream,
+      EXAMTREE_ADMIN_UPSTREAM: "cloud-run-deterministic",
+    };
+    const cases = [
+      ["/api/admin/session", upstream],
+      ["/api/admin/session/bootstrap", upstream],
+      ["/api/admin/question-studio/capabilities", upstream],
+      ["/api/admin/question-studio/review-page?page=1", upstream],
+      ["/api/admin/question-studio/runs", upstream],
+      ["/api/admin/notes-studio-v2/capabilities", legacy],
+      ["/api/admin/notes-studio-v2/notes/generate", legacy],
+      ["/api/admin/notes-studio/capabilities", legacy],
+      ["/api/admin/current-affairs", legacy],
+      ["/api/admin/commerce/orders", legacy],
+      ["/api/admin/questions", legacy],
+      ["/api/admin/students", legacy],
+      ["/api/admin/session-evil", legacy],
+      ["/api/admin/question-studio-ai", legacy],
+      ["/api/admin", legacy],
+      ["/api/billing/cashfree/webhook", legacy],
+      ["/api/commerce/orders/order-id/reconcile", legacy],
+      ["/api/student/profile", upstream],
+    ];
+    for (const [path, destination] of cases) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path),
+        env,
+      });
+      assert.equal(response.status, 200, path);
+      assert.equal(seen.at(-1), destination + path, path);
+    }
+    // Fail closed to Render if the admin variable is unset or malformed.
+    for (const value of [undefined, "cloud-run-determ", "Cloud-run-deterministic", "true"]) {
+      const response = await onRequest({
+        request: req("https://examtree.in/api/admin/question-studio/capabilities"),
+        env: { EXAMTREE_API_UPSTREAM_ORIGIN: upstream, EXAMTREE_ADMIN_UPSTREAM: value },
+      });
+      assert.equal(response.status, 200);
+      assert.equal(seen.at(-1), legacy + "/api/admin/question-studio/capabilities");
+    }
+  } finally {
+    globalThis.fetch = old;
+  }
+});
