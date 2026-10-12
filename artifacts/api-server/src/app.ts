@@ -130,6 +130,23 @@ app.use((req, res, next) => {
   }
   next();
 });
+// During the separate admin handover, financial admin operations must still
+// reach Render. Deny direct Cloud Run /api/admin/commerce requests even when
+// administrator auth succeeds, until the merchant handover is complete.
+app.use((req, res, next) => {
+  if (process.env.EXAMTREE_API_RUNTIME === "cloud-run" &&
+      process.env.EXAMTREE_API_STAGING === "false" &&
+      process.env.EXAMTREE_SALES_DISABLED === "true" &&
+      (req.path === "/api/admin/commerce" || req.path.startsWith("/api/admin/commerce/"))) {
+    res.status(503).json({
+      code: "FINANCE_HANDLED_BY_RENDER_DURING_CUTOVER",
+      error: "Use the primary Examtree website for finance administration during migration.",
+    });
+    return;
+  }
+  next();
+});
+
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json" }), webhookRateLimit, cashfreeWebhookHandler);
 
