@@ -37,7 +37,7 @@ if ! gcloud iam service-accounts describe "$SA" --project="$PROJECT" >/dev/null 
 fi
 if ! gcloud secrets describe "$SECRET" --project="$PROJECT" >/dev/null 2>&1; then
   # No key appears in the shell command line, logs, Git or chat.
-  openssl rand -hex 32 | tr -d '\\n' | gcloud secrets create "$SECRET" \
+  openssl rand -hex 32 | tr -d '\n' | gcloud secrets create "$SECRET" \
     --project="$PROJECT" --replication-policy=automatic --data-file=- >/dev/null
 fi
 [[ -n "$(gcloud secrets versions list "$SECRET" --project="$PROJECT" --filter='state:enabled' --format='value(name)')" ]] || {
