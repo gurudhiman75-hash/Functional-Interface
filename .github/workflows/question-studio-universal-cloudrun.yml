@@ -13,6 +13,7 @@ on:
       - 'cloudbuild.question-studio-universal.yaml'
       - 'tests/question-studio-universal-dispatcher.test.mjs'
       - 'scripts/smoke-question-studio-universal-local.mjs'
+      - 'scripts/deploy-question-studio-universal-staging.sh'
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,5 +41,7 @@ jobs:
         run: node artifacts/api-server/build-universal-worker.mjs
       - name: Smoke generate with Quant Reasoning English Static GK
         run: node scripts/smoke-question-studio-universal-local.mjs
+      - name: Verify manual staging script parses
+        run: bash -n scripts/deploy-question-studio-universal-staging.sh
       - name: Ensure patch hygiene
         run: git diff --check
