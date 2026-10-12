@@ -52,7 +52,7 @@ URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$R
 [[ "$URL" =~ ^https://examtree-api-[A-Za-z0-9-]+[.](asia-south1[.]run[.]app|a[.]run[.]app)$ ]] || {
   echo "FAIL: unexpected production Cloud Run hostname. No cutover." >&2; exit 2
 }
-# Unlike gcloud run services proxy (which attaches its IAM bearer token),
+# Unlike the local Cloud Run proxy (which attaches its IAM bearer token),
 # send both credentials to Cloud Run explicitly. Google's edge checks only
 # X-Serverless-Authorization and passes Firebase Authorization to the app.
 IAM_TOKEN="$(gcloud auth print-identity-token 2>/dev/null)" || {
