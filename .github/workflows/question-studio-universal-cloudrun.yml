@@ -1,0 +1,45 @@
+name: Validate universal Question Studio generation worker
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/universal-executor.ts'
+      - 'artifacts/api-server/src/question-studio/universal-generation-worker.ts'
+      - 'artifacts/api-server/src/question-studio/remote-universal-studio-client.ts'
+      - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
+      - 'artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts'
+      - 'artifacts/api-server/build-universal-worker.mjs'
+      - 'Dockerfile.question-studio-universal'
+      - 'cloudbuild.question-studio-universal.yaml'
+      - 'tests/question-studio-universal-dispatcher.test.mjs'
+      - 'scripts/smoke-question-studio-universal-local.mjs'
+      - '.github/workflows/question-studio-universal-cloudrun.yml'
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  universal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify endpoint auth and canonical persistence contract
+        run: node --test tests/question-studio-universal-dispatcher.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Build all four deterministic generation adapters in dedicated bundle
+        run: node artifacts/api-server/build-universal-worker.mjs
+      - name: Smoke generate with Quant Reasoning English Static GK
+        run: node scripts/smoke-question-studio-universal-local.mjs
+      - name: Ensure patch hygiene
+        run: git diff --check
