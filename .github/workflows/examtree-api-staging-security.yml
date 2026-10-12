@@ -32,6 +32,8 @@ on:
       - scripts/enable-examtree-api-background-scheduler.sh
       - scripts/inspect-examtree-cloudrun-production-handover.py
       - tests/examtree-production-handover.test.py
+      - scripts/verify-examtree-cloudrun-production-private.sh
+      - tests/examtree-cloudrun-private-acceptance.test.py
       - scripts/deploy-examtree-api-cloudrun-production-candidate.sh
       - scripts/validate-examtree-production-neon-url.py
       - tests/examtree-production-candidate-safety.test.py
@@ -81,6 +83,10 @@ jobs:
           python3 tests/examtree-staging-sandbox-refresh.test.py
       - name: Verify purchases-paused cutover API and UI
         run: python3 tests/examtree-sales-cutover-guard.test.py
+      - name: Ensure private production acceptance is nonmutating
+        run: |
+          bash -n scripts/verify-examtree-cloudrun-production-private.sh
+          python3 tests/examtree-cloudrun-private-acceptance.test.py
       - name: Guard private production candidate setup
         run: |
           bash -n scripts/deploy-examtree-api-cloudrun-production-candidate.sh
