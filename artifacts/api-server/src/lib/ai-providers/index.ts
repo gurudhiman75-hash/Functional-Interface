@@ -245,12 +245,26 @@ export function validateAIProviderStartup() {
     process.env["EXAMTREE_API_STAGING"] === "false" &&
     process.env["EXAMTREE_SALES_DISABLED"] === "true" &&
     process.env["EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER"] === "true";
+  // This opt-in no-provider configuration may only run when the full
+  // AI-backed admin namespace is blocked in app.ts and only the narrow
+  // deterministic route subset is enabled. The Cloudflare Pages gateway
+  // must also remain on its separate cloud-run-deterministic mode.
+  const temporaryDeterministicAdminBridge =
+    process.env["EXAMTREE_API_RUNTIME"] === "cloud-run" &&
+    process.env["EXAMTREE_API_STAGING"] === "false" &&
+    process.env["EXAMTREE_SALES_DISABLED"] === "true" &&
+    process.env["EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER"] === "false" &&
+    process.env["EXAMTREE_ADMIN_DETERMINISTIC_ONLY"] === "true" &&
+    process.env["GENERATION_JOB_WORKER_ENABLED"] === "false" &&
+    process.env["OUTBOX_PUBLISHER_ENABLED"] === "false";
   const required =
     process.env["AI_EXTRACTION_REQUIRED"] ===
       "true" ||
     process.env["OPENAI_EXTRACTION_REQUIRED"] ===
       "true" ||
-    (process.env["NODE_ENV"] === "production" && !isolatedCloudRunStaging && !temporaryAdminRenderBridge);
+    (process.env["NODE_ENV"] === "production" &&
+      !isolatedCloudRunStaging && !temporaryAdminRenderBridge &&
+      !temporaryDeterministicAdminBridge);
   const provider = resolveAIProvider();
   const adapter = getAIProvider(provider);
 

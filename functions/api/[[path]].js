@@ -58,10 +58,20 @@ export async function onRequest({ request, env = {} }) {
   // Financial admin endpoints NEVER join the admin migration: existing orders,
   // refunds, products, coupons, and entitlements retain their legacy handler.
   const adminCloudRunEnabled = env.EXAMTREE_ADMIN_UPSTREAM === "cloud-run";
+  // No-provider phase is intentionally much narrower than a complete admin
+  // migration: only the authenticated admin shell + deterministic Question
+  // Studio can use Cloud Run. Other admin areas (including ALL Notes Studio
+  // and Current Affairs operations) continue on Render.
+  const deterministicAdminEnabled = env.EXAMTREE_ADMIN_UPSTREAM === "cloud-run-deterministic";
+  const deterministicAdminPath = [
+    "/api/admin/session",
+    "/api/admin/question-studio",
+  ].some((prefix) => incoming.pathname === prefix || incoming.pathname.startsWith(prefix + "/"));
   const adminFinanceRenderBridge = incoming.pathname === "/api/admin/commerce" ||
     incoming.pathname.startsWith("/api/admin/commerce/");
+  const adminUseCloudRun = adminCloudRunEnabled || (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
-    (adminRenderBridge && (!adminCloudRunEnabled || adminFinanceRenderBridge)) ||
+    (adminRenderBridge && (!adminUseCloudRun || adminFinanceRenderBridge)) ||
     /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
     /^\/api\/commerce\/orders\/[^/]+\/(?:reconcile|confirm)$/.test(incoming.pathname) ||
     incoming.pathname === "/api/billing/razorpay/verify" ||

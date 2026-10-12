@@ -1,0 +1,43 @@
+name: Validate no-AI Cloud Run admin pilot
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'functions/api/[[path]].js'
+      - 'tests/cloudflare-pages-proxy.test.mjs'
+      - 'artifacts/api-server/src/app.ts'
+      - 'artifacts/api-server/src/lib/ai-providers/index.ts'
+      - 'scripts/deploy-examtree-cloudrun-admin-noai-zero-traffic.sh'
+      - 'scripts/verify-examtree-cloudrun-admin-noai-tagged-readonly.sh'
+      - 'tests/examtree-admin-noai-cutover.test.mjs'
+  push:
+    branches: [New-main]
+    paths:
+      - 'scripts/deploy-examtree-cloudrun-admin-noai-zero-traffic.sh'
+      - 'tests/examtree-admin-noai-cutover.test.mjs'
+  workflow_dispatch:
+
+concurrency:
+  group: examtree-admin-no-ai-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  safe-cutover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify no-AI scripts parse
+        run: |
+          bash -n scripts/deploy-examtree-cloudrun-admin-noai-zero-traffic.sh
+          bash -n scripts/verify-examtree-cloudrun-admin-noai-tagged-readonly.sh
+      - name: Test provider-free admin safety gates and Cloudflare routing
+        run: node --test tests/examtree-admin-noai-cutover.test.mjs tests/cloudflare-pages-proxy.test.mjs
+      - name: Patch hygiene
+        run: git diff --check
