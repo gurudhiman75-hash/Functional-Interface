@@ -48,13 +48,20 @@ export async function onRequest({ request, env = {} }) {
   // credentials. Never send payment webhooks into the staging database.
   // Remove this narrowly scoped exception only during the separately
   // approved production merchant/webhook handover.
-  // Entire admin namespace remains on Render during the temporary no-AI
-  // Cloud Run STUDENT API handover. This retains Question Studio, admin
-  // session and backend finance controls, rather than degrading admin tools.
+  // Admin routes stay on Render by default. Only after Cloud Run passes its
+  // separate admin acceptance gate may the admin-specific Pages flag move
+  // non-financial admin requests. Finance stays on Render in every mode.
   const adminRenderBridge = incoming.pathname === "/api/admin" ||
     incoming.pathname.startsWith("/api/admin/");
+  // Admin migration is a separate, explicit promotion from the student API
+  // cutover. Default and unknown values keep ALL admin traffic on Render.
+  // Financial admin endpoints NEVER join the admin migration: existing orders,
+  // refunds, products, coupons, and entitlements retain their legacy handler.
+  const adminCloudRunEnabled = env.EXAMTREE_ADMIN_UPSTREAM === "cloud-run";
+  const adminFinanceRenderBridge = incoming.pathname === "/api/admin/commerce" ||
+    incoming.pathname.startsWith("/api/admin/commerce/");
   const financialHandoverPath =
-    adminRenderBridge ||
+    (adminRenderBridge && (!adminCloudRunEnabled || adminFinanceRenderBridge)) ||
     /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
     /^\/api\/commerce\/orders\/[^/]+\/(?:reconcile|confirm)$/.test(incoming.pathname) ||
     incoming.pathname === "/api/billing/razorpay/verify" ||
