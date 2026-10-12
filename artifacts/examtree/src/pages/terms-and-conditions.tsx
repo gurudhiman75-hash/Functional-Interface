@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 
 const terms = [
@@ -22,6 +23,16 @@ export default function TermsAndConditions() {
         {terms.map(([title, text]) => (
           <PublicCard key={title} title={title}>{text}</PublicCard>
         ))}
+      </div>
+      <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-6 text-slate-700">
+        <h2 className="text-base font-semibold text-slate-950">Business &amp; contact information</h2>
+        <p className="mt-2"><strong>Brand:</strong> ExamTree</p>
+        <p><strong>Legal business name:</strong> Baljit Kaur</p>
+        <p className="mt-2">For questions about these terms, accounts, payments, or other support requests, email{" "}
+          <a href="mailto:support@examtree.in" className="font-semibold text-indigo-700 underline underline-offset-4">support@examtree.in</a>.
+          You can also visit our{" "}
+          <Link href="/contact" className="font-semibold text-indigo-700 underline underline-offset-4">Contact Us</Link> page.
+        </p>
       </div>
     </PublicPage>
   );

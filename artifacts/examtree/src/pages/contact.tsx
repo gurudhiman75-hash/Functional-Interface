@@ -70,6 +70,10 @@ export default function Contact() {
           </Button>
         </form>
         <div className="space-y-4">
+          <PublicCard title="Business information">
+            <p><strong>Website / brand:</strong> ExamTree</p>
+            <p className="mt-1"><strong>Legal business name:</strong> Baljit Kaur</p>
+          </PublicCard>
           <PublicCard title="Support email">
             <div className="flex items-center gap-2 font-semibold text-slate-950">
               <Mail className="h-4 w-4 text-teal-600" />

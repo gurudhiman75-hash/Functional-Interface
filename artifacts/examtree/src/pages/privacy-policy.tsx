@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
 
 const sections = [
+  ["Business identity", "ExamTree is the website and service brand. Legal business name: Baljit Kaur. For privacy or customer support, email support@examtree.in."],
   ["Account data", "We collect account name, sign-in identifier, login provider, verified email/phone where available, selected exam categories, preferred language, and account status to provide your learner account."],
   ["Optional profile information", "You may add your date of birth, state, city, postal address, and social category to your profile. These are optional. We store them to support your profile and, where available, relevant exam eligibility or category-specific cutoff information. We do not treat an estimated cutoff as an official result."],
   ["Profile photographs", "If you upload a profile photo, we store it in private Firebase Storage and deliver it only through an authenticated profile request. Replacing a photo removes the previous stored object; deleting an account triggers removal of stored profile photos."],
