@@ -15,11 +15,30 @@ class ProductionCandidateSafetyTests(unittest.TestCase):
     def test_main_neon_connection_only(self):
         self.assertTrue(m.validate(PRODUCTION)[0])
         self.assertFalse(m.validate(PRODUCTION.replace(m.PRODUCTION_HOST, m.STAGING_HOST))[0])
-        self.assertFalse(m.validate(PRODUCTION.replace(m.PRODUCTION_HOST,
-                                "ep-polished-king-atj47i5y-pooler.c-9.us-east-1.aws.neon.tech"))[0])
+        self.assertTrue(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, m.PRODUCTION_POOLER_HOST))[0])
+        self.assertTrue(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, m.PRODUCTION_COMPUTE_HOST))[0])
+        self.assertTrue(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, m.PRODUCTION_COMPUTE_POOLER_HOST))[0])
+        self.assertFalse(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, "ep-polished-king-atj47i5y-evil.c-9.us-east-1.aws.neon.tech"))[0])
+        self.assertFalse(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, "ep-polished-king-atj47i5y-pooler.us-east-1.aws.neon.tech.evil.example"))[0])
+        self.assertFalse(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, "ep-wild-water-atrzmssw-pooler.c-9.us-east-1.aws.neon.tech"))[0])
         self.assertFalse(m.validate(PRODUCTION.replace("/neondb", "/postgres"))[0])
         self.assertFalse(m.validate(PRODUCTION.replace("sslmode=require", "sslmode=disable"))[0])
         self.assertFalse(m.validate("psql '" + PRODUCTION + "'")[0])
+
+    def test_production_pooler_is_verified_exactly_without_claiming_connectivity(self):
+        valid_pooler = PRODUCTION.replace(m.PRODUCTION_HOST, m.PRODUCTION_POOLER_HOST)
+        ok, reason = m.validate(valid_pooler)
+        self.assertTrue(ok)
+        self.assertIn("MAIN POOLER", reason)
+        self.assertNotIn("example_secret", reason)
+        self.assertFalse(m.validate(PRODUCTION.replace(
+            m.PRODUCTION_HOST, m.PRODUCTION_POOLER_HOST + ".invalid"))[0])
 
     def test_safe_reason_does_not_expose_connection_string(self):
         for candidate in (PRODUCTION, "postgresql://prod:example_secret@evil.example/neondb?sslmode=require"):
