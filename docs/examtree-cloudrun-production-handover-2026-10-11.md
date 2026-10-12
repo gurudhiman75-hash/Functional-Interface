@@ -154,6 +154,28 @@ identity. Those cannot be inferred from the mere presence of a service
 definition. The eventual public promotion and job activation are **separate**
 cutover decisions.
 
+## Neon production hostname compatibility (2026-10-12)
+
+The initial PRIVATE Cloud Run candidate preflight stopped before making changes:
+`examtree-api-database-url` passed database-name and TLS checks but its
+hostname was classified `POSSIBLE_PRODUCTION_POOLER`. The validator had
+incorrectly allowed only the primary direct Neon endpoint. Neon reports
+**four** exact host aliases for the actual live MAIN compute
+`ep-polished-king-atj47i5y`: main direct, main pooler, bound compute
+`-mkv` direct and bound `-mkv` pooler. The validator now accepts exactly
+these four **registered** production hosts while rejecting the staging
+branch, prefixes/lookalikes and all unknown Neon hosts. No existing Secret
+Manager version or Render credential is overwritten.
+
+This validates branch identity by known endpoint, not database **connectivity**.
+Neon currently reports `pooler_enabled=false` on the production compute; a
+pooled hostname may not be available for new connections even when it is
+registered. If the private Cloud Run candidate fails to establish a live
+PostgreSQL session, **do not switch Cloudflare**. First verify the existing
+pooled alias against Neon and consider creating a **separate Cloud Run-only
+direct connection secret**, rather than modifying any Render/shared backup
+database secret. Never change the live Neon role/password for this test.
+
 ## Approved phased cutover: student API on Cloud Run, Render temporarily retained
 
 Owner approved a web backend switch **before Cashfree live activation**, with
