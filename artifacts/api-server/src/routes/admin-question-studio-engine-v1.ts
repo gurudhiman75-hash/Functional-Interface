@@ -18,6 +18,10 @@ import {
   resolveLegacyQuantExamProfile,
   type QuantExamProfilePlan,
 } from "../question-studio/quant-exam-profile";
+import {
+  runUniversalStudioRemote,
+  universalStudioRemoteConfigured,
+} from "../question-studio/remote-universal-studio-client";
 
 const router = Router();
 
@@ -575,7 +579,30 @@ router.post(
       const generationContexts: Array<Record<string, unknown>> = [];
       let quantPlan: QuantExamProfilePlan | null = null;
 
-      if (selectedEngineId === "quant-v4") {
+      // One canonical opt-in dispatcher for ALL registered packages. The
+      // dedicated compute process does not own Neon, user permissions or
+      // publication. Any remote error fails closed without local fallback.
+      if (universalStudioRemoteConfigured() && packageId) {
+        const remote = await runUniversalStudioRemote({
+          request: generationRequest,
+          count,
+          selectedCpIds,
+          examProfileId: req.body?.examProfileId,
+          difficultyPreset: req.body?.difficultyPreset,
+          difficultyDistribution: req.body?.difficultyDistribution,
+          forwardLegacyExamProfile:
+            packageId === "AVG-001"
+            || packageId === "TMW-001"
+            || isNum001UnifiedRequest((req.body ?? {}) as Record<string, unknown>)
+            || isBankingSapCompatibilityRequest((req.body ?? {}) as Record<string, unknown>),
+          difficultyFilterSupported:
+            !isNum001UnifiedRequest((req.body ?? {}) as Record<string, unknown>)
+            && packageForId(packageId)?.difficultyFilterSupported !== false,
+        });
+        generatedQuestions.push(...remote.questions);
+        generationContexts.push(...remote.generationContexts);
+        quantPlan = remote.quantPlan;
+      } else if (selectedEngineId === "quant-v4") {
         const quantBatch = await generateProfiledQuantBatch({
           request: generationRequest,
           count,
