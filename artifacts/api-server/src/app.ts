@@ -130,6 +130,33 @@ app.use((req, res, next) => {
   }
   next();
 });
+// A deliberate no-provider admin pilot is limited to session/bootstrap and
+// deterministic Question Studio. Block all other direct Cloud Run admin paths
+// so a direct *.run.app URL cannot bypass the same-origin Render routing.
+// This is separate from the full admin phase with configured AI credentials.
+app.use((req, res, next) => {
+  const deterministicOnly = process.env.EXAMTREE_API_RUNTIME === "cloud-run" &&
+    process.env.EXAMTREE_API_STAGING === "false" &&
+    process.env.EXAMTREE_SALES_DISABLED === "true" &&
+    process.env.EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER === "false" &&
+    process.env.EXAMTREE_ADMIN_DETERMINISTIC_ONLY === "true";
+  if (!deterministicOnly) { next(); return; }
+  if (req.path === "/api/admin/commerce" || req.path.startsWith("/api/admin/commerce/")) {
+    next(); // The existing financial 503 guard owns these requests.
+    return;
+  }
+  const safeAdmin = ["/api/admin/session", "/api/admin/question-studio"]
+    .some((prefix) => req.path === prefix || req.path.startsWith(prefix + "/"));
+  if ((req.path === "/api/admin" || req.path.startsWith("/api/admin/")) && !safeAdmin) {
+    res.status(503).json({
+      code: "ADMIN_FEATURE_HANDLED_BY_RENDER_DURING_CUTOVER",
+      error: "This administrator feature remains on Render until its own migration passes.",
+    });
+    return;
+  }
+  next();
+});
+
 // During the separate admin handover, financial admin operations must still
 // reach Render. Deny direct Cloud Run /api/admin/commerce requests even when
 // administrator auth succeeds, until the merchant handover is complete.
