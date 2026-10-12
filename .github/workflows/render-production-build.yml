@@ -82,6 +82,9 @@ jobs:
 
       - name: Upload Render build diagnostics
         if: always()
+        # A full GitHub artifact-storage quota must not mask the actual build
+        # result; the next step still prints the log and asserts exit_code=0.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: render-production-build-diagnostics

@@ -1,0 +1,6 @@
+# Manual staging-first Question Studio worker. No API frontend or DB migration.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '--file', 'Dockerfile.question-studio-universal', '--tag', '${_IMAGE}', '.']
+images: ['${_IMAGE}']
+timeout: 1800s

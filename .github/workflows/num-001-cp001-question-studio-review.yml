@@ -10,7 +10,6 @@ on:
       - artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
       - artifacts/api-server/src/question-studio/quant-number-system-num001.ts
       - artifacts/api-server/src/question-studio/quant-number-system-num001.test.ts
-      - artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/api-server/src/routes/admin-question-studio-average.ts
@@ -149,8 +148,21 @@ jobs:
             node dist/quant-v4/num-cp001-qs-review-legacy-release.test.mjs \
             2>&1 | tee dist/quant-v4/num-cp001-qs-review-legacy-release.log
 
+      - name: Verify locally generated CP001 evidence
+        run: |
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+          test -s artifacts/api-server/dist/quant-v4/num-001-unified-engine.log
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.log
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-latex-audit.log
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log
+          test -s artifacts/api-server/dist/quant-v4/num-cp001-learner-surface-audit-v1.log
+
       - name: Upload CP001 guarded review evidence
         if: always()
+        # Artifact quota is independent of generation/test success. Keep all
+        # local assertions mandatory; retain upload as best-effort evidence.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: num-001-cp001-question-studio-review
