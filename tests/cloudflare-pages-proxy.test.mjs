@@ -140,3 +140,46 @@ test("Cloud Run cutover retains Render endpoints for in-flight payment callbacks
     globalThis.fetch = original;
   }
 });
+
+
+test("admin promotion is opt-in and keeps finance plus callbacks on Render", async () => {
+  const cloudRun = "https://examtree-api-1083299267005.asia-south1.run.app";
+  const savedFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (request) => {
+    seen.push(request.url);
+    return Response.json({ ok: true });
+  };
+  try {
+    const cases = [
+      ["/api/admin/session/bootstrap", "POST", cloudRun],
+      ["/api/admin/question-studio/review-page", "GET", cloudRun],
+      ["/api/admin/notes-studio-v2/status", "GET", cloudRun],
+      ["/api/admin/students", "GET", cloudRun],
+      ["/api/admin/commerce/orders", "GET", "https://examtree-new.onrender.com"],
+      ["/api/admin/commerce/products", "GET", "https://examtree-new.onrender.com"],
+      ["/api/admin/commerce/coupons", "GET", "https://examtree-new.onrender.com"],
+      ["/api/billing/cashfree/webhook", "POST", "https://examtree-new.onrender.com"],
+      ["/api/commerce/orders/order-1/reconcile", "POST", "https://examtree-new.onrender.com"],
+    ];
+    for (const [path, method, destination] of cases) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path, method, method === "POST"
+          ? { body: "{}", headers: { "Content-Type": "application/json" } } : {}),
+        env: { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun, EXAMTREE_ADMIN_UPSTREAM: "cloud-run" },
+      });
+      assert.equal(response.status, 200);
+      assert.equal(seen.at(-1), destination + path);
+    }
+    for (const badValue of [undefined, "", "render", "staging", "cloudrun"]) {
+      const response = await onRequest({
+        request: req("https://examtree.in/api/admin/question-studio/review-page"),
+        env: { EXAMTREE_API_UPSTREAM_ORIGIN: cloudRun, EXAMTREE_ADMIN_UPSTREAM: badValue },
+      });
+      assert.equal(response.status, 200);
+      assert.equal(seen.at(-1), "https://examtree-new.onrender.com/api/admin/question-studio/review-page");
+    }
+  } finally {
+    globalThis.fetch = savedFetch;
+  }
+});
