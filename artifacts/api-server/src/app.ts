@@ -9,6 +9,7 @@ import cashfreeWebhookHandler from "./routes/cashfree-webhook";
 import adminSessionRouter from "./routes/admin-session";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
+import { mountQuestionStudioAsyncTaskReceiver } from "./question-studio/async-task-receiver-mount";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -184,22 +185,7 @@ app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json"
 const questionStudioAsyncTaskReceiver=lazyRouter(
   ()=>import("./routes/internal-question-studio-async-task"),
 );
-app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),(req,res,next)=>{
-  const staging=process.env.EXAMTREE_API_RUNTIME==="cloud-run" &&
-    process.env.EXAMTREE_API_STAGING==="true";
-  const ready=process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_TASK_CLAIM_ENABLED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_TASK_REVIEW_COMMIT_ENABLED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_ROUTE_ENABLED==="true" &&
-    process.env.EXAMTREE_QUESTION_STUDIO_STAGING_TASK_ACCEPTANCE_APPROVED==="true";
-  if(!staging||!ready){
-    res.status(503).json({code:"QUESTION_STUDIO_ASYNC_RECEIVER_DISABLED"});
-    return;
-  }
-  questionStudioAsyncTaskReceiver(req,res,next);
-});
+mountQuestionStudioAsyncTaskReceiver(app,questionStudioAsyncTaskReceiver);
 
 app.use(
   express.json({
