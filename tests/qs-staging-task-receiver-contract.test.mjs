@@ -45,6 +45,8 @@ test("task payload contains run ID only; full generation request comes from Neon
   assert.match(router,/validateQuestionStudioTaskBody\(req\.body\)/);
   assert.match(snapshot,/queueVersion!==1/);
   assert.match(snapshot,/request\.count!==x\.count/);
-  assert.match(snapshot,/return \{\s*request:request as UniversalStudioComputeInput/);
+  assert.match(snapshot,/request:safeRequest as UniversalStudioComputeInput/);
+  assert.match(snapshot,/const safeRequest=/);
+  assert.doesNotMatch(snapshot,/request:request as UniversalStudioComputeInput/);
   assert.doesNotMatch(router,/req\.body\.questions|req\.body\.request|req\.body\.token/);
 });
