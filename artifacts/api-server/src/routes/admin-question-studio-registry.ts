@@ -25,7 +25,6 @@ const adminQuestionStudioArgumentsRouter = lazyRouter(() => import("./admin-ques
 const adminQuestionStudioCom003Router = lazyRouter(() => import("./admin-question-studio-com003"));
 const adminQuestionStudioSriRouter = lazyRouter(() => import("./admin-question-studio-sri"));
 const adminQuestionStudioEngineV1Router = lazyRouter(() => import("./admin-question-studio-engine-v1"));
-const adminQuestionStudioRunStatusRouter = lazyRouter(() => import("./admin-question-studio-run-status"));
 const adminQuestionStudioDataSufficiencyCurrentRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency-current"));
 const adminQuestionStudioCp014Router = lazyRouter(() => import("./admin-question-studio-cp014"));
 const adminQuestionStudioCp013Router = lazyRouter(() => import("./admin-question-studio-cp013"));
@@ -73,12 +72,6 @@ const router: IRouter = Router();
 // that can block health checks and abort the generation request.
 //
 // Keep every other package and endpoint on the established registry path.
-// Exact polling route must load before historical chapter handlers, or it
-// can hydrate unrelated large generators merely to read one run state.
-router.get("/runs/:runId/status", (req, res, next) => {
-  adminQuestionStudioRunStatusRouter(req, res, next);
-});
-
 router.post("/runs", (req, res, next) => {
   if (req.body?.packageId !== "TRG-002") {
     next();
