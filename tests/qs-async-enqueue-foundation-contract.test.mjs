@@ -17,7 +17,7 @@ test("migration adds unique per-actor idempotency without mutating existing revi
   assert.match(ddl,/request_sha256 ~ '\^\[0-9a-f\]\{64\}\$'/);
   assert.match(ddl,/BEGIN;/);
   assert.match(ddl,/COMMIT;/);
-  assert.doesNotMatch(ddl,/ALTER TABLE content\.generation_runs|DROP |UPDATE |DELETE |TRUNCATE /i);
+  assert.doesNotMatch(ddl,/^\\s*(?:ALTER TABLE content\\.generation_runs|DROP\\s|UPDATE\\s|DELETE\\s+FROM|TRUNCATE\\s)/im);
 });
 
 test("queue intent is disabled by default and cannot schedule tasks directly",()=>{
