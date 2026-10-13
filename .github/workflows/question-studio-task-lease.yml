@@ -1,0 +1,41 @@
+name: Validate Question Studio task claim and lease foundation
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/migrations/20261013_question_studio_task_leases.sql'
+      - 'artifacts/api-server/src/question-studio/async-task-lease-policy.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-lease-policy.test.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-lease-claim.ts'
+      - 'tests/qs-task-lease-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-task-lease-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify disabled defaults and schema safety
+        run: node --test tests/qs-task-lease-contract.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile transactional claim helper without running it
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-task-lease-claim.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-task-lease-claim.mjs
+      - name: Test lease claim, stale task and attempt state machine
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-task-lease-policy.test.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-task-lease-policy.test.mjs
+          node artifacts/api-server/dist/question-studio/async-task-lease-policy.test.mjs
+      - name: Patch hygiene
+        run: git diff --check
