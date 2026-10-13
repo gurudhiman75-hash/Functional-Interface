@@ -4,6 +4,8 @@ on:
     branches: [New-main]
     paths:
       - 'artifacts/api-server/src/app.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-receiver-mount.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-receiver-mount.test.ts'
       - 'artifacts/api-server/src/routes/internal-question-studio-async-task.ts'
       - 'artifacts/api-server/src/question-studio/async-task-receiver-snapshot.ts'
       - 'artifacts/api-server/src/question-studio/async-task-receiver-snapshot.test.ts'
@@ -33,6 +35,10 @@ jobs:
       - name: Compile receiver without running it
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/routes/internal-question-studio-async-task.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/internal-question-studio-async-task.mjs
+      - name: Exercise real Express staging mount and fail-closed 503/404/413 contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-task-receiver-mount.test.ts --bundle --packages=external --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-task-receiver-mount.test.mjs
+          node artifacts/api-server/dist/question-studio/async-task-receiver-mount.test.mjs
       - name: Test canonical snapshot isolation
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-task-receiver-snapshot.test.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-task-receiver-snapshot.test.mjs
