@@ -26,6 +26,9 @@ export function buildBlrCp006LocalizedReviewTelemetry() {
   } as const;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// A bundled entrypoint shares import.meta.url across imported modules.
+// Export/audit commands must execute only when the ORIGINAL file is invoked.
+if (new URL(import.meta.url).pathname.endsWith("/cp006-localized-review-runtime.ts")
+    && import.meta.url === `file://${process.argv[1]}`) {
   console.log(JSON.stringify(buildBlrCp006LocalizedReviewTelemetry(), null, 2));
 }
