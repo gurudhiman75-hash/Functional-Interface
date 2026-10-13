@@ -1,4 +1,4 @@
-import { generateBns001Question } from "./engine";
+import { generateBns001Question, supportedGrammarMatches } from "./engine";
 import {
   ADVANCED_PATTERNS,
   independentAdvancedMatches,
@@ -37,6 +37,7 @@ export function auditAdvancedBns() {
           taskKind,
         };
         const q = generateBns001Question(input);
+      assert(supportedGrammarMatches(q.proof.fullSeries).includes(patternKind), "Exported grammar checker misses an implemented family.");
         assert(
           independentlyVerifyBns001Question(q).valid,
           `${patternKind}/${taskKind}/${i} verifier`,

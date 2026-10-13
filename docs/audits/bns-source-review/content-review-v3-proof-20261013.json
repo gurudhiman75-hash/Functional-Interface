@@ -793,14 +793,15 @@
     }
   ],
   "runtimeFileSha256": {
-    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/advanced-audit.ts": "3cecf86eb98e74f44775999a5f2b11915767d157b40a6fef15204f6a4b8674b6",
+    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/advanced-audit.ts": "c551babacc22ae8034b69e2c445cc0a3f10bc7ea71aa2534a7a2c48b2da59ac4",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/advanced-engine.ts": "aea425072e21c97222313ce1b0b0e993345c898f1c7e2579fba2bf431054cb77",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/advanced-verifier.ts": "6502147bab9f4638618ff21c27e1a49e8f3bff1420fb8e46991003f2d42acf32",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/bns-001.test.ts": "164bba22b39933d436d62322169cc370a7034b0fa690a826e074f4c44e462c15",
-    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/engine.ts": "c3b217426ddd06efb1a894c7864f791e127a3b7cb6ede2de73f3763c278322b9",
+    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/engine.ts": "e568089a471cd2f1893d8e947e29f4be762841f1f4745e574d6ebeaa1a3ecb48",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/independent-verifier.ts": "3f602dd9d1a1358d96b8865a41e0f87fdb12df22930cb5d8c49c142c1d0a179b",
-    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/index.ts": "713f605a45179d0d85626898f5b35d367aedd27631c5d39b6ba4133394fefe63",
+    "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/index.ts": "223df4186190f5375aa11ebd07e3ee7fd1b4953d297c603e6f15c3612c959dcf",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/localization.ts": "20740b389eb1f8aa1821f3f5a9f112d4027b6074bc566a55bb392dd65705e23b",
     "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/BankingNumberSeries/BNS-001/types.ts": "0ac9b4f6da022dd62c70a0e8a658eba5397ad83bd259be3b4964a29cb39af05b"
-  }
+  },
+  "exportedGrammarContract": "PASS_ALL_IMPLEMENTED_FAMILIES"
 }

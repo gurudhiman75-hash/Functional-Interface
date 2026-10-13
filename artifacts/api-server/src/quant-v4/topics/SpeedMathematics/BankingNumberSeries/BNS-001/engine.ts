@@ -1,4 +1,4 @@
-import { ADVANCED_PATTERNS } from "./advanced-verifier";
+import { ADVANCED_PATTERNS, independentAdvancedMatches } from "./advanced-verifier";
 import { generateAdvancedBns, BNS_MAINS_PATTERNS } from "./advanced-engine";
 import { localizeBns001 } from "./localization";
 import { independentGrammarMatches, independentWrongTermRepairs } from "./independent-verifier";
@@ -98,7 +98,7 @@ function matchesPattern(pattern: Bns001PatternKind, series: readonly number[]): 
 }
 
 export function supportedGrammarMatches(series: readonly number[]): Bns001PatternKind[] {
-  return PATTERNS.filter((pattern) => matchesPattern(pattern, series));
+  return [...PATTERNS.filter((pattern) => matchesPattern(pattern, series)), ...independentAdvancedMatches(series)];
 }
 
 type PatternState = Readonly<{
