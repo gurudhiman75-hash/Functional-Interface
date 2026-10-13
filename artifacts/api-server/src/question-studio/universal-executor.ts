@@ -56,8 +56,17 @@ export function validateUniversalStudioComputeInput(input: UniversalStudioComput
   if (!input.request.language || !pkg.supportedLanguages.includes(input.request.language)) {
     fail("UNSUPPORTED_UNIVERSAL_LANGUAGE", "This package does not support the selected language");
   }
-  if (typeof input.request.difficulty !== "string" ||
-      !["Easy", "Medium", "Hard", "Mixed"].includes(input.request.difficulty)) {
+  // Some source-governed packages (e.g. NUM-001/NUM-002) cannot filter
+  // by Easy/Medium/Hard. The canonical admin route passes undefined for
+  // these packages, while mixed generation is an allowed planning request.
+  // Do not demand a difficulty filter or synthesize one for the worker.
+  const requestedDifficulty = input.request.difficulty;
+  if (pkg.difficultyFilterSupported === false) {
+    if (requestedDifficulty !== undefined && requestedDifficulty !== "Mixed") {
+      fail("DIFFICULTY_FILTER_UNSUPPORTED", `Package ${pkg.packageId} does not support difficulty filtering`);
+    }
+  } else if (typeof requestedDifficulty !== "string" ||
+      !["Easy", "Medium", "Hard", "Mixed"].includes(requestedDifficulty)) {
     fail("INVALID_UNIVERSAL_DIFFICULTY", "Invalid Question Studio difficulty");
   }
   const selected = input.selectedCpIds;
@@ -110,8 +119,12 @@ export async function executeUniversalStudioCompute(
       examProfileId: input.examProfileId,
       difficultyPreset: input.difficultyPreset,
       difficultyDistribution: input.difficultyDistribution,
-      forwardLegacyExamProfile: input.forwardLegacyExamProfile === true,
-      difficultyFilterSupported: input.difficultyFilterSupported !== false,
+      // Derive source authority from the registered package, not a remote
+      // caller's optional field. This preserves source labels for Number System
+      // even when an authorized staging request omits the explicit override.
+      forwardLegacyExamProfile: input.forwardLegacyExamProfile === true || pkg.packageId === "NUM-001",
+      difficultyFilterSupported: pkg.difficultyFilterSupported !== false
+        && input.difficultyFilterSupported !== false,
       generateCandidateBatch: (candidateRequest) =>
         generateQuestionStudioQuestions({ ...candidateRequest, engineId: "quant-v4" }),
     });
