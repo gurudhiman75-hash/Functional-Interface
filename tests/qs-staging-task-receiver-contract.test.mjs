@@ -3,13 +3,18 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 const read=p=>readFileSync(p,"utf8");
 const app=read("artifacts/api-server/src/app.ts");
+const mount=read("artifacts/api-server/src/question-studio/async-task-receiver-mount.ts");
 const router=read("artifacts/api-server/src/routes/internal-question-studio-async-task.ts");
 const snapshot=read("artifacts/api-server/src/question-studio/async-task-receiver-snapshot.ts");
 
 test("Cloud Tasks route is staging-only, disabled by default, size bounded",()=>{
-  assert.match(app,/app\.post\("\/internal\/question-studio\/async-task",express\.json\(\{limit:"2kb"\}\)/);
-  assert.match(app,/EXAMTREE_API_RUNTIME==="cloud-run"/);
-  assert.match(app,/EXAMTREE_API_STAGING==="true"/);
+  assert.match(app,/mountQuestionStudioAsyncTaskReceiver\\(app,questionStudioAsyncTaskReceiver\\)/);
+  assert.match(mount,/app\\.use\\(PARENT_PATH/);
+  assert.match(mount,/express\\.json\\(\\{limit:"2kb"\\}\\)/);
+  assert.match(mount,/req\\.method!=="POST"\\|\\|req\\.path!==CHILD_PATH/);
+  assert.match(router,/router\\.post\\("\/async-task"/);
+  assert.match(mount,/EXAMTREE_API_RUNTIME==="cloud-run"/);
+  assert.match(mount,/EXAMTREE_API_STAGING==="true"/);
   for(const flag of [
     "EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED",
     "EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED",
@@ -18,8 +23,8 @@ test("Cloud Tasks route is staging-only, disabled by default, size bounded",()=>
     "EXAMTREE_QUESTION_STUDIO_TASK_REVIEW_COMMIT_ENABLED",
     "EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_ROUTE_ENABLED",
     "EXAMTREE_QUESTION_STUDIO_STAGING_TASK_ACCEPTANCE_APPROVED",
-  ])assert.ok(app.includes(flag),flag);
-  assert.match(app,/QUESTION_STUDIO_ASYNC_RECEIVER_DISABLED/);
+  ])assert.ok(mount.includes(flag),flag);
+  assert.match(mount,/QUESTION_STUDIO_ASYNC_RECEIVER_DISABLED/);
   assert.match(app,/lazyRouter\(/);
 });
 
