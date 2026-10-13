@@ -384,7 +384,7 @@ export function writeBlr001MultilingualHumanReviewPack(
 // Require the actual exporter filename as well so importing the universal
 // worker can never run this filesystem writer.
 const isDirectHumanReviewExporter =
-  /\\/multilingual-human-review-pack\\.(?:ts|mts|js|mjs)$/.test(new URL(import.meta.url).pathname)
+  new URL(import.meta.url).pathname.endsWith("/multilingual-human-review-pack.ts")
   && import.meta.url === `file://${process.argv[1]}`;
 if (isDirectHumanReviewExporter) {
   console.log(
