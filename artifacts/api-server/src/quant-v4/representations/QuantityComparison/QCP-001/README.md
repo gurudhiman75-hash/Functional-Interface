@@ -1,6 +1,6 @@
 # QCP-001 — Banking Quantity Comparison
 
-Status: `CONTENT_REVIEW_V2_REVIEW_ONLY`
+Status: `CONTENT_REVIEW_V3_REVIEW_ONLY`
 
 `QCP-001` owns the Quantity I / Quantity II **representation contract**. It does not own the underlying arithmetic truth.
 
@@ -9,7 +9,12 @@ Status: `CONTENT_REVIEW_V2_REVIEW_ONLY`
 - `PCT-001` — percentage `percentOf` solving;
 - `RAP-001` — ratio `scalingByComponent` solving;
 - `NUM-001` — exact positive remainder solving;
-- `ALG-002` shared Algebra foundation — exact rational quadratic roots.
+- `ALG-002` shared Algebra foundation — exact rational quadratic roots;
+- `PNL-001` — cost/selling price and profit/loss amount;
+- `INT-001` — simple interest, amount and principal recovery;
+- `MAL-001` — weighted two/three-component prices and unknown source price.
+
+`generateQcp001Question({sourceMode: "WORD_PROBLEMS", seed, language, examProfile})` composes the last three topic authorities. Omit `sourceMode` for the existing four-authority foundation path. Word-problem questions retain independent source states and share the same relation contract; their IDs are distinct from foundation questions for the same seed. Both quantities are monetary amounts in rupees. Every alternative case is explicitly stated and independent.
 
 The learner-visible quantity may contain one exact source state or several explicitly stated admissible source states. The representation compares the full Cartesian product of Quantity I and Quantity II values.
 
@@ -40,4 +45,6 @@ Mains increases admissible-state reasoning depth. It does not create difficulty 
 
 The two operands use distinct variable names. Exact equality is covered in both profiles; such an item is not made artificially harder by repeating identical states. Learner explanations contain calculation/comparison steps; option diagnoses are separate audit metadata.
 
-The technical review covers this four-authority representation runtime. Publisher word-problem fixtures test comparison mathematics; broader topic-specific word-problem adapters and irrational-root generation are outside the verified runtime scope. No whole-chapter source saturation is claimed.
+The V3 technical review covers the foundation runtime and these three word-problem bridges, with 12 task forms, nine ordered word-topic pairs and all five relation classes in both profiles and all three languages. V3 adds 5,400 packages to the 7,500-package foundation proof. Source fixtures remain comparison-only evidence, not proof that every source story is generated.
+
+Other source-derived bridges (compound interest, work, boats/trains, probability, ages, mensuration and dilution/replacement mixtures), irrational roots and full source saturation remain open. Lifecycle permissions are unchanged.
