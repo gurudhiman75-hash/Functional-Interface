@@ -1,0 +1,54 @@
+name: Validate Question Studio queue SQL migrations
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/migrations/20261013_question_studio_async_enqueue_idempotency.sql'
+      - 'artifacts/api-server/migrations/20261013_question_studio_task_leases.sql'
+      - 'tests/sql/question-studio-async-neon-migration-smoke.sql'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-queue-db-schema-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  migration-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: examtree_ci
+          POSTGRES_PASSWORD: only-ci-ephemeral
+          POSTGRES_DB: examtree_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U examtree_ci -d examtree_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 8
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: examtree_ci
+      PGPASSWORD: only-ci-ephemeral
+      PGDATABASE: examtree_ci
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify SQL client is available
+        run: psql --version
+      - name: Create minimal canonical run FK target in isolated Postgres
+        run: |
+          psql -v ON_ERROR_STOP=1 -c 'CREATE SCHEMA content; CREATE TABLE content.generation_runs(id uuid PRIMARY KEY,status text NOT NULL);'
+      - name: Apply exactly the two repository migrations
+        run: |
+          psql -v ON_ERROR_STOP=1 -f artifacts/api-server/migrations/20261013_question_studio_async_enqueue_idempotency.sql
+          psql -v ON_ERROR_STOP=1 -f artifacts/api-server/migrations/20261013_question_studio_task_leases.sql
+      - name: Prove replay uniqueness, lease fencing, bounded claims and rollback
+        run: |
+          psql -v ON_ERROR_STOP=1 -f tests/sql/question-studio-async-neon-migration-smoke.sql
+      - name: Verify patch hygiene
+        run: git diff --check
