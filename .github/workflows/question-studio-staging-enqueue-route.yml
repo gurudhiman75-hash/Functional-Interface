@@ -1,0 +1,35 @@
+name: Validate Question Studio staged enqueue endpoint
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-staging.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts'
+      - 'tests/qs-staging-enqueue-route-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-staged-enqueue-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  staged-enqueue:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove admin RBAC, staging isolation, idempotency and legacy routing
+        run: node --test tests/qs-staging-enqueue-route-contract.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile staging endpoint without mounting live API
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-async-staging.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/admin-question-studio-async-staging.mjs
+      - name: Check patch hygiene
+        run: git diff --check
