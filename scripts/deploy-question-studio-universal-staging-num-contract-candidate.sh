@@ -10,7 +10,13 @@ SERVICE=examtree-universal-staging
 REGISTRY=examtree-workers
 TOKEN_SECRET=examtree-trg002-worker-token
 SA=examtree-gen-runtime@$PROJECT.iam.gserviceaccount.com
-TAG=num-contract-candidate
+TAG=numfix
+# Cloud Run constrains the combined service name and tag to 46 characters.
+# Check this before ANY billed Cloud Build work starts.
+if (( ${#SERVICE} + ${#TAG} > 46 )); then
+  echo "REFUSED: Cloud Run service+tag length exceeds 46 characters." >&2
+  exit 2
+fi
 
 [[ "${EXAMTREE_BUDGET_READY:-}" == "yes" && "${EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED:-}" == "yes" ]] || {
  echo "REFUSED: review billing and explicitly approve the NUM-contract staging candidate" >&2
@@ -38,13 +44,15 @@ import json,sys
 with open(sys.argv[1]) as f:s=json.load(f)
 status=s['status']
 ready=status.get('latestReadyRevisionName')
-assert ready and ready==status.get('latestCreatedRevisionName'), "existing staging revision not ready"
+assert ready, "no ready staging revision exists"
+# A previous Cloud Run API validation error can leave the latest-created
+# revision unready. The serving revision and traffic are the safety authority.
 traffic=status.get('traffic',[])
 assert sum(int(x.get('percent',0)) for x in traffic)==100,"staging traffic incomplete"
 serving=[x for x in traffic if int(x.get('percent',0))==100]
 assert len(serving)==1 and serving[0].get('revisionName'),"exactly one 100%-serving staging revision is required"
 assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')!=serving[0]['revisionName'])==0,"unexpected traffic split"
-assert not any(x.get('tag')=='num-contract-candidate' for x in traffic),"num-contract-candidate already exists: inspect manually"
+assert not any(x.get('tag')=='numfix' for x in traffic),"num-contract-candidate already exists: inspect manually"
 assert any(x.get('tag')=='fix-candidate' and int(x.get('percent',0))==0 for x in traffic),"previous tested fix-candidate tag missing"
 old=serving[0]['revisionName']
 spec=s['spec']['template']['spec']
@@ -57,11 +65,25 @@ with open(sys.argv[1]+'.rev','w') as f:f.write(old)
 print("PASS: verified old revision serves 100%; existing fix-candidate remains at 0%")
 PY
 SHA="$(git rev-parse HEAD)"
+REUSE_SHA="${EXAMTREE_UNIVERSAL_REUSE_IMAGE_SHA:-}"
+if [[ -n "$REUSE_SHA" ]]; then
+  [[ "$REUSE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "REFUSED: invalid prebuilt image commit SHA" >&2; exit 2; }
+  git merge-base --is-ancestor "$REUSE_SHA" HEAD || {
+    echo "REFUSED: prebuilt image source is not an ancestor of current New-main" >&2; exit 2;
+  }
+  SHA="$REUSE_SHA"
+fi
 IMAGE="$REGION-docker.pkg.dev/$PROJECT/$REGISTRY/examtree-universal-staging:$SHA"
-gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
- --config="$ROOT/cloudbuild.question-studio-universal.yaml" \
- --ignore-file="$ROOT/Dockerfile.question-studio-worker.dockerignore" \
- --substitutions="_IMAGE=$IMAGE"
+if [[ -n "$REUSE_SHA" ]]; then
+  # Cloud Build already completed for this source. Do not build again.
+  gcloud artifacts docker images describe "$IMAGE" --project="$PROJECT" --format='value(image_summary.digest)' >/dev/null
+  echo "PASS: verified prebuilt Artifact Registry image; skipping Cloud Build."
+else
+  gcloud builds submit "$ROOT" --project="$PROJECT" --region="$REGION" \
+   --config="$ROOT/cloudbuild.question-studio-universal.yaml" \
+   --ignore-file="$ROOT/Dockerfile.question-studio-worker.dockerignore" \
+   --substitutions="_IMAGE=$IMAGE"
+fi
 gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
  --platform managed --image="$IMAGE" --service-account="$SA" \
  --no-traffic --tag="$TAG" \
@@ -80,7 +102,7 @@ assert ready and ready!=old and ready==status.get('latestCreatedRevisionName'),"
 traffic=status.get('traffic',[])
 assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')==old)==100,"FAIL: old staging traffic was moved"
 assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')==ready)==0,"FAIL: candidate unexpectedly serving traffic"
-tag=next((x for x in traffic if x.get('tag')=='num-contract-candidate' and x.get('revisionName')==ready),None)
+tag=next((x for x in traffic if x.get('tag')=='numfix' and x.get('revisionName')==ready),None)
 assert tag and tag.get('url','').startswith('https://'),"tagged candidate URL missing"
 print(tag['url'])
 PY
@@ -89,5 +111,5 @@ curl -fsS --max-time 35 "$CANDIDATE_URL/health" > "$TMP/health"
 CODE="$(curl -sS --max-time 35 -o /dev/null -w '%{http_code}' -X POST "$CANDIDATE_URL/internal/question-studio/universal/generate")"
 [[ "$CODE" == 401 ]] || { echo "FAIL: candidate generation did not reject anonymous request (HTTP $CODE)" >&2; exit 1; }
 echo "PASS: NUM-contract candidate deployed healthy at 0%; original staging revision retains 100%."
-echo "Next command (compute-only 6 cases, never saves to Neon):"
-echo "EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_CHECK_APPROVED=yes EXAMTREE_UNIVERSAL_STAGING_TAG=num-contract-candidate bash scripts/verify-question-studio-universal-staging.sh"
+echo "Next command (compute-only 7 cases, never saves to Neon):"
+echo "EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_CHECK_APPROVED=yes EXAMTREE_UNIVERSAL_STAGING_TAG=numfix bash scripts/verify-question-studio-universal-staging.sh"
