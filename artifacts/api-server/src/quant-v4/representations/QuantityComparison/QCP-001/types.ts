@@ -8,7 +8,16 @@ export type Qcp001SourceFamily =
   | "ALGEBRA"
   | "PROFIT_LOSS"
   | "INTEREST"
-  | "MIXTURE";
+  | "MIXTURE"
+  | "COMPOUND_INTEREST"
+  | "WORK"
+  | "BOATS"
+  | "TRAINS"
+  | "AGES"
+  | "PROBABILITY"
+  | "MENSURATION"
+  | "REPLACEMENT"
+  | "PRICE_RECOVERY";
 
 export type Qcp001RelationClass =
   | "QUANTITY_I_GREATER"
@@ -48,6 +57,7 @@ export type Qcp001QuadraticState = Readonly<{
   b: number;
   c: number;
   rootIndex: 0 | 1;
+  positiveOnly?: true;
 }>;
 
 export type Qcp001WordState =
@@ -73,12 +83,85 @@ export type Qcp001WordState =
       mean: number;
     }>;
 
+export type Qcp001AdditionalState =
+  | Readonly<{
+      kind: "COMPOUND_INTEREST";
+      task: "AMOUNT" | "INTEREST" | "PRINCIPAL";
+      amount: number;
+      rate: number;
+      years: number;
+    }>
+  | Readonly<{
+      kind: "WORK";
+      task: "COMBINED" | "MISSING";
+      firstTime: number;
+      secondTime: number;
+      combinedNumerator: number;
+      combinedDenominator: number;
+    }>
+  | Readonly<{
+      kind: "BOATS";
+      task: "UPSTREAM" | "DOWNSTREAM" | "ROUND_TRIP";
+      bodySpeed: number;
+      streamSpeed: number;
+      distance: number;
+    }>
+  | Readonly<{
+      kind: "TRAINS";
+      task: "SAME" | "OPPOSITE";
+      lengthA: number;
+      lengthB: number;
+      speedA: number;
+      speedB: number;
+    }>
+  | Readonly<{
+      kind: "AGES";
+      task: "FUTURE" | "PAST";
+      difference: number;
+      shift: number;
+    }>
+  | Readonly<{
+      kind: "PROBABILITY";
+      task:
+        | "SINGLE"
+        | "WITH_REPLACEMENT"
+        | "WITHOUT_REPLACEMENT"
+        | "CONDITIONAL";
+      red: number;
+      blue: number;
+    }>
+  | Readonly<{
+      kind: "MENSURATION";
+      task: "TRIANGLE_AREA" | "TRIANGLE_HEIGHT";
+      base: number;
+      height: number;
+      area: number;
+    }>
+  | Readonly<{
+      kind: "REPLACEMENT";
+      task: "REMOVE_REFILL";
+      milk: number;
+      water: number;
+      removed: number;
+      cycles: number;
+    }>
+  | Readonly<{
+      kind: "PRICE_RECOVERY";
+      task: "COST_PRICE";
+      difference: number;
+      firstRate: number;
+      secondRate: number;
+      firstDirection: "PROFIT" | "LOSS";
+      secondDirection: "PROFIT" | "LOSS";
+    }>;
+
 export type Qcp001SourceState =
   | Qcp001PercentageState
   | Qcp001RatioState
   | Qcp001NumberSystemState
   | Qcp001QuadraticState
-  | Qcp001WordState;
+  | Qcp001WordState
+  | Qcp001AdditionalState;
 
 export interface Qcp001Operand {
   readonly label: "Quantity I" | "Quantity II";
@@ -90,7 +173,13 @@ export interface Qcp001Operand {
     | "ALG-002"
     | "PNL-001"
     | "INT-001"
-    | "MAL-001";
+    | "MAL-001"
+    | "TMW-001"
+    | "TSD-002"
+    | "ALG-001"
+    | "PRB-001"
+    | "PRB-002"
+    | "MEN-001";
   readonly sourceSolveMode:
     | "percentOf"
     | "scalingByComponent"
@@ -98,7 +187,16 @@ export interface Qcp001Operand {
     | "solveQuadraticEquation"
     | "fundamentalMoney"
     | "simpleInterest"
-    | "weightedBlend";
+    | "weightedBlend"
+    | "annualCompound"
+    | "combineWorkRates"
+    | "mediumJourney"
+    | "trainCrossing"
+    | "ageShift"
+    | "urnProbability"
+    | "triangleMeasurement"
+    | "removeRefill"
+    | "twoSellingConditions";
   readonly prompt: string;
   readonly states: readonly Qcp001SourceState[];
   readonly values: readonly number[];
@@ -157,10 +255,17 @@ export interface Qcp001Question {
       | "PNL-001"
       | "INT-001"
       | "MAL-001"
+      | "TMW-001"
+      | "TSD-002"
+      | "ALG-001"
+      | "PRB-001"
+      | "PRB-002"
+      | "MEN-001"
     )[];
     contractVersion:
       | "QCP-001-BANKING-RELATION-V2"
-      | "QCP-001-BANKING-RELATION-V3";
+      | "QCP-001-BANKING-RELATION-V3"
+      | "QCP-001-BANKING-RELATION-V4";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

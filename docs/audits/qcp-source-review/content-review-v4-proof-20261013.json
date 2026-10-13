@@ -1,0 +1,276 @@
+{
+  "status": "PASS_TECHNICAL_FREEZE_DECLARED_V4_GRAMMAR",
+  "generatedPackages": 21540,
+  "wholeSourceSaturation": false,
+  "sourceFixturesCertifiedAsGeneratedCoverage": false,
+  "apiBuild": "PASS",
+  "centralExamProfile": "PASS",
+  "typecheck": {
+    "newQcpDiagnostics": 0,
+    "unchangedImportedDiagnostics": 10,
+    "baselineMatch": true,
+    "diagnostics": [
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp002.ts(41,9): error TS2739: Type '{ CENTIMETRES: \"cm\"; METRES: \"m\"; SQUARE_CENTIMETRES: \"cm\u00b2\"; SQUARE_METRES: \"m\u00b2\"; RUPEES: \"\u20b9\"; }' is missing the following properties from type 'Record<Men001UnitPolicy, \"revolutions\" | \"cm\" | \"m\" | \"cm\u00b2\" | \"m\u00b2\" | \"\u20b9\" | \"\u20b9/m\u00b2\" | \"\u20b9/m\" | \"\u00b0\" | \"tiles\" | \"%\" | \"times\">': PERCENT, DEGREES, TILES, TIMES",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.exhaustiveness.ts(168,5): error TS2353: Object literal may only specify known properties, and 'sharedEdge' does not exist in type '{ base?: number; height?: number; heightCoefficient?: number; area?: number; sideA?: number; sideB?: number; sideC?: number; legA?: number; legB?: number; side?: number; perimeter?: number; areaCoefficient?: number; ... 82 more ...; compositePerimeter?: number; }'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.exhaustiveness.ts(182,5): error TS2353: Object literal may only specify known properties, and 'outerPerimeter' does not exist in type '{ base?: number; height?: number; heightCoefficient?: number; area?: number; sideA?: number; sideB?: number; sideC?: number; legA?: number; legB?: number; side?: number; perimeter?: number; areaCoefficient?: number; ... 82 more ...; compositePerimeter?: number; }'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.exhaustiveness.ts(231,47): error TS2345: Argument of type '\"sharedEdge\"' is not assignable to parameter of type '\"length\" | \"distance\" | \"base\" | \"height\" | \"heightCoefficient\" | \"area\" | \"sideA\" | \"sideB\" | \"sideC\" | \"legA\" | \"legB\" | \"side\" | \"perimeter\" | \"areaCoefficient\" | \"equalSide\" | ... 79 more ... | \"compositePerimeter\"'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.overlap.ts(42,5): error TS2353: Object literal may only specify known properties, and 'overlapLength' does not exist in type '{ base?: number; height?: number; heightCoefficient?: number; area?: number; sideA?: number; sideB?: number; sideC?: number; legA?: number; legB?: number; side?: number; perimeter?: number; areaCoefficient?: number; ... 82 more ...; compositePerimeter?: number; }'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.overlap.ts(72,50): error TS2345: Argument of type '\"overlapLength\"' is not assignable to parameter of type '\"length\" | \"distance\" | \"base\" | \"height\" | \"heightCoefficient\" | \"area\" | \"sideA\" | \"sideB\" | \"sideC\" | \"legA\" | \"legB\" | \"side\" | \"perimeter\" | \"areaCoefficient\" | \"equalSide\" | ... 79 more ... | \"compositePerimeter\"'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.cp005.overlap.ts(73,51): error TS2345: Argument of type '\"overlapBreadth\"' is not assignable to parameter of type '\"length\" | \"distance\" | \"base\" | \"height\" | \"heightCoefficient\" | \"area\" | \"sideA\" | \"sideB\" | \"sideC\" | \"legA\" | \"legB\" | \"side\" | \"perimeter\" | \"areaCoefficient\" | \"equalSide\" | ... 79 more ... | \"compositePerimeter\"'.",
+      "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/solve-mode-registry.ts(65,9): error TS2739: Type '{ CENTIMETRES: \"cm\"; METRES: \"m\"; SQUARE_CENTIMETRES: \"cm\u00b2\"; SQUARE_METRES: \"m\u00b2\"; RUPEES: \"\u20b9\"; }' is missing the following properties from type 'Record<Men001UnitPolicy, \"revolutions\" | \"cm\" | \"m\" | \"cm\u00b2\" | \"m\u00b2\" | \"\u20b9\" | \"\u20b9/m\u00b2\" | \"\u20b9/m\" | \"\u00b0\" | \"tiles\" | \"%\" | \"times\">': PERCENT, DEGREES, TILES, TIMES",
+      "artifacts/api-server/src/quant-v4/topics/Probability/shared/probability-solver.ts(48,84): error TS2554: Expected 2 arguments, but got 3.",
+      "artifacts/api-server/src/quant-v4/topics/Probability/shared/probability-solver.ts(48,142): error TS2554: Expected 2 arguments, but got 3."
+    ]
+  },
+  "results": [
+    {
+      "status": "PASS_QCP_001_PHASE0",
+      "questions": 300,
+      "deterministicReplayChecks": 300,
+      "independentVerificationChecks": 300,
+      "optionChecks": 1500,
+      "learnerSurfaceChecks": 300,
+      "mainsComplexityChecks": 150,
+      "relationClassesPerProfile": {
+        "BANKING_PRELIMS": 5,
+        "BANKING_MAINS": 5
+      },
+      "sourcePairsPerProfile": {
+        "BANKING_PRELIMS": 16,
+        "BANKING_MAINS": 16
+      },
+      "answerPositionsPerProfile": {
+        "BANKING_PRELIMS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "evidenceModesPerProfile": {
+        "BANKING_PRELIMS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ],
+        "BANKING_MAINS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ]
+      }
+    },
+    {
+      "status": "PASS_QCP_001_REVIEW_V2",
+      "oracleChecks": 961,
+      "english": 2400,
+      "native": 4800,
+      "replays": 2720,
+      "malformedRejected": 14,
+      "answerPositionsPerRelation": {
+        "BANKING_PRELIMS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "displayedStatesPerSourcePair": {
+        "BANKING_PRELIMS:PERCENTAGE->PERCENTAGE": 45,
+        "BANKING_PRELIMS:PERCENTAGE->RATIO": 46,
+        "BANKING_PRELIMS:PERCENTAGE->NUMBER_SYSTEM": 43,
+        "BANKING_PRELIMS:PERCENTAGE->ALGEBRA": 46,
+        "BANKING_PRELIMS:RATIO->PERCENTAGE": 43,
+        "BANKING_PRELIMS:RATIO->RATIO": 41,
+        "BANKING_PRELIMS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_PRELIMS:RATIO->ALGEBRA": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->PERCENTAGE": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_PRELIMS:ALGEBRA->PERCENTAGE": 43,
+        "BANKING_PRELIMS:ALGEBRA->RATIO": 44,
+        "BANKING_PRELIMS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:ALGEBRA->ALGEBRA": 30,
+        "BANKING_MAINS:PERCENTAGE->PERCENTAGE": 70,
+        "BANKING_MAINS:PERCENTAGE->RATIO": 66,
+        "BANKING_MAINS:PERCENTAGE->NUMBER_SYSTEM": 66,
+        "BANKING_MAINS:PERCENTAGE->ALGEBRA": 61,
+        "BANKING_MAINS:RATIO->PERCENTAGE": 65,
+        "BANKING_MAINS:RATIO->RATIO": 41,
+        "BANKING_MAINS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_MAINS:RATIO->ALGEBRA": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->PERCENTAGE": 66,
+        "BANKING_MAINS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_MAINS:ALGEBRA->PERCENTAGE": 63,
+        "BANKING_MAINS:ALGEBRA->RATIO": 44,
+        "BANKING_MAINS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:ALGEBRA->ALGEBRA": 30
+      }
+    },
+    {
+      "sourceComparisons": 20,
+      "quarantinedSourceItems": 5,
+      "generatedWordProblemCoverageCertified": false
+    },
+    {
+      "status": "PASS_QCP_WORD_PROBLEMS_V3",
+      "packages": 5400,
+      "replays": 360,
+      "orderedPairsPerProfileLanguage": 9,
+      "relationClassesPerPair": 5,
+      "taskForms": [
+        "INTEREST:AMOUNT",
+        "INTEREST:INTEREST",
+        "INTEREST:PRINCIPAL",
+        "MIXTURE:MEAN:2",
+        "MIXTURE:MEAN:3",
+        "MIXTURE:UNKNOWN_PRICE:2",
+        "PROFIT_LOSS:COST_PRICE:LOSS",
+        "PROFIT_LOSS:COST_PRICE:PROFIT",
+        "PROFIT_LOSS:PROFIT_AMOUNT:LOSS",
+        "PROFIT_LOSS:PROFIT_AMOUNT:PROFIT",
+        "PROFIT_LOSS:SELLING_PRICE:LOSS",
+        "PROFIT_LOSS:SELLING_PRICE:PROFIT"
+      ],
+      "independentKnownAnswers": 8,
+      "malformedRejected": 10
+    },
+    {
+      "status": "PASS_QCP_ADDITIONAL_V4",
+      "packages": 8640,
+      "replays": 540,
+      "coveredFamilyProfileLanguages": 60,
+      "allFiveRelationsPerFamily": true,
+      "forms": [
+        "AGES:FUTURE",
+        "AGES:PAST",
+        "BOATS:DOWNSTREAM",
+        "BOATS:ROUND_TRIP",
+        "BOATS:UPSTREAM",
+        "COMPOUND_INTEREST:AMOUNT",
+        "COMPOUND_INTEREST:INTEREST",
+        "COMPOUND_INTEREST:PRINCIPAL",
+        "MENSURATION:TRIANGLE_AREA",
+        "MENSURATION:TRIANGLE_HEIGHT",
+        "PRICE_RECOVERY:COST_PRICE:20:LOSS",
+        "PRICE_RECOVERY:COST_PRICE:20:PROFIT",
+        "PRICE_RECOVERY:COST_PRICE:25:LOSS",
+        "PRICE_RECOVERY:COST_PRICE:25:PROFIT",
+        "PROBABILITY:CONDITIONAL",
+        "PROBABILITY:SINGLE",
+        "PROBABILITY:WITHOUT_REPLACEMENT",
+        "PROBABILITY:WITH_REPLACEMENT",
+        "REPLACEMENT:REMOVE_REFILL:1",
+        "REPLACEMENT:REMOVE_REFILL:2",
+        "TRAINS:OPPOSITE",
+        "TRAINS:SAME",
+        "WORK:COMBINED",
+        "WORK:MISSING"
+      ],
+      "radicands": [
+        2,
+        3,
+        5
+      ],
+      "knownAnswers": 13,
+      "malformedRejected": 41,
+      "wholeSourceSaturation": false
+    }
+  ],
+  "runtimeSha256": {
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/additional-audit.ts": "f05c3ee42930a17d72cd140e50faae43e97d8f4f1d7af131b20bb39078590d19",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/additional-display.ts": "4c736800f583527863fdcebbb058a3fea81bec3bf4d4f9b3ab0eb05c9695b356",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/additional-independent.ts": "6c3daef369b4aea901459a4ed11c6cf486c9097c8147918b17cbccd87be8de0b",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/additional-source.ts": "8e3b2e4387b5dc3c92ac0151e48cb51948763e87178df97924878358a36132c5",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/audit-v2.ts": "fc5225c089a877c255ccb0916a3b1a760d17f621c48563c23d3aa31b80bc6cb2",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/display.ts": "2018cd10c3f7cfc58d38b2d2c860bba210a1cf6ec7ee482d6e9163852a4bff96",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/engine.ts": "05e6df2da8d659bde4bfb98ed23792288d1c31b74189e54ae3662502137deb1b",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/independent-verifier.ts": "feb77a6eb801c51a0c1bbf10adb20523a5d02ae780aa2e6069ed84731c0afe22",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/index.ts": "713f605a45179d0d85626898f5b35d367aedd27631c5d39b6ba4133394fefe63",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/localization.ts": "d6276168238f2fa7a71321a504f460aaeae90657b10bff765a1fde10190d809b",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/qcp-001.test.ts": "48148396a1e1e1a48a004fc33d513894f1bc8cbec2b03f3137a463be1ee8fcbb",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/quadratic-source.ts": "dd736e3b2479a70268eb93f989c231d01740c4cac64857aae1fe628c2bf6bdf1",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/source-fixtures.ts": "1a4b83c4fdae0c0f2a2626e41b78fd2b8a19ce4679eff2dee50e615f4873c31e",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/types.ts": "7fa395d53243cf0a2db8a39007d9127333eaf76bb4f7175207634c39c4247a24",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/word-audit.ts": "96a2eaa979649d8e9f7e03e95a80b3ee78fb22d7ee262ca378ec8f09b882705b",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/word-display.ts": "c010dff8eb6d4c7e32c1bfe1e7748b33631746e420f3515492ade371ea1b7d83",
+    "artifacts/api-server/src/quant-v4/representations/QuantityComparison/QCP-001/word-source.ts": "9675d45b5a8a16adcc319f17e863db04e649c97af5ba1cf7b0fb87fad798718d"
+  }
+}

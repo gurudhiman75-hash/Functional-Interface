@@ -1,7 +1,16 @@
+import { isAdditional, additionalResult } from "./additional-source";
+import {
+  additionalOperandPrompt,
+  additionalWorking,
+} from "./additional-display";
 import { isWordState, solveWordState as wordValue } from "./word-source";
 import { wordOperandPrompt, wordWorking } from "./word-display";
 import { quantityLabel, relationText } from "./display";
-import { quadraticText, quadraticWorking } from "./quadratic-source";
+import {
+  quadraticText,
+  quadraticWorking,
+  solveQcpQuadratic,
+} from "./quadratic-source";
 import type {
   Qcp001Language,
   Qcp001Operand,
@@ -15,6 +24,7 @@ const set = (values: readonly number[]) =>
 function prompt(operand: Qcp001Operand, language: Qcp001Language) {
   const first = operand.states[0]!,
     left = operand.label === "Quantity I";
+  if (isAdditional(first)) return additionalOperandPrompt(operand, language);
   if (isWordState(first)) return wordOperandPrompt(operand, language);
   if (first.kind === "PERCENTAGE") {
     const bases = operand.states.map((s) =>
@@ -52,7 +62,7 @@ function prompt(operand: Qcp001Operand, language: Qcp001Language) {
         ),
       ),
     ];
-    return `${variable}, ${say(language, "जहाँ", "ਜਿੱਥੇ")} ${equations.join(say(language, " या ", " ਜਾਂ "))}`;
+    return `${variable}${first.positiveOnly ? " > 0" : ""}, ${say(language, "जहाँ", "ਜਿੱਥੇ")} ${equations.join(say(language, " या ", " ਜਾਂ "))}`;
   }
   const values = operand.states.map((s) =>
       s.kind === "NUMBER_SYSTEM" ? s.dividend : 0,
@@ -75,6 +85,8 @@ function working(
   variable: string,
   language: Qcp001Language,
 ) {
+  if (isAdditional(state))
+    return additionalWorking(state, additionalResult(state).text);
   if (isWordState(state)) return wordWorking(state, wordValue(state), language);
   if (state.kind === "PERCENTAGE")
     return `${state.baseValue} × ${state.percentageRate} ÷ 100 = ${(state.baseValue * state.percentageRate) / 100}`;
@@ -95,9 +107,27 @@ export function localizeQcp001(
     ...o,
     prompt: prompt(o, language),
   }));
+  const valueText = new Map<number, string>();
+  for (const o of quantities)
+    o.states.forEach((state, i) =>
+      valueText.set(
+        o.values[i]!,
+        isAdditional(state)
+          ? additionalResult(state).text
+          : state.kind === "ALGEBRA"
+            ? solveQcpQuadratic(state).selectedText
+            : String(o.values[i]!),
+      ),
+    );
+  const display = (value: number) => valueText.get(value) ?? String(value);
+  const values = (o: Qcp001Operand) =>
+    `{${[...new Set(o.values)]
+      .sort((a, b) => a - b)
+      .map(display)
+      .join(", ")}}`;
   const steps = quantities.map(
     (o, i) =>
-      `${quantityLabel(language, i === 0 ? "I" : "II")}: ${[...new Set(o.states.map((s) => working(s, i === 0 ? "x" : "y", language)))].join("; ")}. ${say(language, "संभव मान", "ਸੰਭਵ ਮੁੱਲ")} = ${set(o.values)}.`,
+      `${quantityLabel(language, i === 0 ? "I" : "II")}: ${[...new Set(o.states.map((s) => working(s, i === 0 ? "x" : "y", language)))].join("; ")}. ${say(language, "संभव मान", "ਸੰਭਵ ਮੁੱਲ")} = ${values(o)}.`,
   );
   const a = question.quantityI.values,
     b = question.quantityII.values,
@@ -108,22 +138,22 @@ export function localizeQcp001(
   const relation = question.answerClass;
   if (relation === "QUANTITY_I_GREATER")
     steps.push(
-      `${minA} > ${maxB}; ${say(language, "पहली मात्रा का सबसे छोटा मान भी दूसरी के सबसे बड़े मान से बड़ा है।", "ਪਹਿਲੀ ਮਾਤਰਾ ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ ਵੀ ਦੂਜੀ ਦੇ ਸਭ ਤੋਂ ਵੱਡੇ ਮੁੱਲ ਤੋਂ ਵੱਡਾ ਹੈ।")}`,
+      `${display(minA)} > ${display(maxB)}; ${say(language, "पहली मात्रा का सबसे छोटा मान भी दूसरी के सबसे बड़े मान से बड़ा है।", "ਪਹਿਲੀ ਮਾਤਰਾ ਦਾ ਸਭ ਤੋਂ ਛੋਟਾ ਮੁੱਲ ਵੀ ਦੂਜੀ ਦੇ ਸਭ ਤੋਂ ਵੱਡੇ ਮੁੱਲ ਤੋਂ ਵੱਡਾ ਹੈ।")}`,
     );
   else if (relation === "QUANTITY_I_LESS")
     steps.push(
-      `${maxA} < ${minB}; ${say(language, "पहली मात्रा का सबसे बड़ा मान भी दूसरी के सबसे छोटे मान से छोटा है।", "ਪਹਿਲੀ ਮਾਤਰਾ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਮੁੱਲ ਵੀ ਦੂਜੀ ਦੇ ਸਭ ਤੋਂ ਛੋਟੇ ਮੁੱਲ ਤੋਂ ਛੋਟਾ ਹੈ।")}`,
+      `${display(maxA)} < ${display(minB)}; ${say(language, "पहली मात्रा का सबसे बड़ा मान भी दूसरी के सबसे छोटे मान से छोटा है।", "ਪਹਿਲੀ ਮਾਤਰਾ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਮੁੱਲ ਵੀ ਦੂਜੀ ਦੇ ਸਭ ਤੋਂ ਛੋਟੇ ਮੁੱਲ ਤੋਂ ਛੋਟਾ ਹੈ।")}`,
     );
   else if (
     relation === "QUANTITY_I_GREATER_OR_EQUAL" ||
     relation === "QUANTITY_I_LESS_OR_EQUAL"
   )
     steps.push(
-      `${relation === "QUANTITY_I_GREATER_OR_EQUAL" ? minA : maxA} = ${relation === "QUANTITY_I_GREATER_OR_EQUAL" ? maxB : minB}; ${say(language, "समानता संभव है; अन्य सभी युग्म इसी दिशा में संबंध बनाए रखते हैं।", "ਬਰਾਬਰੀ ਸੰਭਵ ਹੈ; ਹੋਰ ਸਾਰੇ ਜੋੜੇ ਇਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਸੰਬੰਧ ਬਣਾਈ ਰੱਖਦੇ ਹਨ।")}`,
+      `${display(relation === "QUANTITY_I_GREATER_OR_EQUAL" ? minA : maxA)} = ${display(relation === "QUANTITY_I_GREATER_OR_EQUAL" ? maxB : minB)}; ${say(language, "समानता संभव है; अन्य सभी युग्म इसी दिशा में संबंध बनाए रखते हैं।", "ਬਰਾਬਰੀ ਸੰਭਵ ਹੈ; ਹੋਰ ਸਾਰੇ ਜੋੜੇ ਇਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਸੰਬੰਧ ਬਣਾਈ ਰੱਖਦੇ ਹਨ।")}`,
     );
   else if (question.answerEvidenceMode === "EXACT_EQUALITY")
     steps.push(
-      `${set(a)} = ${set(b)}; ${say(language, "दोनों मात्राएँ बराबर हैं।", "ਦੋਵੇਂ ਮਾਤਰਾਵਾਂ ਬਰਾਬਰ ਹਨ।")}`,
+      `${values(quantities[0]!)} = ${values(quantities[1]!)}; ${say(language, "दोनों मात्राएँ बराबर हैं।", "ਦੋਵੇਂ ਮਾਤਰਾਵਾਂ ਬਰਾਬਰ ਹਨ।")}`,
     );
   else {
     const greater = a.flatMap((x) =>
@@ -131,7 +161,7 @@ export function localizeQcp001(
       )[0]!,
       less = a.flatMap((x) => b.filter((y) => x < y).map((y) => [x, y]))[0]!;
     steps.push(
-      `${greater[0]} > ${greater[1]}, ${less[0]} < ${less[1]}; ${say(language, "संबंध बदलता है, इसलिए एक निश्चित संबंध नहीं बताया जा सकता।", "ਸੰਬੰਧ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਇੱਕ ਨਿਸ਼ਚਿਤ ਸੰਬੰਧ ਨਹੀਂ ਦੱਸਿਆ ਜਾ ਸਕਦਾ।")}`,
+      `${display(greater[0]!)} > ${display(greater[1]!)}, ${display(less[0]!)} < ${display(less[1]!)}; ${say(language, "संबंध बदलता है, इसलिए एक निश्चित संबंध नहीं बताया जा सकता।", "ਸੰਬੰਧ ਬਦਲਦਾ ਹੈ, ਇਸ ਲਈ ਇੱਕ ਨਿਸ਼ਚਿਤ ਸੰਬੰਧ ਨਹੀਂ ਦੱਸਿਆ ਜਾ ਸਕਦਾ।")}`,
     );
   }
   const options = question.optionMetadata.map((o) =>
