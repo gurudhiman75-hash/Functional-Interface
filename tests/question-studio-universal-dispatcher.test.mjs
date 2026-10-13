@@ -65,9 +65,9 @@ test("canonical API owns Neon persistence while universal worker owns determinis
   assert.ok(route.indexOf("runUniversalStudioRemote(")<route.indexOf("await sqlClient.begin("));
   assert.match(executor,/listQuestionStudioPackages\(\)/);
   assert.match(executor,/requestedDifficulty !== undefined && requestedDifficulty !== "Mixed"/);
-  assert.match(executor,/pkg\\.difficultyFilterSupported !== false/);
+  assert.match(executor,/pkg\.difficultyFilterSupported !== false/);
   assert.match(executor,/DIFFICULTY_FILTER_UNSUPPORTED/);
-  assert.match(executor,/pkg\\.packageId === "NUM-001"/);
+  assert.match(executor,/pkg\.packageId === "NUM-001"/);
   for(const x of ["quant-v4","selectedCpIds","supportedLanguages","supportedRuntimeModes","supportedDifficulties"]){
     assert.ok(executor.includes(x),x);
   }
