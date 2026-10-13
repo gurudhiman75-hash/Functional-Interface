@@ -14,7 +14,7 @@ git switch New-main
 git pull --ff-only origin New-main
 gcloud config set project sarbedutech
 EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED=yes \
-  bash scripts/deploy-question-studio-universal-staging-numfix.sh
+  bash scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
 ```
 
 This is not the original `deploy-question-studio-universal-staging.sh`; that script correctly refuses to replace an existing service. The new script requires the original serving revision still has 100% traffic, the older `fix-candidate` tag exists at 0%, runtime identity and secret are unchanged, and `numfix` does not already exist. It deploys from the clean, latest `New-main`, requiring approval and preserving traffic.
@@ -38,8 +38,8 @@ After acceptance, a separate staging-traffic promotion can be considered. The in
 If Cloud Build already succeeded for image tag `280e82c21b038b2c210f897b359d3cf653a64fe7` but Cloud Run rejected the earlier overlong tag, **reuse that exact image** after confirming the Artifact Registry tag is present:
 
 ```bash
-EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED=yes \\
-EXAMTREE_UNIVERSAL_REUSE_IMAGE_SHA=280e82c21b038b2c210f897b359d3cf653a64fe7 \\
+EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED=yes \
+EXAMTREE_UNIVERSAL_REUSE_IMAGE_SHA=280e82c21b038b2c210f897b359d3cf653a64fe7 \
 bash scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
 ```
 
