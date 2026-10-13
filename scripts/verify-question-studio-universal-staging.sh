@@ -31,7 +31,7 @@ traffic=status.get('traffic',[])
 assert sum(int(x.get('percent',0)) for x in traffic)==100,"staging traffic not ready"
 candidate=os.environ.get('EXAMTREE_UNIVERSAL_STAGING_TAG','').strip()
 if candidate:
- assert candidate in ("fix-candidate","num-contract-candidate"),"Only reviewed staging tags are permitted"
+ assert candidate in ("fix-candidate","numfix"),"Only reviewed staging tags are permitted"
  matches=[x for x in traffic if x.get('tag')==candidate and x.get('revisionName')==ready]
  assert len(matches)==1 and int(matches[0].get('percent',0))==0,"candidate must be ready and serve zero percent"
  assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')!=ready)==100, "previous revision must retain all live staging traffic"
@@ -72,7 +72,7 @@ CASES=(
   'quant-v4|TRG-002|Advanced Mathematics|Trigonometry — Heights & Distances|Medium|RELEASED|TRG-CP-007|3'
   'quant-v4|NUM-001|Arithmetic|Number System|Mixed|QUESTION_STUDIO_ACTIVE|NUM-CP-001|3'
 )
-if [[ "${EXAMTREE_UNIVERSAL_STAGING_TAG:-}" == "num-contract-candidate" ]]; then
+if [[ "${EXAMTREE_UNIVERSAL_STAGING_TAG:-}" == "numfix" ]]; then
   # Exercise the NEW executor contract without optional source-policy flags,
   # matching the canonical admin API's omitted difficulty for NUM-001.
   CASES+=('quant-v4|NUM-001|Arithmetic|Number System|none|QUESTION_STUDIO_ACTIVE|NUM-CP-001|1')
