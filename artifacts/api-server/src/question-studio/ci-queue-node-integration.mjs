@@ -137,6 +137,15 @@ async function run(){
   let row=await getCounts(a.id);
   assert.equal(row.status,"queued");assert.equal(row.items,0);
   assert.equal(row.audits,1);assert.equal(row.outbox,1);
+  const [types]=await sql`
+    SELECT jsonb_typeof(r.request_snapshot) AS snapshot,
+      (SELECT jsonb_typeof(payload) FROM platform.outbox_events WHERE aggregate_id=r.id
+        AND event_type='question_studio.generation_run.queued.v1' LIMIT 1) AS queue_payload,
+      (SELECT jsonb_typeof(metadata) FROM platform.audit_events WHERE entity_id=r.id
+        AND action_key='question_studio.generation_run.queued' LIMIT 1) AS audit_metadata
+    FROM content.generation_runs r WHERE r.id=${a.id}::uuid
+  `;
+  assert.deepEqual(types,{snapshot:"object",queue_payload:"object",audit_metadata:"object"});
   console.log("PASS: actual Node concurrent enqueue, one canonical run, replay, 409 changed request");
 
   const [snapshotDiagnostics]=await sql`
@@ -167,6 +176,17 @@ async function run(){
   assert.equal(again.status,"already_committed");
   assert.equal((await claim(a.id)).kind,"terminal");
   assertOneBatch(await getCounts(a.id));
+  const [reviewPayloadTypes]=await sql`
+    SELECT jsonb_typeof(o.payload) AS outbox_payload,
+      jsonb_typeof(a.metadata) AS audit_metadata
+    FROM platform.outbox_events o
+    JOIN platform.audit_events a ON a.entity_id=o.aggregate_id
+    WHERE o.aggregate_id=${a.id}::uuid
+      AND o.event_type='question_studio.generation_run.created'
+      AND a.action_key='question_studio.generation_run.generated_async'
+    LIMIT 1
+  `;
+  assert.deepEqual(reviewPayloadTypes,{outbox_payload:"object",audit_metadata:"object"});
   const [firstItem]=await sql`
     SELECT v.payload FROM content.generation_item_versions v
     JOIN content.generation_run_items i ON i.id=v.generation_item_id
