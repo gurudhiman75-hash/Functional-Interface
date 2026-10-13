@@ -1,0 +1,41 @@
+name: Validate Question Studio Cloud Tasks dispatch foundation
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/lib/outbox-publisher.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatcher.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-transport.test.ts'
+      - 'tests/qs-cloud-tasks-dispatch-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-cloud-tasks-dispatch-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  safe-dispatch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enforce outbox reservation and disabled delivery contract
+        run: node --test tests/qs-cloud-tasks-dispatch-contract.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile standalone dispatcher without running it
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-cloud-tasks-dispatcher.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-cloud-tasks-dispatcher.mjs
+      - name: Test Cloud Tasks mock API and identity isolation
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-cloud-tasks-transport.test.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-cloud-tasks-transport.test.mjs
+          node artifacts/api-server/dist/question-studio/async-cloud-tasks-transport.test.mjs
+      - name: Patch hygiene
+        run: git diff --check
