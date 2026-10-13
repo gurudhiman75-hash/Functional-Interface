@@ -53,6 +53,8 @@ jobs:
 
       - name: Upload semantic explanation diagnostics
         if: always()
+        # Diagnostic reports are best effort; all audit commands remain blocking.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: quant-v4-semantic-explanation-p1-diagnostics
@@ -65,6 +67,8 @@ jobs:
 
       - name: Upload stem naturalness fatigue diagnostics
         if: always()
+        # Diagnostic reports are best effort; all audit commands remain blocking.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: quant-v4-stem-naturalness-fatigue-p1-diagnostics
@@ -80,6 +84,8 @@ jobs:
 
       - name: Upload QL over-fragmentation diagnostics
         if: always()
+        # Diagnostic reports are best effort; all audit commands remain blocking.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: quant-v4-ql-overfragmentation-p1-diagnostics

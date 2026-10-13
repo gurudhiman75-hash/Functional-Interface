@@ -123,6 +123,8 @@ jobs:
 
       - name: Upload Series audit logs and review packs
         if: always()
+        # Diagnostic reports are best effort; all audit commands remain blocking.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: ser-001-final-audit-${{ github.run_id }}

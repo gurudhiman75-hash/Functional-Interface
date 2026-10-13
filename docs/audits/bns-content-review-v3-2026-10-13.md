@@ -32,3 +32,7 @@ Sources:
 The proof JSON records the completed scoped audit, including source fixtures, deterministic replay, multilingual mathematical parity, all answer positions and all missing/error positions. Mains examples are independently verified. Wrong-answer tampering is rejected, and a forged generator arithmetic proof cannot determine wrong-term acceptance.
 
 Technical freeze applies to the implemented V3 runtime only. A whole-chapter source-saturation freeze is not claimed while the quarantined item and broader official-PYQ calibration remain outside verified evidence. No human approval, Question Bank storage, public publication or test activation is asserted. Existing review-only delivery gates remain intact.
+
+## CI report storage
+
+The learner-quality and Series-audit jobs hit GitHub artifact storage quota after successful audit commands. Their four diagnostic upload steps are now best effort; all test and build commands remain blocking. This also prevents a failed report upload from skipping later learner-quality checks. No historical artifact was deleted.
