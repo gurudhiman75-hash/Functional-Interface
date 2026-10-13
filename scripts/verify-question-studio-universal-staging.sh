@@ -88,7 +88,15 @@ req={
  "runtimeMode":g["MODE"],"seed":"cloudrun-universal-staging-parity-"+p+"-"+g["COUNT"],
 }
 if cp: req["canonicalProblemId"]=cp
-print(json.dumps({"request":req,"selectedCpIds":[cp] if cp else [],"count":int(g["COUNT"])}))
+payload={"request":req,"selectedCpIds":[cp] if cp else [],"count":int(g["COUNT"])}
+# NUM-001 uses source-defined difficulty labels; the profile planner may
+# assign mixed buckets but MUST NOT forward Easy/Medium/Hard to this engine.
+# Mirrors the canonical admin API, allowing the existing Cloud Run candidate
+# to be tested without deploying or reconfiguring it.
+if p=="NUM-001":
+ payload["difficultyFilterSupported"]=False
+ payload["forwardLegacyExamProfile"]=True
+print(json.dumps(payload))
 PY
   STATUS="$(curl -sS --max-time 170 -o "$TMP/response.json" -w '%{http_code}' \
       -H 'Content-Type: application/json' \
@@ -108,6 +116,8 @@ assert batch.get("engineId")==engine and batch.get("packageId")==package, "worke
 assert isinstance(qs,list) and len(qs)==count,"wrong question count"
 assert isinstance(batch.get("generationContexts"),list),"missing review provenance"
 if engine=="quant-v4": assert isinstance(batch.get("quantPlan"),dict),"quant plan missing"
+if package=="NUM-001":
+ assert all(q.get("generationContext",{}).get("difficultyFilterApplied") is False for q in qs), "NUM-001 source difficulty filter must remain disabled"
 for q in qs:
  assert isinstance(q,dict),"question not a record"
  assert isinstance(q.get("options"),list) and len(q["options"])>=2,"options missing"
