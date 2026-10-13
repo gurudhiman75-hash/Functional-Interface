@@ -50,3 +50,12 @@ test("new tagged verifier proves NUM-001 difficulty defaults and provenance",()=
     "all universal Cloud Run staging generation cases completed",
   ]) assert.ok(verify.includes(required),required);
 });
+
+test("recovery instructions reuse the exact completed image build without a new Cloud Build",()=>{
+  const docs=read("docs/examtree-question-studio-num-contract-staging-20261013.md");
+  assert.match(docs,/EXAMTREE_UNIVERSAL_REUSE_IMAGE_SHA=280e82c21b038b2c210f897b359d3cf653a64fe7/);
+  assert.match(docs,/bash scripts\/deploy-question-studio-universal-staging-num-contract-candidate\.sh/);
+  assert.doesNotMatch(docs,/staging-numfix\.sh/);
+  assert.match(deploy,/gcloud artifacts docker images describe/);
+  assert.match(deploy,/git merge-base --is-ancestor/);
+});
