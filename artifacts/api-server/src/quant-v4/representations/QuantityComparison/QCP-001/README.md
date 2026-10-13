@@ -1,6 +1,6 @@
 # QCP-001 — Banking Quantity Comparison
 
-Status: `CONTENT_REVIEW_V3_REVIEW_ONLY`
+Status: `CONTENT_REVIEW_V4_TECHNICAL_SCOPE_FROZEN_REVIEW_ONLY`
 
 `QCP-001` owns the Quantity I / Quantity II **representation contract**. It does not own the underlying arithmetic truth.
 
@@ -47,4 +47,6 @@ The two operands use distinct variable names. Exact equality is covered in both 
 
 The V3 technical review covers the foundation runtime and these three word-problem bridges, with 12 task forms, nine ordered word-topic pairs and all five relation classes in both profiles and all three languages. V3 adds 5,400 packages to the 7,500-package foundation proof. Source fixtures remain comparison-only evidence, not proof that every source story is generated.
 
-Other source-derived bridges (compound interest, work, boats/trains, probability, ages, mensuration and dilution/replacement mixtures), irrational roots and full source saturation remain open. Lifecycle permissions are unchanged.
+V4 adds `sourceMode: "ADDITIONAL"` for nine same-family story comparisons: compound interest, work, boats, trains, ages, urn probability, triangle mensuration, repeated remove/refill and cost-price recovery from two selling conditions. All use existing source truth. `sourceMode: "IRRATIONAL"` compares positive roots of `x² = d k²`, with `d ∈ {2,3,5}` and positive integer k. Explanations preserve exact fractions and surds. The finite V4 generator grammar is technically frozen with 21,540 audited packages; lifecycle permissions remain unchanged.
+
+Source limits remain explicit: the 20 publisher comparison fixtures do not certify generated coverage of every source story. Five quarantined source items remain held. General mixed-radical/coefficient quadratics, other geometry shapes and more complex source-story combinations are outside the declared V4 grammar. Whole-source saturation is not asserted. See `docs/audits/qcp-content-review-v4-2026-10-13.md` for the exact scope and validation limits.

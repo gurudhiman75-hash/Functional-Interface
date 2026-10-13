@@ -1,3 +1,4 @@
+import { auditQcpAdditionalFamilies } from "./additional-audit";
 import { auditQcpWordProblems } from "./word-audit";
 import { auditQcpSourceComparisons } from "./source-fixtures";
 import { auditQcpV2 } from "./audit-v2";
@@ -240,3 +241,5 @@ console.log(JSON.stringify(auditQcpSourceComparisons()));
 
 const wordAudit = auditQcpWordProblems();
 console.log(JSON.stringify({ ...wordAudit, examples: undefined }));
+
+console.log(JSON.stringify(auditQcpAdditionalFamilies()));

@@ -1,4 +1,15 @@
 import {
+  ADDITIONAL_FAMILIES,
+  ADDITIONAL_BINDINGS,
+  isAdditional,
+  additionalResult,
+  buildAdditional,
+} from "./additional-source";
+import {
+  additionalOperandPrompt,
+  additionalWorking,
+} from "./additional-display";
+import {
   QCP_WORD_FAMILIES,
   isWordState,
   solveWordState,
@@ -144,6 +155,7 @@ function rapParameters(
 }
 
 function solveSourceState(state: Qcp001SourceState): number {
+  if (isAdditional(state)) return additionalResult(state).value;
   if (isWordState(state)) return solveWordState(state);
   if (state.kind === "ALGEBRA") return solveQcpQuadratic(state).value;
   if (state.kind === "PERCENTAGE") {
@@ -174,6 +186,8 @@ function stateWorking(
   state: Qcp001SourceState,
   label: "Quantity I" | "Quantity II",
 ): string {
+  if (isAdditional(state))
+    return additionalWorking(state, additionalResult(state).text);
   if (isWordState(state))
     return wordWorking(state, solveWordState(state), "en");
   if (state.kind === "ALGEBRA")
@@ -300,7 +314,52 @@ function buildOperand(
   targetValues: readonly number[],
   seed: string,
   profile: Qcp001ExamProfile,
+  additionalVariant = 0,
+  irrational = false,
 ): Qcp001Operand {
+  if (ADDITIONAL_FAMILIES.some((k) => k === family)) {
+    const states = buildAdditional(
+        family as (typeof ADDITIONAL_FAMILIES)[number],
+        targetValues,
+        additionalVariant,
+      ),
+      binding = ADDITIONAL_BINDINGS[family as keyof typeof ADDITIONAL_BINDINGS];
+    const sourcePackageId =
+      states[0]?.kind === "PROBABILITY" && states[0].task === "SINGLE"
+        ? "PRB-001"
+        : binding[0];
+    const operand: Qcp001Operand = {
+      label,
+      sourceFamily: family,
+      sourcePackageId,
+      sourceSolveMode: binding[1],
+      states,
+      values: states.map(solveSourceState),
+      prompt: "",
+    };
+    return { ...operand, prompt: additionalOperandPrompt(operand, "en") };
+  }
+  if (family === "ALGEBRA" && irrational) {
+    const d = [2, 3, 5][additionalVariant % 3]!,
+      variable = label === "Quantity I" ? "x" : "y";
+    const states = targetValues.map((k) => ({
+      kind: "ALGEBRA" as const,
+      a: 1,
+      b: 0,
+      c: -d * k * k,
+      rootIndex: 1 as const,
+      positiveOnly: true as const,
+    }));
+    return {
+      label,
+      sourceFamily: family,
+      sourcePackageId: "ALG-002",
+      sourceSolveMode: "solveQuadraticEquation",
+      states,
+      values: states.map(solveSourceState),
+      prompt: `${variable} > 0, where ${states.map((s) => quadraticText(s, variable)).join(" or ")}`,
+    };
+  }
   if (QCP_WORD_FAMILIES.some((k) => k === family)) {
     const states = buildWordStates(
       family as (typeof QCP_WORD_FAMILIES)[number],
@@ -497,26 +556,27 @@ function relationStep(
   left: readonly number[],
   right: readonly number[],
   answerClass: Qcp001RelationClass,
+  format = formatNumber,
 ): string {
   const minI = Math.min(...left);
   const maxI = Math.max(...left);
   const minII = Math.min(...right);
   const maxII = Math.max(...right);
   if (answerClass === "QUANTITY_I_GREATER") {
-    return `Smallest Quantity I = ${formatNumber(minI)} and largest Quantity II = ${formatNumber(maxII)}. Since ${formatNumber(minI)} > ${formatNumber(maxII)}, Quantity I is always greater.`;
+    return `Smallest Quantity I = ${format(minI)} and largest Quantity II = ${format(maxII)}. Since ${format(minI)} > ${format(maxII)}, Quantity I is always greater.`;
   }
   if (answerClass === "QUANTITY_I_LESS") {
-    return `Largest Quantity I = ${formatNumber(maxI)} and smallest Quantity II = ${formatNumber(minII)}. Since ${formatNumber(maxI)} < ${formatNumber(minII)}, Quantity I is always smaller.`;
+    return `Largest Quantity I = ${format(maxI)} and smallest Quantity II = ${format(minII)}. Since ${format(maxI)} < ${format(minII)}, Quantity I is always smaller.`;
   }
   if (answerClass === "QUANTITY_I_GREATER_OR_EQUAL") {
-    return `Smallest Quantity I = ${formatNumber(minI)} and largest Quantity II = ${formatNumber(maxII)}. They can be equal, and every other allowed comparison keeps Quantity I larger.`;
+    return `Smallest Quantity I = ${format(minI)} and largest Quantity II = ${format(maxII)}. They can be equal, and every other allowed comparison keeps Quantity I larger.`;
   }
   if (answerClass === "QUANTITY_I_LESS_OR_EQUAL") {
-    return `Largest Quantity I = ${formatNumber(maxI)} and smallest Quantity II = ${formatNumber(minII)}. They can be equal, and every other allowed comparison keeps Quantity I smaller.`;
+    return `Largest Quantity I = ${format(maxI)} and smallest Quantity II = ${format(minII)}. They can be equal, and every other allowed comparison keeps Quantity I smaller.`;
   }
   const relations = pairwiseRelations(left, right);
   if (relations.size === 1 && relations.has("="))
-    return `Both quantities reduce to ${formatNumber(left[0]!)}, so they are equal.`;
+    return `Both quantities reduce to ${format(left[0]!)}, so they are equal.`;
   let greaterPair: [number, number] | null = null;
   let lessPair: [number, number] | null = null;
   for (const a of left)
@@ -524,7 +584,7 @@ function relationStep(
       if (!greaterPair && a > b) greaterPair = [a, b];
       if (!lessPair && a < b) lessPair = [a, b];
     }
-  return `The relation changes with the allowed values: ${formatNumber(greaterPair![0])} > ${formatNumber(greaterPair![1])}, but ${formatNumber(lessPair![0])} < ${formatNumber(lessPair![1])}. Hence one fixed relation cannot be established.`;
+  return `The relation changes with the allowed values: ${format(greaterPair![0])} > ${format(greaterPair![1])}, but ${format(lessPair![0])} < ${format(lessPair![1])}. Hence one fixed relation cannot be established.`;
 }
 
 function wrongReason(
@@ -629,7 +689,7 @@ function generateBaseQcp001Question(
   input: {
     seed?: string;
     examProfile?: Qcp001ExamProfile;
-    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS";
+    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS" | "ADDITIONAL" | "IRRATIONAL";
   } = {},
 ): Qcp001Question {
   const seed = input.seed ?? "QCP-001:PHASE0:1";
@@ -646,11 +706,15 @@ function generateBaseQcp001Question(
   const answerClass =
     QCP_001_RELATION_CLASSES[(index - 1) % QCP_001_RELATION_CLASSES.length]!;
   const pairs =
-    input.sourceMode === "WORD_PROBLEMS"
-      ? QCP_WORD_FAMILIES.flatMap((a) =>
-          QCP_WORD_FAMILIES.map((b) => [a, b] as const),
-        )
-      : SOURCE_FAMILY_PAIRS;
+    input.sourceMode === "ADDITIONAL"
+      ? ADDITIONAL_FAMILIES.map((k) => [k, k] as const)
+      : input.sourceMode === "IRRATIONAL"
+        ? [["ALGEBRA", "ALGEBRA"] as const]
+        : input.sourceMode === "WORD_PROBLEMS"
+          ? QCP_WORD_FAMILIES.flatMap((a) =>
+              QCP_WORD_FAMILIES.map((b) => [a, b] as const),
+            )
+          : SOURCE_FAMILY_PAIRS;
   const [familyI, familyII] =
     pairs[Math.floor((index - 1) / 5) % pairs.length]!;
   const targets = targetValueSets(seed, examProfile, answerClass);
@@ -664,6 +728,8 @@ function generateBaseQcp001Question(
     targetI,
     `${seed}:I`,
     examProfile,
+    hashText(`${seed}:additional-variant`),
+    input.sourceMode === "IRRATIONAL",
   );
   const quantityII = buildOperand(
     familyII,
@@ -671,6 +737,8 @@ function generateBaseQcp001Question(
     targetII,
     `${seed}:II`,
     examProfile,
+    hashText(`${seed}:additional-variant`),
+    input.sourceMode === "IRRATIONAL",
   );
 
   const actualClass = classifyQcp001Relation(
@@ -689,9 +757,24 @@ function generateBaseQcp001Question(
     quantityII.values,
     answerClass,
   );
+  const exact = new Map<number, string>();
+  for (const o of [quantityI, quantityII])
+    o.states.forEach((state, i) =>
+      exact.set(
+        o.values[i]!,
+        isAdditional(state)
+          ? additionalResult(state).text
+          : state.kind === "ALGEBRA"
+            ? solveQcpQuadratic(state).selectedText
+            : formatNumber(o.values[i]!),
+      ),
+    );
+  const display = (n: number) => exact.get(n) ?? formatNumber(n);
+  const exactSet = (values: readonly number[]) =>
+    `{${uniqueSorted(values).map(display).join(", ")}}`;
   const sourceSteps = [
-    `${quantityI.label}: ${quantityI.states.map((state) => stateWorking(state, quantityI.label)).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityI.values))}.`,
-    `${quantityII.label}: ${quantityII.states.map((state) => stateWorking(state, quantityII.label)).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityII.values))}.`,
+    `${quantityI.label}: ${quantityI.states.map((state) => stateWorking(state, quantityI.label)).join("; ")}. Possible values = ${exactSet(quantityI.values)}.`,
+    `${quantityII.label}: ${quantityII.states.map((state) => stateWorking(state, quantityII.label)).join("; ")}. Possible values = ${exactSet(quantityII.values)}.`,
   ];
   const distractorAnalysis = builtOptions.metadata
     .filter((option) => !option.isCorrect)
@@ -709,7 +792,7 @@ function generateBaseQcp001Question(
   const withoutValidation: Omit<Qcp001Question, "validation"> = {
     packageId: "QCP-001",
     representation: "QUANTITY_COMPARISON",
-    questionId: `QCP-001-${hashText(`${seed}:${examProfile}${input.sourceMode === "WORD_PROBLEMS" ? ":WORD_PROBLEMS" : ""}`).toString(36)}`,
+    questionId: `QCP-001-${hashText(`${seed}:${examProfile}${input.sourceMode && input.sourceMode !== "FOUNDATION" ? `:${input.sourceMode}` : ""}`).toString(36)}`,
     seed,
     language: "en",
     examProfile,
@@ -735,7 +818,7 @@ function generateBaseQcp001Question(
         "Find every value allowed by each quantity, then compare the two possibility sets. A non-strict relation is used only when equality is genuinely possible.",
       steps: [
         ...sourceSteps,
-        relationStep(quantityI.values, quantityII.values, answerClass),
+        relationStep(quantityI.values, quantityII.values, answerClass, display),
       ],
       shortcut:
         answerClass === "EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED" &&
@@ -746,13 +829,29 @@ function generateBaseQcp001Question(
     traceability: {
       representationOwner: "QCP-001",
       sourceTruthOwners:
-        input.sourceMode === "WORD_PROBLEMS"
-          ? ["PNL-001", "INT-001", "MAL-001"]
-          : ["PCT-001", "RAP-001", "NUM-001", "ALG-002"],
+        input.sourceMode === "ADDITIONAL"
+          ? [
+              "INT-001",
+              "TMW-001",
+              "TSD-002",
+              "ALG-001",
+              "PRB-001",
+              "PRB-002",
+              "MEN-001",
+              "MAL-001",
+              "PNL-001",
+            ]
+          : input.sourceMode === "IRRATIONAL"
+            ? ["ALG-002"]
+            : input.sourceMode === "WORD_PROBLEMS"
+              ? ["PNL-001", "INT-001", "MAL-001"]
+              : ["PCT-001", "RAP-001", "NUM-001", "ALG-002"],
       contractVersion:
-        input.sourceMode === "WORD_PROBLEMS"
-          ? "QCP-001-BANKING-RELATION-V3"
-          : "QCP-001-BANKING-RELATION-V2",
+        input.sourceMode === "ADDITIONAL" || input.sourceMode === "IRRATIONAL"
+          ? "QCP-001-BANKING-RELATION-V4"
+          : input.sourceMode === "WORD_PROBLEMS"
+            ? "QCP-001-BANKING-RELATION-V3"
+            : "QCP-001-BANKING-RELATION-V2",
       reviewStatus: "UNREVIEWED",
       questionStudioDiscoverable: false,
       questionBankStatus: "NOT_STORED",
@@ -776,12 +875,14 @@ export function generateQcp001Question(
     seed?: string;
     examProfile?: Qcp001ExamProfile;
     language?: Qcp001Language;
-    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS";
+    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS" | "ADDITIONAL" | "IRRATIONAL";
   } = {},
 ): Qcp001Question {
   if (
     input.sourceMode !== undefined &&
-    !["FOUNDATION", "WORD_PROBLEMS"].includes(input.sourceMode)
+    !["FOUNDATION", "WORD_PROBLEMS", "ADDITIONAL", "IRRATIONAL"].includes(
+      input.sourceMode,
+    )
   )
     throw Error("Unsupported QCP source mode");
   const language = input.language ?? "en";

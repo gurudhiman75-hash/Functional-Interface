@@ -1,3 +1,7 @@
+import { quadraticOperandPrompt } from "./quadratic-source";
+import { independentlySolveAdditional } from "./additional-independent";
+import { additionalOperandPrompt } from "./additional-display";
+import type { Qcp001AdditionalState } from "./types";
 import { wordOperandPrompt } from "./word-display";
 import { getQuantV4OptionCount } from "../../../common/exam-profile";
 import { QCP_RELATIONS, relationText, quantityLabel } from "./display";
@@ -10,6 +14,20 @@ import type {
 
 function recomputeSourceState(state: Qcp001SourceState): number {
   if (!state || typeof state !== "object") throw Error("Invalid source state.");
+  if (
+    [
+      "COMPOUND_INTEREST",
+      "WORK",
+      "BOATS",
+      "TRAINS",
+      "AGES",
+      "PROBABILITY",
+      "MENSURATION",
+      "REPLACEMENT",
+      "PRICE_RECOVERY",
+    ].includes(state.kind)
+  )
+    return independentlySolveAdditional(state as Qcp001AdditionalState);
   if (state.kind === "PROFIT_LOSS" || state.kind === "INTEREST") {
     if (
       ![state.amount, state.rate].every((v) => Number.isSafeInteger(v) && v > 0)
@@ -100,13 +118,24 @@ function recomputeSourceState(state: Qcp001SourceState): number {
     )
       throw Error("Invalid quadratic domain.");
     const d = state.b * state.b - 4 * state.a * state.c;
-    if (
-      !Number.isSafeInteger(d) ||
-      d < 0 ||
-      !Number.isInteger(Math.sqrt(d)) ||
-      (d === 0 && state.rootIndex !== 0)
-    )
+    if (!Number.isSafeInteger(d) || d < 0 || (d === 0 && state.rootIndex !== 0))
       throw Error("Unsupported rational-root domain.");
+    if (!Number.isInteger(Math.sqrt(d))) {
+      if (
+        !state.positiveOnly ||
+        state.a !== 1 ||
+        state.b !== 0 ||
+        state.rootIndex !== 1
+      )
+        throw Error("Unsupported irrational domain");
+      for (const radicand of [2, 3, 5]) {
+        const k = Math.sqrt(-state.c / radicand);
+        if (Number.isSafeInteger(k) && k > 0) return k * Math.sqrt(radicand);
+      }
+      throw Error("Unsupported irrational radical");
+    }
+    if (state.positiveOnly)
+      throw Error("Unexpected positive-only rational source");
     const roots = [
       (-state.b - Math.sqrt(d)) / (2 * state.a),
       (-state.b + Math.sqrt(d)) / (2 * state.a),
@@ -196,10 +225,24 @@ export function independentlyVerifyQcp001Question(
     PROFIT_LOSS: ["PNL-001", "fundamentalMoney"],
     INTEREST: ["INT-001", "simpleInterest"],
     MIXTURE: ["MAL-001", "weightedBlend"],
+    COMPOUND_INTEREST: ["INT-001", "annualCompound"],
+    WORK: ["TMW-001", "combineWorkRates"],
+    BOATS: ["TSD-002", "mediumJourney"],
+    TRAINS: ["TSD-002", "trainCrossing"],
+    AGES: ["ALG-001", "ageShift"],
+    PROBABILITY: ["PRB-002", "urnProbability"],
+    MENSURATION: ["MEN-001", "triangleMeasurement"],
+    REPLACEMENT: ["MAL-001", "removeRefill"],
+    PRICE_RECOVERY: ["PNL-001", "twoSellingConditions"],
   } as const;
   const sourceBinding = [question.quantityI, question.quantityII].every(
     (operand, index) => {
-      const binding = bindings[operand.sourceFamily];
+      const binding =
+        operand.sourceFamily === "PROBABILITY" &&
+        operand.states[0]?.kind === "PROBABILITY" &&
+        operand.states[0].task === "SINGLE"
+          ? ["PRB-001", "urnProbability"]
+          : bindings[operand.sourceFamily];
       return (
         !!binding &&
         operand.label === (index === 0 ? "Quantity I" : "Quantity II") &&
@@ -209,6 +252,29 @@ export function independentlyVerifyQcp001Question(
         operand.values.length === operand.states.length &&
         operand.values.every(Number.isFinite)
       );
+    },
+  );
+  const quadraticCompleteness = [question.quantityI, question.quantityII].every(
+    (o) => {
+      if (o.sourceFamily !== "ALGEBRA") return true;
+      const states = o.states.filter((s) => s.kind === "ALGEBRA");
+      if (new Set(states.map((s) => Boolean(s.positiveOnly))).size !== 1)
+        return false;
+      const groups = new Map<string, Set<number>>();
+      for (const state of states) {
+        const key = `${state.a}:${state.b}:${state.c}`,
+          indices = groups.get(key) ?? new Set<number>();
+        indices.add(state.rootIndex);
+        groups.set(key, indices);
+      }
+      return states.every((s) => {
+        const indices = groups.get(`${s.a}:${s.b}:${s.c}`)!;
+        return s.positiveOnly === true
+          ? indices.size === 1 && indices.has(1)
+          : s.b * s.b - 4 * s.a * s.c === 0
+            ? indices.size === 1 && indices.has(0)
+            : indices.size === 2 && indices.has(0) && indices.has(1);
+      });
     },
   );
   const optionBinding =
@@ -227,6 +293,32 @@ export function independentlyVerifyQcp001Question(
       left.every(Number.isFinite) &&
       right.every(Number.isFinite),
     sourceBinding,
+    quadraticCompleteness,
+    quadraticPromptBinding:
+      domainValid &&
+      sourceBinding &&
+      [question.quantityI, question.quantityII].every(
+        (o) =>
+          o.sourceFamily !== "ALGEBRA" ||
+          o.prompt === quadraticOperandPrompt(o, question.language),
+      ),
+    additionalPromptBinding:
+      domainValid &&
+      [question.quantityI, question.quantityII].every(
+        (o) =>
+          ![
+            "COMPOUND_INTEREST",
+            "WORK",
+            "BOATS",
+            "TRAINS",
+            "AGES",
+            "PROBABILITY",
+            "MENSURATION",
+            "REPLACEMENT",
+            "PRICE_RECOVERY",
+          ].includes(o.sourceFamily) ||
+          o.prompt === additionalOperandPrompt(o, question.language),
+      ),
     stemBinding:
       question.stem ===
       `${quantityLabel(question.language, "I")}: ${question.quantityI.prompt}\n${quantityLabel(question.language, "II")}: ${question.quantityII.prompt}`,
