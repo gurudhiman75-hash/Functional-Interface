@@ -1,0 +1,41 @@
+name: Validate Question Studio staged OIDC task receiver
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/app.ts'
+      - 'artifacts/api-server/src/routes/internal-question-studio-async-task.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-receiver-snapshot.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-receiver-snapshot.test.ts'
+      - 'tests/qs-staging-task-receiver-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-staging-task-receiver-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  staged-receiver:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify staging-only entrypoint, signed OIDC and fenced persistence sequencing
+        run: node --test tests/qs-staging-task-receiver-contract.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile receiver without running it
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/routes/internal-question-studio-async-task.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/internal-question-studio-async-task.mjs
+      - name: Test canonical snapshot isolation
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-task-receiver-snapshot.test.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-task-receiver-snapshot.test.mjs
+          node artifacts/api-server/dist/question-studio/async-task-receiver-snapshot.test.mjs
+      - name: Patch hygiene
+        run: git diff --check

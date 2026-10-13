@@ -177,6 +177,30 @@ app.use((req, res, next) => {
 app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
 app.post("/api/billing/cashfree/webhook", express.raw({ type: "application/json" }), webhookRateLimit, cashfreeWebhookHandler);
 
+// Internal Cloud Tasks receiver is a STAGING-ONLY, opt-in route. Keep it
+// before the general 25mb JSON parser and cap task payloads at 2kb. No normal
+// production or Render runtime can activate this callback; no public task
+// processing occurs just because this code was merged.
+const questionStudioAsyncTaskReceiver=lazyRouter(
+  ()=>import("./routes/internal-question-studio-async-task"),
+);
+app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),(req,res,next)=>{
+  const staging=process.env.EXAMTREE_API_RUNTIME==="cloud-run" &&
+    process.env.EXAMTREE_API_STAGING==="true";
+  const ready=process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_TASK_CLAIM_ENABLED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_TASK_REVIEW_COMMIT_ENABLED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_ROUTE_ENABLED==="true" &&
+    process.env.EXAMTREE_QUESTION_STUDIO_STAGING_TASK_ACCEPTANCE_APPROVED==="true";
+  if(!staging||!ready){
+    res.status(503).json({code:"QUESTION_STUDIO_ASYNC_RECEIVER_DISABLED"});
+    return;
+  }
+  questionStudioAsyncTaskReceiver(req,res,next);
+});
+
 app.use(
   express.json({
     limit: "25mb",
