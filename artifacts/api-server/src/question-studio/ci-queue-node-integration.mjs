@@ -139,7 +139,21 @@ async function run(){
   assert.equal(row.audits,1);assert.equal(row.outbox,1);
   console.log("PASS: actual Node concurrent enqueue, one canonical run, replay, 409 changed request");
 
+  const [snapshotDiagnostics]=await sql`
+    SELECT status::text AS status,
+      jsonb_typeof(request_snapshot) AS snapshot_type,
+      request_snapshot->>'queueVersion' AS queue_version,
+      left(request_snapshot::text,160) AS snapshot_prefix
+    FROM content.generation_runs WHERE id=${a.id}::uuid
+  `;
   const owner=await claim(a.id);
+  if(owner.kind!=="claimed") console.error("DIAGNOSTIC: queued claim",{
+    runStatus:snapshotDiagnostics.status,
+    snapshotType:snapshotDiagnostics.snapshot_type,
+    queueVersion:snapshotDiagnostics.queue_version,
+    snapshotPrefix:snapshotDiagnostics.snapshot_prefix,
+    claimKind:owner.kind,
+  });
   assert.equal(owner.kind,"claimed");
   assert.equal(owner.attemptNumber,1);
   assert.equal((await claim(a.id)).kind,"busy");
