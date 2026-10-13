@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const read=(p)=>readFileSync(p,"utf8");
 const route=read("artifacts/api-server/src/routes/admin-question-studio-run-status.ts");
 const registry=read("artifacts/api-server/src/routes/admin-question-studio-registry.ts");
+const bulk=read("artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts");
 const api=read("artifacts/admin-app/src/features/question-studio/api.ts");
 const engine=read("artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts");
 
@@ -17,13 +18,17 @@ test("generation progress requires admin read permission and validates canonical
   assert.match(route,/Cache-Control", "no-store"/);
 });
 
-test("polling route is fast-path before historical chapter handlers",()=>{
-  assert.match(registry,/adminQuestionStudioRunStatusRouter = lazyRouter/);
-  assert.match(registry,/router\.get\("\/runs\/:runId\/status"/);
-  assert.ok(registry.indexOf('router.get("/runs/:runId/status"') <
-    registry.indexOf("router.use(adminQuestionStudioBulkHardeningRouter)"));
-  assert.ok(registry.indexOf('router.get("/runs/:runId/status"') <
-    registry.indexOf('router.post("/runs"'));
+test("polling route executes via first router without changing chapter precedence",()=>{
+  assert.match(bulk,/import adminQuestionStudioRunStatusRouter from/);
+  assert.match(bulk,/router\.use\(adminQuestionStudioRunStatusRouter\)/);
+  assert.ok(bulk.indexOf("router.use(adminQuestionStudioRunStatusRouter)") <
+    bulk.indexOf("router.use(authenticate)"));
+  assert.ok(registry.indexOf("router.use(adminQuestionStudioBulkHardeningRouter)") <
+    registry.indexOf("router.use(adminQuestionStudioArgumentsCp015Router)"));
+  assert.ok(registry.indexOf("router.use(adminQuestionStudioArgumentsCp013Router)") <
+    registry.indexOf("router.use(adminQuestionStudioArgumentsCp012Router)"));
+  assert.ok(registry.indexOf("router.use(adminQuestionStudioArgumentsCp010Router)") <
+    registry.indexOf("router.use(adminQuestionStudioArgumentsCp007Router)"));
 });
 
 test("progress status uses canonical Neon records, no new table, writes, or accidental data exposure",()=>{
