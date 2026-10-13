@@ -13,6 +13,12 @@ on:
       - 'cloudbuild.question-studio-universal.yaml'
       - 'tests/question-studio-universal-dispatcher.test.mjs'
       - 'scripts/smoke-question-studio-universal-local.mjs'
+      - 'scripts/deploy-question-studio-universal-staging-fix-candidate.sh'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/localization/cp004-localized-review-runtime.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/localization/cp005-localized-review-runtime.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/localization/cp006-localized-review-runtime.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-final-audit-review-pack.ts'
       - 'scripts/deploy-question-studio-universal-staging.sh'
       - 'scripts/verify-question-studio-universal-staging.sh'
   workflow_dispatch:
@@ -46,5 +52,6 @@ jobs:
         run: |
           bash -n scripts/deploy-question-studio-universal-staging.sh
           bash -n scripts/verify-question-studio-universal-staging.sh
+          bash -n scripts/deploy-question-studio-universal-staging-fix-candidate.sh
       - name: Ensure patch hygiene
         run: git diff --check
