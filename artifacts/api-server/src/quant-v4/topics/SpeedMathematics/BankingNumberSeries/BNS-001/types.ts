@@ -7,7 +7,21 @@ export type Bns001PatternKind =
   | "PROGRESSIVE_DIFFERENCE"
   | "GEOMETRIC_MULTIPLICATION"
   | "MULTIPLY_AND_ADD"
-  | "INTERLEAVED_ARITHMETIC";
+  | "INTERLEAVED_ARITHMETIC"
+  | "QUARTIC_POLYNOMIAL_TERMS"
+  | "POWER_DIFFERENCE"
+  | "QUADRATIC_DIFFERENCE"
+  | "DESCENDING_CUBE_DIFFERENCE"
+  | "ODD_SQUARE_DIFFERENCE"
+  | "CONSECUTIVE_CUBES"
+  | "VARIABLE_MULTIPLY_SUBTRACT"
+  | "VARIABLE_MULTIPLY_ADD"
+  | "FRACTIONAL_GEOMETRIC"
+  | "VARIABLE_FRACTIONAL_MULTIPLIER"
+  | "VARIABLE_FRACTIONAL_DIVISOR"
+  | "ALTERNATING_MULTIPLY_DIVIDE"
+  | "PRIME_SECOND_DIFFERENCE"
+  | "INTERLEAVED_PROGRESSIVE_DIFFERENCE";
 
 export type Bns001Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -22,7 +36,7 @@ export type Bns001Question = Readonly<{
   questionId: string;
   seed: string;
   language: Bns001Language;
-  examProfile: "BANKING_PRELIMS";
+  examProfile: "BANKING_PRELIMS" | "BANKING_MAINS";
   optionCount: 5;
   taskKind: Bns001TaskKind;
   patternKind: Bns001PatternKind;
@@ -48,7 +62,7 @@ export type Bns001Question = Readonly<{
   }>;
   traceability: Readonly<{
     packageId: "BNS-001";
-    contractVersion: "BNS-001-CONTENT-REVIEW-V2";
+    contractVersion: "BNS-001-CONTENT-REVIEW-V3";
     ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES";
     numberSystemOwnership: false;
     reasoningLetterSeriesOwnership: false;

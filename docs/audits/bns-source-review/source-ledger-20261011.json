@@ -23,7 +23,7 @@
       "item": 1,
       "task": "MISSING_TERM",
       "family": "POWER_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 87,
       "replacement": null
     },
@@ -32,7 +32,7 @@
       "item": 2,
       "task": "MISSING_TERM",
       "family": "QUADRATIC_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 135,
       "replacement": null
     },
@@ -40,17 +40,19 @@
       "source": "PM-20250707",
       "item": 3,
       "task": "MISSING_TERM",
-      "family": "UNRESOLVED",
-      "status": "SOURCE_HOLD",
-      "independently_inferred_answer": null,
-      "replacement": null
+      "family": "QUARTIC_POLYNOMIAL_TERMS",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
+      "independently_inferred_answer": 475,
+      "replacement": null,
+      "formula": "n^4 - n^3 - n^2, n=2..7",
+      "corroboration": "https://lsa.umich.edu/content/dam/math-assets/math-document/umumc/UMUMC26sol.pdf"
     },
     {
       "source": "PM-20250707",
       "item": 4,
       "task": "MISSING_TERM",
       "family": "PROGRESSIVE_DIFFERENCE",
-      "status": "SUPPORTED",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 100,
       "replacement": null
     },
@@ -59,7 +61,7 @@
       "item": 5,
       "task": "MISSING_TERM",
       "family": "PROGRESSIVE_DIFFERENCE",
-      "status": "SUPPORTED",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 72,
       "replacement": null
     },
@@ -68,7 +70,7 @@
       "item": 1,
       "task": "WRONG_TERM",
       "family": "QUADRATIC_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 224,
       "replacement": 220
     },
@@ -77,7 +79,7 @@
       "item": 2,
       "task": "WRONG_TERM",
       "family": "VARIABLE_MULTIPLY_SUBTRACT",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 246,
       "replacement": 248
     },
@@ -86,7 +88,7 @@
       "item": 3,
       "task": "WRONG_TERM",
       "family": "DESCENDING_CUBE_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 439,
       "replacement": 437
     },
@@ -95,7 +97,7 @@
       "item": 4,
       "task": "WRONG_TERM",
       "family": "VARIABLE_MULTIPLY_ADD",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 780,
       "replacement": 777
     },
@@ -104,7 +106,7 @@
       "item": 5,
       "task": "WRONG_TERM",
       "family": "FRACTIONAL_GEOMETRIC",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 630,
       "replacement": 625
     },
@@ -113,7 +115,7 @@
       "item": 6,
       "task": "WRONG_TERM",
       "family": "VARIABLE_FRACTIONAL_MULTIPLIER",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 520,
       "replacement": 525
     },
@@ -122,7 +124,7 @@
       "item": 7,
       "task": "WRONG_TERM",
       "family": "PRIME_SECOND_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 131,
       "replacement": 129
     },
@@ -131,7 +133,7 @@
       "item": 8,
       "task": "WRONG_TERM",
       "family": "UNRESOLVED",
-      "status": "SOURCE_HOLD",
+      "status": "QUARANTINED_UNRESOLVED",
       "independently_inferred_answer": null,
       "replacement": null
     },
@@ -140,7 +142,7 @@
       "item": 9,
       "task": "WRONG_TERM",
       "family": "ALTERNATING_MULTIPLY_DIVIDE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 10,
       "replacement": 9
     },
@@ -149,7 +151,7 @@
       "item": 10,
       "task": "WRONG_TERM",
       "family": "INTERLEAVED_PROGRESSIVE_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 48.5,
       "replacement": 48
     },
@@ -158,7 +160,7 @@
       "item": 11,
       "task": "WRONG_TERM",
       "family": "ODD_SQUARE_DIFFERENCE",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 5531,
       "replacement": 5555
     },
@@ -167,7 +169,7 @@
       "item": 12,
       "task": "WRONG_TERM",
       "family": "GEOMETRIC_DIFFERENCE",
-      "status": "MATCHER_SUPPORTED_GENERATOR_GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 26,
       "replacement": 21
     },
@@ -176,7 +178,7 @@
       "item": 13,
       "task": "WRONG_TERM",
       "family": "VARIABLE_MULTIPLY_ADD",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 760,
       "replacement": 770
     },
@@ -185,7 +187,7 @@
       "item": 14,
       "task": "WRONG_TERM",
       "family": "VARIABLE_FRACTIONAL_DIVISOR",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 1,
       "replacement": 2
     },
@@ -194,15 +196,20 @@
       "item": 15,
       "task": "WRONG_TERM",
       "family": "CONSECUTIVE_CUBES",
-      "status": "GAP",
+      "status": "SUPPORTED_GRAMMAR_AND_NUMERIC_FIXTURE",
       "independently_inferred_answer": 243,
       "replacement": 343
     }
   ],
   "notes": [
-    "Answers are independently inferred; publisher solution images were not retrieved.",
-    "Unresolved items remain holds; no guessed answer or silent repair.",
-    "Status SUPPORTED means grammar expressible, not exact production-state coverage.",
-    "Wrong-term V2 uses eight visible terms and unique repairs; this does not claim exact six-term source representation."
-  ]
+    "Practice sources are not certified PYQs.",
+    "Fixtures verify mathematical grammars, not exact source-width regeneration.",
+    "Publisher solution images were not available; answers are independently adjudicated.",
+    "BA-20190127 item 8 remains excluded from approval.",
+    "Wrong-term runtime uses eight terms and requires a unique repair across all supported grammars."
+  ],
+  "reviewed_through": "2026-10-13",
+  "adjudicated_and_supported_items": 19,
+  "quarantined_items": 1,
+  "wholeChapterSourceFreeze": false
 }

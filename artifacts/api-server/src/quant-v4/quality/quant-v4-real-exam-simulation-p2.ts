@@ -913,11 +913,10 @@ function generateBnsSlot(
   ordinal: number,
   seed: string,
 ): QuantV4SimulatedQuestion {
-  if (profile.centralDeliveryProfile === "BANKING_MAINS") {
-    return gapRecord({ profile, sectionIndex, ordinal, slotKind: "BANKING_NUMBER_SERIES", reason: "BNS-001 currently owns BANKING_PRELIMS only; a mains-specific number-series profile is not frozen." });
-  }
   try {
-    const question = generateBns001Question({ seed });
+    const question = generateBns001Question({ seed,
+      examProfile: profile.centralDeliveryProfile === "BANKING_MAINS" ? "BANKING_MAINS" : "BANKING_PRELIMS",
+    });
     return runtimeRecord({
       profile,
       sectionIndex,

@@ -1,3 +1,4 @@
+import { ADVANCED_PATTERNS, independentAdvancedMatches, independentAdvancedCandidates } from "./advanced-verifier";
 import type { Bns001PatternKind, Bns001Question } from "./types";
 
 const PATTERNS: readonly Bns001PatternKind[] = [
@@ -75,10 +76,11 @@ function independentlyMatches(pattern: Bns001PatternKind, series: readonly numbe
       return constant(firstDiffs) && constant(secondDiffs) && firstDiffs[0] !== secondDiffs[0];
     }
   }
+  return false;
 }
 
 export function independentGrammarMatches(series: readonly number[]): Bns001PatternKind[] {
-  return PATTERNS.filter((pattern) => independentlyMatches(pattern, series));
+  return [...PATTERNS.filter((pattern) => independentlyMatches(pattern, series)), ...independentAdvancedMatches(series)];
 }
 
 export type Bns001Repair = Readonly<{ index: number; replacement: number; pattern: Bns001PatternKind }>;
@@ -86,11 +88,11 @@ export type Bns001Repair = Readonly<{ index: number; replacement: number; patter
 // Recover candidates from unaffected observations. Never consult generator proof
 // values, the declared answer, or generator matching code.
 export function independentWrongTermRepairs(series: readonly number[]): Bns001Repair[] {
-  if (series.length !== 8 || series.some((n) => !Number.isSafeInteger(n) || n <= 0)) return [];
+  if (![6, 7, 8, 10].includes(series.length) || series.some((n) => !Number.isFinite(n) || n <= 0)) return [];
   const repairs: Bns001Repair[] = [];
   for (let gap = 0; gap < series.length; gap += 1) {
     const known = series.map((_n, i) => i).filter((i) => i !== gap);
-    const candidates = new Set<number>();
+    const candidates = new Set<number>(independentAdvancedCandidates(series, gap));
     const [a, b, c] = known as [number, number, number, ...number[]];
     candidates.add(series[a]! + (gap - a) * (series[b]! - series[a]!) / (b - a));
     // Quadratic interpolation recovers progressive first differences.
@@ -112,11 +114,11 @@ export function independentWrongTermRepairs(series: readonly number[]): Bns001Re
       candidates.add(value);
     }
     for (const raw of candidates) {
-      const replacement = Math.round(raw);
-      if (Math.abs(raw - replacement) > 1e-7 || replacement <= 0 || replacement === series[gap]) continue;
+      const replacement = Math.round(raw * 1e8) / 1e8;
+      if (!Number.isFinite(replacement) || replacement <= 0 || replacement === series[gap]) continue;
       const completed = series.map((n, i) => i === gap ? replacement : n);
       for (const pattern of independentGrammarMatches(completed)) {
-        if (!repairs.some((r) => r.index === gap && r.replacement === replacement && r.pattern === pattern))
+        if (!repairs.some((r) => r.index === gap && r.replacement === replacement))
           repairs.push({ index: gap, replacement, pattern });
       }
     }
@@ -126,7 +128,7 @@ export function independentWrongTermRepairs(series: readonly number[]): Bns001Re
 
 function completedWithOption(question: Bns001Question, optionText: string): number[] {
   const candidate = Number(optionText);
-  if (!Number.isSafeInteger(candidate) || candidate <= 0) return [];
+  if (!Number.isFinite(candidate) || candidate <= 0) return [];
 
   if (question.taskKind === "NEXT_TERM") {
     return [...question.visibleSeries.map(Number), candidate];
@@ -156,11 +158,11 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
     Number.isInteger(question.correctIndex) &&
     question.correctIndex >= 0 && question.correctIndex < 5 &&
     question.visibleSeries.length === (question.taskKind === "WRONG_TERM" ? 8 : 6) &&
-    PATTERNS.includes(question.patternKind) &&
+    [...PATTERNS, ...ADVANCED_PATTERNS].includes(question.patternKind) &&
     (question.taskKind === "NEXT_TERM"
       ? hiddenIndex === null && question.visibleSeries.every((value) => typeof value === "number")
       : question.taskKind === "WRONG_TERM"
-        ? hiddenIndex !== null && [2, 3, 4].includes(hiddenIndex) &&
+        ? hiddenIndex !== null && Number.isInteger(hiddenIndex) && hiddenIndex >= 0 && hiddenIndex < question.visibleSeries.length &&
           question.visibleSeries.every((value) => typeof value === "number")
         : question.taskKind === "MISSING_TERM" && hiddenIndex !== null &&
         [2, 3, 4].includes(hiddenIndex) &&
@@ -176,12 +178,12 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
     const indexes = repair ? question.options.flatMap((option, i) =>
       Number(option) === question.visibleSeries[repair.index] ? [i] : []) : [];
     return {
-      valid: !!repair && repair.pattern === question.patternKind && repair.index === hiddenIndex &&
+      valid: !!repair && independentGrammarMatches(question.visibleSeries.map((n,i)=>i===repair.index?repair.replacement:Number(n))).includes(question.patternKind) && repair.index === hiddenIndex &&
         count === 1 && indexes.length === 1 && indexes[0] === question.correctIndex &&
         question.options[question.correctIndex] === question.answer,
       correctOptionCount: count,
       matchingOptionIndexes: indexes,
-      canonicalGrammarMatches: repair ? [repair.pattern] : [],
+      canonicalGrammarMatches: repair ? independentGrammarMatches(question.visibleSeries.map((n,i)=>i===repair.index?repair.replacement:Number(n))) : [],
     };
   }
   const matchingOptionIndexes: number[] = [];
@@ -189,7 +191,7 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
   question.options.forEach((option, index) => {
     const completed = completedWithOption(question, option);
     const matches = independentGrammarMatches(completed);
-    if (matches.length === 1 && matches[0] === question.patternKind) {
+    if (matches.length > 0) {
       matchingOptionIndexes.push(index);
     }
   });
@@ -200,8 +202,7 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
 
   return {
     valid:
-      canonicalGrammarMatches.length === 1 &&
-      canonicalGrammarMatches[0] === question.patternKind &&
+      canonicalGrammarMatches.includes(question.patternKind) &&
       correctOptionCount === 1 &&
       matchingOptionIndexes.length === 1 &&
       matchingOptionIndexes[0] === question.correctIndex,

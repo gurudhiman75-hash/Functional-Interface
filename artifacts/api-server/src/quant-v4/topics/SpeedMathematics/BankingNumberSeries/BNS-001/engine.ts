@@ -1,5 +1,7 @@
+import { ADVANCED_PATTERNS } from "./advanced-verifier";
+import { generateAdvancedBns, BNS_MAINS_PATTERNS } from "./advanced-engine";
 import { localizeBns001 } from "./localization";
-import { independentWrongTermRepairs } from "./independent-verifier";
+import { independentGrammarMatches, independentWrongTermRepairs } from "./independent-verifier";
 import type {
   Bns001Difficulty,
   Bns001Language,
@@ -185,7 +187,8 @@ function buildPatternState(seed: string, patternKind: Bns001PatternKind, attempt
   if (patternKind === "MULTIPLY_AND_ADD") {
     const start = pick(random, [3, 4, 5, 6, 7]);
     const multiplier = pick(random, [2, 3]);
-    const addend = pick(random, [1, 2, 3, 4, 5]);
+    const addend = pick(random, [-7, -5, -3, -1, 1, 2, 3, 4, 5]);
+    const signedAdd = `${addend < 0 ? "−" : "+"} ${Math.abs(addend)}`;
     const series = [start];
     for (let index = 1; index < 7; index += 1) series.push(series[index - 1]! * multiplier + addend);
     const last = series[5]!;
@@ -193,10 +196,10 @@ function buildPatternState(seed: string, patternKind: Bns001PatternKind, attempt
       patternKind,
       difficulty: "Medium",
       series,
-      keyRule: `Multiply by ${multiplier}, then add ${addend}.`,
-      working: [`${series[0]} × ${multiplier} + ${addend} = ${series[1]}.`, `${last} × ${multiplier} + ${addend} = ${series[6]}.`],
+      keyRule: `Multiply by ${multiplier}, then ${addend < 0 ? "subtract" : "add"} ${Math.abs(addend)}.`,
+      working: [`${series[0]} × ${multiplier} ${signedAdd} = ${series[1]}.`, `${last} × ${multiplier} ${signedAdd} = ${series[6]}.`],
       nextDistractors: [
-        { value: last * multiplier, id: "OMIT_ADDEND", derivation: `Multiplies by ${multiplier} but omits the final +${addend}.` },
+        { value: last * multiplier, id: "OMIT_ADDEND", derivation: `Multiplies by ${multiplier} but omits the final ${signedAdd}.` },
         { value: (last + addend) * multiplier, id: "ADD_BEFORE_MULTIPLY", derivation: `Adds ${addend} before multiplying, changing the operation order.` },
         { value: last * multiplier - addend, id: "SUBTRACT_ADDEND", derivation: `Uses −${addend} instead of +${addend}.` },
         { value: last * (multiplier + 1) + addend, id: "MULTIPLIER_ONE_TOO_HIGH", derivation: `Uses multiplier ${multiplier + 1} while keeping the addend.` },
@@ -287,7 +290,7 @@ function buildOptions(
     const candidateSeries = taskKind === "NEXT_TERM"
       ? [...fullSeries.slice(0, 6), candidate.value]
       : insertCandidate(visible, hiddenIndex!, candidate.value);
-    if (supportedGrammarMatches(candidateSeries).length !== 0) continue;
+    if (independentGrammarMatches(candidateSeries).length !== 0) continue;
     seen.add(candidate.value);
     accepted.push({ text: String(candidate.value), misconceptionId: candidate.id, derivation: candidate.derivation });
     if (accepted.length === 5) break;
@@ -435,7 +438,7 @@ function generateBaseBns001Question(input: {
         },
         proof: { fullSeries: state.series, hiddenIndex, canonicalNext: state.series[8]!,
           supportedGrammarMatches: fullMatches, independentVerifier: "PASS" },
-        traceability: { packageId: "BNS-001", contractVersion: "BNS-001-CONTENT-REVIEW-V2",
+        traceability: { packageId: "BNS-001", contractVersion: "BNS-001-CONTENT-REVIEW-V3",
           ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES", numberSystemOwnership: false,
           reasoningLetterSeriesOwnership: false, reviewStatus: "UNREVIEWED", questionStudioDiscoverable: false,
           questionBankStatus: "NOT_STORED", testEligibility: "INELIGIBLE", publiclyPublishable: false },
@@ -489,7 +492,7 @@ function generateBaseBns001Question(input: {
         },
         traceability: {
           packageId: "BNS-001",
-          contractVersion: "BNS-001-CONTENT-REVIEW-V2",
+          contractVersion: "BNS-001-CONTENT-REVIEW-V3",
           ownership: "SPEED_MATHEMATICS_BANKING_NUMBER_SERIES",
           numberSystemOwnership: false,
           reasoningLetterSeriesOwnership: false,
@@ -513,8 +516,15 @@ export function generateBns001Question(input: {
   taskKind?: Bns001TaskKind;
   patternKind?: Bns001PatternKind;
   language?: Bns001Language;
+  examProfile?: "BANKING_PRELIMS" | "BANKING_MAINS";
 } = {}): Bns001Question {
   const language = input.language ?? "en";
   if (!["en", "hi", "pa"].includes(language)) throw new Error(`BNS-001 unsupported language: ${String(language)}.`);
-  return localizeBns001(generateBaseBns001Question(input), language);
+  const profile = input.examProfile ?? "BANKING_PRELIMS";
+  if (!["BANKING_PRELIMS", "BANKING_MAINS"].includes(profile)) throw new Error("BNS-001 unsupported exam profile.");
+  const candidates = profile === "BANKING_MAINS" ? BNS_MAINS_PATTERNS : [...PATTERNS, ...ADVANCED_PATTERNS];
+  const pattern = input.patternKind ?? pick(seededRandom(`${input.seed ?? "BNS-DEFAULT"}:chapter-family`), candidates);
+  if (pattern && ADVANCED_PATTERNS.includes(pattern)) return generateAdvancedBns({ ...input, language, patternKind: pattern, examProfile: profile });
+  if (profile === "BANKING_MAINS") throw new Error("BNS-001 pattern outside the bounded Mains profile.");
+  return localizeBns001(generateBaseBns001Question({ ...input, patternKind: pattern }), language);
 }
