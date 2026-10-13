@@ -67,7 +67,7 @@ export async function recordQuestionStudioEnqueueIntent(
         ) VALUES (
           ${runId}::uuid, ${publicCode}, ${actorUuid}::uuid,
           'queued'::generation_run_status, 1,
-          ${reqSnapshot}, ${reqSnapshot}, 'examtree',
+          ${reqSnapshot}, (${reqSnapshot}::text)::jsonb, 'examtree',
           'question-studio-universal-v1',
           0, 0, 0, 0, now() + interval '15 minutes',
           now(), now()
@@ -96,8 +96,8 @@ export async function recordQuestionStudioEnqueueIntent(
           'question_studio.generation_run.queued', 'generation_run', ${runId}::uuid,
           'Authorized admin requested asynchronous deterministic generation',
           ${`Queued ${input.compute.count} ${input.compute.request.packageId} candidates in ${publicCode}`},
-          ${JSON.stringify({firebaseUid:actorUid, packageId:input.compute.request.packageId,
-                           engineId:input.compute.request.engineId, queueVersion:1})}
+          (${JSON.stringify({firebaseUid:actorUid, packageId:input.compute.request.packageId,
+                           engineId:input.compute.request.engineId, queueVersion:1})}::text)::jsonb
         )
       `;
       await tx`
@@ -106,7 +106,7 @@ export async function recordQuestionStudioEnqueueIntent(
         ) VALUES (
           ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
           'question_studio.generation_run.queued.v1',
-          ${JSON.stringify({runId, queueVersion:1})}
+          (${JSON.stringify({runId, queueVersion:1})}::text)::jsonb
         )
       `;
     });

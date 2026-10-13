@@ -125,7 +125,7 @@ export async function commitQuestionStudioAsyncReview(input:{
         INSERT INTO content.generation_item_versions (
           id,generation_item_id,version_number,payload,provider_item_id,created_at
         ) VALUES (
-          ${randomUUID()}::uuid,${itemId}::uuid,1,${JSON.stringify(payload)},
+          ${randomUUID()}::uuid,${itemId}::uuid,1,(${JSON.stringify(payload)}::text)::jsonb,
           ${typeof question.questionId==="string"?question.questionId:null},now()
         )
       `;
@@ -150,7 +150,7 @@ export async function commitQuestionStudioAsyncReview(input:{
         'question_studio.generation_run.generated_async','generation_run',${input.runId}::uuid,
         'Task receiver saved an approved-for-review deterministic generation batch',
         ${`Generated ${count} ${canonical.request.engineId} review candidates in ${run.publicCode}`},
-        ${JSON.stringify({runId:input.runId,packageId:canonical.request.packageId,engineId:canonical.request.engineId,itemCount:count,queueVersion:1})}
+        (${JSON.stringify({runId:input.runId,packageId:canonical.request.packageId,engineId:canonical.request.engineId,itemCount:count,queueVersion:1})}::text)::jsonb
       )
     `;
     await tx`
@@ -159,8 +159,8 @@ export async function commitQuestionStudioAsyncReview(input:{
       ) VALUES (
         ${randomUUID()}::uuid,'generation_run',${input.runId}::uuid,
         'question_studio.generation_run.created',
-        ${JSON.stringify({runId:input.runId,publicCode:String(run.publicCode),itemCount:count,
-                           engineId:canonical.request.engineId})}
+        (${JSON.stringify({runId:input.runId,publicCode:String(run.publicCode),itemCount:count,
+                           engineId:canonical.request.engineId})}::text)::jsonb
       )
     `;
     return {runId:input.runId,publicCode:String(run.publicCode),

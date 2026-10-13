@@ -1,0 +1,61 @@
+name: Validate actual Question Studio Node queue transactions
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/ci-queue-node-integration.mjs'
+      - 'tests/sql/question-studio-queue-node-integration-schema.sql'
+      - 'artifacts/api-server/src/question-studio/async-enqueue-foundation.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-lease-claim.ts'
+      - 'artifacts/api-server/src/question-studio/async-review-commit.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-real-node-queue-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  transactional-node-integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: examtree_ci
+          POSTGRES_PASSWORD: only-ci-ephemeral
+          POSTGRES_DB: examtree_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U examtree_ci -d examtree_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 8
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: examtree_ci
+      PGPASSWORD: only-ci-ephemeral
+      PGDATABASE: examtree_ci
+      DATABASE_URL: postgres://examtree_ci:only-ci-ephemeral@localhost:5432/examtree_ci
+      QS_CI_ISOLATED_POSTGRES: 'yes'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Initialize ephemeral canonical schema and apply actual queue migrations
+        run: |
+          psql -v ON_ERROR_STOP=1 -f tests/sql/question-studio-queue-node-integration-schema.sql
+          psql -v ON_ERROR_STOP=1 -f artifacts/api-server/migrations/20261013_question_studio_async_enqueue_idempotency.sql
+          psql -v ON_ERROR_STOP=1 -f artifacts/api-server/migrations/20261013_question_studio_task_leases.sql
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Exercise REAL Node enqueue, claim, fenced save and crash recovery
+        run: pnpm --dir artifacts/api-server exec node src/question-studio/ci-queue-node-integration.mjs
+      - name: Check patch hygiene
+        run: git diff --check
