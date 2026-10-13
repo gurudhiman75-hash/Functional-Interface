@@ -41,8 +41,8 @@ const mockModules={
 const isolatedSource={
   name:"qs-ephemeral-test-dependencies",
   setup(buildCtx){
-    buildCtx.onResolve({filter:/^\\.\\.\\/lib\\/db$/},()=>({path:"db",namespace:"qs-ci-deps"}));
-    buildCtx.onResolve({filter:/^\\.\\/(?:universal-executor|engine-registry)$/},arg=>({
+    buildCtx.onResolve({filter:/^\.\.\/lib\/db$/},()=>({path:"db",namespace:"qs-ci-deps"}));
+    buildCtx.onResolve({filter:/^\.\/(?:universal-executor|engine-registry)$/},arg=>({
       path:arg.path.includes("universal-executor")?"executor":"registry",
       namespace:"qs-ci-deps",
     }));
