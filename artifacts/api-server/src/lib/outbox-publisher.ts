@@ -39,6 +39,11 @@ async function publishOneLocked(): Promise<boolean> {
       FROM platform.outbox_events
       WHERE published_at IS NULL
         AND available_at <= now()
+        -- Cloud Tasks events must NEVER be acked by the legacy log-only
+        -- publisher. They are reserved for the dedicated authenticated
+        -- Question Studio task dispatcher, which alone may ack after
+        -- successful or idempotently confirmed Cloud Tasks delivery.
+        AND event_type <> 'question_studio.generation_run.queued.v1'
       ORDER BY available_at ASC, occurred_at ASC
       LIMIT 1
       FOR UPDATE SKIP LOCKED
