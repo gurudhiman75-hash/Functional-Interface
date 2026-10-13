@@ -2,6 +2,7 @@
 // No credentials, DB, admin session, publication or writes are performed.
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { chmodSync, statSync, existsSync } from "node:fs";
 
 const token = "ci-universal-compute-only-abcdef0123456789";
 const worker = "artifacts/api-server/dist/universal-question-studio-worker-service.mjs";
@@ -32,6 +33,15 @@ const cases=[
   {engineId:"language-v1",packageId:"ENG-001",topic:"Error Spotting",subtopic:"Common Usage / Idiomatic Grammar",difficulty:"Medium",runtimeMode:"review-only",cp:"ENG-001-CP013"},
   {engineId:"knowledge-v1",packageId:"COM-001",topic:"Computer Awareness",subtopic:"Computer Basics",difficulty:"Mixed",runtimeMode:"review-only"},
 ];
+// Cloud Run executes as a non-root user with an immutable image filesystem.
+// Prevent a bundled audit/export module from silently writing review files
+// under the service working directory during runtime import. The runner is
+// a non-root GitHub Actions user; permissions are restored even on failure.
+const workdir = process.cwd();
+const initialMode = statSync(workdir).mode & 0o777;
+const blrAuditPath = "blr-001-multilingual-human-review-output";
+if (existsSync(blrAuditPath)) throw new Error("Refusing to test against a preexisting BLR export directory");
+chmodSync(workdir, 0o555);
 try {
   for(const c of cases) {
     const request={
@@ -54,7 +64,9 @@ try {
     }
     console.log("PASS: universal "+c.engineId+" "+c.packageId+" generated 1 review-ready candidate (no DB)");
   }
+  if (existsSync(blrAuditPath)) throw new Error("Bundled runtime unexpectedly wrote the BLR audit export");
 } finally {
+  chmodSync(workdir, initialMode);
   proc.kill();
   await once(proc,"exit").catch(()=>undefined);
 }

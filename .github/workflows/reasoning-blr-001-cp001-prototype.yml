@@ -67,7 +67,11 @@ jobs:
       - name: Export frozen artifact index
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-frozen-index.ts blr-cp001-review-output
 
+      - name: Verify local BLR-CP-001 export exists
+        run: test -n "$(find blr-cp001-review-output -type f -print -quit)"
+
       - name: Upload BLR-CP-001 frozen English review pack
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: blr-001-cp001-english-frozen-v1

@@ -22,17 +22,26 @@ cleanup(){ unset TOKEN; rm -rf "$TMP"; }
 trap cleanup EXIT
 gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$REGION" --format=json > "$TMP/service.json"
 URL="$(python3 - "$TMP/service.json" <<'PY'
-import json,sys
+import json,sys,os
 with open(sys.argv[1]) as f:s=json.load(f)
 status=s.get('status',{})
 ready=status.get('latestReadyRevisionName')
 assert ready and ready==status.get('latestCreatedRevisionName'),"staging revision not healthy"
-assert sum(int(x.get('percent',0)) for x in status.get('traffic',[]))==100,"staging traffic not ready"
+traffic=status.get('traffic',[])
+assert sum(int(x.get('percent',0)) for x in traffic)==100,"staging traffic not ready"
+candidate=os.environ.get('EXAMTREE_UNIVERSAL_STAGING_TAG','').strip()
+if candidate:
+ assert candidate=="fix-candidate","Only the reviewed fix-candidate tag is permitted"
+ matches=[x for x in traffic if x.get('tag')==candidate and x.get('revisionName')==ready]
+ assert len(matches)==1 and int(matches[0].get('percent',0))==0,"candidate must be ready and serve zero percent"
+ assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')!=ready)==100, "previous revision must retain all live staging traffic"
+ url=matches[0].get('url','')
+else:
+ url=status.get('url','')
 spec=s['spec']['template']['spec']
 c=spec['containers'][0]
 assert not any(x['name'] in ('DATABASE_URL','CASHFREE_CLIENT_SECRET','OPENAI_API_KEY','FIREBASE_PRIVATE_KEY') for x in c.get('env',[])), "forbidden worker credential present"
 assert any(x.get('name')=='QUESTION_STUDIO_WORKER_TOKEN' for x in c.get('env',[])), "worker token secret not configured"
-url=status.get('url','')
 assert url.startswith('https://') and url.endswith('.run.app'),"invalid staging run.app URL"
 print(url)
 PY

@@ -32,6 +32,7 @@ jobs:
 
       - name: Upload CP-002 audit diagnostics
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: blr-001-cp002-audit-log
@@ -79,6 +80,7 @@ jobs:
 
       - name: Upload permanent runtime diagnostics
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: blr-001-cp002-permanent-runtime-log
@@ -107,7 +109,11 @@ jobs:
       - name: Export chapter multilingual human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts blr-001-multilingual-human-review-output
 
+      - name: Verify multilingual human-review export exists locally
+        run: test -n "$(find blr-001-multilingual-human-review-output -type f -print -quit)"
+
       - name: Upload chapter multilingual human review pack
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: blr-001-multilingual-human-review-pack
@@ -124,7 +130,11 @@ jobs:
       - name: Export permanent BLR-QL-008 review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-permanent-review.ts blr-cp002-frozen-output
 
+      - name: Verify frozen CP-002 export exists locally
+        run: test -n "$(find blr-cp002-frozen-output -type f -print -quit)"
+
       - name: Upload frozen CP-002 English package
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: blr-001-cp002-english-frozen-v1

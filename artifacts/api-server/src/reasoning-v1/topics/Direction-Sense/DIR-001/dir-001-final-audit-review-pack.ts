@@ -155,6 +155,15 @@ export function writeDir001FinalAuditReviewPack(outputDir = "dist/reasoning-v1/d
   return result.summary;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// A bundled entrypoint shares import.meta.url across imported modules.
+// Export/audit commands must execute only when the ORIGINAL file is invoked.
+if (
+  (
+    new URL(import.meta.url).pathname.endsWith("/dir-001-final-audit-review-pack.ts")
+    || new URL(import.meta.url).pathname.endsWith("/dir-001-final-audit-review-pack.mjs")
+    || new URL(import.meta.url).pathname.endsWith("/dir-001-final-audit-review-pack.js")
+  )
+  && import.meta.url === `file://${process.argv[1]}`
+) {
   console.log(JSON.stringify(writeDir001FinalAuditReviewPack(), null, 2));
 }

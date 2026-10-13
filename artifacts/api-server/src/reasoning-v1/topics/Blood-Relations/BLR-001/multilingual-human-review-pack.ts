@@ -377,7 +377,16 @@ export function writeBlr001MultilingualHumanReviewPack(
   };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// This module is imported by runtime engines as well as executed directly
+// by its review-export command. Bundlers may replace the per-module
+// import.meta.url with the *worker entrypoint* URL, which can make the old
+// "import.meta.url === file://process.argv[1]" check true during generation.
+// Require the actual exporter filename as well so importing the universal
+// worker can never run this filesystem writer.
+const isDirectHumanReviewExporter =
+  new URL(import.meta.url).pathname.endsWith("/multilingual-human-review-pack.ts")
+  && import.meta.url === `file://${process.argv[1]}`;
+if (isDirectHumanReviewExporter) {
   console.log(
     JSON.stringify(
       writeBlr001MultilingualHumanReviewPack(process.argv[2]),
