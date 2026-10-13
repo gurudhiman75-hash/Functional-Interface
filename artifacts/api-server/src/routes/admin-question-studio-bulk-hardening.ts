@@ -15,6 +15,7 @@ import { sqlClient } from "../lib/db";
 import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality";
 import { authenticate } from "../middlewares/auth";
 import adminQuestionStudioRunStatusRouter from "./admin-question-studio-run-status";
+import adminQuestionStudioAsyncStagingRouter from "./admin-question-studio-async-staging";
 
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -75,6 +76,9 @@ async function refreshRunStatus(runId: string): Promise<void> {
 router.use(adminQuestionStudioRunStatusRouter);
 
 router.use(authenticate);
+
+// Explicit isolated-stage API; does not change the canonical Generate handler.
+router.use(adminQuestionStudioAsyncStagingRouter);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
   const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds.map(text).filter(Boolean) : [];
