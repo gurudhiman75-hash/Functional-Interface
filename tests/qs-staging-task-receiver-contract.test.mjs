@@ -8,11 +8,11 @@ const router=read("artifacts/api-server/src/routes/internal-question-studio-asyn
 const snapshot=read("artifacts/api-server/src/question-studio/async-task-receiver-snapshot.ts");
 
 test("Cloud Tasks route is staging-only, disabled by default, size bounded",()=>{
-  assert.match(app,/mountQuestionStudioAsyncTaskReceiver\\(app,questionStudioAsyncTaskReceiver\\)/);
-  assert.match(mount,/app\\.use\\(PARENT_PATH/);
-  assert.match(mount,/express\\.json\\(\\{limit:"2kb"\\}\\)/);
-  assert.match(mount,/req\\.method!=="POST"\\|\\|req\\.path!==CHILD_PATH/);
-  assert.match(router,/router\\.post\\("\/async-task"/);
+  assert.match(app,/mountQuestionStudioAsyncTaskReceiver\(app,questionStudioAsyncTaskReceiver\)/);
+  assert.match(mount,/app\.use\(PARENT_PATH/);
+  assert.match(mount,/express\.json\(\{limit:"2kb"\}\)/);
+  assert.match(mount,/req\.method!=="POST"\|\|req\.path!==CHILD_PATH/);
+  assert.match(router,/router\.post\("\/async-task"/);
   assert.match(mount,/EXAMTREE_API_RUNTIME==="cloud-run"/);
   assert.match(mount,/EXAMTREE_API_STAGING==="true"/);
   for(const flag of [
