@@ -26,8 +26,19 @@ export function computeInputFromQueuedSnapshot(snapshot:unknown):UniversalStudio
      request.count!==x.count){
     throw new QuestionStudioTaskSnapshotError("TASK_SNAPSHOT_INVALID","Queued run request is inconsistent");
   }
+  // Independently re-allowlist the persisted fields before sending them
+  // to the remote worker. Never pass attacker-supplied or future unintended
+  // snapshot metadata across the compute boundary.
+  const safeRequest={
+    engineId:request.engineId,packageId:request.packageId,
+    canonicalProblemId:request.canonicalProblemId,questionLanguageId:request.questionLanguageId,
+    exam:request.exam,examProfile:request.examProfile,subject:request.subject,
+    topic:request.topic,subtopic:request.subtopic,language:request.language,
+    difficulty:request.difficulty,count:request.count,seed:request.seed,
+    runtimeMode:request.runtimeMode,patternId:request.patternId,
+  };
   return {
-    request:request as UniversalStudioComputeInput["request"],
+    request:safeRequest as UniversalStudioComputeInput["request"],
     count:x.count as number,
     selectedCpIds:x.selectedCpIds as string[],
     examProfileId:x.examProfileId,
