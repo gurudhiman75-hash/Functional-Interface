@@ -14,16 +14,16 @@ git switch New-main
 git pull --ff-only origin New-main
 gcloud config set project sarbedutech
 EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED=yes \
-  bash scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
+  bash scripts/deploy-question-studio-universal-staging-numfix.sh
 ```
 
-This is not the original `deploy-question-studio-universal-staging.sh`; that script correctly refuses to replace an existing service. The new script requires the original serving revision still has 100% traffic, the older `fix-candidate` tag exists at 0%, runtime identity and secret are unchanged, and `num-contract-candidate` does not already exist. It deploys from the clean, latest `New-main`, requiring approval and preserving traffic.
+This is not the original `deploy-question-studio-universal-staging.sh`; that script correctly refuses to replace an existing service. The new script requires the original serving revision still has 100% traffic, the older `fix-candidate` tag exists at 0%, runtime identity and secret are unchanged, and `numfix` does not already exist. It deploys from the clean, latest `New-main`, requiring approval and preserving traffic.
 
 ### Accept seven staging cases (compute-only)
 
 ```bash
 EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_CHECK_APPROVED=yes \
-  EXAMTREE_UNIVERSAL_STAGING_TAG=num-contract-candidate \
+  EXAMTREE_UNIVERSAL_STAGING_TAG=numfix \
   bash scripts/verify-question-studio-universal-staging.sh
 ```
 
@@ -32,3 +32,15 @@ This verifies the six previously passing cases **plus** NUM-001 CP001 (one quest
 Do not promote either candidate until all seven pass and production/API rollout gates are separately approved. **No Cloudflare, production Cloud Run API, Render, Neon, Cashfree, job queue or production worker changes are included.**
 
 After acceptance, a separate staging-traffic promotion can be considered. The intended `Generate → Queue → Worker → Neon Review` UX still requires a durable job queue, idempotent persistence, and admin progress UI; this staging success alone does not activate those features.
+
+### Recovery after tag-length failure without another build
+
+If Cloud Build already succeeded for image tag `280e82c21b038b2c210f897b359d3cf653a64fe7` but Cloud Run rejected the earlier overlong tag, **reuse that exact image** after confirming the Artifact Registry tag is present:
+
+```bash
+EXAMTREE_BUDGET_READY=yes EXAMTREE_UNIVERSAL_STAGING_NUM_CONTRACT_APPROVED=yes \\
+EXAMTREE_UNIVERSAL_REUSE_IMAGE_SHA=280e82c21b038b2c210f897b359d3cf653a64fe7 \\
+bash scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
+```
+
+This path skips Cloud Build entirely. It still creates one zero-traffic Cloud Run candidate revision, which may incur normal staging service charges. If `numfix` already exists, stop and verify it instead.
