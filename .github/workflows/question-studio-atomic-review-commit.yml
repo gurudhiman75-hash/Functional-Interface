@@ -1,0 +1,40 @@
+name: Validate Question Studio atomic async review commit
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-review-commit-contract.ts'
+      - 'artifacts/api-server/src/question-studio/async-review-commit.ts'
+      - 'artifacts/api-server/src/question-studio/async-review-commit-contract.test.ts'
+      - 'tests/qs-atomic-review-commit-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-async-review-commit-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check guarded transaction and no-student-publish invariants
+        run: node --test tests/qs-atomic-review-commit-contract.test.mjs
+      - name: Install locked API dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile production review saver without DB access
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-review-commit.ts --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-review-commit.mjs
+      - name: Exercise pure review count, answer, provenance validation
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-review-commit-contract.test.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-review-commit-contract.test.mjs
+          node artifacts/api-server/dist/question-studio/async-review-commit-contract.test.mjs
+      - name: Check patch hygiene
+        run: git diff --check
