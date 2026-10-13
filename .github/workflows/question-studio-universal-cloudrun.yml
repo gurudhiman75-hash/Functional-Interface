@@ -14,6 +14,8 @@ on:
       - 'tests/question-studio-universal-dispatcher.test.mjs'
       - 'scripts/smoke-question-studio-universal-local.mjs'
       - 'scripts/deploy-question-studio-universal-staging-fix-candidate.sh'
+      - 'scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh'
+      - 'tests/examtree-universal-staging-num-contract.test.mjs'
       - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/localization/cp004-localized-review-runtime.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/localization/cp005-localized-review-runtime.ts'
@@ -53,5 +55,10 @@ jobs:
           bash -n scripts/deploy-question-studio-universal-staging.sh
           bash -n scripts/verify-question-studio-universal-staging.sh
           bash -n scripts/deploy-question-studio-universal-staging-fix-candidate.sh
+      - name: Verify NUM-contract zero-traffic script and acceptance guards
+        run: |
+          bash -n scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
+          bash -n scripts/verify-question-studio-universal-staging.sh
+          node --test tests/examtree-universal-staging-num-contract.test.mjs
       - name: Ensure patch hygiene
         run: git diff --check

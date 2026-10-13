@@ -31,7 +31,7 @@ traffic=status.get('traffic',[])
 assert sum(int(x.get('percent',0)) for x in traffic)==100,"staging traffic not ready"
 candidate=os.environ.get('EXAMTREE_UNIVERSAL_STAGING_TAG','').strip()
 if candidate:
- assert candidate=="fix-candidate","Only the reviewed fix-candidate tag is permitted"
+ assert candidate in ("fix-candidate","num-contract-candidate"),"Only reviewed staging tags are permitted"
  matches=[x for x in traffic if x.get('tag')==candidate and x.get('revisionName')==ready]
  assert len(matches)==1 and int(matches[0].get('percent',0))==0,"candidate must be ready and serve zero percent"
  assert sum(int(x.get('percent',0)) for x in traffic if x.get('revisionName')!=ready)==100, "previous revision must retain all live staging traffic"
@@ -72,6 +72,11 @@ CASES=(
   'quant-v4|TRG-002|Advanced Mathematics|Trigonometry — Heights & Distances|Medium|RELEASED|TRG-CP-007|3'
   'quant-v4|NUM-001|Arithmetic|Number System|Mixed|QUESTION_STUDIO_ACTIVE|NUM-CP-001|3'
 )
+if [[ "${EXAMTREE_UNIVERSAL_STAGING_TAG:-}" == "num-contract-candidate" ]]; then
+  # Exercise the NEW executor contract without optional source-policy flags,
+  # matching the canonical admin API's omitted difficulty for NUM-001.
+  CASES+=('quant-v4|NUM-001|Arithmetic|Number System|none|QUESTION_STUDIO_ACTIVE|NUM-CP-001|1')
+fi
 for test_case in "${CASES[@]}"; do
   IFS='|' read -r ENGINE PACKAGE TOPIC SUBTOPIC DIFF MODE CP COUNT <<< "$test_case"
   ENGINE="$ENGINE" PACKAGE="$PACKAGE" TOPIC="$TOPIC" SUBTOPIC="$SUBTOPIC" \
@@ -84,16 +89,17 @@ req={
  "engineId":g["ENGINE"],"packageId":p,"count":int(g["COUNT"]),
  "exam":"SSC CGL Tier 1",
  "subject":("Quantitative Aptitude" if g["ENGINE"]=="quant-v4" else "Reasoning Ability" if g["ENGINE"]=="reasoning-v1" else "English" if g["ENGINE"]=="language-v1" else "Static GK"),
- "topic":g["TOPIC"],"subtopic":g["SUBTOPIC"],"language":"en","difficulty":g["DIFF"],
+ "topic":g["TOPIC"],"subtopic":g["SUBTOPIC"],"language":"en",
  "runtimeMode":g["MODE"],"seed":"cloudrun-universal-staging-parity-"+p+"-"+g["COUNT"],
 }
+if g["DIFF"]!="none": req["difficulty"]=g["DIFF"]
 if cp: req["canonicalProblemId"]=cp
 payload={"request":req,"selectedCpIds":[cp] if cp else [],"count":int(g["COUNT"])}
 # NUM-001 uses source-defined difficulty labels; the profile planner may
 # assign mixed buckets but MUST NOT forward Easy/Medium/Hard to this engine.
 # Mirrors the canonical admin API, allowing the existing Cloud Run candidate
 # to be tested without deploying or reconfiguring it.
-if p=="NUM-001":
+if p=="NUM-001" and g["DIFF"]!="none":
  payload["difficultyFilterSupported"]=False
  payload["forwardLegacyExamProfile"]=True
 print(json.dumps(payload))
@@ -118,6 +124,7 @@ assert isinstance(batch.get("generationContexts"),list),"missing review provenan
 if engine=="quant-v4": assert isinstance(batch.get("quantPlan"),dict),"quant plan missing"
 if package=="NUM-001":
  assert all(q.get("generationContext",{}).get("difficultyFilterApplied") is False for q in qs), "NUM-001 source difficulty filter must remain disabled"
+ assert all(x.get("context",{}).get("difficultyFilterApplied") is False for x in batch.get("generationContexts",[])), "NUM-001 provenance falsely claimed filter"
 for q in qs:
  assert isinstance(q,dict),"question not a record"
  assert isinstance(q.get("options"),list) and len(q["options"])>=2,"options missing"
