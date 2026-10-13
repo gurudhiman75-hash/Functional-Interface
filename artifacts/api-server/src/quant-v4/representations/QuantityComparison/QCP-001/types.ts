@@ -1,5 +1,7 @@
+export type Qcp001Language = "en" | "hi" | "pa";
+
 export type Qcp001ExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
-export type Qcp001SourceFamily = "PERCENTAGE" | "RATIO" | "NUMBER_SYSTEM";
+export type Qcp001SourceFamily = "PERCENTAGE" | "RATIO" | "NUMBER_SYSTEM" | "ALGEBRA";
 
 export type Qcp001RelationClass =
   | "QUANTITY_I_GREATER"
@@ -33,16 +35,25 @@ export type Qcp001NumberSystemState = Readonly<{
   divisor: number;
 }>;
 
+export type Qcp001QuadraticState = Readonly<{
+  kind: "ALGEBRA";
+  a: number;
+  b: number;
+  c: number;
+  rootIndex: 0 | 1;
+}>;
+
 export type Qcp001SourceState =
   | Qcp001PercentageState
   | Qcp001RatioState
-  | Qcp001NumberSystemState;
+  | Qcp001NumberSystemState
+  | Qcp001QuadraticState;
 
 export interface Qcp001Operand {
   readonly label: "Quantity I" | "Quantity II";
   readonly sourceFamily: Qcp001SourceFamily;
-  readonly sourcePackageId: "PCT-001" | "RAP-001" | "NUM-001";
-  readonly sourceSolveMode: "percentOf" | "scalingByComponent" | "positiveMod";
+  readonly sourcePackageId: "PCT-001" | "RAP-001" | "NUM-001" | "ALG-002";
+  readonly sourceSolveMode: "percentOf" | "scalingByComponent" | "positiveMod" | "solveQuadraticEquation";
   readonly prompt: string;
   readonly states: readonly Qcp001SourceState[];
   readonly values: readonly number[];
@@ -71,7 +82,7 @@ export interface Qcp001Question {
   readonly representation: "QUANTITY_COMPARISON";
   readonly questionId: string;
   readonly seed: string;
-  readonly language: "en";
+  readonly language: Qcp001Language;
   readonly examProfile: Qcp001ExamProfile;
   readonly optionCount: 5;
   readonly difficulty: "Medium" | "Hard";
@@ -85,16 +96,16 @@ export interface Qcp001Question {
   readonly answerClass: Qcp001RelationClass;
   readonly answer: string;
   readonly answerEvidenceMode: Qcp001AnswerEvidenceMode;
+  readonly distractorAnalysis: readonly Qcp001DistractorAnalysis[];
   readonly explanation: Readonly<{
     keyIdea: string;
     steps: readonly string[];
     shortcut: string;
-    distractorAnalysis: readonly Qcp001DistractorAnalysis[];
   }>;
   readonly traceability: Readonly<{
     representationOwner: "QCP-001";
-    sourceTruthOwners: readonly ["PCT-001", "RAP-001", "NUM-001"];
-    contractVersion: "QCP-001-BANKING-RELATION-V1";
+    sourceTruthOwners: readonly ["PCT-001", "RAP-001", "NUM-001", "ALG-002"];
+    contractVersion: "QCP-001-BANKING-RELATION-V2";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

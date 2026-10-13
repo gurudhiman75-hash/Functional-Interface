@@ -1,0 +1,374 @@
+{
+  "sourceSaturation": false,
+  "scope": "Publisher practice; comparison fixtures are not generated word-problem coverage or certified PYQs",
+  "sources": [
+    {
+      "id": "BA-20241011",
+      "url": "https://www.bankersadda.com/quantity-comparison-questions-for-bank-exams/"
+    },
+    {
+      "id": "BA-20220926",
+      "url": "https://www.bankersadda.com/quantitative-aptitude-quiz-for-ibps-po-prelims-2022-26th-september/"
+    }
+  ],
+  "items": [
+    {
+      "source": "BA-20241011",
+      "item": 1,
+      "topic": "BOAT",
+      "left": [
+        5
+      ],
+      "right": [
+        4
+      ],
+      "adjudication": "GT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 2,
+      "topic": "AGE",
+      "left": [
+        49
+      ],
+      "right": [
+        49
+      ],
+      "adjudication": "EQ",
+      "publisherKey": "E",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 3,
+      "topic": "PROBABILITY_QUADRATIC",
+      "left": [
+        0.35714285714285715
+      ],
+      "right": [
+        0.35714285714285715,
+        1.1428571428571428
+      ],
+      "adjudication": "LE",
+      "publisherKey": "A",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 4,
+      "topic": "AREA",
+      "left": [
+        576
+      ],
+      "right": [
+        480
+      ],
+      "adjudication": "GT",
+      "publisherKey": "E",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 5,
+      "topic": "WORK_TIME_REFERENCE",
+      "left": [
+        13.333333333333334
+      ],
+      "right": [
+        11.11111111111111,
+        15.11111111111111
+      ],
+      "adjudication": "HOLD_AMBIGUOUS",
+      "publisherKey": "D",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 6,
+      "topic": "SELLING_PRICE",
+      "left": [
+        60000
+      ],
+      "right": [
+        58333.333333333336
+      ],
+      "adjudication": "GT",
+      "publisherKey": "A",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 7,
+      "topic": "BOAT_AGE",
+      "left": [
+        108
+      ],
+      "right": [
+        108
+      ],
+      "adjudication": "HOLD_KEY_CONFLICT",
+      "publisherKey": "C",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 8,
+      "topic": "AGE",
+      "left": [
+        10
+      ],
+      "right": [
+        20
+      ],
+      "adjudication": "HOLD_KEY_CONFLICT",
+      "publisherKey": "E",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 9,
+      "topic": "PROBABILITY_INTERPRETATION",
+      "left": [
+        0.05333333333333334,
+        0.12
+      ],
+      "right": [
+        0.09960474308300395
+      ],
+      "adjudication": "HOLD_AMBIGUOUS",
+      "publisherKey": "C",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 10,
+      "topic": "PROBABILITY",
+      "left": [
+        0.02631578947368421,
+        0.14473684210526316
+      ],
+      "right": [
+        0.4105263157894737
+      ],
+      "adjudication": "LT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 11,
+      "topic": "BOAT_PERCENTAGE",
+      "left": [
+        37.5
+      ],
+      "right": [
+        40
+      ],
+      "adjudication": "LT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 12,
+      "topic": "DISCOUNT_TAX",
+      "left": [
+        900
+      ],
+      "right": [
+        900
+      ],
+      "adjudication": "EQ",
+      "publisherKey": "E",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 13,
+      "topic": "IRRATIONAL_QUADRATIC",
+      "left": [
+        -8.660254037844386,
+        6.928203230275509
+      ],
+      "right": [
+        -7.0710678118654755,
+        -2.8284271247461903
+      ],
+      "adjudication": "INDETERMINATE",
+      "publisherKey": "E",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 14,
+      "topic": "INCOME",
+      "left": [
+        28000
+      ],
+      "right": [
+        27500
+      ],
+      "adjudication": "GT",
+      "publisherKey": "A",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 15,
+      "topic": "WORK_EFFICIENCY",
+      "left": [
+        88
+      ],
+      "right": [
+        82.5
+      ],
+      "adjudication": "GT",
+      "publisherKey": "A",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 16,
+      "topic": "BOAT",
+      "left": [
+        140
+      ],
+      "right": [
+        138.88888888888889
+      ],
+      "adjudication": "GT",
+      "publisherKey": "A",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 17,
+      "topic": "WORK_GROUP_REFERENCE",
+      "left": [
+        12.923076923076923
+      ],
+      "right": [
+        6.774193548387097,
+        13.548387096774194
+      ],
+      "adjudication": "HOLD_AMBIGUOUS",
+      "publisherKey": "C",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 18,
+      "topic": "MIXTURE",
+      "left": [
+        64.28571428571429
+      ],
+      "right": [
+        68.18181818181819
+      ],
+      "adjudication": "LT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 19,
+      "topic": "BOAT",
+      "left": [
+        40
+      ],
+      "right": [
+        42
+      ],
+      "adjudication": "LT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20241011",
+      "item": 20,
+      "topic": "TRAIN",
+      "left": [
+        10
+      ],
+      "right": [
+        11
+      ],
+      "adjudication": "LT",
+      "publisherKey": "C",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20220926",
+      "item": 1,
+      "topic": "RATIO_PERCENTAGE",
+      "left": [
+        144
+      ],
+      "right": [
+        144
+      ],
+      "adjudication": "EQ",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20220926",
+      "item": 2,
+      "topic": "COMPOUND_INTEREST",
+      "left": [
+        16000
+      ],
+      "right": [
+        20000
+      ],
+      "adjudication": "LT",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20220926",
+      "item": 3,
+      "topic": "CYLINDER_CHANGE",
+      "left": [
+        62.5
+      ],
+      "right": [
+        62.5
+      ],
+      "adjudication": "EQ",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20220926",
+      "item": 4,
+      "topic": "REVERSE_PROBABILITY",
+      "left": [
+        7
+      ],
+      "right": [
+        6
+      ],
+      "adjudication": "GT",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    },
+    {
+      "source": "BA-20220926",
+      "item": 5,
+      "topic": "AGE",
+      "left": [
+        18
+      ],
+      "right": [
+        20
+      ],
+      "adjudication": "LT",
+      "status": "COMPARISON_FIXTURE_ONLY_TOPIC_BRIDGE_REQUIRED"
+    }
+  ],
+  "notes": [
+    "Five source items are held: inconsistent keys in items 7/8, ambiguous time, colour and work-group references in items 5/9/17.",
+    "Item 10 has two plausible colour readings; both give the same strict comparison, so its comparison fixture is retained without approving the wording.",
+    "Item 13 has irrational roots. Its separated sign/interval witnesses establish indeterminacy; generated irrational-root operands remain unsupported.",
+    "Numeric fixture projection is not a substitute for a source-topic generator adapter."
+  ]
+}

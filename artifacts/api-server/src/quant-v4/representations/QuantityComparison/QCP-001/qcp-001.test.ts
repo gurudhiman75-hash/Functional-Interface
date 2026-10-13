@@ -1,3 +1,5 @@
+import { auditQcpSourceComparisons } from "./source-fixtures";
+import { auditQcpV2 } from "./audit-v2";
 import {
   QCP_001_RELATION_CLASSES,
   QCP_001_SOURCE_FAMILIES,
@@ -56,7 +58,7 @@ for (let seedIndex = 1; seedIndex <= 150; seedIndex += 1) {
     assert(new Set(first.options).size === 5, `${profile}/${seedIndex}: displayed options are not unique.`);
     assert(first.optionMetadata.filter((option) => option.isCorrect).length === 1, `${profile}/${seedIndex}: expected exactly one correct option.`);
     assert(first.optionMetadata[first.correctIndex]?.relationClass === first.answerClass, `${profile}/${seedIndex}: correct option metadata is misaligned.`);
-    assert(first.explanation.distractorAnalysis.length === 4, `${profile}/${seedIndex}: all four wrong options must be diagnosed.`);
+    assert(first.distractorAnalysis.length === 4, `${profile}/${seedIndex}: all four wrong options must be diagnosed.`);
     optionChecks += first.options.length;
 
     assert(!/QCP-001|PCT-001|RAP-001|NUM-001|source package|generator|template/i.test(`${first.direction}\n${first.stem}`), `${profile}/${seedIndex}: learner stem leaked implementation language.`);
@@ -80,7 +82,7 @@ for (let seedIndex = 1; seedIndex <= 150; seedIndex += 1) {
   const mains = byProfile.get("BANKING_MAINS")!;
   const prelimsStateCount = prelims.quantityI.states.length + prelims.quantityII.states.length;
   const mainsStateCount = mains.quantityI.states.length + mains.quantityII.states.length;
-  assert(mainsStateCount > prelimsStateCount, `Seed ${seedIndex}: Banking Mains must increase admissible-state reasoning depth rather than only inflate numbers.`);
+  assert(mains.answerEvidenceMode === "EXACT_EQUALITY" || mainsStateCount > prelimsStateCount, `Seed ${seedIndex}: Banking Mains must increase admissible-state reasoning depth rather than only inflate numbers.`);
   assert(mains.answerClass === prelims.answerClass, `Seed ${seedIndex}: profile difficulty must not silently change the intended relation class.`);
   assert(
     mains.quantityI.sourceFamily === prelims.quantityI.sourceFamily && mains.quantityII.sourceFamily === prelims.quantityII.sourceFamily,
@@ -91,12 +93,13 @@ for (let seedIndex = 1; seedIndex <= 150; seedIndex += 1) {
 
 for (const profile of profiles) {
   assert(relationCoverage.get(profile)!.size === QCP_001_RELATION_CLASSES.length, `${profile}: not all five exclusive relation classes were exercised.`);
-  assert(sourcePairCoverage.get(profile)!.size === expectedPairs.size, `${profile}: not all nine ordered source-family pairs were exercised.`);
+  assert(sourcePairCoverage.get(profile)!.size === expectedPairs.size, `${profile}: not all sixteen ordered source-family pairs were exercised.`);
   assert(answerPositionCoverage.get(profile)!.size === 5, `${profile}: correct answers did not reach A/B/C/D/E positions.`);
 }
 
 assert(evidenceModeCoverage.get("BANKING_PRELIMS")!.has("EXACT_EQUALITY"), "Banking Prelims must exercise the equality branch of the combined option.");
 assert(evidenceModeCoverage.get("BANKING_PRELIMS")!.has("RELATION_CANNOT_BE_ESTABLISHED"), "Banking Prelims must exercise the indeterminate branch of the combined option.");
+assert(evidenceModeCoverage.get("BANKING_MAINS")!.has("EXACT_EQUALITY"), "Mains must exercise exact equality without manufactured extra states.");
 assert(evidenceModeCoverage.get("BANKING_MAINS")!.has("RELATION_CANNOT_BE_ESTABLISHED"), "Banking Mains must exercise genuinely indeterminate quantity sets.");
 
 console.log(JSON.stringify({
@@ -112,3 +115,7 @@ console.log(JSON.stringify({
   answerPositionsPerProfile: Object.fromEntries([...answerPositionCoverage].map(([profile, values]) => [profile, [...values].sort()])),
   evidenceModesPerProfile: Object.fromEntries([...evidenceModeCoverage].map(([profile, values]) => [profile, [...values].sort()])),
 }));
+
+console.log(JSON.stringify(auditQcpV2()));
+
+console.log(JSON.stringify(auditQcpSourceComparisons()));
