@@ -1,0 +1,28 @@
+name: Validate QS staging dispatcher entrypoint
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-once.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatcher.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-staging-dispatch-validate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle one-shot dispatcher
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-cloud-tasks-dispatch-once.ts --bundle --packages=external --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-cloud-tasks-dispatch-once.mjs
