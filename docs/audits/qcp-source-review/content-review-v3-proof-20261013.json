@@ -1,0 +1,197 @@
+{
+  "status": "PASS_IMPLEMENTED_SCOPE",
+  "wholeSourceFreeze": false,
+  "scopedTypecheck": "PASS",
+  "generatedPackages": 12900,
+  "results": [
+    {
+      "status": "PASS_QCP_001_PHASE0",
+      "questions": 300,
+      "deterministicReplayChecks": 300,
+      "independentVerificationChecks": 300,
+      "optionChecks": 1500,
+      "learnerSurfaceChecks": 300,
+      "mainsComplexityChecks": 150,
+      "relationClassesPerProfile": {
+        "BANKING_PRELIMS": 5,
+        "BANKING_MAINS": 5
+      },
+      "sourcePairsPerProfile": {
+        "BANKING_PRELIMS": 16,
+        "BANKING_MAINS": 16
+      },
+      "answerPositionsPerProfile": {
+        "BANKING_PRELIMS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "evidenceModesPerProfile": {
+        "BANKING_PRELIMS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ],
+        "BANKING_MAINS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ]
+      }
+    },
+    {
+      "status": "PASS_QCP_001_REVIEW_V2",
+      "oracleChecks": 961,
+      "english": 2400,
+      "native": 4800,
+      "replays": 2720,
+      "malformedRejected": 14,
+      "answerPositionsPerRelation": {
+        "BANKING_PRELIMS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "displayedStatesPerSourcePair": {
+        "BANKING_PRELIMS:PERCENTAGE->PERCENTAGE": 45,
+        "BANKING_PRELIMS:PERCENTAGE->RATIO": 46,
+        "BANKING_PRELIMS:PERCENTAGE->NUMBER_SYSTEM": 43,
+        "BANKING_PRELIMS:PERCENTAGE->ALGEBRA": 46,
+        "BANKING_PRELIMS:RATIO->PERCENTAGE": 43,
+        "BANKING_PRELIMS:RATIO->RATIO": 41,
+        "BANKING_PRELIMS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_PRELIMS:RATIO->ALGEBRA": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->PERCENTAGE": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_PRELIMS:ALGEBRA->PERCENTAGE": 43,
+        "BANKING_PRELIMS:ALGEBRA->RATIO": 44,
+        "BANKING_PRELIMS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:ALGEBRA->ALGEBRA": 30,
+        "BANKING_MAINS:PERCENTAGE->PERCENTAGE": 70,
+        "BANKING_MAINS:PERCENTAGE->RATIO": 66,
+        "BANKING_MAINS:PERCENTAGE->NUMBER_SYSTEM": 66,
+        "BANKING_MAINS:PERCENTAGE->ALGEBRA": 61,
+        "BANKING_MAINS:RATIO->PERCENTAGE": 65,
+        "BANKING_MAINS:RATIO->RATIO": 41,
+        "BANKING_MAINS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_MAINS:RATIO->ALGEBRA": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->PERCENTAGE": 66,
+        "BANKING_MAINS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_MAINS:ALGEBRA->PERCENTAGE": 63,
+        "BANKING_MAINS:ALGEBRA->RATIO": 44,
+        "BANKING_MAINS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:ALGEBRA->ALGEBRA": 30
+      }
+    },
+    {
+      "sourceComparisons": 20,
+      "quarantinedSourceItems": 5,
+      "generatedWordProblemCoverageCertified": false
+    },
+    {
+      "status": "PASS_QCP_WORD_PROBLEMS_V3",
+      "packages": 5400,
+      "replays": 360,
+      "orderedPairsPerProfileLanguage": 9,
+      "relationClassesPerPair": 5,
+      "taskForms": [
+        "INTEREST:AMOUNT",
+        "INTEREST:INTEREST",
+        "INTEREST:PRINCIPAL",
+        "MIXTURE:MEAN:2",
+        "MIXTURE:MEAN:3",
+        "MIXTURE:UNKNOWN_PRICE:2",
+        "PROFIT_LOSS:COST_PRICE:LOSS",
+        "PROFIT_LOSS:COST_PRICE:PROFIT",
+        "PROFIT_LOSS:PROFIT_AMOUNT:LOSS",
+        "PROFIT_LOSS:PROFIT_AMOUNT:PROFIT",
+        "PROFIT_LOSS:SELLING_PRICE:LOSS",
+        "PROFIT_LOSS:SELLING_PRICE:PROFIT"
+      ],
+      "independentKnownAnswers": 8,
+      "malformedRejected": 10
+    }
+  ]
+}

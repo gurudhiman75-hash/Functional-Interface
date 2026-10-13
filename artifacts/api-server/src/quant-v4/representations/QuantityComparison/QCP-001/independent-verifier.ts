@@ -1,5 +1,6 @@
+import { wordOperandPrompt } from "./word-display";
 import { getQuantV4OptionCount } from "../../../common/exam-profile";
-import { QCP_RELATIONS, relationText } from "./display";
+import { QCP_RELATIONS, relationText, quantityLabel } from "./display";
 import type {
   Qcp001Question,
   Qcp001RelationClass,
@@ -9,6 +10,68 @@ import type {
 
 function recomputeSourceState(state: Qcp001SourceState): number {
   if (!state || typeof state !== "object") throw Error("Invalid source state.");
+  if (state.kind === "PROFIT_LOSS" || state.kind === "INTEREST") {
+    if (
+      ![state.amount, state.rate].every((v) => Number.isSafeInteger(v) && v > 0)
+    )
+      throw Error("Invalid monetary source domain");
+    if (state.kind === "PROFIT_LOSS") {
+      if (
+        !["SELLING_PRICE", "COST_PRICE", "PROFIT_AMOUNT"].includes(
+          state.task,
+        ) ||
+        !["PROFIT", "LOSS"].includes(state.direction) ||
+        (state.direction === "LOSS" && state.rate >= 100)
+      )
+        throw Error("Invalid profit/loss source domain");
+      const factor =
+        100 + (state.direction === "PROFIT" ? state.rate : -state.rate);
+      return state.task === "PROFIT_AMOUNT"
+        ? (state.amount * state.rate) / 100
+        : state.task === "SELLING_PRICE"
+          ? (state.amount * factor) / 100
+          : (state.amount * 100) / factor;
+    }
+    if (
+      !["INTEREST", "AMOUNT", "PRINCIPAL"].includes(state.task) ||
+      !Number.isSafeInteger(state.years) ||
+      state.years <= 0
+    )
+      throw Error("Invalid interest source domain");
+    const interest = (state.amount * state.rate * state.years) / 100;
+    return state.task === "INTEREST"
+      ? interest
+      : state.task === "AMOUNT"
+        ? state.amount + interest
+        : (state.amount * 100) / (state.rate * state.years);
+  }
+  if (state.kind === "MIXTURE") {
+    if (
+      !["MEAN", "UNKNOWN_PRICE"].includes(state.task) ||
+      !Array.isArray(state.quantities) ||
+      !Array.isArray(state.prices) ||
+      state.prices.length < 1 ||
+      state.quantities.length !==
+        state.prices.length + (state.task === "UNKNOWN_PRICE" ? 1 : 0) ||
+      ![...state.quantities, ...state.prices, state.mean].every(
+        (v) => Number.isSafeInteger(v) && v > 0,
+      )
+    )
+      throw Error("Invalid blend source domain");
+    const total = state.quantities.reduce((a, b) => a + b, 0),
+      weighted = state.prices.reduce(
+        (a, v, i) => a + v * state.quantities[i]!,
+        0,
+      );
+    const value =
+      state.task === "MEAN"
+        ? weighted / total
+        : (state.mean * total - weighted) /
+          state.quantities[state.prices.length]!;
+    if (value <= 0 || (state.task === "MEAN" && value !== state.mean))
+      throw Error("Inconsistent blend source");
+    return value;
+  }
   if (state.kind === "PERCENTAGE") {
     if (
       !Number.isFinite(state.percentageRate) ||
@@ -130,6 +193,9 @@ export function independentlyVerifyQcp001Question(
     RATIO: ["RAP-001", "scalingByComponent"],
     NUMBER_SYSTEM: ["NUM-001", "positiveMod"],
     ALGEBRA: ["ALG-002", "solveQuadraticEquation"],
+    PROFIT_LOSS: ["PNL-001", "fundamentalMoney"],
+    INTEREST: ["INT-001", "simpleInterest"],
+    MIXTURE: ["MAL-001", "weightedBlend"],
   } as const;
   const sourceBinding = [question.quantityI, question.quantityII].every(
     (operand, index) => {
@@ -161,6 +227,16 @@ export function independentlyVerifyQcp001Question(
       left.every(Number.isFinite) &&
       right.every(Number.isFinite),
     sourceBinding,
+    stemBinding:
+      question.stem ===
+      `${quantityLabel(question.language, "I")}: ${question.quantityI.prompt}\n${quantityLabel(question.language, "II")}: ${question.quantityII.prompt}`,
+    wordPromptBinding:
+      domainValid &&
+      [question.quantityI, question.quantityII].every(
+        (o) =>
+          !["PROFIT_LOSS", "INTEREST", "MIXTURE"].includes(o.sourceFamily) ||
+          o.prompt === wordOperandPrompt(o, question.language),
+      ),
     sourceIParity:
       JSON.stringify(left) === JSON.stringify(question.quantityI.values),
     sourceIIParity:

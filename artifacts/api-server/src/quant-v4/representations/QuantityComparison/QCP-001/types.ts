@@ -1,7 +1,14 @@
 export type Qcp001Language = "en" | "hi" | "pa";
 
 export type Qcp001ExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
-export type Qcp001SourceFamily = "PERCENTAGE" | "RATIO" | "NUMBER_SYSTEM" | "ALGEBRA";
+export type Qcp001SourceFamily =
+  | "PERCENTAGE"
+  | "RATIO"
+  | "NUMBER_SYSTEM"
+  | "ALGEBRA"
+  | "PROFIT_LOSS"
+  | "INTEREST"
+  | "MIXTURE";
 
 export type Qcp001RelationClass =
   | "QUANTITY_I_GREATER"
@@ -43,17 +50,55 @@ export type Qcp001QuadraticState = Readonly<{
   rootIndex: 0 | 1;
 }>;
 
+export type Qcp001WordState =
+  | Readonly<{
+      kind: "PROFIT_LOSS";
+      task: "SELLING_PRICE" | "COST_PRICE" | "PROFIT_AMOUNT";
+      amount: number;
+      rate: number;
+      direction: "PROFIT" | "LOSS";
+    }>
+  | Readonly<{
+      kind: "INTEREST";
+      task: "INTEREST" | "AMOUNT" | "PRINCIPAL";
+      amount: number;
+      rate: number;
+      years: number;
+    }>
+  | Readonly<{
+      kind: "MIXTURE";
+      task: "MEAN" | "UNKNOWN_PRICE";
+      quantities: readonly number[];
+      prices: readonly number[];
+      mean: number;
+    }>;
+
 export type Qcp001SourceState =
   | Qcp001PercentageState
   | Qcp001RatioState
   | Qcp001NumberSystemState
-  | Qcp001QuadraticState;
+  | Qcp001QuadraticState
+  | Qcp001WordState;
 
 export interface Qcp001Operand {
   readonly label: "Quantity I" | "Quantity II";
   readonly sourceFamily: Qcp001SourceFamily;
-  readonly sourcePackageId: "PCT-001" | "RAP-001" | "NUM-001" | "ALG-002";
-  readonly sourceSolveMode: "percentOf" | "scalingByComponent" | "positiveMod" | "solveQuadraticEquation";
+  readonly sourcePackageId:
+    | "PCT-001"
+    | "RAP-001"
+    | "NUM-001"
+    | "ALG-002"
+    | "PNL-001"
+    | "INT-001"
+    | "MAL-001";
+  readonly sourceSolveMode:
+    | "percentOf"
+    | "scalingByComponent"
+    | "positiveMod"
+    | "solveQuadraticEquation"
+    | "fundamentalMoney"
+    | "simpleInterest"
+    | "weightedBlend";
   readonly prompt: string;
   readonly states: readonly Qcp001SourceState[];
   readonly values: readonly number[];
@@ -104,8 +149,18 @@ export interface Qcp001Question {
   }>;
   readonly traceability: Readonly<{
     representationOwner: "QCP-001";
-    sourceTruthOwners: readonly ["PCT-001", "RAP-001", "NUM-001", "ALG-002"];
-    contractVersion: "QCP-001-BANKING-RELATION-V2";
+    sourceTruthOwners: readonly (
+      | "PCT-001"
+      | "RAP-001"
+      | "NUM-001"
+      | "ALG-002"
+      | "PNL-001"
+      | "INT-001"
+      | "MAL-001"
+    )[];
+    contractVersion:
+      | "QCP-001-BANKING-RELATION-V2"
+      | "QCP-001-BANKING-RELATION-V3";
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

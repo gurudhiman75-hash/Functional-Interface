@@ -1,3 +1,5 @@
+import { isWordState, solveWordState as wordValue } from "./word-source";
+import { wordOperandPrompt, wordWorking } from "./word-display";
 import { quantityLabel, relationText } from "./display";
 import { quadraticText, quadraticWorking } from "./quadratic-source";
 import type {
@@ -13,6 +15,7 @@ const set = (values: readonly number[]) =>
 function prompt(operand: Qcp001Operand, language: Qcp001Language) {
   const first = operand.states[0]!,
     left = operand.label === "Quantity I";
+  if (isWordState(first)) return wordOperandPrompt(operand, language);
   if (first.kind === "PERCENTAGE") {
     const bases = operand.states.map((s) =>
         s.kind === "PERCENTAGE" ? s.baseValue : 0,
@@ -72,6 +75,7 @@ function working(
   variable: string,
   language: Qcp001Language,
 ) {
+  if (isWordState(state)) return wordWorking(state, wordValue(state), language);
   if (state.kind === "PERCENTAGE")
     return `${state.baseValue} × ${state.percentageRate} ÷ 100 = ${(state.baseValue * state.percentageRate) / 100}`;
   if (state.kind === "RATIO")
