@@ -1,14 +1,15 @@
 # QCP-001 — Banking Quantity Comparison
 
-Status: `PHASE0_REVIEW_ONLY`
+Status: `CONTENT_REVIEW_V2_REVIEW_ONLY`
 
 `QCP-001` owns the Quantity I / Quantity II **representation contract**. It does not own the underlying arithmetic truth.
 
-## Phase-0 source authorities
+## Current source authorities
 
 - `PCT-001` — percentage `percentOf` solving;
 - `RAP-001` — ratio `scalingByComponent` solving;
-- `NUM-001` — exact positive remainder solving.
+- `NUM-001` — exact positive remainder solving;
+- `ALG-002` shared Algebra foundation — exact rational quadratic roots.
 
 The learner-visible quantity may contain one exact source state or several explicitly stated admissible source states. The representation compares the full Cartesian product of Quantity I and Quantity II values.
 
@@ -30,9 +31,13 @@ Mains increases admissible-state reasoning depth. It does not create difficulty 
 
 ## Lifecycle lock
 
-- English only;
+- English, Hindi and Punjabi;
 - no permanent QL allocation;
 - Question Studio discoverable: false;
 - Question Bank: `NOT_STORED`;
 - test/mock eligibility: `INELIGIBLE`;
 - public publication: false.
+
+The two operands use distinct variable names. Exact equality is covered in both profiles; such an item is not made artificially harder by repeating identical states. Learner explanations contain calculation/comparison steps; option diagnoses are separate audit metadata.
+
+The technical review covers this four-authority representation runtime. Publisher word-problem fixtures test comparison mathematics; broader topic-specific word-problem adapters and irrational-root generation are outside the verified runtime scope. No whole-chapter source saturation is claimed.

@@ -1,3 +1,6 @@
+import { solveQcpQuadratic, quadraticText, quadraticWorking } from "./quadratic-source";
+import { localizeQcp001 } from "./localization";
+import { independentlyVerifyQcp001Question } from "./independent-verifier";
 import { getQuantV4OptionCount } from "../../../common/exam-profile";
 import { solvePct001 } from "../../../topics/Arithmetic/subtopics/Percentage/PCT-001/solver";
 import type { Pct001Parameters } from "../../../topics/Arithmetic/subtopics/Percentage/PCT-001/types";
@@ -6,6 +9,7 @@ import type { Rap001Parameters } from "../../../topics/Arithmetic/subtopics/Rati
 import { positiveMod } from "../../../topics/Arithmetic/subtopics/NumberSystem/NUM-001/foundation/divisibility";
 import type {
   Qcp001AnswerEvidenceMode,
+  Qcp001Language,
   Qcp001ExamProfile,
   Qcp001Operand,
   Qcp001Option,
@@ -24,7 +28,7 @@ const RELATION_TEXT: Readonly<Record<Qcp001RelationClass, string>> = Object.free
 });
 
 export const QCP_001_RELATION_CLASSES = Object.freeze(Object.keys(RELATION_TEXT) as Qcp001RelationClass[]);
-export const QCP_001_SOURCE_FAMILIES = Object.freeze(["PERCENTAGE", "RATIO", "NUMBER_SYSTEM"] as const);
+export const QCP_001_SOURCE_FAMILIES = Object.freeze(["PERCENTAGE", "RATIO", "NUMBER_SYSTEM", "ALGEBRA"] as const);
 
 const SOURCE_FAMILY_PAIRS = Object.freeze(
   QCP_001_SOURCE_FAMILIES.flatMap((left) => QCP_001_SOURCE_FAMILIES.map((right) => [left, right] as const)),
@@ -112,6 +116,7 @@ function rapParameters(ratioA: number, ratioB: number, valueA: number): Rap001Pa
 }
 
 function solveSourceState(state: Qcp001SourceState): number {
+  if (state.kind === "ALGEBRA") return solveQcpQuadratic(state).value;
   if (state.kind === "PERCENTAGE") {
     const result = solvePct001(pctParameters(state.percentageRate, state.baseValue));
     if (result.numericAnswer === null || !Number.isFinite(result.numericAnswer)) {
@@ -128,12 +133,14 @@ function solveSourceState(state: Qcp001SourceState): number {
   return Number(positiveMod(BigInt(state.dividend), BigInt(state.divisor)));
 }
 
-function stateWorking(state: Qcp001SourceState): string {
+function stateWorking(state: Qcp001SourceState, label: "Quantity I" | "Quantity II"): string {
+  if (state.kind === "ALGEBRA") return quadraticWorking(state, label === "Quantity I" ? "x" : "y");
   if (state.kind === "PERCENTAGE") {
     return `${formatNumber(state.percentageRate)}% of ${formatNumber(state.baseValue)} = ${formatNumber(state.percentageRate * state.baseValue / 100)}`;
   }
   if (state.kind === "RATIO") {
-    return `A:B = ${state.ratioA}:${state.ratioB}, A = ${formatNumber(state.valueA)} ⇒ B = ${formatNumber(state.valueA * state.ratioB / state.ratioA)}`;
+    const first = label === "Quantity I" ? "A" : "C", second = label === "Quantity I" ? "B" : "D";
+    return `${first}:${second} = ${state.ratioA}:${state.ratioB}, ${first} = ${formatNumber(state.valueA)} ⇒ ${second} = ${formatNumber(state.valueA * state.ratioB / state.ratioA)}`;
   }
   return `${state.dividend} ÷ ${state.divisor} leaves remainder ${Number(positiveMod(BigInt(state.dividend), BigInt(state.divisor)))}`;
 }
@@ -144,6 +151,7 @@ function buildPercentageOperand(
   seed: string,
   profile: Qcp001ExamProfile,
 ): Qcp001Operand {
+  const variable = label === "Quantity I" ? "M" : "N";
   const rates = profile === "BANKING_MAINS" ? [12.5, 20, 25, 40, 50] : [20, 25, 40, 50];
   const rate = rates[hashText(`${seed}:${label}:pct-rate`) % rates.length]!;
   const states = targetValues.map((target) => ({
@@ -155,7 +163,7 @@ function buildPercentageOperand(
   const bases = states.map((state) => state.baseValue);
   const prompt = states.length === 1
     ? `${formatNumber(rate)}% of ${formatNumber(bases[0]!)}`
-    : `${formatNumber(rate)}% of M, where M is selected from ${formatSet(bases)}`;
+    : `${formatNumber(rate)}% of ${variable}, where ${variable} is selected from ${formatSet(bases)}`;
   return {
     label,
     sourceFamily: "PERCENTAGE",
@@ -172,7 +180,8 @@ function buildRatioOperand(
   targetValues: readonly number[],
   seed: string,
 ): Qcp001Operand {
-  const [ratioA, ratioB] = RATIO_PAIRS[hashText(`${seed}:${label}:ratio-pair`) % RATIO_PAIRS.length]!;
+  const pool = targetValues.some(value => value % 60 !== 0) ? [[1, 2], [3, 2], [5, 4], [7, 4]] as const : RATIO_PAIRS;
+  const [ratioA, ratioB] = pool[hashText(`${seed}:${label}:ratio-pair`) % pool.length]!;
   const states = targetValues.map((target) => ({
     kind: "RATIO" as const,
     ratioA,
@@ -181,9 +190,11 @@ function buildRatioOperand(
   }));
   const values = states.map(solveSourceState);
   const aValues = states.map((state) => state.valueA);
+  const first = label === "Quantity I" ? "A" : "C";
+  const second = label === "Quantity I" ? "B" : "D";
   const prompt = states.length === 1
-    ? `B, if A:B = ${ratioA}:${ratioB} and A = ${formatNumber(aValues[0]!)}`
-    : `B, if A:B = ${ratioA}:${ratioB} and A is selected from ${formatSet(aValues)}`;
+    ? `${second}, if ${first}:${second} = ${ratioA}:${ratioB} and ${first} = ${formatNumber(aValues[0]!)}`
+    : `${second}, if ${first}:${second} = ${ratioA}:${ratioB} and ${first} is selected from ${formatSet(aValues)}`;
   return {
     label,
     sourceFamily: "RATIO",
@@ -209,9 +220,10 @@ function buildNumberSystemOperand(
   }));
   const values = states.map(solveSourceState);
   const dividends = states.map((state) => state.dividend);
+  const variable = label === "Quantity I" ? "P" : "Q";
   const prompt = states.length === 1
     ? `The remainder when ${dividends[0]} is divided by ${divisor}`
-    : `The remainder when N is divided by ${divisor}, where N is selected from ${formatSet(dividends)}`;
+    : `The remainder when ${variable} is divided by ${divisor}, where ${variable} is selected from ${formatSet(dividends)}`;
   return {
     label,
     sourceFamily: "NUMBER_SYSTEM",
@@ -230,6 +242,23 @@ function buildOperand(
   seed: string,
   profile: Qcp001ExamProfile,
 ): Qcp001Operand {
+  if (family === "ALGEBRA") {
+    const roots = uniqueSorted(targetValues);
+    const states: Qcp001SourceState[] = [];
+    const equations: string[] = [];
+    const variable = label === "Quantity I" ? "x" : "y";
+    for (let i = 0; i < roots.length; i += 2) {
+      const first = roots[i]!;
+      const second = roots[i + 1] ?? first;
+      const equation = { kind: "ALGEBRA" as const, a: 1, b: -(first + second), c: first * second };
+      states.push({ ...equation, rootIndex: 0 });
+      if (first !== second) states.push({ ...equation, rootIndex: 1 });
+      equations.push(quadraticText({ ...equation, rootIndex: 0 }, variable));
+    }
+    return { label, sourceFamily: family, sourcePackageId: "ALG-002", sourceSolveMode: "solveQuadraticEquation",
+      states, values: states.map(solveSourceState),
+      prompt: `${variable}, where ${equations.join(" or ")}` };
+  }
   if (family === "PERCENTAGE") return buildPercentageOperand(label, targetValues, seed, profile);
   if (family === "RATIO") return buildRatioOperand(label, targetValues, seed);
   return buildNumberSystemOperand(label, targetValues, seed);
@@ -244,7 +273,7 @@ function pairwiseRelations(left: readonly number[], right: readonly number[]): S
 }
 
 export function classifyQcp001Relation(left: readonly number[], right: readonly number[]): Qcp001RelationClass {
-  if (!left.length || !right.length) throw new Error("QCP-001 requires at least one value for each quantity.");
+  if (!left.length || !right.length || !left.every(Number.isFinite) || !right.every(Number.isFinite)) throw new Error("QCP-001 requires at least one value for each quantity.");
   const relations = pairwiseRelations(left, right);
   if (relations.size === 1 && relations.has(">")) return "QUANTITY_I_GREATER";
   if (relations.size === 1 && relations.has("<")) return "QUANTITY_I_LESS";
@@ -279,12 +308,12 @@ function targetValueSets(seed: string, profile: Qcp001ExamProfile, relation: Qcp
   if (relation === "QUANTITY_I_LESS") return [[anchor + 60, anchor + 120], [anchor + 240, anchor + 300, anchor + 360]];
   if (relation === "QUANTITY_I_GREATER_OR_EQUAL") return [[anchor + 180, anchor + 240, anchor + 300], [anchor + 60, anchor + 120, anchor + 180]];
   if (relation === "QUANTITY_I_LESS_OR_EQUAL") return [[anchor + 60, anchor + 120, anchor + 180], [anchor + 180, anchor + 240, anchor + 300]];
-  return [[anchor + 60, anchor + 180, anchor + 300], [anchor + 120, anchor + 240]];
+  return equalVariant ? [[anchor + 120], [anchor + 120]] : [[anchor + 60, anchor + 180, anchor + 300], [anchor + 120, anchor + 240]];
 }
 
 function buildOptions(seed: string, answerClass: Qcp001RelationClass): { options: string[]; metadata: Qcp001Option[]; correctIndex: number } {
   const index = seedIndex(seed);
-  const correctIndex = (2 * (index - 1) + 1) % 5;
+  const correctIndex = hashText(`${seed}:correct-option-position`) % 5;
   const wrong = QCP_001_RELATION_CLASSES.filter((value) => value !== answerClass);
   const rotation = hashText(`${seed}:wrong-option-order`) % wrong.length;
   const rotated = [...wrong.slice(rotation), ...wrong.slice(0, rotation)];
@@ -364,20 +393,22 @@ function validateQuestion(question: Omit<Qcp001Question, "validation">) {
   add("SOURCE_VALUES", question.quantityI.values.length > 0 && question.quantityII.values.length > 0 && question.quantityI.values.every(Number.isFinite) && question.quantityII.values.every(Number.isFinite), "Both quantities require finite source-owned values.");
   add("RELATION_PARITY", classifyQcp001Relation(question.quantityI.values, question.quantityII.values) === question.answerClass, "The answer class must match the complete Cartesian comparison of allowed values.");
   add("SOURCE_STATE_PARITY", question.quantityI.states.every((state, index) => solveSourceState(state) === question.quantityI.values[index]) && question.quantityII.states.every((state, index) => solveSourceState(state) === question.quantityII.values[index]), "Persisted source states must reproduce the projected quantity values.");
-  add("EXPLANATION_DEPTH", question.explanation.steps.length >= 3 && question.explanation.distractorAnalysis.length === 4, "Explanation must include source working, comparison logic and all four wrong-option diagnoses.");
+  add("EXPLANATION_DEPTH", question.explanation.steps.length >= 3 && question.distractorAnalysis.length === 4, "Explanation must include source working, comparison logic and all four wrong-option diagnoses.");
   add("LIFECYCLE_LOCK", !question.traceability.questionStudioDiscoverable && question.traceability.questionBankStatus === "NOT_STORED" && question.traceability.testEligibility === "INELIGIBLE" && !question.traceability.publiclyPublishable, "QCP-001 Phase 0 must remain review-only.");
   return { valid: checks.every((check) => check.passed), checks };
 }
 
-export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp001ExamProfile } = {}): Qcp001Question {
+function generateBaseQcp001Question(input: { seed?: string; examProfile?: Qcp001ExamProfile } = {}): Qcp001Question {
   const seed = input.seed ?? "QCP-001:PHASE0:1";
   const examProfile = input.examProfile ?? "BANKING_PRELIMS";
-  if (getQuantV4OptionCount(examProfile) !== 5) throw new Error(`QCP-001 requires a five-option banking profile, received ${examProfile}.`);
+  if (!["BANKING_PRELIMS", "BANKING_MAINS"].includes(examProfile) || getQuantV4OptionCount(examProfile) !== 5) throw new Error(`QCP-001 requires a five-option banking profile, received ${examProfile}.`);
 
   const index = seedIndex(seed);
   const answerClass = QCP_001_RELATION_CLASSES[(index - 1) % QCP_001_RELATION_CLASSES.length]!;
-  const [targetI, targetII] = targetValueSets(seed, examProfile, answerClass);
   const [familyI, familyII] = SOURCE_FAMILY_PAIRS[Math.floor((index - 1) / 5) % SOURCE_FAMILY_PAIRS.length]!;
+  const targets = targetValueSets(seed, examProfile, answerClass);
+  const small = familyI === "ALGEBRA" || familyII === "ALGEBRA";
+  const [targetI, targetII] = targets.map(values => small ? values.map(value => value / 60) : values) as [number[], number[]];
   const quantityI = buildOperand(familyI, "Quantity I", targetI, `${seed}:I`, examProfile);
   const quantityII = buildOperand(familyII, "Quantity II", targetII, `${seed}:II`, examProfile);
 
@@ -389,8 +420,8 @@ export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp
   const builtOptions = buildOptions(seed, answerClass);
   const evidenceMode = answerEvidenceMode(quantityI.values, quantityII.values, answerClass);
   const sourceSteps = [
-    `${quantityI.label}: ${quantityI.states.map(stateWorking).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityI.values))}.`,
-    `${quantityII.label}: ${quantityII.states.map(stateWorking).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityII.values))}.`,
+    `${quantityI.label}: ${quantityI.states.map(state => stateWorking(state, quantityI.label)).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityI.values))}.`,
+    `${quantityII.label}: ${quantityII.states.map(state => stateWorking(state, quantityII.label)).join("; ")}. Possible values = ${formatSet(uniqueSorted(quantityII.values))}.`,
   ];
   const distractorAnalysis = builtOptions.metadata
     .filter((option) => !option.isCorrect)
@@ -408,8 +439,8 @@ export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp
     language: "en",
     examProfile,
     optionCount: 5,
-    difficulty: examProfile === "BANKING_MAINS" ? "Hard" : "Medium",
-    direction: "Compare Quantity I and Quantity II and choose the correct relation.",
+    difficulty: examProfile === "BANKING_MAINS" && evidenceMode !== "EXACT_EQUALITY" ? "Hard" : "Medium",
+    direction: "Choose the most specific relation between Quantity I and Quantity II.",
     stem: `Quantity I: ${quantityI.prompt}\nQuantity II: ${quantityII.prompt}`,
     quantityI,
     quantityII,
@@ -419,18 +450,18 @@ export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp
     answerClass,
     answer: RELATION_TEXT[answerClass],
     answerEvidenceMode: evidenceMode,
+    distractorAnalysis,
     explanation: {
       keyIdea: "Find every value allowed by each quantity, then compare the two possibility sets. A non-strict relation is used only when equality is genuinely possible.",
       steps: [...sourceSteps, relationStep(quantityI.values, quantityII.values, answerClass)],
       shortcut: answerClass === "EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED" && evidenceMode === "RELATION_CANNOT_BE_ESTABLISHED"
         ? "To disprove a fixed relation, one comparison in each opposite direction is enough."
         : "Compare the extreme possible values first; this often settles the relation without checking every pair.",
-      distractorAnalysis,
     },
     traceability: {
       representationOwner: "QCP-001",
-      sourceTruthOwners: ["PCT-001", "RAP-001", "NUM-001"],
-      contractVersion: "QCP-001-BANKING-RELATION-V1",
+      sourceTruthOwners: ["PCT-001", "RAP-001", "NUM-001", "ALG-002"],
+      contractVersion: "QCP-001-BANKING-RELATION-V2",
       reviewStatus: "UNREVIEWED",
       questionStudioDiscoverable: false,
       questionBankStatus: "NOT_STORED",
@@ -444,4 +475,12 @@ export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp
     throw new Error(`QCP-001 validation failed: ${failed}`);
   }
   return { ...withoutValidation, validation };
+}
+
+export function generateQcp001Question(input: { seed?: string; examProfile?: Qcp001ExamProfile; language?: Qcp001Language } = {}): Qcp001Question {
+  const language = input.language ?? "en";
+  if (!["en", "hi", "pa"].includes(language)) throw new Error("QCP-001 unsupported language.");
+  const question = localizeQcp001(generateBaseQcp001Question(input), language);
+  if (!independentlyVerifyQcp001Question(question).valid) throw new Error("QCP-001 independent package verification failed.");
+  return question;
 }
