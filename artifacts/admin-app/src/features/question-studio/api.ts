@@ -244,6 +244,33 @@ export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {
   );
 }
 
+/**
+ * Pollable run status. Existing synchronous Generate responses remain
+ * unchanged; the async rollout will consume this endpoint when enabled.
+ */
+export interface QuestionStudioRunProgress {
+  id: string;
+  publicCode: string;
+  status: GenerationRunStatus;
+  attemptNumber: number;
+  requestedCount: number;
+  generatedCount: number;
+  startedAt: string | null;
+  completedAt: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  error: string | null;
+  retryAfterSeconds: number | null;
+}
+
+export function getQuestionStudioRunProgress(runId: string) {
+  return adminRequest<QuestionStudioRunProgress>(
+    `/admin/question-studio/runs/${encodeURIComponent(runId)}/status`,
+    undefined,
+    { fallbackMessage: 'Unable to load the generation run progress.' },
+  );
+}
+
 export function createGenerationRun(input: CreateGenerationRunInput) {
   return adminRequest<{
     id: string;

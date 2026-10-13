@@ -14,6 +14,7 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality";
 import { authenticate } from "../middlewares/auth";
+import adminQuestionStudioRunStatusRouter from "./admin-question-studio-run-status";
 
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -68,6 +69,10 @@ async function refreshRunStatus(runId: string): Promise<void> {
     WHERE id = ${runId}::uuid
   `;
 }
+
+// This is the first lazily loaded Question Studio router. Handle status reads
+// here so progress polls never hydrate all governed chapter engines.
+router.use(adminQuestionStudioRunStatusRouter);
 
 router.use(authenticate);
 
