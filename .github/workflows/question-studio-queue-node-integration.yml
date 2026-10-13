@@ -8,7 +8,6 @@ on:
       - 'artifacts/api-server/src/question-studio/async-enqueue-foundation.ts'
       - 'artifacts/api-server/src/question-studio/async-task-lease-claim.ts'
       - 'artifacts/api-server/src/question-studio/async-review-commit.ts'
-      - '.github/workflows/question-studio-queue-node-integration.yml'
   workflow_dispatch:
 permissions:
   contents: read
