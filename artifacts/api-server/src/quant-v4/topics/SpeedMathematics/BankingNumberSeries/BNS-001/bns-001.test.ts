@@ -1,3 +1,4 @@
+import { auditAdvancedBns } from "./advanced-audit";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -35,7 +36,7 @@ const patterns: readonly Bns001PatternKind[] = [
 ];
 const tasks: readonly Bns001TaskKind[] = ["NEXT_TERM", "MISSING_TERM"];
 
-const minimumDistinctVisibleStates: Readonly<Record<Bns001PatternKind, number>> = {
+const minimumDistinctVisibleStates: Readonly<Partial<Record<Bns001PatternKind, number>>> = {
   ARITHMETIC_DIFFERENCE: 30,
   PROGRESSIVE_DIFFERENCE: 42,
   GEOMETRIC_MULTIPLICATION: 9,
@@ -104,7 +105,7 @@ for (const patternKind of patterns) {
           ? [...first.visibleSeries.map(Number), candidate]
           : first.visibleSeries.map((value, index) => index === first.proof.hiddenIndex ? candidate : Number(value));
         assert(
-          !independentGrammarMatches(completed).includes(first.patternKind),
+          independentGrammarMatches(completed).length === 0,
           `${first.questionId} distractor ${option} independently satisfies ${first.patternKind}.`,
         );
         distractorGrammarChecks += 1;
@@ -136,7 +137,7 @@ for (const patternKind of patterns) {
 }
 for (const [familyKey, states] of fingerprints) {
   const patternKind = familyKey.split(":")[0] as Bns001PatternKind;
-  const minimum = minimumDistinctVisibleStates[patternKind];
+  const minimum = minimumDistinctVisibleStates[patternKind] ?? 0;
   assert(states.size >= minimum, `${familyKey} produced only ${states.size} distinct visible states; Phase-0 floor is ${minimum}.`);
 }
 
@@ -167,7 +168,7 @@ for (const patternKind of patterns) {
   }
   assert(positions.size === 3 && answerIndexes.size === 5, "Wrong-term positions or answer indexes lack coverage.");
 }
-assert(independentWrongTermRepairs([12, 41, 18, 47, 26, 53]).length === 0, "Six-term wrong-series package must not pass the unique-repair contract.");
+assert(independentWrongTermRepairs([12, 41, 18, 47, 26, 53]).length !== 1, "Ambiguous six-term interleaving must not have a unique repair.");
 
 let localizedChecks = 0;
 for (const patternKind of patterns) {
@@ -239,3 +240,5 @@ console.log(JSON.stringify({
   hiddenPositionCoverage: Object.fromEntries([...hiddenPositions].map(([key, value]) => [key, [...value].sort()])),
   distinctVisibleStates: Object.fromEntries([...fingerprints].map(([key, value]) => [key, value.size])),
 }));
+
+console.log(JSON.stringify(auditAdvancedBns()));

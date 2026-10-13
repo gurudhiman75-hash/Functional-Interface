@@ -36,11 +36,11 @@ export function localizeBns001(question: Bns001Question, language: Bns001Languag
     const addend = question.patternKind === "GEOMETRIC_MULTIPLICATION" ? 0 : b - a * multiplier;
     keyRule = addend === 0
       ? (hi ? `हर पद को ${multiplier} से गुणा करें।` : `ਹਰ ਪਦ ਨੂੰ ${multiplier} ਨਾਲ ਗੁਣਾ ਕਰੋ।`)
-      : (hi ? `हर पद को ${multiplier} से गुणा करके ${addend} जोड़ें।` : `ਹਰ ਪਦ ਨੂੰ ${multiplier} ਨਾਲ ਗੁਣਾ ਕਰਕੇ ${addend} ਜੋੜੋ।`);
+      : (hi ? `हर पद को ${multiplier} से गुणा करके ${Math.abs(addend)} ${addend < 0 ? "घटाएँ" : "जोड़ें"}।` : `ਹਰ ਪਦ ਨੂੰ ${multiplier} ਨਾਲ ਗੁਣਾ ਕਰਕੇ ${Math.abs(addend)} ${addend < 0 ? "ਘਟਾਓ" : "ਜੋੜੋ"}।`);
     if (addend === 0) working.push(`${hi ? "दिखाई देने वाले पदों का अनुपात" : "ਦਿੱਤੇ ਹੋਏ ਪਦਾਂ ਦਾ ਅਨੁਪਾਤ"}: ${b} ÷ ${a} = ${multiplier}; ${c} ÷ ${b} = ${multiplier}.`);
     else working.push(`${hi ? "दो अंतरों का अनुपात" : "ਦੋ ਅੰਤਰਾਂ ਦਾ ਅਨੁਪਾਤ"}: (${c} − ${b}) ÷ (${b} − ${a}) = ${multiplier}.`,
       `${hi ? "जोड़ी जाने वाली संख्या" : "ਜੋੜੀ ਜਾਣ ਵਾਲੀ ਸੰਖਿਆ"} = ${b} − ${a} × ${multiplier} = ${addend}.`);
-    const op = `× ${multiplier}${addend ? ` + ${addend}` : ""}`;
+    const op = `× ${multiplier}${addend ? ` ${addend < 0 ? "−" : "+"} ${Math.abs(addend)}` : ""}`;
     working.push(`${hi ? "आवश्यक पद" : "ਲੋੜੀਂਦਾ ਪਦ"} = ${previous} ${op} = ${expected}.`);
     if (target + 1 < question.visibleSeries.length) working.push(`${hi ? "अगला चरण जाँचें" : "ਅਗਲਾ ਕਦਮ ਜਾਂਚੋ"}: ${expected} ${op} = ${series[target + 1]}.`);
   }
