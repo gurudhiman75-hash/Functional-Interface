@@ -4,7 +4,7 @@ on:
     branches: [New-main]
     paths:
       - 'artifacts/api-server/src/routes/admin-question-studio-run-status.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts'
       - 'artifacts/admin-app/src/features/question-studio/api.ts'
       - 'tests/qs-generation-status-contract.test.mjs'
   workflow_dispatch:
