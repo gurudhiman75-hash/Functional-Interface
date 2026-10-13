@@ -71,6 +71,11 @@ router.post("/runs/async-staging",requireAdminPermission("content.generation.run
       res.status(error.statusCode).json({code:error.code,error:error.message});
       return;
     }
+    if(error && typeof error==="object" && "statusCode" in error &&
+       error.statusCode===400 && "code" in error && typeof error.code==="string"){
+      res.status(400).json({code:error.code,error:"Invalid Question Studio generation request"});
+      return;
+    }
     // Never echo an SQL error, request snapshot, ID token, or privileged input.
     console.error("Question Studio staged enqueue failed",
       {code:error&&typeof error==="object"&&"code" in error?String(error.code).slice(0,64):"ENQUEUE_FAILED"});
