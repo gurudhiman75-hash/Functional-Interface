@@ -1,0 +1,72 @@
+name: Verify isolated QS task receiver
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/async-task-receiver-standalone.ts'
+      - 'artifacts/api-server/src/question-studio/async-task-package-capabilities.ts'
+      - 'artifacts/api-server/src/question-studio/async-review-commit.ts'
+      - 'artifacts/api-server/build-qs-task-receiver.mjs'
+      - 'Dockerfile.examtree-qs-task-receiver'
+      - 'cloudbuild.examtree-qs-task-receiver.yaml'
+  workflow_dispatch:
+concurrency:
+  group: qs-isolated-receiver-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build standalone receiver and capabilities
+        run: node artifacts/api-server/build-qs-task-receiver.mjs
+      - name: Confirm engine imports absent from runtime bundles
+        run: |
+          node --input-type=module -e '
+          import {readFileSync,readdirSync} from "node:fs";
+          const root="artifacts/api-server/dist";
+          const filenames=readdirSync(root).filter(n=>n==="async-task-receiver-standalone.mjs"||/^qs-.*\.mjs$/.test(n));
+          if(!filenames.includes("async-task-receiver-standalone.mjs"))process.exit(1);
+          for(const name of filenames){
+            const content=readFileSync(root+"/"+name,"utf8");
+            if(content.includes("TSD_CP003_CROSS_CHECKPOINT_OVERLAP_AUDIT"))throw Error(name+": heavy TSD graph leaked into receiver");
+          }
+          console.log("PASS: standalone receiver bundle excludes TSD audit graph");
+          '
+      - name: Smoke /health and reject missing task OIDC
+        run: |
+          DATABASE_URL=postgresql://test:test@127.0.0.1:5432/neondb \
+          EXAMTREE_API_RUNTIME=cloud-run \
+          EXAMTREE_API_STAGING=true \
+          EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED=true \
+          EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED=true \
+          EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED=true \
+          EXAMTREE_QUESTION_STUDIO_TASK_CLAIM_ENABLED=true \
+          EXAMTREE_QUESTION_STUDIO_TASK_REVIEW_COMMIT_ENABLED=true \
+          EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_ROUTE_ENABLED=true \
+          EXAMTREE_QUESTION_STUDIO_STAGING_TASK_ACCEPTANCE_APPROVED=true \
+          EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE=https://example.run.app \
+          EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT=tasks@example.iam.gserviceaccount.com \
+          node artifacts/api-server/dist/async-task-receiver-standalone.mjs >/tmp/qs-receiver.log 2>&1 &
+          PID=$!
+          trap 'kill $PID || true' EXIT
+          for i in $(seq 1 20); do
+            if curl -fsS http://localhost:8080/health > /tmp/health.json; then break; fi
+            sleep 1
+          done
+          grep -q '"status":"ok"' /tmp/health.json
+          CODE=$(curl -sS -o /tmp/oidc.json -w '%{http_code}' \
+            -H 'Content-Type: application/json' \
+            -d '{"runId":"00000000-0000-4000-8000-000000000001","queueVersion":1}' \
+            http://localhost:8080/internal/question-studio/async-task)
+          test "$CODE" = "401"
+          grep -q 'TASK_OIDC_REQUIRED' /tmp/oidc.json

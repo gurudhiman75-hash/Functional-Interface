@@ -4,9 +4,8 @@
 // No content.questions/student question bank writes or automatic publication.
 import { randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
-import { listQuestionStudioPackages } from "./engine-registry";
-import { validateUniversalStudioComputeInput,
-         type UniversalStudioComputeResult } from "./universal-executor";
+import { listAsyncTaskPackages, validateAsyncTaskComputeInput } from "./async-task-package-capabilities";
+import type { UniversalStudioComputeResult } from "./universal-executor";
 import { validateQuestionStudioAsyncReviewBatch,
          QuestionStudioReviewCommitError } from "./async-review-commit-contract";
 
@@ -17,7 +16,7 @@ export type AsyncReviewCommitReceipt = {
 };
 
 function sourcePackageLifecycle(packageId:string) {
-  const pkg=listQuestionStudioPackages().find(x=>x.packageId===packageId && x.enabled);
+  const pkg=listAsyncTaskPackages().find(x=>x.packageId===packageId && x.enabled);
   if(!pkg) throw new QuestionStudioReviewCommitError("ASYNC_PACKAGE_UNAVAILABLE","Queued Question Studio package is no longer available");
   // Same package-governed envelope as synchronous Question Studio. A worker
   // cannot self-promote its generated payload by injecting lifecycle fields.
@@ -66,7 +65,7 @@ export async function commitQuestionStudioAsyncReview(input:{
     if(!run)throw new QuestionStudioReviewCommitError("ASYNC_RUN_NOT_FOUND","Generation run was not found");
 
     const canonical=validateQuestionStudioAsyncReviewBatch(run.requestSnapshot,input.batch);
-    validateUniversalStudioComputeInput(canonical);
+    validateAsyncTaskComputeInput(canonical);
     const count=canonical.count;
     const status=String(run.status);
     if(["review","partially_approved","approved"].includes(status)){

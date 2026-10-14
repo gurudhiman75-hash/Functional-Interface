@@ -1,0 +1,7 @@
+# Isolated Question Studio Cloud Tasks receiver image.
+# This must never be deployed over the production API.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build','--file','Dockerfile.examtree-qs-task-receiver','--tag','${_IMAGE}','.']
+images: ['${_IMAGE}']
+timeout: 1800s
