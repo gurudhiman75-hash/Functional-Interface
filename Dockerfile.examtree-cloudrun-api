@@ -5,6 +5,8 @@ WORKDIR /src
 RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 COPY . .
 RUN pnpm install --frozen-lockfile --filter @workspace/api-server...
+# Produce the isolated QS admin pilot catalog; Render and the main API build stay unchanged.
+ENV EXAMTREE_QS_BUILD_UNIFIED_CAPABILITIES=true
 RUN node artifacts/api-server/build-runtime.mjs
 RUN node artifacts/api-server/build-cloud-run-background.mjs
 
