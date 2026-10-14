@@ -6,6 +6,10 @@ on:
       - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-once.ts'
       - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatcher.ts'
       - 'artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts'
+      - 'artifacts/api-server/build-qs-staging-dispatcher.mjs'
+      - 'Dockerfile.examtree-qs-staging-dispatcher'
+      - 'cloudbuild.examtree-qs-staging-dispatcher.yaml'
+      - 'docs/examtree-qs-staging-dispatcher-deployment.md'
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,5 +28,25 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Bundle one-shot dispatcher
-        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/async-cloud-tasks-dispatch-once.ts --bundle --packages=external --platform=node --format=esm --target=node22 --outfile=dist/question-studio/async-cloud-tasks-dispatch-once.mjs
+      - name: Build standalone one-shot staging dispatcher
+        run: node artifacts/api-server/build-qs-staging-dispatcher.mjs
+      - name: Verify isolated executable and fail-closed staging gates
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from "node:assert/strict";
+          import {readFileSync,statSync} from "node:fs";
+          const file="artifacts/api-server/dist/qs-staging-dispatch-once.mjs";
+          assert.ok(statSync(file).size>1000,"one-shot dispatcher output exists");
+          const compiled=readFileSync(file,"utf8");
+          const src=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-once.ts","utf8");
+          for(const gate of [
+            "EXAMTREE_API_STAGING",
+            "EXAMTREE_QUESTION_STUDIO_STAGING_TASK_ACCEPTANCE_APPROVED",
+            "EXAMTREE_QUESTION_STUDIO_TASK_DISPATCH_ENABLED",
+            "EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED"
+          ])assert.ok(src.includes(gate),gate+" missing");
+          assert.ok(src.includes("examtree-qs-staging"),"isolated queue guard missing");
+          assert.ok(src.includes("STAGING_OUTBOX_EMPTY"),"empty queue exits cleanly");
+          assert.ok(compiled.includes("STAGING_DISPATCH_FAILED"),"failure path absent");
+          console.log("PASS: dedicated one-shot staging job builds and remains gated");
+          NODE

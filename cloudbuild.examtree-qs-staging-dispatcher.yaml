@@ -1,0 +1,7 @@
+# Build the isolated, opt-in, one-shot QS staging dispatcher image only.
+# This build does not deploy a job, grant IAM, publish events or resume the queue.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build','--file','Dockerfile.examtree-qs-staging-dispatcher','--tag','${_IMAGE}','.']
+images: ['${_IMAGE}']
+timeout: 1800s
