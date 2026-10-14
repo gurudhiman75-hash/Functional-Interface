@@ -8,7 +8,14 @@ import { authenticate } from "../middlewares/auth";
 
 const router = Router();
 const distDir = path.dirname(fileURLToPath(import.meta.url));
-const manifestPath = path.resolve(distDir, "question-studio-capabilities.json");
+// This route runs *before* the legacy chapter registry. The isolated staging
+// admin API must select the four-engine build artifact HERE, not in the
+// downstream registry (which never sees successful GET /capabilities calls).
+const isIsolatedQsStaging = process.env.EXAMTREE_API_RUNTIME === "cloud-run"
+  && process.env.EXAMTREE_API_STAGING === "true";
+const manifestPath = path.resolve(distDir, isIsolatedQsStaging
+  ? "question-studio-unified-capabilities.json"
+  : "question-studio-capabilities.json");
 let manifestPromise: Promise<Record<string, unknown>> | null = null;
 
 async function loadManifest(): Promise<Record<string, unknown>> {
@@ -16,6 +23,17 @@ async function loadManifest(): Promise<Record<string, unknown>> {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.packages)) {
       throw new Error("Question Studio capabilities manifest is invalid.");
+    }
+    if (isIsolatedQsStaging) {
+      const engines = parsed.generationSystems;
+      const packages = parsed.packages;
+      if (!Array.isArray(engines) ||
+          !["quant-v4", "reasoning-v1", "language-v1", "knowledge-v1"]
+            .every((engineId) => engines.includes(engineId)) ||
+          !packages.some((pkg: {packageId?: string; enabled?: boolean}) =>
+            pkg.packageId === "COM-001" && pkg.enabled === true)) {
+        throw new Error("Isolated Question Studio staging catalog lacks required four-engine packages.");
+      }
     }
     return parsed as Record<string, unknown>;
   });
@@ -34,6 +52,7 @@ router.get(
       // Conditional GETs previously returned 304 with no JSON body.
       res.setHeader("Cache-Control", "private, no-store");
       res.setHeader("Vary", "Authorization");
+      res.setHeader("X-Examtree-QS-Catalog", isIsolatedQsStaging ? "unified-staging-v1" : "legacy");
       res.json(manifest);
     } catch (error) {
       console.error("Question Studio capabilities manifest load failed", error);
