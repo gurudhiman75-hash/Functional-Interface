@@ -10,7 +10,6 @@ on:
       - 'Dockerfile.examtree-qs-staging-dispatcher'
       - 'cloudbuild.examtree-qs-staging-dispatcher.yaml'
       - 'docs/examtree-qs-staging-dispatcher-deployment.md'
-      - '.github/workflows/qs-staging-dispatch-entrypoint.yml'
   workflow_dispatch:
 permissions:
   contents: read
