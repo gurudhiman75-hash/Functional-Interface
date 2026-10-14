@@ -15,7 +15,7 @@ await mkdir(dist,{recursive:true});
 const builder=path.join(dist,"qs-build-capabilities.mjs");
 const manifest=path.join(dist,"question-studio-capabilities.json");
 await build({
-  entryPoints:[path.join(root,"src/question-studio/build-question-studio-capabilities-manifest.ts")],
+  entryPoints:[path.join(root,"src/question-studio/build-async-task-capabilities-manifest.ts")],
   bundle:true,platform:"node",format:"esm",outfile:builder,logLevel:"info",
   external:["*.node","sharp","better-sqlite3","sqlite3","canvas","postgres"],
 });

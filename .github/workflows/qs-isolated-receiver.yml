@@ -5,6 +5,7 @@ on:
     paths:
       - 'artifacts/api-server/src/async-task-receiver-standalone.ts'
       - 'artifacts/api-server/src/question-studio/async-task-package-capabilities.ts'
+      - 'artifacts/api-server/src/question-studio/build-async-task-capabilities-manifest.ts'
       - 'artifacts/api-server/src/question-studio/async-review-commit.ts'
       - 'artifacts/api-server/build-qs-task-receiver.mjs'
       - 'Dockerfile.examtree-qs-task-receiver'
@@ -29,6 +30,30 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build standalone receiver and capabilities
         run: node artifacts/api-server/build-qs-task-receiver.mjs
+      - name: Verify canonical task manifest covers all four engine families
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from "node:fs";
+          import assert from "node:assert/strict";
+          const file="artifacts/api-server/dist/question-studio-capabilities.json";
+          const manifest=JSON.parse(readFileSync(file,"utf8"));
+          assert.equal(manifest.source,"canonical-question-studio-engine-registry");
+          assert.equal(manifest.schemaVersion,1);
+          const expected={
+            "TRG-002":"quant-v4","OPS-001":"reasoning-v1",
+            "ENG-001":"language-v1","COM-001":"knowledge-v1"
+          };
+          for(const [id,engine] of Object.entries(expected)){
+            const hits=manifest.packages.filter(p=>p.packageId===id);
+            assert.equal(hits.length,1,id+" unique");
+            assert.equal(hits[0].engineId,engine,id+" family");
+            assert.equal(hits[0].enabled,true,id+" enabled");
+            assert.ok(hits[0].supportedLanguages.includes("en"),id+" English");
+            assert.ok(hits[0].cpIds.length>0,id+" CP coverage");
+            assert.notEqual(hits[0].automaticStudentPublication,true,id+" no auto publication");
+          }
+          console.log("PASS: canonical task manifest covers all four packages");
+          NODE
       - name: Confirm engine imports absent from runtime bundles
         run: |
           node --input-type=module -e '
