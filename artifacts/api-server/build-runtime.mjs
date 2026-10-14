@@ -75,6 +75,34 @@ try {
   await rm(capabilitiesBuilderPath, { force: true });
 }
 
+// The isolated Cloud Run admin pilot needs all four engine families, but
+// production/Render retains its prebuilt 512 MiB-safe legacy catalog.
+// Build the staging-only manifest in another short-lived child process;
+// neither the API nor the browser ever hydrates engine modules on GET.
+if (process.env.EXAMTREE_QS_BUILD_UNIFIED_CAPABILITIES === "true") {
+  const unifiedBuilderPath = path.resolve(distDir, "build-qs-unified-capabilities.mjs");
+  const unifiedManifestPath = path.resolve(distDir, "question-studio-unified-capabilities.json");
+  await esbuild({
+    entryPoints: [path.resolve(artifactDir, "src/question-studio/build-unified-admin-capabilities-manifest.ts")],
+    platform: "node",
+    bundle: true,
+    format: "esm",
+    outfile: unifiedBuilderPath,
+    logLevel: "info",
+    sourcemap: false,
+    external: ["*.node", "sharp", "better-sqlite3", "sqlite3", "canvas", "bcrypt", "argon2", "fsevents", "postgres"],
+  });
+  try {
+    await execFileAsync(process.execPath, [unifiedBuilderPath], {
+      cwd: artifactDir,
+      env: { ...process.env, QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT: unifiedManifestPath },
+      maxBuffer: 16 * 1024 * 1024,
+    });
+  } finally {
+    await rm(unifiedBuilderPath, { force: true });
+  }
+}
+
 // A separate ESM worker bundle keeps expensive TRG-002 authority imports
 // entirely outside the live API/health-check event loop.
 await esbuild({
