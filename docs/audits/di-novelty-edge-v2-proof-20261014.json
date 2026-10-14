@@ -1,0 +1,4706 @@
+{
+  "date": "2026-10-14",
+  "authority": "DI-NOVELTY-EDGE-AUDIT-V2",
+  "baseBeforeRemediation": "85cd05c641893246ec7bb3d33fd0faaf0fccf95c",
+  "all338DiFilesMatchedMain": true,
+  "baselineBoundaryFailures": 44,
+  "baselineBoundaryRequests": 216,
+  "baselineHighestCategoryQuestions": 534,
+  "baselineAmbiguousHighestCategoryQuestions": 149,
+  "existingTypeBaselineDiagnostics": 3,
+  "newTypeDiagnostics": 0,
+  "boundaryAudit": {
+    "status": "PASS_DI_NOVELTY_EDGE_AUDIT_V2",
+    "allocationCases": 6000,
+    "batches": 276,
+    "questions": 27960,
+    "replays": 36,
+    "replayedQuestions": 12252,
+    "negativeCases": 39,
+    "sourceModes": 23,
+    "higherNoveltySources": [
+      "DI003_STACKED_BAR",
+      "DI004_THREE_SERIES_LINE",
+      "DI011_MIXED_MULTI_CHART",
+      "DI013_RADAR",
+      "DI014_RADAR_PIE"
+    ],
+    "measuredModes": {
+      "DI001_BASIC_TABLE": {
+        "questions": 2244,
+        "uniqueStems": 557,
+        "normalizedFrames": 389,
+        "uniqueStimuli": 2188,
+        "taskForms": 10,
+        "answerPositions": [
+          490,
+          503,
+          457,
+          525,
+          269
+        ]
+      },
+      "DI004_TWO_SERIES_LINE": {
+        "questions": 2234,
+        "uniqueStems": 1794,
+        "normalizedFrames": 1402,
+        "uniqueStimuli": 2183,
+        "taskForms": 12,
+        "answerPositions": [
+          497,
+          460,
+          487,
+          521,
+          269
+        ]
+      },
+      "DI002_ADVANCED_TABLE": {
+        "questions": 2816,
+        "uniqueStems": 2673,
+        "normalizedFrames": 2665,
+        "uniqueStimuli": 2788,
+        "taskForms": 12,
+        "answerPositions": [
+          615,
+          562,
+          616,
+          625,
+          398
+        ]
+      },
+      "DI004_SINGLE_LINE": {
+        "questions": 1733,
+        "uniqueStems": 664,
+        "normalizedFrames": 395,
+        "uniqueStimuli": 1708,
+        "taskForms": 11,
+        "answerPositions": [
+          383,
+          389,
+          432,
+          405,
+          124
+        ]
+      },
+      "DI003_GROUPED_BAR": {
+        "questions": 2239,
+        "uniqueStems": 1078,
+        "normalizedFrames": 717,
+        "uniqueStimuli": 2200,
+        "taskForms": 12,
+        "answerPositions": [
+          490,
+          488,
+          505,
+          477,
+          279
+        ]
+      },
+      "DI005_VISIBLE_PIE": {
+        "questions": 2251,
+        "uniqueStems": 255,
+        "normalizedFrames": 255,
+        "uniqueStimuli": 1689,
+        "taskForms": 11,
+        "answerPositions": [
+          480,
+          469,
+          502,
+          519,
+          281
+        ]
+      },
+      "DI003_SINGLE_BAR": {
+        "questions": 1730,
+        "uniqueStems": 84,
+        "normalizedFrames": 84,
+        "uniqueStimuli": 424,
+        "taskForms": 11,
+        "answerPositions": [
+          411,
+          393,
+          418,
+          385,
+          123
+        ]
+      },
+      "DI005_HIDDEN_PIE": {
+        "questions": 2239,
+        "uniqueStems": 1060,
+        "normalizedFrames": 1060,
+        "uniqueStimuli": 2173,
+        "taskForms": 12,
+        "answerPositions": [
+          489,
+          516,
+          465,
+          504,
+          265
+        ]
+      },
+      "DI010_FREQUENCY_POLYGON": {
+        "questions": 870,
+        "uniqueStems": 539,
+        "normalizedFrames": 144,
+        "uniqueStimuli": 767,
+        "taskForms": 13,
+        "answerPositions": [
+          202,
+          226,
+          231,
+          211,
+          0
+        ]
+      },
+      "DI009_HISTOGRAM": {
+        "questions": 875,
+        "uniqueStems": 510,
+        "normalizedFrames": 103,
+        "uniqueStimuli": 704,
+        "taskForms": 13,
+        "answerPositions": [
+          229,
+          202,
+          221,
+          223,
+          0
+        ]
+      },
+      "DI006_BASE_CASELET": {
+        "questions": 1364,
+        "uniqueStems": 740,
+        "normalizedFrames": 740,
+        "uniqueStimuli": 1344,
+        "taskForms": 12,
+        "answerPositions": [
+          262,
+          323,
+          251,
+          249,
+          279
+        ]
+      },
+      "DI005_DONUT": {
+        "questions": 574,
+        "uniqueStems": 185,
+        "normalizedFrames": 185,
+        "uniqueStimuli": 520,
+        "taskForms": 11,
+        "answerPositions": [
+          101,
+          115,
+          113,
+          113,
+          132
+        ]
+      },
+      "DI012_ADVANCED_MISSING": {
+        "questions": 701,
+        "uniqueStems": 143,
+        "normalizedFrames": 143,
+        "uniqueStimuli": 640,
+        "taskForms": 10,
+        "answerPositions": [
+          155,
+          147,
+          111,
+          152,
+          136
+        ]
+      },
+      "DI008_BUSINESS_ARITHMETIC": {
+        "questions": 1936,
+        "uniqueStems": 1839,
+        "normalizedFrames": 1839,
+        "uniqueStimuli": 1933,
+        "taskForms": 12,
+        "answerPositions": [
+          389,
+          388,
+          400,
+          397,
+          362
+        ]
+      },
+      "DI005_COMPARATIVE_PIE": {
+        "questions": 683,
+        "uniqueStems": 56,
+        "normalizedFrames": 56,
+        "uniqueStimuli": 555,
+        "taskForms": 10,
+        "answerPositions": [
+          125,
+          128,
+          116,
+          142,
+          172
+        ]
+      },
+      "DI007_MISSING": {
+        "questions": 1920,
+        "uniqueStems": 1099,
+        "normalizedFrames": 802,
+        "uniqueStimuli": 1920,
+        "taskForms": 12,
+        "answerPositions": [
+          366,
+          392,
+          395,
+          375,
+          392
+        ]
+      },
+      "DI011_MIXED_MULTI_CHART": {
+        "questions": 361,
+        "uniqueStems": 231,
+        "normalizedFrames": 209,
+        "uniqueStimuli": 206,
+        "taskForms": 10,
+        "answerPositions": [
+          76,
+          82,
+          66,
+          70,
+          67
+        ]
+      },
+      "DI013_RADAR": {
+        "questions": 293,
+        "uniqueStems": 174,
+        "normalizedFrames": 174,
+        "uniqueStimuli": 293,
+        "taskForms": 14,
+        "answerPositions": [
+          64,
+          60,
+          64,
+          56,
+          49
+        ]
+      },
+      "DI006_ADVANCED_CASELET": {
+        "questions": 315,
+        "uniqueStems": 120,
+        "normalizedFrames": 120,
+        "uniqueStimuli": 183,
+        "taskForms": 9,
+        "answerPositions": [
+          67,
+          64,
+          52,
+          64,
+          68
+        ]
+      },
+      "DI008_ADVANCED_ARITHMETIC": {
+        "questions": 316,
+        "uniqueStems": 160,
+        "normalizedFrames": 160,
+        "uniqueStimuli": 200,
+        "taskForms": 10,
+        "answerPositions": [
+          63,
+          62,
+          70,
+          57,
+          64
+        ]
+      },
+      "DI004_THREE_SERIES_LINE": {
+        "questions": 66,
+        "uniqueStems": 45,
+        "normalizedFrames": 32,
+        "uniqueStimuli": 66,
+        "taskForms": 6,
+        "answerPositions": [
+          15,
+          12,
+          9,
+          11,
+          19
+        ]
+      },
+      "DI003_STACKED_BAR": {
+        "questions": 66,
+        "uniqueStems": 42,
+        "normalizedFrames": 42,
+        "uniqueStimuli": 66,
+        "taskForms": 6,
+        "answerPositions": [
+          12,
+          12,
+          12,
+          11,
+          19
+        ]
+      },
+      "DI014_RADAR_PIE": {
+        "questions": 134,
+        "uniqueStems": 50,
+        "normalizedFrames": 50,
+        "uniqueStimuli": 95,
+        "taskForms": 13,
+        "answerPositions": [
+          30,
+          24,
+          29,
+          31,
+          20
+        ]
+      }
+    },
+    "measuredBatches": [
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 2,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 3,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_SINGLE_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 5,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 9,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 10,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_SINGLE_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 11,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_SINGLE_BAR": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 19,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI009_HISTOGRAM": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI003_SINGLE_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 21,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 39,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 40,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 99,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 2,
+          "DI005_HIDDEN_PIE": 3,
+          "DI003_SINGLE_BAR": 3,
+          "DI003_GROUPED_BAR": 2,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI009_HISTOGRAM": 2,
+          "DI001_BASIC_TABLE": 2,
+          "DI010_FREQUENCY_POLYGON": 3,
+          "DI004_SINGLE_LINE": 2,
+          "DI004_TWO_SERIES_LINE": 3
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 100,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI010_FREQUENCY_POLYGON": 2,
+          "DI001_BASIC_TABLE": 3,
+          "DI004_TWO_SERIES_LINE": 3,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI005_VISIBLE_PIE": 2,
+          "DI005_HIDDEN_PIE": 3,
+          "DI003_SINGLE_BAR": 3,
+          "DI003_GROUPED_BAR": 2,
+          "DI004_SINGLE_LINE": 2,
+          "DI009_HISTOGRAM": 2
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 101,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 2,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI010_FREQUENCY_POLYGON": 3,
+          "DI001_BASIC_TABLE": 3,
+          "DI009_HISTOGRAM": 2,
+          "DI003_SINGLE_BAR": 2,
+          "DI004_TWO_SERIES_LINE": 2,
+          "DI003_GROUPED_BAR": 3,
+          "DI004_SINGLE_LINE": 2,
+          "DI005_VISIBLE_PIE": 3
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 250,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 249,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 6,
+          "DI005_HIDDEN_PIE": 6,
+          "DI004_SINGLE_LINE": 6,
+          "DI009_HISTOGRAM": 6,
+          "DI002_ADVANCED_TABLE": 7,
+          "DI003_GROUPED_BAR": 6,
+          "DI003_SINGLE_BAR": 6,
+          "DI010_FREQUENCY_POLYGON": 7,
+          "DI004_TWO_SERIES_LINE": 6,
+          "DI001_BASIC_TABLE": 6
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 500,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 476,
+          "repeatedStemDifferentStimulus": 24
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 12,
+          "DI009_HISTOGRAM": 13,
+          "DI004_SINGLE_LINE": 12,
+          "DI003_SINGLE_BAR": 13,
+          "DI004_TWO_SERIES_LINE": 12,
+          "DI001_BASIC_TABLE": 13,
+          "DI005_VISIBLE_PIE": 13,
+          "DI002_ADVANCED_TABLE": 12,
+          "DI003_GROUPED_BAR": 13,
+          "DI010_FREQUENCY_POLYGON": 12
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1000,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 929,
+          "repeatedStemDifferentStimulus": 71
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 25,
+          "DI002_ADVANCED_TABLE": 25,
+          "DI003_SINGLE_BAR": 25,
+          "DI009_HISTOGRAM": 25,
+          "DI004_TWO_SERIES_LINE": 25,
+          "DI004_SINGLE_LINE": 25,
+          "DI001_BASIC_TABLE": 25,
+          "DI010_FREQUENCY_POLYGON": 25,
+          "DI005_HIDDEN_PIE": 25,
+          "DI003_GROUPED_BAR": 25
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 2,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 3,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 5,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 9,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 10,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 11,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 19,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 21,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 39,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 40,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 99,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 100,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 101,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 250,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 235,
+          "repeatedStemDifferentStimulus": 15
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 500,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 422,
+          "repeatedStemDifferentStimulus": 78
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1000,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 748,
+          "repeatedStemDifferentStimulus": 252
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 2,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 3,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 5,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 9,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 10,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 11,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 19,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 21,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 39,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 40,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 99,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 100,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 101,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 250,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 243,
+          "repeatedStemDifferentStimulus": 7
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 500,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 466,
+          "repeatedStemDifferentStimulus": 34
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1000,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 879,
+          "repeatedStemDifferentStimulus": 121
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 2,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 3,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 5,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 9,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI010_FREQUENCY_POLYGON": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 10,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 11,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI004_SINGLE_LINE": 2,
+          "DI009_HISTOGRAM": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 19,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 2,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI004_SINGLE_LINE": 3,
+          "DI009_HISTOGRAM": 1,
+          "DI003_SINGLE_BAR": 2,
+          "DI001_BASIC_TABLE": 2,
+          "DI010_FREQUENCY_POLYGON": 2,
+          "DI005_VISIBLE_PIE": 2,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI003_GROUPED_BAR": 2
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI003_SINGLE_BAR": 3,
+          "DI009_HISTOGRAM": 2,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI004_TWO_SERIES_LINE": 2,
+          "DI004_SINGLE_LINE": 2,
+          "DI003_GROUPED_BAR": 2,
+          "DI005_VISIBLE_PIE": 2,
+          "DI001_BASIC_TABLE": 2,
+          "DI005_HIDDEN_PIE": 2
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 21,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 2,
+          "DI003_SINGLE_BAR": 2,
+          "DI005_HIDDEN_PIE": 2,
+          "DI003_GROUPED_BAR": 2,
+          "DI010_FREQUENCY_POLYGON": 2,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI004_SINGLE_LINE": 3,
+          "DI005_VISIBLE_PIE": 2,
+          "DI001_BASIC_TABLE": 2,
+          "DI009_HISTOGRAM": 2
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 39,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 4,
+          "DI004_TWO_SERIES_LINE": 4,
+          "DI003_SINGLE_BAR": 5,
+          "DI005_HIDDEN_PIE": 3,
+          "DI001_BASIC_TABLE": 3,
+          "DI005_VISIBLE_PIE": 4,
+          "DI004_SINGLE_LINE": 5,
+          "DI010_FREQUENCY_POLYGON": 3,
+          "DI002_ADVANCED_TABLE": 4,
+          "DI009_HISTOGRAM": 4
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 40,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 3,
+          "DI005_HIDDEN_PIE": 4,
+          "DI003_SINGLE_BAR": 5,
+          "DI001_BASIC_TABLE": 3,
+          "DI010_FREQUENCY_POLYGON": 4,
+          "DI005_VISIBLE_PIE": 4,
+          "DI004_SINGLE_LINE": 5,
+          "DI004_TWO_SERIES_LINE": 4,
+          "DI003_GROUPED_BAR": 4,
+          "DI009_HISTOGRAM": 4
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 99,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 98,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 9,
+          "DI003_SINGLE_BAR": 13,
+          "DI005_HIDDEN_PIE": 9,
+          "DI002_ADVANCED_TABLE": 9,
+          "DI004_SINGLE_LINE": 12,
+          "DI004_TWO_SERIES_LINE": 9,
+          "DI003_GROUPED_BAR": 9,
+          "DI009_HISTOGRAM": 10,
+          "DI005_VISIBLE_PIE": 9,
+          "DI010_FREQUENCY_POLYGON": 10
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 100,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 9,
+          "DI004_SINGLE_LINE": 13,
+          "DI003_GROUPED_BAR": 9,
+          "DI009_HISTOGRAM": 9,
+          "DI005_VISIBLE_PIE": 10,
+          "DI002_ADVANCED_TABLE": 10,
+          "DI003_SINGLE_BAR": 12,
+          "DI004_TWO_SERIES_LINE": 9,
+          "DI001_BASIC_TABLE": 10,
+          "DI010_FREQUENCY_POLYGON": 9
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 101,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 9,
+          "DI005_HIDDEN_PIE": 10,
+          "DI004_SINGLE_LINE": 12,
+          "DI009_HISTOGRAM": 9,
+          "DI002_ADVANCED_TABLE": 9,
+          "DI001_BASIC_TABLE": 10,
+          "DI004_TWO_SERIES_LINE": 9,
+          "DI010_FREQUENCY_POLYGON": 10,
+          "DI003_SINGLE_BAR": 13,
+          "DI003_GROUPED_BAR": 10
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 250,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 234,
+          "repeatedStemDifferentStimulus": 16
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 23,
+          "DI003_GROUPED_BAR": 23,
+          "DI004_SINGLE_LINE": 31,
+          "DI005_HIDDEN_PIE": 24,
+          "DI005_VISIBLE_PIE": 24,
+          "DI003_SINGLE_BAR": 31,
+          "DI002_ADVANCED_TABLE": 24,
+          "DI010_FREQUENCY_POLYGON": 23,
+          "DI001_BASIC_TABLE": 23,
+          "DI009_HISTOGRAM": 24
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 500,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 459,
+          "repeatedStemDifferentStimulus": 41
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 47,
+          "DI003_GROUPED_BAR": 47,
+          "DI003_SINGLE_BAR": 62,
+          "DI002_ADVANCED_TABLE": 47,
+          "DI009_HISTOGRAM": 46,
+          "DI004_TWO_SERIES_LINE": 47,
+          "DI004_SINGLE_LINE": 63,
+          "DI005_VISIBLE_PIE": 47,
+          "DI005_HIDDEN_PIE": 47,
+          "DI010_FREQUENCY_POLYGON": 47
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 1000,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 888,
+          "repeatedStemDifferentStimulus": 112
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 93,
+          "DI010_FREQUENCY_POLYGON": 93,
+          "DI004_SINGLE_LINE": 125,
+          "DI003_SINGLE_BAR": 125,
+          "DI003_GROUPED_BAR": 94,
+          "DI002_ADVANCED_TABLE": 94,
+          "DI005_VISIBLE_PIE": 94,
+          "DI009_HISTOGRAM": 94,
+          "DI001_BASIC_TABLE": 94,
+          "DI005_HIDDEN_PIE": 94
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 2,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 3,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 5,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 9,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 10,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_HIDDEN_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 11,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 19,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 21,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 39,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI007_MISSING": 1,
+          "DI013_RADAR": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 40,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 99,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI011_MIXED_MULTI_CHART": 2,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI013_RADAR": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI005_DONUT": 1,
+          "DI006_BASE_CASELET": 1,
+          "DI004_SINGLE_LINE": 2,
+          "DI007_MISSING": 1,
+          "DI005_VISIBLE_PIE": 2,
+          "DI003_SINGLE_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI003_GROUPED_BAR": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 100,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 2,
+          "DI013_RADAR": 1,
+          "DI007_MISSING": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI003_GROUPED_BAR": 2,
+          "DI004_SINGLE_LINE": 2,
+          "DI001_BASIC_TABLE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI005_DONUT": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI006_BASE_CASELET": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 2
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 101,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI001_BASIC_TABLE": 1,
+          "DI005_DONUT": 1,
+          "DI007_MISSING": 1,
+          "DI013_RADAR": 1,
+          "DI011_MIXED_MULTI_CHART": 2,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI003_SINGLE_BAR": 2,
+          "DI005_VISIBLE_PIE": 2
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 250,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 250,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 3,
+          "DI003_SINGLE_BAR": 3,
+          "DI012_ADVANCED_MISSING": 4,
+          "DI007_MISSING": 4,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI005_VISIBLE_PIE": 3,
+          "DI005_DONUT": 3,
+          "DI005_HIDDEN_PIE": 3,
+          "DI011_MIXED_MULTI_CHART": 3,
+          "DI013_RADAR": 3,
+          "DI004_TWO_SERIES_LINE": 3,
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI001_BASIC_TABLE": 3,
+          "DI005_COMPARATIVE_PIE": 3,
+          "DI004_SINGLE_LINE": 3,
+          "DI006_BASE_CASELET": 3
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 500,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 496,
+          "repeatedStemDifferentStimulus": 4
+        },
+        "hardSources": {
+          "DI004_SINGLE_LINE": 6,
+          "DI011_MIXED_MULTI_CHART": 6,
+          "DI005_VISIBLE_PIE": 7,
+          "DI005_COMPARATIVE_PIE": 6,
+          "DI006_BASE_CASELET": 6,
+          "DI005_HIDDEN_PIE": 6,
+          "DI007_MISSING": 6,
+          "DI003_SINGLE_BAR": 7,
+          "DI004_TWO_SERIES_LINE": 6,
+          "DI003_GROUPED_BAR": 7,
+          "DI012_ADVANCED_MISSING": 6,
+          "DI002_ADVANCED_TABLE": 7,
+          "DI001_BASIC_TABLE": 6,
+          "DI005_DONUT": 6,
+          "DI013_RADAR": 6,
+          "DI008_BUSINESS_ARITHMETIC": 6
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1000,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 963,
+          "repeatedStemDifferentStimulus": 37
+        },
+        "hardSources": {
+          "DI011_MIXED_MULTI_CHART": 12,
+          "DI008_BUSINESS_ARITHMETIC": 13,
+          "DI003_SINGLE_BAR": 12,
+          "DI005_VISIBLE_PIE": 12,
+          "DI004_SINGLE_LINE": 13,
+          "DI003_GROUPED_BAR": 13,
+          "DI004_TWO_SERIES_LINE": 13,
+          "DI007_MISSING": 12,
+          "DI005_DONUT": 13,
+          "DI012_ADVANCED_MISSING": 13,
+          "DI005_HIDDEN_PIE": 12,
+          "DI002_ADVANCED_TABLE": 12,
+          "DI005_COMPARATIVE_PIE": 13,
+          "DI013_RADAR": 13,
+          "DI001_BASIC_TABLE": 12,
+          "DI006_BASE_CASELET": 12
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 2,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 3,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 5,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 9,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 10,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 11,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 19,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 21,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 39,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 40,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 99,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 100,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 101,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 250,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 244,
+          "repeatedStemDifferentStimulus": 6
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 500,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 445,
+          "repeatedStemDifferentStimulus": 55
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1000,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 802,
+          "repeatedStemDifferentStimulus": 198
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 2,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 3,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 5,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 9,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 10,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 11,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 19,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 21,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 39,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 40,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 99,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 100,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 101,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 250,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 248,
+          "repeatedStemDifferentStimulus": 2
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 500,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 482,
+          "repeatedStemDifferentStimulus": 18
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1000,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 897,
+          "repeatedStemDifferentStimulus": 103
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 2,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 3,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 1,
+          "DI005_DONUT": 1,
+          "DI006_BASE_CASELET": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 5,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 9,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI006_BASE_CASELET": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 10,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI006_BASE_CASELET": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 11,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 19,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI005_VISIBLE_PIE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI007_MISSING": 2,
+          "DI004_SINGLE_LINE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI006_BASE_CASELET": 1,
+          "DI013_RADAR": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI003_GROUPED_BAR": 2,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI005_DONUT": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI005_HIDDEN_PIE": 2,
+          "DI006_BASE_CASELET": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI007_MISSING": 2,
+          "DI005_VISIBLE_PIE": 2,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 21,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI004_TWO_SERIES_LINE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 2,
+          "DI003_SINGLE_BAR": 1,
+          "DI001_BASIC_TABLE": 2,
+          "DI003_GROUPED_BAR": 2,
+          "DI005_DONUT": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI005_VISIBLE_PIE": 2,
+          "DI006_BASE_CASELET": 2
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 39,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 3,
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI005_DONUT": 2,
+          "DI002_ADVANCED_TABLE": 4,
+          "DI004_SINGLE_LINE": 2,
+          "DI003_GROUPED_BAR": 4,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 3,
+          "DI001_BASIC_TABLE": 3,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_VISIBLE_PIE": 3,
+          "DI005_COMPARATIVE_PIE": 2,
+          "DI005_HIDDEN_PIE": 3,
+          "DI006_BASE_CASELET": 3,
+          "DI013_RADAR": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 40,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 3,
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI013_RADAR": 1,
+          "DI007_MISSING": 3,
+          "DI004_TWO_SERIES_LINE": 3,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI005_DONUT": 2,
+          "DI005_HIDDEN_PIE": 4,
+          "DI005_VISIBLE_PIE": 4,
+          "DI004_SINGLE_LINE": 2,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI006_BASE_CASELET": 3,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 2,
+          "DI001_BASIC_TABLE": 4
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 99,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 8,
+          "DI004_SINGLE_LINE": 4,
+          "DI005_DONUT": 4,
+          "DI001_BASIC_TABLE": 8,
+          "DI006_BASE_CASELET": 8,
+          "DI013_RADAR": 2,
+          "DI007_MISSING": 9,
+          "DI012_ADVANCED_MISSING": 4,
+          "DI011_MIXED_MULTI_CHART": 3,
+          "DI003_GROUPED_BAR": 9,
+          "DI008_BUSINESS_ARITHMETIC": 8,
+          "DI004_TWO_SERIES_LINE": 8,
+          "DI005_VISIBLE_PIE": 8,
+          "DI005_COMPARATIVE_PIE": 4,
+          "DI002_ADVANCED_TABLE": 8,
+          "DI003_SINGLE_BAR": 4
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 100,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_HIDDEN_PIE": 8,
+          "DI011_MIXED_MULTI_CHART": 3,
+          "DI003_GROUPED_BAR": 9,
+          "DI013_RADAR": 2,
+          "DI004_TWO_SERIES_LINE": 8,
+          "DI005_COMPARATIVE_PIE": 4,
+          "DI001_BASIC_TABLE": 9,
+          "DI005_VISIBLE_PIE": 9,
+          "DI005_DONUT": 4,
+          "DI008_BUSINESS_ARITHMETIC": 8,
+          "DI007_MISSING": 8,
+          "DI002_ADVANCED_TABLE": 8,
+          "DI012_ADVANCED_MISSING": 4,
+          "DI006_BASE_CASELET": 8,
+          "DI004_SINGLE_LINE": 4,
+          "DI003_SINGLE_BAR": 4
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 101,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 9,
+          "DI012_ADVANCED_MISSING": 4,
+          "DI006_BASE_CASELET": 9,
+          "DI004_TWO_SERIES_LINE": 8,
+          "DI011_MIXED_MULTI_CHART": 3,
+          "DI001_BASIC_TABLE": 9,
+          "DI005_DONUT": 4,
+          "DI003_GROUPED_BAR": 8,
+          "DI008_BUSINESS_ARITHMETIC": 8,
+          "DI007_MISSING": 8,
+          "DI013_RADAR": 2,
+          "DI002_ADVANCED_TABLE": 9,
+          "DI005_HIDDEN_PIE": 8,
+          "DI005_COMPARATIVE_PIE": 4,
+          "DI003_SINGLE_BAR": 4,
+          "DI004_SINGLE_LINE": 4
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 250,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 250,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 21,
+          "DI006_BASE_CASELET": 21,
+          "DI004_SINGLE_LINE": 10,
+          "DI001_BASIC_TABLE": 21,
+          "DI002_ADVANCED_TABLE": 21,
+          "DI013_RADAR": 6,
+          "DI005_HIDDEN_PIE": 21,
+          "DI003_SINGLE_BAR": 10,
+          "DI004_TWO_SERIES_LINE": 21,
+          "DI005_VISIBLE_PIE": 20,
+          "DI005_COMPARATIVE_PIE": 10,
+          "DI007_MISSING": 21,
+          "DI012_ADVANCED_MISSING": 10,
+          "DI008_BUSINESS_ARITHMETIC": 21,
+          "DI005_DONUT": 10,
+          "DI011_MIXED_MULTI_CHART": 6
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 500,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 493,
+          "repeatedStemDifferentStimulus": 7
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 42,
+          "DI011_MIXED_MULTI_CHART": 12,
+          "DI002_ADVANCED_TABLE": 41,
+          "DI001_BASIC_TABLE": 42,
+          "DI007_MISSING": 42,
+          "DI005_HIDDEN_PIE": 41,
+          "DI013_RADAR": 13,
+          "DI004_TWO_SERIES_LINE": 42,
+          "DI006_BASE_CASELET": 42,
+          "DI012_ADVANCED_MISSING": 20,
+          "DI005_DONUT": 20,
+          "DI003_GROUPED_BAR": 42,
+          "DI005_VISIBLE_PIE": 41,
+          "DI005_COMPARATIVE_PIE": 20,
+          "DI004_SINGLE_LINE": 20,
+          "DI003_SINGLE_BAR": 20
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 1000,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 933,
+          "repeatedStemDifferentStimulus": 67
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 83,
+          "DI005_VISIBLE_PIE": 83,
+          "DI005_COMPARATIVE_PIE": 40,
+          "DI003_GROUPED_BAR": 83,
+          "DI004_TWO_SERIES_LINE": 83,
+          "DI003_SINGLE_BAR": 40,
+          "DI005_DONUT": 40,
+          "DI007_MISSING": 83,
+          "DI006_BASE_CASELET": 83,
+          "DI004_SINGLE_LINE": 40,
+          "DI008_BUSINESS_ARITHMETIC": 84,
+          "DI001_BASIC_TABLE": 84,
+          "DI011_MIXED_MULTI_CHART": 25,
+          "DI005_HIDDEN_PIE": 84,
+          "DI012_ADVANCED_MISSING": 40,
+          "DI013_RADAR": 25
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 2,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 3,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 5,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_ADVANCED_CASELET": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 9,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI007_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 10,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 11,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 19,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 2,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 21,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI007_MISSING": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 39,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 4,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI007_MISSING": 4
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 40,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 3,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI014_RADAR_PIE": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI007_MISSING": 4,
+          "DI005_COMPARATIVE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 99,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_COMPARATIVE_PIE": 3,
+          "DI012_ADVANCED_MISSING": 3,
+          "DI002_ADVANCED_TABLE": 8,
+          "DI008_ADVANCED_ARITHMETIC": 3,
+          "DI007_MISSING": 8,
+          "DI014_RADAR_PIE": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI006_ADVANCED_CASELET": 3,
+          "DI008_BUSINESS_ARITHMETIC": 10
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 100,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 10,
+          "DI008_ADVANCED_ARITHMETIC": 3,
+          "DI006_ADVANCED_CASELET": 3,
+          "DI012_ADVANCED_MISSING": 3,
+          "DI007_MISSING": 8,
+          "DI014_RADAR_PIE": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_BUSINESS_ARITHMETIC": 8,
+          "DI005_COMPARATIVE_PIE": 3
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 101,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 8,
+          "DI012_ADVANCED_MISSING": 3,
+          "DI008_BUSINESS_ARITHMETIC": 8,
+          "DI002_ADVANCED_TABLE": 8,
+          "DI008_ADVANCED_ARITHMETIC": 3,
+          "DI014_RADAR_PIE": 3,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI006_ADVANCED_CASELET": 3,
+          "DI005_COMPARATIVE_PIE": 3
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 250,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 250,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 22,
+          "DI006_ADVANCED_CASELET": 7,
+          "DI005_COMPARATIVE_PIE": 8,
+          "DI011_MIXED_MULTI_CHART": 5,
+          "DI007_MISSING": 21,
+          "DI014_RADAR_PIE": 2,
+          "DI012_ADVANCED_MISSING": 7,
+          "DI008_BUSINESS_ARITHMETIC": 21,
+          "DI008_ADVANCED_ARITHMETIC": 7
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 500,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 500,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 44,
+          "DI005_COMPARATIVE_PIE": 14,
+          "DI008_BUSINESS_ARITHMETIC": 41,
+          "DI008_ADVANCED_ARITHMETIC": 16,
+          "DI002_ADVANCED_TABLE": 42,
+          "DI014_RADAR_PIE": 8,
+          "DI012_ADVANCED_MISSING": 16,
+          "DI006_ADVANCED_CASELET": 14,
+          "DI011_MIXED_MULTI_CHART": 5
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1000,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 969,
+          "repeatedStemDifferentStimulus": 31
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 87,
+          "DI014_RADAR_PIE": 12,
+          "DI011_MIXED_MULTI_CHART": 11,
+          "DI008_BUSINESS_ARITHMETIC": 87,
+          "DI005_COMPARATIVE_PIE": 29,
+          "DI008_ADVANCED_ARITHMETIC": 29,
+          "DI012_ADVANCED_MISSING": 28,
+          "DI007_MISSING": 86,
+          "DI006_ADVANCED_CASELET": 31
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 2,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 3,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 5,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 9,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 10,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 11,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 19,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 21,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 39,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 40,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 99,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 100,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 101,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 250,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 249,
+          "repeatedStemDifferentStimulus": 1
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 500,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 467,
+          "repeatedStemDifferentStimulus": 33
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1000,
+        "difficulty": "easy",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 834,
+          "repeatedStemDifferentStimulus": 166
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 2,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 3,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 5,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 9,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 10,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 11,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 19,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 21,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 39,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 40,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 99,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 100,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 101,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 250,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 250,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 500,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 493,
+          "repeatedStemDifferentStimulus": 7
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1000,
+        "difficulty": "medium",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 930,
+          "repeatedStemDifferentStimulus": 70
+        },
+        "hardSources": {}
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1,
+          "uniqueStems": 1,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 2,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 2,
+          "uniqueStems": 2,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 3,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 3,
+          "uniqueStems": 3,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 5,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 5,
+          "uniqueStems": 5,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 9,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 9,
+          "uniqueStems": 9,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 3,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI007_MISSING": 2,
+          "DI005_COMPARATIVE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 10,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 10,
+          "uniqueStems": 10,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 3,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI007_MISSING": 2,
+          "DI006_ADVANCED_CASELET": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 11,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 11,
+          "uniqueStems": 11,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 3,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI002_ADVANCED_TABLE": 3,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 19,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 19,
+          "uniqueStems": 19,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 4,
+          "DI002_ADVANCED_TABLE": 5,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 5,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 5,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI007_MISSING": 5,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 5,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 21,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 21,
+          "uniqueStems": 21,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 5,
+          "DI008_BUSINESS_ARITHMETIC": 6,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 5,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 39,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 39,
+          "uniqueStems": 39,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 10,
+          "DI014_RADAR_PIE": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI005_COMPARATIVE_PIE": 2,
+          "DI008_BUSINESS_ARITHMETIC": 10,
+          "DI006_ADVANCED_CASELET": 2,
+          "DI012_ADVANCED_MISSING": 2,
+          "DI002_ADVANCED_TABLE": 9,
+          "DI008_ADVANCED_ARITHMETIC": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 40,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 40,
+          "uniqueStems": 40,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 10,
+          "DI012_ADVANCED_MISSING": 2,
+          "DI006_ADVANCED_CASELET": 2,
+          "DI008_BUSINESS_ARITHMETIC": 10,
+          "DI008_ADVANCED_ARITHMETIC": 2,
+          "DI005_COMPARATIVE_PIE": 2,
+          "DI007_MISSING": 10,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 99,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 99,
+          "uniqueStems": 99,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 25,
+          "DI006_ADVANCED_CASELET": 5,
+          "DI002_ADVANCED_TABLE": 24,
+          "DI005_COMPARATIVE_PIE": 5,
+          "DI008_BUSINESS_ARITHMETIC": 25,
+          "DI008_ADVANCED_ARITHMETIC": 5,
+          "DI012_ADVANCED_MISSING": 5,
+          "DI014_RADAR_PIE": 2,
+          "DI011_MIXED_MULTI_CHART": 3
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 100,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 100,
+          "uniqueStems": 100,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 25,
+          "DI014_RADAR_PIE": 3,
+          "DI007_MISSING": 25,
+          "DI011_MIXED_MULTI_CHART": 2,
+          "DI008_BUSINESS_ARITHMETIC": 25,
+          "DI006_ADVANCED_CASELET": 5,
+          "DI005_COMPARATIVE_PIE": 5,
+          "DI012_ADVANCED_MISSING": 5,
+          "DI008_ADVANCED_ARITHMETIC": 5
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 101,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 101,
+          "uniqueStems": 101,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 25,
+          "DI011_MIXED_MULTI_CHART": 3,
+          "DI014_RADAR_PIE": 2,
+          "DI007_MISSING": 26,
+          "DI005_COMPARATIVE_PIE": 5,
+          "DI008_ADVANCED_ARITHMETIC": 5,
+          "DI008_BUSINESS_ARITHMETIC": 25,
+          "DI012_ADVANCED_MISSING": 5,
+          "DI006_ADVANCED_CASELET": 5
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 250,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 250,
+          "uniqueStems": 250,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 62,
+          "DI012_ADVANCED_MISSING": 13,
+          "DI008_BUSINESS_ARITHMETIC": 63,
+          "DI014_RADAR_PIE": 6,
+          "DI002_ADVANCED_TABLE": 63,
+          "DI011_MIXED_MULTI_CHART": 6,
+          "DI008_ADVANCED_ARITHMETIC": 12,
+          "DI005_COMPARATIVE_PIE": 12,
+          "DI006_ADVANCED_CASELET": 13
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 500,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 500,
+          "uniqueStems": 491,
+          "repeatedStemDifferentStimulus": 9
+        },
+        "hardSources": {
+          "DI007_MISSING": 125,
+          "DI014_RADAR_PIE": 13,
+          "DI005_COMPARATIVE_PIE": 25,
+          "DI008_BUSINESS_ARITHMETIC": 125,
+          "DI002_ADVANCED_TABLE": 125,
+          "DI006_ADVANCED_CASELET": 25,
+          "DI011_MIXED_MULTI_CHART": 12,
+          "DI008_ADVANCED_ARITHMETIC": 25,
+          "DI012_ADVANCED_MISSING": 25
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 1000,
+        "difficulty": "hard",
+        "diversity": {
+          "uniqueLearnerItems": 1000,
+          "uniqueStems": 947,
+          "repeatedStemDifferentStimulus": 53
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 250,
+          "DI007_MISSING": 250,
+          "DI008_ADVANCED_ARITHMETIC": 50,
+          "DI012_ADVANCED_MISSING": 50,
+          "DI011_MIXED_MULTI_CHART": 25,
+          "DI008_BUSINESS_ARITHMETIC": 250,
+          "DI014_RADAR_PIE": 25,
+          "DI006_ADVANCED_CASELET": 50,
+          "DI005_COMPARATIVE_PIE": 50
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI010_FREQUENCY_POLYGON": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI009_HISTOGRAM": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_SINGLE_LINE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI009_HISTOGRAM": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI003_GROUPED_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_SINGLE_LINE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_SINGLE_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI004_SINGLE_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI003_GROUPED_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI005_HIDDEN_PIE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI001_BASIC_TABLE": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI003_SINGLE_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_VISIBLE_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "SSC_CGL_TIER_I",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI010_FREQUENCY_POLYGON": 1,
+          "DI009_HISTOGRAM": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_DONUT": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_TWO_SERIES_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_DONUT": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_SINGLE_BAR": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI005_HIDDEN_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI005_DONUT": 1,
+          "DI013_RADAR": 1,
+          "DI005_VISIBLE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI013_RADAR": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI004_SINGLE_LINE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI005_DONUT": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI005_DONUT": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI012_ADVANCED_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_SINGLE_BAR": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI005_DONUT": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI005_DONUT": 1,
+          "DI005_HIDDEN_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_SINGLE_BAR": 1,
+          "DI005_DONUT": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI007_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI003_SINGLE_BAR": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI003_GROUPED_BAR": 1,
+          "DI013_RADAR": 1,
+          "DI004_SINGLE_LINE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI013_RADAR": 1,
+          "DI005_VISIBLE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI003_GROUPED_BAR": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI013_RADAR": 1,
+          "DI003_GROUPED_BAR": 1,
+          "DI006_BASE_CASELET": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI006_BASE_CASELET": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI001_BASIC_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI004_SINGLE_LINE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI006_BASE_CASELET": 1,
+          "DI001_BASIC_TABLE": 1,
+          "DI002_ADVANCED_TABLE": 1
+        }
+      },
+      {
+        "profile": "BANKING_PRELIMS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI007_MISSING": 1,
+          "DI004_TWO_SERIES_LINE": 1,
+          "DI005_COMPARATIVE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI007_MISSING": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI007_MISSING": 2,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI007_MISSING": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_BUSINESS_ARITHMETIC": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI007_MISSING": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI014_RADAR_PIE": 1,
+          "DI007_MISSING": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI014_RADAR_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI007_MISSING": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI007_MISSING": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 2,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_COMPARATIVE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 1,
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI007_MISSING": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI007_MISSING": 2,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI005_COMPARATIVE_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI011_MIXED_MULTI_CHART": 1,
+          "DI002_ADVANCED_TABLE": 1,
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI006_ADVANCED_CASELET": 1,
+          "DI008_ADVANCED_ARITHMETIC": 1,
+          "DI007_MISSING": 2
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI002_ADVANCED_TABLE": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI008_BUSINESS_ARITHMETIC": 1,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI007_MISSING": 2,
+          "DI011_MIXED_MULTI_CHART": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI007_MISSING": 1,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI002_ADVANCED_TABLE": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI014_RADAR_PIE": 1
+        }
+      },
+      {
+        "profile": "BANKING_MAINS",
+        "count": 20,
+        "difficulty": "mixed",
+        "diversity": {
+          "uniqueLearnerItems": 20,
+          "uniqueStems": 20,
+          "repeatedStemDifferentStimulus": 0
+        },
+        "hardSources": {
+          "DI008_BUSINESS_ARITHMETIC": 2,
+          "DI012_ADVANCED_MISSING": 1,
+          "DI007_MISSING": 2,
+          "DI005_COMPARATIVE_PIE": 1,
+          "DI002_ADVANCED_TABLE": 2
+        }
+      }
+    ],
+    "scope": "EXISTING_ENGLISH_CONTROLLED_REVIEW_MIX",
+    "humanLiveApproval": "DEFERRED",
+    "allPublisherSaturationCertified": false
+  },
+  "crossChartAudit": {
+    "status": "PASS_DI_CROSS_CHART_INDEPENDENT_V2",
+    "mixedQuestions": 5000,
+    "hybridQuestions": 5000,
+    "nativeParity": 1000,
+    "uniqueMaximumCases": 1000,
+    "mixedPairKinds": [
+      "BAR_LINE",
+      "BAR_TABLE",
+      "LINE_TABLE",
+      "PIE_TABLE",
+      "TWO_TABLE_JOIN"
+    ],
+    "mixedTaskForms": 10,
+    "hybridTaskForms": 14,
+    "visibleDataOnly": true
+  },
+  "regressions": {
+    "mix": "DI_DELIVERY_NOVELTY_MIX_V1 {\"banking\":{\"STANDARD\":15,\"FRESH_FAMILIAR\":4,\"HIGHER_NOVELTY\":1},\"ssc\":{\"STANDARD\":15,\"FRESH_FAMILIAR\":5,\"HIGHER_NOVELTY\":0},\"difficulty\":{\"ssc\":{\"Easy\":7,\"Medium\":8,\"Hard\":5},\"prelims\":{\"Easy\":6,\"Medium\":10,\"Hard\":4},\"mains\":{\"Easy\":3,\"Medium\":9,\"Hard\":8}},\"deterministicReplay\":true,\"exactStemDeduplication\":true,\"tierSpacing\":true,\"mainsHardSourceGuard\":true,\"mainsHardSourceDiversity\":true,\"mainsHardTaskDepth\":true,\"bankingHardSources\":[\"DI002_ADVANCED_TABLE\",\"DI005_COMPARATIVE_PIE\",\"DI006_ADVANCED_CASELET\",\"DI007_MISSING\",\"DI008_ADVANCED_ARITHMETIC\",\"DI008_BUSINESS_ARITHMETIC\",\"DI012_ADVANCED_MISSING\"],\"higherNoveltySources\":[\"DI003_STACKED_BAR\",\"DI004_THREE_SERIES_LINE\",\"DI011_MIXED_MULTI_CHART\",\"DI013_RADAR\",\"DI014_RADAR_PIE\"],\"lifecycleLocked\":true}",
+    "adapter": "DI_DELIVERY_NOVELTY_MIX_SHARED_ADAPTER_V1 {\"packageDiscovered\":true,\"questions\":20,\"mix\":{\"STANDARD\":15,\"FRESH_FAMILIAR\":4,\"HIGHER_NOVELTY\":1},\"lifecycleLocked\":true}",
+    "mixed": "DI011_MIXED_MULTI_CHART_V1 {\"sets\":300,\"questions\":1500,\"pairKinds\":[\"BAR_LINE\",\"BAR_TABLE\",\"LINE_TABLE\",\"PIE_TABLE\",\"TWO_TABLE_JOIN\"],\"taskKinds\":[\"CROSS_COMPONENT_AVERAGE\",\"FOUR_VALUE_CROSS_AVERAGE\",\"HIGHEST_COMBINED_CATEGORY\",\"LEFT_TO_RIGHT_RATIO\",\"SAME_CATEGORY_ABSOLUTE_DIFFERENCE\",\"SAME_CATEGORY_COMBINED_TOTAL\",\"THREE_CATEGORY_CROSS_TOTAL\",\"TWO_CATEGORY_CROSS_SUM\",\"TWO_GROUP_COMBINED_DIFFERENCE\",\"TWO_GROUP_CROSS_RATIO\"],\"learnerVisibleAnswerability\":true}",
+    "native": "PASS_DI_011_HI_PA_REVIEW_CANDIDATE {\"seeds\":80,\"pairs\":5,\"tasks\":10,\"lifecycleLocked\":true}",
+    "missing": "DI012_ADVANCED_MISSING_VARIABLE_V1 {\"sets\":350,\"questions\":1750,\"models\":[\"AVERAGE_CONSTRAINED\",\"CHAINED_RECOVERY\",\"MISSING_RATE\",\"SINGLE_X_TOTAL\",\"TWO_MISSING_COLUMN_TOTALS\",\"X_Y_RATIO_TOTAL\",\"X_Y_SUM_DIFFERENCE\"],\"tasks\":[\"COMBINED_RECOVERED_PERCENT\",\"CROSS_ROW_RATIO_AFTER_RECOVERY\",\"RECOVERED_COLUMN_TOTAL\",\"RECOVERED_ROW_TOTAL\",\"RECOVERED_SHARE_OF_TOTAL\",\"RECOVER_X\",\"RECOVER_Y\",\"UNKNOWN_DIFFERENCE\",\"UNKNOWN_RATIO\",\"UNKNOWN_SUM\"],\"independentRecovery\":true}",
+    "radar": "DI013_RADAR_V1 {\"sets\":320,\"questions\":1600,\"tasks\":[\"COMBINED_CATEGORY_MAXIMUM\",\"COUNT_A_EXCEEDS_B\",\"CROSS_SERIES_CATEGORY_RATIO\",\"DIRECT_SERIES_VALUE\",\"FOUR_VALUE_CROSS_TOTAL\",\"HIGHEST_VALUE_FOR_SERIES\",\"NET_SERIES_ADVANTAGE\",\"SAME_CATEGORY_COMBINED_TOTAL\",\"SAME_CATEGORY_DIFFERENCE\",\"SERIES_TOTAL_DIFFERENCE\",\"THREE_CATEGORY_SERIES_TOTAL\",\"TOTAL_SERIES_RATIO\",\"TWO_CATEGORY_GROUP_RATIO\",\"WITHIN_SERIES_RATIO\"],\"contexts\":8,\"renderedAnswerability\":true}",
+    "hybrid": "DI014_RADAR_PIE_V1 {\"sets\":320,\"questions\":1600,\"tasks\":[\"APPLICATION_TO_APPROVAL_RATIO\",\"APPROVAL_RATE_DIFFERENCE\",\"APPROVED_COUNT_FROM_PIE\",\"CATEGORY_APPROVAL_RATE\",\"CATEGORY_GAP\",\"CROSS_CATEGORY_APPLICATION_APPROVAL_RATIO\",\"DIRECT_APPLICATIONS\",\"GROUP_APPLICATION_TO_APPROVAL_RATIO\",\"HIGHEST_APPROVAL_RATE\",\"REJECTED_TO_APPROVED_RATIO\",\"TOTAL_APPLICATION_TO_APPROVAL_RATIO\",\"TWO_CATEGORY_APPLICATION_TOTAL\",\"TWO_CATEGORY_APPROVED_TOTAL\",\"TWO_CATEGORY_REJECTED_TOTAL\"],\"contexts\":8}"
+  }
+}
