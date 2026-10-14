@@ -5,6 +5,7 @@ on:
     paths:
       - 'functions/api/[[path]].js'
       - 'tests/qs-existing-pages-admin-bridge.test.mjs'
+      - 'scripts/build-cloudflare-pages.sh'
   workflow_dispatch:
 permissions:
   contents: read
