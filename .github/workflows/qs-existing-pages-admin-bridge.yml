@@ -1,0 +1,24 @@
+name: Validate existing Cloudflare QS admin bridge
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'functions/api/[[path]].js'
+      - 'tests/qs-existing-pages-admin-bridge.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-existing-pages-admin-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate existing Cloudflare API compatibility
+        run: node --test tests/cloudflare-pages-proxy.test.mjs tests/qs-existing-pages-admin-bridge.test.mjs
