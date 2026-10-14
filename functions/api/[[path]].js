@@ -19,6 +19,21 @@ export function configuredApiOrigin(env = {}) {
   }
   return url.origin;
 }
+// Optional Question Studio pilot on the EXISTING Cloudflare Pages frontend.
+// Only the admin session and Question Studio paths may use the dedicated
+// isolated API. No student, billing, webhook or other admin route is changed.
+export function configuredQsAdminOrigin(env = {}) {
+  const raw = env.EXAMTREE_QS_ADMIN_UPSTREAM_ORIGIN;
+  if (typeof raw !== "string" || !raw.trim()) return null;
+  let url;
+  try { url = new URL(raw.trim()); } catch { throw new Error("Invalid QS admin origin"); }
+  if (url.protocol !== "https:" || url.username || url.password ||
+      (url.pathname !== "/" && url.pathname !== "") || url.search || url.hash ||
+      !/^examtree-qs-admin-api-staging-[a-z0-9-]+\.(?:asia-south1\.run\.app|a\.run\.app)$/.test(url.hostname)) {
+    throw new Error("QS admin origin must be the isolated staging API service");
+  }
+  return url.origin;
+}
 const METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]);
 
 export async function onRequest({ request, env = {} }) {
@@ -78,7 +93,19 @@ export async function onRequest({ request, env = {} }) {
     incoming.pathname === "/api/packages/verify" ||
     incoming.pathname === "/api/admin/commerce/orders" ||
     incoming.pathname.startsWith("/api/admin/commerce/orders/");
-  const actualUpstream = financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin;
+  // This pilot is scoped to the same Cloudflare Pages deployment. The optional
+  // origin must be an exact isolated QS API URL, otherwise reject the request
+  // rather than silently writing to the legacy or production database.
+  const qsAdminPath = ["/api/admin/session", "/api/admin/question-studio"]
+    .some((prefix) => incoming.pathname === prefix || incoming.pathname.startsWith(prefix + "/"));
+  let qsAdminOrigin;
+  try { qsAdminOrigin = qsAdminPath ? configuredQsAdminOrigin(env) : null; }
+  catch {
+    return Response.json({ code: "QS_ADMIN_UPSTREAM_MISCONFIGURED",
+      error: "Question Studio admin routing is not configured correctly." },
+      { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
+  const actualUpstream = qsAdminOrigin || (financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin);
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
   for (const key of [
