@@ -286,6 +286,53 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
   );
 }
 
+/**
+ * Explicit staging-only async enqueue. Never replaces the existing
+ * synchronous POST /runs route. The server independently enforces
+ * Cloud Run staging flags, admin RBAC and durable idempotency.
+ */
+export interface QuestionStudioStagingEnqueueReceipt {
+  id: string;
+  publicCode: string;
+  status: GenerationRunStatus;
+  reused: boolean;
+  retryAfterSeconds: number | null;
+}
+
+export function enqueueQuestionStudioStagingRun(
+  input: CreateGenerationRunInput,
+  idempotencyKey: string,
+) {
+  const request = {
+    engineId: input.engineId,
+    packageId: input.packageId,
+    exam: input.exam,
+    subject: input.subject,
+    topic: input.topic,
+    subtopic: input.subtopic,
+    language: input.language,
+    difficulty: input.difficulty,
+    count: input.count,
+    seed: input.seed,
+    runtimeMode: 'review-only',
+    patternId: input.patternId,
+    canonicalProblemId: input.canonicalProblemId,
+  };
+  return adminRequest<QuestionStudioStagingEnqueueReceipt>(
+    '/admin/question-studio/runs/async-staging',
+    {
+      method: 'POST',
+      headers: { 'Idempotency-Key': idempotencyKey },
+      body: JSON.stringify({
+        request,
+        count: input.count,
+        selectedCpIds: input.cpIds ?? [],
+      }),
+    },
+    { fallbackMessage: 'Unable to enqueue staging Question Studio run.' },
+  );
+}
+
 export function updateGenerationItems(input: {
   itemIds: string[];
   expectedStatuses: Record<string, GenerationItemStatus>;

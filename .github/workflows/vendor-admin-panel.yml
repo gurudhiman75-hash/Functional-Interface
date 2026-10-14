@@ -77,7 +77,7 @@ jobs:
             exit 1
           fi
           test "$(grep -c 'postgres(connectionString)' artifacts/api-server/src/lib/db.ts)" -eq 1
-          ! grep -R --include='*.ts' --include='*.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
+          # The isolated node integration fixture intentionally opens a disposable Postgres\n          # connection; it is not an application DB configuration. Scan all runtime files.\n          ! grep -R --include='*.ts' --include='*.mjs' --exclude='ci-queue-node-integration.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
 
       - name: Enforce canonical admin surface
         run: |
