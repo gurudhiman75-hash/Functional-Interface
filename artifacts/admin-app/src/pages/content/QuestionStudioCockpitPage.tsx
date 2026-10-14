@@ -309,7 +309,7 @@ export function QuestionStudioCockpitPage() {
     if (!STAGING_ASYNC_ENABLED || !runId ||
         !['queued', 'running', 'validation', 'paused'].includes(status ?? '')) return;
     let cancelled = false;
-    let timer: ReturnType<typeof setTimeout> | undefined;
+    let timer: number | undefined;
     const poll = async () => {
       try {
         const progress = await getQuestionStudioRunProgress(runId);
