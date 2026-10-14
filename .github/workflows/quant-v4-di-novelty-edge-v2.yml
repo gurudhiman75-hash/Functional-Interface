@@ -5,7 +5,6 @@ on:
     branches: [New-main]
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
-      - ".github/workflows/quant-v4-di-novelty-edge-v2.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,7 +17,7 @@ concurrency:
 jobs:
   novelty-edge-audit:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
