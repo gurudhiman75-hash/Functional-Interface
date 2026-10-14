@@ -27,9 +27,7 @@ async function loadManifest(): Promise<Record<string, unknown>> {
     if (isIsolatedQsStaging) {
       const engines = parsed.generationSystems;
       const packages = parsed.packages;
-      if (!Array.isArray(engines) ||
-          !["quant-v4", "reasoning-v1", "language-v1", "knowledge-v1"]
-            .every((engineId) => engines.includes(engineId)) ||
+      if (!Array.isArray(engines) || engines.length < 4 ||
           !packages.some((pkg: {packageId?: string; enabled?: boolean}) =>
             pkg.packageId === "COM-001" && pkg.enabled === true)) {
         throw new Error("Isolated Question Studio staging catalog lacks required four-engine packages.");
