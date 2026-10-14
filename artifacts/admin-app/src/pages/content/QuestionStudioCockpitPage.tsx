@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
@@ -48,6 +48,10 @@ import {
   type GenerationRunStatus,
   type QuestionStudioItem,
   type QuestionStudioRun,
+  type QuestionStudioRunProgress,
+  type CreateGenerationRunInput,
+  enqueueQuestionStudioStagingRun,
+  getQuestionStudioRunProgress,
 } from '@/features/question-studio/api';
 import {
   analyzeItemQuality,
@@ -68,6 +72,8 @@ import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/quest
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
+// Opt-in preview only. Default production builds continue to use synchronous Generate.
+const STAGING_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_STAGING === 'true';
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
@@ -204,6 +210,13 @@ export function QuestionStudioCockpitPage() {
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
+  const [stagingAsyncSelected, setStagingAsyncSelected] = useState(false);
+  const [stagingAsyncSubmitting, setStagingAsyncSubmitting] = useState(false);
+  const [stagingAsyncRun, setStagingAsyncRun] = useState<QuestionStudioRunProgress | null>(null);
+  const [stagingAsyncPollError, setStagingAsyncPollError] = useState<string | null>(null);
+  // Retain the same idempotency key after a transport error; never replay a
+  // potentially committed request with a different key unless its input changes.
+  const stagingAsyncRetry = useRef<{ signature: string; key: string } | null>(null);
   const [search, setSearch] = useState('');
   const [serverSearch, setServerSearch] = useState('');
   const [reviewPageNumber, setReviewPageNumber] = useState(1);
@@ -289,6 +302,44 @@ export function QuestionStudioCockpitPage() {
   });
 
   const reviewRuns = reviewPage.runs;
+
+  useEffect(() => {
+    const runId = stagingAsyncRun?.id;
+    const status = stagingAsyncRun?.status;
+    if (!STAGING_ASYNC_ENABLED || !runId ||
+        !['queued', 'running', 'validation', 'paused'].includes(status ?? '')) return;
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const poll = async () => {
+      try {
+        const progress = await getQuestionStudioRunProgress(runId);
+        if (cancelled) return;
+        setStagingAsyncPollError(null);
+        setStagingAsyncRun(progress);
+        if (['review', 'approved', 'partially_approved'].includes(progress.status)) {
+          await refreshReviewPage();
+          if (cancelled) return;
+          setExpandedRuns((current) => new Set(current).add(progress.id));
+          setWorkspaceView('review');
+          showToast.success('Staging generation complete', `${progress.publicCode} saved ${progress.generatedCount} review item(s).`);
+          return;
+        }
+        if (['failed', 'cancelled'].includes(progress.status)) {
+          showToast.error('Staging generation stopped', progress.error ?? `Run is ${progress.status}.`);
+          return;
+        }
+      } catch (caught) {
+        if (cancelled) return;
+        setStagingAsyncPollError(caught instanceof Error ? caught.message : 'Unable to refresh generation progress.');
+      }
+      if (!cancelled) timer = window.setTimeout(() => void poll(), 3000);
+    };
+    timer = window.setTimeout(() => void poll(), 3000);
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [stagingAsyncRun?.id, stagingAsyncRun?.status, refreshReviewPage]);
 
   useEffect(() => {
     if (reviewPage.pagination.page !== reviewPageNumber) {
@@ -471,7 +522,7 @@ export function QuestionStudioCockpitPage() {
     }
     try {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
-      const result = await generate({
+      const input: CreateGenerationRunInput = {
         exam: selectedExam?.name ?? exam,
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
@@ -483,7 +534,35 @@ export function QuestionStudioCockpitPage() {
         subtopic: activePackage.subtopic,
         language,
         seed: seed.trim() || undefined,
-      });
+      };
+      if (STAGING_ASYNC_ENABLED && stagingAsyncSelected) {
+        const signature = JSON.stringify(input);
+        if (!stagingAsyncRetry.current || stagingAsyncRetry.current.signature !== signature) {
+          stagingAsyncRetry.current = { signature, key: `qs-staging-${crypto.randomUUID()}` };
+        }
+        setStagingAsyncSubmitting(true);
+        try {
+          const receipt = await enqueueQuestionStudioStagingRun(input, stagingAsyncRetry.current.key);
+          stagingAsyncRetry.current = null;
+          setStagingAsyncRun({
+            id: receipt.id, publicCode: receipt.publicCode, status: receipt.status,
+            attemptNumber: 0, requestedCount: input.count, generatedCount: 0,
+            startedAt: null, completedAt: null, createdAt: null, updatedAt: null,
+            error: null, retryAfterSeconds: receipt.retryAfterSeconds,
+          });
+          setStagingAsyncPollError(null);
+          setReviewSubjectFilter(packageSubject(activePackage));
+          setReviewChapterFilter(packageChapter(activePackage));
+          setReviewPackageFilter(activePackage.packageId);
+          setReviewPageNumber(1);
+          showToast.info('Staging run queued',
+            `${receipt.publicCode} is queued. The paused staging queue needs an operator to dispatch it.`);
+        } finally {
+          setStagingAsyncSubmitting(false);
+        }
+        return;
+      }
+      const result = await generate(input);
       setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
@@ -755,8 +834,26 @@ export function QuestionStudioCockpitPage() {
           </div>
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
-            <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
+
+            <div className="space-y-2">
+              {STAGING_ASYNC_ENABLED && (
+                <label className="flex max-w-80 items-start gap-2 text-xs text-muted-foreground">
+                  <Checkbox checked={stagingAsyncSelected}
+                    onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
+                    disabled={generating || stagingAsyncSubmitting} />
+                  <span>Use isolated staging async queue (operator dispatch required; normal Generate is unchanged).</span>
+                </label>
+              )}
+              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && STAGING_ASYNC_ENABLED ? 'Queue staging batch' : 'Generate review batch'}</Button>
+            </div>
           </div>
+          {STAGING_ASYNC_ENABLED && stagingAsyncRun && (
+            <div role="status" aria-live="polite" className="rounded-lg border bg-muted/20 px-3 py-2 text-xs">
+              <p className="font-semibold">Staging async run: {stagingAsyncRun.publicCode}</p>
+              <p>Status: {stagingAsyncRun.status} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
+              {stagingAsyncPollError && <p className="text-destructive">Progress temporarily unavailable: {stagingAsyncPollError}</p>}
+            </div>
+          )}
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
