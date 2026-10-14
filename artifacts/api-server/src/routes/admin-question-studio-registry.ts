@@ -80,6 +80,21 @@ router.post("/runs", (req, res, next) => {
   adminQuestionStudioEngineV1Router(req, res, next);
 });
 
+// The legacy ARG CP015.. base routers also define unconditional GET /capabilities
+// endpoints. Without this staging-only preference they consume the request
+// before the unified four-engine catalog, hiding English, Static GK and
+// Punjabi Language from the existing Question Studio subject selector.
+// Keep the Render/production read path untouched while the isolated Cloud Run
+// API runs its explicit async pilot (2 GiB; no automatic publishing).
+router.get("/capabilities", (req, res, next) => {
+  if (process.env.EXAMTREE_API_RUNTIME !== "cloud-run" ||
+      process.env.EXAMTREE_API_STAGING !== "true") {
+    next();
+    return;
+  }
+  adminQuestionStudioEngineV1Router(req, res, next);
+});
+
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
 router.use(adminQuestionStudioArgumentsCp015Router);
