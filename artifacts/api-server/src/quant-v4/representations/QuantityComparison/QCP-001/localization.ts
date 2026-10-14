@@ -1,3 +1,5 @@
+import { catalogResult } from "./catalog-source";
+import { catalogPrompt } from "./catalog-display";
 import { isAdditional, additionalResult } from "./additional-source";
 import {
   additionalOperandPrompt,
@@ -24,6 +26,7 @@ const set = (values: readonly number[]) =>
 function prompt(operand: Qcp001Operand, language: Qcp001Language) {
   const first = operand.states[0]!,
     left = operand.label === "Quantity I";
+  if (first.kind === "SOURCE_CATALOG") return catalogPrompt(first, language);
   if (isAdditional(first)) return additionalOperandPrompt(operand, language);
   if (isWordState(first)) return wordOperandPrompt(operand, language);
   if (first.kind === "PERCENTAGE") {
@@ -85,6 +88,7 @@ function working(
   variable: string,
   language: Qcp001Language,
 ) {
+  if (state.kind === "SOURCE_CATALOG") return catalogResult(state).working;
   if (isAdditional(state))
     return additionalWorking(state, additionalResult(state).text);
   if (isWordState(state)) return wordWorking(state, wordValue(state), language);
@@ -112,11 +116,13 @@ export function localizeQcp001(
     o.states.forEach((state, i) =>
       valueText.set(
         o.values[i]!,
-        isAdditional(state)
-          ? additionalResult(state).text
-          : state.kind === "ALGEBRA"
-            ? solveQcpQuadratic(state).selectedText
-            : String(o.values[i]!),
+        state.kind === "SOURCE_CATALOG"
+          ? catalogResult(state).text
+          : isAdditional(state)
+            ? additionalResult(state).text
+            : state.kind === "ALGEBRA"
+              ? solveQcpQuadratic(state).selectedText
+              : String(o.values[i]!),
       ),
     );
   const display = (value: number) => valueText.get(value) ?? String(value);

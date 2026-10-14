@@ -50,3 +50,15 @@ The V3 technical review covers the foundation runtime and these three word-probl
 V4 adds `sourceMode: "ADDITIONAL"` for nine same-family story comparisons: compound interest, work, boats, trains, ages, urn probability, triangle mensuration, repeated remove/refill and cost-price recovery from two selling conditions. All use existing source truth. `sourceMode: "IRRATIONAL"` compares positive roots of `x² = d k²`, with `d ∈ {2,3,5}` and positive integer k. Explanations preserve exact fractions and surds. The finite V4 generator grammar is technically frozen with 21,540 audited packages; lifecycle permissions remain unchanged.
 
 Source limits remain explicit: the 20 publisher comparison fixtures do not certify generated coverage of every source story. Five quarantined source items remain held. General mixed-radical/coefficient quadratics, other geometry shapes and more complex source-story combinations are outside the declared V4 grammar. Whole-source saturation is not asserted. See `docs/audits/qcp-content-review-v4-2026-10-13.md` for the exact scope and validation limits.
+
+
+## V5 reviewed-source catalogue
+
+`SOURCE_CATALOG` admits 20 source patterns with 59 bounded scale variants and
+records five final exclusions in the source ledger. It supports both banking
+profiles and EN/HI/PA while preserving review-only lifecycle locks. Use
+`sourcePattern: "BA22-03", sourceScale: 1` for the canonical cylinder scaling case.
+See `catalog-schema.ts`, `catalog-audit.ts` and
+`docs/audits/qcp-content-review-v5-2026-10-14.md` for the finite contract and evidence.
+The implemented catalogue and the reviewed 25-item corpus are technically closed;
+all-publisher coverage and human/live approval are not certified.
