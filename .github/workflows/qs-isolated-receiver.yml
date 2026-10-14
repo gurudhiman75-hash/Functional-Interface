@@ -9,14 +9,16 @@ on:
       - 'artifacts/api-server/build-qs-task-receiver.mjs'
       - 'Dockerfile.examtree-qs-task-receiver'
       - 'cloudbuild.examtree-qs-task-receiver.yaml'
-      - '.github/workflows/qs-isolated-receiver.yml'
   workflow_dispatch:
+concurrency:
+  group: qs-isolated-receiver-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
   build-and-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
