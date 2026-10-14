@@ -1,7 +1,7 @@
 // Runtime-only package authority for the isolated task receiver.
 // The immutable JSON is generated in a separate build-time Node process.
 // NEVER import engine-registry/universal-executor into this API process.
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import type { UniversalStudioComputeInput } from "./universal-executor";
 
@@ -15,7 +15,12 @@ export type AsyncPackageDefinition = Record<string, unknown> & {
 let cached: AsyncPackageDefinition[] | undefined;
 export function listAsyncTaskPackages(): AsyncPackageDefinition[] {
   if (cached) return cached;
-  const location = path.join(process.cwd(), "artifacts/api-server/dist/question-studio-capabilities.json");
+  const candidates = [
+    path.join(process.cwd(), "artifacts/api-server/dist/question-studio-capabilities.json"),
+    path.join(process.cwd(), "dist/question-studio-capabilities.json"),
+  ];
+  const location = candidates.find(p=>existsSync(p));
+  if (!location) throw new Error("TASK_CAPABILITIES_MANIFEST_MISSING");
   const parsed = JSON.parse(readFileSync(location, "utf8")) as {packages?: unknown};
   if (!Array.isArray(parsed.packages) || !parsed.packages.length) {
     throw new Error("TASK_CAPABILITIES_MANIFEST_INVALID");
