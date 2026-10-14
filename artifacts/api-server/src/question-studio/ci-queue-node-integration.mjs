@@ -28,6 +28,25 @@ const mockModules={
       return {engineId:"reasoning-v1",packageId:"OPS-001"};
     }
   `,
+  "capabilities":`
+    export function validateAsyncTaskComputeInput(input) {
+      if (!input || input.request?.engineId!=="reasoning-v1" ||
+        input.request?.packageId!=="OPS-001" ||
+        !Number.isInteger(input.count) || input.count<1 || input.count>3 ||
+        input.request.count!==input.count ||
+        !Array.isArray(input.selectedCpIds) ||
+        input.request.language!=="en" ||
+        input.request.difficulty!=="Mixed") throw new Error("Invalid mock OPS-001 compute input");
+      return {engineId:"reasoning-v1",packageId:"OPS-001"};
+    }
+    export function listAsyncTaskPackages() {
+      return [{packageId:"OPS-001",engineId:"reasoning-v1",enabled:true,
+        lifecycleStage:"review",reviewSurfaceRequired:true,
+        manualApprovalRequired:true,questionBankWritable:false,
+        testEligible:false,publiclyPublishable:false,
+        automaticStudentPublication:false,productionReleaseAuthorized:false}];
+    }
+  `,
   "registry":`
     export function listQuestionStudioPackages() {
       return [{packageId:"OPS-001",engineId:"reasoning-v1",enabled:true,
@@ -45,6 +64,9 @@ const isolatedSource={
     buildCtx.onResolve({filter:/^\.\/(?:universal-executor|engine-registry)$/},arg=>({
       path:arg.path.includes("universal-executor")?"executor":"registry",
       namespace:"qs-ci-deps",
+    }));
+    buildCtx.onResolve({filter:/^\.\/async-task-package-capabilities$/},()=>({
+      path:"capabilities",namespace:"qs-ci-deps",
     }));
     buildCtx.onLoad({filter:/.*/,namespace:"qs-ci-deps"},arg=>({
       contents:mockModules[arg.path],loader:"js",resolveDir:process.cwd(),
