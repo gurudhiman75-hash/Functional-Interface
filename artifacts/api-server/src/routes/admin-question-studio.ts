@@ -46,13 +46,13 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
       SELECT COUNT(*)::int AS total
       FROM content.generation_runs r
       WHERE
-        (${subject}::text IS NULL OR r.request_snapshot ->> 'subject' = ${subject})
+        (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
         AND (
           ${chapter}::text IS NULL
-          OR r.request_snapshot ->> 'topic' = ${chapter}
-          OR r.request_snapshot ->> 'subtopic' = ${chapter}
+          OR COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic') = ${chapter}
+          OR COALESCE(r.request_snapshot ->> 'subtopic', r.request_snapshot -> 'request' ->> 'subtopic') = ${chapter}
         )
-        AND (${packageId}::text IS NULL OR r.request_snapshot ->> 'packageId' = ${packageId})
+        AND (${packageId}::text IS NULL OR COALESCE(r.request_snapshot ->> 'packageId', r.request_snapshot -> 'request' ->> 'packageId') = ${packageId})
         AND (
           ${status}::text IS NULL
           OR EXISTS (
@@ -65,11 +65,11 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         AND (
           ${searchPattern}::text IS NULL
           OR r.public_code ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'exam', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'subject', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'topic', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'subtopic', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'packageId', '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'exam', r.request_snapshot -> 'request' ->> 'exam'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'subtopic', r.request_snapshot -> 'request' ->> 'subtopic'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'packageId', r.request_snapshot -> 'request' ->> 'packageId'), '') ILIKE ${searchPattern}
           OR EXISTS (
             SELECT 1
             FROM content.generation_run_items qi
@@ -148,13 +148,13 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         ) AS "reviewSummary"
       FROM content.generation_runs r
       WHERE
-        (${subject}::text IS NULL OR r.request_snapshot ->> 'subject' = ${subject})
+        (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
         AND (
           ${chapter}::text IS NULL
-          OR r.request_snapshot ->> 'topic' = ${chapter}
-          OR r.request_snapshot ->> 'subtopic' = ${chapter}
+          OR COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic') = ${chapter}
+          OR COALESCE(r.request_snapshot ->> 'subtopic', r.request_snapshot -> 'request' ->> 'subtopic') = ${chapter}
         )
-        AND (${packageId}::text IS NULL OR r.request_snapshot ->> 'packageId' = ${packageId})
+        AND (${packageId}::text IS NULL OR COALESCE(r.request_snapshot ->> 'packageId', r.request_snapshot -> 'request' ->> 'packageId') = ${packageId})
         AND (
           ${status}::text IS NULL
           OR EXISTS (
@@ -167,11 +167,11 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         AND (
           ${searchPattern}::text IS NULL
           OR r.public_code ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'exam', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'subject', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'topic', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'subtopic', '') ILIKE ${searchPattern}
-          OR COALESCE(r.request_snapshot ->> 'packageId', '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'exam', r.request_snapshot -> 'request' ->> 'exam'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'subtopic', r.request_snapshot -> 'request' ->> 'subtopic'), '') ILIKE ${searchPattern}
+          OR COALESCE(COALESCE(r.request_snapshot ->> 'packageId', r.request_snapshot -> 'request' ->> 'packageId'), '') ILIKE ${searchPattern}
           OR EXISTS (
             SELECT 1
             FROM content.generation_run_items qi
@@ -251,11 +251,11 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
             AND (
               ${searchPattern}::text IS NULL
               OR r.public_code ILIKE ${searchPattern}
-              OR COALESCE(r.request_snapshot ->> 'exam', '') ILIKE ${searchPattern}
-              OR COALESCE(r.request_snapshot ->> 'subject', '') ILIKE ${searchPattern}
-              OR COALESCE(r.request_snapshot ->> 'topic', '') ILIKE ${searchPattern}
-              OR COALESCE(r.request_snapshot ->> 'subtopic', '') ILIKE ${searchPattern}
-              OR COALESCE(r.request_snapshot ->> 'packageId', '') ILIKE ${searchPattern}
+              OR COALESCE(COALESCE(r.request_snapshot ->> 'exam', r.request_snapshot -> 'request' ->> 'exam'), '') ILIKE ${searchPattern}
+              OR COALESCE(COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject'), '') ILIKE ${searchPattern}
+              OR COALESCE(COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic'), '') ILIKE ${searchPattern}
+              OR COALESCE(COALESCE(r.request_snapshot ->> 'subtopic', r.request_snapshot -> 'request' ->> 'subtopic'), '') ILIKE ${searchPattern}
+              OR COALESCE(COALESCE(r.request_snapshot ->> 'packageId', r.request_snapshot -> 'request' ->> 'packageId'), '') ILIKE ${searchPattern}
               OR COALESCE(v.payload ->> 'text', '') ILIKE ${searchPattern}
               OR COALESCE(v.payload ->> 'stem', '') ILIKE ${searchPattern}
               OR COALESCE(v.payload ->> 'selectedCpId', '') ILIKE ${searchPattern}
