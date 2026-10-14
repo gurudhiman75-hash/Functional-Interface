@@ -31,8 +31,9 @@ jobs:
       - name: Bundle and execute staging unified catalog builder
         run: |
           set -eu
-          pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-unified-admin-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=/tmp/qs-unified-catalog-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
-          QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT=/tmp/qs-unified-catalog.json node /tmp/qs-unified-catalog-builder.mjs
+          mkdir -p artifacts/api-server/dist
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-unified-admin-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=dist/qs-unified-catalog-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
+          QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT=/tmp/qs-unified-catalog.json node artifacts/api-server/dist/qs-unified-catalog-builder.mjs
           node --input-type=module -e '
           import {readFileSync} from "node:fs";
           const m=JSON.parse(readFileSync("/tmp/qs-unified-catalog.json","utf8"));
