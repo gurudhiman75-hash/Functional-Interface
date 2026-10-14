@@ -27,7 +27,8 @@ test("single Neon transaction locks run and checks fenced lease before insert",(
   assert.match(commit,/ASYNC_REVIEW_STALE_LEASE/);
   assert.match(commit,/status!=="running"/);
   assert.match(commit,/validateQuestionStudioAsyncReviewBatch/);
-  assert.match(commit,/validateUniversalStudioComputeInput\(canonical\)/);
+  assert.match(commit,/validateAsyncTaskComputeInput\(canonical\)/);
+  assert.doesNotMatch(commit,/import .*engine-registry|import .*universal-executor.*validateUniversalStudioComputeInput/);
   assert.ok(commit.indexOf("FROM content.generation_run_task_leases") <
     commit.indexOf("INSERT INTO content.generation_run_items"));
   assert.match(commit,/INSERT INTO content\.generation_run_items/);
@@ -48,7 +49,10 @@ test("duplicate task after commit returns same review and verifies complete init
 });
 
 test("worker cannot self-authorize Question Bank eligibility via output",()=>{
-  assert.match(commit,/listQuestionStudioPackages\(\)/);
+  assert.match(commit,/listAsyncTaskPackages\(\)/);
+  const manifest=read("artifacts/api-server/src/question-studio/async-task-package-capabilities.ts");
+  assert.match(manifest,/question-studio-capabilities\.json/);
+  assert.doesNotMatch(manifest,/from ["']\.\/engine-registry["']/);
   assert.match(commit,/questionBankWritable:pkg\.questionBankWritable/);
   assert.match(commit,/manualApprovalRequired:pkg\.manualApprovalRequired/);
   assert.match(commit,/\.\.\.question,\s*\.\.\.lifecycle/);
