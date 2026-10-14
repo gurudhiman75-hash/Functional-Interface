@@ -1,0 +1,47 @@
+name: Validate QS built unified admin catalog
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/build-unified-admin-capabilities-manifest.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-capabilities.ts'
+      - 'artifacts/api-server/build-runtime.mjs'
+      - 'Dockerfile.examtree-cloudrun-api'
+      - 'tests/qs-built-unified-admin-manifest-contract.test.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: qs-built-catalog-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: node --test tests/qs-built-unified-admin-manifest-contract.test.mjs
+      - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Bundle and execute staging unified catalog builder
+        run: |
+          set -eu
+          mkdir -p artifacts/api-server/dist
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-unified-admin-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=dist/qs-unified-catalog-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
+          QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT=/tmp/qs-unified-catalog.json node artifacts/api-server/dist/qs-unified-catalog-builder.mjs
+          node --input-type=module -e '
+          import {readFileSync} from "node:fs";
+          const m=JSON.parse(readFileSync("/tmp/qs-unified-catalog.json","utf8"));
+          const expected={"TRG-002":"quant-v4","OPS-001":"reasoning-v1","ENG-001":"language-v1","COM-001":"knowledge-v1"};
+          for(const [id,engine] of Object.entries(expected)){
+            if(!m.packages.some(p=>p.packageId===id&&p.engineId===engine&&p.enabled&&p.label&&p.subject&&p.chapter))throw Error("Missing enabled catalog package "+id);
+          }
+          if(!m.packages.some(p=>p.subject==="Computer Awareness"))throw Error("Computer Awareness subject not exposed");
+          if(!m.packages.some(p=>p.subject==="English"))throw Error("English subject not exposed");
+          console.log("PASS: four engines, Computer Awareness, English, package titles");
+          '
