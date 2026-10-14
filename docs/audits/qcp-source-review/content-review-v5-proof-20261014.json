@@ -1,0 +1,264 @@
+{
+  "contract": "QCP-001-BANKING-RELATION-V5",
+  "date": "2026-10-14",
+  "totalSweepPackages": 28620,
+  "catalogSweepPackages": 7080,
+  "admittedReviewedPatterns": 20,
+  "reviewedCorpusItems": 25,
+  "finalExclusions": 5,
+  "allPublisherCoverageCertified": false,
+  "humanLiveApproval": "DEFERRED",
+  "newQcpTypeDiagnostics": 0,
+  "existingImportBaselineDiagnostics": 10,
+  "audits": [
+    {
+      "status": "PASS_QCP_001_PHASE0",
+      "questions": 300,
+      "deterministicReplayChecks": 300,
+      "independentVerificationChecks": 300,
+      "optionChecks": 1500,
+      "learnerSurfaceChecks": 300,
+      "mainsComplexityChecks": 150,
+      "relationClassesPerProfile": {
+        "BANKING_PRELIMS": 5,
+        "BANKING_MAINS": 5
+      },
+      "sourcePairsPerProfile": {
+        "BANKING_PRELIMS": 16,
+        "BANKING_MAINS": 16
+      },
+      "answerPositionsPerProfile": {
+        "BANKING_PRELIMS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "evidenceModesPerProfile": {
+        "BANKING_PRELIMS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ],
+        "BANKING_MAINS": [
+          "EXACT_EQUALITY",
+          "NON_STRICT_DETERMINATE",
+          "RELATION_CANNOT_BE_ESTABLISHED",
+          "STRICT_DETERMINATE"
+        ]
+      }
+    },
+    {
+      "status": "PASS_QCP_001_REVIEW_V2",
+      "oracleChecks": 961,
+      "english": 2400,
+      "native": 4800,
+      "replays": 2720,
+      "malformedRejected": 14,
+      "answerPositionsPerRelation": {
+        "BANKING_PRELIMS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_PRELIMS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_GREATER_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:QUANTITY_I_LESS_OR_EQUAL": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "BANKING_MAINS:EQUAL_OR_RELATION_CANNOT_BE_ESTABLISHED": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "displayedStatesPerSourcePair": {
+        "BANKING_PRELIMS:PERCENTAGE->PERCENTAGE": 45,
+        "BANKING_PRELIMS:PERCENTAGE->RATIO": 46,
+        "BANKING_PRELIMS:PERCENTAGE->NUMBER_SYSTEM": 43,
+        "BANKING_PRELIMS:PERCENTAGE->ALGEBRA": 46,
+        "BANKING_PRELIMS:RATIO->PERCENTAGE": 43,
+        "BANKING_PRELIMS:RATIO->RATIO": 41,
+        "BANKING_PRELIMS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_PRELIMS:RATIO->ALGEBRA": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->PERCENTAGE": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_PRELIMS:ALGEBRA->PERCENTAGE": 43,
+        "BANKING_PRELIMS:ALGEBRA->RATIO": 44,
+        "BANKING_PRELIMS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_PRELIMS:ALGEBRA->ALGEBRA": 30,
+        "BANKING_MAINS:PERCENTAGE->PERCENTAGE": 70,
+        "BANKING_MAINS:PERCENTAGE->RATIO": 66,
+        "BANKING_MAINS:PERCENTAGE->NUMBER_SYSTEM": 66,
+        "BANKING_MAINS:PERCENTAGE->ALGEBRA": 61,
+        "BANKING_MAINS:RATIO->PERCENTAGE": 65,
+        "BANKING_MAINS:RATIO->RATIO": 41,
+        "BANKING_MAINS:RATIO->NUMBER_SYSTEM": 44,
+        "BANKING_MAINS:RATIO->ALGEBRA": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->PERCENTAGE": 66,
+        "BANKING_MAINS:NUMBER_SYSTEM->RATIO": 46,
+        "BANKING_MAINS:NUMBER_SYSTEM->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:NUMBER_SYSTEM->ALGEBRA": 46,
+        "BANKING_MAINS:ALGEBRA->PERCENTAGE": 63,
+        "BANKING_MAINS:ALGEBRA->RATIO": 44,
+        "BANKING_MAINS:ALGEBRA->NUMBER_SYSTEM": 45,
+        "BANKING_MAINS:ALGEBRA->ALGEBRA": 30
+      }
+    },
+    {
+      "sourceComparisons": 20,
+      "quarantinedSourceItems": 5,
+      "comparisonOnlyAudit": true,
+      "sourceCatalogVerifiedSeparately": true
+    },
+    {
+      "status": "PASS_QCP_WORD_PROBLEMS_V3",
+      "packages": 5400,
+      "replays": 360,
+      "orderedPairsPerProfileLanguage": 9,
+      "relationClassesPerPair": 5,
+      "taskForms": [
+        "INTEREST:AMOUNT",
+        "INTEREST:INTEREST",
+        "INTEREST:PRINCIPAL",
+        "MIXTURE:MEAN:2",
+        "MIXTURE:MEAN:3",
+        "MIXTURE:UNKNOWN_PRICE:2",
+        "PROFIT_LOSS:COST_PRICE:LOSS",
+        "PROFIT_LOSS:COST_PRICE:PROFIT",
+        "PROFIT_LOSS:PROFIT_AMOUNT:LOSS",
+        "PROFIT_LOSS:PROFIT_AMOUNT:PROFIT",
+        "PROFIT_LOSS:SELLING_PRICE:LOSS",
+        "PROFIT_LOSS:SELLING_PRICE:PROFIT"
+      ],
+      "independentKnownAnswers": 8,
+      "malformedRejected": 10
+    },
+    {
+      "status": "PASS_QCP_ADDITIONAL_V4",
+      "packages": 8640,
+      "replays": 540,
+      "coveredFamilyProfileLanguages": 60,
+      "allFiveRelationsPerFamily": true,
+      "forms": [
+        "AGES:FUTURE",
+        "AGES:PAST",
+        "BOATS:DOWNSTREAM",
+        "BOATS:ROUND_TRIP",
+        "BOATS:UPSTREAM",
+        "COMPOUND_INTEREST:AMOUNT",
+        "COMPOUND_INTEREST:INTEREST",
+        "COMPOUND_INTEREST:PRINCIPAL",
+        "MENSURATION:TRIANGLE_AREA",
+        "MENSURATION:TRIANGLE_HEIGHT",
+        "PRICE_RECOVERY:COST_PRICE:20:LOSS",
+        "PRICE_RECOVERY:COST_PRICE:20:PROFIT",
+        "PRICE_RECOVERY:COST_PRICE:25:LOSS",
+        "PRICE_RECOVERY:COST_PRICE:25:PROFIT",
+        "PROBABILITY:CONDITIONAL",
+        "PROBABILITY:SINGLE",
+        "PROBABILITY:WITHOUT_REPLACEMENT",
+        "PROBABILITY:WITH_REPLACEMENT",
+        "REPLACEMENT:REMOVE_REFILL:1",
+        "REPLACEMENT:REMOVE_REFILL:2",
+        "TRAINS:OPPOSITE",
+        "TRAINS:SAME",
+        "WORK:COMBINED",
+        "WORK:MISSING"
+      ],
+      "radicands": [
+        2,
+        3,
+        5
+      ],
+      "knownAnswers": 13,
+      "malformedRejected": 41,
+      "wholeSourceSaturation": false
+    },
+    {
+      "catalogPackages": 7080,
+      "canonicalCases": 20,
+      "scaleVariants": 59,
+      "deterministicReplays": 354,
+      "negativeCases": 308,
+      "admittedPatterns": 20,
+      "excludedSources": {
+        "BA24-05": "Remaining time versus total elapsed time reverses the relation.",
+        "BA24-07": "Published key conflicts with exact equality (108 = 108).",
+        "BA24-08": "Published key conflicts with the numerical comparison (10 < 20).",
+        "BA24-09": "Single-colour versus colour-union event reverses the relation.",
+        "BA24-17": "The work group after the changes is unspecified and reverses the relation."
+      },
+      "corpusCoverage": "20_ADMITTED_PATTERNS_5_FINAL_EXCLUSIONS",
+      "allPublisherCoverageCertified": false,
+      "liveApprovalDeferred": true
+    }
+  ]
+}

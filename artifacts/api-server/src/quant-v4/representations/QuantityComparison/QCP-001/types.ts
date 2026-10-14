@@ -1,7 +1,9 @@
+import type { QcpCatalogState } from "./catalog-schema";
 export type Qcp001Language = "en" | "hi" | "pa";
 
 export type Qcp001ExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
 export type Qcp001SourceFamily =
+  | "SOURCE_CATALOG"
   | "PERCENTAGE"
   | "RATIO"
   | "NUMBER_SYSTEM"
@@ -156,6 +158,7 @@ export type Qcp001AdditionalState =
     }>;
 
 export type Qcp001SourceState =
+  | QcpCatalogState
   | Qcp001PercentageState
   | Qcp001RatioState
   | Qcp001NumberSystemState
@@ -167,6 +170,7 @@ export interface Qcp001Operand {
   readonly label: "Quantity I" | "Quantity II";
   readonly sourceFamily: Qcp001SourceFamily;
   readonly sourcePackageId:
+    | "QCP-001"
     | "PCT-001"
     | "RAP-001"
     | "NUM-001"
@@ -181,6 +185,7 @@ export interface Qcp001Operand {
     | "PRB-002"
     | "MEN-001";
   readonly sourceSolveMode:
+    | "reviewedSourcePattern"
     | "percentOf"
     | "scalingByComponent"
     | "positiveMod"
@@ -248,6 +253,7 @@ export interface Qcp001Question {
   readonly traceability: Readonly<{
     representationOwner: "QCP-001";
     sourceTruthOwners: readonly (
+      | "PNC-001"
       | "PCT-001"
       | "RAP-001"
       | "NUM-001"
@@ -265,7 +271,9 @@ export interface Qcp001Question {
     contractVersion:
       | "QCP-001-BANKING-RELATION-V2"
       | "QCP-001-BANKING-RELATION-V3"
-      | "QCP-001-BANKING-RELATION-V4";
+      | "QCP-001-BANKING-RELATION-V4"
+      | "QCP-001-BANKING-RELATION-V5";
+    // Catalogue V5 is a bounded reviewed-source composition contract.
     reviewStatus: "UNREVIEWED";
     questionStudioDiscoverable: false;
     questionBankStatus: "NOT_STORED";

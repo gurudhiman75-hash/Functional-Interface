@@ -1,3 +1,6 @@
+import { independentlySolveCatalog } from "./catalog-independent";
+import { catalogRootCount, catalogTruthOwners } from "./catalog-schema";
+import { catalogPrompt } from "./catalog-display";
 import { quadraticOperandPrompt } from "./quadratic-source";
 import { independentlySolveAdditional } from "./additional-independent";
 import { additionalOperandPrompt } from "./additional-display";
@@ -14,6 +17,7 @@ import type {
 
 function recomputeSourceState(state: Qcp001SourceState): number {
   if (!state || typeof state !== "object") throw Error("Invalid source state.");
+  if (state.kind === "SOURCE_CATALOG") return independentlySolveCatalog(state);
   if (
     [
       "COMPOUND_INTEREST",
@@ -218,6 +222,7 @@ export function independentlyVerifyQcp001Question(
         "RELATION_CANNOT_BE_ESTABLISHED",
       ] as const);
   const bindings = {
+    SOURCE_CATALOG: ["QCP-001", "reviewedSourcePattern"],
     PERCENTAGE: ["PCT-001", "percentOf"],
     RATIO: ["RAP-001", "scalingByComponent"],
     NUMBER_SYSTEM: ["NUM-001", "positiveMod"],
@@ -254,6 +259,33 @@ export function independentlyVerifyQcp001Question(
       );
     },
   );
+  const catalogBinding =
+    [question.quantityI, question.quantityII].every((o, i) => {
+      if (o.sourceFamily !== "SOURCE_CATALOG") return true;
+      if (!domainValid) return false;
+      const first = o.states[0];
+      if (first?.kind !== "SOURCE_CATALOG") return false;
+      return (
+        o.states.length === catalogRootCount(first) &&
+        o.states.every(
+          (s, index) =>
+            s.kind === "SOURCE_CATALOG" &&
+            s.quantity === (i === 0 ? "I" : "II") &&
+            s.pattern === first.pattern &&
+            s.scale === first.scale &&
+            s.rootIndex === index,
+        ) &&
+        o.prompt === catalogPrompt(first, question.language)
+      );
+    }) &&
+    ((question.quantityI.sourceFamily !== "SOURCE_CATALOG" &&
+      question.quantityII.sourceFamily !== "SOURCE_CATALOG") ||
+      (question.quantityI.states[0]?.kind === "SOURCE_CATALOG" &&
+        question.quantityII.states[0]?.kind === "SOURCE_CATALOG" &&
+        question.quantityI.states[0].pattern ===
+          question.quantityII.states[0].pattern &&
+        question.quantityI.states[0].scale ===
+          question.quantityII.states[0].scale));
   const quadraticCompleteness = [question.quantityI, question.quantityII].every(
     (o) => {
       if (o.sourceFamily !== "ALGEBRA") return true;
@@ -293,6 +325,17 @@ export function independentlyVerifyQcp001Question(
       left.every(Number.isFinite) &&
       right.every(Number.isFinite),
     sourceBinding,
+    catalogBinding,
+    catalogTraceBinding:
+      question.quantityI.sourceFamily !== "SOURCE_CATALOG" ||
+      (domainValid &&
+        question.quantityI.states[0]?.kind === "SOURCE_CATALOG" &&
+        question.traceability.contractVersion ===
+          "QCP-001-BANKING-RELATION-V5" &&
+        JSON.stringify(question.traceability.sourceTruthOwners) ===
+          JSON.stringify(
+            catalogTruthOwners(question.quantityI.states[0].pattern),
+          )),
     quadraticCompleteness,
     quadraticPromptBinding:
       domainValid &&
@@ -330,9 +373,21 @@ export function independentlyVerifyQcp001Question(
           o.prompt === wordOperandPrompt(o, question.language),
       ),
     sourceIParity:
-      JSON.stringify(left) === JSON.stringify(question.quantityI.values),
+      left.length === question.quantityI.values.length &&
+      left.every((v, i) =>
+        question.quantityI.sourceFamily === "SOURCE_CATALOG"
+          ? Math.abs(v - question.quantityI.values[i]!) <=
+            1e-12 * Math.max(1, Math.abs(v))
+          : v === question.quantityI.values[i],
+      ),
     sourceIIParity:
-      JSON.stringify(right) === JSON.stringify(question.quantityII.values),
+      right.length === question.quantityII.values.length &&
+      right.every((v, i) =>
+        question.quantityII.sourceFamily === "SOURCE_CATALOG"
+          ? Math.abs(v - question.quantityII.values[i]!) <=
+            1e-12 * Math.max(1, Math.abs(v))
+          : v === question.quantityII.values[i],
+      ),
     relationParity: recomputedRelation === question.answerClass,
     evidenceParity: evidence === question.answerEvidenceMode,
     profile: ["BANKING_PRELIMS", "BANKING_MAINS"].includes(

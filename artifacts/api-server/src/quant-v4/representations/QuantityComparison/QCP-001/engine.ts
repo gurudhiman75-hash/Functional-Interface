@@ -1,4 +1,10 @@
 import {
+  QCP_CATALOG_PATTERNS,
+  catalogTruthOwners,
+  type QcpCatalogPattern,
+} from "./catalog-schema";
+import { catalogResult, buildCatalogOperand } from "./catalog-source";
+import {
   ADDITIONAL_FAMILIES,
   ADDITIONAL_BINDINGS,
   isAdditional,
@@ -155,6 +161,7 @@ function rapParameters(
 }
 
 function solveSourceState(state: Qcp001SourceState): number {
+  if (state.kind === "SOURCE_CATALOG") return catalogResult(state).value;
   if (isAdditional(state)) return additionalResult(state).value;
   if (isWordState(state)) return solveWordState(state);
   if (state.kind === "ALGEBRA") return solveQcpQuadratic(state).value;
@@ -186,6 +193,7 @@ function stateWorking(
   state: Qcp001SourceState,
   label: "Quantity I" | "Quantity II",
 ): string {
+  if (state.kind === "SOURCE_CATALOG") return catalogResult(state).working;
   if (isAdditional(state))
     return additionalWorking(state, additionalResult(state).text);
   if (isWordState(state))
@@ -689,7 +697,14 @@ function generateBaseQcp001Question(
   input: {
     seed?: string;
     examProfile?: Qcp001ExamProfile;
-    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS" | "ADDITIONAL" | "IRRATIONAL";
+    sourceMode?:
+      | "FOUNDATION"
+      | "WORD_PROBLEMS"
+      | "ADDITIONAL"
+      | "IRRATIONAL"
+      | "SOURCE_CATALOG";
+    sourcePattern?: QcpCatalogPattern;
+    sourceScale?: number;
   } = {},
 ): Qcp001Question {
   const seed = input.seed ?? "QCP-001:PHASE0:1";
@@ -703,7 +718,7 @@ function generateBaseQcp001Question(
     );
 
   const index = seedIndex(seed);
-  const answerClass =
+  let answerClass =
     QCP_001_RELATION_CLASSES[(index - 1) % QCP_001_RELATION_CLASSES.length]!;
   const pairs =
     input.sourceMode === "ADDITIONAL"
@@ -722,7 +737,7 @@ function generateBaseQcp001Question(
   const [targetI, targetII] = targets.map((values) =>
     small ? values.map((value) => value / 60) : values,
   ) as [number[], number[]];
-  const quantityI = buildOperand(
+  let quantityI = buildOperand(
     familyI,
     "Quantity I",
     targetI,
@@ -731,7 +746,7 @@ function generateBaseQcp001Question(
     hashText(`${seed}:additional-variant`),
     input.sourceMode === "IRRATIONAL",
   );
-  const quantityII = buildOperand(
+  let quantityII = buildOperand(
     familyII,
     "Quantity II",
     targetII,
@@ -741,6 +756,27 @@ function generateBaseQcp001Question(
     input.sourceMode === "IRRATIONAL",
   );
 
+  if (input.sourceMode === "SOURCE_CATALOG") {
+    if (
+      input.sourcePattern !== undefined &&
+      !QCP_CATALOG_PATTERNS.includes(input.sourcePattern)
+    )
+      throw Error("Unsupported reviewed source pattern");
+    if (
+      input.sourceScale !== undefined &&
+      !Number.isSafeInteger(input.sourceScale)
+    )
+      throw Error("Unsupported reviewed source scale");
+    const pattern =
+      input.sourcePattern ??
+      QCP_CATALOG_PATTERNS[(index - 1) % QCP_CATALOG_PATTERNS.length]!;
+    const scale =
+      input.sourceScale ??
+      1 + (hashText(`${seed}:catalog-scale`) % (pattern === "BA24-02" ? 2 : 3));
+    quantityI = buildCatalogOperand(pattern, scale, "I");
+    quantityII = buildCatalogOperand(pattern, scale, "II");
+    answerClass = classifyQcp001Relation(quantityI.values, quantityII.values);
+  }
   const actualClass = classifyQcp001Relation(
     quantityI.values,
     quantityII.values,
@@ -762,11 +798,13 @@ function generateBaseQcp001Question(
     o.states.forEach((state, i) =>
       exact.set(
         o.values[i]!,
-        isAdditional(state)
-          ? additionalResult(state).text
-          : state.kind === "ALGEBRA"
-            ? solveQcpQuadratic(state).selectedText
-            : formatNumber(o.values[i]!),
+        state.kind === "SOURCE_CATALOG"
+          ? catalogResult(state).text
+          : isAdditional(state)
+            ? additionalResult(state).text
+            : state.kind === "ALGEBRA"
+              ? solveQcpQuadratic(state).selectedText
+              : formatNumber(o.values[i]!),
       ),
     );
   const display = (n: number) => exact.get(n) ?? formatNumber(n);
@@ -792,7 +830,7 @@ function generateBaseQcp001Question(
   const withoutValidation: Omit<Qcp001Question, "validation"> = {
     packageId: "QCP-001",
     representation: "QUANTITY_COMPARISON",
-    questionId: `QCP-001-${hashText(`${seed}:${examProfile}${input.sourceMode && input.sourceMode !== "FOUNDATION" ? `:${input.sourceMode}` : ""}`).toString(36)}`,
+    questionId: `QCP-001-${hashText(`${seed}:${examProfile}${input.sourceMode && input.sourceMode !== "FOUNDATION" ? `:${input.sourceMode}${input.sourceMode === "SOURCE_CATALOG" ? `:${quantityI.states[0]?.kind === "SOURCE_CATALOG" ? quantityI.states[0].pattern + ":" + quantityI.states[0].scale : ""}` : ""}` : ""}`).toString(36)}`,
     seed,
     language: "en",
     examProfile,
@@ -829,29 +867,38 @@ function generateBaseQcp001Question(
     traceability: {
       representationOwner: "QCP-001",
       sourceTruthOwners:
-        input.sourceMode === "ADDITIONAL"
-          ? [
-              "INT-001",
-              "TMW-001",
-              "TSD-002",
-              "ALG-001",
-              "PRB-001",
-              "PRB-002",
-              "MEN-001",
-              "MAL-001",
-              "PNL-001",
-            ]
-          : input.sourceMode === "IRRATIONAL"
-            ? ["ALG-002"]
-            : input.sourceMode === "WORD_PROBLEMS"
-              ? ["PNL-001", "INT-001", "MAL-001"]
-              : ["PCT-001", "RAP-001", "NUM-001", "ALG-002"],
+        input.sourceMode === "SOURCE_CATALOG"
+          ? catalogTruthOwners(
+              quantityI.states[0]!.kind === "SOURCE_CATALOG"
+                ? quantityI.states[0].pattern
+                : "BA24-01",
+            )
+          : input.sourceMode === "ADDITIONAL"
+            ? [
+                "INT-001",
+                "TMW-001",
+                "TSD-002",
+                "ALG-001",
+                "PRB-001",
+                "PRB-002",
+                "MEN-001",
+                "MAL-001",
+                "PNL-001",
+              ]
+            : input.sourceMode === "IRRATIONAL"
+              ? ["ALG-002"]
+              : input.sourceMode === "WORD_PROBLEMS"
+                ? ["PNL-001", "INT-001", "MAL-001"]
+                : ["PCT-001", "RAP-001", "NUM-001", "ALG-002"],
       contractVersion:
-        input.sourceMode === "ADDITIONAL" || input.sourceMode === "IRRATIONAL"
-          ? "QCP-001-BANKING-RELATION-V4"
-          : input.sourceMode === "WORD_PROBLEMS"
-            ? "QCP-001-BANKING-RELATION-V3"
-            : "QCP-001-BANKING-RELATION-V2",
+        input.sourceMode === "SOURCE_CATALOG"
+          ? "QCP-001-BANKING-RELATION-V5"
+          : input.sourceMode === "ADDITIONAL" ||
+              input.sourceMode === "IRRATIONAL"
+            ? "QCP-001-BANKING-RELATION-V4"
+            : input.sourceMode === "WORD_PROBLEMS"
+              ? "QCP-001-BANKING-RELATION-V3"
+              : "QCP-001-BANKING-RELATION-V2",
       reviewStatus: "UNREVIEWED",
       questionStudioDiscoverable: false,
       questionBankStatus: "NOT_STORED",
@@ -875,16 +922,32 @@ export function generateQcp001Question(
     seed?: string;
     examProfile?: Qcp001ExamProfile;
     language?: Qcp001Language;
-    sourceMode?: "FOUNDATION" | "WORD_PROBLEMS" | "ADDITIONAL" | "IRRATIONAL";
+    sourceMode?:
+      | "FOUNDATION"
+      | "WORD_PROBLEMS"
+      | "ADDITIONAL"
+      | "IRRATIONAL"
+      | "SOURCE_CATALOG";
+    sourcePattern?: QcpCatalogPattern;
+    sourceScale?: number;
   } = {},
 ): Qcp001Question {
   if (
     input.sourceMode !== undefined &&
-    !["FOUNDATION", "WORD_PROBLEMS", "ADDITIONAL", "IRRATIONAL"].includes(
-      input.sourceMode,
-    )
+    ![
+      "FOUNDATION",
+      "WORD_PROBLEMS",
+      "ADDITIONAL",
+      "IRRATIONAL",
+      "SOURCE_CATALOG",
+    ].includes(input.sourceMode)
   )
     throw Error("Unsupported QCP source mode");
+  if (
+    input.sourceMode !== "SOURCE_CATALOG" &&
+    (input.sourcePattern !== undefined || input.sourceScale !== undefined)
+  )
+    throw Error("Source pattern and scale require catalogue mode");
   const language = input.language ?? "en";
   if (!["en", "hi", "pa"].includes(language))
     throw new Error("QCP-001 unsupported language.");

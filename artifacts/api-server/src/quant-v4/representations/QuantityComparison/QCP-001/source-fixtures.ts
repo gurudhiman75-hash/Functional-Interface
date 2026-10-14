@@ -40,6 +40,7 @@ export function auditQcpSourceComparisons() {
   return {
     sourceComparisons: fixtures.length,
     quarantinedSourceItems: 5,
-    generatedWordProblemCoverageCertified: false,
+    comparisonOnlyAudit: true,
+    sourceCatalogVerifiedSeparately: true,
   };
 }
