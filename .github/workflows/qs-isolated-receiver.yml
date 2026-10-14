@@ -45,6 +45,7 @@ jobs:
       - name: Smoke /health and reject missing task OIDC
         run: |
           DATABASE_URL=postgresql://test:test@127.0.0.1:5432/neondb \
+          EXAMTREE_API_RUNTIME=cloud-run \
           EXAMTREE_API_STAGING=true \
           EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED=true \
           EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED=true \
