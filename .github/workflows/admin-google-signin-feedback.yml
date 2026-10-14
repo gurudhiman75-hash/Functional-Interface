@@ -1,0 +1,30 @@
+name: Validate admin Google sign-in feedback
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/admin-app/src/integrations/ExamTreeAdminGate.tsx'
+      - 'artifacts/admin-app/src/App.tsx'
+      - 'tests/admin-google-signin-feedback.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: admin-signin-feedback-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: node --test tests/admin-google-signin-feedback.test.mjs
+      - run: pnpm install --frozen-lockfile --filter @workspace/examtree-admin...
+      - run: pnpm --dir artifacts/admin-app exec tsc --noEmit -p tsconfig.app.json
