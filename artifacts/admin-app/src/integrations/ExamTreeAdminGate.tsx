@@ -25,19 +25,41 @@ class AdminBootstrapError extends Error {
 }
 
 async function bootstrap(token: string): Promise<AdminSession> {
-  const response = await fetch(`${apiBase}/admin/session/bootstrap`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const body = await response.json().catch(() => null) as (AdminSession & { error?: string; code?: string }) | null;
-  if (!response.ok || !body) {
+  // A cold Cloud Run instance or a broken API bridge must not leave the admin
+  // login silently waiting after Google account selection.
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 30000);
+  try {
+    const response = await fetch(`${apiBase}/admin/session/bootstrap`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      signal: controller.signal,
+      cache: 'no-store',
+    });
+    const body = await response.json().catch(() => null) as (AdminSession & { error?: string; code?: string }) | null;
+    if (!response.ok || !body) {
+      throw new AdminBootstrapError(
+        body?.error || `Administrator session returned HTTP ${response.status}`,
+        response.status,
+        body?.code,
+      );
+    }
+    return body;
+  } catch (error) {
+    if (error instanceof AdminBootstrapError) throw error;
+    if (controller.signal.aborted) {
+      throw new AdminBootstrapError(
+        'The admin API did not respond within 30 seconds. Try again or check the Question Studio Cloud Run service.',
+        0, 'ADMIN_BOOTSTRAP_TIMEOUT',
+      );
+    }
     throw new AdminBootstrapError(
-      body?.error || 'Administrator access could not be verified',
-      response.status,
-      body?.code,
+      'Unable to contact the admin API. Check the Cloudflare Question Studio API routing.',
+      0, 'ADMIN_BOOTSTRAP_NETWORK_ERROR',
     );
+  } finally {
+    window.clearTimeout(timer);
   }
-  return body;
 }
 
 function GateMessage({ title, message, children }: { title: string; message: string; children?: ReactNode }) {
@@ -52,7 +74,7 @@ function GateMessage({ title, message, children }: { title: string; message: str
   );
 }
 
-function AdminSignInPanel({ message }: { message?: string }) {
+function AdminSignInPanel({ message, onGoogleAuthenticated }: { message?: string; onGoogleAuthenticated: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -67,7 +89,12 @@ function AdminSignInPanel({ message }: { message?: string }) {
     setSubmitting(true);
     setError(null);
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider());
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      await signInWithPopup(auth, provider);
+      // onAuthStateChanged owns the token/bootstrap; make the transition
+      // visible even when its notification is delayed after the popup closes.
+      onGoogleAuthenticated();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Google sign-in failed.');
     } finally {
@@ -157,6 +184,9 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
         return;
       }
 
+      // Previously we kept showing the sign-in form while verifying the
+      // server-side admin role, making a completed Google popup look inert.
+      setState({ status: 'loading' });
       try {
         const nextSession = await bootstrap(await firebaseUser.getIdToken());
         if (!active) return;
@@ -184,13 +214,14 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
   if (state.status === 'loading') {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-sm text-muted-foreground">
-        Verifying ExamTree administrator access…
+        Verifying Firebase sign-in and checking your ExamTree admin role…
       </div>
     );
   }
 
   if (state.status === 'sign-in') {
-    return <AdminSignInPanel message={state.message} />;
+    return <AdminSignInPanel message={state.message}
+      onGoogleAuthenticated={() => setState({ status: 'loading' })} />;
   }
 
   if (state.status === 'pending') {
