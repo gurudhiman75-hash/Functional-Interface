@@ -83,7 +83,7 @@ const corsOptions: CorsOptions = {
   },
   credentials: true,
   methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Examtree-Device", "X-Correlation-Id"],
+  allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key", "X-Examtree-Device", "X-Correlation-Id"],
   exposedHeaders: ["X-Correlation-Id"],
   optionsSuccessStatus: 204,
 };
