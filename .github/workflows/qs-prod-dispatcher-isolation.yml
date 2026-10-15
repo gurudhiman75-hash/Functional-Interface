@@ -7,7 +7,6 @@ on:
       - 'artifacts/api-server/build-qs-prod-dispatcher.mjs'
       - 'Dockerfile.examtree-qs-prod-dispatcher'
       - 'tests/qs-prod-dispatcher-isolation.test.mjs'
-      - '.github/workflows/qs-prod-dispatcher-isolation.yml'
 permissions:
   contents: read
 concurrency:
