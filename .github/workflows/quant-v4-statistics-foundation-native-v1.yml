@@ -1,0 +1,49 @@
+name: Quant V4 Statistics foundation native V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: statistics-foundation-native-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation-native-parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Native parity, English baseline and Question Studio routing
+        working-directory: artifacts/api-server
+        run: |
+          mkdir -p dist/audits/statistics-native-v1
+          for audit in shared/foundation-native-v1.test shared/foundation-native-studio-v1.test
+          do
+            target="$(basename "$audit")"
+            pnpm exec esbuild "src/quant-v4/topics/Statistics/$audit.ts" \
+              --bundle --platform=node --format=esm --packages=external \
+              --outfile="dist/audits/statistics-native-v1/$target.mjs"
+            node "dist/audits/statistics-native-v1/$target.mjs" > "dist/audits/statistics-native-v1/$target.log"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: statistics-foundation-native-v1
+          path: artifacts/api-server/dist/audits/statistics-native-v1/*.log
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
