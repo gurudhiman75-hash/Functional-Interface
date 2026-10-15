@@ -271,6 +271,52 @@ export function getQuestionStudioRunProgress(runId: string) {
   );
 }
 
+/**
+ * Read-only status of real (outbox-backed) Question Studio staging requests.
+ * Synthetic validation records are deliberately excluded by the server.
+ * Does not assert Cloud Scheduler/Tasks state, which requires GCP telemetry.
+ */
+export interface QuestionStudioStagingOperations {
+  source: 'isolated-neon-outbox';
+  windowDays: number;
+  checkedAt: string;
+  requiresAttention: boolean;
+  metrics: {
+    total: number;
+    queued: number;
+    running: number;
+    completed: number;
+    failed: number;
+    overdue: number;
+    awaitingDispatch: number;
+    dispatchDelayed: number;
+    taskDelayed: number;
+    expiredLeases: number;
+  };
+  lastCompletedAt: string | null;
+  lastDispatchedAt: string | null;
+  lastEnqueuedAt: string | null;
+  incidents: Array<{
+    publicCode: string;
+    status: string;
+    reason: string;
+    createdAt: string | null;
+    dueAt: string | null;
+    dispatchedAt: string | null;
+    dispatchAttempts: number;
+    taskAttempts: number;
+  }>;
+  infrastructureStatus: 'not-verified-by-database';
+}
+
+export function getQuestionStudioStagingOperations() {
+  return adminRequest<QuestionStudioStagingOperations>(
+    '/admin/question-studio/operations/staging',
+    undefined,
+    { fallbackMessage: 'Unable to check staging generation operations.' },
+  );
+}
+
 export function createGenerationRun(input: CreateGenerationRunInput) {
   return adminRequest<{
     id: string;
