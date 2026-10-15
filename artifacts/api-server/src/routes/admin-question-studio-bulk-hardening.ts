@@ -16,6 +16,7 @@ import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality"
 import { authenticate } from "../middlewares/auth";
 import adminQuestionStudioRunStatusRouter from "./admin-question-studio-run-status";
 import adminQuestionStudioAsyncStagingRouter from "./admin-question-studio-async-staging";
+import adminQuestionStudioAsyncOperationsRouter from "./admin-question-studio-async-operations";
 
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -78,6 +79,8 @@ router.use(adminQuestionStudioRunStatusRouter);
 router.use(authenticate);
 
 // Explicit isolated-stage API; does not change the canonical Generate handler.
+// RBAC-protected, read-only staging operational view; avoid loading engine code.
+router.use(adminQuestionStudioAsyncOperationsRouter);
 router.use(adminQuestionStudioAsyncStagingRouter);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {

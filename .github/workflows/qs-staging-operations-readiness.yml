@@ -1,0 +1,35 @@
+name: Validate QS staging operations readiness
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-operations.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+      - 'tests/qs-staging-operations-observability.test.mjs'
+      - 'docs/examtree-qs-async-operations-readiness-2026-10-15.md'
+permissions:
+  contents: read
+concurrency:
+  group: qs-staging-operations-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: node --test tests/qs-staging-operations-observability.test.mjs
+      - run: pnpm install --frozen-lockfile --filter @workspace/api-server... --filter @workspace/examtree-admin...
+      - name: Typecheck admin cockpit
+        run: pnpm --dir artifacts/admin-app exec tsc --noEmit -p tsconfig.app.json
+      - name: Compile isolated operational API route
+        run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-async-operations.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/qs-staging-operations-check.mjs
