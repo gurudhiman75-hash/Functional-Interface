@@ -52,6 +52,8 @@ import {
   type CreateGenerationRunInput,
   enqueueQuestionStudioStagingRun,
   getQuestionStudioRunProgress,
+  getQuestionStudioStagingOperations,
+  type QuestionStudioStagingOperations,
 } from '@/features/question-studio/api';
 import {
   analyzeItemQuality,
@@ -214,6 +216,8 @@ export function QuestionStudioCockpitPage() {
   const [stagingAsyncSubmitting, setStagingAsyncSubmitting] = useState(false);
   const [stagingAsyncRun, setStagingAsyncRun] = useState<QuestionStudioRunProgress | null>(null);
   const [stagingAsyncPollError, setStagingAsyncPollError] = useState<string | null>(null);
+  const [stagingOperations, setStagingOperations] = useState<QuestionStudioStagingOperations | null>(null);
+  const [stagingOperationsError, setStagingOperationsError] = useState<string | null>(null);
   // Retain the same idempotency key after a transport error; never replay a
   // potentially committed request with a different key unless its input changes.
   const stagingAsyncRetry = useRef<{ signature: string; key: string } | null>(null);
@@ -302,6 +306,27 @@ export function QuestionStudioCockpitPage() {
   });
 
   const reviewRuns = reviewPage.runs;
+
+  // A bounded read-only summary of outbox-backed staging runs. Do not infer
+  // Cloud Tasks queue/Scheduler state from a healthy DB response.
+  useEffect(() => {
+    if (!STAGING_ASYNC_ENABLED) return;
+    let active = true;
+    const update = async () => {
+      try {
+        const result = await getQuestionStudioStagingOperations();
+        if (!active) return;
+        setStagingOperations(result);
+        setStagingOperationsError(null);
+      } catch (error) {
+        if (!active) return;
+        setStagingOperationsError(error instanceof Error ? error.message : 'Operational data unavailable.');
+      }
+    };
+    void update();
+    const interval = window.setInterval(() => void update(), 60000);
+    return () => { active = false; window.clearInterval(interval); };
+  }, []);
 
   useEffect(() => {
     const runId = stagingAsyncRun?.id;
@@ -556,7 +581,7 @@ export function QuestionStudioCockpitPage() {
           setReviewPackageFilter(activePackage.packageId);
           setReviewPageNumber(1);
           showToast.info('Staging run queued',
-            `${receipt.publicCode} is queued. The paused staging queue needs an operator to dispatch it.`);
+            `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
         } finally {
           setStagingAsyncSubmitting(false);
         }
@@ -676,6 +701,51 @@ export function QuestionStudioCockpitPage() {
         <Metric label="Duplicates on page" value={stats.duplicates} icon={<CircleAlert className="h-4 w-4" />} tone={stats.duplicates ? 'warning' : 'success'} />
         <Metric label="Bank on page" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
       </div>
+
+      {STAGING_ASYNC_ENABLED && (
+        <Card className="border-border/70">
+          <CardContent className="space-y-3 pt-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p className="text-sm font-semibold">Staging async pipeline · Neon outbox</p>
+                <p className="text-xs text-muted-foreground">Read-only · rolling 30-day totals · refreshes every minute</p>
+              </div>
+              {stagingOperations && (
+                <Badge variant="outline" className={stagingOperations.requiresAttention
+                  ? 'border-warning/40 text-warning' : 'border-success/40 text-success'}>
+                  {stagingOperations.requiresAttention ? 'Needs investigation' : 'No database alerts'}
+                </Badge>
+              )}
+            </div>
+            {stagingOperations ? (
+              <>
+                <div className="grid gap-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
+                  <div><p className="text-xs text-muted-foreground">Completed</p><p className="font-semibold">{stagingOperations.metrics.completed}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Queued</p><p className="font-semibold">{stagingOperations.metrics.queued}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Running</p><p className="font-semibold">{stagingOperations.metrics.running}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Awaiting dispatch</p><p className="font-semibold">{stagingOperations.metrics.awaitingDispatch}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Overdue</p><p className="font-semibold">{stagingOperations.metrics.overdue}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Failed</p><p className="font-semibold">{stagingOperations.metrics.failed}</p></div>
+                </div>
+                {stagingOperations.incidents.length > 0 && (
+                  <div className="space-y-1 rounded-md border border-warning/30 p-3 text-xs" role="status">
+                    <p className="font-semibold">Runs requiring investigation (no automatic replay)</p>
+                    {stagingOperations.incidents.map((issue) => (
+                      <p key={issue.publicCode} className="break-words font-mono">{issue.publicCode} · {issue.status} · {issue.reason.replace(/_/g, ' ')}</p>
+                    ))}
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground">Last completed: {stagingOperations.lastCompletedAt
+                  ? new Date(stagingOperations.lastCompletedAt).toLocaleString() : 'None'}
+                  {' · '}Last checked: {new Date(stagingOperations.checkedAt).toLocaleTimeString()}
+                </p>
+              </>
+            ) : <p className="text-xs text-muted-foreground">Loading staging operations…</p>}
+            {stagingOperationsError && <p className="text-xs text-destructive">Pipeline telemetry unavailable: {stagingOperationsError}</p>}
+            <p className="text-xs text-muted-foreground">Database metrics cannot confirm Cloud Scheduler or Cloud Tasks availability. Verify those separately in Google Cloud before activating production.</p>
+          </CardContent>
+        </Card>
+      )}
 
       <Tabs value={workspaceView} onValueChange={(value) => setWorkspaceView(value as 'generate' | 'review')} className="space-y-4">
         <TabsList className="h-auto p-1">
@@ -841,7 +911,7 @@ export function QuestionStudioCockpitPage() {
                   <Checkbox checked={stagingAsyncSelected}
                     onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
                     disabled={generating || stagingAsyncSubmitting} />
-                  <span>Use isolated staging async queue (operator dispatch required; normal Generate is unchanged).</span>
+                  <span>Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).</span>
                 </label>
               )}
               <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && STAGING_ASYNC_ENABLED ? 'Queue staging batch' : 'Generate review batch'}</Button>
