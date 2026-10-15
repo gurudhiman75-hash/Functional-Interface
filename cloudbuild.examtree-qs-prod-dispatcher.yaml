@@ -1,0 +1,10 @@
+# Build-only production QS dispatcher artifact. No deploy, migrations,
+# Cloud Tasks queue creation, IAM, scheduling, or production traffic changes.
+# Requires separately approved _IMAGE in a dedicated production artifact repo.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build','--file','Dockerfile.examtree-qs-prod-dispatcher','--tag','${_IMAGE}','.']
+images: ['${_IMAGE}']
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s

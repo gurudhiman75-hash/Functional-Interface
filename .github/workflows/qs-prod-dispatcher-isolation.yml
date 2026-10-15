@@ -1,0 +1,31 @@
+name: Validate isolated QS production dispatcher
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-prod-once.ts'
+      - 'artifacts/api-server/build-qs-prod-dispatcher.mjs'
+      - 'Dockerfile.examtree-qs-prod-dispatcher'
+      - 'tests/qs-prod-dispatcher-isolation.test.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: qs-prod-dispatch-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: node --test tests/qs-prod-dispatcher-isolation.test.mjs
+      - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile exact production-only Cloud Run Job entrypoint
+        run: node artifacts/api-server/build-qs-prod-dispatcher.mjs
