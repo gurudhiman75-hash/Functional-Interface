@@ -1,0 +1,23 @@
+name: Validate QS production paused infra bootstrap
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/bootstrap-qs-cloud-tasks-production.sh'
+      - 'tests/qs-prod-paused-infra-bootstrap.test.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: qs-prod-infra-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: bash -n scripts/bootstrap-qs-cloud-tasks-production.sh
+      - run: node --test tests/qs-prod-paused-infra-bootstrap.test.mjs
