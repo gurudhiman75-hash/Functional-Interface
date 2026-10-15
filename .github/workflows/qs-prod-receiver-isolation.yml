@@ -8,6 +8,7 @@ on:
       - 'Dockerfile.examtree-qs-prod-task-receiver'
       - 'cloudbuild.examtree-qs-prod-task-receiver.yaml'
       - 'tests/qs-prod-receiver-isolation.test.mjs'
+      - 'tests/qs-prod-receiver-disabled-boot.test.mjs'
 permissions:
   contents: read
 concurrency:
@@ -30,3 +31,5 @@ jobs:
       - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
       - name: Compile production-only receiver
         run: node artifacts/api-server/build-qs-prod-task-receiver.mjs
+      - name: Confirm disabled receiver boots without DATABASE_URL and returns task 503
+        run: node --test tests/qs-prod-receiver-disabled-boot.test.mjs
