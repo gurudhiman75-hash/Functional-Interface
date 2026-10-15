@@ -4,4 +4,8 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build','--file','Dockerfile.examtree-qs-staging-dispatcher','--tag','${_IMAGE}','.']
 images: ['${_IMAGE}']
+# A user-managed Cloud Build service account requires a supported log destination.
+# Cloud Logging needs roles/logging.logWriter on the build service account.
+options:
+  logging: CLOUD_LOGGING_ONLY
 timeout: 1800s
