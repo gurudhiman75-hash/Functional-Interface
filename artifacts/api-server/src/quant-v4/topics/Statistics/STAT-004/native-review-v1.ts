@@ -1,4 +1,4 @@
-import { pick, seededRandom } from "../shared/exact";
+import { seededRandom } from "../shared/exact";
 import { normalizeStatisticsFoundationLanguage } from "../shared/foundation-native-v1";
 import { assertStat004Question } from "./data-foundations";
 import { getStat004PermanentQlForContract } from "./permanent-ql-registry";
@@ -195,6 +195,9 @@ export function renderStat004Native(
     if (/^\d+(?:, \d+)*$/u.test(value)) return value;
     throw new Error(`Untranslated STAT-004 option '${value}'.`);
   };
+  const surfaceDraw = seededRandom(
+    `${source.seed}:${source.contractId}:${source.examProfile}`,
+  )();
   let stems: readonly string[] = [],
     explanation = "",
     expected = "";
@@ -609,9 +612,15 @@ export function renderStat004Native(
           `ਸਾਰਣੀ ਦੀਆਂ ਵਰਗ ਬਾਰੰਬਾਰਤਾਵਾਂ ${facts.frequencies.join(", ")} ਹਨ। ਉਨ੍ਹਾਂ ਦਾ ਜੋੜ Σf ਕਿੰਨਾ ਹੈ?`,
         ),
       ];
-      explanation = t(
-        `Σf = ${facts.frequencies.join(" + ")} = ${total}। यह योग दिए गए ${facts.stated} प्रेक्षणों से ${total === facts.stated ? "मेल खाता है" : "मेल नहीं खाता"}। किसी पूर्ण आवृत्ति वितरण में कुल आवृत्ति प्रेक्षणों की संख्या के बराबर होनी चाहिए।`,
-        `Σf = ${facts.frequencies.join(" + ")} = ${total}। ਇਹ ਜੋੜ ਦਿੱਤੇ ${facts.stated} ਪ੍ਰੇਖਣਾਂ ਨਾਲ ${total === facts.stated ? "ਮੇਲ ਖਾਂਦਾ ਹੈ" : "ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ"}। ਪੂਰੇ ਬਾਰੰਬਾਰਤਾ ਵੰਡ ਵਿੱਚ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਪ੍ਰੇਖਣਾਂ ਦੀ ਗਿਣਤੀ ਦੇ ਬਰਾਬਰ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।`,
+      explanation = `Σf = ${facts.frequencies.join(" + ")} = ${total}। `;
+      if (surfaceDraw < 0.5)
+        explanation += t(
+          `यह योग दिए गए ${facts.stated} प्रेक्षणों से ${total === facts.stated ? "मेल खाता है" : "मेल नहीं खाता"}। `,
+          `ਇਹ ਜੋੜ ਦਿੱਤੇ ${facts.stated} ਪ੍ਰੇਖਣਾਂ ਨਾਲ ${total === facts.stated ? "ਮੇਲ ਖਾਂਦਾ ਹੈ" : "ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ"}। `,
+        );
+      explanation += t(
+        "किसी पूर्ण आवृत्ति वितरण में कुल आवृत्ति प्रेक्षणों की संख्या के बराबर होनी चाहिए।",
+        "ਪੂਰੇ ਬਾਰੰਬਾਰਤਾ ਵੰਡ ਵਿੱਚ ਕੁੱਲ ਬਾਰੰਬਾਰਤਾ ਪ੍ਰੇਖਣਾਂ ਦੀ ਗਿਣਤੀ ਦੇ ਬਰਾਬਰ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
       );
       break;
     }
@@ -691,10 +700,7 @@ export function renderStat004Native(
   const options = source.options.map(option);
   if (new Set(options).size !== 4)
     throw new Error("STAT-004 native options collapsed.");
-  const stem = pick(
-    seededRandom(`${source.seed}:${source.contractId}:${source.examProfile}`),
-    stems,
-  );
+  const stem = stems[Math.floor(surfaceDraw * stems.length)]!;
   return {
     stem,
     options,

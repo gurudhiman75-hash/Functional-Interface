@@ -128,6 +128,13 @@ for (const examProfile of ["SSC_CGL_TIER_II", "SSC_CGL_JSO"])
         else if (facts.kind === "FREQUENCY_TABLE_CHECK") {
           variants.add(`frequencies:${facts.frequencies.join(",")}`);
           assert.equal(
+            q.explanation.includes(
+              language === "hi" ? "यह योग दिए गए" : "ਇਹ ਜੋੜ ਦਿੱਤੇ",
+            ),
+            q.stem.includes(language === "hi" ? "प्रेक्षण हैं" : "ਪ੍ਰੇਖਣ ਹਨ"),
+            "Explanation must not introduce an observation count absent from the stem",
+          );
+          assert.equal(
             q.answer,
             String(
               facts.frequencies.reduce((a: number, b: number) => a + b, 0),
