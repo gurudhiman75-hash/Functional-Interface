@@ -218,6 +218,7 @@ export function QuestionStudioCockpitPage() {
   const [stagingAsyncPollError, setStagingAsyncPollError] = useState<string | null>(null);
   const [stagingOperations, setStagingOperations] = useState<QuestionStudioStagingOperations | null>(null);
   const [stagingOperationsError, setStagingOperationsError] = useState<string | null>(null);
+  const [stagingOperationsRefreshKey, setStagingOperationsRefreshKey] = useState(0);
   // Retain the same idempotency key after a transport error; never replay a
   // potentially committed request with a different key unless its input changes.
   const stagingAsyncRetry = useRef<{ signature: string; key: string } | null>(null);
@@ -312,7 +313,10 @@ export function QuestionStudioCockpitPage() {
   useEffect(() => {
     if (!STAGING_ASYNC_ENABLED) return;
     let active = true;
+    let inFlight = false;
     const update = async () => {
+      if (!active || inFlight) return;
+      inFlight = true;
       try {
         const result = await getQuestionStudioStagingOperations();
         if (!active) return;
@@ -320,13 +324,32 @@ export function QuestionStudioCockpitPage() {
         setStagingOperationsError(null);
       } catch (error) {
         if (!active) return;
+        // Preserve the last successful snapshot, but never label it healthy
+        // while subsequent authenticated refresh requests are failing.
         setStagingOperationsError(error instanceof Error ? error.message : 'Operational data unavailable.');
+      } finally {
+        inFlight = false;
       }
     };
+    const retryWhenVisible = () => {
+      if (document.visibilityState === 'visible') void update();
+    };
+    const retryWhenOnline = () => void update();
     void update();
     const interval = window.setInterval(() => void update(), 60000);
-    return () => { active = false; window.clearInterval(interval); };
-  }, []);
+    // Mobile browsers suspend background timers. Refresh immediately when an
+    // administrator returns rather than relying on the next timer tick.
+    document.addEventListener('visibilitychange', retryWhenVisible);
+    window.addEventListener('focus', retryWhenVisible);
+    window.addEventListener('online', retryWhenOnline);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', retryWhenVisible);
+      window.removeEventListener('focus', retryWhenVisible);
+      window.removeEventListener('online', retryWhenOnline);
+    };
+  }, [stagingOperationsRefreshKey]);
 
   useEffect(() => {
     const runId = stagingAsyncRun?.id;
@@ -710,12 +733,25 @@ export function QuestionStudioCockpitPage() {
                 <p className="text-sm font-semibold">Staging async pipeline · Neon outbox</p>
                 <p className="text-xs text-muted-foreground">Read-only · rolling 30-day totals · refreshes every minute</p>
               </div>
-              {stagingOperations && (
-                <Badge variant="outline" className={stagingOperations.requiresAttention
-                  ? 'border-warning/40 text-warning' : 'border-success/40 text-success'}>
-                  {stagingOperations.requiresAttention ? 'Needs investigation' : 'No database alerts'}
-                </Badge>
-              )}
+              <div className="flex items-center gap-2">
+                {stagingOperations && (
+                  <Badge variant="outline" className={stagingOperationsError ||
+                    Date.now() - new Date(stagingOperations.checkedAt).getTime() > 180000
+                      ? 'border-warning/40 text-warning'
+                      : stagingOperations.requiresAttention
+                        ? 'border-warning/40 text-warning'
+                        : 'border-success/40 text-success'}>
+                    {stagingOperationsError ||
+                      Date.now() - new Date(stagingOperations.checkedAt).getTime() > 180000
+                      ? 'Monitoring needs refresh'
+                      : stagingOperations.requiresAttention ? 'Needs investigation' : 'No database alerts'}
+                  </Badge>
+                )}
+                <Button variant="outline" size="sm"
+                  onClick={() => setStagingOperationsRefreshKey((key) => key + 1)}>
+                  <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry status
+                </Button>
+              </div>
             </div>
             {stagingOperations ? (
               <>
@@ -740,8 +776,14 @@ export function QuestionStudioCockpitPage() {
                   {' · '}Last checked: {new Date(stagingOperations.checkedAt).toLocaleTimeString()}
                 </p>
               </>
-            ) : <p className="text-xs text-muted-foreground">Loading staging operations…</p>}
-            {stagingOperationsError && <p className="text-xs text-destructive">Pipeline telemetry unavailable: {stagingOperationsError}</p>}
+            ) : <p className="text-xs text-muted-foreground">{stagingOperationsError
+              ? 'No successful operational snapshot yet.' : 'Loading staging operations…'}</p>}
+            {stagingOperationsError && (
+              <p className="text-xs text-warning" role="status">Monitoring refresh failed: {stagingOperationsError}
+                {stagingOperations ? ' Figures are from the last successful check, not current health.' : ''}
+                {' '}Use Retry status or reopen this tab; automatic retries continue while open.
+              </p>
+            )}
             <p className="text-xs text-muted-foreground">Database metrics cannot confirm Cloud Scheduler or Cloud Tasks availability. Verify those separately in Google Cloud before activating production.</p>
           </CardContent>
         </Card>
