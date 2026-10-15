@@ -23,7 +23,7 @@ The job will reject configuration unless ALL hold:
 These environment gates are **not** IAM or database verification; a human must verify secrets and cloud resources. Do not set the positive approval flags on any live job yet.
 
 ## Hard blockers before production activation
-- Production-specific *signed OIDC* task receiver with production-only runtime authorization and private Cloud Run invoker IAM. The current standalone receiver rejects non-staging runtime. Do not just change staging flags or reuse staging receiver URL.
+- Production-specific signed OIDC receiver **source/build is prepared but NOT deployed or verified**. Deploy it only as the separate private `examtree-qs-receiver-prod` Cloud Run service, with distinct `examtree-qs-task-prod` invocation identity, production Neon/worker binding and live OIDC/IAM verification. The existing staging receiver remains staging-only; never reuse its URL. The production receiver requires all explicit production approvals before it handles task requests.
 - Dedicated production Cloud Tasks queue, dispatcher runtime service account, task OIDC service account, private receiver and separate worker identity/secret. No staging service identities or staging Neon branch.
 - Verified production Neon migration compatibility, run/outbox/leases/idempotency schema, back-up/restore and retention; record approved Secret Manager binding privately. Never expose DATABASE_URL in logs or PR.
 - Production worker compute isolation, approved batches and realistic 1/3/10/50 load/soak checks; existing dispatcher handles only one event per execution. Capacity is inadequate for broad default at five-minute cadence.
