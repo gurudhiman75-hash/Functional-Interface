@@ -1,0 +1,9 @@
+# Build a separate, default-disabled production universal compute image.
+# No deploy, Cloud Run IAM, secrets, scheduler, queue or traffic changes.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build','--file','Dockerfile.examtree-qs-prod-universal-worker','--tag','${_IMAGE}','.']
+images: ['${_IMAGE}']
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s
