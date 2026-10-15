@@ -15,7 +15,7 @@ STAT-001 through STAT-014 are merged and wired into Question Studio. Permanent S
 - STAT-QL-213: cost of living index by aggregate expenditure method.
 - STAT-QL-214: cost of living index by family budget method.
 
-The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release remain disabled.
+The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, public publication, and production release remain disabled. Hindi/Punjabi controlled-review candidates for STAT-001–003 (20 QLs) were added on 2026-10-15; STAT-004–014 (194 QLs) remain English-only. Native human/live verification is deferred to the user. See `STATISTICS-NATIVE-REVIEW-V1.md`.
 
 ## Coverage by Paper-II area
 

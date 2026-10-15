@@ -27,7 +27,7 @@ export type Stat003PermanentQlDescriptor = Readonly<{
   supportedProfiles: readonly Stat003ExamProfile[];
   sourceStatus: "PHASE0_CERTIFIED";
   editorialStatus: "ENGLISH_REVIEW_APPROVED";
-  localizationStatus: "NOT_STARTED";
+  localizationStatus: "HI_PA_REVIEW_CANDIDATE";
 }>;
 
 export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Object.freeze([
@@ -41,7 +41,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-014",
@@ -53,7 +53,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-015",
@@ -65,7 +65,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-016",
@@ -77,7 +77,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-017",
@@ -89,7 +89,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-018",
@@ -101,7 +101,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-019",
@@ -113,7 +113,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-020",
@@ -125,7 +125,7 @@ export const STAT003_PERMANENT_QLS: readonly Stat003PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
 ] as const);
 

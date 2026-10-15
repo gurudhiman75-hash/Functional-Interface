@@ -25,7 +25,7 @@ export type Stat002PermanentQlDescriptor = Readonly<{
   supportedProfiles: readonly Stat002ExamProfile[];
   sourceStatus: "PHASE0_CERTIFIED";
   editorialStatus: "ENGLISH_REVIEW_APPROVED";
-  localizationStatus: "NOT_STARTED";
+  localizationStatus: "HI_PA_REVIEW_CANDIDATE";
 }>;
 
 export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Object.freeze([
@@ -39,7 +39,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-008",
@@ -51,7 +51,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-009",
@@ -63,7 +63,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-010",
@@ -75,7 +75,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-011",
@@ -87,7 +87,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
   {
     qlId: "STAT-QL-012",
@@ -99,7 +99,7 @@ export const STAT002_PERMANENT_QLS: readonly Stat002PermanentQlDescriptor[] = Ob
     supportedProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     sourceStatus: "PHASE0_CERTIFIED",
     editorialStatus: "ENGLISH_REVIEW_APPROVED",
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
   },
 ] as const);
 

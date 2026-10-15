@@ -1,3 +1,4 @@
+import { normalizeStatisticsFoundationLanguage, localizeStatisticsFoundationBatch } from "../shared/foundation-native-v1";
 import { hashSeed } from "../shared/exact";
 import { generateStat003Question } from "./frequency-central-tendency";
 import {
@@ -175,8 +176,7 @@ function toQuestionStudioPreview(source: ReturnType<typeof generateStat003Questi
 export async function generateStat003QuestionStudioBatch(request: Stat003QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId && cpId !== STAT003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package STAT-003.`);
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("STAT-003 controlled Question Studio review is English-only; localization has not started.");
+  const language = normalizeStatisticsFoundationLanguage(request.language);
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const explicit = resolveExplicitQl(request, profile, difficulty);
@@ -196,7 +196,7 @@ export async function generateStat003QuestionStudioBatch(request: Stat003Questio
     questions.push(toQuestionStudioPreview(source, descriptor, { seed, index, count }));
   }
 
-  return {
+  const batch = {
     generationContext: {
       generationDomain: "quant-v4" as const,
       chapterId: "Statistics" as const,
@@ -225,6 +225,7 @@ export async function generateStat003QuestionStudioBatch(request: Stat003Questio
     questionPackages,
     questions,
   };
+  return localizeStatisticsFoundationBatch(batch, language);
 }
 
 export function stat003QuestionStudioPackageCard() {
@@ -243,13 +244,13 @@ export function stat003QuestionStudioPackageCard() {
     canonicalProblems: [{ id: STAT003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Frequency Distribution & Central Tendency" }],
     permanentQlIds: STAT003_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: STAT003_PERMANENT_QLS.length,
-    qls: STAT003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode })),
+    qls: STAT003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode, localizationStatus: descriptor.localizationStatus })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
     enabled: true,
     runtimeMode: STAT003_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [STAT003_QUESTION_STUDIO_RUNTIME_MODE],
+    supportedRuntimeModes: [STAT003_QUESTION_STUDIO_RUNTIME_MODE, "STAT003_NATIVE_REVIEW_V1"],
     reviewStatus: "ENGLISH_REVIEW_APPROVED",
     releaseId: STAT003_PERMANENT_RELEASE_ID,
     questionStudioDiscoverable: STAT003_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
@@ -263,6 +264,7 @@ export function stat003QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    languageReviewStatus: { en: "ENGLISH_REVIEW_APPROVED", hi: "NATIVE_REVIEW_CANDIDATE", pa: "NATIVE_REVIEW_CANDIDATE" },
   };
 }
