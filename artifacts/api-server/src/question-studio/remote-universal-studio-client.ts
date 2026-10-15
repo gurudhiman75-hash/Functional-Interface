@@ -2,6 +2,7 @@
 // The API retains auth/RBAC, package validation and all Neon persistence.
 import type { QuestionStudioEngineId } from "./engine-types";
 import type { UniversalStudioComputeInput, UniversalStudioComputeResult } from "./universal-executor";
+import {getPrivateProductionWorkerIdentityToken} from "./production-private-worker-oidc";
 
 const endpoint = "/internal/question-studio/universal/generate";
 const maxResultBytes = 16 * 1024 * 1024;
@@ -10,7 +11,7 @@ export function universalStudioRemoteConfigured() {
   return Boolean(process.env.QUESTION_STUDIO_UNIVERSAL_WORKER_URL?.trim());
 }
 
-export async function runUniversalStudioRemote(input: UniversalStudioComputeInput): Promise<UniversalStudioComputeResult> {
+export async function runUniversalStudioRemote(input: UniversalStudioComputeInput, opts: {productionPrivateCloudRun?:boolean}={}): Promise<UniversalStudioComputeResult> {
   const origin = process.env.QUESTION_STUDIO_UNIVERSAL_WORKER_URL?.trim();
   const token = process.env.QUESTION_STUDIO_WORKER_TOKEN?.trim();
   if (!origin || !token || token.length < 32) {
@@ -32,9 +33,18 @@ export async function runUniversalStudioRemote(input: UniversalStudioComputeInpu
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 125_000);
   try {
+    // Only the production task receiver may request Cloud Run IAM identity.
+    // Staging and existing API callers retain their previous behavior.
+    const bearer=opts.productionPrivateCloudRun
+      ?await getPrivateProductionWorkerIdentityToken(url.origin):undefined;
+    const headers:Record<string,string>={
+      "Content-Type":"application/json",
+      "X-Examtree-Worker-Token":token,
+    };
+    if(bearer)headers.Authorization=`Bearer ${bearer}`;
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Examtree-Worker-Token": token },
+      headers,
       body: JSON.stringify(input),
       signal: controller.signal,
     });

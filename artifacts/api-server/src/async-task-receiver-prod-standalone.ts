@@ -88,7 +88,7 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     }
     const compute=computeInputFromQueuedSnapshot(claim.requestSnapshot);
     validateAsyncTaskComputeInput(compute);
-    const batch=await runUniversalStudioRemote(compute);
+    const batch=await runUniversalStudioRemote(compute,{productionPrivateCloudRun:true});
     const receipt=await commitQuestionStudioAsyncReview({
       runId:claim.runId,leaseToken:claim.leaseToken,batch,
     });
