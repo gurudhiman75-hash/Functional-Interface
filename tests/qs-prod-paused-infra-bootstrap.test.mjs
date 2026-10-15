@@ -17,7 +17,7 @@ set -e
 echo "$*" >> "$CAPTURE_FILE"
 case "$1 $2 $3" in
   "config get-value project") echo sarbedutech ;;
-  "services list ") echo cloudtasks.googleapis.com ;;
+  "services list --enabled") echo cloudtasks.googleapis.com ;;
   "iam service-accounts describe") exit 1 ;;
   "iam service-accounts create") exit 0 ;;
   "tasks queues describe")
@@ -82,7 +82,7 @@ test("explicit approved provision creates only isolated identities and a PAUSED 
   assert.doesNotMatch(r.calls,/(?:run deploy|run jobs|scheduler|add-iam-policy-binding|secrets|sql|migrate|resume)/);
 });
 test("no implicit production execution or activation is coded into bootstrap",()=>{
-  assert.match(body,/MODE="\\$\\{MODE:-check\\}"/);
+  assert.match(body,/MODE="\$\{MODE:-check\}"/);
   assert.match(body,/EXAMTREE_QS_PROD_INFRA_PROVISION_APPROVED/);
   assert.match(body,/EXAMTREE_QS_PROD_PAUSED_ONLY_APPROVED/);
   assert.doesNotMatch(body,/gcloud (?:run|scheduler|sql)/);
