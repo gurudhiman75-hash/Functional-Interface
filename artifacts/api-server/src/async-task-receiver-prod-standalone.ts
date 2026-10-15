@@ -5,11 +5,9 @@ import express from "express";
 import {createQuestionStudioTaskOidcVerifier,getQuestionStudioTaskOidcConfig,
   validateQuestionStudioTaskBody,QuestionStudioTaskAuthError}
   from "./question-studio/async-cloud-tasks-oidc";
-import {claimQuestionStudioAsyncTask} from "./question-studio/async-task-lease-claim";
 import {computeInputFromQueuedSnapshot} from "./question-studio/async-task-receiver-snapshot";
 import {validateAsyncTaskComputeInput} from "./question-studio/async-task-package-capabilities";
 import {runUniversalStudioRemote} from "./question-studio/remote-universal-studio-client";
-import {commitQuestionStudioAsyncReview} from "./question-studio/async-review-commit";
 
 const requiredTrue=[
   "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED",
@@ -69,6 +67,15 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     const config=getQuestionStudioTaskOidcConfig();
     await verifyOidc(req.get("Authorization"),config);
     const {runId}=validateQuestionStudioTaskBody(req.body);
+    // CRITICAL: Do not import the Neon SQL client during process startup.
+    // Production receiver must bind PORT and answer health/disabled requests
+    // without DATABASE_URL or production worker secrets. The two write-capable
+    // modules are loaded only after every production flag, identity and signed
+    // Google OIDC task token have been verified.
+    const [{claimQuestionStudioAsyncTask},{commitQuestionStudioAsyncReview}]=await Promise.all([
+      import("./question-studio/async-task-lease-claim"),
+      import("./question-studio/async-review-commit"),
+    ]);
     const claim=await claimQuestionStudioAsyncTask(runId);
     if(["terminal","not_found","exhausted"].includes(claim.kind)){
       res.status(204).end();return;
