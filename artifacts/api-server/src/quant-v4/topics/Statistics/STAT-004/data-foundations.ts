@@ -1,3 +1,4 @@
+import { buildStat004ReviewFacts } from "./review-facts-v1";
 import { pick, seededRandom, shuffle } from "../shared/exact";
 import { getStat004PermanentQlForContract } from "./permanent-ql-registry";
 import type { Stat004ContractId, Stat004ExamProfile, Stat004Question } from "./types";
@@ -26,75 +27,75 @@ function makeQuestion(contractId: Stat004ContractId, seed: string, profile: Stat
 }
 
 function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004ExamProfile): Draft {
-  const random = seededRandom(`${seed}:${contractId}:stimulus`);
-  switch (contractId) {
+  const facts = buildStat004ReviewFacts(contractId, seed);
+  switch (facts.kind) {
     case "PRIMARY_VS_SECONDARY_SOURCE": {
-      const situation = pick(random, [
+      const situation = ([
         "A factory asks its workers to complete a new survey about their daily travel time.",
         "A researcher interviews shop owners directly to record this month's stock shortages.",
         "A crop officer measures the yield from fields selected for a study this season.",
         "A college asks its students to report their own daily study hours for a new investigation.",
         "A hospital records waiting times directly from patients attending its outpatient desk this week.",
         "A transport office asks commuters directly about the duration of their morning journey.",
-      ]);
+      ])[facts.variant]!;
       return draft([`${situation} The information collected is:`, `For a new study, an investigator collects responses directly from the people concerned. These responses are:`],
         ["primary data", "secondary data", "published records", "a sampling error"], "primary data",
         "The information is collected first-hand for the current investigation. That makes it primary data for this study; an existing report or earlier survey would be secondary data.");
     }
     case "CENSUS_VS_SAMPLE_ENUMERATION": {
-      const population = pick(random, ["all 640 students enrolled at a college", "every household in a village", "all 275 machines in a plant", "each shop registered in a market", "every employee on a company's payroll", "all buses operating from a depot"]);
+      const population = (["all 640 students enrolled at a college", "every household in a village", "all 275 machines in a plant", "each shop registered in a market", "every employee on a company's payroll", "all buses operating from a depot"])[facts.variant]!;
       return draft([`A survey records information from ${population}. The method is:`, `An investigator obtains information from every unit in the stated population, ${population}. This is:`],
         ["complete enumeration", "a sample survey", "indirect oral investigation", "secondary-data collection"], "complete enumeration",
         "Every unit in the defined population is covered, so the investigation is a census or complete enumeration. A sample survey would cover only a selected part.");
     }
     case "DIRECT_PERSONAL_INVESTIGATION": {
-      const topic = pick(random, ["household water use", "farmers' seed choices", "workers' shift preferences", "retailers' weekly sales"]);
+      const topic = (["household water use", "farmers' seed choices", "workers' shift preferences", "retailers' weekly sales"])[facts.variant]!;
       return draft([`An investigator visits the units concerned and personally asks them about ${topic}. Which collection method is used?`, `To collect information on ${topic}, the investigator meets the respondents and records their answers directly. This is:`],
         ["direct personal investigation", "indirect oral investigation", "a mailed questionnaire", "published-source collection"], "direct personal investigation",
         "The investigator obtains information directly from the units concerned. Indirect oral investigation would rely on informed third parties instead.");
     }
     case "INDIRECT_ORAL_INVESTIGATION": {
-      const group = pick(random, ["seasonal workers who are difficult to contact individually", "traders who have left the market", "households in a region affected by a temporary road closure"]);
+      const group = (["seasonal workers who are difficult to contact individually", "traders who have left the market", "households in a region affected by a temporary road closure"])[facts.variant]!;
       return draft([`Investigators studying ${group} gather information from several people who know the group well rather than contacting each member. This is closest to:`, `When direct responses from ${group} cannot readily be obtained, information is collected from informed witnesses. The method is:`],
         ["indirect oral investigation", "complete enumeration", "direct personal investigation", "respondent-completed questionnaire"], "indirect oral investigation",
         "The information comes from informed third parties, not directly from every unit being studied. That is indirect oral investigation; the reliability of witnesses must be considered.");
     }
     case "SCHEDULE_VS_QUESTIONNAIRE": {
-      const mode = pick(random, ["Enumerators visit households, ask the questions and write down each answer.", "A research office mails forms and respondents fill them in and return them.", "Field investigators read each question aloud and enter responses on the form themselves."]);
+      const mode = (["Enumerators visit households, ask the questions and write down each answer.", "A research office mails forms and respondents fill them in and return them.", "Field investigators read each question aloud and enter responses on the form themselves."])[facts.variant]!;
       const answer = mode.includes("respondents fill") ? "respondent-completed questionnaire" : "schedule";
       return draft([`${mode} The form is being used as a:`, `In the collection process, ${mode.toLowerCase()} Is the form a schedule or a questionnaire?`],
         ["schedule", "respondent-completed questionnaire", "observation sheet", "published statistical table"], answer,
         answer === "schedule" ? "An enumerator asks the questions and records the answers, so the form is a schedule. A questionnaire is ordinarily completed by the respondent." : "The respondents complete and return the form themselves, so this is the questionnaire method. In a schedule method, an enumerator records their answers.");
     }
     case "OBSERVATION_METHOD": {
-      const activity = pick(random, ["vehicles entering a toll plaza", "customers joining a service queue", "birds visiting a marked feeding area", "machines stopping during a production shift", "patients arriving at a registration counter", "packages passing a scanning point"]);
+      const activity = (["vehicles entering a toll plaza", "customers joining a service queue", "birds visiting a marked feeding area", "machines stopping during a production shift", "patients arriving at a registration counter", "packages passing a scanning point"])[facts.variant]!;
       return draft([`An investigator records each instance of ${activity} as it occurs, without asking anyone to report it. Which method is used?`, `To measure ${activity}, the investigator watches the events and records them directly. This is:`],
         ["observation", "mailed questionnaire", "indirect oral investigation", "secondary-data analysis"], "observation",
         "The investigator records behaviour or events as they occur without relying on respondents' accounts. This is the observation method.");
     }
     case "SECONDARY_DATA_FITNESS": {
-      const subject = pick(random, ["household electricity use", "crop output per hectare", "monthly school attendance", "average hospital waiting time"]);
+      const subject = (["household electricity use", "crop output per hectare", "monthly school attendance", "average hospital waiting time"])[facts.variant]!;
       return draft([`A researcher compares two existing reports on ${subject}. They cover different reference periods and use different units. What should be checked before comparing their figures?`, `Before combining figures on ${subject} from two published sources, which check is essential?`],
         ["Whether definitions, units, population coverage and reference periods are comparable", "Which report has the larger numbers", "Whether both reports use the same page layout", "Whether the reports were printed in the same year"],
         "Whether definitions, units, population coverage and reference periods are comparable",
         "Figures can be compared only when their meaning and coverage align. Check definitions, measurement units, population covered and reference period; publication format or larger values do not establish comparability.");
     }
     case "QUALITATIVE_CLASSIFICATION": {
-      const categories = pick(random, ["main cooking fuel", "type of crop grown", "marital status", "mode of transport to work"]);
+      const categories = (["main cooking fuel", "type of crop grown", "marital status", "mode of transport to work"])[facts.variant]!;
       return draft([`A survey groups households by ${categories}. The characteristic used for grouping is:`, `Observations are classified by ${categories}, with each unit placed in a named category. This is classification by:`],
         ["a qualitative attribute", "a continuous variable", "a numerical magnitude", "a class mark"], "a qualitative attribute",
         "The groups describe kinds or categories rather than measured numerical amounts. This is qualitative classification.");
     }
     case "DISCRETE_VS_CONTINUOUS_VARIABLE": {
-      const measured = pick(random, ["weight of parcels handled in a day", "time taken to complete a task", "length of metal rods produced", "volume of water used by a household"]);
-      const counted = pick(random, ["number of customer complaints in a week", "number of machines operating in a plant", "number of seeds in a packet", "number of absent students in a class", "number of calls received in an hour", "number of defective units in a batch"]);
-      const askMeasured = random() < 0.5;
+      const measured = (["weight of parcels handled in a day", "time taken to complete a task", "length of metal rods produced", "volume of water used by a household"])[facts.measured]!;
+      const counted = (["number of customer complaints in a week", "number of machines operating in a plant", "number of seeds in a packet", "number of absent students in a class", "number of calls received in an hour", "number of defective units in a batch"])[facts.counted]!;
+      const askMeasured = facts.askMeasured;
       return draft([`Which of the following is a ${askMeasured ? "continuous measurement" : "discrete count"}?`, `Which of the following is a ${askMeasured ? "continuous variable" : "discrete variable"}?`],
         askMeasured ? [measured, counted, "number of buses in a depot", "number of calls received"] : [counted, measured, "weight of a package", "temperature of a sample"], askMeasured ? measured : counted,
         askMeasured ? `The quantity is measured and may take fractional values within a range, so ${measured.toLowerCase()} is continuous. Counts take separate whole-number values.` : `The quantity counts separate units, so ${counted.toLowerCase()} is discrete. Measurements such as weight or temperature may vary continuously across an interval.`);
     }
     case "CHRONOLOGICAL_VS_GEOGRAPHICAL_CLASSIFICATION": {
-      const chronological = random() < 0.5;
+      const chronological = facts.chronological;
       const stem = chronological
         ? "A statistical abstract lists a district's rainfall separately for each year from 2019 to 2024. The data are arranged by:"
         : "A statistical abstract lists annual rainfall separately for each district in a region. The data are arranged by: ";
@@ -103,23 +104,19 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         chronological ? "The observations are organized by year, so this is chronological classification. A place-wise arrangement would be geographical." : "The observations are organized by district, so this is geographical classification. A year-wise arrangement would be chronological.");
     }
     case "ONE_WAY_VS_TWO_WAY_CLASSIFICATION": {
-      const characteristics = pick(random, [["year of study", "mode of residence"], ["occupation", "gender"], ["age group", "employment status"]] as const);
+      const characteristics = ([["year of study", "mode of residence"], ["occupation", "gender"], ["age group", "employment status"]] as const)[facts.variant]!;
       return draft([`A table classifies people jointly by ${characteristics[0]} and ${characteristics[1]}. This is:`, `The rows and columns of a table classify each unit by both ${characteristics[0]} and ${characteristics[1]}. The table uses:`],
         ["one-way classification", "two-way classification", "chronological classification only", "a raw-data array"], "two-way classification",
         `Each observation is grouped using two characteristics: ${characteristics[0]} and ${characteristics[1]}. A one-way classification uses one characteristic.`);
     }
     case "TABLE_COMPONENTS": {
-      const part = pick(random, ["The left-hand column lists the group names for each row. What is this part called?", "The headings printed above the data columns show what each column represents. These headings are called:"]);
+      const part = (["The left-hand column lists the group names for each row. What is this part called?", "The headings printed above the data columns show what each column represents. These headings are called:"])[facts.variant]!;
       const correct = part.startsWith("The left") ? "stub" : "captions (boxhead)";
       return draft([part], ["stub", "captions (boxhead)", "table body", "source note"], correct,
         correct === "stub" ? "The stub contains the row headings. Captions or the boxhead contain the column headings; the body contains the data cells." : "Captions or the boxhead identify the columns. The stub contains row headings, while the body contains the data cells.");
     }
     case "FREQUENCY_TABLE_CHECK": {
-      const cases = pick(random, [
-        { frequencies: [7, 6, 9], stated: 22 },
-        { frequencies: [8, 5, 6], stated: 20 },
-        { frequencies: [12, 4, 7], stated: 23 },
-      ] as const);
+      const cases = facts;
       const total = cases.frequencies.reduce((a, b) => a + b, 0);
       const correct = String(total);
       return draft([`A frequency table shows class frequencies ${cases.frequencies.join(", ")}. The raw list contains ${cases.stated} observations. What is the sum of the class frequencies, Σf?`, `The class frequencies in a table are ${cases.frequencies.join(", ")}. What is their sum, Σf?`],
@@ -127,7 +124,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         `Add the class frequencies: ${cases.frequencies.join(" + ")} = ${total}. This total should equal the number of observations represented. Here it ${total === cases.stated ? "does" : "does not"} match ${cases.stated}.`);
     }
     case "MUTUALLY_EXCLUSIVE_CLASS_INTERVALS": {
-      const boundary = pick(random, [10, 20, 30]);
+      const boundary = facts.boundary;
       const lower = boundary;
       const upper = boundary + 10;
       const previous = boundary - 10;
@@ -136,14 +133,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         `The first interval ends before ${boundary} because its upper limit is excluded. The next interval includes its lower limit, so ${boundary} belongs in ${lower}–${upper} only.`);
     }
     case "BUILD_A_BASIC_FREQUENCY_TABLE": {
-      const data = pick(random, [
-        [3, 7, 5, 8, 4, 6, 9, 5],
-        [2, 4, 6, 7, 9, 10, 5, 8, 3, 6],
-        [1, 5, 5, 7, 8, 9, 4, 6, 10, 3, 7, 2],
-        [4, 6, 8, 5, 7, 9, 3, 6, 10, 4],
-        [2, 3, 5, 8, 8, 7, 6, 4, 9, 10, 5, 3],
-        [1, 4, 6, 6, 8, 9, 2, 5, 7, 10, 4, 8],
-      ] as const);
+      const data = facts.values;
       const frequencies: [number, number, number] = [0, 0, 0];
       for (const value of data) {
         const index = value < 4 ? 0 : value < 8 ? 1 : 2;

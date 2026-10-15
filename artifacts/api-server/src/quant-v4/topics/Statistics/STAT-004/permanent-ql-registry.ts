@@ -11,13 +11,13 @@ export type Stat004PermanentQlDescriptor = Readonly<{
   supportedProfiles: readonly Stat004ExamProfile[];
   sourceStatus: "PHASE0_CERTIFIED";
   editorialStatus: "ENGLISH_REVIEW_APPROVED";
-  localizationStatus: "NOT_STARTED";
+  localizationStatus: "HI_PA_REVIEW_CANDIDATE";
 }>;
 
 const PROFILES = ["SSC_CGL_TIER_II", "SSC_CGL_JSO"] as const;
 const row = (qlId: `STAT-QL-${string}`, contractId: Stat004ContractId, label: string, semanticContract: string, difficulty: Stat004Difficulty): Stat004PermanentQlDescriptor => ({
   qlId, contractId, label, semanticContract, difficulty, supportedProfiles: PROFILES,
-  sourceStatus: "PHASE0_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "NOT_STARTED",
+  sourceStatus: "PHASE0_CERTIFIED", editorialStatus: "ENGLISH_REVIEW_APPROVED", localizationStatus: "HI_PA_REVIEW_CANDIDATE",
 });
 
 // STAT-001..003 own STAT-QL-001..020. These next IDs are reserved here once;
