@@ -94,7 +94,7 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
     } else if (task === "TWO_GROUP_CROSS_RATIO") {
       const x=a.right+b.right,y=c.right+d.right,v=ratio(x,y);stem=`What is the ratio of total ${stimulus.rightTitle} for ${a.category} and ${b.category} to total ${stimulus.rightTitle} for ${c.category} and ${d.category}?`;answer=v;options=ratioOptions(v,x,y,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Ratio = ${x}:${y} = ${v}.`];
     } else if (task === "TWO_GROUP_COMBINED_DIFFERENCE") {
-      const x=a.right+b.right,y=c.right+d.right,v=Math.abs(x-y);stem=`Find the difference between the total ${stimulus.rightTitle} for ${a.category} and ${b.category} together and the total for ${c.category} and ${d.category} together.`;answer=String(v);options=numericalOptions(v,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Difference = |${x} − ${y}| = ${v}.`];
+      const x=a.right+b.right,y=c.right+d.right,v=Math.abs(x-y);stem=`What is the difference between the total ${stimulus.rightTitle} for ${a.category} and ${b.category} together and the total for ${c.category} and ${d.category} together?`;answer=String(v);options=numericalOptions(v,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Difference = |${x} − ${y}| = ${v}.`];
     } else if (task === "THREE_CATEGORY_CROSS_TOTAL") {
       const v=a.right+b.right+c.right;stem=`What is the total under ${stimulus.rightTitle} for ${a.category}, ${b.category} and ${c.category}?`;answer=String(v);options=numericalOptions(v,seed);steps=[`${a.right} + ${b.right} + ${c.right} = ${v}.`];
     } else {
@@ -107,7 +107,7 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
   } else if(task==="LEFT_TO_RIGHT_RATIO"){
     const v=ratio(a.left,a.right); stem=`What is the ratio of ${stimulus.leftTitle} to ${stimulus.rightTitle} for ${a.category}?`; answer=v; options=ratioOptions(v,a.left,a.right,seed); steps=[`Required ratio = ${a.left}:${a.right} = ${v}.`];
   } else if(task==="TWO_CATEGORY_CROSS_SUM"){
-    const v=a.left+b.right; stem=`Find ${stimulus.leftTitle} for ${a.category} plus ${stimulus.rightTitle} for ${b.category}.`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${b.right} = ${v}.`];
+    const v=a.left+b.right; stem=`What is the total of ${stimulus.leftTitle} for ${a.category} and ${stimulus.rightTitle} for ${b.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${b.right} = ${v}.`];
   } else if(task==="HIGHEST_COMBINED_CATEGORY"){
     const best=[...rows].sort((x,y)=>(y.left+y.right)-(x.left+x.right))[0]!; stem=`For which category is the combined ${stimulus.leftTitle} and ${stimulus.rightTitle} the highest?`; answer=best.category; options=categoryOptions(rows.map(r=>r.category),answer,seed); steps=rows.map(r=>`${r.category}: ${r.left} + ${r.right} = ${r.left+r.right}`).concat([`The highest combined value is for ${answer}.`]);
   } else if(task==="CROSS_COMPONENT_AVERAGE"){
@@ -115,11 +115,11 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
   } else if(task==="TWO_GROUP_CROSS_RATIO"){
     const x=a.left+b.left, y=c.right+d.right, v=ratio(x,y); stem=`What is the ratio of total ${stimulus.leftTitle} for ${a.category} and ${b.category} to total ${stimulus.rightTitle} for ${c.category} and ${d.category}?`; answer=v; options=ratioOptions(v,x,y,seed); steps=[`Left-group total = ${a.left} + ${b.left} = ${x}.`,`Right-group total = ${c.right} + ${d.right} = ${y}.`,`Ratio = ${x}:${y} = ${v}.`];
   } else if(task==="TWO_GROUP_COMBINED_DIFFERENCE"){
-    const x=a.left+b.right, y=c.left+d.right, v=Math.abs(x-y); stem=`Find the difference between (${stimulus.leftTitle} of ${a.category} + ${stimulus.rightTitle} of ${b.category}) and (${stimulus.leftTitle} of ${c.category} + ${stimulus.rightTitle} of ${d.category}).`; answer=String(v); options=numericalOptions(v,seed); steps=[`First total = ${a.left} + ${b.right} = ${x}.`,`Second total = ${c.left} + ${d.right} = ${y}.`,`Difference = |${x} − ${y}| = ${v}.`];
+    const x=a.left+b.right, y=c.left+d.right, v=Math.abs(x-y); stem=`What is the difference between (${stimulus.leftTitle} of ${a.category} + ${stimulus.rightTitle} of ${b.category}) and (${stimulus.leftTitle} of ${c.category} + ${stimulus.rightTitle} of ${d.category})?`; answer=String(v); options=numericalOptions(v,seed); steps=[`First total = ${a.left} + ${b.right} = ${x}.`,`Second total = ${c.left} + ${d.right} = ${y}.`,`Difference = |${x} − ${y}| = ${v}.`];
   } else if(task==="THREE_CATEGORY_CROSS_TOTAL"){
-    const v=a.left+b.right+c.left; stem=`Find the total of ${stimulus.leftTitle} for ${a.category}, ${stimulus.rightTitle} for ${b.category}, and ${stimulus.leftTitle} for ${c.category}.`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${b.right} + ${c.left} = ${v}.`];
+    const v=a.left+b.right+c.left; stem=`What is the total of ${stimulus.leftTitle} for ${a.category}, ${stimulus.rightTitle} for ${b.category}, and ${stimulus.leftTitle} for ${c.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${b.right} + ${c.left} = ${v}.`];
   } else {
-    const v=(a.left+b.right+c.left+d.right)/4; stem=`Find the average of the four values: ${stimulus.leftTitle} for ${a.category}, ${stimulus.rightTitle} for ${b.category}, ${stimulus.leftTitle} for ${c.category}, and ${stimulus.rightTitle} for ${d.category}.`; answer=String(v); options=numericalOptions(v,seed); steps=[`Sum = ${a.left} + ${b.right} + ${c.left} + ${d.right} = ${a.left+b.right+c.left+d.right}.`,`Average = ${a.left+b.right+c.left+d.right} ÷ 4 = ${v}.`];
+    const v=(a.left+b.right+c.left+d.right)/4; stem=`What is the average of ${stimulus.leftTitle} for ${a.category}, ${stimulus.rightTitle} for ${b.category}, ${stimulus.leftTitle} for ${c.category}, and ${stimulus.rightTitle} for ${d.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`Sum = ${a.left} + ${b.right} + ${c.left} + ${d.right} = ${a.left+b.right+c.left+d.right}.`,`Average = ${a.left+b.right+c.left+d.right} ÷ 4 = ${v}.`];
   }
   const correctIndex=options.indexOf(answer);
   if(correctIndex<0) throw new Error(`DI-011 option construction lost answer for ${task}.`);
@@ -137,6 +137,13 @@ function buildStimulus(seed:string): Di011Stimulus {
     const right=80 + (hashSeed(`${seed}:r:${i}`)%16)*20;
     return {category,left,right};
   });
+  // A category-identification item must have exactly one correct category.
+  // Retain the 20-unit grid and all existing operation families, but repair a
+  // tied maximum before questions and localized explanations are constructed.
+  const score=(row:typeof rows[number])=>pairKind==="PIE_TABLE"?row.right:row.left+row.right;
+  const maximum=Math.max(...rows.map(score));
+  const tied=rows.filter(row=>score(row)===maximum);
+  if(tied.length>1)tied[hashSeed(`${seed}:unique-category-maximum`)%tied.length]!.right+=20;
   return {kind:"MIXED_MULTI_CHART",pairKind,title:ctx.title,instruction:"Study both displays and answer the questions that follow.",leftTitle:pairKind==="PIE_TABLE"?"Share":ctx.left,rightTitle:ctx.right,leftUnit:pairKind==="PIE_TABLE"?"%":ctx.unit,rightUnit:ctx.unit,rows};
 }
 export function generateDi011MixedSet(input:{seed:string;examProfile?:Di011ExamProfile}):Di011QuestionSet {

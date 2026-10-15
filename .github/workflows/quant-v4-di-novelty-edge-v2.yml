@@ -1,0 +1,59 @@
+name: Quant V4 DI novelty and edge audit V2
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: di-novelty-edge-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  novelty-edge-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run boundary, independent cross-chart and existing source proofs
+        working-directory: artifacts/api-server
+        run: |
+          mkdir -p dist/audits/di-edge-v2
+          for audit in \
+            di-novelty-edge-audit-v2.test \
+            di-cross-chart-independent-v2.test \
+            di-delivery-novelty-mix-v1.test \
+            di-delivery-novelty-mix-adapter-v1.test \
+            DI-011/mixed-set.test \
+            DI-011/localization-review-v1.test \
+            DI-012/advanced-missing-set.test \
+            DI-013/radar-set.test \
+            DI-014/radar-pie-set.test
+          do
+            target="$(basename "$audit")"
+            pnpm exec esbuild "src/quant-v4/topics/DataInterpretation/$audit.ts" \
+              --bundle --platform=node --format=esm --packages=external \
+              --outfile="dist/audits/di-edge-v2/$target.mjs"
+            node "dist/audits/di-edge-v2/$target.mjs" > "dist/audits/di-edge-v2/$target.log"
+          done
+      - name: Upload reproducible audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-novelty-edge-audit-v2
+          path: artifacts/api-server/dist/audits/di-edge-v2/*.log
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check

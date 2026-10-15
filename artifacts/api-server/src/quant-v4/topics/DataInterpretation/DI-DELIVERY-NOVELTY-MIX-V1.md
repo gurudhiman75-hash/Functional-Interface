@@ -1,6 +1,6 @@
 # DI Delivery Novelty Mix V1
 
-Status: **CONTROLLED REVIEW CANDIDATE**  
+Status: **CONTROLLED REVIEW CANDIDATE — TECHNICALLY AUDITED V2**
 Authority: `DI-DELIVERY-NOVELTY-MIX-V1`
 
 ## Purpose
@@ -89,7 +89,7 @@ Still exam-valid, but structurally less routine:
 ## Guardrails
 
 - Deterministic selection and ordering for a fixed seed.
-- Exact normalized learner stems are de-duplicated across source modes within a delivered batch.
+- Normalized stem diversity is preferred across source modes. Exact learner items (stem plus canonical stimulus) are de-duplicated; distinct chart data can be retained after bounded attempts to find a new stem. The runtime reports stem reuse separately from item uniqueness.
 - Fresh/familiar and higher-novelty questions are spaced through the batch instead of being allowed to cluster.
 - Higher-novelty source selection rotates deterministically across eligible modes over different batch seeds.
 - Banking Mains Hard slots are spread across hard-capable source modes; a 20-question default batch requires at least four distinct Hard sources and caps any one Hard source at two questions.
@@ -111,3 +111,12 @@ Still exam-valid, but structurally less routine:
 ## Intended next gate
 
 Human review should evaluate whether the 75/20/5 Banking composition feels naturally exam-like over complete mock-sized batches. Production/test promotion remains a separate approval.
+
+## Technical edge closure — 14 October 2026
+
+The existing English contract is technically audited across all 23 source modes,
+all three declared profiles and integer counts 1–1000. V2 repairs infeasible
+SSC/Prelims all-Hard caps, floating quota ties, duplicate-item identity and a
+demonstrated DI-011 maximum-category ambiguity. Invalid selectors and unsupported
+filters fail explicitly. The source arithmetic authorities and Mains depth rules
+remain in force. See `DI-NOVELTY-EDGE-CLOSURE-V2.md` and the committed proof JSON.

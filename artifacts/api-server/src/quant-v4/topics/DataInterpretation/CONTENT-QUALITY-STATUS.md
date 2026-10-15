@@ -18,7 +18,7 @@ This freeze covers the learner-facing Data Interpretation content contract acros
 - deterministic regression protection,
 - full real-exam-simulation compatibility.
 
-It does **not** promote Question Bank/publication lifecycle states and it does **not** close the separately deferred novelty/edge-generation pass.
+It does **not** promote Question Bank/publication lifecycle states. The separately scoped novelty/edge pass for the implemented English delivery mix was technically completed on 2026-10-14; see `DI-NOVELTY-EDGE-CLOSURE-V2.md`.
 
 ## Source breadth
 
@@ -98,7 +98,7 @@ All **17/17** audit workflows passed before merge, including:
 **FROZEN for the audited/changed learner surfaces covered by the merged validation suite.** Existing package lifecycle authorities remain the source of truth for release state.
 
 ### Novelty / edge generation
-**DEFERRED BY DESIGN.** This is the next separate DI-wide audit, not a baseline-coverage defect.
+**TECHNICALLY AUDITED FOR THE EXISTING ENGLISH CONTROLLED-REVIEW MIX.** The 2026-10-14 V2 audit covers all 23 selection modes, three profiles and batch counts 1–1000, with independent linked-chart and native-parity proof for the corrected source. Human approval, wider native mix approval and new unauthored topologies are separate scopes. See `DI-NOVELTY-EDGE-CLOSURE-V2.md`.
 
 ### Production/publication authority
 **UNCHANGED.** This content-quality freeze does not widen Question Bank writes, mock-test eligibility, public publication, or automatic release permissions.
