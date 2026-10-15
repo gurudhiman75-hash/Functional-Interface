@@ -37,3 +37,17 @@ test('monitoring is visible only in opted-in staging frontend and does not claim
   assert.match(page,/automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running/);
   assert.match(page,/getQuestionStudioStagingOperations/);
 });
+
+test('mobile telemetry retries on foreground or connectivity and does not mislabel stale results as healthy',()=>{
+  assert.match(page,/document\.addEventListener\('visibilitychange', retryWhenVisible\)/);
+  assert.match(page,/window\.addEventListener\('focus', retryWhenVisible\)/);
+  assert.match(page,/window\.addEventListener\('online', retryWhenOnline\)/);
+  assert.match(page,/document\.removeEventListener\('visibilitychange', retryWhenVisible\)/);
+  assert.match(page,/window\.removeEventListener\('focus', retryWhenVisible\)/);
+  assert.match(page,/window\.removeEventListener\('online', retryWhenOnline\)/);
+  assert.match(page,/if \(!active \|\| inFlight\) return/);
+  assert.match(page,/Monitoring needs refresh/);
+  assert.match(page,/Figures are from the last successful check, not current health/);
+  assert.match(page,/Retry status/);
+  assert.match(page,/stagingOperationsError \|\|[\s\S]*?stagingOperations\.requiresAttention/);
+});
