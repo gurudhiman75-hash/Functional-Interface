@@ -1,0 +1,31 @@
+name: Validate QS staging incident watchdog
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-staging-watchdog.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-once.ts'
+      - 'tests/qs-staging-incident-watchdog-contract.test.mjs'
+      - 'docs/examtree-qs-staging-alert-recovery-runbook-2026-10-15.md'
+permissions:
+  contents: read
+concurrency:
+  group: qs-staging-watchdog-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: node --test tests/qs-staging-incident-watchdog-contract.test.mjs
+      - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Compile exact staging Cloud Run Job entrypoint
+        run: node artifacts/api-server/build-qs-staging-dispatcher.mjs
