@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {build} from "esbuild";
+import {createRequire} from "node:module";
+const {build}=createRequire(new URL("../artifacts/api-server/package.json",import.meta.url))("esbuild");
 import {readFileSync} from "node:fs";
 import {spawn} from "node:child_process";
 import {createServer} from "node:net";
