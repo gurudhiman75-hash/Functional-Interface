@@ -242,7 +242,7 @@ export function stat001QuestionStudioPackageCard() {
     canonicalProblems: [{ id: STAT001_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Measures of Central Tendency" }],
     permanentQlIds: STAT001_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: STAT001_PERMANENT_QLS.length,
-    qls: STAT001_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode })),
+    qls: STAT001_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode, localizationStatus: descriptor.localizationStatus })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],

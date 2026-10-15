@@ -244,7 +244,7 @@ export function stat002QuestionStudioPackageCard() {
     canonicalProblems: [{ id: STAT002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Standard Deviation" }],
     permanentQlIds: STAT002_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: STAT002_PERMANENT_QLS.length,
-    qls: STAT002_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode })),
+    qls: STAT002_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode, localizationStatus: descriptor.localizationStatus })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],

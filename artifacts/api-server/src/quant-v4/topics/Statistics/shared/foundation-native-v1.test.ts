@@ -37,6 +37,9 @@ const seen = new Set<string>();
 for (const [i, fn] of [a, b, c].entries()) {
   const card = [ca, cb, cc][i]!();
   assert.deepEqual(card.supportedLanguages, ["en", "hi", "pa"]);
+  assert(
+    card.qls.every((ql) => ql.localizationStatus === "HI_PA_REVIEW_CANDIDATE"),
+  );
   const h = createHash("sha256");
   for (const examProfile of ["SSC_CGL_TIER_II", "SSC_CGL_JSO"])
     for (let seed = 0; seed < 10; seed++) {

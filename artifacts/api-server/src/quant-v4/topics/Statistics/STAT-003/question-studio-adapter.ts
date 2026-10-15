@@ -244,7 +244,7 @@ export function stat003QuestionStudioPackageCard() {
     canonicalProblems: [{ id: STAT003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Frequency Distribution & Central Tendency" }],
     permanentQlIds: STAT003_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: STAT003_PERMANENT_QLS.length,
-    qls: STAT003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode })),
+    qls: STAT003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, solveMode: descriptor.solveMode, localizationStatus: descriptor.localizationStatus })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
