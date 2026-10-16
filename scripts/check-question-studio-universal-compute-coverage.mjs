@@ -18,6 +18,8 @@ if(!["pilot","all"].includes(wave)||!Number.isSafeInteger(shard)||!Number.isSafe
 }
 if(wave==="pilot"&&(shards!==1||shard!==0))throw Error("Pilot wave cannot be sharded");
 const timeoutSeconds=Number(flags["timeout-seconds"]??45);
+const selection=flags.selection??"chapter";
+if(!["chapter","cp"].includes(selection))throw Error("Invalid selection mode");
 if(!Number.isSafeInteger(timeoutSeconds)||timeoutSeconds<5||timeoutSeconds>110)throw Error("Invalid bounded timeout");
 const manifestPath=resolve(flags.catalog??"artifacts/api-server/dist/question-studio-unified-capabilities.json");
 const workerPath=resolve(flags.worker??"artifacts/api-server/dist/question-studio-universal-worker.mjs");
@@ -43,7 +45,14 @@ if(wave==="all"){
  selected=[...new Map([...priority,...extra].map(p=>[p.packageId,p])).values()];
  if(selected.length>16)selected=selected.slice(0,16);
 }
-console.log("QS_COVERAGE_START "+JSON.stringify({wave,shard,shards,catalogTotal:enabled.length,selected:selected.length,packageIds:selected.map(p=>p.packageId)}));
+if(flags.only){
+ const requested=new Set(flags.only.split(",").map(s=>s.trim()).filter(Boolean));
+ if(!requested.size)throw Error("Empty explicit package selection");
+ const unknown=[...requested].filter(id=>!enabled.some(p=>p.packageId===id));
+ if(unknown.length)throw Error("Unknown package(s): "+unknown.join(","));
+ selected=enabled.filter(p=>requested.has(p.packageId));
+}
+console.log("QS_COVERAGE_START "+JSON.stringify({wave,shard,shards,catalogTotal:enabled.length,selected:selected.length,selection,packageIds:selected.map(p=>p.packageId)}));
 const results=[];
 const date=Date.now();
 const cwd=process.cwd();
@@ -88,7 +97,7 @@ async function compute(input){
 try{
  for(const pkg of selected){
   const started=Date.now();
-  const firstCp=(pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0];
+  const firstCp=selection==="cp"?((pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0]):undefined;
   const difficulty=pkg.difficultyFilterSupported===false?undefined
     :(pkg.supportedDifficulties?.includes("Medium")?"Medium":pkg.supportedDifficulties?.[0]??"Mixed");
   const request={
@@ -101,7 +110,7 @@ try{
   };
   const input={request,count:1,selectedCpIds:firstCp?[firstCp]:[]};
   const result={packageId:pkg.packageId,engineId:pkg.engineId,subject:pkg.subject,
-    cpId:firstCp??null,language:request.language,difficulty:difficulty??null,
+    selection,cpId:firstCp??null,language:request.language,difficulty:difficulty??null,
     runtimeMode:pkg.runtimeMode??null,status:"failed",code:null,durationMs:0};
   try{
    const batch=await compute(input);
@@ -111,7 +120,10 @@ try{
     result.code=validateAnswer(batch.questions[0]);
     result.status=result.code?"failed":"passed";
    }
-  }catch(error){result.code=safeCode(error);}
+  }catch(error){
+   result.code=safeCode(error);
+   result.reason=String(error instanceof Error?error.message:"Compute failed").replace(/\s+/g," ").slice(0,160);
+  }
   result.durationMs=Date.now()-started;
   results.push(result);
   console.log("QS_COVERAGE_CASE "+JSON.stringify(result));
@@ -121,7 +133,7 @@ try{
 }
 const passed=results.filter(r=>r.status==="passed").length;
 const failed=results.filter(r=>r.status==="failed").length;
-const output={runType:"offline-compute-only",wave,shard,shards,catalogTotal:enabled.length,
+const output={runType:"offline-compute-only",wave,shard,shards,selection,catalogTotal:enabled.length,
   selected:results.length,passed,failed,durationMs:Date.now()-date,results};
 writeFileSync(reportPath,JSON.stringify(output,null,2)+"\n");
 if(process.env.GITHUB_STEP_SUMMARY){
