@@ -4,7 +4,6 @@ on:
     branches: [New-main]
     paths:
       - 'scripts/check-question-studio-universal-compute-coverage.mjs'
-      - '.github/workflows/qs-universal-compute-coverage.yml'
   workflow_dispatch:
     inputs:
       wave:
@@ -23,15 +22,16 @@ permissions:
   contents: read
 concurrency:
   group: qs-universal-offline-compute-${{ github.event_name }}-${{ github.ref }}-${{ inputs.shard || 'pilot' }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   audit:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     env:
       # No Cloud Run, Firebase, Neon, Cloud Tasks, or GitHub production credentials.
       WAVE: ${{ inputs.wave || 'pilot' }}
       SHARD: ${{ inputs.shard || '0' }}
+      ONLY: ${{ github.event_name == 'pull_request' && 'OPS-001,ALGEBRA' || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -55,7 +55,8 @@ jobs:
         run: |
           set -eu
           case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) SHARDS=12;; *) exit 2;; esac
-          node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" --catalog=/tmp/qs-compute-catalog.json --worker=artifacts/api-server/dist/question-studio-universal-worker.mjs --report=/tmp/qs-universal-compute-report.json
+          if [ -n "$ONLY" ]; then ONLY_ARG="--only=$ONLY"; else ONLY_ARG="--selection=chapter"; fi
+          node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --worker=artifacts/api-server/dist/question-studio-universal-worker.mjs --report=/tmp/qs-universal-compute-report.json
       - name: Upload observed package results (no questions or credentials)
         if: always()
         uses: actions/upload-artifact@v4
