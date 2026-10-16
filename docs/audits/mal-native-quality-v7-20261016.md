@@ -2,6 +2,8 @@
 
 Status: partial correction; chapter remains open for native wording review.
 
+Update: [V8](mal-native-quality-v8-20261016.md) addresses the alternate-stem backlog below and expands the regression to 60 seeds per QL. Explanation prose and visual review remain open.
+
 Translation fallback previously altered TeX command names, including `\left` and `\times`. V7 shields command tokens before localization and restores them afterward, preserving localized prose inside text commands. Structured Hindi/Punjabi stems now cover CP002 QLs 012–028, with additional matching forms elsewhere. QL067 now explicitly states that vessel C starts empty when its source omitted this necessary premise.
 
 Native delivery is marked NATIVE_QUALITY_REVIEW_CANDIDATE; the package is CONTROLLED_MULTILINGUAL_REVIEW. Bank writes, test eligibility, automatic student publication and production release remain disabled, with manual approval required. Source review provenance is retained. English mathematical data, solvers and option construction are unchanged.

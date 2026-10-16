@@ -51,15 +51,15 @@ jobs:
       - name: Bundle native quality and formula syntax regression
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-native-quality-v7.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-native-quality-v8.test.ts \
             --bundle --platform=node --format=esm --packages=external \
-            --outfile=dist/audits/mal-native-quality-v7.mjs
+            --outfile=dist/audits/mal-native-quality-v8.mjs
 
       - name: Verify native quality and formula syntax
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/audits/mal-native-quality-v7.mjs \
-            2>&1 | tee -a mal-native-quality-v7.log
+          node artifacts/api-server/dist/audits/mal-native-quality-v8.mjs \
+            2>&1 | tee -a mal-native-quality-v8.log
 
       - name: Upload MAL-001 audit evidence
         if: always()
@@ -68,4 +68,4 @@ jobs:
           name: mal-001-systematic-audit-v1
           path: |
             mal-001-systematic-audit-v1.log
-            mal-native-quality-v7.log
+            mal-native-quality-v8.log

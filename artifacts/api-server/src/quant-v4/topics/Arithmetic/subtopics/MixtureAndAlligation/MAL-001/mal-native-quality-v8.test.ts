@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { applyMal001NativeQualityV8 } from "./foundation/chapter-native-quality-v8";
 import { runMal001QuestionStudioPipeline as run } from "./question-studio-adapter";
 import { applyMal001QuestionStudioLocalizationV6 as oldLocalize } from "./foundation/chapter-multilingual-question-studio-v6";
 import { generateMal001StandardQuestionStudioBatch as batch } from "./question-studio-standard-integration";
@@ -15,12 +16,13 @@ const commands = (v: unknown): string[] => {
 const numerical = (s: string) => s.match(/\d+(?:\.\d+)?/g) ?? [];
 const cpFor = (i: number) =>
   `MAL-CP-${String(i <= 11 ? 1 : i <= 28 ? 2 : i <= 37 ? 3 : i <= 47 ? 4 : i <= 60 ? 5 : 6).padStart(3, "0")}`;
+const residuals = new Set<string>();
 const repairs = new Set<string>(),
   pending = new Set<string>();
 let checked = 0,
   legacyBrokenCommands = 0;
 for (let i = 1; i <= 67; i++)
-  for (let sample = 0; sample < (i >= 12 && i <= 28 ? 60 : 12); sample++) {
+  for (let sample = 0; sample < 60; sample++) {
     const ql = `MAL-QL-${String(i).padStart(3, "0")}`;
     const input = { questionLanguageId: ql, seed: `V7:${i}:${sample}` };
     const english = run(cpFor(i) as any, { ...input, language: "en" });
@@ -59,7 +61,7 @@ for (let i = 1; i <= 67; i++)
       );
       assert.equal(
         native.traceability.nativeQualityRevision,
-        "MAL-NATIVE-QUALITY-V7",
+        "MAL-NATIVE-QUALITY-V8",
       );
       // Formula syntax is compared with the actual source, including optional help.
       assert.deepEqual(
@@ -84,19 +86,80 @@ for (let i = 1; i <= 67; i++)
         i > 11
       )
         repairs.add(ql);
-      if (i >= 12 && i <= 28)
-        assert.equal(
-          native.traceability.nativeStemAuthored,
-          true,
-          `${ql}: CP002 must use an authored native stem`,
-        );
+      assert.equal(
+        native.traceability.nativeStemAuthored,
+        true,
+        `${ql}: every QL must use an authored native stem`,
+      );
       if (!native.traceability.nativeStemAuthored) pending.add(ql);
+      const bareStem = native.stem.replace(
+        /\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g,
+        "",
+      );
+      if (/[A-Za-z]{2,}/.test(bareStem))
+        residuals.add(`${ql}/${language}: ${bareStem}`);
+      if (i >= 38 && i <= 47) {
+        const variant = english.representationVariant;
+        const hidden: Record<string, string[]> = {
+          TRACKED_COMPONENT_AMOUNT: ["trackedAmount"],
+          OTHER_COMPONENT_AMOUNT: ["otherAmount"],
+          TRACKED_COMPONENT_PERCENT: ["trackedRate"],
+          TOTAL_FROM_TRACKED_COMPONENT: ["total"],
+          TOTAL_FROM_OTHER_COMPONENT: ["total"],
+          SOLVENT_ADDED: ["solventAdded", "finalTotal"],
+          PURE_SOLUTE_ADDED: ["pureSoluteAdded", "finalTotal"],
+          EVAPORATED_AMOUNT: ["evaporatedAmount", "finalTotal"],
+          FINAL_TOTAL_AFTER_EVAPORATION: ["finalTotal", "evaporatedAmount"],
+          FINAL_CONCENTRATION_AFTER_SOLVENT_ADDITION: ["finalRate"],
+          FINAL_CONCENTRATION_AFTER_SOLVENT_EVAPORATION: ["finalRate"],
+          INITIAL_TOTAL_BEFORE_EVAPORATION: ["initialTotal"],
+          FINAL_MASS: ["finalMass"],
+          MOISTURE_LOST: ["moistureLost"],
+          INITIAL_MASS: ["initialMass"],
+        };
+        const state = { ...english.exactState };
+        for (const field of hidden[variant] ?? [])
+          state[field] = { numerator: 999999n, denominator: 1n };
+        const altered = applyMal001NativeQualityV8(
+          { ...english, answer: "999999", exactState: state },
+          language,
+        );
+        assert.equal(
+          altered.stem,
+          native.stem,
+          `${ql}: hidden solution leaked into stem`,
+        );
+      }
+      if (i === 66 || i === 67) {
+        const fields = english.stateKey.split(":");
+        fields[
+          i === 67
+            ? 3
+            : english.sourceVariantId === "ASYMMETRIC_INVERSE_RETURN"
+              ? 2
+              : 1
+        ] = "999999";
+        const altered = applyMal001NativeQualityV8(
+          { ...english, answer: "999999", stateKey: fields.join(":") },
+          language,
+        );
+        assert.equal(
+          altered.stem,
+          native.stem,
+          `${ql}: solved transfer leaked into stem`,
+        );
+      }
       checked++;
     }
   }
 assert(
   legacyBrokenCommands > 0,
   "The audit must reproduce the old formula defect",
+);
+assert.deepEqual(
+  [...residuals],
+  [],
+  "No untranslated words may remain in native stems",
 );
 assert(repairs.size >= 20);
 for (const language of ["en", "hi", "pa"] as const) {
