@@ -15,8 +15,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: examtree-qs-admin-isolated-preview
-  cancel-in-progress: false
+  group: examtree-qs-admin-isolated-preview-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -33,7 +33,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/New-main' && inputs.confirm == 'deploy'
     needs: validate
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       # Credentials must be entered under repository Settings > Secrets > Actions.
       # Cloudflare token scope: Account / Cloudflare Pages / Edit.
