@@ -8,6 +8,7 @@ on:
       - 'artifacts/api-server/build-runtime.mjs'
       - 'Dockerfile.examtree-cloudrun-api'
       - 'tests/qs-built-unified-admin-manifest-contract.test.mjs'
+      - 'scripts/audit-question-studio-staging-coverage.mjs'
 permissions:
   contents: read
 concurrency:
@@ -45,3 +46,15 @@ jobs:
           if(!m.packages.some(p=>p.subject==="English"))throw Error("English subject not exposed");
           console.log("PASS: four engines, Computer Awareness, English, package titles");
           '
+      - name: Build async receiver catalog and produce complete read-only gap matrix
+        run: |
+          set -eu
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-async-task-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=dist/qs-async-catalog-audit-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
+          QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT=/tmp/qs-async-catalog.json node artifacts/api-server/dist/qs-async-catalog-audit-builder.mjs
+          node scripts/audit-question-studio-staging-coverage.mjs /tmp/qs-unified-catalog.json /tmp/qs-async-catalog.json /tmp/qs-staging-coverage.md
+      - name: Upload audit report (no secrets or generation)
+        uses: actions/upload-artifact@v4
+        with:
+          name: qs-staging-coverage-readonly
+          path: /tmp/qs-staging-coverage.md
+          retention-days: 14
