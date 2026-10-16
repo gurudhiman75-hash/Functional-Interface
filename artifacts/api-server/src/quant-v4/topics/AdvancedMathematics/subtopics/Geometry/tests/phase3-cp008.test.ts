@@ -14,12 +14,17 @@ for (const prototype of GEO_CP_008_PHASE3_PROTOTYPES) {
   assertPhase3DiscoveryQuestion(question);
   assertPhase3(question.cpId === "GEO-CP-008", `${prototype.temporaryPrototypeId}: wrong ownership`);
   if (prototype.temporaryPrototypeId.includes("FOURTH-ANGLE")) {
-    assertPhase3(question.answer === "80°", "Fourth-angle answer changed");
+    const angles = question.stem.match(/∠A = (\d+)°, ∠B = (\d+)° and ∠C = (\d+)°/);
+    assertPhase3(Boolean(angles), "Quadrilateral stem must show three angles");
+    const [, a, b, c] = angles!.map(Number);
+    assertPhase3(question.answer === `${360 - a - b - c}°`, "Fourth-angle answer must sum to 360°");
     assertPhase3(question.diagramModel === undefined, "General angle-sum prototype added a non-authoritative decorative quadrilateral");
     assertPhase3(question.independentVerifierResult.oracle === "INDEPENDENT_ARITHMETIC", "Fourth-angle verifier should be independent arithmetic");
   }
   if (prototype.temporaryPrototypeId.includes("PARALLELOGRAM")) {
-    assertPhase3(question.answer === "9 cm", "Parallelogram diagonal answer changed");
+    const diagonal = question.stem.match(/AC = (\d+) cm, find AO/);
+    assertPhase3(Boolean(diagonal), "Parallelogram stem must show the full diagonal");
+    assertPhase3(question.answer === `${Number(diagonal![1]) / 2} cm`, "Diagonal bisection answer must be half of AC");
     assertPhase3(question.diagramModel?.parallelMarks.length === 2, "Parallelogram diagram lacks both structural parallel pairs");
     assertPhase3(question.diagramModel?.equalLengthMarks.length === 0, "Parallelogram stem leaked the derived diagonal-bisection equality");
   }
