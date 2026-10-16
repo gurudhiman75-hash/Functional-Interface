@@ -79,6 +79,7 @@ await build({
     enqueue:"src/question-studio/async-enqueue-foundation.ts",
     claim:"src/question-studio/async-task-lease-claim.ts",
     commit:"src/question-studio/async-review-commit.ts",
+    watchdog:"src/question-studio/async-staging-watchdog.ts",
   },
   outdir:"dist/qs-ci-integration",outExtension:{".js":".mjs"},
   bundle:true,splitting:true,platform:"node",format:"esm",target:"node22",
@@ -89,6 +90,7 @@ const location=(name)=>pathToFileURL(resolve("dist/qs-ci-integration/"+name+".mj
 const {recordQuestionStudioEnqueueIntent:enqueue}=await import(location("enqueue"));
 const {claimQuestionStudioAsyncTask:claim}=await import(location("claim"));
 const {commitQuestionStudioAsyncReview:save}=await import(location("commit"));
+const {recoverOneExpiredQuestionStudioStagingRun:quarantine}=await import(location("watchdog"));
 const sql=postgres(process.env.DATABASE_URL,{max:3});
 const ACTOR="ci-queue-admin";
 const makeInput=(key,count=2)=>({
@@ -281,6 +283,113 @@ async function run(){
   assert.equal((await claim(cancelled.id)).kind,"terminal");
   assert.equal((await getCounts(cancelled.id)).items,0);
   console.log("PASS: cancelled run is terminal, no additional review items");
+
+  // Prove fail-closed *staging-only* operator quarantine against actual
+  // Postgres transactions. This never re-enqueues Cloud Tasks or writes students.
+  process.env.EXAMTREE_API_RUNTIME="cloud-run";
+  process.env.EXAMTREE_API_STAGING="true";
+  process.env.EXAMTREE_QUESTION_STUDIO_TASK_DISPATCH_ENABLED="true";
+  process.env.EXAMTREE_QUESTION_STUDIO_TASK_QUEUE="examtree-qs-staging";
+  process.env.EXAMTREE_QUESTION_STUDIO_TASK_PROJECT="sarbedutech";
+  process.env.EXAMTREE_QUESTION_STUDIO_TASK_REGION="asia-south1";
+  process.env.EXAMTREE_QS_STAGING_EXPIRED_RECOVERY_ENABLED="false";
+  assert.deepEqual(await quarantine(),{kind:"disabled"});
+  const noLease=await enqueue(makeInput("recovery-no-lease-key-001"));
+  await sql`
+    UPDATE content.generation_runs SET due_at=now()-interval '30 minutes'
+    WHERE id=${noLease.id}::uuid
+  `;
+  assert.equal((await getCounts(noLease.id)).status,"queued");
+  assert.deepEqual(await quarantine(),{kind:"disabled"});
+  assert.equal((await getCounts(noLease.id)).status,"queued");
+
+  // A legitimate outbox-backed run with an ACTIVE lease must never be failed
+  // even after the deadline (e.g. a task is still committing its batch).
+  const activeRun=await enqueue(makeInput("recovery-live-lease-001"));
+  const activeClaim=await claim(activeRun.id);
+  assert.equal(activeClaim.kind,"claimed");
+  await sql`
+    UPDATE content.generation_runs SET due_at=now()-interval '30 minutes'
+    WHERE id=${activeRun.id}::uuid
+  `;
+
+  // A synthetic row with no enqueue event must be ignored forever.
+  const fakeId=randomUUID();
+  await sql`
+    INSERT INTO content.generation_runs(
+      id,public_code,status,attempt_number,prompt_snapshot,request_snapshot,due_at
+    ) VALUES(
+      ${fakeId}::uuid,'GEN-20261016-FAKE0001','queued'::generation_run_status,0,
+      'ci synthetic only',('{"queueVersion":1}'::text)::jsonb,
+      now()-interval '30 minutes'
+    )
+  `;
+
+  process.env.EXAMTREE_QS_STAGING_EXPIRED_RECOVERY_ENABLED="true";
+  const noLeaseRecovery=await quarantine();
+  assert.equal(noLeaseRecovery.kind,"marked_failed");
+  assert.equal(noLeaseRecovery.publicCode,noLease.publicCode);
+  let quarantineCounts=await getCounts(noLease.id);
+  assert.equal(quarantineCounts.status,"failed");
+  assert.equal(quarantineCounts.items,0);
+  assert.equal(quarantineCounts.versions,0);
+  assert.equal(quarantineCounts.audits,2); // enqueue + recovery audit
+  assert.equal(quarantineCounts.outbox,1); // no new/replayed task
+  const [auditReceipt]=await sql`
+    SELECT count(*)::int AS n FROM platform.audit_events
+    WHERE entity_id=${noLease.id}::uuid
+      AND action_key='question_studio.generation_run.deadline_expired'
+  `;
+  assert.equal(auditReceipt.n,1);
+  assert.deepEqual(await quarantine(),{kind:"no_expired_run"});
+  assert.equal((await getCounts(activeRun.id)).status,"running");
+  assert.equal((await getCounts(fakeId)).status,"queued");
+
+  // Expired lease is eligible for quarantine only after deadline + grace;
+  // do not reset its attempt counter or publish another outbox event.
+  const [activeLeaseBefore]=await sql`
+    SELECT attempt_number AS attempts, lease_token::text AS token
+    FROM content.generation_run_task_leases
+    WHERE generation_run_id=${activeRun.id}::uuid
+  `;
+  await sql`
+    UPDATE content.generation_run_task_leases
+    SET claimed_at=now()-interval '10 minutes',
+        lease_expires_at=now()-interval '1 second'
+    WHERE generation_run_id=${activeRun.id}::uuid
+  `;
+  const expiredRecovery=await quarantine();
+  assert.equal(expiredRecovery.kind,"marked_failed");
+  assert.equal(expiredRecovery.publicCode,activeRun.publicCode);
+  quarantineCounts=await getCounts(activeRun.id);
+  assert.equal(quarantineCounts.status,"failed");
+  assert.equal(quarantineCounts.audits,2);
+  assert.equal(quarantineCounts.outbox,1);
+  assert.equal(quarantineCounts.items,0);
+  const [activeLeaseAfter]=await sql`
+    SELECT attempt_number AS attempts, lease_token::text AS token
+    FROM content.generation_run_task_leases
+    WHERE generation_run_id=${activeRun.id}::uuid
+  `;
+  assert.deepEqual(activeLeaseAfter,activeLeaseBefore);
+  assert.equal((await claim(activeRun.id)).kind,"terminal");
+  assert.deepEqual(await quarantine(),{kind:"no_expired_run"});
+
+  // Deadline grace is mandatory, not just a stale created_at timestamp.
+  const inGrace=await enqueue(makeInput("recovery-still-in-grace"));
+  await sql`
+    UPDATE content.generation_runs SET due_at=now()-interval '5 minutes'
+    WHERE id=${inGrace.id}::uuid
+  `;
+  assert.deepEqual(await quarantine(),{kind:"no_expired_run"});
+  assert.equal((await getCounts(inGrace.id)).status,"queued");
+  const [recoveryOutbox]=await sql`
+    SELECT count(*)::int AS n FROM platform.outbox_events
+    WHERE event_type='question_studio.generation_run.queued.v1'
+      AND aggregate_id IN (${noLease.id}::uuid,${activeRun.id}::uuid,${inGrace.id}::uuid)
+  `;
+  assert.equal(recoveryOutbox.n,3);
+  console.log("PASS: disabled recovery, grace period, active lease safety, outbox-only quarantine, single audit, no task replay");
 
   // These database assertions do not prove Cloud Tasks IAM, signed OIDC,
   // real worker compute or user-facing admin Generate integration.
