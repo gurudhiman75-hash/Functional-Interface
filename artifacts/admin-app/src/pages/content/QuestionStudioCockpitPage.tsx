@@ -610,13 +610,15 @@ export function QuestionStudioCockpitPage() {
         seed: seed.trim() || undefined,
       };
       if (STAGING_ASYNC_ENABLED && stagingAsyncSelected) {
-        const signature = JSON.stringify(input);
+        // Async compute validates the package runtime strictly. Keep normal Generate unchanged.
+        const asyncInput: CreateGenerationRunInput = { ...input, runtimeMode: activePackage.runtimeMode };
+        const signature = JSON.stringify(asyncInput);
         if (!stagingAsyncRetry.current || stagingAsyncRetry.current.signature !== signature) {
           stagingAsyncRetry.current = { signature, key: `qs-staging-${crypto.randomUUID()}` };
         }
         setStagingAsyncSubmitting(true);
         try {
-          const receipt = await enqueueQuestionStudioStagingRun(input, stagingAsyncRetry.current.key);
+          const receipt = await enqueueQuestionStudioStagingRun(asyncInput, stagingAsyncRetry.current.key);
           stagingAsyncRetry.current = null;
           setUrlSearchParams(withStagingResumeRunId(urlSearchParams, receipt.id), { replace: true });
           setStagingAsyncRun({
@@ -664,7 +666,11 @@ export function QuestionStudioCockpitPage() {
         `${result.publicCode} produced ${result.itemCount} review items${cpIds.length > 0 ? ` across ${cpIds.length} selected CPs` : ' using the engine-managed CP mix'}.`,
       );
     } catch (caught) {
-      showToast.error('Generation failed', caught instanceof Error ? caught.message : 'Unable to generate questions.');
+      const errorCode = caught && typeof caught === 'object' && 'code' in caught && typeof caught.code === 'string'
+        ? caught.code : null;
+      showToast.error('Generation failed', caught instanceof Error
+        ? `${caught.message}${errorCode ? ` (code: ${errorCode})` : ''}`
+        : 'Unable to generate questions.');
     }
   };
 
