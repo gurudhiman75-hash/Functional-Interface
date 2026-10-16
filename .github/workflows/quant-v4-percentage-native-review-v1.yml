@@ -5,7 +5,6 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/**"
       - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
-      - ".github/workflows/quant-v4-percentage-native-review-v1.yml"
   workflow_dispatch:
 permissions:
   contents: read
