@@ -6,7 +6,7 @@ import {
 for (let n = 1; n <= 20; n++)
   for (const language of ["hi", "pa"]) {
     const questionLanguageId = `STAT-QL-${String(n).padStart(3, "0")}`;
-    const packageId = n <= 9 ? "STAT-001" : n <= 12 ? "STAT-002" : "STAT-003";
+    const packageId = n <= 6 ? "STAT-001" : n <= 12 ? "STAT-002" : "STAT-003";
     const result = await generateQuestionStudioQuestions({
       questionLanguageId,
       language,
