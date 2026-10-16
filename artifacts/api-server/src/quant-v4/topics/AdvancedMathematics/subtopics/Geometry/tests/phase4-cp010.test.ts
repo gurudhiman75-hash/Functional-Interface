@@ -9,6 +9,16 @@ for (const prototype of GEO_CP_010_PHASE4_PROTOTYPES) {
   assertPhase4(question.independentVerifierResult.oracle === "COORDINATE_ORACLE", `${prototype.temporaryPrototypeId}: CP-010 lacks coordinate oracle`);
   if (prototype.temporaryPrototypeId.includes("CENTRE-PERP")) {
     assertPhase4(question.answer === "6 cm", "Centre-perpendicular chord answer changed");
+    // Different generated scales must preserve the coordinate oracle, not
+    // compare a scaled endpoint against an unscaled radius (GEO-QL-049).
+    const scaledAnswers = new Set<string>();
+    for (let sample = 0; sample < 40; sample++) {
+      const scaled = prototype.generate(`geo-cp010-oracle-scaled:${sample}`);
+      assertPhase4DiscoveryQuestion(scaled);
+      assertPhase4(scaled.independentVerifierResult.passed, `Scaled oracle failed at sample ${sample}`);
+      scaledAnswers.add(scaled.answer);
+    }
+    assertPhase4(scaledAnswers.size >= 3, "CP010 scale coverage must exercise multiple distinct chord lengths");
     assertPhase4(question.diagramModel!.rightAngleMarks.length === 1, "Supplied centre-perpendicular relation is not marked");
     assertPhase4(question.diagramModel!.equalLengthMarks.length === 0, "Stem diagram leaked derived chord bisection equality");
   } else {
