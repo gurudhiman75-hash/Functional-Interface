@@ -1,0 +1,79 @@
+name: Build and deploy isolated QS admin preview
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/build-qs-admin-preview.sh'
+      - 'tests/qs-admin-preview-manual-deploy-contract.test.mjs'
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Deploy to isolated examtree-qs-admin-preview (never production)"
+        required: true
+        type: choice
+        options: [deploy]
+permissions:
+  contents: read
+concurrency:
+  group: examtree-qs-admin-isolated-preview-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify isolated build and deployment contracts
+        run: node --test tests/qs-admin-browser-staging-deploy-contract.test.mjs tests/qs-admin-preview-manual-deploy-contract.test.mjs
+      - name: Check workflow patch hygiene
+        run: git diff --check
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/New-main' && inputs.confirm == 'deploy'
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      # Credentials must be entered under repository Settings > Secrets > Actions.
+      # Cloudflare token scope: Account / Cloudflare Pages / Edit.
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      EXAMTREE_QS_ADMIN_API_ORIGIN: https://examtree-qs-admin-api-staging-1083299267005.asia-south1.run.app
+      EXAMTREE_QS_ADMIN_PREVIEW_DEPLOY_APPROVED: 'yes'
+      MODE: deploy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require Cloudflare Pages scoped credentials
+        run: |
+          set -euo pipefail
+          set +x
+          test -n "${CLOUDFLARE_API_TOKEN}" || { echo "CLOUDFLARE_API_TOKEN GitHub Secret missing"; exit 1; }
+          test -n "${CLOUDFLARE_ACCOUNT_ID}" || { echo "CLOUDFLARE_ACCOUNT_ID GitHub Secret missing"; exit 1; }
+          [[ "${CLOUDFLARE_ACCOUNT_ID}" =~ ^[a-f0-9]{32}$ ]] || { echo "Invalid Cloudflare account ID"; exit 1; }
+      - name: Load only public frontend Firebase config (no service-account secrets)
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs');
+          const lines=fs.readFileSync('artifacts/admin-app/.env.production','utf8').split(/\r?\n/);
+          const keys=[
+            'VITE_FIREBASE_API_KEY','VITE_FIREBASE_AUTH_DOMAIN','VITE_FIREBASE_PROJECT_ID',
+            'VITE_FIREBASE_STORAGE_BUCKET','VITE_FIREBASE_MESSAGING_SENDER_ID','VITE_FIREBASE_APP_ID',
+          ];
+          for (const key of keys) {
+            const matches=lines.filter(s=>s.startsWith(key+'='));
+            if (matches.length!==1) throw new Error('Missing/duplicate public Firebase key: '+key);
+            let value=matches[0].slice(key.length+1).trim();
+            if ((value.startsWith('"')&&value.endsWith('"')) ||
+                (value.startsWith("'")&&value.endsWith("'"))) value=value.slice(1,-1);
+            if (!value || value.length>512 || /[\r\n]/.test(value)) throw new Error('Invalid public frontend config: '+key);
+            if (key==='VITE_FIREBASE_PROJECT_ID' && value!=='sarbedutech') throw new Error('Wrong Firebase project');
+            fs.appendFileSync(process.env.GITHUB_ENV,key+'='+value+'\n');
+          }
+          console.log('PASS: Six public Firebase browser settings loaded; no private keys accessed');
+          NODE
+      - name: Deploy isolated staging admin only (no production Pages, DB or Tasks changes)
+        run: bash scripts/build-qs-admin-preview.sh
