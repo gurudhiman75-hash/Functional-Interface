@@ -31,4 +31,15 @@ const mixed=await languageV1Eng004QuestionStudioAdapterV1.generate({packageId:EN
 assert.equal(mixed.questions.length,20);
 assert.ok(new Set(mixed.questions.map(q=>q.cpId)).size>=3);
 await assert.rejects(()=>languageV1Eng004QuestionStudioAdapterV1.generate({packageId:ENG004_QUESTION_STUDIO_PACKAGE_ID_V1,runtimeMode:"bank-only",count:1}),/review-only/);
+// The canonical admin UI supplies the composite chapter title, which must
+// not be interpreted as simultaneous explicit synonym and antonym filters.
+const canonicalUiRequest=await languageV1Eng004QuestionStudioAdapterV1.generate({
+  packageId:ENG004_QUESTION_STUDIO_PACKAGE_ID_V1,topic:"Synonyms & Antonyms",
+  subtopic:"Vocabulary",difficulty:"Medium",count:1,language:"en",seed:"qs-all-197-eng004",
+});
+assert.equal(canonicalUiRequest.questions.length,1);
+await assert.rejects(()=>languageV1Eng004QuestionStudioAdapterV1.generate({
+  packageId:ENG004_QUESTION_STUDIO_PACKAGE_ID_V1,patternId:"synonym",subtopic:"antonym",count:1,
+}),/both synonym and antonym/);
+
 console.log("ENG-004 Question Studio review-only adapter validation passed.");
