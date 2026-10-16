@@ -3,10 +3,10 @@ import type { Stat005ContractId, Stat005Difficulty, Stat005ExamProfile } from ".
 export const STAT005_PERMANENT_RELEASE_ID = "STAT-005-PERMANENT-ENGLISH-REVIEW-P0" as const;
 export type Stat005PermanentQlDescriptor = Readonly<{
   qlId: `STAT-QL-${string}`; contractId: Stat005ContractId; label: string; semanticContract: string;
-  difficulty: Stat005Difficulty; supportedProfiles: readonly Stat005ExamProfile[];
+  localizationStatus: "HI_PA_REVIEW_CANDIDATE"; difficulty: Stat005Difficulty; supportedProfiles: readonly Stat005ExamProfile[];
 }>;
 const PROFILES = ["SSC_CGL_TIER_II", "SSC_CGL_JSO"] as const;
-const row = (qlId: `STAT-QL-${string}`, contractId: Stat005ContractId, label: string, semanticContract: string, difficulty: Stat005Difficulty): Stat005PermanentQlDescriptor => ({ qlId, contractId, label, semanticContract, difficulty, supportedProfiles: PROFILES });
+const row = (qlId: `STAT-QL-${string}`, contractId: Stat005ContractId, label: string, semanticContract: string, difficulty: Stat005Difficulty): Stat005PermanentQlDescriptor => ({ qlId, contractId, label, semanticContract, localizationStatus: "HI_PA_REVIEW_CANDIDATE", difficulty, supportedProfiles: PROFILES });
 
 // STAT-001..004 own STAT-QL-001..035. This registry reserves the next contiguous
 // block; generators and adapters resolve permanent IDs from this table.

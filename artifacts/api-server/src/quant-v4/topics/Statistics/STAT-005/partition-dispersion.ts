@@ -1,3 +1,4 @@
+import { normalizeStat005Language, localizeStat005Question } from "./native-review-v1";
 import { STAT005_PERMANENT_QLS, getStat005PermanentQl, STAT005_PERMANENT_OWNERSHIP } from "./permanent-ql-registry";
 import { STAT005_CONTRACTS, type Stat005ContractId, type Stat005Difficulty, type Stat005ExamProfile, type Stat005Question, type Stat005State } from "./types";
 
@@ -177,7 +178,7 @@ export function generateStat005Question(input: { seed?: string; examProfile?: St
 
 export function generateStat005QuestionStudioBatch(input: { packageId?: string; seed?: string; count?: number; language?: string; examProfile?: string; questionLanguageId?: string } = {}) {
   if (input.packageId && input.packageId !== "STAT-005") throw new Error(`Unknown STAT-005 package '${input.packageId}'.`);
-  if (input.language && input.language !== "en") throw new Error("STAT-005 is English-only; localization has not started.");
+  const language = normalizeStat005Language(input.language);
   const examProfile = input.examProfile === "SSC_CGL_JSO" ? "SSC_CGL_JSO" : "SSC_CGL_TIER_II";
   const count = Math.min(1000, Math.max(1, Math.floor(input.count ?? 1)));
   const batchSeed = input.seed ?? `STAT-005:${examProfile}:review`;
@@ -186,16 +187,17 @@ export function generateStat005QuestionStudioBatch(input: { packageId?: string; 
   const pool = explicit ? [explicit] : STAT005_PERMANENT_QLS;
   const questions = Array.from({ length: count }, (_, index) => {
     const descriptor = pool[index % pool.length]!;
-    const question = generateStat005Question({ seed: `${batchSeed}:${descriptor.qlId}:${index}`, examProfile, contractId: descriptor.contractId });
+    const source = generateStat005Question({ seed: `${batchSeed}:${descriptor.qlId}:${index}`, examProfile, contractId: descriptor.contractId });
+    const question = language === "en" ? source : localizeStat005Question(source, language);
     return { ...question, questionLanguageId: question.qlId, canonicalProblemId: "STAT-CP-005", patternId: "STAT-005", permanentQlId: question.qlId,
       topic: "Statistics", subtopic: "Partition Values & Dispersion", section: "Quant", generationBackend: "quant-v4",
-      runtimeMode: "STAT005_PERMANENT_ENGLISH_REVIEW_P0", reviewStatus: "ENGLISH_REVIEW_CANDIDATE",
+      runtimeMode: language === "en" ? "STAT005_PERMANENT_ENGLISH_REVIEW_P0" : "STAT005_NATIVE_REVIEW_V1", reviewStatus: language === "en" ? "ENGLISH_REVIEW_CANDIDATE" : "NATIVE_REVIEW_CANDIDATE",
       questionBankStatus: "NOT_STORED", publiclyPublishable: false, automaticStudentPublication: false,
       productionReleaseAuthorized: false, manualApprovalRequired: true };
   });
   return { engineId: "quant-v4", generationContext: { generationDomain: "quant-v4", packageId: "STAT-005",
-    canonicalProblemId: "STAT-CP-005", seed: batchSeed, language: "en", examProfile,
-    runtimeMode: "STAT005_PERMANENT_ENGLISH_REVIEW_P0", reviewStatus: "ENGLISH_REVIEW_CANDIDATE",
+    canonicalProblemId: "STAT-CP-005", seed: batchSeed, language, examProfile,
+    runtimeMode: language === "en" ? "STAT005_PERMANENT_ENGLISH_REVIEW_P0" : "STAT005_NATIVE_REVIEW_V1", reviewStatus: language === "en" ? "ENGLISH_REVIEW_CANDIDATE" : "NATIVE_REVIEW_CANDIDATE",
     releaseId: STAT005_PERMANENT_OWNERSHIP.releaseId, permanentQlCount: STAT005_PERMANENT_QLS.length,
     questionStudioDiscoverable: true, questionStudioMode: "CONTROLLED_REVIEW", questionBankStatus: "NOT_STORED",
     questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false,
@@ -207,11 +209,12 @@ export function stat005QuestionStudioPackageCard() {
     subtopic: "Partition Values & Dispersion", name: "STAT-005 Partition Values & Dispersion",
     label: "Quartiles, Deciles, Percentiles & Dispersion", generationDomain: "quant-v4", cpIds: ["STAT-CP-005"],
     permanentQlIds: STAT005_PERMANENT_QLS.map((item) => item.qlId), permanentQlCount: STAT005_PERMANENT_QLS.length,
-    supportedDifficulties: ["easy", "medium", "hard"], supportedLanguages: ["en"],
+    supportedDifficulties: ["easy", "medium", "hard"], supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"], enabled: true,
-    runtimeMode: "STAT005_PERMANENT_ENGLISH_REVIEW_P0", supportedRuntimeModes: ["STAT005_PERMANENT_ENGLISH_REVIEW_P0"],
+    runtimeMode: "STAT005_PERMANENT_ENGLISH_REVIEW_P0", supportedRuntimeModes: ["STAT005_PERMANENT_ENGLISH_REVIEW_P0", "STAT005_NATIVE_REVIEW_V1"],
     questionStudioDiscoverable: true, questionStudioMode: "CONTROLLED_REVIEW", questionBankStatus: "NOT_STORED",
     questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false,
     publiclyPublishable: false, automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true,
-    localizationStatus: "NOT_STARTED" };
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    metadata: { localizationStatus: "HI_PA_REVIEW_CANDIDATE", languageReviewStatus: {en:"ENGLISH_REVIEW_CANDIDATE",hi:"NATIVE_REVIEW_CANDIDATE",pa:"NATIVE_REVIEW_CANDIDATE"} } };
 }

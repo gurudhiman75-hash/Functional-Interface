@@ -41,5 +41,9 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-005/partition-dispersion.test.ts
       - name: Question Studio Quant V4 integration
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-005/question-studio-integration.test.ts
+      - name: Hindi and Punjabi native parity
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-005/native-review-v1.test.ts
+      - name: Native Question Studio routing
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-005/native-studio-v1.test.ts
       - name: Patch hygiene
         run: git diff --check
