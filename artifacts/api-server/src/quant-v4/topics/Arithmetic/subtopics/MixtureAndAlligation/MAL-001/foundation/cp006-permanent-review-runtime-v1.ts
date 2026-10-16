@@ -94,6 +94,7 @@ export interface MalCp006PermanentReviewQuestion {
   sourceRuntimeId: string;
   sourcePrototypeId: string;
   sourceVariantId: string | null;
+  sourceObjectContextId: string | null;
   permanentQlId: MalCp006PermanentQlId;
   permanentSolveModeId: MalCp006PermanentAllocationEntry["solveModeId"];
   questionLanguageId: MalCp006PermanentQlId;
@@ -327,6 +328,7 @@ export function generateMalCp006PermanentReviewQuestion(
     sourceRuntimeId: sourceRuntimeId(source),
     sourcePrototypeId: source.prototypeId,
     sourceVariantId: variantId,
+    sourceObjectContextId: "objectContextId" in source ? source.objectContextId : null,
     permanentQlId: qlId,
     permanentSolveModeId: allocation.solveModeId,
     questionLanguageId: qlId,

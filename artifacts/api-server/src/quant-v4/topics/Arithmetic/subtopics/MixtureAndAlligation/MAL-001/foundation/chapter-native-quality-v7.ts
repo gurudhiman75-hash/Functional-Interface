@@ -258,7 +258,9 @@ export function applyMal001NativeQualityV7<T extends Record<string, any>>(
   );
   const translate = (s: string) => {
     const masked = protect(
-      s.replace(/\bfodder\b/g, language === "hi" ? "चारा" : "ਚਾਰਾ"),
+      s
+        .replace(/^[A-Z][a-z]+/, (word) => word.toLowerCase())
+        .replace(/\bfodder\b/g, language === "hi" ? "चारा" : "ਚਾਰਾ"),
     );
     return restore(
       applyMal001QuestionStudioLocalizationV6(
