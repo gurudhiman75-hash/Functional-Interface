@@ -5,21 +5,21 @@ assertPhase3(GEO_CP_009_PHASE3_PROTOTYPES.length === 4, "CP-009 Phase-3 Wave 1 c
 // Verify seeded variants from their actual mathematical givens, not a fixed seed snapshot.
 function expectedFromStem(stem: string, id: string): string {
   if (id.includes("EXTERIOR-FROM-N")) {
-    const n = stem.match(/regular (\\d+)-sided polygon/);
+    const n = stem.match(/regular (\d+)-sided polygon/);
     assertPhase3(Boolean(n), "Polygon exterior-angle stem must state side count");
     return `${360 / Number(n![1])}°`;
   }
   if (id.includes("N-FROM-EXTERIOR")) {
-    const angle = stem.match(/exterior angle of a regular polygon is (\\d+)°/);
+    const angle = stem.match(/exterior angle of a regular polygon is (\d+)°/);
     assertPhase3(Boolean(angle), "Polygon exterior-side count stem must state angle");
     return String(360 / Number(angle![1]));
   }
   if (id.includes("N-FROM-INTERIOR")) {
-    const angle = stem.match(/interior angle of a regular polygon is (\\d+)°/);
+    const angle = stem.match(/interior angle of a regular polygon is (\d+)°/);
     assertPhase3(Boolean(angle), "Polygon interior-side count stem must state angle");
     return String(360 / (180 - Number(angle![1])));
   }
-  const n = stem.match(/(\\d+)-sided polygon/);
+  const n = stem.match(/(\d+)-sided polygon/);
   assertPhase3(Boolean(n), "Polygon diagonal-count stem must state side count");
   const count = Number(n![1]);
   return String(count * (count - 3) / 2);
