@@ -6,7 +6,6 @@ on:
       - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.ts'
       - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.test.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
-      - '.github/workflows/qs-staging-async-resume.yml'
 permissions:
   contents: read
 concurrency:
