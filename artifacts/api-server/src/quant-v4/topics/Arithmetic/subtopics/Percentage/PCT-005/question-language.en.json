@@ -354,7 +354,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-104": {
-        "template": "For a {wholeLabel}, an increase of {rate1}% followed by {rate2}% is equivalent to what single multiplier?",
+        "template": "For the {wholeLabel}, an increase of {rate1}% followed by {rate2}% is equivalent to what single multiplier?",
         "difficulty": "Hard"
       },
       "PCT-QL-105": {
@@ -374,7 +374,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-109": {
-        "template": "For a {wholeLabel}, an increase of {rate1}% followed by a decrease of {rate2}% is equivalent to what single multiplier?",
+        "template": "For the {wholeLabel}, an increase of {rate1}% followed by a decrease of {rate2}% is equivalent to what single multiplier?",
         "difficulty": "Hard"
       },
       "PCT-QL-110": {

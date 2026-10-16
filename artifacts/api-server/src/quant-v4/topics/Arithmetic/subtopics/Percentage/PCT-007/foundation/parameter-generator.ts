@@ -360,8 +360,8 @@ function buildElectionVariables(questionLanguageId: string, solveMode: string, c
 
 function buildApplicationVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
   const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
-  const totalPool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
-  const countSafeContext = isDiscreteCountUnit(meta.unitLabel);
+  const totalPool = getMagnitudePool(parseContextTag(contextTag).unitLabel, String(meta.valuePrefix ?? ""));
+  const countSafeContext = isDiscreteCountUnit(parseContextTag(contextTag).unitLabel);
   const candidates = countSafeContext
     ? totalPool.flatMap((totalValue) =>
         APPLICATION_RATES
@@ -386,7 +386,7 @@ function buildApplicationVariables(questionLanguageId: string, solveMode: string
 
 function buildMixtureVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
   const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
-  const totalValue = pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:totalValue`);
+  const totalValue = pick(getMagnitudePool(parseContextTag(contextTag).unitLabel, String(meta.valuePrefix ?? "")), `${seed}:totalValue`);
   const componentRate = pick(MIXTURE_RATE_CASES, `${seed}:componentRate`);
   const componentAmount = (totalValue * componentRate) / 100;
   const otherAmount = totalValue - componentAmount;
@@ -460,7 +460,7 @@ function buildBillingVariables(questionLanguageId: string, solveMode: string, co
 
 function buildErrorVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
   const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
-  const correctValue = pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:correctValue`);
+  const correctValue = pick(getMagnitudePool(parseContextTag(contextTag).unitLabel, String(meta.valuePrefix ?? "")), `${seed}:correctValue`);
   const percentageRate = pick(ERROR_RATE_CASES, `${seed}:percentageRate`);
   const overstatedWrong = (correctValue * (100 + percentageRate)) / 100;
   const understatedWrong = (correctValue * (100 - percentageRate)) / 100;
@@ -491,7 +491,7 @@ function buildRepeatedVariables(questionLanguageId: string, solveMode: string, c
 
   return {
     ...meta,
-    totalValue: pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:totalValue`),
+    totalValue: pick(getMagnitudePool(parseContextTag(contextTag).unitLabel, String(meta.valuePrefix ?? "")), `${seed}:totalValue`),
     percentageRate: pick([10, 20, 25, 40, 50] as const, `${seed}:percentageRate`),
   };
 }
@@ -518,10 +518,10 @@ function buildCaseletVariables(questionLanguageId: string, solveMode: string, co
   }
 
   const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
-  const pool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
+  const pool = getMagnitudePool(parseContextTag(contextTag).unitLabel, String(meta.valuePrefix ?? ""));
   const ratePool = [40, 50, 60, 70, 75, 80] as const;
 
-  if (isDiscreteCountUnit(meta.unitLabel)) {
+  if (isDiscreteCountUnit(parseContextTag(contextTag).unitLabel)) {
     const candidates: CaseletComparisonCandidate[] = [];
     for (const baseValue1 of pool) {
       for (const baseValue2 of pool) {

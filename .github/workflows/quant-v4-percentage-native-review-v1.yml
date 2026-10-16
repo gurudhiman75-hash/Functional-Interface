@@ -1,0 +1,51 @@
+name: Quant V4 Percentage native review V1
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/**"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - ".github/workflows/quant-v4-percentage-native-review-v1.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: percentage-native-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  percentage-native-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API
+        run: pnpm --dir artifacts/api-server build
+      - name: Verify native source and shared delivery
+        working-directory: artifacts/api-server
+        run: |
+          mkdir -p dist/audits/percentage-native
+          for audit in native-delivery-v1 native-adapter-v1 \
+            PCT-001/pct-001 PCT-002/pct-002 PCT-003/pct-003 \
+            PCT-004/pct-004 PCT-005/pct-005 PCT-006/pct-006 PCT-007/pct-007
+          do
+            target="$(basename "$audit")"
+            pnpm exec esbuild "src/quant-v4/topics/Arithmetic/subtopics/Percentage/$audit.test.ts" \
+              --bundle --platform=node --format=esm --packages=external \
+              --outfile="dist/audits/percentage-native/$target.mjs"
+            node "dist/audits/percentage-native/$target.mjs" > "dist/audits/percentage-native/$target.log"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: percentage-native-review-v1
+          path: artifacts/api-server/dist/audits/percentage-native/*.log
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check

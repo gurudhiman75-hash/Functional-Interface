@@ -78,15 +78,15 @@ function constrainDiscreteCountVariables(
 
   if (typeof output.originalValue === "number") {
     const factor =
-      rateFactor(output.direction1, output.rate1) *
-      rateFactor(output.direction2, output.rate2) *
-      rateFactor(output.direction3, output.rate3) *
-      rateFactor(output.direction4, output.rate4);
+      rateFactor(String(output.direction1 ?? ""), typeof output.rate1 === "number" ? output.rate1 : undefined) *
+      rateFactor(String(output.direction2 ?? ""), typeof output.rate2 === "number" ? output.rate2 : undefined) *
+      rateFactor(String(output.direction3 ?? ""), typeof output.rate3 === "number" ? output.rate3 : undefined) *
+      rateFactor(String(output.direction4 ?? ""), typeof output.rate4 === "number" ? output.rate4 : undefined);
     output.originalValue = chooseCompatibleDiscreteBase(output.originalValue, factor, `${seed}:original-value`);
   }
 
   if (typeof output.finalValue === "number" && typeof output.rate1 === "number" && typeof output.rate2 === "number") {
-    const factor = rateFactor(output.direction1, output.rate1) * rateFactor(output.direction2, output.rate2);
+    const factor = rateFactor(String(output.direction1 ?? ""), typeof output.rate1 === "number" ? output.rate1 : undefined) * rateFactor(String(output.direction2 ?? ""), typeof output.rate2 === "number" ? output.rate2 : undefined);
     const reconstructedOriginal = chooseCompatibleDiscreteBase(output.finalValue / factor, factor, `${seed}:final-value`);
     output.finalValue = reconstructedOriginal * factor;
   }
@@ -618,11 +618,13 @@ export function generatePct005Parameters(cpId: Pct005CanonicalProblemId, input: 
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = constrainDiscreteCountVariables(
-    createVariables(questionLanguageId, resolvedDifficulty, seed, language),
+  const numericVariables = constrainDiscreteCountVariables(
+    createVariables(questionLanguageId, resolvedDifficulty, seed, "en"),
     answerType,
     seed,
   );
+
+  const variables = localizePercentageLabelFields(numericVariables, language, LABEL_FIELDS);
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {

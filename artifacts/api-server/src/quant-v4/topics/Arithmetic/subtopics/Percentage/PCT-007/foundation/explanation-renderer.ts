@@ -484,7 +484,30 @@ function renderLocalizedPct007Explanation(
     }
   }
 
-  return lines;
+  const labels: Record<string, readonly [string, string]> = {
+    "Savings rate": ["बचत प्रतिशत", "ਬਚਤ ਪ੍ਰਤੀਸ਼ਤ"],
+    "Expenditure rate": ["व्यय प्रतिशत", "ਖਰਚ ਪ੍ਰਤੀਸ਼ਤ"],
+    "Turnout rate": ["मतदान प्रतिशत", "ਮਤਦਾਨ ਪ੍ਰਤੀਸ਼ਤ"],
+    "Total voters": ["कुल मतदाता", "ਕੁੱਲ ਮਤਦਾਤਾ"],
+    "Votes polled": ["पड़े हुए वोट", "ਪਏ ਹੋਏ ਵੋਟ"],
+    "Valid votes": ["वैध वोट", "ਵੈਧ ਵੋਟ"],
+    "Stable part": ["स्थिर भाग", "ਸਥਿਰ ਭਾਗ"],
+    "Unchanged solid or solute": ["अपरिवर्तित ठोस या विलेय", "ਅਣਬਦਲਿਆ ਠੋਸ ਜਾਂ ਘੁਲਿਆ ਪਦਾਰਥ"],
+    "same before and after": ["पहले और बाद में समान", "ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਬਰਾਬਰ"],
+    "Current quantity": ["वर्तमान मात्रा", "ਮੌਜੂਦਾ ਮਾਤਰਾ"],
+    "Rate": ["प्रतिशत", "ਪ੍ਰਤੀਸ਼ਤ"],
+    "Remainder after one step": ["एक चरण के बाद शेष", "ਇੱਕ ਪੜਾਅ ਤੋਂ ਬਾਅਦ ਬਾਕੀ"],
+    "After first reduction": ["पहली कमी के बाद", "ਪਹਿਲੀ ਕਮੀ ਤੋਂ ਬਾਅਦ"],
+    "After second reduction": ["दूसरी कमी के बाद", "ਦੂਜੀ ਕਮੀ ਤੋਂ ਬਾਅਦ"],
+    "Final remainder": ["अंतिम शेष", "ਅੰਤਿਮ ਬਾਕੀ"],
+    "Comparison": ["तुलना", "ਤੁਲਨਾ"],
+    "Result": ["परिणाम", "ਨਤੀਜਾ"],
+    "Answer": ["उत्तर", "ਜਵਾਬ"],
+  };
+  return lines.map(line => line.replace(/\\text\{([^}]+)\}/g, (match, label: string) => {
+    const translated = labels[label]?.[parameters.language === "hi" ? 0 : 1];
+    return translated ? `\\text{${translated}}` : match;
+  }));
 }
 
 export function renderPct007Explanation(
