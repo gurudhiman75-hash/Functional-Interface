@@ -61,7 +61,7 @@ function buildState(seed:string){
     const k=40+(hashSeed(`${seed}:k`)%4)*20;
     values=[3*k,4*k,5*k,2*k,6*k];
     const total=values.reduce((a,b)=>a+b,0);
-    learnerText=`The total number of ${context.unit} was ${total}. The numbers for ${labels[0]} and ${labels[1]} were in the ratio 3:4. The numbers for ${labels[1]} and ${labels[2]} were in the ratio 4:5. ${labels[3]} had half as many as ${labels[1]}. The remaining ${context.unit} belonged to ${labels[4]}.`;
+    learnerText=`The total number of ${context.unit} was ${total}. The numbers for ${labels[0]} and ${labels[1]} were in the ratio 3:4. The numbers for ${labels[1]} and ${labels[2]} were in the ratio 4:5. ${labels[3]} had half as many as ${labels[1]}. ${labels[4]} had twice as many as ${labels[0]}.`;
   } else if(topology==="TWO_STAGE_ALLOCATION"){
     const total=1200+(hashSeed(`${seed}:total`)%4)*400;
     const first=total*60/100, second=total-first;

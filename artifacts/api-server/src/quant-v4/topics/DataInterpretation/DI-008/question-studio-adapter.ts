@@ -1,3 +1,4 @@
+import {localizeDiExtensionSet} from "../native-extension-v1";
 import { hashSeed } from "../DI-001/exact";
 import {
   DI008_PERMANENT_OWNERSHIP,
@@ -191,7 +192,7 @@ function toQuestionStudioPreview(
 
 async function generateDi008AdvancedQuestionStudioBatch(request: Di008QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
-  if (languageValue !== "en") throw new Error("DI-008 advanced arithmetic V1 is English review-only.");
+  if (!["en","hi","pa"].includes(languageValue)) throw new Error("Unsupported native DI language");
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -200,7 +201,7 @@ async function generateDi008AdvancedQuestionStudioBatch(request: Di008QuestionSt
   const questions:any[] = [];
   for(let index=0;index<count;index+=1){
     const seed=`${batchSeed}:${index}`;
-    const set=generateDi008AdvancedArithmeticSet({seed,examProfile:profile});
+    const source=generateDi008AdvancedArithmeticSet({seed,examProfile:profile});const set=languageValue==="en"?source:localizeDiExtensionSet(source,languageValue as "hi"|"pa");
     questionPackages.push(set);
     const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
     const question=pool[index%pool.length]!;
@@ -212,15 +213,15 @@ async function generateDi008AdvancedQuestionStudioBatch(request: Di008QuestionSt
       difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-008",section:"Quant",topic:"Data Interpretation",subtopic:"Advanced Arithmetic DI",
       generationBackend:"quant-v4",debugSource:"quant-v4-di008-advanced-arithmetic-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
       seed,examProfile:set.examProfile,packageId:"DI-008" as const,canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,taskKind:question.kind,
-      domain:set.stimulus.domain,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+      domain:set.stimulus.domain,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,
       testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
-      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
+      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:languageValue as "en"|"hi"|"pa",
       metadata:{packageId:"DI-008",canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,taskKind:question.kind,domain:set.stimulus.domain,examProfile:set.examProfile,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-008" as const,canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:languageValue as "en"|"hi"|"pa",examProfile:profile,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -326,5 +327,6 @@ export function di008QuestionStudioPackageCard() {
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_FROZEN",
+    extensionLocalizationStatus: "HI_PA_REVIEW_CANDIDATE",
   };
 }

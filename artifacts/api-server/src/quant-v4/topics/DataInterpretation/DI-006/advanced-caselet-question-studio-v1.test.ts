@@ -31,7 +31,7 @@ for(const question of result.questions){
 }
 assert.equal(topologies.size,5,"Question Studio preview should exercise all five advanced topologies.");
 await assert.rejects(
-  () => generateDi006QuestionStudioBatch({canonicalProblemId:DI006_ADVANCED_CANONICAL_PROBLEM_ID,language:"pa",count:1,seed:"blocked-pa"}),
-  /English review-only/u,
+  () => generateDi006QuestionStudioBatch({canonicalProblemId:DI006_ADVANCED_CANONICAL_PROBLEM_ID,language:"fr",count:1,seed:"blocked-fr"}),
+  /Unsupported native DI language/u,
 );
 console.log("DI006_ADVANCED_CASELET_QUESTION_STUDIO_V1",JSON.stringify({questions:result.questions.length,topologies:[...topologies].sort(),lifecycleLocked:true}));

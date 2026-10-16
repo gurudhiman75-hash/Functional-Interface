@@ -204,8 +204,8 @@ assert(
 );
 
 await assert.rejects(
-  ()=>generateDiDeliveryNoveltyMix({examProfile:"BANKING_MAINS",language:"hi",seed:"blocked-hi",count:20}),
-  /English controlled-review only/u,
+  ()=>generateDiDeliveryNoveltyMix({examProfile:"BANKING_MAINS",language:"fr",seed:"blocked-fr",count:20}),
+  /supports en, hi and pa controlled review/u,
 );
 
 console.log("DI_DELIVERY_NOVELTY_MIX_V1",JSON.stringify({

@@ -27,7 +27,7 @@ for(const q of result.questions){
   assert(!q.stimulusSvgs[0].includes(">?</text>"));
 }
 await assert.rejects(
-  ()=>generateDi005QuestionStudioBatch({canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,language:"pa",count:1,seed:"blocked-pa"}),
-  /English review-only/u,
+  ()=>generateDi005QuestionStudioBatch({canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,language:"fr",count:1,seed:"blocked-fr"}),
+  /Unsupported native DI language/u,
 );
 console.log("DI005_DONUT_QUESTION_STUDIO_V1",JSON.stringify({questions:result.questions.length,lifecycleLocked:true}));
