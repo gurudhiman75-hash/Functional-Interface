@@ -15,6 +15,8 @@ on:
       - 'scripts/smoke-question-studio-universal-local.mjs'
       - 'scripts/deploy-question-studio-universal-staging-fix-candidate.sh'
       - 'scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh'
+      - 'scripts/deploy-question-studio-universal-197-candidate.sh'
+      - 'tests/qs-universal-197-candidate-deploy-contract.test.mjs'
       - 'tests/examtree-universal-staging-num-contract.test.mjs'
       - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/multilingual-human-review-pack.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/localization/cp004-localized-review-runtime.ts'
@@ -60,5 +62,9 @@ jobs:
           bash -n scripts/deploy-question-studio-universal-staging-num-contract-candidate.sh
           bash -n scripts/verify-question-studio-universal-staging.sh
           node --test tests/examtree-universal-staging-num-contract.test.mjs
+      - name: Verify 197 candidate isolation guards (no deployment)
+        run: |
+          bash -n scripts/deploy-question-studio-universal-197-candidate.sh
+          node --test tests/qs-universal-197-candidate-deploy-contract.test.mjs
       - name: Ensure patch hygiene
         run: git diff --check
