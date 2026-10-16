@@ -6,11 +6,13 @@ on:
       - feature/statistics-index-numbers-jso-v1
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-014/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-final*"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-014/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-final*"
   workflow_dispatch:
 
 concurrency:
@@ -41,5 +43,11 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-014/index-numbers.test.ts
       - name: Question Studio Quant V4 integration
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-014/question-studio-integration.test.ts
+      - name: Final five-package native parity
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-final-v1.test.ts
+      - name: Final five-package native Question Studio routing
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-final-studio-v1.test.ts
+      - name: All 214 Statistics native routes
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/shared/all-native-studio-v1.test.ts
       - name: Patch hygiene
         run: git diff --check
