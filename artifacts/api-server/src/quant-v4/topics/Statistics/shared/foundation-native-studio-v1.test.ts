@@ -30,13 +30,13 @@ for (let n = 1; n <= 14; n++) {
   assert(card);
   assert.deepEqual(
     card.supportedLanguages,
-    n <= 9 ? ["en", "hi", "pa"] : ["en"],
+    ["en", "hi", "pa"],
   );
 }
 console.log(
   JSON.stringify({
     status: "PASS_STATISTICS_FOUNDATION_NATIVE_STUDIO_V1",
     routedQlLanguages: 40,
-    untouchedEnglishOnlyPackages: 5,
+    untouchedEnglishOnlyPackages: 0,
   }),
 );
