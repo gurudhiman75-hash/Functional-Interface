@@ -8,7 +8,12 @@ for (const prototype of GEO_CP_003_PHASE1_PROTOTYPES) {
   assertPhase1(question.cpId === "GEO-CP-003", `${prototype.temporaryPrototypeId}: wrong CP ownership`);
   if (prototype.temporaryPrototypeId.includes("TRIANGLE-INEQUALITY")) {
     assertPhase1(question.diagramModel === undefined, "Triangle-inequality range prototype should not add a decorative diagram");
-    assertPhase1(question.answer === "4 < x < 18", "Triangle-inequality range answer changed");
+    const sides=question.stem.match(/Two sides of a triangle are (\\d+) cm and (\\d+) cm/);
+    assertPhase1(Boolean(sides), "Triangle-inequality stem must state both side lengths");
+    const sideA=Number(sides![1]);
+    const sideB=Number(sides![2]);
+    assertPhase1(question.answer === `${Math.abs(sideA-sideB)} < x < ${sideA+sideB}`,
+      "Triangle-inequality range must match the generated sides");
     assertPhase1(question.independentVerifierResult.oracle === "EXACT_RANGE_ENUMERATION", "Triangle-inequality prototype lacks independent range enumeration");
   } else {
     assertPhase1(question.diagramModel !== undefined && question.stemSvg !== undefined, `${prototype.temporaryPrototypeId}: theorem-led triangle prototype lacks diagram`);
