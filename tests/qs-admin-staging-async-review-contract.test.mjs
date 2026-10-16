@@ -11,7 +11,7 @@ test("production sync Generate remains the default; async is explicitly staging-
   assert.match(page,/stagingAsyncSelected, setStagingAsyncSelected] = useState\(false\)/);
   assert.match(page,/const result = await generate\(input\)/);
   assert.match(api,/\/admin\/question-studio\/runs['"]/);
-  assert.match(page,/enqueueQuestionStudioStagingRun\(input,/);
+  assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput,/);
   assert.match(api,/\/admin\/question-studio\/runs\/async-staging/);
   assert.match(api,/'Idempotency-Key': idempotencyKey/);
   assert.match(page,/stagingAsyncRetry\.current\.signature !== signature/);
