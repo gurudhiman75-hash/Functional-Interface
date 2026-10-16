@@ -42,7 +42,9 @@ function normalizeSelector(value: unknown): string {
 }
 
 function normalizeDifficulty(value: unknown): Difficulty | undefined {
-  const text = String(value ?? "").trim().toLowerCase();
+  const text = String(value ?? "")
+    .trim()
+    .toLowerCase();
   if (text === "easy") return "Easy";
   if (text === "medium" || text === "moderate") return "Medium";
   if (text === "hard") return "Hard";
@@ -55,9 +57,17 @@ function normalizeDifficulty(value: unknown): Difficulty | undefined {
 }
 
 function normalizeLanguage(value: unknown): Mal001QuestionStudioLanguage {
-  const language = String(value ?? "en").trim().toLowerCase();
-  if (!MAL_001_QUESTION_STUDIO_LANGUAGES.includes(language as Mal001QuestionStudioLanguage)) {
-    throw new Error(`MAL-001 does not support Question Studio language ${language}.`);
+  const language = String(value ?? "en")
+    .trim()
+    .toLowerCase();
+  if (
+    !MAL_001_QUESTION_STUDIO_LANGUAGES.includes(
+      language as Mal001QuestionStudioLanguage,
+    )
+  ) {
+    throw new Error(
+      `MAL-001 does not support Question Studio language ${language}.`,
+    );
   }
   return language as Mal001QuestionStudioLanguage;
 }
@@ -130,10 +140,15 @@ export function listMal001StandardQuestionStudioPackages() {
       enabled: true,
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
       supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
-      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      reviewStatus: "CONTROLLED_MULTILINGUAL_REVIEW",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
+      mockTestEligible: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+      manualApprovalRequired: true,
       testEligibility: "INELIGIBLE",
+      testEligible: false,
       publiclyPublishable: false,
     },
   ];
@@ -143,19 +158,35 @@ function toQuestionStudioReviewPackage(pkg: any) {
   return {
     ...pkg,
     runtimeMode: "QUESTION_STUDIO_ACTIVE",
-    reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+    sourceReviewStatus: pkg.reviewStatus,
+    reviewStatus:
+      pkg.language === "en"
+        ? "APPROVED_MULTILINGUAL_QUESTION_STUDIO"
+        : "NATIVE_QUALITY_REVIEW_CANDIDATE",
     questionStudioDiscoverable: true,
     questionBankStatus: "NOT_STORED",
     questionBankWritable: false,
+    mockTestEligible: false,
+    automaticStudentPublication: false,
+    productionReleaseAuthorized: false,
+    manualApprovalRequired: true,
     testEligibility: "INELIGIBLE",
     testEligible: false,
     publiclyPublishable: false,
     traceability: {
       ...(pkg.traceability ?? {}),
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
-      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      sourceReviewStatus: pkg.reviewStatus,
+      reviewStatus:
+        pkg.language === "en"
+          ? "APPROVED_MULTILINGUAL_QUESTION_STUDIO"
+          : "NATIVE_QUALITY_REVIEW_CANDIDATE",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
+      mockTestEligible: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+      manualApprovalRequired: true,
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
     },
@@ -172,7 +203,9 @@ function toQuestionStudioPreview(
     ? pkg.explanation.lines.map((line: unknown) => String(line ?? ""))
     : Array.isArray(pkg.explanation?.visibleLines)
       ? [
-          ...pkg.explanation.visibleLines.map((line: unknown) => String(line ?? "")),
+          ...pkg.explanation.visibleLines.map((line: unknown) =>
+            String(line ?? ""),
+          ),
           String(pkg.explanation?.answerLine ?? ""),
         ].filter(Boolean)
       : [];
@@ -214,9 +247,17 @@ function toQuestionStudioPreview(
     answer: pkg.answer,
     canonicalAnswer,
     runtimeMode: "QUESTION_STUDIO_ACTIVE",
-    reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+    sourceReviewStatus: pkg.reviewStatus,
+    reviewStatus:
+      pkg.language === "en"
+        ? "APPROVED_MULTILINGUAL_QUESTION_STUDIO"
+        : "NATIVE_QUALITY_REVIEW_CANDIDATE",
     questionBankStatus: "NOT_STORED",
     questionBankWritable: false,
+    mockTestEligible: false,
+    automaticStudentPublication: false,
+    productionReleaseAuthorized: false,
+    manualApprovalRequired: true,
     testEligibility: "INELIGIBLE",
     testEligible: false,
     publiclyPublishable: false,
@@ -234,9 +275,17 @@ function toQuestionStudioPreview(
       explanationId: pkg.explanationId,
       taskKind,
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
-      reviewStatus: "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+      sourceReviewStatus: pkg.reviewStatus,
+      reviewStatus:
+        pkg.language === "en"
+          ? "APPROVED_MULTILINGUAL_QUESTION_STUDIO"
+          : "NATIVE_QUALITY_REVIEW_CANDIDATE",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
+      mockTestEligible: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+      manualApprovalRequired: true,
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       releaseId: traceability.releaseId,
@@ -279,7 +328,9 @@ export async function generateMal001StandardQuestionStudioBatch(
     Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
   );
   const difficulty = normalizeDifficulty(request.difficulty);
-  const explicitCpRaw = String(request.canonicalProblemId ?? request.cpId ?? "").trim();
+  const explicitCpRaw = String(
+    request.canonicalProblemId ?? request.cpId ?? "",
+  ).trim();
   const explicitCp = explicitCpRaw || undefined;
   if (
     explicitCp &&
@@ -287,7 +338,9 @@ export async function generateMal001StandardQuestionStudioBatch(
       explicitCp as Mal001QuestionStudioCpId,
     )
   ) {
-    throw new Error(`Unknown canonical problem '${explicitCp}' for package MAL-001.`);
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package MAL-001.`,
+    );
   }
 
   const inferredCp = inferCpFromQl(request.questionLanguageId);
@@ -353,9 +406,13 @@ export async function generateMal001StandardQuestionStudioBatch(
       reviewStatus:
         language === "en"
           ? "APPROVED_EDITORIAL_ENGLISH_V3"
-          : "APPROVED_MULTILINGUAL_QUESTION_STUDIO",
+          : "NATIVE_QUALITY_REVIEW_CANDIDATE",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
+      mockTestEligible: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+      manualApprovalRequired: true,
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       releaseId: first?.traceability?.releaseId,

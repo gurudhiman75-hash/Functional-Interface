@@ -341,7 +341,9 @@ export function generateMalCp006PermanentReviewQuestion(
     sharedCoreId: allocation.sharedCoreId,
     learnerContract: allocation.learnerContract,
     sourceEvidenceIds: [...source.sourceEvidenceIds],
-    stem: source.stem,
+    stem: qlId === "MAL-QL-067" && !/empty/iu.test(source.stem)
+      ? `Vessel C is initially empty. ${source.stem}`
+      : source.stem,
     answer: source.answer,
     options: [...source.options],
     correctIndex: source.correctIndex,
