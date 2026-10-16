@@ -8,7 +8,7 @@ for (const prototype of GEO_CP_003_PHASE1_PROTOTYPES) {
   assertPhase1(question.cpId === "GEO-CP-003", `${prototype.temporaryPrototypeId}: wrong CP ownership`);
   if (prototype.temporaryPrototypeId.includes("TRIANGLE-INEQUALITY")) {
     assertPhase1(question.diagramModel === undefined, "Triangle-inequality range prototype should not add a decorative diagram");
-    const sides=question.stem.match(/Two sides of a triangle are (\\d+) cm and (\\d+) cm/);
+    const sides=question.stem.match(/Two sides of a triangle are (\d+) cm and (\d+) cm/);
     assertPhase1(Boolean(sides), "Triangle-inequality stem must state both side lengths");
     const sideA=Number(sides![1]);
     const sideB=Number(sides![2]);
