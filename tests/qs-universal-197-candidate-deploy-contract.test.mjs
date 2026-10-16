@@ -9,7 +9,7 @@ test("197-package candidate stays isolated from production and preserves current
   "TAG=qs197","MODE=\"$(printenv MODE || echo check)\"",
   "EXAMTREE_UNIVERSAL_197_STAGING_APPROVED","EXAMTREE_BUDGET_READY",
   "origin/New-main","--no-traffic --tag=\"$TAG\"",
-  "examTreeNeverOccursInThisTest".replace("examTreeNeverOccursInThisTest","examtree-qs-staging"),
+  "examtree-qs-staging",
   'q.get("state")=="PAUSED"',
   'get("percent",0))==100',"secretKeyRef",
   'not any(x in env for x in ("DATABASE_URL"',
@@ -20,7 +20,7 @@ test("197-package candidate stays isolated from production and preserves current
   "gcloud run services update-traffic","gcloud tasks queues resume",
   "gcloud run services delete","gcloud secrets versions access",
   "gcloud run deploy examtree-api","--set-env-vars",
-  "gcloud iam"
+  "gcloud projects add-iam-policy-binding"
  ]) assert.equal(deploy.includes(forbidden),false,forbidden);
 });
 test("tagged existing verifier checks zero traffic and six real compute cases",()=>{
