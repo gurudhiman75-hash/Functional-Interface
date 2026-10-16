@@ -25,6 +25,16 @@ for (const prototype of GEO_CP_005_PHASE2_PROTOTYPES) {
     assertPhase2(question.answer === `${db*ae/ad} cm`, "BPT answer must match the generated proportional side lengths");
     assertPhase2(question.diagramModel?.parallelMarks.length === 1, "BPT stem diagram must visibly show the explicitly stated parallel relation");
     assertPhase2(question.stemSvg?.includes('data-geo-kind="parallel-mark"'), "BPT parallel mark was not visibly rendered");
+    // Fixed seed family previously generated only three distinct BPT options
+    // when the inverted ratio and a copied side had the same value.
+    for (let sample = 0; sample < 40; sample++) {
+      const variant = prototype.generate(`geo-bpt-option-variants:${sample}`);
+      assertPhase2DiscoveryQuestion(variant);
+      assertPhase2(variant.options.length === 4 && new Set(variant.options).size === 4,
+        `BPT option uniqueness failed at seeded variant ${sample}`);
+      assertPhase2(variant.independentVerifierResult.passed,
+        `BPT independent oracle failed at seeded variant ${sample}`);
+    }
   }
   assertPhase2DeterministicAndShuffled(prototype.generate, prototype.temporaryPrototypeId);
 }
