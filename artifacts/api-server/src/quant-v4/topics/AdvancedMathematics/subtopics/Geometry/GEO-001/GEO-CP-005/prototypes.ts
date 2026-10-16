@@ -266,6 +266,9 @@ function generateBptDirect(seed: string): Phase2PrototypeQuestion {
     { text: formatCm(inverted), misconceptionId: "INVERTED_SIDE_RATIO", rationale: "Uses the side ratio in the wrong direction." },
     { text: `${state.ad} cm`, misconceptionId: "MIXED_NONCORRESPONDING_SIDES", rationale: "Pairs AD with EC directly instead of comparing the divided sides proportionally." },
     { text: `${state.ae + state.db} cm`, misconceptionId: "ADDITIVE_RATIO_ERROR", rationale: "Adds unrelated segment values instead of using proportional division." },
+    // Some generated states make the inverted-ratio result numerically equal to AD.
+    // Preserve four unique choices without inventing a duplicate or relaxing validation.
+    { text: `${state.ad + state.db + state.ae} cm`, misconceptionId: "SUMS_ALL_GIVEN_SEGMENTS", rationale: "Adds the three given side segments instead of applying the proportionality theorem." },
   ], seed);
   return finalizePhase2Question({
     cpId: CP_ID,
