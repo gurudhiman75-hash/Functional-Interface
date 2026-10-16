@@ -140,11 +140,17 @@ async function compute(input){
 try{
  for(const pkg of selected){
   const started=Date.now();
-  const firstCp=selection==="cp"?((pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0]):undefined;
+  const requiresExplicitCp=pkg.packageId==="english-eng003-grammar-fillers-v1";
+  const firstCp=(selection==="cp"||requiresExplicitCp)?((pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0]):undefined;
   const difficulty=pkg.difficultyFilterSupported===false?undefined
     :(pkg.supportedDifficulties?.includes("Medium")?"Medium":pkg.supportedDifficulties?.[0]??"Mixed");
+  // Some chapter authorities are BANKING-only. Exercise their declared
+  // exam family; never reinterpret an SSC request as Banking in production.
+  const exam=pkg.packageId==="DI-014"?"IBPS PO Mains"
+   :["DI-007","DI-008","SAP","WFM-001"].includes(pkg.packageId)?"IBPS PO Prelims"
+   :"SSC CGL Tier 1";
   const request={
-   engineId:pkg.engineId,packageId:pkg.packageId,exam:"SSC CGL Tier 1",
+   engineId:pkg.engineId,packageId:pkg.packageId,exam,
    subject:pkg.subject,topic:pkg.topic,subtopic:pkg.subtopic,
    language:pkg.supportedLanguages.includes("en")?"en":pkg.supportedLanguages[0],
    difficulty,runtimeMode:pkg.runtimeMode,count:1,
@@ -153,7 +159,7 @@ try{
   };
   const input={request,count:1,selectedCpIds:firstCp?[firstCp]:[]};
   const result={packageId:pkg.packageId,engineId:pkg.engineId,subject:pkg.subject,
-    selection,cpId:firstCp??null,language:request.language,difficulty:difficulty??null,
+    selection,cpId:firstCp??null,exam,language:request.language,difficulty:difficulty??null,
     runtimeMode:pkg.runtimeMode??null,status:"failed",code:null,durationMs:0};
   try{
    const batch=await compute(input);
@@ -185,7 +191,7 @@ if(process.env.GITHUB_STEP_SUMMARY){
   "## Isolated Question Studio compute audit: "+wave+" / shard "+shard,
   "",
   "Registered/enabled: **"+enabled.length+"**; tested: **"+results.length+"**; passed: **"+passed+"**; failed: **"+failed+"**.",
-  "This is an offline one-question structural smoke test, NOT end-to-end acceptance or answer-truth proof.",
+  "This is an offline one-question structural smoke test using package-eligible exam/CP selectors where required, NOT proof of every exam/CP/difficulty combination, end-to-end acceptance, or answer-truth correctness.",
   "",
   "| Package | Subject | Result | Error code | Duration |",
   "|---|---|---|---|---:|",
