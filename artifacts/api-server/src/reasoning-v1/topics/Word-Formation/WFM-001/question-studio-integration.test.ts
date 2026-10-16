@@ -23,6 +23,20 @@ assert.equal(wfmPackages[0]!.mockTestEligible, false);
 assert.equal(wfmPackages[0]!.publiclyPublishable, false);
 assert.equal(wfmPackages[0]!.automaticStudentPublication, false);
 
+// Chapter-mix must respect eligibility and exclude Banking-only QLs
+// from SSC candidates, while explicit invalid selections remain rejected.
+const sscMixed=await reasoningV1QuestionStudioAdapter.generate({
+  engineId:"reasoning-v1",packageId:WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
+  exam:"SSC CGL",difficulty:"Medium",language:"en",count:3,
+  seed:"qs-staging-wfm-ssc-chapter-mix",runtimeMode:"review-only",
+});
+assert.equal(sscMixed.questions.length,3);
+assert.ok(sscMixed.questions.every(q=>q.qlId!=="WFM-QL-005"&&q.qlId!=="WFM-QL-006"));
+await assert.rejects(()=>reasoningV1QuestionStudioAdapter.generate({
+  engineId:"reasoning-v1",packageId:WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
+  exam:"SSC CGL",patternId:"WFM-QL-005",difficulty:"Medium",language:"en",count:1,
+}),/require the BANKING_5 profile/);
+
 let generatedCount = 0;
 
 for (const qlId of WFM_001_QL_IDS) {
