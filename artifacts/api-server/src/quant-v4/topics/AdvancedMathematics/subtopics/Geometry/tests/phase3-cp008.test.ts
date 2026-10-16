@@ -20,6 +20,13 @@ for (const prototype of GEO_CP_008_PHASE3_PROTOTYPES) {
     assertPhase3(question.answer === `${360 - a - b - c}°`, "Fourth-angle answer must sum to 360°");
     assertPhase3(question.diagramModel === undefined, "General angle-sum prototype added a non-authoritative decorative quadrilateral");
     assertPhase3(question.independentVerifierResult.oracle === "INDEPENDENT_ARITHMETIC", "Fourth-angle verifier should be independent arithmetic");
+    for (let sample=0;sample<40;sample++) {
+      const generated=prototype.generate(`geometry-fourth-angle-seed:${sample}`);
+      assertPhase3DiscoveryQuestion(generated);
+      assertPhase3(generated.options.length===4 && new Set(generated.options).size===4,
+        `Fourth-angle options are not unique for seed ${sample}`);
+      assertPhase3(generated.independentVerifierResult.passed, "Independent arithmetic verifier failed");
+    }
   }
   if (prototype.temporaryPrototypeId.includes("PARALLELOGRAM")) {
     const diagonal = question.stem.match(/AC = (\d+) cm, find AO/);
