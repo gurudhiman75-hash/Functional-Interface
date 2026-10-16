@@ -1,0 +1,72 @@
+name: Audit isolated Question Studio compute coverage
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/check-question-studio-universal-compute-coverage.mjs'
+  workflow_dispatch:
+    inputs:
+      wave:
+        description: 'Pilot or full catalog shard (compute only, no external services)'
+        type: choice
+        options: [pilot, all]
+        required: true
+        default: pilot
+      shard:
+        description: 'All mode only: 0-based shard index, 0..11'
+        type: choice
+        options: ['0','1','2','3','4','5','6','7','8','9','10','11']
+        default: '0'
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: qs-universal-offline-compute-${{ github.event_name }}-${{ github.ref }}-${{ inputs.shard || 'pilot' }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      # No Cloud Run, Firebase, Neon, Cloud Tasks, or GitHub production credentials.
+      WAVE: ${{ inputs.wave || 'pilot' }}
+      SHARD: ${{ inputs.shard || '0' }}
+      ONLY: ${{ github.event_name == 'pull_request' && 'OPS-001,ALGEBRA' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Build isolated universal worker (no DB or remote calls)
+        run: node artifacts/api-server/build-universal-worker.mjs
+      - name: Build authoritative registration catalog
+        run: |
+          set -eu
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-unified-admin-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=dist/qs-compute-catalog-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
+          QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT=/tmp/qs-compute-catalog.json node artifacts/api-server/dist/qs-compute-catalog-builder.mjs
+      - name: Execute offline compute audit (failure is recorded, not concealed)
+        id: exercise
+        continue-on-error: true
+        run: |
+          set -eu
+          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) SHARDS=12;; *) exit 2;; esac
+          if [ -n "$ONLY" ]; then ONLY_ARG="--only=$ONLY"; else ONLY_ARG="--selection=chapter"; fi
+          node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --worker=artifacts/api-server/dist/question-studio-universal-worker.mjs --report=/tmp/qs-universal-compute-report.json
+      - name: Upload observed package results (no questions or credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qs-universal-offline-compute-${{ env.WAVE }}-${{ env.SHARD }}
+          path: /tmp/qs-universal-compute-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Report audit outcome
+        if: always()
+        run: |
+          echo "Compute-only audit execution outcome: ${{ steps.exercise.outcome }}"
+          echo "Failures, if any, are listed in the GitHub step summary and artifact. This is not production generation readiness."
