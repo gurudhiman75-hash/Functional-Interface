@@ -103,6 +103,10 @@ function generateFourthAngle(seed: string): Phase3PrototypeQuestion {
     { text: `${Math.abs(180 - (a + b + cAngle))}°`, misconceptionId: "USED_TRIANGLE_ANGLE_SUM", rationale: "Uses a triangle-based total instead of the quadrilateral total." },
     { text: `${d + 10}°`, misconceptionId: "ARITHMETIC_SUBTRACTION_ERROR", rationale: "Makes a subtraction error after using the 360° quadrilateral sum." },
     { text: "90°", misconceptionId: "ASSUMED_RIGHT_ANGLE", rationale: "Adds an unstated right-angle property to a general quadrilateral." },
+    // d can genuinely equal 90°, and 180°-based arithmetic can collide.
+    // Keep an ample pool of independently wrong arithmetic alternatives.
+    { text: `${d - 10}°`, misconceptionId: "SUBTRACTED_EXTRA_TEN", rationale: "Over-subtracts the combined known angles by ten degrees." },
+    { text: `${d + 20}°`, misconceptionId: "UNDER_SUBTRACTED_TWENTY", rationale: "Subtracts twenty degrees too little from the quadrilateral total." },
   ], seed);
   return finalizePhase3Question({
     cpId: CP_ID,
