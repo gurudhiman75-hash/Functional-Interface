@@ -20,9 +20,14 @@ const rows=allIds.map(id=>{
  if (!u) reasons.push("Not in admin discovery");
  if (!t) reasons.push("Not in task receiver catalog");
  if (u&&t) {
-  for(const key of ["engineId","enabled","difficultyFilterSupported","lifecycleStage"]) {
+  for(const key of ["engineId","enabled","lifecycleStage"]) {
    if(JSON.stringify(u[key]??null)!==JSON.stringify(t[key]??null))reasons.push("Registry/receiver mismatch: "+key);
   }
+  // UI catalog explicitly defaults omitted difficultyFilterSupported to true.
+  // Receiver retains undefined (equivalent to true). Compare effective policy,
+  // not serialized optional-field presence, to avoid false positive drift.
+  if((u.difficultyFilterSupported!==false)!==(t.difficultyFilterSupported!==false))
+   reasons.push("Registry/receiver mismatch: difficultyFilterSupported");
   for(const key of ["cpIds","dynamicCandidateCpIds","supportedLanguages","supportedRuntimeModes","supportedDifficulties"]) {
    const a=u[key]??[], b=t[key]??[];
    if(JSON.stringify(a)!==JSON.stringify(b))reasons.push("Registry/receiver mismatch: "+key);
