@@ -1,3 +1,4 @@
+import { normalizeStat004Language, localizeStat004Batch } from "./native-review-v1";
 import { hashSeed } from "../shared/exact";
 import { generateStat004Question, stat004ContractIds } from "./data-foundations";
 import { STAT004_PERMANENT_OWNERSHIP, STAT004_PERMANENT_QLS, getStat004PermanentQl, type Stat004PermanentQlDescriptor } from "./permanent-ql-registry";
@@ -5,6 +6,7 @@ import type { Stat004ContractId, Stat004Difficulty, Stat004ExamProfile } from ".
 
 export const STAT004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "STAT-CP-004" as const;
 export const STAT004_QUESTION_STUDIO_RUNTIME_MODE = "STAT004_PERMANENT_ENGLISH_REVIEW_P0" as const;
+const LANGUAGE_REVIEW_STATUS = {en:"ENGLISH_REVIEW_APPROVED",hi:"NATIVE_REVIEW_CANDIDATE",pa:"NATIVE_REVIEW_CANDIDATE"} as const;
 
 export type Stat004QuestionStudioRequest = Readonly<{
   packageId?: string; archetypeId?: string; patternId?: string; topic?: string; subtopic?: string;
@@ -77,8 +79,7 @@ function toPreview(source: ReturnType<typeof generateStat004Question>, descripto
 export async function generateStat004QuestionStudioBatch(request: Stat004QuestionStudioRequest = {}) {
   const cp = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cp && cp !== STAT004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cp}' for package STAT-004.`);
-  const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("STAT-004 controlled Question Studio review is English-only; localization has not started.");
+  const language = normalizeStat004Language(request.language);
   const profile = profileOf(request.examProfile);
   const difficulty = difficultyOf(request.difficulty);
   const ql = String(request.questionLanguageId ?? "").trim().toUpperCase();
@@ -101,7 +102,7 @@ export async function generateStat004QuestionStudioBatch(request: Stat004Questio
     questionPackages.push(source);
     questions.push(toPreview(source, owner, index, count));
   }
-  return {
+  const batch = {
     generationContext: { generationDomain: "quant-v4", chapterId: "Statistics", packageId: "STAT-004",
       canonicalProblemId: STAT004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, seed: batchSeed, timestamp: Date.now(), language: "en",
       examProfile: profile, runtimeMode: STAT004_QUESTION_STUDIO_RUNTIME_MODE, reviewStatus: "ENGLISH_REVIEW_APPROVED",
@@ -111,6 +112,7 @@ export async function generateStat004QuestionStudioBatch(request: Stat004Questio
       publiclyPublishable: false, automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true },
     questionPackages, questions,
   };
+  return localizeStat004Batch(batch, language);
 }
 
 export function stat004QuestionStudioPackageCard() {
@@ -119,13 +121,15 @@ export function stat004QuestionStudioPackageCard() {
     generationDomain: "quant-v4", cpIds: [STAT004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],
     canonicalProblems: [{ id: STAT004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Data Collection, Classification & Tabulation" }],
     permanentQlIds: STAT004_PERMANENT_QLS.map((item) => item.qlId), permanentQlCount: STAT004_PERMANENT_QLS.length,
-    qls: STAT004_PERMANENT_QLS.map((item) => ({ id: item.qlId, label: item.label, difficulty: item.difficulty })),
-    supportedDifficulties: ["easy", "medium", "hard"], supportedLanguages: ["en"], supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
-    enabled: true, runtimeMode: STAT004_QUESTION_STUDIO_RUNTIME_MODE, supportedRuntimeModes: [STAT004_QUESTION_STUDIO_RUNTIME_MODE],
+    qls: STAT004_PERMANENT_QLS.map((item) => ({ id: item.qlId, label: item.label, difficulty: item.difficulty, localizationStatus: item.localizationStatus })),
+    supportedDifficulties: ["easy", "medium", "hard"], supportedLanguages: ["en", "hi", "pa"], supportedExamProfiles: ["SSC_CGL_TIER_II", "SSC_CGL_JSO"],
+    enabled: true, runtimeMode: STAT004_QUESTION_STUDIO_RUNTIME_MODE, supportedRuntimeModes: [STAT004_QUESTION_STUDIO_RUNTIME_MODE, "STAT004_NATIVE_REVIEW_V1"],
     reviewStatus: "ENGLISH_REVIEW_APPROVED", releaseId: STAT004_PERMANENT_OWNERSHIP.releaseId,
     questionStudioDiscoverable: true, questionStudioMode: "CONTROLLED_REVIEW", questionBankStatus: "NOT_STORED", questionBankWritable: false,
     testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false, publiclyPublishable: false,
-    automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true, localizationStatus: "NOT_STARTED" };
+    automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true, localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    languageReviewStatus: LANGUAGE_REVIEW_STATUS,
+    metadata: {languageReviewStatus: LANGUAGE_REVIEW_STATUS, localizationStatus: "HI_PA_REVIEW_CANDIDATE"} };
 }
 
 export function stat004PermanentContracts() { return stat004ContractIds(); }

@@ -9,9 +9,10 @@ Date: 2026-10-15. Scope: controlled native review candidates, not a new mathemat
 | STAT-001 Central tendency | STAT-QL-001–006 | Authored native review candidates |
 | STAT-002 Standard deviation | STAT-QL-007–012 | Authored native review candidates |
 | STAT-003 Frequency distributions and empirical relations | STAT-QL-013–020 | Authored native review candidates |
-| STAT-004–014 | Remaining 194 QLs, including later syllabus additions | English-only; localization pending |
+| STAT-004 Data collection, classification and tabulation | STAT-QL-021–035 | Authored native review candidates |
+| STAT-005–014 | Remaining 179 QLs, including later syllabus additions | English-only; localization pending |
 
-This checkpoint covers 20 of 214 QLs. It does not freeze or close localization of the whole chapter. The completed mathematics, syllabus, English stems and diversity audit remains closed.
+This checkpoint covers 35 of 214 QLs. It does not freeze or close localization of the whole chapter. The completed mathematics, syllabus, English stems and diversity audit remains closed.
 
 ## Content and authority
 
@@ -19,7 +20,7 @@ This checkpoint covers 20 of 214 QLs. It does not freeze or close localization o
 
 The English source packages remain byte-identical mathematical authorities. Native previews retain data, answers, answer positions, numeric options, permanent IDs, exam profile, difficulty and source identity. Their own IDs carry the language suffix. Native review status, runtime and release identity are separate from the English review release; metadata and traceability point back to that source release. English distractor derivations remain in the source audit package; native option metadata carries numeric text and misconception IDs without exposing untranslated derivations.
 
-Only STAT-001–003 advertise `en`, `hi`, `pa`. Language aliases hi-IN/pa-IN are normalized, unsupported languages fail explicitly. STAT-004–014 continue to advertise English only. English package review states remain unchanged; Hindi/Punjabi are `NATIVE_REVIEW_CANDIDATE` with human review pending. Question Bank writes, tests/mocks, publication and production release remain locked. Human/live verification is deferred to the user, as requested.
+Only STAT-001–004 advertise `en`, `hi`, `pa`. Language aliases hi-IN/pa-IN are normalized, unsupported languages fail explicitly. STAT-005–014 continue to advertise English only. English package review states remain unchanged; Hindi/Punjabi are `NATIVE_REVIEW_CANDIDATE` with human review pending. Question Bank writes, tests/mocks, publication and production release remain locked. Human/live verification is deferred to the user, as requested.
 
 ## Reproducible verification
 
@@ -30,4 +31,12 @@ Only STAT-001–003 advertise `en`, `hi`, `pa`. Language aliases hi-IN/pa-IN are
 
 The isolated TypeScript comparison reports the existing STAT-001 `central-tendency.ts:252` generic tuple-inference error on both baseline and changed code. This checkpoint introduces no additional error in the foundation source/parity check; it does not claim a clean whole-repository typecheck.
 
-Next authored package: STAT-004 data collection and presentation. Conceptual scenarios and options there require their own native content; the numeric foundation renderer is deliberately not applied to them.
+## STAT-004 extension
+
+`STAT-004/review-facts-v1.ts` owns scenario choices and numeric stimuli for both English and native rendering. Extracting those choices preserves the original RNG draw order. `STAT-004/native-review-v1.ts` authors both native stem surfaces, complete conceptual options and explanations for all 15 contracts, rather than applying the numeric foundation renderer to conceptual questions. Unknown options fail explicitly. Native conceptual answer text and canonical display are localized while the source answer, source options and correct index remain traceable. Numeric frequency questions independently recompute their answers, with an interval tally table for the construction task.
+
+`STAT-004/native-review-v1.test.ts` verifies 3,000 English source/preview questions against the pre-change SHA-256 baseline, 6,000 native questions, all 60 QL/profile/language combinations, all 67 scenario/fact variants, all four answer positions, full replays, numeric recomputation, native canonical-answer display, provenance and release locks. Unsupported language, unknown option, wrong QL owner and mismatched source identity are rejected. The isolated native source/parity TypeScript check passes. The existing 1,500-question data-foundations proof also passes.
+
+`STAT-004/native-studio-v1.test.ts` covers all 60 native QL/language/profile routes and the 15-QL English batch through Question Studio. Dedicated hosted workflow: `.github/workflows/quant-v4-stat004-native-v1.yml`. The earlier foundation discovery proof now expects four native-capable packages and ten English-only packages.
+
+Next authored package: STAT-005 partition values and dispersion. Native human/live verification remains deferred to the user.

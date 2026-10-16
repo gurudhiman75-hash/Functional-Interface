@@ -1,0 +1,52 @@
+name: Quant V4 STAT-004 native review V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-004/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stat004-native-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native-review-parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Native semantics, English baseline and Question Studio routing
+        working-directory: artifacts/api-server
+        run: |
+          mkdir -p dist/audits/stat004-native-v1
+          for audit in native-review-v1.test native-studio-v1.test data-foundations.test
+          do
+            pnpm exec esbuild "src/quant-v4/topics/Statistics/STAT-004/$audit.ts" \
+              --bundle --platform=node --format=esm --packages=external \
+              --outfile="dist/audits/stat004-native-v1/$audit.mjs"
+            node "dist/audits/stat004-native-v1/$audit.mjs" > "dist/audits/stat004-native-v1/$audit.log"
+          done
+      - name: Typecheck native source and parity proof
+        working-directory: artifacts/api-server
+        run: pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --skipLibCheck --types node src/quant-v4/topics/Statistics/STAT-004/native-review-v1.test.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stat004-native-review-v1
+          path: artifacts/api-server/dist/audits/stat004-native-v1/*.log
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
