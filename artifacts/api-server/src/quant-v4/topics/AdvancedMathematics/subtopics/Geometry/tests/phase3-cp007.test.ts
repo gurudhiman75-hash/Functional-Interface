@@ -21,7 +21,9 @@ for (const prototype of GEO_CP_007_PHASE3_PROTOTYPES) {
     assertPhase3(!question.stemSvg?.includes('data-geo-kind="right-angle-mark"'), "Converse-classification SVG leaked the answer");
     assertPhase3(visualDot(question, "A", "B", "C") !== 0, "Converse-classification layout visually leaked a 90° angle at A");
   } else {
-    assertPhase3(question.answer === "7 cm", "Hypotenuse-median answer changed");
+    const hypotenuse = question.stem.match(/BC = (\d+) cm\. Find AM/);
+    assertPhase3(Boolean(hypotenuse), "Hypotenuse-median stem must include the hypotenuse");
+    assertPhase3(question.answer === `${Number(hypotenuse![1]) / 2} cm`, "Hypotenuse-median answer must be half the actual hypotenuse");
     assertPhase3(question.diagramModel?.rightAngleMarks.length === 1, "Hypotenuse-median diagram lacks the supplied right angle");
     assertPhase3(question.diagramModel?.equalLengthMarks.length === 1, "Hypotenuse-median diagram lacks the supplied midpoint relation");
     assertPhase3(visualDot(question, "A", "B", "C") === 0, "Supplied right angle is visually inconsistent with its marker");
