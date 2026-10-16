@@ -6,7 +6,7 @@ import {
 for (let n = 1; n <= 20; n++)
   for (const language of ["hi", "pa"]) {
     const questionLanguageId = `STAT-QL-${String(n).padStart(3, "0")}`;
-    const packageId = n <= 6 ? "STAT-001" : n <= 12 ? "STAT-002" : "STAT-003";
+    const packageId = n <= 9 ? "STAT-001" : n <= 12 ? "STAT-002" : "STAT-003";
     const result = await generateQuestionStudioQuestions({
       questionLanguageId,
       language,
@@ -30,13 +30,13 @@ for (let n = 1; n <= 14; n++) {
   assert(card);
   assert.deepEqual(
     card.supportedLanguages,
-    n <= 6 ? ["en", "hi", "pa"] : ["en"],
+    n <= 9 ? ["en", "hi", "pa"] : ["en"],
   );
 }
 console.log(
   JSON.stringify({
     status: "PASS_STATISTICS_FOUNDATION_NATIVE_STUDIO_V1",
     routedQlLanguages: 40,
-    untouchedEnglishOnlyPackages: 8,
+    untouchedEnglishOnlyPackages: 5,
   }),
 );
