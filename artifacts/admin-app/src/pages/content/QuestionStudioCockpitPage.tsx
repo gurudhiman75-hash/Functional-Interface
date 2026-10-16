@@ -638,6 +638,17 @@ export function QuestionStudioCockpitPage() {
         return;
       }
       const result = await generate(input);
+      // Sync Generate must not leave a stale staging resume link attached.
+      // Only clear the link after synchronous generation succeeds.
+      if (STAGING_ASYNC_ENABLED && resumeRunId) {
+        setUrlSearchParams((previous) => {
+          const next = new URLSearchParams(previous);
+          next.delete(STAGING_ASYNC_RUN_PARAM);
+          return next;
+        }, { replace: true });
+        setStagingAsyncRun(null);
+        setStagingAsyncPollError(null);
+      }
       setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
