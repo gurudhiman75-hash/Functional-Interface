@@ -1,8 +1,8 @@
 import type { Stat006ContractId, Stat006Difficulty, Stat006ExamProfile } from "./types";
 export const STAT006_PERMANENT_RELEASE_ID = "STAT-006-PERMANENT-ENGLISH-REVIEW-P0" as const;
-export type Stat006PermanentQlDescriptor = Readonly<{ qlId: `STAT-QL-${string}`; contractId: Stat006ContractId; label: string; semanticContract: string; difficulty: Stat006Difficulty; supportedProfiles: readonly Stat006ExamProfile[] }>;
+export type Stat006PermanentQlDescriptor = Readonly<{ qlId: `STAT-QL-${string}`; contractId: Stat006ContractId; label: string; semanticContract: string; localizationStatus: "HI_PA_REVIEW_CANDIDATE"; difficulty: Stat006Difficulty; supportedProfiles: readonly Stat006ExamProfile[] }>;
 const profiles = ["SSC_CGL_TIER_II", "SSC_CGL_JSO"] as const;
-const row = (qlId: `STAT-QL-${string}`, contractId: Stat006ContractId, label: string, semanticContract: string, difficulty: Stat006Difficulty): Stat006PermanentQlDescriptor => ({ qlId, contractId, label, semanticContract, difficulty, supportedProfiles: profiles });
+const row = (qlId: `STAT-QL-${string}`, contractId: Stat006ContractId, label: string, semanticContract: string, difficulty: Stat006Difficulty): Stat006PermanentQlDescriptor => ({ qlId, contractId, label, semanticContract, localizationStatus: "HI_PA_REVIEW_CANDIDATE", difficulty, supportedProfiles: profiles });
 // STAT-001..005 own STAT-QL-001..051. This registry reserves the next contiguous block.
 export const STAT006_PERMANENT_QLS: readonly Stat006PermanentQlDescriptor[] = Object.freeze([
   row("STAT-QL-052", "SECOND_RAW_MOMENT", "Second raw moment", "Calculate the second moment about the origin, the arithmetic mean of squared observations, from a small raw data set.", "Medium"),
