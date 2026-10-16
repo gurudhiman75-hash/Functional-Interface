@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import { buildQuantV4AnswerOptions } from "./option-generation";
+import {getComparableAnswerKey} from "./answer-contract";
 
 function normalizeOption(value: string) {
   return value
@@ -150,6 +151,21 @@ function assertExactlyOneCorrect(options: readonly string[], correct: number) {
       return Number.isInteger(value) && value >= 0;
     }),
   );
+}
+
+// Formatting-equivalent money options must not create two correct answers.
+// This reproduced the AVG-001 staging failure (₹31000 versus ₹31,000).
+{
+  const answer="₹31000";
+  const result=buildQuantV4AnswerOptions(answer,{
+    seed:"qs-coverage-AVG-001-20261016:canonical-money-alias",
+    existingOptions:["₹31,000","₹31000","₹32,000","₹30,000"],
+    context:{taskKind:"average",stem:"Find the corrected average salary."},
+  });
+  assertHealthyOptions(result.options);
+  const canonicalKey=getComparableAnswerKey(result.canonicalAnswer);
+  assert.equal(result.options.filter(option=>getComparableAnswerKey(option)===canonicalKey).length,1);
+  assert.equal(getComparableAnswerKey(result.options[result.correct]!),canonicalKey);
 }
 
 console.info("quant-v4 option-generation smoke passed");
