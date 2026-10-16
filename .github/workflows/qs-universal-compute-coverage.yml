@@ -31,9 +31,9 @@ jobs:
     timeout-minutes: 30
     env:
       # No Cloud Run, Firebase, Neon, Cloud Tasks, or GitHub production credentials.
-      WAVE: ${{ inputs.wave || 'pilot' }}
+      WAVE: ${{ github.event_name == 'pull_request' && 'all' || inputs.wave || 'pilot' }}
       SHARD: ${{ inputs.shard || '0' }}
-      ONLY: ${{ github.event_name == 'pull_request' && 'TRG-002,NUM-001,OPS-001,ALGEBRA,PUN-001' || '' }}
+      ONLY: ''
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -56,7 +56,7 @@ jobs:
         continue-on-error: true
         run: |
           set -eu
-          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) SHARDS=12;; *) exit 2;; esac
+          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then SHARDS=1; else SHARDS=12; fi;; *) exit 2;; esac
           if [ -n "$ONLY" ]; then ONLY_ARG="--only=$ONLY"; else ONLY_ARG="--selection=chapter"; fi
           node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --timeout-seconds=20 --worker=artifacts/api-server/dist/qs-universal-coverage-worker.mjs --report=/tmp/qs-universal-compute-report.json
       - name: Upload observed package results (no questions or credentials)
