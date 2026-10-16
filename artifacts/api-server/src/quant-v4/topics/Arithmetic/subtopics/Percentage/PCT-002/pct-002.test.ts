@@ -5,6 +5,7 @@ import {
   getAnswerType,
   getCommonQuestionLanguageIds,
   getQuestionEntry,
+  getQuestionLanguageIds,
   getRequiredVariables,
   getSelectableQuestionLanguageIds,
   getTaskKind,
@@ -96,7 +97,7 @@ assert.equal(audit.crossLanguageConsistencyFailures, 0);
 assert.equal(audit.libraryValidationFailures.length, 0);
 
 for (const cpId of PCT_002_CP_IDS) {
-  assert.equal(getCommonQuestionLanguageIds(cpId).length, 2, `${cpId} must expose two shared QL IDs`);
+  assert.deepEqual(getCommonQuestionLanguageIds(cpId).sort(), getQuestionLanguageIds(cpId, "en").sort(), `${cpId} must expose the complete English QL pool in every language`);
 }
 
 const diversityCp = "PCT-CP-008" as const;

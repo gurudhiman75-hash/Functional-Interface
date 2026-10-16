@@ -171,7 +171,11 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
       mathJax.core = `${formatNumber(final1)}\\text{ vs }${formatNumber(final2)}`;
       const answer =
         direction === "equal"
-          ? `${subjectA} and ${subjectB} are equal after the change.`
+          ? parameters.language === "hi"
+            ? `परिवर्तन के बाद ${subjectA} और ${subjectB} बराबर हैं।`
+            : parameters.language === "pa"
+              ? `ਬਦਲਾਅ ਤੋਂ ਬਾਅਦ ${subjectA} ਅਤੇ ${subjectB} ਬਰਾਬਰ ਹਨ।`
+              : `${subjectA} and ${subjectB} are equal after the change.`
           : comparisonText(subjectA, subjectB, direction, absoluteText(parameters, difference), "absolute", parameters.language);
       return { answer, numericAnswer: direction === "equal" ? 0 : difference, answerType: parameters.answerType, evidence, mathJax };
     }

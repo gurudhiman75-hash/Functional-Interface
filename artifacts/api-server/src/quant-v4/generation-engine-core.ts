@@ -1,3 +1,4 @@
+import { pctNativeReviewLifecycle, withPctNativeReviewContract } from "./topics/Arithmetic/subtopics/Percentage/native-review-contract";
 import {
   getPct001ActiveCanonicalProblemIds,
   runPct001Pipeline,
@@ -140,7 +141,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Percentage Fundamentals",
     cpIds: getPct001ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct001Pipeline(cpId as Pct001CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -156,7 +157,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Percentage Transformations",
     cpIds: getPct002ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct002Pipeline(cpId as Pct002CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -172,7 +173,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Percentage Increase",
     cpIds: getPct003ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct003Pipeline(cpId as Pct003CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -188,7 +189,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Percentage Decrease",
     cpIds: getPct004ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct004Pipeline(cpId as Pct004CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -204,7 +205,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Successive Percentage Change",
     cpIds: getPct005ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct005Pipeline(cpId as Pct005CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -220,7 +221,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Percentage Comparison & Comparative Change",
     cpIds: getPct006ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct006Pipeline(cpId as Pct006CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -236,7 +237,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Percentage",
     label: "Mixed Applications of Percentage",
     cpIds: getPct007ActiveCanonicalProblemIds(),
-    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runPct007Pipeline(cpId as Pct007CanonicalProblemId, {
         difficultyBand: input.difficulty,
@@ -451,6 +452,7 @@ export function listQuantV4Packages() {
       ...(pkg.supportedLanguages ?? MULTILINGUAL_PREVIEW_LANGUAGES),
     ],
     enabled: pkg.enabled,
+    ...(pkg.packageId.startsWith("PCT-") ? { metadata: { nativeReviewStatus: "NATIVE_REVIEW_CANDIDATE", nativeHumanReview: "PENDING" } } : {}),
   }));
 
   const percentagePackages = discovered.filter(
@@ -474,8 +476,9 @@ export function listQuantV4Packages() {
       generationDomain: "quant-v4",
       canonicalProblems: [],
       supportedDifficulties: ["easy", "medium", "hard"],
-      supportedLanguages: [...ENGLISH_ONLY_PREVIEW_LANGUAGES],
+      supportedLanguages: [...MULTILINGUAL_PREVIEW_LANGUAGES],
       enabled: true,
+      metadata: { nativeReviewStatus: "NATIVE_REVIEW_CANDIDATE", nativeHumanReview: "PENDING" },
     },
     ...discovered,
   ];
@@ -865,6 +868,7 @@ function buildQuestionStudioResult(
     seed: string;
   },
 ) {
+  questionPackage = withPctNativeReviewContract(questionPackage);
   const traceability = questionPackage.traceability ?? {};
   const parameters = questionPackage.parameters ?? {};
   const scenarioId =
@@ -916,6 +920,7 @@ export function toQuestionStudioPreview(
     seed?: string;
   } = {},
 ) {
+  pkg = withPctNativeReviewContract(pkg);
   const explanationLines = Array.isArray(pkg.explanation?.lines)
     ? pkg.explanation.lines
     : Array.isArray(pkg.explanation?.visibleLines)
@@ -986,6 +991,7 @@ export function toQuestionStudioPreview(
     seed: context.seed ?? pkg.questionId,
     answer: pkg.answer,
     canonicalAnswer: optionResult.canonicalAnswer,
+    ...pctNativeReviewLifecycle(pkg.archetypeId, language),
     runtimeMode,
     reviewStatus,
     questionBankStatus,
@@ -1049,6 +1055,7 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
     Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
   );
   const language = request.language ?? "en";
+  if (!["en", "hi", "pa"].includes(language)) throw new QuantV4RequestError("Unsupported Quant V4 language.");
   const difficultyBand = normalizeDifficulty(request.difficulty);
   const batchSeed =
     request.seed ??
@@ -1136,6 +1143,8 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
         generationDomain: "quant-v4",
         seed: batchSeed,
         timestamp: Date.now(),
+        ...pctNativeReviewLifecycle(results[0]?.packageId ?? "", language),
+        language,
       },
       questionPackages: results.map((item) => item.questionPackage),
       questions: results.map((item) => item.question),
@@ -1198,6 +1207,8 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
+      ...pctNativeReviewLifecycle(results[0]?.packageId ?? "", language),
+      language,
     },
     questionPackages: results.map((item) => item.questionPackage),
     questions: results.map((item) => item.question),

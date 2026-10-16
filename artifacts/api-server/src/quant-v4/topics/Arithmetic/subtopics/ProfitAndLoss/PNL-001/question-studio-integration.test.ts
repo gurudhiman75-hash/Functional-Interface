@@ -205,12 +205,17 @@ for (const language of LANGUAGES) {
     seed: `pnl-question-bank-release:${language}`,
   });
   const releasedPreview = released.questions[0]!;
-  assert.equal(getGeneratedQuestionBankEligibilityIssue(releasedPreview), null);
-  assert.doesNotThrow(() =>
-    assertGeneratedQuestionBankEligible(releasedPreview),
-  );
+  // The current write gate requires an explicit boolean; a legacy status alone
+  // must not authorize persistence. Positive acceptance uses a test-only approval.
+  assert.equal(getGeneratedQuestionBankEligibilityIssue(releasedPreview),
+    "questionBankWritable is not explicitly enabled");
+  assert.throws(() => assertGeneratedQuestionBankEligible(releasedPreview),
+    /questionBankWritable is not explicitly enabled/);
+  const explicitlyApprovedPreview = { ...releasedPreview, questionBankWritable: true };
+  assert.equal(getGeneratedQuestionBankEligibilityIssue(explicitlyApprovedPreview), null);
+  assert.doesNotThrow(() => assertGeneratedQuestionBankEligible(explicitlyApprovedPreview));
   const normalizedReleased = normalizeGeneratedQuestionPayload(
-    releasedPreview,
+    explicitlyApprovedPreview,
     {
       itemId: "00000000-0000-0000-0000-000000000001",
       generationRunCode: `GEN-PNL-RELEASE-${language.toUpperCase()}`,
@@ -242,6 +247,7 @@ assert.throws(
 );
 const tamperedDynamicPreview = {
   ...preview,
+  questionBankWritable: true,
   questionBankStatus: "WRITABLE",
   testEligibility: "ELIGIBLE",
   publiclyPublishable: true,
