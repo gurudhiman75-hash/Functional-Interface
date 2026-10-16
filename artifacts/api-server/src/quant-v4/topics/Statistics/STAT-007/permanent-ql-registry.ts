@@ -22,5 +22,5 @@ const rows: readonly [Stat007ContractId,string,string][] = [
   ["MULTIPLE_REGRESSION_COEFFICIENTS_FROM_CROSS_PRODUCTS","Estimate multiple regression coefficients from cross-products","STAT-QL-179"],
   ["MULTIPLE_REGRESSION_RESIDUAL","Residual from a multiple regression equation","STAT-QL-180"],
 ];
-export const STAT007_PERMANENT_QLS = rows.map(([contractId,label,qlId],i)=>({qlId,contractId,label,supportedProfiles:profiles,difficulty:(i%3===0?"easy":i%3===1?"medium":"hard") as "easy"|"medium"|"hard",lifecycle:"CONTROLLED_REVIEW" as const}));
+export const STAT007_PERMANENT_QLS = rows.map(([contractId,label,qlId],i)=>({qlId,contractId,label,supportedProfiles:profiles,localizationStatus:"HI_PA_REVIEW_CANDIDATE" as const,difficulty:(i%3===0?"easy":i%3===1?"medium":"hard") as "easy"|"medium"|"hard",lifecycle:"CONTROLLED_REVIEW" as const}));
 export function getStat007PermanentQl(id:string){return STAT007_PERMANENT_QLS.find(x=>x.qlId===id);}

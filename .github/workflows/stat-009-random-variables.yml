@@ -6,11 +6,13 @@ on:
       - feature/statistics-random-variables-distributions-jso-v1
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-009/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-007-009*"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-009/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-007-009*"
   workflow_dispatch:
 
 concurrency:
@@ -41,5 +43,9 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-009/random-variables.test.ts
       - name: Question Studio Quant V4 integration
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-009/question-studio-integration.test.ts
+      - name: Three-package native parity
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-007-009.test.ts
+      - name: Three-package native Question Studio routes
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/shared/native-007-009-studio.test.ts
       - name: Patch hygiene
         run: git diff --check
