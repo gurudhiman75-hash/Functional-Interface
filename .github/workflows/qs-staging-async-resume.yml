@@ -6,6 +6,8 @@ on:
       - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.ts'
       - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.test.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'tests/qs-admin-staging-async-review-contract.test.mjs'
 permissions:
   contents: read
 concurrency:
@@ -27,5 +29,7 @@ jobs:
       - run: pnpm install --frozen-lockfile --filter @workspace/examtree-admin...
       - name: Validate deep-link contract
         run: pnpm --filter @workspace/examtree-admin exec vitest run src/features/question-studio/staging-async-resume.test.ts
+      - name: Check staging request and runtime mode contract
+        run: node --test tests/qs-admin-staging-async-review-contract.test.mjs
       - name: Typecheck admin app
         run: pnpm --filter @workspace/examtree-admin typecheck

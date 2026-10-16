@@ -360,7 +360,8 @@ export function enqueueQuestionStudioStagingRun(
     difficulty: input.difficulty,
     count: input.count,
     seed: input.seed,
-    runtimeMode: 'review-only',
+    // Match the selected package's registered runtime; never override all chapters with review-only.
+    runtimeMode: input.runtimeMode,
     patternId: input.patternId,
     canonicalProblemId: input.canonicalProblemId,
   };
