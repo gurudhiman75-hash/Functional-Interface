@@ -1,0 +1,31 @@
+name: Validate QS staging async resume UI
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.ts'
+      - 'artifacts/admin-app/src/features/question-studio/staging-async-resume.test.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+permissions:
+  contents: read
+concurrency:
+  group: qs-staging-resume-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile --filter @workspace/examtree-admin...
+      - name: Validate deep-link contract
+        run: pnpm --filter @workspace/examtree-admin exec vitest run src/features/question-studio/staging-async-resume.test.ts
+      - name: Typecheck admin app
+        run: pnpm --filter @workspace/examtree-admin typecheck

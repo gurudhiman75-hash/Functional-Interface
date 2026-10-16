@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -71,6 +71,7 @@ import {
   type ItemQualityReport,
 } from '@/features/question-studio/quality';
 import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
+import { getStagingResumeRunId, STAGING_ASYNC_RUN_PARAM, withStagingResumeRunId } from '@/features/question-studio/staging-async-resume';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
@@ -185,6 +186,8 @@ function SpatialSvgFigure({ svg, label }: { svg: string; label: string }) {
 }
 
 export function QuestionStudioCockpitPage() {
+  const [urlSearchParams, setUrlSearchParams] = useSearchParams();
+  const resumeRunId = STAGING_ASYNC_ENABLED ? getStagingResumeRunId(urlSearchParams) : null;
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
   const canReview = hasPermission('content.generation.review');
@@ -350,6 +353,29 @@ export function QuestionStudioCockpitPage() {
       window.removeEventListener('online', retryWhenOnline);
     };
   }, [stagingOperationsRefreshKey]);
+
+  // Reloading the browser or opening a saved link restores only the run ID.
+  // Status always comes from the authenticated, permission-checked API.
+  // Never keep queue input, secrets or Firebase identity in browser storage.
+  useEffect(() => {
+    if (!resumeRunId || stagingAsyncRun?.id === resumeRunId) return;
+    let cancelled = false;
+    setStagingAsyncPollError(null);
+    void getQuestionStudioRunProgress(resumeRunId).then((progress) => {
+      if (cancelled) return;
+      setStagingAsyncRun(progress);
+      if (['review', 'approved', 'partially_approved'].includes(progress.status)) {
+        setExpandedRuns((current) => new Set(current).add(progress.id));
+        setWorkspaceView('review');
+      }
+    }).catch((error: unknown) => {
+      if (cancelled) return;
+      setStagingAsyncPollError(error instanceof Error
+        ? error.message : 'Unable to resume this staging generation run.');
+    });
+    return () => { cancelled = true; };
+    // The status-polling effect owns subsequent refreshes for the same run ID.
+  }, [resumeRunId, stagingAsyncRun?.id]);
 
   useEffect(() => {
     const runId = stagingAsyncRun?.id;
@@ -592,6 +618,7 @@ export function QuestionStudioCockpitPage() {
         try {
           const receipt = await enqueueQuestionStudioStagingRun(input, stagingAsyncRetry.current.key);
           stagingAsyncRetry.current = null;
+          setUrlSearchParams(withStagingResumeRunId(urlSearchParams, receipt.id), { replace: true });
           setStagingAsyncRun({
             id: receipt.id, publicCode: receipt.publicCode, status: receipt.status,
             attemptNumber: 0, requestedCount: input.count, generatedCount: 0,
@@ -611,6 +638,17 @@ export function QuestionStudioCockpitPage() {
         return;
       }
       const result = await generate(input);
+      // Sync Generate must not leave a stale staging resume link attached.
+      // Only clear the link after synchronous generation succeeds.
+      if (STAGING_ASYNC_ENABLED && resumeRunId) {
+        setUrlSearchParams((previous) => {
+          const next = new URLSearchParams(previous);
+          next.delete(STAGING_ASYNC_RUN_PARAM);
+          return next;
+        }, { replace: true });
+        setStagingAsyncRun(null);
+        setStagingAsyncPollError(null);
+      }
       setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
@@ -789,6 +827,40 @@ export function QuestionStudioCockpitPage() {
         </Card>
       )}
 
+      {STAGING_ASYNC_ENABLED && urlSearchParams.has(STAGING_ASYNC_RUN_PARAM) && !resumeRunId && (
+        <p className="text-xs text-destructive" role="status">
+          Invalid staging resume link. Open a saved link containing a valid run ID.
+        </p>
+      )}
+      {STAGING_ASYNC_ENABLED && (stagingAsyncRun || (resumeRunId && stagingAsyncPollError)) && (
+        <div role="status" aria-live="polite" className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-muted/20 px-3 py-3 text-xs">
+          <div className="space-y-1">
+            {stagingAsyncRun ? (
+              <>
+                <p className="font-semibold">Staging async run: {stagingAsyncRun.publicCode}</p>
+                <p>Status: {stagingAsyncRun.status} · Attempt {stagingAsyncRun.attemptNumber} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
+                {['review', 'approved', 'partially_approved'].includes(stagingAsyncRun.status) && (
+                  <p className="text-muted-foreground">Saved in the editorial review queue; no automatic publication.</p>
+                )}
+              </>
+            ) : <p className="font-semibold">Restoring staging run…</p>}
+            {stagingAsyncPollError && <p className="text-destructive">Progress unavailable: {stagingAsyncPollError}. You can reload this link to retry.</p>}
+          </div>
+          {stagingAsyncRun && (
+            <Button variant="outline" size="sm" type="button" onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(window.location.href);
+                showToast.success('Resume link copied', 'Reopen this link to check the staging run without submitting another batch.');
+              } catch {
+                showToast.error('Unable to copy link', 'Copy the current page address from your browser instead.');
+              }
+            }}>
+              Copy resume link
+            </Button>
+          )}
+        </div>
+      )}
+
       <Tabs value={workspaceView} onValueChange={(value) => setWorkspaceView(value as 'generate' | 'review')} className="space-y-4">
         <TabsList className="h-auto p-1">
           <TabsTrigger value="generate">Generate batch</TabsTrigger>
@@ -959,13 +1031,6 @@ export function QuestionStudioCockpitPage() {
               <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && STAGING_ASYNC_ENABLED ? 'Queue staging batch' : 'Generate review batch'}</Button>
             </div>
           </div>
-          {STAGING_ASYNC_ENABLED && stagingAsyncRun && (
-            <div role="status" aria-live="polite" className="rounded-lg border bg-muted/20 px-3 py-2 text-xs">
-              <p className="font-semibold">Staging async run: {stagingAsyncRun.publicCode}</p>
-              <p>Status: {stagingAsyncRun.status} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
-              {stagingAsyncPollError && <p className="text-destructive">Progress temporarily unavailable: {stagingAsyncPollError}</p>}
-            </div>
-          )}
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
