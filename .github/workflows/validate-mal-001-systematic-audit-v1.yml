@@ -8,6 +8,9 @@ on:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**"
 
+permissions:
+  contents: read
+
 concurrency:
   group: mal-001-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -15,6 +18,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -44,9 +48,24 @@ jobs:
             2>&1 | tee -a mal-001-systematic-audit-v1.log
           grep -q "PASS_MAL_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" mal-001-systematic-audit-v1.log
 
+      - name: Bundle native quality and formula syntax regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-native-quality-v7.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/audits/mal-native-quality-v7.mjs
+
+      - name: Verify native quality and formula syntax
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/audits/mal-native-quality-v7.mjs \
+            2>&1 | tee -a mal-native-quality-v7.log
+
       - name: Upload MAL-001 audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mal-001-systematic-audit-v1
-          path: mal-001-systematic-audit-v1.log
+          path: |
+            mal-001-systematic-audit-v1.log
+            mal-native-quality-v7.log
