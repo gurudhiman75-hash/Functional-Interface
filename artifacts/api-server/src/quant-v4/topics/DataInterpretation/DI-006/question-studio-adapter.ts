@@ -1,3 +1,4 @@
+import {localizeDiExtensionSet} from "../native-extension-v1";
 import { hashSeed } from "../DI-001/exact";
 import {
   DI006_PERMANENT_OWNERSHIP,
@@ -195,7 +196,7 @@ function normalizeAdvancedProfile(value: unknown): Di006AdvancedExamProfile {
 
 async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
-  if (languageValue !== "en") throw new Error("DI-006 advanced caselet V1 is English review-only.");
+  if (!["en","hi","pa"].includes(languageValue)) throw new Error("Unsupported native DI language");
   const examProfile = normalizeAdvancedProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -205,7 +206,7 @@ async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionSt
 
   for (let index = 0; index < count; index += 1) {
     const seed = `${batchSeed}:${index}`;
-    const set = generateDi006AdvancedCaseletSet({ seed, examProfile });
+    const source=generateDi006AdvancedCaseletSet({ seed, examProfile });const set=languageValue==="en"?source:localizeDiExtensionSet(source,languageValue as "hi"|"pa");
     questionPackages.push(set);
     const pool = difficulty ? set.questions.filter((question) => question.difficulty === difficulty) : set.questions;
     const question = pool[index % pool.length]!;
@@ -237,7 +238,7 @@ async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionSt
       taskKind: question.kind,
       topology: set.stimulus.topology,
       runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       questionBankEligible: false as const,
@@ -249,7 +250,7 @@ async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionSt
       productionReleaseAuthorized: false as const,
       reviewOnly: true as const,
       manualApprovalRequired: true as const,
-      language: "en" as const,
+      language:languageValue as "en"|"hi"|"pa",
       metadata: {
         packageId: "DI-006",
         canonicalProblemId: DI006_ADVANCED_CANONICAL_PROBLEM_ID,
@@ -257,7 +258,7 @@ async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionSt
         topology: set.stimulus.topology,
         examProfile: set.examProfile,
         runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
-        reviewStatus: "ENGLISH_REVIEW_CANDIDATE",
+        reviewStatus: languageValue === "en" ? "ENGLISH_REVIEW_CANDIDATE" : "HI_PA_REVIEW_CANDIDATE",
       },
     });
   }
@@ -270,10 +271,10 @@ async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionSt
       canonicalProblemId: DI006_ADVANCED_CANONICAL_PROBLEM_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language:languageValue as "en"|"hi"|"pa",
       examProfile,
       runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
       questionBankStatus: "NOT_STORED" as const,
@@ -391,5 +392,6 @@ export function di006QuestionStudioPackageCard() {
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_FROZEN",
+    extensionLocalizationStatus: "HI_PA_REVIEW_CANDIDATE",
   };
 }

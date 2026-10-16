@@ -33,6 +33,8 @@ jobs:
         run: |
           mkdir -p dist/audits/di-edge-v2
           for audit in \
+            di-mix-native-v1.test \
+            native-extension-v1.test \
             di-novelty-edge-audit-v2.test \
             di-cross-chart-independent-v2.test \
             di-delivery-novelty-mix-v1.test \

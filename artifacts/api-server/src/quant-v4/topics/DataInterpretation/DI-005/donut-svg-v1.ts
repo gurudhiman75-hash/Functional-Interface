@@ -34,6 +34,7 @@ export function renderDi005DonutSvg(model:Di005V2Stimulus){
   if(model.slices.some(s=>s.displayPercent==="?"))throw new Error("DI-005 donut V1 requires fully visible percentages.");
   const width=940,height=520,cx=320,cy=275,outer=168,inner=82,labelR=124;
   const title=esc(model.title),total=esc(`${model.totalLabel}: ${model.totalValue} ${model.unit}`);
+  const centerLabel = /[\u0900-\u0a7f]/.test(model.totalLabel) ? esc(model.totalLabel) : "Total";
   const parts:string[]=[
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}" data-donut-chart="true" data-ring-chart="true" data-inner-radius="${inner}" data-outer-radius="${outer}">`,
     `<rect width="100%" height="100%" fill="white"/><title>${title}</title>`,
@@ -49,7 +50,7 @@ export function renderDi005DonutSvg(model:Di005V2Stimulus){
     start=end;
   });
   parts.push(`<circle data-donut-hole="true" cx="${cx}" cy="${cy}" r="${inner}" fill="white" stroke="#d0d5dd" stroke-width="1"/>`);
-  parts.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#667085">Total</text><text x="${cx}" y="${cy+18}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700">${model.totalValue}</text>`);
+  parts.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#667085">${centerLabel}</text><text x="${cx}" y="${cy+18}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700">${model.totalValue}</text>`);
   const legendX=590,legendY=170;
   model.slices.forEach((slice,index)=>{
     const y=legendY+index*52,color=COLORS[index%COLORS.length]!;

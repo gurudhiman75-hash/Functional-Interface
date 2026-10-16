@@ -560,6 +560,32 @@ function isMainsHardTaskAllowed(
   return mode.mainsHardTaskKinds.includes(generatedTaskKind(question));
 }
 
+// Duplicate repair uses the English selection surface in every language. Native
+// wording may merge distinct phrasings; it must not change the sampled maths.
+async function generateSource(mode: SourceMode, input: any) {
+  const result = await mode.generate(input);
+  if (input.language === "en") return result;
+  const english = await mode.generate({ ...input, language: "en" });
+  if (result.questions.length !== english.questions.length)
+    throw new Error("DI native source question count drifted.");
+  return {
+    ...result,
+    questions: result.questions.map((question: any, index: number) => {
+      const reference = english.questions[index];
+      if (
+        question.questionId !== reference.questionId ||
+        question.correctIndex !== reference.correctIndex
+      )
+        throw new Error("DI native source selection/answer position drifted.");
+      return {
+        ...question,
+        nativeSelectionStem: normalizedStem(reference),
+        nativeSelectionItemKey: diNoveltyLearnerItemKey(reference),
+      };
+    }),
+  };
+}
+
 async function generateModeQuestions(
   mode: SourceMode,
   tier: DiNoveltyTier,
@@ -567,14 +593,15 @@ async function generateModeQuestions(
   count: number,
   profile: DiDeliveryExamProfile,
   seed: string,
+  language: "en" | "hi" | "pa" = "en",
 ) {
   if (
     !(profile === "BANKING_MAINS" && band === "Hard" && mode.mainsHardTaskKinds)
   ) {
-    return mode.generate({
+    return generateSource(mode, {
       canonicalProblemId: mode.canonicalProblemId,
       difficulty: band.toLowerCase(),
-      language: "en",
+      language,
       seed,
       count,
       examProfile: examProfileForSource(profile),
@@ -587,10 +614,10 @@ async function generateModeQuestions(
     let accepted: any | undefined;
     let acceptedPackages: any[] = [];
     for (let attempt = 0; attempt < 64; attempt += 1) {
-      const result = await mode.generate({
+      const result = await generateSource(mode, {
         canonicalProblemId: mode.canonicalProblemId,
         difficulty: "hard",
-        language: "en",
+        language,
         seed: `${seed}:mains-hard-depth:${index}:${attempt}`,
         count: 1,
         examProfile: examProfileForSource(profile),
@@ -1046,20 +1073,28 @@ function decorateNoveltyQuestion(
   };
 }
 
+function selectionStem(question: any) {
+  return question.nativeSelectionStem ?? normalizedStem(question);
+}
+function selectionItemKey(question: any) {
+  return question.nativeSelectionItemKey ?? diNoveltyLearnerItemKey(question);
+}
+
 async function repairExactStemDuplicates(
   questions: any[],
   profile: DiDeliveryExamProfile,
   difficulty: unknown,
   seed: string,
   sourcePackages: any[],
+  language: "en" | "hi" | "pa" = "en",
 ) {
   const seen = new Set<string>();
   const seenItems = new Set<string>();
   const repaired: any[] = [];
   for (let index = 0; index < questions.length; index += 1) {
     let question = questions[index]!;
-    let key = normalizedStem(question);
-    let itemKey = diNoveltyLearnerItemKey(question);
+    let key = selectionStem(question);
+    let itemKey = selectionItemKey(question);
     if (!seen.has(key) && !seenItems.has(itemKey)) {
       seen.add(key);
       seenItems.add(itemKey);
@@ -1089,12 +1124,13 @@ async function repairExactStemDuplicates(
         1,
         profile,
         `${seed}:dedupe:${mode.id}:${index}:${attempt}`,
+        language,
       );
       const candidate = result.questions?.[0];
       if (!candidate || !isMainsHardTaskAllowed(mode, profile, band, candidate))
         continue;
-      const candidateKey = normalizedStem(candidate);
-      const candidateItemKey = diNoveltyLearnerItemKey(candidate);
+      const candidateKey = selectionStem(candidate);
+      const candidateItemKey = selectionItemKey(candidate);
       if (seenItems.has(candidateItemKey)) continue;
       if (!distinctFallback) {
         distinctFallback = decorateNoveltyQuestion(
@@ -1121,10 +1157,10 @@ async function repairExactStemDuplicates(
         throw new Error(
           `DI novelty mix could not remove a repeated learner item from ${mode.id} after 12 deterministic attempts.`,
         );
-      key = normalizedStem(replacement);
+      key = selectionStem(replacement);
     }
     sourcePackages.push(...acceptedPackages);
-    itemKey = diNoveltyLearnerItemKey(replacement);
+    itemKey = selectionItemKey(replacement);
     seen.add(key);
     seenItems.add(itemKey);
     repaired.push(replacement);
@@ -1196,14 +1232,13 @@ export async function generateDiDeliveryNoveltyMix(
       "DI novelty mix received a conflicting checkpoint selector.",
     );
   if (request.language !== undefined && typeof request.language !== "string")
-    throw new Error("DI novelty mix language must be en.");
+    throw new Error("DI novelty mix language must be en, hi or pa.");
   const language = String(request.language ?? "en")
     .trim()
-    .toLowerCase();
-  if (language !== "en")
-    throw new Error(
-      "DI novelty mix V1 is English controlled-review only until fresh/high-novelty modes complete localization.",
-    );
+    .toLowerCase()
+    .replace(/-in$/, "") as "en" | "hi" | "pa";
+  if (!["en", "hi", "pa"].includes(language))
+    throw new Error("DI novelty mix supports en, hi and pa controlled review.");
   const examProfile = normalizeDiDeliveryExamProfile(request.examProfile);
   const count = validCount(request.count === undefined ? 20 : request.count);
   if (request.difficulty !== undefined && request.difficulty !== null) {
@@ -1310,6 +1345,7 @@ export async function generateDiDeliveryNoveltyMix(
       bandCount,
       examProfile,
       `${seed}:${tier}:${mode.id}:${band}`,
+      language,
     );
     sourcePackages.push(...(result.questionPackages ?? []));
     for (const question of result.questions ?? []) {
@@ -1334,15 +1370,33 @@ export async function generateDiDeliveryNoveltyMix(
     request.difficulty,
     seed,
     sourcePackages,
+    language,
   );
   const questions = spreadNoveltyTiers(
     deduplicated,
     `${seed}:tier-spacing`,
-  ).map((question, index) => ({
-    ...question,
-    mixQuestionIndex: index + 1,
-    mixQuestionCount: count,
-  }));
+  ).map((question, index) => {
+    const { nativeSelectionStem, nativeSelectionItemKey, ...item } = question;
+    return {
+      ...item,
+      ...(language === "en"
+        ? {}
+        : {
+            questionId: `${item.questionId}:${language}`,
+            language,
+            sourceReviewStatus: item.reviewStatus,
+            metadata: {
+              ...item.metadata,
+              sourceReviewStatus: item.metadata?.reviewStatus,
+              reviewStatus: "NATIVE_MIX_REVIEW_CANDIDATE",
+              language,
+            },
+            reviewStatus: "NATIVE_MIX_REVIEW_CANDIDATE",
+          }),
+      mixQuestionIndex: index + 1,
+      mixQuestionCount: count,
+    };
+  });
   const actualDifficultyCounts: Record<DiDifficultyBand, number> = {
     Easy: 0,
     Medium: 0,
@@ -1385,10 +1439,13 @@ export async function generateDiDeliveryNoveltyMix(
       canonicalProblemId: DI_DELIVERY_NOVELTY_MIX_CP_ID,
       seed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language,
       examProfile,
       runtimeMode: DI_DELIVERY_NOVELTY_MIX_RUNTIME_MODE,
-      reviewStatus: "NOVELTY_MIX_REVIEW_CANDIDATE" as const,
+      reviewStatus:
+        language === "en"
+          ? "NOVELTY_MIX_REVIEW_CANDIDATE"
+          : "NATIVE_MIX_REVIEW_CANDIDATE",
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
       questionBankStatus: "NOT_STORED" as const,
@@ -1446,7 +1503,7 @@ export function diDeliveryNoveltyMixPackageCard() {
       { id: DI_DELIVERY_NOVELTY_MIX_CP_ID, label: "DI Chapter Delivery Mix" },
     ],
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: ["en", "hi", "pa"],
     supportedExamProfiles: [
       "SSC_CGL_TIER_I",
       "BANKING_PRELIMS",
@@ -1467,6 +1524,13 @@ export function diDeliveryNoveltyMixPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
+    metadata: {
+      languageReviewStatus: {
+        en: "NOVELTY_MIX_REVIEW_CANDIDATE",
+        hi: "NATIVE_MIX_REVIEW_CANDIDATE",
+        pa: "NATIVE_MIX_REVIEW_CANDIDATE",
+      },
+    },
     noveltyPolicy: {
       banking: { standard: 0.75, freshFamiliar: 0.2, higherNovelty: 0.05 },
       ssc: { standard: 0.75, freshFamiliar: 0.25, higherNovelty: 0 },

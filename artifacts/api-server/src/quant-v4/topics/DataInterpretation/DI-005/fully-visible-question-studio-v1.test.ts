@@ -26,7 +26,7 @@ for(const question of result.questions){
   assert(!question.stimulusSvgs[0].includes(">?</text>"));
 }
 await assert.rejects(
-  () => generateDi005QuestionStudioBatch({canonicalProblemId:DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID,language:"hi",count:1,seed:"blocked-hi"}),
-  /English review-only/u,
+  () => generateDi005QuestionStudioBatch({canonicalProblemId:DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID,language:"fr",count:1,seed:"blocked-fr"}),
+  /Unsupported native DI language/u,
 );
 console.log("DI005_FULLY_VISIBLE_QUESTION_STUDIO_V1",JSON.stringify({questions:result.questions.length,runtimeMode:result.generationContext.runtimeMode,lifecycleLocked:true}));

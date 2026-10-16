@@ -31,7 +31,7 @@ for(const question of result.questions){
 }
 assert.equal(domains.size,6,"Question Studio preview should exercise all six advanced arithmetic domains.");
 await assert.rejects(
-  () => generateDi008QuestionStudioBatch({canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,language:"hi",count:1,seed:"blocked-hi"}),
-  /English review-only/u,
+  () => generateDi008QuestionStudioBatch({canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,language:"fr",count:1,seed:"blocked-fr"}),
+  /Unsupported native DI language/u,
 );
 console.log("DI008_ADVANCED_ARITHMETIC_QUESTION_STUDIO_V1",JSON.stringify({questions:result.questions.length,domains:[...domains].sort(),lifecycleLocked:true}));

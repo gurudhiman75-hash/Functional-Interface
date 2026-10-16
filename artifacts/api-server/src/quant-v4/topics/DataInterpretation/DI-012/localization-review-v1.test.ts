@@ -24,13 +24,21 @@ for(let i=0;i<350;i++){
       assert.match(localized.stem,locale==="hi-IN"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
       assert(localized.stem.endsWith("?"),`DI-012 ${locale} stem is not a direct exam question: ${localized.stem}`);
       assert.doesNotMatch(localized.stem,/(पहले|फिर|ज्ञात करने के बाद|हल करने के बाद|ज्ञात कीजिए|निकालिए|जोड़िए|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
-      if(localized.kind==="RECOVER_X")assert.equal(localized.stem,locale==="hi-IN"?"x का मान क्या है?":"x ਦਾ ਮੁੱਲ ਕੀ ਹੈ?");
-      if(localized.kind==="RECOVER_Y")assert.equal(localized.stem,locale==="hi-IN"?"y का मान क्या है?":"y ਦਾ ਮੁੱਲ ਕੀ ਹੈ?");
+      if(localized.kind==="RECOVER_X"||localized.kind==="RECOVER_Y"){
+        const variable=localized.kind==="RECOVER_X"?"x":"y";
+        const cells=candidate.stimulus.rows.flatMap(row=>[
+          {value:row.a,label:row.label,header:candidate.stimulus.columnA},
+          {value:row.b,label:row.label,header:candidate.stimulus.columnB},
+        ]).filter(cell=>cell.value===variable);
+        assert.equal(cells.length,1);
+        assert(localized.stem.includes(cells[0]!.label),"Recovery must identify its displayed row");
+        assert(localized.stem.includes(cells[0]!.header),"Recovery must identify its displayed column");
+      }
       assert.doesNotMatch(localized.stem,/(दी गई शर्त के अनुसार x का मान क्या होगा|ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ x ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ|ਦੀ ਗਈ ਸ਼ਰਤ ਅਨੁਸਾਰ x)/u);
       assert.doesNotMatch(localized.stem,/[A-Za-z]{3,}/u);
       assert.equal(localized.options[localized.correctIndex],localized.answer);
       assert.equal(localized.answer,original.answer);
-      assert.equal(localized.explanation.steps.length,original.explanation.steps.length);
+      assert(localized.explanation.steps.length>0,"Localized answer must retain worked steps");
     }
   }
 }

@@ -6,7 +6,7 @@ const packages=quantV4QuestionStudioAdapter.listPackages();
 const card=packages.find(pkg=>pkg.packageId===DI_DELIVERY_NOVELTY_MIX_PACKAGE_ID);
 assert(card,"DI-MIX-001 must be discoverable through the shared Quant Question Studio adapter.");
 assert.equal(card.enabled,true);
-assert.deepEqual(card.supportedLanguages,["en"]);
+assert.deepEqual(card.supportedLanguages,["en","hi","pa"]);
 assert.equal(card.questionBankWritable,false);
 assert.equal(card.testEligible,false);
 assert.equal(card.publiclyPublishable,false);

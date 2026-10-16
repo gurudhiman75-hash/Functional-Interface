@@ -1,3 +1,4 @@
+import {localizeDiExtensionSet} from "../native-extension-v1";
 import { hashSeed } from "../DI-001/exact";
 import {
   DI005_PERMANENT_OWNERSHIP,
@@ -207,7 +208,7 @@ function normalizeDonutProfile(value: unknown): Di005DonutExamProfile {
 
 async function generateDi005DonutQuestionStudioBatch(request: Di005QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
-  if (languageValue !== "en") throw new Error("DI-005 donut V1 is English review-only.");
+  if (!["en","hi","pa"].includes(languageValue)) throw new Error("Unsupported native DI language");
   const profile = normalizeDonutProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -216,7 +217,7 @@ async function generateDi005DonutQuestionStudioBatch(request: Di005QuestionStudi
   const questions:any[] = [];
   for(let index=0;index<count;index+=1){
     const seed=`${batchSeed}:${index}`;
-    const set=generateDi005DonutSet({seed,examProfile:profile});
+    const source=generateDi005DonutSet({seed,examProfile:profile});const set=languageValue==="en"?source:localizeDiExtensionSet(source,languageValue as "hi"|"pa");
     questionPackages.push(set);
     const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
     const question=pool[index%pool.length]!;
@@ -228,14 +229,14 @@ async function generateDi005DonutQuestionStudioBatch(request: Di005QuestionStudi
       difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-005",section:"Quant",topic:"Data Interpretation",subtopic:"Ring / Donut Chart",
       generationBackend:"quant-v4",debugSource:"quant-v4-di005-donut-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
       seed,examProfile:set.examProfile,packageId:"DI-005" as const,canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,taskKind:question.kind,
-      runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
       questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
-      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
-      metadata:{packageId:"DI-005",canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_DONUT_SVG"}
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:languageValue as "en"|"hi"|"pa",
+      metadata:{packageId:"DI-005",canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE":"HI_PA_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_DONUT_SVG"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-005" as const,canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:languageValue as "en"|"hi"|"pa",examProfile:profile,runtimeMode:DI005_DONUT_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -249,7 +250,7 @@ function normalizeComparativeProfile(value: unknown): Di005ComparativeExamProfil
 
 async function generateDi005ComparativeQuestionStudioBatch(request: Di005QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
-  if (languageValue !== "en") throw new Error("DI-005 comparative pie V1 is English review-only.");
+  if (!["en","hi","pa"].includes(languageValue)) throw new Error("Unsupported native DI language");
   const profile = normalizeComparativeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -258,7 +259,7 @@ async function generateDi005ComparativeQuestionStudioBatch(request: Di005Questio
   const questions:any[] = [];
   for(let index=0;index<count;index+=1){
     const seed=`${batchSeed}:${index}`;
-    const set=generateDi005ComparativePieSet({seed,examProfile:profile});
+    const source=generateDi005ComparativePieSet({seed,examProfile:profile});const set=languageValue==="en"?source:localizeDiExtensionSet(source,languageValue as "hi"|"pa");
     questionPackages.push(set);
     const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
     const question=pool[index%pool.length]!;
@@ -271,15 +272,15 @@ async function generateDi005ComparativeQuestionStudioBatch(request: Di005Questio
       difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-005",section:"Quant",topic:"Data Interpretation",subtopic:"Comparative / Double Pie",
       generationBackend:"quant-v4",debugSource:"quant-v4-di005-comparative-pie-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
       seed,examProfile:set.examProfile,packageId:"DI-005" as const,canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,taskKind:question.kind,
-      runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+      runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,
       testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
-      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
-      metadata:{packageId:"DI-005",canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SHARED_VISUALS"}
+      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:languageValue as "en"|"hi"|"pa",
+      metadata:{packageId:"DI-005",canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE":"HI_PA_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SHARED_VISUALS"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-005" as const,canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:languageValue as "en"|"hi"|"pa",examProfile:profile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -287,7 +288,7 @@ async function generateDi005ComparativeQuestionStudioBatch(request: Di005Questio
 
 async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
-  if (languageValue !== "en") throw new Error("DI-005 fully-visible V1 is English review-only.");
+  if (!["en","hi","pa"].includes(languageValue)) throw new Error("Unsupported native DI language");
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -297,7 +298,7 @@ async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005Questi
 
   for (let index = 0; index < count; index += 1) {
     const seed = `${batchSeed}:${index}`;
-    const set = generateDi005FullyVisibleSet({ seed, examProfile: profile });
+    const source=generateDi005FullyVisibleSet({ seed, examProfile: profile });const set=languageValue==="en"?source:localizeDiExtensionSet(source,languageValue as "hi"|"pa");
     questionPackages.push(set);
     const pool = difficulty ? set.questions.filter((question) => question.difficulty === difficulty) : set.questions;
     const question = pool[index % pool.length]!;
@@ -329,7 +330,7 @@ async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005Questi
       canonicalProblemId: DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID,
       taskKind: question.kind,
       runtimeMode: DI005_FULLY_VISIBLE_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       questionBankEligible: false as const,
@@ -341,14 +342,14 @@ async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005Questi
       productionReleaseAuthorized: false as const,
       reviewOnly: true as const,
       manualApprovalRequired: true as const,
-      language: "en" as const,
+      language:languageValue as "en"|"hi"|"pa",
       metadata: {
         packageId: "DI-005",
         canonicalProblemId: DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID,
         taskKind: question.kind,
         examProfile: set.examProfile,
         runtimeMode: DI005_FULLY_VISIBLE_RUNTIME_MODE,
-        reviewStatus: "ENGLISH_REVIEW_CANDIDATE",
+        reviewStatus: languageValue === "en" ? "ENGLISH_REVIEW_CANDIDATE" : "HI_PA_REVIEW_CANDIDATE",
         presentationAuthority: "DATA_INTERPRETATION_SHARED_VISUALS",
       },
     });
@@ -362,10 +363,10 @@ async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005Questi
       canonicalProblemId: DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID,
       seed: batchSeed,
       timestamp: Date.now(),
-      language: "en" as const,
+      language:languageValue as "en"|"hi"|"pa",
       examProfile: profile,
       runtimeMode: DI005_FULLY_VISIBLE_RUNTIME_MODE,
-      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      reviewStatus:languageValue==="en"?"ENGLISH_REVIEW_CANDIDATE" as const:"HI_PA_REVIEW_CANDIDATE" as const,
       questionStudioDiscoverable: true as const,
       questionStudioMode: "CONTROLLED_REVIEW" as const,
       questionBankStatus: "NOT_STORED" as const,
@@ -487,5 +488,6 @@ export function di005QuestionStudioPackageCard() {
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_FROZEN",
+    extensionLocalizationStatus: "HI_PA_REVIEW_CANDIDATE",
   };
 }
