@@ -4,6 +4,8 @@ on:
     branches: [New-main]
     paths:
       - 'scripts/check-question-studio-universal-compute-coverage.mjs'
+      - 'artifacts/api-server/src/question-studio/universal-compute-coverage-worker.ts'
+      - 'artifacts/api-server/build-universal-coverage-worker.mjs'
   workflow_dispatch:
     inputs:
       wave:
@@ -29,9 +31,9 @@ jobs:
     timeout-minutes: 30
     env:
       # No Cloud Run, Firebase, Neon, Cloud Tasks, or GitHub production credentials.
-      WAVE: ${{ inputs.wave || 'pilot' }}
+      WAVE: ${{ github.event_name == 'pull_request' && 'all' || inputs.wave || 'pilot' }}
       SHARD: ${{ inputs.shard || '0' }}
-      ONLY: ${{ github.event_name == 'pull_request' && 'OPS-001,ALGEBRA' || '' }}
+      ONLY: ''
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -42,8 +44,8 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
-      - name: Build isolated universal worker (no DB or remote calls)
-        run: node artifacts/api-server/build-universal-worker.mjs
+      - name: Build warm isolated coverage worker (no DB or remote calls)
+        run: node artifacts/api-server/build-universal-coverage-worker.mjs
       - name: Build authoritative registration catalog
         run: |
           set -eu
@@ -54,9 +56,9 @@ jobs:
         continue-on-error: true
         run: |
           set -eu
-          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) SHARDS=12;; *) exit 2;; esac
+          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then SHARDS=1; else SHARDS=12; fi;; *) exit 2;; esac
           if [ -n "$ONLY" ]; then ONLY_ARG="--only=$ONLY"; else ONLY_ARG="--selection=chapter"; fi
-          node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --worker=artifacts/api-server/dist/question-studio-universal-worker.mjs --report=/tmp/qs-universal-compute-report.json
+          node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --timeout-seconds=20 --worker=artifacts/api-server/dist/qs-universal-coverage-worker.mjs --report=/tmp/qs-universal-compute-report.json
       - name: Upload observed package results (no questions or credentials)
         if: always()
         uses: actions/upload-artifact@v4

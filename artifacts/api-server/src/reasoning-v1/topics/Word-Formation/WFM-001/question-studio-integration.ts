@@ -183,8 +183,11 @@ export function generateWfm001QuestionStudioBatch(
   const examProfile = resolveExamProfile(request.exam);
   const requestedPool = resolveQlPool(request);
   const bankingPool: readonly WfmQlId[] = ["WFM-QL-003", "WFM-QL-005", "WFM-QL-006"];
-  const pool = examProfile === "BANKING_5" && requestedPool.length === qlIds.length
-    ? [...bankingPool]
+  // Chapter-mix must select QLs eligible for the chosen exam profile.
+  // Keep explicit QL/CP requests strict: an ineligible selected QL still fails.
+  const generalPool = qlIds.filter((qlId) => !["WFM-QL-005", "WFM-QL-006"].includes(qlId));
+  const pool = requestedPool.length === qlIds.length
+    ? examProfile === "BANKING_5" ? [...bankingPool] : generalPool
     : requestedPool;
   if (examProfile === "BANKING_5" && pool.some((qlId) => !bankingPool.includes(qlId))) {
     throw new Error(`WFM-001 Banking profile supports only ${bankingPool.join(", ")}`);

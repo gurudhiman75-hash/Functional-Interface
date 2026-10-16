@@ -122,7 +122,7 @@ export async function executeUniversalStudioCompute(
       // Derive source authority from the registered package, not a remote
       // caller's optional field. This preserves source labels for Number System
       // even when an authorized staging request omits the explicit override.
-      forwardLegacyExamProfile: input.forwardLegacyExamProfile === true || pkg.packageId === "NUM-001",
+      forwardLegacyExamProfile: input.forwardLegacyExamProfile === true || pkg.packageId === "NUM-001" || pkg.packageId === "SAP",
       difficultyFilterSupported: pkg.difficultyFilterSupported !== false
         && input.difficultyFilterSupported !== false,
       generateCandidateBatch: (candidateRequest) =>

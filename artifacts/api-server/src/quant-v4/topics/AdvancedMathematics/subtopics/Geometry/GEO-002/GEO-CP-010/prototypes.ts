@@ -89,7 +89,7 @@ function generateCentrePerpendicular(seed: string): Phase4PrototypeQuestion {
     O: { x: q(0), y: q(0) }, A: { x: q(-6 * scale), y: q(8 * scale) }, B: { x: q(6 * scale), y: q(8 * scale) }, M: { x: q(0), y: q(8 * scale) },
   });
   const passed = oracle.pointOnCircle("A", "O", q(100 * scale * scale))
-    && oracle.pointOnCircle("B", "O", q(100))
+    && oracle.pointOnCircle("B", "O", q(100 * scale * scale))
     && oracle.perpendicular("O", "M", "A", "B")
     && oracle.equalLengths("A", "M", "M", "B")
     && equals(oracle.squaredLength("A", "B"), q(chord * chord));

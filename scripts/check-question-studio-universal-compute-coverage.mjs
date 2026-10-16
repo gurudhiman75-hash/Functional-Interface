@@ -22,7 +22,7 @@ const selection=flags.selection??"chapter";
 if(!["chapter","cp"].includes(selection))throw Error("Invalid selection mode");
 if(!Number.isSafeInteger(timeoutSeconds)||timeoutSeconds<5||timeoutSeconds>110)throw Error("Invalid bounded timeout");
 const manifestPath=resolve(flags.catalog??"artifacts/api-server/dist/question-studio-unified-capabilities.json");
-const workerPath=resolve(flags.worker??"artifacts/api-server/dist/question-studio-universal-worker.mjs");
+const workerPath=resolve(flags.worker??"artifacts/api-server/dist/qs-universal-coverage-worker.mjs");
 const reportPath=resolve(flags.report??"/tmp/qs-universal-compute-report.json");
 const catalog=JSON.parse(readFileSync(manifestPath,"utf8"));
 const enabled=catalog.packages.filter(p=>p.enabled).sort((a,b)=>a.packageId.localeCompare(b.packageId));
@@ -66,42 +66,91 @@ function safeCode(e){
 }
 function validateAnswer(q){
  if(!q||typeof q!=="object")return "MISSING_QUESTION";
- if(!(typeof q.stem==="string"&&q.stem.trim()||typeof q.text==="string"&&q.text.trim()))return "MISSING_STEM";
- if(!Array.isArray(q.options)||q.options.length<2)return "MISSING_OPTIONS";
- const answer=[q.correctIndex,q.correct,q.answer,q.correctOption,q.answerKey].find(v=>v!==undefined&&v!==null&&String(v).trim()!=="");
- if(answer===undefined)return "MISSING_ANSWER";
- if(typeof q.explanation!=="string"||!q.explanation.trim())return "MISSING_EXPLANATION";
+ if(q.hasStem!==true)return "MISSING_STEM";
+ if(!Number.isInteger(q.optionCount)||q.optionCount<2)return "MISSING_OPTIONS";
+ if(q.hasAnswer!==true)return "MISSING_ANSWER";
+ if(q.hasExplanation!==true)return "MISSING_EXPLANATION";
  return null;
 }
+let currentWorker=null;
+let requestId=0;
+async function readyWorker(){
+ if(currentWorker)return currentWorker;
+ const worker=new Worker(workerPath,{resourceLimits:{maxOldGenerationSizeMb:1536}});
+ return await new Promise((resolve,reject)=>{
+  let settled=false;
+  const clear=()=>{
+   clearTimeout(deadline);
+   worker.off("message",onMessage);
+   worker.off("error",onError);
+   worker.off("exit",onExit);
+  };
+  function onMessage(data){
+   if(data?.type!=="ready")return;
+   if(settled)return; settled=true;clear();
+   currentWorker=worker;
+   resolve(worker);
+  }
+  function fail(err){
+   if(settled)return;settled=true;clear();
+   void worker.terminate().catch(()=>undefined);
+   reject(err);
+  }
+  function onError(error){fail(error);}
+  function onExit(code){fail(Object.assign(new Error("Warm worker exited "+code),{code:"AUDIT_WORKER_BOOT_FAILED"}));}
+  const deadline=setTimeout(()=>fail(Object.assign(new Error("Warm worker startup deadline"),{code:"AUDIT_WORKER_BOOT_TIMEOUT"})),90000);
+  worker.on("message",onMessage);
+  worker.on("error",onError);
+  worker.on("exit",onExit);
+ });
+}
 async function compute(input){
- return await new Promise((res,rej)=>{
-   const thread=new Worker(workerPath,{
-     workerData:input,resourceLimits:{maxOldGenerationSizeMb:1536}
-   });
-   let done=false;
-   const settle=(err,batch)=>{
-     if(done)return;
-     done=true;clearTimeout(timer);
-     void thread.terminate().catch(()=>undefined);
-     err?rej(err):res(batch);
-   };
-   const timer=setTimeout(()=>settle(Object.assign(new Error("Audit package deadline"),{code:"AUDIT_PACKAGE_TIMEOUT"})),timeoutSeconds*1000);
-   thread.once("message",data=>{
-     if(data?.ok&&data.batch)settle(null,data.batch);
-     else settle(Object.assign(new Error(String(data?.error?.message??"Compute failed").slice(0,160)),{code:data?.error?.code}));
-   });
-   thread.once("error",e=>settle(e));
-   thread.once("exit",code=>{if(code!==0)settle(Object.assign(new Error("Worker exited "+code),{code:"UNIVERSAL_WORKER_EXIT"}))});
+ const worker=await readyWorker();
+ const id=++requestId;
+ return await new Promise((resolve,reject)=>{
+  let settled=false;
+  const clear=()=>{
+   clearTimeout(deadline);
+   worker.off("message",onMessage);
+   worker.off("error",onError);
+   worker.off("exit",onExit);
+  };
+  function finish(err,batch,terminate=false){
+   if(settled)return; settled=true; clear();
+   if(terminate){
+    if(currentWorker===worker)currentWorker=null;
+    void worker.terminate().catch(()=>undefined);
+   }
+   err?reject(err):resolve(batch);
+  }
+  function onMessage(data){
+   if(data?.type!=="result"||data.id!==id)return;
+   if(data.ok&&data.batch)finish(null,data.batch);
+   else finish(Object.assign(new Error(String(data?.error?.message??"Compute failed").slice(0,160)),{code:data?.error?.code}));
+  }
+  function onError(error){finish(error,null,true);}
+  function onExit(code){finish(Object.assign(new Error("Worker exited "+code),{code:"UNIVERSAL_WORKER_EXIT"}),null,true);}
+  const deadline=setTimeout(()=>finish(Object.assign(new Error("Audit package deadline"),{code:"AUDIT_PACKAGE_TIMEOUT"}),null,true),timeoutSeconds*1000);
+  worker.on("message",onMessage);
+  worker.on("error",onError);
+  worker.on("exit",onExit);
+  worker.postMessage({type:"compute",id,input});
  });
 }
 try{
  for(const pkg of selected){
   const started=Date.now();
-  const firstCp=selection==="cp"?((pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0]):undefined;
+  const requiresExplicitCp=pkg.packageId==="english-eng003-grammar-fillers-v1";
+  const firstCp=(selection==="cp"||requiresExplicitCp)?((pkg.cpIds??[])[0]??(pkg.dynamicCandidateCpIds??[])[0]):undefined;
   const difficulty=pkg.difficultyFilterSupported===false?undefined
     :(pkg.supportedDifficulties?.includes("Medium")?"Medium":pkg.supportedDifficulties?.[0]??"Mixed");
+  // Some chapter authorities are BANKING-only. Exercise their declared
+  // exam family; never reinterpret an SSC request as Banking in production.
+  const exam=pkg.packageId==="DI-014"?"IBPS PO Mains"
+   :["DI-007","DI-008","SAP","WFM-001"].includes(pkg.packageId)?"IBPS PO Prelims"
+   :"SSC CGL Tier 1";
   const request={
-   engineId:pkg.engineId,packageId:pkg.packageId,exam:"SSC CGL Tier 1",
+   engineId:pkg.engineId,packageId:pkg.packageId,exam,
    subject:pkg.subject,topic:pkg.topic,subtopic:pkg.subtopic,
    language:pkg.supportedLanguages.includes("en")?"en":pkg.supportedLanguages[0],
    difficulty,runtimeMode:pkg.runtimeMode,count:1,
@@ -110,14 +159,14 @@ try{
   };
   const input={request,count:1,selectedCpIds:firstCp?[firstCp]:[]};
   const result={packageId:pkg.packageId,engineId:pkg.engineId,subject:pkg.subject,
-    selection,cpId:firstCp??null,language:request.language,difficulty:difficulty??null,
+    selection,cpId:firstCp??null,exam,language:request.language,difficulty:difficulty??null,
     runtimeMode:pkg.runtimeMode??null,status:"failed",code:null,durationMs:0};
   try{
    const batch=await compute(input);
-   if(batch.packageId!==pkg.packageId||batch.engineId!==pkg.engineId||!Array.isArray(batch.questions)||batch.questions.length!==1){
+   if(batch.packageId!==pkg.packageId||batch.engineId!==pkg.engineId||!Array.isArray(batch.questionChecks)||batch.questionChecks.length!==1){
     result.code="BATCH_IDENTITY_OR_COUNT_INVALID";
    }else{
-    result.code=validateAnswer(batch.questions[0]);
+    result.code=validateAnswer(batch.questionChecks[0]);
     result.status=result.code?"failed":"passed";
    }
   }catch(error){
@@ -130,6 +179,7 @@ try{
  }
 }finally{
  chmodSync(cwd,originalMode);
+ if(currentWorker){await currentWorker.terminate().catch(()=>undefined);currentWorker=null;}
 }
 const passed=results.filter(r=>r.status==="passed").length;
 const failed=results.filter(r=>r.status==="failed").length;
@@ -141,7 +191,7 @@ if(process.env.GITHUB_STEP_SUMMARY){
   "## Isolated Question Studio compute audit: "+wave+" / shard "+shard,
   "",
   "Registered/enabled: **"+enabled.length+"**; tested: **"+results.length+"**; passed: **"+passed+"**; failed: **"+failed+"**.",
-  "This is an offline one-question structural smoke test, NOT end-to-end acceptance or answer-truth proof.",
+  "This is an offline one-question structural smoke test using package-eligible exam/CP selectors where required, NOT proof of every exam/CP/difficulty combination, end-to-end acceptance, or answer-truth correctness.",
   "",
   "| Package | Subject | Result | Error code | Duration |",
   "|---|---|---|---|---:|",

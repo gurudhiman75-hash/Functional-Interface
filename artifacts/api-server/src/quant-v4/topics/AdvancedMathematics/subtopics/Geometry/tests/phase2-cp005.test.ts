@@ -12,13 +12,29 @@ for (const prototype of GEO_CP_005_PHASE2_PROTOTYPES) {
     assertPhase2(question.proofEvents.some((event) => event.kind === "SIMILARITY"), "AA prototype lacks similarity proof event");
   }
   if (prototype.temporaryPrototypeId.includes("MISSING-SIDE")) {
-    assertPhase2(question.answer === "12 cm", "Similarity missing-side answer changed");
+    const similarSides=question.stem.match(/If AB = (\d+) cm, PQ = (\d+) cm and AC = (\d+) cm, find PR/);
+    assertPhase2(Boolean(similarSides), "Similarity stem must show its three given side lengths");
+    const [,ab,pq,ac]=similarSides!.map(Number);
+    assertPhase2(question.answer === `${ac*pq/ab} cm`, "Similarity answer must match the generated scale ratio");
     assertPhase2(question.theoremTrace.includes("AA_SIMILARITY"), "Missing-side prototype lacks AA theorem trace");
   }
   if (prototype.temporaryPrototypeId.includes("BPT")) {
-    assertPhase2(question.answer === "6 cm", "BPT direct answer changed");
+    const bptSides=question.stem.match(/If AD = (\d+) cm, DB = (\d+) cm and AE = (\d+) cm, find EC/);
+    assertPhase2(Boolean(bptSides), "BPT stem must show the relevant side segments");
+    const [,ad,db,ae]=bptSides!.map(Number);
+    assertPhase2(question.answer === `${db*ae/ad} cm`, "BPT answer must match the generated proportional side lengths");
     assertPhase2(question.diagramModel?.parallelMarks.length === 1, "BPT stem diagram must visibly show the explicitly stated parallel relation");
     assertPhase2(question.stemSvg?.includes('data-geo-kind="parallel-mark"'), "BPT parallel mark was not visibly rendered");
+    // Fixed seed family previously generated only three distinct BPT options
+    // when the inverted ratio and a copied side had the same value.
+    for (let sample = 0; sample < 40; sample++) {
+      const variant = prototype.generate(`geo-bpt-option-variants:${sample}`);
+      assertPhase2DiscoveryQuestion(variant);
+      assertPhase2(variant.options.length === 4 && new Set(variant.options).size === 4,
+        `BPT option uniqueness failed at seeded variant ${sample}`);
+      assertPhase2(variant.independentVerifierResult.passed,
+        `BPT independent oracle failed at seeded variant ${sample}`);
+    }
   }
   assertPhase2DeterministicAndShuffled(prototype.generate, prototype.temporaryPrototypeId);
 }

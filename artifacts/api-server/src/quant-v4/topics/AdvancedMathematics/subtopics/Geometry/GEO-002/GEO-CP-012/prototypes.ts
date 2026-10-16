@@ -97,7 +97,7 @@ function generateEqualTangents(seed: string): Phase4PrototypeQuestion {
     O: { x: q(0), y: q(0) }, P: { x: q(15 * scale), y: q(0) },
     A: { x: q(48 * scale, 5), y: q(36 * scale, 5) }, B: { x: q(48 * scale, 5), y: q(-36 * scale, 5) },
   });
-  const passed = oracle.pointOnCircle("A", "O", q(144 * scale * scale)) && oracle.pointOnCircle("B", "O", q(144))
+  const passed = oracle.pointOnCircle("A", "O", q(144 * scale * scale)) && oracle.pointOnCircle("B", "O", q(144 * scale * scale))
     && oracle.perpendicular("O", "A", "P", "A") && oracle.perpendicular("O", "B", "P", "B")
     && oracle.equalLengths("P", "A", "P", "B") && equals(oracle.squaredLength("P", "A"), q(tangent * tangent));
   const theoremTrace: TheoremId[] = ["TANGENTS_FROM_EXTERNAL_POINT_EQUAL"];

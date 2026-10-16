@@ -22,7 +22,12 @@ function explicitCp(request:QuestionStudioGenerationRequest):Eng004CpId|undefine
   return values.find((v):v is Eng004CpId=>(ENG004_CP_IDS_V1 as readonly string[]).includes(v));
 }
 function relation(request:QuestionStudioGenerationRequest):Relation|undefined{
-  const values=[request.patternId,request.canonicalProblemId,request.questionLanguageId,request.topic,request.subtopic].map(v=>text(v).toLowerCase());
+  // The chapter title "Synonyms & Antonyms" is a discovery label, not a
+  // contradictory request for both relations. Explicit single-relation
+  // selectors still remain authoritative and conflicting selectors fail.
+  const values=[request.patternId,request.canonicalProblemId,request.questionLanguageId,request.topic,request.subtopic]
+    .map(v=>text(v).toLowerCase())
+    .filter(v=>!/^(?:synonyms?)\s*(?:&|and|\/)\s*(?:antonyms?)$/.test(v));
   const syn=values.some(v=>v==="synonym"||/\bsynonym/.test(v)),ant=values.some(v=>v==="antonym"||/\bantonym/.test(v));
   if(syn&&ant)throw new Error("ENG-004 request cannot select both synonym and antonym");
   return syn?"synonym":ant?"antonym":undefined;

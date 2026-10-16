@@ -15,7 +15,17 @@ for (const prototype of GEO_CP_012_PHASE4_PROTOTYPES) {
     const visualDot = (O.x - T.x) * (P.x - T.x) + (O.y - T.y) * (P.y - T.y);
     assertPhase4(Math.abs(visualDot) > 1e-6, "Radius-tangent learner layout visually leaked perpendicularity");
   } else {
-    assertPhase4(question.answer === "9 cm", "Equal-tangents answer changed");
+    const tangentMatch = question.stem.match(/If PA = (\d+) cm, find PB\./);
+    assertPhase4(Boolean(tangentMatch), "Equal-tangent stem must state the given tangent length");
+    assertPhase4(question.answer === `${Number(tangentMatch![1])} cm`, "Equal tangents must have the same length");
+    const variedAnswers = new Set<string>();
+    for (let sample = 0; sample < 40; sample++) {
+      const variant = prototype.generate(`geo-cp012-tangent-scaled:${sample}`);
+      assertPhase4DiscoveryQuestion(variant);
+      assertPhase4(variant.independentVerifierResult.passed, `Scaled tangent oracle failed at sample ${sample}`);
+      variedAnswers.add(variant.answer);
+    }
+    assertPhase4(variedAnswers.size >= 3, "CP012 tangent sampling should exercise multiple lengths");
     assertPhase4(question.diagramModel!.equalLengthMarks.length === 0, "Equal-tangents stem leaked the target equality with tick marks");
   }
   assertPhase4DeterministicAndShuffled(prototype.generate, prototype.temporaryPrototypeId);

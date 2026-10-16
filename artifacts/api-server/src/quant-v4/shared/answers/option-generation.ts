@@ -706,17 +706,25 @@ export function buildQuantV4AnswerOptions(
     for (const option of filteredExistingOptions) addUnique(options, option);
     const deduped = options.slice(0, desiredCount);
     const existingCorrect = correctIndexFromCanonical(deduped, canonicalAnswer);
-    if (existingCorrect >= 0) {
+    // Existing choices may render the same canonical value in different
+    // forms (for example ₹31000 and ₹31,000). Never return two correct options.
+    if (existingCorrect >= 0 &&
+        deduped.filter((option) => correctIndexFromCanonical([option], canonicalAnswer) === 0).length === 1) {
       return { options: deduped, correct: existingCorrect, canonicalAnswer };
     }
   }
 
   const generated: string[] = [];
   addUnique(generated, renderQuantV4Answer(canonicalAnswer));
-  for (const option of filteredExistingOptions) addUnique(generated, option);
+  // A distractor must never be an alternative rendering of the correct answer.
+  // Compare canonical answer identity before the existing display deduplication.
+  const addWrongOption = (option: string) => {
+    if (correctIndexFromCanonical([option], canonicalAnswer) !== 0) addUnique(generated, option);
+  };
+  for (const option of filteredExistingOptions) addWrongOption(option);
   for (const option of distractorsFor(canonicalAnswer, input.context)) {
     if (!isWeakGeneratedOption(option, canonicalAnswer, input.context)) {
-      addUnique(generated, option);
+      addWrongOption(option);
     }
   }
 
@@ -725,7 +733,7 @@ export function buildQuantV4AnswerOptions(
   while (generated.length < desiredCount && fallbackGuard < desiredCount * 24) {
     for (const option of fallbackOptionsFor(canonicalAnswer, fallbackOffset, input.context)) {
       if (!isWeakGeneratedOption(option, canonicalAnswer, input.context)) {
-        addUnique(generated, option);
+        addWrongOption(option);
       }
       if (generated.length >= desiredCount) break;
     }
@@ -740,7 +748,7 @@ export function buildQuantV4AnswerOptions(
     "Insufficient information",
   ]) {
     if (generated.length >= desiredCount) break;
-    addUnique(generated, option);
+    addWrongOption(option);
   }
 
   const shuffled = shuffleDeterministically(generated.slice(0, desiredCount), seed);
