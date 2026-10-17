@@ -17,3 +17,5 @@ The V8 regression exercises 67 QLs × 60 seeds × EN/HI/PA = 12,060 source-langu
 ## Remaining editorial work
 
 Native explanation prose and encoded diagram labels still require wording/visual review. Existing nativeStemTemplateMatched flags describe the older regex layer; nativeStemAuthored and nativeStemRuleId describe V8 coverage. Zero fallback in a tested sample is not a human language approval. Review-candidate status and Bank/test/publication locks remain unchanged.
+
+Update: [V9](mal-native-explanations-v9-20261017.md) corrects visible calculation wording and native diagram delivery/captions. See its remaining boundary for auxiliary text review.

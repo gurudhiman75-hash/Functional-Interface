@@ -25,7 +25,7 @@ async function installStoreFixtures(page: Page) {
     const path = url.pathname.replace(/^\/api/, "");
 
     if (path === "/commerce/products") {
-      return fulfillJson(route, { products: [storeProduct], generatedAt: "2026-08-29T08:00:00.000Z" });
+      return fulfillJson(route, { products: [storeProduct], salesEnabled: true, checkoutProvider: "cashfree", generatedAt: "2026-08-29T08:00:00.000Z" });
     }
     if (path === "/categories") return fulfillJson(route, []);
     if (path === "/subcategories") return fulfillJson(route, []);
