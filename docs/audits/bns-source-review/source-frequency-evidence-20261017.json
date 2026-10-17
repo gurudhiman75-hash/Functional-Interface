@@ -1,0 +1,160 @@
+{
+  "authority": "BNS-SOURCE-FREQUENCY-EVIDENCE-20261017",
+  "retrievedOn": "2026-10-17",
+  "status": "EVIDENCE_REVIEW_COMPLETE_CALIBRATION_BLOCKED",
+  "practiceCorpus": {
+    "sources": 2,
+    "locators": 20,
+    "adjudicated": 19,
+    "quarantined": 1,
+    "sourceSaturation": false,
+    "grammarFrequencyWeights": null
+  },
+  "officialReferences": [
+    {
+      "id": "SBI-PO-PRE-2026",
+      "kind": "OFFICIAL_ILLUSTRATIVE_HANDOUT",
+      "url": "https://sbi.bank.in/documents/77530/57941334/22072026_SBI%2B(PO)%2BPRE%2BIH%2BEng%2B2026.pdf/5518888e-7662-47a8-e916-00b1957ca830?t=1784718598145",
+      "reviewedPages": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "supports": "30-question Quant section and five-choice delivery; illustrative samples only",
+      "eligibleForShiftFrequency": false
+    },
+    {
+      "id": "SBI-JA-PRE-2026",
+      "kind": "OFFICIAL_ILLUSTRATIVE_HANDOUT",
+      "url": "https://sbi.bank.in/webfiles/uploads/files_2627/09/SBI_JA-Customer_Support_Sales-IH_Pre-2026-27_Eng.pdf",
+      "reviewedPages": [
+        4,
+        5,
+        6
+      ],
+      "supports": "35-question Numerical Ability section; illustrative samples only",
+      "eligibleForShiftFrequency": false
+    },
+    {
+      "id": "SBI-PO-MAINS-2026",
+      "kind": "OFFICIAL_ILLUSTRATIVE_HANDOUT",
+      "url": "https://sbi.bank.in/documents/77530/59067274/02092026SBIPOMainsEnglish.pdf",
+      "reviewedPages": [
+        5,
+        6,
+        7
+      ],
+      "supports": "30-question Data Analysis and Interpretation section; illustrative samples only",
+      "eligibleForShiftFrequency": false
+    },
+    {
+      "id": "IBPS-FAQ",
+      "kind": "OFFICIAL_PUBLICATION_POLICY",
+      "url": "https://www.ibps.in/index.php/faq/",
+      "supports": "Indexed FAQ states IBPS does not provide answer sheets, question papers or model answer keys",
+      "retrieval": "Official-domain indexed excerpt; direct page returned 502",
+      "eligibleForShiftFrequency": false
+    }
+  ],
+  "reportedShiftObservations": [
+    {
+      "id": "OB-IBPS-PO-20241019-S1",
+      "exam": "IBPS_PO_PRELIMS",
+      "heldDate": "2024-10-19",
+      "shift": 1,
+      "publisher": "Oliveboard",
+      "sourceUrl": "https://www.oliveboard.in/blog/ibps-po-prelims-exam-analysis-2024-shift-1-19th-october/",
+      "locator": "Quantitative Aptitude table, Wrong Number Series row",
+      "task": "WRONG_TERM",
+      "reportedCount": 5,
+      "sectionTotal": 35,
+      "status": "CONFLICTING_REPORT"
+    },
+    {
+      "id": "PM-IBPS-PO-20241019-S1",
+      "exam": "IBPS_PO_PRELIMS",
+      "heldDate": "2024-10-19",
+      "shift": 1,
+      "publisher": "PracticeMock",
+      "sourceUrl": "https://www.practicemock.com/blog/?p=116292",
+      "locator": "Quantitative Aptitude table, Wrong Number Series row",
+      "task": "WRONG_TERM",
+      "reportedCount": 6,
+      "sectionTotal": 35,
+      "status": "CONFLICTING_REPORT"
+    },
+    {
+      "id": "PM-IBPS-PO-20241019-S2",
+      "exam": "IBPS_PO_PRELIMS",
+      "heldDate": "2024-10-19",
+      "shift": 2,
+      "publisher": "PracticeMock",
+      "sourceUrl": "https://www.practicemock.com/blog/ibps-po-exam-analysis-2024-19th-oct-2nd-shift/",
+      "locator": "Quantitative Aptitude table",
+      "task": null,
+      "reportedCount": null,
+      "sectionTotal": 35,
+      "status": "NOT_EXPLICITLY_REPORTED",
+      "note": "No series row; other topic rows total 35. This is not recorded as an explicitly reported zero."
+    },
+    {
+      "id": "PM-IBPS-PO-20241019-S3",
+      "exam": "IBPS_PO_PRELIMS",
+      "heldDate": "2024-10-19",
+      "shift": 3,
+      "publisher": "PracticeMock",
+      "sourceUrl": "https://www.practicemock.com/blog/ibps-po-exam-analysis-2024-19th-oct-3rd-shift/?p=116370/",
+      "locator": "Lower Quantitative Aptitude table explicitly headed 3rd Shift",
+      "task": "WRONG_TERM",
+      "reportedCount": 5,
+      "sectionTotal": 35,
+      "status": "SOURCE_IDENTITY_HOLD",
+      "note": "Same page also includes Shift 4 tables, including a five-question missing-series row. Keep both sections distinct; do not count it as two corroborating publishers."
+    },
+    {
+      "id": "OB-RRB-PO-20240804-S3",
+      "exam": "IBPS_RRB_BANKING",
+      "heldDate": "2024-08-04",
+      "shift": 3,
+      "publisher": "Oliveboard",
+      "sourceUrl": "https://www.oliveboard.in/blog/ibps-rrb-po-exam-analysis-2024-shift-3-4-august/",
+      "locator": "Quantitative Aptitude table, Missing Number Series row",
+      "task": "MISSING_TERM",
+      "reportedCount": 6,
+      "sectionTotal": 40,
+      "status": "SOURCE_IDENTITY_HOLD",
+      "note": "Title and section headings say Shift 3, but introductory prose also says Shift 2. Source identity needs corroboration before calibration."
+    }
+  ],
+  "conflicts": [
+    {
+      "exam": "IBPS_PO_PRELIMS",
+      "heldDate": "2024-10-19",
+      "shift": 1,
+      "sourceIds": [
+        "OB-IBPS-PO-20241019-S1",
+        "PM-IBPS-PO-20241019-S1"
+      ],
+      "reportedCounts": [
+        5,
+        6
+      ]
+    }
+  ],
+  "calibration": {
+    "eligibleCompleteSections": 0,
+    "empiricalWeights": null,
+    "sourceKind": "PUBLISHER_REPORTED_MEMORY_ANALYSIS_NOT_OFFICIAL_PYQ",
+    "productionWeightsChanged": false,
+    "blockers": [
+      "CONFLICTING_SAME_SHIFT_COUNTS",
+      "SHIFT_IDENTITY_HOLDS",
+      "NO_ADJUDICATED_COMPLETE_BANKING_SECTIONS",
+      "SINGLE_YEAR_REPORTED_SAMPLE",
+      "NO_MAINS_CALIBRATION_SAMPLE",
+      "NO_GRAMMAR_LEVEL_QUESTION_MAPPING"
+    ]
+  },
+  "liveVerification": "DEFERRED_TO_USER"
+}
