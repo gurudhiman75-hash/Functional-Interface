@@ -12,7 +12,12 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 function packageSubject(pkg: ReturnType<typeof listQuestionStudioPackages>[number]) {
-  return asText(pkg.subject) || ({
+  const explicit = asText(pkg.subject);
+  // Source adapters may call this "Reasoning" while the admin's canonical
+  // subject selector uses "Reasoning Ability". One subject per engine family.
+  if (/^(reasoning|logical reasoning|reasoning ability)$/i.test(explicit)) return "Reasoning Ability";
+  if (/^(quant|quantitative aptitude)$/i.test(explicit)) return "Quantitative Aptitude";
+  return explicit || ({
     "quant-v4": "Quantitative Aptitude",
     "reasoning-v1": "Reasoning Ability",
     "language-v1": "English",
@@ -73,6 +78,14 @@ const packages = listQuestionStudioPackages().map((pkg) => {
     productionReleaseAuthorized: pkg.productionReleaseAuthorized,
   };
 });
+// Prevent old cross-imports from reassigning native Reasoning source cards
+// to Quant discovery. These source IDs remain registered and executable.
+for (const pkg of packages) {
+  if (pkg.engineId === "quant-v4" &&
+      (pkg.packageId === "IOP-001" || pkg.packageId.startsWith("REASONING_V1_BLR_001_CP_"))) {
+    throw new Error(`QUESTION_STUDIO_SUBJECT_OWNERSHIP_DRIFT: ${pkg.packageId}`);
+  }
+}
 for (const [packageId, engineId] of Object.entries({
   "TRG-002": "quant-v4",
   "OPS-001": "reasoning-v1",
