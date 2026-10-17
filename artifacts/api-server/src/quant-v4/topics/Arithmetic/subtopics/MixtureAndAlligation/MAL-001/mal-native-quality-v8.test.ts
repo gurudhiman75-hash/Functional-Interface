@@ -17,6 +17,7 @@ const numerical = (s: string) => s.match(/\d+(?:\.\d+)?/g) ?? [];
 const cpFor = (i: number) =>
   `MAL-CP-${String(i <= 11 ? 1 : i <= 28 ? 2 : i <= 37 ? 3 : i <= 47 ? 4 : i <= 60 ? 5 : 6).padStart(3, "0")}`;
 const residuals = new Set<string>();
+const explanationResiduals = new Set<string>();
 const repairs = new Set<string>(),
   pending = new Set<string>();
 let checked = 0,
@@ -92,6 +93,18 @@ for (let i = 1; i <= 67; i++)
         `${ql}: every QL must use an authored native stem`,
       );
       if (!native.traceability.nativeStemAuthored) pending.add(ql);
+      for (const line of native.explanation.visibleLines ??
+        native.explanation.lines ??
+        native.explanation.steps ??
+        []) {
+        const prose = String(line)
+          .replace(
+            /\[\[EXAMTREE_(?:ALLIGATION|RATIO_ADJUSTMENT)_SVG_V1:[^\]]+\]\]/g,
+            "",
+          )
+          .replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g, "");
+        if (/[A-Za-z]{2,}/.test(prose)) explanationResiduals.add(prose);
+      }
       const bareStem = native.stem.replace(
         /\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g,
         "",
@@ -160,6 +173,11 @@ assert.deepEqual(
   [...residuals],
   [],
   "No untranslated words may remain in native stems",
+);
+assert.deepEqual(
+  [...explanationResiduals],
+  [],
+  "No untranslated visible explanation words",
 );
 assert(repairs.size >= 20);
 for (const language of ["en", "hi", "pa"] as const) {

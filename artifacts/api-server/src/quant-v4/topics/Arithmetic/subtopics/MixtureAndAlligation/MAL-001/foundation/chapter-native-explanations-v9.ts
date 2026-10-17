@@ -18,6 +18,7 @@ const displayKeys = new Set([
   "accessibleText",
 ]);
 const residuals: Record<string, readonly [string, string]> = {
+  soyabean: ["सोयाबीन", "ਸੋਇਆਬੀਨ"],
   reserve: ["रिज़र्व", "ਰਿਜ਼ਰਵ"],
   "special-grade": ["विशेष श्रेणी", "ਵਿਸ਼ੇਸ਼ ਸ਼੍ਰੇਣੀ"],
   red: ["लाल", "ਲਾਲ"],
@@ -50,7 +51,7 @@ function fragmentUncached(s: string, language: Lang): string {
     language,
   )
     .stem.replace(
-      /\b(?:red|nilgiri|oats|olive|mean|dilution|reserve|special-grade)\b/gi,
+      /\b(?:red|nilgiri|oats|olive|mean|dilution|reserve|special-grade|soyabean)\b/gi,
       (w) => residuals[w.toLowerCase()]![language === "hi" ? 0 : 1],
     )
     .replace(/1 कਿਰਿਆਵਾਂ/g, "1 ਕਿਰਿਆ")
@@ -1266,6 +1267,11 @@ rules.push([
   /^Equal round-trip shortcut: final (.+?)-to-(.+?) ratio in A = starting quantity in A : quantity transferred = (.+?)\.$/,
   "समान मात्रा भेजने और लौटाने पर A का अंतिम $1 : $2 अनुपात = A की प्रारंभिक मात्रा : हर बार भेजी गई मात्रा = $3।",
   "ਬਰਾਬਰ ਮਾਤਰਾ ਭੇਜਣ ਅਤੇ ਵਾਪਸ ਪਾਉਣ ਉੱਤੇ A ਦਾ ਅੰਤਿਮ $1 : $2 ਅਨੁਪਾਤ = A ਦੀ ਸ਼ੁਰੂਆਤੀ ਮਾਤਰਾ : ਹਰ ਵਾਰ ਭੇਜੀ ਮਾਤਰਾ = $3।",
+]);
+rules.push([
+  /^(.+?) remaining in B = (.+?)\.$/,
+  "B में बचा $1 = $2।",
+  "B ਵਿੱਚ ਬਚਿਆ $1 = $2।",
 ]);
 const specificity = (r: Rule) =>
   r[0].source.length - (r[0].source.match(/\.\+/g)?.length ?? 0) * 15;

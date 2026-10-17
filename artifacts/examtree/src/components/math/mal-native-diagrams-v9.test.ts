@@ -48,6 +48,7 @@ let questions = 0,
   lines = 0,
   oldUnsafe = 0;
 const rendered = new Set<string>();
+const residualProse = new Set<string>();
 function auditDiagrams(source: string, target: string, lang: "hi" | "pa") {
   const sourceMarkers = [...source.matchAll(marker)],
     targetMarkers = [...target.matchAll(marker)];
@@ -144,10 +145,7 @@ for (let i = 1; i <= 67; i++)
             "",
           )
           .replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g, "");
-        assert(
-          !/[A-Za-z]{2,}/.test(prose),
-          `untranslated calculation prose: ${prose}`,
-        );
+        if (/[A-Za-z]{2,}/.test(prose)) residualProse.add(prose);
 
         lines++;
       }
@@ -160,6 +158,7 @@ for (let i = 1; i <= 67; i++)
       questions++;
     }
   }
+assert.deepEqual([...residualProse], [], "No untranslated calculation prose");
 assert(diagrams > 0);
 assert(rendered.has("TWO_COMPONENT:pa"));
 assert(rendered.has("THREE_COMPONENT:hi"));
