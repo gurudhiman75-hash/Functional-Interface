@@ -1,21 +1,6 @@
 import type { GeometryPrototypeEditorialVariantsV2 } from "./geometry-localization-editorial-v2-types";
 
 export const GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2_B = Object.freeze({
-  // Editorial candidate: the frozen English source can omit the repeated
-  // ratio equality shown in the previously approved canonical template.
-  // Maintain strict exact pattern matching; do not loosen localization gates.
-  "GEO-TMP-CP005-MISSING-SIDE-V1": {
-    explanationsByLine: [
-      [],
-      [
-        {
-          sourceMasked: "The scale factor from ABC to PQR is PQ/AB = {{0}}/{{1}}. Therefore PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm.",
-          hi: "ABC से PQR का माप गुणक PQ/AB = {{0}}/{{1}} है। अतः PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm।",
-          pa: "ABC ਤੋਂ PQR ਦਾ ਮਾਪ ਗੁਣਕ PQ/AB = {{0}}/{{1}} ਹੈ। ਇਸ ਲਈ PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm।",
-        },
-      ],
-    ],
-  },
   "GEO-TMP-GAP-W4-CP005-PERIMETER-TO-SIDE-V1": {
     questions: [
       {
