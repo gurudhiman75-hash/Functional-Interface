@@ -1298,7 +1298,7 @@ Object.assign(exact, {
   ],
   "Then remove the value already given by the known item": [
     "फिर ज्ञात वस्तु की लागत घटाएँ।",
-    "ਫਿਰ ਪਤਾ ਵਸਤੂ ਦੀ ਲਾਗਤ ਘਟਾਓ।"
+    "ਫਿਰ ਦਿੱਤੀ ਵਸਤੂ ਦੀ ਲਾਗਤ ਘਟਾਓ।"
   ],
   "The value left is for the unknown item": [
     "शेष लागत अज्ञात वस्तु की है।",
@@ -1310,7 +1310,7 @@ Object.assign(exact, {
   ],
   "Find the total value needed for all parts, remove the known part, and divide the value left by the unknown parts": [
     "सभी भागों की आवश्यक कुल लागत निकालें। ज्ञात भाग की लागत घटाकर शेष लागत को अज्ञात भागों की संख्या से भाग दें।",
-    "ਸਾਰੇ ਹਿੱਸਿਆਂ ਦੀ ਲੋੜੀਂਦੀ ਕੁੱਲ ਲਾਗਤ ਕੱਢੋ। ਪਤਾ ਹਿੱਸੇ ਦੀ ਲਾਗਤ ਘਟਾ ਕੇ ਬਾਕੀ ਲਾਗਤ ਨੂੰ ਅਣਜਾਣ ਹਿੱਸਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।"
+    "ਸਾਰੇ ਹਿੱਸਿਆਂ ਦੀ ਲੋੜੀਂਦੀ ਕੁੱਲ ਲਾਗਤ ਕੱਢੋ। ਦਿੱਤੇ ਹਿੱਸੇ ਦੀ ਲਾਗਤ ਘਟਾ ਕੇ ਬਾਕੀ ਲਾਗਤ ਨੂੰ ਅਣਜਾਣ ਹਿੱਸਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।"
   ],
   "Use total value = average price × total quantity": [
     "कुल लागत = औसत मूल्य × कुल मात्रा का उपयोग करें।",
@@ -1322,7 +1322,7 @@ Object.assign(exact, {
   ],
   "Use one total-value equation for all known items and the unknown quantity": [
     "सभी ज्ञात वस्तुओं और अज्ञात मात्रा के लिए कुल लागत का एक समीकरण बनाएँ।",
-    "ਸਾਰੀਆਂ ਪਤਾ ਵਸਤੂਆਂ ਅਤੇ ਅਣਜਾਣ ਮਾਤਰਾ ਲਈ ਕੁੱਲ ਲਾਗਤ ਦਾ ਇੱਕ ਸਮੀਕਰਨ ਬਣਾਓ।"
+    "ਸਾਰੀਆਂ ਦਿੱਤੀਆਂ ਵਸਤੂਆਂ ਅਤੇ ਅਣਜਾਣ ਮਾਤਰਾ ਲਈ ਕੁੱਲ ਲਾਗਤ ਦਾ ਇੱਕ ਸਮੀਕਰਨ ਬਣਾਓ।"
   ],
   "This keeps the main solution purely formula based": [
     "इससे मुख्य हल सीधे सूत्र के आधार पर मिलता है।",
