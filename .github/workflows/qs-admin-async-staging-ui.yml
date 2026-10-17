@@ -5,6 +5,8 @@ on:
     paths:
       - 'artifacts/admin-app/src/features/question-studio/api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+      - 'artifacts/admin-app/src/features/question-studio/package-hierarchy.ts'
+      - 'artifacts/admin-app/src/features/question-studio/package-hierarchy.test.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio.ts'
       - 'tests/qs-admin-staging-async-review-contract.test.mjs'
   workflow_dispatch:
@@ -30,5 +32,7 @@ jobs:
         run: node --test tests/qs-admin-staging-async-review-contract.test.mjs
       - name: Install locked admin dependencies
         run: pnpm install --frozen-lockfile --filter @workspace/examtree-admin...
+      - name: Test all 64 Quant mappings and safe selector fallbacks
+        run: pnpm --dir artifacts/admin-app exec vitest run src/features/question-studio/package-hierarchy.test.ts
       - name: Typecheck admin UI
         run: pnpm --dir artifacts/admin-app exec tsc --noEmit -p tsconfig.app.json
