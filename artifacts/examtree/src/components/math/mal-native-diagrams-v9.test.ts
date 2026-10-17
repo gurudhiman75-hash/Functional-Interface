@@ -138,6 +138,17 @@ for (let i = 1; i <= 67; i++)
           `${input.questionLanguageId}: unhandled visible explanation: ${original[index]}`,
         );
         assert.equal(localized[index], result.text);
+        const prose = result.text
+          .replace(
+            /\[\[EXAMTREE_(?:ALLIGATION|RATIO_ADJUSTMENT)_SVG_V1:[^\]]+\]\]/g,
+            "",
+          )
+          .replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g, "");
+        assert(
+          !/[A-Za-z]{2,}/.test(prose),
+          `untranslated calculation prose: ${prose}`,
+        );
+
         lines++;
       }
       const originals = strings(en.explanation),

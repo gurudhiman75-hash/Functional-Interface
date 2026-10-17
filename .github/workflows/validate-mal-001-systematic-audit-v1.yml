@@ -67,10 +67,10 @@ jobs:
 
       - name: Bundle native explanation and frontend diagram regression
         run: |
-          pnpm --dir artifacts/examtree exec esbuild \
-            src/components/math/mal-native-diagrams-v9.test.ts \
+          pnpm --dir artifacts/api-server exec esbuild \
+            ../examtree/src/components/math/mal-native-diagrams-v9.test.ts \
             --bundle --platform=node --format=esm --packages=external --jsx=automatic \
-            --outfile=.mal-native-diagrams-v9.mjs
+            --outfile=../examtree/.mal-native-diagrams-v9.mjs
 
       - name: Verify native explanations and rendered diagrams
         run: |
