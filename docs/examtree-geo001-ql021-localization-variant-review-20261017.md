@@ -1,32 +1,24 @@
-# GEO-001 / GEO-QL-021 — proposed localization pattern for editorial review
+# GEO-001 / GEO-QL-021 — approved source-pattern restoration
 
-**Status: CANDIDATE — NOT YET HUMAN APPROVED.** This is a proposed addition to the previously approved frozen Geometry Hindi/Punjabi V2 rendering authority. It must not be represented as part of the approved August 2026 artifact without a new review decision. No Question Bank or public content release is requested.
+**Status:** regression remediation; no new localization template or previously unapproved Hindi/Punjabi wording.
 
-## Failure reproduced
-CI `validate-geometry-normal-question-studio-integration` failed on the seed for `GEO-QL-021`, prototype `GEO-TMP-CP005-MISSING-SIDE-V1`, second explanation line. English source generated an eight-number expression; the earlier exact V2 template expects the ratio to be repeated before the multiplication and therefore expects ten numeric slots.
+## Evidence
+The Geometry integration job failed for `GEO-QL-021` because the expanded English source-runtime pool generated a shortened eight-number explanation, but the frozen multilingual V2 authority accepts the previously approved ten-number explanation pattern:
 
-## Proposed exact English pattern
 ```text
-The scale factor from ABC to PQR is PQ/AB = {{0}}/{{1}}. Therefore PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm.
+The scale factor from ABC to PQR is PQ/AB = {{0}}/{{1}} = {{2}}/{{3}}. Therefore PR = AC × {{4}}/{{5}} = {{6}} × {{7}}/{{8}} = {{9}} cm.
 ```
 
-## Proposed Hindi wording
+The original approved source commit `aa94efa28a51724f1c0f5416a4d4f9bee9703f19` generated:
 ```text
-ABC से PQR का माप गुणक PQ/AB = {{0}}/{{1}} है। अतः PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm।
+The scale factor from ABC to PQR is PQ/AB = 9/6 = 3/2. Therefore PR = AC × 3/2 = 8 × 3/2 = 12 cm.
 ```
 
-## Proposed Punjabi wording
-```text
-ABC ਤੋਂ PQR ਦਾ ਮਾਪ ਗੁਣਕ PQ/AB = {{0}}/{{1}} ਹੈ। ਇਸ ਲਈ PR = AC × {{2}}/{{3}} = {{4}} × {{5}}/{{6}} = {{7}} cm।
-```
+The current generator had shortened that to `PQ/AB = 9/6`, bypassing the simplified ratio line, so Hindi/Punjabi frozen rendering correctly failed closed. The corrected generator restores the approved expression shape and calculates the simplified fraction exactly via the existing rational utility, for all five source-value states. This is an English explanation-renderer correction **toward the originally approved pattern**, not a new translation approval.
 
-## Technical review criteria
-
-- Numerator/denominator order must remain PQ/AB, and PR must remain AC multiplied by the same similarity ratio; retain every numeric token in the original source order.
-- English content is untouched. Candidate strings must match the exact source pattern; do not add a fallback translator or weaken the frozen-source drift assertion.
-- Compare both locales to canonical source across the 75 QLs, selected checkpoints and the failing seed; check four unique options, correct-index parity, explanation completeness and diagram fingerprint parity.
-- Do not silently update the approved artifact ID, digest, multilingual freeze proof, bank/test permissions or deployment settings.
-- A **new explicit product-owner editorial decision** is required before merging/deploying this new localized output as frozen-approved Question Studio content. If rejected, use a separately governed remediation rather than claiming previous approval.
-
-## Scope
-PR #3412 changes source and tests only. No production/staging Cloud Run deployment, queue resume, DB write, or publication.
+## Invariants
+- Preserve existing 91 approved localization variants, 75 Geometry QLs, 81 mapped prototype variants, artifact ID/digest, Hindi/Punjabi wording, source checkpoints, solve-mode identities, options and answers.
+- Keep full exact V2 template matching; no catch-all translation fallback or loosened verifier.
+- Verify mathematical equality of `PQ/AB`, the reduced ratio, and `PR/AC`, including the `10/6 = 5/3` source variant.
+- Require green Geometry and universal worker CI with the 3-question `GEO-CP-001` Mixed regression. Do not merge with failing checks.
+- Even after merge, rebuilding the universal staging worker as a new zero-traffic revision and verifying live generation are separate release gates. Scheduler and Cloud Tasks remain paused and production is unchanged.
