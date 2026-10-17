@@ -22,6 +22,16 @@ test("isolated admin API uses only validation Neon, Cloud Run staging and paused
   assert.doesNotMatch(api,/gcloud run jobs execute/);
   assert.doesNotMatch(api,/examtree-api-staging\s*$/m);
 });
+test("staging Firebase revocation verifier gets only read-only user permission",()=>{
+  // authenticate() uses verifyIdToken(idToken, true), which requires
+  // firebaseauth.users.get. Keep the grant on the dedicated staging SA.
+  assert.ok(api.includes('gcloud projects add-iam-policy-binding "$PROJECT"'));
+  assert.ok(api.includes('--member="serviceAccount:$SA" --role=roles/firebaseauth.viewer'));
+  assert.doesNotMatch(api, /roles\/firebaseauth\.(?:admin|editor)/);
+  assert.ok(api.includes('--condition=None --quiet'));
+  // Read-only preflight mode must exit before any IAM changes.
+  assert.ok(api.indexOf('if [[ "$MODE" == check ]]') < api.indexOf('gcloud projects add-iam-policy-binding'));
+});
 test("isolated preview deploy never reuses production Pages API relay",()=>{
   assert.match(preview,/PROJECT=examtree-qs-admin-preview/);
   assert.match(preview,/VITE_QUESTION_STUDIO_ASYNC_STAGING=true/);

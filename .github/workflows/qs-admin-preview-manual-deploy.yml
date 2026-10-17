@@ -5,6 +5,8 @@ on:
     paths:
       - 'scripts/build-qs-admin-preview.sh'
       - 'tests/qs-admin-preview-manual-deploy-contract.test.mjs'
+      - 'scripts/deploy-qs-admin-api-isolated-staging.sh'
+      - 'tests/qs-admin-browser-staging-deploy-contract.test.mjs'
   workflow_dispatch:
     inputs:
       confirm:
