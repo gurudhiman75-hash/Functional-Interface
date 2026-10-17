@@ -77,9 +77,6 @@ test.describe("student Store", () => {
     await expect(page.getByText("90 days", { exact: true })).toBeVisible();
 
     await page.getByTestId("btn-store-checkout").click();
-    await expect(page).toHaveURL(new RegExp(`/checkout/${storeProduct.id}$`));
-    await expect(page.getByRole("button", { name: "Sign in to continue", exact: true })).toBeVisible();
-    await page.getByTestId("btn-store-checkout").click();
     await expect(page).toHaveURL(/\/login\/student\?next=/);
     const next = await page.evaluate(() => new URL(window.location.href).searchParams.get("next"));
     expect(next).toBe(`/checkout/${storeProduct.id}`);
