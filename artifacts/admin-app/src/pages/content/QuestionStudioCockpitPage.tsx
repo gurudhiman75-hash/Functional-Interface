@@ -72,6 +72,7 @@ import {
 } from '@/features/question-studio/quality';
 import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
 import { getStagingResumeRunId, STAGING_ASYNC_RUN_PARAM, withStagingResumeRunId } from '@/features/question-studio/staging-async-resume';
+import { generationChapter, packageMainTopic, sortMainTopics } from '@/features/question-studio/package-hierarchy';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
@@ -206,6 +207,7 @@ export function QuestionStudioCockpitPage() {
 
   const [workspaceView, setWorkspaceView] = useState<'generate' | 'review'>('generate');
   const [subject, setSubject] = useState('');
+  const [mainTopic, setMainTopic] = useState('');
   const [chapter, setChapter] = useState('');
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL_T1');
   const [packageId, setPackageId] = useState('');
@@ -431,9 +433,28 @@ export function QuestionStudioCockpitPage() {
     [enabledPackages, subject],
   );
 
+  const mainTopics = useMemo(
+    () => sortMainTopics(subject, subjectPackages.map(packageMainTopic)),
+    [subject, subjectPackages],
+  );
+
+  useEffect(() => {
+    if (!mainTopics.length) {
+      setMainTopic('');
+      return;
+    }
+    if (!mainTopic || !mainTopics.includes(mainTopic)) setMainTopic(mainTopics[0]!);
+  }, [mainTopic, mainTopics]);
+
+  const mainTopicPackages = useMemo(
+    () => subjectPackages.filter((entry) => packageMainTopic(entry) === mainTopic),
+    [subjectPackages, mainTopic],
+  );
+
   const chapters = useMemo(
-    () => [...new Set(subjectPackages.map(packageChapter))].sort((left, right) => left.localeCompare(right)),
-    [subjectPackages],
+    () => [...new Set(mainTopicPackages.map(generationChapter))]
+      .sort((left, right) => left.localeCompare(right)),
+    [mainTopicPackages],
   );
 
   useEffect(() => {
@@ -445,14 +466,14 @@ export function QuestionStudioCockpitPage() {
   }, [chapter, chapters]);
 
   const chapterPackages = useMemo(
-    () => subjectPackages
-      .filter((entry) => packageChapter(entry) === chapter)
+    () => mainTopicPackages
+      .filter((entry) => generationChapter(entry) === chapter)
       .sort((left, right) => {
         const cpDelta = packageCpIds(right).length - packageCpIds(left).length;
         if (cpDelta !== 0) return cpDelta;
         return left.packageId.localeCompare(right.packageId);
       }),
-    [chapter, subjectPackages],
+    [chapter, mainTopicPackages],
   );
 
   useEffect(() => {
@@ -878,7 +899,7 @@ export function QuestionStudioCockpitPage() {
 
         <TabsContent value="generate" className="mt-0">
       <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Choose a subject and chapter, select one or more CPs, then generate a review batch. Package and engine routing stay behind the workflow unless a chapter has multiple question families.</p></CardHeader>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Choose a subject, main topic and chapter, then select a generation package and optional CPs. Navigation never changes the package's registered generation engine or source settings.</p></CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <Field label="Subject" className="xl:col-span-2">
@@ -886,6 +907,7 @@ export function QuestionStudioCockpitPage() {
                 value={subject}
                 onValueChange={(value) => {
                   setSubject(value);
+                  setMainTopic('');
                   setChapter('');
                   setPackageId('');
                   setSelectedCpIds(new Set());
@@ -896,7 +918,23 @@ export function QuestionStudioCockpitPage() {
                 <SelectContent>{subjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
               </Select>
             </Field>
-            <Field label="Chapter" className="xl:col-span-2">
+            <Field label="Main topic" className="xl:col-span-2">
+              <Select
+                value={mainTopic}
+                onValueChange={(value) => {
+                  setMainTopic(value);
+                  setChapter('');
+                  setPackageId('');
+                  setSelectedCpIds(new Set());
+                  setCpSearch('');
+                }}
+                disabled={!subject || mainTopics.length === 0}
+              >
+                <SelectTrigger><SelectValue placeholder="Select main topic" /></SelectTrigger>
+                <SelectContent>{mainTopics.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+              </Select>
+            </Field>
+            <Field label="Chapter / subtopic" className="xl:col-span-2">
               <Select
                 value={chapter}
                 onValueChange={(value) => {
@@ -905,31 +943,22 @@ export function QuestionStudioCockpitPage() {
                   setSelectedCpIds(new Set());
                   setCpSearch('');
                 }}
-                disabled={!subject}
+                disabled={!mainTopic || chapters.length === 0}
               >
                 <SelectTrigger><SelectValue placeholder="Select chapter" /></SelectTrigger>
                 <SelectContent>{chapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
               </Select>
             </Field>
-            {chapterPackages.length > 1 ? (
-              <Field label="Question family" className="xl:col-span-2">
-                <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); setCpSearch(''); }}>
-                  <SelectTrigger><SelectValue placeholder="Select question family" /></SelectTrigger>
-                  <SelectContent>{chapterPackages.map((entry) => (
-                    <SelectItem key={entry.packageId} value={entry.packageId}>
-                      {entry.label} · {entry.packageId}
-                    </SelectItem>
-                  ))}</SelectContent>
-                </Select>
-              </Field>
-            ) : (
-              <div className="xl:col-span-2 rounded-lg border bg-muted/20 px-3 py-2">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Generation source</p>
-                <p className="mt-1 text-xs font-medium">
-                  {activePackage ? `${activePackage.label} · ${activePackage.packageId}` : 'Choose a chapter'}
-                </p>
-              </div>
-            )}
+            <Field label="Generation package" className="md:col-span-2 xl:col-span-6">
+              <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); setCpSearch(''); }} disabled={!chapter || chapterPackages.length === 0}>
+                <SelectTrigger><SelectValue placeholder="Select generation package" /></SelectTrigger>
+                <SelectContent>{chapterPackages.map((entry) => (
+                  <SelectItem key={entry.packageId} value={entry.packageId}>
+                    {entry.label} · {entry.packageId}
+                  </SelectItem>
+                ))}</SelectContent>
+              </Select>
+            </Field>
           </div>
 
           {activePackage && availableCpIds.length > 0 && (
@@ -1037,7 +1066,7 @@ export function QuestionStudioCockpitPage() {
               <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && STAGING_ASYNC_ENABLED ? 'Queue staging batch' : 'Generate review batch'}</Button>
             </div>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageMainTopic(activePackage)} · {generationChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
         </TabsContent>
