@@ -112,7 +112,18 @@ export async function executeUniversalStudioCompute(
   let quantPlan: UniversalStudioComputeResult["quantPlan"] = null;
 
   if (pkg.engineId === "quant-v4") {
+    // GEO-001 frozen QLs have checkpoint-specific difficulty availability.
+    // Mixed exam profiles cannot assign a Hard slot to a CP with no Hard QLs.
+    const supportedDifficultiesByCp = pkg.packageId === "GEO-001" && input.selectedCpIds.length
+      ? await (async () => {
+          const { listGeo001CpSupportedDifficulties } = await import(
+            "../quant-v4/topics/AdvancedMathematics/subtopics/Geometry/question-studio-standard-integration"
+          );
+          return Object.fromEntries(input.selectedCpIds.map(cpId => [cpId, listGeo001CpSupportedDifficulties(cpId)]));
+        })()
+      : undefined;
     const result = await generateProfiledQuantBatch({
+      supportedDifficultiesByCp,
       request,
       count: input.count,
       selectedCpIds: input.selectedCpIds,

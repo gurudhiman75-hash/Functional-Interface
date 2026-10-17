@@ -81,3 +81,44 @@ test("keeps exam-profile context scoring semantics", () => {
   );
   assert.ok(finance > votes);
 });
+
+
+test("GEO-001 source-aware mixed CP plan never assigns unsupported Hard", () => {
+  const plan = buildQuantExamProfilePlan({
+    exam: "SSC CGL Tier 1", requestedDifficulty: "Mixed", count: 3,
+    selectedCpIds: ["GEO-CP-001"], seed: "qs197-geo001-cp001-regression",
+    supportedDifficultiesByCp: { "GEO-CP-001": ["Easy", "Medium"] },
+  });
+  assert.equal(plan.sourceDifficultyConstrained, true);
+  assert.equal(plan.difficultyCounts.Hard, 0);
+  assert.equal(plan.assignments.reduce((sum, a) => sum + a.count, 0), 3);
+  assert.ok(plan.assignments.every(a => a.cpId === "GEO-CP-001" && a.difficulty !== "Hard"));
+  assert.deepEqual(plan.cpCounts, { "GEO-CP-001": 3 });
+});
+
+test("source-constrained mixed batches respect distinct CP eligibility", () => {
+  const plan = buildQuantExamProfilePlan({
+    requestedDifficulty: "Mixed", count: 6, seed: "source-two-cps",
+    selectedCpIds: ["CP-EASY", "CP-HARD"],
+    supportedDifficultiesByCp: { "CP-EASY": ["Easy"], "CP-HARD": ["Hard"] },
+  });
+  assert.equal(plan.difficultyCounts.Easy, 3);
+  assert.equal(plan.difficultyCounts.Hard, 3);
+  assert.equal(plan.difficultyCounts.Medium, 0);
+  assert.ok(plan.assignments.every(a => a.difficulty === (a.cpId === "CP-EASY" ? "Easy" : "Hard")));
+});
+
+test("explicit unsupported difficulty is rejected rather than silently relabeled", () => {
+  assert.throws(() => buildQuantExamProfilePlan({
+    requestedDifficulty: "Hard", count: 1, seed: "source-explicit-hard",
+    selectedCpIds: ["GEO-CP-001"],
+    supportedDifficultiesByCp: { "GEO-CP-001": ["Easy", "Medium"] },
+  }), (error: any) => error.code === "SOURCE_DIFFICULTY_UNAVAILABLE");
+});
+
+test("source-constrained input cannot invent missing CP availability", () => {
+  assert.throws(() => buildQuantExamProfilePlan({
+    requestedDifficulty: "Mixed", count: 1, seed: "source-missing-cp",
+    selectedCpIds: ["UNKNOWN"], supportedDifficultiesByCp: {},
+  }), (error: any) => error.code === "SOURCE_DIFFICULTY_UNAVAILABLE");
+});

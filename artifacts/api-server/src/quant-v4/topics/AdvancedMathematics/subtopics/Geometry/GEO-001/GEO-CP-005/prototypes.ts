@@ -195,6 +195,9 @@ function generateMissingSide(seed: string): Phase2PrototypeQuestion {
     { text: `${state.pq} cm`, misconceptionId: "MIXED_NONCORRESPONDING_SIDES", rationale: "Copies the known corresponding side instead of scaling AC." },
     { text: `${state.ac + state.pq - state.ab} cm`, misconceptionId: "ADDITIVE_INSTEAD_OF_MULTIPLICATIVE_SCALE", rationale: "Treats similarity as an additive adjustment instead of a common scale factor." },
   ], seed);
+  // Reuse the reduced ratio in the already approved 10-number editorial template.
+  // The source freeze used "PQ/AB = 9/6 = 3/2", not the later shortened form.
+  const reducedScale = rational(state.pq, state.ab);
   return finalizePhase2Question({
     cpId: CP_ID,
     temporaryPrototypeId: "GEO-TMP-CP005-MISSING-SIDE-V1",
@@ -205,7 +208,7 @@ function generateMissingSide(seed: string): Phase2PrototypeQuestion {
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "The two matching angle pairs make the triangles similar by AA, with A↔P, B↔Q and C↔R.",
-      `The scale factor from ABC to PQR is PQ/AB = ${state.pq}/${state.ab}. Therefore PR = AC × ${state.pq}/${state.ab} = ${state.ac} × ${state.pq}/${state.ab} = ${state.pr} cm.`,
+      `The scale factor from ABC to PQR is PQ/AB = ${state.pq}/${state.ab} = ${reducedScale.numerator}/${reducedScale.denominator}. Therefore PR = AC × ${reducedScale.numerator}/${reducedScale.denominator} = ${state.ac} × ${reducedScale.numerator}/${reducedScale.denominator} = ${state.pr} cm.`,
     ]),
     theoremTrace,
     proofEvents,

@@ -118,7 +118,7 @@ function generateFourthAngle(seed: string): Phase3PrototypeQuestion {
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       "A quadrilateral has four interior angles whose total is 360°.",
-      `Therefore ∠D = 360° − (${a}° + ${b}° + ${cAngle}°) = ${d}°.`,
+      `Therefore ∠D = 360° − (${a}° + ${b}° + ${cAngle}°) = 360° − ${a + b + cAngle}° = ${d}°.`,
     ]),
     theoremTrace,
     proofEvents,

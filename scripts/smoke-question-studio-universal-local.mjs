@@ -37,6 +37,9 @@ const cases=[
   {engineId:"quant-v4",packageId:"NUM-001",topic:"Arithmetic",subtopic:"Number System",difficulty:"Mixed",runtimeMode:"QUESTION_STUDIO_ACTIVE",cp:"NUM-CP-001",count:3},
   // Canonical admin requests pass undefined for source-governed packages.
   {engineId:"quant-v4",packageId:"NUM-001",topic:"Arithmetic",subtopic:"Number System",difficulty:undefined,runtimeMode:"QUESTION_STUDIO_ACTIVE",cp:"NUM-CP-001",count:1},
+  // Regression: GEO-CP-001 has no frozen Hard QLs, but the SSC CGL Mixed
+  // distribution used to assign a Hard question and fail the entire batch.
+  {engineId:"quant-v4",packageId:"GEO-001",topic:"Advanced Mathematics",subtopic:"Geometry",difficulty:"Mixed",runtimeMode:"QUESTION_STUDIO_ACTIVE",cp:"GEO-CP-001",count:3},
 ];
 // Cloud Run executes as a non-root user with an immutable image filesystem.
 // Prevent a bundled audit/export module from silently writing review files
@@ -73,6 +76,15 @@ try {
       !data.batch.generationContexts.every(g => g.context?.difficultyFilterApplied === false)
     )) {
       throw new Error("NUM-001 must preserve source difficulty labels; universal worker advertised a filter");
+    }
+    if (c.packageId==="GEO-001") {
+      const plan=data.batch.quantPlan;
+      if(!plan||plan.sourceDifficultyConstrained!==true||plan.difficultyCounts?.Hard!==0||
+        !data.batch.questions.every(q=>q.canonicalProblemId==="GEO-CP-001" &&
+          q.proceduralLogic?.sourceDifficulty===q.difficulty &&
+          q.difficulty===q.difficultyLabel)) {
+        throw new Error("GEO-001 Mixed CP batch must respect source difficulty and accurate provenance");
+      }
     }
     console.log("PASS: universal "+c.engineId+" "+c.packageId+" generated "+count+" review-ready candidates (no DB)");
   }

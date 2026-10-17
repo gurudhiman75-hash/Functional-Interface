@@ -56,6 +56,7 @@ export type QuantExamProfilePlan = {
   difficultyPreset: string;
   difficultyDistribution: QuantDifficultyDistribution | null;
   difficultyCounts: QuantDifficultyDistribution;
+  sourceDifficultyConstrained?: boolean;
   legacyExamProfile?: LegacyQuantExamProfileId;
   cpCounts: Record<string, number>;
   seed: string;
@@ -311,6 +312,52 @@ function buildAssignments(
   return { assignments, cpCounts };
 }
 
+/** Allocate each selected checkpoint only from difficulty bands present in its source.
+ * The exam profile remains a preference, not authority to invent unsupported questions. */
+function buildSourceConstrainedAssignments(
+  count: number,
+  selectedCpIds: readonly string[],
+  distributionWeights: QuantDifficultyDistribution,
+  seed: string,
+  profileId: string,
+  supported: Readonly<Record<string, readonly QuantProfileDifficulty[]>>,
+): { assignments: QuantGenerationAssignment[]; cpCounts: Record<string, number> } {
+  const cpCounts = allocateCpCounts(count, selectedCpIds);
+  const segments: Array<{ cpId: string; difficulty: QuantProfileDifficulty; count: number }> = [];
+  for (const [cpId, capacity] of Object.entries(cpCounts)) {
+    const allowed = supported[cpId];
+    if (!allowed?.length) {
+      throw Object.assign(new Error(`No source difficulty bands for checkpoint ${cpId}`), {
+        statusCode: 400, code: "SOURCE_DIFFICULTY_UNAVAILABLE",
+      });
+    }
+    const weights: QuantDifficultyDistribution = {
+      Easy: allowed.includes("Easy") ? distributionWeights.Easy : 0,
+      Medium: allowed.includes("Medium") ? distributionWeights.Medium : 0,
+      Hard: allowed.includes("Hard") ? distributionWeights.Hard : 0,
+    };
+    const total = weights.Easy + weights.Medium + weights.Hard;
+    if (!total) {
+      throw Object.assign(new Error(`Requested difficulty distribution has no source support for ${cpId}`), {
+        statusCode: 400, code: "SOURCE_DIFFICULTY_UNAVAILABLE",
+      });
+    }
+    const normalized: QuantDifficultyDistribution = {
+      Easy: weights.Easy / total * 100,
+      Medium: weights.Medium / total * 100,
+      Hard: weights.Hard / total * 100,
+    };
+    const allocated = allocateQuantDifficultyCounts(capacity, normalized);
+    for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+      if (allocated[difficulty]) segments.push({ cpId, difficulty, count: allocated[difficulty] });
+    }
+  }
+  const assignments = shuffleQuantProfileItems(segments, `${seed}:${profileId}:source-eligible`).map((s, index) => ({
+    ...s, seed: `${seed}:${profileId}:${s.cpId}:${s.difficulty}:slot:${index + 1}`,
+  }));
+  return { assignments, cpCounts };
+}
+
 export function buildQuantExamProfilePlan(input: {
   exam?: unknown;
   examProfileId?: unknown;
@@ -320,6 +367,7 @@ export function buildQuantExamProfilePlan(input: {
   count: number;
   seed?: string;
   selectedCpIds?: readonly string[];
+  supportedDifficultiesByCp?: Readonly<Record<string, readonly QuantProfileDifficulty[]>>;
 }): QuantExamProfilePlan {
   const profile = resolveQuantExamProfile(input.examProfileId ?? input.exam);
   const legacyExamProfile = resolveLegacyQuantExamProfile(input.examProfileId, input.exam);
@@ -330,7 +378,7 @@ export function buildQuantExamProfilePlan(input: {
   const difficultyDistribution = mixed
     ? distribution(input.difficultyDistribution, profile.defaultDistribution)
     : null;
-  const difficultyCounts: QuantDifficultyDistribution = mixed
+  const proposedDifficultyCounts: QuantDifficultyDistribution = mixed
     ? allocateQuantDifficultyCounts(input.count, difficultyDistribution!)
     : {
         Easy: requestedDifficulty === "Easy" ? input.count : 0,
@@ -348,13 +396,24 @@ export function buildQuantExamProfilePlan(input: {
     );
   }
 
-  const { assignments, cpCounts } = buildAssignments(
-    input.count,
-    selectedCpIds,
-    difficultyCounts,
-    seed,
-    profile.id,
-  );
+  const sourceBands = input.supportedDifficultiesByCp;
+  if (sourceBands && !mixed) {
+    for (const cpId of selectedCpIds) {
+      if (!sourceBands[cpId]?.includes(requestedDifficulty)) {
+        throw Object.assign(new Error(`${cpId} cannot generate ${requestedDifficulty} from frozen source`), {
+          statusCode: 400, code: "SOURCE_DIFFICULTY_UNAVAILABLE",
+        });
+      }
+    }
+  }
+  const sourceDifficultyConstrained = Boolean(sourceBands && mixed && selectedCpIds.length);
+  const { assignments, cpCounts } = sourceDifficultyConstrained
+    ? buildSourceConstrainedAssignments(input.count, selectedCpIds, difficultyDistribution!, seed, profile.id, sourceBands!)
+    : buildAssignments(input.count, selectedCpIds, proposedDifficultyCounts, seed, profile.id);
+  const difficultyCounts: QuantDifficultyDistribution = sourceDifficultyConstrained
+    ? assignments.reduce((acc, slot) => ({ ...acc, [slot.difficulty]: acc[slot.difficulty] + slot.count }),
+        { Easy: 0, Medium: 0, Hard: 0 } as QuantDifficultyDistribution)
+    : proposedDifficultyCounts;
 
   return {
     profile,
@@ -364,6 +423,7 @@ export function buildQuantExamProfilePlan(input: {
     difficultyPreset,
     difficultyDistribution,
     difficultyCounts,
+    sourceDifficultyConstrained,
     legacyExamProfile,
     cpCounts,
     seed,
@@ -418,6 +478,7 @@ export async function generateProfiledQuantBatch(input: {
   difficultyDistribution?: unknown;
   forwardLegacyExamProfile?: boolean;
   difficultyFilterSupported?: boolean;
+  supportedDifficultiesByCp?: Readonly<Record<string, readonly QuantProfileDifficulty[]>>;
   generateCandidateBatch: (
     request: QuestionStudioGenerationRequest,
   ) => Promise<unknown>;
@@ -439,6 +500,7 @@ export async function generateProfiledQuantBatch(input: {
     count: input.count,
     seed: input.request.seed,
     selectedCpIds: input.selectedCpIds,
+    supportedDifficultiesByCp: input.supportedDifficultiesByCp,
   });
 
   const generatedQuestions: Array<Record<string, unknown>> = [];

@@ -197,6 +197,19 @@ function matchingVariantIndexesForDifficulty(
   return matches;
 }
 
+/** Source-owned availability. Never offer a difficulty without a frozen Geometry QL. */
+export function listGeo001CpSupportedDifficulties(cpId: string): Geo001QuestionStudioDifficulty[] {
+  if (!GEO_001_QUESTION_STUDIO_CP_IDS.includes(cpId as Geo001QuestionStudioCpId)) {
+    throw new Error(`Unknown GEO-001 checkpoint ${cpId}`);
+  }
+  const definitions = GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1.filter(item => item.cpId === cpId);
+  return (["Easy", "Medium", "Hard"] as const).filter(difficulty =>
+    definitions.some(definition =>
+      matchingVariantIndexesForDifficulty(definition.qlId, `geo-difficulty-eligibility:${difficulty}`, difficulty).length > 0,
+    ),
+  );
+}
+
 function generateFrozenGeometryItem(
   qlId: string,
   seed: string,

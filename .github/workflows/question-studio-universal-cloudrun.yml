@@ -4,6 +4,9 @@ on:
     branches: [New-main]
     paths:
       - 'artifacts/api-server/src/question-studio/universal-executor.ts'
+      - 'artifacts/api-server/src/question-studio/quant-exam-profile.ts'
+      - 'artifacts/api-server/src/question-studio/quant-exam-profile.test.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/question-studio-standard-integration.ts'
       - 'artifacts/api-server/src/question-studio/universal-generation-worker.ts'
       - 'artifacts/api-server/src/question-studio/remote-universal-studio-client.ts'
       - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
@@ -48,6 +51,10 @@ jobs:
           corepack enable
           corepack prepare pnpm@10.33.0 --activate
           pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Verify source-aware Quant difficulty planning regressions
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/quant-exam-profile.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-profile-source-constraint.test.mjs
+          node artifacts/api-server/dist/quant-profile-source-constraint.test.mjs
       - name: Build all four deterministic generation adapters in dedicated bundle
         run: node artifacts/api-server/build-universal-worker.mjs
       - name: Smoke generate with Quant Reasoning English Static GK
