@@ -44,7 +44,23 @@ jobs:
           }
           if(!m.packages.some(p=>p.subject==="Computer Awareness"))throw Error("Computer Awareness subject not exposed");
           if(!m.packages.some(p=>p.subject==="English"))throw Error("English subject not exposed");
-          console.log("PASS: four engines, Computer Awareness, English, package titles");
+          const corrected=[
+            ...Array.from({length:7},(_,i)=>"REASONING_V1_BLR_001_CP_"+String(i+1).padStart(3,"0")),
+            "IOP-001"
+          ];
+          for(const id of corrected){
+            const found=m.packages.find(p=>p.packageId===id);
+            if(!found||found.engineId!=="reasoning-v1"||found.subject!=="Reasoning Ability"||
+               !found.enabled||!found.cpIds?.length||found.questionBankWritable!==false||
+               found.testEligible!==false||found.publiclyPublishable!==false)
+              throw Error("Reasoning source ownership or safety drift "+id);
+          }
+          if(m.packages.some(p=>p.engineId==="quant-v4"&&(p.packageId==="IOP-001"||
+               p.packageId.startsWith("REASONING_V1_BLR_001_CP_"))))
+            throw Error("Reasoning source incorrectly listed under Quant");
+          if(!m.packages.some(p=>p.packageId==="BLR-001"&&p.engineId==="reasoning-v1"))
+            throw Error("Chapter-level Blood Relations registration lost");
+          console.log("PASS: four engines, package subjects, eight native Reasoning sources");
           '
       - name: Build async receiver catalog and produce complete read-only gap matrix
         run: |
