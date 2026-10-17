@@ -570,9 +570,15 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
   listPackages() {
     const packages = listQuantV4Packages()
-      // Mixed Percentage selection is not a separate executable package;
-      // Calendar keeps its native reasoning owner.
-      .filter((pkg) => pkg.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID && pkg.packageId !== "CAL-001")
+      // Source modules used by the legacy Quant dispatcher may belong to
+      // Reasoning. Only quant-native packages can be owned by quant-v4.
+      .filter((pkg) => {
+        const source = pkg as unknown as Record<string, unknown>;
+        return pkg.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID
+          && source.type !== "reasoning-v1"
+          && source.section !== "Reasoning"
+          && source.domain !== "reasoning";
+      })
       .map((pkg) => toSharedPackage(pkg as unknown as Record<string, unknown>));
 
     const replaceOrPush = (packageId: string, card: Record<string, unknown>) => {
