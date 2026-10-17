@@ -7,6 +7,10 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**"
+      - "artifacts/examtree/src/components/math/AlligationDiagram.tsx"
+      - "artifacts/examtree/src/components/math/RatioAdjustmentDiagram.tsx"
+      - "artifacts/examtree/src/components/math/diagram-labels.ts"
+      - "artifacts/examtree/src/components/math/mal-native-diagrams-v9.test.ts"
 
 permissions:
   contents: read
@@ -61,6 +65,19 @@ jobs:
           node artifacts/api-server/dist/audits/mal-native-quality-v8.mjs \
             2>&1 | tee -a mal-native-quality-v8.log
 
+      - name: Bundle native explanation and frontend diagram regression
+        run: |
+          pnpm --dir artifacts/examtree exec esbuild \
+            src/components/math/mal-native-diagrams-v9.test.ts \
+            --bundle --platform=node --format=esm --packages=external --jsx=automatic \
+            --outfile=.mal-native-diagrams-v9.mjs
+
+      - name: Verify native explanations and rendered diagrams
+        run: |
+          set -o pipefail
+          node artifacts/examtree/.mal-native-diagrams-v9.mjs \
+            2>&1 | tee -a mal-native-explanations-v9.log
+
       - name: Upload MAL-001 audit evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,3 +86,4 @@ jobs:
           path: |
             mal-001-systematic-audit-v1.log
             mal-native-quality-v8.log
+            mal-native-explanations-v9.log

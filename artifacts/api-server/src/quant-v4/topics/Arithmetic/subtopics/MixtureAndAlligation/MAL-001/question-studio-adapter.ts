@@ -1,6 +1,6 @@
 import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
 import type { Mal001LocalizedLanguage } from "./foundation/chapter-multilingual-question-studio-v1";
-import { applyMal001NativeQualityV8 } from "./foundation/chapter-native-quality-v8";
+import { applyMal001NativeExplanationsV9 } from "./foundation/chapter-native-explanations-v9";
 import {
   MAL_CP001_PERMANENT_ALLOCATION,
   type MalCp001PermanentQlId,
@@ -360,7 +360,7 @@ export function runMal001QuestionStudioPipeline(
   const selectedCpId = resolveCpId(cpId, input);
   const base = englishQuestion(selectedCpId, input);
   if (language === "en") return base;
-  return applyMal001NativeQualityV8(
+  return applyMal001NativeExplanationsV9(
     base as unknown as Record<string, any>,
     language as Mal001LocalizedLanguage,
   ) as unknown as Mal001QuestionStudioQuestion;

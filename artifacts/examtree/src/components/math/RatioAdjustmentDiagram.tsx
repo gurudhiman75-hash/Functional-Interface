@@ -1,3 +1,4 @@
+import { diagramLabels, diagramQuantity } from "./diagram-labels";
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
@@ -46,7 +47,8 @@ export function isRatioAdjustmentDiagramData(
     value.after.every(isRow) &&
     typeof value.beforeRatio === "string" &&
     typeof value.afterRatio === "string" &&
-    (value.targetRatio === undefined || typeof value.targetRatio === "string") &&
+    (value.targetRatio === undefined ||
+      typeof value.targetRatio === "string") &&
     typeof value.note === "string"
   );
 }
@@ -70,7 +72,10 @@ function wrapWords(value: string, max = 25, maxLines = 3): string[] {
     if (lines.length === maxLines - 1) break;
   }
   if (current && lines.length < maxLines) lines.push(current);
-  if (lines.length === maxLines && words.join(" ").length > lines.join(" ").length) {
+  if (
+    lines.length === maxLines &&
+    words.join(" ").length > lines.join(" ").length
+  ) {
     lines[maxLines - 1] = shorten(lines[maxLines - 1]!, max);
   }
   return lines;
@@ -82,12 +87,14 @@ function CompositionPanel({
   rows,
   ratio,
   unit,
+  ratioLabel,
 }: {
   x: number;
   title: string;
   rows: RatioAdjustmentDiagramData["before"];
   ratio: string;
   unit: string;
+  ratioLabel: string;
 }) {
   const rowHeight = rows.length === 3 ? 48 : 58;
   return (
@@ -133,7 +140,7 @@ function CompositionPanel({
               y={y + 36}
               className="fill-muted-foreground text-[11px]"
             >
-              {row.quantity} {unit}
+              {diagramQuantity(row.quantity, unit)}
             </text>
           </g>
         );
@@ -144,7 +151,7 @@ function CompositionPanel({
         textAnchor="middle"
         className="fill-primary text-[16px] font-bold"
       >
-        Ratio {ratio}
+        {ratioLabel} {ratio}
       </text>
     </g>
   );
@@ -157,10 +164,11 @@ export function RatioAdjustmentDiagram({
   diagram: RatioAdjustmentDiagramData;
   className?: string;
 }) {
+  const labels = diagramLabels(diagram.title);
   const id = useId();
   const titleId = `${id}-title`;
   const descriptionId = `${id}-description`;
-  const description = `${diagram.title}. Before ratio ${diagram.beforeRatio}. ${diagram.operation}. After ratio ${diagram.afterRatio}. ${diagram.note}`;
+  const description = `${diagram.title}. ${labels.before} ${labels.ratio} ${diagram.beforeRatio}. ${diagram.operation}. ${labels.after} ${labels.ratio} ${diagram.afterRatio}. ${diagram.note}`;
   const operationLines = wrapWords(diagram.operation);
 
   return (
@@ -192,18 +200,20 @@ export function RatioAdjustmentDiagram({
 
         <CompositionPanel
           x={18}
-          title="Before"
+          title={labels.before}
           rows={diagram.before}
           ratio={diagram.beforeRatio}
           unit={diagram.quantityUnit}
+          ratioLabel={labels.ratio}
         />
 
         <CompositionPanel
           x={516}
-          title="After"
+          title={labels.after}
           rows={diagram.after}
           ratio={diagram.afterRatio}
           unit={diagram.quantityUnit}
+          ratioLabel={labels.ratio}
         />
 
         <g className="text-primary">
@@ -234,7 +244,7 @@ export function RatioAdjustmentDiagram({
           textAnchor="middle"
           className="fill-muted-foreground text-[11px] font-semibold"
         >
-          OPERATION
+          {labels.operation}
         </text>
         <text
           x="380"
@@ -243,11 +253,7 @@ export function RatioAdjustmentDiagram({
           className="fill-foreground text-[11px] font-semibold"
         >
           {operationLines.map((line, index) => (
-            <tspan
-              key={`${line}-${index}`}
-              x="380"
-              dy={index === 0 ? 0 : 17}
-            >
+            <tspan key={`${line}-${index}`} x="380" dy={index === 0 ? 0 : 17}>
               {line}
             </tspan>
           ))}
@@ -269,7 +275,7 @@ export function RatioAdjustmentDiagram({
               textAnchor="middle"
               className="fill-foreground text-[13px] font-semibold"
             >
-              Target ratio {diagram.targetRatio}
+              {labels.targetRatio} {diagram.targetRatio}
             </text>
           </g>
         ) : null}

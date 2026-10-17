@@ -1,3 +1,4 @@
+import { diagramLabels } from "./diagram-labels";
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
@@ -133,10 +134,11 @@ function CrossDiagram({
   diagram: AlligationCrossDiagram;
   className?: string;
 }) {
+  const labels = diagramLabels(diagram.title);
   const id = useId();
   const titleId = `${id}-title`;
   const descriptionId = `${id}-description`;
-  const description = `${diagram.title}. ${diagram.lower.label} ${diagram.lower.value}, ${diagram.higher.label} ${diagram.higher.value}, ${diagram.mean.label} ${diagram.mean.value}. The opposite differences give ${diagram.lowerPart.label} ${diagram.lowerPart.value} and ${diagram.higherPart.label} ${diagram.higherPart.value}.`;
+  const description = `${diagram.title}. ${diagram.lower.label} ${diagram.lower.value}, ${diagram.higher.label} ${diagram.higher.value}, ${diagram.mean.label} ${diagram.mean.value}. ${labels.opposite} ${diagram.lowerPart.label} ${diagram.lowerPart.value} ${labels.and} ${diagram.higherPart.label} ${diagram.higherPart.value}.`;
 
   return (
     <figure
@@ -233,19 +235,19 @@ function CrossDiagram({
       {diagram.rangePartition ? (
         <figcaption className="grid gap-2 border-t border-border/70 pt-3 text-xs sm:grid-cols-2 sm:text-sm">
           <div className="rounded-lg bg-muted/50 px-3 py-2">
-            <span className="text-muted-foreground">Quantity ratio</span>
+            <span className="text-muted-foreground">{labels.quantityRatio}</span>
             <strong className="ml-2">{diagram.rangePartition.quantityRatio}</strong>
           </div>
           <div className="rounded-lg bg-muted/50 px-3 py-2">
-            <span className="text-muted-foreground">Total parts</span>
+            <span className="text-muted-foreground">{labels.totalParts}</span>
             <strong className="ml-2">{diagram.rangePartition.totalParts}</strong>
           </div>
           <div className="rounded-lg bg-muted/50 px-3 py-2">
-            <span className="text-muted-foreground">Price gap</span>
+            <span className="text-muted-foreground">{labels.priceGap}</span>
             <strong className="ml-2">{diagram.rangePartition.priceGap}</strong>
           </div>
           <div className="rounded-lg bg-muted/50 px-3 py-2">
-            <span className="text-muted-foreground">Value per part</span>
+            <span className="text-muted-foreground">{labels.valuePerPart}</span>
             <strong className="ml-2">{diagram.rangePartition.valuePerPart}</strong>
           </div>
         </figcaption>
@@ -255,6 +257,7 @@ function CrossDiagram({
 }
 
 function DeviationDiagram({ diagram }: { diagram: AlligationDeviationDiagram }) {
+  const labels = diagramLabels(diagram.title);
   const id = useId();
   const titleId = `${id}-title`;
   const descriptionId = `${id}-description`;
@@ -273,7 +276,7 @@ function DeviationDiagram({ diagram }: { diagram: AlligationDeviationDiagram }) 
       >
         <title id={titleId}>{diagram.title}</title>
         <desc id={descriptionId}>
-          Items below the target create deficits and items above the target create surpluses. These totals must balance.
+          {labels.deviationDescription}
         </desc>
         <text x="320" y="28" textAnchor="middle" className="fill-current text-[17px] font-semibold">
           {diagram.title}
@@ -288,10 +291,10 @@ function DeviationDiagram({ diagram }: { diagram: AlligationDeviationDiagram }) 
 
         <line x1="320" y1="112" x2="320" y2={height - 20} className="stroke-border" strokeWidth="2" />
         <text x="150" y="132" textAnchor="middle" className="fill-foreground text-[13px] font-semibold">
-          Below target — deficit
+          {labels.below}
         </text>
         <text x="490" y="132" textAnchor="middle" className="fill-foreground text-[13px] font-semibold">
-          Above target — surplus
+          {labels.above}
         </text>
 
         {diagram.below.map((row, index) => {
@@ -303,7 +306,7 @@ function DeviationDiagram({ diagram }: { diagram: AlligationDeviationDiagram }) 
                 {shorten(row.label, 25)} — {row.value}
               </text>
               <text x="43" y={y + 15} className="fill-muted-foreground text-[11px]">
-                {row.quantity}; deficit {row.deviation}
+                {row.quantity}; {labels.deficit} {row.deviation}
               </text>
               <line x1="278" y1={y} x2="307" y2={y} className="stroke-primary" strokeWidth="2" />
               <path d={`M 307 ${y} l -8 -5 v 10 z`} className="fill-primary" />
@@ -320,7 +323,7 @@ function DeviationDiagram({ diagram }: { diagram: AlligationDeviationDiagram }) 
                 {shorten(row.label, 25)} — {row.value}
               </text>
               <text x="377" y={y + 15} className="fill-muted-foreground text-[11px]">
-                {row.quantity}; surplus {row.deviation}
+                {row.quantity}; {labels.surplus} {row.deviation}
               </text>
               <line x1="362" y1={y} x2="333" y2={y} className="stroke-primary" strokeWidth="2" />
               <path d={`M 333 ${y} l 8 -5 v 10 z`} className="fill-primary" />
