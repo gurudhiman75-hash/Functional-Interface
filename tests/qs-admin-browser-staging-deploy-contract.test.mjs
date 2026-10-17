@@ -23,11 +23,12 @@ test("isolated admin API uses only validation Neon, Cloud Run staging and paused
   assert.doesNotMatch(api,/examtree-api-staging\s*$/m);
 });
 test("staging Firebase revocation verifier gets only read-only user permission",()=>{
-  // authenticate() uses verifyIdToken(idToken, true) and checkRevoked
-  // requires firebaseauth.users.get. This grant is on the isolated SA only.
-  assert.match(api,/gcloud projects add-iam-policy-binding "\\$PROJECT"\\s*\\\\[\\s\\S]*?--member="serviceAccount:\\$SA" --role=roles\\/firebaseauth\\.viewer/);
-  assert.doesNotMatch(api,/roles\\/firebaseauth\\.(?:admin|editor)/);
-  assert.match(api,/--condition=None --quiet/);
+  // authenticate() uses verifyIdToken(idToken, true), which requires
+  // firebaseauth.users.get. Keep the grant on the dedicated staging SA.
+  assert.ok(api.includes('gcloud projects add-iam-policy-binding "$PROJECT"'));
+  assert.ok(api.includes('--member="serviceAccount:$SA" --role=roles/firebaseauth.viewer'));
+  assert.doesNotMatch(api, /roles\/firebaseauth\.(?:admin|editor)/);
+  assert.ok(api.includes('--condition=None --quiet'));
   // Read-only preflight mode must exit before any IAM changes.
   assert.ok(api.indexOf('if [[ "$MODE" == check ]]') < api.indexOf('gcloud projects add-iam-policy-binding'));
 });
