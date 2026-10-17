@@ -1273,6 +1273,110 @@ rules.push([
   "B में बचा $1 = $2।",
   "B ਵਿੱਚ ਬਚਿਆ $1 = $2।",
 ]);
+
+// Authored collapsed CP001 concept and verification guidance.
+Object.assign(exact, {
+  "Use the standard weighted-average equation": [
+    "भारित औसत का मानक समीकरण लगाएँ।",
+    "ਭਾਰਿਤ ਔਸਤ ਦਾ ਮਿਆਰੀ ਸਮੀਕਰਨ ਵਰਤੋ।"
+  ],
+  "Let the two required quantities be x and y, form the average-price equation, and simplify x : y": [
+    "दोनों आवश्यक मात्राएँ x और y मानें। औसत मूल्य का समीकरण बनाकर x : y सरल करें।",
+    "ਦੋਵੇਂ ਲੋੜੀਂਦੀਆਂ ਮਾਤਰਾਵਾਂ x ਅਤੇ y ਮੰਨੋ। ਔਸਤ ਕੀਮਤ ਦਾ ਸਮੀਕਰਨ ਬਣਾ ਕੇ x : y ਨੂੰ ਸਰਲ ਕਰੋ।"
+  ],
+  "The amount of each item matters": [
+    "हर वस्तु की मात्रा को ध्यान में रखना ज़रूरी है।",
+    "ਹਰ ਵਸਤੂ ਦੀ ਮਾਤਰਾ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
+  ],
+  "Multiply each price by its quantity, add the value totals, and divide by the total quantity": [
+    "हर वस्तु के मूल्य को उसकी मात्रा से गुणा करें। सभी लागतें जोड़कर कुल मात्रा से भाग दें।",
+    "ਹਰ ਵਸਤੂ ਦੀ ਕੀਮਤ ਨੂੰ ਉਸ ਦੀ ਮਾਤਰਾ ਨਾਲ ਗੁਣਾ ਕਰੋ। ਸਾਰੀਆਂ ਲਾਗਤਾਂ ਜੋੜ ਕੇ ਕੁੱਲ ਮਾਤਰਾ ਨਾਲ ਭਾਗ ਦਿਓ।"
+  ],
+  "First find the value the whole mixture must have": [
+    "पहले पूरे मिश्रण की आवश्यक कुल लागत निकालें।",
+    "ਪਹਿਲਾਂ ਪੂਰੇ ਮਿਸ਼ਰਣ ਦੀ ਲੋੜੀਂਦੀ ਕੁੱਲ ਲਾਗਤ ਕੱਢੋ।"
+  ],
+  "Then remove the value already given by the known item": [
+    "फिर ज्ञात वस्तु की लागत घटाएँ।",
+    "ਫਿਰ ਦਿੱਤੀ ਵਸਤੂ ਦੀ ਲਾਗਤ ਘਟਾਓ।"
+  ],
+  "The value left is for the unknown item": [
+    "शेष लागत अज्ञात वस्तु की है।",
+    "ਬਾਕੀ ਲਾਗਤ ਅਣਜਾਣ ਵਸਤੂ ਦੀ ਹੈ।"
+  ],
+  "Use the ratio numbers as small sample quantities": [
+    "अनुपात के अंकों को नमूने की मात्राएँ मानें।",
+    "ਅਨੁਪਾਤ ਦੇ ਅੰਕਾਂ ਨੂੰ ਨਮੂਨੇ ਦੀਆਂ ਮਾਤਰਾਵਾਂ ਮੰਨੋ।"
+  ],
+  "Find the total value needed for all parts, remove the known part, and divide the value left by the unknown parts": [
+    "सभी भागों की आवश्यक कुल लागत निकालें। ज्ञात भाग की लागत घटाकर शेष लागत को अज्ञात भागों की संख्या से भाग दें।",
+    "ਸਾਰੇ ਹਿੱਸਿਆਂ ਦੀ ਲੋੜੀਂਦੀ ਕੁੱਲ ਲਾਗਤ ਕੱਢੋ। ਦਿੱਤੇ ਹਿੱਸੇ ਦੀ ਲਾਗਤ ਘਟਾ ਕੇ ਬਾਕੀ ਲਾਗਤ ਨੂੰ ਅਣਜਾਣ ਹਿੱਸਿਆਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।"
+  ],
+  "Use total value = average price × total quantity": [
+    "कुल लागत = औसत मूल्य × कुल मात्रा का उपयोग करें।",
+    "ਕੁੱਲ ਲਾਗਤ = ਔਸਤ ਕੀਮਤ × ਕੁੱਲ ਮਾਤਰਾ ਵਰਤੋ।"
+  ],
+  "Let the required new quantity be q and solve the resulting linear equation": [
+    "मिलाई जाने वाली मात्रा q मानकर प्राप्त रैखिक समीकरण हल करें।",
+    "ਮਿਲਾਈ ਜਾਣ ਵਾਲੀ ਮਾਤਰਾ q ਮੰਨ ਕੇ ਬਣਿਆ ਰੇਖੀ ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।"
+  ],
+  "Use one total-value equation for all known items and the unknown quantity": [
+    "सभी ज्ञात वस्तुओं और अज्ञात मात्रा के लिए कुल लागत का एक समीकरण बनाएँ।",
+    "ਸਾਰੀਆਂ ਦਿੱਤੀਆਂ ਵਸਤੂਆਂ ਅਤੇ ਅਣਜਾਣ ਮਾਤਰਾ ਲਈ ਕੁੱਲ ਲਾਗਤ ਦਾ ਇੱਕ ਸਮੀਕਰਨ ਬਣਾਓ।"
+  ],
+  "This keeps the main solution purely formula based": [
+    "इससे मुख्य हल सीधे सूत्र के आधार पर मिलता है।",
+    "ਇਸ ਨਾਲ ਮੁੱਖ ਹੱਲ ਸਿੱਧਾ ਫਾਰਮੂਲੇ ਦੇ ਆਧਾਰ ਉੱਤੇ ਮਿਲਦਾ ਹੈ।"
+  ],
+  "Let the lower-priced quantity be x": [
+    "कम मूल्य वाली वस्तु की मात्रा x मानें।",
+    "ਘੱਟ ਕੀਮਤ ਵਾਲੀ ਵਸਤੂ ਦੀ ਮਾਤਰਾ x ਮੰਨੋ।"
+  ],
+  "The higher-priced quantity is the given total minus x": [
+    "अधिक मूल्य वाली वस्तु की मात्रा = दी गई कुल मात्रा − x।",
+    "ਵੱਧ ਕੀਮਤ ਵਾਲੀ ਵਸਤੂ ਦੀ ਮਾਤਰਾ = ਦਿੱਤੀ ਕੁੱਲ ਮਾਤਰਾ − x।"
+  ],
+  "Use the total-value equation and solve": [
+    "कुल लागत का समीकरण बनाकर हल करें।",
+    "ਕੁੱਲ ਲਾਗਤ ਦਾ ਸਮੀਕਰਨ ਬਣਾ ਕੇ ਹੱਲ ਕਰੋ।"
+  ],
+  "Solve the first mixture completely": [
+    "पहले मिश्रण का हल पूरा करें।",
+    "ਪਹਿਲੇ ਮਿਸ਼ਰਣ ਦਾ ਹੱਲ ਪੂਰਾ ਕਰੋ।"
+  ],
+  "Then treat the used portion of that mixture as one new item in the second mixing step": [
+    "दूसरे चरण में पहले मिश्रण से लिए गए हिस्से को एक वस्तु मानें।",
+    "ਦੂਜੇ ਪੜਾਅ ਵਿੱਚ ਪਹਿਲੇ ਮਿਸ਼ਰਣ ਤੋਂ ਲਏ ਹਿੱਸੇ ਨੂੰ ਇੱਕ ਵਸਤੂ ਮੰਨੋ।"
+  ],
+  "A simple average is correct only when the two quantities are equal": [
+    "साधारण औसत तभी सही है जब दोनों मात्राएँ बराबर हों।",
+    "ਸਧਾਰਨ ਔਸਤ ਤਾਂ ਹੀ ਸਹੀ ਹੈ ਜਦੋਂ ਦੋਵੇਂ ਮਾਤਰਾਵਾਂ ਬਰਾਬਰ ਹੋਣ।"
+  ],
+  "A reversed ratio is formed when the two cross differences are written under the wrong items": [
+    "दोनों क्रॉस अंतर गलत वस्तुओं के नीचे लिखने से अनुपात उलट जाता है।",
+    "ਦੋਵੇਂ ਕ੍ਰਾਸ ਅੰਤਰ ਗਲਤ ਵਸਤੂਆਂ ਹੇਠ ਲਿਖਣ ਨਾਲ ਅਨੁਪਾਤ ਉਲਟ ਜਾਂਦਾ ਹੈ।"
+  ],
+  "Always answer in the order used in the question": [
+    "उत्तर में वस्तुओं का क्रम प्रश्न के अनुसार रखें।",
+    "ਉੱਤਰ ਵਿੱਚ ਵਸਤੂਆਂ ਦਾ ਕ੍ਰਮ ਸਵਾਲ ਅਨੁਸਾਰ ਰੱਖੋ।"
+  ],
+  "Leaving out even one item changes both the total value and the total quantity": [
+    "एक भी वस्तु छोड़ने से कुल लागत और कुल मात्रा दोनों बदल जाती हैं।",
+    "ਇੱਕ ਵੀ ਵਸਤੂ ਛੱਡਣ ਨਾਲ ਕੁੱਲ ਲਾਗਤ ਅਤੇ ਕੁੱਲ ਮਾਤਰਾ ਦੋਵੇਂ ਬਦਲ ਜਾਂਦੀਆਂ ਹਨ।"
+  ],
+  "Include every item": [
+    "हर वस्तु को शामिल करें।",
+    "ਹਰ ਵਸਤੂ ਨੂੰ ਸ਼ਾਮਲ ਕਰੋ।"
+  ]
+});
+rules.push(
+  [/^Common trap: do not choose Option ([A-D]) \((.+?)\)\.$/, "सामान्य गलती: विकल्प $1 ($2) न चुनें।", "ਆਮ ਗਲਤੀ: ਵਿਕਲਪ $1 ($2) ਨਾ ਚੁਣੋ।"],
+  [/^(.+?) gives an average of (.+?), which is exactly the target price\.$/, "$1 से औसत मूल्य $2 मिलता है, जो दिए गए लक्ष्य के बराबर है।", "$1 ਨਾਲ ਔਸਤ ਕੀਮਤ $2 ਮਿਲਦੀ ਹੈ, ਜੋ ਦਿੱਤੇ ਟੀਚੇ ਦੇ ਬਰਾਬਰ ਹੈ।"],
+  [/^The final average price is (.+?)\.$/, "अंतिम औसत मूल्य $1 है।", "ਅੰਤਿਮ ਔਸਤ ਕੀਮਤ $1 ਹੈ।"],
+  [/^The final mixture costs (.+?)\.$/, "अंतिम मिश्रण का मूल्य $1 है।", "ਅੰਤਿਮ ਮਿਸ਼ਰਣ ਦੀ ਕੀਮਤ $1 ਹੈ।"],
+  [/^putting (.+?) back into the mixture gives the required average of (.+?)\.$/, "$1 को मिश्रण में रखकर जाँचने पर आवश्यक औसत $2 मिलता है।", "$1 ਨੂੰ ਮਿਸ਼ਰਣ ਵਿੱਚ ਰੱਖ ਕੇ ਜਾਂਚਣ ਉੱਤੇ ਲੋੜੀਂਦੀ ਔਸਤ $2 ਮਿਲਦੀ ਹੈ।"],
+  [/^the answer (.+?) matches the ratio and total quantity, giving the target price (.+?)\.$/, "उत्तर $1 दिए गए अनुपात और कुल मात्रा के अनुरूप है। इससे लक्षित मूल्य $2 मिलता है।", "ਉੱਤਰ $1 ਦਿੱਤੇ ਅਨੁਪਾਤ ਅਤੇ ਕੁੱਲ ਮਾਤਰਾ ਅਨੁਸਾਰ ਹੈ। ਇਸ ਨਾਲ ਲੋੜੀਂਦੀ ਕੀਮਤ $2 ਮਿਲਦੀ ਹੈ।"],
+);
 const specificity = (r: Rule) =>
   r[0].source.length - (r[0].source.match(/\.\+/g)?.length ?? 0) * 15;
 rules.sort((a, b) => specificity(b) - specificity(a));
