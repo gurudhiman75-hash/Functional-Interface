@@ -58,6 +58,14 @@ fi
 if ! gcloud iam service-accounts describe "$SA" --project="$PROJECT" >/dev/null 2>&1; then
   gcloud iam service-accounts create "$SA_NAME" --project="$PROJECT" --display-name="Question Studio isolated staging admin API"
 fi
+# authenticate() verifies Firebase ID tokens with checkRevoked=true, which
+# reads the Firebase user record to check revocation/disabled state. This
+# dedicated staging identity must have firebaseauth.users.get, but no Firebase
+# Authentication write permission or long-lived service-account key.
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="serviceAccount:$SA" --role=roles/firebaseauth.viewer \
+  --condition=None --quiet >/dev/null
+echo "PASS: staging Firebase revocation read permission (viewer only)"
 gcloud secrets add-iam-policy-binding "$DB_SECRET" --project="$PROJECT" \
   --member="serviceAccount:$SA" --role=roles/secretmanager.secretAccessor >/dev/null
 
