@@ -1,3 +1,4 @@
+import { localizeMalExplanationTextV9 } from "./foundation/chapter-native-explanations-v9";
 import assert from "node:assert/strict";
 import { applyMal001NativeQualityV8 } from "./foundation/chapter-native-quality-v8";
 import { runMal001QuestionStudioPipeline as run } from "./question-studio-adapter";
@@ -218,3 +219,32 @@ console.log(
     lifecycleLocked: true,
   }),
 );
+
+// CP001 collapsed concept notes must use authored sentences across changing objects.
+for (let ql = 1; ql <= 11; ql++) {
+  for (let seed = 0; seed < 12; seed++) {
+    const input = { questionLanguageId: `MAL-QL-${String(ql).padStart(3, "0")}`, seed: `HELP:${ql}:${seed}` };
+    const en = run("MAL-CP-001", { ...input, language: "en" } as any);
+    for (const language of ["hi", "pa"] as const) {
+      const concept = en.explanation.coreConcept;
+      assert.equal(typeof concept, "string");
+      const result = localizeMalExplanationTextV9(concept, language);
+      assert(result.authored, `${input.questionLanguageId}: collapsed concept still uses fallback`);
+      assert(!/[A-Za-z]{2,}/.test(result.text), `English remains in native concept: ${result.text}`);
+    }
+  }
+}
+for (const source of [
+  "Common trap: do not choose Option B (2 : 1 ratio).",
+  "1 : 2 gives an average of ₹90 per kg, which is exactly the target price.",
+  "The final average price is ₹65 per kg.",
+  "The final mixture costs ₹99 per litre.",
+  "putting ₹54 per kg back into the mixture gives the required average of ₹70 per kg.",
+  "the answer 16 kg matches the ratio and total quantity, giving the target price ₹38 per kg.",
+]) for (const language of ["hi", "pa"] as const) {
+  const result = localizeMalExplanationTextV9(source, language);
+  assert(result.authored, `unhandled collapsed guidance: ${source}`);
+  assert(!/[A-Za-z]{2,}/.test(result.text), result.text);
+  assert.deepEqual(numerical(result.text), numerical(source), "guidance quantities changed");
+}
+console.log("MAL_CP001_COLLAPSED_HELP: 264 concept comparisons and 12 verification/warning fixtures passed");
