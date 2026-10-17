@@ -1,5 +1,11 @@
 # Banking Number Series — pending chapter audit
 
+> Historical Phase-0 checkpoint. Superseded for current implementation status
+> by `bns-content-review-v3-2026-10-13.md` and the merged PR #3413 numeric-surface
+> audit. See `bns-source-frequency-review-2026-10-17.md` for the current source
+> and frequency evidence boundaries; do not reopen completed V3 work from this
+> historical backlog.
+
 Package: `BNS-001`. Base: `New-main@320807d0`. Technical audit of the existing Phase-0 scope: PASS after correction. Whole-chapter source/content freeze: NOT CLAIMED.
 
 ## Verified backlog
