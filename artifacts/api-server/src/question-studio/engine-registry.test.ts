@@ -26,6 +26,21 @@ assert.equal(packages.some((pkg) => pkg.packageId === "PCT-ALL"), false,
   "The mixed Percentage selector must not be registered as an executable package.");
 assert.equal(packages.find((pkg) => pkg.packageId === "CAL-001")?.engineId, "reasoning-v1",
   "Calendar must retain its native reasoning engine owner.");
+for (const packageId of [
+  ...Array.from({length: 7}, (_, index) =>
+    `REASONING_V1_BLR_001_CP_${String(index + 1).padStart(3, "0")}`),
+  "IOP-001",
+]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, `${packageId}: native reasoning source package must remain registered`);
+  assert.equal(pkg.engineId, "reasoning-v1", `${packageId}: must not appear under Quant`);
+  assert.equal(pkg.subject, "Reasoning Ability", `${packageId}: must use canonical Reasoning subject`);
+  assert.equal(pkg.enabled, true);
+  assert.equal(pkg.questionBankWritable, false);
+  assert.equal(pkg.testEligible, false);
+  assert.equal(pkg.publiclyPublishable, false);
+}
+
 for (const packageId of ["PRB-001", "PRB-002", "TRG-001", "TRG-002"]) {
   const pkg = packages.find((entry) => entry.packageId === packageId);
   assert.ok(pkg);

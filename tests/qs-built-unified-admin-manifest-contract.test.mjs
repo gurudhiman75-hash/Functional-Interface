@@ -30,6 +30,9 @@ test('Cloud Run image generates separate manifest in child process, not live API
   assert.match(build,/await rm\(unifiedBuilderPath/);
   assert.match(builder,/listQuestionStudioPackages/);
   assert.match(builder,/subject: packageSubject\(pkg\)/);
+  assert.match(builder,/QUESTION_STUDIO_SUBJECT_OWNERSHIP_DRIFT/);
+  assert.match(builder,/reasoning ability/);
+
   assert.match(builder,/chapter: packageChapter\(pkg\)/);
   assert.match(builder,/label: pkg\.label/);
   assert.match(builder,/supportedLanguages: pkg\.supportedLanguages/);

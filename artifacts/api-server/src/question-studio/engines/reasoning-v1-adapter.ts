@@ -129,6 +129,14 @@ import {
   generateBlr001ChapterQuestionStudioBatch,
   isBlr001ChapterQuestionStudioRequest,
 } from "../../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-chapter-integration";
+import {
+  generateBlr001StandardQuestionStudioBatch,
+  listBlr001StandardQuestionStudioPackages,
+} from "../../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-standard-integration";
+import {
+  generateIop001StandardQuestionStudioBatch,
+  IOP_001_QUESTION_STUDIO_PACKAGE,
+} from "../../reasoning-v1/topics/InputOutput/IOP-001/question-studio-standard-integration";
 
 import {
   CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
@@ -153,6 +161,49 @@ export const OPS001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 =
   "OPS-001-FINAL-AUDIT-REMEDIATION-V1" as const;
 
 type OpsExamProfile = "SSC_MODERN" | "BANKING" | "PUNJAB_STATE" | "GENERIC";
+
+// These legacy checkpoint generators were previously exposed through quant-v4
+// solely because the Quant dispatcher imported their source modules. Preserve
+// all eight package IDs and original runtime modes under their native Reasoning
+// owner; never make their review candidates student-publishable.
+const nativeBlrSourceCards = listBlr001StandardQuestionStudioPackages();
+const nativeReasoningSourceCards = [
+  ...nativeBlrSourceCards,
+  IOP_001_QUESTION_STUDIO_PACKAGE,
+];
+const nativeBlrSourceIds = new Set(nativeBlrSourceCards.map((card) => card.packageId));
+
+function nativeReasoningSourceCard(card: (typeof nativeReasoningSourceCards)[number]): QuestionStudioPackageDefinition {
+  return {
+    engineId: "reasoning-v1",
+    packageId: card.packageId,
+    subject: "Reasoning Ability",
+    topic: card.subtopic,
+    subtopic: card.subtopic,
+    label: card.label,
+    enabled: card.enabled,
+    cpIds: [...card.cpIds],
+    supportedLanguages: [...card.supportedLanguages],
+    supportedDifficulties: ["Easy", "Medium", "Hard"],
+    difficultyFilterSupported: true,
+    runtimeMode: card.runtimeMode,
+    supportedRuntimeModes: [...card.supportedRuntimeModes],
+    manualApprovalRequired: true,
+    questionBankStatus: "NOT_STORED",
+    questionBankWritable: false,
+    testEligibility: "INELIGIBLE",
+    testEligible: false,
+    mockTestEligible: false,
+    publiclyPublishable: false,
+    automaticStudentPublication: false,
+    productionReleaseAuthorized: false,
+    metadata: {
+      sourceEngineId: "reasoning-v1",
+      sourceRegistration: "NATIVE_REASONING_CHECKPOINT",
+      existingGenerationRestrictionsPreserved: true,
+    },
+  };
+}
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const qlIds = OPS_QL_ENTRIES.map((entry) => entry.qlId) as OpsQlId[];
@@ -486,6 +537,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+      ...nativeReasoningSourceCards.map(nativeReasoningSourceCard),
       CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
@@ -512,6 +564,20 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   async generate(
     request: QuestionStudioGenerationRequest,
   ): Promise<QuestionStudioGenerationResult> {
+    if (request.packageId === IOP_001_QUESTION_STUDIO_PACKAGE.packageId) {
+      const source = generateIop001StandardQuestionStudioBatch(request);
+      return {
+        questions: source.questions.map((question) => ({ ...question })),
+        generationContext: { ...source.generationContext, engineId: "reasoning-v1" },
+      };
+    }
+    if (request.packageId && nativeBlrSourceIds.has(request.packageId)) {
+      const source = generateBlr001StandardQuestionStudioBatch(request);
+      return {
+        questions: source.questions.map((question) => ({ ...question })),
+        generationContext: { ...source.generationContext, engineId: "reasoning-v1" },
+      };
+    }
     if (isVen001ShapeRegionRequest(request)) {
       return generateVen001ShapeRegionBatch(request);
     }
