@@ -25,7 +25,7 @@ async function installStoreFixtures(page: Page) {
     const path = url.pathname.replace(/^\/api/, "");
 
     if (path === "/commerce/products") {
-      return fulfillJson(route, { products: [storeProduct], generatedAt: "2026-08-29T08:00:00.000Z" });
+      return fulfillJson(route, { products: [storeProduct], salesEnabled: true, checkoutProvider: "cashfree", generatedAt: "2026-08-29T08:00:00.000Z" });
     }
     if (path === "/categories") return fulfillJson(route, []);
     if (path === "/subcategories") return fulfillJson(route, []);
@@ -76,6 +76,9 @@ test.describe("student Store", () => {
     await expect(page.getByRole("heading", { name: storeProduct.title, exact: true })).toBeVisible();
     await expect(page.getByText("90 days", { exact: true })).toBeVisible();
 
+    await page.getByTestId("btn-store-checkout").click();
+    await expect(page).toHaveURL(new RegExp(`/checkout/${storeProduct.id}$`));
+    await expect(page.getByRole("button", { name: "Sign in to continue", exact: true })).toBeVisible();
     await page.getByTestId("btn-store-checkout").click();
     await expect(page).toHaveURL(/\/login\/student\?next=/);
     const next = await page.evaluate(() => new URL(window.location.href).searchParams.get("next"));
