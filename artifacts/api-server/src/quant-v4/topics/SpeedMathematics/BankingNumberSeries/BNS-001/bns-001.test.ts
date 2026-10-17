@@ -219,6 +219,37 @@ for (const input of [{ taskKind: "UNKNOWN_TASK" }, { patternKind: "UNKNOWN_GRAMM
   assert(rejected, "BNS generation must reject unsupported selectors before emitting learner content.");
 }
 const forbiddenRandomToken = "Math" + ".random(";
+let numericSurfaceRejections = 0;
+for (const patternKind of ["ARITHMETIC_DIFFERENCE", "FRACTIONAL_GEOMETRIC"] as const) {
+  for (const taskKind of ["NEXT_TERM", "MISSING_TERM", "WRONG_TERM"] as const) {
+    for (const language of ["en", "hi", "pa"] as const) {
+      const q = generateBns001Question({ seed: `BNS-NUMERIC-SURFACE-${taskKind}`, patternKind, taskKind, language });
+      assert(independentlyVerifyBns001Question(q).valid, "Valid decimal learner surface rejected.");
+      const distractor = (q.correctIndex + 1) % 5;
+      const numericIndex = q.visibleSeries.findIndex((value) => value !== "?");
+      const optionMutation = (index: number, value: string) => ({
+        ...q,
+        options: q.options.map((option, i) => i === index ? value : option),
+        answer: index === q.correctIndex ? value : q.answer,
+      });
+      const bad = [
+        { ...q, visibleSeries: q.visibleSeries.map((value, i) => i === numericIndex ? String(value) : value) },
+        { ...q, visibleSeries: q.visibleSeries.map((value, i) => i === numericIndex ? Infinity : value) },
+        optionMutation(q.correctIndex, ` ${q.answer} `),
+        optionMutation(q.correctIndex, `0x${Number(q.answer).toString(16)}`),
+        optionMutation(distractor, "NaN"),
+        optionMutation(distractor, "-1"),
+        optionMutation(distractor, `0${q.answer}`),
+      ];
+      if (taskKind === "WRONG_TERM") bad.push(optionMutation(distractor, "999999999999999"));
+      for (const candidate of bad) {
+        assert(!independentlyVerifyBns001Question(candidate as typeof q).valid,
+          `${patternKind}/${taskKind}/${language}: malformed numeric learner surface accepted.`);
+        numericSurfaceRejections++;
+      }
+    }
+  }
+}
 for (const file of walkFiles(scope).filter((path) => path.endsWith(".ts"))) {
   const source = readFileSync(file, "utf8");
   assert(!source.includes(forbiddenRandomToken), `Non-deterministic random source is prohibited in BNS-001: ${file}`);
@@ -236,6 +267,7 @@ console.log(JSON.stringify({
   internalIndependentParityChecks,
   families: patterns.length * tasks.length,
   malformedPackageRejections: malformedFixtures.length,
+  numericSurfaceRejections,
   answerPositionCoverage: Object.fromEntries([...answerPositions].map(([key, value]) => [key, [...value].sort()])),
   hiddenPositionCoverage: Object.fromEntries([...hiddenPositions].map(([key, value]) => [key, [...value].sort()])),
   distinctVisibleStates: Object.fromEntries([...fingerprints].map(([key, value]) => [key, value.size])),

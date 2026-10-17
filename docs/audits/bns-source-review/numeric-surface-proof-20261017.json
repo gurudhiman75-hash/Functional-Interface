@@ -1,0 +1,796 @@
+{
+  "status": "PASS_BNS_NUMERIC_SURFACE_AUDIT",
+  "baseMain": "8faa2deb42d18b8fb37adcc76fc4d28d10079ed3",
+  "englishQuestions": 4188,
+  "nativeQuestions": 6336,
+  "targetedMainsChecks": 288,
+  "numericSurfaceRejections": 132,
+  "validNumericSurfaceControls": 18,
+  "scopedStrictRuntimeTypecheck": "PASS (TypeScript 7.0.2; no project-wide claim)",
+  "liveVerification": "DEFERRED_TO_USER",
+  "wholeChapterSourceSaturation": false,
+  "examFrequencyCalibration": false,
+  "humanApprovalAsserted": false,
+  "auditResults": [
+    {
+      "status": "PASS_BNS_001_CONTENT_REVIEW_V2",
+      "questions": 1000,
+      "wrongTermChecks": 500,
+      "localizedChecks": 960,
+      "totalQuestions": 1500,
+      "deterministicReplayChecks": 1000,
+      "independentVerificationChecks": 1000,
+      "distractorGrammarChecks": 4000,
+      "internalIndependentParityChecks": 1000,
+      "families": 10,
+      "malformedPackageRejections": 6,
+      "numericSurfaceRejections": 132,
+      "answerPositionCoverage": {
+        "ARITHMETIC_DIFFERENCE:NEXT_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "ARITHMETIC_DIFFERENCE:MISSING_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "PROGRESSIVE_DIFFERENCE:NEXT_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "PROGRESSIVE_DIFFERENCE:MISSING_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "GEOMETRIC_MULTIPLICATION:NEXT_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "GEOMETRIC_MULTIPLICATION:MISSING_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "MULTIPLY_AND_ADD:NEXT_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "MULTIPLY_AND_ADD:MISSING_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "INTERLEAVED_ARITHMETIC:NEXT_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "INTERLEAVED_ARITHMETIC:MISSING_TERM": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "hiddenPositionCoverage": {
+        "ARITHMETIC_DIFFERENCE": [
+          2,
+          3,
+          4
+        ],
+        "PROGRESSIVE_DIFFERENCE": [
+          2,
+          3,
+          4
+        ],
+        "GEOMETRIC_MULTIPLICATION": [
+          2,
+          3,
+          4
+        ],
+        "MULTIPLY_AND_ADD": [
+          2,
+          3,
+          4
+        ],
+        "INTERLEAVED_ARITHMETIC": [
+          2,
+          3,
+          4
+        ]
+      },
+      "distinctVisibleStates": {
+        "ARITHMETIC_DIFFERENCE:NEXT_TERM": 34,
+        "ARITHMETIC_DIFFERENCE:MISSING_TERM": 59,
+        "PROGRESSIVE_DIFFERENCE:NEXT_TERM": 79,
+        "PROGRESSIVE_DIFFERENCE:MISSING_TERM": 95,
+        "GEOMETRIC_MULTIPLICATION:NEXT_TERM": 10,
+        "GEOMETRIC_MULTIPLICATION:MISSING_TERM": 29,
+        "MULTIPLY_AND_ADD:NEXT_TERM": 56,
+        "MULTIPLY_AND_ADD:MISSING_TERM": 83,
+        "INTERLEAVED_ARITHMETIC:NEXT_TERM": 78,
+        "INTERLEAVED_ARITHMETIC:MISSING_TERM": 88
+      }
+    },
+    {
+      "status": "PASS_BNS_ADVANCED_V3",
+      "generated": 2688,
+      "localized": 5376,
+      "mains": 288,
+      "negative": 2688,
+      "sourceFixtures": 17,
+      "coverage": {
+        "QUARTIC_POLYNOMIAL_TERMS:NEXT_TERM": {
+          "states": 12,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "QUARTIC_POLYNOMIAL_TERMS:MISSING_TERM": {
+          "states": 31,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "QUARTIC_POLYNOMIAL_TERMS:WRONG_TERM": {
+          "states": 62,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "POWER_DIFFERENCE:NEXT_TERM": {
+          "states": 42,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "POWER_DIFFERENCE:MISSING_TERM": {
+          "states": 54,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "POWER_DIFFERENCE:WRONG_TERM": {
+          "states": 63,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "QUADRATIC_DIFFERENCE:NEXT_TERM": {
+          "states": 60,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "QUADRATIC_DIFFERENCE:MISSING_TERM": {
+          "states": 64,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "QUADRATIC_DIFFERENCE:WRONG_TERM": {
+          "states": 64,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "DESCENDING_CUBE_DIFFERENCE:NEXT_TERM": {
+          "states": 31,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "DESCENDING_CUBE_DIFFERENCE:MISSING_TERM": {
+          "states": 49,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "DESCENDING_CUBE_DIFFERENCE:WRONG_TERM": {
+          "states": 64,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "ODD_SQUARE_DIFFERENCE:NEXT_TERM": {
+          "states": 29,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "ODD_SQUARE_DIFFERENCE:MISSING_TERM": {
+          "states": 49,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "ODD_SQUARE_DIFFERENCE:WRONG_TERM": {
+          "states": 61,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "CONSECUTIVE_CUBES:NEXT_TERM": {
+          "states": 12,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "CONSECUTIVE_CUBES:MISSING_TERM": {
+          "states": 30,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "CONSECUTIVE_CUBES:WRONG_TERM": {
+          "states": 59,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "VARIABLE_MULTIPLY_SUBTRACT:NEXT_TERM": {
+          "states": 9,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "VARIABLE_MULTIPLY_SUBTRACT:MISSING_TERM": {
+          "states": 24,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "VARIABLE_MULTIPLY_SUBTRACT:WRONG_TERM": {
+          "states": 56,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "VARIABLE_MULTIPLY_ADD:NEXT_TERM": {
+          "states": 35,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "VARIABLE_MULTIPLY_ADD:MISSING_TERM": {
+          "states": 48,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "VARIABLE_MULTIPLY_ADD:WRONG_TERM": {
+          "states": 62,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "FRACTIONAL_GEOMETRIC:NEXT_TERM": {
+          "states": 12,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "FRACTIONAL_GEOMETRIC:MISSING_TERM": {
+          "states": 29,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "FRACTIONAL_GEOMETRIC:WRONG_TERM": {
+          "states": 56,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "VARIABLE_FRACTIONAL_MULTIPLIER:NEXT_TERM": {
+          "states": 17,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "VARIABLE_FRACTIONAL_MULTIPLIER:MISSING_TERM": {
+          "states": 38,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "VARIABLE_FRACTIONAL_MULTIPLIER:WRONG_TERM": {
+          "states": 59,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "VARIABLE_FRACTIONAL_DIVISOR:NEXT_TERM": {
+          "states": 35,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "VARIABLE_FRACTIONAL_DIVISOR:MISSING_TERM": {
+          "states": 56,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "VARIABLE_FRACTIONAL_DIVISOR:WRONG_TERM": {
+          "states": 63,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "ALTERNATING_MULTIPLY_DIVIDE:NEXT_TERM": {
+          "states": 15,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "ALTERNATING_MULTIPLY_DIVIDE:MISSING_TERM": {
+          "states": 38,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "ALTERNATING_MULTIPLY_DIVIDE:WRONG_TERM": {
+          "states": 60,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "PRIME_SECOND_DIFFERENCE:NEXT_TERM": {
+          "states": 52,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "PRIME_SECOND_DIFFERENCE:MISSING_TERM": {
+          "states": 54,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "PRIME_SECOND_DIFFERENCE:WRONG_TERM": {
+          "states": 64,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "INTERLEAVED_PROGRESSIVE_DIFFERENCE:NEXT_TERM": {
+          "states": 60,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": []
+        },
+        "INTERLEAVED_PROGRESSIVE_DIFFERENCE:MISSING_TERM": {
+          "states": 63,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            2,
+            3,
+            4
+          ]
+        },
+        "INTERLEAVED_PROGRESSIVE_DIFFERENCE:WRONG_TERM": {
+          "states": 64,
+          "answers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      },
+      "mainsSelectorFamilies": 12
+    }
+  ]
+}

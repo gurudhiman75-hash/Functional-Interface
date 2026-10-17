@@ -151,10 +151,20 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
   // correct continuation alone cannot validate an item with missing choices
   // or an unsupported task silently interpreted as a missing-term question.
   const hiddenIndex = question.proof.hiddenIndex;
+  // Number() also accepts hexadecimal, whitespace and numeric strings in the
+  // series. Those coercions must not certify the displayed decimal contract.
+  const positiveNumber = (value: unknown): value is number =>
+    typeof value === "number" && Number.isFinite(value) && value > 0;
+  const decimalChoice = (value: unknown): value is string =>
+    typeof value === "string" && /^\d+(?:\.\d+)?$/u.test(value) &&
+    Number.isFinite(Number(value)) && Number(value) > 0;
   const shapeValid =
     question.optionCount === 5 &&
     question.options.length === 5 &&
     new Set(question.options).size === 5 &&
+    question.options.every(decimalChoice) &&
+    new Set(question.options.map(Number)).size === 5 &&
+    question.visibleSeries.every((value) => value === "?" || positiveNumber(value)) &&
     Number.isInteger(question.correctIndex) &&
     question.correctIndex >= 0 && question.correctIndex < 5 &&
     question.visibleSeries.length === (question.taskKind === "WRONG_TERM" ? 8 : 6) &&
@@ -163,7 +173,8 @@ export function independentlyVerifyBns001Question(question: Bns001Question): Bns
       ? hiddenIndex === null && question.visibleSeries.every((value) => typeof value === "number")
       : question.taskKind === "WRONG_TERM"
         ? hiddenIndex !== null && Number.isInteger(hiddenIndex) && hiddenIndex >= 0 && hiddenIndex < question.visibleSeries.length &&
-          question.visibleSeries.every((value) => typeof value === "number")
+          question.visibleSeries.every(positiveNumber) &&
+          question.options.every((option) => question.visibleSeries.includes(Number(option)))
         : question.taskKind === "MISSING_TERM" && hiddenIndex !== null &&
         [2, 3, 4].includes(hiddenIndex) &&
         question.visibleSeries[hiddenIndex] === "?" &&
