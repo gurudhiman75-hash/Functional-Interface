@@ -81,8 +81,10 @@ function assertFrozenParity(question: any, language: "en" | "hi" | "pa") {
 
 let qlLanguageCoverageCount = 0;
 let diagramBearingPreviewCount = 0;
+const sourcePatternDrifts: string[] = [];
 for (const qlId of GEO_001_QUESTION_STUDIO_QL_IDS) {
   for (const language of ["en", "hi", "pa"] as const) {
+    try {
     const result = await generateQuestion({
       packageId: "GEO-001" as never,
       questionLanguageId: qlId,
@@ -96,7 +98,14 @@ for (const qlId of GEO_001_QUESTION_STUDIO_QL_IDS) {
     assertFrozenParity(question, language);
     if (question.stemSvg) diagramBearingPreviewCount += 1;
     qlLanguageCoverageCount += 1;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      sourcePatternDrifts.push(`${qlId}/${language}: ${message}`);
+    }
   }
+}
+if (sourcePatternDrifts.length) {
+  throw new Error(`Geometry localization source/template mismatches (${sourcePatternDrifts.length}):\n${sourcePatternDrifts.join("\n---\n")}`);
 }
 assert.equal(qlLanguageCoverageCount, 225);
 assert.ok(diagramBearingPreviewCount > 0);
