@@ -13,7 +13,7 @@ import {
 const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53];
 export const BNS_MAINS_PATTERNS: readonly Bns001PatternKind[] =
   ADVANCED_PATTERNS.filter(
-    (p) => p !== "FRACTIONAL_GEOMETRIC" && p !== "CONSECUTIVE_CUBES",
+    (p) => p !== "FRACTIONAL_GEOMETRIC" && p !== "CONSECUTIVE_CUBES" && p !== "CONSTANT_DIVISION" && p !== "CONSECUTIVE_PRIME_DIFFERENCE",
   );
 function rng(seed: string) {
   let h = 2166136261;
@@ -40,6 +40,39 @@ function state(pattern: Bns001PatternKind, seed: string, length: number) {
     scale = choose(r, [1, 2, 3]);
   let rule: string[];
   let start = choose(r, [12, 18, 24, 31, 38, 49, 65]);
+  if (pattern === "CONSECUTIVE_PRIME_DIFFERENCE") {
+    const offset = choose(r, [0, 1, 2, 3, 4, 5, 6, 7, 8]), sign = choose(r, [-1, 1]);
+    const gaps = Array.from({ length: length - 1 }, (_, i) => scale * primes[offset + i]!);
+    if (sign < 0) start += gaps.reduce((a, b) => a + b, 0);
+    rule = [
+      `${sign > 0 ? "Add" : "Subtract"} ${scale} times successive primes, beginning with ${primes[offset]}.`,
+      `${primes[offset]} से शुरू होने वाली क्रमागत अभाज्य संख्याओं के ${scale} गुने ${sign > 0 ? "जोड़ें" : "घटाएँ"}।`,
+      `${primes[offset]} ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੀਆਂ ਲਗਾਤਾਰ ਅਭਾਜ ਸੰਖਿਆਵਾਂ ਦੇ ${scale} ਗੁਣੇ ${sign > 0 ? "ਜੋੜੋ" : "ਘਟਾਓ"}।`,
+    ];
+    series.push(start);
+    for (let i = 0; i < length - 1; i++) {
+      const next = series[i]! + sign * gaps[i]!;
+      steps.push(`${series[i]} ${sign > 0 ? "+" : "−"} ${scale} × ${primes[offset + i]} = ${next}`);
+      series.push(next);
+    }
+    return { series, steps, rule };
+  }
+  if (pattern === "CONSTANT_DIVISION") {
+    const divisor = choose(r, [2, 3, 4]);
+    // Start at an exact multiple of the whole divisor chain, keeping every
+    // generated term integral without rounded recurring decimals.
+    const unit = choose(r, [1, 2, 3]);
+    rule = [
+      `Divide each term by ${divisor}.`,
+      `हर पद को ${divisor} से भाग दें।`,
+      `ਹਰ ਪਦ ਨੂੰ ${divisor} ਨਾਲ ਭਾਗ ਕਰੋ।`,
+    ];
+    for (let i = 0; i < length; i++) {
+      series.push(unit * divisor ** (length - 1 - i));
+      if (i > 0) steps.push(`${series[i - 1]} ÷ ${divisor} = ${series[i]}`);
+    }
+    return { series, steps, rule };
+  }
   if (pattern === "QUARTIC_POLYNOMIAL_TERMS") {
     const k = choose(r, [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
     rule = [

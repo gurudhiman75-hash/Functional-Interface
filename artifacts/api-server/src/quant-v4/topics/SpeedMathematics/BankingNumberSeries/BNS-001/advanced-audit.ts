@@ -142,6 +142,9 @@ export function auditAdvancedBns() {
     ["DESCENDING_CUBE_DIFFERENCE", [1634, 905, 562, 437, 410, 409]],
     ["VARIABLE_MULTIPLY_ADD", [5, 25, 129, 777, 5441, 43529]],
     ["FRACTIONAL_GEOMETRIC", [16, 40, 100, 250, 625, 1562.5]],
+    ["CONSTANT_DIVISION", [18225, 6075, 2025, 675, 225, 75, 25]],
+    ["CONSECUTIVE_PRIME_DIFFERENCE", [2194, 2175, 2152, 2123, 2092, 2055, 2014]],
+    ["CONSECUTIVE_PRIME_DIFFERENCE", [15, 34, 57, 86, 117, 154]],
     ["VARIABLE_FRACTIONAL_MULTIPLIER", [2.5, 5, 12.5, 37.5, 131.25, 525]],
     ["PRIME_SECOND_DIFFERENCE", [5, 23, 43, 66, 94, 129]],
     ["ALTERNATING_MULTIPLY_DIVIDE", [12, 36, 6, 18, 3, 9, 1.5]],
@@ -168,6 +171,13 @@ export function auditAdvancedBns() {
     "Geometric-difference/negative-addend fixture",
   );
   const selected = new Set<string>();
+  const divisionRepairs = independentWrongTermRepairs([18225, 6075, 2025, 675, 220, 75, 25]);
+  assert(divisionRepairs.length === 1 && divisionRepairs[0]!.index === 4 &&
+    divisionRepairs[0]!.replacement === 225, "IBPS PO 2024 Q77 source repair");
+  const primeRepairs = independentWrongTermRepairs([2194, 2175, 2152, 2123, 2092, 2054, 2014]);
+  assert(primeRepairs.some((repair) => repair.index === 5 && repair.replacement === 2055 &&
+    repair.pattern === "CONSECUTIVE_PRIME_DIFFERENCE"), "IBPS PO 2024 Q80 intended source repair");
+  assert(primeRepairs.length > 1, "Retain the seven-term source ambiguity hold; do not certify unique repair.");
   for (let i = 0; i < 32; i++)
     selected.add(
       generateBns001Question({

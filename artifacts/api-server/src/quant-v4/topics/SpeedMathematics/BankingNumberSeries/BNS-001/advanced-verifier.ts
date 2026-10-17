@@ -9,6 +9,8 @@ export const ADVANCED_PATTERNS: readonly Bns001PatternKind[] = [
   "VARIABLE_MULTIPLY_SUBTRACT",
   "VARIABLE_MULTIPLY_ADD",
   "FRACTIONAL_GEOMETRIC",
+  "CONSTANT_DIVISION",
+  "CONSECUTIVE_PRIME_DIFFERENCE",
   "VARIABLE_FRACTIONAL_MULTIPLIER",
   "VARIABLE_FRACTIONAL_DIVISOR",
   "ALTERNATING_MULTIPLY_DIVIDE",
@@ -98,6 +100,13 @@ function* buildTemplates(
         () => r,
         () => 0,
       );
+  if (pattern === "CONSTANT_DIVISION")
+    for (const divisor of [2, 3, 4])
+      yield recurrent(() => 1 / divisor, () => 0);
+  if (pattern === "CONSECUTIVE_PRIME_DIFFERENCE")
+    for (let start = 0; start <= 8; start++)
+      for (const sign of [-1, 1])
+        yield additive((i) => sign * primes[start + i]!);
   if (pattern === "VARIABLE_FRACTIONAL_MULTIPLIER")
     for (const m of [1, 1.5, 2, 2.5, 3])
       yield recurrent(
