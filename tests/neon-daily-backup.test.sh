@@ -93,7 +93,9 @@ if FAKE_FAIL_UPLOAD=1 \
 fi
 ! grep -q 'PASS: private GCS copy verified' "$WORK/upload-failure.log"
 
-if FAKE_TAMPER_DOWNLOAD=1 \
+# Isolate the tamper scenario from the successful upload: the immutable
+# archive names include seconds, so adjacent fixture runs may share a name.
+if FAKE_GCS_ROOT="$WORK/gcs-tamper" FAKE_TAMPER_DOWNLOAD=1 \
   bash "$ROOT/ops/neon-daily-backup/backup.sh" >"$WORK/download-tamper.log" 2>&1; then
   echo 'FAIL: corrupt remote copy reported success' >&2; exit 1
 fi
