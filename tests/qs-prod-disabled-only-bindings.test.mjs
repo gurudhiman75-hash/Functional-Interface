@@ -43,3 +43,25 @@ test("wrong active project fails before any cloud resource mutation",()=>{
     assert.deepEqual(commands,["config get-value project","config get-value project"]);
   }finally{rmSync(dir,{recursive:true,force:true});}
 });
+
+test("read-only diagnostics list all inaccessible resources, never printing secret bytes",()=>{
+  const dir=mkdtempSync(path.join(tmpdir(),"qs-prod-diagnostics-"));
+  try{
+    const bin=path.join(dir,"gcloud"),log=path.join(dir,"calls");
+    writeFileSync(bin,'#!/usr/bin/env bash\n' +
+      'echo "$*" >> "$MOCK_LOG"\n' +
+      'if [[ "$1 $2 $3" == "config get-value project" ]]; then echo sarbedutech; exit 0; fi\n' +
+      'echo "SENSITIVE-DO-NOT-DISPLAY" >&2; exit 17\n');
+    chmodSync(bin,0o755);
+    const r=spawnSync("python3",[file,"--diagnose"],{encoding:"utf8",timeout:15000,
+      env:{...process.env,PATH:dir+":"+process.env.PATH,MOCK_LOG:log}});
+    assert.equal(r.status,2,r.stdout+"\n"+r.stderr);
+    assert.match(r.stdout,/FAIL: paused production queue/);
+    assert.match(r.stdout,/FAIL: Google-managed Cloud Tasks service agent/);
+    assert.match(r.stdout,/FAIL: production Neon secret access\/destination/);
+    assert.match(r.stdout,/RESULT: 16 read-only diagnostic failures/);
+    assert.doesNotMatch(r.stdout+r.stderr,/SENSITIVE-DO-NOT-DISPLAY/);
+    const commands=readFileSync(log,"utf8");
+    assert.doesNotMatch(commands,/ (?:update|create|deploy|execute|resume|pause|delete|add-iam-policy-binding)(?: |$)/m);
+  }finally{rmSync(dir,{recursive:true,force:true});}
+});
