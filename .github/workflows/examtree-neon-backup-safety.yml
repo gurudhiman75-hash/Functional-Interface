@@ -6,6 +6,8 @@ on:
     paths:
       - scripts/backup-examtree-neon.sh
       - scripts/verify-examtree-neon-backup.sh
+      - scripts/restore-examtree-qs-oct18-backup-isolated.sh
+      - tests/qs-oct18-restore-safety.test.mjs
       - tests/neon-backup-encryption.test.sh
       - docs/neon-backup-and-recovery-runbook.md
       - ops/neon-daily-backup/**
@@ -33,6 +35,7 @@ jobs:
         run: |
           bash -n scripts/backup-examtree-neon.sh
           bash -n scripts/verify-examtree-neon-backup.sh
+          bash -n scripts/restore-examtree-qs-oct18-backup-isolated.sh
           bash -n tests/neon-backup-encryption.test.sh
           bash -n tests/neon-daily-backup.test.sh
           bash -n tests/neon-backup-bucket-security.test.sh
@@ -40,6 +43,8 @@ jobs:
           for script in ops/neon-daily-backup/*.sh ops/neon-backup-freshness/*.sh; do bash -n "$script"; done
           python3 -m py_compile ops/neon-backup-freshness/check_freshness.py tests/neon-backup-freshness.test.py
           bash -n tests/neon-backup-freshness-deploy.test.sh
+      - name: Verify fixed isolated restore target and recovery guards
+        run: node --test tests/qs-oct18-restore-safety.test.mjs
       - name: Simulate backup and checksum failure with fake PostgreSQL I/O
         run: bash tests/neon-backup-encryption.test.sh
       - name: Simulate daily Cloud Run backup and GCS failure modes
