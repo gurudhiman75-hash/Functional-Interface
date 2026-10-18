@@ -8,7 +8,6 @@ on:
       - 'artifacts/api-server/build-universal-coverage-worker.mjs'
       - 'scripts/aggregate-qs-universal-compute-coverage.mjs'
       - 'tests/qs-universal-compute-aggregate.test.mjs'
-      - '.github/workflows/qs-universal-compute-coverage.yml'
   workflow_dispatch:
     inputs:
       wave:
