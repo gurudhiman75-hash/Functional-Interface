@@ -97,8 +97,17 @@ def check_preflight():
     ensure(q.get("state")=="PAUSED","production queue is NOT PAUSED")
     ensure((q.get("rateLimits") or {}).get("maxConcurrentDispatches")==1 and
            (q.get("retryConfig") or {}).get("maxAttempts")==3,"production queue throttling changed")
-    for sa in (TASK_SA,RECEIVER_SA,WORKER_SA,DISPATCH_SA,AGENT_SA):
+    # Google-managed Cloud Tasks service agent cannot reliably be inspected
+    # using iam.serviceAccounts.get, unlike our user-managed identities.
+    for sa in (TASK_SA,RECEIVER_SA,WORKER_SA,DISPATCH_SA):
         cloud(["iam","service-accounts","describe",sa],json_result=True)
+    project_iam=cloud(["projects","get-iam-policy",P],json_result=True)
+    ensure(any(binding.get("role")=="roles/cloudtasks.serviceAgent" and
+               "serviceAccount:"+AGENT_SA in binding.get("members",[]) and
+               not binding.get("condition")
+               for binding in project_iam.get("bindings",[])),
+           "Cloud Tasks managed service agent lacks unconditional "
+           "roles/cloudtasks.serviceAgent on project; do not apply bindings")
     for name,sa,caller in ((RECEIVER,RECEIVER_SA,TASK_SA),(WORKER,WORKER_SA,RECEIVER_SA)):
         d=service(name)
         sp=((d.get("spec") or {}).get("template") or {}).get("spec") or {}
@@ -248,7 +257,7 @@ def diagnose():
         ("receiver runtime identity",["iam","service-accounts","describe",RECEIVER_SA]),
         ("worker runtime identity",["iam","service-accounts","describe",WORKER_SA]),
         ("dispatcher runtime identity",["iam","service-accounts","describe",DISPATCH_SA]),
-        ("Google-managed Cloud Tasks service agent",["iam","service-accounts","describe",AGENT_SA]),
+        ("Cloud Tasks service agent project IAM role",["projects","get-iam-policy",P]),
         ("receiver Cloud Run service",["run","services","describe",RECEIVER,"--region="+R]),
         ("worker Cloud Run service",["run","services","describe",WORKER,"--region="+R]),
         ("receiver service-level IAM",["run","services","get-iam-policy",RECEIVER,"--region="+R]),
@@ -261,7 +270,14 @@ def diagnose():
     failed=0
     for label,args in probes:
         try:
-            cloud(args,json_result=True)
+            data=cloud(args,json_result=True)
+            if label=="Cloud Tasks service agent project IAM role":
+                ensure(any(b.get("role")=="roles/cloudtasks.serviceAgent" and
+                           "serviceAccount:"+AGENT_SA in b.get("members",[]) and
+                           not b.get("condition")
+                           for b in data.get("bindings",[])),
+                       "Cloud Tasks service agent missing project-level "
+                       "roles/cloudtasks.serviceAgent")
             print("PASS:",label,flush=True)
         except (RuntimeError,ValueError,subprocess.TimeoutExpired) as err:
             failed+=1
