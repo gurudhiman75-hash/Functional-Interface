@@ -36,8 +36,13 @@ def cloud(args, *, json_result=False, sensitive=False):
                      (["--format=json"] if json_result else []),
                      text=True,capture_output=True,timeout=90)
     if r.returncode:
-        label=("Secret value verification" if sensitive else "Cloud metadata or configuration operation")
-        raise RuntimeError(label+" failed; check permissions in Cloud Shell. Credentials are not printed.")
+        # Only print the fixed verb and resource identifier, never stderr/stdout
+        # (which can contain access tokens, URLs or service-account details).
+        operation=" ".join(args[:3])
+        if len(args)>3 and not sensitive and args[0] in ("iam","run","tasks","scheduler"):
+            operation+=" ["+args[3]+"]"
+        raise RuntimeError("GCP command failed: "+operation+
+                           " (exit "+str(r.returncode)+"); details suppressed to protect credentials.")
     if json_result:
         return json.loads(r.stdout)
     return r.stdout
@@ -233,12 +238,63 @@ def apply():
            "post-change invariants failed; DO NOT activate")
     print("PASS: production receiver and dispatcher bindings verified; queue PAUSED, approvals OFF.")
 
+def diagnose():
+    """Independent read-only probes; reports EVERY failed permission/resource check."""
+    print("=== READ-ONLY ACCESS DIAGNOSTICS; SECRET VALUES HIDDEN ===",flush=True)
+    probes=[
+        ("project metadata",["projects","describe",P]),
+        ("paused production queue",["tasks","queues","describe",QUEUE,"--location="+R]),
+        ("task OIDC identity",["iam","service-accounts","describe",TASK_SA]),
+        ("receiver runtime identity",["iam","service-accounts","describe",RECEIVER_SA]),
+        ("worker runtime identity",["iam","service-accounts","describe",WORKER_SA]),
+        ("dispatcher runtime identity",["iam","service-accounts","describe",DISPATCH_SA]),
+        ("Google-managed Cloud Tasks service agent",["iam","service-accounts","describe",AGENT_SA]),
+        ("receiver Cloud Run service",["run","services","describe",RECEIVER,"--region="+R]),
+        ("worker Cloud Run service",["run","services","describe",WORKER,"--region="+R]),
+        ("receiver service-level IAM",["run","services","get-iam-policy",RECEIVER,"--region="+R]),
+        ("worker service-level IAM",["run","services","get-iam-policy",WORKER,"--region="+R]),
+        ("dispatcher Cloud Run job",["run","jobs","describe",JOB,"--region="+R]),
+        ("QS Scheduler listing",["scheduler","jobs","list","--location="+R]),
+        ("Neon production Secret Manager metadata",["secrets","describe",DB_SECRET]),
+        ("worker token Secret Manager metadata",["secrets","describe",WORKER_SECRET]),
+    ]
+    failed=0
+    for label,args in probes:
+        try:
+            cloud(args,json_result=True)
+            print("PASS:",label,flush=True)
+        except (RuntimeError,ValueError,subprocess.TimeoutExpired) as err:
+            failed+=1
+            print("FAIL:",label,"("+str(err)+")",flush=True)
+    try:
+        text=cloud(["secrets","versions","access","latest","--secret="+DB_SECRET],
+                   sensitive=True)
+        u=urlsplit(text.strip())
+        ensure(u.scheme in ("postgres","postgresql") and
+               u.hostname in ("ep-polished-king-atj47i5y.c-9.us-east-1.aws.neon.tech",
+                              "ep-polished-king-atj47i5y-pooler.c-9.us-east-1.aws.neon.tech") and
+               u.path=="/neondb" and u.username and u.password,
+               "DB secret is not the canonical production Neon main")
+        del text
+        print("PASS: production Neon secret access and destination (value hidden)",flush=True)
+    except (RuntimeError,ValueError,subprocess.TimeoutExpired) as err:
+        failed+=1
+        print("FAIL: production Neon secret access/destination ("+str(err)+")",flush=True)
+    print("RESULT:",failed,"read-only diagnostic failures; no configuration changed",flush=True)
+    if failed:raise SystemExit(2)
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--apply",action="store_true",
+    mode=parser.add_mutually_exclusive_group()
+    mode.add_argument("--apply",action="store_true",
                         help="apply approved disabled-only bindings after fail-closed preflight")
+    mode.add_argument("--diagnose",action="store_true",
+                        help="probe all read-only GCP dependencies; no configuration changes")
     args=parser.parse_args()
-    print("EXAMTREE QS PRODUCTION DISABLED-ONLY CONFIGURATION")
+    print("EXAMTREE QS PRODUCTION DISABLED-ONLY CONFIGURATION",flush=True)
+    if args.diagnose:
+        diagnose()
+        return
     check_preflight()
     if args.apply:
         apply()
