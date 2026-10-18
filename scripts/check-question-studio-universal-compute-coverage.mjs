@@ -5,6 +5,7 @@
 import {Worker} from "node:worker_threads";
 import {readFileSync, writeFileSync, appendFileSync, chmodSync, statSync, existsSync} from "node:fs";
 import {resolve} from "node:path";
+import {examForQuestionStudioComputeAudit} from "./qs-universal-coverage-exam-profile.mjs";
 
 const flags=Object.fromEntries(process.argv.slice(2).map(s=>{
  const match=/^--([a-z-]+)=(.*)$/.exec(s);
@@ -146,10 +147,7 @@ try{
     :(pkg.supportedDifficulties?.includes("Medium")?"Medium":pkg.supportedDifficulties?.[0]??"Mixed");
   // Some chapter authorities are BANKING-only. Exercise their declared
   // exam family; never reinterpret an SSC request as Banking in production.
-  // IOP-001 is source-governed to Banking exams; an SSC audit request is invalid.
-  const exam=["DI-014","IOP-001"].includes(pkg.packageId)?"IBPS PO Mains"
-   :["DI-007","DI-008","SAP","WFM-001"].includes(pkg.packageId)?"IBPS PO Prelims"
-   :"SSC CGL Tier 1";
+  const exam=examForQuestionStudioComputeAudit(pkg.packageId);
   const request={
    engineId:pkg.engineId,packageId:pkg.packageId,exam,
    subject:pkg.subject,topic:pkg.topic,subtopic:pkg.subtopic,
