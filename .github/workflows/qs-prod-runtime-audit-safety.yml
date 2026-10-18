@@ -5,7 +5,9 @@ on:
     branches: [New-main]
     paths:
       - scripts/audit-examtree-qs-prod-runtime.py
+      - scripts/prepare-qs-prod-disabled-only.py
       - tests/qs-prod-runtime-audit.test.mjs
+      - tests/qs-prod-disabled-only-bindings.test.mjs
   workflow_dispatch:
 
 concurrency:
@@ -22,6 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate syntax, fail-closed security, and no GCP mutations
-        run: node --test tests/qs-prod-runtime-audit.test.mjs
+        run: node --test tests/qs-prod-runtime-audit.test.mjs tests/qs-prod-disabled-only-bindings.test.mjs
       - name: Verify patch formatting
         run: git diff --check
