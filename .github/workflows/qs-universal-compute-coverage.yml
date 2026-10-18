@@ -4,6 +4,8 @@ on:
     branches: [New-main]
     paths:
       - 'scripts/check-question-studio-universal-compute-coverage.mjs'
+      - 'scripts/qs-universal-coverage-exam-profile.mjs'
+      - 'tests/qs-universal-coverage-exam-profile.test.mjs'
       - 'artifacts/api-server/src/question-studio/universal-compute-coverage-worker.ts'
       - 'artifacts/api-server/build-universal-coverage-worker.mjs'
       - 'scripts/aggregate-qs-universal-compute-coverage.mjs'
@@ -44,6 +46,8 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Validate source-governed exam profiles for coverage
+        run: node --test tests/qs-universal-coverage-exam-profile.test.mjs
       - name: Build warm isolated coverage worker (no DB or remote calls)
         run: node artifacts/api-server/build-universal-coverage-worker.mjs
       - name: Build authoritative registration catalog

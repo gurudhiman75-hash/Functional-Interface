@@ -5,6 +5,7 @@
 import {Worker} from "node:worker_threads";
 import {readFileSync, writeFileSync, appendFileSync, chmodSync, statSync, existsSync} from "node:fs";
 import {resolve} from "node:path";
+import {examForQuestionStudioComputeAudit} from "./qs-universal-coverage-exam-profile.mjs";
 
 const flags=Object.fromEntries(process.argv.slice(2).map(s=>{
  const match=/^--([a-z-]+)=(.*)$/.exec(s);
@@ -39,7 +40,7 @@ let selected;
 if(wave==="all"){
  selected=enabled.filter((_,i)=>i%shards===shard);
 }else{
- const anchorIds=["TRG-002","NUM-001","PCT-001","OPS-001","ENG-001","ENG-005","COM-001","COM-002","POL-001","GEO-LOC-001"];
+ const anchorIds=["TRG-002","NUM-001","PCT-001","OPS-001","IOP-001","ENG-001","ENG-005","COM-001","COM-002","POL-001","GEO-LOC-001"];
  const priority=anchorIds.map(id=>enabled.find(p=>p.packageId===id)).filter(Boolean);
  const extra=groups.map(([,test])=>enabled.find(p=>test(p)&&!priority.some(q=>q.packageId===p.packageId))).filter(Boolean);
  selected=[...new Map([...priority,...extra].map(p=>[p.packageId,p])).values()];
@@ -146,9 +147,7 @@ try{
     :(pkg.supportedDifficulties?.includes("Medium")?"Medium":pkg.supportedDifficulties?.[0]??"Mixed");
   // Some chapter authorities are BANKING-only. Exercise their declared
   // exam family; never reinterpret an SSC request as Banking in production.
-  const exam=pkg.packageId==="DI-014"?"IBPS PO Mains"
-   :["DI-007","DI-008","SAP","WFM-001"].includes(pkg.packageId)?"IBPS PO Prelims"
-   :"SSC CGL Tier 1";
+  const exam=examForQuestionStudioComputeAudit(pkg.packageId);
   const request={
    engineId:pkg.engineId,packageId:pkg.packageId,exam,
    subject:pkg.subject,topic:pkg.topic,subtopic:pkg.subtopic,
