@@ -6,33 +6,33 @@ on:
       - 'scripts/check-question-studio-universal-compute-coverage.mjs'
       - 'artifacts/api-server/src/question-studio/universal-compute-coverage-worker.ts'
       - 'artifacts/api-server/build-universal-coverage-worker.mjs'
+      - 'scripts/aggregate-qs-universal-compute-coverage.mjs'
+      - 'tests/qs-universal-compute-aggregate.test.mjs'
   workflow_dispatch:
     inputs:
       wave:
-        description: 'Pilot or full catalog shard (compute only, no external services)'
+        description: 'Pilot or one-click full catalog across 12 parallel shards (compute only)'
         type: choice
         options: [pilot, all]
         required: true
         default: pilot
-      shard:
-        description: 'All mode only: 0-based shard index, 0..11'
-        type: choice
-        options: ['0','1','2','3','4','5','6','7','8','9','10','11']
-        default: '0'
-        required: true
 permissions:
   contents: read
 concurrency:
-  group: qs-universal-offline-compute-${{ github.event_name }}-${{ github.ref }}-${{ inputs.shard || 'pilot' }}
+  group: qs-universal-offline-compute-${{ github.event_name }}-${{ github.ref }}-${{ inputs.wave || 'pilot' }}
   cancel-in-progress: true
 jobs:
   audit:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(github.event_name == 'workflow_dispatch' && inputs.wave == 'all' && '[0,1,2,3,4,5,6,7,8,9,10,11]' || '[0]') }}
     env:
       # No Cloud Run, Firebase, Neon, Cloud Tasks, or GitHub production credentials.
-      WAVE: ${{ github.event_name == 'pull_request' && 'all' || inputs.wave || 'pilot' }}
-      SHARD: ${{ inputs.shard || '0' }}
+      WAVE: ${{ github.event_name == 'pull_request' && 'pilot' || inputs.wave || 'pilot' }}
+      SHARD: ${{ matrix.shard }}
       ONLY: ''
     steps:
       - uses: actions/checkout@v4
@@ -51,12 +51,14 @@ jobs:
           set -eu
           pnpm --dir artifacts/api-server exec esbuild src/question-studio/build-unified-admin-capabilities-manifest.ts --bundle --platform=node --format=esm --outfile=dist/qs-compute-catalog-builder.mjs --external:*.node --external:sharp --external:better-sqlite3 --external:sqlite3 --external:canvas --external:bcrypt --external:argon2 --external:fsevents --external:postgres
           QUESTION_STUDIO_UNIFIED_CAPABILITIES_MANIFEST_OUT=/tmp/qs-compute-catalog.json node artifacts/api-server/dist/qs-compute-catalog-builder.mjs
+      - name: Validate full-catalog report aggregation logic
+        run: node --test tests/qs-universal-compute-aggregate.test.mjs
       - name: Execute offline compute audit (failure is recorded, not concealed)
         id: exercise
         continue-on-error: true
         run: |
           set -eu
-          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then SHARDS=1; else SHARDS=12; fi;; *) exit 2;; esac
+          case "$WAVE" in pilot) test "$SHARD" = 0; SHARDS=1;; all) SHARDS=12;; *) exit 2;; esac
           if [ -n "$ONLY" ]; then ONLY_ARG="--only=$ONLY"; else ONLY_ARG="--selection=chapter"; fi
           node scripts/check-question-studio-universal-compute-coverage.mjs --wave="$WAVE" --shard="$SHARD" --shards="$SHARDS" "$ONLY_ARG" --catalog=/tmp/qs-compute-catalog.json --timeout-seconds=20 --worker=artifacts/api-server/dist/qs-universal-coverage-worker.mjs --report=/tmp/qs-universal-compute-report.json
       - name: Upload observed package results (no questions or credentials)
@@ -67,8 +69,24 @@ jobs:
           path: /tmp/qs-universal-compute-report.json
           if-no-files-found: warn
           retention-days: 14
-      - name: Report audit outcome
+      - name: Enforce failed audit as failed GitHub job (after report upload)
         if: always()
         run: |
           echo "Compute-only audit execution outcome: ${{ steps.exercise.outcome }}"
-          echo "Failures, if any, are listed in the GitHub step summary and artifact. This is not production generation readiness."
+          echo "Failures are in the step summary and artifact; this is not production readiness."
+          test "${{ steps.exercise.outcome }}" = "success"
+
+  full-catalog-summary:
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.wave == 'all' }}
+    needs: audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: qs-universal-offline-compute-all-*
+          path: /tmp/qs-universal-all-artifacts
+          merge-multiple: false
+      - name: Require complete, unique, passing registered catalog
+        run: node scripts/aggregate-qs-universal-compute-coverage.mjs /tmp/qs-universal-all-artifacts 12
