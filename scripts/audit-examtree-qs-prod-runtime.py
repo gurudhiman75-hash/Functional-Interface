@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 
 PROJECT = "sarbedutech"
 REGION = "asia-south1"
+PROJECT_NUMBER = "1083299267005"
 QUEUE = "examtree-qs-prod"
 RECEIVER = "examtree-qs-receiver-prod"
 WORKER = "examtree-universal-prod"
@@ -146,6 +147,16 @@ r_origin = safe_origin(((rdata or {}).get("status") or {}).get("url"),
                        "examtree-qs-receiver-prod-")
 w_origin = safe_origin(((wdata or {}).get("status") or {}).get("url"),
                        "examtree-universal-prod-")
+project_info = cloud_json("projects", "describe", PROJECT)
+project_number_ok = isinstance(project_info, dict) and str(project_info.get("projectNumber")) == PROJECT_NUMBER
+r_origins = {r_origin} if r_origin else set()
+w_origins = {w_origin} if w_origin else set()
+if project_number_ok:
+    # Cloud Run also supports the documented deterministic regional URL,
+    # which differs from the shorter status.url (*.a.run.app).
+    r_origins.add(f"https://{RECEIVER}-{PROJECT_NUMBER}.{REGION}.run.app")
+    w_origins.add(f"https://{WORKER}-{PROJECT_NUMBER}.{REGION}.run.app")
+result("PASS" if project_number_ok else "BLOCK", "Cloud Run project number verified")
 result("PASS" if r_origin else "BLOCK", "receiver service origin")
 result("PASS" if w_origin else "BLOCK", "worker service origin")
 
@@ -156,9 +167,10 @@ for env, key, label in ((re, "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED", "receiv
 if re:
     result("PASS" if env_value(re, "EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT") == TASK_SA else "BLOCK",
            "receiver task OIDC identity")
-    result("PASS" if r_origin and env_value(re, "EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE") == r_origin else "BLOCK",
-           "receiver task OIDC audience")
-    result("PASS" if w_origin and env_value(re, "QUESTION_STUDIO_UNIVERSAL_WORKER_URL") in (w_origin, w_origin + "/") else "BLOCK",
+    result("PASS" if env_value(re, "EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE") in r_origins else "BLOCK",
+           "receiver task OIDC audience", "matches a verified Cloud Run regional service origin" if project_number_ok else "")
+    result("PASS" if env_value(re, "QUESTION_STUDIO_UNIVERSAL_WORKER_URL") in
+           (w_origins | {u + "/" for u in w_origins}) else "BLOCK",
            "receiver worker origin pinned to private production worker")
 
 if we:
@@ -197,13 +209,13 @@ if isinstance(job, dict):
         ("EXAMTREE_QUESTION_STUDIO_TASK_REGION", REGION),
         ("EXAMTREE_QUESTION_STUDIO_TASK_QUEUE", QUEUE),
         ("EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT", TASK_SA),
-        ("EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE", r_origin),
+        ("EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE", r_origins),
         ("EXAMTREE_QUESTION_STUDIO_TASK_HANDLER_URL",
-         r_origin + "/internal/question-studio/async-task" if r_origin else None),
+         {u + "/internal/question-studio/async-task" for u in r_origins}),
     ):
-        if want is None:
+        if want is None or want == set():
             result("REVIEW", "dispatcher " + key, "receiver endpoint unavailable")
-        elif env_value(je, key) == want:
+        elif env_value(je, key) in (want if isinstance(want, set) else {want}):
             result("PASS", "dispatcher " + key)
         else:
             result("REVIEW", "dispatcher " + key, "not configured as production target")
