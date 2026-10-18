@@ -1,0 +1,24 @@
+name: Question Studio production read-only runtime audit safety
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - scripts/audit-examtree-qs-prod-runtime.py
+      - tests/qs-prod-runtime-audit.test.mjs
+      - .github/workflows/qs-prod-runtime-audit-safety.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-readonly-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate syntax, fail-closed security, and no GCP mutations
+        run: node --test tests/qs-prod-runtime-audit.test.mjs
+      - name: Verify patch formatting
+        run: git diff --check
