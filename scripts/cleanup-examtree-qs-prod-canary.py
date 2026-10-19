@@ -125,8 +125,11 @@ def main():
         return 0
 
     # Only these exact production resources; no database writes or secret reads.
-    print("CLEANUP: pausing production queue first",flush=True)
-    call(["tasks","queues","pause",QUEUE,"--location="+REGION])
+    if queue!="PAUSED":
+        print("CLEANUP: pausing production queue first",flush=True)
+        call(["tasks","queues","pause",QUEUE,"--location="+REGION])
+    else:
+        print("PASS: production queue already PAUSED",flush=True)
     # Both must be set false. Do not fail early if one write fails:
     # attempt the other service even if a prior step returned nonzero.
     errors=[]
