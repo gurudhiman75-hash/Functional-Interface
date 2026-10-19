@@ -6,6 +6,8 @@ on:
       - 'artifacts/api-server/src/async-task-receiver-prod-standalone.ts'
       - 'artifacts/api-server/src/question-studio/prod-one-run-canary-guard.mjs'
       - 'artifacts/api-server/src/question-studio/async-task-lease-claim.ts'
+      - 'artifacts/api-server/src/question-studio/prod-one-run-enqueue.ts'
+      - 'tests/qs-prod-single-use-enqueue-and-worker-ttl.test.mjs'
       - 'artifacts/api-server/build-qs-prod-task-receiver.mjs'
       - 'Dockerfile.examtree-qs-prod-task-receiver'
       - 'cloudbuild.examtree-qs-prod-task-receiver.yaml'
@@ -35,5 +37,7 @@ jobs:
       - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
       - name: Compile production-only receiver
         run: node artifacts/api-server/build-qs-prod-task-receiver.mjs
+      - name: Verify production one-use enqueue and worker canary TTL
+        run: node --test tests/qs-prod-single-use-enqueue-and-worker-ttl.test.mjs
       - name: Confirm disabled receiver boots without DATABASE_URL and returns task 503
         run: node --test tests/qs-prod-receiver-disabled-boot.test.mjs
