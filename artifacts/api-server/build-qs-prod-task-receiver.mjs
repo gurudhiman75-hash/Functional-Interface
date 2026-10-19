@@ -26,7 +26,8 @@ try {
   await rm(builder,{force:true});
 }
 await build({
-  entryPoints:[path.join(root,"src/async-task-receiver-prod-standalone.ts")],
+  entryPoints:[path.join(root,"src/async-task-receiver-prod-standalone.ts"),
+               path.join(root,"src/question-studio/prod-one-run-enqueue.ts")],
   bundle:true,platform:"node",format:"esm",target:"node22",
   splitting:true,outdir:dist,outExtension:{".js":".mjs"},
   entryNames:"[name]",chunkNames:"qs-prod-[name]-[hash]",
