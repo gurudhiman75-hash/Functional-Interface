@@ -39,12 +39,39 @@ class ProbeTests(unittest.TestCase):
     def test_incorrect_token_rejected(self):
         result = types.SimpleNamespace(returncode=0, stdout="not-a-token")
         with patch.object(module, "cli", return_value=result):
-            self.assertIsNone(module.mint_id_token("sa", "https://example.run.app"))
+            self.assertIsNone(module.mint_id_token("sa", "https://example.run.app")[0])
+
+    def test_token_permission_error_classified_without_disclosure(self):
+        result = types.SimpleNamespace(
+            returncode=1, stdout="",
+            stderr="Permission 'iam.serviceAccounts.getOpenIdToken' denied on SA user@example.com")
+        self.assertEqual(module.classify_token_failure(result),
+                         "identity-token impersonation permission denied")
+
+    def test_token_api_disabled_classified(self):
+        result = types.SimpleNamespace(
+            returncode=1, stdout="",
+            stderr="iamcredentials.googleapis.com has not been used or is disabled")
+        self.assertEqual(module.classify_token_failure(result),
+                         "IAM Credentials API is disabled or not enabled")
+
+    def test_unrecognized_cli_flag_classified(self):
+        result = types.SimpleNamespace(
+            returncode=2, stdout="",
+            stderr="ERROR: unrecognized arguments: --include-email")
+        self.assertEqual(module.classify_token_failure(result),
+                         "unsupported gcloud CLI option")
+
+    def test_unknown_token_error_does_not_leak_identity(self):
+        result = types.SimpleNamespace(
+            returncode=1, stdout="",
+            stderr="Unusual failure for user@example.com and secret=hidden")
+        self.assertNotIn("example.com", module.classify_token_failure(result))
 
     def test_impersonation_failure_is_review(self):
         module.counts.update(PASS=0, REVIEW=0, BLOCK=0)
         with patch.object(module, "service_origin", return_value="https://examtree-universal-prod-abc.a.run.app"), \
-             patch.object(module, "mint_id_token", return_value=None), \
+             patch.object(module, "mint_id_token", return_value=(None, "identity-token impersonation permission denied")), \
              patch.object(module, "health_get") as req:
             module.check_service("examtree-universal-prod", "receiver-sa",
                                  "qs-universal-prod", True)
@@ -54,7 +81,7 @@ class ProbeTests(unittest.TestCase):
     def test_health_contract_mismatch_blocks(self):
         module.counts.update(PASS=0, REVIEW=0, BLOCK=0)
         with patch.object(module, "service_origin", return_value="https://examtree-universal-prod-abc.a.run.app"), \
-             patch.object(module, "mint_id_token", return_value="a" * 80), \
+             patch.object(module, "mint_id_token", return_value=("a" * 80, None)), \
              patch.object(module, "health_get", return_value=(200, {
                  "status": "ok", "service": "qs-universal-prod", "ready": True
              })):
@@ -65,7 +92,7 @@ class ProbeTests(unittest.TestCase):
     def test_health_success_requires_not_ready(self):
         module.counts.update(PASS=0, REVIEW=0, BLOCK=0)
         with patch.object(module, "service_origin", return_value="https://examtree-universal-prod-abc.a.run.app"), \
-             patch.object(module, "mint_id_token", return_value="a" * 80), \
+             patch.object(module, "mint_id_token", return_value=("a" * 80, None)), \
              patch.object(module, "health_get", return_value=(200, {
                  "status": "ok", "service": "qs-universal-prod", "ready": False
              })):
