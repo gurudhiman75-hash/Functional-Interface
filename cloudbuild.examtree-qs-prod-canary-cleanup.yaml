@@ -2,6 +2,10 @@
 steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build', '--file', 'Dockerfile.examtree-qs-prod-canary-cleanup', '--tag', '${_IMAGE}', '.']
+  - name: gcr.io/cloud-builders/docker
+    # Run precisely the same entrypoint as Cloud Run in help-only mode,
+    # stopping the build on startup/exec failure.
+    args: ['run', '--rm', '${_IMAGE}', '--help']
 images: ['${_IMAGE}']
 options:
   logging: CLOUD_LOGGING_ONLY
