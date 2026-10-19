@@ -78,6 +78,16 @@ def validation_url(job):
             + urllib.parse.urlencode({"jobId": job, "validateOnly": "true"}))
 
 
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def open_validation(request):
+    # Prevent an access token being forwarded to a redirected destination.
+    return urllib.request.build_opener(NoRedirect()).open(request, timeout=25)
+
+
 def validate_request(job, body, token):
     req = urllib.request.Request(
         validation_url(job),
@@ -87,7 +97,7 @@ def validate_request(job, body, token):
                  "Content-Type": "application/json",
                  "Accept": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=25) as resp:
+        with open_validation(req) as resp:
             status = resp.status
             payload = resp.read(16001)
     except urllib.error.HTTPError as exc:
@@ -95,7 +105,7 @@ def validate_request(job, body, token):
         payload = exc.read(16001)
     except (urllib.error.URLError, OSError, TimeoutError):
         return "REVIEW", "Cloud Run validation endpoint unavailable"
-    if status in (200, 201):
+    if status in (200, 201, 202):
         return "PASS", "V2 validateOnly accepted; no job created"
     try:
         data = json.loads(payload.decode("utf-8")) if len(payload) <= 16000 else {}
