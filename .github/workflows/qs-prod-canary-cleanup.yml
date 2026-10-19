@@ -1,0 +1,22 @@
+name: Validate QS production canary cleanup
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/cleanup-examtree-qs-prod-canary.py'
+      - 'scripts/test-examtree-qs-prod-canary-cleanup.py'
+      - 'Dockerfile.examtree-qs-prod-canary-cleanup'
+      - 'cloudbuild.examtree-qs-prod-canary-cleanup.yaml'
+      - '.github/workflows/qs-prod-canary-cleanup.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile cleanup Python (no GCP)
+        run: python3 -m py_compile scripts/cleanup-examtree-qs-prod-canary.py scripts/test-examtree-qs-prod-canary-cleanup.py
+      - name: Run cleanup safety tests (no GCP)
+        run: python3 scripts/test-examtree-qs-prod-canary-cleanup.py
