@@ -13,8 +13,8 @@ const env=(changes={})=>({
   ...changes,
 });
 const snapshot=(changes={})=>({
-  queueVersion:1,count:1,selectedCpIds:["COM-001"],
-  request:{engineId:"knowledge-v1",packageId:"COM-001",canonicalProblemId:"COM-001",
+  queueVersion:1,count:1,selectedCpIds:["COM-001-CP-001"],
+  request:{engineId:"knowledge-v1",packageId:"COM-001",canonicalProblemId:"COM-001-CP-001",
            count:1,language:"en",seed:"qs-async:testseed-12345"},
   ...changes,
 });
@@ -37,7 +37,7 @@ test("accept exactly one deterministic COM-001 English review snapshot",()=>{
 });
 test("deny multiquestion, alternative engine, package, language or CP",()=>{
   for(const candidate of [
-    snapshot({count:2}),snapshot({selectedCpIds:["COM-001","COM-002"]}),
+    snapshot({count:2}),snapshot({selectedCpIds:["COM-001-CP-001","COM-001-CP-002"]}),
     snapshot({request:{...snapshot().request,count:2}}),
     snapshot({request:{...snapshot().request,packageId:"NUM-001"}}),
     snapshot({request:{...snapshot().request,engineId:"quant-v4"}}),
