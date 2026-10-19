@@ -26,7 +26,7 @@ PAIRS = (
     ("examtree-qs-receiver-prod", TASK_SA, "qs-receiver-prod"),
     ("examtree-universal-prod", RECEIVER_SA, "qs-universal-prod"),
 )
-JWT = re.compile(r"^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$")
+JWT = re.compile(r"^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$")
 counts = {"PASS": 0, "REVIEW": 0, "BLOCK": 0}
 
 
