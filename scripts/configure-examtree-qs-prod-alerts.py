@@ -112,18 +112,23 @@ def resolve_channel(proposed):
     data = gjson("beta", "monitoring", "channels", "list")
     if not isinstance(data, list):
         raise RuntimeError("notification channel listing unavailable")
+    # Per Cloud Monitoring's NotificationChannel API, missing/unspecified
+    # verificationStatus can mean the channel does not require verification
+    # or is exempt. Explicit UNVERIFIED must NEVER be used. A channel being
+    # eligible does not prove email delivery; test that separately.
+    eligible_statuses = {"VERIFIED", "VERIFICATION_STATUS_UNSPECIFIED", "", None}
     qualified = [c for c in data
                  if c.get("type") == "email"
                  and c.get("enabled") is True
-                 and c.get("verificationStatus") == "VERIFIED"
+                 and c.get("verificationStatus") in eligible_statuses
                  and isinstance(c.get("name"), str)]
     if proposed:
         matches_proposed = [c for c in qualified if c["name"] == proposed]
         if len(matches_proposed) != 1:
-            raise RuntimeError("selected notification channel not a verified enabled email channel")
+            raise RuntimeError("selected notification channel is not an eligible enabled email channel")
         return proposed
     if len(qualified) != 1:
-        raise RuntimeError("require exactly one verified enabled email channel, or pass --channel=projects/.../notificationChannels/...; "
+        raise RuntimeError("require exactly one eligible enabled email channel, or pass --channel=projects/.../notificationChannels/...; "
                            "found " + str(len(qualified)))
     return qualified[0]["name"]
 
