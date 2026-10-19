@@ -20,7 +20,7 @@ base={"CLOUD_RUN_JOB":m.JOB,"CLOUD_RUN_TASK_COUNT":"1",
 
 class CleanupSafety(unittest.TestCase):
     def test_not_allowed_before_deadline(self):
-        with self.assertRaises(m.RuntimeError):
+        with self.assertRaises(RuntimeError):
             m.assert_job_context(base,dt.datetime(2026,10,19,8,59,tzinfo=dt.timezone.utc))
         m.assert_job_context(base,now)
 
@@ -29,15 +29,15 @@ class CleanupSafety(unittest.TestCase):
                       {"CLOUD_RUN_TASK_COUNT":"2"},
                       {"EXAMTREE_QS_PRODUCTION_CANARY_CLEANUP_APPROVED":"false"},
                       {"GOOGLE_CLOUD_PROJECT":"another"}):
-            with self.assertRaises(m.RuntimeError):
-                m.assert_job_context({...base,**delta},now)
+            with self.assertRaises(RuntimeError):
+                m.assert_job_context({**base,**delta},now)
 
     def test_no_project_or_out_of_year_expiration(self):
-        with self.assertRaises(m.RuntimeError):
-            m.release_deadline({...base,
+        with self.assertRaises(RuntimeError):
+            m.release_deadline({**base,
               "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2030-10-19T09:00:00Z"},now)
-        with self.assertRaises(m.RuntimeError):
-            m.release_deadline({...base,
+        with self.assertRaises(RuntimeError):
+            m.release_deadline({**base,
               "EXAMTREE_QS_PRODUCTION_CANARY_ONLY":"false"},now)
 
     def test_flags_verify_runtime_identity(self):
@@ -49,7 +49,7 @@ class CleanupSafety(unittest.TestCase):
             self.assertEqual(m.flags(m.RECEIVER)[m.SVC_FLAGS[m.RECEIVER]],"false")
         service["spec"]["template"]["spec"]["serviceAccountName"]="incorrect@other"
         with patch.object(m,"describe",return_value=service):
-            with self.assertRaises(m.RuntimeError):
+            with self.assertRaises(RuntimeError):
                 m.flags(m.RECEIVER)
 
     def test_default_operation_is_read_only(self):
