@@ -2,6 +2,7 @@
 // With approval OFF, starts a health-only, no-generation HTTP server and
 // requires no worker token, Neon URL or Google credential secret.
 import {createServer} from "node:http";
+import {assertProductionWorkerCanaryEnvironment} from "./production-canary-worker-scope.mjs";
 
 const env=process.env;
 if(env.EXAMTREE_API_RUNTIME!=="cloud-run" ||
@@ -29,6 +30,8 @@ if(env.EXAMTREE_QS_PRODUCTION_WORKER_APPROVED!=="true") {
   });
   server.listen(port,"0.0.0.0",()=>console.info("QS_PRODUCTION_WORKER_DISABLED_READY"));
 } else {
+  // Required for every approved production worker launch; never general mode.
+  assertProductionWorkerCanaryEnvironment(env);
   if((env.QUESTION_STUDIO_WORKER_TOKEN?.trim().length??0)<32) {
     throw new Error("QS_PRODUCTION_WORKER_TOKEN_UNAVAILABLE");
   }
