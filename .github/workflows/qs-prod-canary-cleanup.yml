@@ -7,9 +7,11 @@ on:
       - 'scripts/test-examtree-qs-prod-canary-cleanup.py'
       - 'Dockerfile.examtree-qs-prod-canary-cleanup'
       - 'cloudbuild.examtree-qs-prod-canary-cleanup.yaml'
-      - '.github/workflows/qs-prod-canary-cleanup.yml'
 permissions:
   contents: read
+concurrency:
+  group: qs-prod-canary-cleanup-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-24.04
