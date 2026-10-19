@@ -34,6 +34,26 @@ SVC_FLAGS={
     WORKER:"EXAMTREE_QS_PRODUCTION_WORKER_APPROVED",
 }
 
+def error_category(stderr):
+    """Classify stderr without ever printing credentials, URLs or raw output."""
+    normalized=(stderr or "").lower()
+    if "artifactregistry.repositories.downloadartifacts" in normalized or (
+        "artifact registry" in normalized and ("permission" in normalized or "denied" in normalized)
+    ):
+        return "IMAGE_ACCESS_DENIED"
+    if "permission_denied" in normalized or "permission denied" in normalized or "403" in normalized:
+        return "PERMISSION_DENIED"
+    if "not found" in normalized or "404" in normalized:
+        return "RESOURCE_NOT_FOUND"
+    if "failed_precondition" in normalized:
+        return "FAILED_PRECONDITION"
+    if "invalid_argument" in normalized or "invalid argument" in normalized:
+        return "INVALID_ARGUMENT"
+    if "conflict" in normalized or "409" in normalized:
+        return "CONFLICT"
+    return "UNKNOWN_GCLOUD_FAILURE"
+
+
 def call(args,timeout=180):
     try:
         result=subprocess.run(["gcloud",*args,"--project="+PROJECT],
@@ -42,7 +62,7 @@ def call(args,timeout=180):
         raise RuntimeError("gcloud unavailable/timeout")
     if result.returncode:
         # gcloud stderr can contain sensitive service metadata: never emit it.
-        raise RuntimeError("Google Cloud command failed")
+        raise RuntimeError("GCP_"+error_category(result.stderr))
     return result.stdout
 
 def describe(args):
@@ -67,6 +87,30 @@ def flags(service):
     if not isinstance(values,list) or len({x.get("name") for x in values})!=len(values):
         raise RuntimeError("Invalid service environment metadata")
     return {x.get("name"):x.get("value") for x in values}
+
+def dispatcher_approval():
+    """Inspect the exact dispatcher Job image container, without secret values."""
+    data=describe(["run","jobs","describe",DISPATCHER,"--region="+REGION])
+    obj=(data.get("spec") or {}).get("template") or {}
+    # Support the gcloud v1 nested Job template representation.
+    for _ in range(4):
+        if not isinstance(obj,dict):
+            raise RuntimeError("Unexpected dispatcher metadata")
+        if "containers" in obj:
+            break
+        obj=obj.get("spec",obj.get("template",{}))
+    containers=obj.get("containers") or []
+    if len(containers)!=1:
+        raise RuntimeError("Unexpected dispatcher container configuration")
+    env=containers[0].get("env") or []
+    if not isinstance(env,list) or any(not isinstance(x,dict) for x in env):
+        raise RuntimeError("Invalid dispatcher environment")
+    keys=[x.get("name") for x in env]
+    if len(keys)!=len(set(keys)):
+        raise RuntimeError("Duplicate dispatcher environment variable")
+    return {x.get("name"):x.get("value") for x in env}.get(
+        "EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED")
+
 
 def queue_state():
     data=describe(["tasks","queues","describe",QUEUE,"--location="+REGION])
@@ -130,32 +174,58 @@ def main():
         call(["tasks","queues","pause",QUEUE,"--location="+REGION])
     else:
         print("PASS: production queue already PAUSED",flush=True)
-    # Both must be set false. Do not fail early if one write fails:
-    # attempt the other service even if a prior step returned nonzero.
+    # Skip revisions when approval is already FALSE: updates can require
+    # Artifact Registry pulls and service identity impersonation unnecessarily.
     errors=[]
+    modified=[]
     for service,flag in ((WORKER,SVC_FLAGS[WORKER]),(RECEIVER,SVC_FLAGS[RECEIVER])):
+        if configs[service][flag]=="false":
+            print("PASS: already disabled, no revision: "+service,flush=True)
+            continue
         try:
             call(["run","services","update",service,"--region="+REGION,
                   "--update-env-vars="+flag+"=false","--quiet"],timeout=320)
+            modified.append(service)
             print("CLEANUP: approval OFF for "+service,flush=True)
-        except RuntimeError:
-            errors.append(service)
+        except RuntimeError as e:
+            errors.append(service+" ["+str(e)+"]")
     try:
-        call(["run","jobs","update",DISPATCHER,"--region="+REGION,
-              "--update-env-vars=EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED=false",
-              "--quiet"],timeout=240)
-    except RuntimeError:
-        errors.append(DISPATCHER)
+        dispatch_before=dispatcher_approval()
+        if dispatch_before=="false":
+            print("PASS: dispatcher already disabled, no revision",flush=True)
+        else:
+            call(["run","jobs","update",DISPATCHER,"--region="+REGION,
+                  "--update-env-vars=EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED=false",
+                  "--quiet"],timeout=240)
+            modified.append(DISPATCHER)
+    except RuntimeError as e:
+        errors.append(DISPATCHER+" ["+str(e)+"]")
     final,state=snapshot()
     if state!="PAUSED" or any(final[s].get(flag)!="false" for s,flag in SVC_FLAGS.items()):
-        errors.append("verification")
+        errors.append("receiver/worker/queue verification")
+    try:
+        if dispatcher_approval()!="false":
+            errors.append("dispatcher verification")
+    except RuntimeError as e:
+        errors.append("dispatcher verification ["+str(e)+"]")
     if errors:
         raise RuntimeError("Cleanup incomplete for: "+",".join(errors)+
-                           "; scheduler remains active to retry")
-    print("PASS: queue PAUSED and receiver/worker approvals FALSE",flush=True)
-    # Stop recurring scheduler ONLY after both flags have been verified OFF.
-    call(["scheduler","jobs","pause",SCHEDULER,"--location="+REGION])
+                           "; scheduler must remain active for authorized recovery")
+    print("PASS: queue PAUSED, receiver/worker/dispatcher approvals FALSE",flush=True)
+    # Stop recurring scheduler ONLY after all disabled flags are verified.
+    sched=describe(["scheduler","jobs","describe",SCHEDULER,"--location="+REGION])
+    if sched.get("state")=="ENABLED":
+        call(["scheduler","jobs","pause",SCHEDULER,"--location="+REGION])
+    elif sched.get("state")!="PAUSED":
+        raise RuntimeError("Unexpected cleanup Scheduler state")
+    if describe(["scheduler","jobs","describe",SCHEDULER,
+                 "--location="+REGION]).get("state")!="PAUSED":
+        raise RuntimeError("Scheduler still enabled after attempted cleanup")
     print("RESULT: CANARY CLEANUP COMPLETE; SCHEDULER PAUSED",flush=True)
+    if not modified:
+        print("NOTE: DISABLED CONFIG VERIFIED; true-to-false rollback NOT exercised",flush=True)
+    else:
+        print("NOTE: production approvals changed: "+",".join(modified),flush=True)
     return 0
 
 if __name__=="__main__":
