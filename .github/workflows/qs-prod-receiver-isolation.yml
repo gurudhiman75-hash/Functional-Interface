@@ -4,10 +4,13 @@ on:
     branches: [New-main]
     paths:
       - 'artifacts/api-server/src/async-task-receiver-prod-standalone.ts'
+      - 'artifacts/api-server/src/question-studio/prod-one-run-canary-guard.mjs'
+      - 'artifacts/api-server/src/question-studio/async-task-lease-claim.ts'
       - 'artifacts/api-server/build-qs-prod-task-receiver.mjs'
       - 'Dockerfile.examtree-qs-prod-task-receiver'
       - 'cloudbuild.examtree-qs-prod-task-receiver.yaml'
       - 'tests/qs-prod-receiver-isolation.test.mjs'
+      - 'tests/qs-prod-one-run-canary-guard.test.mjs'
       - 'tests/qs-prod-receiver-disabled-boot.test.mjs'
 permissions:
   contents: read
@@ -28,6 +31,7 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: node --test tests/qs-prod-receiver-isolation.test.mjs
+      - run: node --test tests/qs-prod-one-run-canary-guard.test.mjs
       - run: pnpm install --frozen-lockfile --filter @workspace/api-server...
       - name: Compile production-only receiver
         run: node artifacts/api-server/build-qs-prod-task-receiver.mjs
