@@ -45,7 +45,7 @@ class ValidationOnlyTests(unittest.TestCase):
         req_error=urllib.error.HTTPError(
             url=module.validation_url(module.native.PROBES[0][0]),
             code=400,msg="Invalid argument",hdrs=None,fp=io.BytesIO(payload))
-        with patch.object(module.urllib.request,"urlopen",side_effect=req_error):
+        with patch.object(module,"open_validation",side_effect=req_error):
             status,detail=module.validate_request(module.native.PROBES[0][0],{},"pretend-token")
         self.assertEqual(status,"BLOCK")
         self.assertIn("template.template.containers[0].image",detail)
@@ -56,7 +56,7 @@ class ValidationOnlyTests(unittest.TestCase):
         payload=b'{"error":{"status":"PERMISSION_DENIED","message":"actor email protected"}}'
         error=urllib.error.HTTPError(url="https://run.googleapis.com",code=403,
                                       msg="Forbidden",hdrs=None,fp=io.BytesIO(payload))
-        with patch.object(module.urllib.request,"urlopen",side_effect=error):
+        with patch.object(module,"open_validation",side_effect=error):
             status,detail=module.validate_request(module.native.PROBES[0][0],{},"pretend-token")
         self.assertEqual(status,"REVIEW")
         self.assertIn("PERMISSION_DENIED",detail)
