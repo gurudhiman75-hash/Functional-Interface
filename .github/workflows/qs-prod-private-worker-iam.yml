@@ -7,6 +7,10 @@ on:
       - 'artifacts/api-server/src/question-studio/remote-universal-studio-client.ts'
       - 'artifacts/api-server/src/async-task-receiver-prod-standalone.ts'
       - 'artifacts/api-server/prod-universal-worker-service.mjs'
+      - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
+      - 'artifacts/api-server/production-canary-worker-scope.mjs'
+      - 'artifacts/api-server/src/question-studio/prod-one-run-enqueue.ts'
+      - 'tests/qs-prod-single-use-enqueue-and-worker-ttl.test.mjs'
       - 'Dockerfile.examtree-qs-prod-universal-worker'
       - 'cloudbuild.examtree-qs-prod-universal-worker.yaml'
       - 'tests/qs-prod-private-worker-iam.test.mjs'
@@ -32,4 +36,5 @@ jobs:
       - run: node --test tests/qs-prod-private-worker-iam.test.mjs
       - name: Compile production OIDC receiver with private-worker IAM
         run: node artifacts/api-server/build-qs-prod-task-receiver.mjs
+      - run: node --test tests/qs-prod-single-use-enqueue-and-worker-ttl.test.mjs
       - run: node --test tests/qs-prod-receiver-disabled-boot.test.mjs

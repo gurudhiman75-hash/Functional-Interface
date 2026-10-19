@@ -3,6 +3,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
+import {assertProductionWorkerCanaryInput} from "./production-canary-worker-scope.mjs";
 
 const token = process.env.QUESTION_STUDIO_WORKER_TOKEN;
 if (!token || token.length < 32) throw new Error("Missing QUESTION_STUDIO_WORKER_TOKEN");
@@ -110,6 +111,11 @@ const server = createServer(async (req, res) => {
   let packageId = "unknown";
   try {
     const input = await readInput(req);
+    if(process.env.K_SERVICE==="examtree-universal-prod") {
+      // Rechecked for EVERY request; expiry disables compute even if the
+      // production approval flag remains true after a shell disconnect.
+      assertProductionWorkerCanaryInput(input);
+    }
     packageId = input.request.packageId;
     console.info(JSON.stringify({ event: "universal_generation_started", packageId, count: input.count }));
     const batch = await execute(input);
