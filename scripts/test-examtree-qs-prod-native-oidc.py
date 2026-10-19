@@ -30,6 +30,28 @@ class NativeOidcTests(unittest.TestCase):
         self.assertEqual(module.PROBES[0][2],module.TASK_SA)
         self.assertEqual(module.PROBES[1][2],module.RECEIVER_SA)
 
+    def test_manifest_project_number_region_label(self):
+        job,target,account,marker=module.PROBES[0]
+        image="asia-south1-docker.pkg.dev/sarbedutech/qs/a@sha256:"+"b"*64
+        manifest=module.manifest(job,image,account,target,marker,
+            "https://examtree-qs-receiver-prod-test.a.run.app")
+        self.assertEqual(manifest["metadata"]["namespace"], "1083299267005")
+        self.assertEqual(manifest["metadata"]["labels"]["cloud.googleapis.com/location"],
+                         "asia-south1")
+
+    def test_validation_error_redacted(self):
+        from types import SimpleNamespace
+        result=SimpleNamespace(returncode=1,stderr="INVALID_ARGUMENT: invalid resource from acct secret123")
+        category=module.classify_job_failure(result)
+        self.assertEqual(category,"Cloud Run job manifest rejected by validation")
+        self.assertNotIn("secret123",category)
+
+    def test_act_as_error_redacted(self):
+        from types import SimpleNamespace
+        result=SimpleNamespace(returncode=1,stderr="Permission iam.serviceAccounts.actAs denied to user@example.com")
+        self.assertEqual(module.classify_job_failure(result),
+                         "missing permission to attach the runtime service account")
+
     def test_job_spec_never_imports_app_or_db(self):
         job,target,account,marker=module.PROBES[0]
         digest="asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/x@sha256:"+"a"*64

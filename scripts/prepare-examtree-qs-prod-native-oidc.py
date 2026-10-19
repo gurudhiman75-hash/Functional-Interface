@@ -18,6 +18,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 PROJECT = "sarbedutech"
+PROJECT_NUMBER = "1083299267005"
 REGION = "asia-south1"
 TASK_SA = "examtree-qs-task-prod@sarbedutech.iam.gserviceaccount.com"
 RECEIVER_SA = "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com"
@@ -77,6 +78,33 @@ def command(args, timeout=120):
         return subprocess.run(args, capture_output=True, text=True, timeout=timeout, check=False)
     except (OSError, subprocess.TimeoutExpired):
         return None
+
+
+def classify_job_failure(result):
+    """Return only a fixed category. Never expose stderr, tokens or identities."""
+    if result is None:
+        return "gcloud command unavailable or timed out"
+    message = (result.stderr or "").lower()
+    if any(x in message for x in ("unrecognized arguments", "unrecognized flag",
+                                  "invalid choice", "unrecognized option")):
+        return "unsupported gcloud CLI flag or command"
+    if any(x in message for x in ("iam.serviceaccounts.actas",
+                                  "actas permission", "service account user")):
+        return "missing permission to attach the runtime service account"
+    if ("artifactregistry" in message and
+            any(x in message for x in ("permission", "denied", "403"))):
+        return "Artifact Registry image read permission denied"
+    if any(x in message for x in ("permission_denied", "permission denied",
+                                  "does not have permission", "403 forbidden")):
+        return "Cloud Run or service-account IAM permission denied"
+    if any(x in message for x in ("invalid value", "invalid argument",
+                                  "bad request", "invalid resource",
+                                  "failed to parse", "cannot parse",
+                                  "validation failed", "unrecognized field")):
+        return "Cloud Run job manifest rejected by validation"
+    if any(x in message for x in ("already exists", "conflict", "409")):
+        return "Cloud Run job already exists or conflicts"
+    return "other Cloud Run job creation error; inspect gcloud stderr locally"
 
 
 def run_json(args):
@@ -156,7 +184,8 @@ def manifest(job, image, account, target, marker, endpoint):
          "QS_PROBE_ORIGIN":endpoint}
     return {
         "apiVersion":"run.googleapis.com/v1","kind":"Job",
-        "metadata":{"name":job,"namespace":PROJECT},
+        "metadata":{"name":job,"namespace":PROJECT_NUMBER,
+                    "labels":{"cloud.googleapis.com/location":REGION}},
         "spec":{"template":{"spec":{"taskCount":1,"parallelism":1,
            "template":{"spec":{"serviceAccountName":account,"maxRetries":0,
                "timeoutSeconds":"75s",
@@ -200,7 +229,8 @@ def main():
             result=command(["gcloud","run","jobs","replace",str(path),
                             "--region="+REGION,"--project="+PROJECT,"--quiet"],120)
             must(result is not None and result.returncode==0,
-                 "probe job creation failed: "+job+"; inspect partial resources, do not rerun")
+                 "probe job creation failed: "+job+" ("+
+                 classify_job_failure(result)+"); inspect partial resources, do not rerun")
             print("CREATED: "+job,flush=True)
             preflight()
             result=command(["gcloud","run","jobs","execute",job,"--region="+REGION,
@@ -219,5 +249,5 @@ if __name__=="__main__":
         raise SystemExit(main())
     except (RuntimeError,KeyError,TypeError,ValueError) as exc:
         print("STOP: "+str(exc),file=sys.stderr)
-        print("Production configuration untouched; inspect any partially created probe jobs.",file=sys.stderr)
+        print("Production generation remains disabled; inspect any partially created probe jobs.",file=sys.stderr)
         raise SystemExit(2)
