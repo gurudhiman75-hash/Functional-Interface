@@ -105,8 +105,8 @@ def validate_request(job, body, token):
     google_status = err.get("status")
     safe_status = google_status if google_status in ALLOWED_STATUS else "UNKNOWN"
     fields = []
-    for d in err.get("details", []) if isinstance(err.get("details"), list) else []:
-        for x in d.get("fieldViolations", []) if isinstance(d, dict) else []:
+    for d in (err.get("details", []) if isinstance(err.get("details"), list) else []):
+        for x in (d.get("fieldViolations", []) if isinstance(d, dict) else []):
             f = x.get("field") if isinstance(x, dict) else None
             if isinstance(f, str) and SAFE_FIELD.fullmatch(f):
                 fields.append(f)
