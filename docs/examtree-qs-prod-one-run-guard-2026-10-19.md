@@ -7,7 +7,7 @@ This change adds a mandatory, **default-deny** scope to the production receiver.
 - Production receiver continues to require all of its existing explicit production approvals, private Cloud Run invoker identity, and a verified Google-signed OIDC task ID token.
 - In addition, `EXAMTREE_QS_PRODUCTION_CANARY_ONLY=true` must be explicitly set, along with `EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID` (UUID) and `EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT` (UTC ISO8601 timestamp).
 - The receiver **always rejects** any request with a different run ID or invalid/expired deadline. Deadline must be no farther than **15 minutes** in the future when the request arrives. There is intentionally **no non-canary fallback** even if someone switches all general approval flags to true.
-- After verifying the signed ID token and canary scope, the transactional Neon run-row lock verifies the stored immutable task snapshot: `count=1`, `packageId=COM-001`, `engineId=knowledge-v1`, `language=en`, `selectedCpIds=[COM-001]`, seeded, queue version 1. Invalid snapshots are rejected **before** lease or run-status writes.
+- After verifying the signed ID token and canary scope, the transactional Neon run-row lock verifies the stored immutable task snapshot: `count=1`, `packageId=COM-001`, `engineId=knowledge-v1`, `language=en`, `selectedCpIds=[COM-001-CP-001]`, seeded, queue version 1. Invalid snapshots are rejected **before** lease or run-status writes.
 - Existing synchronous question generation, staging Cloud Tasks and student-facing API routes are unaffected by this source change.
 
 ## Safer future delivery approach
