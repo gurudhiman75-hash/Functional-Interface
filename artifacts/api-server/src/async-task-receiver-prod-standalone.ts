@@ -8,6 +8,8 @@ import {createQuestionStudioTaskOidcVerifier,getQuestionStudioTaskOidcConfig,
 import {computeInputFromQueuedSnapshot} from "./question-studio/async-task-receiver-snapshot";
 import {validateAsyncTaskComputeInput} from "./question-studio/async-task-package-capabilities";
 import {runUniversalStudioRemote} from "./question-studio/remote-universal-studio-client";
+import {assertProdCanaryRequest,isProdCanarySnapshot}
+  from "./question-studio/prod-one-run-canary-guard.mjs";
 
 const requiredTrue=[
   "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED",
@@ -67,6 +69,9 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     const config=getQuestionStudioTaskOidcConfig();
     await verifyOidc(req.get("Authorization"),config);
     const {runId}=validateQuestionStudioTaskBody(req.body);
+    // Requires a single pinned run ID and a maximum 15-minute TTL.
+    // This check occurs BEFORE importing the database code.
+    assertProdCanaryRequest(runId);
     // CRITICAL: Do not import the Neon SQL client during process startup.
     // Production receiver must bind PORT and answer health/disabled requests
     // without DATABASE_URL or production worker secrets. The two write-capable
@@ -76,7 +81,9 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
       import("./question-studio/async-task-lease-claim"),
       import("./question-studio/async-review-commit"),
     ]);
-    const claim=await claimQuestionStudioAsyncTask(runId);
+    // The atomic DB claim rejects non-COM-001 or multi-question snapshots
+    // before it updates lease or run state.
+    const claim=await claimQuestionStudioAsyncTask(runId,isProdCanarySnapshot);
     if(["terminal","not_found","exhausted"].includes(claim.kind)){
       res.status(204).end();return;
     }
