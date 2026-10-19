@@ -59,7 +59,7 @@ class CleanupSafety(unittest.TestCase):
         self.assertIn("apt-get install -y --no-install-recommends python3",docker)
         self.assertIn("RUN python3 /opt/examtree/cleanup.py --help",docker)
         self.assertIn('ENTRYPOINT ["python3", "/opt/examtree/cleanup.py"]',docker)
-        self.assertIn("args: ['run', '--rm', '\${_IMAGE}', '--help']",build)
+        self.assertIn("args: ['run', '--rm', '${_IMAGE}', '--help']",build)
         self.assertNotIn("gcloud run jobs execute",build)
 
     def test_default_operation_is_read_only(self):
