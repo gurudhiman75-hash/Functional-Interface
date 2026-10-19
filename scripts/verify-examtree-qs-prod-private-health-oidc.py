@@ -87,15 +87,38 @@ def service_origin(name):
     return validate_origin((data.get("status") or {}).get("url"), name)
 
 
+def classify_token_failure(result):
+    """Never echo gcloud stderr: it may contain identity or credential details."""
+    if result is None:
+        return "gcloud unavailable or timed out"
+    msg = (result.stderr or "").lower()
+    if ("iamcredentials.googleapis.com" in msg and
+            any(x in msg for x in ("not enabled", "disabled", "not been used"))):
+        return "IAM Credentials API is disabled or not enabled"
+    if any(x in msg for x in ("getopenidtoken", "permission_denied",
+                              "permission denied", "does not have permission",
+                              "403 forbidden")):
+        return "identity-token impersonation permission denied"
+    if any(x in msg for x in ("invalid choice", "unrecognized arguments",
+                              "unrecognized flag", "unrecognized option")):
+        return "unsupported gcloud CLI option"
+    if any(x in msg for x in ("unauthenticated", "login required",
+                              "no active account", "no credentialed accounts")):
+        return "Cloud Shell account authentication unavailable"
+    return "other gcloud token-generation failure; inspect CLI error locally"
+
+
 def mint_id_token(account, audience):
     result = cli(["gcloud", "auth", "print-identity-token",
                   "--impersonate-service-account=" + account,
                   "--audiences=" + audience, "--include-email",
                   "--project=" + PROJECT], 90)
     if result is None or result.returncode != 0:
-        return None
+        return None, classify_token_failure(result)
     token = result.stdout.strip()
-    return token if 64 <= len(token) <= 12000 and JWT.fullmatch(token) else None
+    if 64 <= len(token) <= 12000 and JWT.fullmatch(token):
+        return token, None
+    return None, "gcloud returned an invalid or empty identity-token format"
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -134,10 +157,10 @@ def check_service(name, account, expected_service, do_probe):
     if not do_probe:
         report("REVIEW", name + " signed GET /health", "use --probe to test without writes")
         return
-    token = mint_id_token(account, origin)
+    token, problem = mint_id_token(account, origin)
     if not token:
         report("REVIEW", name + " signed GET /health",
-               "could not mint ID token; check Token Creator permission; no grant made")
+               "could not mint ID token (" + str(problem) + "); no IAM grant made")
         return
     status, body = health_get(origin, token)
     del token
