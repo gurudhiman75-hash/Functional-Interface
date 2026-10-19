@@ -37,7 +37,7 @@ export function isProdCanarySnapshot(snapshot) {
      typeof req.seed!=="string" || req.seed.length<8 ||
      req.language!=="en") return false;
   if(!Array.isArray(snapshot.selectedCpIds) || snapshot.selectedCpIds.length!==1 ||
-     snapshot.selectedCpIds[0]!=="COM-001") return false;
-  if(req.canonicalProblemId!==undefined && req.canonicalProblemId!=="COM-001") return false;
+     snapshot.selectedCpIds[0]!=="COM-001-CP-001") return false;
+  if(req.canonicalProblemId!==undefined && req.canonicalProblemId!=="COM-001-CP-001") return false;
   return true;
 }
