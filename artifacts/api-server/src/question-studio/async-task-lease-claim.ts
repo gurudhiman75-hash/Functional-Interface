@@ -15,7 +15,7 @@ type ClaimResult =
   | {kind:"claimed";runId:string;leaseToken:string;attemptNumber:number;requestSnapshot:unknown}
   | {kind:"busy"|"terminal"|"not_found"|"invalid"|"exhausted";runId:string};
 
-export async function claimQuestionStudioAsyncTask(runId: string): Promise<ClaimResult> {
+export async function claimQuestionStudioAsyncTask(runId: string, allowSnapshot?: (snapshot:unknown)=>boolean): Promise<ClaimResult> {
   if (process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED !== "true" ||
       process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED !== "true" ||
       process.env.EXAMTREE_QUESTION_STUDIO_TASK_CLAIM_ENABLED !== "true") {
@@ -33,6 +33,11 @@ export async function claimQuestionStudioAsyncTask(runId: string): Promise<Claim
     `;
     const run=runs[0];
     if(!run)return {kind:"not_found",runId};
+    // Production canary can pass a strict pure allowlist. Apply it under
+    // the same run-row lock BEFORE lease or run-state writes.
+    if(allowSnapshot && !allowSnapshot(run.requestSnapshot)) {
+      return {kind:"invalid",runId};
+    }
     const snapshot=run.requestSnapshot as {queueVersion?:unknown} | null;
     const leases=await tx`
       SELECT attempt_number AS "attemptNumber",
