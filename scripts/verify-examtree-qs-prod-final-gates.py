@@ -139,10 +139,10 @@ def main():
                        [], "RESULT: PREFLIGHT PASSED; NO CHANGES"):
         return 2
     audit = run([sys.executable, "scripts/audit-examtree-qs-prod-runtime.py"], timeout=300)
-    if audit is None or audit.returncode or not re.search(r"\\bBLOCK=0\\b", audit.stdout):
+    if audit is None or audit.returncode or not re.search(r"\bBLOCK=0\b", audit.stdout):
         note("BLOCK", "runtime readiness audit", "re-run the existing audit for detail")
         return 2
-    match = re.search(r"\\bPASS=(\\d+) BLOCK=(\\d+) REVIEW=(\\d+)\\b", audit.stdout)
+    match = re.search(r"\bPASS=(\d+) BLOCK=(\d+) REVIEW=(\d+)\b", audit.stdout)
     note("PASS", "runtime static checks", match.group(0) if match else "no blocking failures")
 
     # Image Dockerfile ENV defaults are in GitHub source, but this cannot
