@@ -1,0 +1,20 @@
+name: QS canary fasttrack IAM safety
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/fasttrack-examtree-qs-cleanup-iam.py'
+      - 'scripts/test-fasttrack-examtree-qs-cleanup-iam.py'
+permissions:
+  contents: read
+concurrency:
+  group: qs-canary-iam-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m py_compile scripts/fasttrack-examtree-qs-cleanup-iam.py scripts/test-fasttrack-examtree-qs-cleanup-iam.py
+      - run: python3 scripts/test-fasttrack-examtree-qs-cleanup-iam.py
