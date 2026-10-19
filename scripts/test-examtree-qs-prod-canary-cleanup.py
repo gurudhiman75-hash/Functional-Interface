@@ -62,6 +62,54 @@ class CleanupSafety(unittest.TestCase):
         self.assertIn("args: ['run', '--rm', '${_IMAGE}', '--help']",build)
         self.assertNotIn("gcloud run jobs execute",build)
 
+    def test_sanitized_cloud_errors_do_not_expose_stderr(self):
+        self.assertEqual(m.error_category(
+            "Permission artifactregistry.repositories.downloadArtifacts denied on private/path"),
+            "IMAGE_ACCESS_DENIED")
+        self.assertEqual(m.error_category("Error 403 permission denied: secret-token"),
+                         "PERMISSION_DENIED")
+        self.assertEqual(m.error_category("unexpected value: sensitive-string"),
+                         "UNKNOWN_GCLOUD_FAILURE")
+
+    def test_dispatcher_flag_reads_narrowly(self):
+        job={"spec":{"template":{"spec":{"template":{"spec":{
+            "containers":[{"env":[
+                {"name":"EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED","value":"false"}]}]
+        }}}}}}
+        with patch.object(m,"describe",return_value=job):
+            self.assertEqual(m.dispatcher_approval(),"false")
+
+    def test_already_disabled_does_not_redeploy_anything(self):
+        config={m.WORKER:{m.SVC_FLAGS[m.WORKER]:"false"},
+                m.RECEIVER:{m.SVC_FLAGS[m.RECEIVER]:"false"}}
+        with patch("sys.argv",["cleanup.py","--apply"]),\
+             patch.object(m,"assert_job_context"),\
+             patch.object(m,"call",return_value="sarbedutech\\n") as cloud,\
+             patch.object(m,"snapshot",return_value=(config,"PAUSED")),\
+             patch.object(m,"dispatcher_approval",return_value="false"),\
+             patch.object(m,"describe",return_value={"state":"PAUSED"}):
+            self.assertEqual(m.main(),0)
+            self.assertEqual(cloud.call_count,1)
+            self.assertEqual(cloud.call_args.args[0],
+                             ["config","get-value","project"])
+
+    def test_only_enabled_service_must_update(self):
+        before={m.WORKER:{m.SVC_FLAGS[m.WORKER]:"true"},
+                m.RECEIVER:{m.SVC_FLAGS[m.RECEIVER]:"false"}}
+        after={m.WORKER:{m.SVC_FLAGS[m.WORKER]:"false"},
+               m.RECEIVER:{m.SVC_FLAGS[m.RECEIVER]:"false"}}
+        with patch("sys.argv",["cleanup.py","--apply"]),\
+             patch.object(m,"assert_job_context"),\
+             patch.object(m,"call",return_value="sarbedutech\\n") as cloud,\
+             patch.object(m,"snapshot",side_effect=[(before,"PAUSED"),(after,"PAUSED")]),\
+             patch.object(m,"dispatcher_approval",return_value="false"),\
+             patch.object(m,"describe",return_value={"state":"PAUSED"}):
+            self.assertEqual(m.main(),0)
+            commands=[x.args[0] for x in cloud.call_args_list]
+            service_updates=[x for x in commands if x[:3]==["run","services","update"]]
+            self.assertEqual(len(service_updates),1)
+            self.assertEqual(service_updates[0][3],m.WORKER)
+
     def test_default_operation_is_read_only(self):
         with patch("sys.argv",["cleanup-examtree-qs-prod-canary.py"]),\
              patch.object(m,"call",return_value="sarbedutech\n") as call,\
