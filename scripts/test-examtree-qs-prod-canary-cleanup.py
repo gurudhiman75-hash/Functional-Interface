@@ -52,6 +52,16 @@ class CleanupSafety(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 m.flags(m.RECEIVER)
 
+    def test_image_install_and_help_only_smoke_are_required(self):
+        root=pathlib.Path(__file__).resolve().parent.parent
+        docker=(root/"Dockerfile.examtree-qs-prod-canary-cleanup").read_text()
+        build=(root/"cloudbuild.examtree-qs-prod-canary-cleanup.yaml").read_text()
+        self.assertIn("apt-get install -y --no-install-recommends python3",docker)
+        self.assertIn("RUN python3 /opt/examtree/cleanup.py --help",docker)
+        self.assertIn('ENTRYPOINT ["python3", "/opt/examtree/cleanup.py"]',docker)
+        self.assertIn("args: ['run', '--rm', '\${_IMAGE}', '--help']",build)
+        self.assertNotIn("gcloud run jobs execute",build)
+
     def test_default_operation_is_read_only(self):
         with patch("sys.argv",["cleanup-examtree-qs-prod-canary.py"]),\
              patch.object(m,"call",return_value="sarbedutech\n") as call,\
