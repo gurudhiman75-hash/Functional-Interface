@@ -1,0 +1,6 @@
+# Independent scheduled emergency cleanup, not the live receiver or worker.
+# Build only: deploy as a separately gated Cloud Run Job after IAM review.
+FROM gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+COPY scripts/cleanup-examtree-qs-prod-canary.py /opt/examtree/cleanup.py
+ENTRYPOINT ["python3", "/opt/examtree/cleanup.py"]
+CMD ["--apply"]
