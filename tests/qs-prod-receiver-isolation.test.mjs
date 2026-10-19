@@ -28,7 +28,8 @@ test("validates Google OIDC identity and fixed production receiver audience",()=
 });
 test("uses only production remote worker and durable review commit",()=>{
   assert.match(receiver,/worker\.hostname\.startsWith\("examtree-universal-prod-"\)/);
-  assert.match(receiver,/claimQuestionStudioAsyncTask\(runId\)/);
+  assert.match(receiver,/claimQuestionStudioAsyncTask\(runId,isProdCanarySnapshot\)/);
+  assert.match(receiver,/assertProdCanaryRequest\(runId\)/);
   assert.match(receiver,/validateAsyncTaskComputeInput\(compute\)/);
   assert.match(receiver,/commitQuestionStudioAsyncReview/);
   assert.match(receiver,/res\.status\(204\)\.end\(\)/);
