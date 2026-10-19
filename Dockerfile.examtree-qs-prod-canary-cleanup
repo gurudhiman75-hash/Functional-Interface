@@ -1,6 +1,14 @@
 # Independent scheduled emergency cleanup, not the live receiver or worker.
 # Build only: deploy as a separately gated Cloud Run Job after IAM review.
 FROM gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+# The stable Cloud SDK runtime on x86_64 does not guarantee a system
+# python3 executable. The cleanup entrypoint requires one.
+RUN apt-get update -qq \
+  && apt-get install -y --no-install-recommends python3 \
+  && rm -rf /var/lib/apt/lists/*
 COPY scripts/cleanup-examtree-qs-prod-canary.py /opt/examtree/cleanup.py
+# Build must fail before an image is published if process startup fails.
+# --help only invokes argparse; no Google API calls or mutations.
+RUN python3 /opt/examtree/cleanup.py --help > /dev/null
 ENTRYPOINT ["python3", "/opt/examtree/cleanup.py"]
 CMD ["--apply"]
