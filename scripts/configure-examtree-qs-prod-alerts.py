@@ -99,7 +99,11 @@ def matches(existing, expected):
             return False
     if float(old.get("thresholdValue", -1)) != 0:
         return False
-    if old.get("aggregations") != want["aggregations"]:
+    original = old.get("aggregations") or []
+    if len(original) != 1:
+        return False
+    required = want["aggregations"][0]
+    if any(original[0].get(k) != v for k, v in required.items()):
         return False
     return True
 
