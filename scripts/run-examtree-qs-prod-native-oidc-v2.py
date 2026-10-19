@@ -98,15 +98,18 @@ def verify_created_job(job, plan, token):
     wanted = expected["containers"][0]
     if (template.get("taskCount") != 1 or template.get("parallelism") != 1
         or actual.get("serviceAccount") != expected["serviceAccount"]
-        or actual.get("maxRetries") != 0
+        or actual.get("maxRetries", 0) != 0
         or len(containers) != 1
         or containers[0].get("image") != wanted["image"]
         or containers[0].get("command") != ["node", "-e"]
         or containers[0].get("args") != wanted["args"]):
         raise GateError("created Job differs from approved health-only contract; do not execute")
     def env_dict(values):
-        if not isinstance(values, list):
+        if not isinstance(values, list) or any(not isinstance(x, dict) for x in values):
             raise GateError("unexpected job environment")
+        names = [x.get("name") for x in values]
+        if len(names) != len(set(names)) or any(x.get("valueSource") for x in values):
+            raise GateError("unexpected duplicate or secret environment binding")
         return {x.get("name"): x.get("value") for x in values}
     if env_dict(containers[0].get("env", [])) != env_dict(wanted["env"]):
         raise GateError("created job environment changed; do not execute")
