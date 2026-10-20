@@ -11,6 +11,7 @@ import json
 import subprocess
 import sys
 from urllib.parse import urlsplit
+from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
 
 P="sarbedutech"
 N="1083299267005"
@@ -112,10 +113,15 @@ def check_preflight():
         d=service(name)
         sp=((d.get("spec") or {}).get("template") or {}).get("spec") or {}
         ensure(sp.get("serviceAccountName")==sa,name+" runtime account unexpected")
-        status=d.get("status") or {}
-        ensure(status.get("latestReadyRevisionName") and
-               status.get("latestReadyRevisionName")==status.get("latestCreatedRevisionName"),
-               name+" has an unready Cloud Run revision")
+        # Inspect the revision actually serving 100% traffic. Cloud Run can
+        # retire an unserved latest-created revision after a safe rollback.
+        # Never mistake that metadata difference for an unhealthy live service.
+        try:
+            live_name=serving_revision_name(d,name)
+            live=cloud(["run","revisions","describe",live_name,"--region="+R],json_result=True)
+            verify_serving_revision(d,live,name)
+        except ValueError as exc:
+            raise RuntimeError("STOP: "+name+" unsafe serving revision: "+str(exc)) from exc
         ensure((status.get("url") or "").startswith("https://"+name+"-"),
                name+" reported service URL unexpected")
         check_oidc_service(name,caller)

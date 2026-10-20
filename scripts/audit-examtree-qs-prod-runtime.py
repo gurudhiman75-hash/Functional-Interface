@@ -8,6 +8,7 @@ Requires Cloud Shell with gcloud, Python 3, and read access to project sarbedute
 import json
 import subprocess
 from urllib.parse import urlsplit
+from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
 
 PROJECT = "sarbedutech"
 REGION = "asia-south1"
@@ -133,9 +134,13 @@ for name, runtime_sa in ((RECEIVER, RECEIVER_SA), (WORKER, WORKER_SA)):
     spec = ((data.get("spec") or {}).get("template") or {}).get("spec") or {}
     account = spec.get("serviceAccountName")
     result("PASS" if account == runtime_sa else "BLOCK", name + " runtime identity")
-    latest = (data.get("status") or {}).get("latestReadyRevisionName")
-    created = (data.get("status") or {}).get("latestCreatedRevisionName")
-    result("PASS" if latest and latest == created else "BLOCK", name + " latest revision ready")
+    try:
+        live_name = serving_revision_name(data, name)
+        live = cloud_json("run", "revisions", "describe", live_name, "--region=" + REGION)
+        verify_serving_revision(data, live, name)
+        result("PASS", name + " 100%-serving revision ready and config matches template")
+    except ValueError as exc:
+        result("BLOCK", name + " serving revision", str(exc))
     check_private_iam(name, TASK_SA if name == RECEIVER else RECEIVER_SA)
     status_env(container_env(spec), "EXAMTREE_API_RUNTIME", "cloud-run", name + " Cloud Run mode")
     status_env(container_env(spec), "EXAMTREE_API_STAGING", "false", name + " production mode")
