@@ -122,6 +122,7 @@ def check_preflight():
             verify_serving_revision(d,live,name)
         except ValueError as exc:
             raise RuntimeError("STOP: "+name+" unsafe serving revision: "+str(exc)) from exc
+        status=d.get("status") or {}
         ensure((status.get("url") or "").startswith("https://"+name+"-"),
                name+" reported service URL unexpected")
         check_oidc_service(name,caller)
