@@ -76,5 +76,127 @@ class ServingRevisionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             serving_revision_name(service, SERVICE)
 
+
+class ProductionPreflightIntegrationTests(unittest.TestCase):
+    """Exercise the real preflight with mocked gcloud, not just the helper."""
+
+    def test_full_preflight_allows_retired_latest_created_and_stays_read_only(self):
+        import importlib.util
+        import pathlib
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        path = pathlib.Path(__file__).with_name("prepare-qs-prod-disabled-only.py")
+        spec = importlib.util.spec_from_file_location("prod_disabled_preflight", path)
+        self.assertIsNotNone(spec)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        calls = []
+
+        def make_service(name, sa, env):
+            image = "asia-south1-docker.pkg.dev/sarbedutech/qs/" + name + "@sha256:" + "1" * 64
+            serving = name + "-00010-abc"
+            template = {"serviceAccountName": sa,
+                        "containers": [{"image": image, "env": env}]}
+            service = {
+                "spec": {"template": {"spec": copy.deepcopy(template)}},
+                "status": {
+                    "url": "https://" + name + "-example-uc.a.run.app",
+                    "latestCreatedRevisionName": name + "-00011-retired",
+                    "latestReadyRevisionName": serving,
+                    "traffic": [{"revisionName": serving, "percent": 100}],
+                },
+            }
+            revision = {
+                "metadata": {"name": serving},
+                "spec": copy.deepcopy(template),
+                "status": {"conditions": [{"type": "Ready", "status": "True"}]},
+            }
+            return service, revision
+
+        secret = lambda name: {"name": name, "valueFrom": {
+            "secretKeyRef": {"name": name, "key": "latest"}}}
+        receiver, receiver_revision = make_service(
+            module.RECEIVER, module.RECEIVER_SA, [
+                {"name": "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED", "value": "false"},
+                {"name": "EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT",
+                 "value": module.TASK_SA},
+                {"name": "EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE",
+                 "value": module.RECEIVER_URL},
+                {"name": "QUESTION_STUDIO_UNIVERSAL_WORKER_URL",
+                 "value": module.WORKER_URL},
+                secret("QUESTION_STUDIO_WORKER_TOKEN"),
+            ])
+        # The secret reference's ENV name differs from its Secret Manager name.
+        receiver["spec"]["template"]["spec"]["containers"][0]["env"][-1]["valueFrom"]["secretKeyRef"]["name"] = module.WORKER_SECRET
+        receiver_revision["spec"]["containers"][0]["env"][-1]["valueFrom"]["secretKeyRef"]["name"] = module.WORKER_SECRET
+
+        worker, worker_revision = make_service(
+            module.WORKER, module.WORKER_SA, [
+                {"name": "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED", "value": "false"},
+                secret("QUESTION_STUDIO_WORKER_TOKEN"),
+            ])
+        worker["spec"]["template"]["spec"]["containers"][0]["env"][-1]["valueFrom"]["secretKeyRef"]["name"] = module.WORKER_SECRET
+        worker_revision["spec"]["containers"][0]["env"][-1]["valueFrom"]["secretKeyRef"]["name"] = module.WORKER_SECRET
+        docs = {
+            module.RECEIVER: (receiver, receiver_revision, module.TASK_SA),
+            module.WORKER: (worker, worker_revision, module.RECEIVER_SA),
+        }
+
+        def fake_cloud(args, *, json_result=False, sensitive=False):
+            calls.append(args)
+            if args[:2] == ["projects", "describe"]:
+                return {"projectNumber": module.N}
+            if args[:2] == ["projects", "get-iam-policy"]:
+                return {"bindings": [{"role": "roles/cloudtasks.serviceAgent",
+                                     "members": ["serviceAccount:" + module.AGENT_SA]}]}
+            if args[:3] == ["tasks", "queues", "describe"]:
+                return {"state": "PAUSED", "rateLimits": {"maxConcurrentDispatches": 1},
+                        "retryConfig": {"maxAttempts": 3}}
+            if args[:2] == ["iam", "service-accounts"]:
+                return {"email": args[2]}
+            if args[:3] == ["run", "services", "describe"]:
+                return docs[args[3]][0]
+            if args[:3] == ["run", "revisions", "describe"]:
+                return next(revision for svc, revision, caller in docs.values()
+                            if revision["metadata"]["name"] == args[3])
+            if args[:3] == ["run", "services", "get-iam-policy"]:
+                return {"bindings": [{"role": "roles/run.invoker",
+                                     "members": ["serviceAccount:" + docs[args[3]][2]]}]}
+            if args[:3] == ["run", "jobs", "describe"]:
+                return {"spec": {"template": {"spec": {
+                    "taskCount": 1, "template": {"spec": {
+                        "maxRetries": 0,
+                        "serviceAccountName": module.DISPATCH_SA,
+                        "containers": [{"env": [
+                            {"name": "EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED", "value": "false"}]}]}}}}}}
+            if args[:3] == ["scheduler", "jobs", "list"]:
+                return [{"name": "projects/sarbedutech/locations/asia-south1/jobs/examtree-qs-prod-canary-cleanup-trigger",
+                         "state": "PAUSED"}]
+            if args[:2] == ["secrets", "describe"]:
+                return {"name": "projects/sarbedutech/secrets/" + args[2]}
+            if args[:3] == ["secrets", "versions", "access"]:
+                self.assertTrue(sensitive)
+                return ("postgresql://test:never-print-password@"
+                        "ep-polished-king-atj47i5y.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require")
+            raise AssertionError("Unexpected GCP query: " + str(args))
+
+        fake_config = SimpleNamespace(returncode=0, stdout="sarbedutech\n")
+        with patch.object(module, "cloud", side_effect=fake_cloud), \\
+             patch.object(module.subprocess, "run", return_value=fake_config):
+            result = module.check_preflight()
+        self.assertIsInstance(result, dict)
+        self.assertTrue(any(x[:3] == ["run", "revisions", "describe"] for x in calls))
+        self.assertFalse(any(x[1] in {"update", "execute", "resume", "deploy", "create",
+                                      "delete", "set-iam-policy", "add-iam-policy-binding"}
+                             for x in calls if len(x) > 1))
+
+    def test_preflight_rejects_unknown_service_url_instead_of_crashing(self):
+        import pathlib
+        source = pathlib.Path(__file__).with_name(
+            "prepare-qs-prod-disabled-only.py").read_text()
+        self.assertIn('status=d.get("status") or {}', source)
+        self.assertIn('ensure((status.get("url") or "").startswith', source)
+
 if __name__ == "__main__":
     unittest.main()
