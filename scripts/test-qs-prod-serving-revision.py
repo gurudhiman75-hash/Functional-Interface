@@ -182,8 +182,8 @@ class ProductionPreflightIntegrationTests(unittest.TestCase):
             raise AssertionError("Unexpected GCP query: " + str(args))
 
         fake_config = SimpleNamespace(returncode=0, stdout="sarbedutech\n")
-        with patch.object(module, "cloud", side_effect=fake_cloud), \\
-             patch.object(module.subprocess, "run", return_value=fake_config):
+        with (patch.object(module, "cloud", side_effect=fake_cloud),
+             patch.object(module.subprocess, "run", return_value=fake_config)):
             result = module.check_preflight()
         self.assertIsInstance(result, dict)
         self.assertTrue(any(x[:3] == ["run", "revisions", "describe"] for x in calls))
