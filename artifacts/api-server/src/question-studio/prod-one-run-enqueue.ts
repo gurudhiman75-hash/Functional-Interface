@@ -50,10 +50,21 @@ export async function enqueueOneCanary() {
   try {
     await sqlClient.begin(async tx=>{
       await tx.unsafe("SELECT pg_advisory_xact_lock(738201,101)");
+      // Canary request attribution must use one active Firebase-linked,
+      // unprivileged test user. Never trust independently supplied IDs.
       const admin=await tx.unsafe(
-        "SELECT id FROM identity.users WHERE id=$1::uuid AND status='active' AND deleted_at IS NULL LIMIT 1",
-        [adminId]);
-      if(admin.length!==1)throw new Error("QS_CANARY_ADMIN_NOT_ACTIVE");
+        "SELECT u.id FROM identity.users u "+
+        "JOIN identity.auth_identities ai ON ai.user_id=u.id "+
+        "AND ai.provider='firebase' AND ai.provider_subject=$2 "+
+        "LEFT JOIN identity.admin_profiles ap ON ap.user_id=u.id "+
+        "WHERE u.id=$1::uuid AND u.status='active' AND u.deleted_at IS NULL "+
+        "AND ap.user_id IS NULL "+
+        "AND NOT EXISTS (SELECT 1 FROM identity.user_roles ur "+
+        "WHERE ur.user_id=u.id AND ur.revoked_at IS NULL "+
+        "AND ur.valid_from<=now() AND (ur.valid_until IS NULL OR ur.valid_until>now())) "+
+        "LIMIT 1",
+        [adminId,actor]);
+      if(admin.length!==1)throw new Error("QS_CANARY_TEST_IDENTITY_INVALID");
       const existing=await tx.unsafe(
         "SELECT (SELECT COUNT(*)::int FROM content.generation_runs WHERE status::text IN ('queued','running')) AS active_runs, "+
         "(SELECT COUNT(*)::int FROM platform.outbox_events WHERE event_type='question_studio.generation_run.queued.v1' "+
@@ -102,7 +113,7 @@ if(process.argv[1]?.endsWith("prod-one-run-enqueue.mjs")) {
   enqueueOneCanary().catch(error=>{
     const codes=new Set(["QS_CANARY_ENQUEUE_NOT_AUTHORIZED",
       "QS_PRODUCTION_CANARY_SCOPE_DENIED","QS_CANARY_INVALID_SNAPSHOT",
-      "QS_CANARY_ADMIN_NOT_ACTIVE","QS_CANARY_ENQUEUE_EXISTING_WORK"]);
+      "QS_CANARY_TEST_IDENTITY_INVALID","QS_CANARY_ENQUEUE_EXISTING_WORK"]);
     const code=error instanceof Error?error.message:"";
     console.error("STOP: "+(codes.has(code)?code:"QS_CANARY_ENQUEUE_FAILED"));
     process.exitCode=2;
