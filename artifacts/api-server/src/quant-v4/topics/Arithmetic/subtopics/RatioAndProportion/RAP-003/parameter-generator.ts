@@ -103,6 +103,45 @@ const AGE_NAME_TRIPLES = [
   ["Karan", "Sonia", "Mohan"],
 ] as const;
 
+export const RAP_003_CONTEXT_POOLS = {
+  incomePairs: AGE_NAME_PAIRS,
+  mixtureContexts: [
+    { mixtureA: "Solution A", mixtureB: "Solution B", mixtureC: "Solution C", component: "acid" },
+    { mixtureA: "Milk mixture A", mixtureB: "Milk mixture B", mixtureC: "Milk mixture C", component: "milk" },
+    { mixtureA: "Alloy A", mixtureB: "Alloy B", mixtureC: "Alloy C", component: "copper" },
+    { mixtureA: "Juice mix A", mixtureB: "Juice mix B", mixtureC: "Juice mix C", component: "juice" },
+    { mixtureA: "Sugar solution A", mixtureB: "Sugar solution B", mixtureC: "Sugar solution C", component: "sugar" },
+    { mixtureA: "Salt solution A", mixtureB: "Salt solution B", mixtureC: "Salt solution C", component: "salt" },
+    { mixtureA: "Chemical solution A", mixtureB: "Chemical solution B", mixtureC: "Chemical solution C", component: "solute" },
+    { mixtureA: "Metal mix A", mixtureB: "Metal mix B", mixtureC: "Metal mix C", component: "metal" },
+  ],
+  replacementContexts: [
+    { vesselName: "a vessel", liquidA: "milk", liquidB: "water" },
+    { vesselName: "a tank", liquidA: "acid solution", liquidB: "water" },
+    { vesselName: "a container", liquidA: "juice", liquidB: "water" },
+    { vesselName: "a drum", liquidA: "syrup", liquidB: "water" },
+    { vesselName: "a can", liquidA: "oil", liquidB: "kerosene" },
+    { vesselName: "a jar", liquidA: "salt solution", liquidB: "water" },
+    { vesselName: "a reservoir", liquidA: "chemical solution", liquidB: "water" },
+    { vesselName: "a storage vessel", liquidA: "paint", liquidB: "thinner" },
+  ],
+  denominationItems: ["coins", "notes", "tokens", "coupons", "stamps", "vouchers", "tickets", "chips"],
+  ratePairs: [
+    ["Train A", "Train B"],
+    ["Runner A", "Runner B"],
+    ["Car A", "Car B"],
+    ["Bus A", "Bus B"],
+    ["Cyclist A", "Cyclist B"],
+    ["Truck A", "Truck B"],
+    ["Boat A", "Boat B"],
+    ["Vehicle A", "Vehicle B"],
+    ["Machine A", "Machine B"],
+    ["Team A", "Team B"],
+    ["Worker A", "Worker B"],
+    ["Pipe A", "Pipe B"],
+  ],
+} as const;
+
 const PARTNERSHIP_CASES = {
   standard: [
     { personA: "Aman", personB: "Bhavna", investmentA: 40000, investmentB: 60000, timeA: 12, timeB: 12, totalProfit: 15000 },
@@ -1247,6 +1286,58 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   return { ...selected, targetPerson: targetThreePerson };
 }
 
+function applyRap003ContextDiversity(
+  cpId: Rap003CanonicalProblemId,
+  seed: string,
+  variables: Rap003Variables,
+): Rap003Variables {
+  const index = seedSerialOffset(seed, 997);
+
+  if (cpId === "RAP-CP-015") {
+    const [personA, personB] = RAP_003_CONTEXT_POOLS.incomePairs[index % RAP_003_CONTEXT_POOLS.incomePairs.length]!;
+    return { ...variables, personA, personB };
+  }
+
+  if (cpId === "RAP-CP-016") {
+    const context = RAP_003_CONTEXT_POOLS.mixtureContexts[index % RAP_003_CONTEXT_POOLS.mixtureContexts.length]!;
+    return {
+      ...variables,
+      mixtureA: context.mixtureA,
+      mixtureB: context.mixtureB,
+      ...(variables.mixtureC !== undefined ? { mixtureC: context.mixtureC } : {}),
+      ...(variables.component !== undefined ? { component: context.component } : {}),
+    };
+  }
+
+  if (cpId === "RAP-CP-017") {
+    const context = RAP_003_CONTEXT_POOLS.replacementContexts[index % RAP_003_CONTEXT_POOLS.replacementContexts.length]!;
+    return {
+      ...variables,
+      vesselName: context.vesselName,
+      liquidA: context.liquidA,
+      liquidB: context.liquidB,
+    };
+  }
+
+  if (cpId === "RAP-CP-018" && variables.itemName !== undefined) {
+    return {
+      ...variables,
+      itemName: RAP_003_CONTEXT_POOLS.denominationItems[index % RAP_003_CONTEXT_POOLS.denominationItems.length]!,
+    };
+  }
+
+  if (cpId === "RAP-CP-019" && (variables.objectA !== undefined || variables.personA !== undefined)) {
+    const [left, right] = RAP_003_CONTEXT_POOLS.ratePairs[index % RAP_003_CONTEXT_POOLS.ratePairs.length]!;
+    return {
+      ...variables,
+      ...(variables.objectA !== undefined ? { objectA: left, objectB: right } : {}),
+      ...(variables.personA !== undefined ? { personA: left, personB: right } : {}),
+    };
+  }
+
+  return variables;
+}
+
 export function generateRap003Parameters(input: Rap003ParameterInput = {}): Rap003Parameters {
   const cpId = input.canonicalProblemId ?? "RAP-CP-014";
   if (cpId !== "RAP-CP-013" && cpId !== "RAP-CP-014" && cpId !== "RAP-CP-015" && cpId !== "RAP-CP-016" && cpId !== "RAP-CP-017" && cpId !== "RAP-CP-018" && cpId !== "RAP-CP-019" && cpId !== "RAP-CP-020" && cpId !== "RAP-CP-021" && cpId !== "RAP-CP-022") throw new Error(`RAP-003 MVP currently supports RAP-CP-013 through RAP-CP-022. Received ${cpId}.`);
@@ -1256,7 +1347,7 @@ export function generateRap003Parameters(input: Rap003ParameterInput = {}): Rap0
   const qlId = pickQl(cpId, seed, input.questionLanguageId);
   const registry = getRap003RegistryEntry(qlId);
   const difficulty: Rap003DifficultyBand = input.difficultyBand ?? registry.difficulty;
-  const variables = diversifyVariables(qlId, seed, variablesForQl(qlId, seed));
+  const variables = applyRap003ContextDiversity(cpId, seed, diversifyVariables(qlId, seed, variablesForQl(qlId, seed)));
 
   return {
     archetypeId: RAP_003_ARCHETYPE_ID,
