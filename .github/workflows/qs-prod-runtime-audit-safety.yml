@@ -6,6 +6,9 @@ on:
     paths:
       - scripts/audit-examtree-qs-prod-runtime.py
       - scripts/prepare-qs-prod-disabled-only.py
+      - scripts/prepare-examtree-qs-prod-native-oidc.py
+      - scripts/qs_prod_serving_revision.py
+      - scripts/test-qs-prod-serving-revision.py
       - tests/qs-prod-runtime-audit.test.mjs
       - tests/qs-prod-disabled-only-bindings.test.mjs
   workflow_dispatch:
@@ -25,5 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate syntax, fail-closed security, and no GCP mutations
         run: node --test tests/qs-prod-runtime-audit.test.mjs tests/qs-prod-disabled-only-bindings.test.mjs
+      - name: Regression test 100-percent-serving Cloud Run revision safety
+        run: python3 scripts/test-qs-prod-serving-revision.py
       - name: Verify patch formatting
         run: git diff --check
