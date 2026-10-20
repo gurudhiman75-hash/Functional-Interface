@@ -16,6 +16,7 @@ import sys
 import tempfile
 from pathlib import Path
 from urllib.parse import urlsplit
+from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
 
 PROJECT = "sarbedutech"
 PROJECT_NUMBER = "1083299267005"
@@ -149,9 +150,8 @@ def inspect_service(name):
     d=run_json(["run","services","describe",name,"--region="+REGION])
     must(isinstance(d,dict),"cannot read production service metadata: "+name)
     status=d.get("status") or {}
-    revision=status.get("latestReadyRevisionName")
-    must(revision and revision==status.get("latestCreatedRevisionName"),
-         "production revision is not ready: "+name)
+    # 100%-serving revision, not possibly retired latest-created revision.
+    revision=serving_revision_name(d,name)
     endpoint=origin(status.get("url"),name)
     must(endpoint,"invalid production service origin: "+name)
     spec=((d.get("spec") or {}).get("template") or {}).get("spec") or {}
@@ -162,6 +162,7 @@ def inspect_service(name):
          "not an approved Examtree Artifact Registry image")
     rev=run_json(["run","revisions","describe",revision,"--region="+REGION])
     must(isinstance(rev,dict),"cannot inspect production revision: "+name)
+    verify_serving_revision(d,rev,name)
     rs=rev.get("status") or {}
     cs=rs.get("containerStatuses") or []
     digest=(cs[0].get("imageDigest") if len(cs)==1 else None) or rs.get("imageDigest")
