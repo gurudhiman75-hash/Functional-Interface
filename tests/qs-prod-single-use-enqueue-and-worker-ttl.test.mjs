@@ -68,11 +68,13 @@ test("built enqueue entry has no eager database connection",async()=>{
 
 test("isolated canary enqueue binds Firebase UID to active non-admin Neon user",()=>{
   const source=readFileSync("artifacts/api-server/src/question-studio/prod-one-run-enqueue.ts","utf8");
-  assert.match(source,/JOIN identity\\.auth_identities ai ON ai\\.user_id=u\\.id/);
-  assert.match(source,/ai\\.provider='firebase' AND ai\\.provider_subject=\\$2/);
-  assert.match(source,/WHERE u\\.id=\\$1::uuid AND u\\.status='active'/);
-  assert.match(source,/ap\\.user_id IS NULL/);
-  assert.match(source,/NOT EXISTS \\(SELECT 1 FROM identity\\.user_roles ur/);
-  assert.match(source,/\\[adminId,actor\\]/);
-  assert.match(source,/QS_CANARY_TEST_IDENTITY_INVALID/);
+  for(const clause of [
+    "JOIN identity.auth_identities ai ON ai.user_id=u.id",
+    "ai.provider='firebase' AND ai.provider_subject=$2",
+    "WHERE u.id=$1::uuid AND u.status='active'",
+    "ap.user_id IS NULL",
+    "NOT EXISTS (SELECT 1 FROM identity.user_roles ur",
+    "[adminId,actor]",
+    "QS_CANARY_TEST_IDENTITY_INVALID"
+  ])assert.ok(source.includes(clause),"Missing identity guard: "+clause);
 });
