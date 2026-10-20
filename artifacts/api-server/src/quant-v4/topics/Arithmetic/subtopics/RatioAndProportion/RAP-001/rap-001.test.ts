@@ -10,8 +10,8 @@ import {
   renderRap001HumanReviewCsv,
   renderRap001MaturityAuditMarkdown,
 } from "./coverage-auditor";
-import { getAnswerType, getQuestionEntry, getRequiredVariables, getTaskKind, renderTemplate, validateRap001Libraries } from "./library";
-import { getRap001ActiveCanonicalProblemIds } from "./parameter-generator";
+import { getAnswerType, getQuestionEntry, getRequiredVariables, getTaskKind, RAP_001_LIBRARY_REGISTRY, renderTemplate, validateRap001Libraries } from "./library";
+import { getRap001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runRap001Pipeline } from "./pipeline";
 import { solveRap001 } from "./solver";
 import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Parameters, type Rap001Variables } from "./types";
@@ -68,7 +68,60 @@ assertFixedCase("RAP-CP-002", "RAP-QL-011", { personA: "Aman", ratioExp: 3, rati
 assertFixedCase("RAP-CP-003", "RAP-QL-014", { ratioA: 2, ratioB: 3, transferredCount: 4, finalRatioA: 3, finalRatioB: 4 }, "$$12$$", "COUNT");
 assertFixedCase("RAP-CP-004", "RAP-QL-017", { numA: 9, numB: 16 }, "$$12$$", "ABSOLUTE");
 assertFixedCase("RAP-CP-005", "RAP-QL-022", { denom1: 1, denom2: 2, denom3: 5, ratio1: 2, ratio2: 3, ratio3: 1, totalValue: 52, targetDenom: 2 }, "$$12$$", "COUNT");
-assertFixedCase("RAP-CP-006", "RAP-QL-032", { acidVolume: 5, waterVolume: 15 }, "$$25\\%$$", "PERCENT");
+assertFixedCase("RAP-CP-006", "RAP-QL-032", { acidVolume: 5, waterVolume: 15 }, "$25\\%$", "PERCENT");
+
+const rap001ObjectPoolMinimums: Record<string, number> = {
+  family: 18,
+  school: 10,
+  marks: 12,
+  coins: 4,
+  workers: 16,
+  mixtures: 13,
+};
+for (const [domainName, minimum] of Object.entries(rap001ObjectPoolMinimums)) {
+  const domain = RAP_001_LIBRARY_REGISTRY.semantic.library.domains[
+    domainName as keyof typeof RAP_001_LIBRARY_REGISTRY.semantic.library.domains
+  ];
+  assert.ok(domain, `Missing RAP-001 semantic domain ${domainName}`);
+  assert.ok(
+    domain.entities.length >= minimum,
+    `RAP-001 ${domainName} object pool must contain at least ${minimum} entities`,
+  );
+}
+
+for (const cpId of cpIds) {
+  const qlIds = getSelectableQuestionLanguageIds(cpId, "en");
+  const rotated = Array.from({ length: qlIds.length }, (_, diversityOrdinal) =>
+    runRap001Pipeline(cpId, {
+      language: "en",
+      seed: `rap-001-diversity:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    qlIds.length,
+    `${cpId} should consume its full English QL pool before unrestricted audit reuse`,
+  );
+}
+
+const rap001ExplicitEasyIds = getSelectableQuestionLanguageIds("RAP-CP-001", "en")
+  .filter((qlId) => getQuestionEntry("RAP-CP-001", qlId, "en").difficulty === "Easy");
+const rap001ExplicitEasy = Array.from({ length: rap001ExplicitEasyIds.length }, (_, diversityOrdinal) =>
+  runRap001Pipeline("RAP-CP-001", {
+    language: "en",
+    seed: `rap-001-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(rap001ExplicitEasy.every((item) => item.difficultyBand === "Easy"));
+assert.equal(
+  new Set(rap001ExplicitEasy.map((item) => item.questionLanguageId)).size,
+  rap001ExplicitEasyIds.length,
+  "RAP-001 CP001 should consume the explicit Easy pool before reuse",
+);
+
 
 for (let index = 0; index < 1000; index += 1) {
   const cpId = cpIds[index % cpIds.length]!;
@@ -144,5 +197,32 @@ fs.writeFileSync(path.join(packageDir, "rap-001-pre-freeze-coverage-audit.md"), 
 fs.writeFileSync(path.join(packageDir, "rap-001-maturity-audit.md"), `${renderRap001MaturityAuditMarkdown(maturity.audit, "1000 EN questions").trimEnd()}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-freeze-record.md"), `${renderRap001FreezeRecordMarkdown(preFreeze.audit).trimEnd()}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "entity-rendering-audit.md"), `${renderRap001EntityRenderingAuditMarkdown(100).trimEnd()}\n`, "utf8");
+
+
+for (const cpId of RAP_001_CP_IDS) {
+  for (let index = 0; index < 120; index += 1) {
+    const pkg = runRap001Pipeline(cpId, {
+      language: "en",
+      seed: `rap-001-object-pool:${cpId}:${index}`,
+      diversityOrdinal: index,
+    });
+    assert.equal(pkg.validation.valid, true);
+    const mathJaxValues = Object.values(pkg.mathJax ?? {});
+    assert.ok(mathJaxValues.length > 0, `${cpId} must expose MathJax expressions`);
+    for (const expression of mathJaxValues) {
+      assert.ok(typeof expression === "string" && expression.trim().length > 0, `${cpId} MathJax expression must be non-empty`);
+      assert.equal(
+        (expression.match(/\\\\\(/g) ?? []).length,
+        (expression.match(/\\\\\)/g) ?? []).length,
+        `${cpId} MathJax inline delimiters must balance`,
+      );
+    }
+    for (const value of Object.values(pkg.parameters.variables)) {
+      if (typeof value === "string" && /\{[^}]+\}/.test(value)) {
+        assert.fail(`${cpId} leaked unresolved placeholder in expanded object pool`);
+      }
+    }
+  }
+}
 
 console.log(`RAP-001 Phase C test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);
