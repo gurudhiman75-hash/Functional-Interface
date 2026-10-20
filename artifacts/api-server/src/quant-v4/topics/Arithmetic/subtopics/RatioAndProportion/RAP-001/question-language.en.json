@@ -168,6 +168,38 @@
       "RAP-QL-011": {
         "template": "{personA}'s monthly expense-to-savings ratio is {ratioExp}:{ratioSav}. If the monthly salary is Rs. {totalSalary}, find the monthly savings.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-108": {
+        "template": "Rs. {totalAmount} is shared among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more does {personA} receive than {personC}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-208": {
+        "template": "An amount of Rs. {totalAmount} is divided in the ratio {ratioA}:{ratioB}:{ratioC} among {personA}, {personB}, and {personC}. Find the difference between the first and third shares.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-109": {
+        "template": "{personA}, {personB}, and {personC} receive shares in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, find the total amount distributed.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "template": "A sum is divided among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. The first share exceeds the third by Rs. {shareDifference}. What is the total sum?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-111": {
+        "template": "The monthly expenditure and savings of {personA} are in the ratio {ratioExp}:{ratioSav}. If the monthly salary is Rs. {totalSalary}, find the savings.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-211": {
+        "template": "{personA} spends and saves money each month in the ratio {ratioExp}:{ratioSav}. For a salary of Rs. {totalSalary}, how much is saved?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-207": {
+        "template": "{totalAmount} is divided among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find the share of {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-307": {
+        "template": "A total amount of {totalAmount} is apportioned in the ratio {ratioA}:{ratioB}:{ratioC} among {personA}, {personB}, and {personC}. How much does {targetPerson} receive?",
+        "difficulty": "Medium"
       }
     }
   },
@@ -199,6 +231,26 @@
       },
       "RAP-QL-016": {
         "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-112": {
+        "template": "In a {contextName}, {groupA} and {groupB} are in the ratio {ratioA}:{ratioB}. After {addedCount} {groupA} are added, the ratio becomes {finalRatioA}:{finalRatioB}. Find the original number of {groupA}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-212": {
+        "template": "The ratio of {groupA} to {groupB} in a {contextName} is {ratioA}:{ratioB}. When {addedCount} more {groupA} join, it changes to {finalRatioA}:{finalRatioB}. How many {groupA} were there initially?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-213": {
+        "template": "In a {contextName}, {groupA}:{groupB} = {ratioA}:{ratioB}. After {removedCount} {groupA} leave, the ratio becomes {finalRatioA}:{finalRatioB}. Find the original total strength.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-114": {
+        "template": "Two numbers are in the ratio {ratioA}:{ratioB}. After adding {transferredCount} to both, the ratio becomes {finalRatioA}:{finalRatioB}. Find the larger original number.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-115": {
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, while their expenditures are in the ratio {expRatioA}:{expRatioB}. If each saves Rs. {savingsAmount}, find {personA}'s income.",
         "difficulty": "Hard"
       }
     }
@@ -232,6 +284,26 @@
       "RAP-QL-021": {
         "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-117": {
+        "template": "Find the mean proportional of {numA} and {numB}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-118": {
+        "template": "Find the third proportional to {numA} and {numB}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-119": {
+        "template": "Find the fourth proportional to {numA}, {numB}, and {numC}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-120": {
+        "template": "{varY} varies directly with {varX}. If {varY} = {varY1} when {varX} = {varX1}, find {varY} when {varX} = {varX2}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-121": {
+        "template": "{varY} varies inversely with {varX}. If {varY} = {varY1} when {varX} = {varX1}, find {varY} when {varX} = {varX2}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -251,6 +323,38 @@
       },
       "RAP-QL-026": {
         "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-122": {
+        "template": "Coins of denominations {denom1}, {denom2}, and {denom3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their total value is Rs. {totalValue}. Find the number of {targetDenom} coins.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-222": {
+        "template": "A collection contains {denom1}, {denom2}, and {denom3} coins in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many {targetDenom} coins are there?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-123": {
+        "template": "A box contains {totalCoins} coins of denominations {denom1}, {denom2}, {denom3}, and {denom4}. Their total values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}. Find the number of {targetDenom} coins.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "template": "There are {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If the values contributed by these denominations are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, find the number of {targetDenom} coins.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-124": {
+        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {countA}, {countB}, and {countC} of them respectively weigh {totalWeight} g in all, find the weight of one {itemA}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-224": {
+        "template": "{countA} {itemA}, {countB} {itemB}, and {countC} {itemC} weigh {totalWeight} g together. If one-item weights are in the ratio {ratioA}:{ratioB}:{ratioC}, find the weight of one {itemA}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-126": {
+        "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their respective weights are {w1}, {w2}, and {w3}. If the weighted total is {totalScore}, find the marks in {sub1}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "template": "A student's marks in {sub1}, {sub2}, and {sub3} are proportional to {ratio1}:{ratio2}:{ratio3}. With weights {w1}, {w2}, and {w3}, the weighted total is {totalScore}. Find the marks in {sub1}.",
         "difficulty": "Hard"
       }
     }
@@ -288,6 +392,22 @@
       "RAP-QL-232": {
         "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. Find the percentage of acid in the solution.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-127": {
+        "template": "{liquid1} and {liquid2} are mixed in the ratio {ratio1}:{ratio2}. After adding {addedAmount} litres of {liquid1}, the ratio becomes {finalRatio1}:{finalRatio2}. Find the initial quantity of {liquid2}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-128": {
+        "template": "A {totalVolume}-litre mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. Find how much {liquid2} must be added to obtain the ratio {finalRatio1}:{finalRatio2}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-129": {
+        "template": "A {mixtureType} contains {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. When {addedAmount} litres of {liquid2} are added, the ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Find the original total volume.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-130": {
+        "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced by {liquidB}. Then {removedVolume2} litres are again replaced by {liquidB}. Find the final ratio of {liquidA} to {liquidB}.",
+        "difficulty": "Hard"
       }
     }
   }

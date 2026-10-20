@@ -168,6 +168,38 @@
       "RAP-QL-107": {
         "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-108": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} में {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-208": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} में बांटा गया है। पहले और तीसरे हिस्से का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-109": {
+        "template": "{personA}, {personB} और {personC} के हिस्सों का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल बांटी गई राशि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "template": "एक राशि {personA}, {personB} और {personC} में {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटी गई है। पहला हिस्सा तीसरे से Rs. {shareDifference} अधिक है। कुल राशि कितनी है?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-111": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि मासिक वेतन Rs. {totalSalary} है, तो बचत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-211": {
+        "template": "{personA} हर महीने खर्च और बचत {ratioExp}:{ratioSav} के अनुपात में करता है। Rs. {totalSalary} के वेतन में कितनी बचत होगी?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-207": {
+        "template": "{totalAmount} को {personA}, {personB} और {personC} में {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा गया है। {targetPerson} का हिस्सा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-307": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} में बांटा गया है। {targetPerson} को कितना मिलेगा?",
+        "difficulty": "Medium"
       }
     }
   },
@@ -200,6 +232,26 @@
       "RAP-QL-214": {
         "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-112": {
+        "template": "एक {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {addedCount} {groupA} जुड़ने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-212": {
+        "template": "एक {contextName} में {groupA}:{groupB} = {ratioA}:{ratioB} है। {addedCount} और {groupA} आने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। पहले {groupA} कितने थे?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-213": {
+        "template": "एक {contextName} में {groupA}:{groupB} = {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआती कुल संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-114": {
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। दोनों में {transferredCount} जोड़ने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी मूल संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-115": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} तथा खर्च का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} बचाते हैं, तो {personA} की आय ज्ञात कीजिए।",
+        "difficulty": "Hard"
       }
     }
   },
@@ -232,6 +284,26 @@
       "RAP-QL-219": {
         "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-117": {
+        "template": "{numA} और {numB} का मध्य अनुपाती ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-118": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-119": {
+        "template": "{numA}, {numB} और {numC} का चौथा अनुपाती ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-120": {
+        "template": "{varY}, {varX} के सीधे अनुपात में है। जब {varX} = {varX1}, तब {varY} = {varY1} है। {varX} = {varX2} होने पर {varY} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-121": {
+        "template": "{varY}, {varX} के व्युत्क्रमानुपाती है। जब {varX} = {varX1}, तब {varY} = {varY1} है। {varX} = {varX2} होने पर {varY} ज्ञात कीजिए।",
+        "difficulty": "Medium"
       }
     }
   },
@@ -251,6 +323,38 @@
       },
       "RAP-QL-026": {
         "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-122": {
+        "template": "{denom1}, {denom2} और {denom3} मूल्यवर्ग के सिक्कों की संख्या का अनुपात {ratio1}:{ratio2}:{ratio3} है। कुल मूल्य Rs. {totalValue} है। {targetDenom} के सिक्कों की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-222": {
+        "template": "एक संग्रह में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। कुल मूल्य Rs. {totalValue} है। {targetDenom} के कितने सिक्के हैं?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-123": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। उनके कुल मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है। {targetDenom} के सिक्कों की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "template": "{denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। इन मूल्यवर्गों द्वारा दिए गए कुल मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है। {targetDenom} के सिक्कों की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-124": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। इनके क्रमशः {countA}, {countB} और {countC} की कुल मात्रा का वजन {totalWeight} g है। एक {itemA} का वजन ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-224": {
+        "template": "{countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} g है। एक-एक वस्तु के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। एक {itemA} का वजन ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-126": {
+        "template": "{sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। उनके भार क्रमशः {w1}, {w2} और {w3} हैं। यदि भारित कुल {totalScore} है, तो {sub1} के अंक ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "template": "एक विद्यार्थी के {sub1}, {sub2} और {sub3} के अंक {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। भार {w1}, {w2} और {w3} तथा भारित कुल {totalScore} है। {sub1} के अंक ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -288,6 +392,22 @@
       "RAP-QL-232": {
         "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-127": {
+        "template": "{liquid1} और {liquid2} को {ratio1}:{ratio2} के अनुपात में मिलाया गया है। {addedAmount} लीटर {liquid1} मिलाने पर अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-128": {
+        "template": "{totalVolume} लीटर मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात {finalRatio1}:{finalRatio2} करने के लिए कितना {liquid2} मिलाना होगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-129": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआती कुल मात्रा ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-130": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिलाया जाता है। फिर {removedVolume2} लीटर दोबारा निकालकर {liquidB} मिलाया जाता है। अंतिम {liquidA}:{liquidB} अनुपात ज्ञात कीजिए।",
+        "difficulty": "Hard"
       }
     }
   }
