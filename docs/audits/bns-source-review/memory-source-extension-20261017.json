@@ -1,0 +1,120 @@
+{
+  "authority": "BNS-MEMORY-BASED-SOURCE-EXTENSION-20261017",
+  "sources": [
+    {
+      "id": "ADDA-IBPS-PO-2024",
+      "url": "https://www.adda247.com/jobs/wp-content/uploads/sites/22/2025/06/26163523/IBPS-PO-Prelims-Memory-Based-2024-1.pdf",
+      "kind": "PUBLISHER_MEMORY_BASED_PAPER",
+      "exam": "IBPS_PO_PRELIMS",
+      "year": 2024,
+      "heldDate": null,
+      "shift": null,
+      "reviewedQuestionBlock": [
+        76,
+        80
+      ],
+      "questionPages": [
+        17,
+        18
+      ],
+      "solutionPage": 39,
+      "frequencyEligible": false
+    },
+    {
+      "id": "ADDA-SBI-PO-20231101",
+      "url": "https://wpassets.adda247.com/wp-content/uploads/multisite/2023/11/01200031/Formatted-SBI-PO-Pre-Memory-Based-Paper-Mock-01-1.-Nov.2023-English.pdf",
+      "kind": "PUBLISHER_MEMORY_BASED_PAPER",
+      "exam": "SBI_PO",
+      "heldDate": "2023-11-01",
+      "shift": null,
+      "reviewedQuestionBlock": [
+        47,
+        52
+      ],
+      "questionPages": [
+        8
+      ],
+      "frequencyEligible": false
+    }
+  ],
+  "items": [
+    {
+      "source": "ADDA-IBPS-PO-2024",
+      "questionRef": "Q76",
+      "candidateFamily": "ALTERNATING_LINEAR_DIFFERENCE",
+      "status": "GAP_PENDING"
+    },
+    {
+      "source": "ADDA-IBPS-PO-2024",
+      "questionRef": "Q77",
+      "candidateFamily": "CONSTANT_DIVISION",
+      "status": "UNIQUE_SOURCE_REPAIR_AND_GENERATOR_SUPPORTED",
+      "wrongTerm": 220,
+      "replacement": 225,
+      "independentRepairCount": 1
+    },
+    {
+      "source": "ADDA-IBPS-PO-2024",
+      "questionRef": "Q78",
+      "candidateFamily": "ALTERNATING_PROGRESSIVE_DIFFERENCE",
+      "status": "GAP_PENDING"
+    },
+    {
+      "source": "ADDA-IBPS-PO-2024",
+      "questionRef": "Q79",
+      "candidateFamily": null,
+      "status": "UNRESOLVED_SOURCE_HOLD"
+    },
+    {
+      "source": "ADDA-IBPS-PO-2024",
+      "questionRef": "Q80",
+      "candidateFamily": "CONSECUTIVE_PRIME_DIFFERENCE",
+      "status": "GRAMMAR_SUPPORTED_EXACT_SOURCE_AMBIGUOUS",
+      "intendedWrongTerm": 2054,
+      "intendedReplacement": 2055,
+      "independentRepairCount": 4,
+      "note": "Other supported interleaved repairs exist; do not claim unique source reconstruction."
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q47",
+      "candidateFamily": null,
+      "status": "UNRESOLVED_SOURCE_HOLD"
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q48",
+      "candidateFamily": "VARIABLE_FRACTIONAL_MULTIPLIER_WITH_ADDEND",
+      "status": "GAP_PENDING"
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q49",
+      "candidateFamily": "CONSECUTIVE_PRIME_DIFFERENCE",
+      "status": "INTENDED_NUMERIC_FIXTURE_AND_GENERATOR_SUPPORTED",
+      "intendedMissingTerm": 117,
+      "note": "Consecutive positive prime differences starting at 19. Exact six-term source-width generation not asserted."
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q50",
+      "candidateFamily": "DESCENDING_CUBE_MINUS_ONE_DIFFERENCE",
+      "status": "GAP_PENDING"
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q51",
+      "candidateFamily": "ALTERNATING_FIXED_DIFFERENCE",
+      "status": "GAP_PENDING"
+    },
+    {
+      "source": "ADDA-SBI-PO-20231101",
+      "questionRef": "Q52",
+      "candidateFamily": "FACTORIAL_DIFFERENCE",
+      "status": "GAP_PENDING"
+    }
+  ],
+  "wholeChapterSourceSaturation": false,
+  "empiricalWeights": null,
+  "liveVerification": "DEFERRED_TO_USER"
+}
