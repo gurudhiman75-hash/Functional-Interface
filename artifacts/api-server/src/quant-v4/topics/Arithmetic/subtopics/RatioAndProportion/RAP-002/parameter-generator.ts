@@ -4,30 +4,60 @@ import { getRap002QuestionLanguageIds, getRap002RegistryEntry } from "./library"
 import { RAP_002_ARCHETYPE_ID, type Rap002CanonicalProblemId, type Rap002DifficultyBand, type Rap002ParameterInput, type Rap002Parameters, type Rap002Variables } from "./types";
 
 const RATIO_TERMS = (ranges as any).ratioTerms as Record<Rap002DifficultyBand, number[]>;
-const SCENARIO_POOLS = {
+export const RAP_002_SCENARIO_POOLS = {
   neutral: [
     ["A", "B", "C", "D"],
     ["Group A", "Group B", "Group C", "Group D"],
+    ["Quantity P", "Quantity Q", "Quantity R", "Quantity S"],
+    ["Section A", "Section B", "Section C", "Section D"],
+    ["Category A", "Category B", "Category C", "Category D"],
+    ["Batch A", "Batch B", "Batch C", "Batch D"],
+    ["Unit A", "Unit B", "Unit C", "Unit D"],
+    ["Lot A", "Lot B", "Lot C", "Lot D"],
   ],
   people: [
     ["boys", "girls", "teachers", "staff"],
     ["students", "teachers", "parents", "staff"],
+    ["men", "women", "children", "senior citizens"],
+    ["clerks", "officers", "assistants", "managers"],
+    ["trainees", "supervisors", "technicians", "operators"],
+    ["candidates", "selected candidates", "wait-listed candidates", "absentees"],
+    ["members", "office-bearers", "volunteers", "coordinators"],
+    ["players", "coaches", "support staff", "officials"],
   ],
   partition: [
     ["A", "B", "C", "D"],
     ["Partner A", "Partner B", "Partner C", "Partner D"],
     ["Group A", "Group B", "Group C", "Group D"],
+    ["Brother A", "Brother B", "Sister C", "Sister D"],
+    ["Department A", "Department B", "Section C", "Section D"],
+    ["Fund A", "Fund B", "Head C", "Head D"],
+    ["Region A", "Region B", "Zone C", "Zone D"],
+    ["Team A", "Team B", "Member C", "Member D"],
   ],
   work: [
     ["Team A", "Team B", "Team C", "Team D"],
     ["Group A", "Group B", "Group C", "Group D"],
+    ["Crew A", "Crew B", "Crew C", "Crew D"],
+    ["Worker group A", "Worker group B", "Worker group C", "Worker group D"],
+    ["Machine set A", "Machine set B", "Machine set C", "Machine set D"],
+    ["Contractor A", "Contractor B", "Contractor C", "Contractor D"],
+    ["Unit A", "Unit B", "Unit C", "Unit D"],
+    ["Shift A", "Shift B", "Shift C", "Shift D"],
   ],
   speed: [
     ["Train A", "Train B", "Train C", "Train D"],
     ["Runner A", "Runner B", "Runner C", "Runner D"],
     ["Cyclist A", "Cyclist B", "Cyclist C", "Cyclist D"],
+    ["Car A", "Car B", "Car C", "Car D"],
+    ["Bus A", "Bus B", "Bus C", "Bus D"],
+    ["Truck A", "Truck B", "Truck C", "Truck D"],
+    ["Boat A", "Boat B", "Boat C", "Boat D"],
+    ["Vehicle A", "Vehicle B", "Vehicle C", "Vehicle D"],
   ],
 } as const;
+
+const SCENARIO_POOLS = RAP_002_SCENARIO_POOLS;
 
 function pickDifficulty(seed: string): Rap002DifficultyBand {
   return (["Medium", "Hard"] as const)[stableBucket(seed, 2)]!;
@@ -316,7 +346,7 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
   }
 
   if (qlId === "RAP-QL-425") {
-    return { personA: "type A items", personB: "type B items", ratioA, ratioB, totalValue, valueRemoveB };
+    return { personA: entities[0]!, personB: entities[1]!, ratioA, ratioB, totalValue, valueRemoveB };
   }
 
   if (qlId === "RAP-QL-426") {
@@ -413,13 +443,15 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     if (speedRatioA === speedRatioB) speedRatioB += 1;
     const distanceRatioA = pick([1, 2, 3, 4, 5], `${seed}:distanceA`);
     const distanceRatioB = pick([1, 2, 3, 4, 5], `${seed}:distanceB`);
-    return { personA: "Vehicle A", personB: "Vehicle B", speedRatioA, speedRatioB, distanceRatioA, distanceRatioB };
+    const pair = scenarioEntitySet("speed", `${seed}:vehiclePair`);
+    return { personA: pair[0]!, personB: pair[1]!, speedRatioA, speedRatioB, distanceRatioA, distanceRatioB };
   }
   if (qlId === "RAP-QL-608") {
     const offset = seedSerialOffset(seed, 251);
     const raceLength = pick([400, 500, 800, 1000, 1200], `${seed}:raceLength`);
     const leadDistance = pick([20, 40, 50, 80, 100], `${seed}:lead`);
-    return { personA: "Runner A", personB: "Runner B", raceLength: raceLength + offset * 10, leadDistance: leadDistance + offset };
+    const pair = scenarioEntitySet("speed", `${seed}:racePair`);
+    return { personA: pair[0]!, personB: pair[1]!, raceLength: raceLength + offset * 10, leadDistance: leadDistance + offset };
   }
 
   const serial = seedSerialOffset(seed, 251);
@@ -441,8 +473,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-611" || qlId === "RAP-QL-616") {
     return {
-      personA: "Team A",
-      personB: "Team B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       workerRatioA: pick([3, 4, 5, 6], `${seed}:workerA`) + serial,
       workerRatioB: pick([4, 5, 6, 8], `${seed}:workerB`) + serial,
       efficiencyRatioA: pick([2, 3, 4, 5], `${seed}:effA`),
@@ -464,8 +496,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-615") {
     return {
-      personA: "Team A",
-      personB: "Team B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       workerRatioA: pick([2, 3, 4, 5], `${seed}:workerA`),
       workerRatioB: pick([3, 4, 5, 6], `${seed}:workerB`),
       hoursRatioA: pick([4, 5, 6, 8], `${seed}:hoursA`),
@@ -492,8 +524,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-622" || qlId === "RAP-QL-629") {
     return {
-      personA: "Team A",
-      personB: "Team B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       workerRatioA: pick([3, 4, 5, 6], `${seed}:workerA`),
       workerRatioB: pick([4, 5, 6, 8], `${seed}:workerB`),
       daysRatioA: pick([5, 6, 8, 9], `${seed}:daysA`),
@@ -503,8 +535,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-623") {
     return {
-      personA: "Machine group A",
-      personB: "Machine group B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       machineRatioA: pick([2, 3, 4], `${seed}:machineA`),
       machineRatioB: pick([3, 4, 5], `${seed}:machineB`),
       hoursRatioA: pick([4, 5, 6], `${seed}:hoursA`),
@@ -535,8 +567,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-626") {
     return {
-      personA: "Worker A",
-      personB: "Worker B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       efficiencyRatioA: pick([2, 3, 4, 5], `${seed}:effA`),
       efficiencyRatioB: pick([3, 4, 5, 6], `${seed}:effB`),
       timeRatioA: pick([4, 5, 6], `${seed}:timeA`),
@@ -548,13 +580,13 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     const speedRatioA = pick([3, 4, 5], `${seed}:speedA`) + serial;
     const speedRatioB = speedRatioA + pick([1, 2], `${seed}:speedB`);
     const speedRatioC = speedRatioB + pick([1, 2], `${seed}:speedC`);
-    return { personA: "Car A", personB: "Car B", personC: "Car C", speedRatioA, speedRatioB, speedRatioC };
+    return { personA: speedPair[0]!, personB: speedPair[1]!, personC: speedPair[2]!, speedRatioA, speedRatioB, speedRatioC };
   }
 
   if (qlId === "RAP-QL-628") {
     return {
-      personA: "Machine A",
-      personB: "Machine B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       quantityRatioA: pick([5, 6, 8, 9], `${seed}:qtyA`),
       quantityRatioB: pick([4, 5, 7, 10], `${seed}:qtyB`),
       timeRatioA: pick([3, 4, 5], `${seed}:timeA`),
@@ -571,7 +603,7 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     const missing = pick([2, 3, 4, 5, 6], `${seed}:missingEff`);
     const outputRatioA = workerRatioA * hoursRatioA * efficiencyPartA;
     const outputRatioB = workerRatioB * hoursRatioB * missing;
-    return { personA: "Team A", personB: "Team B", outputRatioA, outputRatioB, workerRatioA, workerRatioB, hoursRatioA, hoursRatioB, efficiencyPartA };
+    return { personA: workPair[0]!, personB: workPair[1]!, outputRatioA, outputRatioB, workerRatioA, workerRatioB, hoursRatioA, hoursRatioB, efficiencyPartA };
   }
 
   const entities = qlId === "RAP-QL-603" || qlId === "RAP-QL-604" || qlId === "RAP-QL-606"

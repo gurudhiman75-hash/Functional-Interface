@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { alignChainRatios, alignThreeChainRatios, formatRatio } from "./math";
 import { getRap002QuestionLanguageIds, validateRap002Libraries } from "./library";
 import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline, runRap002Cp010Pipeline, runRap002Cp011Pipeline, runRap002Cp012Pipeline } from "./pipeline";
-import { generateRap002Parameters } from "./parameter-generator";
+import { generateRap002Parameters, RAP_002_SCENARIO_POOLS } from "./parameter-generator";
 import { solveRap002 } from "./solver";
 
 assert.deepEqual(alignChainRatios([2, 3], [6, 5]), [4, 6, 5]);
@@ -11,6 +11,33 @@ assert.equal(formatRatio([8, 12, 10, 7]), "8:12:10:7");
 
 const libraryValidation = validateRap002Libraries();
 assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
+
+const scenarioPoolMinimums = {
+  neutral: 8,
+  people: 8,
+  partition: 8,
+  work: 8,
+  speed: 8,
+} as const;
+for (const [kind, minimum] of Object.entries(scenarioPoolMinimums)) {
+  const pool = RAP_002_SCENARIO_POOLS[kind as keyof typeof RAP_002_SCENARIO_POOLS];
+  assert.ok(pool.length >= minimum, `RAP-002 ${kind} scenario pool must contain at least ${minimum} sets`);
+  assert.equal(new Set(pool.map((set) => set.join("|"))).size, pool.length, `RAP-002 ${kind} scenarios must be unique`);
+  assert.ok(pool.every((set) => new Set(set).size === set.length), `RAP-002 ${kind} scenario members must be distinct`);
+}
+
+const scenarioBreadthSamples = Array.from({ length: 160 }, (_, index) =>
+  generateRap002Parameters({
+    canonicalProblemId: "RAP-CP-011",
+    seed: `rap-002-scenario-breadth:${index}`,
+    questionLanguageId: "RAP-QL-617",
+    diversityOrdinal: index,
+  }),
+);
+assert.ok(
+  new Set(scenarioBreadthSamples.map((pkg) => `${pkg.variables.personA}|${pkg.variables.personB}`)).size >= 6,
+  "RAP-002 inverse/speed generation should expose broad scenario diversity",
+);
 
 const fixed = generateRap002Parameters({
   seed: "rap-002-fixed",

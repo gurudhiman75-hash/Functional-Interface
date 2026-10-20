@@ -34,7 +34,7 @@
       "RAP-QL-206": {
         "cpId": "RAP-CP-007",
         "taskKind": "extendedChainAlignment",
-        "template": "After aligning {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, what is the simplified ratio of {personB}:{personD}?",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personB}:{personD}.",
         "difficulty": "Hard"
       },
       "RAP-QL-207": {
@@ -46,13 +46,13 @@
       "RAP-QL-208": {
         "cpId": "RAP-CP-007",
         "taskKind": "extendedChainAlignment",
-        "template": "Use the linked ratios {ratioA1}:{ratioB1}, {ratioB2}:{ratioC2}, and {ratioC3}:{ratioD3} for {personA}:{personB}, {personB}:{personC}, and {personC}:{personD}. Find {targetPairLabel}.",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
         "difficulty": "Hard"
       },
       "RAP-QL-209": {
         "cpId": "RAP-CP-007",
         "taskKind": "missingChainRatio",
-        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and the simplified ratio {personA}:{personC} is {endpointA}:{endpointC}, find the aligned value of {personB}.",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, while {personA}:{personC} = {endpointA}:{endpointC}, find the corresponding value of {personB}.",
         "difficulty": "Hard"
       },
       "RAP-QL-210": {
@@ -88,7 +88,7 @@
       "RAP-QL-217": {
         "cpId": "RAP-CP-007",
         "taskKind": "missingChainRatio",
-        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, the obtained {personA}:{personC} ratio is {endpointA}:{endpointC}. Find the matching value of {personB} in the aligned chain.",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personA}:{personC} = {endpointA}:{endpointC}, find the value of {personB}.",
         "difficulty": "Medium"
       },
       "RAP-QL-218": {
@@ -158,7 +158,7 @@
       "RAP-QL-309": {
         "cpId": "RAP-CP-008",
         "taskKind": "reverseEndpointFinding",
-        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} = {valueB}, find the required endpoint value.",
         "difficulty": "Hard"
       },
       "RAP-QL-310": {
@@ -288,7 +288,7 @@
       "RAP-QL-419": {
         "cpId": "RAP-CP-009",
         "taskKind": "successiveRatioChange",
-        "template": "{personA}:{personB} is {ratioA}:{ratioB}, and their total is {totalValue}. First {valueAddA} is added to {personA}; then {valueRemoveB} is removed from {personB}. Find the final ratio.",
+        "template": "{personA}:{personB} = {ratioA}:{ratioB}, and their total is {totalValue}. If {valueAddA} is added to {personA} and {valueRemoveB} is removed from {personB}, find the final ratio.",
         "difficulty": "Hard"
       },
       "RAP-QL-420": {
@@ -666,7 +666,7 @@
       "RAP-QL-718": {
         "cpId": "RAP-CP-012",
         "taskKind": "chainEquivalence",
-        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, check whether the endpoint ratio {endpointA}:{endpointC} is equivalent to the aligned chain.",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, determine whether {personA}:{personC} = {endpointA}:{endpointC}.",
         "difficulty": "Medium"
       }
     }
