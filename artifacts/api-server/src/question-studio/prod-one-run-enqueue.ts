@@ -8,6 +8,16 @@ import {validateAsyncTaskComputeInput} from "./async-task-package-capabilities";
 
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const ACTOR=/^[a-zA-Z0-9:_-]{1,128}$/;
+// The one and only previously interrupted, independently cancelled canary.
+// Retain its idempotency reservation, outbox and audit trail. No arbitrary
+// cancelled run can unlock another production canary.
+const CANCELLED_PRIOR_RUN_ID="48aaff58-d0cb-4345-be5f-491089b72f10";
+
+export function acceptCanaryBaseline(activeRuns:number,pendingEvents:number,
+  priorCanaries:number,verifiedCancelledPrior:number):boolean {
+  return activeRuns===0 && pendingEvents===0 &&
+    (priorCanaries===0 || (priorCanaries===1 && verifiedCancelledPrior===1));
+}
 export function assertCanaryEnqueueEnvironment(env:NodeJS.ProcessEnv=process.env,now=Date.now()) {
   const runId=env.EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID || "";
   const actor=env.EXAMTREE_QS_PRODUCTION_CANARY_ADMIN_UID || "";
@@ -38,6 +48,8 @@ export function canarySnapshot(runId:string) {
 }
 export async function enqueueOneCanary() {
   const {runId,actor,adminId}=assertCanaryEnqueueEnvironment();
+  if(runId.toLowerCase()===CANCELLED_PRIOR_RUN_ID)
+    throw new Error("QS_CANARY_PREVIOUS_RUN_MUST_NOT_RETRY");
   const snapshot=canarySnapshot(runId);
   if(!isProdCanarySnapshot(snapshot))throw new Error("QS_CANARY_INVALID_SNAPSHOT");
   validateAsyncTaskComputeInput(snapshot);
@@ -70,10 +82,23 @@ export async function enqueueOneCanary() {
         "(SELECT COUNT(*)::int FROM platform.outbox_events WHERE event_type='question_studio.generation_run.queued.v1' "+
         "AND published_at IS NULL) AS pending_events, "+
         "(SELECT COUNT(*)::int FROM content.generation_enqueue_idempotency "+
-        "WHERE idempotency_key LIKE 'qs-prod-canary:%') AS prior_canaries");
-      if(Number(existing[0]?.active_runs)!==0 ||
-         Number(existing[0]?.pending_events)!==0 ||
-         Number(existing[0]?.prior_canaries)!==0)
+        "WHERE idempotency_key LIKE 'qs-prod-canary:%') AS prior_canaries, "+
+        "(SELECT COUNT(*)::int FROM content.generation_enqueue_idempotency e "+
+        "JOIN content.generation_runs previous ON previous.id=e.generation_run_id "+
+        "WHERE previous.id=$1::uuid AND e.idempotency_key='qs-prod-canary:' || $1 "+
+        "AND previous.status='cancelled'::generation_run_status "+
+        "AND NOT EXISTS (SELECT 1 FROM content.generation_run_items i WHERE i.generation_run_id=previous.id) "+
+        "AND NOT EXISTS (SELECT 1 FROM content.generation_run_task_leases l WHERE l.generation_run_id=previous.id) "+
+        "AND EXISTS (SELECT 1 FROM platform.audit_events a WHERE a.entity_id=previous.id "+
+        "AND a.action_key='question_studio.production_canary.cancelled') "+
+        "AND (SELECT COUNT(*) FROM platform.outbox_events o WHERE o.aggregate_id=previous.id "+
+        "AND o.event_type='question_studio.generation_run.queued.v1')=1 "+
+        "AND EXISTS (SELECT 1 FROM platform.outbox_events o WHERE o.aggregate_id=previous.id "+
+        "AND o.event_type='question_studio.generation_run.queued.v1' AND o.published_at IS NOT NULL)) "+
+        "AS verified_cancelled_prior", [CANCELLED_PRIOR_RUN_ID]);
+      if(!acceptCanaryBaseline(
+        Number(existing[0]?.active_runs),Number(existing[0]?.pending_events),
+        Number(existing[0]?.prior_canaries),Number(existing[0]?.verified_cancelled_prior)))
         throw new Error("QS_CANARY_ENQUEUE_EXISTING_WORK");
       const publicCode="GEN-CANARY-"+runId.slice(0,8).toUpperCase();
       await tx.unsafe(
@@ -113,7 +138,8 @@ if(process.argv[1]?.endsWith("prod-one-run-enqueue.mjs")) {
   enqueueOneCanary().catch(error=>{
     const codes=new Set(["QS_CANARY_ENQUEUE_NOT_AUTHORIZED",
       "QS_PRODUCTION_CANARY_SCOPE_DENIED","QS_CANARY_INVALID_SNAPSHOT",
-      "QS_CANARY_TEST_IDENTITY_INVALID","QS_CANARY_ENQUEUE_EXISTING_WORK"]);
+      "QS_CANARY_TEST_IDENTITY_INVALID","QS_CANARY_ENQUEUE_EXISTING_WORK",
+      "QS_CANARY_PREVIOUS_RUN_MUST_NOT_RETRY"]);
     const code=error instanceof Error?error.message:"";
     console.error("STOP: "+(codes.has(code)?code:"QS_CANARY_ENQUEUE_FAILED"));
     process.exitCode=2;

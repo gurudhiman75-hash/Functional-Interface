@@ -53,6 +53,15 @@ test("one-time enqueue is not an HTTP route and always uses DB transaction",()=>
   assert.match(source,/generation_enqueue_idempotency/);
   assert.match(source,/question_studio\.generation_run\.queued\.v1/);
   assert.match(source,/EXAMTREE_QS_PRODUCTION_CANARY_ADMIN_USER_ID/);
+  // The only permitted historical exception must match the cancelled,
+  // audited original; this test cannot be broadened to any cancelled run.
+  assert.match(source,/48aaff58-d0cb-4345-be5f-491089b72f10/);
+  assert.match(source,/previous\.status='cancelled'::generation_run_status/);
+  assert.match(source,/question_studio\.production_canary\.cancelled/);
+  assert.match(source,/NOT EXISTS \(SELECT 1 FROM content\.generation_run_items/);
+  assert.match(source,/NOT EXISTS \(SELECT 1 FROM content\.generation_run_task_leases/);
+  assert.match(source,/verified_cancelled_prior/);
+  assert.match(source,/QS_CANARY_PREVIOUS_RUN_MUST_NOT_RETRY/);
   assert.doesNotMatch(source,/app\.post\(|express\(|tasks\.run\(|scheduler\.resume/);
 });
 test("built enqueue entry has no eager database connection",async()=>{
@@ -64,6 +73,12 @@ test("built enqueue entry has no eager database connection",async()=>{
   assert.equal(snapshot.request.seed,"qs-async:"+runId);
   assert.equal(snapshot.selectedCpIds[0],"COM-001-CP-001");
   assert.throws(()=>mod.assertCanaryEnqueueEnvironment({},now));
+  // No unrelated production activity or unverified previous canaries.
+  assert.equal(mod.acceptCanaryBaseline(0,0,0,0),true);
+  assert.equal(mod.acceptCanaryBaseline(0,0,1,1),true);
+  for(const counts of [[1,0,1,1],[0,1,1,1],[0,0,1,0],
+                       [0,0,2,1],[0,0,2,2],[0,0,1,2]])
+    assert.equal(mod.acceptCanaryBaseline(...counts),false);
 });
 
 test("isolated canary enqueue binds Firebase UID to active non-admin Neon user",()=>{
