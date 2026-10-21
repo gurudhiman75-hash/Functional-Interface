@@ -25,7 +25,7 @@ class CanaryPreflightTests(unittest.TestCase):
         source = PATH.read_text()
         for forbidden in (
             "update-traffic", '"execute"', '"resume"', '"pause"',
-            "tasks_api(", "print-access-token", "secrets",
+            "tasks_api(", "print-access-token", '"secrets", "versions", "access"',
             "run_sql(", "psql", "UPDATE content.", "INSERT INTO",
         ):
             self.assertNotIn(forbidden, source, forbidden)
