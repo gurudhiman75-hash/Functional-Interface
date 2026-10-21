@@ -16,6 +16,9 @@ class SafeFasttrack(unittest.TestCase):
     def test_permissions_exclude_destructive_roles(self):
         perms=set(x for group in m.ROLES.values() for x in group)
         self.assertIn("run.services.update",perms)
+        self.assertIn("run.revisions.get",perms)
+        self.assertEqual(set(m.ROLES["examtreeQsCanarySvcControl"]),
+                         {"run.services.get","run.services.update","run.revisions.get"})
         self.assertIn("cloudtasks.queues.pause",perms)
         self.assertIn("cloudscheduler.jobs.pause",perms)
         self.assertFalse(any(x in perms for x in [

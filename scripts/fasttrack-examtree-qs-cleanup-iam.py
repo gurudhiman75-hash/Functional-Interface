@@ -33,7 +33,7 @@ FLAGS={
 }
 CUTOFF="2026-10-22T00:00:00Z"  # Reauthorize after this; pause-only project grant expires.
 ROLES={
-    "examtreeQsCanarySvcControl":("run.services.get","run.services.update"),
+    "examtreeQsCanarySvcControl":("run.services.get","run.services.update","run.revisions.get"),
     "examtreeQsCanaryJobControl":("run.jobs.get","run.jobs.update"),
     "examtreeQsCanaryQueuePause":("cloudtasks.queues.get","cloudtasks.queues.pause"),
     "examtreeQsCanarySchedulerPause":(
