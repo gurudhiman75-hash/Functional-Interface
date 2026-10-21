@@ -1,7 +1,7 @@
 # One-click, READ-ONLY canary safety check from Google Cloud Build Triggers.
 # Deliberately does not create resources, run Jobs or change production flags.
 steps:
-  - name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:stable'
+  - name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:slim'
     entrypoint: 'python3'
     args:
       - 'scripts/qs-prod-canary-console-preflight.py'
