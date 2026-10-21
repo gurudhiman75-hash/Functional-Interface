@@ -204,7 +204,7 @@ class CleanupSafety(unittest.TestCase):
                 m.RECEIVER:{m.SVC_FLAGS[m.RECEIVER]:"false"}}
         with patch("sys.argv",["cleanup.py","--apply"]),\
              patch.object(m,"assert_job_context"),\
-             patch.object(m,"call",return_value="sarbedutech\\n") as cloud,\
+             patch.object(m,"call",return_value="sarbedutech\n") as cloud,\
              patch.object(m,"snapshot",return_value=(config,"PAUSED")),\
              patch.object(m,"dispatcher_approval",return_value="false"),\
              patch.object(m,"restore_disabled_traffic",side_effect=RuntimeError("unsafe revision")):
