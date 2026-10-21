@@ -32,11 +32,15 @@ Create the Scheduler with a UTC minute cadence, initially **PAUSED**. Before ena
 2. Keep/put `examtree-qs-prod` Cloud Tasks queue **PAUSED**.
 3. Update `examtree-universal-prod` to `EXAMTREE_QS_PRODUCTION_WORKER_APPROVED=false`.
 4. Update `examtree-qs-receiver-prod` to `EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED=false`.
-5. Disable `EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED` on `examtree-qs-dispatch-prod`.
-6. Re-read private receiver/worker and queue, require both flags `false` and queue `PAUSED`.
-7. Pause `examtree-qs-prod-canary-cleanup-trigger` **only after** verification passes.
+5. For **each** service, independently inspect the latest immutable Cloud Run revision: it must be Ready, have the expected production runtime identity, exactly match the service template's image, command, environment and Secret Manager references, and have approval `false`. Pin traffic with `gcloud run services update-traffic --to-revisions=REVISION=100` rather than `--to-latest`.
+6. Re-read Cloud Run's **serving** traffic and the **pinned** service traffic spec. Require exactly one 100%-serving revision, identical to the checked disabled revision, with no automatic latest-following target. This check runs even if the template approval flag was already `false`.
+7. Disable `EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED` on `examtree-qs-dispatch-prod`.
+8. Re-check production queue `PAUSED`, both service template flags `false`, all serving/pinned revision checks and dispatcher flag `false`.
+9. Pause `examtree-qs-prod-canary-cleanup-trigger` **only after** every verification passes.
 
-If a step fails, the runner prints a sanitized failure. Keep the Scheduler enabled for later attempts; manually investigate IAM, revision startup, billing caps and Cloud Monitoring incident alerts. Do **not** auto-delete a Cloud Task or any generation record.
+If a step fails (including failed/premature revision routing or a configuration/serving revision mismatch), the runner prints a sanitized failure. Keep the Scheduler enabled for later attempts; manually investigate IAM, revision startup, billing caps and Cloud Monitoring incident alerts. Do **not** auto-delete a Cloud Task or any generation record.
+
+**Deployment gate:** A GitHub merge changes source only. Rebuild the cleanup image, pin and deploy its immutable digest to the dedicated cleanup Job, run its read-only tests and confirm the live Job uses that image **before** rerunning the canary. The Cloud Shell release script has a separate immediate rollback path: do not authorize the canary until that path also verifies live revision approval OFF and leaves the independent Scheduler active if verification fails.
 
 **Important:** The source-level receiver and worker TTL checks prevent accepting new question work after expiry even if cleanup IAM fails. The independent cleanup job, however, must be deployed and its Scheduler configured and verified before any production activation. This source file does NOT create those resources.
 
