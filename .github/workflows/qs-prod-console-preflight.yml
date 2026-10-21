@@ -1,0 +1,23 @@
+name: Validate QS production Console preflight
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/qs-prod-canary-console-preflight.py'
+      - 'cloudbuild.examtree-qs-prod-canary-preflight.yaml'
+      - 'tests/test-qs-prod-canary-console-preflight.py'
+permissions:
+  contents: read
+concurrency:
+  group: qs-prod-console-preflight-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile preflight
+        run: python3 -m py_compile scripts/qs-prod-canary-console-preflight.py
+      - name: Check fail-closed behavior
+        run: python3 tests/test-qs-prod-canary-console-preflight.py
