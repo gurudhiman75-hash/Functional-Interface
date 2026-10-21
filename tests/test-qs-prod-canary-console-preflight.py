@@ -13,6 +13,12 @@ m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 
 class CanaryPreflightTests(unittest.TestCase):
+    def test_cloud_build_image_includes_python3(self):
+        build = (ROOT / "cloudbuild.examtree-qs-prod-canary-preflight.yaml").read_text()
+        self.assertIn("gcr.io/google.com/cloudsdktool/google-cloud-cli:slim", build)
+        self.assertIn("entrypoint: 'python3'", build)
+        self.assertNotIn("google-cloud-cli:stable", build)
+
     def test_wrong_run_id_stops_without_gcp(self):
         with patch.object(sys, "argv", ["preflight", "--run-id",
                                        "48aaff58-d0cb-4345-be5f-491089b72f10"]), \
