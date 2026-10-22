@@ -1,0 +1,22 @@
+name: QS production reviewed enqueue build contract
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/build-qs-prod-task-receiver.mjs'
+      - 'tests/qs-prod-reviewed-enqueue-build-contract.test.mjs'
+  workflow_dispatch:
+concurrency:
+  group: qs-prod-enqueue-build-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/qs-prod-reviewed-enqueue-build-contract.test.mjs tests/qs-prod-reviewed-enqueue-transaction.test.mjs
