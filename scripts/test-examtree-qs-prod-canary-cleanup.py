@@ -16,6 +16,7 @@ base={"CLOUD_RUN_JOB":m.JOB,"CLOUD_RUN_TASK_COUNT":"1",
       "CLOUD_RUN_TASK_INDEX":"0","GOOGLE_CLOUD_PROJECT":m.PROJECT,
       "EXAMTREE_QS_PRODUCTION_CANARY_CLEANUP_APPROVED":"true",
       "EXAMTREE_QS_PRODUCTION_CANARY_ONLY":"true",
+      "EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID":"9aa63dfa-f81d-48a0-945c-cbd786b66cf2",
       "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-19T09:00:00Z"}
 
 class CleanupSafety(unittest.TestCase):
@@ -23,6 +24,19 @@ class CleanupSafety(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             m.assert_job_context(base,dt.datetime(2026,10,19,8,59,tzinfo=dt.timezone.utc))
         m.assert_job_context(base,now)
+
+    def test_old_run_ids_and_missing_run_id_denied(self):
+        for run_id in ("c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98",
+                       "48aaff58-d0cb-4345-be5f-491089b72f10",""):
+            with self.assertRaisesRegex(RuntimeError,"Fresh rollback"):
+                m.assert_job_context({**base,
+                    "EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID":run_id},now)
+
+    def test_deadline_near_iam_expiry_denied(self):
+        later=dt.datetime(2026,10,23,23,48,tzinfo=dt.timezone.utc)
+        with self.assertRaisesRegex(RuntimeError,"IAM grant expiry"):
+            m.assert_job_context({**base,
+                "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-23T23:55:00Z"},later)
 
     def test_wrong_job_never_applies(self):
         for delta in ({"CLOUD_RUN_JOB":"examtree-qs-dispatch-prod"},
