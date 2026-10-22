@@ -49,7 +49,7 @@ test("receiver checks run ID before importing write-capable DB modules",()=>{
   const source=readFileSync("artifacts/api-server/src/async-task-receiver-prod-standalone.ts","utf8");
   const guard=source.indexOf("assertProdCanaryRequest(runId)");
   const importer=source.indexOf('import("./question-studio/async-task-lease-claim")');
-  const claim=source.indexOf("claimQuestionStudioAsyncTask(runId,isProdCanarySnapshot)");
+  const claim=source.indexOf("claimQuestionStudioAsyncTask(runId,reviewGuard ?? isProdCanarySnapshot)");
   assert.ok(guard>0 && importer>guard && claim>importer);
 });
 test("lease claim verifies allowed snapshot while row locked and before first write",()=>{
