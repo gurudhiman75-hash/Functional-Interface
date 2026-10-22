@@ -28,7 +28,8 @@ try {
 await build({
   entryPoints:[path.join(root,"src/async-task-receiver-prod-standalone.ts"),
                path.join(root,"src/question-studio/prod-one-run-enqueue.ts"),
-               path.join(root,"src/question-studio/prod-reviewed-enqueue-transaction.ts")],
+               path.join(root,"src/question-studio/prod-reviewed-enqueue-transaction.ts"),
+               path.join(root,"src/question-studio/prod-reviewed-enqueue-job.ts")],
   bundle:true,platform:"node",format:"esm",target:"node22",
   splitting:true,outdir:dist,outExtension:{".js":".mjs"},
   entryNames:"[name]",chunkNames:"qs-prod-[name]-[hash]",
