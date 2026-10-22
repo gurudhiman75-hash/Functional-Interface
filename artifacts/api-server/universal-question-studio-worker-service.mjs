@@ -4,6 +4,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
 import {assertProductionWorkerCanaryInput} from "./production-canary-worker-scope.mjs";
+import {assertProductionWorkerReviewInput} from "./prod-worker-review-scope.mjs";
 
 const token = process.env.QUESTION_STUDIO_WORKER_TOKEN;
 if (!token || token.length < 32) throw new Error("Missing QUESTION_STUDIO_WORKER_TOKEN");
@@ -114,7 +115,11 @@ const server = createServer(async (req, res) => {
     if(process.env.K_SERVICE==="examtree-universal-prod") {
       // Rechecked for EVERY request; expiry disables compute even if the
       // production approval flag remains true after a shell disconnect.
-      assertProductionWorkerCanaryInput(input);
+      if(process.env.EXAMTREE_QS_PRODUCTION_REVIEW_SCOPE_APPROVED==="true") {
+        assertProductionWorkerReviewInput(input);
+      } else {
+        assertProductionWorkerCanaryInput(input);
+      }
     }
     packageId = input.request.packageId;
     console.info(JSON.stringify({ event: "universal_generation_started", packageId, count: input.count }));

@@ -31,4 +31,5 @@ await copyFile(
   path.resolve(here, "production-canary-worker-scope.mjs"),
   path.resolve(dist, "production-canary-worker-scope.mjs"),
 );
+await copyFile(path.resolve(here,"prod-worker-review-scope.mjs"),path.resolve(dist,"prod-worker-review-scope.mjs"));
 console.info("[universal-studio-build] four-engine isolated generation worker built");

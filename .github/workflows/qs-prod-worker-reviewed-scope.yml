@@ -1,0 +1,25 @@
+name: QS production worker reviewed scope
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/prod-worker-review-scope.mjs'
+      - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
+      - 'artifacts/api-server/build-universal-worker.mjs'
+      - 'Dockerfile.examtree-qs-prod-universal-worker'
+      - 'tests/qs-prod-worker-review-scope.test.mjs'
+  workflow_dispatch:
+concurrency:
+  group: qs-prod-worker-review-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/qs-prod-worker-review-scope.test.mjs
