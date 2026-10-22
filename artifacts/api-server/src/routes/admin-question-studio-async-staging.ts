@@ -6,6 +6,7 @@ import {recordQuestionStudioEnqueueIntent} from "../question-studio/async-enqueu
 import {validateUniversalStudioComputeInput,
   type UniversalStudioComputeInput} from "../question-studio/universal-executor";
 import {EnqueueValidationError} from "../question-studio/async-enqueue-contract";
+import {stagingRolloutAllowed} from "../question-studio/staging-rollout-authorization";
 
 const router=Router();
 const REQUIRED_TRUE=[
@@ -51,6 +52,10 @@ router.post("/runs/async-staging",requireAdminPermission("content.generation.run
   try{
     const compute=req.body as UniversalStudioComputeInput;
     validateUniversalStudioComputeInput(compute);
+    if (!stagingRolloutAllowed({...compute,queueVersion:1})) {
+      res.status(403).json({code:"QUESTION_STUDIO_STAGING_ROLLOUT_SCOPE_DENIED"});
+      return;
+    }
     const receipt=await recordQuestionStudioEnqueueIntent({
       identity:{
         actorFirebaseUid:req.user.id,
