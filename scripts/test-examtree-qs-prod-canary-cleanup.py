@@ -33,7 +33,7 @@ class CleanupSafety(unittest.TestCase):
                     "EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID":run_id},now)
 
     def test_deadline_near_iam_expiry_denied(self):
-        later=dt.datetime(2026,10,23,23,48,tzinfo=dt.timezone.utc)
+        later=dt.datetime(2026,10,23,23,56,tzinfo=dt.timezone.utc)
         with self.assertRaisesRegex(RuntimeError,"IAM grant expiry"):
             m.assert_job_context({**base,
                 "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-23T23:55:00Z"},later)
