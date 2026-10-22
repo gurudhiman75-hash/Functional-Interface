@@ -1,0 +1,20 @@
+name: QS four-engine review-only policy
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/question-studio/review-only-rollout-policy.mjs'
+      - 'tests/qs-review-only-rollout-policy.test.mjs'
+      - '.github/workflows/qs-four-engine-rollout-policy.yml'
+  workflow_dispatch:
+jobs:
+  offline-policy-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test deny-by-default policy (no cloud credentials)
+        run: node --test tests/qs-review-only-rollout-policy.test.mjs
