@@ -17,6 +17,7 @@ import os
 import re
 import subprocess
 import sys
+import uuid
 
 PROJECT="sarbedutech"
 REGION="asia-south1"
@@ -216,13 +217,35 @@ def release_deadline(env,now):
         raise RuntimeError("Canary deadline has not elapsed")
     return expires
 
+
+# New releases must not silently reuse the historical COM-001 IDs.
+OLD_RUN_IDS={"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98",
+             "48aaff58-d0cb-4345-be5f-491089b72f10"}
+# Current IAM grant expires 2026-10-24 at 05:30 IST; maintain a margin.
+IAM_GRANT_EXPIRES=dt.datetime(2026,10,24,0,0,tzinfo=dt.timezone.utc)
+
+def verify_fresh_rollback_binding(env,now):
+    raw=env.get("EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID","")
+    try:
+        value=uuid.UUID(raw)
+        valid=(str(value)==raw.lower() and value.version==4 and
+               raw.lower() not in OLD_RUN_IDS)
+    except (TypeError,ValueError,AttributeError):
+        valid=False
+    if not valid:
+        raise RuntimeError("Fresh rollback run ID required")
+    deadline=release_deadline(env,now)
+    if deadline >= IAM_GRANT_EXPIRES-dt.timedelta(minutes=10):
+        raise RuntimeError("Rollback deadline too close to IAM grant expiry")
+    return value
+
 def assert_job_context(env,now):
     if env.get("CLOUD_RUN_JOB")!=JOB or env.get("CLOUD_RUN_TASK_COUNT")!="1" or \
        env.get("CLOUD_RUN_TASK_INDEX")!="0" or \
        env.get("EXAMTREE_QS_PRODUCTION_CANARY_CLEANUP_APPROVED")!="true" or \
        env.get("GOOGLE_CLOUD_PROJECT")!=PROJECT:
         raise RuntimeError("Cleanup runtime is not the authorized Job")
-    release_deadline(env,now)
+    verify_fresh_rollback_binding(env,now)
 
 def snapshot():
     actual={service:flags(service) for service in SVC_FLAGS}
