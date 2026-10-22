@@ -1,0 +1,24 @@
+name: QS staging rollout scope gate
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-staging.ts'
+      - 'artifacts/api-server/src/question-studio/staging-rollout-authorization.ts'
+      - 'tests/qs-staging-rollout-enforcement.test.mjs'
+  workflow_dispatch:
+concurrency:
+  group: qs-staging-scope-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline-authorization:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check staging authorization ordering and production isolation
+        run: node --test tests/qs-staging-rollout-enforcement.test.mjs tests/qs-review-only-rollout-policy.test.mjs
