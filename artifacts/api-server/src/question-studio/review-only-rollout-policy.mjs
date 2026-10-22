@@ -20,7 +20,12 @@ export function validateReviewOnlyRollout(snapshot, manifest) {
     x.packageId === request.packageId && Array.isArray(x.cpIds) &&
     x.cpIds.length > 0 && x.cpIds.includes(cp));
   // Ambiguous or duplicated manifest matches must fail closed.
-  if (matched.length !== 1 || !matched[0].reviewOnly || matched[0].maxQuestions !== 1) return false;
+  if (matched.length !== 1) return false;
+  const pkg = matched[0];
+  if (pkg.reviewSurfaceRequired !== true || pkg.manualApprovalRequired !== true ||
+      pkg.questionBankWritable !== false || pkg.automaticStudentPublication !== false ||
+      pkg.productionReleaseAuthorized !== false ||
+      !Array.isArray(pkg.supportedLanguages) || !pkg.supportedLanguages.includes("en")) return false;
   // This helper is a secondary policy only: runtime package manifest, OIDC,
   // TTL, identity, zero pending work, cost caps and rollback are separate gates.
   return true;
