@@ -3,8 +3,10 @@
 // An operator-reviewed manifest must explicitly name each allowed package/CP.
 const ENGINES = new Set(["quant-v4","reasoning-v1","language-v1","knowledge-v1"]);
 const ID = /^[A-Z][A-Z0-9-]{1,80}$/;
-export function validateReviewOnlyRollout(snapshot, manifest) {
-  if (!Array.isArray(manifest) || !snapshot || typeof snapshot !== "object") return false;
+export function validateReviewOnlyRollout(snapshot, manifest, approvedScope) {
+  if (!manifest || manifest.source !== "canonical-question-studio-engine-registry" ||
+      manifest.schemaVersion !== 1 || !Array.isArray(manifest.packages) ||
+      !Array.isArray(approvedScope) || !snapshot || typeof snapshot !== "object") return false;
   const request = snapshot.request;
   if (!request || typeof request !== "object" || Array.isArray(request)) return false;
   if (snapshot.queueVersion !== 1 || snapshot.count !== 1 || request.count !== 1 ||
@@ -15,14 +17,19 @@ export function validateReviewOnlyRollout(snapshot, manifest) {
   if (typeof cp !== "string" || !ID.test(cp) || typeof request.packageId !== "string" ||
       !ID.test(request.packageId)) return false;
   if (request.canonicalProblemId !== undefined && request.canonicalProblemId !== cp) return false;
-  const matched = manifest.filter(x => x && typeof x === "object" &&
+  const approvals = approvedScope.filter(x => x && x.engineId === request.engineId &&
+    x.packageId === request.packageId && x.cpId === cp && x.reviewOnly === true);
+  if (approvals.length !== 1) return false;
+  const matched = manifest.packages.filter(x => x && typeof x === "object" &&
     x.enabled === true && x.engineId === request.engineId &&
     x.packageId === request.packageId && Array.isArray(x.cpIds) &&
     x.cpIds.length > 0 && x.cpIds.includes(cp));
   // Ambiguous or duplicated manifest matches must fail closed.
   if (matched.length !== 1) return false;
   const pkg = matched[0];
-  if (pkg.reviewSurfaceRequired !== true || pkg.manualApprovalRequired !== true ||
+  if (pkg.publiclyPublishable === true || pkg.testEligible === true ||
+      pkg.mockTestEligible === true || pkg.questionBankWritable !== false ||
+      pkg.reviewSurfaceRequired !== true || pkg.manualApprovalRequired !== true ||
       pkg.questionBankWritable !== false || pkg.automaticStudentPublication !== false ||
       pkg.productionReleaseAuthorized !== false ||
       !Array.isArray(pkg.supportedLanguages) || !pkg.supportedLanguages.includes("en")) return false;
