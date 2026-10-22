@@ -2,9 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {validateReviewOnlyRollout} from "../artifacts/api-server/src/question-studio/review-only-rollout-policy.mjs";
 const cases=[
- ["quant-v4","TRG-002","TRG-002-CP-001"],
- ["reasoning-v1","OPS-001","OPS-001-CP-001"],
- ["language-v1","ENG-001","ENG-001-CP-001"],
+ ["quant-v4","TRG-002","TRG-CP-007"],
+ ["reasoning-v1","OPS-001","OPS-CP-001"],
+ ["language-v1","ENG-001","ENG-001-CP013"],
  ["knowledge-v1","COM-001","COM-001-CP-001"],
 ];
 function snap(engineId,packageId,cp) {
