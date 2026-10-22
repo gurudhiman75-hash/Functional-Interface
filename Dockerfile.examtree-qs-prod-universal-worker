@@ -26,6 +26,7 @@ COPY --from=builder /src/artifacts/api-server/dist/question-studio-universal-wor
 COPY --from=builder /src/artifacts/api-server/dist/universal-question-studio-worker-service.mjs /app/artifacts/api-server/dist/universal-question-studio-worker-service.mjs
 COPY --from=builder /src/artifacts/api-server/prod-universal-worker-service.mjs /app/artifacts/api-server/dist/prod-universal-worker-service.mjs
 COPY --from=builder /src/artifacts/api-server/production-canary-worker-scope.mjs /app/artifacts/api-server/dist/production-canary-worker-scope.mjs
+COPY --from=builder /src/artifacts/api-server/dist/prod-worker-review-scope.mjs /app/artifacts/api-server/dist/prod-worker-review-scope.mjs
 COPY --from=builder /src/node_modules /app/node_modules
 COPY --from=builder /src/artifacts/api-server/node_modules /app/artifacts/api-server/node_modules
 COPY --from=builder /src/lib /app/lib
