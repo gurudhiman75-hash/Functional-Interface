@@ -10,6 +10,8 @@ import {validateAsyncTaskComputeInput} from "./question-studio/async-task-packag
 import {runUniversalStudioRemote} from "./question-studio/remote-universal-studio-client";
 import {assertProdCanaryRequest,isProdCanarySnapshot}
   from "./question-studio/prod-one-run-canary-guard.mjs";
+import {createProdReviewSnapshotGuard}
+  from "./question-studio/prod-review-receiver-gate.mjs";
 
 const requiredTrue=[
   "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED",
@@ -83,7 +85,14 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     ]);
     // The atomic DB claim rejects non-COM-001 or multi-question snapshots
     // before it updates lease or run state.
-    const claim=await claimQuestionStudioAsyncTask(runId,isProdCanarySnapshot);
+    // Legacy pinned COM-001 behavior is the default. Expanded review scope
+    // needs a separately approved, single-CP Cloud Run configuration.
+    const expanded=process.env.EXAMTREE_QS_PRODUCTION_REVIEW_SCOPE_APPROVED==="true";
+    const reviewGuard=expanded ? createProdReviewSnapshotGuard(runId) : null;
+    if(expanded && !reviewGuard) {
+      res.status(503).json({code:"QS_PRODUCTION_REVIEW_SCOPE_NOT_AUTHORIZED"});return;
+    }
+    const claim=await claimQuestionStudioAsyncTask(runId,reviewGuard ?? isProdCanarySnapshot);
     if(["terminal","not_found","exhausted"].includes(claim.kind)){
       res.status(204).end();return;
     }
