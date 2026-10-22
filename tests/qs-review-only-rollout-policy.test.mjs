@@ -12,11 +12,11 @@ function snap(engineId,packageId,cp) {
    request:{engineId,packageId,canonicalProblemId:cp,count:1,language:"en",seed:"rollout-policy-test-1"}};
 }
 for (const [engine,pkg,cp] of cases) {
- const manifest=[{enabled:true,engineId:engine,packageId:pkg,cpIds:[cp],reviewOnly:true,maxQuestions:1}];
+ const manifest=[{enabled:true,engineId:engine,packageId:pkg,cpIds:[cp],reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankWritable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,supportedLanguages:["en"]}];
  test(engine+" exact scoped entry accepted",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),manifest),true));
  test(engine+" arbitrary CP denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp+"-OTHER"),manifest),false));
  test(engine+" disabled entry denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),[{...manifest[0],enabled:false}]),false));
- test(engine+" non-review entry denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),[{...manifest[0],reviewOnly:false}]),false));
+ test(engine+" unsafe publication entry denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),[{...manifest[0],automaticStudentPublication:true}]),false));
 }
 test("multi question request denied",()=>{
  const [e,p,c]=cases[0];const s=snap(e,p,c);s.count=2;s.request.count=2;
