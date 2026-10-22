@@ -1,0 +1,24 @@
+name: QS production reviewed receiver guard
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/async-task-receiver-prod-standalone.ts'
+      - 'artifacts/api-server/src/question-studio/prod-review-receiver-gate.mjs'
+      - 'tests/qs-prod-review-receiver-contract.test.mjs'
+  workflow_dispatch:
+concurrency:
+  group: qs-prod-receiver-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  guard-contract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test production review receiver fail-closed contracts
+        run: node --test tests/qs-prod-review-receiver-contract.test.mjs tests/qs-prod-review-scope-preflight.test.mjs
