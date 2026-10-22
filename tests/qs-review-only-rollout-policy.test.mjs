@@ -7,23 +7,32 @@ const cases=[
  ["language-v1","ENG-001","ENG-001-CP013"],
  ["knowledge-v1","COM-001","COM-001-CP-001"],
 ];
-function snap(engineId,packageId,cp) {
+function snapshot(engineId,packageId,cp) {
  return {queueVersion:1,count:1,selectedCpIds:[cp],
    request:{engineId,packageId,canonicalProblemId:cp,count:1,language:"en",seed:"rollout-policy-test-1"}};
 }
-for (const [engine,pkg,cp] of cases) {
- const manifest=[{enabled:true,engineId:engine,packageId:pkg,cpIds:[cp],reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankWritable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,supportedLanguages:["en"]}];
- test(engine+" exact scoped entry accepted",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),manifest),true));
- test(engine+" arbitrary CP denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp+"-OTHER"),manifest),false));
- test(engine+" disabled entry denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),[{...manifest[0],enabled:false}]),false));
- test(engine+" unsafe publication entry denied",()=>assert.equal(validateReviewOnlyRollout(snap(engine,pkg,cp),[{...manifest[0],automaticStudentPublication:true}]),false));
+function canonical(engineId,packageId,cp) {
+ return {source:"canonical-question-studio-engine-registry",schemaVersion:1,
+  packages:[{enabled:true,engineId,packageId,cpIds:[cp],reviewSurfaceRequired:true,
+    manualApprovalRequired:true,questionBankWritable:false,automaticStudentPublication:false,
+    productionReleaseAuthorized:false,publiclyPublishable:false,testEligible:false,
+    mockTestEligible:false,supportedLanguages:["en"]}]};
 }
-test("multi question request denied",()=>{
- const [e,p,c]=cases[0];const s=snap(e,p,c);s.count=2;s.request.count=2;
- assert.equal(validateReviewOnlyRollout(s,[{enabled:true,engineId:e,packageId:p,cpIds:[c],reviewOnly:true,maxQuestions:1}]),false);
-});
-test("unknown engine denied",()=>assert.equal(validateReviewOnlyRollout(snap("custom-v99","COM-001","COM-001-CP-001"),[{enabled:true,engineId:"custom-v99",packageId:"COM-001",cpIds:["COM-001-CP-001"],reviewOnly:true,maxQuestions:1}]),false));
-test("duplicate matches denied",()=>{
- const [e,p,c]=cases[0],entry={enabled:true,engineId:e,packageId:p,cpIds:[c],reviewOnly:true,maxQuestions:1};
- assert.equal(validateReviewOnlyRollout(snap(e,p,c),[entry,entry]),false);
-});
+function scope(engineId,packageId,cp) {
+ return [{engineId,packageId,cpId:cp,reviewOnly:true}];
+}
+for (const [engine,pkg,cp] of cases) {
+ const s=snapshot(engine,pkg,cp), m=canonical(engine,pkg,cp), a=scope(engine,pkg,cp);
+ test(engine+" exact canonical + approved CP accepted",()=>assert.equal(validateReviewOnlyRollout(s,m,a),true));
+ test(engine+" arbitrary CP denied",()=>assert.equal(validateReviewOnlyRollout(snapshot(engine,pkg,cp+"-OTHER"),m,a),false));
+ test(engine+" empty approval denied",()=>assert.equal(validateReviewOnlyRollout(s,m,[]),false));
+ test(engine+" disabled canonical package denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,packages:[{...m.packages[0],enabled:false}]},a),false));
+ test(engine+" automatic publication denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,packages:[{...m.packages[0],automaticStudentPublication:true}]},a),false));
+ test(engine+" writable Question Bank denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,packages:[{...m.packages[0],questionBankWritable:true}]},a),false));
+ test(engine+" duplicate approvals denied",()=>assert.equal(validateReviewOnlyRollout(s,m,[...a,...a]),false));
+ test(engine+" duplicate canonical package denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,packages:[...m.packages,...m.packages]},a),false));
+ test(engine+" wrong manifest provenance denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,source:"untrusted"},a),false));
+ test(engine+" missing manual review denied",()=>assert.equal(validateReviewOnlyRollout(s,{...m,packages:[{...m.packages[0],manualApprovalRequired:false}]},a),false));
+}
+test("multiple questions denied",()=>{const [e,p,c]=cases[0],s=snapshot(e,p,c);s.count=2;s.request.count=2;assert.equal(validateReviewOnlyRollout(s,canonical(e,p,c),scope(e,p,c)),false);});
+test("unknown engine denied",()=>{const e="custom-v99",p="COM-001",c="COM-001-CP-001";assert.equal(validateReviewOnlyRollout(snapshot(e,p,c),canonical(e,p,c),scope(e,p,c)),false);});
