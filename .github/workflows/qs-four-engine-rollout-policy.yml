@@ -1,11 +1,14 @@
 name: QS four-engine review-only policy
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - 'artifacts/api-server/src/question-studio/review-only-rollout-policy.mjs'
       - 'tests/qs-review-only-rollout-policy.test.mjs'
-      - '.github/workflows/qs-four-engine-rollout-policy.yml'
   workflow_dispatch:
+concurrency:
+  group: qs-four-engine-rollout-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   offline-policy-check:
     runs-on: ubuntu-latest
