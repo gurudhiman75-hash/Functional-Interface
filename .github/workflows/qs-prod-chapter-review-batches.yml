@@ -11,8 +11,10 @@ on:
       - 'artifacts/api-server/build-universal-worker.mjs'
       - 'Dockerfile.examtree-qs-prod-universal-worker'
       - 'tests/qs-prod-chapter-review-batches.test.mjs'
-      - '.github/workflows/qs-prod-chapter-review-batches.yml'
   workflow_dispatch:
+concurrency:
+  group: qs-prod-chapter-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
