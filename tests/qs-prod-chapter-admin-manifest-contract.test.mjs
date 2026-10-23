@@ -1,0 +1,38 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+
+const read=p=>readFileSync(p,"utf8");
+const build=read("artifacts/api-server/build-runtime.mjs");
+const policy=read("artifacts/api-server/src/question-studio/prod-chapter-review-policy.mjs");
+const validation=read("artifacts/api-server/src/question-studio/async-task-package-capabilities.ts");
+const docker=read("Dockerfile.examtree-cloudrun-api");
+const canonical=read("artifacts/api-server/src/question-studio/build-async-task-capabilities-manifest.ts");
+const discovery=read("artifacts/api-server/src/question-studio/build-unified-admin-capabilities-manifest.ts");
+
+test("Cloud Run admin runtime builds separate registry-derived authorization JSON",()=>{
+  assert.match(docker,/EXAMTREE_QS_BUILD_UNIFIED_CAPABILITIES=true/);
+  assert.match(build,/if \(process\.env\.EXAMTREE_QS_BUILD_UNIFIED_CAPABILITIES === "true"\)/);
+  assert.match(build,/src\/question-studio\/build-async-task-capabilities-manifest\.ts/);
+  assert.match(build,/question-studio-chapter-review-capabilities\.json/);
+  assert.match(build,/QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT: chapterManifestPath/);
+  assert.match(docker,/COPY --from=builder \/src\/artifacts\/api-server\/dist \/app\/artifacts\/api-server\/dist/);
+  assert.match(canonical,/source:"canonical-question-studio-engine-registry"/);
+  assert.match(discovery,/source: "canonical-four-engine-registry"/);
+});
+test("production chapter authorization and compute validation read canonical JSON first",()=>{
+  const name="question-studio-chapter-review-capabilities.json";
+  for(const src of [policy,validation]) {
+    assert.ok(src.includes(name),"missing canonical admin manifest lookup");
+    assert.ok(src.indexOf(name)<src.indexOf("question-studio-capabilities.json"),
+      "legacy discovery JSON must not overshadow canonical release metadata");
+  }
+  assert.match(policy,/manifest\?\.source==="canonical-question-studio-engine-registry"/);
+  assert.match(policy,/p\.questionBankWritable!==false/);
+  assert.match(policy,/p\.productionReleaseAuthorized!==false/);
+});
+test("original legacy catalog remains present for ordinary API discovery",()=>{
+  assert.match(build,/const capabilitiesManifestPath = path\.resolve\(/);
+  assert.match(build,/question-studio-capabilities\.json/);
+  assert.match(build,/question-studio-unified-capabilities\.json/);
+});

@@ -101,6 +101,36 @@ if (process.env.EXAMTREE_QS_BUILD_UNIFIED_CAPABILITIES === "true") {
   } finally {
     await rm(unifiedBuilderPath, { force: true });
   }
+
+  // The UI discovery JSON is NOT an authorization manifest. Build a
+  // separate, canonical four-engine task manifest for chapter review.
+  // Only the isolated Cloud Run admin image enables this build flag;
+  // Render's current legacy capabilities file is not replaced.
+  const chapterBuilderPath = path.resolve(distDir, "build-qs-prod-chapter-capabilities.mjs");
+  const chapterManifestPath = path.resolve(distDir, "question-studio-chapter-review-capabilities.json");
+  await esbuild({
+    entryPoints: [path.resolve(artifactDir,
+      "src/question-studio/build-async-task-capabilities-manifest.ts")],
+    platform: "node",
+    bundle: true,
+    format: "esm",
+    outfile: chapterBuilderPath,
+    logLevel: "info",
+    external: ["*.node", "sharp", "better-sqlite3", "sqlite3",
+      "canvas", "bcrypt", "argon2", "fsevents", "postgres"],
+  });
+  try {
+    await execFileAsync(process.execPath, [chapterBuilderPath], {
+      cwd: artifactDir,
+      env: {
+        ...process.env,
+        QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT: chapterManifestPath,
+      },
+      maxBuffer: 16 * 1024 * 1024,
+    });
+  } finally {
+    await rm(chapterBuilderPath, { force: true });
+  }
 }
 
 // A separate ESM worker bundle keeps expensive TRG-002 authority imports
