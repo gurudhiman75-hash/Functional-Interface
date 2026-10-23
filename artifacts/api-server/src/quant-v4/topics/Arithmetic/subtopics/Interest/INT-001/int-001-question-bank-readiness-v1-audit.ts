@@ -68,7 +68,7 @@ for (const checkpoint of livePackage.checkpoints) {
         // Live Interest must remain review-only on this checkpoint.
         const liveDisposition = getGeneratedItemApprovalDisposition(question);
         assert.equal(liveDisposition.mode, "review_only", `${qlId}/${language}: live payload unexpectedly routes to Question Bank.`);
-        assert.match(String(liveDisposition.reason), /disables Question Bank storage/u);
+        assert.match(String(liveDisposition.reason), /(?:disables Question Bank storage|Question Bank storage is disabled)/u);
         liveReviewOnlyChecks += 2;
         const liveIssue = getGeneratedQuestionBankEligibilityIssue(question);
         assert.equal(liveIssue, "questionBankStatus is NOT_STORED", `${qlId}/${language}: live Question Bank rejection changed.`);
