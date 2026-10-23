@@ -100,8 +100,9 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     if(expanded && !reviewGuard) {
       res.status(503).json({code:"QS_PRODUCTION_REVIEW_SCOPE_NOT_AUTHORIZED"});return;
     }
-    const claim=await claimQuestionStudioAsyncTask(
-      runId,chapterGuard ?? reviewGuard ?? isProdCanarySnapshot);
+    const claim=chapterGuard
+      ? await claimQuestionStudioAsyncTask(runId,chapterGuard)
+      : await claimQuestionStudioAsyncTask(runId,reviewGuard ?? isProdCanarySnapshot);
     if(["terminal","not_found","exhausted"].includes(claim.kind)){
       res.status(204).end();return;
     }
