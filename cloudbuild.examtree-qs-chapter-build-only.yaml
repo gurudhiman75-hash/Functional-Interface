@@ -1,0 +1,56 @@
+# Question Studio chapter release: ONE Cloud Build, THREE immutable images.
+# Trigger-only, manual execution. Never deploy services, alter IAM, resume tasks,
+# enable generation, switch traffic, touch Neon or publish questions.
+# GitHub-connected Cloud Build supplies the *checked-out* $COMMIT_SHA. Do not
+# substitute a manually chosen tag that might not match the source checkout.
+steps:
+  - id: chapter-safety-contracts
+    name: node:22-bookworm-slim
+    entrypoint: node
+    args:
+      - --test
+      - tests/qs-prod-chapter-review-batches.test.mjs
+      - tests/qs-prod-chapter-admin-manifest-contract.test.mjs
+
+  # Sequential builds reuse Docker build layers and avoid three concurrent
+  # pnpm/esbuild processes exhausting the build machine's memory.
+  - id: receiver-image
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-qs-prod-task-receiver
+      - --tag
+      - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-qs-receiver-prod:$COMMIT_SHA
+      - .
+
+  - id: worker-image
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-qs-prod-universal-worker
+      - --tag
+      - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-universal-prod:$COMMIT_SHA
+      - .
+
+  - id: admin-api-image
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-cloudrun-api
+      - --tag
+      - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-api:$COMMIT_SHA
+      - .
+
+images:
+  - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-qs-receiver-prod:$COMMIT_SHA
+  - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-universal-prod:$COMMIT_SHA
+  - asia-south1-docker.pkg.dev/$PROJECT_ID/examtree-workers/examtree-api:$COMMIT_SHA
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+
+timeout: 7200s
