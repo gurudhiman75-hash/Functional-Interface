@@ -380,6 +380,43 @@ export function enqueueQuestionStudioStagingRun(
   );
 }
 
+
+/** Optional production chapter-batch enqueue. Never called unless the
+ * cockpit's separate build-time opt-in is enabled. Server-side admin RBAC,
+ * manifest scope and release flags remain authoritative.
+ */
+export function enqueueQuestionStudioProductionChapterRun(
+  input: CreateGenerationRunInput,
+  idempotencyKey: string,
+) {
+  const request = {
+    engineId: input.engineId,
+    packageId: input.packageId,
+    exam: input.exam,
+    subject: input.subject,
+    topic: input.topic,
+    subtopic: input.subtopic,
+    language: input.language,
+    difficulty: input.difficulty,
+    count: input.count,
+    runtimeMode: input.runtimeMode,
+    patternId: input.patternId,
+    canonicalProblemId: input.canonicalProblemId,
+    // Production seed is always assigned by the durable enqueue transaction.
+  };
+  return adminRequest<QuestionStudioStagingEnqueueReceipt>(
+    '/admin/question-studio/runs/async-production-chapter',
+    {
+      method: 'POST',
+      headers: { 'Idempotency-Key': idempotencyKey },
+      body: JSON.stringify({
+        request, count: input.count, selectedCpIds: input.cpIds ?? [],
+      }),
+    },
+    { fallbackMessage: 'Unable to enqueue production chapter review batch.' },
+  );
+}
+
 export function updateGenerationItems(input: {
   itemIds: string[];
   expectedStatuses: Record<string, GenerationItemStatus>;

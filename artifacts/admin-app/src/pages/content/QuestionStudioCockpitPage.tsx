@@ -51,6 +51,7 @@ import {
   type QuestionStudioRunProgress,
   type CreateGenerationRunInput,
   enqueueQuestionStudioStagingRun,
+  enqueueQuestionStudioProductionChapterRun,
   getQuestionStudioRunProgress,
   getQuestionStudioStagingOperations,
   type QuestionStudioStagingOperations,
@@ -78,6 +79,9 @@ import { cn } from '@/lib/utils';
 
 // Opt-in preview only. Default production builds continue to use synchronous Generate.
 const STAGING_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_STAGING === 'true';
+// Explicitly separate production approval; OFF in existing frontend builds.
+const CHAPTER_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true';
+const ASYNC_ENABLED = STAGING_ASYNC_ENABLED || CHAPTER_ASYNC_ENABLED;
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
@@ -188,7 +192,7 @@ function SpatialSvgFigure({ svg, label }: { svg: string; label: string }) {
 
 export function QuestionStudioCockpitPage() {
   const [urlSearchParams, setUrlSearchParams] = useSearchParams();
-  const resumeRunId = STAGING_ASYNC_ENABLED ? getStagingResumeRunId(urlSearchParams) : null;
+  const resumeRunId = ASYNC_ENABLED ? getStagingResumeRunId(urlSearchParams) : null;
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
   const canReview = hasPermission('content.generation.review');
@@ -382,7 +386,7 @@ export function QuestionStudioCockpitPage() {
   useEffect(() => {
     const runId = stagingAsyncRun?.id;
     const status = stagingAsyncRun?.status;
-    if (!STAGING_ASYNC_ENABLED || !runId ||
+    if (!ASYNC_ENABLED || !runId ||
         !['queued', 'running', 'validation', 'paused'].includes(status ?? '')) return;
     let cancelled = false;
     let timer: number | undefined;
@@ -622,7 +626,7 @@ export function QuestionStudioCockpitPage() {
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
         difficulty: difficultyFilterSupported ? difficulty : 'Mixed',
-        count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
+        count: Math.min(CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? 20 : capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
@@ -630,7 +634,7 @@ export function QuestionStudioCockpitPage() {
         language,
         seed: seed.trim() || undefined,
       };
-      if (STAGING_ASYNC_ENABLED && stagingAsyncSelected) {
+      if (ASYNC_ENABLED && stagingAsyncSelected) {
         // Async compute validates the package runtime strictly. Keep normal Generate unchanged.
         const asyncInput: CreateGenerationRunInput = { ...input, runtimeMode: activePackage.runtimeMode };
         const signature = JSON.stringify(asyncInput);
@@ -639,7 +643,9 @@ export function QuestionStudioCockpitPage() {
         }
         setStagingAsyncSubmitting(true);
         try {
-          const receipt = await enqueueQuestionStudioStagingRun(asyncInput, stagingAsyncRetry.current.key);
+          const receipt = CHAPTER_ASYNC_ENABLED
+            ? await enqueueQuestionStudioProductionChapterRun(asyncInput, stagingAsyncRetry.current.key)
+            : await enqueueQuestionStudioStagingRun(asyncInput, stagingAsyncRetry.current.key);
           stagingAsyncRetry.current = null;
           setUrlSearchParams(withStagingResumeRunId(urlSearchParams, receipt.id), { replace: true });
           setStagingAsyncRun({
@@ -653,8 +659,10 @@ export function QuestionStudioCockpitPage() {
           setReviewChapterFilter(packageChapter(activePackage));
           setReviewPackageFilter(activePackage.packageId);
           setReviewPageNumber(1);
-          showToast.info('Staging run queued',
-            `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
+          showToast.info(CHAPTER_ASYNC_ENABLED ? 'Review batch queued' : 'Staging run queued',
+            CHAPTER_ASYNC_ENABLED
+              ? `${receipt.publicCode} is queued for authorized review-only production dispatch; no automatic publication.`
+              : `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
         } finally {
           setStagingAsyncSubmitting(false);
         }
@@ -663,7 +671,7 @@ export function QuestionStudioCockpitPage() {
       const result = await generate(input);
       // Sync Generate must not leave a stale staging resume link attached.
       // Only clear the link after synchronous generation succeeds.
-      if (STAGING_ASYNC_ENABLED && resumeRunId) {
+      if (ASYNC_ENABLED && resumeRunId) {
         setUrlSearchParams((previous) => {
           const next = new URLSearchParams(previous);
           next.delete(STAGING_ASYNC_RUN_PARAM);
@@ -854,23 +862,23 @@ export function QuestionStudioCockpitPage() {
         </Card>
       )}
 
-      {STAGING_ASYNC_ENABLED && urlSearchParams.has(STAGING_ASYNC_RUN_PARAM) && !resumeRunId && (
+      {ASYNC_ENABLED && urlSearchParams.has(STAGING_ASYNC_RUN_PARAM) && !resumeRunId && (
         <p className="text-xs text-destructive" role="status">
-          Invalid staging resume link. Open a saved link containing a valid run ID.
+          Invalid async review resume link. Open a saved link containing a valid run ID.
         </p>
       )}
-      {STAGING_ASYNC_ENABLED && (stagingAsyncRun || (resumeRunId && stagingAsyncPollError)) && (
+      {ASYNC_ENABLED && (stagingAsyncRun || (resumeRunId && stagingAsyncPollError)) && (
         <div role="status" aria-live="polite" className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-muted/20 px-3 py-3 text-xs">
           <div className="space-y-1">
             {stagingAsyncRun ? (
               <>
-                <p className="font-semibold">Staging async run: {stagingAsyncRun.publicCode}</p>
+                <p className="font-semibold">{CHAPTER_ASYNC_ENABLED ? 'Production review run' : 'Staging async run'}: {stagingAsyncRun.publicCode}</p>
                 <p>Status: {stagingAsyncRun.status} · Attempt {stagingAsyncRun.attemptNumber} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
                 {['review', 'approved', 'partially_approved'].includes(stagingAsyncRun.status) && (
                   <p className="text-muted-foreground">Saved in the editorial review queue; no automatic publication.</p>
                 )}
               </>
-            ) : <p className="font-semibold">Restoring staging run…</p>}
+            ) : <p className="font-semibold">Restoring review run…</p>}
             {stagingAsyncPollError && <p className="text-destructive">Progress unavailable: {stagingAsyncPollError}. You can reload this link to retry.</p>}
           </div>
           {stagingAsyncRun && (
@@ -1052,18 +1060,18 @@ export function QuestionStudioCockpitPage() {
             <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-            <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
+            <Field label={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Server-assigned production seed" : "Optional deterministic seed"}><Input value={seed} onChange={(event) => setSeed(event.target.value)} disabled={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected} placeholder={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Assigned after enqueue" : "Leave blank for a fresh generated seed"} /></Field>
 
             <div className="space-y-2">
-              {STAGING_ASYNC_ENABLED && (
+              {ASYNC_ENABLED && (
                 <label className="flex max-w-80 items-start gap-2 text-xs text-muted-foreground">
                   <Checkbox checked={stagingAsyncSelected}
                     onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
                     disabled={generating || stagingAsyncSubmitting} />
-                  <span>Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).</span>
+                  <span>{CHAPTER_ASYNC_ENABLED ? 'Queue a production chapter review batch (1–20 questions; subject to server approval; no automatic publication).' : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
                 </label>
               )}
-              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && STAGING_ASYNC_ENABLED ? 'Queue staging batch' : 'Generate review batch'}</Button>
+              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
             </div>
           </div>
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageMainTopic(activePackage)} · {generationChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}

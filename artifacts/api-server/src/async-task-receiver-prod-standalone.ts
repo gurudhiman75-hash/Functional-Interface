@@ -12,6 +12,8 @@ import {assertProdCanaryRequest,isProdCanarySnapshot}
   from "./question-studio/prod-one-run-canary-guard.mjs";
 import {createProdReviewSnapshotGuard}
   from "./question-studio/prod-review-receiver-gate.mjs";
+import {createProductionChapterSnapshotGuard}
+  from "./question-studio/prod-chapter-review-runtime.mjs";
 
 const requiredTrue=[
   "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED",
@@ -71,9 +73,15 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     const config=getQuestionStudioTaskOidcConfig();
     await verifyOidc(req.get("Authorization"),config);
     const {runId}=validateQuestionStudioTaskBody(req.body);
-    // Requires a single pinned run ID and a maximum 15-minute TTL.
-    // This check occurs BEFORE importing the database code.
-    assertProdCanaryRequest(runId);
+    // Separate chapter rollout is opt-in. Verify exact canonical scope,
+    // release expiry and the signed task's run ID BEFORE importing Neon.
+    // With opt-in OFF the original one-question canary remains unchanged.
+    const chapterMode=process.env.EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED==="true";
+    const chapterGuard=chapterMode ? createProductionChapterSnapshotGuard(runId) : null;
+    if(chapterMode && !chapterGuard){
+      res.status(503).json({code:"QS_PRODUCTION_CHAPTER_REVIEW_DISABLED"});return;
+    }
+    if(!chapterMode) assertProdCanaryRequest(runId);
     // CRITICAL: Do not import the Neon SQL client during process startup.
     // Production receiver must bind PORT and answer health/disabled requests
     // without DATABASE_URL or production worker secrets. The two write-capable
@@ -83,16 +91,18 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
       import("./question-studio/async-task-lease-claim"),
       import("./question-studio/async-review-commit"),
     ]);
-    // The atomic DB claim rejects non-COM-001 or multi-question snapshots
-    // before it updates lease or run state.
+    // Claim rejects unauthorized chapter/CP selections under its run-row lock
+    // before modifying a lease or run status.
     // Legacy pinned COM-001 behavior is the default. Expanded review scope
     // needs a separately approved, single-CP Cloud Run configuration.
-    const expanded=process.env.EXAMTREE_QS_PRODUCTION_REVIEW_SCOPE_APPROVED==="true";
+    const expanded=!chapterMode && process.env.EXAMTREE_QS_PRODUCTION_REVIEW_SCOPE_APPROVED==="true";
     const reviewGuard=expanded ? createProdReviewSnapshotGuard(runId) : null;
     if(expanded && !reviewGuard) {
       res.status(503).json({code:"QS_PRODUCTION_REVIEW_SCOPE_NOT_AUTHORIZED"});return;
     }
-    const claim=await claimQuestionStudioAsyncTask(runId,reviewGuard ?? isProdCanarySnapshot);
+    const claim=chapterGuard
+      ? await claimQuestionStudioAsyncTask(runId,chapterGuard)
+      : await claimQuestionStudioAsyncTask(runId,reviewGuard ?? isProdCanarySnapshot);
     if(["terminal","not_found","exhausted"].includes(claim.kind)){
       res.status(204).end();return;
     }

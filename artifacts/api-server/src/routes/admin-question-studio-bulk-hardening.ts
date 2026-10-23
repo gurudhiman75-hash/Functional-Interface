@@ -16,6 +16,7 @@ import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality"
 import { authenticate } from "../middlewares/auth";
 import adminQuestionStudioRunStatusRouter from "./admin-question-studio-run-status";
 import adminQuestionStudioAsyncStagingRouter from "./admin-question-studio-async-staging";
+import adminQuestionStudioAsyncProductionChaptersRouter from "./admin-question-studio-async-production-chapters";
 import adminQuestionStudioAsyncOperationsRouter from "./admin-question-studio-async-operations";
 
 const router = Router();
@@ -82,6 +83,8 @@ router.use(authenticate);
 // RBAC-protected, read-only staging operational view; avoid loading engine code.
 router.use(adminQuestionStudioAsyncOperationsRouter);
 router.use(adminQuestionStudioAsyncStagingRouter);
+// Independently approved, short-lived production chapter review route.
+router.use(adminQuestionStudioAsyncProductionChaptersRouter);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
   const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds.map(text).filter(Boolean) : [];
