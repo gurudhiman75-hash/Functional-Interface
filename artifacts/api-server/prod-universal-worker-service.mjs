@@ -3,6 +3,7 @@
 // requires no worker token, Neon URL or Google credential secret.
 import {createServer} from "node:http";
 import {assertProductionWorkerCanaryEnvironment} from "./production-canary-worker-scope.mjs";
+import {productionChapterReleaseActive,readProductionChapterScope,readCanonicalChapterManifest} from "./prod-chapter-review-policy.mjs";
 
 const env=process.env;
 if(env.EXAMTREE_API_RUNTIME!=="cloud-run" ||
@@ -30,8 +31,18 @@ if(env.EXAMTREE_QS_PRODUCTION_WORKER_APPROVED!=="true") {
   });
   server.listen(port,"0.0.0.0",()=>console.info("QS_PRODUCTION_WORKER_DISABLED_READY"));
 } else {
-  // Required for every approved production worker launch; never general mode.
-  assertProductionWorkerCanaryEnvironment(env);
+  // Legacy one-run canaries retain their strict 15-minute pinned-run TTL.
+  // Chapter-review batches use a separate 24-hour-max authorization window,
+  // canonical package allowlist and per-request worker checks. An expired or
+  // missing chapter grant must fail startup; never fall back to canary mode.
+  if(env.EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED==="true") {
+    if(!productionChapterReleaseActive(env))
+      throw new Error("QS_PRODUCTION_WORKER_CHAPTER_NOT_APPROVED");
+    readProductionChapterScope(env);
+    readCanonicalChapterManifest();
+  } else {
+    assertProductionWorkerCanaryEnvironment(env);
+  }
   if((env.QUESTION_STUDIO_WORKER_TOKEN?.trim().length??0)<32) {
     throw new Error("QS_PRODUCTION_WORKER_TOKEN_UNAVAILABLE");
   }
