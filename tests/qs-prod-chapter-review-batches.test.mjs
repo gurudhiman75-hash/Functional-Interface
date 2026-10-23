@@ -119,3 +119,19 @@ test("live service paths and Docker build include independent chapter checks",()
   assert.match(mount,/adminQuestionStudioAsyncProductionChaptersRouter/);
   assert.doesNotMatch(route,/content\.questions/);
 });
+
+test("chapter cockpit and admin client remain explicit opt-in, without changing default Generate",()=>{
+  const get=p=>readFileSync(p,"utf8");
+  const page=get("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx");
+  const api=get("artifacts/admin-app/src/features/question-studio/api.ts");
+  assert.match(page,/VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true'/);
+  assert.match(page,/enqueueQuestionStudioProductionChapterRun\(asyncInput,/);
+  assert.match(page,/const result = await generate\(input\)/);
+  assert.match(api,/\/admin\/question-studio\/runs\/async-production-chapter/);
+  assert.match(api,/Idempotency-Key/);
+  // Seed must come from the server, not client-controlled production input.
+  const start=api.indexOf("export function enqueueQuestionStudioProductionChapterRun(");
+  const end=api.indexOf("export function updateGenerationItems",start);
+  assert.ok(start>=0 && end>start);
+  assert.doesNotMatch(api.slice(start,end),/seed: input\.seed/);
+});
