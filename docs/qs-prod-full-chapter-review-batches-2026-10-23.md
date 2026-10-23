@@ -1,7 +1,7 @@
 # Question Studio: production full-chapter review-batch source release
 
 ## Goal
-Enable **whole reviewed chapters**, all audited canonical CPs in each approved package, and **bounded batches (1–20)** across quant-v4, reasoning-v1, language-v1 and knowledge-v1. The previous COM-001 one-question canary remains separate. This code does **not** grant permission to start generation, resume production queues or publish questions.
+Enable **whole reviewed chapters**, all registered canonical CPs in each explicitly approved review-only package, and **bounded batches (1–20)** across quant-v4, reasoning-v1, language-v1 and knowledge-v1. The previous COM-001 one-question canary remains separate. This code does **not** grant permission to start generation, resume production queues or publish questions.
 
 ## What this source change implements
 - A production admin-only POST `/api/admin/question-studio/runs/async-production-chapter` behind existing `authenticate` and `content.generation.run` RBAC.
