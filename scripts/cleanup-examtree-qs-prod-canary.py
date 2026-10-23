@@ -221,8 +221,8 @@ def release_deadline(env,now):
 # New releases must not silently reuse the historical COM-001 IDs.
 OLD_RUN_IDS={"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98",
              "48aaff58-d0cb-4345-be5f-491089b72f10"}
-# Current IAM grant expires 2026-10-24 at 05:30 IST; maintain a margin.
-IAM_GRANT_EXPIRES=dt.datetime(2026,10,24,0,0,tzinfo=dt.timezone.utc)
+# Current IAM grant expires 2026-10-31 at 05:30 IST; maintain a margin.
+IAM_GRANT_EXPIRES=dt.datetime(2026,10,31,0,0,tzinfo=dt.timezone.utc)
 
 def verify_fresh_rollback_binding(env,now):
     raw=env.get("EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID","")
