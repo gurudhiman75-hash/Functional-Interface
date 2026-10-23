@@ -16,6 +16,8 @@ let cached: AsyncPackageDefinition[] | undefined;
 export function listAsyncTaskPackages(): AsyncPackageDefinition[] {
   if (cached) return cached;
   const candidates = [
+    path.join(process.cwd(), "artifacts/api-server/dist/question-studio-chapter-review-capabilities.json"),
+    path.join(process.cwd(), "dist/question-studio-chapter-review-capabilities.json"),
     path.join(process.cwd(), "artifacts/api-server/dist/question-studio-capabilities.json"),
     path.join(process.cwd(), "dist/question-studio-capabilities.json"),
   ];
