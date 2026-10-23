@@ -33,10 +33,15 @@ class CleanupSafety(unittest.TestCase):
                     "EXAMTREE_QS_PRODUCTION_CANARY_RUN_ID":run_id},now)
 
     def test_deadline_near_iam_expiry_denied(self):
-        later=dt.datetime(2026,10,23,23,56,tzinfo=dt.timezone.utc)
+        later=dt.datetime(2026,10,30,23,56,tzinfo=dt.timezone.utc)
         with self.assertRaisesRegex(RuntimeError,"IAM grant expiry"):
             m.assert_job_context({**base,
-                "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-23T23:55:00Z"},later)
+                "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-30T23:55:00Z"},later)
+
+    def test_old_iam_boundary_now_allowed(self):
+        later=dt.datetime(2026,10,24,0,1,tzinfo=dt.timezone.utc)
+        m.assert_job_context({**base,
+            "EXAMTREE_QS_PRODUCTION_CANARY_EXPIRES_AT":"2026-10-24T00:00:00Z"},later)
 
     def test_wrong_job_never_applies(self):
         for delta in ({"CLOUD_RUN_JOB":"examtree-qs-dispatch-prod"},
