@@ -1,0 +1,39 @@
+# One Cloud Build submission builds ALL THREE chapter-review release images.
+# Artifact Registry only. No Cloud Run deploy, IAM, traffic, scheduler, queue,
+# database, Firebase or publication changes.
+# Pass _RELEASE_SHA as the exact source commit SHA through build script.
+steps:
+  - id: build-receiver
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-qs-prod-task-receiver
+      - --tag
+      - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-qs-receiver-prod:${_RELEASE_SHA}
+      - .
+  - id: build-worker
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-qs-prod-universal-worker
+      - --tag
+      - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-universal-prod:${_RELEASE_SHA}
+      - .
+  - id: build-admin-api
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --file
+      - Dockerfile.examtree-cloudrun-api
+      - --tag
+      - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-api:${_RELEASE_SHA}
+      - .
+images:
+  - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-qs-receiver-prod:${_RELEASE_SHA}
+  - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-universal-prod:${_RELEASE_SHA}
+  - asia-south1-docker.pkg.dev/sarbedutech/examtree-workers/examtree-api:${_RELEASE_SHA}
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 5400s
