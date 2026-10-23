@@ -6,6 +6,9 @@ on:
       - 'artifacts/api-server/src/question-studio/prod-chapter-review-*.mjs'
       - 'artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts'
+      - 'artifacts/api-server/build-runtime.mjs'
+      - 'artifacts/api-server/src/question-studio/async-task-package-capabilities.ts'
+      - 'tests/qs-prod-chapter-admin-manifest-contract.test.mjs'
       - 'artifacts/api-server/src/async-task-receiver-prod-standalone.ts'
       - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
       - 'artifacts/api-server/build-universal-worker.mjs'
@@ -32,4 +35,4 @@ jobs:
           node --check artifacts/api-server/src/question-studio/prod-chapter-review-runtime.mjs
           node --check artifacts/api-server/universal-question-studio-worker-service.mjs
           node --check artifacts/api-server/build-universal-worker.mjs
-          node --test tests/qs-prod-chapter-review-batches.test.mjs
+          node --test tests/qs-prod-chapter-review-batches.test.mjs tests/qs-prod-chapter-admin-manifest-contract.test.mjs
