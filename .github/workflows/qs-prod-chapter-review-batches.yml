@@ -10,6 +10,8 @@ on:
       - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
       - 'artifacts/api-server/build-universal-worker.mjs'
       - 'Dockerfile.examtree-qs-prod-universal-worker'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
       - 'tests/qs-prod-chapter-review-batches.test.mjs'
   workflow_dispatch:
 concurrency:
