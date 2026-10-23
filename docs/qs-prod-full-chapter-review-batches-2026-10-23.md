@@ -15,7 +15,7 @@ Enable **whole reviewed chapters**, all registered canonical CPs in each explici
 
 ## Important deployment boundaries
 1. Merge **does not deploy any Cloud Run service or Job**. Previously built images (tag 13f7d586db73) cannot contain these new chapter checks. New receiver and worker images, plus the admin API deployment, will be required after validation.
-2. Current UI uses the old admin `/runs` generation path and staging async route. The new production route must receive a dedicated UI integration and authenticated API deployment before the full-chapter switch is available to admins.
+2. The Question Studio cockpit now includes a **default-OFF** `VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER=true` opt-in for chapter batches. It uses the new API client and existing review progress UI. The frontend switch must remain OFF until the authenticated admin API and private receiver/worker are deployed and separately approved; the normal Generate route is unchanged by default.
 3. The existing production Cloud Tasks dispatcher is disabled and normal queue is paused. Do not resume either because this PR merged.
 4. The historical COM-001 cleanup Job and minute Scheduler were designed for one pinned run with 15-minute expiry. They are **not** a proven continuous rollback plan for normal multi-run chapter generation. A separately designed normal-operation alerting/rollback and capacity plan is required before activation.
 5. Validate the **actual baked canonical manifests**, not only synthetic unit fixtures, before approving chapters. Verify enabled packages, CP IDs, language, difficulty and content-review status. Stop for unsupported chapter selectors.
