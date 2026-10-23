@@ -27,7 +27,7 @@ test("production chapter authorization and compute validation read canonical JSO
     assert.ok(src.indexOf(name)<src.indexOf("question-studio-capabilities.json"),
       "legacy discovery JSON must not overshadow canonical release metadata");
   }
-  assert.match(policy,/manifest\.source==="canonical-question-studio-engine-registry"/);
+  assert.match(policy,/manifest\?\.source==="canonical-question-studio-engine-registry"/);
   assert.match(policy,/p\.questionBankWritable!==false/);
   assert.match(policy,/p\.productionReleaseAuthorized!==false/);
 });
