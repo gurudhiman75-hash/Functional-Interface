@@ -4,7 +4,7 @@
 
 ## Purpose
 Provide the missing separation between the PAUSED existing production queue
-`examtree-qs-prod` and bounded, review-only full-chapter requests for the
+`examtree-qs-prod` and bounded, review-only full-chapter requests for every eligible package in the
 four engines: quant-v4, reasoning-v1, language-v1 and knowledge-v1.
 
 - The admin-only `POST /api/admin/question-studio/runs/async-production-chapter`
@@ -36,6 +36,10 @@ four engines: quant-v4, reasoning-v1, language-v1 and knowledge-v1.
   `artifacts/api-server/build-qs-prod-chapter-dispatcher.mjs`.
   The image embeds the authoritative canonical package manifest, not a mock.
   **Building does not grant release approval, create a queue or deploy a job.**
+
+## Catalog-wide release scope
+
+The release may use `EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON='{"mode":"all-eligible-chapters","reviewOnly":true,"chapterWide":true}'`. This resolves every currently eligible canonical package from the pinned immutable manifest without truncating at the legacy 100-entry manual-scope limit. Four smoke-test package IDs never limit the supported catalog. The administrator still selects one specific package per generation request, every batch goes to human review, and no automatic publication is permitted. Actual registry coverage and counts must be verified before enabling this mode.
 
 ## Non-negotiable blockers before first chapter batch
 
