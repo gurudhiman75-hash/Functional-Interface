@@ -39,10 +39,6 @@ class ReleaseWindowTests(unittest.TestCase):
         for value in ("c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98",
                       "not-a-uuid", RUN.upper(), ""):
             with self.subTest(value=value):
-                if value.startswith("c71"):
-                    # Old valid UUIDs are prohibited by release-specific runbook
-                    # rather than arbitrary source-level UUID blacklisting.
-                    continue
                 with self.assertRaises(mod.Stop):
                     mod.release_window(self.env(EXAMTREE_QS_CHAPTER_ROLLBACK_RELEASE_ID=value), NOW)
 
