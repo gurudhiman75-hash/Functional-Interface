@@ -232,6 +232,33 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         self.assertNotIn(("scheduler", "jobs", "pause"),
                          [a[:3] for a in cloud.actions])
 
+    def test_template_permission_denial_still_routes_ready_disabled_baseline(self):
+        """A failed approval-toggle cannot strand the known release on live traffic."""
+        cloud = InMemoryCloud()
+        service = "examtree-qs-receiver-prod"
+        cloud.fail_action = ("run", "services", "update", service)
+        with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
+            cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
+
+        cfg = controller.SERVICES[service]
+        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertEqual(cloud.dispatch, "false")
+        self.assertEqual(cloud.scheduler, "ENABLED")
+        self.assertEqual(
+            cloud.services[service]["status"]["traffic"],
+            [{"percent": 100, "revisionName": cfg["baseline"]}])
+        self.assertEqual(
+            cloud.services[service]["spec"]["traffic"],
+            [{"percent": 100, "revisionName": cfg["baseline"]}])
+        actions = [tuple(args[:4]) for args in cloud.actions]
+        self.assertIn(("run", "services", "update", service), actions)
+        self.assertIn(("run", "services", "update-traffic", service), actions)
+        self.assertNotIn(("scheduler", "jobs", "pause", controller.SCHEDULER),
+                         actions)
+        # Denied template update is not silently treated as a full recovery.
+        flags = controller.env_values(controller.template(cloud.services[service]))
+        self.assertTrue(any(flags[k] == "true" for k in cfg["off"]))
+
     def test_image_digest_mismatch_never_routes_unknown_revision(self):
         cloud = InMemoryCloud()
         service = "examtree-universal-prod"
