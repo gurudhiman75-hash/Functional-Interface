@@ -18,6 +18,7 @@ QUEUE = "examtree-qs-prod"
 CHAPTER_QUEUE = "examtree-qs-chapter-prod"
 QUEUES = (QUEUE, CHAPTER_QUEUE)
 DISPATCHER = "examtree-qs-dispatch-prod"
+CHAPTER_DISPATCHER = "examtree-qs-chapter-dispatch-prod"
 JOB = "examtree-qs-prod-chapter-rollback"
 SCHEDULER = "examtree-qs-prod-chapter-rollback-trigger"
 SCHEDULER_ID = "examtree-qs-chapter-sched@sarbedutech.iam.gserviceaccount.com"
@@ -269,14 +270,26 @@ def verify_disabled(service, config):
     if any(values.get(flag) != "false" for flag in config["off"]):
         raise Stop("Latest service template approval not false: " + service)
 
-def dispatcher_approved():
-    doc = fetch("run", "jobs", "describe", DISPATCHER, "--region=" + REGION)
+def job_approval(job, flag):
+    """Inspect an exact Cloud Run Job without reading secret values."""
+    if job not in (DISPATCHER, CHAPTER_DISPATCHER):
+        raise Stop("Unexpected Cloud Run dispatcher Job")
+    doc = fetch("run", "jobs", "describe", job, "--region=" + REGION)
     obj = doc.get("spec") or {}
     for _ in range(6):
         if "containers" in obj:
             break
         obj = obj.get("template") or obj.get("spec") or {}
-    return env_values(obj).get("EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED")
+    return env_values(obj).get(flag)
+
+
+def dispatcher_approved():
+    return job_approval(DISPATCHER, "EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED")
+
+
+def chapter_dispatcher_approved():
+    return job_approval(CHAPTER_DISPATCHER,
+                        "EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED")
 
 def perform_rollback(expected_expiry=None):
     # Pause BOTH independent queues before any release rollback. Attempt
@@ -308,6 +321,18 @@ def perform_rollback(expected_expiry=None):
                     "--quiet")
         if dispatcher_approved() != "false":
             raise Stop("Dispatcher remains approved")
+    except Stop as exc:
+        failures.append(str(exc))
+    # The independently isolated chapter dispatcher must also be disabled.
+    # Do not declare recovery while an authorized chapter Job template remains.
+    try:
+        if chapter_dispatcher_approved() != "false":
+            command("run", "jobs", "update", CHAPTER_DISPATCHER,
+                    "--region=" + REGION,
+                    "--update-env-vars=EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED=false",
+                    "--quiet")
+        if chapter_dispatcher_approved() != "false":
+            raise Stop("Chapter dispatcher remains approved")
     except Stop as exc:
         failures.append(str(exc))
     # Stop new admin enqueue first, then receiver and worker routes.
@@ -351,6 +376,8 @@ def perform_rollback(expected_expiry=None):
             raise Stop("Queue not paused after rollback: " + queue_name)
     if dispatcher_approved() != "false":
         raise Stop("Dispatcher not disabled after rollback")
+    if chapter_dispatcher_approved() != "false":
+        raise Stop("Chapter dispatcher not disabled after rollback")
     for service, cfg in SERVICES.items():
         verify_disabled(service, cfg)
     if verify_scheduler() == "ENABLED":
@@ -379,6 +406,8 @@ def main():
     else:
         # Read-only operator preflight, never reads secrets.
         state = verify_scheduler()
+        if dispatcher_approved() != "false" or chapter_dispatcher_approved() != "false":
+            raise Stop("Both production dispatcher Jobs must be disabled at preflight")
         for service, cfg in SERVICES.items():
             validate_service(service, cfg)
         observed_queues = []
