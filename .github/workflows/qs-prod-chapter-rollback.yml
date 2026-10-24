@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/rollback-examtree-qs-prod-chapter.py'
       - 'tests/test-qs-prod-chapter-rollback.py'
+      - 'tests/test-qs-prod-chapter-rollback-simulation.py'
       - 'Dockerfile.examtree-qs-prod-chapter-rollback'
       - 'cloudbuild.examtree-qs-prod-chapter-rollback-build-only.yaml'
       - 'docs/qs-prod-chapter-rollback-release.md'
@@ -25,3 +26,4 @@ jobs:
       - run: |
           python -m py_compile scripts/rollback-examtree-qs-prod-chapter.py
           python tests/test-qs-prod-chapter-rollback.py -v
+          python tests/test-qs-prod-chapter-rollback-simulation.py -v
