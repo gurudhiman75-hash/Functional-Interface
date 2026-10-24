@@ -59,7 +59,7 @@ router.post("/runs/async-production-chapter",
       identity:{actorFirebaseUid:req.user.id,
         identityUserId:req.adminSession.user.id,idempotencyKey:key},
       compute,
-    });
+    }, "chapter_review");
     res.status(receipt.reused?200:202).json({
       id:receipt.id,publicCode:receipt.publicCode,status:receipt.status,
       reused:receipt.reused,retryAfterSeconds:receipt.retryAfterSeconds
