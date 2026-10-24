@@ -116,6 +116,7 @@ test("event type and idempotency channel are disjoint from normal dispatcher",()
   const router=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts","utf8");
   const dispatch=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-dispatcher.ts","utf8");
   const normal=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-prod-once.ts","utf8");
+  const generic=readFileSync("artifacts/api-server/src/lib/outbox-publisher.ts","utf8");
   const chapter=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-prod-chapter-once.ts","utf8");
   assert.match(foundation,/question_studio\.generation_run\.chapter_review_queued\.v1/);
   assert.match(foundation,/chapter:.*createHash\("sha256"\)/s);
@@ -128,6 +129,7 @@ test("event type and idempotency channel are disjoint from normal dispatcher",()
   assert.match(normal,/runQuestionStudioTaskDispatchOnce\(\)/);
   assert.match(chapter,/runQuestionStudioTaskDispatchOnce\(\{chapterReviewRunId:runId\}\)/);
   assert.doesNotMatch(normal,/chapterReviewRunId/);
+  assert.ok(generic.includes("AND event_type <> 'question_studio.generation_run.chapter_review_queued.v1'"));
 });
 
 test("build-only artifact includes immutable canonical manifest; no deployment commands",()=>{
