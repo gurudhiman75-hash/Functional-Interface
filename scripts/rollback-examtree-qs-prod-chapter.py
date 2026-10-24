@@ -15,6 +15,8 @@ import uuid
 PROJECT = "sarbedutech"
 REGION = "asia-south1"
 QUEUE = "examtree-qs-prod"
+CHAPTER_QUEUE = "examtree-qs-chapter-prod"
+QUEUES = (QUEUE, CHAPTER_QUEUE)
 DISPATCHER = "examtree-qs-dispatch-prod"
 JOB = "examtree-qs-prod-chapter-rollback"
 SCHEDULER = "examtree-qs-prod-chapter-rollback-trigger"
@@ -277,15 +279,27 @@ def dispatcher_approved():
     return env_values(obj).get("EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED")
 
 def perform_rollback(expected_expiry=None):
-    # A failed later step MUST leave the queue paused and scheduler enabled.
-    queue = fetch("tasks", "queues", "describe", QUEUE, "--location=" + REGION)
-    if queue.get("state") not in ("PAUSED", "RUNNING"):
-        raise Stop("Unrecognized production queue state")
-    if queue["state"] != "PAUSED":
-        command("tasks", "queues", "pause", QUEUE, "--location=" + REGION)
-    if fetch("tasks", "queues", "describe", QUEUE,
-             "--location=" + REGION).get("state") != "PAUSED":
-        raise Stop("Failed to pause production queue")
+    # Pause BOTH independent queues before any release rollback. Attempt
+    # each even when the other one errors, and refuse success unless both
+    # are confirmed PAUSED. Never silently skip the new chapter queue.
+    queue_failures = []
+    for queue_name in QUEUES:
+        try:
+            state = fetch("tasks", "queues", "describe", queue_name,
+                          "--location=" + REGION).get("state")
+            if state not in ("PAUSED", "RUNNING"):
+                raise Stop("Unrecognized queue state: " + queue_name)
+            if state == "RUNNING":
+                command("tasks", "queues", "pause", queue_name,
+                        "--location=" + REGION)
+            if fetch("tasks", "queues", "describe", queue_name,
+                     "--location=" + REGION).get("state") != "PAUSED":
+                raise Stop("Queue not paused: " + queue_name)
+        except Stop as exc:
+            queue_failures.append(str(exc))
+    if queue_failures:
+        raise Stop("Rollback incomplete; Scheduler must remain enabled: " +
+                   "; ".join(queue_failures))
     failures = []
     try:
         if dispatcher_approved() != "false":
@@ -331,9 +345,10 @@ def perform_rollback(expected_expiry=None):
     if failures:
         raise Stop("Rollback incomplete; Scheduler must remain enabled: " +
                    "; ".join(failures))
-    if fetch("tasks", "queues", "describe", QUEUE,
-             "--location=" + REGION).get("state") != "PAUSED":
-        raise Stop("Queue not paused after rollback")
+    for queue_name in QUEUES:
+        if fetch("tasks", "queues", "describe", queue_name,
+                 "--location=" + REGION).get("state") != "PAUSED":
+            raise Stop("Queue not paused after rollback: " + queue_name)
     if dispatcher_approved() != "false":
         raise Stop("Dispatcher not disabled after rollback")
     for service, cfg in SERVICES.items():
@@ -366,9 +381,14 @@ def main():
         state = verify_scheduler()
         for service, cfg in SERVICES.items():
             validate_service(service, cfg)
-        q = fetch("tasks", "queues", "describe", QUEUE, "--location=" + REGION)
+        observed_queues = []
+        for queue_name in QUEUES:
+            q = fetch("tasks", "queues", "describe", queue_name, "--location=" + REGION)
+            if q.get("state") != "PAUSED":
+                raise Stop("Queue must be PAUSED before chapter release: " + queue_name)
+            observed_queues.append(queue_name + ": " + q["state"])
         print("CHECK: private chapter rollback baseline and release digests validated")
-        print("QUEUE: " + str(q.get("state")) + "; SCHEDULER: " + state)
+        print("QUEUES: " + "; ".join(observed_queues) + "; SCHEDULER: " + state)
         print("NO CHANGES MADE")
     return 0
 
