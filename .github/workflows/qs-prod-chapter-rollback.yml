@@ -8,7 +8,6 @@ on:
       - 'Dockerfile.examtree-qs-prod-chapter-rollback'
       - 'cloudbuild.examtree-qs-prod-chapter-rollback-build-only.yaml'
       - 'docs/qs-prod-chapter-rollback-release.md'
-      - '.github/workflows/qs-prod-chapter-rollback.yml'
   workflow_dispatch:
 permissions:
   contents: read
