@@ -13,6 +13,22 @@ spec.loader.exec_module(mod)
 NOW = dt.datetime(2026, 10, 24, 10, 0, tzinfo=dt.timezone.utc)
 RUN = "fe1ce74c-f4af-423e-840a-50dcae00837b"
 
+class ServiceAccountIdTests(unittest.TestCase):
+    def test_scheduler_service_account_id_within_google_limits(self):
+        account_id, domain = mod.SCHEDULER_ID.split("@", 1)
+        self.assertTrue(6 <= len(account_id) <= 30)
+        self.assertRegex(account_id, r"^[a-z][a-z0-9-]*[a-z0-9]$")
+        self.assertEqual(domain, "sarbedutech.iam.gserviceaccount.com")
+
+    def test_all_baseline_runtime_account_ids_within_google_limits(self):
+        for service, config in mod.SERVICES.items():
+            with self.subTest(service=service):
+                account_id, domain = config["sa"].split("@", 1)
+                self.assertTrue(6 <= len(account_id) <= 30)
+                self.assertRegex(account_id, r"^[a-z][a-z0-9-]*[a-z0-9]$")
+                self.assertEqual(domain, "sarbedutech.iam.gserviceaccount.com")
+
+
 class ReleaseWindowTests(unittest.TestCase):
     def env(self, **kwargs):
         obj = {

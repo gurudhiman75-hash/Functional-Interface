@@ -17,7 +17,7 @@ QUEUE = "examtree-qs-prod"
 DISPATCHER = "examtree-qs-dispatch-prod"
 JOB = "examtree-qs-prod-chapter-rollback"
 SCHEDULER = "examtree-qs-prod-chapter-rollback-trigger"
-SCHEDULER_ID = "examtree-qs-chapter-rollback-scheduler@sarbedutech.iam.gserviceaccount.com"
+SCHEDULER_ID = "examtree-qs-chapter-sched@sarbedutech.iam.gserviceaccount.com"
 MAX_WINDOW = dt.timedelta(hours=24)
 UTC = dt.timezone.utc
 BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-4345-be5f-491089b72f10"}

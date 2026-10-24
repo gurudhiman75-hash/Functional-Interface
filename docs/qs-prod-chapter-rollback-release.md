@@ -7,7 +7,7 @@
 - GCP project `sarbedutech`; region `asia-south1`.
 - Dedicated Cloud Run Job: `examtree-qs-prod-chapter-rollback`.
 - Dedicated Cloud Scheduler: `examtree-qs-prod-chapter-rollback-trigger` (must be created PAUSED).
-- Scheduler service identity: `examtree-qs-chapter-rollback-scheduler@sarbedutech.iam.gserviceaccount.com`.
+- Scheduler service identity: `examtree-qs-chapter-sched@sarbedutech.iam.gserviceaccount.com`.
 - New rollback runtime identity (to create separately): `examtree-qs-chapter-rollback@sarbedutech.iam.gserviceaccount.com`.
 - Known-good fallback revisions: API `examtree-api-00002-mch`, receiver `examtree-qs-receiver-prod-00025-27d`, worker `examtree-universal-prod-00021-5q7`.
 - Candidate image digests are pinned in `scripts/rollback-examtree-qs-prod-chapter.py`. Changing a fallback revision or image requires a new reviewed commit.
