@@ -43,8 +43,8 @@ test("no tokens in enqueue snapshot or task intent payload; canonical hash filte
   assert.match(canonical,/Only the known Question Studio request fields are persisted/);
   assert.match(canonical,/Object\.entries\(value\)\.filter/);
   assert.match(canonical,/digestCanonicalEnqueueRequest/);
-  assert.match(service,/JSON\\.stringify\\(channel === "chapter_review"/);
-  assert.match(service,/: \\{runId, queueVersion:1\\}/);
+  assert.match(service,/JSON\.stringify\(channel === "chapter_review"/);
+  assert.match(service,/: \{runId, queueVersion:1\}/);
   assert.match(service,/channel:"chapter_review"/);
   assert.doesNotMatch(service,/Firebase ID token|authorizationHeaders|password/);
 });
