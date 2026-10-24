@@ -40,6 +40,7 @@ function sourcePackageLifecycle(packageId:string) {
 
 export async function commitQuestionStudioAsyncReview(input:{
   runId:string;leaseToken:string;batch:UniversalStudioComputeResult;
+  reviewOnlyOutput?:boolean;
 }):Promise<AsyncReviewCommitReceipt> {
   if(process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED!=="true" ||
      process.env.EXAMTREE_QUESTION_STUDIO_TASK_RECEIVER_VERIFIED!=="true" ||
@@ -101,7 +102,25 @@ export async function commitQuestionStudioAsyncReview(input:{
       throw new QuestionStudioReviewCommitError("ASYNC_REVIEW_STALE_LEASE","Generation task has lost its lease");
     }
 
-    const lifecycle=sourcePackageLifecycle(String(canonical.request.packageId));
+    // A chapter's source may already be BANK_ONLY or bank-writable.
+    // Never copy those privileges to freshly generated review candidates.
+    const sourceLifecycle=sourcePackageLifecycle(String(canonical.request.packageId));
+    const lifecycle=input.reviewOnlyOutput ? {
+      ...sourceLifecycle,
+      lifecycleStage:"REVIEW_ONLY",
+      reviewSurfaceRequired:true,
+      manualApprovalRequired:true,
+      questionBankStatus:"REVIEW_ONLY",
+      questionBankWritable:false,
+      questionBankAcceptanceMode:undefined,
+      questionBankAcceptanceAuthority:undefined,
+      testEligibility:"NOT_ELIGIBLE",
+      testEligible:false,
+      mockTestEligible:false,
+      publiclyPublishable:false,
+      automaticStudentPublication:false,
+      productionReleaseAuthorized:false,
+    } : sourceLifecycle;
     for(let index=0;index<input.batch.questions.length;index++){
       const question=input.batch.questions[index]!;
       const itemId=randomUUID();

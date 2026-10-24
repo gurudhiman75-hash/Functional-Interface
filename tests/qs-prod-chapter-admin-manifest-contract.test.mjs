@@ -28,8 +28,10 @@ test("production chapter authorization and compute validation read canonical JSO
       "legacy discovery JSON must not overshadow canonical release metadata");
   }
   assert.match(policy,/manifest\?\.source==="canonical-question-studio-engine-registry"/);
-  assert.match(policy,/p\.questionBankWritable!==false/);
-  assert.match(policy,/p\.productionReleaseAuthorized!==false/);
+  // Source Question Bank eligibility must not govern NEW review-only output.
+  assert.match(policy,/isProductionChapterGenerationEligiblePackage\(p\)/);
+  assert.match(policy,/p\.manualApprovalRequired===true/);
+  assert.match(policy,/p\.productionReleaseAuthorized===false/);
 });
 test("original legacy catalog remains present for ordinary API discovery",()=>{
   assert.match(build,/const capabilitiesManifestPath = path\.resolve\(/);

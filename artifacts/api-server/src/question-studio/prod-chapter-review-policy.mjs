@@ -56,6 +56,19 @@ export function readProductionChapterScope(env=process.env){
   return scope;
 }
 
+// Chapter admission is independent of source Question Bank lifecycle. BANK_ONLY
+// chapters can generate REVIEW candidates, but no unsafe source package can be
+// automatically student-published or promoted by this production pathway.
+export function isProductionChapterGenerationEligiblePackage(p){
+  return !!p && p.enabled===true &&
+    p.reviewSurfaceRequired===true && p.manualApprovalRequired===true &&
+    p.productionReleaseAuthorized===false &&
+    p.automaticStudentPublication===false && p.publiclyPublishable===false &&
+    Array.isArray(p.cpIds) && p.cpIds.length>0 &&
+    new Set(p.cpIds).size===p.cpIds.length &&
+    p.cpIds.every(cp=>typeof cp==="string" && ID.test(cp));
+}
+
 // selectedCpIds=[] means an entire canonical package, not an arbitrary CP.
 // Exactly one package per request; batches can cover its full CP pool.
 // CP filters may target multiple CPs without granting access to other chapters.
@@ -90,14 +103,7 @@ export function validateProductionChapterReview(snapshot,manifest,scope,
     p.engineId===r.engineId && p.packageId===r.packageId);
   if(candidates.length!==1) return false;
   const p=candidates[0];
-  if(p.lifecycleStage!=="REVIEW_ONLY" ||
-     p.reviewSurfaceRequired!==true || p.manualApprovalRequired!==true ||
-     p.questionBankWritable!==false || p.productionReleaseAuthorized!==false ||
-     p.automaticStudentPublication!==false || p.publiclyPublishable!==false ||
-     p.testEligible!==false || p.mockTestEligible!==false ||
-     !Array.isArray(p.cpIds) || p.cpIds.length<1 ||
-     new Set(p.cpIds).size!==p.cpIds.length ||
-     p.cpIds.some(cp=>!ID.test(cp)) ||
+  if(!isProductionChapterGenerationEligiblePackage(p) ||
      !Array.isArray(p.supportedLanguages) ||
      !p.supportedLanguages.includes(r.language)) return false;
   // Dynamic/unreviewed candidates cannot be silently selected.
