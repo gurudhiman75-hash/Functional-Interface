@@ -41,20 +41,33 @@ for(const [engine,p,cp] of cases){
     server.request.seed="qs-async:"+RUN;
     assert.equal(validateProductionChapterReview(server,m,s,{runId:RUN}),true);
   });
-  test(engine+" blocks unauthorized package, CP, and lifecycle escalation",()=>{
+  test(engine+" blocks unauthorized package, CP, and publication escalation",()=>{
     assert.equal(validateProductionChapterReview(snapshot(engine,"FAKE-001"),m,s),false);
     assert.equal(validateProductionChapterReview(snapshot(engine,p,["UNKNOWN-CP"],1),m,s),false);
     for(const changed of [
-      {questionBankWritable:true},{automaticStudentPublication:true},
-      {productionReleaseAuthorized:true},{manualApprovalRequired:false},
-      {publiclyPublishable:true},{lifecycleStage:"BANK_ONLY"},
-      {testEligible:true},{mockTestEligible:true},{reviewSurfaceRequired:false}
+      {automaticStudentPublication:true},{productionReleaseAuthorized:true},
+      {manualApprovalRequired:false},{publiclyPublishable:true},
+      {reviewSurfaceRequired:false},{enabled:false},{cpIds:[]}
     ]){
       assert.equal(validateProductionChapterReview(snapshot(engine,p),
         manifest({...pkg(engine,p,cp),...changed}),s),false);
     }
   });
 }
+test("canonical BANK_ONLY bank-writable chapter remains eligible for manual review",()=>{
+  const [e,p,cp]=cases[0];
+  const source={...pkg(e,p,cp),lifecycleStage:"BANK_ONLY",
+    questionBankWritable:true,testEligible:true,mockTestEligible:true};
+  assert.equal(validateProductionChapterReview(snapshot(e,p),
+    manifest(source),scope(e,p)),true);
+  // Existing package metadata does not grant automatic student publication.
+  for(const changed of [{automaticStudentPublication:true},
+                         {productionReleaseAuthorized:true},
+                         {publiclyPublishable:true}]){
+    assert.equal(validateProductionChapterReview(snapshot(e,p),
+      manifest({...source,...changed}),scope(e,p)),false);
+  }
+});
 test("production batches capped and CP filter cannot exceed batch count",()=>{
   const [e,p,cp]=cases[0],m=manifest(pkg(e,p,cp)),s=scope(e,p);
   assert.equal(MAX_CHAPTER_REVIEW_BATCH,20);
@@ -110,6 +123,10 @@ test("live service paths and Docker build include independent chapter checks",()
   const mount=get("artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts");
   const docker=get("Dockerfile.examtree-qs-prod-universal-worker");
   assert.match(receiver,/createProductionChapterSnapshotGuard\(runId\)/);
+  assert.match(receiver,/reviewOnlyOutput: Boolean\(chapterGuard\)/);
+  const commit=get("artifacts/api-server/src/question-studio/async-review-commit.ts");
+  assert.match(commit,/questionBankWritable:false/);
+  assert.match(commit,/reviewOnlyOutput/);
   assert.match(receiver,/claimQuestionStudioAsyncTask\(\s*runId,chapterGuard/);
   assert.match(worker,/assertProductionChapterWorkerInput\(input\)/);
   assert.match(docker,/question-studio-capabilities\.json/);
