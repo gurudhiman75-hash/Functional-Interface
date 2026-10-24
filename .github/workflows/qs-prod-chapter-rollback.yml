@@ -25,4 +25,4 @@ jobs:
           python-version: '3.12'
       - run: |
           python -m py_compile scripts/rollback-examtree-qs-prod-chapter.py
-          python -m unittest discover -s tests -p 'test-qs-prod-chapter-rollback.py' -v
+          python tests/test-qs-prod-chapter-rollback.py -v
