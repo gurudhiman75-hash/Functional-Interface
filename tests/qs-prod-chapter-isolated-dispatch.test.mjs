@@ -78,10 +78,16 @@ test("catalog-wide dispatch admits canonical chapters without enumerating each",
     mode:"all-eligible-chapters",reviewOnly:true,chapterWide:true
   })});
   assert.equal(assertIsolatedChapterDispatch(wide,config,manifest,NOW),RUN);
-  assert.throws(()=>assertIsolatedChapterDispatch(wide,config,{
+  // Unsafe source packages are excluded, while safe chapters stay usable.
+  assert.equal(assertIsolatedChapterDispatch(wide,config,{
     ...manifest,packages:manifest.packages.map((p,i)=>i===0?{
       ...p,publiclyPublishable:true}:p)
-  },NOW),/SCOPE_INVALID/);
+  },NOW),RUN);
+  assert.throws(()=>assertIsolatedChapterDispatch(wide,config,{
+    ...manifest,packages:manifest.packages.map(p=>({
+      ...p,publiclyPublishable:true
+    }))
+  },NOW),/CATALOG_INVALID/);
 });
 test("fail-closed on each missing or conflicting production admission",()=>{
   for(const key of [
