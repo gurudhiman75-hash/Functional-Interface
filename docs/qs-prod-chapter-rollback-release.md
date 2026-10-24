@@ -14,6 +14,19 @@
 - Known-good fallback revisions: API `examtree-api-00002-mch`, receiver `examtree-qs-receiver-prod-00025-27d`, worker `examtree-universal-prod-00021-5q7`.
 - Candidate image digests are pinned in `scripts/rollback-examtree-qs-prod-chapter.py`. Changing a fallback revision or image requires a new reviewed commit.
 
+## Verified 2026-10-24 candidate images
+
+The operator confirmed these immutable Artifact Registry digests from the completed four-component build, source SHA `68cc71d58d52d33dafc08fcf81d6edca9cae9ff3`:
+
+| Cloud Run service | Verified release digest |
+|---|---|
+| `examtree-api` | `sha256:829d0f6c710ae5bf070a8faad9baf8ef82076d88b872af433de7bcdbb7ab7796` |
+| `examtree-qs-receiver-prod` | `sha256:54658549a3581f5cc5179f76ec6a1b31897c93318c19cf9bd5bb425e68914311` |
+| `examtree-universal-prod` | `sha256:090fe90d94d1586749ad04999eae1dc3badb62b8f35bc322bf96ca036e29d3da` |
+
+These are **candidate digests only**. The rollback controller continues to pin all traffic to the three known-good older baseline revisions on recovery. Candidate revisions were deployed at **0% traffic** with approvals OFF. Updating pinned digests in GitHub does not update the deployed rollback Job or grant authorization to serve the new revisions. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
+
+
 ## What the rollback controller enforces
 
 The immutable image defaults to **read-only metadata verification**. It only accepts `--apply` within the exact named singleton Cloud Run Job, after being independently armed with all these environment variables:
