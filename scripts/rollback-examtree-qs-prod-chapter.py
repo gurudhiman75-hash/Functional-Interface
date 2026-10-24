@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import subprocess
 import sys
 import uuid
@@ -114,6 +115,28 @@ def safe_cli_failure_class(stderr):
     return "UNCLASSIFIED"
 
 
+# Fixed whitelist prevents raw CLI stderr, secret names or resource IDs from
+# leaking through the failure channel. Never print untrusted CLI output.
+REPORTED_PERMISSIONS = (
+    "run.services.update", "run.services.get", "run.operations.get",
+    "run.revisions.get", "run.services.getIamPolicy",
+    "iam.serviceAccounts.actAs", "artifactregistry.repositories.downloadArtifacts",
+    "secretmanager.secrets.get", "secretmanager.versions.access",
+    "serviceusage.services.use", "run.routes.invoke",
+)
+
+
+def safe_denied_permission(stderr):
+    raw = stderr or ""
+    if not re.search(r"denied|permission|forbidden|\b403\b", raw, re.I):
+        return "NOT_SPECIFIED"
+    for item in REPORTED_PERMISSIONS:
+        if re.search(r"(?<![A-Za-z0-9_.])" + re.escape(item) +
+                     r"(?![A-Za-z0-9_.])", raw, re.I):
+            return item
+    return "NOT_SPECIFIED"
+
+
 def command(*parts):
     try:
         p = subprocess.run(["gcloud", *parts, "--project=" + PROJECT],
@@ -125,7 +148,8 @@ def command(*parts):
         # Release-blocking failures are instead grouped into fixed safe classes.
         raise Stop("Cloud operation failed: " + " ".join(parts[:3]) +
                    " [exit=" + str(p.returncode) + ", category=" +
-                   safe_cli_failure_class(p.stderr) + "]") from None
+                   safe_cli_failure_class(p.stderr) + ", permission=" +
+                   safe_denied_permission(p.stderr) + "]") from None
     return p.stdout
 
 def fetch(*parts):
