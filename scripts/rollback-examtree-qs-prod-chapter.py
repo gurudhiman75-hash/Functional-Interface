@@ -27,26 +27,27 @@ UTC = dt.timezone.utc
 BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-4345-be5f-491089b72f10"}
 
 # Immutable release candidate digests and known-good 100%-serving baselines,
-# captured during the October 23 chapter image verification. NEVER use LATEST.
+# captured from the 2026-10-24 four-component release built at source commit
+# 68cc71d58d52d33dafc08fcf81d6edca9cae9ff3. NEVER use LATEST.
 SERVICES = {
     "examtree-api": {
         "baseline": "examtree-api-00002-mch",
         "sa": "examtree-api-prod-runtime@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:da61519a43dd7ef0abc167910e197b8ce1615777d701e24ac89a7c209f2ea8f3",
+        "digest": "sha256:829d0f6c710ae5bf070a8faad9baf8ef82076d88b872af433de7bcdbb7ab7796",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED"),
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
         "sa": "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:e0970ae19211b1d0fa13c0b021dde878210b614cd2586fee9d1e40e1229dd89c",
+        "digest": "sha256:54658549a3581f5cc5179f76ec6a1b31897c93318c19cf9bd5bb425e68914311",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED"),
     },
     "examtree-universal-prod": {
         "baseline": "examtree-universal-prod-00021-5q7",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:22b88e9a9f1fe1f5c78c7bb5dd42196797203967fb9fd10d4bf7e68e6ee5cf5a",
+        "digest": "sha256:090fe90d94d1586749ad04999eae1dc3badb62b8f35bc322bf96ca036e29d3da",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED"),
     },
