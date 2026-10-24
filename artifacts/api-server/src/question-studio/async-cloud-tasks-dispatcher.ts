@@ -9,7 +9,9 @@ import {
   getQuestionStudioTaskConfig,
 } from "./async-cloud-tasks-transport";
 
-const EVENT_TYPE = "question_studio.generation_run.queued.v1";
+const STANDARD_EVENT_TYPE = "question_studio.generation_run.queued.v1";
+const CHAPTER_EVENT_TYPE = "question_studio.generation_run.chapter_review_queued.v1";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 function requireExplicitDispatchApproval() {
   if (process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED !== "true" ||
@@ -21,19 +23,29 @@ function requireExplicitDispatchApproval() {
 }
 
 // Returns true if one outbox event was handled, false if none is eligible.
-export async function runQuestionStudioTaskDispatchOnce(): Promise<boolean> {
+export async function runQuestionStudioTaskDispatchOnce(
+  options: {chapterReviewRunId?:string} = {},
+): Promise<boolean> {
   requireExplicitDispatchApproval();
+  const chapterRunId = options.chapterReviewRunId;
+  if (chapterRunId !== undefined && !UUID.test(chapterRunId)) {
+    throw new Error("QS_CHAPTER_DISPATCH_RUN_ID_INVALID");
+  }
+  const eventType = chapterRunId ? CHAPTER_EVENT_TYPE : STANDARD_EVENT_TYPE;
   const config = getQuestionStudioTaskConfig();
   return sqlClient.begin(async (tx) => {
     const rows = await tx`
       SELECT e.id::text AS "eventId", e.aggregate_id::text AS "runId",
              e.payload AS payload, e.attempts,
-             r.status::text AS "runStatus"
+             r.status::text AS "runStatus",
+             r.request_snapshot AS "requestSnapshot"
       FROM platform.outbox_events e
       INNER JOIN content.generation_runs r
         ON r.id = e.aggregate_id
-      WHERE e.event_type = ${EVENT_TYPE}
+      WHERE e.event_type = ${eventType}
         AND e.aggregate_type = 'generation_run'
+        AND (${chapterRunId ?? null}::uuid IS NULL
+             OR e.aggregate_id = ${chapterRunId ?? null}::uuid)
         AND e.published_at IS NULL
         AND e.available_at <= now()
       ORDER BY e.occurred_at, e.id
@@ -45,7 +57,20 @@ export async function runQuestionStudioTaskDispatchOnce(): Promise<boolean> {
     const eventId = String(event.eventId);
     const runId = String(event.runId);
     const attempts = Number(event.attempts) || 0;
-    const payload = event.payload as {runId?:unknown;queueVersion?:unknown} | null;
+    const payload = event.payload as {runId?:unknown;queueVersion?:unknown;channel?:unknown} | null;
+    if (chapterRunId !== undefined) {
+      // Never mix chapter events with normal/staging outbox events.
+      // Validate against immutable canonical scope under the row lock.
+      const {createProductionChapterSnapshotGuard} =
+        await import("./prod-chapter-review-runtime.mjs");
+      const guard = createProductionChapterSnapshotGuard(runId);
+      if (runId !== chapterRunId ||
+          payload?.runId !== runId || payload?.queueVersion !== 1 ||
+          payload?.channel !== "chapter_review" ||
+          !guard || !guard(event.requestSnapshot)) {
+        throw new Error("QS_CHAPTER_DISPATCH_NOT_AUTHORIZED");
+      }
+    }
 
     // Already finished or cancelled before Cloud Tasks enqueue: mark the
     // dedicated event handled without scheduling a task. The receiver will
