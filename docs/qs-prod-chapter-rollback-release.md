@@ -48,7 +48,7 @@ This pull request is **only a GitHub implementation**. Do not enable generation 
 
 ## Local/offline verification
 
-`python3 -m unittest discover -s tests -p 'test-qs-prod-chapter-rollback.py' -v`
+`python3 tests/test-qs-prod-chapter-rollback.py -v`
 
 CI workflow: `.github/workflows/qs-prod-chapter-rollback.yml`. No Google credentials needed.
 
