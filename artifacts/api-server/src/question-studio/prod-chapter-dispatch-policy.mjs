@@ -3,6 +3,7 @@
 import {
   productionChapterReleaseActive,
   readProductionChapterScope,
+  isProductionChapterGenerationEligiblePackage,
 } from "./prod-chapter-review-policy.mjs";
 
 const UUID_V4=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -56,12 +57,7 @@ export function assertIsolatedChapterDispatch(env,config,manifest,now=Date.now()
   for(const requested of scope){
     const matches=manifest.packages.filter(p=>
       p.engineId===requested.engineId && p.packageId===requested.packageId &&
-      p.enabled===true && p.lifecycleStage==="REVIEW_ONLY" &&
-      p.manualApprovalRequired===true && p.reviewSurfaceRequired===true &&
-      p.questionBankWritable===false && p.productionReleaseAuthorized===false &&
-      p.automaticStudentPublication===false && p.publiclyPublishable===false &&
-      p.testEligible===false && p.mockTestEligible===false &&
-      Array.isArray(p.cpIds) && p.cpIds.length>0);
+      isProductionChapterGenerationEligiblePackage(p));
     if(matches.length!==1)throw new Error("QS_CHAPTER_DISPATCH_SCOPE_INVALID");
   }
   return runId;
