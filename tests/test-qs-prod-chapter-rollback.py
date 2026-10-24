@@ -158,7 +158,12 @@ class NoCloudMutationTests(unittest.TestCase):
 
 
 class RollbackOrderTests(unittest.TestCase):
-    def test_failure_after_queue_pause_never_pauses_scheduler(self):
+    def test_exactly_two_distinct_production_queues_pinned(self):
+        self.assertEqual(mod.QUEUES,
+                         ("examtree-qs-prod", "examtree-qs-chapter-prod"))
+        self.assertEqual(len(set(mod.QUEUES)), 2)
+
+    def test_dual_queue_pause_then_failure_never_pauses_scheduler(self):
         reads = 0
         def fake_fetch(*args):
             nonlocal reads
@@ -172,7 +177,7 @@ class RollbackOrderTests(unittest.TestCase):
              patch.object(mod, "validate_service", side_effect=mod.Stop("wrong release")):
             with self.assertRaisesRegex(mod.Stop, "Rollback incomplete"):
                 mod.perform_rollback()
-            self.assertEqual(reads, 2)
+            self.assertEqual(reads, 4)
             self.assertEqual(writes.call_count, 1)
             self.assertEqual(writes.call_args.args[:3],
                              ("tasks", "queues", "pause"))
