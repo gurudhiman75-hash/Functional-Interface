@@ -3,7 +3,7 @@
 // API route, called by a job, or enabled in production by merging its source.
 // A dedicated authenticated API rollout will wire this after migration,
 // Cloud Tasks delivery, retry/idempotence and review-commit tests have passed.
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import { validateUniversalStudioComputeInput } from "./universal-executor";
 import {
@@ -24,8 +24,16 @@ export type QueuedGenerationReceipt = {
 
 class ExistingIdempotencyReservation extends Error {}
 
+export const CHAPTER_REVIEW_OUTBOX_EVENT_TYPE =
+  "question_studio.generation_run.chapter_review_queued.v1" as const;
+const STANDARD_OUTBOX_EVENT_TYPE = "question_studio.generation_run.queued.v1";
+
+export type QuestionStudioEnqueueChannel = "standard" | "chapter_review";
+
+
 export async function recordQuestionStudioEnqueueIntent(
   input: CanonicalEnqueueInput,
+  channel: QuestionStudioEnqueueChannel = "standard",
 ): Promise<QueuedGenerationReceipt> {
   // Fail closed until explicit async rollout AND durable dispatcher are ready.
   if (process.env.EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED !== "true" ||
@@ -34,10 +42,18 @@ export async function recordQuestionStudioEnqueueIntent(
       "Asynchronous generation has not been enabled", 503);
   }
   assertEnqueueIdentity(input.identity);
+  if (channel !== "standard" && channel !== "chapter_review") {
+    throw new EnqueueValidationError("QUESTION_STUDIO_ENQUEUE_CHANNEL_INVALID",
+      "Unsupported asynchronous enqueue channel", 400);
+  }
   validateUniversalStudioComputeInput(input.compute);
 
   const actorUid = input.identity.actorFirebaseUid;
-  const key = input.identity.idempotencyKey;
+  const key = channel === "chapter_review"
+    ? "chapter:" + createHash("sha256").update(input.identity.idempotencyKey).digest("hex")
+    : input.identity.idempotencyKey;
+  const eventType = channel === "chapter_review"
+    ? CHAPTER_REVIEW_OUTBOX_EVENT_TYPE : STANDARD_OUTBOX_EVENT_TYPE;
   const requestSha = digestCanonicalEnqueueRequest(input.compute);
   const runId = randomUUID();
   const publicCode = `GEN-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${randomUUID().slice(0, 8).toUpperCase()}`;
@@ -105,8 +121,10 @@ export async function recordQuestionStudioEnqueueIntent(
           id, aggregate_type, aggregate_id, event_type, payload
         ) VALUES (
           ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
-          'question_studio.generation_run.queued.v1',
-          (${JSON.stringify({runId, queueVersion:1})}::text)::jsonb
+          ${eventType},
+          (${JSON.stringify(channel === "chapter_review"
+            ? {runId, queueVersion:1, channel:"chapter_review"}
+            : {runId, queueVersion:1})}::text)::jsonb
         )
       `;
     });
