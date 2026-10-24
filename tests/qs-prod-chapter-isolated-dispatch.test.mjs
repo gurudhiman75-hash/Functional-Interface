@@ -73,6 +73,22 @@ test("BANK_ONLY sources are allowed only as non-publishing review inputs",()=>{
     {...bank,packages:bank.packages.map(p=>p.packageId==="TRG-002" ?
       {...p,automaticStudentPublication:true}:p)},NOW),/SCOPE_INVALID/);
 });
+test("catalog-wide dispatch admits canonical chapters without enumerating each",()=>{
+  const wide=env({EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify({
+    mode:"all-eligible-chapters",reviewOnly:true,chapterWide:true
+  })});
+  assert.equal(assertIsolatedChapterDispatch(wide,config,manifest,NOW),RUN);
+  // Unsafe source packages are excluded, while safe chapters stay usable.
+  assert.equal(assertIsolatedChapterDispatch(wide,config,{
+    ...manifest,packages:manifest.packages.map((p,i)=>i===0?{
+      ...p,publiclyPublishable:true}:p)
+  },NOW),RUN);
+  assert.throws(()=>assertIsolatedChapterDispatch(wide,config,{
+    ...manifest,packages:manifest.packages.map(p=>({
+      ...p,publiclyPublishable:true
+    }))
+  },NOW),/CATALOG_INVALID/);
+});
 test("fail-closed on each missing or conflicting production admission",()=>{
   for(const key of [
     "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",

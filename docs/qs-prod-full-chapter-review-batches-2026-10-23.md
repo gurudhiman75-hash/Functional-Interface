@@ -1,17 +1,27 @@
 # Question Studio: production full-chapter review-batch source release
 
 ## Goal
-Enable **whole reviewed chapters**, all registered canonical CPs in each explicitly approved review-only package, and **bounded batches (1–20)** across quant-v4, reasoning-v1, language-v1 and knowledge-v1. The previous COM-001 one-question canary remains separate. This code does **not** grant permission to start generation, resume production queues or publish questions.
+Enable **whole eligible chapters**, all registered canonical CPs in each explicitly approved package, and **bounded batches (1–20)** across quant-v4, reasoning-v1, language-v1 and knowledge-v1. The previous COM-001 one-question canary remains separate. This code does **not** grant permission to start generation, resume production queues or publish questions.
 
 ## What this source change implements
 - A production admin-only POST `/api/admin/question-studio/runs/async-production-chapter` behind existing `authenticate` and `content.generation.run` RBAC.
 - A **separate** `EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED=true` on the admin API and `EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED=true` plus a future 24h maximum expiry on each of admin API, signed receiver and private worker. All are absent/OFF by default.
 - Explicit named package approval via JSON such as `[{"engineId":"reasoning-v1","packageId":"OPS-001","reviewOnly":true,"chapterWide":true}]`. No wildcard packages, duplicate approvals, extra keys or unreviewed dynamic CPs.
 - `selectedCpIds:[]` means select from the complete **canonical** reviewed package; multiple selected CP IDs target a subset. It does not require one manual env entry for every CP. Selected CPs must be canonical. One package per run. Count 1..20.
-- Language and difficulty must match the canonical package. Only packages with explicit `REVIEW_ONLY`, `manualApprovalRequired`, `questionBankWritable:false`, `testEligible:false`, `mockTestEligible:false`, `publiclyPublishable:false`, `automaticStudentPublication:false`, `productionReleaseAuthorized:false` pass.
+- Language and difficulty must match the canonical package. Review-capable registered packages may have either `BANK_ONLY` or `REVIEW_ONLY` source lifecycles and may already be bank-writable/test-eligible. Every *new* chapter-run item is nevertheless saved as unreviewed with `REVIEW_ONLY`, `questionBankWritable:false`, and no student-publication authority. Canonical package admission still requires manual review metadata and no automatic public release.
 - Admin route performs permission, idempotency and manifest checks **before** the existing transactional enqueue; no student question bank writes.
 - The signed production receiver validates the persisted request **under its Neon row lock before claiming a task**; the private worker independently checks the request using an immutable registry-derived manifest built into its image. A unique DB-enqueue seed `qs-async:<run-UUID>` ties compute to its queued run.
 - Old canary and single-CP review modes remain untouched unless the **separate chapter flag** is explicitly enabled.
+
+### All eligible chapters (catalog-wide opt-in)
+
+Instead of maintaining a manual list of four samples or a 100-entry scope array, production can explicitly opt into all eligible packages in the immutable canonical image manifest with:
+
+```json
+{"mode":"all-eligible-chapters","reviewOnly":true,"chapterWide":true}
+```
+
+The API, receiver, private worker, and dedicated dispatcher each resolve this selector against their own baked immutable manifest. Disabled, noncanonical, unreviewable and automatically publishable packages remain excluded. No dynamic/unreviewed CP IDs are included. Each request still selects one registered chapter/package and remains capped at 1–20 newly generated questions. The source catalog changes only with a separately reviewed and deployed image. Audit per-engine totals against the actual built manifest before activation. This changes no production settings by itself.
 
 ## Important deployment boundaries
 1. Merge **does not deploy any Cloud Run service or Job**. Previously built images (tag 13f7d586db73) cannot contain these new chapter checks. New receiver and worker images, plus the admin API deployment, will be required after validation.

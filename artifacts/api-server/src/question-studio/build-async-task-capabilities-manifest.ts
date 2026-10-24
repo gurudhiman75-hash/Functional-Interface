@@ -46,3 +46,18 @@ const manifest={
 };
 await writeFile(path.resolve(output),JSON.stringify(manifest),"utf8");
 console.log("QS_CANONICAL_TASK_CAPABILITIES_READY",packages.length);
+const eligible=packages.filter(p=>
+  p.enabled===true && p.reviewSurfaceRequired===true &&
+  p.manualApprovalRequired===true && p.productionReleaseAuthorized===false &&
+  p.automaticStudentPublication===false && p.publiclyPublishable===false &&
+  Array.isArray(p.cpIds) && p.cpIds.length>0 &&
+  new Set(p.cpIds).size===p.cpIds.length &&
+  p.cpIds.every(id=>/^[A-Z][A-Z0-9-]{1,80}$/.test(id))
+);
+const engineTotals=Object.fromEntries(manifest.generationSystems.map(engine=>[
+  engine,{registered:packages.filter(p=>p.engineId===engine).length,
+          eligible:eligible.filter(p=>p.engineId===engine).length},
+]));
+console.log("QS_CHAPTER_CATALOG_COVERAGE",JSON.stringify({
+  totalPackages:packages.length,eligiblePackages:eligible.length,byEngine:engineTotals,
+}));

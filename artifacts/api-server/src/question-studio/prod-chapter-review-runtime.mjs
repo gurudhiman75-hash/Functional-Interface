@@ -9,8 +9,8 @@ import {
 export function createProductionChapterSnapshotGuard(runId,env=process.env){
   if(typeof runId!=="string" || !productionChapterReleaseActive(env)) return null;
   try {
-    const scope=readProductionChapterScope(env);
     const manifest=readCanonicalChapterManifest();
+    const scope=readProductionChapterScope(env,manifest);
     return snapshot=>productionChapterReleaseActive(env) &&
       validateProductionChapterReview(snapshot,manifest,scope,{runId});
   } catch {return null;}
@@ -24,8 +24,8 @@ export function assertProductionChapterWorkerInput(input,env=process.env){
     throw Error("QS_PROD_CHAPTER_WORKER_DISABLED");
   let allowed=false;
   try {
-    const scope=readProductionChapterScope(env);
     const manifest=readCanonicalChapterManifest();
+    const scope=readProductionChapterScope(env,manifest);
     allowed=validateProductionChapterReview(
       {queueVersion:1,request:input.request,count:input.count,
        selectedCpIds:input.selectedCpIds},

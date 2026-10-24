@@ -115,6 +115,49 @@ test("scope authorizes full named chapter, not arbitrary package wildcard",()=>{
       EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify(list)}));
   }
 });
+test("catalog-wide scope covers ALL eligible chapters beyond the 100-name limit",()=>{
+  const catalog=[];
+  for(let n=1;n<=140;n++){
+    const [engine]=cases[n%cases.length];
+    const id="CAT-"+String(n).padStart(3,"0");
+    catalog.push(pkg(engine,id,[id+"-CP-001"]));
+  }
+  const good=manifest(...catalog,
+    {...pkg("knowledge-v1","BLOCKED-001",["BLOCKED-001-CP-001"]),enabled:false},
+    {...pkg("quant-v4","BLOCKED-002",["BLOCKED-002-CP-001"]),automaticStudentPublication:true});
+  const setting={EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify({
+    mode:"all-eligible-chapters",reviewOnly:true,chapterWide:true
+  })};
+  const granted=readProductionChapterScope(setting,good);
+  assert.equal(granted.length,140);
+  assert.equal(new Set(granted.map(x=>x.engineId+":"+x.packageId)).size,140);
+  assert.ok(granted.every(x=>x.reviewOnly===true && x.chapterWide===true));
+  assert.equal(validateProductionChapterReview(snapshot(catalog[0].engineId,catalog[0].packageId),
+    good,granted),true);
+  assert.equal(validateProductionChapterReview(snapshot("knowledge-v1","BLOCKED-001"),
+    good,granted),false);
+  assert.equal(validateProductionChapterReview(snapshot("quant-v4","BLOCKED-002"),
+    good,granted),false);
+});
+test("catalog-wide scope fails closed on malformed mode, duplicates, and invalid registry",()=>{
+  const [engine,p,cp]=cases[0];
+  const env={EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify({
+    mode:"all-eligible-chapters",reviewOnly:true,chapterWide:true
+  })};
+  for(const bad of [
+    {mode:"*",reviewOnly:true,chapterWide:true},
+    {mode:"all-eligible-chapters",reviewOnly:false,chapterWide:true},
+    {mode:"all-eligible-chapters",reviewOnly:true,chapterWide:true,publish:true}
+  ])assert.throws(()=>readProductionChapterScope({
+    EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify(bad)
+  },manifest(pkg(engine,p,cp))),/SCOPE_INVALID/);
+  assert.throws(()=>readProductionChapterScope(env,manifest()),/CATALOG_INVALID/);
+  assert.throws(()=>readProductionChapterScope(env,
+    manifest(pkg(engine,p,cp),pkg(engine,p,cp))),/CATALOG_INVALID/);
+  assert.throws(()=>readProductionChapterScope(env,{
+    source:"not-canonical",schemaVersion:1,packages:[pkg(engine,p,cp)]
+  }),/MANIFEST_INVALID/);
+});
 test("live service paths and Docker build include independent chapter checks",()=>{
   const get=p=>readFileSync(p,"utf8");
   const receiver=get("artifacts/api-server/src/async-task-receiver-prod-standalone.ts");

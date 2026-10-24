@@ -46,7 +46,7 @@ export function assertIsolatedChapterDispatch(env,config,manifest,now=Date.now()
      config.audience!==endpoint.origin) {
     throw new Error("QS_CHAPTER_DISPATCH_RECEIVER_INVALID");
   }
-  const scope=readProductionChapterScope(env);
+  const scope=readProductionChapterScope(env,manifest);
   if(!manifest || manifest.source!=="canonical-question-studio-engine-registry" ||
      manifest.schemaVersion!==1 || !Array.isArray(manifest.packages) ||
      !scope.length) {
