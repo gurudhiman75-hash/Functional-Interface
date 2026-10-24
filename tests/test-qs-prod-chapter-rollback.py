@@ -140,5 +140,60 @@ class NoCloudMutationTests(unittest.TestCase):
             self.assertEqual(mod.main(), 0)
             rollback.assert_not_called()
 
+
+class RollbackOrderTests(unittest.TestCase):
+    def test_failure_after_queue_pause_never_pauses_scheduler(self):
+        reads = 0
+        def fake_fetch(*args):
+            nonlocal reads
+            if args[:3] == ("tasks", "queues", "describe"):
+                reads += 1
+                return {"state": "RUNNING" if reads == 1 else "PAUSED"}
+            raise AssertionError("Unexpected Cloud metadata call")
+        with patch.object(mod, "fetch", side_effect=fake_fetch), \
+             patch.object(mod, "command") as writes, \
+             patch.object(mod, "dispatcher_approved", return_value="false"), \
+             patch.object(mod, "validate_service", side_effect=mod.Stop("wrong release")):
+            with self.assertRaisesRegex(mod.Stop, "Rollback incomplete"):
+                mod.perform_rollback()
+            self.assertEqual(reads, 2)
+            self.assertEqual(writes.call_count, 1)
+            self.assertEqual(writes.call_args.args[:3],
+                             ("tasks", "queues", "pause"))
+
+    def test_success_routes_only_to_explicit_baseline_and_pauses_scheduler_last(self):
+        scheduler = ["ENABLED"]
+        actions = []
+        def fake_fetch(*args):
+            if args[:3] == ("tasks", "queues", "describe"):
+                return {"state": "PAUSED"}
+            if args[:3] == ("run", "services", "describe"):
+                service = args[3]
+                cfg = mod.SERVICES[service]
+                return {"spec": {"template": {"spec": {"containers": [
+                    {"env": [{"name": key, "value": "false"}
+                             for key in cfg["off"]]}
+                ]}}}}
+            raise AssertionError("Unexpected Cloud metadata call")
+        def fake_cmd(*parts):
+            actions.append(parts)
+            if parts[:3] == ("scheduler", "jobs", "pause"):
+                scheduler[0] = "PAUSED"
+        with patch.object(mod, "fetch", side_effect=fake_fetch), \
+             patch.object(mod, "command", side_effect=fake_cmd), \
+             patch.object(mod, "dispatcher_approved", return_value="false"), \
+             patch.object(mod, "validate_service"), \
+             patch.object(mod, "verify_disabled"), \
+             patch.object(mod, "verify_scheduler", side_effect=lambda: scheduler[0]):
+            mod.perform_rollback()
+        self.assertEqual(len(actions), 4)
+        for i, (service, cfg) in enumerate(mod.SERVICES.items()):
+            self.assertEqual(actions[i][:3],
+                             ("run", "services", "update-traffic"))
+            self.assertIn("--to-revisions=" + cfg["baseline"] + "=100",
+                          actions[i])
+            self.assertNotIn("--to-latest", actions[i])
+        self.assertEqual(actions[-1][:3], ("scheduler", "jobs", "pause"))
+
 if __name__ == "__main__":
     unittest.main()
