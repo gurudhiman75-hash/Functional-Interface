@@ -211,5 +211,41 @@ class RollbackOrderTests(unittest.TestCase):
             self.assertNotIn("--to-latest", actions[i])
         self.assertEqual(actions[-1][:3], ("scheduler", "jobs", "pause"))
 
+
+class SanitizedCloudErrorTests(unittest.TestCase):
+    def test_known_failure_classes_have_no_sensitive_text(self):
+        examples = {
+            "Permission 'artifactregistry.repositories.downloadArtifacts' denied on resource projects/123/secrets/private": "ARTIFACT_REGISTRY_DOWNLOAD_DENIED",
+            "Permission iam.serviceAccounts.actAs denied for service account secret@example.com": "SERVICE_ACCOUNT_ACTAS_DENIED",
+            "Permission 'secretmanager.versions.access' denied": "SECRET_MANAGER_ACCESS_DENIED",
+            "Permission 'run.services.update' denied on resource secret://name": "IAM_PERMISSION_DENIED",
+            "Cannot update service while another operation is already in progress": "CONCURRENT_UPDATE",
+            "ERROR: (gcloud.run.services.update) unrecognized arguments: --secret-token=abc": "CLI_ARGUMENT_REJECTED",
+            "Revision examtree-test-00002 is not ready": "REVISION_NOT_READY",
+            "ResourceExhausted: quota": "QUOTA_OR_CAPACITY",
+            "Some unknown error involving password=private_value": "UNCLASSIFIED",
+        }
+        for raw, expected in examples.items():
+            with self.subTest(expected=expected):
+                category = mod.safe_cli_failure_class(raw)
+                self.assertEqual(category, expected)
+                self.assertNotIn("private", category)
+                self.assertNotIn("abc", category)
+
+    def test_failed_cli_never_exposes_raw_stderr_or_stdout(self):
+        from subprocess import CompletedProcess
+        sensitive = "Permission 'run.services.update' denied; bearer_token=DO_NOT_EXPOSE"
+        process = CompletedProcess(
+            ["gcloud"], 1, stdout="secret=DO_NOT_EXPOSE",
+            stderr=sensitive)
+        with patch.object(mod.subprocess, "run", return_value=process):
+            with self.assertRaises(mod.Stop) as raised:
+                mod.command("run", "services", "update", "examtree-qs-receiver-prod")
+        msg = str(raised.exception)
+        self.assertIn("category=IAM_PERMISSION_DENIED", msg)
+        self.assertIn("exit=1", msg)
+        self.assertNotIn("DO_NOT_EXPOSE", msg)
+        self.assertNotIn("bearer_token", msg)
+
 if __name__ == "__main__":
     unittest.main()
