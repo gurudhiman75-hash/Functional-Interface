@@ -299,14 +299,28 @@ def perform_rollback(expected_expiry=None):
     # Stop new admin enqueue first, then receiver and worker routes.
     for service, cfg in SERVICES.items():
         try:
+            # Unrecognized releases and unhealthy baselines must never be routed.
             validate_service(service, cfg, expected_expiry)
+        except Stop as exc:
+            failures.append(str(exc))
+            continue
+
+        try:
             doc = fetch("run", "services", "describe", service, "--region=" + REGION)
             flags = env_values(template(doc))
             if any(flags.get(key) != "false" for key in cfg["off"]):
                 updates = ",".join(key + "=false" for key in cfg["off"])
                 command("run", "services", "update", service, "--region=" + REGION,
                         "--update-env-vars=" + updates, "--no-traffic", "--quiet")
-            # Pin previously verified Ready, disabled baseline; never --to-latest.
+        except Stop as exc:
+            # Record the incomplete template recovery, but do not leave the
+            # authorized release serving solely because template update failed.
+            failures.append(str(exc))
+
+        try:
+            # Route to independently verified, Ready and disabled baseline,
+            # even if toggling the template flags was denied. A failed toggle
+            # still prevents a success result and Scheduler self-pause.
             command("run", "services", "update-traffic", service,
                     "--region=" + REGION,
                     "--to-revisions=" + cfg["baseline"] + "=100", "--quiet")
