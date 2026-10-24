@@ -14,15 +14,15 @@
 - Known-good fallback revisions: API `examtree-api-00002-mch`, receiver `examtree-qs-receiver-prod-00025-27d`, worker `examtree-universal-prod-00021-5q7`.
 - Candidate image digests are pinned in `scripts/rollback-examtree-qs-prod-chapter.py`. Changing a fallback revision or image requires a new reviewed commit.
 
-## Verified 2026-10-24 candidate images
+## Verified 2026-10-24 refreshed candidate images
 
-The operator confirmed these immutable Artifact Registry digests from the completed four-component build, source SHA `68cc71d58d52d33dafc08fcf81d6edca9cae9ff3`:
+The operator confirmed these immutable Artifact Registry digests from the completed four-component build, source SHA `c9c121840b5a208b4e824de9e344bbf8ae41d41e`:
 
 | Cloud Run service | Verified release digest |
 |---|---|
-| `examtree-api` | `sha256:829d0f6c710ae5bf070a8faad9baf8ef82076d88b872af433de7bcdbb7ab7796` |
-| `examtree-qs-receiver-prod` | `sha256:54658549a3581f5cc5179f76ec6a1b31897c93318c19cf9bd5bb425e68914311` |
-| `examtree-universal-prod` | `sha256:090fe90d94d1586749ad04999eae1dc3badb62b8f35bc322bf96ca036e29d3da` |
+| `examtree-api` | `sha256:ce2c9e0f830328e1d1e2250deeab94025fcc03fa45ef56ce35555606509d321b` |
+| `examtree-qs-receiver-prod` | `sha256:8883e47d2be1dd9b1fe5049c16fca6771851948fc88bbdb118932a0ebb62d827` |
+| `examtree-universal-prod` | `sha256:6cb4ae006558142f644b63029bf7b3396e1a71ae73693ba282b352832bc3acb3` |
 
 These are **candidate digests only**. The rollback controller continues to pin all traffic to the three known-good older baseline revisions on recovery. Candidate revisions were deployed at **0% traffic** with approvals OFF. Updating pinned digests in GitHub does not update the deployed rollback Job or grant authorization to serve the new revisions. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
 

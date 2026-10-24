@@ -28,26 +28,26 @@ BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-43
 
 # Immutable release candidate digests and known-good 100%-serving baselines,
 # captured from the 2026-10-24 four-component release built at source commit
-# 68cc71d58d52d33dafc08fcf81d6edca9cae9ff3. NEVER use LATEST.
+# c9c121840b5a208b4e824de9e344bbf8ae41d41e. NEVER use LATEST.
 SERVICES = {
     "examtree-api": {
         "baseline": "examtree-api-00002-mch",
         "sa": "examtree-api-prod-runtime@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:829d0f6c710ae5bf070a8faad9baf8ef82076d88b872af433de7bcdbb7ab7796",
+        "digest": "sha256:ce2c9e0f830328e1d1e2250deeab94025fcc03fa45ef56ce35555606509d321b",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED"),
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
         "sa": "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:54658549a3581f5cc5179f76ec6a1b31897c93318c19cf9bd5bb425e68914311",
+        "digest": "sha256:8883e47d2be1dd9b1fe5049c16fca6771851948fc88bbdb118932a0ebb62d827",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED"),
     },
     "examtree-universal-prod": {
         "baseline": "examtree-universal-prod-00021-5q7",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:090fe90d94d1586749ad04999eae1dc3badb62b8f35bc322bf96ca036e29d3da",
+        "digest": "sha256:6cb4ae006558142f644b63029bf7b3396e1a71ae73693ba282b352832bc3acb3",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED"),
     },
