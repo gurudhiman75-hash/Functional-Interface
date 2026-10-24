@@ -121,7 +121,7 @@ test("event type and idempotency channel are disjoint from normal dispatcher",()
   assert.match(foundation,/chapter:.*createHash\("sha256"\)/s);
   assert.match(foundation,/channel === "chapter_review"/);
   assert.match(router,/\}, "chapter_review"\)/);
-  assert.match(dispatch,/AND e\.event_type = \$\{eventType\}/);
+  assert.match(dispatch,/WHERE e\.event_type = \$\{eventType\}/);
   assert.match(dispatch,/e\.aggregate_id = \$\{chapterRunId \?\? null\}::uuid/);
   assert.match(dispatch,/payload\?\.channel !== "chapter_review"/);
   assert.match(dispatch,/guard\(event\.requestSnapshot\)/);
