@@ -81,6 +81,20 @@ class ServiceGuardTests(unittest.TestCase):
                          "containers": [{"env": vals}]},
                 "status": {"conditions": [{"type": "Ready", "status": "True"}]}}
 
+    def test_release_candidate_digests_match_verified_oct24_images(self):
+        # Verified by the operator from Artifact Registry after the exact
+        # four-component Cloud Build at commit 68cc71d58d52d33dafc08fcf81d6edca9cae9ff3.
+        expected = {
+            "examtree-api":
+                "sha256:829d0f6c710ae5bf070a8faad9baf8ef82076d88b872af433de7bcdbb7ab7796",
+            "examtree-qs-receiver-prod":
+                "sha256:54658549a3581f5cc5179f76ec6a1b31897c93318c19cf9bd5bb425e68914311",
+            "examtree-universal-prod":
+                "sha256:090fe90d94d1586749ad04999eae1dc3badb62b8f35bc322bf96ca036e29d3da",
+        }
+        self.assertEqual({name: cfg["digest"] for name, cfg
+                          in mod.SERVICES.items()}, expected)
+
     def test_all_three_release_digests_are_unique(self):
         self.assertEqual(len(mod.SERVICES), 3)
         self.assertEqual(len({v["digest"] for v in mod.SERVICES.values()}), 3)
