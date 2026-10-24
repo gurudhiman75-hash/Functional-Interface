@@ -29,7 +29,7 @@ def env_rows(obj):
 class InMemoryCloud:
     """Models metadata and mutations at Cloud Run's existing v1 JSON shapes."""
     def __init__(self):
-        self.queue = "RUNNING"
+        self.queues = {name: "RUNNING" for name in controller.QUEUES}
         self.dispatch = "true"
         self.scheduler = "ENABLED"
         self.scheduler_target_valid = True
@@ -83,7 +83,7 @@ class InMemoryCloud:
 
     def fetch(self, *args):
         if args[:3] == ("tasks", "queues", "describe"):
-            return {"state": self.queue}
+            return {"state": self.queues[args[3]]}
         if args[:3] == ("scheduler", "jobs", "describe"):
             identity = controller.SCHEDULER_ID
             if not self.scheduler_target_valid:
@@ -121,7 +121,7 @@ class InMemoryCloud:
         if self.fail_action is not None and args[:len(self.fail_action)] == self.fail_action:
             raise controller.Stop("SIMULATED_GCP_PERMISSION_DENIED")
         if action == ("tasks", "queues", "pause"):
-            self.queue = "PAUSED"
+            self.queues[args[3]] = "PAUSED"
             return ""
         if action == ("run", "jobs", "update"):
             if args[3] != controller.DISPATCHER:
@@ -182,12 +182,13 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         cloud = InMemoryCloud()
         now = dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)
         self.assertEqual(cloud.execute(now), 0)
-        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.dispatch, "false")
         self.assertEqual(cloud.scheduler, "PAUSED")
         action_labels = [(x[0], x[1], x[2]) for x in cloud.actions]
         self.assertEqual(action_labels[0], ("tasks", "queues", "pause"))
-        self.assertEqual(action_labels[1], ("run", "jobs", "update"))
+        self.assertEqual(action_labels[:2], [("tasks", "queues", "pause")] * 2)
+        self.assertEqual(action_labels[2], ("run", "jobs", "update"))
         self.assertEqual(action_labels[-1], ("scheduler", "jobs", "pause"))
         self.assertEqual(action_labels.count(("run", "services", "update")), 3)
         self.assertEqual(action_labels.count(("run", "services", "update-traffic")), 3)
@@ -206,7 +207,31 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
             2026, 10, 24, 10, 0, tzinfo=UTC)), 0)
         self.assertEqual(cloud.actions, [])
         self.assertEqual(cloud.scheduler, "ENABLED")
-        self.assertEqual(cloud.queue, "RUNNING")
+        self.assertTrue(all(state == "RUNNING" for state in cloud.queues.values()))
+
+    def test_both_queues_are_paused_on_success(self):
+        cloud = InMemoryCloud()
+        self.assertEqual(cloud.execute(dt.datetime(
+            2026, 10, 24, 11, 5, tzinfo=UTC)), 0)
+        self.assertEqual(set(cloud.queues), set(controller.QUEUES))
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
+        paused = [args[3] for args in cloud.actions
+                  if args[:3] == ("tasks", "queues", "pause")]
+        self.assertEqual(paused, list(controller.QUEUES))
+
+    def test_one_queue_pause_failure_keeps_scheduler_enabled(self):
+        cloud = InMemoryCloud()
+        cloud.fail_action = ("tasks", "queues", "pause",
+                             controller.CHAPTER_QUEUE)
+        with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
+            cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
+        self.assertEqual(cloud.queues[controller.QUEUE], "PAUSED")
+        self.assertEqual(cloud.queues[controller.CHAPTER_QUEUE], "RUNNING")
+        self.assertEqual(cloud.scheduler, "ENABLED")
+        self.assertNotIn(("scheduler", "jobs", "pause"),
+                         [a[:3] for a in cloud.actions])
+        self.assertFalse(any(a[:3] == ("run", "services", "update-traffic")
+                             for a in cloud.actions))
 
     def test_missing_arm_is_zero_write(self):
         cloud = InMemoryCloud()
@@ -227,7 +252,7 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
                              "examtree-qs-receiver-prod")
         with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
             cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
-        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.scheduler, "ENABLED")
         self.assertNotIn(("scheduler", "jobs", "pause"),
                          [a[:3] for a in cloud.actions])
@@ -241,7 +266,7 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
             cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
 
         cfg = controller.SERVICES[service]
-        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.dispatch, "false")
         self.assertEqual(cloud.scheduler, "ENABLED")
         self.assertEqual(
@@ -266,7 +291,7 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         cloud.revisions[active]["status"]["imageDigest"] = "wrong@" + "0" * 64
         with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
             cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
-        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.scheduler, "ENABLED")
         self.assertEqual(
             cloud.services[service]["status"]["traffic"][0]["revisionName"], active)
@@ -281,7 +306,7 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
                 row["value"] = "2026-10-24T12:00:00Z"
         with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
             cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
-        self.assertEqual(cloud.queue, "PAUSED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.scheduler, "ENABLED")
 
 if __name__ == "__main__":
