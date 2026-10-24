@@ -3,7 +3,7 @@ steps:
   - id: offline-tests
     name: python:3.12-slim
     entrypoint: python
-    args: ["-m", "unittest", "discover", "-s", "tests", "-p", "test-qs-prod-chapter-rollback.py", "-v"]
+    args: ["tests/test-qs-prod-chapter-rollback.py", "-v"]
   - id: image-build
     name: gcr.io/cloud-builders/docker
     args: ["build", "-f", "Dockerfile.examtree-qs-prod-chapter-rollback", "-t", "${_IMAGE}", "."]
