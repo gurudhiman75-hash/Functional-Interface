@@ -1,0 +1,11 @@
+# Build-only independent chapter rollback image; no deployment action.
+FROM gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+RUN apt-get update -qq \
+  && apt-get install -y --no-install-recommends python3 \
+  && rm -rf /var/lib/apt/lists/*
+COPY scripts/rollback-examtree-qs-prod-chapter.py /opt/examtree/chapter-rollback.py
+RUN python3 -m py_compile /opt/examtree/chapter-rollback.py \
+  && python3 /opt/examtree/chapter-rollback.py --help >/dev/null
+ENTRYPOINT ["python3", "/opt/examtree/chapter-rollback.py"]
+# Defaults to read-only when manually executed.
+CMD []

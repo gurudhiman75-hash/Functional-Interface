@@ -1,0 +1,16 @@
+# Manual build ONLY; requires _IMAGE substitution. No deployment or IAM writes.
+steps:
+  - id: offline-tests
+    name: python:3.12-slim
+    entrypoint: python
+    args: ["tests/test-qs-prod-chapter-rollback.py", "-v"]
+  - id: image-build
+    name: gcr.io/cloud-builders/docker
+    args: ["build", "-f", "Dockerfile.examtree-qs-prod-chapter-rollback", "-t", "${_IMAGE}", "."]
+  - id: startup-help-only
+    name: gcr.io/cloud-builders/docker
+    args: ["run", "--rm", "${_IMAGE}", "--help"]
+images: ["${_IMAGE}"]
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s

@@ -1,0 +1,27 @@
+name: QS chapter rollback offline contracts
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/rollback-examtree-qs-prod-chapter.py'
+      - 'tests/test-qs-prod-chapter-rollback.py'
+      - 'Dockerfile.examtree-qs-prod-chapter-rollback'
+      - 'cloudbuild.examtree-qs-prod-chapter-rollback-build-only.yaml'
+      - 'docs/qs-prod-chapter-rollback-release.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-chapter-rollback-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  no-cloud-permission-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m py_compile scripts/rollback-examtree-qs-prod-chapter.py
+          python tests/test-qs-prod-chapter-rollback.py -v
