@@ -81,6 +81,39 @@ def release_window(env, now):
         raise Stop("Invalid 24-hour maximum chapter release window")
     return start, expiry
 
+def safe_cli_failure_class(stderr):
+    """Classify CLI errors without logging image URLs, secret values or tokens."""
+    lowered = (stderr or "").lower()
+    if "artifactregistry.repositories.downloadartifacts" in lowered:
+        return "ARTIFACT_REGISTRY_DOWNLOAD_DENIED"
+    if "iam.serviceaccounts.actas" in lowered:
+        return "SERVICE_ACCOUNT_ACTAS_DENIED"
+    if "secretmanager" in lowered and ("denied" in lowered or "permission" in lowered):
+        return "SECRET_MANAGER_ACCESS_DENIED"
+    if "permission" in lowered and ("denied" in lowered or "not granted" in lowered):
+        return "IAM_PERMISSION_DENIED"
+    if ("another operation" in lowered or "already in progress" in lowered or
+            "currently being updated" in lowered or "concurrent update" in lowered):
+        return "CONCURRENT_UPDATE"
+    if "not found" in lowered and ("image" in lowered or "repository" in lowered):
+        return "IMAGE_OR_REPOSITORY_NOT_FOUND"
+    if ("unrecognized arguments" in lowered or "unrecognized argument" in lowered
+            or "no such option" in lowered or "invalid choice" in lowered):
+        return "CLI_ARGUMENT_REJECTED"
+    if ("revision" in lowered and ("not ready" in lowered or "failed" in lowered)) or \
+       "failed to start" in lowered:
+        return "REVISION_NOT_READY"
+    if "deadline exceeded" in lowered or "timed out" in lowered:
+        return "OPERATION_TIMEOUT"
+    if "quota" in lowered or "resource_exhausted" in lowered:
+        return "QUOTA_OR_CAPACITY"
+    if "failed precondition" in lowered or "failed_precondition" in lowered:
+        return "FAILED_PRECONDITION"
+    if "conflict" in lowered or "aborted" in lowered:
+        return "CONFLICT"
+    return "UNCLASSIFIED"
+
+
 def command(*parts):
     try:
         p = subprocess.run(["gcloud", *parts, "--project=" + PROJECT],
@@ -89,7 +122,10 @@ def command(*parts):
         raise Stop("gcloud unavailable or timed out") from None
     if p.returncode:
         # Never print raw CLI stderr/stdout (could contain credentials/URLs).
-        raise Stop("Cloud operation failed: " + " ".join(parts[:3])) from None
+        # Release-blocking failures are instead grouped into fixed safe classes.
+        raise Stop("Cloud operation failed: " + " ".join(parts[:3]) +
+                   " [exit=" + str(p.returncode) + ", category=" +
+                   safe_cli_failure_class(p.stderr) + "]") from None
     return p.stdout
 
 def fetch(*parts):
