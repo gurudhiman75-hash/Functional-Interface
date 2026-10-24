@@ -261,7 +261,7 @@ class SanitizedCloudErrorTests(unittest.TestCase):
             ("RPC says 403 Forbidden, unknown permission",
              "NOT_SPECIFIED"),
             ("Revision has an unrelated run.services.update message",
-             "run.services.update"),
+             "NOT_SPECIFIED"),
             ("Update failed, nothing else", "NOT_SPECIFIED"),
         ]
         for stderr, expected in cases:
