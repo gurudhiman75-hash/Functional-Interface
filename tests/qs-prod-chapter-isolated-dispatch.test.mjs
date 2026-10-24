@@ -63,6 +63,16 @@ test("four review-only engine families may enter exactly one isolated queue",()=
   assert.notEqual(CHAPTER_DISPATCH_QUEUE,standardQueue);
 });
 
+test("BANK_ONLY sources are allowed only as non-publishing review inputs",()=>{
+  const bank={...manifest,packages:manifest.packages.map(p=>
+    p.packageId==="TRG-002" ?
+      {...p,lifecycleStage:"BANK_ONLY",questionBankWritable:true,
+       testEligible:true,mockTestEligible:true} : p)};
+  assert.equal(assertIsolatedChapterDispatch(env(),config,bank,NOW),RUN);
+  assert.throws(()=>assertIsolatedChapterDispatch(env(),config,
+    {...bank,packages:bank.packages.map(p=>p.packageId==="TRG-002" ?
+      {...p,automaticStudentPublication:true}:p)},NOW),/SCOPE_INVALID/);
+});
 test("fail-closed on each missing or conflicting production admission",()=>{
   for(const key of [
     "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
