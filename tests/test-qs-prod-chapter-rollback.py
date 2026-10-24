@@ -247,5 +247,40 @@ class SanitizedCloudErrorTests(unittest.TestCase):
         self.assertNotIn("DO_NOT_EXPOSE", msg)
         self.assertNotIn("bearer_token", msg)
 
+
+    def test_reports_only_allowlisted_permission_from_cli(self):
+        cases = [
+            ("Permission 'run.services.update' denied on resource //sensitive/123",
+             "run.services.update"),
+            ("PERMISSION_DENIED: Permission 'secretmanager.versions.access' denied",
+             "secretmanager.versions.access"),
+            ("Permission 'run.services.updateToken_SENSITIVE' denied",
+             "NOT_SPECIFIED"),
+            ("Permission 'secrets.private_password' denied",
+             "NOT_SPECIFIED"),
+            ("RPC says 403 Forbidden, unknown permission",
+             "NOT_SPECIFIED"),
+            ("Revision has an unrelated run.services.update message",
+             "run.services.update"),
+            ("Update failed, nothing else", "NOT_SPECIFIED"),
+        ]
+        for stderr, expected in cases:
+            with self.subTest(expected=expected, stderr=stderr):
+                self.assertEqual(mod.safe_denied_permission(stderr), expected)
+
+    def test_command_reports_known_permission_without_resource_ids(self):
+        from subprocess import CompletedProcess
+        stdout = "password=DO_NOT_EXPOSE"
+        stderr = ("Permission 'iam.serviceAccounts.actAs' denied on "
+                  "//iam.googleapis.com/projects/private/secret/DO_NOT_EXPOSE")
+        result = CompletedProcess(["gcloud"], 1, stdout=stdout, stderr=stderr)
+        with patch.object(mod.subprocess, "run", return_value=result):
+            with self.assertRaises(mod.Stop) as raised:
+                mod.command("run", "services", "update", "examtree-qs-receiver-prod")
+        msg = str(raised.exception)
+        self.assertIn("permission=iam.serviceAccounts.actAs", msg)
+        self.assertNotIn("DO_NOT_EXPOSE", msg)
+        self.assertNotIn("//iam.googleapis.com/", msg)
+
 if __name__ == "__main__":
     unittest.main()
