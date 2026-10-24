@@ -44,6 +44,7 @@ async function publishOneLocked(): Promise<boolean> {
         -- Question Studio task dispatcher, which alone may ack after
         -- successful or idempotently confirmed Cloud Tasks delivery.
         AND event_type <> 'question_studio.generation_run.queued.v1'
+        AND event_type <> 'question_studio.generation_run.chapter_review_queued.v1'
       ORDER BY available_at ASC, occurred_at ASC
       LIMIT 1
       FOR UPDATE SKIP LOCKED

@@ -1,0 +1,34 @@
+name: QS isolated chapter dispatcher contracts
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-enqueue-foundation.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatcher.ts'
+      - 'artifacts/api-server/src/question-studio/async-cloud-tasks-dispatch-prod-chapter-once.ts'
+      - 'artifacts/api-server/src/question-studio/prod-chapter-dispatch-policy.mjs'
+      - 'artifacts/api-server/src/lib/outbox-publisher.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts'
+      - 'artifacts/api-server/build-qs-prod-chapter-dispatcher.mjs'
+      - 'Dockerfile.examtree-qs-prod-chapter-dispatcher'
+      - 'cloudbuild.examtree-qs-prod-chapter-dispatcher-build-only.yaml'
+      - 'tests/qs-prod-chapter-isolated-dispatch.test.mjs'
+      - 'docs/qs-prod-isolated-chapter-queue.md'
+  workflow_dispatch:
+concurrency:
+  group: qs-chapter-isolated-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  no-cloud-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          node --check artifacts/api-server/src/question-studio/prod-chapter-dispatch-policy.mjs
+          node --check artifacts/api-server/build-qs-prod-chapter-dispatcher.mjs
+          node --test tests/qs-prod-chapter-isolated-dispatch.test.mjs tests/qs-prod-dispatcher-isolation.test.mjs tests/qs-prod-chapter-review-batches.test.mjs

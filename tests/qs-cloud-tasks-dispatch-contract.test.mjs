@@ -17,8 +17,10 @@ test("legacy log-only outbox MUST NOT mark queued Question Studio work published
 });
 
 test("dispatcher exclusively handles queued event with DB lock and only a run-id task",()=>{
-  assert.match(dispatcher,/EVENT_TYPE = "question_studio\.generation_run\.queued\.v1"/);
-  assert.match(dispatcher,/e\.event_type = \$\{EVENT_TYPE\}/);
+  assert.match(dispatcher,/STANDARD_EVENT_TYPE = "question_studio\.generation_run\.queued\.v1"/);
+  assert.match(dispatcher,/CHAPTER_EVENT_TYPE = "question_studio\.generation_run\.chapter_review_queued\.v1"/);
+  assert.match(dispatcher,/e\.event_type = \$\{eventType\}/);
+  assert.match(dispatcher,/chapterRunId \? CHAPTER_EVENT_TYPE : STANDARD_EVENT_TYPE/);
   assert.match(dispatcher,/INNER JOIN content\.generation_runs/);
   assert.match(dispatcher,/FOR UPDATE OF e SKIP LOCKED/);
   assert.match(dispatcher,/e\.published_at IS NULL/);
