@@ -117,6 +117,7 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     const batch=await runUniversalStudioRemote(compute,{productionPrivateCloudRun:true});
     const receipt=await commitQuestionStudioAsyncReview({
       runId:claim.runId,leaseToken:claim.leaseToken,batch,
+      reviewOnlyOutput: Boolean(chapterGuard),
     });
     if(receipt.status!=="review" && receipt.status!=="already_committed"){
       res.status(503).json({code:"ASYNC_REVIEW_NOT_COMMITTED"});return;
