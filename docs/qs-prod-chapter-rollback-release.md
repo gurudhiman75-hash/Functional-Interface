@@ -30,7 +30,7 @@ Before expiry, scheduled runs make no changes. After expiry, it:
 4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, and pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST).
 5. Independently verifies live traffic, template approvals, dispatcher, queue and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
 
-Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
+Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation (for example, tagged or non-default routes may remain reachable). The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
 
 ## Separate mandatory production-change approval
 
