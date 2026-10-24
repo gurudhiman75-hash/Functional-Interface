@@ -20,6 +20,7 @@ SCHEDULER = "examtree-qs-prod-chapter-rollback-trigger"
 SCHEDULER_ID = "examtree-qs-chapter-rollback-scheduler@sarbedutech.iam.gserviceaccount.com"
 MAX_WINDOW = dt.timedelta(hours=24)
 UTC = dt.timezone.utc
+BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-4345-be5f-491089b72f10"}
 
 # Immutable release candidate digests and known-good 100%-serving baselines,
 # captured during the October 23 chapter image verification. NEVER use LATEST.
@@ -69,7 +70,7 @@ def release_window(env, now):
     run_id = env.get("EXAMTREE_QS_CHAPTER_ROLLBACK_RELEASE_ID", "")
     try:
         parsed = uuid.UUID(run_id)
-        if parsed.version != 4 or str(parsed) != run_id:
+        if parsed.version != 4 or str(parsed) != run_id or run_id in BLOCKED_RELEASE_IDS:
             raise ValueError()
     except (ValueError, TypeError, AttributeError):
         raise Stop("Fresh UUIDv4 chapter release ID required") from None
@@ -131,7 +132,7 @@ def positive_spec_traffic(doc):
     return [x for x in (doc.get("spec") or {}).get("traffic") or []
             if (x.get("percent") or 0) > 0]
 
-def validate_service(service, config):
+def validate_service(service, config, expected_expiry=None):
     doc = fetch("run", "services", "describe", service, "--region=" + REGION)
     baseline = target_revision(service, config["baseline"])
     if baseline.get("spec", {}).get("serviceAccountName") != config["sa"]:
@@ -165,8 +166,13 @@ def validate_service(service, config):
         if "true" in approval_states:
             if any(x != "true" for x in approval_states):
                 raise Stop("Partial release approvals: " + service)
-            if not values.get("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT"):
-                raise Stop("Release missing its independent expiry: " + service)
+            observed_expiry = values.get("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT")
+            if not observed_expiry or (expected_expiry is not None and observed_expiry != expected_expiry):
+                raise Stop("Release expiry mismatch: " + service)
+            if not values.get("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON"):
+                raise Stop("Release canonical scope missing: " + service)
+            if values.get("EXAMTREE_API_RUNTIME") != "cloud-run" or values.get("EXAMTREE_API_STAGING") != "false":
+                raise Stop("Release runtime/staging mismatch: " + service)
     return doc, live
 
 def assert_job(env):
@@ -210,7 +216,7 @@ def dispatcher_approved():
         obj = obj.get("template") or obj.get("spec") or {}
     return env_values(obj).get("EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED")
 
-def perform_rollback():
+def perform_rollback(expected_expiry=None):
     # A failed later step MUST leave the queue paused and scheduler enabled.
     queue = fetch("tasks", "queues", "describe", QUEUE, "--location=" + REGION)
     if queue.get("state") not in ("PAUSED", "RUNNING"):
@@ -233,7 +239,7 @@ def perform_rollback():
     # Stop new admin enqueue first, then receiver and worker routes.
     for service, cfg in SERVICES.items():
         try:
-            validate_service(service, cfg)
+            validate_service(service, cfg, expected_expiry)
             doc = fetch("run", "services", "describe", service, "--region=" + REGION)
             flags = env_values(template(doc))
             if any(flags.get(key) != "false" for key in cfg["off"]):
@@ -280,7 +286,7 @@ def main():
         if now < expiry:
             print("PASS: deadline not reached; no changes", flush=True)
             return 0
-        perform_rollback()
+        perform_rollback(os.environ["EXAMTREE_QS_CHAPTER_ROLLBACK_EXPIRES_AT"])
     else:
         # Read-only operator preflight, never reads secrets.
         state = verify_scheduler()
