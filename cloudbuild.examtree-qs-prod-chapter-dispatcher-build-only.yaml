@@ -1,0 +1,14 @@
+# Publish an image ONLY. Requires _IMAGE; no deployment, queue, permissions,
+# scheduler, DATABASE_URL, live API traffic or question generation.
+steps:
+  - id: chapter-dispatcher-isolation
+    name: node:22-slim
+    entrypoint: node
+    args: ["--test","tests/qs-prod-chapter-isolated-dispatch.test.mjs"]
+  - id: chapter-dispatcher-image
+    name: gcr.io/cloud-builders/docker
+    args: ["build","--file","Dockerfile.examtree-qs-prod-chapter-dispatcher","--tag","${_IMAGE}","."]
+images: ["${_IMAGE}"]
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s
