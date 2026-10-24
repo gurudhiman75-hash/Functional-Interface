@@ -128,7 +128,7 @@ REPORTED_PERMISSIONS = (
 
 def safe_denied_permission(stderr):
     raw = stderr or ""
-    if not re.search(r"denied|permission|forbidden|\\b403\\b", raw, re.I):
+    if not re.search(r"denied|permission|forbidden|\b403\b", raw, re.I):
         return "NOT_SPECIFIED"
     for item in REPORTED_PERMISSIONS:
         if re.search(r"(?<![A-Za-z0-9_.])" + re.escape(item) +
