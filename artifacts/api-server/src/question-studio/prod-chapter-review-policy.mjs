@@ -40,12 +40,36 @@ export function readCanonicalChapterManifest(){
   throw new Error("QS_PROD_CHAPTER_MANIFEST_MISSING");
 }
 
-export function readProductionChapterScope(env=process.env){
+// Two explicit operator scopes:
+// 1. An array of named canonical chapters (legacy narrow release).
+// 2. An opt-in catalog-wide release derived ONLY from each immutable image's
+//    canonical registry. This authorizes all eligible chapters, not arbitrary
+//    new packages/CPs, while every generated item remains review-only.
+export function readProductionChapterScope(env=process.env,manifest=null){
   const raw=env?.EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON;
   if(typeof raw!=="string" || raw.length<2 || raw.length>32768)
     throw new Error("QS_PROD_CHAPTER_SCOPE_MISSING");
   let scope;
   try {scope=JSON.parse(raw);} catch {throw new Error("QS_PROD_CHAPTER_SCOPE_INVALID");}
+  if(scope && typeof scope==="object" && !Array.isArray(scope)){
+    if(Object.keys(scope).sort().join(",")!=="chapterWide,mode,reviewOnly" ||
+       scope.mode!=="all-eligible-chapters" || scope.reviewOnly!==true ||
+       scope.chapterWide!==true)
+      throw new Error("QS_PROD_CHAPTER_SCOPE_INVALID");
+    const catalog=manifest ?? readCanonicalChapterManifest();
+    if(catalog?.source!=="canonical-question-studio-engine-registry" ||
+       catalog.schemaVersion!==1 || !Array.isArray(catalog.packages))
+      throw new Error("QS_PROD_CHAPTER_MANIFEST_INVALID");
+    const entries=catalog.packages.filter(p=>
+      ENGINES.has(p?.engineId) && ID.test(p?.packageId??"") &&
+      isProductionChapterGenerationEligiblePackage(p));
+    const unique=new Set(entries.map(p=>p.engineId+":"+p.packageId));
+    if(entries.length<1 || entries.length>5000 || unique.size!==entries.length)
+      throw new Error("QS_PROD_CHAPTER_CATALOG_INVALID");
+    return entries.map(p=>({
+      engineId:p.engineId,packageId:p.packageId,reviewOnly:true,chapterWide:true,
+    }));
+  }
   if(!Array.isArray(scope) || scope.length<1 || scope.length>100 ||
      scope.some(x=>!x || typeof x!=="object" || Array.isArray(x) ||
        !ENGINES.has(x.engineId) || !ID.test(x.packageId) ||
