@@ -31,6 +31,7 @@ class InMemoryCloud:
     def __init__(self):
         self.queues = {name: "RUNNING" for name in controller.QUEUES}
         self.dispatch = "true"
+        self.chapter_dispatch = "true"
         self.scheduler = "ENABLED"
         self.scheduler_target_valid = True
         self.actions = []
@@ -103,12 +104,16 @@ class InMemoryCloud:
         if args[:3] == ("run", "revisions", "describe"):
             return copy.deepcopy(self.revisions[args[3]])
         if args[:3] == ("run", "jobs", "describe"):
-            assert args[3] == controller.DISPATCHER
+            if args[3] == controller.DISPATCHER:
+                state = {"EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED": self.dispatch}
+            elif args[3] == controller.CHAPTER_DISPATCHER:
+                state = {"EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED":
+                         self.chapter_dispatch}
+            else:
+                raise AssertionError("Unexpected dispatcher Job")
             return {
                 "spec": {"template": {"spec": {"template": {"spec": {
-                    "containers": [{"env": env_rows({
-                        "EXAMTREE_QS_PRODUCTION_DISPATCH_APPROVED": self.dispatch
-                    })}],
+                    "containers": [{"env": env_rows(state)}],
                 }}}}},
             }
         raise AssertionError("Unexpected fake Cloud API GET: " + repr(args))
@@ -124,9 +129,12 @@ class InMemoryCloud:
             self.queues[args[3]] = "PAUSED"
             return ""
         if action == ("run", "jobs", "update"):
-            if args[3] != controller.DISPATCHER:
+            if args[3] == controller.DISPATCHER:
+                self.dispatch = "false"
+            elif args[3] == controller.CHAPTER_DISPATCHER:
+                self.chapter_dispatch = "false"
+            else:
                 raise AssertionError("Unexpected job update")
-            self.dispatch = "false"
             return ""
         if action == ("run", "services", "update"):
             name = args[3]
@@ -184,11 +192,12 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         self.assertEqual(cloud.execute(now), 0)
         self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.dispatch, "false")
+        self.assertEqual(cloud.chapter_dispatch, "false")
         self.assertEqual(cloud.scheduler, "PAUSED")
         action_labels = [(x[0], x[1], x[2]) for x in cloud.actions]
         self.assertEqual(action_labels[0], ("tasks", "queues", "pause"))
         self.assertEqual(action_labels[:2], [("tasks", "queues", "pause")] * 2)
-        self.assertEqual(action_labels[2], ("run", "jobs", "update"))
+        self.assertEqual(action_labels[2:4], [("run", "jobs", "update")] * 2)
         self.assertEqual(action_labels[-1], ("scheduler", "jobs", "pause"))
         self.assertEqual(action_labels.count(("run", "services", "update")), 3)
         self.assertEqual(action_labels.count(("run", "services", "update-traffic")), 3)
@@ -253,6 +262,19 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
             cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
         self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
+        self.assertEqual(cloud.scheduler, "ENABLED")
+        self.assertNotIn(("scheduler", "jobs", "pause"),
+                         [a[:3] for a in cloud.actions])
+
+    def test_chapter_dispatcher_permission_failure_keeps_scheduler_enabled(self):
+        cloud = InMemoryCloud()
+        cloud.fail_action = ("run", "jobs", "update",
+                             controller.CHAPTER_DISPATCHER)
+        with self.assertRaisesRegex(controller.Stop, "Rollback incomplete"):
+            cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
+        self.assertEqual(cloud.dispatch, "false")
+        self.assertEqual(cloud.chapter_dispatch, "true")
         self.assertEqual(cloud.scheduler, "ENABLED")
         self.assertNotIn(("scheduler", "jobs", "pause"),
                          [a[:3] for a in cloud.actions])

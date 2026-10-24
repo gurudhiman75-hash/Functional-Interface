@@ -158,6 +158,18 @@ class NoCloudMutationTests(unittest.TestCase):
 
 
 class RollbackOrderTests(unittest.TestCase):
+    def test_chapter_job_has_separate_exact_approval(self):
+        self.assertEqual(mod.CHAPTER_DISPATCHER, "examtree-qs-chapter-dispatch-prod")
+        expected = {
+            "spec": {"template": {"spec": {"template": {"spec": {
+                "containers": [{"env": [
+                    {"name": "EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED",
+                     "value": "false"}]}]}}}}}}
+        with patch.object(mod, "fetch", return_value=expected) as read:
+            self.assertEqual(mod.chapter_dispatcher_approved(), "false")
+            self.assertEqual(read.call_args.args[:4],
+                             ("run", "jobs", "describe", mod.CHAPTER_DISPATCHER))
+
     def test_exactly_two_distinct_production_queues_pinned(self):
         self.assertEqual(mod.QUEUES,
                          ("examtree-qs-prod", "examtree-qs-chapter-prod"))
@@ -174,6 +186,7 @@ class RollbackOrderTests(unittest.TestCase):
         with patch.object(mod, "fetch", side_effect=fake_fetch), \
              patch.object(mod, "command") as writes, \
              patch.object(mod, "dispatcher_approved", return_value="false"), \
+             patch.object(mod, "chapter_dispatcher_approved", return_value="false"), \
              patch.object(mod, "validate_service", side_effect=mod.Stop("wrong release")):
             with self.assertRaisesRegex(mod.Stop, "Rollback incomplete"):
                 mod.perform_rollback()
@@ -203,6 +216,7 @@ class RollbackOrderTests(unittest.TestCase):
         with patch.object(mod, "fetch", side_effect=fake_fetch), \
              patch.object(mod, "command", side_effect=fake_cmd), \
              patch.object(mod, "dispatcher_approved", return_value="false"), \
+             patch.object(mod, "chapter_dispatcher_approved", return_value="false"), \
              patch.object(mod, "validate_service"), \
              patch.object(mod, "verify_disabled"), \
              patch.object(mod, "verify_scheduler", side_effect=lambda: scheduler[0]):

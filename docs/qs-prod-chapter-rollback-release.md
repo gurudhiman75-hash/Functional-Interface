@@ -6,6 +6,7 @@
 
 - GCP project `sarbedutech`; region `asia-south1`.
 - Dedicated Cloud Run Job: `examtree-qs-prod-chapter-rollback`.
+- Separate chapter dispatcher Job: `examtree-qs-chapter-dispatch-prod`, which must be independently disabled during rollback.
 - Two queues: existing `examtree-qs-prod` and dedicated `examtree-qs-chapter-prod` (both must be PAUSED until approval).
 - Dedicated Cloud Scheduler: `examtree-qs-prod-chapter-rollback-trigger` (must be created PAUSED).
 - Scheduler service identity: `examtree-qs-chapter-sched@sarbedutech.iam.gserviceaccount.com`.
@@ -26,10 +27,10 @@ The immutable image defaults to **read-only metadata verification**. It only acc
 Before expiry, scheduled runs make no changes. After expiry, it:
 
 1. Pauses and verifies BOTH the existing `examtree-qs-prod` and the dedicated `examtree-qs-chapter-prod` Cloud Tasks queues. If either queue is missing or cannot be paused, rollback fails closed and leaves its Scheduler enabled.
-2. Disables the production dispatch Job's approval.
+2. Disables BOTH the normal `examtree-qs-dispatch-prod` and dedicated `examtree-qs-chapter-dispatch-prod` Job approval flags, verifying both are `false`.
 3. Checks exact service runtime accounts, immutable release image digests, permitted approvals and Ready, disabled fallback revisions.
 4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, and pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST).
-5. Independently verifies live traffic, template approvals, dispatcher, queue and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
+5. Independently verifies live traffic, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
 
 Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation (for example, tagged or non-default routes may remain reachable). The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
 
@@ -39,7 +40,7 @@ This pull request is **only a GitHub implementation**. Do not enable generation 
 
 1. Build one separate rollback image with `cloudbuild.examtree-qs-prod-chapter-rollback-build-only.yaml`, pin its resulting **SHA256** digest.
 2. Verify the pinned fallback revisions still serve production and that their approval flags are disabled. Confirm immutable image digests, actual chapter manifest and canonical CP eligibility. Stop for drift.
-3. Create **dedicated** runtime and scheduler service identities. Assign rollback runtime only least-privilege get/update for exactly the three Cloud Run services and the dispatcher Job, get/pause on each of the two named queues, get/pause Scheduler, revision get, and actAs scoped to the named runtime service identities. No database access, Secret Manager access, project Editor/Owner, or broad service invocation. Use a fresh IAM condition lasting beyond the planned rollback deadline.
+3. Create **dedicated** runtime and scheduler service identities. Assign rollback runtime only least-privilege get/update for exactly the three Cloud Run services and both dispatcher Jobs, get/pause on each of the two named queues, get/pause Scheduler, revision get, and actAs scoped to the named runtime service identities. No database access, Secret Manager access, project Editor/Owner, or broad service invocation. Use a fresh IAM condition lasting beyond the planned rollback deadline.
 4. Create a **new Cloud Run Job** from the immutable rollback image, one task, parallelism one, job retries zero. Initially use read-only default arguments. Create a separate Scheduler, initially PAUSED, with a one-minute cadence and OAuth-authenticated POST to `https://run.googleapis.com/v2/projects/sarbedutech/locations/asia-south1/jobs/examtree-qs-prod-chapter-rollback:run`.
 5. Independently test and **prove** that the Scheduler runs the job with the intended identity, that expiry disables generation and restores all three baseline revisions, and that a simulated failure keeps both queues paused wherever permitted and Scheduler active. Safely isolate the test; do not run the live rollback as a simulation.
 6. Only with fresh production approval arm exact UUID/expiry and `--apply` on the dedicated Job, enable and verify its Scheduler, then separately authorize the scoped API/Receiver/Worker release. Job expiry must match the chapter-review expiry on the three services.
@@ -86,3 +87,7 @@ A controller source change requires a new immutable image build and separately a
 ## Dual-queue release invariant (2026-10-24)
 
 The updated controller requires BOTH production queues to exist and be PAUSED during the read-only preflight. Its post-expiry routine independently attempts to pause each queue before touching dispatcher or service traffic. Any inability to verify both queues PAUSED leaves the rollback Scheduler enabled and fails the release; it never claims a full rollback from just the old queue being paused. The rollback runtime identity additionally needs Cloud Tasks `queues.get` and `queues.pause` scoped to the new queue (with no resume/create permission). The new queue must be created PAUSED and never resumed until separately approved. **Do not activate the chapter dispatcher or chapter admin route until the new rollback image is deployed/disarmed and its actual dual-queue behavior has been verified.**
+
+## Chapter dispatcher rollback gate (2026-10-24)
+
+PR #3475 added an isolated review-only Cloud Run Job `examtree-qs-chapter-dispatch-prod`. Controller source must now explicitly read `EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED` and force it `false` before declaring rollback complete; an IAM-denied update is a **hard failure** and leaves the independent rollback Scheduler enabled. Assign the rollback runtime identity `run.jobs.get` and `run.jobs.update` on the dedicated chapter dispatcher Job, with the narrowest supported resource-scoped binding. The controller requires BOTH dispatchers disabled even in its read-only preflight. **Newly built candidate API, receiver and worker image digests are not automatically trusted by this controller; a separate reviewed SHA256 pin update is needed before any live activation.** No source change automatically changes Cloud Run.
