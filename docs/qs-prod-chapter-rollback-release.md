@@ -55,3 +55,29 @@ CI workflow: `.github/workflows/qs-prod-chapter-rollback.yml`. No Google credent
 ## Remaining proof before generation
 
 Offline source tests do **not** prove the live Cloud Run rollback. The following remain release blockers: verified independent job invocation, safe end-to-end expiry rollback, fresh IAM, matching chapter scope/expiry, transactional duplicate task safety, alerting/cost limits and frontend enablement.
+
+## Simulated expiry/recovery — offline only (2026-10-24)
+
+The new `tests/test-qs-prod-chapter-rollback-simulation.py` drives the
+**same controller** through an isolated in-memory Cloud API while testing:
+
+- Scheduler successfully authenticated and deadline elapsed, prior active candidate revision, queued work active;
+- exact queue pause, dispatcher approval OFF, three service template approvals OFF,
+  routing each to an exact immutable baseline, and Scheduler self-pause last;
+- no mutation before the release deadline or when approval is missing;
+- rejection of a wrong Scheduler OAuth identity before any change;
+- permission-denied during a service rollback: queue remains PAUSED, Scheduler stays ENABLED;
+- unexpected serving image and expiry mismatch: queue remains PAUSED, Scheduler stays ENABLED.
+
+This test is runnable without any Cloud credentials and **cannot touch
+production**. It proves control-flow behavior under mocked metadata, **not**
+Cloud Run's actual IAM/revision-update semantics or end-to-end live expiry rollback.
+In particular, on an unknown live release digest the rollback controller
+stops rather than routing that unrecognized live image; the queue is paused,
+but a live HTTP route might remain. This is a production rollout blocker to
+evaluate independently (and is **not** a successful full recovery).
+Never use these tests as permission to enable normal generation.
+
+Run locally: `python3 tests/test-qs-prod-chapter-rollback-simulation.py -v`.
+Future build-only submissions run this simulation before building the image.
+The existing deployed digest does **not** change when only tests/docs/CI are merged.
