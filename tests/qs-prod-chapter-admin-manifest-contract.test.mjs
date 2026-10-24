@@ -31,7 +31,7 @@ test("production chapter authorization and compute validation read canonical JSO
   // Source Question Bank eligibility must not govern NEW review-only output.
   assert.match(policy,/isProductionChapterGenerationEligiblePackage\(p\)/);
   assert.match(policy,/p\.manualApprovalRequired===true/);
-  assert.match(policy,/p\.productionReleaseAuthorized!==false/);
+  assert.match(policy,/p\.productionReleaseAuthorized===false/);
 });
 test("original legacy catalog remains present for ordinary API discovery",()=>{
   assert.match(build,/const capabilitiesManifestPath = path\.resolve\(/);
