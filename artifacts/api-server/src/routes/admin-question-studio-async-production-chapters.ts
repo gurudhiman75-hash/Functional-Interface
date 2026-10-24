@@ -49,9 +49,10 @@ router.post("/runs/async-production-chapter",
   try {
     const compute=req.body as UniversalStudioComputeInput;
     // Prevent a request from supplying its own run identifier or seed.
+    const manifest=readCanonicalChapterManifest();
     if(compute.request.seed!==undefined ||
        !validateProductionChapterReview({...compute,queueVersion:1},
-         readCanonicalChapterManifest(),readProductionChapterScope(env))){
+         manifest,readProductionChapterScope(env,manifest))){
       res.status(403).json({code:"QS_PROD_CHAPTER_SCOPE_DENIED"});return;
     }
     validateAsyncTaskComputeInput(compute);
