@@ -247,6 +247,36 @@ class RollbackOrderTests(unittest.TestCase):
 
 
 class SanitizedCloudErrorTests(unittest.TestCase):
+    def test_secret_reference_denial_without_permission_name_is_diagnosed(self):
+        from subprocess import CompletedProcess
+        raw = ("Permission denied on secret: projects/123/secrets/DO_NOT_EXPOSE/versions/latest "
+               "for revision service account runtime@example.com. "
+               "The service account must be granted the Secret Manager Secret Accessor role.")
+        with patch.object(mod.subprocess, "run", return_value=CompletedProcess(
+                ["gcloud"], 1, stdout="token=DO_NOT_EXPOSE", stderr=raw)):
+            with self.assertRaises(mod.Stop) as raised:
+                mod.command("run", "services", "update", "examtree-api")
+        msg = str(raised.exception)
+        self.assertIn("category=SECRET_MANAGER_ACCESS_DENIED", msg)
+        self.assertIn("permission=NOT_SPECIFIED", msg)
+        self.assertIn("context=SECRET_REFERENCE+SERVICE_IDENTITY", msg)
+        for sensitive in ("DO_NOT_EXPOSE", "runtime@example.com", "projects/123", "token="):
+            self.assertNotIn(sensitive, msg)
+
+    def test_diagnostic_context_is_fixed_and_does_not_invent_permissions(self):
+        cases = {
+            "artifactregistry download denied, token=DO_NOT_EXPOSE": "CONTAINER_IMAGE",
+            "VPC connector access denied": "NETWORK_CONNECTOR",
+            "Organization policy denied request": "POLICY_RESTRICTION",
+            "API has not been enabled": "SERVICE_USAGE",
+            "Unauthenticated password=DO_NOT_EXPOSE": "AUTHENTICATION",
+            "Unknown denial with private token": "NOT_SPECIFIED",
+        }
+        for raw, expected in cases.items():
+            with self.subTest(expected=expected):
+                self.assertEqual(mod.safe_cli_context(raw), expected)
+                self.assertEqual(mod.safe_denied_permission(raw), "NOT_SPECIFIED")
+
     def test_known_failure_classes_have_no_sensitive_text(self):
         examples = {
             "Permission 'artifactregistry.repositories.downloadArtifacts' denied on resource projects/123/secrets/private": "ARTIFACT_REGISTRY_DOWNLOAD_DENIED",

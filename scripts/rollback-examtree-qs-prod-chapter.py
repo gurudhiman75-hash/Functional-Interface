@@ -94,7 +94,8 @@ def safe_cli_failure_class(stderr):
         return "ARTIFACT_REGISTRY_DOWNLOAD_DENIED"
     if "iam.serviceaccounts.actas" in lowered:
         return "SERVICE_ACCOUNT_ACTAS_DENIED"
-    if "secretmanager" in lowered and ("denied" in lowered or "permission" in lowered):
+    if ("secretmanager" in lowered or "permission denied on secret" in lowered or
+            "secret manager" in lowered) and ("denied" in lowered or "permission" in lowered):
         return "SECRET_MANAGER_ACCESS_DENIED"
     if "permission" in lowered and ("denied" in lowered or "not granted" in lowered):
         return "IAM_PERMISSION_DENIED"
@@ -128,7 +129,30 @@ REPORTED_PERMISSIONS = (
     "iam.serviceAccounts.actAs", "artifactregistry.repositories.downloadArtifacts",
     "secretmanager.secrets.get", "secretmanager.versions.access",
     "serviceusage.services.use", "run.routes.invoke",
+    "iam.serviceAccounts.getAccessToken", "vpcaccess.connectors.use",
+    "compute.subnetworks.use", "run.services.setIamPolicy",
 )
+
+
+def safe_cli_context(stderr):
+    """Report fixed context labels, never excerpts or inferred permissions.
+
+    Cloud Run may say 'Permission denied on secret' without naming an IAM
+    permission. Context is diagnostic evidence, not proof of which grant to add.
+    """
+    raw = (stderr or "").lower()
+    rules = (
+        ("SECRET_REFERENCE", ("permission denied on secret", "secretmanager",
+                              "secret manager", "secret accessor")),
+        ("SERVICE_IDENTITY", ("service account", "serviceaccounts", "service agent")),
+        ("CONTAINER_IMAGE", ("container image", "artifactregistry", "artifact registry")),
+        ("NETWORK_CONNECTOR", ("vpcaccess", "vpc connector", "subnetwork")),
+        ("SERVICE_USAGE", ("serviceusage", "has not been used", "api has not been enabled")),
+        ("POLICY_RESTRICTION", ("organization policy", "orgpolicy", "deny policy", "vpc service controls")),
+        ("AUTHENTICATION", ("invalid authentication", "reauthentication", "invalid_grant", "unauthenticated")),
+    )
+    found = [label for label, needles in rules if any(needle in raw for needle in needles)]
+    return "+".join(found) if found else "NOT_SPECIFIED"
 
 
 def safe_denied_permission(stderr):
@@ -154,7 +178,8 @@ def command(*parts):
         raise Stop("Cloud operation failed: " + " ".join(parts[:3]) +
                    " [exit=" + str(p.returncode) + ", category=" +
                    safe_cli_failure_class(p.stderr) + ", permission=" +
-                   safe_denied_permission(p.stderr) + "]") from None
+                   safe_denied_permission(p.stderr) + ", context=" +
+                   safe_cli_context(p.stderr) + "]") from None
     return p.stdout
 
 def fetch(*parts):
