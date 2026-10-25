@@ -186,6 +186,45 @@ class InMemoryCloud:
             return controller.main()
 
 class SimulatedDeadlineRollbackTests(unittest.TestCase):
+    def test_repeated_expired_checks_after_recovery_make_no_mutations(self):
+        cloud = InMemoryCloud()
+        now = dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)
+        self.assertEqual(cloud.execute(now), 0)
+        cloud.actions.clear()
+        self.assertEqual(cloud.execute(now), 0)
+        self.assertEqual(cloud.actions, [])
+        self.assertEqual(cloud.scheduler, "ENABLED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
+
+    def test_api_launch_opt_in_is_revoked_after_expiry(self):
+        cloud = InMemoryCloud()
+        flag = "EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_LAUNCH_APPROVED"
+        cloud.services["examtree-api"]["spec"]["template"]["spec"]["containers"][0]["env"].append(
+            {"name": flag, "value": "true"})
+        self.assertEqual(cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)), 0)
+        values = controller.env_values(controller.template(cloud.services["examtree-api"]))
+        self.assertEqual(values[flag], "false")
+
+    def test_baseline_with_launch_opt_in_enabled_is_rejected(self):
+        cloud = InMemoryCloud()
+        cfg = controller.SERVICES["examtree-api"]
+        cloud.revisions[cfg["baseline"]]["spec"]["containers"][0]["env"].append({
+            "name": "EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_LAUNCH_APPROVED", "value": "true"})
+        with self.assertRaisesRegex(controller.Stop, "Baseline is not chapter-disabled"):
+            cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC))
+        self.assertEqual(cloud.scheduler, "ENABLED")
+        self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
+
+    def test_launch_gate_on_template_prevents_success_verification(self):
+        cloud = InMemoryCloud()
+        self.assertEqual(cloud.execute(dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)), 0)
+        for row in cloud.services["examtree-api"]["spec"]["template"]["spec"]["containers"][0]["env"]:
+            if row["name"] == "EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_LAUNCH_APPROVED":
+                row["value"] = "true"
+        with patch.object(controller, "fetch", side_effect=cloud.fetch):
+            with self.assertRaisesRegex(controller.Stop, "approval not false"):
+                controller.verify_disabled("examtree-api", controller.SERVICES["examtree-api"])
+
     def test_expired_release_restores_exact_baselines_and_disables_all(self):
         cloud = InMemoryCloud()
         now = dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)
@@ -193,12 +232,12 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         self.assertTrue(all(state == "PAUSED" for state in cloud.queues.values()))
         self.assertEqual(cloud.dispatch, "false")
         self.assertEqual(cloud.chapter_dispatch, "false")
-        self.assertEqual(cloud.scheduler, "PAUSED")
+        self.assertEqual(cloud.scheduler, "ENABLED")
         action_labels = [(x[0], x[1], x[2]) for x in cloud.actions]
         self.assertEqual(action_labels[0], ("tasks", "queues", "pause"))
         self.assertEqual(action_labels[:2], [("tasks", "queues", "pause")] * 2)
         self.assertEqual(action_labels[2:4], [("run", "jobs", "update")] * 2)
-        self.assertEqual(action_labels[-1], ("scheduler", "jobs", "pause"))
+        self.assertNotIn(("scheduler", "jobs", "pause"), action_labels)
         self.assertEqual(action_labels.count(("run", "services", "update")), 3)
         self.assertEqual(action_labels.count(("run", "services", "update-traffic")), 3)
         for name, cfg in controller.SERVICES.items():

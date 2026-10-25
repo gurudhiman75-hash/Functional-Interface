@@ -43,7 +43,7 @@ Before expiry, scheduled runs make no changes. After expiry, it:
 2. Disables BOTH the normal `examtree-qs-dispatch-prod` and dedicated `examtree-qs-chapter-dispatch-prod` Job approval flags, verifying both are `false`.
 3. Checks exact service runtime accounts, immutable release image digests, permitted approvals and Ready, disabled fallback revisions.
 4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, and pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST).
-5. Independently verifies live traffic, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
+5. Independently verifies live traffic, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Its Scheduler remains ENABLED after recovery for continued independent checks. Repeated checks of an unchanged recovered state perform no mutations.
 
 Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation (for example, tagged or non-default routes may remain reachable). The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
 
@@ -78,7 +78,7 @@ The new `tests/test-qs-prod-chapter-rollback-simulation.py` drives the
 
 - Scheduler successfully authenticated and deadline elapsed, prior active candidate revision, queued work active;
 - exact queue pause, dispatcher approval OFF, three service template approvals OFF,
-  routing each to an exact immutable baseline, and Scheduler self-pause last;
+  routing each to an exact immutable baseline, and retaining Scheduler ENABLED;
 - no mutation before the release deadline or when approval is missing;
 - rejection of a wrong Scheduler OAuth identity before any change;
 - permission-denied during a service rollback: queue remains PAUSED, Scheduler stays ENABLED;
@@ -104,3 +104,11 @@ The updated controller requires BOTH production queues to exist and be PAUSED du
 ## Chapter dispatcher rollback gate (2026-10-24)
 
 PR #3475 added an isolated review-only Cloud Run Job `examtree-qs-chapter-dispatch-prod`. Controller source must now explicitly read `EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_APPROVED` and force it `false` before declaring rollback complete; an IAM-denied update is a **hard failure** and leaves the independent rollback Scheduler enabled. Assign the rollback runtime identity `run.jobs.get` and `run.jobs.update` on the dedicated chapter dispatcher Job, with the narrowest supported resource-scoped binding. The controller requires BOTH dispatchers disabled even in its read-only preflight. **Newly built candidate API, receiver and worker image digests are not automatically trusted by this controller; a separate reviewed SHA256 pin update is needed before any live activation.** No source change automatically changes Cloud Run.
+
+## Post-#3484 recovery update (2026-10-25, source only)
+
+The API dispatch-launch opt-in is explicitly revoked and verified false on
+recovered templates. Older baselines may omit it, but must never enable it.
+The controller no longer pauses its Scheduler after success. It verifies the
+Scheduler remains ENABLED; repeated recovered-state checks make no mutations.
+Deploying this source or repairing IAM remains a separate production action.

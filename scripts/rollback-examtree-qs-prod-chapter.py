@@ -36,6 +36,7 @@ SERVICES = {
         "digest": "sha256:f5f8e9169260c453ef0181bd3a9041c84573512cc93c7dcc1a17027828e93a52",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED"),
+        "optional_off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_LAUNCH_APPROVED",),
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
@@ -93,7 +94,8 @@ def safe_cli_failure_class(stderr):
         return "ARTIFACT_REGISTRY_DOWNLOAD_DENIED"
     if "iam.serviceaccounts.actas" in lowered:
         return "SERVICE_ACCOUNT_ACTAS_DENIED"
-    if "secretmanager" in lowered and ("denied" in lowered or "permission" in lowered):
+    if ("secretmanager" in lowered or "permission denied on secret" in lowered or
+            "secret manager" in lowered) and ("denied" in lowered or "permission" in lowered):
         return "SECRET_MANAGER_ACCESS_DENIED"
     if "permission" in lowered and ("denied" in lowered or "not granted" in lowered):
         return "IAM_PERMISSION_DENIED"
@@ -127,7 +129,30 @@ REPORTED_PERMISSIONS = (
     "iam.serviceAccounts.actAs", "artifactregistry.repositories.downloadArtifacts",
     "secretmanager.secrets.get", "secretmanager.versions.access",
     "serviceusage.services.use", "run.routes.invoke",
+    "iam.serviceAccounts.getAccessToken", "vpcaccess.connectors.use",
+    "compute.subnetworks.use", "run.services.setIamPolicy",
 )
+
+
+def safe_cli_context(stderr):
+    """Report fixed context labels, never excerpts or inferred permissions.
+
+    Cloud Run may say 'Permission denied on secret' without naming an IAM
+    permission. Context is diagnostic evidence, not proof of which grant to add.
+    """
+    raw = (stderr or "").lower()
+    rules = (
+        ("SECRET_REFERENCE", ("permission denied on secret", "secretmanager",
+                              "secret manager", "secret accessor")),
+        ("SERVICE_IDENTITY", ("service account", "serviceaccounts", "service agent")),
+        ("CONTAINER_IMAGE", ("container image", "artifactregistry", "artifact registry")),
+        ("NETWORK_CONNECTOR", ("vpcaccess", "vpc connector", "subnetwork")),
+        ("SERVICE_USAGE", ("serviceusage", "has not been used", "api has not been enabled")),
+        ("POLICY_RESTRICTION", ("organization policy", "orgpolicy", "deny policy", "vpc service controls")),
+        ("AUTHENTICATION", ("invalid authentication", "reauthentication", "invalid_grant", "unauthenticated")),
+    )
+    found = [label for label, needles in rules if any(needle in raw for needle in needles)]
+    return "+".join(found) if found else "NOT_SPECIFIED"
 
 
 def safe_denied_permission(stderr):
@@ -153,7 +178,8 @@ def command(*parts):
         raise Stop("Cloud operation failed: " + " ".join(parts[:3]) +
                    " [exit=" + str(p.returncode) + ", category=" +
                    safe_cli_failure_class(p.stderr) + ", permission=" +
-                   safe_denied_permission(p.stderr) + "]") from None
+                   safe_denied_permission(p.stderr) + ", context=" +
+                   safe_cli_context(p.stderr) + "]") from None
     return p.stdout
 
 def fetch(*parts):
@@ -196,12 +222,17 @@ def positive_spec_traffic(doc):
     return [x for x in (doc.get("spec") or {}).get("traffic") or []
             if (x.get("percent") or 0) > 0]
 
+def disabled_flags(config):
+    # Independent launch opt-ins need revocation too, but are not required
+    # to be enabled on older authorized releases or present on old baselines.
+    return config["off"] + config.get("optional_off", ())
+
 def validate_service(service, config, expected_expiry=None):
     doc = fetch("run", "services", "describe", service, "--region=" + REGION)
     baseline = target_revision(service, config["baseline"])
     if baseline.get("spec", {}).get("serviceAccountName") != config["sa"]:
         raise Stop("Baseline service-account mismatch: " + service)
-    if any(env_values(baseline["spec"]).get(flag) == "true" for flag in config["off"]):
+    if any(env_values(baseline["spec"]).get(flag) == "true" for flag in disabled_flags(config)):
         raise Stop("Baseline is not chapter-disabled: " + service)
     # Receiver/worker baselines must additionally be fully inactive.
     if service != "examtree-api" and any(
@@ -257,18 +288,21 @@ def verify_scheduler():
         raise Stop("Unknown scheduler state")
     return doc["state"]
 
-def verify_disabled(service, config):
-    doc = fetch("run", "services", "describe", service, "--region=" + REGION)
+def baseline_traffic_pinned(doc, config):
     traffic = positive_traffic(doc)
     desired = positive_spec_traffic(doc)
-    if len(traffic) != 1 or len(desired) != 1 or \
-       traffic[0].get("percent") != 100 or desired[0].get("percent") != 100 or \
-       traffic[0].get("revisionName") != config["baseline"] or \
-       desired[0].get("revisionName") != config["baseline"] or \
-       desired[0].get("latestRevision") is True:
+    return (len(traffic) == 1 and len(desired) == 1 and
+            traffic[0].get("percent") == 100 and desired[0].get("percent") == 100 and
+            traffic[0].get("revisionName") == config["baseline"] and
+            desired[0].get("revisionName") == config["baseline"] and
+            desired[0].get("latestRevision") is not True)
+
+def verify_disabled(service, config):
+    doc = fetch("run", "services", "describe", service, "--region=" + REGION)
+    if not baseline_traffic_pinned(doc, config):
         raise Stop("Rollback traffic not pinned to baseline: " + service)
     values = env_values(template(doc))
-    if any(values.get(flag) != "false" for flag in config["off"]):
+    if any(values.get(flag) != "false" for flag in disabled_flags(config)):
         raise Stop("Latest service template approval not false: " + service)
 
 def job_approval(job, flag):
@@ -348,8 +382,8 @@ def perform_rollback(expected_expiry=None):
         try:
             doc = fetch("run", "services", "describe", service, "--region=" + REGION)
             flags = env_values(template(doc))
-            if any(flags.get(key) != "false" for key in cfg["off"]):
-                updates = ",".join(key + "=false" for key in cfg["off"])
+            if any(flags.get(key) != "false" for key in disabled_flags(cfg)):
+                updates = ",".join(key + "=false" for key in disabled_flags(cfg))
                 command("run", "services", "update", service, "--region=" + REGION,
                         "--update-env-vars=" + updates, "--no-traffic", "--quiet")
         except Stop as exc:
@@ -360,10 +394,13 @@ def perform_rollback(expected_expiry=None):
         try:
             # Route to independently verified, Ready and disabled baseline,
             # even if toggling the template flags was denied. A failed toggle
-            # still prevents a success result and Scheduler self-pause.
-            command("run", "services", "update-traffic", service,
-                    "--region=" + REGION,
-                    "--to-revisions=" + cfg["baseline"] + "=100", "--quiet")
+            # still prevents a success result. Repeated scheduled checks of a
+            # fully recovered service must not issue redundant traffic updates.
+            doc = fetch("run", "services", "describe", service, "--region=" + REGION)
+            if not baseline_traffic_pinned(doc, cfg):
+                command("run", "services", "update-traffic", service,
+                        "--region=" + REGION,
+                        "--to-revisions=" + cfg["baseline"] + "=100", "--quiet")
             verify_disabled(service, cfg)
             print("PASS: verified disabled baseline for " + service, flush=True)
         except Stop as exc:
@@ -381,11 +418,9 @@ def perform_rollback(expected_expiry=None):
         raise Stop("Chapter dispatcher not disabled after rollback")
     for service, cfg in SERVICES.items():
         verify_disabled(service, cfg)
-    if verify_scheduler() == "ENABLED":
-        command("scheduler", "jobs", "pause", SCHEDULER, "--location=" + REGION)
-    if verify_scheduler() != "PAUSED":
-        raise Stop("Unable to verify scheduler paused")
-    print("RESULT: CHAPTER ROLLBACK COMPLETE; no generation approval", flush=True)
+    if verify_scheduler() != "ENABLED":
+        raise Stop("Rollback Scheduler must remain enabled")
+    print("RESULT: CHAPTER ROLLBACK COMPLETE; Scheduler remains enabled; no generation approval", flush=True)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
