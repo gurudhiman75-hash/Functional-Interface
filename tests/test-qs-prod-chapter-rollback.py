@@ -209,7 +209,7 @@ class RollbackOrderTests(unittest.TestCase):
             self.assertEqual(writes.call_args.args[:3],
                              ("tasks", "queues", "pause"))
 
-    def test_success_routes_only_to_explicit_baseline_and_pauses_scheduler_last(self):
+    def test_success_routes_only_to_explicit_baseline_and_keeps_scheduler_enabled(self):
         scheduler = ["ENABLED"]
         actions = []
         def fake_fetch(*args):
@@ -220,7 +220,7 @@ class RollbackOrderTests(unittest.TestCase):
                 cfg = mod.SERVICES[service]
                 return {"spec": {"template": {"spec": {"containers": [
                     {"env": [{"name": key, "value": "false"}
-                             for key in cfg["off"]]}
+                             for key in mod.disabled_flags(cfg)]}
                 ]}}}}
             raise AssertionError("Unexpected Cloud metadata call")
         def fake_cmd(*parts):
@@ -235,14 +235,15 @@ class RollbackOrderTests(unittest.TestCase):
              patch.object(mod, "verify_disabled"), \
              patch.object(mod, "verify_scheduler", side_effect=lambda: scheduler[0]):
             mod.perform_rollback()
-        self.assertEqual(len(actions), 4)
+        self.assertEqual(len(actions), 3)
         for i, (service, cfg) in enumerate(mod.SERVICES.items()):
             self.assertEqual(actions[i][:3],
                              ("run", "services", "update-traffic"))
             self.assertIn("--to-revisions=" + cfg["baseline"] + "=100",
                           actions[i])
             self.assertNotIn("--to-latest", actions[i])
-        self.assertEqual(actions[-1][:3], ("scheduler", "jobs", "pause"))
+        self.assertEqual(scheduler[0], "ENABLED")
+        self.assertFalse(any(action[:2] == ("scheduler", "jobs") for action in actions))
 
 
 class SanitizedCloudErrorTests(unittest.TestCase):
