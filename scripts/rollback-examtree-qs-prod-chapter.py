@@ -47,7 +47,7 @@ SERVICES = {
     "examtree-universal-prod": {
         "baseline": "examtree-universal-prod-00021-5q7",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:43de72b993a13d2ce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d",
+        "digest": "sha256:43de72b993a132dce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED"),
     },
