@@ -404,7 +404,7 @@ export function enqueueQuestionStudioProductionChapterRun(
     canonicalProblemId: input.canonicalProblemId,
     // Production seed is always assigned by the durable enqueue transaction.
   };
-  return adminRequest<QuestionStudioStagingEnqueueReceipt>(
+  return adminRequest<QuestionStudioStagingEnqueueReceipt & { dispatchRequested: boolean }>(
     '/admin/question-studio/runs/async-production-chapter',
     {
       method: 'POST',
@@ -414,6 +414,14 @@ export function enqueueQuestionStudioProductionChapterRun(
       }),
     },
     { fallbackMessage: 'Unable to enqueue production chapter review batch.' },
+  );
+}
+
+export function retryQuestionStudioProductionChapterDispatch(runId: string) {
+  return adminRequest<{ id: string; status: GenerationRunStatus; dispatchRequested: boolean }>(
+    `/admin/question-studio/runs/${encodeURIComponent(runId)}/dispatch-production-chapter`,
+    { method: 'POST' },
+    { fallbackMessage: 'Unable to retry dispatch. The saved review run has not been replaced.' },
   );
 }
 

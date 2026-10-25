@@ -52,10 +52,12 @@ import {
   type CreateGenerationRunInput,
   enqueueQuestionStudioStagingRun,
   enqueueQuestionStudioProductionChapterRun,
+  retryQuestionStudioProductionChapterDispatch,
   getQuestionStudioRunProgress,
   getQuestionStudioStagingOperations,
   type QuestionStudioStagingOperations,
 } from '@/features/question-studio/api';
+import { isProductionChapterPackage, productionChapterCpIds, PRODUCTION_CHAPTER_BATCH_LIMIT } from '@/features/question-studio/production-chapter';
 import {
   analyzeItemQuality,
   findDuplicateMatches,
@@ -221,7 +223,8 @@ export function QuestionStudioCockpitPage() {
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
-  const [stagingAsyncSelected, setStagingAsyncSelected] = useState(false);
+  const [stagingAsyncSelected, setStagingAsyncSelected] = useState(CHAPTER_ASYNC_ENABLED);
+  const [retryingChapterDispatch, setRetryingChapterDispatch] = useState(false);
   const [stagingAsyncSubmitting, setStagingAsyncSubmitting] = useState(false);
   const [stagingAsyncRun, setStagingAsyncRun] = useState<QuestionStudioRunProgress | null>(null);
   const [stagingAsyncPollError, setStagingAsyncPollError] = useState<string | null>(null);
@@ -252,11 +255,12 @@ export function QuestionStudioCockpitPage() {
   );
 
   const subjects = useMemo(
-    () => sortSubjects([...new Set(enabledPackages.map(packageSubject))]),
-    [enabledPackages],
+    () => sortSubjects([...new Set(enabledPackages.filter(entry =>
+      !CHAPTER_ASYNC_ENABLED || !stagingAsyncSelected || isProductionChapterPackage(entry)).map(packageSubject))]),
+    [enabledPackages, stagingAsyncSelected],
   );
 
-  const reviewSubjects = subjects;
+  const reviewSubjects = useMemo(() => sortSubjects([...new Set(enabledPackages.map(packageSubject))]), [enabledPackages]);
 
   const reviewChapters = useMemo(
     () => [...new Set(
@@ -401,11 +405,11 @@ export function QuestionStudioCockpitPage() {
           if (cancelled) return;
           setExpandedRuns((current) => new Set(current).add(progress.id));
           setWorkspaceView('review');
-          showToast.success('Staging generation complete', `${progress.publicCode} saved ${progress.generatedCount} review item(s).`);
+          showToast.success(CHAPTER_ASYNC_ENABLED ? 'Review generation complete' : 'Staging generation complete', `${progress.publicCode} saved ${progress.generatedCount} review item(s).`);
           return;
         }
         if (['failed', 'cancelled'].includes(progress.status)) {
-          showToast.error('Staging generation stopped', progress.error ?? `Run is ${progress.status}.`);
+          showToast.error(CHAPTER_ASYNC_ENABLED ? 'Review generation stopped' : 'Staging generation stopped', progress.error ?? `Run is ${progress.status}.`);
           return;
         }
       } catch (caught) {
@@ -433,8 +437,9 @@ export function QuestionStudioCockpitPage() {
   }, [subject, subjects]);
 
   const subjectPackages = useMemo(
-    () => enabledPackages.filter((entry) => packageSubject(entry) === subject),
-    [enabledPackages, subject],
+    () => enabledPackages.filter((entry) => packageSubject(entry) === subject
+      && (!CHAPTER_ASYNC_ENABLED || !stagingAsyncSelected || isProductionChapterPackage(entry))),
+    [enabledPackages, subject, stagingAsyncSelected],
   );
 
   const mainTopics = useMemo(
@@ -494,9 +499,16 @@ export function QuestionStudioCockpitPage() {
 
   const activePackage = chapterPackages.find((entry) => entry.packageId === packageId);
   const availableCpIds = useMemo(
-    () => activePackage ? packageCpIds(activePackage) : [],
-    [activePackage],
+    () => activePackage ? (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected
+      ? productionChapterCpIds(activePackage) : packageCpIds(activePackage)) : [],
+    [activePackage, stagingAsyncSelected],
   );
+  useEffect(() => {
+    setSelectedCpIds(current => {
+      const next = new Set([...current].filter(cp => availableCpIds.includes(cp)));
+      return next.size === current.size ? current : next;
+    });
+  }, [availableCpIds]);
 
   const visibleCpIds = useMemo(() => {
     const normalizedSearch = cpSearch.trim().toLowerCase();
@@ -612,6 +624,11 @@ export function QuestionStudioCockpitPage() {
       return;
     }
     const cpIds = [...selectedCpIds];
+    if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected &&
+        (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
+      showToast.error('Invalid batch size', 'Choose 1–20 questions for a chapter review batch.');
+      return;
+    }
     if (cpIds.length > count) {
       showToast.error(
         'Question count too small',
@@ -661,7 +678,9 @@ export function QuestionStudioCockpitPage() {
           setReviewPageNumber(1);
           showToast.info(CHAPTER_ASYNC_ENABLED ? 'Review batch queued' : 'Staging run queued',
             CHAPTER_ASYNC_ENABLED
-              ? `${receipt.publicCode} is queued for authorized review-only production dispatch; no automatic publication.`
+              ? ('dispatchRequested' in receipt && receipt.dispatchRequested
+                ? `${receipt.publicCode} is queued and dispatch has been requested; questions will appear here for review.`
+                : `${receipt.publicCode} is saved. Dispatch was not confirmed; retry the saved run from its progress panel.`)
               : `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
         } finally {
           setStagingAsyncSubmitting(false);
@@ -881,11 +900,22 @@ export function QuestionStudioCockpitPage() {
             ) : <p className="font-semibold">Restoring review run…</p>}
             {stagingAsyncPollError && <p className="text-destructive">Progress unavailable: {stagingAsyncPollError}. You can reload this link to retry.</p>}
           </div>
+          {CHAPTER_ASYNC_ENABLED && stagingAsyncRun?.status === 'queued' && canRun && (
+            <Button variant="outline" size="sm" disabled={retryingChapterDispatch} onClick={async () => {
+              setRetryingChapterDispatch(true);
+              try {
+                await retryQuestionStudioProductionChapterDispatch(stagingAsyncRun.id);
+                showToast.info('Dispatch requested', 'The same saved run will be used. No new batch was created.');
+              } catch (error) {
+                showToast.error('Dispatch unavailable', error instanceof Error ? error.message : 'Try again later.');
+              } finally { setRetryingChapterDispatch(false); }
+            }}>Retry saved run dispatch</Button>
+          )}
           {stagingAsyncRun && (
             <Button variant="outline" size="sm" type="button" onClick={async () => {
               try {
                 await navigator.clipboard.writeText(window.location.href);
-                showToast.success('Resume link copied', 'Reopen this link to check the staging run without submitting another batch.');
+                showToast.success('Resume link copied', 'Reopen this link to check the review run without submitting another batch.');
               } catch {
                 showToast.error('Unable to copy link', 'Copy the current page address from your browser instead.');
               }
@@ -990,7 +1020,7 @@ export function QuestionStudioCockpitPage() {
                     size="sm"
                     variant="outline"
                     onClick={() => setSelectedCpIds((current) => new Set([...current, ...visibleCpIds]))}
-                    disabled={visibleCpIds.length === 0 || selectedAfterVisibleCount > capabilities.maxBatchSize}
+                    disabled={visibleCpIds.length === 0 || selectedAfterVisibleCount > (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize)}
                   >
                     Select visible
                   </Button>
@@ -1057,7 +1087,7 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label="Question count"><Input type="number" min={1} max={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <Field label={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Server-assigned production seed" : "Optional deterministic seed"}><Input value={seed} onChange={(event) => setSeed(event.target.value)} disabled={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected} placeholder={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Assigned after enqueue" : "Leave blank for a fresh generated seed"} /></Field>
