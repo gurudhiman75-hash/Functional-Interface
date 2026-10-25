@@ -1,0 +1,43 @@
+name: Examtree Codex Cloud Run preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: examtree-codex-readonly-preflight
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    timeout-minutes: 10
+    steps:
+      - name: Checkout deployment configuration
+        uses: actions/checkout@v4
+
+      - name: Authenticate through GitHub OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: sarbedutech
+          workload_identity_provider: projects/1083299267005/locations/global/workloadIdentityPools/examtree-codex-pool/providers/github-actions
+          service_account: examtree-codex-deploy@sarbedutech.iam.gserviceaccount.com
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Validate existing build configuration
+        run: |
+          test -f cloudbuild.examtree-qs-chapter-build-only.yaml
+          test -f cloudbuild.examtree-cloudrun-api.yaml
+          echo "Build configurations found; no build or deployment triggered."
+
+      - name: Inspect Cloud Run (read only)
+        run: |
+          gcloud run services list --project=sarbedutech --format="table(name,region)"
+          echo "Preflight complete. No changes to Cloud Run, IAM, traffic, tasks, jobs or queues."
