@@ -1,0 +1,59 @@
+name: Examtree chapter images - manual build only
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Type BUILD-ONLY-NO-DEPLOY to acknowledge build costs and no deployment"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: examtree-chapter-image-build
+  cancel-in-progress: false
+
+jobs:
+  build-only:
+    if: ${{ github.ref == 'refs/heads/New-main' && inputs.confirmation == 'BUILD-ONLY-NO-DEPLOY' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    environment: examtree-build-approval
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out pinned New-main commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify source and build-only contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -f cloudbuild.examtree-qs-chapter-build-only.yaml
+          if grep -Eq 'gcloud[[:space:]]+run[[:space:]]+(deploy|services[[:space:]]+update|services[[:space:]]+update-traffic)' .github/workflows/examtree-codex-chapter-build-only.yml; then
+            echo "Refusing workflow containing Cloud Run modifications"
+            exit 1
+          fi
+      - name: Authenticate using temporary GitHub OIDC credentials
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: sarbedutech
+          workload_identity_provider: projects/1083299267005/locations/global/workloadIdentityPools/examtree-codex-pool/providers/github-actions
+          service_account: examtree-codex-deploy@sarbedutech.iam.gserviceaccount.com
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Build and push three immutable image tags only
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcloud builds submit . \
+            --project=sarbedutech \
+            --region=asia-south1 \
+            --config=cloudbuild.examtree-qs-chapter-build-only.yaml \
+            --substitutions="COMMIT_SHA=$GITHUB_SHA"
+          echo "Build-only complete. No Cloud Run rollout or queue changes."
