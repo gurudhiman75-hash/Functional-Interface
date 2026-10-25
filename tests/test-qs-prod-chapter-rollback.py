@@ -90,7 +90,7 @@ class ServiceGuardTests(unittest.TestCase):
             "examtree-qs-receiver-prod":
                 "sha256:65ad314d77ef69a1d5fe37224583dd16155f39920a0a07a217b0c440ee952339",
             "examtree-universal-prod":
-                "sha256:43de72b993a13d2ce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d",
+                "sha256:43de72b993a132dce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d",
         }
         self.assertEqual({name: cfg["digest"] for name, cfg
                           in mod.SERVICES.items()}, expected)

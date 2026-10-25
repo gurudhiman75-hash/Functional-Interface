@@ -22,7 +22,7 @@ The operator confirmed these immutable Artifact Registry digests from the comple
 |---|---|
 | `examtree-api` | `sha256:f5f8e9169260c453ef0181bd3a9041c84573512cc93c7dcc1a17027828e93a52` |
 | `examtree-qs-receiver-prod` | `sha256:65ad314d77ef69a1d5fe37224583dd16155f39920a0a07a217b0c440ee952339` |
-| `examtree-universal-prod` | `sha256:43de72b993a13d2ce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d` |
+| `examtree-universal-prod` | `sha256:43de72b993a132dce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d` |
 
 These are **candidate digests only**. The rollback controller continues to pin all traffic to the three known-good older baseline revisions on recovery. Final catalog-wide candidate revisions (`examtree-api-00010-nit`, `examtree-qs-receiver-prod-00042-vuv`, `examtree-universal-prod-00039-tul`) were deployed at **0% traffic** with approvals OFF. Updating pinned digests in GitHub does not update the deployed rollback Job or grant authorization to serve the new revisions. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
 
