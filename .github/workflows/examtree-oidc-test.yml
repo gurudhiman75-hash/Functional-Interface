@@ -36,3 +36,10 @@ jobs:
         run: |
           gcloud auth print-access-token > /dev/null
           echo "OIDC authentication successful"
+        
+      - name: List Examtree Cloud Run services
+        run: |
+          gcloud run services list \
+            --project=sarbedutech \
+            --format="table(metadata.name,metadata.labels.cloud.googleapis.com/location)"
+  
