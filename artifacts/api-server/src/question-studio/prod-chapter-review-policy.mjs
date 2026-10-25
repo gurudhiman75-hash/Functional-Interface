@@ -6,6 +6,9 @@ import path from "node:path";
 
 const ENGINES=new Set(["quant-v4","reasoning-v1","language-v1","knowledge-v1"]);
 const ID=/^[A-Z][A-Z0-9-]{1,80}$/;
+// Package identifiers are registry keys, not CP identifiers. Canonical language
+// and reasoning packages also use lowercase slugs and colon namespaces.
+const PACKAGE_ID=/^[A-Za-z][A-Za-z0-9:_-]{1,127}$/;
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export const MAX_CHAPTER_REVIEW_BATCH=20;
 export const MAX_RELEASE_WINDOW_MS=24*60*60*1000;
@@ -61,7 +64,7 @@ export function readProductionChapterScope(env=process.env,manifest=null){
        catalog.schemaVersion!==1 || !Array.isArray(catalog.packages))
       throw new Error("QS_PROD_CHAPTER_MANIFEST_INVALID");
     const entries=catalog.packages.filter(p=>
-      ENGINES.has(p?.engineId) && ID.test(p?.packageId??"") &&
+      ENGINES.has(p?.engineId) && PACKAGE_ID.test(p?.packageId??"") &&
       isProductionChapterGenerationEligiblePackage(p));
     const unique=new Set(entries.map(p=>p.engineId+":"+p.packageId));
     if(entries.length<1 || entries.length>5000 || unique.size!==entries.length)
@@ -72,7 +75,7 @@ export function readProductionChapterScope(env=process.env,manifest=null){
   }
   if(!Array.isArray(scope) || scope.length<1 || scope.length>100 ||
      scope.some(x=>!x || typeof x!=="object" || Array.isArray(x) ||
-       !ENGINES.has(x.engineId) || !ID.test(x.packageId) ||
+       !ENGINES.has(x.engineId) || !PACKAGE_ID.test(x.packageId) ||
        x.reviewOnly!==true || x.chapterWide!==true ||
        Object.keys(x).some(k=>!["engineId","packageId","reviewOnly","chapterWide"].includes(k))) ||
      new Set(scope.map(x=>x.engineId+":"+x.packageId)).size!==scope.length)
@@ -104,7 +107,7 @@ export function validateProductionChapterReview(snapshot,manifest,scope,
   const r=snapshot.request;
   if(!Number.isInteger(snapshot.count) || snapshot.count<1 ||
      snapshot.count>MAX_CHAPTER_REVIEW_BATCH || r.count!==snapshot.count ||
-     !ENGINES.has(r.engineId) || !ID.test(r.packageId) ||
+     !ENGINES.has(r.engineId) || !PACKAGE_ID.test(r.packageId) ||
      !["en","hi","pa"].includes(r.language) ||
      !Array.isArray(snapshot.selectedCpIds) ||
      snapshot.selectedCpIds.length>snapshot.count ||

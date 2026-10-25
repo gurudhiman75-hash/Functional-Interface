@@ -7,6 +7,12 @@ import {recordQuestionStudioEnqueueIntent} from "../question-studio/async-enqueu
 import {validateAsyncTaskComputeInput} from "../question-studio/async-task-package-capabilities";
 import type {UniversalStudioComputeInput} from "../question-studio/universal-executor";
 import {EnqueueValidationError} from "../question-studio/async-enqueue-contract";
+import {sqlClient} from "../lib/db";
+import {createProductionChapterSnapshotGuard} from "../question-studio/prod-chapter-review-runtime.mjs";
+import {
+  assertChapterDispatchLaunchApproved, ChapterDispatchLaunchError,
+  enqueueAndDispatchChapter, launchProductionChapterDispatch,
+} from "../question-studio/prod-chapter-dispatch-launch";
 import {
   productionChapterReleaseActive,readCanonicalChapterManifest,
   readProductionChapterScope,validateProductionChapterReview
@@ -47,6 +53,7 @@ router.post("/runs/async-production-chapter",
     res.status(400).json({code:"QS_PROD_CHAPTER_PAYLOAD_INVALID"});return;
   }
   try {
+    assertChapterDispatchLaunchApproved(env);
     const compute=req.body as UniversalStudioComputeInput;
     // Prevent a request from supplying its own run identifier or seed.
     const manifest=readCanonicalChapterManifest();
@@ -56,22 +63,71 @@ router.post("/runs/async-production-chapter",
       res.status(403).json({code:"QS_PROD_CHAPTER_SCOPE_DENIED"});return;
     }
     validateAsyncTaskComputeInput(compute);
-    const receipt=await recordQuestionStudioEnqueueIntent({
-      identity:{actorFirebaseUid:req.user.id,
-        identityUserId:req.adminSession.user.id,idempotencyKey:key},
-      compute,
-    }, "chapter_review");
+    const identity={actorFirebaseUid:req.user.id,
+      identityUserId:req.adminSession.user.id,idempotencyKey:key};
+    const receipt=await enqueueAndDispatchChapter(()=>recordQuestionStudioEnqueueIntent({
+      identity,compute,
+    }, "chapter_review"));
     res.status(receipt.reused?200:202).json({
       id:receipt.id,publicCode:receipt.publicCode,status:receipt.status,
-      reused:receipt.reused,retryAfterSeconds:receipt.retryAfterSeconds
+      reused:receipt.reused,retryAfterSeconds:receipt.retryAfterSeconds,
+      dispatchRequested:receipt.dispatchRequested,
     });
   } catch(error){
+    if(error instanceof ChapterDispatchLaunchError){
+      // Launch approval is checked before enqueue, so this path has no writes.
+      res.status(503).json({code:error.code});return;
+    }
     if(error instanceof EnqueueValidationError){
       res.status(error.statusCode).json({code:error.code});return;
     }
     // Never print DB errors, privileged snapshot or identity tokens.
     console.error("QS_PROD_CHAPTER_ENQUEUE_REJECTED");
     res.status(503).json({code:"QS_PROD_CHAPTER_ENQUEUE_UNAVAILABLE"});
+  }
+});
+
+// Recovery after a lost response, interrupted API process or transient Run API
+// failure. This never enqueues a new run or changes the persisted request.
+router.post("/runs/:runId/dispatch-production-chapter",
+  requireAdminPermission("content.generation.run"),async(req,res)=>{
+  res.setHeader("Cache-Control","no-store");
+  if(!req.user?.id || !req.adminSession?.user?.id){
+    res.status(403).json({code:"QS_PROD_CHAPTER_ADMIN_REQUIRED"});return;
+  }
+  const runId=String(req.params.runId??"");
+  if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(runId)){
+    res.status(400).json({code:"QS_CHAPTER_DISPATCH_RUN_ID_INVALID"});return;
+  }
+  try {
+    assertChapterDispatchLaunchApproved();
+    const rows=await sqlClient`
+      SELECT r.status::text AS status, r.request_snapshot AS snapshot
+      FROM content.generation_runs r
+      WHERE r.id=${runId}::uuid
+        AND r.requested_by=${req.adminSession.user.id}::uuid
+        AND r.request_snapshot->>'requestedByFirebaseUid'=${req.user.id}
+        AND EXISTS (
+          SELECT 1 FROM platform.outbox_events e
+          WHERE e.aggregate_id=r.id AND e.aggregate_type='generation_run'
+            AND e.event_type='question_studio.generation_run.chapter_review_queued.v1'
+        )
+      LIMIT 1
+    `;
+    const run=rows[0];
+    if(!run){res.status(404).json({code:"QS_PROD_CHAPTER_RUN_NOT_FOUND"});return;}
+    const guard=createProductionChapterSnapshotGuard(runId);
+    if(!guard || !guard(run.snapshot)){
+      res.status(403).json({code:"QS_PROD_CHAPTER_SCOPE_DENIED"});return;
+    }
+    if(run.status!=="queued"){
+      res.status(200).json({id:runId,status:run.status,dispatchRequested:false});return;
+    }
+    await launchProductionChapterDispatch(runId);
+    res.status(202).json({id:runId,status:run.status,dispatchRequested:true});
+  } catch(error){
+    res.status(503).json({code:error instanceof ChapterDispatchLaunchError
+      ?error.code:"QS_PROD_CHAPTER_DISPATCH_UNAVAILABLE"});
   }
 });
 export default router;

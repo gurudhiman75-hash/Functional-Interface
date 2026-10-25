@@ -41,6 +41,8 @@ function conversionPayload(question: SpatialProductionStudioQuestionV1) {
     runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
     reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
     questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+    // Explicit manual-conversion authority for this legacy test fixture only.
+    questionBankWritable: true,
     testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
     publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
     mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
@@ -89,6 +91,14 @@ for (const qlId of SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds) {
 
     if (language === "en") {
       const payload = conversionPayload(question);
+      for (const authority of [undefined, false]) {
+        const lockedPayload = { ...payload, questionBankWritable: authority };
+        assert(getGeneratedQuestionBankEligibilityIssue(lockedPayload) ===
+          (authority === false ? "questionBankWritable is false" : "questionBankWritable is not explicitly enabled"),
+          `${qlId}: absent/false authority must block Question Bank conversion.`);
+        assert(getGeneratedItemApprovalDisposition(lockedPayload).mode === "review_only",
+          `${qlId}: absent/false authority must remain review-only.`);
+      }
       assert(getGeneratedQuestionBankEligibilityIssue(payload) === null, `${qlId}: frozen Question Bank eligibility regressed.`);
       assert(getGeneratedItemApprovalDisposition(payload).mode === "question_bank", `${qlId}: frozen approval disposition regressed.`);
       const normalized = normalizeGeneratedQuestionPayload(payload, {

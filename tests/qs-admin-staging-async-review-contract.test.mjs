@@ -1,14 +1,35 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
+import {runInNewContext} from "node:vm";
 const load=(p)=>readFileSync(p,"utf8");
 const page=load("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx");
 const api=load("artifacts/admin-app/src/features/question-studio/api.ts");
 const server=load("artifacts/api-server/src/routes/admin-question-studio.ts");
 
-test("production sync Generate remains the default; async is explicitly staging-only",()=>{
+test("sync Generate remains default unless production chapter review is explicitly opted in",()=>{
   assert.match(page,/VITE_QUESTION_STUDIO_ASYNC_STAGING === 'true'/);
-  assert.match(page,/stagingAsyncSelected, setStagingAsyncSelected] = useState\(false\)/);
+  assert.match(page,/VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true'/);
+  const flags=page.match(/^const (?:STAGING_ASYNC_ENABLED|CHAPTER_ASYNC_ENABLED|ASYNC_ENABLED) = .+;$/gm);
+  assert.equal(flags?.length,3,"both independent flags and their combined availability must be declared");
+  const initial=page.match(/stagingAsyncSelected, setStagingAsyncSelected\] = useState\(([^)]+)\)/)?.[1];
+  assert.ok(initial,"missing initial async selection");
+  for(const [staging,chapter,available,selected] of [
+    [undefined,undefined,false,false],
+    ['true',undefined,true,false],
+    [undefined,'true',true,true],
+    ['true','true',true,true],
+    ['false','false',false,false],
+    ['true','TRUE',true,false],
+  ]){
+    const result=runInNewContext(flags.join('\n').replaceAll('import.meta.env','buildEnv')+
+      `\n({available: ASYNC_ENABLED, selected: ${initial}})`,{buildEnv:{
+        VITE_QUESTION_STUDIO_ASYNC_STAGING:staging,
+        VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER:chapter,
+      }});
+    assert.equal(result.available,available);
+    assert.equal(result.selected,selected);
+  }
   assert.match(page,/const result = await generate\(input\)/);
   assert.match(api,/\/admin\/question-studio\/runs['"]/);
   assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput,/);

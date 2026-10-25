@@ -66,6 +66,9 @@ function eligibilityPayload(question: ReturnType<typeof generateSpatialProductio
     runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
     reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
     questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+    // This fixture exercises explicit manual Question Bank conversion, not
+    // the separate production chapter-review output (which remains locked).
+    questionBankWritable: true,
     testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
     publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
     mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
@@ -85,6 +88,16 @@ for (const qlId of PFC_TPF_QLS) {
 
   for (const question of byLanguage) {
     const payload = eligibilityPayload(question);
+    for (const authority of [undefined, false]) {
+      const lockedPayload = { ...payload, questionBankWritable: authority };
+      assert.equal(getGeneratedQuestionBankEligibilityIssue(lockedPayload),
+        authority === false ? "questionBankWritable is false" : "questionBankWritable is not explicitly enabled");
+      assert.equal(getGeneratedItemApprovalDisposition(lockedPayload).mode, "review_only");
+      assert.throws(() => normalizeGeneratedQuestionPayload(lockedPayload, {
+        itemId: `${qlId}-${question.language}-locked`,
+        generationRunCode: "PFC-TPF-STANDARD-INTEGRATION-GATE",
+      }), /questionBankWritable/);
+    }
     assert.equal(question.integrationAuthority, SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority);
     assert.equal(question.lifecycle.questionStudioDiscoverable, true);
     assert.equal(question.lifecycle.registrationStatus, "REGISTERED");

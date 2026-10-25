@@ -1,0 +1,41 @@
+name: Validate admin chapter dispatch integration
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts'
+      - 'artifacts/api-server/src/question-studio/prod-chapter-*.ts'
+      - 'artifacts/api-server/src/question-studio/prod-chapter-*.mjs'
+      - 'artifacts/api-server/src/question-studio/build-async-task-capabilities-manifest.ts'
+      - 'artifacts/admin-app/src/features/question-studio/**'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+      - 'tests/qs-prod-chapter-*.test.mjs'
+      - 'tests/qs-admin-staging-async-review-contract.test.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-admin-chapter-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - run: pnpm install --frozen-lockfile
+      - name: Test API-to-job connection with local HTTP and mocked cloud/database boundaries
+        run: node --test tests/qs-prod-chapter-dispatch-launch.test.mjs tests/qs-prod-chapter-admin-dispatch-route.test.mjs tests/qs-prod-chapter-review-batches.test.mjs tests/qs-prod-chapter-isolated-dispatch.test.mjs tests/qs-prod-chapter-admin-manifest-contract.test.mjs tests/qs-admin-staging-async-review-contract.test.mjs
+      - name: Compile canonical registry locally (no Docker or generation)
+        run: pnpm --dir artifacts/api-server exec node build-qs-prod-task-receiver.mjs
+      - name: Validate every eligible canonical chapter and disabled receiver boot
+        run: node --test tests/qs-prod-chapter-canonical-catalog.test.mjs tests/qs-prod-receiver-disabled-boot.test.mjs
+      - run: pnpm run test:admin
+      - run: pnpm run build:admin
+      - run: git diff --check
