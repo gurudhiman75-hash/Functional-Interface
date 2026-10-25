@@ -1,0 +1,38 @@
+
+name: Examtree Google Cloud OIDC Test
+
+on:
+  push:
+    branches: [New-main]
+    paths:
+      - .github/workflows/examtree-oidc-test.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify-oidc:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: sarbedutech
+          workload_identity_provider: projects/1083299267005/locations/global/workloadIdentityPools/examtree-codex-pool/providers/github-actions
+          service_account: examtree-codex-deploy@sarbedutech.iam.gserviceaccount.com
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Verify OIDC authentication
+        run: |
+          gcloud auth print-access-token > /dev/null
+          echo "OIDC authentication successful"
