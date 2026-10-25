@@ -68,6 +68,9 @@ function conversionPayload(question: SpatialProductionStudioQuestionV1) {
     runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
     reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
     questionBankStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.questionBankStatus,
+    // Explicit authority belongs to this historical conversion fixture only.
+    // Generated review candidates must not inherit it implicitly.
+    questionBankWritable: true,
     testEligibility: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.testEligibility,
     publiclyPublishable: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.publiclyPublishable,
     mockTestEligible: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.mockTestEligible,
@@ -115,6 +118,24 @@ for (const allocation of SPATIAL_PERMANENT_QL_ALLOCATIONS_V1) {
     assertTargetScript(question);
 
     const payload = conversionPayload(question);
+    for (const authority of [undefined, false]) {
+      const lockedPayload = { ...payload, questionBankWritable: authority };
+      assert(getGeneratedQuestionBankEligibilityIssue(lockedPayload) ===
+        (authority === false ? "questionBankWritable is false" : "questionBankWritable is not explicitly enabled"),
+        `${allocation.permanentQlId}/${language}: absent/false authority must block conversion.`);
+      assert(getGeneratedItemApprovalDisposition(lockedPayload).mode === "review_only",
+        `${allocation.permanentQlId}/${language}: absent/false authority must remain review-only.`);
+      let rejected = false;
+      try {
+        normalizeGeneratedQuestionPayload(lockedPayload, {
+          itemId: `P0-${allocation.permanentQlId}-${language}-locked`,
+          generationRunCode: "SPA-P0-REGRESSION-V2",
+        });
+      } catch (error) {
+        rejected = error instanceof Error && error.message.includes("questionBankWritable");
+      }
+      assert(rejected, `${allocation.permanentQlId}/${language}: locked payload was normalized.`);
+    }
     assert(getGeneratedQuestionBankEligibilityIssue(payload) === null, `${allocation.permanentQlId}/${language}: P0 Question Bank eligibility regressed.`);
     assert(getGeneratedItemApprovalDisposition(payload).mode === "question_bank", `${allocation.permanentQlId}/${language}: P0 approval disposition regressed.`);
     const normalized = normalizeGeneratedQuestionPayload(payload, {
@@ -193,7 +214,8 @@ assert(cockpit.includes("itemStimulusSvgs"), "Shared cockpit does not read Spati
 assert(cockpit.includes("itemOptionSvgs"), "Shared cockpit does not read Spatial option SVGs.");
 assert(cockpit.includes("SpatialSvgFigure"), "Shared cockpit does not render Spatial SVGs.");
 assert(studentRichText.includes('"img"') && studentRichText.includes('"src"'), "Student rich-text renderer no longer permits SVG image content.");
-assert(getGeneratedItemApprovalDisposition({ packageId: "LEGACY" }).mode === "question_bank", "FGC integration changed legacy Question Studio approval behavior.");
+assert(getGeneratedItemApprovalDisposition({ packageId: "LEGACY" }).mode === "review_only", "Legacy payload without explicit Question Bank authority must remain review-only.");
+assert(getGeneratedQuestionBankEligibilityIssue({ packageId: "LEGACY" }) === "questionBankWritable is not explicitly enabled", "Legacy payload must not bypass the Question Bank authority gate.");
 
 const evidence = {
   status: "PASS_SPA_P0_QUESTION_STUDIO_REGRESSION_UNDER_FGC_V2",
@@ -215,7 +237,7 @@ const evidence = {
     perItemLocalizationAuthorityPersistence: true,
     sharedCockpitVisualContract: true,
     sharedStudentRichContentContract: true,
-    legacyApprovalUnaffected: true,
+    legacyMissingAuthorityRemainsReviewOnly: true,
   },
 };
 
