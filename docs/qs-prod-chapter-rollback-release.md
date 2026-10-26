@@ -1,6 +1,6 @@
 # Examtree QS — independent full-chapter rollback (source-only)
 
-**Live release status (2026-10-26):** The API, receiver, worker, chapter dispatcher and rollback candidates are deployed with generation disabled; the three service candidates are at 0% traffic. The deployed rollback image still pins the prior candidate digests. This isolated source correction updates those pins; it must be rebuilt and deployed before any production activation. Live expiry rollback proof is still outstanding. The historical COM-001 cleanup remains separate.
+**Live release status (2026-10-26):** The API, receiver, worker, chapter dispatcher and rollback candidates are deployed with generation disabled; the three existing service candidates are at 0% traffic. A newer build-only set for source commit `ef518db500293ccefde2465be14284c585081204` has completed but is not deployed. This source change updates the rollback controller's immutable service-image pins for those new digests; it must be reviewed, merged, rebuilt, and deployed before any production activation. Live expiry rollback proof is still outstanding. The historical COM-001 cleanup remains separate.
 
 ## Release pinned in reviewed source
 
@@ -16,15 +16,15 @@
 
 ## Verified 2026-10-26 candidate images
 
-The operator confirmed these immutable Artifact Registry digests from the release candidate builds, source SHA `c14bd3111821b73c878d78418221bc81079a7ea3`:
+The operator confirmed these immutable Artifact Registry digests from the build-only release, source SHA `ef518db500293ccefde2465be14284c585081204`:
 
 | Cloud Run service | Verified release digest |
 |---|---|
-| `examtree-api` | `sha256:6e53c1134ab15f566e777783b339e3022edabad35ef639638296fd8a0bc42ae3` |
-| `examtree-qs-receiver-prod` | `sha256:f857977b59396d116e78d2657b8a2e2fadae2c7a428ae04571b6880f41f0324b` |
-| `examtree-universal-prod` | `sha256:9bf79d5c3c4f4b2a119b4f4b1e68ef8eeb2e6ded5ed391d5faa67d788d2ba92c` |
+| `examtree-api` | `sha256:fe5b42ff05a0a787b1a0f20d216fafe630327bc3efb141df8d05c03bfc89aefd` |
+| `examtree-qs-receiver-prod` | `sha256:bc52c906d25b8c742988c726ad2c549cf9c6f62688c4243bf8da6ec50607b919` |
+| `examtree-universal-prod` | `sha256:37ad6061dc661dc59e07f38bc55ec654c383cb2f005553cec785b1b23b7336e3` |
 
-These are **candidate digests only**. The rollback controller continues to pin all traffic to the three known-good older baseline revisions on recovery. Final catalog-wide candidate revisions (`examtree-api-00022-gak`, `examtree-qs-receiver-prod-00053-his`, `examtree-universal-prod-00053-sul`) were deployed at **0% traffic** with approvals OFF. Updating pinned digests in GitHub does not update the deployed rollback Job or grant authorization to serve the new revisions. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
+These are **built candidate digests only**; they have not been deployed. The rollback controller source now pins these images while retaining the three known-good older baseline revisions for recovery. The prior catalog-wide candidates (`examtree-api-00022-gak`, `examtree-qs-receiver-prod-00053-his`, `examtree-universal-prod-00053-sul`) remain at **0% traffic** with approvals OFF. Updating source pins does not update the deployed rollback Job or authorize traffic. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
 
 
 ## What the rollback controller enforces
