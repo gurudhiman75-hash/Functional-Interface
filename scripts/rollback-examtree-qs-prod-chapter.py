@@ -199,6 +199,11 @@ def positive_spec_traffic(doc):
     return [x for x in (doc.get("spec") or {}).get("traffic") or []
             if (x.get("percent") or 0) > 0]
 
+def candidate_tag_present(doc, tag):
+    return any(entry.get("tag") == tag
+               for section in ((doc.get("status") or {}), (doc.get("spec") or {}))
+               for entry in section.get("traffic") or [])
+
 def validate_service(service, config, expected_expiry=None):
     doc = fetch("run", "services", "describe", service, "--region=" + REGION)
     baseline = target_revision(service, config["baseline"])
@@ -265,10 +270,7 @@ def verify_disabled(service, config):
     # Cloud Run revision tags expose a URL even at 0% ordinary traffic.
     # Baseline traffic alone is insufficient evidence that the candidate is
     # unreachable; remove and verify this release's explicit tag as well.
-    tagged = [entry for section in (doc.get("status") or {}, doc.get("spec") or {})
-              for entry in section.get("traffic") or []
-              if entry.get("tag") == config["candidate_tag"]]
-    if tagged:
+    if candidate_tag_present(doc, config["candidate_tag"]):
         raise Stop("Candidate release tag remains reachable: " + service)
     traffic = positive_traffic(doc)
     desired = positive_spec_traffic(doc)
@@ -356,8 +358,15 @@ def perform_rollback(expected_expiry=None):
             failures.append(str(exc))
             continue
 
+        tag_removal = ["--remove-tags=" + cfg["candidate_tag"]]
         try:
             doc = fetch("run", "services", "describe", service, "--region=" + REGION)
+            # A Scheduler tick can start just before a prior successful
+            # execution pauses it. Once the candidate tag is already gone,
+            # do not ask Cloud Run to remove it again; recovery remains
+            # idempotent and the final verification still requires absence.
+            if not candidate_tag_present(doc, cfg["candidate_tag"]):
+                tag_removal = []
             flags = env_values(template(doc))
             if any(flags.get(key) != "false" for key in cfg["off"]):
                 updates = ",".join(key + "=false" for key in cfg["off"])
@@ -375,7 +384,7 @@ def perform_rollback(expected_expiry=None):
             command("run", "services", "update-traffic", service,
                     "--region=" + REGION,
                     "--to-revisions=" + cfg["baseline"] + "=100",
-                    "--remove-tags=" + cfg["candidate_tag"], "--quiet")
+                    *tag_removal, "--quiet")
             verify_disabled(service, cfg)
             print("PASS: verified disabled baseline for " + service, flush=True)
         except Stop as exc:
