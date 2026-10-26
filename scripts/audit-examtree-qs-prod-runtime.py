@@ -8,7 +8,8 @@ Requires Cloud Shell with gcloud, Python 3, and read access to project sarbedute
 import json
 import subprocess
 from urllib.parse import urlsplit
-from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
+from qs_prod_serving_revision import (serving_revision_name,
+                                      verify_pinned_disabled_revision)
 
 PROJECT = "sarbedutech"
 REGION = "asia-south1"
@@ -21,6 +22,10 @@ TASK_SA = "examtree-qs-task-prod@sarbedutech.iam.gserviceaccount.com"
 RECEIVER_SA = "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com"
 WORKER_SA = "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com"
 DISPATCH_SA = "examtree-qs-dispatch-prod@sarbedutech.iam.gserviceaccount.com"
+DISABLED_BASELINES = {
+    RECEIVER: "examtree-qs-receiver-prod-00025-27d",
+    WORKER: "examtree-universal-prod-00021-5q7",
+}
 
 counts = {"PASS": 0, "BLOCK": 0, "REVIEW": 0}
 def result(status, label, detail=""):
@@ -137,8 +142,9 @@ for name, runtime_sa in ((RECEIVER, RECEIVER_SA), (WORKER, WORKER_SA)):
     try:
         live_name = serving_revision_name(data, name)
         live = cloud_json("run", "revisions", "describe", live_name, "--region=" + REGION)
-        verify_serving_revision(data, live, name)
-        result("PASS", name + " 100%-serving revision ready and config matches template")
+        verify_pinned_disabled_revision(data, live, name,
+                                       DISABLED_BASELINES[name], runtime_sa)
+        result("PASS", name + " pinned disabled serving baseline ready")
     except ValueError as exc:
         result("BLOCK", name + " serving revision", str(exc))
     check_private_iam(name, TASK_SA if name == RECEIVER else RECEIVER_SA)
