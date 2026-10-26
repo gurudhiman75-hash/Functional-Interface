@@ -1,6 +1,8 @@
 # Examtree QS — independent full-chapter rollback (source-only)
 
-**Live release status (2026-10-26):** The API, receiver, worker, chapter dispatcher and rollback candidates are deployed with generation disabled; the three existing service candidates are at 0% traffic. A newer build-only set for source commit `ef518db500293ccefde2465be14284c585081204` has completed but is not deployed. This source change updates the rollback controller's immutable service-image pins for those new digests; it must be reviewed, merged, rebuilt, and deployed before any production activation. Live expiry rollback proof is still outstanding. The historical COM-001 cleanup remains separate.
+**Live release status (2026-10-26):** The pinned `ef518db500293ccefde2465be14284c585081204` API, receiver and worker images are deployed as the `qs-chapter-ef518db5` tagged candidates at 0% ordinary traffic. Their `/health` checks returned HTTP 200; private receiver/worker checks used the intended task-to-receiver and receiver-to-worker OIDC identities. The chapter dispatcher and refreshed rollback images below are installed in their dedicated Jobs. Generation approvals remain false and both queues remain paused.
+
+The independent one-minute Scheduler successfully invoked rollback execution `examtree-qs-prod-chapter-rollback-px848` with an expired UTC test window. The execution succeeded, reasserted the pinned baselines and disabled state, and paused its Scheduler. The operator then disarmed both rollback flags and reran the read-only rollback preflight successfully. **This proof began with disabled approvals, paused queues and baseline traffic; it does not prove rollback from an active chapter release or a live permission-failure scenario.** The historical COM-001 cleanup remains separate.
 
 ## Release pinned in reviewed source
 
@@ -26,14 +28,18 @@ The operator confirmed these immutable Artifact Registry digests from the build-
 
 ### Additional build-only artifacts
 
-The chapter dispatcher and refreshed rollback controller were built from release-pin branch commit `1866ef38fbf434bc35c823a5073152c37d12b801`. Both builds passed their configured checks and remain undeployed candidates:
+The chapter dispatcher and refreshed rollback controller were built from release-pin branch commit `1866ef38fbf2b19f7bd2abea4bdb11c59a729f76`. Both builds passed their configured checks and are deployed to their dedicated Jobs with generation disabled:
 
 | Artifact | Build ID | Immutable image digest |
 |---|---|---|
 | `examtree-qs-chapter-dispatch-prod` | `fb22146c-907e-4aee-8770-cc6b12dedee2` | `sha256:7ea0f08ac9a4eb957f619255aaa3ce2eb4fc156e179e034f1c42a7c723de68c6` |
 | `examtree-qs-prod-chapter-rollback` | `69e1a41c-2477-4a45-823b-e63a65fecc0b` | `sha256:08dfd48709fb0f979c97ad6d8ba748eff4d6bcffde390d5e683f28ca098b87b1` |
 
-These are **built candidate digests only**; they have not been deployed. The rollback controller source now pins these images while retaining the three known-good older baseline revisions for recovery. The prior catalog-wide candidates (`examtree-api-00022-gak`, `examtree-qs-receiver-prod-00053-his`, `examtree-universal-prod-00053-sul`) remain at **0% traffic** with approvals OFF. Updating source pins does not update the deployed rollback Job or authorize traffic. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
+The current service candidates are API `examtree-api-00023-goz`, receiver `examtree-qs-receiver-prod-00054-qac`, and worker `examtree-universal-prod-00054-cid`. Ordinary traffic remains 100% on the three pinned baselines. The independent chapter dispatcher is disabled. Deployment does not authorize generation: baked manifest agreement, the authenticated admin workflow, bounded review persistence, matching scope/expiry and active-release recovery remain release gates.
+
+### Disabled baseline preflight with staged candidates
+
+The disabled-only operator preflight validates both desired and observed traffic against the exact pinned receiver/worker baseline revision names. It independently verifies Ready state, immutable image digest, expected runtime identity, matching secret references and disabled approval values on the serving baseline and latest candidate template. A different candidate image does not imply serving-image drift when traffic is explicitly pinned to the reviewed baseline. The strict template-equality validator remains available for workflows that require identical serving/template configuration. Both Google-reported short service origins and the verified deterministic regional origins are accepted for receiver and worker URL bindings.
 
 
 ## What the rollback controller enforces
@@ -51,10 +57,10 @@ Before expiry, scheduled runs make no changes. After expiry, it:
 1. Pauses and verifies BOTH the existing `examtree-qs-prod` and the dedicated `examtree-qs-chapter-prod` Cloud Tasks queues. If either queue is missing or cannot be paused, rollback fails closed and leaves its Scheduler enabled.
 2. Disables BOTH the normal `examtree-qs-dispatch-prod` and dedicated `examtree-qs-chapter-dispatch-prod` Job approval flags, verifying both are `false`.
 3. Checks exact service runtime accounts, immutable release image digests, permitted approvals and Ready, disabled fallback revisions.
-4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, and pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST).
-5. Independently verifies live traffic, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
+4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST), and removes the `qs-chapter-ef518db5` tag. A zero-percent tag still exposes a direct revision URL.
+5. Independently verifies live traffic, absence of the candidate tag, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
 
-Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation (for example, tagged or non-default routes may remain reachable). The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
+Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation if the candidate tag remains reachable. The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
 
 ## Separate mandatory production-change approval
 

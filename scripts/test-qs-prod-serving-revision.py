@@ -2,7 +2,8 @@
 """Offline regression tests; no gcloud, network or secret access."""
 import copy
 import unittest
-from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
+from qs_prod_serving_revision import (serving_revision_name, verify_serving_revision,
+                                     verify_pinned_disabled_revision)
 
 SERVICE = "examtree-universal-prod"
 IMAGE = "asia-south1-docker.pkg.dev/sarbedutech/qs/test@sha256:" + "1" * 64
@@ -87,6 +88,43 @@ class ServingRevisionTests(unittest.TestCase):
             serving_revision_name(service, SERVICE)
 
 
+class PinnedDisabledRevisionTests(unittest.TestCase):
+    def pinned_fixture(self):
+        service, revision = fixture()
+        service["spec"]["traffic"] = [{"revisionName": LIVE, "percent": 100}]
+        revision["status"]["imageDigest"] = IMAGE
+        service["spec"]["template"]["spec"]["containers"][0]["image"] = IMAGE[:-64] + "2" * 64
+        return service, revision
+
+    def test_staged_candidate_can_differ_from_pinned_disabled_image(self):
+        service, revision = self.pinned_fixture()
+        self.assertEqual(verify_pinned_disabled_revision(service, revision, SERVICE, LIVE, SA), LIVE)
+
+    def test_unsafe_pin_or_configuration_is_rejected(self):
+        for change in ("wrong_pin", "latest", "desired_split", "unready", "digest",
+                       "template_approval", "live_approval", "identity", "secret"):
+            service, revision = self.pinned_fixture()
+            if change == "wrong_pin":
+                service["status"]["traffic"][0]["revisionName"] = CREATED_RETIRED
+            elif change == "latest":
+                service["spec"]["traffic"][0]["latestRevision"] = True
+            elif change == "desired_split":
+                service["spec"]["traffic"].append({"revisionName": CREATED_RETIRED, "percent": 1})
+            elif change == "unready":
+                revision["status"]["conditions"][0]["status"] = "False"
+            elif change == "digest":
+                revision["status"]["imageDigest"] = "latest"
+            elif change in ("template_approval", "live_approval"):
+                spec = service["spec"]["template"]["spec"] if change == "template_approval" else revision["spec"]
+                spec["containers"][0]["env"][0]["value"] = "true"
+            elif change == "identity":
+                revision["spec"]["serviceAccountName"] = "other"
+            elif change == "secret":
+                revision["spec"]["containers"][0]["env"][1]["valueFrom"]["secretKeyRef"]["name"] = "other"
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                verify_pinned_disabled_revision(service, revision, SERVICE, LIVE, SA)
+
+
 class ProductionPreflightIntegrationTests(unittest.TestCase):
     """Exercise the real preflight with mocked gcloud, not just the helper."""
 
@@ -105,11 +143,12 @@ class ProductionPreflightIntegrationTests(unittest.TestCase):
 
         def make_service(name, sa, env):
             image = "asia-south1-docker.pkg.dev/sarbedutech/qs/" + name + "@sha256:" + "1" * 64
-            serving = name + "-00010-abc"
+            serving = module.DISABLED_BASELINES[name]
             template = {"serviceAccountName": sa,
                         "containers": [{"image": image, "env": env}]}
             service = {
-                "spec": {"template": {"spec": copy.deepcopy(template)}},
+                "spec": {"template": {"spec": copy.deepcopy(template)},
+                         "traffic": [{"revisionName": serving, "percent": 100}]},
                 "status": {
                     "url": "https://" + name + "-example-uc.a.run.app",
                     "latestCreatedRevisionName": name + "-00011-retired",
@@ -125,8 +164,11 @@ class ProductionPreflightIntegrationTests(unittest.TestCase):
             revision = {
                 "metadata": {"name": serving},
                 "spec": copy.deepcopy(template),
-                "status": {"conditions": [{"type": "Ready", "status": "True"}]},
+                "status": {"conditions": [{"type": "Ready", "status": "True"}],
+                           "imageDigest": image},
             }
+            # A no-traffic candidate is allowed to stage a different image.
+            service["spec"]["template"]["spec"]["containers"][0]["image"] = image[:-64] + "2" * 64
             return service, revision
 
         secret = lambda name: {"name": name, "valueFrom": {
@@ -137,9 +179,9 @@ class ProductionPreflightIntegrationTests(unittest.TestCase):
                 {"name": "EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT",
                  "value": module.TASK_SA},
                 {"name": "EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE",
-                 "value": module.RECEIVER_URL},
+                 "value": "https://" + module.RECEIVER + "-example-uc.a.run.app"},
                 {"name": "QUESTION_STUDIO_UNIVERSAL_WORKER_URL",
-                 "value": module.WORKER_URL},
+                 "value": "https://" + module.WORKER + "-example-uc.a.run.app"},
                 secret("QUESTION_STUDIO_WORKER_TOKEN"),
             ])
         # The secret reference's ENV name differs from its Secret Manager name.

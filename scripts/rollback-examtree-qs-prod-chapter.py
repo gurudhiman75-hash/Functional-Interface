@@ -32,6 +32,7 @@ BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-43
 SERVICES = {
     "examtree-api": {
         "baseline": "examtree-api-00002-mch",
+        "candidate_tag": "qs-chapter-ef518db5",
         "sa": "examtree-api-prod-runtime@sarbedutech.iam.gserviceaccount.com",
         "digest": "sha256:fe5b42ff05a0a787b1a0f20d216fafe630327bc3efb141df8d05c03bfc89aefd",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
@@ -39,6 +40,7 @@ SERVICES = {
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
+        "candidate_tag": "qs-chapter-ef518db5",
         "sa": "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com",
         "digest": "sha256:bc52c906d25b8c742988c726ad2c549cf9c6f62688c4243bf8da6ec50607b919",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
@@ -46,6 +48,7 @@ SERVICES = {
     },
     "examtree-universal-prod": {
         "baseline": "examtree-universal-prod-00021-5q7",
+        "candidate_tag": "qs-chapter-ef518db5",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
         "digest": "sha256:37ad6061dc661dc59e07f38bc55ec654c383cb2f005553cec785b1b23b7336e3",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
@@ -259,6 +262,14 @@ def verify_scheduler():
 
 def verify_disabled(service, config):
     doc = fetch("run", "services", "describe", service, "--region=" + REGION)
+    # Cloud Run revision tags expose a URL even at 0% ordinary traffic.
+    # Baseline traffic alone is insufficient evidence that the candidate is
+    # unreachable; remove and verify this release's explicit tag as well.
+    tagged = [entry for section in (doc.get("status") or {}, doc.get("spec") or {})
+              for entry in section.get("traffic") or []
+              if entry.get("tag") == config["candidate_tag"]]
+    if tagged:
+        raise Stop("Candidate release tag remains reachable: " + service)
     traffic = positive_traffic(doc)
     desired = positive_spec_traffic(doc)
     if len(traffic) != 1 or len(desired) != 1 or \
@@ -363,7 +374,8 @@ def perform_rollback(expected_expiry=None):
             # still prevents a success result and Scheduler self-pause.
             command("run", "services", "update-traffic", service,
                     "--region=" + REGION,
-                    "--to-revisions=" + cfg["baseline"] + "=100", "--quiet")
+                    "--to-revisions=" + cfg["baseline"] + "=100",
+                    "--remove-tags=" + cfg["candidate_tag"], "--quiet")
             verify_disabled(service, cfg)
             print("PASS: verified disabled baseline for " + service, flush=True)
         except Stop as exc:

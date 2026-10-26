@@ -81,6 +81,10 @@ class InMemoryCloud:
                     "traffic": [{"percent": 100, "revisionName": candidate}]
                 },
             }
+            tagged = {"percent": 0, "revisionName": candidate,
+                      "tag": config["candidate_tag"]}
+            self.services[service]["spec"]["traffic"].append(copy.deepcopy(tagged))
+            self.services[service]["status"]["traffic"].append(copy.deepcopy(tagged))
 
     def fetch(self, *args):
         if args[:3] == ("tasks", "queues", "describe"):
@@ -154,6 +158,8 @@ class InMemoryCloud:
             pinned = "--to-revisions=" + cfg["baseline"] + "=100"
             if pinned not in args or "--to-latest" in args:
                 raise AssertionError("Rollback must pin exact known-good revision")
+            if "--remove-tags=" + cfg["candidate_tag"] not in args:
+                raise AssertionError("Rollback must remove the reachable candidate tag")
             desired = [{"percent": 100, "revisionName": cfg["baseline"]}]
             self.services[name]["spec"]["traffic"] = copy.deepcopy(desired)
             self.services[name]["status"]["traffic"] = copy.deepcopy(desired)

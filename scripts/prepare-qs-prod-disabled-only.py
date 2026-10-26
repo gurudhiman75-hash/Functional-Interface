@@ -11,7 +11,7 @@ import json
 import subprocess
 import sys
 from urllib.parse import urlsplit
-from qs_prod_serving_revision import serving_revision_name, verify_serving_revision
+from qs_prod_serving_revision import serving_revision_name, verify_pinned_disabled_revision
 
 P="sarbedutech"
 N="1083299267005"
@@ -30,6 +30,10 @@ AGENT_SA=f"service-{N}@gcp-sa-cloudtasks.iam.gserviceaccount.com"
 RECEIVER_URL=f"https://{RECEIVER}-{N}.{R}.run.app"
 WORKER_URL=f"https://{WORKER}-{N}.{R}.run.app"
 TASK_URL=RECEIVER_URL+"/internal/question-studio/async-task"
+DISABLED_BASELINES={
+    RECEIVER:"examtree-qs-receiver-prod-00025-27d",
+    WORKER:"examtree-universal-prod-00021-5q7",
+}
 
 def cloud(args, *, json_result=False, sensitive=False):
     # No shell, no xtrace, no printing full command/output on error.
@@ -109,8 +113,9 @@ def check_preflight():
                for binding in project_iam.get("bindings",[])),
            "Cloud Tasks managed service agent lacks unconditional "
            "roles/cloudtasks.serviceAgent on project; do not apply bindings")
+    service_docs={name:service(name) for name in (RECEIVER,WORKER)}
     for name,sa,caller in ((RECEIVER,RECEIVER_SA,TASK_SA),(WORKER,WORKER_SA,RECEIVER_SA)):
-        d=service(name)
+        d=service_docs[name]
         sp=((d.get("spec") or {}).get("template") or {}).get("spec") or {}
         ensure(sp.get("serviceAccountName")==sa,name+" runtime account unexpected")
         # Inspect the revision actually serving 100% traffic. Cloud Run can
@@ -119,7 +124,7 @@ def check_preflight():
         try:
             live_name=serving_revision_name(d,name)
             live=cloud(["run","revisions","describe",live_name,"--region="+R],json_result=True)
-            verify_serving_revision(d,live,name)
+            verify_pinned_disabled_revision(d,live,name,DISABLED_BASELINES[name],sa)
         except ValueError as exc:
             raise RuntimeError("STOP: "+name+" unsafe serving revision: "+str(exc)) from exc
         status=d.get("status") or {}
@@ -133,10 +138,14 @@ def check_preflight():
         if name==RECEIVER:
             ensure(env_val(env,"EXAMTREE_QUESTION_STUDIO_TASK_SERVICE_ACCOUNT")==TASK_SA,
                    "receiver OIDC service account mismatch")
-            ensure(endpoint_config(env_val(env,"EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE"),RECEIVER_URL),
-                   "receiver OIDC audience not the verified deterministic production endpoint")
-            ensure(endpoint_config(env_val(env,"QUESTION_STUDIO_UNIVERSAL_WORKER_URL"),WORKER_URL),
-                   "receiver worker URL not the verified deterministic production endpoint")
+            receiver_origins=(RECEIVER_URL,status.get("url") or "")
+            worker_origins=(WORKER_URL,(service_docs[WORKER].get("status") or {}).get("url") or "")
+            ensure(any(endpoint_config(env_val(env,"EXAMTREE_QUESTION_STUDIO_TASK_AUDIENCE"),origin)
+                       for origin in receiver_origins),
+                   "receiver OIDC audience not a verified production service origin")
+            ensure(any(endpoint_config(env_val(env,"QUESTION_STUDIO_UNIVERSAL_WORKER_URL"),origin)
+                       for origin in worker_origins),
+                   "receiver worker URL not a verified production service origin")
             existing_db=secret_ref(env,"DATABASE_URL")
             ensure(not existing_db or existing_db==DB_SECRET,"receiver database secret is unexpected")
             ensure(not env_val(env,"DATABASE_URL"),"receiver database secret supplied in plaintext")
