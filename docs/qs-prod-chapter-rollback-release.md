@@ -24,6 +24,15 @@ The operator confirmed these immutable Artifact Registry digests from the build-
 | `examtree-qs-receiver-prod` | `sha256:bc52c906d25b8c742988c726ad2c549cf9c6f62688c4243bf8da6ec50607b919` |
 | `examtree-universal-prod` | `sha256:37ad6061dc661dc59e07f38bc55ec654c383cb2f005553cec785b1b23b7336e3` |
 
+### Additional build-only artifacts
+
+The chapter dispatcher and refreshed rollback controller were built from release-pin branch commit `1866ef38fbf434bc35c823a5073152c37d12b801`. Both builds passed their configured checks and remain undeployed candidates:
+
+| Artifact | Build ID | Immutable image digest |
+|---|---|---|
+| `examtree-qs-chapter-dispatch-prod` | `fb22146c-907e-4aee-8770-cc6b12dedee2` | `sha256:7ea0f08ac9a4eb957f619255aaa3ce2eb4fc156e179e034f1c42a7c723de68c6` |
+| `examtree-qs-prod-chapter-rollback` | `69e1a41c-2477-4a45-823b-e63a65fecc0b` | `sha256:08dfd48709fb0f979c97ad6d8ba748eff4d6bcffde390d5e683f28ca098b87b1` |
+
 These are **built candidate digests only**; they have not been deployed. The rollback controller source now pins these images while retaining the three known-good older baseline revisions for recovery. The prior catalog-wide candidates (`examtree-api-00022-gak`, `examtree-qs-receiver-prod-00053-his`, `examtree-universal-prod-00053-sul`) remain at **0% traffic** with approvals OFF. Updating source pins does not update the deployed rollback Job or authorize traffic. The independent chapter dispatcher must also be disabled by the controller. Before any chapter generation, independently inspect live candidate revision IDs, runtime identities, signed OIDC, baked manifest, scheduler/rollback ability to disable an active release, and both queue states.
 
 
