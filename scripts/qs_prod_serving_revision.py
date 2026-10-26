@@ -9,8 +9,15 @@ No GCP API calls, permissions, or modifications occur in this module.
 def serving_revision_name(service, expected_service):
     status = service.get("status") or {}
     traffic = status.get("traffic")
-    if not isinstance(traffic, list) or len(traffic) != 1:
-        raise ValueError("expected exactly one traffic target")
+    if not isinstance(traffic, list):
+        raise ValueError("expected traffic targets")
+    # Cloud Run includes tagged revisions in status.traffic with 0% ordinary
+    # traffic. Ignore those entries when determining which revision serves
+    # requests, while still requiring exactly one 100% positive target.
+    traffic = [target for target in traffic
+               if isinstance(target, dict) and (target.get("percent") or 0) > 0]
+    if len(traffic) != 1:
+        raise ValueError("expected exactly one positive traffic target")
     target = traffic[0]
     name = target.get("revisionName")
     if target.get("percent") != 100 or not isinstance(name, str) or not name.startswith(expected_service + "-"):
