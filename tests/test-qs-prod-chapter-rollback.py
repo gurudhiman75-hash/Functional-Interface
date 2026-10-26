@@ -234,10 +234,12 @@ class RollbackOrderTests(unittest.TestCase):
             if args[:3] == ("run", "services", "describe"):
                 service = args[3]
                 cfg = mod.SERVICES[service]
+                tagged = {"revisionName": service + "-candidate", "percent": 0,
+                          "tag": cfg["candidate_tag"]}
                 return {"spec": {"template": {"spec": {"containers": [
                     {"env": [{"name": key, "value": "false"}
                              for key in cfg["off"]]}
-                ]}}}}
+                ]}}, "traffic": [tagged]}, "status": {"traffic": [tagged]}}
             raise AssertionError("Unexpected Cloud metadata call")
         def fake_cmd(*parts):
             actions.append(parts)

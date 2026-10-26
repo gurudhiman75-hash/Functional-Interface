@@ -158,8 +158,11 @@ class InMemoryCloud:
             pinned = "--to-revisions=" + cfg["baseline"] + "=100"
             if pinned not in args or "--to-latest" in args:
                 raise AssertionError("Rollback must pin exact known-good revision")
-            if "--remove-tags=" + cfg["candidate_tag"] not in args:
-                raise AssertionError("Rollback must remove the reachable candidate tag")
+            has_tag = controller.candidate_tag_present(
+                self.services[name], cfg["candidate_tag"])
+            removes_tag = "--remove-tags=" + cfg["candidate_tag"] in args
+            if has_tag != removes_tag:
+                raise AssertionError("Rollback tag removal must match tag presence")
             desired = [{"percent": 100, "revisionName": cfg["baseline"]}]
             self.services[name]["spec"]["traffic"] = copy.deepcopy(desired)
             self.services[name]["status"]["traffic"] = copy.deepcopy(desired)
@@ -233,6 +236,24 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
         paused = [args[3] for args in cloud.actions
                   if args[:3] == ("tasks", "queues", "pause")]
         self.assertEqual(paused, list(controller.QUEUES))
+
+    def test_repeat_due_execution_succeeds_after_candidate_tag_is_removed(self):
+        cloud = InMemoryCloud()
+        now = dt.datetime(2026, 10, 24, 11, 5, tzinfo=UTC)
+        self.assertEqual(cloud.execute(now), 0)
+        # A second Scheduler trigger may already be in flight when the first
+        # execution pauses a one-minute Scheduler. It must complete safely
+        # when the first execution has already removed every candidate tag.
+        cloud.scheduler = "ENABLED"
+        first_action_count = len(cloud.actions)
+        self.assertEqual(cloud.execute(now), 0)
+        retry_actions = cloud.actions[first_action_count:]
+        retries = [a for a in retry_actions
+                   if a[:3] == ("run", "services", "update-traffic")]
+        self.assertEqual(len(retries), len(controller.SERVICES))
+        self.assertTrue(all("--remove-tags=" + controller.SERVICES[a[3]]["candidate_tag"]
+                            not in a for a in retries))
+        self.assertEqual(cloud.scheduler, "PAUSED")
 
     def test_one_queue_pause_failure_keeps_scheduler_enabled(self):
         cloud = InMemoryCloud()
