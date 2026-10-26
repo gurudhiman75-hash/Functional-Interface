@@ -5,6 +5,7 @@ A retired, zero-traffic latest-created revision is not evidence that the
 that its immutable configuration matches the service's desired template.
 No GCP API calls, permissions, or modifications occur in this module.
 """
+import re
 
 def serving_revision_name(service, expected_service):
     status = service.get("status") or {}
@@ -72,4 +73,60 @@ def verify_serving_revision(service, revision, expected_service):
             raise ValueError("serving startup command differs from service template")
     if _env(intended_container) != _env(live_container):
         raise ValueError("serving environment or secret references differ from service template")
+    return name
+
+
+def verify_pinned_disabled_revision(service, revision, expected_service,
+                                    expected_revision, expected_identity):
+    """Validate an explicit disabled baseline while a candidate is staged.
+
+    A staged template may contain a different image and additional plaintext
+    feature settings. It must retain the baseline identity, secret bindings,
+    startup overrides and disabled generation approvals. Both desired and
+    observed ordinary traffic must explicitly name the reviewed baseline.
+    """
+    name = serving_revision_name(service, expected_service)
+    if name != expected_revision:
+        raise ValueError("serving revision is not the pinned disabled baseline")
+    desired = (service.get("spec") or {}).get("traffic")
+    if not isinstance(desired, list):
+        raise ValueError("desired traffic must explicitly pin the baseline")
+    positive = [x for x in desired if isinstance(x, dict) and
+                (x.get("percent") or 0) > 0]
+    if len(positive) != 1 or positive[0].get("percent") != 100 or \
+       positive[0].get("revisionName") != expected_revision or \
+       positive[0].get("latestRevision") is True:
+        raise ValueError("desired traffic is not pinned to the disabled baseline")
+    if not isinstance(revision, dict) or \
+       (revision.get("metadata") or {}).get("name") != name:
+        raise ValueError("serving revision metadata does not match baseline")
+    if not any(x.get("type") == "Ready" and x.get("status") == "True"
+               for x in (revision.get("status") or {}).get("conditions") or []
+               if isinstance(x, dict)):
+        raise ValueError("disabled baseline is not Ready=True")
+    digest = (revision.get("status") or {}).get("imageDigest") or ""
+    if not re.search(r"@sha256:[0-9a-f]{64}$", digest):
+        raise ValueError("disabled baseline immutable image digest missing")
+    template = (((service.get("spec") or {}).get("template") or {}).get("spec") or {})
+    serving = revision.get("spec") or {}
+    containers = []
+    secret_bindings = []
+    for spec in (template, serving):
+        if spec.get("serviceAccountName") != expected_identity:
+            raise ValueError("disabled baseline or candidate runtime identity differs")
+        container = _single_container(spec)
+        if not container.get("image"):
+            raise ValueError("disabled baseline or candidate image missing")
+        values = _env(container)
+        for key, (value, reference) in values.items():
+            if key.startswith("EXAMTREE_QS_PRODUCTION_") and key.endswith("_APPROVED"):
+                if value != "false" or reference is not None:
+                    raise ValueError("generation approval is not disabled")
+        containers.append(container)
+        secret_bindings.append({k: v for k, v in values.items() if v[1] is not None})
+    if secret_bindings[0] != secret_bindings[1]:
+        raise ValueError("disabled baseline and candidate secret bindings differ")
+    for key in ("command", "args"):
+        if (containers[0].get(key) or []) != (containers[1].get(key) or []):
+            raise ValueError("disabled baseline and candidate startup overrides differ")
     return name
