@@ -1,0 +1,34 @@
+name: Export RNK-001 multilingual human review pack
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/tests/export-rnk-001-multilingual-human-review-pack-20261002.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: rnk-001-multilingual-human-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/export-rnk-001-multilingual-human-review-pack-20261002.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-rnk-001-multilingual-human-review-pack-20261002.mjs
+          node artifacts/api-server/dist/reasoning-v1/export-rnk-001-multilingual-human-review-pack-20261002.mjs | tee /tmp/rnk-001-multilingual-human-review-pack.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-multilingual-human-review-pack
+          path: /tmp/rnk-001-multilingual-human-review-pack.md
+          retention-days: 14
