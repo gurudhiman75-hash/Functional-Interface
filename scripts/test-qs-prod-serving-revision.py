@@ -39,13 +39,23 @@ class ServingRevisionTests(unittest.TestCase):
         service["status"]["latestCreatedRevisionName"] = LIVE
         self.assertEqual(verify_serving_revision(service, revision, SERVICE), LIVE)
 
+    def test_zero_traffic_tagged_candidate_does_not_block_serving_revision(self):
+        service, revision = fixture()
+        service["status"]["traffic"].append({
+            "revisionName": CREATED_RETIRED,
+            "percent": 0,
+            "tag": "qs-chapter-candidate",
+            "url": "https://candidate.example.run.app",
+        })
+        self.assertEqual(verify_serving_revision(service, revision, SERVICE), LIVE)
+
     def test_unsafe_serving_revision_rejected(self):
         cases = []
         for change in ("split", "wrong_service", "not_ready", "missing_revision",
                        "image", "identity", "approval", "secret", "command", "duplicate"):
             service, revision = fixture()
             if change == "split":
-                service["status"]["traffic"].append({"revisionName": CREATED_RETIRED, "percent": 0})
+                service["status"]["traffic"].append({"revisionName": CREATED_RETIRED, "percent": 1})
             elif change == "wrong_service":
                 service["status"]["traffic"][0]["revisionName"] = "unrelated-00001"
             elif change == "not_ready":
@@ -104,7 +114,12 @@ class ProductionPreflightIntegrationTests(unittest.TestCase):
                     "url": "https://" + name + "-example-uc.a.run.app",
                     "latestCreatedRevisionName": name + "-00011-retired",
                     "latestReadyRevisionName": serving,
-                    "traffic": [{"revisionName": serving, "percent": 100}],
+                    "traffic": [
+                        {"revisionName": serving, "percent": 100},
+                        {"revisionName": name + "-00011-retired", "percent": 0,
+                         "tag": "qs-chapter-candidate",
+                         "url": "https://candidate.example.run.app"},
+                    ],
                 },
             }
             revision = {
