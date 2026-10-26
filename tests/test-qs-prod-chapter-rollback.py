@@ -147,6 +147,22 @@ class ServiceGuardTests(unittest.TestCase):
             with self.assertRaisesRegex(mod.Stop, "not pinned"):
                 mod.verify_disabled(service, cfg)
 
+    def test_rejects_reachable_candidate_tag_even_at_zero_percent(self):
+        service = "examtree-api"
+        cfg = mod.SERVICES[service]
+        baseline_traffic = [{"revisionName": cfg["baseline"], "percent": 100}]
+        tagged = {"revisionName": "examtree-api-00023-goz", "percent": 0,
+                  "tag": cfg["candidate_tag"]}
+        doc = {
+            "spec": {"template": {"spec": {"containers": [{"env": [
+                {"name": k, "value": "false"} for k in cfg["off"]
+            ]}]}}, "traffic": baseline_traffic + [tagged]},
+            "status": {"traffic": baseline_traffic + [tagged]},
+        }
+        with patch.object(mod, "fetch", return_value=doc):
+            with self.assertRaisesRegex(mod.Stop, "tag remains reachable"):
+                mod.verify_disabled(service, cfg)
+
 class NoCloudMutationTests(unittest.TestCase):
     def test_unapproved_apply_makes_no_cloud_calls(self):
         with patch.object(mod, "command", side_effect=["sarbedutech"]) as called, \
@@ -241,6 +257,7 @@ class RollbackOrderTests(unittest.TestCase):
                              ("run", "services", "update-traffic"))
             self.assertIn("--to-revisions=" + cfg["baseline"] + "=100",
                           actions[i])
+            self.assertIn("--remove-tags=" + cfg["candidate_tag"], actions[i])
             self.assertNotIn("--to-latest", actions[i])
         self.assertEqual(actions[-1][:3], ("scheduler", "jobs", "pause"))
 

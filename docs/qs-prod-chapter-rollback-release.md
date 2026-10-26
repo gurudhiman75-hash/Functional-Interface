@@ -57,10 +57,10 @@ Before expiry, scheduled runs make no changes. After expiry, it:
 1. Pauses and verifies BOTH the existing `examtree-qs-prod` and the dedicated `examtree-qs-chapter-prod` Cloud Tasks queues. If either queue is missing or cannot be paused, rollback fails closed and leaves its Scheduler enabled.
 2. Disables BOTH the normal `examtree-qs-dispatch-prod` and dedicated `examtree-qs-chapter-dispatch-prod` Job approval flags, verifying both are `false`.
 3. Checks exact service runtime accounts, immutable release image digests, permitted approvals and Ready, disabled fallback revisions.
-4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, and pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST).
-5. Independently verifies live traffic, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
+4. For API, Receiver, Worker, turns off chapter-approval flags in the *template* using a new zero-traffic revision, pins 100% ordinary traffic to the exact known-good fallback revision (never LATEST), and removes the `qs-chapter-ef518db5` tag. A zero-percent tag still exposes a direct revision URL.
+5. Independently verifies live traffic, absence of the candidate tag, template approvals, both dispatcher Jobs, both queues and cleanup Scheduler. Only after complete recovery does it pause **its own** Scheduler.
 
-Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation (for example, tagged or non-default routes may remain reachable). The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
+Any failure produces a sanitized STOP; the independent Scheduler stays active for incident investigation. After verifying a serving release digest and Ready, disabled fallback revision, the controller also attempts to route normal traffic to the pinned safe revision **even if a service-template approval-toggle update is denied**; it still reports rollback incomplete and requires investigation if the candidate tag remains reachable. The controller does not access Neon, read secrets, publish questions, or modify IAM. Pausing queue does not terminate requests already in flight.
 
 ## Separate mandatory production-change approval
 
