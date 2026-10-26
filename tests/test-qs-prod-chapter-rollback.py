@@ -81,16 +81,16 @@ class ServiceGuardTests(unittest.TestCase):
                          "containers": [{"env": vals}]},
                 "status": {"conditions": [{"type": "Ready", "status": "True"}]}}
 
-    def test_release_candidate_digests_match_verified_oct24_catalog_wide_images(self):
+    def test_release_candidate_digests_match_verified_oct26_catalog_wide_images(self):
         # Verified by the operator from Artifact Registry after the exact
-        # four-component Cloud Build at commit f174286d787fc187f43d7042c4a8aa549c846585.
+        # 2026-10-26 candidate image builds at commit c14bd3111821b73c878d78418221bc81079a7ea3.
         expected = {
             "examtree-api":
-                "sha256:f5f8e9169260c453ef0181bd3a9041c84573512cc93c7dcc1a17027828e93a52",
+                "sha256:6e53c1134ab15f566e777783b339e3022edabad35ef639638296fd8a0bc42ae3",
             "examtree-qs-receiver-prod":
-                "sha256:65ad314d77ef69a1d5fe37224583dd16155f39920a0a07a217b0c440ee952339",
+                "sha256:f857977b59396d116e78d2657b8a2e2fadae2c7a428ae04571b6880f41f0324b",
             "examtree-universal-prod":
-                "sha256:43de72b993a132dce0fa4c88bef1891f2d5ac61f919d36295ba245a5d209cd8d",
+                "sha256:9bf79d5c3c4f4b2a119b4f4b1e68ef8eeb2e6ded5ed391d5faa67d788d2ba92c",
         }
         self.assertEqual({name: cfg["digest"] for name, cfg
                           in mod.SERVICES.items()}, expected)
