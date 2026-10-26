@@ -1,0 +1,20 @@
+name: Validate isolated QS admin browser reachability
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'scripts/check-qs-admin-preview-api-reachability.sh'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qs-admin-browser-reachability-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect dedicated staging Cloud Run health and browser CORS (read-only)
+        run: bash scripts/check-qs-admin-preview-api-reachability.sh
