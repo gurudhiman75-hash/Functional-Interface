@@ -14,6 +14,8 @@ test("read-only audit syntax and prohibited cloud operations",()=>{
   assert.match(source,/PROJECT = "sarbedutech"/);
   assert.match(source,/REGION = "asia-south1"/);
   assert.match(source,/QUEUE = "examtree-qs-prod"/);
+  assert.match(source,/verify_pinned_disabled_revision/);
+  assert.match(source,/DISABLED_BASELINES/);
   assert.match(source,/NO DATABASE WRITE, NO JOB EXECUTION, NO QUEUE RESUME/);
   assert.doesNotMatch(source,/gcloud secrets versions access|run jobs execute|tasks queues resume/);
 });
