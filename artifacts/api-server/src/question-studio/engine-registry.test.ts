@@ -389,4 +389,21 @@ assert.equal(probabilityNativeResult.questions[0].packageId, "PRB-NATIVE-REVIEW"
 assert.equal(probabilityNativeResult.generationContext.questionBankWritable, false);
 assert.equal(probabilityNativeResult.generationContext.productionReleaseAuthorized, false);
 
+const menReview = packages.find((pkg) => pkg.packageId === "MEN-002-REVIEW");
+assert.ok(menReview);
+assert.deepEqual(menReview.cpIds, ["MEN-CP-009"]);
+assert.equal(menReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(menReview.questionBankWritable, false);
+assert.equal(menReview.productionReleaseAuthorized, false);
+const menReviewResult = await generateQuestionStudioQuestions({
+  packageId: "MEN-002-REVIEW",
+  canonicalProblemId: "MEN-CP-009",
+  language: "pa",
+  seed: "men-002-separated-native-review-smoke",
+  count: 1,
+});
+assert.equal(menReviewResult.questions.length, 1);
+assert.equal(menReviewResult.questions[0].packageId, "MEN-002-REVIEW");
+assert.equal(menReviewResult.generationContext.questionBankWritable, false);
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
