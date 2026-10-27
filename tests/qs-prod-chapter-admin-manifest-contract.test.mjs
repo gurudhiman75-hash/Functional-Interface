@@ -122,3 +122,25 @@ test("STAT-002 through STAT-004 permit guarded review without claiming localized
    assert.match(card,/localizationStatus\s*:\s*"HI_PA_REVIEW_CANDIDATE"/,id+" must not imply native release");
  }
 });
+
+test("STAT-005 through STAT-014 retain controlled-review locks and review-candidate localization",()=>{
+ const sources={
+  5:"partition-dispersion",6:"moments-shape",7:"correlation-regression",
+  8:"probability-theory",9:"random-variables",10:"sampling-theory",
+  11:"statistical-inference",12:"anova",13:"time-series",14:"index-numbers",
+ };
+ for(const [n,name] of Object.entries(sources)){
+  const id="STAT-"+n.padStart(3,"0");
+  const path="artifacts/api-server/src/quant-v4/topics/Statistics/"+id+"/"+name+".ts";
+  const source=read(path),label="stat"+n.padStart(3,"0")+"QuestionStudioPackageCard()";
+  const start=source.lastIndexOf("export function "+label);
+  assert.ok(start>=0,"missing "+id+" source card");
+  const card=source.slice(start);
+  for(const [key,value] of Object.entries({
+   reviewSurfaceRequired:"true",manualApprovalRequired:"true",questionBankWritable:"false",
+   testEligible:"false",publiclyPublishable:"false",
+   automaticStudentPublication:"false",productionReleaseAuthorized:"false"
+  }))assert.match(card,new RegExp(key+"\\s*:\\s*"+value+"\\b"),id+" safeguard "+key);
+  assert.match(card,/HI_PA_REVIEW_CANDIDATE/,id+" must remain native-language review candidate");
+ }
+});
