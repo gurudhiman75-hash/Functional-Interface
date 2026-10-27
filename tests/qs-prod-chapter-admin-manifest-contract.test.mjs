@@ -174,7 +174,11 @@ test("legacy Percentage Ratio and Partnership packages receive safe review-only 
    productionReleaseAuthorized:"false"
  }))assert.match(section,new RegExp(field+"\\s*:\\s*"+value+"\\b"),field+" must stay locked");
  assert.match(section,/!pkg.enabled \|\| !pkg.cpIds.length/,"cannot admit disabled or CP-less source packages");
- assert.ok(!section.includes("supportedLanguages:"),"must preserve original RAP English-only language authority");
+ assert.ok(!section.includes("supportedLanguages:"),"adapter must preserve source-declared RAP languages without overriding them");
+ const legacy=read("artifacts/api-server/src/quant-v4/generation-engine-legacy.ts");
+ assert.match(legacy,/const RAP_LANGUAGES: readonly QuantV4Language\[\] = \["en", "hi", "pa"\]/,
+   "RAP source currently declares English, Hindi and Punjabi");
+
 });
 
 test("MAL-001 standard source card allows guarded review but not automatic release",()=>{
