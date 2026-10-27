@@ -406,4 +406,24 @@ assert.equal(menReviewResult.questions.length, 1);
 assert.equal(menReviewResult.questions[0].packageId, "MEN-002-REVIEW");
 assert.equal(menReviewResult.generationContext.questionBankWritable, false);
 
+const sapOriginal = packages.find((pkg) => pkg.packageId === "SAP");
+const sapReview = packages.find((pkg) => pkg.packageId === "SAP-REVIEW");
+assert.ok(sapOriginal && sapReview);
+assert.notEqual(sapOriginal.lifecycleStage, "REVIEW_ONLY");
+assert.equal(sapReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(sapReview.questionBankWritable, false);
+assert.equal(sapReview.productionReleaseAuthorized, false);
+assert.deepEqual(sapReview.cpIds, sapOriginal.cpIds);
+const sapReviewResult = await generateQuestionStudioQuestions({
+  packageId: "SAP-REVIEW",
+  canonicalProblemId: sapReview.cpIds[0],
+  language: sapReview.supportedLanguages[0],
+  count: 1,
+  seed: "sap-separate-question-studio-review-smoke",
+});
+assert.equal(sapReviewResult.questions.length, 1);
+assert.equal(sapReviewResult.questions[0].packageId, "SAP-REVIEW");
+assert.equal(sapReviewResult.generationContext.questionBankWritable, false);
+assert.equal(sapReviewResult.generationContext.publiclyPublishable, false);
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
