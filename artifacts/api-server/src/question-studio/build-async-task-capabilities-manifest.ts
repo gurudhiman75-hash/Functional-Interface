@@ -127,4 +127,3 @@ console.log("QS_CHAPTER_CATALOG_COVERAGE",JSON.stringify({
  }));
  for(const pkg of excluded)
    console.log("QS_CHAPTER_CATALOG_EXCLUDED",JSON.stringify(pkg));
-
