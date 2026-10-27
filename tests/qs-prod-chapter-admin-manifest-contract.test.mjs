@@ -209,3 +209,16 @@ test("Probability chapter admission is a separate locked review projection",()=>
  assert.match(runtime,/DRAFT_PARITY_PREVIEW_REQUIRES_HUMAN_REVIEW/);
  assert.match(runtime,/ELIGIBLE_WITH_FAMILY_LIMIT/);
 });
+
+test("Mensuration full-chapter source is guarded review only",()=>{
+ const src=read("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-standard-runtime-v3.ts");
+ const start=src.indexOf("export const MENSURATION_STANDARD_QUESTION_STUDIO_PACKAGE =");
+ const end=src.indexOf("export type MensurationStandardQuestionStudioRequest",start);
+ assert.ok(start>=0&&end>start,"full chapter registry missing");
+ const card=src.slice(start,end);
+ for(const [field,value] of Object.entries({
+  reviewSurfaceRequired:"true",manualApprovalRequired:"true",
+  productionReleaseAuthorized:"false",questionBankWritable:"false",
+  testEligible:"false",publiclyPublishable:"false",automaticStudentPublication:"false"
+ }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),"Mensuration "+field);
+});
