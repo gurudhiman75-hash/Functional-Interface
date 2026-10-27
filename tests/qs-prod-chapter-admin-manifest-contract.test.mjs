@@ -162,7 +162,7 @@ test("STAT-001 remains review only while becoming eligible for chapter admission
 test("legacy Percentage Ratio and Partnership packages receive safe review-only registration",()=>{
  const src=read("artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts");
  const begin=src.indexOf("const standardQuantReviewIds = new Set(");
- const end=src.indexOf("for (const pkg of sriEnginePackages())",begin);
+ const end=src.indexOf("const pnlCanonical = packages.find(",begin);
  assert.ok(begin>=0 && end>begin,"Quant guarded-review adapter missing");
  const section=src.slice(begin,end);
  for(const id of ["PCT-001","PCT-002","PCT-003","PCT-004","PCT-005","PCT-006","PCT-007",
