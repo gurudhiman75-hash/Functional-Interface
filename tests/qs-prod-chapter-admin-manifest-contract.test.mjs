@@ -57,3 +57,23 @@ test("native Reasoning source checkpoints explicitly require guarded review with
   }))assert.ok(body.includes(field+": "+value),"native Reasoning safeguard missing: "+field);
   assert.match(src,/\.\.\.nativeReasoningSourceCards\.map\(nativeReasoningSourceCard\)/);
 });
+
+test("DI-001 frozen multilingual review declares production chapter admission without bank or publication",()=>{
+  const src=read("artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter.ts");
+  const start=src.indexOf("export function di001QuestionStudioPackageCard()");
+  assert.ok(start>=0,"DI-001 registry card missing");
+  const card=src.slice(start);
+  for(const [key,value] of Object.entries({
+    enabled:"true",
+    reviewSurfaceRequired:"true",
+    manualApprovalRequired:"true",
+    questionBankWritable:"false",
+    testEligible:"false",
+    mockTestEligible:"false",
+    publiclyPublishable:"false",
+    automaticStudentPublication:"false",
+    productionReleaseAuthorized:"false",
+  }))assert.ok(card.includes(key+": "+value),"DI-001 admission/safety property missing: "+key);
+  assert.match(card,/supportedLanguages: \["en", "hi", "pa"\]/);
+  assert.match(card,/reviewStatus: "MULTILINGUAL_FROZEN"/);
+});
