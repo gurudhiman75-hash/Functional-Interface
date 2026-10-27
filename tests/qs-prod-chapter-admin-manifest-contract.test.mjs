@@ -212,6 +212,7 @@ test("PNL dynamic review is distinct from canonical release and forces the safe 
  const guard=src.indexOf('if (request.packageId === "PNL-001-REVIEW")');
  const fallback=src.indexOf("const result = await generateQuantV4Question({",guard+100);
  assert.ok(guard>0&&fallback>guard);
+ assert.ok(src.indexOf('if (request.packageId === "PRB-NATIVE-REVIEW")') < guard,"native review must be independently dispatched");
  assert.match(src.slice(guard,fallback),/runtimeMode: "DYNAMIC_CANDIDATE"/);
  const legacy=read("artifacts/api-server/src/quant-v4/generation-engine-legacy.ts");
  assert.match(legacy,/questionBankStatus: "WRITABLE"/);
