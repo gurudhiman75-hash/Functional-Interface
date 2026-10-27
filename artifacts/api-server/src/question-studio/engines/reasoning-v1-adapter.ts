@@ -188,6 +188,9 @@ function nativeReasoningSourceCard(card: (typeof nativeReasoningSourceCards)[num
     difficultyFilterSupported: true,
     runtimeMode: card.runtimeMode,
     supportedRuntimeModes: [...card.supportedRuntimeModes],
+    // Native checkpoint sources are review-only and already require manual approval.
+    // Declare the review surface explicitly for production chapter admission.
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     questionBankStatus: "NOT_STORED",
     questionBankWritable: false,
