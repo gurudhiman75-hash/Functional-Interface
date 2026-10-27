@@ -917,8 +917,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
     }
 
-    if (request.packageId === "PNL-001-REVIEW") {
-      if (request.packageId === "PRB-NATIVE-REVIEW") {
+    if (request.packageId === "PRB-NATIVE-REVIEW") {
       if (request.language !== "hi" && request.language !== "pa") {
         throw new Error("Native Probability parity review supports only hi/pa.");
       }
