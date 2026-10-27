@@ -1128,7 +1128,7 @@ export function QuestionStudioCockpitPage() {
                   <Checkbox checked={stagingAsyncSelected}
                     onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
                     disabled={generating || stagingAsyncSubmitting} />
-                  <span>{CHAPTER_ASYNC_ENABLED ? 'Queue a production chapter review batch (1–20 questions; subject to server approval; no automatic publication).' : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
+                  <span>{CHAPTER_ASYNC_ENABLED ? `Queue a production chapter review batch (1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions; subject to server approval; no automatic publication).` : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
                 </label>
               )}
               <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
