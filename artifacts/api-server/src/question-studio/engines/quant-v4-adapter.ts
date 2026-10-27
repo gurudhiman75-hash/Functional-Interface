@@ -711,6 +711,27 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       replaceOrPush("SAP", sapPackage as unknown as Record<string, unknown>);
     }
 
+    // Shadow review registration: preserve SAP's existing writable canonical card.
+    if (sapPackage?.enabled && Array.isArray(sapPackage.cpIds) && sapPackage.cpIds.length) {
+      replaceOrPush("SAP-REVIEW", {
+        ...sapPackage,
+        packageId: "SAP-REVIEW",
+        label: "Simplification & Approximation — Admin Review",
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+      });
+    }
+
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-002", di002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
@@ -928,6 +949,36 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isStat001QuestionStudioRequest(statRequest)) {
       return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "SAP-REVIEW") {
+      const result = await generateQuantV4QuestionStudioQuestion({
+        ...request,
+        packageId: "SAP",
+      } as any);
+      return {
+        ...result,
+        questions: result.questions.map((q) => ({
+          ...q,
+          packageId: "SAP-REVIEW",
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+        })),
+        generationContext: {
+          ...(result.generationContext ?? {}),
+          packageId: "SAP-REVIEW",
+          lifecycleStage: "REVIEW_ONLY",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankStatus: "NOT_STORED",
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+          automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
+        },
+      } as QuestionStudioGenerationResult;
     }
 
     if (request.packageId === "MEN-002-REVIEW") {
