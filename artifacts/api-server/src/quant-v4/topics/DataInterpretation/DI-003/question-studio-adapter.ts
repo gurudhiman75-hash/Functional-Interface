@@ -365,6 +365,7 @@ export function di003QuestionStudioPackageCard() {
     publiclyPublishable: false,
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_FROZEN",
     extensionLocalizationStatus: "HI_PA_REVIEW_CANDIDATE",
