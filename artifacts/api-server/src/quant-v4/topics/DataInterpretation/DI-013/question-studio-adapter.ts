@@ -48,6 +48,7 @@ export function di013QuestionStudioPackageCard(){
     generationDomain:"quant-v4",cpIds:[DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],canonicalProblems:[{id:DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,label:"Radar / Web Chart"}],
     supportedDifficulties:["easy","medium","hard"],supportedLanguages:["en","hi","pa"],localizationCoverage:{status:"HI_PA_REVIEW_CANDIDATE",canonicalProblemIds:[DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID]},supportedExamProfiles:["BANKING_PRELIMS","BANKING_MAINS"],enabled:true,runtimeMode:DI013_QUESTION_STUDIO_RUNTIME_MODE,
     supportedRuntimeModes:[DI013_QUESTION_STUDIO_RUNTIME_MODE],reviewStatus:"ENGLISH_REVIEW_CANDIDATE",localizationStatus:"HI_PA_REVIEW_CANDIDATE",questionStudioDiscoverable:true,questionStudioMode:"CONTROLLED_REVIEW",questionBankStatus:"NOT_STORED",
-    questionBankWritable:false,testEligibility:"INELIGIBLE",testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,manualApprovalRequired:true,
+    questionBankWritable:false,testEligibility:"INELIGIBLE",testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,
+    reviewSurfaceRequired: true,manualApprovalRequired:true,
     taskKinds:[...DI013_TASKS]};
 }
