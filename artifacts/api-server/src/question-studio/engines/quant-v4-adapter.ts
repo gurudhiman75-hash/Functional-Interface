@@ -616,6 +616,34 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       });
     }
 
+    // Probability has item- and language-specific bank authority in its own
+    // runtime. This chapter-admission projection is strictly a separate review
+    // surface; it must not elevate that authority or rewrite source policies.
+    for (const packageId of ["PRB-001", "PRB-002"]) {
+      const source = packages.find((pkg) => pkg.packageId === packageId);
+      if (!source?.enabled || !source.cpIds.length) continue;
+      replaceOrPush(packageId, {
+        ...source,
+        lifecycleId: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.lifecycleId,
+        lifecycleStage: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.stage,
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+        metadata: {
+          ...(source.metadata ?? {}),
+          admissionSurface: "GUARDED_REVIEW_ONLY",
+          sourceItemAndLanguagePolicyUnchanged: true,
+        },
+      });
+    }
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
