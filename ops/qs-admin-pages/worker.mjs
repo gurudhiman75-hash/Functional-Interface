@@ -2,7 +2,7 @@ import { onRequest as serveAdminDocument } from "../../functions/admin/[[path]].
 
 // Keep the admin-only site on the reviewed 0%-traffic production API revision
 // while student traffic remains pinned to its current baseline revision.
-const API_ORIGIN = "https://qs-chapter-ef518db5---examtree-api-ttnfjefqka-el.a.run.app";
+const API_ORIGIN = "https://qs-chapter-6f96fb3441---examtree-api-ttnfjefqka-el.a.run.app";
 const API_PREFIXES = ["/api/admin/session", "/api/admin/question-studio"];
 const API_METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"]);
 
