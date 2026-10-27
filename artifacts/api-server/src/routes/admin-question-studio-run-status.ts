@@ -21,6 +21,28 @@ function count(value: unknown): number {
   return Number.isSafeInteger(result) && result >= 0 ? result : 0;
 }
 
+function queueState(row: Record<string, unknown>, status: string) {
+  if (status === "failed") return { code: "failed", message: "Generation failed." };
+  if (status === "cancelled") return { code: "cancelled", message: "Generation was cancelled." };
+  if (["review", "approved", "partially_approved"].includes(status)) {
+    return { code: "ready_for_review", message: "Questions are ready in the review queue." };
+  }
+  if (status === "validation") return { code: "validating", message: "Validating generated questions." };
+  if (status === "running") {
+    if (row.lease_expired === true) {
+      return { code: "processing_delayed", message: "Processing lease expired; this run needs attention." };
+    }
+    return { code: "processing", message: "A worker is generating the review batch." };
+  }
+  if (status === "queued") {
+    if (row.queue_delayed === true) {
+      return { code: "processing_delayed", message: "The queued batch is past its expected processing window." };
+    }
+    return { code: "queued_for_processing", message: "Queued and waiting for automatic processing." };
+  }
+  return { code: "unknown", message: "Queue status is being refreshed." };
+}
+
 router.get(
   "/runs/:runId/status",
   authenticate,
@@ -37,9 +59,13 @@ router.get(
         SELECT g.id, g.public_code, g.status::text AS status, g.attempt_number,
                g.request_snapshot, g.started_at, g.completed_at,
                g.created_at, g.updated_at,
+               l.lease_expires_at < now() AND l.completed_at IS NULL AS lease_expired,
+               g.status = 'queued'::generation_run_status
+                 AND g.due_at < now() AS queue_delayed,
                (SELECT count(*) FROM content.generation_run_items i
                 WHERE i.generation_run_id = g.id) AS generated_count
         FROM content.generation_runs g
+        LEFT JOIN content.generation_run_task_leases l ON l.generation_run_id = g.id
         WHERE g.id = ${runId}::uuid
         LIMIT 1
       `;
@@ -53,6 +79,7 @@ router.get(
         ? count((snapshot as Record<string, unknown>).count)
         : 0;
       const status = String(row.status);
+      const state = queueState(row as Record<string, unknown>, status);
       res.json({
         id: String(row.id),
         publicCode: String(row.public_code),
@@ -66,6 +93,8 @@ router.get(
         updatedAt: iso(row.updated_at),
         // Do not leak prompt snapshots, tokens, service errors, or customer data.
         error: status === "failed" ? "Generation failed; inspect administrator diagnostics." : null,
+        queueState: state.code,
+        queueMessage: state.message,
         retryAfterSeconds: ACTIVE.has(status) ? 3 : null,
       });
     } catch (error) {
