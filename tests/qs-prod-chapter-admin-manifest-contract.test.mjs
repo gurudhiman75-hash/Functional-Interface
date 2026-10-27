@@ -105,3 +105,20 @@ test("all fifteen DI review package cards declare guarded, non-publishing chapte
     assert.match(card,/supportedLanguages\s*:/,"DI language authority missing: "+path);
   }
 });
+
+test("STAT-002 through STAT-004 permit guarded review without claiming localized approval",()=>{
+ for(const n of [2,3,4]){
+   const id="STAT-"+String(n).padStart(3,"0");
+   const path="artifacts/api-server/src/quant-v4/topics/Statistics/"+id+"/question-studio-adapter.ts";
+   const src=read(path);
+   const ix=src.lastIndexOf("export function stat"+String(n).padStart(3,"0")+"QuestionStudioPackageCard()");
+   assert.ok(ix>=0,"missing card for "+id);
+   const card=src.slice(ix);
+   for(const [field,value] of Object.entries({
+      reviewSurfaceRequired:"true",manualApprovalRequired:"true",questionBankWritable:"false",
+      testEligible:"false",publiclyPublishable:"false",automaticStudentPublication:"false",
+      productionReleaseAuthorized:"false"
+   }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),id+": "+field);
+   assert.match(card,/localizationStatus\s*:\s*"HI_PA_REVIEW_CANDIDATE"/,id+" must not imply native release");
+ }
+});
