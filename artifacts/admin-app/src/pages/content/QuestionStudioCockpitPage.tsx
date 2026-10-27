@@ -640,7 +640,7 @@ export function QuestionStudioCockpitPage() {
     const cpIds = [...selectedCpIds];
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
-      showToast.error('Invalid batch size', 'Choose 1–20 questions for a chapter review batch.');
+      showToast.error('Invalid batch size', `Choose 1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions for a chapter review batch.`);
       return;
     }
     if (cpIds.length > count) {
@@ -657,7 +657,7 @@ export function QuestionStudioCockpitPage() {
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
         difficulty: difficultyFilterSupported ? difficulty : 'Mixed',
-        count: Math.min(CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? 20 : capabilities.maxBatchSize, Math.max(1, count)),
+        count: Math.min(CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,

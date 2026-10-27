@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { GenerationPackage } from './api';
-import { isProductionChapterPackage, productionChapterCpIds } from './production-chapter';
+import { isProductionChapterPackage, productionChapterCpIds, PRODUCTION_CHAPTER_BATCH_LIMIT } from './production-chapter';
 import { enqueueQuestionStudioProductionChapterRun, retryQuestionStudioProductionChapterDispatch } from './api';
 import { adminRequest } from '@/lib/admin-request';
 vi.mock('@/lib/admin-request', () => ({ adminRequest: vi.fn().mockResolvedValue({ id: 'saved-run' }) }));
@@ -11,6 +11,9 @@ const pkg = (engineId: string): GenerationPackage => ({
   automaticStudentPublication: false, publiclyPublishable: false,
 });
 describe('production chapter selection and client', () => {
+  it('keeps the production chapter UI limit aligned with the bounded server contract', () => {
+    expect(PRODUCTION_CHAPTER_BATCH_LIMIT).toBe(50);
+  });
   it('includes eligible canonical chapters from every engine and both source lifecycles', () => {
     for (const engine of ['quant-v4', 'reasoning-v1', 'language-v1', 'knowledge-v1']) {
       for (const lifecycleStage of ['REVIEW_ONLY', 'BANK_ONLY'] as const) {
@@ -36,13 +39,13 @@ describe('production chapter selection and client', () => {
   it('posts the selected engine, count, canonical CPs and stable key without client seed', async () => {
     await enqueueQuestionStudioProductionChapterRun({
       engineId: 'knowledge-v1', packageId: 'TEST-001', exam: 'SSC', subject: 'Knowledge',
-      language: 'en', difficulty: 'Mixed', count: 20, cpIds: ['TEST-001-CP-001'], seed: 'must-not-send', runtimeMode: 'review-only',
+      language: 'en', difficulty: 'Mixed', count: 50, cpIds: ['TEST-001-CP-001'], seed: 'must-not-send', runtimeMode: 'review-only',
     }, 'stable-key');
     const [url, options] = vi.mocked(adminRequest).mock.calls.at(-1)!;
     expect(url).toBe('/admin/question-studio/runs/async-production-chapter');
     expect(options?.headers).toEqual({ 'Idempotency-Key': 'stable-key' });
     const body = JSON.parse(options?.body as string);
-    expect(body.count).toBe(20); expect(body.request.engineId).toBe('knowledge-v1');
+    expect(body.count).toBe(50); expect(body.request.engineId).toBe('knowledge-v1');
     expect(body.selectedCpIds).toEqual(['TEST-001-CP-001']); expect(body.request).not.toHaveProperty('seed');
   });
   it('retries the saved run through its own endpoint without re-enqueueing input', async () => {

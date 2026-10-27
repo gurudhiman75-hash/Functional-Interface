@@ -3,7 +3,9 @@ import type { GenerationPackage } from './api';
 const ENGINES = new Set(['quant-v4', 'reasoning-v1', 'language-v1', 'knowledge-v1']);
 const ID = /^[A-Z][A-Z0-9-]{1,80}$/;
 const PACKAGE_ID = /^[A-Za-z][A-Za-z0-9:_-]{1,127}$/;
-export const PRODUCTION_CHAPTER_BATCH_LIMIT = 20;
+// The async receiver and review-commit contract independently enforce 50.
+// Keep the UI limit aligned with that bounded, single-run production limit.
+export const PRODUCTION_CHAPTER_BATCH_LIMIT = 50;
 
 // Discovery only; the server and dispatcher independently enforce release scope.
 export function isProductionChapterPackage(pkg: GenerationPackage) {
