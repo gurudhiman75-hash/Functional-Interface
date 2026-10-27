@@ -952,7 +952,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
 
     if (request.packageId === "PNL-001-REVIEW") {
-    const result = await generateQuantV4Question({
+      const result = await generateQuantV4Question({
         ...request,
         packageId: "PNL-001",
         runtimeMode: "DYNAMIC_CANDIDATE",
