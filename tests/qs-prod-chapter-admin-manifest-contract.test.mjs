@@ -144,3 +144,17 @@ test("STAT-005 through STAT-014 retain controlled-review locks and review-candid
   assert.match(card,/HI_PA_REVIEW_CANDIDATE/,id+" must remain native-language review candidate");
  }
 });
+
+test("STAT-001 remains review only while becoming eligible for chapter admission",()=>{
+ const src=read("artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/question-studio-adapter.ts");
+ const idx=src.lastIndexOf("export function stat001QuestionStudioPackageCard()");
+ assert.ok(idx>=0);
+ const card=src.slice(idx);
+ for(const [field,value] of Object.entries({
+   reviewSurfaceRequired:"true",manualApprovalRequired:"true",
+   productionReleaseAuthorized:"false",questionBankWritable:"false",
+   testEligible:"false",publiclyPublishable:"false",automaticStudentPublication:"false"
+ }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),field);
+ assert.match(card,/reviewStatus:\s*"ENGLISH_REVIEW_READY"/);
+ assert.match(card,/localizationStatus:\s*"HI_PA_REVIEW_CANDIDATE"/);
+});
