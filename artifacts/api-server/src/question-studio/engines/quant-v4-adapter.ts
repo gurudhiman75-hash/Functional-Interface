@@ -163,7 +163,7 @@ import {
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
 import { deriveQuestionStudioCpTitles } from "../package-metadata";
-import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1, QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 import {
   generateTrigonometryEngineBatch,
   trg001EnginePackage,
