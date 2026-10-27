@@ -190,3 +190,26 @@ test("MAL-001 standard source card allows guarded review but not automatic relea
  }))assert.match(card,new RegExp(name+"\\s*:\\s*"+value+"\\b"),name);
  assert.match(src,/NATIVE_QUALITY_REVIEW_CANDIDATE/,"native quality review must remain pending");
 });
+
+test("PNL dynamic review is distinct from canonical release and forces the safe generator mode",()=>{
+ const src=read("artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts");
+ const start=src.indexOf('const pnlCanonical = packages.find((pkg) => pkg.packageId === "PNL-001")');
+ const end=src.indexOf("for (const pkg of sriEnginePackages())",start);
+ assert.ok(start>=0&&end>start,"PNL separate review package not registered");
+ const card=src.slice(start,end);
+ assert.match(card,/packageId: "PNL-001-REVIEW"/);
+ assert.match(card,/cpIds: \[\.\.\.pnlCanonical\.dynamicCandidateCpIds\]/);
+ for(const [field,value] of Object.entries({
+  reviewSurfaceRequired:"true",manualApprovalRequired:"true",
+  questionBankWritable:"false",testEligible:"false",
+  publiclyPublishable:"false",automaticStudentPublication:"false",
+  productionReleaseAuthorized:"false"
+ }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),field);
+ const guard=src.indexOf('if (request.packageId === "PNL-001-REVIEW")');
+ const fallback=src.indexOf("const result = await generateQuantV4Question({",guard+100);
+ assert.ok(guard>0&&fallback>guard);
+ assert.match(src.slice(guard,fallback),/runtimeMode: "DYNAMIC_CANDIDATE"/);
+ const legacy=read("artifacts/api-server/src/quant-v4/generation-engine-legacy.ts");
+ assert.match(legacy,/questionBankStatus: "WRITABLE"/);
+ assert.match(legacy,/runtimeMode: "CANONICAL_REVIEW"/);
+});
