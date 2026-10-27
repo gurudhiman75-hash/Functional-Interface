@@ -176,3 +176,17 @@ test("legacy Percentage Ratio and Partnership packages receive safe review-only 
  assert.match(section,/!pkg.enabled \|\| !pkg.cpIds.length/,"cannot admit disabled or CP-less source packages");
  assert.ok(!section.includes("supportedLanguages:"),"must preserve original RAP English-only language authority");
 });
+
+test("MAL-001 standard source card allows guarded review but not automatic release",()=>{
+ const src=read("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-standard-integration.ts");
+ const start=src.indexOf("export function listMal001StandardQuestionStudioPackages()");
+ const end=src.indexOf("function toQuestionStudioReviewPackage(",start);
+ assert.ok(start>=0&&end>start,"MAL source card missing");
+ const card=src.slice(start,end);
+ for(const [name,value] of Object.entries({
+  reviewSurfaceRequired:"true",manualApprovalRequired:"true",
+  questionBankWritable:"false",testEligible:"false",publiclyPublishable:"false",
+  automaticStudentPublication:"false",productionReleaseAuthorized:"false"
+ }))assert.match(card,new RegExp(name+"\\s*:\\s*"+value+"\\b"),name);
+ assert.match(src,/NATIVE_QUALITY_REVIEW_CANDIDATE/,"native quality review must remain pending");
+});
