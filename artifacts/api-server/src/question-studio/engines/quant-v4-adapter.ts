@@ -162,6 +162,7 @@ import {
   isStat011QuestionStudioRequest,
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
+import { listProbabilityNativeReviewCatalog, previewProbabilityNativeReview, PROBABILITY_NATIVE_REVIEW_PACKAGE } from "../../quant-v4/topics/Probability/native-review-adapter";
 import { deriveQuestionStudioCpTitles } from "../package-metadata";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 import {
@@ -647,6 +648,18 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       });
     }
 
+    // The native parity review is independent of the canonical PRB-001/002
+    // item-acceptance contracts. Only Hindi/Punjabi drafts are admitted here.
+    replaceOrPush("PRB-NATIVE-REVIEW", {
+      ...PROBABILITY_NATIVE_REVIEW_PACKAGE,
+      packageId: "PRB-NATIVE-REVIEW",
+      cpIds: [...new Set(listProbabilityNativeReviewCatalog().map((entry) => entry.cpId))],
+      supportedLanguages: ["hi", "pa"],
+      supportedDifficulties: ["Easy", "Medium", "Hard"],
+      productionReleaseAuthorized: false,
+      automaticStudentPublication: false,
+    });
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
@@ -905,7 +918,41 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
 
     if (request.packageId === "PNL-001-REVIEW") {
-      const result = await generateQuantV4Question({
+      if (request.packageId === "PRB-NATIVE-REVIEW") {
+      if (request.language !== "hi" && request.language !== "pa") {
+        throw new Error("Native Probability parity review supports only hi/pa.");
+      }
+      const catalog = listProbabilityNativeReviewCatalog();
+      const selected = request.canonicalProblemId;
+      const candidates = selected ? catalog.filter((entry) => entry.cpId === selected) : catalog;
+      if (!candidates.length) throw new Error("Unknown Probability native-review CP.");
+      const preview = previewProbabilityNativeReview({
+        language: request.language,
+        packageId: candidates[0].packageId,
+        qlId: candidates[0].qlId,
+        count: request.count,
+        seed: request.seed,
+      });
+      return {
+        questions: preview.questions.map((q) => ({
+          ...q,
+          packageId: "PRB-NATIVE-REVIEW",
+          text: q.stem,
+          correct: q.correctIndex,
+          explanation: q.explanation.steps.join("\\n"),
+        })),
+        generationContext: {
+          ...preview.generationContext,
+          packageId: "PRB-NATIVE-REVIEW",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          productionReleaseAuthorized: false,
+          automaticStudentPublication: false,
+        },
+      } as QuestionStudioGenerationResult;
+    }
+
+    const result = await generateQuantV4Question({
         ...request,
         packageId: "PNL-001",
         runtimeMode: "DYNAMIC_CANDIDATE",
