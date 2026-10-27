@@ -158,3 +158,21 @@ test("STAT-001 remains review only while becoming eligible for chapter admission
  assert.match(card,/reviewStatus:\s*"ENGLISH_REVIEW_READY"/);
  assert.match(card,/localizationStatus:\s*"HI_PA_REVIEW_CANDIDATE"/);
 });
+
+test("legacy Percentage Ratio and Partnership packages receive safe review-only registration",()=>{
+ const src=read("artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts");
+ const begin=src.indexOf("const standardQuantReviewIds = new Set(");
+ const end=src.indexOf("for (const pkg of sriEnginePackages())",begin);
+ assert.ok(begin>=0 && end>begin,"Quant guarded-review adapter missing");
+ const section=src.slice(begin,end);
+ for(const id of ["PCT-001","PCT-002","PCT-003","PCT-004","PCT-005","PCT-006","PCT-007",
+                  "RAP-001","RAP-002","RAP-003","PRT-001"])
+  assert.ok(section.includes('"'+id+'"'),"Quant review package not listed: "+id);
+ for(const [field,value] of Object.entries({
+   reviewSurfaceRequired:"true",manualApprovalRequired:"true",questionBankWritable:"false",
+   testEligible:"false",publiclyPublishable:"false",automaticStudentPublication:"false",
+   productionReleaseAuthorized:"false"
+ }))assert.match(section,new RegExp(field+"\\s*:\\s*"+value+"\\b"),field+" must stay locked");
+ assert.match(section,/!pkg.enabled \|\| !pkg.cpIds.length/,"cannot admit disabled or CP-less source packages");
+ assert.ok(!section.includes("supportedLanguages:"),"must preserve original RAP English-only language authority");
+});
