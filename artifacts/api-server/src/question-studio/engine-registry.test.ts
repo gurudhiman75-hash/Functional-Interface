@@ -48,6 +48,16 @@ for (const packageId of ["PRB-001", "PRB-002", "TRG-001", "TRG-002"]) {
   assert.equal(pkg.questionBankAcceptanceMode, "FULL_RELEASE");
   assert.equal(pkg.publiclyPublishable, false);
 }
+// These packages have established Question Bank or item-release contracts.
+// Production chapter-review admission must use a distinct executable surface,
+// rather than changing the canonical package into a REVIEW_ONLY card.
+for (const packageId of ["PNL-001", "MEN-002", "SAP"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + ": canonical executable package missing");
+  assert.notEqual(pkg.lifecycleStage, "REVIEW_ONLY",
+    packageId + ": canonical acceptance authority must not be overwritten");
+  assert.ok(pkg.cpIds.length > 0, packageId + ": canonical CP selection missing");
+}
 assert.deepEqual(packages.find((pkg) => pkg.packageId === "TRG-002")?.supportedDifficulties,
   ["Easy", "Medium", "Hard"], "Legacy lowercase Trigonometry difficulties must survive normalization.");
 for (const packageId of ["BLR-001", "CAE-001"]) {
