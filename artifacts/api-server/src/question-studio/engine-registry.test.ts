@@ -370,4 +370,23 @@ assert.equal(pnlResult.generationContext.questionBankWritable, false);
 assert.equal(pnlResult.generationContext.publiclyPublishable, false);
 assert.equal(pnlResult.generationContext.productionReleaseAuthorized, false);
 
+const probabilityNativeReview = packages.find((pkg) => pkg.packageId === "PRB-NATIVE-REVIEW");
+assert.ok(probabilityNativeReview?.cpIds.length, "Probability native review must expose executable CPs");
+assert.deepEqual(probabilityNativeReview.supportedLanguages, ["hi", "pa"]);
+assert.equal(probabilityNativeReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(probabilityNativeReview.productionReleaseAuthorized, false);
+assert.equal(probabilityNativeReview.publiclyPublishable, false);
+assert.equal(probabilityNativeReview.questionBankWritable, false);
+const probabilityNativeResult = await generateQuestionStudioQuestions({
+  packageId: "PRB-NATIVE-REVIEW",
+  canonicalProblemId: probabilityNativeReview.cpIds[0],
+  language: "pa",
+  count: 1,
+  seed: "engine-registry-probability-native-review-smoke",
+});
+assert.equal(probabilityNativeResult.questions.length, 1);
+assert.equal(probabilityNativeResult.questions[0].packageId, "PRB-NATIVE-REVIEW");
+assert.equal(probabilityNativeResult.generationContext.questionBankWritable, false);
+assert.equal(probabilityNativeResult.generationContext.productionReleaseAuthorized, false);
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
