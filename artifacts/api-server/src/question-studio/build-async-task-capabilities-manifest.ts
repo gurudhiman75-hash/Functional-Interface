@@ -98,3 +98,33 @@ const engineTotals=Object.fromEntries(manifest.generationSystems.map(engine=>[
 console.log("QS_CHAPTER_CATALOG_COVERAGE",JSON.stringify({
   totalPackages:packages.length,eligiblePackages:eligible.length,byEngine:engineTotals,
 }));
+
+ // Diagnostic-only exclusion accounting. Never repair governance flags by
+ // changing the admission validator: the owning package must declare them.
+ const ineligibilityReasons=(p:typeof packages[number]):string[]=>{
+   const reasons:string[]=[];
+   if(p.enabled!==true)reasons.push("NOT_ENABLED");
+   if(p.reviewSurfaceRequired!==true)reasons.push("NO_REVIEW_SURFACE_AUTHORITY");
+   if(p.manualApprovalRequired!==true)reasons.push("NO_MANUAL_APPROVAL_REQUIREMENT");
+   if(p.productionReleaseAuthorized!==false)reasons.push("PRODUCTION_RELEASE_LOCK_UNDECLARED");
+   if(p.automaticStudentPublication!==false)reasons.push("AUTO_PUBLICATION_LOCK_UNDECLARED");
+   if(p.publiclyPublishable!==false)reasons.push("PUBLICATION_LOCK_UNDECLARED");
+   if(!Array.isArray(p.cpIds)||p.cpIds.length===0)reasons.push("NO_CANONICAL_CHECKPOINTS");
+   else {
+     if(new Set(p.cpIds).size!==p.cpIds.length)reasons.push("DUPLICATE_CHECKPOINTS");
+     if(p.cpIds.some(id=>!/^[A-Z][A-Z0-9-]{1,80}$/.test(id)))
+       reasons.push("INVALID_CHECKPOINT_ID");
+   }
+   return reasons;
+ };
+ const excluded=packages.map(p=>({engineId:p.engineId,packageId:p.packageId,reasons:ineligibilityReasons(p)}))
+   .filter(p=>p.reasons.length);
+ const byEngineGaps=Object.fromEntries(manifest.generationSystems.map(engine=>[
+   engine,excluded.filter(p=>p.engineId===engine).length,
+ ]));
+ console.log("QS_CHAPTER_CATALOG_EXCLUSIONS",JSON.stringify({
+   excludedPackages:excluded.length,byEngine:byEngineGaps,
+ }));
+ for(const pkg of excluded)
+   console.log("QS_CHAPTER_CATALOG_EXCLUDED",JSON.stringify(pkg));
+
