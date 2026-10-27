@@ -939,7 +939,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
           packageId: "PRB-NATIVE-REVIEW",
           text: q.stem,
           correct: q.correctIndex,
-          explanation: q.explanation.steps.join("\\n"),
+          explanation: q.explanation.steps.join("\n"),
         })),
         generationContext: {
           ...preview.generationContext,
@@ -952,6 +952,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       } as QuestionStudioGenerationResult;
     }
 
+    if (request.packageId === "PNL-001-REVIEW") {
     const result = await generateQuantV4Question({
         ...request,
         packageId: "PNL-001",
