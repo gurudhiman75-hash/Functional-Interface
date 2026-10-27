@@ -616,6 +616,37 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       });
     }
 
+    // Separate executable dynamic-candidate review package. Never modify the
+    // canonical PNL-001 Question Bank / publication admission contract.
+    const pnlCanonical = packages.find((pkg) => pkg.packageId === "PNL-001");
+    if (pnlCanonical?.enabled && pnlCanonical.dynamicCandidateCpIds?.length) {
+      replaceOrPush("PNL-001-REVIEW", {
+        packageId: "PNL-001-REVIEW",
+        topic: pnlCanonical.topic,
+        subtopic: pnlCanonical.subtopic,
+        label: "Profit & Loss — Dynamic Candidate Review",
+        enabled: true,
+        cpIds: [...pnlCanonical.dynamicCandidateCpIds],
+        supportedLanguages: [...pnlCanonical.supportedLanguages],
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+        runtimeMode: "DYNAMIC_CANDIDATE",
+        supportedRuntimeModes: ["DYNAMIC_CANDIDATE"],
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+        metadata: { sourcePackageId: "PNL-001", sourceRuntimeMode: "DYNAMIC_CANDIDATE" },
+      });
+    }
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
@@ -871,6 +902,29 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isStat001QuestionStudioRequest(statRequest)) {
       return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "PNL-001-REVIEW") {
+      const result = await generateQuantV4Question({
+        ...request,
+        packageId: "PNL-001",
+        runtimeMode: "DYNAMIC_CANDIDATE",
+      } as any);
+      return {
+        ...result,
+        generationContext: {
+          ...(result.generationContext ?? {}),
+          packageId: "PNL-001-REVIEW",
+          lifecycleStage: "REVIEW_ONLY",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+          automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
+        },
+      } as QuestionStudioGenerationResult;
     }
 
     const result = await generateQuantV4Question({
