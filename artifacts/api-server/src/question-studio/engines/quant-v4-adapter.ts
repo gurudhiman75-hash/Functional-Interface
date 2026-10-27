@@ -163,6 +163,7 @@ import {
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
 import { listProbabilityNativeReviewCatalog, previewProbabilityNativeReview, PROBABILITY_NATIVE_REVIEW_PACKAGE } from "../../quant-v4/topics/Probability/native-review-adapter";
+import { previewMenCp009QuestionStudioReview, MEN_CP009_QUESTION_STUDIO_REVIEW_PACKAGE } from "../../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-review-adapter";
 import { deriveQuestionStudioCpTitles } from "../package-metadata";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 import {
@@ -660,6 +661,18 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       automaticStudentPublication: false,
     });
 
+    replaceOrPush("MEN-002-REVIEW", {
+      ...MEN_CP009_QUESTION_STUDIO_REVIEW_PACKAGE,
+      packageId: "MEN-002-REVIEW",
+      cpIds: ["MEN-CP-009"],
+      supportedDifficulties: ["Easy", "Medium", "Hard"],
+      supportedLanguages: ["en", "hi", "pa"],
+      reviewSurfaceRequired: true,
+      manualApprovalRequired: true,
+      productionReleaseAuthorized: false,
+      automaticStudentPublication: false,
+    });
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
@@ -915,6 +928,35 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isStat001QuestionStudioRequest(statRequest)) {
       return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "MEN-002-REVIEW") {
+      if (request.canonicalProblemId && request.canonicalProblemId !== "MEN-CP-009") {
+        throw new Error("Unknown MEN-002 review checkpoint.");
+      }
+      const preview = previewMenCp009QuestionStudioReview({
+        language: request.language ?? "en",
+        count: request.count,
+        seed: request.seed,
+      });
+      return {
+        questions: preview.questions.map((q) => ({
+          ...q,
+          packageId: "MEN-002-REVIEW",
+          text: q.stem,
+          correct: q.correctIndex,
+          explanation: q.explanation.steps.join("\n"),
+        })),
+        generationContext: {
+          ...preview.generationContext,
+          packageId: "MEN-002-REVIEW",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankWritable: false,
+          productionReleaseAuthorized: false,
+          automaticStudentPublication: false,
+        },
+      } as QuestionStudioGenerationResult;
     }
 
     if (request.packageId === "PRB-NATIVE-REVIEW") {
