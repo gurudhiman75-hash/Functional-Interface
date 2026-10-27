@@ -57,5 +57,6 @@ export function di014QuestionStudioPackageCard(){
     supportedDifficulties:["easy","medium","hard"],supportedLanguages:["en","hi","pa"],localizationCoverage:{status:"HI_PA_REVIEW_CANDIDATE",canonicalProblemIds:[DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID]},supportedExamProfiles:["BANKING_MAINS"],enabled:true,runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,
     supportedRuntimeModes:[DI014_QUESTION_STUDIO_RUNTIME_MODE],reviewStatus:"ENGLISH_REVIEW_CANDIDATE",localizationStatus:"HI_PA_REVIEW_CANDIDATE",questionStudioDiscoverable:true,questionStudioMode:"CONTROLLED_REVIEW",
     questionBankStatus:"NOT_STORED",questionBankWritable:false,testEligibility:"INELIGIBLE",testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,
-    productionReleaseAuthorized:false,manualApprovalRequired:true,taskKinds:[...DI014_TASKS]};
+    productionReleaseAuthorized:false,
+    reviewSurfaceRequired: true,manualApprovalRequired:true,taskKinds:[...DI014_TASKS]};
 }
