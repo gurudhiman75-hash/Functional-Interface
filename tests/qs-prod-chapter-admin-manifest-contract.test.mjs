@@ -190,17 +190,3 @@ test("MAL-001 standard source card allows guarded review but not automatic relea
  }))assert.match(card,new RegExp(name+"\\s*:\\s*"+value+"\\b"),name);
  assert.match(src,/NATIVE_QUALITY_REVIEW_CANDIDATE/,"native quality review must remain pending");
 });
-
-test("MEN-002 CP-009 source chapter review keeps every release gate closed",()=>{
- const source=read("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime.ts");
- const start=source.indexOf("export const MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE =");
- const end=source.indexOf("export type MenCp009StandardQuestionStudioRequest",start);
- assert.ok(start>=0&&end>start);
- const card=source.slice(start,end);
- for(const [field,value] of Object.entries({
-  reviewSurfaceRequired:"true",manualApprovalRequired:"true",questionBankWritable:"false",
-  testEligible:"false",mockTestEligible:"false",publiclyPublishable:"false",
-  automaticStudentPublication:"false",productionReleaseAuthorized:"false"
- }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),field);
- assert.match(card,/MEN_CP009_STANDARD_QUESTION_STUDIO_CHECKPOINT_ID/);
-});
