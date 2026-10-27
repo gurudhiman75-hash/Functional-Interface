@@ -588,6 +588,34 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       else packages.push(shared);
     };
 
+    // The legacy Quant runtime already executes these canonical CP packages,
+    // but its filesystem discovery omits the Question Studio review lifecycle.
+    // Preserve source language restrictions (RAP stays English-only) and never
+    // grant Question Bank writes or student publication via this adapter.
+    const standardQuantReviewIds = new Set([
+      "PCT-001", "PCT-002", "PCT-003", "PCT-004",
+      "PCT-005", "PCT-006", "PCT-007",
+      "RAP-001", "RAP-002", "RAP-003", "PRT-001",
+    ]);
+    for (const pkg of packages) {
+      if (!standardQuantReviewIds.has(pkg.packageId) || !pkg.enabled || !pkg.cpIds.length) continue;
+      Object.assign(pkg, {
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+      });
+    }
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
