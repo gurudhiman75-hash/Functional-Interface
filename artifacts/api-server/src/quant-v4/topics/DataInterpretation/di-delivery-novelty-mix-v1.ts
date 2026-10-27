@@ -1523,6 +1523,7 @@ export function diDeliveryNoveltyMixPackageCard() {
     publiclyPublishable: false,
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     metadata: {
       languageReviewStatus: {
