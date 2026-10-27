@@ -39,6 +39,8 @@ export const MENSURATION_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
   testEligible: false,
   publiclyPublishable: false,
   reviewOnly: true,
+  reviewSurfaceRequired: true,
+  productionReleaseAuthorized: false,
   manualApprovalRequired: true,
   automaticStudentPublication: false,
 } as const);
