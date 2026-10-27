@@ -30,6 +30,16 @@ export const MEN_CP009_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
   supportedDifficulties: ["easy", "medium", "hard"],
   supportedLanguages: ["en", "hi", "pa"],
   enabled: true,
+  reviewSurfaceRequired: true,
+  manualApprovalRequired: true,
+  questionBankStatus: "NOT_STORED",
+  questionBankWritable: false,
+  testEligibility: "INELIGIBLE",
+  testEligible: false,
+  mockTestEligible: false,
+  publiclyPublishable: false,
+  automaticStudentPublication: false,
+  productionReleaseAuthorized: false,
 } as const);
 
 export type MenCp009StandardQuestionStudioRequest = Readonly<{
