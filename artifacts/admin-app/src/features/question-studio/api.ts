@@ -260,6 +260,8 @@ export interface QuestionStudioRunProgress {
   createdAt: string | null;
   updatedAt: string | null;
   error: string | null;
+  queueState: 'awaiting_dispatch' | 'queued_for_processing' | 'processing' | 'processing_delayed' | 'validating' | 'ready_for_review' | 'failed' | 'cancelled' | 'unknown';
+  queueMessage: string;
   retryAfterSeconds: number | null;
 }
 

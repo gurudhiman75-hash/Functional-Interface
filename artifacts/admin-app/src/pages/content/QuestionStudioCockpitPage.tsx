@@ -152,6 +152,20 @@ function runStatusTone(status: GenerationRunStatus) {
   return 'neutral' as const;
 }
 
+function queueStatusLabel(run: QuestionStudioRunProgress) {
+  switch (run.queueState) {
+    case 'awaiting_dispatch': return 'Queued for dispatch';
+    case 'queued_for_processing': return 'Queued for processing';
+    case 'processing': return 'Processing';
+    case 'processing_delayed': return 'Processing delayed';
+    case 'validating': return 'Validating';
+    case 'ready_for_review': return 'Ready for review';
+    case 'failed': return 'Failed';
+    case 'cancelled': return 'Cancelled';
+    default: return formatStatus(run.status);
+  }
+}
+
 function itemStatusTone(status: GenerationItemStatus) {
   if (status === 'approved') return 'success' as const;
   if (status === 'needs_fix') return 'warning' as const;
@@ -669,7 +683,12 @@ export function QuestionStudioCockpitPage() {
             id: receipt.id, publicCode: receipt.publicCode, status: receipt.status,
             attemptNumber: 0, requestedCount: input.count, generatedCount: 0,
             startedAt: null, completedAt: null, createdAt: null, updatedAt: null,
-            error: null, retryAfterSeconds: receipt.retryAfterSeconds,
+            error: null,
+            queueState: 'dispatchRequested' in receipt && receipt.dispatchRequested
+              ? 'queued_for_processing' : 'awaiting_dispatch',
+            queueMessage: 'dispatchRequested' in receipt && receipt.dispatchRequested
+              ? 'Dispatched and waiting for a worker.' : 'Queued and waiting for the dispatcher.',
+            retryAfterSeconds: receipt.retryAfterSeconds,
           });
           setStagingAsyncPollError(null);
           setReviewSubjectFilter(packageSubject(activePackage));
@@ -892,7 +911,16 @@ export function QuestionStudioCockpitPage() {
             {stagingAsyncRun ? (
               <>
                 <p className="font-semibold">{CHAPTER_ASYNC_ENABLED ? 'Production review run' : 'Staging async run'}: {stagingAsyncRun.publicCode}</p>
-                <p>Status: {stagingAsyncRun.status} · Attempt {stagingAsyncRun.attemptNumber} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
+                <p>Status: <span className={cn(
+                  'font-semibold',
+                  stagingAsyncRun.queueState === 'failed' || stagingAsyncRun.queueState === 'processing_delayed'
+                    ? 'text-destructive'
+                    : stagingAsyncRun.queueState === 'ready_for_review'
+                      ? 'text-emerald-700'
+                      : 'text-foreground',
+                )}>{queueStatusLabel(stagingAsyncRun)}</span> · Attempt {stagingAsyncRun.attemptNumber} · {stagingAsyncRun.generatedCount}/{stagingAsyncRun.requestedCount} review questions</p>
+                <p className="text-muted-foreground">{stagingAsyncRun.queueMessage}</p>
+                {stagingAsyncRun.error && <p className="text-destructive">{stagingAsyncRun.error}</p>}
                 {['review', 'approved', 'partially_approved'].includes(stagingAsyncRun.status) && (
                   <p className="text-muted-foreground">Saved in the editorial review queue; no automatic publication.</p>
                 )}
@@ -905,11 +933,13 @@ export function QuestionStudioCockpitPage() {
               setRetryingChapterDispatch(true);
               try {
                 await retryQuestionStudioProductionChapterDispatch(stagingAsyncRun.id);
+                const progress = await getQuestionStudioRunProgress(stagingAsyncRun.id);
+                setStagingAsyncRun(progress);
                 showToast.info('Dispatch requested', 'The same saved run will be used. No new batch was created.');
               } catch (error) {
                 showToast.error('Dispatch unavailable', error instanceof Error ? error.message : 'Try again later.');
               } finally { setRetryingChapterDispatch(false); }
-            }}>Retry saved run dispatch</Button>
+            }}>Request saved run dispatch</Button>
           )}
           {stagingAsyncRun && (
             <Button variant="outline" size="sm" type="button" onClick={async () => {
