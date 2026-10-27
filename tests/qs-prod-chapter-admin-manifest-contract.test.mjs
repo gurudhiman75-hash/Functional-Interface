@@ -77,3 +77,31 @@ test("DI-001 frozen multilingual review declares production chapter admission wi
   assert.match(card,/supportedLanguages: \["en", "hi", "pa"\]/);
   assert.match(card,/reviewStatus: "MULTILINGUAL_FROZEN"/);
 });
+
+
+test("all fifteen DI review package cards declare guarded, non-publishing chapter admission",()=>{
+  const paths=[
+    ...Array.from({length:14},(_,index)=>{
+      const id="DI-"+String(index+1).padStart(3,"0");
+      return "artifacts/api-server/src/quant-v4/topics/DataInterpretation/"+id+"/question-studio-adapter.ts";
+    }),
+    "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.ts",
+  ];
+  for(const path of paths){
+    const src=read(path);
+    const cardIndex=src.lastIndexOf("export function ");
+    assert.ok(cardIndex>=0,"DI card missing: "+path);
+    const card=src.slice(cardIndex);
+    for(const [field,value] of Object.entries({
+      enabled:"true",reviewSurfaceRequired:"true",manualApprovalRequired:"true",
+      questionBankWritable:"false",testEligible:"false",mockTestEligible:"false",
+      publiclyPublishable:"false",automaticStudentPublication:"false",
+      productionReleaseAuthorized:"false",
+    })){
+      assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),
+        "DI review admission restriction missing: "+field+" in "+path);
+    }
+    assert.match(card,/cpIds\s*:/,"DI canonical checkpoints missing: "+path);
+    assert.match(card,/supportedLanguages\s*:/,"DI language authority missing: "+path);
+  }
+});
