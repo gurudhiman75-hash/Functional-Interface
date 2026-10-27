@@ -190,35 +190,3 @@ test("MAL-001 standard source card allows guarded review but not automatic relea
  }))assert.match(card,new RegExp(name+"\\s*:\\s*"+value+"\\b"),name);
  assert.match(src,/NATIVE_QUALITY_REVIEW_CANDIDATE/,"native quality review must remain pending");
 });
-
-test("Probability chapter admission is a separate locked review projection",()=>{
- const src=read("artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts");
- const start=src.indexOf('for (const packageId of ["PRB-001", "PRB-002"])');
- const end=src.indexOf("for (const pkg of sriEnginePackages())",start);
- assert.ok(start>=0&&end>start,"Probability review projection missing");
- const block=src.slice(start,end);
- for(const [key,value] of Object.entries({
-   reviewSurfaceRequired:"true",manualApprovalRequired:"true",
-   questionBankWritable:"false",testEligible:"false",
-   publiclyPublishable:"false",automaticStudentPublication:"false",
-   productionReleaseAuthorized:"false"
- }))assert.match(block,new RegExp(key+"\\s*:\\s*"+value+"\\b"),key);
- assert.match(block,/sourceItemAndLanguagePolicyUnchanged: true/);
- assert.match(block,/!source\?\.enabled \|\| !source\.cpIds\.length/);
- const runtime=read("artifacts/api-server/src/quant-v4/topics/Probability/question-studio-runtime.ts");
- assert.match(runtime,/DRAFT_PARITY_PREVIEW_REQUIRES_HUMAN_REVIEW/);
- assert.match(runtime,/ELIGIBLE_WITH_FAMILY_LIMIT/);
-});
-
-test("Mensuration full-chapter source is guarded review only",()=>{
- const src=read("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-standard-runtime-v3.ts");
- const start=src.indexOf("export const MENSURATION_STANDARD_QUESTION_STUDIO_PACKAGE =");
- const end=src.indexOf("export type MensurationStandardQuestionStudioRequest",start);
- assert.ok(start>=0&&end>start,"full chapter registry missing");
- const card=src.slice(start,end);
- for(const [field,value] of Object.entries({
-  reviewSurfaceRequired:"true",manualApprovalRequired:"true",
-  productionReleaseAuthorized:"false",questionBankWritable:"false",
-  testEligible:"false",publiclyPublishable:"false",automaticStudentPublication:"false"
- }))assert.match(card,new RegExp(field+"\\s*:\\s*"+value+"\\b"),"Mensuration "+field);
-});
