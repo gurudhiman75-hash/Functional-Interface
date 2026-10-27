@@ -344,4 +344,30 @@ assert.equal(env001Result.questions.every((question) => question.language === "p
 assert.equal(env001Result.questions.every((question) => question.reviewOnly === true), true);
 assert.equal(env001Result.questions.every((question) => question.questionBankWritable === false), true);
 
+// Executable smoke: the PNL dynamic review package must be distinct from
+// canonical PNL-001 and must never inherit release authority.
+const pnlCanonical = packages.find((pkg) => pkg.packageId === "PNL-001");
+const pnlReview = packages.find((pkg) => pkg.packageId === "PNL-001-REVIEW");
+assert.ok(pnlCanonical && pnlReview, "PNL canonical and review packages must coexist");
+assert.notEqual(pnlCanonical.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pnlReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pnlReview.reviewSurfaceRequired, true);
+assert.equal(pnlReview.manualApprovalRequired, true);
+assert.equal(pnlReview.questionBankWritable, false);
+assert.equal(pnlReview.productionReleaseAuthorized, false);
+assert.equal(pnlReview.publiclyPublishable, false);
+assert.ok(pnlReview.cpIds.length > 0);
+const pnlResult = await generateQuestionStudioQuestions({
+  packageId: "PNL-001-REVIEW",
+  canonicalProblemId: pnlReview.cpIds[0],
+  language: pnlReview.supportedLanguages[0],
+  count: 1,
+  seed: "engine-registry-pnl-dynamic-review-smoke",
+});
+assert.equal(pnlResult.questions.length, 1);
+assert.equal(pnlResult.generationContext.runtimeMode, "DYNAMIC_CANDIDATE");
+assert.equal(pnlResult.generationContext.questionBankWritable, false);
+assert.equal(pnlResult.generationContext.publiclyPublishable, false);
+assert.equal(pnlResult.generationContext.productionReleaseAuthorized, false);
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
