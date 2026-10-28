@@ -46,8 +46,8 @@ for (const pkg of packages) {
         if (!options.length) warnings.push("OPTIONS_NOT_IN_STANDARD_FIELD");
         if (options.some(v => !v.trim())) warnings.push("EMPTY_OPTION");
         if (!explanation.trim() || explanation === "{}") warnings.push("EMPTY_EXPLANATION");
-        if (language === "hi" && stem && !/[\\u0900-\\u097F]/u.test(stem)) warnings.push("NO_DEVANAGARI_STEM");
-        if (language === "pa" && stem && !/[\\u0A00-\\u0A7F]/u.test(stem)) warnings.push("NO_GURMUKHI_STEM");
+        if (language === "hi" && stem && !/[\u0900-\u097F]/u.test(stem)) warnings.push("NO_DEVANAGARI_STEM");
+        if (language === "pa" && stem && !/[\u0A00-\u0A7F]/u.test(stem)) warnings.push("NO_GURMUKHI_STEM");
         for (const warning of warnings) editorialWarnings[warning] = (editorialWarnings[warning] ?? 0) + 1;
         if (warnings.length || !editorialSamples.some(v => v.packageId === pkg.packageId && v.language === language)) {
           editorialSamples.push({packageId: pkg.packageId, cpId, language, stem: stem.slice(0,450),
