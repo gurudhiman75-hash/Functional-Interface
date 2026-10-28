@@ -479,4 +479,47 @@ for (const entry of chapterAdmissionExcluded) {
   console.log("QS_CHAPTER_ADMISSION_EXCLUDED", JSON.stringify(entry));
 }
 
+// Catalog-wide, declaration-only multilingual coverage inventory.
+// A declared language is NOT proof that every CP generates localized content.
+const auditLanguages = ["en", "hi", "pa"] as const;
+const eligibleForAdmission = packages.filter((pkg) => admissionReasons(pkg).length === 0);
+const languageRows = packages.map((pkg) => {
+  const declared = auditLanguages.filter((lang) => pkg.supportedLanguages.includes(lang));
+  const missing = auditLanguages.filter((lang) => !pkg.supportedLanguages.includes(lang));
+  return {
+    engineId: pkg.engineId,
+    packageId: pkg.packageId,
+    admissionEligible: admissionReasons(pkg).length === 0,
+    cpCount: pkg.cpIds.length,
+    declared,
+    missing,
+    fullTrilingualDeclared: missing.length === 0,
+    runtimeVerifiedLanguages: [] as string[],
+    runtimeVerificationStatus: "NOT_AUDITED",
+  };
+});
+const eligibleLanguageRows = languageRows.filter((row) => row.admissionEligible);
+console.log("QS_MULTILINGUAL_DECLARATION_SUMMARY", JSON.stringify({
+  registered: packages.length,
+  eligible: eligibleForAdmission.length,
+  allThreeDeclared: languageRows.filter((row) => row.fullTrilingualDeclared).length,
+  eligibleAllThreeDeclared: eligibleLanguageRows.filter((row) => row.fullTrilingualDeclared).length,
+  eligibleMissingAtLeastOne: eligibleLanguageRows.filter((row) => !row.fullTrilingualDeclared).length,
+  byEngine: Object.fromEntries(engines.map((engineId) => {
+    const group = eligibleLanguageRows.filter((row) => row.engineId === engineId);
+    return [engineId, {
+      eligible: group.length,
+      fullTrilingualDeclared: group.filter((row) => row.fullTrilingualDeclared).length,
+      missingAny: group.filter((row) => !row.fullTrilingualDeclared).length,
+      declaredByLanguage: Object.fromEntries(auditLanguages.map((lang) => [
+        lang, group.filter((row) => row.declared.includes(lang)).length,
+      ])),
+    }];
+  })),
+  limitation: "Declarations only; actual per-CP localized generation unverified",
+}));
+for (const row of languageRows) {
+  console.log("QS_MULTILINGUAL_PACKAGE", JSON.stringify(row));
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
