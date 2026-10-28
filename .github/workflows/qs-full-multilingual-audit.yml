@@ -1,0 +1,32 @@
+name: Question Studio full offline multilingual audit
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/question-studio/full-multilingual-audit.ts
+      - .github/workflows/qs-full-multilingual-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exhaustive-multilingual-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle offline audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/full-multilingual-audit.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/qs-full-multilingual-audit.mjs
+      - name: Probe every admitted trilingual package and checkpoint
+        run: node artifacts/api-server/dist/qs-full-multilingual-audit.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qs-full-multilingual-audit
+          path: qs-full-multilingual-audit.json
+          if-no-files-found: warn
