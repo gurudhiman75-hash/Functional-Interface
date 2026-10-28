@@ -594,4 +594,25 @@ for (const packageId of ["AVG-001", "DI-003", "BLR-001", "CAL-001", "COM-002", "
   }
 }
 
+// Third offline wave expands coverage to additional Quant, Reasoning
+// and Knowledge registrations. No Question Bank or publication actions.
+for (const packageId of ["ALGEBRA", "ALP-001", "CLK-001", "COD-001", "COM-004", "COM-005", "DI-004", "COM-006"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Third-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  const cpId = pkg.cpIds[0];
+  for (const language of ["en", "hi", "pa"] as const) {
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-third-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_THIRD_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true,
+      editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
