@@ -30,5 +30,7 @@ jobs:
         if: always()
         with:
           name: qs-full-multilingual-audit
-          path: qs-full-multilingual-audit.json
+          path: |
+            qs-full-multilingual-audit.json
+            qs-multilingual-editorial-samples.json
           if-no-files-found: warn
