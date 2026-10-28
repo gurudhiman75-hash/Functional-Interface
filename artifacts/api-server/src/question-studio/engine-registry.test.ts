@@ -574,4 +574,24 @@ for (const packageId of ["TRG-002", "OPS-001", "COM-001"]) {
   }
 }
 
+// Second offline language smoke wave: additional packages across Quant,
+// Reasoning and Knowledge. Failures remain visible to CI and require triage.
+for (const packageId of ["AVG-001", "DI-003", "BLR-001", "CAL-001", "COM-002", "COM-003"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Second-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  for (const language of ["en", "hi", "pa"] as const) {
+    const cpId = pkg.cpIds[0];
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-second-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_SECOND_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true, editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
