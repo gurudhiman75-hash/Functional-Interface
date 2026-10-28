@@ -426,4 +426,20 @@ assert.equal(sapReviewResult.questions[0].packageId, "SAP-REVIEW");
 assert.equal(sapReviewResult.generationContext.questionBankWritable, false);
 assert.equal(sapReviewResult.generationContext.publiclyPublishable, false);
 
+// All separately registered admin-review surfaces must deny publication,
+// independently of their canonical bank-capable source packages.
+for (const packageId of ["PNL-001-REVIEW", "PRB-NATIVE-REVIEW", "MEN-002-REVIEW", "SAP-REVIEW"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + ": missing executable review registration");
+  assert.equal(pkg.enabled, true, packageId);
+  assert.ok(pkg.cpIds.length > 0, packageId + ": no selectable CPs");
+  assert.equal(pkg.reviewSurfaceRequired, true, packageId);
+  assert.equal(pkg.manualApprovalRequired, true, packageId);
+  assert.equal(pkg.questionBankWritable, false, packageId);
+  assert.equal(pkg.testEligible, false, packageId);
+  assert.equal(pkg.publiclyPublishable, false, packageId);
+  assert.equal(pkg.automaticStudentPublication, false, packageId);
+  assert.equal(pkg.productionReleaseAuthorized, false, packageId);
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
