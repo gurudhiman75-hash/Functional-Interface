@@ -27,6 +27,7 @@ for (const pkg of packages) {
       try {
         const generated = await generateQuestionStudioQuestions({
           packageId: pkg.packageId, canonicalProblemId: cpId, language,
+          ...(pkg.packageId === "WFM-001" && ["WFM-CP-004", "WFM-CP-005"].includes(cpId) ? { exam: "BANKING_5" } : {}),
           count: 1, seed: "qs-language-audit-" + pkg.packageId + "-" + cpId + "-" + language,
         });
         if (generated.questions.length !== 1) throw new Error("EXPECTED_EXACTLY_ONE_QUESTION");
