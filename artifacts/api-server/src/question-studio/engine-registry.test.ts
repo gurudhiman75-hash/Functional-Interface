@@ -442,4 +442,41 @@ for (const packageId of ["PNL-001-REVIEW", "PRB-NATIVE-REVIEW", "MEN-002-REVIEW"
   assert.equal(pkg.productionReleaseAuthorized, false, packageId);
 }
 
+// Diagnostic-only production chapter-admission recount. This must not
+// alter package authority or call the generation/publication pathways.
+const admissionReasons = (pkg: (typeof packages)[number]) => {
+  const reasons: string[] = [];
+  if (pkg.enabled !== true) reasons.push("NOT_ENABLED");
+  if (pkg.reviewSurfaceRequired !== true) reasons.push("NO_REVIEW_SURFACE_AUTHORITY");
+  if (pkg.manualApprovalRequired !== true) reasons.push("NO_MANUAL_APPROVAL_REQUIREMENT");
+  if (pkg.productionReleaseAuthorized !== false) reasons.push("PRODUCTION_RELEASE_LOCK_UNDECLARED");
+  if (pkg.automaticStudentPublication !== false) reasons.push("AUTO_PUBLICATION_LOCK_UNDECLARED");
+  if (pkg.publiclyPublishable !== false) reasons.push("PUBLICATION_LOCK_UNDECLARED");
+  if (!Array.isArray(pkg.cpIds) || !pkg.cpIds.length) reasons.push("NO_CANONICAL_CHECKPOINTS");
+  else {
+    if (new Set(pkg.cpIds).size !== pkg.cpIds.length) reasons.push("DUPLICATE_CHECKPOINTS");
+    if (pkg.cpIds.some((id) => !/^[A-Z][A-Z0-9-]{1,80}$/.test(id))) reasons.push("INVALID_CHECKPOINT_ID");
+  }
+  return reasons;
+};
+const chapterAdmissionExcluded = packages.map((pkg) => ({
+  engineId: pkg.engineId,
+  packageId: pkg.packageId,
+  reasons: admissionReasons(pkg),
+})).filter((entry) => entry.reasons.length > 0);
+console.log("QS_CHAPTER_ADMISSION_RECOUNT", JSON.stringify({
+  registered: packages.length,
+  eligible: packages.length - chapterAdmissionExcluded.length,
+  excluded: chapterAdmissionExcluded.length,
+  byEngine: Object.fromEntries(engines.map((engineId) => ({
+    engineId,
+    registered: packages.filter((p) => p.engineId === engineId).length,
+    eligible: packages.filter((p) => p.engineId === engineId && admissionReasons(p).length === 0).length,
+    excluded: chapterAdmissionExcluded.filter((p) => p.engineId === engineId).length,
+  })).map((row) => [row.engineId, row])),
+}));
+for (const entry of chapterAdmissionExcluded) {
+  console.log("QS_CHAPTER_ADMISSION_EXCLUDED", JSON.stringify(entry));
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
