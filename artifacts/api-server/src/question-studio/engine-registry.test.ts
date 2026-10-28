@@ -551,4 +551,27 @@ for (const packageId of multilingualProbeIds) {
   }
 }
 
+// Extend successful single-checkpoint smoke probes to three distinct CPs
+// per representative engine. These remain offline generation checks only.
+for (const packageId of ["TRG-002", "OPS-001", "COM-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + " missing from the canonical catalog");
+  const cpIds = pkg.cpIds.slice(0, 3);
+  assert.equal(cpIds.length, 3, packageId + " has fewer than three checkpoints");
+  for (const cpId of cpIds) {
+    for (const language of ["en", "hi", "pa"] as const) {
+      const result = await generateQuestionStudioQuestions({
+        packageId, canonicalProblemId: cpId, language, count: 1,
+        seed: "qs-multilingual-checkpoint-" + packageId + "-" + cpId + "-" + language,
+      });
+      assert.equal(result.questions.length, 1,
+        packageId + "/" + cpId + "/" + language + " did not generate exactly one question");
+      console.log("QS_MULTILINGUAL_CHECKPOINT_PROBE", JSON.stringify({
+        packageId, cpId, language, generated: true,
+        editorialLanguageParityVerified: false,
+      }));
+    }
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
