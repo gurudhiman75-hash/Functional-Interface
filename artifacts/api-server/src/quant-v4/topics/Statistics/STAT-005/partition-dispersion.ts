@@ -214,7 +214,7 @@ export function stat005QuestionStudioPackageCard() {
     runtimeMode: "STAT005_PERMANENT_ENGLISH_REVIEW_P0", supportedRuntimeModes: ["STAT005_PERMANENT_ENGLISH_REVIEW_P0", "STAT005_NATIVE_REVIEW_V1"],
     questionStudioDiscoverable: true, questionStudioMode: "CONTROLLED_REVIEW", questionBankStatus: "NOT_STORED",
     questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false,
-    publiclyPublishable: false, automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true,
+    publiclyPublishable: false, automaticStudentPublication: false, productionReleaseAuthorized: false,reviewSurfaceRequired:true, manualApprovalRequired: true,
     localizationStatus: "HI_PA_REVIEW_CANDIDATE",
     metadata: { localizationStatus: "HI_PA_REVIEW_CANDIDATE", languageReviewStatus: {en:"ENGLISH_REVIEW_CANDIDATE",hi:"NATIVE_REVIEW_CANDIDATE",pa:"NATIVE_REVIEW_CANDIDATE"} } };
 }

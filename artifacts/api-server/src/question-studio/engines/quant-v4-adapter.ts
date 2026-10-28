@@ -162,6 +162,8 @@ import {
   isStat011QuestionStudioRequest,
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
+import { listProbabilityNativeReviewCatalog, previewProbabilityNativeReview, PROBABILITY_NATIVE_REVIEW_PACKAGE } from "../../quant-v4/topics/Probability/native-review-adapter";
+import { previewMenCp009QuestionStudioReview, MEN_CP009_QUESTION_STUDIO_REVIEW_PACKAGE } from "../../quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-review-adapter";
 import { deriveQuestionStudioCpTitles } from "../package-metadata";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 import {
@@ -588,6 +590,89 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       else packages.push(shared);
     };
 
+    // The legacy Quant runtime already executes these canonical CP packages,
+    // but its filesystem discovery omits the Question Studio review lifecycle.
+    // Preserve source language restrictions (RAP stays English-only) and never
+    // grant Question Bank writes or student publication via this adapter.
+    const standardQuantReviewIds = new Set([
+      "PCT-001", "PCT-002", "PCT-003", "PCT-004",
+      "PCT-005", "PCT-006", "PCT-007",
+      "RAP-001", "RAP-002", "RAP-003", "PRT-001",
+    ]);
+    for (const pkg of packages) {
+      if (!standardQuantReviewIds.has(pkg.packageId) || !pkg.enabled || !pkg.cpIds.length) continue;
+      Object.assign(pkg, {
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+      });
+    }
+
+    // Separate executable dynamic-candidate review package. Never modify the
+    // canonical PNL-001 Question Bank / publication admission contract.
+    const pnlCanonical = packages.find((pkg) => pkg.packageId === "PNL-001");
+    if (pnlCanonical?.enabled && pnlCanonical.dynamicCandidateCpIds?.length) {
+      replaceOrPush("PNL-001-REVIEW", {
+        packageId: "PNL-001-REVIEW",
+        topic: pnlCanonical.topic,
+        subtopic: pnlCanonical.subtopic,
+        label: "Profit & Loss — Dynamic Candidate Review",
+        enabled: true,
+        cpIds: [...pnlCanonical.dynamicCandidateCpIds],
+        supportedLanguages: [...pnlCanonical.supportedLanguages],
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+        runtimeMode: "DYNAMIC_CANDIDATE",
+        supportedRuntimeModes: ["DYNAMIC_CANDIDATE"],
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+        metadata: { sourcePackageId: "PNL-001", sourceRuntimeMode: "DYNAMIC_CANDIDATE" },
+      });
+    }
+
+    // The native parity review is independent of the canonical PRB-001/002
+    // item-acceptance contracts. Only Hindi/Punjabi drafts are admitted here.
+    replaceOrPush("PRB-NATIVE-REVIEW", {
+      ...PROBABILITY_NATIVE_REVIEW_PACKAGE,
+      packageId: "PRB-NATIVE-REVIEW",
+      cpIds: [...new Set(listProbabilityNativeReviewCatalog().map((entry) => entry.cpId))],
+      supportedLanguages: ["hi", "pa"],
+      supportedDifficulties: ["Easy", "Medium", "Hard"],
+      productionReleaseAuthorized: false,
+      automaticStudentPublication: false,
+    });
+
+    replaceOrPush("MEN-002-REVIEW", {
+      ...MEN_CP009_QUESTION_STUDIO_REVIEW_PACKAGE,
+      packageId: "MEN-002-REVIEW",
+      cpIds: ["MEN-CP-009"],
+      supportedDifficulties: ["Easy", "Medium", "Hard"],
+      supportedLanguages: ["en", "hi", "pa"],
+      reviewSurfaceRequired: true,
+      manualApprovalRequired: true,
+      productionReleaseAuthorized: false,
+      automaticStudentPublication: false,
+    });
+
     for (const pkg of sriEnginePackages()) replaceOrPush(pkg.packageId, pkg);
 
     const avgPackage = listQuantV4QuestionStudioPackages()
@@ -624,6 +709,27 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       .find((pkg: any) => pkg.packageId === "SAP");
     if (sapPackage) {
       replaceOrPush("SAP", sapPackage as unknown as Record<string, unknown>);
+    }
+
+    // Shadow review registration: preserve SAP's existing writable canonical card.
+    if (sapPackage?.enabled && Array.isArray(sapPackage.cpIds) && sapPackage.cpIds.length) {
+      replaceOrPush("SAP-REVIEW", {
+        ...sapPackage,
+        packageId: "SAP-REVIEW",
+        label: "Simplification & Approximation — Admin Review",
+        lifecycleId: "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+        lifecycleStage: "REVIEW_ONLY",
+        reviewSurfaceRequired: true,
+        manualApprovalRequired: true,
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligibility: "INELIGIBLE",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
+      });
     }
 
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
@@ -843,6 +949,122 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isStat001QuestionStudioRequest(statRequest)) {
       return generateStat001QuestionStudioBatch(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "SAP-REVIEW") {
+      const result = await generateQuantV4QuestionStudioQuestion({
+        ...request,
+        packageId: "SAP",
+      } as any);
+      return {
+        ...result,
+        questions: result.questions.map((q) => ({
+          ...q,
+          packageId: "SAP-REVIEW",
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+        })),
+        generationContext: {
+          ...(result.generationContext ?? {}),
+          packageId: "SAP-REVIEW",
+          lifecycleStage: "REVIEW_ONLY",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankStatus: "NOT_STORED",
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+          automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
+        },
+      } as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "MEN-002-REVIEW") {
+      if (request.canonicalProblemId && request.canonicalProblemId !== "MEN-CP-009") {
+        throw new Error("Unknown MEN-002 review checkpoint.");
+      }
+      const preview = previewMenCp009QuestionStudioReview({
+        language: request.language ?? "en",
+        count: request.count,
+        seed: request.seed,
+      });
+      return {
+        questions: preview.questions.map((q) => ({
+          ...q,
+          packageId: "MEN-002-REVIEW",
+          text: q.stem,
+          correct: q.correctIndex,
+          explanation: q.explanation.steps.join("\n"),
+        })),
+        generationContext: {
+          ...preview.generationContext,
+          packageId: "MEN-002-REVIEW",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankWritable: false,
+          productionReleaseAuthorized: false,
+          automaticStudentPublication: false,
+        },
+      } as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "PRB-NATIVE-REVIEW") {
+      if (request.language !== "hi" && request.language !== "pa") {
+        throw new Error("Native Probability parity review supports only hi/pa.");
+      }
+      const catalog = listProbabilityNativeReviewCatalog();
+      const selected = request.canonicalProblemId;
+      const candidates = selected ? catalog.filter((entry) => entry.cpId === selected) : catalog;
+      if (!candidates.length) throw new Error("Unknown Probability native-review CP.");
+      const preview = previewProbabilityNativeReview({
+        language: request.language,
+        packageId: candidates[0].packageId,
+        qlId: candidates[0].qlId,
+        count: request.count,
+        seed: request.seed,
+      });
+      return {
+        questions: preview.questions.map((q) => ({
+          ...q,
+          packageId: "PRB-NATIVE-REVIEW",
+          text: q.stem,
+          correct: q.correctIndex,
+          explanation: q.explanation.steps.join("\n"),
+        })),
+        generationContext: {
+          ...preview.generationContext,
+          packageId: "PRB-NATIVE-REVIEW",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          productionReleaseAuthorized: false,
+          automaticStudentPublication: false,
+        },
+      } as QuestionStudioGenerationResult;
+    }
+
+    if (request.packageId === "PNL-001-REVIEW") {
+      const result = await generateQuantV4Question({
+        ...request,
+        packageId: "PNL-001",
+        runtimeMode: "DYNAMIC_CANDIDATE",
+      } as any);
+      return {
+        ...result,
+        generationContext: {
+          ...(result.generationContext ?? {}),
+          packageId: "PNL-001-REVIEW",
+          lifecycleStage: "REVIEW_ONLY",
+          reviewSurfaceRequired: true,
+          manualApprovalRequired: true,
+          questionBankWritable: false,
+          testEligible: false,
+          publiclyPublishable: false,
+          automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
+        },
+      } as QuestionStudioGenerationResult;
     }
 
     const result = await generateQuantV4Question({

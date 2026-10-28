@@ -319,6 +319,8 @@ export function di001QuestionStudioPackageCard() {
     publiclyPublishable: false,
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
+    // The frozen multilingual DI-001 pool is exposed only for editorial review.
+    reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_FROZEN",
   };

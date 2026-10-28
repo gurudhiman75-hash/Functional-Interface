@@ -141,6 +141,7 @@ export function listMal001StandardQuestionStudioPackages() {
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
       supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
       reviewStatus: "CONTROLLED_MULTILINGUAL_REVIEW",
+      reviewSurfaceRequired: true,
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
       mockTestEligible: false,

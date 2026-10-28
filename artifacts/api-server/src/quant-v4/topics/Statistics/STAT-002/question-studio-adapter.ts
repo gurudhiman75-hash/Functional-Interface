@@ -262,7 +262,7 @@ export function stat002QuestionStudioPackageCard() {
     mockTestEligible: false,
     publiclyPublishable: false,
     automaticStudentPublication: false,
-    productionReleaseAuthorized: false,
+    productionReleaseAuthorized: false, reviewSurfaceRequired: true,
     manualApprovalRequired: true,
     localizationStatus: "HI_PA_REVIEW_CANDIDATE",
     languageReviewStatus: { en: "ENGLISH_REVIEW_APPROVED", hi: "NATIVE_REVIEW_CANDIDATE", pa: "NATIVE_REVIEW_CANDIDATE" },

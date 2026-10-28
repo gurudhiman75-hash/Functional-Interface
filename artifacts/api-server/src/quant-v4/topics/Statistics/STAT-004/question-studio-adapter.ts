@@ -127,7 +127,7 @@ export function stat004QuestionStudioPackageCard() {
     reviewStatus: "ENGLISH_REVIEW_APPROVED", releaseId: STAT004_PERMANENT_OWNERSHIP.releaseId,
     questionStudioDiscoverable: true, questionStudioMode: "CONTROLLED_REVIEW", questionBankStatus: "NOT_STORED", questionBankWritable: false,
     testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false, publiclyPublishable: false,
-    automaticStudentPublication: false, productionReleaseAuthorized: false, manualApprovalRequired: true, localizationStatus: "HI_PA_REVIEW_CANDIDATE",
+    automaticStudentPublication: false, productionReleaseAuthorized: false, reviewSurfaceRequired: true, manualApprovalRequired: true, localizationStatus: "HI_PA_REVIEW_CANDIDATE",
     languageReviewStatus: LANGUAGE_REVIEW_STATUS,
     metadata: {languageReviewStatus: LANGUAGE_REVIEW_STATUS, localizationStatus: "HI_PA_REVIEW_CANDIDATE"} };
 }

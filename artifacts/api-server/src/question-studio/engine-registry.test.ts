@@ -48,6 +48,16 @@ for (const packageId of ["PRB-001", "PRB-002", "TRG-001", "TRG-002"]) {
   assert.equal(pkg.questionBankAcceptanceMode, "FULL_RELEASE");
   assert.equal(pkg.publiclyPublishable, false);
 }
+// These packages have established Question Bank or item-release contracts.
+// Production chapter-review admission must use a distinct executable surface,
+// rather than changing the canonical package into a REVIEW_ONLY card.
+for (const packageId of ["PNL-001", "MEN-002", "SAP"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + ": canonical executable package missing");
+  assert.notEqual(pkg.lifecycleStage, "REVIEW_ONLY",
+    packageId + ": canonical acceptance authority must not be overwritten");
+  assert.ok(pkg.cpIds.length > 0, packageId + ": canonical CP selection missing");
+}
 assert.deepEqual(packages.find((pkg) => pkg.packageId === "TRG-002")?.supportedDifficulties,
   ["Easy", "Medium", "Hard"], "Legacy lowercase Trigonometry difficulties must survive normalization.");
 for (const packageId of ["BLR-001", "CAE-001"]) {
@@ -333,5 +343,140 @@ assert.equal(env001Result.questions.every((question) => question.cpId === "ENV-C
 assert.equal(env001Result.questions.every((question) => question.language === "pa"), true);
 assert.equal(env001Result.questions.every((question) => question.reviewOnly === true), true);
 assert.equal(env001Result.questions.every((question) => question.questionBankWritable === false), true);
+
+// Executable smoke: the PNL dynamic review package must be distinct from
+// canonical PNL-001 and must never inherit release authority.
+const pnlCanonical = packages.find((pkg) => pkg.packageId === "PNL-001");
+const pnlReview = packages.find((pkg) => pkg.packageId === "PNL-001-REVIEW");
+assert.ok(pnlCanonical && pnlReview, "PNL canonical and review packages must coexist");
+assert.notEqual(pnlCanonical.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pnlReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pnlReview.reviewSurfaceRequired, true);
+assert.equal(pnlReview.manualApprovalRequired, true);
+assert.equal(pnlReview.questionBankWritable, false);
+assert.equal(pnlReview.productionReleaseAuthorized, false);
+assert.equal(pnlReview.publiclyPublishable, false);
+assert.ok(pnlReview.cpIds.length > 0);
+const pnlResult = await generateQuestionStudioQuestions({
+  packageId: "PNL-001-REVIEW",
+  canonicalProblemId: pnlReview.cpIds[0],
+  language: pnlReview.supportedLanguages[0],
+  count: 1,
+  seed: "engine-registry-pnl-dynamic-review-smoke",
+});
+assert.equal(pnlResult.questions.length, 1);
+assert.equal(pnlResult.generationContext.runtimeMode, "DYNAMIC_CANDIDATE");
+assert.equal(pnlResult.generationContext.questionBankWritable, false);
+assert.equal(pnlResult.generationContext.publiclyPublishable, false);
+assert.equal(pnlResult.generationContext.productionReleaseAuthorized, false);
+
+const probabilityNativeReview = packages.find((pkg) => pkg.packageId === "PRB-NATIVE-REVIEW");
+assert.ok(probabilityNativeReview?.cpIds.length, "Probability native review must expose executable CPs");
+assert.deepEqual(probabilityNativeReview.supportedLanguages, ["hi", "pa"]);
+assert.equal(probabilityNativeReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(probabilityNativeReview.productionReleaseAuthorized, false);
+assert.equal(probabilityNativeReview.publiclyPublishable, false);
+assert.equal(probabilityNativeReview.questionBankWritable, false);
+const probabilityNativeResult = await generateQuestionStudioQuestions({
+  packageId: "PRB-NATIVE-REVIEW",
+  canonicalProblemId: probabilityNativeReview.cpIds[0],
+  language: "pa",
+  count: 1,
+  seed: "engine-registry-probability-native-review-smoke",
+});
+assert.equal(probabilityNativeResult.questions.length, 1);
+assert.equal(probabilityNativeResult.questions[0].packageId, "PRB-NATIVE-REVIEW");
+assert.equal(probabilityNativeResult.generationContext.questionBankWritable, false);
+assert.equal(probabilityNativeResult.generationContext.productionReleaseAuthorized, false);
+
+const menReview = packages.find((pkg) => pkg.packageId === "MEN-002-REVIEW");
+assert.ok(menReview);
+assert.deepEqual(menReview.cpIds, ["MEN-CP-009"]);
+assert.equal(menReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(menReview.questionBankWritable, false);
+assert.equal(menReview.productionReleaseAuthorized, false);
+const menReviewResult = await generateQuestionStudioQuestions({
+  packageId: "MEN-002-REVIEW",
+  canonicalProblemId: "MEN-CP-009",
+  language: "pa",
+  seed: "men-002-separated-native-review-smoke",
+  count: 1,
+});
+assert.equal(menReviewResult.questions.length, 1);
+assert.equal(menReviewResult.questions[0].packageId, "MEN-002-REVIEW");
+assert.equal(menReviewResult.generationContext.questionBankWritable, false);
+
+const sapOriginal = packages.find((pkg) => pkg.packageId === "SAP");
+const sapReview = packages.find((pkg) => pkg.packageId === "SAP-REVIEW");
+assert.ok(sapOriginal && sapReview);
+assert.notEqual(sapOriginal.lifecycleStage, "REVIEW_ONLY");
+assert.equal(sapReview.lifecycleStage, "REVIEW_ONLY");
+assert.equal(sapReview.questionBankWritable, false);
+assert.equal(sapReview.productionReleaseAuthorized, false);
+assert.deepEqual(sapReview.cpIds, sapOriginal.cpIds);
+const sapReviewResult = await generateQuestionStudioQuestions({
+  packageId: "SAP-REVIEW",
+  canonicalProblemId: sapReview.cpIds[0],
+  language: sapReview.supportedLanguages[0],
+  count: 1,
+  seed: "sap-separate-question-studio-review-smoke",
+});
+assert.equal(sapReviewResult.questions.length, 1);
+assert.equal(sapReviewResult.questions[0].packageId, "SAP-REVIEW");
+assert.equal(sapReviewResult.generationContext.questionBankWritable, false);
+assert.equal(sapReviewResult.generationContext.publiclyPublishable, false);
+
+// All separately registered admin-review surfaces must deny publication,
+// independently of their canonical bank-capable source packages.
+for (const packageId of ["PNL-001-REVIEW", "PRB-NATIVE-REVIEW", "MEN-002-REVIEW", "SAP-REVIEW"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + ": missing executable review registration");
+  assert.equal(pkg.enabled, true, packageId);
+  assert.ok(pkg.cpIds.length > 0, packageId + ": no selectable CPs");
+  assert.equal(pkg.reviewSurfaceRequired, true, packageId);
+  assert.equal(pkg.manualApprovalRequired, true, packageId);
+  assert.equal(pkg.questionBankWritable, false, packageId);
+  assert.equal(pkg.testEligible, false, packageId);
+  assert.equal(pkg.publiclyPublishable, false, packageId);
+  assert.equal(pkg.automaticStudentPublication, false, packageId);
+  assert.equal(pkg.productionReleaseAuthorized, false, packageId);
+}
+
+// Diagnostic-only production chapter-admission recount. This must not
+// alter package authority or call the generation/publication pathways.
+const admissionReasons = (pkg: (typeof packages)[number]) => {
+  const reasons: string[] = [];
+  if (pkg.enabled !== true) reasons.push("NOT_ENABLED");
+  if (pkg.reviewSurfaceRequired !== true) reasons.push("NO_REVIEW_SURFACE_AUTHORITY");
+  if (pkg.manualApprovalRequired !== true) reasons.push("NO_MANUAL_APPROVAL_REQUIREMENT");
+  if (pkg.productionReleaseAuthorized !== false) reasons.push("PRODUCTION_RELEASE_LOCK_UNDECLARED");
+  if (pkg.automaticStudentPublication !== false) reasons.push("AUTO_PUBLICATION_LOCK_UNDECLARED");
+  if (pkg.publiclyPublishable !== false) reasons.push("PUBLICATION_LOCK_UNDECLARED");
+  if (!Array.isArray(pkg.cpIds) || !pkg.cpIds.length) reasons.push("NO_CANONICAL_CHECKPOINTS");
+  else {
+    if (new Set(pkg.cpIds).size !== pkg.cpIds.length) reasons.push("DUPLICATE_CHECKPOINTS");
+    if (pkg.cpIds.some((id) => !/^[A-Z][A-Z0-9-]{1,80}$/.test(id))) reasons.push("INVALID_CHECKPOINT_ID");
+  }
+  return reasons;
+};
+const chapterAdmissionExcluded = packages.map((pkg) => ({
+  engineId: pkg.engineId,
+  packageId: pkg.packageId,
+  reasons: admissionReasons(pkg),
+})).filter((entry) => entry.reasons.length > 0);
+console.log("QS_CHAPTER_ADMISSION_RECOUNT", JSON.stringify({
+  registered: packages.length,
+  eligible: packages.length - chapterAdmissionExcluded.length,
+  excluded: chapterAdmissionExcluded.length,
+  byEngine: Object.fromEntries(engines.map((engineId) => ({
+    engineId,
+    registered: packages.filter((p) => p.engineId === engineId).length,
+    eligible: packages.filter((p) => p.engineId === engineId && admissionReasons(p).length === 0).length,
+    excluded: chapterAdmissionExcluded.filter((p) => p.engineId === engineId).length,
+  })).map((row) => [row.engineId, row])),
+}));
+for (const entry of chapterAdmissionExcluded) {
+  console.log("QS_CHAPTER_ADMISSION_EXCLUDED", JSON.stringify(entry));
+}
 
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
