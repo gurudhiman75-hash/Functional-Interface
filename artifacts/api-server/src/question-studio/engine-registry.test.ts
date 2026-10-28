@@ -523,4 +523,32 @@ for (const row of languageRows) {
 }
 
 assert.deepEqual(packages.find((pkg) => pkg.packageId === "RNK-001")?.supportedLanguages, ["en"], "RNK-001 localization candidates are not approved runtime languages");
+// Offline, bounded multilingual generation probes across the four engines.
+// Declaration coverage is reported separately; these probes do not certify
+// every checkpoint or editorial quality.
+const multilingualProbeIds = ["TRG-002", "OPS-001", "COM-001"];
+for (const packageId of multilingualProbeIds) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Missing probe package: " + packageId);
+  assert.deepEqual(["en", "hi", "pa"].filter((lang) =>
+    !pkg.supportedLanguages.includes(lang)), [], packageId + " missing declaration");
+  for (const language of ["en", "hi", "pa"] as const) {
+    const request = {
+      packageId,
+      canonicalProblemId: pkg.cpIds[0],
+      language,
+      count: 1,
+      seed: "qs-multilingual-smoke-" + packageId + "-" + language,
+    };
+    const result = await generateQuestionStudioQuestions(request);
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    const question = result.questions[0];
+    assert.ok(question, packageId + "/" + language + " missing question");
+    console.log("QS_MULTILINGUAL_RUNTIME_PROBE", JSON.stringify({
+      packageId, cpId: pkg.cpIds[0], language,
+      generated: true, editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
