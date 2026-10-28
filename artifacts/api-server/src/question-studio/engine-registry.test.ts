@@ -615,4 +615,25 @@ for (const packageId of ["ALGEBRA", "ALP-001", "CLK-001", "COD-001", "COM-004", 
   }
 }
 
+// Fourth offline multilingual wave. Each entry uses one canonical CP;
+// these smoke probes do not establish full CP or editorial parity.
+for (const packageId of ["DI-005", "DI-006", "DI-007", "DI-008", "COM-007", "COM-008", "CAE-001", "ASM-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Fourth-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  const cpId = pkg.cpIds[0];
+  for (const language of ["en", "hi", "pa"] as const) {
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-fourth-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_FOURTH_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true,
+      editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
