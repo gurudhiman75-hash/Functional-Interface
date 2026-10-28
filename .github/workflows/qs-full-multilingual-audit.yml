@@ -4,8 +4,10 @@ on:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/question-studio/full-multilingual-audit.ts
-      - .github/workflows/qs-full-multilingual-audit.yml
   workflow_dispatch:
+concurrency:
+  group: qs-full-multilingual-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
