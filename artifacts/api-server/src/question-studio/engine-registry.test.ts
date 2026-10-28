@@ -522,4 +522,5 @@ for (const row of languageRows) {
   console.log("QS_MULTILINGUAL_PACKAGE", JSON.stringify(row));
 }
 
+assert.deepEqual(packages.find((pkg) => pkg.packageId === "RNK-001")?.supportedLanguages, ["en"], "RNK-001 localization candidates are not approved runtime languages");
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");
