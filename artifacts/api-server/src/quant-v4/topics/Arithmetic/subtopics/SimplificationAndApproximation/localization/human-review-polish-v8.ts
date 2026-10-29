@@ -121,10 +121,13 @@ function stemFor(base: any, current: any, language: SapTranslationLanguage) {
 
   if (ql === "SAP-QL-067") {
     const eq = english.match(/^Which non-negative integer exponent makes (.+) true\?$/su)?.[1] ?? english.match(/makes\s+(.+?)\s+true/u)?.[1] ?? english.match(/equality\s+(.+?),/u)?.[1] ?? [english, stem].map(value => value.match(/\d+\s*\^\s*\{?x\}?\s*=\s*\d+/u)?.[0]).find(Boolean);
-    if (!eq) throw new Error("SAP-QL-067 localization requires visible exponent equation");
+    const oracleData = base.oracle?.data ?? current.oracle?.data;
+    const equation = eq ?? (Number.isInteger(oracleData?.base) && Number.isInteger(oracleData?.target)
+      ? `${oracleData.base}^x = ${oracleData.target}` : undefined);
+    if (!equation) throw new Error("SAP-QL-067 localization requires visible exponent equation");
     return L(language,
-      `${eq} को सत्य बनाने वाला गैर-ऋणात्मक पूर्णांक घातांक x ज्ञात कीजिए।`,
-      `${eq} ਨੂੰ ਸਹੀ ਬਣਾਉਣ ਵਾਲਾ ਗੈਰ-ਰਣਾਤਮਕ ਪੂਰਨ ਅੰਕ ਘਾਤ x ਕੱਢੋ।`,
+      `${equation} को सत्य बनाने वाला गैर-ऋणात्मक पूर्णांक घातांक x ज्ञात कीजिए।`,
+      `${equation} ਨੂੰ ਸਹੀ ਬਣਾਉਣ ਵਾਲਾ ਗੈਰ-ਰਣਾਤਮਕ ਪੂਰਨ ਅੰਕ ਘਾਤ x ਕੱਢੋ।`,
     );
   }
 
