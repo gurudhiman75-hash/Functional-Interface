@@ -155,6 +155,41 @@ router.get("/catalog", requireAdminPermission("commerce.products.read"), async (
   } catch (error) { sendError(res, error, "Unable to load package catalog"); }
 });
 
+// Read-only canonical series catalogue for package composition. This does not create
+// package membership or change the paid-access rules.
+router.get("/catalog/series", requireAdminPermission("commerce.products.read"), async (_req, res) => {
+  try {
+    const series = await sqlClient`
+      SELECT s.id::text AS id, s.code, s.name,
+        s.exam_version_id::text AS "examVersionId",
+        s.current_version_number AS "currentVersionNumber",
+        v.id::text AS "seriesVersionId",
+        v.availability_start_at AS "availabilityStartAt",
+        v.availability_end_at AS "availabilityEndAt",
+        COUNT(i.id)::int AS "testCount",
+        COUNT(i.id) FILTER (
+          WHERE t.deleted_at IS NOT NULL
+             OR t.status::text NOT IN ('live', 'scheduled', 'completed')
+        )::int AS "unavailableTestCount"
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions v
+        ON v.series_id = s.id AND v.version_number = s.current_version_number
+      LEFT JOIN assessment.test_series_items i ON i.series_version_id = v.id
+      LEFT JOIN assessment.tests t ON t.id = i.test_id
+      WHERE s.deleted_at IS NULL
+      GROUP BY s.id, s.code, s.name, s.exam_version_id,
+        s.current_version_number, v.id, v.availability_start_at, v.availability_end_at
+      ORDER BY s.updated_at DESC
+      LIMIT 5000
+    `;
+    res.json({ series: series.map((item) => ({
+      ...item,
+      selectionReady: Number(item.testCount) > 0 && Number(item.unavailableTestCount) === 0
+        && (!item.availabilityEndAt || new Date(String(item.availabilityEndAt)).getTime() > Date.now()),
+    })), generatedAt: new Date().toISOString() });
+  } catch (error) { sendError(res, error, "Unable to load canonical series catalogue"); }
+});
+
 router.get("/", requireAdminPermission("commerce.products.read"), async (req, res) => {
   const search = typeof req.query.search === "string" ? req.query.search.trim().toLowerCase().slice(0, 160) : "";
   try {
