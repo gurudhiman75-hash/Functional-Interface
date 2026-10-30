@@ -7,6 +7,8 @@ on:
       - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
       - docs/commerce-foundation-blueprint.md
       - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.test.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -17,6 +19,8 @@ on:
       - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
       - docs/commerce-foundation-blueprint.md
       - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.test.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -66,6 +70,10 @@ jobs:
           grep -F "method: 'POST'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
           grep -F "new Intl.NumberFormat('en-US'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
           ! grep -E '@/data/|prototype products|demo package|Canonical Commerce schema is not deployed' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+      - name: Test series package composition
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-series-composition.test.ts --bundle --platform=node --format=esm --outfile=dist/commerce-series-composition.test.mjs
+          node artifacts/api-server/dist/commerce-series-composition.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
