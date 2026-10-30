@@ -3,6 +3,7 @@ import test from "node:test";
 import postgres from "postgres";
 import { loadEligibleSeriesTestGroups, SeriesPackageSelectionError } from "./commerce-series-resolution";
 import { composePackageTestIds } from "./commerce-series-composition";
+import { evaluateTestAccess } from "./canonical-commerce-entitlements";
 
 // This suite MUST run only against the disposable Postgres CI service.
 const connectionString = process.env.TEST_COMMERCE_DATABASE_URL ?? "";
@@ -47,6 +48,18 @@ test("SQL-backed canonical series composition and frozen grant snapshots", async
       id uuid PRIMARY KEY, series_version_id uuid NOT NULL REFERENCES assessment.test_series_versions(id),
       test_id uuid NOT NULL, sort_order int NOT NULL
     )`;
+    await sql`CREATE TABLE commerce.products (
+      id uuid PRIMARY KEY, status text NOT NULL, current_version_number int NOT NULL
+    )`;
+    await sql`CREATE TABLE commerce.product_versions (
+      id uuid PRIMARY KEY, product_id uuid NOT NULL REFERENCES commerce.products(id),
+      version_number int NOT NULL, sale_price_minor bigint NOT NULL
+    )`;
+    await sql`CREATE TABLE commerce.entitlements (
+      id uuid PRIMARY KEY, user_id uuid NOT NULL, status text NOT NULL,
+      starts_at timestamptz NOT NULL, ends_at timestamptz,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`;
     await sql`CREATE TABLE commerce.product_version_tests (
       product_version_id uuid NOT NULL, test_id uuid NOT NULL, PRIMARY KEY(product_version_id, test_id)
     )`;
@@ -88,11 +101,29 @@ test("SQL-backed canonical series composition and frozen grant snapshots", async
     for (const testId of combined) {
       await sql`INSERT INTO commerce.product_version_tests VALUES (${productVersion}::uuid,${testId}::uuid)`;
     }
+    const productId = "70000000-0000-4000-8000-000000000001";
+    const userId = "80000000-0000-4000-8000-000000000001";
+    await sql`INSERT INTO commerce.products VALUES (${productId}::uuid,'active',1)`;
+    await sql`INSERT INTO commerce.product_versions VALUES (${productVersion}::uuid,${productId}::uuid,1,29900)`;
+    const beforePurchase = await evaluateTestAccess({ userId, testId: ids.t1, client });
+    assert.equal(beforePurchase.allowed, false);
+    assert.equal(beforePurchase.paidAccessRequired, true);
+    assert.equal((await evaluateTestAccess({ userId, testId: ids.t3, client })).allowed, true);
+    await sql`INSERT INTO commerce.entitlements (id,user_id,status,starts_at,ends_at)
+      VALUES (${entitlement}::uuid,${userId}::uuid,'active',now() - interval '1 hour', now() + interval '1 day')`;
     // Same immutable purchase-grant SQL shape as canonical payment finalization.
     await sql`INSERT INTO commerce.entitlement_tests (entitlement_id,test_id)
       SELECT ${entitlement}::uuid,test_id FROM commerce.product_version_tests
       WHERE product_version_id = ${productVersion}::uuid
       ON CONFLICT DO NOTHING`;
+    const afterPurchase = await evaluateTestAccess({ userId, testId: ids.t1, client });
+    assert.equal(afterPurchase.allowed, true);
+    assert.equal(afterPurchase.reason, "active_entitlement");
+    await sql`UPDATE commerce.entitlements SET ends_at = now() - interval '1 minute' WHERE id = ${entitlement}::uuid`;
+    assert.equal((await evaluateTestAccess({ userId, testId: ids.t1, client })).allowed, false);
+    await sql`UPDATE commerce.entitlements SET ends_at = now() + interval '1 day', status = 'revoked' WHERE id = ${entitlement}::uuid`;
+    assert.equal((await evaluateTestAccess({ userId, testId: ids.t1, client })).allowed, false);
+    await sql`UPDATE commerce.entitlements SET status = 'active' WHERE id = ${entitlement}::uuid`;
     const updatedGroups = await loadEligibleSeriesTestGroups(client,[ids.v2]);
     assert.deepEqual(updatedGroups, [[ids.t1,ids.t2,ids.t3]]);
     const purchased = await sql`SELECT test_id::text AS id FROM commerce.entitlement_tests
