@@ -36,6 +36,8 @@ type Product = {
 type ProductsResponse = { products: Product[]; generatedAt: string };
 type TestOption = { id: string; publicCode: string; title: string; status: string; updatedAt: string };
 type CatalogResponse = { tests: TestOption[] };
+type SeriesOption = { id: string; code: string; name: string; seriesVersionId: string; testCount: number; selectionReady: boolean };
+type SeriesCatalogResponse = { series: SeriesOption[] };
 type Version = {
   id: string; versionNumber: number; title: string; description: string; currency: string;
   listPriceMinor: number; salePriceMinor: number; validityDays: number | null; saleStartAt: string | null;
@@ -46,13 +48,14 @@ type ProductDetail = {
   versions: Version[];
   currentVersion: Version;
   tests: Array<{ testId: string; sortOrder: number; publicCode: string; title: string; status: string }>;
+  seriesVersionIds: string[]; directTestIds: string[];
   readiness: { ready: boolean; blockers: string[] };
 };
 type PackageFormValue = {
   code: string; title: string; description: string; currency: string; listPrice: string; salePrice: string;
-  validityDays: string; saleStartAt: string; saleEndAt: string; changeReason: string; testIds: string[];
+  validityDays: string; saleStartAt: string; saleEndAt: string; changeReason: string; testIds: string[]; seriesVersionIds: string[];
 };
-const emptyForm: PackageFormValue = { code: '', title: '', description: '', currency: 'INR', listPrice: '', salePrice: '', validityDays: '', saleStartAt: '', saleEndAt: '', changeReason: '', testIds: [] };
+const emptyForm: PackageFormValue = { code: '', title: '', description: '', currency: 'INR', listPrice: '', salePrice: '', validityDays: '', saleStartAt: '', saleEndAt: '', changeReason: '', testIds: [], seriesVersionIds: [] };
 
 function payload(value: PackageFormValue) {
   const toIso = (input: string) => input ? new Date(input).toISOString() : null;
@@ -68,6 +71,7 @@ function payload(value: PackageFormValue) {
     saleEndAt: toIso(value.saleEndAt),
     changeReason: value.changeReason,
     testIds: value.testIds,
+    seriesVersionIds: value.seriesVersionIds,
   };
 }
 
@@ -77,6 +81,7 @@ export function PackagesWorkspacePage() {
   const [appliedSearch, setAppliedSearch] = useState('');
   const [data, setData] = useState<ProductsResponse | null>(null);
   const [catalog, setCatalog] = useState<TestOption[]>([]);
+  const [seriesCatalog, setSeriesCatalog] = useState<SeriesOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -87,12 +92,14 @@ export function PackagesWorkspacePage() {
     try {
       const params = new URLSearchParams();
       if (appliedSearch) params.set('search', appliedSearch);
-      const [products, testCatalog] = await Promise.all([
+      const [products, testCatalog, seriesResponse] = await Promise.all([
         request<ProductsResponse>(`/admin/commerce/products?${params}`),
         request<CatalogResponse>('/admin/commerce/products/catalog'),
+        request<SeriesCatalogResponse>('/admin/commerce/products/catalog/series'),
       ]);
       setData(products);
       setCatalog(testCatalog.tests);
+      setSeriesCatalog(seriesResponse.series);
     } catch (error) {
       showToast.error('Unable to load packages', error instanceof Error ? error.message : 'Request failed.');
     } finally { setLoading(false); }
@@ -116,7 +123,7 @@ export function PackagesWorkspacePage() {
   return <div className="space-y-5">
     <PageHeader title="Packages" description="Canonical package inventory with immutable versions, frozen pricing inputs and ordered test membership." icon={<Box className="h-5 w-5" />} actions={<><Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button onClick={() => setCreating((value) => !value)}><Plus className="mr-1.5 h-4 w-4" />New package</Button></>} />
 
-    {creating && <PackageEditor title="Create package" submitLabel="Create draft" value={form} onChange={setForm} tests={catalog} saving={saving} onSubmit={() => void create()} onCancel={() => setCreating(false)} showCode />}
+    {creating && <PackageEditor title="Create package" submitLabel="Create draft" value={form} onChange={setForm} tests={catalog} series={seriesCatalog} saving={saving} onSubmit={() => void create()} onCancel={() => setCreating(false)} showCode />}
 
     <Card><CardContent className="flex gap-2 p-4"><Input value={search} onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') setAppliedSearch(search.trim()); }} placeholder="Search package code or title" /><Button onClick={() => setAppliedSearch(search.trim())}><Search className="mr-1.5 h-4 w-4" />Search</Button></CardContent></Card>
 
@@ -134,6 +141,7 @@ export function PackageDetailPage() {
   const { productId = '' } = useParams();
   const [detail, setDetail] = useState<ProductDetail | null>(null);
   const [catalog, setCatalog] = useState<TestOption[]>([]);
+  const [seriesCatalog, setSeriesCatalog] = useState<SeriesOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -142,12 +150,14 @@ export function PackageDetailPage() {
   const load = async () => {
     setLoading(true);
     try {
-      const [nextDetail, nextCatalog] = await Promise.all([
+      const [nextDetail, nextCatalog, seriesResponse] = await Promise.all([
         request<ProductDetail>(`/admin/commerce/products/${encodeURIComponent(productId)}`),
         request<CatalogResponse>('/admin/commerce/products/catalog'),
+        request<SeriesCatalogResponse>('/admin/commerce/products/catalog/series'),
       ]);
       setDetail(nextDetail);
       setCatalog(nextCatalog.tests);
+      setSeriesCatalog(seriesResponse.series);
       setForm({
         code: nextDetail.product.code,
         title: nextDetail.currentVersion.title,
@@ -159,7 +169,8 @@ export function PackageDetailPage() {
         saleStartAt: nextDetail.currentVersion.saleStartAt ? new Date(nextDetail.currentVersion.saleStartAt).toISOString().slice(0, 16) : '',
         saleEndAt: nextDetail.currentVersion.saleEndAt ? new Date(nextDetail.currentVersion.saleEndAt).toISOString().slice(0, 16) : '',
         changeReason: '',
-        testIds: nextDetail.tests.map((test) => test.testId),
+        testIds: nextDetail.directTestIds ?? nextDetail.tests.map((test) => test.testId),
+        seriesVersionIds: nextDetail.seriesVersionIds ?? [],
       });
     } catch (error) {
       showToast.error('Unable to load package', error instanceof Error ? error.message : 'Request failed.');
@@ -207,7 +218,7 @@ export function PackageDetailPage() {
       {detail.product.status !== 'archived' && <Button variant="destructive" disabled={saving} onClick={() => void changeStatus('archived')}><Archive className="mr-1.5 h-4 w-4" />Archive</Button>}
     </div>
 
-    {editing && <PackageEditor title={`Create version ${detail.product.currentVersionNumber + 1}`} submitLabel="Create immutable version" value={form} onChange={setForm} tests={catalog} saving={saving} onSubmit={() => void createVersion()} onCancel={() => setEditing(false)} />}
+    {editing && <PackageEditor title={`Create version ${detail.product.currentVersionNumber + 1}`} submitLabel="Create immutable version" value={form} onChange={setForm} tests={catalog} series={seriesCatalog} saving={saving} onSubmit={() => void createVersion()} onCancel={() => setEditing(false)} />}
 
     <div className="grid gap-4 xl:grid-cols-2">
       <Card><CardHeader><CardTitle className="text-base">Current test membership</CardTitle></CardHeader><CardContent className="space-y-2">{detail.tests.map((test) => <div key={test.testId} className="flex items-center justify-between rounded-md border p-3"><div><p className="font-medium">{test.title}</p><p className="text-xs text-muted-foreground">{test.publicCode} · order {test.sortOrder}</p></div><StatusBadge tone={['live', 'scheduled', 'completed'].includes(test.status) ? 'success' : 'warning'}>{test.status}</StatusBadge></div>)}</CardContent></Card>
@@ -216,7 +227,7 @@ export function PackageDetailPage() {
   </div>;
 }
 
-function PackageEditor({ title, submitLabel, value, onChange, tests, saving, onSubmit, onCancel, showCode = false }: { title: string; submitLabel: string; value: PackageFormValue; onChange: (value: PackageFormValue) => void; tests: TestOption[]; saving: boolean; onSubmit: () => void; onCancel: () => void; showCode?: boolean }) {
+function PackageEditor({ title, submitLabel, value, onChange, tests, series, saving, onSubmit, onCancel, showCode = false }: { title: string; submitLabel: string; value: PackageFormValue; onChange: (value: PackageFormValue) => void; tests: TestOption[]; series: SeriesOption[]; saving: boolean; onSubmit: () => void; onCancel: () => void; showCode?: boolean }) {
   const selected = useMemo(() => new Set(value.testIds), [value.testIds]);
   const set = (key: keyof PackageFormValue, next: string) => onChange({ ...value, [key]: next });
   const toggleTest = (id: string) => onChange({ ...value, testIds: selected.has(id) ? value.testIds.filter((testId) => testId !== id) : [...value.testIds, id] });
@@ -224,7 +235,19 @@ function PackageEditor({ title, submitLabel, value, onChange, tests, saving, onS
     <div className="grid gap-3 md:grid-cols-2">{showCode && <Field label="Package code"><Input value={value.code} onChange={(event) => set('code', event.target.value)} placeholder="SSC-CGL-COMPLETE" /></Field>}<Field label="Title"><Input value={value.title} onChange={(event) => set('title', event.target.value)} placeholder="SSC CGL Complete Package" /></Field><Field label="Currency"><Input value={value.currency} maxLength={3} onChange={(event) => set('currency', event.target.value.toUpperCase())} /></Field><Field label="List price"><Input type="number" min="0" step="0.01" value={value.listPrice} onChange={(event) => set('listPrice', event.target.value)} /></Field><Field label="Sale price"><Input type="number" min="0" step="0.01" value={value.salePrice} onChange={(event) => set('salePrice', event.target.value)} /></Field><Field label="Validity days"><Input type="number" min="1" value={value.validityDays} onChange={(event) => set('validityDays', event.target.value)} placeholder="Blank for no expiry" /></Field><Field label="Sale starts"><Input type="datetime-local" value={value.saleStartAt} onChange={(event) => set('saleStartAt', event.target.value)} /></Field><Field label="Sale ends"><Input type="datetime-local" value={value.saleEndAt} onChange={(event) => set('saleEndAt', event.target.value)} /></Field></div>
     <Field label="Description"><textarea className="min-h-24 w-full rounded-md border bg-background px-3 py-2 text-sm" value={value.description} onChange={(event) => set('description', event.target.value)} /></Field>
     <Field label="Change reason"><textarea className="min-h-20 w-full rounded-md border bg-background px-3 py-2 text-sm" value={value.changeReason} onChange={(event) => set('changeReason', event.target.value)} placeholder="Required immutable audit reason" /></Field>
-    <Field label={`Tests (${value.testIds.length} selected)`}><div className="max-h-72 space-y-2 overflow-auto rounded-md border p-3">{tests.map((test) => <label key={test.id} className="flex cursor-pointer items-center gap-3 rounded-md border p-3"><input type="checkbox" checked={selected.has(test.id)} onChange={() => toggleTest(test.id)} /><span className="flex-1"><span className="block text-sm font-medium">{test.title}</span><span className="block text-xs text-muted-foreground">{test.publicCode} · {test.status}</span></span></label>)}</div></Field>
+    <Field label={`Series (${value.seriesVersionIds.length} selected)`}>
+      <div className="max-h-52 space-y-2 overflow-auto rounded-md border p-3">
+        {series.map(item => <label key={item.seriesVersionId} className="flex items-center gap-3 rounded-md border p-3">
+          <input type="checkbox" disabled={!item.selectionReady && !value.seriesVersionIds.includes(item.seriesVersionId)}
+            checked={value.seriesVersionIds.includes(item.seriesVersionId)}
+            onChange={() => onChange({ ...value, seriesVersionIds: value.seriesVersionIds.includes(item.seriesVersionId)
+              ? value.seriesVersionIds.filter(id => id !== item.seriesVersionId)
+              : [...value.seriesVersionIds, item.seriesVersionId] })} />
+          <span className="text-sm">{item.name} · v{item.seriesVersionId.slice(0,8)} · {item.testCount} tests {item.selectionReady ? '' : '(not ready)'}</span>
+        </label>)}
+      </div>
+    </Field>
+    <Field label={`Individual tests (${value.testIds.length} selected)`}><div className="max-h-72 space-y-2 overflow-auto rounded-md border p-3">{tests.map((test) => <label key={test.id} className="flex cursor-pointer items-center gap-3 rounded-md border p-3"><input type="checkbox" checked={selected.has(test.id)} onChange={() => toggleTest(test.id)} /><span className="flex-1"><span className="block text-sm font-medium">{test.title}</span><span className="block text-xs text-muted-foreground">{test.publicCode} · {test.status}</span></span></label>)}</div></Field>
     <div className="flex justify-end gap-2"><Button variant="outline" onClick={onCancel} disabled={saving}>Cancel</Button><Button onClick={onSubmit} disabled={saving}><Save className="mr-1.5 h-4 w-4" />{saving ? 'Saving…' : submitLabel}</Button></div>
   </CardContent></Card>;
 }
