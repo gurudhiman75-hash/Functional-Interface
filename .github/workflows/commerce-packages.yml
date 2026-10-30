@@ -59,8 +59,8 @@ jobs:
           grep -F 'commerce.product.version.created' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'PACKAGE_NOT_READY' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'COMMERCE_SCHEMA_REQUIRED' artifacts/api-server/src/routes/admin-commerce-products.ts
-          grep -F "path: '/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/commerce/packages'" artifacts/admin-app/src/App.tsx
+          grep -E "path: ?'/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
+          grep -E "path: ?'/commerce/packages'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Packages'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "permission: 'commerce.products.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F 'Create immutable version' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
