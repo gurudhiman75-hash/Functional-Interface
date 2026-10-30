@@ -3,6 +3,7 @@ import { Router, type Response } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { composePackageTestIds, snapshotSeriesComposition, seriesSelectionBlockers } from "../lib/commerce-series-composition";
+import { loadEligibleSeriesTestGroups, SeriesPackageSelectionError } from "../lib/commerce-series-resolution";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
@@ -17,6 +18,10 @@ class CommerceProductError extends Error {
 }
 
 function sendError(res: Response, error: unknown, fallback: string): void {
+  if (error instanceof SeriesPackageSelectionError) {
+    res.status(409).json({ error: error.message, code: error.code, details: error.details });
+    return;
+  }
   if (error instanceof CommerceProductError) {
     res.status(error.statusCode).json({ error: error.message, code: error.code, details: error.details });
     return;
@@ -77,41 +82,8 @@ async function assertTests(client: SqlExecutor, testIds: string[]) {
 }
 
 async function resolvePackageMembers(client: SqlExecutor, input: ReturnType<typeof normalizeInput>) {
-  const seriesGroups: string[][] = [];
-  for (const versionId of input.seriesVersionIds) {
-    const series = await client`
-      SELECT s.deleted_at AS "deletedAt",
-        v.availability_end_at AS "availabilityEndAt",
-        v.configuration ->> 'learnerVisibility' AS "learnerVisibility"
-      FROM assessment.test_series_versions v
-      JOIN assessment.test_series s ON s.id = v.series_id
-      WHERE v.id = ${versionId}::uuid
-      LIMIT 1
-    `;
-    if (!series.length) {
-      throw new CommerceProductError("SERIES_VERSION_MISSING", "Selected series version does not exist", 409, { seriesVersionId: versionId });
-    }
-    const rows = await client`
-      SELECT i.test_id::text AS id, t.status::text AS status,
-        (t.id IS NULL OR t.deleted_at IS NOT NULL) AS "missingOrArchived"
-      FROM assessment.test_series_items i
-      LEFT JOIN assessment.tests t ON t.id = i.test_id
-      WHERE i.series_version_id = ${versionId}::uuid
-      ORDER BY i.sort_order
-    `;
-    const blockers = seriesSelectionBlockers({
-      archived: Boolean(series[0].deletedAt),
-      availabilityEndAt: series[0].availabilityEndAt ? String(series[0].availabilityEndAt) : null,
-      learnerVisibility: series[0].learnerVisibility ? String(series[0].learnerVisibility) : null,
-      memberStatuses: rows.map(row => row.status == null ? null : String(row.status)),
-      missingOrArchivedMembers: rows.filter(row => row.missingOrArchived).length,
-    });
-    if (blockers.length) {
-      throw new CommerceProductError("SERIES_NOT_READY", "Selected series version cannot be added to a package", 409, { seriesVersionId: versionId, blockers });
-    }
-    seriesGroups.push(rows.map(row => String(row.id)));
-  }
-  const testIds = composePackageTestIds(input.testIds, seriesGroups);
+  const groups = await loadEligibleSeriesTestGroups(client, input.seriesVersionIds);
+  const testIds = composePackageTestIds(input.testIds, groups);
   await assertTests(client, testIds);
   return { ...input, directTestIds: input.testIds, testIds };
 }
@@ -215,7 +187,7 @@ router.get("/catalog/series", requireAdminPermission("commerce.products.read"), 
         v.configuration ->> 'learnerVisibility' AS "learnerVisibility",
         COUNT(i.id)::int AS "testCount",
         COUNT(i.id) FILTER (
-          WHERE t.deleted_at IS NOT NULL
+          WHERE t.id IS NULL OR t.deleted_at IS NOT NULL
              OR t.status::text NOT IN ('live', 'scheduled', 'completed')
         )::int AS "unavailableTestCount",
         COUNT(i.id) FILTER (WHERE t.status::text NOT IN ('live','scheduled','completed'))::int AS "unreadyTestCount"
