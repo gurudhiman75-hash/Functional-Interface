@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { Router, type Response } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
-import { composePackageTestIds, snapshotSeriesComposition } from "../lib/commerce-series-composition";
+import { composePackageTestIds, snapshotSeriesComposition, seriesSelectionBlockers } from "../lib/commerce-series-composition";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
@@ -79,13 +79,36 @@ async function assertTests(client: SqlExecutor, testIds: string[]) {
 async function resolvePackageMembers(client: SqlExecutor, input: ReturnType<typeof normalizeInput>) {
   const seriesGroups: string[][] = [];
   for (const versionId of input.seriesVersionIds) {
-    const rows = await client`
-      SELECT i.test_id::text AS id FROM assessment.test_series_versions v
+    const series = await client`
+      SELECT s.deleted_at AS "deletedAt",
+        v.availability_end_at AS "availabilityEndAt",
+        v.configuration ->> 'learnerVisibility' AS "learnerVisibility"
+      FROM assessment.test_series_versions v
       JOIN assessment.test_series s ON s.id = v.series_id
-      JOIN assessment.test_series_items i ON i.series_version_id = v.id
-      WHERE v.id = ${versionId}::uuid AND s.deleted_at IS NULL ORDER BY i.sort_order
+      WHERE v.id = ${versionId}::uuid
+      LIMIT 1
     `;
-    if (!rows.length) throw new CommerceProductError("SERIES_NOT_AVAILABLE", "Selected series version is empty or unavailable", 409);
+    if (!series.length) {
+      throw new CommerceProductError("SERIES_VERSION_MISSING", "Selected series version does not exist", 409, { seriesVersionId: versionId });
+    }
+    const rows = await client`
+      SELECT i.test_id::text AS id, t.status::text AS status,
+        (t.id IS NULL OR t.deleted_at IS NOT NULL) AS "missingOrArchived"
+      FROM assessment.test_series_items i
+      LEFT JOIN assessment.tests t ON t.id = i.test_id
+      WHERE i.series_version_id = ${versionId}::uuid
+      ORDER BY i.sort_order
+    `;
+    const blockers = seriesSelectionBlockers({
+      archived: Boolean(series[0].deletedAt),
+      availabilityEndAt: series[0].availabilityEndAt ? String(series[0].availabilityEndAt) : null,
+      learnerVisibility: series[0].learnerVisibility ? String(series[0].learnerVisibility) : null,
+      memberStatuses: rows.map(row => row.status == null ? null : String(row.status)),
+      missingOrArchivedMembers: rows.filter(row => row.missingOrArchived).length,
+    });
+    if (blockers.length) {
+      throw new CommerceProductError("SERIES_NOT_READY", "Selected series version cannot be added to a package", 409, { seriesVersionId: versionId, blockers });
+    }
     seriesGroups.push(rows.map(row => String(row.id)));
   }
   const testIds = composePackageTestIds(input.testIds, seriesGroups);
@@ -189,11 +212,13 @@ router.get("/catalog/series", requireAdminPermission("commerce.products.read"), 
         v.id::text AS "seriesVersionId",
         v.availability_start_at AS "availabilityStartAt",
         v.availability_end_at AS "availabilityEndAt",
+        v.configuration ->> 'learnerVisibility' AS "learnerVisibility",
         COUNT(i.id)::int AS "testCount",
         COUNT(i.id) FILTER (
           WHERE t.deleted_at IS NOT NULL
              OR t.status::text NOT IN ('live', 'scheduled', 'completed')
-        )::int AS "unavailableTestCount"
+        )::int AS "unavailableTestCount",
+        COUNT(i.id) FILTER (WHERE t.status::text NOT IN ('live','scheduled','completed'))::int AS "unreadyTestCount"
       FROM assessment.test_series s
       JOIN assessment.test_series_versions v
         ON v.series_id = s.id AND v.version_number = s.current_version_number
@@ -201,15 +226,20 @@ router.get("/catalog/series", requireAdminPermission("commerce.products.read"), 
       LEFT JOIN assessment.tests t ON t.id = i.test_id
       WHERE s.deleted_at IS NULL
       GROUP BY s.id, s.code, s.name, s.exam_version_id,
-        s.current_version_number, v.id, v.availability_start_at, v.availability_end_at
+        s.current_version_number, v.id, v.availability_start_at, v.availability_end_at, v.configuration
       ORDER BY s.updated_at DESC
       LIMIT 5000
     `;
-    res.json({ series: series.map((item) => ({
-      ...item,
-      selectionReady: Number(item.testCount) > 0 && Number(item.unavailableTestCount) === 0
-        && (!item.availabilityEndAt || new Date(String(item.availabilityEndAt)).getTime() > Date.now()),
-    })), generatedAt: new Date().toISOString() });
+    res.json({ series: series.map((item) => {
+      const blockers = seriesSelectionBlockers({
+        archived: false,
+        availabilityEndAt: item.availabilityEndAt ? String(item.availabilityEndAt) : null,
+        learnerVisibility: item.learnerVisibility ? String(item.learnerVisibility) : null,
+        memberStatuses: Number(item.unreadyTestCount) > 0 ? ["unready"] : Array(Number(item.testCount)).fill("live"),
+        missingOrArchivedMembers: Number(item.unavailableTestCount),
+      });
+      return { ...item, selectionReady: blockers.length === 0, blockers };
+    }), generatedAt: new Date().toISOString() });
   } catch (error) { sendError(res, error, "Unable to load canonical series catalogue"); }
 });
 
