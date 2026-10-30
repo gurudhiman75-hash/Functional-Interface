@@ -95,6 +95,7 @@ jobs:
       - name: Test SQL-backed series composition and frozen grant snapshots
         env:
           TEST_COMMERCE_DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
+          DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-series-resolution.integration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/commerce-series-resolution.integration.test.mjs
           node artifacts/api-server/dist/commerce-series-resolution.integration.test.mjs
