@@ -75,6 +75,23 @@ async function assertTests(client: SqlExecutor, testIds: string[]) {
   if (missing.length) throw new CommerceProductError("PACKAGE_TEST_MISSING", `${missing.length} selected test(s) do not exist or are archived`, 409, { testIds: missing });
 }
 
+async function resolvePackageMembers(client: SqlExecutor, input: ReturnType<typeof normalizeInput>) {
+  const ids = [...input.testIds];
+  for (const versionId of input.seriesVersionIds) {
+    const rows = await client`
+      SELECT i.test_id::text AS id FROM assessment.test_series_versions v
+      JOIN assessment.test_series s ON s.id = v.series_id
+      JOIN assessment.test_series_items i ON i.series_version_id = v.id
+      WHERE v.id = ${versionId}::uuid AND s.deleted_at IS NULL ORDER BY i.sort_order
+    `;
+    if (!rows.length) throw new CommerceProductError("SERIES_NOT_AVAILABLE", "Selected series version is empty or unavailable", 409);
+    ids.push(...rows.map(row => String(row.id)));
+  }
+  const testIds = Array.from(new Set(ids));
+  await assertTests(client, testIds);
+  return { ...input, directTestIds: input.testIds, testIds };
+}
+
 async function insertVersion(client: SqlExecutor, productId: string, versionNumber: number, actorUserId: string, input: ReturnType<typeof normalizeInput>) {
   const versionId = randomUUID();
   await client`
@@ -85,7 +102,7 @@ async function insertVersion(client: SqlExecutor, productId: string, versionNumb
     ) VALUES (
       ${versionId}::uuid, ${productId}::uuid, ${versionNumber}, ${input.title}, ${input.description},
       ${input.currency}, ${input.listPriceMinor}, ${input.salePriceMinor}, ${input.validityDays},
-      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, '{}'::jsonb,
+      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, ${client.json({ seriesVersionIds: input.seriesVersionIds, directTestIds: input.directTestIds ?? input.testIds })},
       ${input.changeReason}, ${actorUserId}::uuid, now()
     )
   `;
