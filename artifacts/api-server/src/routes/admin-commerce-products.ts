@@ -293,6 +293,10 @@ router.post("/:productId/status", requireAdminPermission("commerce.products.mana
       const current = await loadDetail(productId, tx as SqlExecutor);
       if (!current) throw new CommerceProductError("COMMERCE_PRODUCT_NOT_FOUND", "Package not found", 404);
       if (status === "active" && !current.readiness.ready) throw new CommerceProductError("PACKAGE_NOT_READY", "Package cannot be activated until every current-version test is release-ready", 409, current.readiness);
+      if (status === "active" && current.seriesVersionIds.length) {
+        // Re-check canonical series eligibility at activation, not only at draft creation.
+        await loadEligibleSeriesTestGroups(tx as SqlExecutor, current.seriesVersionIds);
+      }
       await tx`UPDATE commerce.products SET status = ${status}, archived_at = ${status === "archived" ? new Date().toISOString() : null}::timestamptz, updated_at = now() WHERE id = ${productId}::uuid`;
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.status.changed", productId, `Changed package status to ${status}`, { previousStatus: current.product.status, status, reason });
       return loadDetail(productId, tx as SqlExecutor);
