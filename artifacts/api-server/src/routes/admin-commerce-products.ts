@@ -254,7 +254,7 @@ router.post("/", requireAdminPermission("commerce.products.manage"), async (req,
         VALUES (${productId}::uuid, ${input.code}, 1, 'draft', ${actorUserId}::uuid, now(), now())
       `;
       const versionId = await insertVersion(tx as SqlExecutor, productId, 1, actorUserId, composition);
-      await audit(tx as SqlExecutor, actorUserId, "commerce.product.created", productId, `Created package ${input.code}`, { versionId, testIds: input.testIds, changeReason: input.changeReason });
+      await audit(tx as SqlExecutor, actorUserId, "commerce.product.created", productId, `Created package ${input.code}`, { versionId, directTestIds: input.testIds, seriesVersionIds: input.seriesVersionIds, resolvedTestIds: composition.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
     res.status(201).json(result);
@@ -274,7 +274,7 @@ router.post("/:productId/versions", requireAdminPermission("commerce.products.ma
       const versionNumber = Number(rows[0].currentVersionNumber) + 1;
       const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, composition);
       await tx`UPDATE commerce.products SET current_version_number = ${versionNumber}, updated_at = now() WHERE id = ${productId}::uuid`;
-      await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, testIds: input.testIds, changeReason: input.changeReason });
+      await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, directTestIds: input.testIds, seriesVersionIds: input.seriesVersionIds, resolvedTestIds: composition.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
     res.status(201).json(result);
