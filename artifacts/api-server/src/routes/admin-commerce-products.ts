@@ -102,7 +102,7 @@ async function insertVersion(client: SqlExecutor, productId: string, versionNumb
     ) VALUES (
       ${versionId}::uuid, ${productId}::uuid, ${versionNumber}, ${input.title}, ${input.description},
       ${input.currency}, ${input.listPriceMinor}, ${input.salePriceMinor}, ${input.validityDays},
-      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, ${client.json({ seriesVersionIds: input.seriesVersionIds, directTestIds: input.directTestIds ?? input.testIds })},
+      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, ${client.json({ seriesVersionIds: input.seriesVersionIds, directTestIds: ('directTestIds' in input ? input.directTestIds : input.testIds) })},
       ${input.changeReason}, ${actorUserId}::uuid, now()
     )
   `;
@@ -139,7 +139,7 @@ async function loadDetail(productId: string, client: SqlExecutor = sqlClient) {
     SELECT v.id::text AS id, v.version_number AS "versionNumber", v.title, v.description, v.currency,
       v.list_price_minor::float8 AS "listPriceMinor", v.sale_price_minor::float8 AS "salePriceMinor",
       v.validity_days AS "validityDays", v.sale_start_at AS "saleStartAt", v.sale_end_at AS "saleEndAt",
-      v.change_reason AS "changeReason", v.created_by::text AS "createdBy", v.created_at AS "createdAt",
+      v.configuration AS configuration, v.change_reason AS "changeReason", v.created_by::text AS "createdBy", v.created_at AS "createdAt",
       (SELECT COUNT(*)::int FROM commerce.product_version_tests pvt WHERE pvt.product_version_id = v.id) AS "testCount"
     FROM commerce.product_versions v WHERE v.product_id = ${productId}::uuid ORDER BY v.version_number DESC
   `;
@@ -156,7 +156,10 @@ async function loadDetail(productId: string, client: SqlExecutor = sqlClient) {
     ...(tests.length === 0 ? ["Package has no tests"] : []),
     ...tests.filter((test) => !["live", "scheduled", "completed"].includes(String(test.status))).map((test) => `${String(test.publicCode)} is ${String(test.status)}`),
   ];
-  return { product, versions, currentVersion, tests, readiness: { ready: blockers.length === 0, blockers }, generatedAt: new Date().toISOString() };
+  return { product, versions, currentVersion,
+    seriesVersionIds: (currentVersion?.configuration as { seriesVersionIds?: string[] } | null)?.seriesVersionIds ?? [],
+    directTestIds: (currentVersion?.configuration as { directTestIds?: string[] } | null)?.directTestIds ?? tests.map(t => String(t.testId)),
+    tests, readiness: { ready: blockers.length === 0, blockers }, generatedAt: new Date().toISOString() };
 }
 
 router.use(authenticate);
@@ -241,13 +244,13 @@ router.post("/", requireAdminPermission("commerce.products.manage"), async (req,
     const actorUserId = req.adminSession!.user.id;
     const input = normalizeInput(req.body);
     const result = await sqlClient.begin(async (tx) => {
-      await assertTests(tx as SqlExecutor, input.testIds);
+      const composition = await resolvePackageMembers(tx as SqlExecutor, input);
       const productId = randomUUID();
       await tx`
         INSERT INTO commerce.products (id, code, current_version_number, status, created_by, created_at, updated_at)
         VALUES (${productId}::uuid, ${input.code}, 1, 'draft', ${actorUserId}::uuid, now(), now())
       `;
-      const versionId = await insertVersion(tx as SqlExecutor, productId, 1, actorUserId, input);
+      const versionId = await insertVersion(tx as SqlExecutor, productId, 1, actorUserId, composition);
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.created", productId, `Created package ${input.code}`, { versionId, testIds: input.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
@@ -262,11 +265,11 @@ router.post("/:productId/versions", requireAdminPermission("commerce.products.ma
     const actorUserId = req.adminSession!.user.id;
     const input = normalizeInput(req.body);
     const result = await sqlClient.begin(async (tx) => {
-      await assertTests(tx as SqlExecutor, input.testIds);
+      const composition = await resolvePackageMembers(tx as SqlExecutor, input);
       const rows = await tx`SELECT code, current_version_number AS "currentVersionNumber" FROM commerce.products WHERE id = ${productId}::uuid FOR UPDATE`;
       if (!rows[0]) throw new CommerceProductError("COMMERCE_PRODUCT_NOT_FOUND", "Package not found", 404);
       const versionNumber = Number(rows[0].currentVersionNumber) + 1;
-      const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, input);
+      const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, composition);
       await tx`UPDATE commerce.products SET current_version_number = ${versionNumber}, updated_at = now() WHERE id = ${productId}::uuid`;
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, testIds: input.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
