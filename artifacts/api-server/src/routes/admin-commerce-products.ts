@@ -58,8 +58,10 @@ function normalizeInput(body: unknown) {
   const changeReason = cleanText(value.changeReason, 1000, true);
   const testIds = Array.from(new Set(Array.isArray(value.testIds) ? value.testIds.map(String) : []));
   if (testIds.some((id) => !uuid.test(id))) throw new CommerceProductError("INVALID_TEST_ID", "Every package test identifier must be a UUID");
-  if (testIds.length === 0) throw new CommerceProductError("PACKAGE_TEST_REQUIRED", "A package must include at least one canonical test");
-  return { code, title, description, currency, listPriceMinor, salePriceMinor, validityDays, saleStartAt, saleEndAt, changeReason, testIds };
+  const seriesVersionIds = Array.from(new Set(Array.isArray(value.seriesVersionIds) ? value.seriesVersionIds.map(String) : []));
+  if (seriesVersionIds.some(id => !uuid.test(id))) throw new CommerceProductError("INVALID_SERIES_VERSION", "Invalid series version ID");
+  if (!testIds.length && !seriesVersionIds.length) throw new CommerceProductError("PACKAGE_CONTENT_REQUIRED", "Choose tests or series");
+  return { code, title, description, currency, listPriceMinor, salePriceMinor, validityDays, saleStartAt, saleEndAt, changeReason, testIds, seriesVersionIds };
 }
 
 async function assertTests(client: SqlExecutor, testIds: string[]) {
