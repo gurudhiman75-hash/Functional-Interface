@@ -229,6 +229,9 @@ export function PackageDetailPage() {
 
 function PackageEditor({ title, submitLabel, value, onChange, tests, series, saving, onSubmit, onCancel, showCode = false }: { title: string; submitLabel: string; value: PackageFormValue; onChange: (value: PackageFormValue) => void; tests: TestOption[]; series: SeriesOption[]; saving: boolean; onSubmit: () => void; onCancel: () => void; showCode?: boolean }) {
   const selected = useMemo(() => new Set(value.testIds), [value.testIds]);
+  // Older product versions can reference a superseded immutable series version.
+  // Keep that selection visible and removable rather than dropping it on edit.
+  const legacySelectedSeries = value.seriesVersionIds.filter(id => !series.some(item => item.seriesVersionId === id));
   const set = (key: keyof PackageFormValue, next: string) => onChange({ ...value, [key]: next });
   const toggleTest = (id: string) => onChange({ ...value, testIds: selected.has(id) ? value.testIds.filter((testId) => testId !== id) : [...value.testIds, id] });
   return <Card><CardHeader><CardTitle className="text-base">{title}</CardTitle></CardHeader><CardContent className="space-y-4">
@@ -237,6 +240,10 @@ function PackageEditor({ title, submitLabel, value, onChange, tests, series, sav
     <Field label="Change reason"><textarea className="min-h-20 w-full rounded-md border bg-background px-3 py-2 text-sm" value={value.changeReason} onChange={(event) => set('changeReason', event.target.value)} placeholder="Required immutable audit reason" /></Field>
     <Field label={`Series (${value.seriesVersionIds.length} selected)`}>
       <div className="max-h-52 space-y-2 overflow-auto rounded-md border p-3">
+        {legacySelectedSeries.map(id => <label key={id} className="flex items-center gap-3 rounded-md border p-3">
+          <input type="checkbox" checked onChange={() => onChange({ ...value, seriesVersionIds: value.seriesVersionIds.filter(item => item !== id) })} />
+          <span className="text-sm">Previously selected series version · {id} (not the current series version)</span>
+        </label>)}
         {series.map(item => <label key={item.seriesVersionId} className="flex items-center gap-3 rounded-md border p-3">
           <input type="checkbox" disabled={!item.selectionReady && !value.seriesVersionIds.includes(item.seriesVersionId)}
             checked={value.seriesVersionIds.includes(item.seriesVersionId)}
