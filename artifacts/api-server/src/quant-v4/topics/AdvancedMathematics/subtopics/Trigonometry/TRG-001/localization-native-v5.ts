@@ -181,6 +181,7 @@ function renderStem(sourceStem: string, kind: Trg001V5StemKind, locale: Locale) 
         `ਇੱਕ ਸਮਕੋਣ ਤਿਕੋਣ ਦੀਆਂ ਲੰਬ ਭੁਜਾਵਾਂ ${m[1]} ਅਤੇ ${m[2]} ਇਕਾਈ ਹਨ ਅਤੇ ${m[3]} ਇਕਾਈ ਵਾਲੀ ਭੁਜਾ θ ਨਾਲ ਲੱਗਦੀ ਹੈ। ${nativeTarget(m[4], locale)} ਕੱਢੋ।`);
     case "hyp_opposite_find":
       m = source.match(/^In a right triangle, the hypotenuse is (.+?) units and the side opposite θ is (.+?) units\. Find (.+)\.$/u);
+      if (!m) m = source.match(/^For acute θ, a right triangle has hypotenuse (.+?) and opposite leg (.+?)\. Determine (.+?)\.$/u);
       if (!m) break;
       return native(locale,
         `एक समकोण त्रिभुज में कर्ण ${m[1]} इकाई और θ के सामने वाली भुजा ${m[2]} इकाई है। ${nativeTarget(m[3], locale)} ज्ञात कीजिए।`,

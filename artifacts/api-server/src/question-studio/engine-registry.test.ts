@@ -479,4 +479,161 @@ for (const entry of chapterAdmissionExcluded) {
   console.log("QS_CHAPTER_ADMISSION_EXCLUDED", JSON.stringify(entry));
 }
 
+// Catalog-wide, declaration-only multilingual coverage inventory.
+// A declared language is NOT proof that every CP generates localized content.
+const auditLanguages = ["en", "hi", "pa"] as const;
+const eligibleForAdmission = packages.filter((pkg) => admissionReasons(pkg).length === 0);
+const languageRows = packages.map((pkg) => {
+  const declared = auditLanguages.filter((lang) => pkg.supportedLanguages.includes(lang));
+  const missing = auditLanguages.filter((lang) => !pkg.supportedLanguages.includes(lang));
+  return {
+    engineId: pkg.engineId,
+    packageId: pkg.packageId,
+    admissionEligible: admissionReasons(pkg).length === 0,
+    cpCount: pkg.cpIds.length,
+    declared,
+    missing,
+    fullTrilingualDeclared: missing.length === 0,
+    runtimeVerifiedLanguages: [] as string[],
+    runtimeVerificationStatus: "NOT_AUDITED",
+  };
+});
+const eligibleLanguageRows = languageRows.filter((row) => row.admissionEligible);
+console.log("QS_MULTILINGUAL_DECLARATION_SUMMARY", JSON.stringify({
+  registered: packages.length,
+  eligible: eligibleForAdmission.length,
+  allThreeDeclared: languageRows.filter((row) => row.fullTrilingualDeclared).length,
+  eligibleAllThreeDeclared: eligibleLanguageRows.filter((row) => row.fullTrilingualDeclared).length,
+  eligibleMissingAtLeastOne: eligibleLanguageRows.filter((row) => !row.fullTrilingualDeclared).length,
+  byEngine: Object.fromEntries(engines.map((engineId) => {
+    const group = eligibleLanguageRows.filter((row) => row.engineId === engineId);
+    return [engineId, {
+      eligible: group.length,
+      fullTrilingualDeclared: group.filter((row) => row.fullTrilingualDeclared).length,
+      missingAny: group.filter((row) => !row.fullTrilingualDeclared).length,
+      declaredByLanguage: Object.fromEntries(auditLanguages.map((lang) => [
+        lang, group.filter((row) => row.declared.includes(lang)).length,
+      ])),
+    }];
+  })),
+  limitation: "Declarations only; actual per-CP localized generation unverified",
+}));
+for (const row of languageRows) {
+  console.log("QS_MULTILINGUAL_PACKAGE", JSON.stringify(row));
+}
+
+assert.deepEqual(packages.find((pkg) => pkg.packageId === "RNK-001")?.supportedLanguages, ["en"], "RNK-001 localization candidates are not approved runtime languages");
+// Offline, bounded multilingual generation probes across the four engines.
+// Declaration coverage is reported separately; these probes do not certify
+// every checkpoint or editorial quality.
+const multilingualProbeIds = ["TRG-002", "OPS-001", "COM-001"];
+for (const packageId of multilingualProbeIds) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Missing probe package: " + packageId);
+  assert.deepEqual(["en", "hi", "pa"].filter((lang) =>
+    !pkg.supportedLanguages.includes(lang)), [], packageId + " missing declaration");
+  for (const language of ["en", "hi", "pa"] as const) {
+    const request = {
+      packageId,
+      canonicalProblemId: pkg.cpIds[0],
+      language,
+      count: 1,
+      seed: "qs-multilingual-smoke-" + packageId + "-" + language,
+    };
+    const result = await generateQuestionStudioQuestions(request);
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    const question = result.questions[0];
+    assert.ok(question, packageId + "/" + language + " missing question");
+    console.log("QS_MULTILINGUAL_RUNTIME_PROBE", JSON.stringify({
+      packageId, cpId: pkg.cpIds[0], language,
+      generated: true, editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
+// Extend successful single-checkpoint smoke probes to three distinct CPs
+// per representative engine. These remain offline generation checks only.
+for (const packageId of ["TRG-002", "OPS-001", "COM-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, packageId + " missing from the canonical catalog");
+  const cpIds = pkg.cpIds.slice(0, 3);
+  assert.equal(cpIds.length, 3, packageId + " has fewer than three checkpoints");
+  for (const cpId of cpIds) {
+    for (const language of ["en", "hi", "pa"] as const) {
+      const result = await generateQuestionStudioQuestions({
+        packageId, canonicalProblemId: cpId, language, count: 1,
+        seed: "qs-multilingual-checkpoint-" + packageId + "-" + cpId + "-" + language,
+      });
+      assert.equal(result.questions.length, 1,
+        packageId + "/" + cpId + "/" + language + " did not generate exactly one question");
+      console.log("QS_MULTILINGUAL_CHECKPOINT_PROBE", JSON.stringify({
+        packageId, cpId, language, generated: true,
+        editorialLanguageParityVerified: false,
+      }));
+    }
+  }
+}
+
+// Second offline language smoke wave: additional packages across Quant,
+// Reasoning and Knowledge. Failures remain visible to CI and require triage.
+for (const packageId of ["AVG-001", "DI-003", "BLR-001", "CAL-001", "COM-002", "COM-003"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Second-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  for (const language of ["en", "hi", "pa"] as const) {
+    const cpId = pkg.cpIds[0];
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-second-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_SECOND_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true, editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
+// Third offline wave expands coverage to additional Quant, Reasoning
+// and Knowledge registrations. No Question Bank or publication actions.
+for (const packageId of ["ALGEBRA", "ALP-001", "CLK-001", "COD-001", "COM-004", "COM-005", "DI-004", "COM-006"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Third-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  const cpId = pkg.cpIds[0];
+  for (const language of ["en", "hi", "pa"] as const) {
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-third-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_THIRD_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true,
+      editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
+// Fourth offline multilingual wave. Each entry uses one canonical CP;
+// these smoke probes do not establish full CP or editorial parity.
+for (const packageId of ["DI-005", "DI-006", "DI-007", "DI-008", "COM-007", "COM-008", "CAE-001", "ASM-001"]) {
+  const pkg = packages.find((entry) => entry.packageId === packageId);
+  assert.ok(pkg, "Fourth-wave package missing: " + packageId);
+  assert.ok(["en", "hi", "pa"].every((lang) => pkg.supportedLanguages.includes(lang)),
+    packageId + " lacks declared trilingual support");
+  const cpId = pkg.cpIds[0];
+  for (const language of ["en", "hi", "pa"] as const) {
+    const result = await generateQuestionStudioQuestions({
+      packageId, canonicalProblemId: cpId, language,
+      count: 1, seed: "qs-fourth-wave-" + packageId + "-" + language,
+    });
+    assert.equal(result.questions.length, 1, packageId + "/" + language);
+    console.log("QS_MULTILINGUAL_FOURTH_WAVE", JSON.stringify({
+      packageId, cpId, language, generated: true,
+      editorialLanguageParityVerified: false,
+    }));
+  }
+}
+
 console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 reasoning-v1 ENG-001 CP001+CP002+CP003+CP004+CP005+CP006+CP007+CP008+CP009+CP010+CP011+CP012+CP013=review-only");

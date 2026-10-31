@@ -88,7 +88,9 @@ function requestedQlId(request: QuestionStudioGenerationRequest): (typeof CAE_PR
     ?? "",
   ).trim().toUpperCase();
   if (!selector || selector === CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_ID) return undefined;
-  const qlId = CAE_PROVISIONAL_QL_IDS.find((entry) => entry === selector);
+  const checkpoint = CAE_001_MANIFEST.checkpoints.find((entry) => entry.checkpointId === selector);
+  const resolved = checkpoint?.qlIds[0] ?? selector;
+  const qlId = CAE_PROVISIONAL_QL_IDS.find((entry) => entry === resolved);
   if (!qlId) throw new Error("Unknown CAE-001 selector " + selector);
   return qlId;
 }
