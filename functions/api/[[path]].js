@@ -73,6 +73,10 @@ export async function onRequest({ request, env = {} }) {
   // Financial admin endpoints NEVER join the admin migration: existing orders,
   // refunds, products, coupons, and entitlements retain their legacy handler.
   const adminCloudRunEnabled = env.EXAMTREE_ADMIN_UPSTREAM === "cloud-run";
+  // Finance is an independent, explicitly approved final handover.
+  // This switch is inert while sales or provider callbacks remain on Render.
+  const financeCloudRunEnabled = adminCloudRunEnabled &&
+    env.EXAMTREE_FINANCE_UPSTREAM === "cloud-run";
   // No-provider phase is intentionally much narrower than a complete admin
   // migration: only the authenticated admin shell + deterministic Question
   // Studio can use Cloud Run. Other admin areas (including ALL Notes Studio
@@ -105,7 +109,8 @@ export async function onRequest({ request, env = {} }) {
       error: "Question Studio admin routing is not configured correctly." },
       { status: 503, headers: { "Cache-Control": "no-store" } });
   }
-  const actualUpstream = qsAdminOrigin || (financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin);
+  const actualUpstream = qsAdminOrigin ||
+    (financialHandoverPath && !financeCloudRunEnabled ? LEGACY_API_ORIGIN : upstreamOrigin);
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
   for (const key of [
