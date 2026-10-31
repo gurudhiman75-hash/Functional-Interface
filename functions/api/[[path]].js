@@ -44,7 +44,8 @@ export function configuredAdminCanaryOrigin(env = {}) {
   try { url = new URL(raw.trim()); } catch { throw new Error("Invalid tagged admin Cloud Run origin"); }
   if (url.protocol !== "https:" || url.username || url.password ||
       url.pathname !== "/" || url.search || url.hash ||
-      !/^admin-candidate---examtree-api-[a-z0-9-]+\.a\.run\.app$/.test(url.hostname)) {
+      !/^admin-candidate---examtree-api-[a-z0-9-]+\.a\.run\.app$/.test(url.hostname) ||
+      url.hostname.startsWith("admin-candidate---examtree-api-staging-")) {
     throw new Error("Admin canary must be the dedicated tagged production ExamTree API revision");
   }
   return url.origin;
