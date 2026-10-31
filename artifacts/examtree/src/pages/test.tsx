@@ -1514,12 +1514,14 @@ export default function Test() {
   const { data: entitlements } = useMyEntitlements();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [started, setStarted] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [instructionsAccepted, setInstructionsAccepted] = useState(false);
   const isWrongOnlyMode = search.includes("wrongOnly=true");
   const sectionFilterParam = useMemo(() => {
     const params = new URLSearchParams(search);
     return params.get("section") ?? null;
   }, [search]);
-  const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : "REAL");
+  const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : sectionFilterParam ? "PRACTICE" : "REAL");
   const [selectedInterface, setSelectedInterface] = useState<"classic" | "tcs">(() => {
     try {
       return window.localStorage.getItem(`examtree:test-interface:${id}`) === "tcs" ? "tcs" : "classic";
@@ -1645,18 +1647,13 @@ export default function Test() {
     return { ...resolvedTest, sections: sampledSections, totalQuestions: total };
   }, [resolvedTest, sectionFilterParam]);
 
+  // Direct practice links still show instructions before starting the timer/session.
   useEffect(() => {
-    if (isWrongOnlyMode && resolvedTest && !started) {
-      setStarted(true);
+    if ((isWrongOnlyMode && resolvedTest) || (sectionFilterParam && sectionFilteredTest)) {
+      setShowInstructions(true);
+      setInstructionsAccepted(false);
     }
-  }, [isWrongOnlyMode, resolvedTest, started]);
-
-  useEffect(() => {
-    if (sectionFilterParam && sectionFilteredTest && !started) {
-      setStarted(true);
-      setSelectedMode("PRACTICE");
-    }
-  }, [sectionFilterParam, sectionFilteredTest, started]);
+  }, [isWrongOnlyMode, resolvedTest, sectionFilterParam, sectionFilteredTest]);
 
   if (!id) return null;
 
@@ -1763,6 +1760,101 @@ export default function Test() {
         <Button variant="outline" onClick={() => setLocation("/exams")}>
           Back to exams
         </Button>
+      </div>
+    );
+  }
+
+  if (!started && showInstructions && !getActiveTestSession(id!)) {
+    const instructionTest = selectedMode === "PRACTICE_WRONG" && filteredTest
+      ? filteredTest
+      : selectedMode === "PRACTICE" && sectionFilteredTest
+        ? sectionFilteredTest
+        : resolvedTest;
+    const practiceMode = selectedMode !== "REAL";
+    const totalQ = instructionTest.sections.reduce((count, section) => count + section.questions.length, 0);
+    const sectionLocked = !practiceMode && Boolean(instructionTest.sectionSettings?.some((section) => section.locked));
+    const sectionTimed = !practiceMode && instructionTest.sectionTimingMode === "fixed";
+    const marksPerQuestion = instructionTest.marksPerQuestion ?? 1;
+    const negativeMarks = instructionTest.negativeMarks ?? 0;
+    return (
+      <div className="min-h-screen bg-[#edf2f6] text-slate-900">
+        <header className={selectedInterface === "tcs" ? "border-b-4 border-amber-400 bg-[#123f64] px-5 py-4 text-white" : "bg-blue-600 px-5 py-4 text-white"}>
+          <div className="mx-auto max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-wider opacity-80">Examtree · Pre-test instructions</p>
+            <h1 className="mt-1 text-xl font-bold">{instructionTest.name}</h1>
+          </div>
+        </header>
+        <main className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
+          <div className="rounded-lg border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-200 px-5 py-4 sm:px-7">
+              <h2 className="text-lg font-bold">General Instructions</h2>
+              <p className="mt-1 text-sm text-slate-600">Read these instructions before beginning. Your test starts only when you select Begin Test.</p>
+            </div>
+            <div className="space-y-5 px-5 py-5 sm:px-7">
+              <div className="grid grid-cols-2 gap-3 rounded-md bg-slate-50 p-4 text-sm sm:grid-cols-4">
+                <div><p className="text-xs text-slate-500">Questions</p><p className="font-bold">{totalQ}</p></div>
+                <div><p className="text-xs text-slate-500">Sections</p><p className="font-bold">{instructionTest.sections.length}</p></div>
+                <div><p className="text-xs text-slate-500">Duration</p><p className="font-bold">{practiceMode ? "Untimed practice" : `${instructionTest.duration} minutes`}</p></div>
+                <div><p className="text-xs text-slate-500">Interface</p><p className="font-bold">{selectedInterface === "tcs" ? "TCS iON–style" : "Examtree Classic"}</p></div>
+              </div>
+              <section aria-labelledby="instructions-timing">
+                <h3 id="instructions-timing" className="mb-2 font-semibold text-[#123f64]">Timing and navigation</h3>
+                <ol className="list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-700">
+                  <li>{practiceMode ? "Practice mode is untimed. You may navigate freely and review explanations." : "The countdown begins when the test starts. The test is submitted automatically when the allotted time expires."}</li>
+                  <li>{sectionTimed ? "This test has fixed section timers. When a section's time expires, the runner advances to the next section." : "There is no separate fixed timer for each section."}</li>
+                  <li>{sectionLocked ? "This exam has locked sections. Once you leave a section, you cannot go back to it." : "You may navigate between sections using the section tabs or question palette."}</li>
+                  <li>Use Save &amp; Next to move forward. Clear Response removes your selected option. Mark for Review flags a question for later review.</li>
+                </ol>
+              </section>
+              <section aria-labelledby="instructions-marking">
+                <h3 id="instructions-marking" className="mb-2 font-semibold text-[#123f64]">Marking scheme</h3>
+                <div className="flex flex-wrap gap-2 text-sm">
+                  <span className="rounded border border-emerald-200 bg-emerald-50 px-3 py-2 font-medium text-emerald-800">Correct: +{marksPerQuestion}</span>
+                  <span className="rounded border border-rose-200 bg-rose-50 px-3 py-2 font-medium text-rose-800">Wrong: {negativeMarks > 0 ? `−${negativeMarks}` : "0"}</span>
+                  <span className="rounded border border-slate-200 bg-slate-50 px-3 py-2 font-medium">Unanswered: 0</span>
+                </div>
+              </section>
+              <section aria-labelledby="instructions-palette">
+                <h3 id="instructions-palette" className="mb-2 font-semibold text-[#123f64]">Question palette</h3>
+                <div className="grid gap-2 text-sm sm:grid-cols-2">
+                  <div className="flex items-center gap-2"><span className="h-5 w-5 rounded bg-green-500" />Answered</div>
+                  <div className="flex items-center gap-2"><span className={selectedInterface === "tcs" ? "h-5 w-5 rounded bg-red-500" : "h-5 w-5 rounded bg-yellow-400"} />Visited but not answered</div>
+                  <div className="flex items-center gap-2"><span className="h-5 w-5 rounded bg-violet-600" />Marked for review</div>
+                  <div className="flex items-center gap-2"><span className="h-5 w-5 rounded border border-slate-400 bg-white" />Not visited</div>
+                  {selectedInterface === "tcs" && <div className="flex items-center gap-2"><span className="h-5 w-5 rounded-full bg-violet-600 ring-2 ring-green-500 ring-offset-1" />Answered and marked for review</div>}
+                </div>
+              </section>
+              {instructionTest.sections.length > 1 && (
+                <section aria-labelledby="instructions-sections">
+                  <h3 id="instructions-sections" className="mb-2 font-semibold text-[#123f64]">Section details</h3>
+                  <div className="divide-y divide-slate-100 rounded border border-slate-200 text-sm">
+                    {instructionTest.sections.map((section) => (
+                      <div key={section.id} className="flex justify-between gap-3 px-3 py-2">
+                        <span>{section.name}</span>
+                        <span className="shrink-0 text-slate-500">{section.questions.length} questions</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+              <label className="flex cursor-pointer items-start gap-3 rounded border border-blue-200 bg-blue-50 p-4 text-sm text-slate-800">
+                <input type="checkbox" className="mt-0.5 h-4 w-4 accent-blue-600" checked={instructionsAccepted} onChange={(event) => setInstructionsAccepted(event.target.checked)} />
+                <span>I have read and understood the instructions and the marking scheme.</span>
+              </label>
+            </div>
+            <div className="flex flex-wrap justify-between gap-3 border-t border-slate-200 bg-slate-50 px-5 py-4 sm:px-7">
+              <Button variant="outline" onClick={() => {
+                if (isWrongOnlyMode || sectionFilterParam) setLocation(backUrl);
+                else setShowInstructions(false);
+              }}>Back</Button>
+              <Button className="bg-blue-600 text-white hover:bg-blue-700" disabled={!instructionsAccepted} onClick={() => {
+                if (selectedMode === "REAL") document.documentElement.requestFullscreen?.().catch(() => {});
+                setStarted(true);
+              }} data-testid="begin-test">Begin Test</Button>
+            </div>
+          </div>
+          {selectedInterface === "tcs" && <p className="mt-3 text-center text-xs text-slate-500">TCS iON–style is an Examtree simulation, not an official TCS iON product.</p>}
+        </main>
       </div>
     );
   }
@@ -1896,13 +1988,18 @@ export default function Test() {
             <Button
               className="flex-1 bg-blue-600 text-white hover:bg-blue-700"
               onClick={() => {
-                if (selectedMode === "REAL") {
-                  document.documentElement.requestFullscreen?.().catch(() => {});
+                if (hasDraft) {
+                  if (getActiveTestSession(id!)?.attemptType === "REAL") {
+                    document.documentElement.requestFullscreen?.().catch(() => {});
+                  }
+                  setStarted(true);
+                } else {
+                  setInstructionsAccepted(false);
+                  setShowInstructions(true);
                 }
-                setStarted(true);
               }}
             >
-              {hasDraft ? "Resume Test" : "Start Test"}
+              {hasDraft ? "Resume Test" : "Continue to Instructions"}
             </Button>
           </div>
         </div>
