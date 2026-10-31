@@ -22,6 +22,17 @@ type BusinessData = {
     currency: string;
   };
 };
+type TrafficData = {
+  source: 'cloudflare-web-analytics';
+  windowDays: number;
+  generatedAt: string;
+  sampled: boolean;
+  summary: { pageLoads: number; visits: number };
+  daily: Array<{ day: string; pageLoads: number; visits: number }>;
+  devices: Array<{ name: string; pageLoads: number }>;
+  referrers: Array<{ name: string; pageLoads: number }>;
+  note: string;
+};
 type TestData = {
   windowDays: number;
   summary: {
@@ -81,6 +92,8 @@ export function PlatformAnalyticsPage() {
   const [refresh, setRefresh] = useState(0);
   const [business, setBusiness] = useState<BusinessData | null>(null);
   const [tests, setTests] = useState<TestData | null>(null);
+  const [traffic, setTraffic] = useState<TrafficData | null>(null);
+  const [trafficError, setTrafficError] = useState<string | null>(null);
   const [businessError, setBusinessError] = useState<string | null>(null);
   const [testsError, setTestsError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -91,6 +104,8 @@ export function PlatformAnalyticsPage() {
     setLoading(true);
     setBusiness(null);
     setTests(null);
+    setTraffic(null);
+    setTrafficError(null);
     setBusinessError(null);
     setTestsError(null);
     void Promise.allSettled([
@@ -104,6 +119,13 @@ export function PlatformAnalyticsPage() {
         .catch((error: unknown) => {
           if (!controller.signal.aborted) setTestsError(error instanceof Error ? error.message : 'Unable to load test report.');
         }),
+      ...(windowDays <= 30 ? [
+        request<TrafficData>(`/admin/analytics/traffic?window=${windowDays}`, controller.signal)
+          .then(setTraffic)
+          .catch((error: unknown) => {
+            if (!controller.signal.aborted) setTrafficError(error instanceof Error ? error.message : 'Unable to load web traffic.');
+          }),
+      ] : []),
     ]).then(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, [windowDays, refresh]);
@@ -113,7 +135,7 @@ export function PlatformAnalyticsPage() {
   return <div className="space-y-5">
     <PageHeader
       title="Platform Analytics"
-      description="Verified learning and commerce metrics in one view. Cloudflare collection is enabled; in-admin traffic totals are pending integration."
+      description="Verified learning, commerce, and Cloudflare website traffic. Each source reports its own measurement scope."
       icon={<BarChart3 className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={refreshNow} disabled={loading}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`}/>Refresh</Button>}
     />
@@ -168,12 +190,27 @@ export function PlatformAnalyticsPage() {
     <Card>
       <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Globe2 className="h-4 w-4"/>Website traffic</CardTitle></CardHeader>
       <CardContent className="space-y-3">
-        <p className="font-medium">Cloudflare Web Analytics tracking enabled</p>
-        <p className="max-w-3xl text-sm text-muted-foreground">The Cloudflare account has an active Web Analytics site for examtree.in with automatic beacon installation enabled. The collection configuration is verified, but pageview and visitor totals have not been queried or validated in this admin application. Examtree will not infer visitors from test attempts or orders.</p>
+        {traffic ? <>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Metric label="Page loads" value={integer(traffic.summary.pageLoads)} detail="Cloudflare browser beacon events, not HTTP requests" />
+            <Metric label="Visits" value={integer(traffic.summary.visits)} detail="Cloudflare visits — not distinct visitors" />
+          </div>
+          <p className="text-xs text-muted-foreground">{traffic.note} {traffic.sampled ? 'At least one aggregation is sampled; do not treat totals as exact.' : 'Reported sampling interval: 1 for these groupings.'}</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <p className="mb-2 text-sm font-semibold">Devices (page loads)</p>
+              {traffic.devices.length ? <ul className="space-y-1 text-sm">{traffic.devices.map((item) => <li key={item.name} className="flex justify-between gap-4"><span className="truncate">{item.name}</span><span className="tabular-nums">{integer(item.pageLoads)}</span></li>)}</ul> : <p className="text-sm text-muted-foreground">No device measurements.</p>}
+            </div>
+            <div>
+              <p className="mb-2 text-sm font-semibold">Referrers (page loads)</p>
+              {traffic.referrers.length ? <ul className="space-y-1 text-sm">{traffic.referrers.map((item) => <li key={item.name} className="flex justify-between gap-4"><span className="truncate">{item.name}</span><span className="tabular-nums">{integer(item.pageLoads)}</span></li>)}</ul> : <p className="text-sm text-muted-foreground">No referrer measurements.</p>}
+            </div>
+          </div>
+        </> : <p role="status" className="text-sm text-muted-foreground">{windowDays > 30 ? 'Cloudflare traffic is limited to 7- and 30-day windows here; choose either period to view traffic.' : trafficError ? `Traffic report unavailable: ${trafficError}` : 'Loading Cloudflare traffic measurements…'}</p>}
         <a className="inline-flex text-sm font-medium text-primary underline" href="https://dash.cloudflare.com/?to=/:account/:zone/speed/rum" target="_blank" rel="noopener noreferrer">Open Cloudflare's traffic dashboard</a>
-        <p className="text-xs text-muted-foreground">The Cloudflare dashboard is the source for website visitors, page views, referrers and device distribution. An authenticated metrics integration must be independently verified before displaying those numbers in Examtree Admin.</p>
+        <p className="text-xs text-muted-foreground">Website collection is enabled for examtree.in; the server needs a separate read-only Cloudflare API token to display metrics here. Visitor-to-signup conversion cannot be inferred from RUM visits and is not displayed.</p>
       </CardContent>
     </Card>
-    <p className="text-xs text-muted-foreground">All displayed numbers originate from existing authenticated aggregate APIs. Data are limited to the selected reporting window and to the permissions on those endpoints.</p>
+    <p className="text-xs text-muted-foreground">Learning and commerce data originate from existing authenticated aggregate APIs. Website traffic comes from the separate server-side Cloudflare RUM reporting endpoint when configured. No browser-side provider credentials.</p>
   </div>;
 }
