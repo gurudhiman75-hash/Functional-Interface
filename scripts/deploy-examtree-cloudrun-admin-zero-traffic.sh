@@ -106,7 +106,7 @@ gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
  --no-traffic --tag=admin-candidate \
  --memory=2Gi --cpu=1 --concurrency=10 --min-instances=0 --max-instances=1 \
  --timeout=180 --cpu-throttling \
- --update-env-vars="EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=false,AI_EXTRACTION_PROVIDER=openai,QUESTION_STUDIO_TRG002_WORKER_URL=$TRG_URL,QUESTION_STUDIO_SHARED_WORKER_URL=$SHARED_URL" \
+ --update-env-vars="EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER=false,EXAMTREE_ADMIN_DETERMINISTIC_ONLY=false,AI_EXTRACTION_PROVIDER=openai,QUESTION_STUDIO_TRG002_WORKER_URL=$TRG_URL,QUESTION_STUDIO_SHARED_WORKER_URL=$SHARED_URL" \
  --update-secrets="OPENAI_API_KEY=$AI_SECRET:latest,QUESTION_STUDIO_WORKER_TOKEN=$WORKER_SECRET:latest" \
  --quiet
 gcloud run services describe "$SERVICE" --project="$PROJECT" --region="$REGION" --format=json > "$TMP/after.json"
@@ -124,6 +124,7 @@ tag=next((t for t in traffic if t.get('tag')=='admin-candidate' and t.get('revis
 assert tag and str(tag.get('url','')).startswith('https://'),"candidate tag URL missing"
 env={x['name']:x for x in s['spec']['template']['spec']['containers'][0]['env']}
 assert env['EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER']['value']=='false'
+assert env['EXAMTREE_ADMIN_DETERMINISTIC_ONLY']['value']=='false'
 assert env['EXAMTREE_SALES_DISABLED']['value']=='true'
 assert env['EXAMTREE_PAYMENT_PROVIDER']['value']=='none'
 assert env['GENERATION_JOB_WORKER_ENABLED']['value']=='false'
