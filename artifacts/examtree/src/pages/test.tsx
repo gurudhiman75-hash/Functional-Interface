@@ -258,7 +258,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     const isFlagged = Boolean(flags[question.id]);
     const isVisited = visitedQuestionIds.includes(question.id);
 
-    if (isFlagged) return answer !== null && answer !== undefined ? "ANSWERED_MARKED" : "MARKED";
+    if (isFlagged) return isTcsInterface && answer !== null && answer !== undefined ? "ANSWERED_MARKED" : "MARKED";
     if (answer !== null && answer !== undefined) return "ANSWERED";
     if (isVisited) return "NOT_ANSWERED";
     return "NOT_VISITED";
