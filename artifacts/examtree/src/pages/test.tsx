@@ -65,7 +65,7 @@ function formatTime(seconds: number) {
   return [h, m, s].map((value) => String(value).padStart(2, "0")).join(":");
 }
 
-function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam, backUrl }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null; backUrl?: string }) {
+function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguages, wrongOnly, sectionParam, backUrl, interfaceVariant = "classic" }: { test: Test; showSuccessMessage?: boolean; initialMode?: "REAL" | "PRACTICE"; subcategoryLanguages?: string[]; wrongOnly?: boolean; sectionParam?: string | null; backUrl?: string; interfaceVariant?: "classic" | "tcs" }) {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
   const user = getUser();
@@ -122,6 +122,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [showSectionSwitchWarning, setShowSectionSwitchWarning] = useState(false);
   const [pendingSectionSwitch, setPendingSectionSwitch] = useState<number | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const isTcsInterface = interfaceVariant === "tcs";
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
   const [revealedPracticeQuestions, setRevealedPracticeQuestions] = useState<Set<number>>(new Set());
@@ -807,7 +808,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     totalQuestions > 0 ? Math.min(100, Math.round((currentQuestionNumber / totalQuestions) * 100)) : 0;
 
   return (
-    <div className="relative isolate z-[200] min-h-screen bg-gray-100 text-gray-900">
+    <div className={`relative isolate z-[200] min-h-screen text-gray-900 ${isTcsInterface ? "bg-[#e8eef4]" : "bg-gray-100"}`} data-test-interface={interfaceVariant}>
       {attemptType === "PRACTICE" && !wrongOnly && !sectionParam && (
         <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-800 shadow-md">
           Practice Mode &mdash; answers will not count toward your score
@@ -839,13 +840,16 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       )}
 
-      {/* Blue top bar */}
-      <header className="sticky top-0 z-[210] bg-blue-600 shadow-md">
+      {/* Interface-specific header; both variants share the same attempt state and submission. */}
+      <header className={isTcsInterface ? "sticky top-0 z-[210] border-b-4 border-[#f0a02b] bg-[#123f64] shadow-md" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
-          <h1 className="text-base font-bold text-white sm:text-lg">{test.name}</h1>
+          <div className="min-w-0">
+            {isTcsInterface && <p className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-200">Examtree · Exam simulation</p>}
+            <h1 className="truncate text-base font-bold text-white sm:text-lg">{test.name}</h1>
+          </div>
           <div className="flex items-center gap-3">
             <div className={`font-mono text-sm font-semibold tabular-nums ${isLowTime ? "animate-pulse text-red-200" : "text-white"}`}>
-              Time Left: {formatTime(activeTimeLeft)}
+              {isTcsInterface ? "Time Remaining" : "Time Left"}: {formatTime(activeTimeLeft)}
             </div>
             <button
               type="button"
@@ -858,7 +862,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
 
         {/* Sections row */}
-        <div className="border-t border-blue-500/60 bg-white px-4 py-1.5 sm:px-6">
+        <div className={isTcsInterface ? "border-t border-[#285878] bg-[#dce9f2] px-4 py-1.5 sm:px-6" : "border-t border-blue-500/60 bg-white px-4 py-1.5 sm:px-6"}>
           <div className="flex flex-wrap items-center gap-2">
             <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</span>
             {test.sections.map((section, sectionIndex) => {
@@ -910,8 +914,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
           <section className="min-w-0">
             {/* Question card */}
-            <div className="rounded border border-gray-300 bg-white shadow-sm">
-              <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3">
+            <div className={isTcsInterface ? "rounded-sm border border-[#b7cad8] bg-white shadow-sm" : "rounded border border-gray-300 bg-white shadow-sm"}>
+              <div className={isTcsInterface ? "flex items-center justify-between border-b border-[#b7cad8] bg-[#dce9f2] px-5 py-3" : "flex items-center justify-between border-b border-gray-200 px-5 py-3"}>
                 <p className="text-sm font-bold text-gray-700">Question No {currentQuestionNumber}</p>
                 <div className="flex items-center gap-3">
                   {hasSectionalTiming && (
@@ -1209,7 +1213,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
             </div>
 
-            <div className="mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3">
+            <div className={isTcsInterface ? "mt-0 flex flex-wrap items-center justify-between gap-2 border-x border-b border-[#b7cad8] bg-[#e2edf5] px-5 py-3" : "mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3"}>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -1242,7 +1246,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               <button
                 type="button"
                 onClick={goToNext}
-                className="rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+                className={isTcsInterface ? "rounded-sm bg-[#18864b] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#11723e]" : "rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"}
               >
                 Save & Next
               </button>
@@ -1262,6 +1266,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
           {!sidebarCollapsed && (
           <aside className="min-w-0 space-y-3">
+            {isTcsInterface && <div className="border border-[#b7cad8] bg-[#dce9f2] px-3 py-2 text-center text-sm font-bold text-[#123f64]">Question Navigator</div>}
             {currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
@@ -1279,15 +1284,15 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-2 p-3 text-xs">
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-[10px] font-bold text-white">{statusCounts.ANSWERED}</span>
+                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center bg-green-500 text-[10px] font-bold text-white ${isTcsInterface ? "rounded-t-lg rounded-b-sm" : "rounded-full"}`}>{statusCounts.ANSWERED}</span>
                   <span className="text-gray-700">Answered</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-yellow-400 text-[10px] font-bold text-gray-900">{statusCounts.NOT_ANSWERED}</span>
+                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center text-[10px] font-bold ${isTcsInterface ? "rounded-t-lg rounded-b-sm bg-red-500 text-white" : "rounded-full bg-yellow-400 text-gray-900"}`}>{statusCounts.NOT_ANSWERED}</span>
                   <span className="text-gray-700">Not Answered</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white">{statusCounts.MARKED}</span>
+                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center bg-violet-600 text-[10px] font-bold text-white ${isTcsInterface ? "rounded-full" : "rounded-full"}`}>{statusCounts.MARKED}</span>
                   <span className="text-gray-700">Marked</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1328,7 +1333,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                             : status === "ANSWERED"
                             ? "bg-green-500 text-white"
                             : status === "NOT_ANSWERED"
-                            ? "bg-yellow-400 text-gray-900"
+                            ? (isTcsInterface ? "bg-red-500 text-white" : "bg-yellow-400 text-gray-900")
                             : "border border-gray-300 bg-white text-gray-600 hover:bg-gray-100";
 
                           return (
@@ -1337,7 +1342,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                               type="button"
                               disabled={isLocked && !isActive}
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
-                              className={`flex h-8 w-full items-center justify-center rounded-md text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${paletteClass}`}
+                              className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "rounded-t-xl rounded-b-sm" : "rounded-md"} ${paletteClass}`}
                             >
                               {questionIndex + 1}
                             </button>
@@ -1493,6 +1498,7 @@ export default function Test() {
     return params.get("section") ?? null;
   }, [search]);
   const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : "REAL");
+  const [selectedInterface, setSelectedInterface] = useState<"classic" | "tcs">("classic");
 
   useEffect(() => {
     if (search.includes("checkout=success")) {
@@ -1775,6 +1781,22 @@ export default function Test() {
             </p>
           )}
 
+          <div className="mt-5">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Test Interface</p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="group" aria-label="Test interface">
+              <button type="button" aria-pressed={selectedInterface === "classic"} onClick={() => setSelectedInterface("classic")}
+                className={`rounded-lg border p-3 text-left transition ${selectedInterface === "classic" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
+                <p className="text-sm font-semibold text-gray-800">Examtree Classic</p>
+                <p className="mt-1 text-xs text-gray-500">Familiar modern test layout</p>
+              </button>
+              <button type="button" aria-pressed={selectedInterface === "tcs"} onClick={() => setSelectedInterface("tcs")}
+                className={`rounded-lg border p-3 text-left transition ${selectedInterface === "tcs" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
+                <p className="text-sm font-semibold text-gray-800">TCS iON–style</p>
+                <p className="mt-1 text-xs text-gray-500">Exam-centre inspired layout and palette</p>
+              </button>
+            </div>
+            <p className="mt-2 text-xs text-gray-500">Both interfaces use the same test, rules, answers, and scoring. This is an Examtree simulation, not an official TCS iON product.</p>
+          </div>
           {!hasDraft && (
             <div className="mt-5">
               <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Mode</p>
@@ -1855,7 +1877,7 @@ export default function Test() {
   if (selectedMode === "PRACTICE") {
     return (
       <AppLayout>
-        <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} sectionParam={sectionFilterParam} backUrl={backUrl} />
+        <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} sectionParam={sectionFilterParam} backUrl={backUrl} interfaceVariant={selectedInterface} />
       </AppLayout>
     );
   }
@@ -1886,10 +1908,10 @@ export default function Test() {
     }
     return (
       <AppLayout>
-        <TestRunner test={filteredTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} wrongOnly={true} backUrl={backUrl} />
+        <TestRunner test={filteredTest} showSuccessMessage={showSuccessMessage} initialMode="PRACTICE" subcategoryLanguages={subcategoryLangs} wrongOnly={true} backUrl={backUrl} interfaceVariant={selectedInterface} />
       </AppLayout>
     );
   }
 
-  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} backUrl={backUrl} />;
+  return <TestRunner test={resolvedTest} showSuccessMessage={showSuccessMessage} initialMode="REAL" subcategoryLanguages={subcategoryLangs} backUrl={backUrl} interfaceVariant={selectedInterface} />;
 }
