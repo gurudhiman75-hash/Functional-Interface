@@ -72,6 +72,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
   ] },
   { id: 'analytics', label: 'Analytics', items: [
+    { label: 'Platform Overview', path: '/analytics/overview', icon: LayoutDashboard, status: 'live', summary: 'Read-only learning and commerce overview from existing canonical APIs; traffic remains visibly unavailable until a verified web analytics provider is connected.' },
     { label: 'Business Analytics', path: '/analytics/business', icon: TrendingUp, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical gross and net revenue, conversion, package, coupon, refund and entitlement metrics with equal-window comparison, CSV export and data-quality checks.' },
     { label: 'Test Analytics', path: '/analytics/tests', icon: BarChart3, status: 'live', permission: 'users.students.read', summary: 'Canonical attempt volume, completion, relative score distribution, timing and immutable-publication performance.', milestone: 'Section analytics remain deferred until canonical response aggregation is verified.' },
     { label: 'Analytics Data Quality', path: '/analytics/tests/quality', icon: ShieldCheck, status: 'live', permission: 'users.students.read', summary: 'Read-only diagnostics for incomplete canonical attempt evidence, cohort reliability and analytics freshness.' },

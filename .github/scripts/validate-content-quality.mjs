@@ -6,13 +6,15 @@ const index=read('artifacts/api-server/src/routes/index.ts');
 const page=read('artifacts/admin-app/src/pages/analytics/ContentQualityPage.tsx');
 const app=read('artifacts/admin-app/src/App.tsx');
 const nav=read('artifacts/admin-app/src/app/nav/navigation.ts');
+// Restrict PII inspection to the CSV exporter; the admin-only reviewer summary legitimately references reviewer identity.
+const csvExport=api.slice(api.indexOf('router.get("/content-quality.csv"'));
 const checks=[
  ['read permission',api.includes('content.questions.read')],
  ['read-only routes',!/(INSERT INTO|UPDATE |DELETE FROM)/.test(api)],
  ['supported windows',api.includes('[7, 30, 90, 365]')],
  ['csv protection',api.includes('/^[=+\\-@]/')],
  ['bounded export',api.includes('LIMIT 10000')],
- ['no pii export',!api.includes('u.email')&&!api.includes('display_name')],
+ ['no pii export',Boolean(csvExport)&&!csvExport.includes('u.email')&&!csvExport.includes('display_name')],
  ['mounted',index.includes('adminContentQualityRouter')&&index.includes('router.use("/admin/analytics", adminContentQualityRouter)')],
  ['live page',page.includes('/admin/analytics/content-quality')&&!page.includes('@/data/analytics')&&!page.includes('demonstration data')],
  ['en-US locale',page.includes("'en-US'")],
