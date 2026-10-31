@@ -1,0 +1,45 @@
+name: Validate admin catalog safe refresh script
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - scripts/refresh-examtree-admin-unified-catalog.sh
+permissions:
+  contents: read
+concurrency:
+  group: examtree-admin-catalog-refresh-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax and no-side-effect guardrails
+        run: |
+          set -euo pipefail
+          bash -n scripts/refresh-examtree-admin-unified-catalog.sh
+          python3 - <<'PY'
+          from pathlib import Path
+          x=Path('scripts/refresh-examtree-admin-unified-catalog.sh').read_text()
+          for required in (
+            'EXAMTREE_QS_ADMIN_CATALOG_PROMOTION_APPROVED',
+            'EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER',
+            'EXAMTREE_ADMIN_DETERMINISTIC_ONLY',
+            'EXAMTREE_SALES_DISABLED',
+            'GENERATION_JOB_WORKER_ENABLED',
+            'OUTBOX_PUBLISHER_ENABLED',
+            'EXAMTREE_QUESTION_STUDIO_ASYNC_QUEUE_ENABLED',
+            'EXAMTREE_QUESTION_STUDIO_ASYNC_OUTBOX_ENABLED',
+            'EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_LAUNCH_APPROVED',
+            '--no-traffic --tag=admin-catalog-next',
+            'admin-candidate=$NEW_REV',
+            'ROLLBACK TAG:',
+            'FINANCE_HANDLED_BY_RENDER_DURING_CUTOVER',
+            "==100",
+            "==0",
+          ):
+            assert required in x,required
+          for forbidden in ('--to-latest','--to-revisions=', 'gcloud tasks queues resume', 'gcloud scheduler jobs resume'):
+            assert forbidden not in x,forbidden
+          print('PASS: admin catalog tagged-only refresh guardrails')
+          PY
