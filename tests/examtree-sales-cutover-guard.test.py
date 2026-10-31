@@ -28,7 +28,9 @@ class SalesPausedCutoverTests(unittest.TestCase):
         self.assertIn("!temporaryAdminRenderBridge",ai)
         self.assertIn('incoming.pathname.startsWith("/api/admin/")',proxy)
         self.assertIn('url.hostname.startsWith("examtree-api-staging-")',proxy)
-        self.assertIn('financialHandoverPath ? LEGACY_API_ORIGIN : upstreamOrigin',proxy)
+        self.assertIn('financialHandoverPath && !financeCloudRunEnabled',proxy)
+        self.assertIn('env.EXAMTREE_FINANCE_UPSTREAM === "cloud-run"',proxy)
+        self.assertIn('adminCloudRunEnabled &&',proxy)
 
     def test_catalog_and_frontend_agree_on_sales_paused(self):
         checkout=(ROOT/"artifacts/api-server/src/routes/canonical-commerce-checkout.ts").read_text()
