@@ -4,6 +4,7 @@ import { Router, type Response } from "express";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { composePackageTestIds, snapshotSeriesComposition, seriesSelectionBlockers } from "../lib/commerce-series-composition";
 import { loadEligibleSeriesTestGroups, SeriesPackageSelectionError } from "../lib/commerce-series-resolution";
+import { promotePaidPackageTestPolicies } from "../lib/commerce-test-access-policy";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
@@ -215,6 +216,60 @@ router.get("/catalog/series", requireAdminPermission("commerce.products.read"), 
   } catch (error) { sendError(res, error, "Unable to load canonical series catalogue"); }
 });
 
+router.get("/access-policies", requireAdminPermission("commerce.products.read"), async (_req, res) => {
+  try {
+    const rows = await sqlClient`
+      SELECT t.id::text AS "testId", t.public_code AS "publicCode",
+        t.status::text AS status,
+        COALESCE(tv.title, t.public_code) AS title,
+        COALESCE(p.access_mode, 'premium') AS "accessMode",
+        COALESCE(p.source, 'unclassified') AS source,
+        p.updated_at AS "updatedAt"
+      FROM assessment.tests t
+      LEFT JOIN assessment.test_versions tv
+        ON tv.id = COALESCE(t.published_version_id, t.current_draft_version_id)
+      LEFT JOIN commerce.test_access_policies p ON p.test_id = t.id
+      WHERE t.deleted_at IS NULL
+      ORDER BY t.updated_at DESC LIMIT 5000
+    `;
+    res.json({ tests: rows });
+  } catch (error) { sendError(res, error, "Unable to load test access policies"); }
+});
+
+router.post("/access-policies/:testId", requireAdminPermission("commerce.products.manage"), async (req, res) => {
+  const testId = String(req.params.testId ?? "");
+  if (!uuid.test(testId)) return res.status(400).json({ error: "Invalid test ID", code: "INVALID_TEST_ID" });
+  const mode = String(req.body?.accessMode ?? "");
+  if (mode !== "free" && mode !== "premium") return res.status(400).json({ error: "Choose free or premium", code: "INVALID_ACCESS_MODE" });
+  const reason = cleanText(req.body?.reason, 1000, true);
+  try {
+    const actorUserId = req.adminSession!.user.id;
+    const result = await sqlClient.begin(async (tx) => {
+      const exists = await tx`
+        SELECT id FROM assessment.tests WHERE id = ${testId}::uuid AND deleted_at IS NULL
+      `;
+      if (!exists.length) throw new CommerceProductError("TEST_NOT_FOUND", "Test not found", 404);
+      const rows = await tx`
+        INSERT INTO commerce.test_access_policies (test_id, access_mode, source, changed_by, updated_at)
+        VALUES (${testId}::uuid, ${mode}, 'admin', ${actorUserId}::uuid, now())
+        ON CONFLICT (test_id) DO UPDATE SET
+          access_mode = EXCLUDED.access_mode, source = 'admin',
+          changed_by = EXCLUDED.changed_by, updated_at = now()
+        RETURNING test_id::text AS "testId", access_mode AS "accessMode", source
+      `;
+      await tx`
+        INSERT INTO platform.audit_events (id, actor_type, actor_user_id,
+          action_key, entity_type, entity_id, summary, metadata)
+        VALUES (${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
+          'commerce.test.access_policy.changed', 'test', ${testId}::uuid,
+          ${reason}, ${tx.json({ accessMode: mode, reason })})
+      `;
+      return rows[0];
+    });
+    res.json(result);
+  } catch (error) { sendError(res, error, "Unable to update test access policy"); }
+});
+
 router.get("/", requireAdminPermission("commerce.products.read"), async (req, res) => {
   const search = typeof req.query.search === "string" ? req.query.search.trim().toLowerCase().slice(0, 160) : "";
   try {
@@ -274,6 +329,13 @@ router.post("/:productId/versions", requireAdminPermission("commerce.products.ma
       const versionNumber = Number(rows[0].currentVersionNumber) + 1;
       const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, composition);
       await tx`UPDATE commerce.products SET current_version_number = ${versionNumber}, updated_at = now() WHERE id = ${productId}::uuid`;
+      // An already-active product exposes the new version immediately.
+      const state = await tx`SELECT status FROM commerce.products WHERE id = ${productId}::uuid`;
+      if (state[0]?.status === "active") {
+        const updated = await loadDetail(productId, tx as SqlExecutor);
+        if (!updated?.readiness.ready) throw new CommerceProductError("PACKAGE_NOT_READY", "Active package version is not release-ready", 409, updated?.readiness);
+        await promotePaidPackageTestPolicies(tx as SqlExecutor, versionId, actorUserId);
+      }
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, directTestIds: input.testIds, seriesVersionIds: input.seriesVersionIds, resolvedTestIds: composition.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
@@ -296,6 +358,9 @@ router.post("/:productId/status", requireAdminPermission("commerce.products.mana
       if (status === "active" && current.seriesVersionIds.length) {
         // Re-check canonical series eligibility at activation, not only at draft creation.
         await loadEligibleSeriesTestGroups(tx as SqlExecutor, current.seriesVersionIds);
+      }
+      if (status === "active") {
+        await promotePaidPackageTestPolicies(tx as SqlExecutor, String(current.currentVersion.id), actorUserId);
       }
       await tx`UPDATE commerce.products SET status = ${status}, archived_at = ${status === "archived" ? new Date().toISOString() : null}::timestamptz, updated_at = now() WHERE id = ${productId}::uuid`;
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.status.changed", productId, `Changed package status to ${status}`, { previousStatus: current.product.status, status, reason });
