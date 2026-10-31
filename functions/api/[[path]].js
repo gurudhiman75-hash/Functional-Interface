@@ -34,6 +34,22 @@ export function configuredQsAdminOrigin(env = {}) {
   }
   return url.origin;
 }
+// Opt-in admin canary: route only non-financial admin endpoints to the
+// verified zero-normal-traffic revision via its Cloud Run tag. No other
+// Cloudflare environment variable may supply a destination.
+export function configuredAdminCanaryOrigin(env = {}) {
+  const raw = env.EXAMTREE_ADMIN_CANARY_ORIGIN;
+  if (typeof raw !== "string" || !raw.trim()) return null;
+  let url;
+  try { url = new URL(raw.trim()); } catch { throw new Error("Invalid tagged admin Cloud Run origin"); }
+  if (url.protocol !== "https:" || url.username || url.password ||
+      url.pathname !== "/" || url.search || url.hash ||
+      !/^admin-candidate---examtree-api-[a-z0-9-]+\.a\.run\.app$/.test(url.hostname) ||
+      url.hostname.startsWith("admin-candidate---examtree-api-staging-")) {
+    throw new Error("Admin canary must be the dedicated tagged production ExamTree API revision");
+  }
+  return url.origin;
+}
 const METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]);
 
 export async function onRequest({ request, env = {} }) {
@@ -109,7 +125,20 @@ export async function onRequest({ request, env = {} }) {
       error: "Question Studio admin routing is not configured correctly." },
       { status: 503, headers: { "Cache-Control": "no-store" } });
   }
-  const actualUpstream = qsAdminOrigin ||
+  // Explicit canary is narrower than the normal admin migration: all
+  // non-financial admin work may use the tagged revision for authenticated
+  // acceptance, while student traffic and finance remain unchanged.
+  let adminCanaryOrigin;
+  try { adminCanaryOrigin = env.EXAMTREE_ADMIN_UPSTREAM === "cloud-run-deterministic"
+    ? configuredAdminCanaryOrigin(env) : null; }
+  catch {
+    return Response.json({ code: "ADMIN_CANARY_UPSTREAM_MISCONFIGURED",
+      error: "The tagged admin canary URL is not configured correctly." },
+      { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
+  const actualUpstream =
+    (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
+    qsAdminOrigin ||
     (financialHandoverPath && !financeCloudRunEnabled ? LEGACY_API_ORIGIN : upstreamOrigin);
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
