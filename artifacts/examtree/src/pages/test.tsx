@@ -1498,7 +1498,21 @@ export default function Test() {
     return params.get("section") ?? null;
   }, [search]);
   const [selectedMode, setSelectedMode] = useState<"REAL" | "PRACTICE" | "PRACTICE_WRONG">(isWrongOnlyMode ? "PRACTICE_WRONG" : "REAL");
-  const [selectedInterface, setSelectedInterface] = useState<"classic" | "tcs">("classic");
+  const [selectedInterface, setSelectedInterface] = useState<"classic" | "tcs">(() => {
+    try {
+      return window.localStorage.getItem(`examtree:test-interface:${id}`) === "tcs" ? "tcs" : "classic";
+    } catch {
+      return "classic";
+    }
+  });
+  const chooseInterface = (variant: "classic" | "tcs") => {
+    setSelectedInterface(variant);
+    try {
+      window.localStorage.setItem(`examtree:test-interface:${id}`, variant);
+    } catch {
+      // Storage may be unavailable; the selection still works for this visit.
+    }
+  };
 
   useEffect(() => {
     if (search.includes("checkout=success")) {
@@ -1784,12 +1798,12 @@ export default function Test() {
           <div className="mt-5">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Test Interface</p>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="group" aria-label="Test interface">
-              <button type="button" aria-pressed={selectedInterface === "classic"} onClick={() => setSelectedInterface("classic")}
+              <button type="button" aria-pressed={selectedInterface === "classic"} onClick={() => chooseInterface("classic")}
                 className={`rounded-lg border p-3 text-left transition ${selectedInterface === "classic" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
                 <p className="text-sm font-semibold text-gray-800">Examtree Classic</p>
                 <p className="mt-1 text-xs text-gray-500">Familiar modern test layout</p>
               </button>
-              <button type="button" aria-pressed={selectedInterface === "tcs"} onClick={() => setSelectedInterface("tcs")}
+              <button type="button" aria-pressed={selectedInterface === "tcs"} onClick={() => chooseInterface("tcs")}
                 className={`rounded-lg border p-3 text-left transition ${selectedInterface === "tcs" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
                 <p className="text-sm font-semibold text-gray-800">TCS iON–style</p>
                 <p className="mt-1 text-xs text-gray-500">Exam-centre inspired layout and palette</p>
