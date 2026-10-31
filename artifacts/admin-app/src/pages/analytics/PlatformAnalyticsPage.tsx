@@ -113,7 +113,7 @@ export function PlatformAnalyticsPage() {
   return <div className="space-y-5">
     <PageHeader
       title="Platform Analytics"
-      description="Verified learning and commerce metrics in one view. Visitor analytics are not yet connected."
+      description="Verified learning and commerce metrics in one view. Cloudflare collection is enabled; in-admin traffic totals are pending integration."
       icon={<BarChart3 className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={refreshNow} disabled={loading}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`}/>Refresh</Button>}
     />
@@ -168,9 +168,10 @@ export function PlatformAnalyticsPage() {
     <Card>
       <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Globe2 className="h-4 w-4"/>Website traffic</CardTitle></CardHeader>
       <CardContent className="space-y-3">
-        <p className="font-medium">Not connected</p>
-        <p className="max-w-3xl text-sm text-muted-foreground">Verified website visitors, page views, referral sources, locations and device breakdowns cannot be calculated from the existing test and order records. No tracking snippet or authenticated traffic-data integration has been verified. Visitor and signup conversion metrics will appear only after an approved analytics source is installed and validated.</p>
-        <p className="text-xs text-muted-foreground">Recommended next integration: Cloudflare Web Analytics for the Cloudflare Pages website, with privacy review and server-side access controls before showing provider metrics here.</p>
+        <p className="font-medium">Cloudflare Web Analytics tracking enabled</p>
+        <p className="max-w-3xl text-sm text-muted-foreground">The Cloudflare account has an active Web Analytics site for examtree.in with automatic beacon installation enabled. The collection configuration is verified, but pageview and visitor totals have not been queried or validated in this admin application. Examtree will not infer visitors from test attempts or orders.</p>
+        <a className="inline-flex text-sm font-medium text-primary underline" href="https://dash.cloudflare.com/?to=/:account/:zone/speed/rum" target="_blank" rel="noopener noreferrer">Open Cloudflare's traffic dashboard</a>
+        <p className="text-xs text-muted-foreground">The Cloudflare dashboard is the source for website visitors, page views, referrers and device distribution. An authenticated metrics integration must be independently verified before displaying those numbers in Examtree Admin.</p>
       </CardContent>
     </Card>
     <p className="text-xs text-muted-foreground">All displayed numbers originate from existing authenticated aggregate APIs. Data are limited to the selected reporting window and to the permissions on those endpoints.</p>
