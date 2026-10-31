@@ -51,13 +51,14 @@ print("INFO: live service inventory only; this is NOT an approval to switch admi
 PY
 
 echo "=== SECRET MANAGER METADATA ONLY ==="
-for name in examtree-openai-api-key examtree-cashfree-production-client-id examtree-cashfree-production-client-secret; do
+for name in examtree-openai-api-key examtree-question-studio-prod-worker-token examtree-cashfree-sandbox-client-id examtree-cashfree-sandbox-client-secret examtree-cashfree-production-client-id examtree-cashfree-production-client-secret; do
   if gcloud secrets describe "$name" --project="$PROJECT" --format='value(name)' >/dev/null 2>&1; then
     N=$(gcloud secrets versions list "$name" --project="$PROJECT" --filter='state:enabled' --format='value(name)' | wc -l | tr -d ' ')
     echo "$name: exists; enabled versions=$N"
   else
-    echo "$name: not readable or absent"
+    echo "$name: not readable or absent (verify with cloud owner)"
   fi
 done
 
+echo "INFO: sandbox Cashfree secrets may be used only with an isolated sandbox database, NEVER the production API service."
 echo "NO CHANGES MADE: service, traffic, Cloudflare, queues, Neon, payment providers"
