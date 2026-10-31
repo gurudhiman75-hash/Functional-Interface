@@ -133,6 +133,8 @@ export function PackagesWorkspacePage() {
       {data?.products.length ? data.products.map((row) => <TableRow key={row.id}><TableCell><Link to={`/commerce/packages/${row.id}`} className="font-medium hover:underline">{row.title}</Link><p className="text-xs text-muted-foreground">{row.code}</p></TableCell><TableCell><StatusBadge tone={row.status === 'active' ? 'success' : row.status === 'draft' ? 'warning' : 'neutral'}>{row.status}</StatusBadge></TableCell><TableCell className="text-right">v{row.currentVersionNumber}</TableCell><TableCell className="text-right">{row.testCount}</TableCell><TableCell className="text-right">{money(row.listPriceMinor, row.currency)}</TableCell><TableCell className="text-right">{money(row.salePriceMinor, row.currency)}</TableCell><TableCell className="text-right">{row.validityDays ? `${row.validityDays} days` : 'No expiry'}</TableCell></TableRow>) : <TableRow><TableCell colSpan={7} className="py-12 text-center text-muted-foreground">{loading ? 'Loading canonical packages…' : 'No canonical packages match this search.'}</TableCell></TableRow>}
     </TableBody></Table></CardContent></Card>
 
+    <TestAccessPoliciesWorkspace />
+
     <Card className="border-dashed"><CardContent className="p-4"><p className="font-medium">Package lifecycle contract</p><p className="mt-1 text-sm text-muted-foreground">Edits create a new immutable product version. Activation is blocked until every test in the current version is release-ready. Archiving never deletes versions, orders, payment evidence or entitlements.</p></CardContent></Card>
   </div>;
 }
@@ -257,6 +259,69 @@ function PackageEditor({ title, submitLabel, value, onChange, tests, series, sav
     <Field label={`Individual tests (${value.testIds.length} selected)`}><div className="max-h-72 space-y-2 overflow-auto rounded-md border p-3">{tests.map((test) => <label key={test.id} className="flex cursor-pointer items-center gap-3 rounded-md border p-3"><input type="checkbox" checked={selected.has(test.id)} onChange={() => toggleTest(test.id)} /><span className="flex-1"><span className="block text-sm font-medium">{test.title}</span><span className="block text-xs text-muted-foreground">{test.publicCode} · {test.status}</span></span></label>)}</div></Field>
     <div className="flex justify-end gap-2"><Button variant="outline" onClick={onCancel} disabled={saving}>Cancel</Button><Button onClick={onSubmit} disabled={saving}><Save className="mr-1.5 h-4 w-4" />{saving ? 'Saving…' : submitLabel}</Button></div>
   </CardContent></Card>;
+}
+
+type TestAccessPolicy = {
+  testId: string; publicCode: string; title: string; status: string;
+  accessMode: 'free' | 'premium'; source: string;
+};
+
+function TestAccessPoliciesWorkspace() {
+  const [tests, setTests] = useState<TestAccessPolicy[]>([]);
+  const [search, setSearch] = useState('');
+  const [reason, setReason] = useState('');
+  const [workingId, setWorkingId] = useState<string | null>(null);
+  const load = async () => {
+    try {
+      const data = await request<{ tests: TestAccessPolicy[] }>('/admin/commerce/products/access-policies');
+      setTests(data.tests);
+    } catch (error) {
+      showToast.error('Unable to load test access policies', error instanceof Error ? error.message : 'Request failed.');
+    }
+  };
+  useEffect(() => { void load(); }, []);
+  const save = async (testId: string, accessMode: 'free' | 'premium') => {
+    if (!reason.trim()) {
+      showToast.error('Change reason required', 'Explain why this test should be free or premium.');
+      return;
+    }
+    setWorkingId(testId);
+    try {
+      await request(`/admin/commerce/products/access-policies/${encodeURIComponent(testId)}`, {
+        method: 'POST', body: JSON.stringify({ accessMode, reason: reason.trim() }),
+      });
+      setTests(previous => previous.map(test => test.testId === testId ? { ...test, accessMode, source: 'admin' } : test));
+      showToast.success('Access policy updated', 'The change has been recorded in the audit log.');
+      setReason('');
+    } catch (error) {
+      showToast.error('Unable to update access policy', error instanceof Error ? error.message : 'Request failed.');
+    } finally { setWorkingId(null); }
+  };
+  const filtered = tests.filter(test =>
+    (test.title + ' ' + test.publicCode).toLowerCase().includes(search.trim().toLowerCase())
+  ).slice(0, 75);
+  return <Card>
+    <CardHeader><CardTitle className="text-base">Test access policies</CardTitle></CardHeader>
+    <CardContent className="space-y-3">
+      <p className="text-sm text-muted-foreground">Explicitly classify tests as Free or Premium, independently of which packages are currently on sale. An administrator-approved free preview is not automatically converted to premium by package activation.</p>
+      <div className="grid gap-2 md:grid-cols-2">
+        <Input value={search} onChange={event => setSearch(event.target.value)} placeholder="Filter tests by title or code" />
+        <Input value={reason} onChange={event => setReason(event.target.value)} placeholder="Required audit reason before changing access" />
+      </div>
+      <div className="max-h-80 space-y-2 overflow-y-auto">
+        {filtered.map(test => <div key={test.testId} className="flex items-center justify-between gap-3 rounded-md border p-3">
+          <div><p className="text-sm font-medium">{test.title}</p>
+            <p className="text-xs text-muted-foreground">{test.publicCode} · {test.status} · {test.source}</p></div>
+          <div className="flex items-center gap-2">
+            <StatusBadge tone={test.accessMode === 'premium' ? 'warning' : 'success'}>{test.accessMode}</StatusBadge>
+            <Button size="sm" variant="outline" disabled={workingId !== null} onClick={() => void save(test.testId, test.accessMode === 'free' ? 'premium' : 'free')}>
+              Set {test.accessMode === 'free' ? 'Premium' : 'Free'}
+            </Button>
+          </div>
+        </div>)}
+      </div>
+    </CardContent>
+  </Card>;
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="space-y-1.5"><span className="text-sm font-medium">{label}</span>{children}</label>; }

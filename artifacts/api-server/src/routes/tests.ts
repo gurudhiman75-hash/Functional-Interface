@@ -73,7 +73,9 @@ async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound =
          AND l.is_active = true
         WHERE evl.exam_version_id = t.exam_version_id
       ), ARRAY[COALESCE(tv.settings->>'languageCode', 'en')]) AS languages,
-      COALESCE(commerce_meta."priceMinor", 0) > 0 AS "paidAccessRequired",
+      COALESCE((
+        SELECT policy.access_mode FROM commerce.test_access_policies policy WHERE policy.test_id = t.id
+      ), 'premium') = 'premium' AS "paidAccessRequired",
       commerce_meta."priceMinor",
       COALESCE((
         SELECT json_agg(

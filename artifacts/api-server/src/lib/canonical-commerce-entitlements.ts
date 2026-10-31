@@ -26,19 +26,15 @@ export async function evaluateTestAccess(input: {
   client?: SqlExecutor;
 }): Promise<{ allowed: boolean; paidAccessRequired: boolean; entitlementId: string | null; reason: string }> {
   const client = input.client ?? sqlClient;
-  const paidRows = await client`
-    SELECT EXISTS (
-      SELECT 1
-      FROM commerce.products p
-      JOIN commerce.product_versions pv ON pv.product_id = p.id AND pv.version_number = p.current_version_number
-      JOIN commerce.product_version_tests pvt ON pvt.product_version_id = pv.id
-      WHERE p.status = 'active'
-        AND pv.sale_price_minor > 0
-        AND pvt.test_id = ${input.testId}::uuid
-    ) AS "paidAccessRequired"
+  // Explicit classification is independent of live product sale windows or archiving.
+  // Unclassified new tests default to premium until an administrator marks them free.
+  const policyRows = await client`
+    SELECT COALESCE((
+      SELECT access_mode FROM commerce.test_access_policies WHERE test_id = ${input.testId}::uuid
+    ), 'premium') AS "accessMode"
   `;
-  const paidAccessRequired = Boolean(paidRows[0]?.paidAccessRequired);
-  if (!paidAccessRequired) return { allowed: true, paidAccessRequired: false, entitlementId: null, reason: "free_or_unlisted" };
+  const paidAccessRequired = String(policyRows[0]?.accessMode) !== "free";
+  if (!paidAccessRequired) return { allowed: true, paidAccessRequired: false, entitlementId: null, reason: "explicit_free" };
 
   const rows = await client`
     SELECT e.id::text AS id

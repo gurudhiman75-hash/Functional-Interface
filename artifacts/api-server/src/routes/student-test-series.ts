@@ -206,18 +206,11 @@ async function loadSeriesCommerce(
   const accessRows = await sqlClient`
     SELECT
       item.test_id::text AS "testId",
-      EXISTS (
-        SELECT 1
-        FROM commerce.products p
-        JOIN commerce.product_versions pv
-          ON pv.product_id = p.id
-         AND pv.version_number = p.current_version_number
-        JOIN commerce.product_version_tests pvt
-          ON pvt.product_version_id = pv.id
-         AND pvt.test_id = item.test_id
-        WHERE p.status = 'active'
-          AND pv.sale_price_minor > 0
-      ) AS "paidAccessRequired",
+      COALESCE((
+        SELECT policy.access_mode
+        FROM commerce.test_access_policies policy
+        WHERE policy.test_id = item.test_id
+      ), 'premium') = 'premium' AS "paidAccessRequired",
       CASE
         WHEN ${userId}::uuid IS NULL THEN false
         ELSE EXISTS (
