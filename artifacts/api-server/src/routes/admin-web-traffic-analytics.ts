@@ -82,7 +82,7 @@ router.get("/traffic", async (req, res) => {
 
     const groups = payload.data.viewer.accounts[0];
     const daily = (groups?.daily ?? [])
-      .filter((row) => /^\\d{4}-\\d{2}-\\d{2}$/.test(row.dimensions?.date ?? ""))
+      .filter((row) => /^\d{4}-\d{2}-\d{2}$/.test(row.dimensions?.date ?? ""))
       .map((row) => ({
         day: row.dimensions!.date!,
         pageLoads: numberOrZero(row.count),
