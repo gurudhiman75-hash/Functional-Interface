@@ -162,9 +162,14 @@ app.use((req, res, next) => {
 // reach Render. Deny direct Cloud Run /api/admin/commerce requests even when
 // administrator auth succeeds, until the merchant handover is complete.
 app.use((req, res, next) => {
+  const financeHandoverVerified =
+    process.env.EXAMTREE_FINANCE_CLOUDRUN_APPROVED === "true" &&
+    process.env.EXAMTREE_PAYMENT_PROVIDER === "cashfree" &&
+    process.env.EXAMTREE_SALES_DISABLED === "false" &&
+    process.env.EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER === "false";
   if (process.env.EXAMTREE_API_RUNTIME === "cloud-run" &&
       process.env.EXAMTREE_API_STAGING === "false" &&
-      process.env.EXAMTREE_SALES_DISABLED === "true" &&
+      !financeHandoverVerified &&
       (req.path === "/api/admin/commerce" || req.path.startsWith("/api/admin/commerce/"))) {
     res.status(503).json({
       code: "FINANCE_HANDLED_BY_RENDER_DURING_CUTOVER",
