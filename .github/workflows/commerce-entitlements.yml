@@ -50,7 +50,7 @@ jobs:
           grep -F 'grant_source' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'idempotency_key' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
           grep -F 'INSERT INTO commerce.entitlement_tests' artifacts/api-server/src/routes/admin-commerce-entitlements.ts
-          grep -F 'pv.sale_price_minor > 0' artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
+          grep -F 'commerce.test_access_policies' artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
           grep -F 'TEST_ENTITLEMENT_REQUIRED' artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
           grep -F 'router.post("/attempt-sessions", authenticate' artifacts/api-server/src/routes/canonical-commerce-access-guard.ts
           grep -F 'router.get("/tests/:id", authenticate' artifacts/api-server/src/routes/canonical-commerce-access-guard.ts
