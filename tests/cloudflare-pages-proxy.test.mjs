@@ -242,3 +242,52 @@ test("no-AI admin mode migrates only session and deterministic Question Studio",
     globalThis.fetch = old;
   }
 });
+
+test("Cloud Run only mode requires independent finance handover switch", async () => {
+  const upstream = "https://examtree-api-1083299267005.asia-south1.run.app";
+  const legacy = "https://examtree-new.onrender.com";
+  const original = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (request) => {
+    calls.push(request.url);
+    return Response.json({ ok: true });
+  };
+  const paths = [
+    "/api/admin/session/bootstrap",
+    "/api/admin/notes-studio-v2/capabilities",
+    "/api/admin/commerce/products/access-policies",
+    "/api/admin/commerce/orders",
+    "/api/commerce/orders/example/reconcile",
+    "/api/billing/cashfree/webhook",
+    "/api/packages/verify",
+  ];
+  try {
+    for (const financeFlag of [undefined, "render", "cloud-run"]) {
+      const env = {
+        EXAMTREE_API_UPSTREAM_ORIGIN: upstream,
+        EXAMTREE_ADMIN_UPSTREAM: "cloud-run",
+        EXAMTREE_FINANCE_UPSTREAM: financeFlag,
+      };
+      for (let i = 0; i < paths.length; i++) {
+        const path = paths[i];
+        const financePath = i >= 2;
+        const response = await onRequest({
+          request: req("https://examtree.in" + path, path.includes("webhook") ? "POST" : "GET",
+            path.includes("webhook") ? { body: "{}", headers: { "Content-Type": "application/json" } } : {}),
+          env,
+        });
+        assert.equal(response.status, 200);
+        assert.equal(calls.at(-1), (financePath && financeFlag !== "cloud-run" ? legacy : upstream) + path);
+      }
+    }
+    // The finance flag alone must not bypass conservative admin routing.
+    const response = await onRequest({
+      request: req("https://examtree.in/api/admin/commerce/orders"),
+      env: { EXAMTREE_API_UPSTREAM_ORIGIN: upstream, EXAMTREE_FINANCE_UPSTREAM: "cloud-run" },
+    });
+    assert.equal(response.status, 200);
+    assert.equal(calls.at(-1), legacy + "/api/admin/commerce/orders");
+  } finally {
+    globalThis.fetch = original;
+  }
+});
