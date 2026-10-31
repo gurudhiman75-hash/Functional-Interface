@@ -291,3 +291,63 @@ test("Cloud Run only mode requires independent finance handover switch", async (
     globalThis.fetch = original;
   }
 });
+
+test("tagged admin canary routes only non-financial admin requests and cannot replace student or finance", async () => {
+  const { configuredAdminCanaryOrigin } = await import("../functions/api/[[path]].js");
+  const candidate = "https://admin-candidate---examtree-api-ttnfjefqka-el.a.run.app";
+  const student = "https://examtree-api-ttnfjefqka-el.a.run.app";
+  const render = "https://examtree-new.onrender.com";
+  assert.equal(configuredAdminCanaryOrigin({ EXAMTREE_ADMIN_CANARY_ORIGIN: candidate }), candidate);
+  for (const invalid of [
+    "https://evil.example",
+    "http://admin-candidate---examtree-api-ttnfjefqka-el.a.run.app",
+    "https://admin-candidate---examtree-api-ttnfjefqka-el.a.run.app/evil",
+    "https://admin-candidate---examtree-api-staging-ttnfjefqka-el.a.run.app",
+    "https://admin-candidate---examtree-api-ttnfjefqka-el.a.run.app.evil.example",
+  ]) assert.throws(() => configuredAdminCanaryOrigin({ EXAMTREE_ADMIN_CANARY_ORIGIN: invalid }));
+
+  const original = globalThis.fetch;
+  const forwarded = [];
+  globalThis.fetch = async request => {
+    forwarded.push(request.url);
+    return Response.json({ ok: true });
+  };
+  try {
+    const env = {
+      EXAMTREE_ADMIN_UPSTREAM: "cloud-run-deterministic",
+      EXAMTREE_ADMIN_CANARY_ORIGIN: candidate,
+      EXAMTREE_API_UPSTREAM_ORIGIN: student,
+    };
+    for (const [path, expected, method] of [
+      ["/api/admin/session/bootstrap", candidate, "POST"],
+      ["/api/admin/question-studio/capabilities", candidate, "GET"],
+      ["/api/admin/notes-studio-v2/capabilities", candidate, "GET"],
+      ["/api/admin/current-affairs", candidate, "GET"],
+      ["/api/admin/commerce/products", render, "GET"],
+      ["/api/admin/commerce/orders", render, "GET"],
+      ["/api/billing/cashfree/webhook", render, "POST"],
+      ["/api/tests", student, "GET"],
+    ]) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path, method,
+          method === "POST" ? { body: "{}", headers: { "content-type": "application/json" } } : {}),
+        env,
+      });
+      assert.equal(response.status, 200, path);
+      assert.equal(forwarded.at(-1), expected + path, path);
+    }
+    // Without candidate flag, maintain current behavior; invalid candidate fails closed.
+    let response = await onRequest({
+      request: req("https://examtree.in/api/admin/session/bootstrap", "POST", { body: "{}" }),
+      env: { EXAMTREE_ADMIN_UPSTREAM: "cloud-run-deterministic", EXAMTREE_API_UPSTREAM_ORIGIN: student },
+    });
+    assert.equal(response.status, 200);
+    assert.equal(forwarded.at(-1), student + "/api/admin/session/bootstrap");
+    response = await onRequest({
+      request: req("https://examtree.in/api/admin/session/bootstrap", "POST", { body: "{}" }),
+      env: { ...env, EXAMTREE_ADMIN_CANARY_ORIGIN: "https://attacker.invalid" },
+    });
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).code, "ADMIN_CANARY_UPSTREAM_MISCONFIGURED");
+  } finally { globalThis.fetch = original; }
+});
