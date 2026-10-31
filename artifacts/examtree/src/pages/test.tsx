@@ -251,14 +251,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     }
   }, [attemptType, test.id]);
 
-  type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED";
+  type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED" | "ANSWERED_MARKED";
 
   const getQuestionStatus = (question: { id: number }): QuestionStatus => {
     const answer = answers[question.id];
     const isFlagged = Boolean(flags[question.id]);
     const isVisited = visitedQuestionIds.includes(question.id);
 
-    if (isFlagged) return "MARKED";
+    if (isFlagged) return answer !== null && answer !== undefined ? "ANSWERED_MARKED" : "MARKED";
     if (answer !== null && answer !== undefined) return "ANSWERED";
     if (isVisited) return "NOT_ANSWERED";
     return "NOT_VISITED";
@@ -276,6 +276,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         NOT_ANSWERED: 0,
         ANSWERED: 0,
         MARKED: 0,
+        ANSWERED_MARKED: 0,
       } as Record<QuestionStatus, number>,
     );
   }, [allQuestions, answers, flags, visitedQuestionIds]);
@@ -690,6 +691,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
   const toggleReview = () => {
     setFlags((current) => ({ ...current, [q.id]: !current[q.id] }));
+  };
+
+  const markForReviewAndNext = () => {
+    setFlags((current) => ({ ...current, [q.id]: true }));
+    goToNext();
   };
 
   const goToNextWrongQuestion = useCallback(() => {
@@ -1217,14 +1223,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
-                  onClick={toggleReview}
+                  onClick={isTcsInterface ? markForReviewAndNext : toggleReview}
                   className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
                     currentQuestionFlagged
                       ? "border-violet-400 bg-violet-50 text-violet-700"
                       : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
                   }`}
                 >
-                  {currentQuestionFlagged ? "Marked for review" : "Mark for Review & Next"}
+                  {isTcsInterface ? "Mark for Review & Next" : currentQuestionFlagged ? "Marked for review" : "Mark for Review & Next"}
                 </button>
                 <button
                   type="button"
@@ -1266,7 +1272,13 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
           {!sidebarCollapsed && (
           <aside className="min-w-0 space-y-3">
-            {isTcsInterface && <div className="border border-[#b7cad8] bg-[#dce9f2] px-3 py-2 text-center text-sm font-bold text-[#123f64]">Question Navigator</div>}
+            {isTcsInterface && (
+              <div className="border border-[#b7cad8] bg-[#dce9f2] px-3 py-3 text-sm text-[#123f64]">
+                <p className="font-bold">Candidate</p>
+                <p className="mt-1 truncate text-xs text-[#335775]">{user.name || "Examtree learner"}</p>
+                <p className="mt-2 border-t border-[#b7cad8] pt-2 font-bold">Question Navigator</p>
+              </div>
+            )}
             {currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
@@ -1292,13 +1304,19 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   <span className="text-gray-700">Not Answered</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center bg-violet-600 text-[10px] font-bold text-white ${isTcsInterface ? "rounded-full" : "rounded-full"}`}>{statusCounts.MARKED}</span>
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white">{statusCounts.MARKED}</span>
                   <span className="text-gray-700">Marked</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-[10px] font-bold text-gray-500">{statusCounts.NOT_VISITED}</span>
                   <span className="text-gray-700">Not Visited</span>
                 </div>
+                {isTcsInterface && (
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white ring-2 ring-green-500 ring-offset-1">{statusCounts.ANSWERED_MARKED}</span>
+                    <span className="text-gray-700">Answered &amp; Marked for Review</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1325,9 +1343,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         {section.questions.map((question, questionIndex) => {
                           const status = getQuestionStatus(question);
                           const isCurrent = sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex;
-                          const isMarked = status === "MARKED";
+                          const isMarked = status === "MARKED" || status === "ANSWERED_MARKED";
                           const paletteClass = isCurrent
                             ? "bg-blue-600 text-white"
+                            : status === "ANSWERED_MARKED"
+                            ? (isTcsInterface ? "bg-violet-600 text-white ring-2 ring-green-500 ring-offset-1" : "bg-violet-600 text-white")
                             : isMarked
                             ? "bg-violet-600 text-white"
                             : status === "ANSWERED"
@@ -1342,6 +1362,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                               type="button"
                               disabled={isLocked && !isActive}
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
+                              aria-label={`Question ${questionIndex + 1}, ${status.replace(/_/g, " ").toLowerCase()}`}
+                              aria-current={isCurrent ? "step" : undefined}
                               className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "rounded-t-xl rounded-b-sm" : "rounded-md"} ${paletteClass}`}
                             >
                               {questionIndex + 1}
