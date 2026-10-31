@@ -13,9 +13,14 @@ test('earlier legacy manifest router is the actual owner of GET capabilities',()
   assert.ok(index.indexOf('router.use("/admin/question-studio", adminQuestionStudioCapabilitiesRouter)') <
     index.indexOf('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter)'));
 });
-test('staging selects full catalog only at authoritative early handler, preserving Render/production',()=>{
+test('staging and full Cloud Run admin select unified catalog; delegated student-only production remains legacy',()=>{
   assert.match(route,/EXAMTREE_API_RUNTIME === "cloud-run"/);
   assert.match(route,/EXAMTREE_API_STAGING === "true"/);
+  assert.match(route,/EXAMTREE_API_STAGING === "false"/);
+  assert.match(route,/EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER === "false"/);
+  assert.match(route,/EXAMTREE_ADMIN_DETERMINISTIC_ONLY === "false"/);
+  assert.match(route,/const useUnifiedCatalog = isIsolatedQsStaging \|\| isFullCloudRunAdmin/);
+  assert.match(route,/if \(useUnifiedCatalog\)/);
   assert.match(route,/question-studio-unified-capabilities\.json/);
   assert.match(route,/question-studio-capabilities\.json/);
   assert.match(route,/requireAdminPermission\("content\.generation\.read"\)/);

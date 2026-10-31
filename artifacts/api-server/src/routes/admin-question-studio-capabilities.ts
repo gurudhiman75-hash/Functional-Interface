@@ -13,7 +13,17 @@ const distDir = path.dirname(fileURLToPath(import.meta.url));
 // downstream registry (which never sees successful GET /capabilities calls).
 const isIsolatedQsStaging = process.env.EXAMTREE_API_RUNTIME === "cloud-run"
   && process.env.EXAMTREE_API_STAGING === "true";
-const manifestPath = path.resolve(distDir, isIsolatedQsStaging
+// The complete Cloud Run admin revision is also a canonical four-engine
+// Question Studio host. The older production catalogue predates the unified
+// registry and can make the admin subject selector appear Quant-only.
+// Student-only Cloud Run revisions keep the legacy manifest while admin routes
+// are delegated; never infer authorization from this UI discovery catalogue.
+const isFullCloudRunAdmin = process.env.EXAMTREE_API_RUNTIME === "cloud-run"
+  && process.env.EXAMTREE_API_STAGING === "false"
+  && process.env.EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER === "false"
+  && process.env.EXAMTREE_ADMIN_DETERMINISTIC_ONLY === "false";
+const useUnifiedCatalog = isIsolatedQsStaging || isFullCloudRunAdmin;
+const manifestPath = path.resolve(distDir, useUnifiedCatalog
   ? "question-studio-unified-capabilities.json"
   : "question-studio-capabilities.json");
 let manifestPromise: Promise<Record<string, unknown>> | null = null;
@@ -24,13 +34,13 @@ async function loadManifest(): Promise<Record<string, unknown>> {
     if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.packages)) {
       throw new Error("Question Studio capabilities manifest is invalid.");
     }
-    if (isIsolatedQsStaging) {
+    if (useUnifiedCatalog) {
       const engines = parsed.generationSystems;
       const packages = parsed.packages;
       if (!Array.isArray(engines) || engines.length < 4 ||
           !packages.some((pkg: {packageId?: string; enabled?: boolean}) =>
             pkg.packageId === "COM-001" && pkg.enabled === true)) {
-        throw new Error("Isolated Question Studio staging catalog lacks required four-engine packages.");
+        throw new Error("Unified Question Studio catalog lacks required four-engine packages.");
       }
     }
     return parsed as Record<string, unknown>;
