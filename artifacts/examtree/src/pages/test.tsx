@@ -1649,11 +1649,11 @@ export default function Test() {
 
   // Direct practice links still show instructions before starting the timer/session.
   useEffect(() => {
-    if ((isWrongOnlyMode && resolvedTest) || (sectionFilterParam && sectionFilteredTest)) {
+    if ((isWrongOnlyMode && filteredTest) || (sectionFilterParam && sectionFilteredTest)) {
       setShowInstructions(true);
       setInstructionsAccepted(false);
     }
-  }, [isWrongOnlyMode, resolvedTest, sectionFilterParam, sectionFilteredTest]);
+  }, [isWrongOnlyMode, filteredTest, sectionFilterParam, sectionFilteredTest]);
 
   if (!id) return null;
 
