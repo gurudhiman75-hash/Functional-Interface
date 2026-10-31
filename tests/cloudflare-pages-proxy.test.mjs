@@ -270,7 +270,7 @@ test("Cloud Run only mode requires independent finance handover switch", async (
       };
       for (let i = 0; i < paths.length; i++) {
         const path = paths[i];
-        const financePath = i >= 3;
+        const financePath = i >= 2;
         const response = await onRequest({
           request: req("https://examtree.in" + path, path.includes("webhook") ? "POST" : "GET",
             path.includes("webhook") ? { body: "{}", headers: { "Content-Type": "application/json" } } : {}),
