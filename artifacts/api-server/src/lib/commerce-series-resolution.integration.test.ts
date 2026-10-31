@@ -48,6 +48,9 @@ test("SQL-backed canonical series composition and frozen grant snapshots", async
       id uuid PRIMARY KEY, series_version_id uuid NOT NULL REFERENCES assessment.test_series_versions(id),
       test_id uuid NOT NULL, sort_order int NOT NULL
     )`;
+    await sql`CREATE TABLE commerce.test_access_policies (
+      test_id uuid PRIMARY KEY, access_mode text NOT NULL
+    )`;
     await sql`CREATE TABLE commerce.products (
       id uuid PRIMARY KEY, status text NOT NULL, current_version_number int NOT NULL
     )`;
@@ -105,6 +108,7 @@ test("SQL-backed canonical series composition and frozen grant snapshots", async
     const userId = "80000000-0000-4000-8000-000000000001";
     await sql`INSERT INTO commerce.products VALUES (${productId}::uuid,'active',1)`;
     await sql`INSERT INTO commerce.product_versions VALUES (${productVersion}::uuid,${productId}::uuid,1,29900)`;
+    await sql`INSERT INTO commerce.test_access_policies VALUES (${ids.t3}::uuid,'free')`;
     const beforePurchase = await evaluateTestAccess({ userId, testId: ids.t1, client });
     assert.equal(beforePurchase.allowed, false);
     assert.equal(beforePurchase.paidAccessRequired, true);
