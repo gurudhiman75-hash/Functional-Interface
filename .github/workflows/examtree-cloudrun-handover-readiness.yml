@@ -1,0 +1,50 @@
+name: Examtree Cloud Run full handover readiness
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [New-main]
+    paths:
+      - .github/workflows/examtree-cloudrun-handover-readiness.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: examtree-cloudrun-readiness
+  cancel-in-progress: false
+
+jobs:
+  production-inventory:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    timeout-minutes: 12
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP using existing OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: sarbedutech
+          workload_identity_provider: projects/1083299267005/locations/global/workloadIdentityPools/examtree-codex-pool/providers/github-actions
+          service_account: examtree-codex-deploy@sarbedutech.iam.gserviceaccount.com
+
+      - name: Install Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Single-pass read-only production inventory
+        run: |
+          set -euo pipefail
+          bash scripts/preflight-examtree-cloudrun-render-retirement.sh
+
+      - name: Print missing admin and finance handover acceptance gates
+        if: always()
+        run: |
+          echo "REQUIRED: authorized Firebase admin token/RBAC acceptance on a 0%-traffic tagged revision"
+          echo "REQUIRED: admin AI/Notes/Current Affairs/media and worker dependency acceptance"
+          echo "REQUIRED: production merchant credentials referenced securely; signed webhook replay and idempotency"
+          echo "REQUIRED: coordinated callback destination change and historical order reconciliation"
+          echo "DO NOT switch admin, finance, queues, or payments based on this read-only report alone"
