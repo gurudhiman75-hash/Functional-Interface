@@ -11,6 +11,12 @@ on:
       - artifacts/api-server/src/lib/commerce-series-composition.test.ts
       - artifacts/api-server/src/lib/commerce-series-resolution.ts
       - artifacts/api-server/src/lib/commerce-series-resolution.integration.test.ts
+      - artifacts/api-server/src/lib/commerce-test-access-policy.ts
+      - artifacts/api-server/src/lib/commerce-test-access-policy.integration.test.ts
+      - artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
+      - artifacts/api-server/src/routes/student-test-series.ts
+      - artifacts/api-server/src/routes/tests.ts
+      - docs/database-migrations/2026-10-31-explicit-test-access-policies.sql
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -25,6 +31,12 @@ on:
       - artifacts/api-server/src/lib/commerce-series-composition.test.ts
       - artifacts/api-server/src/lib/commerce-series-resolution.ts
       - artifacts/api-server/src/lib/commerce-series-resolution.integration.test.ts
+      - artifacts/api-server/src/lib/commerce-test-access-policy.ts
+      - artifacts/api-server/src/lib/commerce-test-access-policy.integration.test.ts
+      - artifacts/api-server/src/lib/canonical-commerce-entitlements.ts
+      - artifacts/api-server/src/routes/student-test-series.ts
+      - artifacts/api-server/src/routes/tests.ts
+      - docs/database-migrations/2026-10-31-explicit-test-access-policies.sql
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -99,6 +111,13 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-series-resolution.integration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/commerce-series-resolution.integration.test.mjs
           node artifacts/api-server/dist/commerce-series-resolution.integration.test.mjs
+      - name: Test explicit test access policies in disposable PostgreSQL
+        env:
+          TEST_COMMERCE_DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
+          DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-test-access-policy.integration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/commerce-test-access-policy.integration.test.mjs
+          node artifacts/api-server/dist/commerce-test-access-policy.integration.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
