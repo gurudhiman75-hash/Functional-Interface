@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { Router, type Response } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
+import { composePackageTestIds, snapshotSeriesComposition, seriesSelectionBlockers } from "../lib/commerce-series-composition";
+import { loadEligibleSeriesTestGroups, SeriesPackageSelectionError } from "../lib/commerce-series-resolution";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
@@ -16,6 +18,10 @@ class CommerceProductError extends Error {
 }
 
 function sendError(res: Response, error: unknown, fallback: string): void {
+  if (error instanceof SeriesPackageSelectionError) {
+    res.status(409).json({ error: error.message, code: error.code, details: error.details });
+    return;
+  }
   if (error instanceof CommerceProductError) {
     res.status(error.statusCode).json({ error: error.message, code: error.code, details: error.details });
     return;
@@ -58,8 +64,10 @@ function normalizeInput(body: unknown) {
   const changeReason = cleanText(value.changeReason, 1000, true);
   const testIds = Array.from(new Set(Array.isArray(value.testIds) ? value.testIds.map(String) : []));
   if (testIds.some((id) => !uuid.test(id))) throw new CommerceProductError("INVALID_TEST_ID", "Every package test identifier must be a UUID");
-  if (testIds.length === 0) throw new CommerceProductError("PACKAGE_TEST_REQUIRED", "A package must include at least one canonical test");
-  return { code, title, description, currency, listPriceMinor, salePriceMinor, validityDays, saleStartAt, saleEndAt, changeReason, testIds };
+  const seriesVersionIds = Array.from(new Set(Array.isArray(value.seriesVersionIds) ? value.seriesVersionIds.map(String) : []));
+  if (seriesVersionIds.some(id => !uuid.test(id))) throw new CommerceProductError("INVALID_SERIES_VERSION", "Invalid series version ID");
+  if (!testIds.length && !seriesVersionIds.length) throw new CommerceProductError("PACKAGE_CONTENT_REQUIRED", "Choose tests or series");
+  return { code, title, description, currency, listPriceMinor, salePriceMinor, validityDays, saleStartAt, saleEndAt, changeReason, testIds, seriesVersionIds };
 }
 
 async function assertTests(client: SqlExecutor, testIds: string[]) {
@@ -73,6 +81,13 @@ async function assertTests(client: SqlExecutor, testIds: string[]) {
   if (missing.length) throw new CommerceProductError("PACKAGE_TEST_MISSING", `${missing.length} selected test(s) do not exist or are archived`, 409, { testIds: missing });
 }
 
+async function resolvePackageMembers(client: SqlExecutor, input: ReturnType<typeof normalizeInput>) {
+  const groups = await loadEligibleSeriesTestGroups(client, input.seriesVersionIds);
+  const testIds = composePackageTestIds(input.testIds, groups);
+  await assertTests(client, testIds);
+  return { ...input, directTestIds: input.testIds, testIds };
+}
+
 async function insertVersion(client: SqlExecutor, productId: string, versionNumber: number, actorUserId: string, input: ReturnType<typeof normalizeInput>) {
   const versionId = randomUUID();
   await client`
@@ -83,7 +98,7 @@ async function insertVersion(client: SqlExecutor, productId: string, versionNumb
     ) VALUES (
       ${versionId}::uuid, ${productId}::uuid, ${versionNumber}, ${input.title}, ${input.description},
       ${input.currency}, ${input.listPriceMinor}, ${input.salePriceMinor}, ${input.validityDays},
-      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, '{}'::jsonb,
+      ${input.saleStartAt}::timestamptz, ${input.saleEndAt}::timestamptz, ${client.json(snapshotSeriesComposition(('directTestIds' in input ? input.directTestIds : input.testIds) as string[], input.seriesVersionIds))},
       ${input.changeReason}, ${actorUserId}::uuid, now()
     )
   `;
@@ -120,7 +135,7 @@ async function loadDetail(productId: string, client: SqlExecutor = sqlClient) {
     SELECT v.id::text AS id, v.version_number AS "versionNumber", v.title, v.description, v.currency,
       v.list_price_minor::float8 AS "listPriceMinor", v.sale_price_minor::float8 AS "salePriceMinor",
       v.validity_days AS "validityDays", v.sale_start_at AS "saleStartAt", v.sale_end_at AS "saleEndAt",
-      v.change_reason AS "changeReason", v.created_by::text AS "createdBy", v.created_at AS "createdAt",
+      v.configuration AS configuration, v.change_reason AS "changeReason", v.created_by::text AS "createdBy", v.created_at AS "createdAt",
       (SELECT COUNT(*)::int FROM commerce.product_version_tests pvt WHERE pvt.product_version_id = v.id) AS "testCount"
     FROM commerce.product_versions v WHERE v.product_id = ${productId}::uuid ORDER BY v.version_number DESC
   `;
@@ -137,7 +152,10 @@ async function loadDetail(productId: string, client: SqlExecutor = sqlClient) {
     ...(tests.length === 0 ? ["Package has no tests"] : []),
     ...tests.filter((test) => !["live", "scheduled", "completed"].includes(String(test.status))).map((test) => `${String(test.publicCode)} is ${String(test.status)}`),
   ];
-  return { product, versions, currentVersion, tests, readiness: { ready: blockers.length === 0, blockers }, generatedAt: new Date().toISOString() };
+  return { product, versions, currentVersion,
+    seriesVersionIds: (currentVersion?.configuration as { seriesVersionIds?: string[] } | null)?.seriesVersionIds ?? [],
+    directTestIds: (currentVersion?.configuration as { directTestIds?: string[] } | null)?.directTestIds ?? tests.map(t => String(t.testId)),
+    tests, readiness: { ready: blockers.length === 0, blockers }, generatedAt: new Date().toISOString() };
 }
 
 router.use(authenticate);
@@ -153,6 +171,48 @@ router.get("/catalog", requireAdminPermission("commerce.products.read"), async (
     `;
     res.json({ tests, generatedAt: new Date().toISOString() });
   } catch (error) { sendError(res, error, "Unable to load package catalog"); }
+});
+
+// Read-only canonical series catalogue for package composition. This does not create
+// package membership or change the paid-access rules.
+router.get("/catalog/series", requireAdminPermission("commerce.products.read"), async (_req, res) => {
+  try {
+    const series = await sqlClient`
+      SELECT s.id::text AS id, s.code, s.name,
+        s.exam_version_id::text AS "examVersionId",
+        s.current_version_number AS "currentVersionNumber",
+        v.id::text AS "seriesVersionId",
+        v.availability_start_at AS "availabilityStartAt",
+        v.availability_end_at AS "availabilityEndAt",
+        v.configuration ->> 'learnerVisibility' AS "learnerVisibility",
+        COUNT(i.id)::int AS "testCount",
+        COUNT(i.id) FILTER (
+          WHERE t.id IS NULL OR t.deleted_at IS NOT NULL
+             OR t.status::text NOT IN ('live', 'scheduled', 'completed')
+        )::int AS "unavailableTestCount",
+        COUNT(i.id) FILTER (WHERE t.status::text NOT IN ('live','scheduled','completed'))::int AS "unreadyTestCount"
+      FROM assessment.test_series s
+      JOIN assessment.test_series_versions v
+        ON v.series_id = s.id AND v.version_number = s.current_version_number
+      LEFT JOIN assessment.test_series_items i ON i.series_version_id = v.id
+      LEFT JOIN assessment.tests t ON t.id = i.test_id
+      WHERE s.deleted_at IS NULL
+      GROUP BY s.id, s.code, s.name, s.exam_version_id,
+        s.current_version_number, v.id, v.availability_start_at, v.availability_end_at, v.configuration
+      ORDER BY s.updated_at DESC
+      LIMIT 5000
+    `;
+    res.json({ series: series.map((item) => {
+      const blockers = seriesSelectionBlockers({
+        archived: false,
+        availabilityEndAt: item.availabilityEndAt ? String(item.availabilityEndAt) : null,
+        learnerVisibility: item.learnerVisibility ? String(item.learnerVisibility) : null,
+        memberStatuses: Number(item.unreadyTestCount) > 0 ? ["unready"] : Array(Number(item.testCount)).fill("live"),
+        missingOrArchivedMembers: Number(item.unavailableTestCount),
+      });
+      return { ...item, selectionReady: blockers.length === 0, blockers };
+    }), generatedAt: new Date().toISOString() });
+  } catch (error) { sendError(res, error, "Unable to load canonical series catalogue"); }
 });
 
 router.get("/", requireAdminPermission("commerce.products.read"), async (req, res) => {
@@ -187,14 +247,14 @@ router.post("/", requireAdminPermission("commerce.products.manage"), async (req,
     const actorUserId = req.adminSession!.user.id;
     const input = normalizeInput(req.body);
     const result = await sqlClient.begin(async (tx) => {
-      await assertTests(tx as SqlExecutor, input.testIds);
+      const composition = await resolvePackageMembers(tx as SqlExecutor, input);
       const productId = randomUUID();
       await tx`
         INSERT INTO commerce.products (id, code, current_version_number, status, created_by, created_at, updated_at)
         VALUES (${productId}::uuid, ${input.code}, 1, 'draft', ${actorUserId}::uuid, now(), now())
       `;
-      const versionId = await insertVersion(tx as SqlExecutor, productId, 1, actorUserId, input);
-      await audit(tx as SqlExecutor, actorUserId, "commerce.product.created", productId, `Created package ${input.code}`, { versionId, testIds: input.testIds, changeReason: input.changeReason });
+      const versionId = await insertVersion(tx as SqlExecutor, productId, 1, actorUserId, composition);
+      await audit(tx as SqlExecutor, actorUserId, "commerce.product.created", productId, `Created package ${input.code}`, { versionId, directTestIds: input.testIds, seriesVersionIds: input.seriesVersionIds, resolvedTestIds: composition.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
     res.status(201).json(result);
@@ -208,13 +268,13 @@ router.post("/:productId/versions", requireAdminPermission("commerce.products.ma
     const actorUserId = req.adminSession!.user.id;
     const input = normalizeInput(req.body);
     const result = await sqlClient.begin(async (tx) => {
-      await assertTests(tx as SqlExecutor, input.testIds);
+      const composition = await resolvePackageMembers(tx as SqlExecutor, input);
       const rows = await tx`SELECT code, current_version_number AS "currentVersionNumber" FROM commerce.products WHERE id = ${productId}::uuid FOR UPDATE`;
       if (!rows[0]) throw new CommerceProductError("COMMERCE_PRODUCT_NOT_FOUND", "Package not found", 404);
       const versionNumber = Number(rows[0].currentVersionNumber) + 1;
-      const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, input);
+      const versionId = await insertVersion(tx as SqlExecutor, productId, versionNumber, actorUserId, composition);
       await tx`UPDATE commerce.products SET current_version_number = ${versionNumber}, updated_at = now() WHERE id = ${productId}::uuid`;
-      await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, testIds: input.testIds, changeReason: input.changeReason });
+      await audit(tx as SqlExecutor, actorUserId, "commerce.product.version.created", productId, `Created package version ${versionNumber}`, { versionId, versionNumber, directTestIds: input.testIds, seriesVersionIds: input.seriesVersionIds, resolvedTestIds: composition.testIds, changeReason: input.changeReason });
       return loadDetail(productId, tx as SqlExecutor);
     });
     res.status(201).json(result);
@@ -233,6 +293,10 @@ router.post("/:productId/status", requireAdminPermission("commerce.products.mana
       const current = await loadDetail(productId, tx as SqlExecutor);
       if (!current) throw new CommerceProductError("COMMERCE_PRODUCT_NOT_FOUND", "Package not found", 404);
       if (status === "active" && !current.readiness.ready) throw new CommerceProductError("PACKAGE_NOT_READY", "Package cannot be activated until every current-version test is release-ready", 409, current.readiness);
+      if (status === "active" && current.seriesVersionIds.length) {
+        // Re-check canonical series eligibility at activation, not only at draft creation.
+        await loadEligibleSeriesTestGroups(tx as SqlExecutor, current.seriesVersionIds);
+      }
       await tx`UPDATE commerce.products SET status = ${status}, archived_at = ${status === "archived" ? new Date().toISOString() : null}::timestamptz, updated_at = now() WHERE id = ${productId}::uuid`;
       await audit(tx as SqlExecutor, actorUserId, "commerce.product.status.changed", productId, `Changed package status to ${status}`, { previousStatus: current.product.status, status, reason });
       return loadDetail(productId, tx as SqlExecutor);

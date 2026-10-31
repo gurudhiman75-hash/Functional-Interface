@@ -7,22 +7,28 @@ on:
       - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
       - docs/commerce-foundation-blueprint.md
       - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.test.ts
+      - artifacts/api-server/src/lib/commerce-series-resolution.ts
+      - artifacts/api-server/src/lib/commerce-series-resolution.integration.test.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-packages.yml
   push:
     branches: [New-main]
     paths:
       - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
       - docs/commerce-foundation-blueprint.md
       - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.ts
+      - artifacts/api-server/src/lib/commerce-series-composition.test.ts
+      - artifacts/api-server/src/lib/commerce-series-resolution.ts
+      - artifacts/api-server/src/lib/commerce-series-resolution.integration.test.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
-      - .github/workflows/commerce-packages.yml
   workflow_dispatch:
 
 permissions:
@@ -36,6 +42,20 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: examtree_test
+          POSTGRES_PASSWORD: local_test_only
+          POSTGRES_DB: examtree_commerce_series_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U examtree_test -d examtree_commerce_series_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -59,8 +79,8 @@ jobs:
           grep -F 'commerce.product.version.created' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'PACKAGE_NOT_READY' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'COMMERCE_SCHEMA_REQUIRED' artifacts/api-server/src/routes/admin-commerce-products.ts
-          grep -F "path: '/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/commerce/packages'" artifacts/admin-app/src/App.tsx
+          grep -E "path: ?'/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
+          grep -E "path: ?'/commerce/packages'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Packages'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "permission: 'commerce.products.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F 'Create immutable version' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
@@ -68,6 +88,17 @@ jobs:
           grep -F "method: 'POST'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
           grep -F "new Intl.NumberFormat('en-US'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
           ! grep -E '@/data/|prototype products|demo package|Canonical Commerce schema is not deployed' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+      - name: Test series package composition
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-series-composition.test.ts --bundle --platform=node --format=esm --outfile=dist/commerce-series-composition.test.mjs
+          node artifacts/api-server/dist/commerce-series-composition.test.mjs
+      - name: Test SQL-backed series composition and frozen grant snapshots
+        env:
+          TEST_COMMERCE_DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
+          DATABASE_URL: postgres://examtree_test:local_test_only@127.0.0.1:5432/examtree_commerce_series_test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/commerce-series-resolution.integration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/commerce-series-resolution.integration.test.mjs
+          node artifacts/api-server/dist/commerce-series-resolution.integration.test.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
