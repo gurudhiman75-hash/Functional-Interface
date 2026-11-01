@@ -14,8 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-import { getPublishedQuestions, type PublishedQuestion } from '@/features/question-bank/api';
-import { createLiveTest, getLiveTest, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
+import { getPublishedQuestions, getQuestionTaxonomyOptions, type PublishedQuestion } from '@/features/question-bank/api';
+import { createLiveTest, getLiveTest, getLiveTests, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
 import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
 interface BuilderSection { clientKey: string; name: string; durationMinutes: string; questionVersionIds: string[] }
@@ -25,6 +25,7 @@ interface BuilderDraft {
   difficulty: string; instructions: string; sections: BuilderSection[];
 }
 interface LocalCheckpoint { savedAt: string; serverDraftVersionId: string | null; draft: BuilderDraft }
+interface SectionTemplate { examVersionId: string; name: string; durationMinutes: string; source: string }
 
 const freshDraft = (): BuilderDraft => ({
   examVersionId: '', title: '', description: '', durationMinutes: 60, totalMarks: 0, marksPerQuestion: 2,
@@ -38,8 +39,8 @@ function setting(settings: Record<string, unknown>, key: string, fallback: strin
 function fingerprint(value: BuilderDraft) { return JSON.stringify(value); }
 function formatTime(value: string | null) { if (!value) return 'Not saved yet'; const date = new Date(value); return Number.isNaN(date.getTime()) ? value : date.toLocaleString(); }
 
-/** A server draft is a complete, reviewable test version; the local checkpoint
- * is deliberately allowed to be incomplete while an operator builds it. */
+/** Draft saves may include empty sections. Validate canonical identifiers and
+ * numeric constraints without prematurely enforcing QA/publication completeness. */
 export function testBuilderServerSaveBlocker(draft: BuilderDraft): string | null {
   if (!draft.examVersionId) return 'Select an exam version before saving to the server.';
   if (draft.title.trim().length < 3) return 'Enter a test title of at least 3 characters.';
@@ -53,15 +54,14 @@ export function testBuilderServerSaveBlocker(draft: BuilderDraft): string | null
     return 'A test must have between 1 and 20 sections.';
   if (draft.sections.some((section) => !section.name.trim()))
     return 'Enter a name for every section.';
-  if (draft.sections.some((section) => section.questionVersionIds.length === 0))
-    return 'Add at least one published question to every section before saving to the server. Your incomplete draft is still saved locally.';
+  // Empty sections are valid in server-side drafts; they block QA, not saving.
   const selected = draft.sections.flatMap((section) => section.questionVersionIds);
   if (new Set(selected).size !== selected.length)
     return 'A published question can appear only once in the test.';
   if (draft.sections.some((section) => section.questionVersionIds.length > 300))
     return 'A section cannot contain more than 300 questions.';
   const total = selected.length * draft.marksPerQuestion;
-  if (!Number.isFinite(total) || total < 0.01 || total > 100000 || Math.abs(total - draft.totalMarks) > 0.001)
+  if (!Number.isFinite(total) || total > 100000 || Math.abs(total - draft.totalMarks) > 0.001)
     return 'Total marks must equal the selected questions multiplied by marks per question.';
   const timed = draft.sections.filter((section) => section.durationMinutes !== '');
   if (timed.some((section) => !Number.isFinite(Number(section.durationMinutes)) ||
@@ -108,6 +108,11 @@ export function TestBuilderRecoveryPage() {
   const storageKey = `examtree:test-builder:${editId || 'new'}`;
   const [catalog, setCatalog] = useState<TestCatalogExamVersion[]>([]);
   const [questions, setQuestions] = useState<PublishedQuestion[]>([]);
+  const [sectionTemplates, setSectionTemplates] = useState<SectionTemplate[]>([]);
+  const [templateChoice, setTemplateChoice] = useState('');
+  const [difficultyFilter, setDifficultyFilter] = useState('all');
+  const [topicFilter, setTopicFilter] = useState('all');
+  const [showOtherExams, setShowOtherExams] = useState(false);
   const [detail, setDetail] = useState<LiveTestDetail | null>(null);
   const [draft, setDraft] = useState<BuilderDraft>(freshDraft);
   const [activeSectionKey, setActiveSectionKey] = useState('section-1');
@@ -129,19 +134,64 @@ export function TestBuilderRecoveryPage() {
   const dirty = hydratedRef.current && fingerprint(draft) !== baselineRef.current;
   const activeSection = draft.sections.find((section) => section.clientKey === activeSectionKey) ?? draft.sections[0];
   const selectedExam = catalog.find((exam) => exam.id === draft.examVersionId);
-  const filteredQuestions = useMemo(() => questions.filter((question) => {
-    if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
+  const eligibleQuestions = useMemo(() => questions.filter(
+    (question) => draft.examVersionId && question.examVersionId === draft.examVersionId,
+  ), [draft.examVersionId, questions]);
+  const topics = useMemo(() => [...new Set(eligibleQuestions.flatMap(
+    (question) => question.taxonomy.map((node) => node.name),
+  ))].sort((a, b) => a.localeCompare(b)), [eligibleQuestions]);
+  const availableDifficulties = useMemo(() => [...new Set(eligibleQuestions.map(
+    (question) => question.difficulty,
+  ))].sort(), [eligibleQuestions]);
+  const filteredQuestions = useMemo(() => eligibleQuestions.filter((question) => {
+    if (difficultyFilter !== 'all' && question.difficulty !== difficultyFilter) return false;
+    if (topicFilter !== 'all' && !question.taxonomy.some((node) => node.name === topicFilter)) return false;
     const term = query.trim().toLowerCase();
-    return !term || question.publicCode.toLowerCase().includes(term) || question.stem.toLowerCase().includes(term);
-  }), [draft.examVersionId, query, questions]);
+    return !term || [question.publicCode, question.stem, question.difficulty,
+      ...question.taxonomy.flatMap((node) => [node.name, node.code])].some(
+      (value) => value.toLowerCase().includes(term));
+  }), [eligibleQuestions, query, difficultyFilter, topicFilter]);
+  const inventoryByExam = useMemo(() => catalog.map((exam) => ({
+    exam, count: questions.filter((question) => question.examVersionId === exam.id).length,
+  })).filter((entry) => entry.count > 0), [catalog, questions]);
 
   const load = useCallback(async () => {
     setLoading(true); setError(null); setSaveGuidance(null); setConflict(false); hydratedRef.current = false;
     try {
-      const [catalogResponse, questionResponse, testResponse] = await Promise.all([
+      const [catalogResponse, questionResponse, testResponse, existingTests, taxonomy] = await Promise.all([
         getTestCatalog(), getPublishedQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
+        getLiveTests().catch(() => ({ tests: [] })),
+        getQuestionTaxonomyOptions().catch(() => ({ nodes: [] })),
       ]);
       setCatalog(catalogResponse.examVersions); setQuestions(questionResponse.questions);
+      const relatedTests = existingTests.tests.slice(0, 40);
+      const templateDetails = await Promise.allSettled(relatedTests.map((test) => getLiveTest(test.id)));
+      const choices = new Map<string, SectionTemplate>();
+      templateDetails.forEach((result, index) => {
+        if (result.status !== 'fulfilled') return;
+        const examVersionId = relatedTests[index].examVersionId;
+        for (const section of result.value.sections) {
+          const name = section.name.trim();
+          const key = examVersionId + ':' + name.toLowerCase();
+          if (name && !choices.has(key)) choices.set(key, {
+            examVersionId, name, durationMinutes: section.durationSeconds == null ? '' : String(section.durationSeconds / 60),
+            source: relatedTests[index].publicCode,
+          });
+        }
+      });
+      // Canonical subjects already attached to each exam are reusable
+      // section templates, even when no previous test for that exam exists.
+      for (const node of taxonomy.nodes) {
+        if (node.nodeType !== 'subject') continue;
+        for (const examVersionId of node.examVersionIds) {
+          const name = node.name.trim();
+          const key = examVersionId + ':' + name.toLowerCase();
+          if (name && !choices.has(key)) choices.set(key, {
+            examVersionId, name, durationMinutes: '', source: 'Exam taxonomy',
+          });
+        }
+      }
+      setSectionTemplates([...choices.values()].sort((a, b) => a.name.localeCompare(b.name)));
       const serverDraft = testResponse ? draftFromDetail(testResponse) : freshDraft();
       setDetail(testResponse); setDraft(serverDraft); setActiveSectionKey(serverDraft.sections[0]?.clientKey ?? 'section-1');
       baselineRef.current = fingerprint(serverDraft); setServerSavedAt(testResponse?.generatedAt ?? null);
@@ -231,7 +281,28 @@ export function TestBuilderRecoveryPage() {
   const discardLocal = () => { localStorage.removeItem(storageKey); setRecovery(null); setLocalSavedAt(null); };
   const reloadServer = async () => { localStorage.removeItem(storageKey); setRecovery(null); await load(); };
 
-  const addSection = () => { const key = `section-${Date.now()}`; setDraft((current) => ({ ...current, sections: [...current.sections, { clientKey: key, name: `Section ${current.sections.length + 1}`, durationMinutes: '', questionVersionIds: [] }] })); setActiveSectionKey(key); };
+  const addSection = (template?: SectionTemplate) => {
+    const key = `section-${crypto.randomUUID()}`;
+    setDraft((current) => ({
+      ...current,
+      sections: current.sections.length === 1
+        && current.sections[0].clientKey === 'section-1'
+        && current.sections[0].name === 'Section 1'
+        && current.sections[0].questionVersionIds.length === 0
+        && template
+        ? [{ clientKey: key, name: template.name, durationMinutes: template.durationMinutes, questionVersionIds: [] }]
+        : [...current.sections, {
+          clientKey: key,
+          name: template?.name ?? `Section ${current.sections.length + 1}`,
+          durationMinutes: template?.durationMinutes ?? '',
+          questionVersionIds: [],
+        }],
+    }));
+    setActiveSectionKey(key);
+    setTemplateChoice('');
+  };
+  const templateOptions = sectionTemplates.filter((section) => section.examVersionId === draft.examVersionId);
+  const examHasInventory = eligibleQuestions.length > 0;
   const toggleQuestion = (id: string) => {
     if (!activeSection) return;
     setDraft((current) => {
@@ -250,13 +321,68 @@ export function TestBuilderRecoveryPage() {
 
     {recovery && <Card className="border-warning/40 bg-warning/5"><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between"><div><p className="font-medium">Recovered local checkpoint available</p><p className="text-sm text-muted-foreground">Saved {formatTime(recovery.savedAt)}. Server version at that time: {recovery.serverDraftVersionId ?? 'new draft'}.</p></div><div className="flex gap-2"><Button onClick={restoreLocal}><RotateCcw className="mr-1.5 h-4 w-4" /> Restore</Button><Button variant="outline" onClick={discardLocal}>Discard</Button></div></CardContent></Card>}
     {conflict && <Card className="border-destructive/40"><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between"><div><p className="font-medium text-destructive">A newer server draft exists</p><p className="text-sm text-muted-foreground">Your local checkpoint is preserved. Reload the server copy before deciding what to reapply.</p></div><Button variant="destructive" onClick={() => void reloadServer()}>Load newer server draft</Button></CardContent></Card>}
-    {saveGuidance && <div role="status" className="rounded-lg border border-warning/40 bg-warning/5 p-4 text-sm"><p className="font-semibold">Server save requires a complete test</p><p className="mt-1 text-muted-foreground">{saveGuidance}</p><p className="mt-1 text-muted-foreground">Continue editing; your browser keeps a local checkpoint.</p></div>}
+    {saveGuidance && <div role="status" className="rounded-lg border border-warning/40 bg-warning/5 p-4 text-sm"><p className="font-semibold">Finish the required test details to save</p><p className="mt-1 text-muted-foreground">{saveGuidance}</p><p className="mt-1 text-muted-foreground">You can save a draft with empty sections; QA and publication still require complete, published questions.</p></div>}
     {error && <AdminErrorAlert error={error} title="Test Builder operation failed" onRetry={() => void (conflict ? reloadServer() : save())} />}
 
     <Tabs defaultValue="details" className="space-y-4"><TabsList><TabsTrigger value="details">Basic info</TabsTrigger><TabsTrigger value="sections">Sections</TabsTrigger><TabsTrigger value="questions">Questions</TabsTrigger><TabsTrigger value="preview">Preview</TabsTrigger></TabsList>
       <TabsContent value="details"><Card><CardHeader><CardTitle>Test configuration</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} /></div></div><div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} /></div><div className="grid gap-4 sm:grid-cols-3"><NumberField label="Duration" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks/question" value={draft.marksPerQuestion} min={0.01} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /></div><div className="space-y-2"><Label>Instructions</Label><Textarea rows={4} value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} /></div></CardContent></Card></TabsContent>
-      <TabsContent value="sections"><div className="space-y-3"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1}</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => setDraft((current) => ({ ...current, sections: current.sections.map((item) => item.clientKey === section.clientKey ? { ...item, name: event.target.value } : item) }))} /></div><Button variant="outline" onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length === 1} onClick={() => setDraft((current) => ({ ...current, sections: current.sections.filter((item) => item.clientKey !== section.clientKey) }))}><Trash2 className="h-4 w-4" /></Button></CardContent></Card>)}</div></TabsContent>
-      <TabsContent value="questions"><Card><CardHeader><CardTitle>Published Question Bank</CardTitle></CardHeader><CardContent className="space-y-3"><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search question code or stem" />{!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version first.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.map((question) => <label key={question.versionId} className="flex cursor-pointer gap-3 p-3"><Checkbox checked={selectedIds.includes(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div><div className="flex gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="secondary">{question.difficulty}</Badge></div><p className="mt-2 text-sm">{question.stem}</p></div></label>)}</div>}</CardContent></Card></TabsContent>
+      <TabsContent value="sections"><div className="space-y-3">
+        <Card><CardContent className="space-y-3 p-4">
+          <p className="text-sm font-semibold">Choose an existing section or create your own</p>
+          <p className="text-xs text-muted-foreground">Reusable names and durations come from existing tests for this exam. Adding a section does not copy its questions.</p>
+          <div className="flex flex-wrap items-end gap-2">
+            <div className="min-w-56 flex-1">
+              <Label className="mb-1 block text-xs">Existing sections</Label>
+              <Select value={templateChoice} onValueChange={setTemplateChoice} disabled={!templateOptions.length}>
+                <SelectTrigger><SelectValue placeholder={templateOptions.length ? 'Choose a section' : 'No reusable sections for this exam'} /></SelectTrigger>
+                <SelectContent>{templateOptions.map((template, index) => <SelectItem key={template.name + index} value={String(index)}>{template.name} · {template.source}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            <Button variant="outline" disabled={!templateChoice || draft.sections.length >= 20} onClick={() => addSection(templateOptions[Number(templateChoice)])}>Use existing section</Button>
+            <Button disabled={draft.sections.length >= 20} onClick={() => addSection()}><Plus className="mr-1.5 h-4 w-4" /> Create new section</Button>
+          </div>
+        </CardContent></Card>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1}</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => setDraft((current) => ({ ...current, sections: current.sections.map((item) => item.clientKey === section.clientKey ? { ...item, name: event.target.value } : item) }))} /></div><Button variant="outline" onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length === 1} onClick={() => setDraft((current) => ({ ...current, sections: current.sections.filter((item) => item.clientKey !== section.clientKey) }))}><Trash2 className="h-4 w-4" /></Button></CardContent></Card>)}</div></TabsContent>
+      <TabsContent value="questions"><Card>
+        <CardHeader><CardTitle>Choose published questions</CardTitle></CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <Badge variant="secondary">{questions.length} published questions across all exams</Badge>
+            <Badge variant="outline">{eligibleQuestions.length} eligible for selected exam</Badge>
+            <Badge variant="outline">{selectedIds.length} selected in test</Badge>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            <div><Label className="mb-1 block text-xs">Exam version</Label>
+              <Select value={draft.examVersionId} onValueChange={(value) => {
+                setDraft((current) => ({...current, examVersionId:value, languageCode:catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections:current.sections.map((section) => ({...section,questionVersionIds:[]})),totalMarks:0}));
+                setDifficultyFilter('all'); setTopicFilter('all');
+              }}><SelectTrigger><SelectValue placeholder="Select an exam with published questions" /></SelectTrigger>
+                <SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.examName} · {exam.versionName} ({questions.filter((question) => question.examVersionId === exam.id).length} published)</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            <div><Label className="mb-1 block text-xs">Add questions to section</Label>
+              <Select value={activeSection?.clientKey ?? ''} onValueChange={setActiveSectionKey}>
+                <SelectTrigger><SelectValue placeholder="Choose section" /></SelectTrigger>
+                <SelectContent>{draft.sections.map((section) => <SelectItem key={section.clientKey} value={section.clientKey}>{section.name} ({section.questionVersionIds.length})</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            <div><Label className="mb-1 block text-xs">Search code, stem or topic</Label><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search published questions..." /></div>
+            <div><Label className="mb-1 block text-xs">Topic</Label><Select value={topicFilter} onValueChange={setTopicFilter}><SelectTrigger><SelectValue placeholder="All topics" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((topic) => <SelectItem key={topic} value={topic}>{topic}</SelectItem>)}</SelectContent></Select></div>
+            <div><Label className="mb-1 block text-xs">Difficulty</Label><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger><SelectValue placeholder="All difficulties" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{availableDifficulties.map((difficulty) => <SelectItem key={difficulty} value={difficulty}>{difficulty}</SelectItem>)}</SelectContent></Select></div>
+          </div>
+          {!draft.examVersionId ? <div className="rounded-lg border p-4 space-y-3"><p className="text-sm font-medium">Choose an exam to see eligible published questions.</p><p className="text-xs text-muted-foreground">Currently available:</p><div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Button key={exam.id} size="sm" variant="outline" onClick={() => setDraft((current) => ({...current,examVersionId:exam.id}))}>{exam.examName} · {count}</Button>)}</div></div>
+          : !examHasInventory ? <div className="space-y-3 rounded-lg border p-4"><p className="text-sm font-semibold">No published questions for this exam version yet.</p><p className="text-xs text-muted-foreground">Approved questions must be published and assigned to this exact exam version before they can be used in a student test. You can still save the test as a draft. Questions currently approved but not published are not eligible for student tests.</p><Button variant="outline" size="sm" onClick={() => setShowOtherExams(!showOtherExams)}>{showOtherExams ? 'Hide' : 'Show'} exams with published questions</Button>{showOtherExams && <div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Badge key={exam.id} variant="secondary">{exam.examName} · {count}</Badge>)}</div>}</div>
+          : <><p className="text-xs text-muted-foreground">Showing {filteredQuestions.length} matching published questions. Only this exam version's questions can be added. Selected questions can be moved between sections by deselecting and reselecting.</p><div className="max-h-[600px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No questions match these filters. Clear search, topic or difficulty.</p> : filteredQuestions.map((question) => {
+            const checked = selectedIds.includes(question.versionId);
+            const owner = draft.sections.find((section) => section.questionVersionIds.includes(question.versionId));
+            return <div key={question.versionId} className="flex gap-3 p-3">
+              <Checkbox checked={checked} onCheckedChange={() => toggleQuestion(question.versionId)} aria-label={`Select question ${question.publicCode}`} />
+              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="secondary">{question.difficulty}</Badge>{question.taxonomy.slice(0,2).map((node) => <Badge key={node.id} variant="outline">{node.name}</Badge>)}{owner && <Badge>{owner.name}</Badge>}</div><p className="mt-2 text-sm">{question.stem}</p><Button className="mt-2" size="sm" variant={checked ? 'secondary' : 'outline'} onClick={() => toggleQuestion(question.versionId)}>{checked ? 'Remove from test' : `Add to ${activeSection?.name ?? 'section'}`}</Button></div>
+            </div>;
+          })}</div></>}
+        </CardContent>
+      </Card></TabsContent>
       <TabsContent value="preview"><Card><CardContent className="space-y-4 p-5"><div><h2 className="text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p></div>{draft.sections.map((section) => <div key={section.clientKey}><h3 className="font-medium">{section.name} ({section.questionVersionIds.length})</h3></div>)}</CardContent></Card></TabsContent>
     </Tabs>
   </div>;

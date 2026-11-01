@@ -590,8 +590,12 @@ router.post("/", requireAdminPermission("tests.create"), async (req, res) => {
     }
     const input = normalizeTestDraftInput(req.body);
     const issues = await validatePublishedSelections(sqlClient, input);
-    if (issues.length > 0) {
-      throw new TestManagementError("TEST_VALIDATION_FAILED", "The test draft has validation issues", 409, issues);
+    // Permit incomplete section/question composition in a saved draft.
+    // Still reject non-structural issues such as unpublished, mismatched or
+    // missing question versions; lifecycle QA/publish validates all issues.
+    const blockingIssues = issues.filter((issue) => !issue.code.startsWith("STRUCTURE_"));
+    if (blockingIssues.length > 0) {
+      throw new TestManagementError("TEST_VALIDATION_FAILED", "The test draft has validation issues", 409, blockingIssues);
     }
 
     const testId = randomUUID();
@@ -651,8 +655,12 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
     }
     const input = normalizeTestDraftInput(req.body);
     const issues = await validatePublishedSelections(sqlClient, input);
-    if (issues.length > 0) {
-      throw new TestManagementError("TEST_VALIDATION_FAILED", "The test draft has validation issues", 409, issues);
+    // Permit incomplete section/question composition in a saved draft.
+    // Still reject non-structural issues such as unpublished, mismatched or
+    // missing question versions; lifecycle QA/publish validates all issues.
+    const blockingIssues = issues.filter((issue) => !issue.code.startsWith("STRUCTURE_"));
+    if (blockingIssues.length > 0) {
+      throw new TestManagementError("TEST_VALIDATION_FAILED", "The test draft has validation issues", 409, blockingIssues);
     }
 
     const detail = await sqlClient.begin(async (tx) => {
