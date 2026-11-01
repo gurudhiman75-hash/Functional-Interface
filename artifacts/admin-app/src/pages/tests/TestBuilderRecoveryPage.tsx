@@ -38,6 +38,41 @@ function setting(settings: Record<string, unknown>, key: string, fallback: strin
 function fingerprint(value: BuilderDraft) { return JSON.stringify(value); }
 function formatTime(value: string | null) { if (!value) return 'Not saved yet'; const date = new Date(value); return Number.isNaN(date.getTime()) ? value : date.toLocaleString(); }
 
+/** A server draft is a complete, reviewable test version; the local checkpoint
+ * is deliberately allowed to be incomplete while an operator builds it. */
+export function testBuilderServerSaveBlocker(draft: BuilderDraft): string | null {
+  if (!draft.examVersionId) return 'Select an exam version before saving to the server.';
+  if (draft.title.trim().length < 3) return 'Enter a test title of at least 3 characters.';
+  if (!Number.isFinite(draft.durationMinutes) || draft.durationMinutes < 1 || draft.durationMinutes > 600)
+    return 'Test duration must be between 1 and 600 minutes.';
+  if (!Number.isFinite(draft.marksPerQuestion) || draft.marksPerQuestion < 0.01 || draft.marksPerQuestion > 1000)
+    return 'Marks per question must be between 0.01 and 1000.';
+  if (!Number.isFinite(draft.negativeMarks) || draft.negativeMarks < 0 || draft.negativeMarks > draft.marksPerQuestion)
+    return 'Negative marks must be between 0 and the positive marks per question.';
+  if (!draft.sections.length || draft.sections.length > 20)
+    return 'A test must have between 1 and 20 sections.';
+  if (draft.sections.some((section) => !section.name.trim()))
+    return 'Enter a name for every section.';
+  if (draft.sections.some((section) => section.questionVersionIds.length === 0))
+    return 'Add at least one published question to every section before saving to the server. Your incomplete draft is still saved locally.';
+  const selected = draft.sections.flatMap((section) => section.questionVersionIds);
+  if (new Set(selected).size !== selected.length)
+    return 'A published question can appear only once in the test.';
+  if (draft.sections.some((section) => section.questionVersionIds.length > 300))
+    return 'A section cannot contain more than 300 questions.';
+  const total = selected.length * draft.marksPerQuestion;
+  if (!Number.isFinite(total) || total < 0.01 || total > 100000 || Math.abs(total - draft.totalMarks) > 0.001)
+    return 'Total marks must equal the selected questions multiplied by marks per question.';
+  const timed = draft.sections.filter((section) => section.durationMinutes !== '');
+  if (timed.some((section) => !Number.isFinite(Number(section.durationMinutes)) ||
+       Number(section.durationMinutes) < 1 || Number(section.durationMinutes) > 600))
+    return 'Section durations must be between 1 and 600 minutes.';
+  if (timed.length && Math.abs(timed.reduce((sum, section) => sum + Number(section.durationMinutes), 0) - draft.durationMinutes) > 0.001)
+    return 'Section durations must add up to the test duration.';
+  return null;
+}
+
+
 function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
   const version = detail.currentVersion;
   if (!version) return freshDraft();
@@ -81,6 +116,7 @@ export function TestBuilderRecoveryPage() {
   const [saving, setSaving] = useState(false);
   const [autosaving, setAutosaving] = useState(false);
   const [error, setError] = useState<AdminApiError | null>(null);
+  const [saveGuidance, setSaveGuidance] = useState<string | null>(null);
   const [recovery, setRecovery] = useState<LocalCheckpoint | null>(null);
   const [localSavedAt, setLocalSavedAt] = useState<string | null>(null);
   const [serverSavedAt, setServerSavedAt] = useState<string | null>(null);
@@ -89,6 +125,7 @@ export function TestBuilderRecoveryPage() {
   const hydratedRef = useRef(false);
 
   const selectedIds = useMemo(() => draft.sections.flatMap((section) => section.questionVersionIds), [draft.sections]);
+  const serverSaveBlocker = testBuilderServerSaveBlocker(draft);
   const dirty = hydratedRef.current && fingerprint(draft) !== baselineRef.current;
   const activeSection = draft.sections.find((section) => section.clientKey === activeSectionKey) ?? draft.sections[0];
   const selectedExam = catalog.find((exam) => exam.id === draft.examVersionId);
@@ -99,7 +136,7 @@ export function TestBuilderRecoveryPage() {
   }), [draft.examVersionId, query, questions]);
 
   const load = useCallback(async () => {
-    setLoading(true); setError(null); setConflict(false); hydratedRef.current = false;
+    setLoading(true); setError(null); setSaveGuidance(null); setConflict(false); hydratedRef.current = false;
     try {
       const [catalogResponse, questionResponse, testResponse] = await Promise.all([
         getTestCatalog(), getPublishedQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
@@ -148,7 +185,7 @@ export function TestBuilderRecoveryPage() {
     })),
   }), [detail?.test.currentDraftVersionId, draft]);
 
-  const canServerAutosave = Boolean(detail && dirty && !saving && draft.examVersionId && draft.title.trim().length >= 3 && draft.sections.length > 0 && selectedIds.length > 0 && !conflict);
+  const canServerAutosave = Boolean(detail && dirty && !saving && !serverSaveBlocker && !conflict);
   useEffect(() => {
     if (!canServerAutosave || !detail) return;
     const timer = window.setTimeout(async () => {
@@ -171,6 +208,14 @@ export function TestBuilderRecoveryPage() {
   }, [dirty]);
 
   const save = async () => {
+    const blocker = testBuilderServerSaveBlocker(draft);
+    if (blocker) {
+      setError(null);
+      setSaveGuidance(blocker);
+      showToast.warning('Complete the test before server save', blocker);
+      return;
+    }
+    setSaveGuidance(null);
     setSaving(true); setError(null);
     try {
       const next = detail ? await saveLiveTestDraft(detail.test.id, payload('Manual Test Builder save')) : await createLiveTest(payload('Initial Test Builder draft'));
@@ -205,6 +250,7 @@ export function TestBuilderRecoveryPage() {
 
     {recovery && <Card className="border-warning/40 bg-warning/5"><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between"><div><p className="font-medium">Recovered local checkpoint available</p><p className="text-sm text-muted-foreground">Saved {formatTime(recovery.savedAt)}. Server version at that time: {recovery.serverDraftVersionId ?? 'new draft'}.</p></div><div className="flex gap-2"><Button onClick={restoreLocal}><RotateCcw className="mr-1.5 h-4 w-4" /> Restore</Button><Button variant="outline" onClick={discardLocal}>Discard</Button></div></CardContent></Card>}
     {conflict && <Card className="border-destructive/40"><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between"><div><p className="font-medium text-destructive">A newer server draft exists</p><p className="text-sm text-muted-foreground">Your local checkpoint is preserved. Reload the server copy before deciding what to reapply.</p></div><Button variant="destructive" onClick={() => void reloadServer()}>Load newer server draft</Button></CardContent></Card>}
+    {saveGuidance && <div role="status" className="rounded-lg border border-warning/40 bg-warning/5 p-4 text-sm"><p className="font-semibold">Server save requires a complete test</p><p className="mt-1 text-muted-foreground">{saveGuidance}</p><p className="mt-1 text-muted-foreground">Continue editing; your browser keeps a local checkpoint.</p></div>}
     {error && <AdminErrorAlert error={error} title="Test Builder operation failed" onRetry={() => void (conflict ? reloadServer() : save())} />}
 
     <Tabs defaultValue="details" className="space-y-4"><TabsList><TabsTrigger value="details">Basic info</TabsTrigger><TabsTrigger value="sections">Sections</TabsTrigger><TabsTrigger value="questions">Questions</TabsTrigger><TabsTrigger value="preview">Preview</TabsTrigger></TabsList>
