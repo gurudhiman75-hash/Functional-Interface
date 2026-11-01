@@ -2,19 +2,29 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const source = readFileSync('artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx', 'utf8');
-const itemComponent = source.slice(source.indexOf('function ReviewItem('), source.indexOf('function RevisionEditor('));
+const source=readFileSync('artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx','utf8');
+const run=source.slice(source.indexOf('function RunSection('),source.indexOf('function ReviewItem('));
+const item=source.slice(source.indexOf('function ReviewItem('),source.indexOf('function RevisionEditor('));
 
-test('every review item renders its options and explanation without an expansion control', () => {
-  assert.match(itemComponent, /<section aria-label={`Options, correct answer, explanation and quality for item/);
-  assert.match(itemComponent, /<ItemInspection item={item} quality={quality} duplicate={duplicate} \/><\/section>/);
-  assert.doesNotMatch(itemComponent, /<details\b|<summary\b|{expanded && <ItemInspection/);
+test('the first run is opened once, not re-expanded after manual collapse',()=>{
+  assert.match(source,/const initialReviewOpened = useRef\(false\)/);
+  assert.match(source,/if \(initialReviewOpened\.current \|\| !reviewRuns\[0\]\) return/);
+  assert.match(source,/initialReviewOpened\.current = true/);
+  assert.doesNotMatch(source,/if \(reviewRuns\[0\] && expandedRuns\.size === 0\)/);
 });
 
-test('full question details include answers explanations and quality checks', () => {
-  assert.match(itemComponent, /function ItemInspection\(/);
-  assert.match(itemComponent, /itemOptionValues\(item\.payload\)/);
-  assert.match(itemComponent, /itemCorrectIndex\(item\.payload\)/);
-  assert.match(itemComponent, /itemExplanation\(item\.payload\)/);
-  assert.match(itemComponent, /Production quality gate/);
+test('run and each item have independent accessible collapse controls',()=>{
+  assert.match(run,/aria-label={`\$\{expanded \? "Collapse" : "Expand"\} run/);
+  assert.match(item,/aria-label={`\$\{expanded \? "Collapse" : "Expand"\} item/);
+  assert.match(item,/Hide options & explanation/);
+  assert.match(item,/View options & explanation/);
+  assert.match(item,/{expanded && <section/);
+  assert.match(item,/<ItemInspection item={item} quality={quality} duplicate={duplicate} \/><\/section>/);
+});
+
+test('expanded details still include answers and explanations',()=>{
+  assert.match(item,/itemOptionValues\(item\.payload\)/);
+  assert.match(item,/itemCorrectIndex\(item\.payload\)/);
+  assert.match(item,/itemExplanation\(item\.payload\)/);
+  assert.match(item,/Production quality gate/);
 });
