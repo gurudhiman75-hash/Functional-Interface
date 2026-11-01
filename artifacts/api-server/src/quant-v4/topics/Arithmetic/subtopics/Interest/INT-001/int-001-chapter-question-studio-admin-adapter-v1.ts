@@ -154,14 +154,20 @@ function explanationLines(question: any): readonly string[] {
   const candidates: unknown[] = [];
   const explanation = question?.packageExplanation ?? question?.richExplanation ?? question?.explanation;
   if (typeof explanation === "string") candidates.push(...explanation.split(/\n+/u));
-  if (Array.isArray(explanation)) candidates.push(...explanation);
-  if (explanation && typeof explanation === "object") {
-    if (Array.isArray(explanation.lines)) candidates.push(...explanation.lines);
-    if (Array.isArray(explanation.steps)) candidates.push(...explanation.steps);
-    if (Array.isArray(explanation.workedSteps)) candidates.push(...explanation.workedSteps);
-    candidates.push(explanation.conclusion, explanation.finalAnswer, explanation.shortcut, explanation.examShortcut);
+  else if (Array.isArray(explanation)) candidates.push(...explanation);
+  else if (explanation && typeof explanation === "object") {
+    // Final learner lines already include their answer. Appending structured
+    // editorial sections both duplicates content and leaks [object Object].
+    if (Array.isArray(explanation.lines) && explanation.lines.length) candidates.push(...explanation.lines);
+    else {
+      if (Array.isArray(explanation.steps)) candidates.push(...explanation.steps);
+      else if (Array.isArray(explanation.workedSteps)) candidates.push(...explanation.workedSteps);
+      candidates.push(explanation.conclusion, explanation.finalAnswer);
+    }
   }
-  const lines = candidates.map((line) => String(line ?? "").trim()).filter(Boolean);
+  const lines = candidates
+    .filter((line): line is string | number => typeof line === "string" || typeof line === "number")
+    .map((line) => String(line).trim()).filter(Boolean);
   return Object.freeze([...new Set(lines)]);
 }
 
@@ -321,3 +327,4 @@ export async function generateInt001ChapterAdminQuestionStudioBatch(request: Int
   JSON.stringify(result);
   return result;
 }
+
