@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-import { getPublishedQuestions, type PublishedQuestion } from '@/features/question-bank/api';
+import { getPublishedQuestions, getQuestionTaxonomyOptions, type PublishedQuestion } from '@/features/question-bank/api';
 import { createLiveTest, getLiveTest, getLiveTests, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
 import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
@@ -158,9 +158,10 @@ export function TestBuilderRecoveryPage() {
   const load = useCallback(async () => {
     setLoading(true); setError(null); setSaveGuidance(null); setConflict(false); hydratedRef.current = false;
     try {
-      const [catalogResponse, questionResponse, testResponse, existingTests] = await Promise.all([
+      const [catalogResponse, questionResponse, testResponse, existingTests, taxonomy] = await Promise.all([
         getTestCatalog(), getPublishedQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
         getLiveTests().catch(() => ({ tests: [] })),
+        getQuestionTaxonomyOptions().catch(() => ({ nodes: [] })),
       ]);
       setCatalog(catalogResponse.examVersions); setQuestions(questionResponse.questions);
       const relatedTests = existingTests.tests.slice(0, 40);
@@ -178,6 +179,18 @@ export function TestBuilderRecoveryPage() {
           });
         }
       });
+      // Canonical subjects already attached to each exam are reusable
+      // section templates, even when no previous test for that exam exists.
+      for (const node of taxonomy.nodes) {
+        if (node.nodeType !== 'subject') continue;
+        for (const examVersionId of node.examVersionIds) {
+          const name = node.name.trim();
+          const key = examVersionId + ':' + name.toLowerCase();
+          if (name && !choices.has(key)) choices.set(key, {
+            examVersionId, name, durationMinutes: '', source: 'Exam taxonomy',
+          });
+        }
+      }
       setSectionTemplates([...choices.values()].sort((a, b) => a.name.localeCompare(b.name)));
       const serverDraft = testResponse ? draftFromDetail(testResponse) : freshDraft();
       setDetail(testResponse); setDraft(serverDraft); setActiveSectionKey(serverDraft.sections[0]?.clientKey ?? 'section-1');
