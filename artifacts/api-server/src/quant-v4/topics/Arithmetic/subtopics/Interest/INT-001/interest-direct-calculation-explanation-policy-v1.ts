@@ -29,6 +29,24 @@ function cleanMarkdown(line: string) {
     .trim();
 }
 
+/** Match the four math delimiters accepted by QuestionRichText. Prose rates
+ * retain their percent sign; numeric percentage-point inputs divided by 100
+ * must not contain one. An unescaped percent would comment out the equation.
+ */
+export function normalizeInterestExplanationMath(line: string, qlId: string): string {
+  return line.replace(/\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)|\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$/g,
+    (match: string) => {
+      let revised = match.replace(/(\d+(?:\.\d+)?)\\?%\s*\/\s*100/g, "$1/100");
+      if (qlId === "INT-QL-100") {
+        // r is the numerical annual percentage rate, rather than its decimal.
+        revised = revised
+          .replace(/D_2\s*\/\s*SI_2\s*=\s*r\s*\/\s*2\b/g, "D_2/SI_2=r/200")
+          .replace(/r\s*=\s*2D_2\s*\/\s*SI_2\s*=\s*2\\times/g, "r=200D_2/SI_2=200\\times");
+      }
+      return revised.replace(/(?<!\\)%/g, "\\%");
+    });
+}
+
 function deabstract(line: string, language: InterestDirectCalculationLanguage) {
   if (language === "en") {
     return line
@@ -96,13 +114,16 @@ export function retrofitInterestDirectCalculationLines(
   let stopped = false;
 
   for (const raw of flattened) {
+    // Option-specific feedback is editorial metadata, not solution working.
+    // Skip the line without discarding a final answer that follows it.
+    if (/^(?:Option\s+[A-D1-4]\b|विकल्प\s+[A-D1-4]\b|ਵਿਕਲਪ\s+[A-D1-4]\b)/iu.test(raw)) continue;
     if (STOP_SECTION.test(raw)) {
       stopped = true;
       continue;
     }
     if (stopped) continue;
     if (HEADING.test(raw)) continue;
-    let line = cleanMarkdown(raw);
+    let line = normalizeInterestExplanationMath(cleanMarkdown(raw), input.qlId);
     if (!line || looksGenericFormula(line)) continue;
 
     if (FORBIDDEN.test(line)) {
@@ -223,3 +244,4 @@ export function assertInterestDirectCalculationExplanation(
     throw new Error(`${qlId}/${language}: explanation is not calculation-dense enough.`);
   }
 }
+
