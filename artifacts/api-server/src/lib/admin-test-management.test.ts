@@ -47,6 +47,25 @@ test("normalizes a canonical test draft", () => {
   assert.equal(result.sections[0].questions[0].negativeMarks, 0.5);
 });
 
+test("allows incomplete empty test drafts but blocks their QA transition", () => {
+  const draft = validDraft();
+  draft.totalMarks = 0;
+  draft.sections[0].questions = [];
+  const normalized = normalizeTestDraftInput(draft);
+  assert.equal(normalized.totalMarks, 0);
+  assert.equal(normalized.sections[0].questions.length, 0);
+  const issues = validateTestDraftShape(normalized);
+  assert.equal(issues.some((issue) => issue.code === "STRUCTURE_NO_QUESTIONS"), true);
+  assert.equal(issues.some((issue) => issue.code === "STRUCTURE_TOTAL_MARKS_REQUIRED"), true);
+});
+
+test("rejects invalid or negative total marks in drafts", () => {
+  const draft = validDraft();
+  draft.totalMarks = -1;
+  assert.throws(() => normalizeTestDraftInput(draft),
+    (error: unknown) => error instanceof TestManagementError && error.code === "INVALID_TEST_NUMBER");
+});
+
 test("rejects duplicate question versions", () => {
   const input = validDraft();
   input.sections[0].questions[1].questionVersionId = q1;
