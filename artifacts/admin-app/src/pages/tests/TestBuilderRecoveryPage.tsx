@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { getPublishedQuestions, type PublishedQuestion } from '@/features/question-bank/api';
-import { createLiveTest, getLiveTest, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
+import { createLiveTest, getLiveTest, getLiveTests, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
 import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
 interface BuilderSection { clientKey: string; name: string; durationMinutes: string; questionVersionIds: string[] }
@@ -25,6 +25,7 @@ interface BuilderDraft {
   difficulty: string; instructions: string; sections: BuilderSection[];
 }
 interface LocalCheckpoint { savedAt: string; serverDraftVersionId: string | null; draft: BuilderDraft }
+interface SectionTemplate { examVersionId: string; name: string; durationMinutes: string; source: string }
 
 const freshDraft = (): BuilderDraft => ({
   examVersionId: '', title: '', description: '', durationMinutes: 60, totalMarks: 0, marksPerQuestion: 2,
@@ -53,15 +54,14 @@ export function testBuilderServerSaveBlocker(draft: BuilderDraft): string | null
     return 'A test must have between 1 and 20 sections.';
   if (draft.sections.some((section) => !section.name.trim()))
     return 'Enter a name for every section.';
-  if (draft.sections.some((section) => section.questionVersionIds.length === 0))
-    return 'Add at least one published question to every section before saving to the server. Your incomplete draft is still saved locally.';
+  // Empty sections are valid in server-side drafts; they block QA, not saving.
   const selected = draft.sections.flatMap((section) => section.questionVersionIds);
   if (new Set(selected).size !== selected.length)
     return 'A published question can appear only once in the test.';
   if (draft.sections.some((section) => section.questionVersionIds.length > 300))
     return 'A section cannot contain more than 300 questions.';
   const total = selected.length * draft.marksPerQuestion;
-  if (!Number.isFinite(total) || total < 0.01 || total > 100000 || Math.abs(total - draft.totalMarks) > 0.001)
+  if (!Number.isFinite(total) || total > 100000 || Math.abs(total - draft.totalMarks) > 0.001)
     return 'Total marks must equal the selected questions multiplied by marks per question.';
   const timed = draft.sections.filter((section) => section.durationMinutes !== '');
   if (timed.some((section) => !Number.isFinite(Number(section.durationMinutes)) ||
@@ -108,6 +108,11 @@ export function TestBuilderRecoveryPage() {
   const storageKey = `examtree:test-builder:${editId || 'new'}`;
   const [catalog, setCatalog] = useState<TestCatalogExamVersion[]>([]);
   const [questions, setQuestions] = useState<PublishedQuestion[]>([]);
+  const [sectionTemplates, setSectionTemplates] = useState<SectionTemplate[]>([]);
+  const [templateChoice, setTemplateChoice] = useState('');
+  const [difficultyFilter, setDifficultyFilter] = useState('all');
+  const [topicFilter, setTopicFilter] = useState('all');
+  const [showOtherExams, setShowOtherExams] = useState(false);
   const [detail, setDetail] = useState<LiveTestDetail | null>(null);
   const [draft, setDraft] = useState<BuilderDraft>(freshDraft);
   const [activeSectionKey, setActiveSectionKey] = useState('section-1');
@@ -129,19 +134,51 @@ export function TestBuilderRecoveryPage() {
   const dirty = hydratedRef.current && fingerprint(draft) !== baselineRef.current;
   const activeSection = draft.sections.find((section) => section.clientKey === activeSectionKey) ?? draft.sections[0];
   const selectedExam = catalog.find((exam) => exam.id === draft.examVersionId);
-  const filteredQuestions = useMemo(() => questions.filter((question) => {
-    if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
+  const eligibleQuestions = useMemo(() => questions.filter(
+    (question) => draft.examVersionId && question.examVersionId === draft.examVersionId,
+  ), [draft.examVersionId, questions]);
+  const topics = useMemo(() => [...new Set(eligibleQuestions.flatMap(
+    (question) => question.taxonomy.map((node) => node.name),
+  ))].sort((a, b) => a.localeCompare(b)), [eligibleQuestions]);
+  const availableDifficulties = useMemo(() => [...new Set(eligibleQuestions.map(
+    (question) => question.difficulty,
+  ))].sort(), [eligibleQuestions]);
+  const filteredQuestions = useMemo(() => eligibleQuestions.filter((question) => {
+    if (difficultyFilter !== 'all' && question.difficulty !== difficultyFilter) return false;
+    if (topicFilter !== 'all' && !question.taxonomy.some((node) => node.name === topicFilter)) return false;
     const term = query.trim().toLowerCase();
-    return !term || question.publicCode.toLowerCase().includes(term) || question.stem.toLowerCase().includes(term);
-  }), [draft.examVersionId, query, questions]);
+    return !term || [question.publicCode, question.stem, question.difficulty,
+      ...question.taxonomy.flatMap((node) => [node.name, node.code])].some(
+      (value) => value.toLowerCase().includes(term));
+  }), [eligibleQuestions, query, difficultyFilter, topicFilter]);
+  const inventoryByExam = useMemo(() => catalog.map((exam) => ({
+    exam, count: questions.filter((question) => question.examVersionId === exam.id).length,
+  })).filter((entry) => entry.count > 0), [catalog, questions]);
 
   const load = useCallback(async () => {
     setLoading(true); setError(null); setSaveGuidance(null); setConflict(false); hydratedRef.current = false;
     try {
-      const [catalogResponse, questionResponse, testResponse] = await Promise.all([
+      const [catalogResponse, questionResponse, testResponse, existingTests] = await Promise.all([
         getTestCatalog(), getPublishedQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
+        getLiveTests().catch(() => ({ tests: [] })),
       ]);
       setCatalog(catalogResponse.examVersions); setQuestions(questionResponse.questions);
+      const relatedTests = existingTests.tests.slice(0, 40);
+      const templateDetails = await Promise.allSettled(relatedTests.map((test) => getLiveTest(test.id)));
+      const choices = new Map<string, SectionTemplate>();
+      templateDetails.forEach((result, index) => {
+        if (result.status !== 'fulfilled') return;
+        const examVersionId = relatedTests[index].examVersionId;
+        for (const section of result.value.sections) {
+          const name = section.name.trim();
+          const key = examVersionId + ':' + name.toLowerCase();
+          if (name && !choices.has(key)) choices.set(key, {
+            examVersionId, name, durationMinutes: section.durationSeconds == null ? '' : String(section.durationSeconds / 60),
+            source: relatedTests[index].publicCode,
+          });
+        }
+      });
+      setSectionTemplates([...choices.values()].sort((a, b) => a.name.localeCompare(b.name)));
       const serverDraft = testResponse ? draftFromDetail(testResponse) : freshDraft();
       setDetail(testResponse); setDraft(serverDraft); setActiveSectionKey(serverDraft.sections[0]?.clientKey ?? 'section-1');
       baselineRef.current = fingerprint(serverDraft); setServerSavedAt(testResponse?.generatedAt ?? null);
@@ -231,7 +268,22 @@ export function TestBuilderRecoveryPage() {
   const discardLocal = () => { localStorage.removeItem(storageKey); setRecovery(null); setLocalSavedAt(null); };
   const reloadServer = async () => { localStorage.removeItem(storageKey); setRecovery(null); await load(); };
 
-  const addSection = () => { const key = `section-${Date.now()}`; setDraft((current) => ({ ...current, sections: [...current.sections, { clientKey: key, name: `Section ${current.sections.length + 1}`, durationMinutes: '', questionVersionIds: [] }] })); setActiveSectionKey(key); };
+  const addSection = (template?: SectionTemplate) => {
+    const key = `section-${crypto.randomUUID()}`;
+    setDraft((current) => ({
+      ...current,
+      sections: [...current.sections, {
+        clientKey: key,
+        name: template?.name ?? `Section ${current.sections.length + 1}`,
+        durationMinutes: template?.durationMinutes ?? '',
+        questionVersionIds: [],
+      }],
+    }));
+    setActiveSectionKey(key);
+    setTemplateChoice('');
+  };
+  const templateOptions = sectionTemplates.filter((section) => section.examVersionId === draft.examVersionId);
+  const examHasInventory = eligibleQuestions.length > 0;
   const toggleQuestion = (id: string) => {
     if (!activeSection) return;
     setDraft((current) => {
