@@ -574,6 +574,18 @@ export function QuestionStudioCockpitPage() {
     }
   }, [reviewRuns, expandedRuns.size]);
 
+  // Show a complete sample (options, correct answer and explanation) as soon
+  // as the review list loads. This runs only once: if the reviewer closes it,
+  // subsequent refreshes must not unexpectedly reopen their inspection.
+  const initialInspectionShown = useRef(false);
+  useEffect(() => {
+    const firstItem = reviewRuns[0]?.items?.[0];
+    if (firstItem && !initialInspectionShown.current) {
+      initialInspectionShown.current = true;
+      setExpandedItems((current) => new Set(current).add(firstItem.id));
+    }
+  }, [reviewRuns]);
+
   const duplicates = useMemo(() => {
     const combined = findDuplicateMatches(reviewRuns);
     for (const match of reviewPage.duplicateMatches) {
