@@ -218,7 +218,9 @@ export function normalizeTestDraftInput(value: unknown): NormalizedTestDraftInpu
     title: text(input.title, "Test title", 3, 240),
     description: optionalText(input.description, 12000),
     durationMinutes: numberInRange(input.durationMinutes, "Test duration", 1, 600),
-    totalMarks: numberInRange(input.totalMarks, "Total marks", 0.01, 100000),
+    // A draft may be empty while sections/questions are being assembled.
+    // Review and publication still require positive, reconciled marks.
+    totalMarks: numberInRange(input.totalMarks, "Total marks", 0, 100000),
     instructions: asRecord(input.instructions),
     settings: asRecord(input.settings),
     changeReason: text(input.changeReason, "Change reason", 3, 1000),
@@ -226,15 +228,9 @@ export function normalizeTestDraftInput(value: unknown): NormalizedTestDraftInpu
   };
 
   const issues = validateTestDraftShape(result);
-  const structuralIssues = issues.filter((issue) => issue.code.startsWith("STRUCTURE_"));
-  if (structuralIssues.length > 0) {
-    throw new TestManagementError(
-      "INVALID_TEST_STRUCTURE",
-      structuralIssues[0].message,
-      400,
-      structuralIssues,
-    );
-  }
+  // Structural completeness is a review/publication requirement, not a
+  // prerequisite for saving a work-in-progress test version.
+  // The lifecycle transition revalidates the stored version before QA.
   return result;
 }
 
@@ -243,6 +239,9 @@ export function validateTestDraftShape(input: NormalizedTestDraftInput): TestVal
   const questionCount = input.sections.reduce((sum, section) => sum + section.questions.length, 0);
   if (questionCount === 0) {
     issues.push({ code: "STRUCTURE_NO_QUESTIONS", message: "Select at least one published question" });
+  }
+  if (input.totalMarks <= 0) {
+    issues.push({ code: "STRUCTURE_TOTAL_MARKS_REQUIRED", message: "Add questions to calculate positive total marks before submitting for QA." });
   }
   input.sections.forEach((section) => {
     if (section.questions.length === 0) {
