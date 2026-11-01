@@ -39,8 +39,8 @@ function setting(settings: Record<string, unknown>, key: string, fallback: strin
 function fingerprint(value: BuilderDraft) { return JSON.stringify(value); }
 function formatTime(value: string | null) { if (!value) return 'Not saved yet'; const date = new Date(value); return Number.isNaN(date.getTime()) ? value : date.toLocaleString(); }
 
-/** A server draft is a complete, reviewable test version; the local checkpoint
- * is deliberately allowed to be incomplete while an operator builds it. */
+/** Draft saves may include empty sections. Validate canonical identifiers and
+ * numeric constraints without prematurely enforcing QA/publication completeness. */
 export function testBuilderServerSaveBlocker(draft: BuilderDraft): string | null {
   if (!draft.examVersionId) return 'Select an exam version before saving to the server.';
   if (draft.title.trim().length < 3) return 'Enter a test title of at least 3 characters.';
@@ -272,12 +272,18 @@ export function TestBuilderRecoveryPage() {
     const key = `section-${crypto.randomUUID()}`;
     setDraft((current) => ({
       ...current,
-      sections: [...current.sections, {
-        clientKey: key,
-        name: template?.name ?? `Section ${current.sections.length + 1}`,
-        durationMinutes: template?.durationMinutes ?? '',
-        questionVersionIds: [],
-      }],
+      sections: current.sections.length === 1
+        && current.sections[0].clientKey === 'section-1'
+        && current.sections[0].name === 'Section 1'
+        && current.sections[0].questionVersionIds.length === 0
+        && template
+        ? [{ clientKey: key, name: template.name, durationMinutes: template.durationMinutes, questionVersionIds: [] }]
+        : [...current.sections, {
+          clientKey: key,
+          name: template?.name ?? `Section ${current.sections.length + 1}`,
+          durationMinutes: template?.durationMinutes ?? '',
+          questionVersionIds: [],
+        }],
     }));
     setActiveSectionKey(key);
     setTemplateChoice('');
@@ -353,7 +359,7 @@ export function TestBuilderRecoveryPage() {
             <div><Label className="mb-1 block text-xs">Difficulty</Label><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger><SelectValue placeholder="All difficulties" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{availableDifficulties.map((difficulty) => <SelectItem key={difficulty} value={difficulty}>{difficulty}</SelectItem>)}</SelectContent></Select></div>
           </div>
           {!draft.examVersionId ? <div className="rounded-lg border p-4 space-y-3"><p className="text-sm font-medium">Choose an exam to see eligible published questions.</p><p className="text-xs text-muted-foreground">Currently available:</p><div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Button key={exam.id} size="sm" variant="outline" onClick={() => setDraft((current) => ({...current,examVersionId:exam.id}))}>{exam.examName} · {count}</Button>)}</div></div>
-          : !examHasInventory ? <div className="space-y-3 rounded-lg border p-4"><p className="text-sm font-semibold">No published questions for this exam version yet.</p><p className="text-xs text-muted-foreground">Approved questions must be published and assigned to this exact exam version before they can be used in a student test. You can still save the test as a draft.</p><Button variant="outline" size="sm" onClick={() => setShowOtherExams(!showOtherExams)}>{showOtherExams ? 'Hide' : 'Show'} exams with published questions</Button>{showOtherExams && <div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Badge key={exam.id} variant="secondary">{exam.examName} · {count}</Badge>)}</div>}</div>
+          : !examHasInventory ? <div className="space-y-3 rounded-lg border p-4"><p className="text-sm font-semibold">No published questions for this exam version yet.</p><p className="text-xs text-muted-foreground">Approved questions must be published and assigned to this exact exam version before they can be used in a student test. You can still save the test as a draft. Questions currently approved but not published are not eligible for student tests.</p><Button variant="outline" size="sm" onClick={() => setShowOtherExams(!showOtherExams)}>{showOtherExams ? 'Hide' : 'Show'} exams with published questions</Button>{showOtherExams && <div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Badge key={exam.id} variant="secondary">{exam.examName} · {count}</Badge>)}</div>}</div>
           : <><p className="text-xs text-muted-foreground">Showing {filteredQuestions.length} matching published questions. Only this exam version's questions can be added. Selected questions can be moved between sections by deselecting and reselecting.</p><div className="max-h-[600px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No questions match these filters. Clear search, topic or difficulty.</p> : filteredQuestions.map((question) => {
             const checked = selectedIds.includes(question.versionId);
             const owner = draft.sections.find((section) => section.questionVersionIds.includes(question.versionId));
