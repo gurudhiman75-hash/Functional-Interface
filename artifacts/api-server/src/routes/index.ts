@@ -77,6 +77,7 @@ const adminAttemptInvestigationsRouter = lazyRouter(() => import("./admin-attemp
 const adminAttemptIntegrityRouter = lazyRouter(() => import("./admin-attempt-integrity"));
 const adminAttemptsRouter = lazyRouter(() => import("./admin-attempts"));
 const adminBusinessAnalyticsRouter = lazyRouter(() => import("./admin-business-analytics"));
+const adminWebTrafficAnalyticsRouter = lazyRouter(() => import("./admin-web-traffic-analytics"));
 const adminContentQualityRouter = lazyRouter(() => import("./admin-content-quality"));
 const adminExamConfigurationRouter = lazyRouter(() => import("./admin-exam-configuration"));
 const adminCatalogBrandingRouter = lazyRouter(() => import("./admin-catalog-branding"));
@@ -217,6 +218,7 @@ router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
 router.use("/admin/analytics", adminBusinessAnalyticsRouter);
+router.use("/admin/analytics", adminWebTrafficAnalyticsRouter);
 router.use("/admin/analytics", adminContentQualityRouter);
 router.use("/admin/analytics", adminQuestionAnalyticsQualityRouter);
 router.use("/admin/analytics", adminQuestionAnalyticsDetailRouter);
