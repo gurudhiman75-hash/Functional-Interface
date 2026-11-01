@@ -5,6 +5,7 @@ import {
 } from "./index";
 import { runAvg001EditorialV2Pipeline } from "./foundation/editorial-v2-release";
 import { runAvg001LocalizedRelease } from "./foundation/localized-release";
+import { applyAvg001CompleteLearnerExplanation } from "./foundation/complete-learner-explanation";
 
 export const AVG_001_QUESTION_STUDIO_CP_IDS = [
   "AVG-CP-001",
@@ -68,16 +69,17 @@ export function runAvg001QuestionStudioPipeline(
   }
 
   if (language === "en") {
-    return runAvg001EditorialV2Pipeline({
+    return applyAvg001CompleteLearnerExplanation(runAvg001EditorialV2Pipeline({
       questionLanguageId,
       seed: input.seed,
       language,
-    });
+    }));
   }
 
-  return runAvg001LocalizedRelease({
+  return applyAvg001CompleteLearnerExplanation(runAvg001LocalizedRelease({
     questionLanguageId,
     seed: input.seed,
     language,
-  });
+  }));
 }
+
