@@ -851,8 +851,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
       {isTcsInterface && (
         <nav className="tcs-ion-utility-bar" aria-label="Exam tools">
-          <button type="button" onClick={() => setShowTcsPaper(true)}>Question Paper</button>
-          <button type="button" onClick={() => setShowTcsInstructions(true)}>View Instructions</button>
+          <button type="button" onClick={() => setShowTcsPaper(true)}>▤ &nbsp; Question Paper</button>
+          <button type="button" onClick={() => setShowTcsInstructions(true)}>ⓘ &nbsp; Instructions</button>
           <span className="tcs-ion-utility-note">Examtree simulation · not an official TCS iON product</span>
         </nav>
       )}
@@ -860,7 +860,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       <header className={isTcsInterface ? "sticky top-0 z-[210] tcs-ion-header" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
           <div className="min-w-0">
-            {isTcsInterface && <p className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-200">Examtree · Exam simulation</p>}
+
             <h1 className="truncate text-base font-bold text-white sm:text-lg">{test.name}</h1>
           </div>
           <div className="flex items-center gap-3">
@@ -926,11 +926,19 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       </header>
 
+      {isTcsInterface && (
+        <div className="tcs-ion-exam-context">
+          <span>Section: <strong>{currentSection?.name}</strong></span>
+          <span>Question Type: Multiple Choice Question</span>
+          <span>Time Left: <strong>{formatTime(activeTimeLeft)}</strong></span>
+        </div>
+      )}
       <main className={isTcsInterface ? "tcs-ion-main" : "px-3 py-4 sm:px-5 lg:py-5"}>
         <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : isTcsInterface ? "lg:grid-cols-[minmax(0,1fr)_auto_320px]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
           <section className="min-w-0">
             {/* Question card */}
             <div className={isTcsInterface ? "tcs-ion-question-card border border-[#c4ced5] bg-white" : "rounded border border-gray-300 bg-white shadow-sm"}>
+              {isTcsInterface && <div className="tcs-ion-blue-divider" aria-hidden="true" />}
               <div className={isTcsInterface ? "tcs-ion-question-title flex items-center justify-between border-b border-[#c4ced5] bg-[#d6e8f6] px-5 py-2" : "flex items-center justify-between border-b border-gray-200 px-5 py-3"}>
                 <p className="text-sm font-bold text-gray-700">{isTcsInterface ? `Question No. ${currentQuestionNumber}` : `Question No ${currentQuestionNumber}`}</p>
                 <div className="flex items-center gap-3">
@@ -958,11 +966,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 </div>
               </div>
               {isTcsInterface && <div className="tcs-ion-question-meta"><span>Marks for correct answer: <b>{test.marksPerQuestion ?? 1}</b></span><span>Negative Marks: <b>{test.negativeMarks ?? 0}</b></span><span>View in: <b>{LANGUAGE_LABELS[lang]}</b></span></div>}
-              <div className={isTcsInterface ? "tcs-ion-question-content space-y-5 px-5 py-5" : "space-y-5 px-5 py-5"}>
+              <div className={isTcsInterface ? `tcs-ion-question-content space-y-5 px-5 py-5 ${q.diSetId && (q.diSetImageUrl || q.diSetDescription) ? "tcs-ion-passage-layout" : ""}` : "space-y-5 px-5 py-5"}>
 
               {/* DI Set context panel */}
               {q.diSetId && (q.diSetImageUrl || q.diSetDescription) && (
-                <div className="mb-1 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className={isTcsInterface ? "tcs-ion-passage-pane" : "mb-1 p-3 bg-blue-50 border border-blue-200 rounded-lg"}>
                   {q.diSetTitle && <p className="text-xs font-semibold text-blue-700 mb-2">{q.diSetTitle}</p>}
                   {q.diSetImageUrl && (
                     <img
@@ -986,11 +994,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                 />
               )}
 
-              <div className="text-sm leading-7 text-gray-800 sm:text-base">
+              <div className={isTcsInterface ? "tcs-ion-stem text-sm leading-7 text-gray-800 sm:text-base" : "text-sm leading-7 text-gray-800 sm:text-base"}>
                 <EnglishQuestionLayout content={getLocalizedQuestion(q, lang).text} lang={lang} />
               </div>
 
-              <div className="grid gap-2">
+              <div className={isTcsInterface ? "tcs-ion-answer-options grid gap-2" : "grid gap-2"}>
                 {getLocalizedQuestion(q, lang).options.map((option, index) => {
                   const isPracticeRevealed = attemptType === "PRACTICE" && showSolutionQuestions.has(q.id);
                   const isAnswered = attemptType === "PRACTICE" && practiceAnswers[q.id] !== null && practiceAnswers[q.id] !== undefined;
@@ -1359,13 +1367,15 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                         <p className="text-[10px] font-bold uppercase tracking-wider text-gray-500">{section.name}</p>
                         <span className={`text-[10px] font-semibold ${statusColor}`}>{sectionStatus}</span>
                       </div>
-                      <div className="grid grid-cols-5 gap-1.5">
+                      <div className={isTcsInterface ? "tcs-ion-palette-grid grid grid-cols-4 gap-2" : "grid grid-cols-5 gap-1.5"}>
                         {section.questions.map((question, questionIndex) => {
                           const status = getQuestionStatus(question);
                           const isCurrent = sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex;
                           const isMarked = status === "MARKED" || status === "ANSWERED_MARKED";
-                          const paletteClass = isCurrent
-                            ? (isTcsInterface ? "tcs-ion-current" : "bg-blue-600 text-white")
+                          const paletteClass = isTcsInterface
+                            ? (status === "ANSWERED_MARKED" ? "tcs-status-answered-marked" : status === "MARKED" ? "tcs-status-marked" : status === "ANSWERED" ? "tcs-status-answered" : status === "NOT_ANSWERED" ? "tcs-status-not-answered" : "tcs-status-not-visited")
+                            : isCurrent
+                            ? "bg-blue-600 text-white"
                             : status === "ANSWERED_MARKED"
                             ? (isTcsInterface ? "bg-violet-600 text-white ring-2 ring-green-500 ring-offset-1" : "bg-violet-600 text-white")
                             : isMarked
@@ -1384,7 +1394,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
                               aria-label={`Question ${questionIndex + 1}, ${status.replace(/_/g, " ").toLowerCase()}`}
                               aria-current={isCurrent ? "step" : undefined}
-                              className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "tcs-ion-palette-button" : "rounded-md"} ${paletteClass}`}
+                              className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "tcs-ion-palette-button" : "rounded-md"} ${paletteClass} ${isTcsInterface && isCurrent ? "tcs-ion-current" : ""}`}
                             >
                               {questionIndex + 1}
                             </button>
@@ -1400,9 +1410,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   type="button"
                   onClick={() => setShowSubmitModal(true)}
                   disabled={isSubmitting}
-                  className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-60"
+                  className={isTcsInterface ? "tcs-ion-submit-button w-full py-2 text-sm font-semibold transition disabled:opacity-60" : "w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition disabled:opacity-60"}
                 >
-                  {isSubmitting ? "Submitting test…" : "Submit test"}
+                  {isSubmitting ? "Submitting test…" : isTcsInterface ? "Submit" : "Submit test"}
                 </button>
               </div>
             </div>
