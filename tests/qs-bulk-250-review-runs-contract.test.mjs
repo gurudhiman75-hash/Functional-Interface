@@ -27,7 +27,7 @@ test('bulk saves independent runs, updates progress and stops on unknown results
 test('chunked deterministic seeds vary and CP selections fit the final chunk',()=>{
   assert.match(ui,/cpIds\.length > chunkSize/);
   assert.match(ui,/\(offset \+ index\) % cpIds\.length/);
-  assert.match(ui,/input\.seed && requested > capabilities\.maxBatchSize/);
+  assert.match(ui,/input\.seed && requested > chunkMax/);
   assert.match(ui,/:batch:\$\{savedRuns\.length \+ 1\}/);
 });
 
