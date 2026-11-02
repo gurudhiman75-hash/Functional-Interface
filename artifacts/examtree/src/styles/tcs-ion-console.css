@@ -146,3 +146,15 @@
   .tcs-ion-question-content { margin:0 8px 8px; }
   .tcs-ion-question-meta { justify-content:flex-start; }
 }
+
+/* Keep question status visible even while that question is current. */
+.tcs-ion-palette-button { position:relative; overflow:visible; }
+.tcs-ion-palette-button.tcs-status-answered-marked::after { right:-4px; bottom:-4px; text-shadow:0 1px 2px #fff; }
+/* Tailwind's sibling spacing is appropriate for Classic, not the two-pane TCS grid. */
+.tcs-ion-passage-layout > * { margin-top:0!important; }
+.tcs-ion-question-content.tcs-ion-passage-layout { row-gap:0; }
+.tcs-ion-passage-pane { overflow-wrap:anywhere; }
+.tcs-ion-palette-grid button:focus-visible { outline:3px solid #004e83; outline-offset:2px; }
+@media(min-width:1024px) {
+  .tcs-ion-question-content.tcs-ion-passage-layout { min-height:440px; }
+}
