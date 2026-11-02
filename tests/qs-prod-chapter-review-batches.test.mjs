@@ -188,7 +188,7 @@ test("chapter cockpit and admin client remain explicit opt-in, without changing 
   assert.match(page,/enqueueQuestionStudioProductionChapterRun\(asyncInput,/);
   // Synchronous bulk UI now splits one requested count into multiple
   // independently saved backend-safe review runs, preserving async opt-in.
-  assert.match(page,/const result = await generate\\(\\{/);
+  assert.ok(page.includes('const result = await generate({'));
   assert.match(page,/const SYNC_BULK_LIMIT = 250/);
   assert.match(page,/const SYNC_CHUNK_TARGET = 25/);
   assert.match(api,/\/admin\/question-studio\/runs\/async-production-chapter/);
