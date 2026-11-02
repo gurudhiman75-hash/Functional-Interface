@@ -186,7 +186,11 @@ test("chapter cockpit and admin client remain explicit opt-in, without changing 
   const api=get("artifacts/admin-app/src/features/question-studio/api.ts");
   assert.match(page,/VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true'/);
   assert.match(page,/enqueueQuestionStudioProductionChapterRun\(asyncInput,/);
-  assert.match(page,/const result = await generate\(input\)/);
+  // Synchronous bulk UI now splits one requested count into multiple
+  // independently saved backend-safe review runs, preserving async opt-in.
+  assert.match(page,/const result = await generate\\(\\{/);
+  assert.match(page,/const SYNC_BULK_LIMIT = 250/);
+  assert.match(page,/const SYNC_CHUNK_TARGET = 25/);
   assert.match(api,/\/admin\/question-studio\/runs\/async-production-chapter/);
   assert.match(api,/Idempotency-Key/);
   // Seed must come from the server, not client-controlled production input.
