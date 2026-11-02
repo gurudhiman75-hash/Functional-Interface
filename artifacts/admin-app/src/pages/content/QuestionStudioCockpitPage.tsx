@@ -84,6 +84,9 @@ const STAGING_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_STAGING
 // Explicitly separate production approval; OFF in existing frontend builds.
 const CHAPTER_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true';
 const ASYNC_ENABLED = STAGING_ASYNC_ENABLED || CHAPTER_ASYNC_ENABLED;
+// Large sync submissions are split into separately saved bounded review runs.
+const SYNC_BULK_LIMIT = 250;
+const SYNC_CHUNK_TARGET = 25;
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
@@ -236,6 +239,8 @@ export function QuestionStudioCockpitPage() {
   const [difficulty, setDifficulty] = useState('Medium');
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
+  const [bulkProgress, setBulkProgress] = useState<{ completed: number; requested: number; runs: string[] } | null>(null);
+  const [bulkBusy, setBulkBusy] = useState(false);
   const [seed, setSeed] = useState('');
   const [stagingAsyncSelected, setStagingAsyncSelected] = useState(CHAPTER_ASYNC_ENABLED);
   const [retryingChapterDispatch, setRetryingChapterDispatch] = useState(false);
@@ -638,6 +643,13 @@ export function QuestionStudioCockpitPage() {
   }, [allItems, duplicates.size, qualityByItem, reviewPage.pagination.totalRuns]);
 
   const handleGenerate = async () => {
+    if (bulkBusy) return;
+    const asyncMode = ASYNC_ENABLED && stagingAsyncSelected;
+    const limit = asyncMode ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT;
+    if (!Number.isInteger(count) || count < 1 || count > limit) {
+      showToast.error('Invalid batch size', `Choose 1–${limit} questions.`);
+      return;
+    }
     if (!activePackage) {
       showToast.error('Generation source required', 'Select a subject and chapter with an enabled generation source.');
       return;
@@ -662,7 +674,7 @@ export function QuestionStudioCockpitPage() {
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
         difficulty: difficultyFilterSupported ? difficulty : 'Mixed',
-        count: Math.min(CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize, Math.max(1, count)),
+        count: Math.min(asyncMode ? limit : capabilities.maxBatchSize, count),
         packageId: activePackage.packageId,
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
@@ -711,7 +723,47 @@ export function QuestionStudioCockpitPage() {
         }
         return;
       }
-      const result = await generate(input);
+      // Never replay uncertain failures; a timed-out request may already have
+      // saved a review run. Each HTTP request retains the backend <=50 limit.
+      const chunkMax = Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, cpIds.length || 1));
+      const requested = count;
+      let completed = 0;
+      let offset = 0;
+      const savedRuns: string[] = [];
+      setBulkBusy(true);
+      setBulkProgress({ completed, requested, runs: [] });
+      try {
+        while (completed < requested) {
+          const remaining = requested - completed;
+          const chunkSize = Math.min(chunkMax, remaining);
+          const chunkCps = cpIds.length > chunkSize
+            ? Array.from({ length: chunkSize }, (_, index) => cpIds[(offset + index) % cpIds.length])
+            : cpIds;
+          const chunkSeed = input.seed && requested > chunkMax
+            ? `${input.seed}:batch:${savedRuns.length + 1}`
+            : input.seed;
+          const result = await generate({
+            ...input,
+            count: chunkSize,
+            cpIds: chunkCps.length ? chunkCps : undefined,
+            seed: chunkSeed,
+          });
+          savedRuns.push(result.publicCode);
+          completed += result.itemCount;
+          offset += chunkSize;
+          setBulkProgress({ completed, requested, runs: [...savedRuns] });
+          setExpandedRuns((current) => new Set(current).add(result.id));
+          if (result.itemCount !== chunkSize) {
+            throw new Error(`Run ${result.publicCode} returned ${result.itemCount} instead of ${chunkSize} items. Remaining batches were not submitted.`);
+          }
+        }
+      } catch (caught) {
+        showToast.error('Bulk generation stopped', `${completed}/${requested} questions confirmed across ${savedRuns.length} saved runs. ${caught instanceof Error ? caught.message : 'Request failed.'} Do not retry the entire submission; check review runs before continuing.`);
+        setWorkspaceView('review');
+        return;
+      } finally {
+        setBulkBusy(false);
+      }
       // Sync Generate must not leave a stale staging resume link attached.
       // Only clear the link after synchronous generation succeeds.
       if (ASYNC_ENABLED && resumeRunId) {
@@ -723,7 +775,6 @@ export function QuestionStudioCockpitPage() {
         setStagingAsyncRun(null);
         setStagingAsyncPollError(null);
       }
-      setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
       setReviewPackageFilter(activePackage.packageId);
@@ -734,8 +785,8 @@ export function QuestionStudioCockpitPage() {
       setReviewPageNumber(1);
       setWorkspaceView('review');
       showToast.success(
-        'Generation run created',
-        `${result.publicCode} produced ${result.itemCount} review items${cpIds.length > 0 ? ` across ${cpIds.length} selected CPs` : ' using the engine-managed CP mix'}.`,
+        'Generation completed',
+        `${completed} questions saved in ${savedRuns.length} review run(s). All remain subject to manual review and approval.`,
       );
     } catch (caught) {
       const errorCode = caught && typeof caught === 'object' && 'code' in caught && typeof caught.code === 'string'
@@ -1122,8 +1173,15 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Question count"><Input type="number" min={1} max={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label="Question count"><Input type="number" min={1} max={ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
+          {!ASYNC_ENABLED || !stagingAsyncSelected ? <p className="text-xs text-muted-foreground">
+            Up to {SYNC_BULK_LIMIT} questions per submission. Requests are split into review runs of at most {Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, selectedCpIds.size || 1))} questions. Keep this tab open until completion. After a failure, check saved runs before requesting more. No automatic publication.
+          </p> : null}
+          {bulkProgress && <div role="status" aria-live="polite" className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
+            Generated {bulkProgress.completed} of {bulkProgress.requested} requested questions in {bulkProgress.runs.length} confirmed review run(s).
+            {bulkProgress.runs.length > 0 && <span className="mt-1 block font-mono">{bulkProgress.runs.join(' · ')}</span>}
+          </div>}
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <Field label={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Server-assigned production seed" : "Optional deterministic seed"}><Input value={seed} onChange={(event) => setSeed(event.target.value)} disabled={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected} placeholder={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Assigned after enqueue" : "Leave blank for a fresh generated seed"} /></Field>
 
@@ -1132,11 +1190,11 @@ export function QuestionStudioCockpitPage() {
                 <label className="flex max-w-80 items-start gap-2 text-xs text-muted-foreground">
                   <Checkbox checked={stagingAsyncSelected}
                     onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
-                    disabled={generating || stagingAsyncSubmitting} />
+                    disabled={generating || stagingAsyncSubmitting || bulkBusy} />
                   <span>{CHAPTER_ASYNC_ENABLED ? `Queue a production chapter review batch (1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions; subject to server approval; no automatic publication).` : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
                 </label>
               )}
-              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting ? 'Submitting…' : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
+              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || bulkBusy || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting || bulkBusy ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting || bulkBusy ? 'Generating…' : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
             </div>
           </div>
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageMainTopic(activePackage)} · {generationChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
