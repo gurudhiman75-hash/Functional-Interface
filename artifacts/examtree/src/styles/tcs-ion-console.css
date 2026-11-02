@@ -1,0 +1,71 @@
+/* Exam-centre-inspired presentation. All rules are scoped to the opt-in TCS variant. */
+.tcs-ion-console { font-family: Arial, Helvetica, sans-serif; color: #252525; background: #fff; }
+.tcs-ion-utility-bar { display:flex; align-items:center; gap:0; min-height:34px; border-bottom:1px solid #aab8c4; background:#f1f1f1; padding:0 14px; font-size:12px; }
+.tcs-ion-utility-bar button { align-self:stretch; border-right:1px solid #cad2d8; padding:8px 15px; font-weight:600; color:#3d5361; }
+.tcs-ion-utility-bar button:first-child { border-left:1px solid #cad2d8; }
+.tcs-ion-utility-bar button:hover, .tcs-ion-utility-bar button:focus-visible { background:#d8ebf8; color:#114d76; }
+.tcs-ion-utility-note { margin-left:auto; color:#66747d; font-size:10px; }
+.tcs-ion-header { background:#3c3c3c; box-shadow:none; }
+.tcs-ion-header > div:first-child { padding-top:7px; padding-bottom:7px; }
+.tcs-ion-header h1 { font-size:14px; font-weight:600; }
+.tcs-ion-sections { background:#eef2f5; border-bottom:1px solid #b6cbd7; }
+.tcs-ion-sections button, .tcs-ion-sections span[data-testid^="section-tab"] { border-radius:0; min-height:30px; }
+.tcs-ion-sections button[aria-label^="Switch"] { font-size:12px; }
+.tcs-ion-sections button.bg-blue-600, .tcs-ion-sections span.bg-blue-600 { background:#2097ce; }
+.tcs-ion-main { padding:0; }
+.tcs-ion-main > .grid { min-height:calc(100vh - 150px); }
+.tcs-ion-main > .grid > section { display:flex; flex-direction:column; min-height:calc(100vh - 150px); border-right:1px solid #bdcbd5; }
+.tcs-ion-question-card { display:flex; flex:1; flex-direction:column; box-shadow:none; border:0; border-radius:0; }
+.tcs-ion-question-title { color:#1b1b1b; padding:8px 18px; border-bottom:1px solid #aabecb; }
+.tcs-ion-question-meta { display:flex; flex-wrap:wrap; gap:10px 22px; padding:9px 20px; border-bottom:1px solid #e4e8eb; font-size:12px; color:#454545; background:#fff; }
+.tcs-ion-question-meta b { color:#202020; }
+.tcs-ion-question-content { flex:1; min-height:340px; padding:24px 26px; }
+.tcs-ion-question-content > div.text-sm { font-size:15px; line-height:1.65; }
+.tcs-ion-question-content .tcs-ion-option { background:#fff; border-color:transparent; border-radius:0; padding:9px 10px; color:#292929; transition:background .12s; }
+.tcs-ion-question-content .tcs-ion-option:hover { background:#f0f8fc; }
+.tcs-ion-question-content .tcs-ion-option-selected { background:#eaf5fa; }
+.tcs-ion-question-content .tcs-ion-radio { background:#fff; color:transparent; }
+.tcs-ion-question-content .tcs-ion-option-selected .tcs-ion-radio { border:5px solid #2585b5; }
+.tcs-ion-actions { min-height:62px; box-shadow:none; }
+.tcs-ion-actions button { border-radius:2px; box-shadow:none; font-size:12px; min-height:35px; }
+.tcs-ion-save { border:1px solid #0e78a3; }
+.tcs-ion-main .lg\\:items-start > .hidden.lg\\:flex { background:#e3edf3; }
+.tcs-ion-sidebar { min-height:calc(100vh - 150px); background:#e5f2fa; border-left:1px solid #bed3e1; }
+.tcs-ion-candidate { display:flex; align-items:center; gap:11px; padding:12px; background:#e0edf6; border-bottom:1px solid #b0c3d0; font-size:13px; }
+.tcs-ion-avatar { display:flex; width:53px; height:58px; flex:0 0 53px; align-items:center; justify-content:center; border:1px solid #a3b8c7; background:#f7fafc; font-size:25px; }
+.tcs-ion-sidebar > button { margin:8px; width:calc(100% - 16px); border-radius:2px; }
+.tcs-ion-sidebar > div:not(.tcs-ion-candidate) { border-radius:0; box-shadow:none; border-color:#bacdda; background:transparent; }
+.tcs-ion-status-legend { background:#e5f2fa; }
+.tcs-ion-status-legend > div { align-items:center; }
+.tcs-ion-status-legend > div > span:first-child { border-radius:0; }
+.tcs-ion-palette { border-top:0!important; }
+.tcs-ion-palette > div:first-child { background:#d4eaf8; }
+.tcs-ion-palette > .space-y-4 { max-height:45vh; overflow:auto; }
+.tcs-ion-palette-button { border-radius:0!important; min-width:32px; min-height:32px; border:1px solid #b0b9bf; clip-path:polygon(0 0,100% 0,100% 82%,82% 100%,0 100%); box-shadow:none; }
+.tcs-ion-palette-button.bg-green-500 { background:#32a751; }
+.tcs-ion-palette-button.bg-red-500 { background:#d94b47; }
+.tcs-ion-palette-button.bg-violet-600 { background:#8953ad; }
+.tcs-ion-palette-button.tcs-ion-current { outline:2px solid #146d9d; outline-offset:-2px; box-shadow:inset 0 0 0 2px #fff; }
+.tcs-ion-palette button[aria-current="step"] { font-weight:900; }
+.tcs-ion-palette > .border-t button { border-radius:2px; background:#f8f8f8; color:#222; border:1px solid #aaa; }
+.tcs-ion-palette > .border-t button:hover { background:#e0edf5; }
+.tcs-ion-overlay { position:fixed; z-index:300; inset:0; padding:20px; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; }
+.tcs-ion-dialog { width:min(880px,100%); max-height:85vh; overflow:hidden; border:1px solid #9aaeba; background:#fff; box-shadow:0 15px 50px rgba(0,0,0,.25); }
+.tcs-ion-dialog-heading { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:#d6e8f6; border-bottom:1px solid #a5b9c5; }
+.tcs-ion-dialog-heading h2 { font-weight:700; font-size:16px; }
+.tcs-ion-dialog-heading button { padding:4px 12px; border:1px solid #9aaeba; background:#fff; font-size:12px; }
+@media(max-width:1023px) {
+  .tcs-ion-main { padding:0 0 62px; }
+  .tcs-ion-main > .grid > section { min-height:65vh; }
+  .tcs-ion-sidebar { min-height:initial; border-top:1px solid #bacdda; border-left:0; }
+  .tcs-ion-question-content { min-height:280px; padding:18px 14px; }
+  .tcs-ion-utility-note { display:none; }
+  .tcs-ion-palette > .space-y-4 { max-height:none; }
+}
+@media(max-width:540px) {
+  .tcs-ion-header h1 { max-width:160px; font-size:12px; }
+  .tcs-ion-header .font-mono { font-size:11px; }
+  .tcs-ion-actions { padding:9px; }
+  .tcs-ion-actions button { padding:7px 10px; }
+  .tcs-ion-question-meta { padding:8px 12px; gap:5px 12px; }
+}

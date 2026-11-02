@@ -49,6 +49,7 @@ import { AppLayout } from "@/components/AppLayout";
 import SeatingExplanationFlow from "@/components/seating/SeatingExplanationFlow";
 import SeatingDiagramRenderer from "@/components/seating/SeatingDiagramRenderer";
 import { getLocalizedQuestion, LANGUAGE_LABELS, type Language } from "@/lib/lang-utils";
+import "@/styles/tcs-ion-console.css";
 
 function priceFromPaywallBody(body: unknown, fallback: number): number {
   if (typeof body === "object" && body !== null && "priceCents" in body) {
@@ -124,6 +125,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const isTcsInterface = interfaceVariant === "tcs";
   const [showPauseModal, setShowPauseModal] = useState(false);
+  const [showTcsInstructions, setShowTcsInstructions] = useState(false);
+  const [showTcsPaper, setShowTcsPaper] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
   const [revealedPracticeQuestions, setRevealedPracticeQuestions] = useState<Set<number>>(new Set());
   const [showSolutionQuestions, setShowSolutionQuestions] = useState<Set<number>>(new Set()); // Track which practice questions show solutions
@@ -814,7 +817,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     totalQuestions > 0 ? Math.min(100, Math.round((currentQuestionNumber / totalQuestions) * 100)) : 0;
 
   return (
-    <div className={`relative isolate z-[200] min-h-screen text-gray-900 ${isTcsInterface ? "bg-[#e8eef4]" : "bg-gray-100"}`} data-test-interface={interfaceVariant}>
+    <div className={`relative isolate z-[200] min-h-screen text-gray-900 ${isTcsInterface ? "tcs-ion-console bg-white" : "bg-gray-100"}`} data-test-interface={interfaceVariant}>
       {attemptType === "PRACTICE" && !wrongOnly && !sectionParam && (
         <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-800 shadow-md">
           Practice Mode &mdash; answers will not count toward your score
@@ -846,8 +849,15 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       )}
 
+      {isTcsInterface && (
+        <nav className="tcs-ion-utility-bar" aria-label="Exam tools">
+          <button type="button" onClick={() => setShowTcsPaper(true)}>Question Paper</button>
+          <button type="button" onClick={() => setShowTcsInstructions(true)}>View Instructions</button>
+          <span className="tcs-ion-utility-note">Examtree simulation · not an official TCS iON product</span>
+        </nav>
+      )}
       {/* Interface-specific header; both variants share the same attempt state and submission. */}
-      <header className={isTcsInterface ? "sticky top-0 z-[210] border-b-4 border-[#f0a02b] bg-[#123f64] shadow-md" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
+      <header className={isTcsInterface ? "sticky top-0 z-[210] tcs-ion-header" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
           <div className="min-w-0">
             {isTcsInterface && <p className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-200">Examtree · Exam simulation</p>}
@@ -868,7 +878,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
 
         {/* Sections row */}
-        <div className={isTcsInterface ? "border-t border-[#285878] bg-[#dce9f2] px-4 py-1.5 sm:px-6" : "border-t border-blue-500/60 bg-white px-4 py-1.5 sm:px-6"}>
+        <div className={isTcsInterface ? "tcs-ion-sections px-4 py-1.5 sm:px-6" : "border-t border-blue-500/60 bg-white px-4 py-1.5 sm:px-6"}>
           <div className="flex flex-wrap items-center gap-2">
             <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</span>
             {test.sections.map((section, sectionIndex) => {
@@ -916,13 +926,13 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       </header>
 
-      <main className="px-3 py-4 sm:px-5 lg:py-5">
-        <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
+      <main className={isTcsInterface ? "tcs-ion-main" : "px-3 py-4 sm:px-5 lg:py-5"}>
+        <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : isTcsInterface ? "lg:grid-cols-[minmax(0,1fr)_auto_320px]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
           <section className="min-w-0">
             {/* Question card */}
-            <div className={isTcsInterface ? "rounded-sm border border-[#b7cad8] bg-white shadow-sm" : "rounded border border-gray-300 bg-white shadow-sm"}>
-              <div className={isTcsInterface ? "flex items-center justify-between border-b border-[#b7cad8] bg-[#dce9f2] px-5 py-3" : "flex items-center justify-between border-b border-gray-200 px-5 py-3"}>
-                <p className="text-sm font-bold text-gray-700">Question No {currentQuestionNumber}</p>
+            <div className={isTcsInterface ? "tcs-ion-question-card border border-[#c4ced5] bg-white" : "rounded border border-gray-300 bg-white shadow-sm"}>
+              <div className={isTcsInterface ? "tcs-ion-question-title flex items-center justify-between border-b border-[#c4ced5] bg-[#d6e8f6] px-5 py-2" : "flex items-center justify-between border-b border-gray-200 px-5 py-3"}>
+                <p className="text-sm font-bold text-gray-700">{isTcsInterface ? `Question No. ${currentQuestionNumber}` : `Question No ${currentQuestionNumber}`}</p>
                 <div className="flex items-center gap-3">
                   {hasSectionalTiming && (
                     <span className="text-xs font-semibold text-gray-500">Section time: {formatTime(sectionTimeLeft)}</span>
@@ -947,7 +957,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   )}
                 </div>
               </div>
-              <div className="space-y-5 px-5 py-5">
+              {isTcsInterface && <div className="tcs-ion-question-meta"><span>Marks for correct answer: <b>{test.marksPerQuestion ?? 1}</b></span><span>Negative Marks: <b>{test.negativeMarks ?? 0}</b></span><span>View in: <b>{LANGUAGE_LABELS[lang]}</b></span></div>}
+              <div className={isTcsInterface ? "tcs-ion-question-content space-y-5 px-5 py-5" : "space-y-5 px-5 py-5"}>
 
               {/* DI Set context panel */}
               {q.diSetId && (q.diSetImageUrl || q.diSetDescription) && (
@@ -1011,6 +1022,12 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   } else {
                     btnCls += "border-gray-200 bg-white hover:border-gray-400 hover:bg-gray-50 text-gray-800";
                     badgeCls += "border border-gray-300 bg-gray-100 text-gray-600";
+                  }
+
+                  if (isTcsInterface && !isPracticeRevealed) {
+                    const selected = realSelected || isUserPracticeSelection;
+                    btnCls = `tcs-ion-option flex w-full items-center gap-3 border px-3 py-2.5 text-left text-sm ${selected ? "tcs-ion-option-selected" : ""}`;
+                    badgeCls = "tcs-ion-radio flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-500 text-[0px]";
                   }
 
                   return (
@@ -1219,7 +1236,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
             </div>
 
-            <div className={isTcsInterface ? "mt-0 flex flex-wrap items-center justify-between gap-2 border-x border-b border-[#b7cad8] bg-[#e2edf5] px-5 py-3" : "mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3"}>
+            <div className={isTcsInterface ? "tcs-ion-actions mt-0 flex flex-wrap items-center justify-between gap-2 border-x border-b border-[#c4ced5] bg-[#f5f7f8] px-4 py-3" : "mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3"}>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -1252,7 +1269,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               <button
                 type="button"
                 onClick={goToNext}
-                className={isTcsInterface ? "rounded-sm bg-[#18864b] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#11723e]" : "rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"}
+                className={isTcsInterface ? "tcs-ion-save bg-[#229ccb] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#157fa9]" : "rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"}
               >
                 Save & Next
               </button>
@@ -1271,12 +1288,15 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           </div>
 
           {!sidebarCollapsed && (
-          <aside className="min-w-0 space-y-3">
+          <aside className={isTcsInterface ? "tcs-ion-sidebar min-w-0 space-y-0" : "min-w-0 space-y-3"}>
             {isTcsInterface && (
-              <div className="border border-[#b7cad8] bg-[#dce9f2] px-3 py-3 text-sm text-[#123f64]">
-                <p className="font-bold">Candidate</p>
-                <p className="mt-1 truncate text-xs text-[#335775]">{user.name || "Examtree learner"}</p>
-                <p className="mt-2 border-t border-[#b7cad8] pt-2 font-bold">Question Navigator</p>
+              <div className="tcs-ion-candidate">
+                <span className="tcs-ion-avatar" aria-hidden="true">👤</span>
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-[#143a58]">{user?.name || "Examtree learner"}</p>
+                  <p className="text-xs text-gray-600">Candidate</p>
+                  <p className="mt-1 text-xs font-semibold text-[#143a58]">Time Left: {formatTime(activeTimeLeft)}</p>
+                </div>
               </div>
             )}
             {currentSectionIndex < effectiveSections.length - 1 && (
@@ -1294,7 +1314,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               <div className="border-b border-gray-200 px-4 py-2.5">
                 <p className="text-sm font-bold text-gray-700">Legend</p>
               </div>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-2 p-3 text-xs">
+              <div className={isTcsInterface ? "tcs-ion-status-legend grid grid-cols-2 gap-x-3 gap-y-2 p-3 text-xs" : "grid grid-cols-2 gap-x-3 gap-y-2 p-3 text-xs"}>
                 <div className="flex items-center gap-2">
                   <span className={`flex h-6 w-6 shrink-0 items-center justify-center bg-green-500 text-[10px] font-bold text-white ${isTcsInterface ? "rounded-t-lg rounded-b-sm" : "rounded-full"}`}>{statusCounts.ANSWERED}</span>
                   <span className="text-gray-700">Answered</span>
@@ -1320,9 +1340,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
             </div>
 
-            <div className="rounded border border-gray-300 bg-white shadow-sm">
+            <div className={isTcsInterface ? "tcs-ion-palette border border-gray-300 bg-white" : "rounded border border-gray-300 bg-white shadow-sm"}>
               <div className="flex items-center justify-between border-b border-gray-200 px-4 py-2.5">
-                <p className="text-sm font-bold text-gray-700">Question Palette:</p>
+                <p className="text-sm font-bold text-gray-700">{isTcsInterface ? "Choose a Question" : "Question Palette:"}</p>
                 <span className="text-xs text-gray-500">{answered}/{totalQuestions}</span>
               </div>
               <div className="space-y-4 p-3">
@@ -1345,7 +1365,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                           const isCurrent = sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex;
                           const isMarked = status === "MARKED" || status === "ANSWERED_MARKED";
                           const paletteClass = isCurrent
-                            ? "bg-blue-600 text-white"
+                            ? (isTcsInterface ? "tcs-ion-current" : "bg-blue-600 text-white")
                             : status === "ANSWERED_MARKED"
                             ? (isTcsInterface ? "bg-violet-600 text-white ring-2 ring-green-500 ring-offset-1" : "bg-violet-600 text-white")
                             : isMarked
@@ -1364,7 +1384,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
                               aria-label={`Question ${questionIndex + 1}, ${status.replace(/_/g, " ").toLowerCase()}`}
                               aria-current={isCurrent ? "step" : undefined}
-                              className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "rounded-t-xl rounded-b-sm" : "rounded-md"} ${paletteClass}`}
+                              className={`flex h-8 w-full items-center justify-center text-xs font-semibold tabular-nums transition-all disabled:opacity-40 ${isTcsInterface ? "tcs-ion-palette-button" : "rounded-md"} ${paletteClass}`}
                             >
                               {questionIndex + 1}
                             </button>
@@ -1405,6 +1425,40 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       </div>
 
+      {isTcsInterface && showTcsPaper && (
+        <div className="tcs-ion-overlay" role="dialog" aria-modal="true" aria-label="Question Paper">
+          <div className="tcs-ion-dialog">
+            <div className="tcs-ion-dialog-heading"><h2>Question Paper</h2><button type="button" onClick={() => setShowTcsPaper(false)}>Close</button></div>
+            <div className="max-h-[65vh] overflow-y-auto p-4">
+              {effectiveSections.map((section, sectionIndex) => (
+                <section key={section.id} className="mb-5">
+                  <h3 className="mb-2 bg-[#d5eaf6] px-3 py-2 text-sm font-bold">{section.name}</h3>
+                  {section.questions.map((question, questionIndex) => (
+                    <p key={question.id} className="border-b border-gray-200 px-2 py-2 text-sm">
+                      <span className="mr-2 font-semibold">{questionIndex + 1}.</span>
+                      {getLocalizedQuestion(question, lang).text.replace(/<[^>]+>/g, " ").slice(0, 300)}
+                    </p>
+                  ))}
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+      {isTcsInterface && showTcsInstructions && (
+        <div className="tcs-ion-overlay" role="dialog" aria-modal="true" aria-label="Exam instructions">
+          <div className="tcs-ion-dialog">
+            <div className="tcs-ion-dialog-heading"><h2>General Instructions</h2><button type="button" onClick={() => setShowTcsInstructions(false)}>Close</button></div>
+            <ol className="list-decimal space-y-3 px-8 py-5 text-sm leading-6">
+              <li>Time remaining is shown in the examination header. The test is submitted when the timer reaches zero.</li>
+              <li>Click a question number in the palette to navigate. Locked sections cannot be revisited.</li>
+              <li>Use Save &amp; Next to proceed, Clear Response to remove an answer, and Mark for Review &amp; Next to flag it.</li>
+              <li>Green indicates answered, red indicates visited but unanswered, purple indicates marked for review, and white indicates not visited.</li>
+              <li>Correct answer: +{test.marksPerQuestion ?? 1}; wrong answer: {test.negativeMarks ?? 0} marks deducted; unanswered: 0.</li>
+            </ol>
+          </div>
+        </div>
+      )}
       {showPauseModal && (
         <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/60 p-4">
           <div className="w-full max-w-sm rounded border border-gray-200 bg-white p-6 shadow-2xl">
