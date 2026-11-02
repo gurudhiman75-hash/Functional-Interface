@@ -30,7 +30,7 @@ test("sync Generate remains default unless production chapter review is explicit
     assert.equal(result.available,available);
     assert.equal(result.selected,selected);
   }
-  assert.match(page,/const result = await generate\(input\)/);
+  assert.ok(page.includes('const result = await generate({'));
   assert.match(api,/\/admin\/question-studio\/runs['"]/);
   assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput,/);
   assert.match(api,/\/admin\/question-studio\/runs\/async-staging/);
@@ -45,7 +45,7 @@ test("staging async uses the selected package runtime and keeps synchronous Gene
   assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput, stagingAsyncRetry\.current\.key\)/);
   assert.match(api,/runtimeMode: input\.runtimeMode/);
   assert.doesNotMatch(api,/runtimeMode: 'review-only'/);
-  assert.match(page,/const result = await generate\(input\)/);
+  assert.ok(page.includes('const result = await generate({'));
   assert.match(page,/caught\.code/);
 });
 
