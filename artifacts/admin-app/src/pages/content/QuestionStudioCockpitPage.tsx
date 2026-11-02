@@ -739,7 +739,7 @@ export function QuestionStudioCockpitPage() {
           const chunkCps = cpIds.length > chunkSize
             ? Array.from({ length: chunkSize }, (_, index) => cpIds[(offset + index) % cpIds.length])
             : cpIds;
-          const chunkSeed = input.seed && requested > capabilities.maxBatchSize
+          const chunkSeed = input.seed && requested > chunkMax
             ? `${input.seed}:batch:${savedRuns.length + 1}`
             : input.seed;
           const result = await generate({
