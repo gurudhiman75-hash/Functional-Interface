@@ -12,7 +12,7 @@ const pkg = (engineId: string): GenerationPackage => ({
 });
 describe('production chapter selection and client', () => {
   it('keeps the production chapter UI limit aligned with the bounded server contract', () => {
-    expect(PRODUCTION_CHAPTER_BATCH_LIMIT).toBe(50);
+    expect(PRODUCTION_CHAPTER_BATCH_LIMIT).toBe(20);
   });
   it('includes eligible canonical chapters from every engine and both source lifecycles', () => {
     for (const engine of ['quant-v4', 'reasoning-v1', 'language-v1', 'knowledge-v1']) {
