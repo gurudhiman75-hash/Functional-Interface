@@ -3,9 +3,10 @@ import type { GenerationPackage } from './api';
 const ENGINES = new Set(['quant-v4', 'reasoning-v1', 'language-v1', 'knowledge-v1']);
 const ID = /^[A-Z][A-Z0-9-]{1,80}$/;
 const PACKAGE_ID = /^[A-Za-z][A-Za-z0-9:_-]{1,127}$/;
-// The async receiver and review-commit contract independently enforce 50.
-// Keep the UI limit aligned with that bounded, single-run production limit.
-export const PRODUCTION_CHAPTER_BATCH_LIMIT = 50;
+// The production chapter admission policy (MAX_CHAPTER_REVIEW_BATCH) permits
+// 1–20 per exact chapter run; keep the opted-in UI within that stricter limit.
+// The generic synchronous endpoint's separate 50 cap does not apply here.
+export const PRODUCTION_CHAPTER_BATCH_LIMIT = 20;
 
 // Discovery only; the server and dispatcher independently enforce release scope.
 export function isProductionChapterPackage(pkg: GenerationPackage) {
