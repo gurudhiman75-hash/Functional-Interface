@@ -71,6 +71,8 @@ test("canonical BANK_ONLY bank-writable chapter remains eligible for manual revi
 test("production batches capped and CP filter cannot exceed batch count",()=>{
   const [e,p,cp]=cases[0],m=manifest(pkg(e,p,cp)),s=scope(e,p);
   assert.equal(MAX_CHAPTER_REVIEW_BATCH,20);
+  const uiLimit=readFileSync('artifacts/admin-app/src/features/question-studio/production-chapter.ts','utf8');
+  assert.match(uiLimit,/PRODUCTION_CHAPTER_BATCH_LIMIT = 20/);
   for(const count of [0,21,50,1.5]){
     assert.equal(validateProductionChapterReview(snapshot(e,p,[],count),m,s),false);
   }
