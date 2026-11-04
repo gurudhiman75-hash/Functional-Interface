@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   createGenerationRun,
   getQuestionStudioCapabilities,
@@ -105,7 +105,6 @@ export function useQuestionStudio() {
     try {
       const result = await createGenerationRun(input);
       setGenerating(false);
-      await refresh();
       notifyQuestionStudioRefresh();
       return result;
     } catch (caught) {
@@ -115,7 +114,7 @@ export function useQuestionStudio() {
     } finally {
       setGenerating(false);
     }
-  }, [refresh]);
+  }, []);
 
   const updateItems = useCallback(async (input: {
     itemIds: string[];
@@ -127,7 +126,6 @@ export function useQuestionStudio() {
     setError(null);
     try {
       const result = await updateGenerationItems(input) as BulkReviewResult;
-      await refresh();
 
       if (Number(result.failed ?? 0) > 0) {
         const failures = (result.results ?? []).filter((entry) => !entry.ok);
@@ -147,14 +145,13 @@ export function useQuestionStudio() {
     } finally {
       setUpdating(false);
     }
-  }, [refresh]);
+  }, []);
 
   const reviseItem = useCallback(async (input: ReviseGenerationItemInput) => {
     setRevisingItemId(input.itemId);
     setError(null);
     try {
       const result = await reviseGenerationItem(input);
-      await refresh();
       return result;
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : 'Unable to save generated-item revision.';
@@ -163,7 +160,7 @@ export function useQuestionStudio() {
     } finally {
       setRevisingItemId(null);
     }
-  }, [refresh]);
+  }, []);
 
   return {
     capabilities,
@@ -193,7 +190,10 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   const [loadingReviewPage, setLoadingReviewPage] = useState(true);
   const [reviewPageError, setReviewPageError] = useState<string | null>(null);
 
+  const requestId = useRef(0);
+
   const refreshReviewPage = useCallback(async () => {
+    const currentRequest = ++requestId.current;
     setLoadingReviewPage(true);
     setReviewPageError(null);
     try {
@@ -206,16 +206,19 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
         status,
         search: search || undefined,
       });
-      setReviewPage(next);
+      if (currentRequest === requestId.current) setReviewPage(next);
     } catch (caught) {
-      setReviewPageError(caught instanceof Error ? caught.message : 'Unable to load review queue.');
+      if (currentRequest === requestId.current) {
+        setReviewPageError(caught instanceof Error ? caught.message : 'Unable to load review queue.');
+      }
     } finally {
-      setLoadingReviewPage(false);
+      if (currentRequest === requestId.current) setLoadingReviewPage(false);
     }
   }, [chapter, packageId, page, pageSize, search, status, subject]);
 
   useEffect(() => {
     void refreshReviewPage();
+    return () => { requestId.current += 1; };
   }, [refreshReviewPage]);
 
   useEffect(() => {
@@ -229,5 +232,20 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     loadingReviewPage,
     reviewPageError,
     refreshReviewPage,
+    applyRevision: (revision: Awaited<ReturnType<typeof reviseGenerationItem>>['item']) => {
+      // A pre-save fetch must never overwrite the newly committed version.
+      requestId.current += 1;
+      setLoadingReviewPage(false);
+      setReviewPage((current) => ({
+        ...current,
+        runs: current.runs.map((run) => run.id !== revision.generationRunId ? run : {
+          ...run,
+          items: run.items.map((item) => item.id === revision.id
+            ? { ...item, ...revision, retryReason: null, reviewerUserId: null }
+            : item),
+        }),
+      }));
+    },
   };
 }
+

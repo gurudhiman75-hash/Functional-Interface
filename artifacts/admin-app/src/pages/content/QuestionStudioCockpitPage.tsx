@@ -237,7 +237,8 @@ export function QuestionStudioCockpitPage() {
   const [selectedCpIds, setSelectedCpIds] = useState<Set<string>>(() => new Set());
   const [cpSearch, setCpSearch] = useState('');
   const [difficulty, setDifficulty] = useState('Medium');
-  const [language, setLanguage] = useState('en');
+  const [languages, setLanguages] = useState<string[]>(['en']);
+  const [queuedLanguageRuns, setQueuedLanguageRuns] = useState<Array<{ id: string; publicCode: string; language: string }>>([]);
   const [count, setCount] = useState(10);
   const [bulkProgress, setBulkProgress] = useState<{ completed: number; requested: number; runs: string[] } | null>(null);
   const [bulkBusy, setBulkBusy] = useState(false);
@@ -252,7 +253,7 @@ export function QuestionStudioCockpitPage() {
   const [stagingOperationsRefreshKey, setStagingOperationsRefreshKey] = useState(0);
   // Retain the same idempotency key after a transport error; never replay a
   // potentially committed request with a different key unless its input changes.
-  const stagingAsyncRetry = useRef<{ signature: string; key: string } | null>(null);
+  const stagingAsyncRetry = useRef(new Map<string, string>());
   const [search, setSearch] = useState('');
   const [serverSearch, setServerSearch] = useState('');
   const [reviewPageNumber, setReviewPageNumber] = useState(1);
@@ -328,6 +329,7 @@ export function QuestionStudioCockpitPage() {
     loadingReviewPage,
     reviewPageError,
     refreshReviewPage,
+    applyRevision,
   } = useQuestionStudioReviewPage({
     page: reviewPageNumber,
     pageSize: reviewPageSize,
@@ -563,8 +565,12 @@ export function QuestionStudioCockpitPage() {
   );
 
   useEffect(() => {
-    if (!supportedLanguages.includes(language)) setLanguage(supportedLanguages[0] ?? 'en');
-  }, [language, supportedLanguages]);
+    setLanguages((current) => {
+      const next = current.filter((entry) => supportedLanguages.includes(entry));
+      if (next.length === current.length && next.length > 0) return current;
+      return next.length ? next : [supportedLanguages[0] ?? 'en'];
+    });
+  }, [supportedLanguages]);
 
   useEffect(() => {
     if (!difficultyFilterSupported) return;
@@ -643,7 +649,7 @@ export function QuestionStudioCockpitPage() {
   }, [allItems, duplicates.size, qualityByItem, reviewPage.pagination.totalRuns]);
 
   const handleGenerate = async () => {
-    if (bulkBusy) return;
+    if (bulkBusy || generating || stagingAsyncSubmitting) return;
     const asyncMode = ASYNC_ENABLED && stagingAsyncSelected;
     const limit = asyncMode ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT;
     if (!Number.isInteger(count) || count < 1 || count > limit) {
@@ -679,45 +685,53 @@ export function QuestionStudioCockpitPage() {
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
         subtopic: activePackage.subtopic,
-        language,
+        language: languages[0],
         seed: seed.trim() || undefined,
       };
       if (ASYNC_ENABLED && stagingAsyncSelected) {
         // Async compute validates the package runtime strictly. Keep normal Generate unchanged.
-        const asyncInput: CreateGenerationRunInput = { ...input, runtimeMode: activePackage.runtimeMode };
-        const signature = JSON.stringify(asyncInput);
-        if (!stagingAsyncRetry.current || stagingAsyncRetry.current.signature !== signature) {
-          stagingAsyncRetry.current = { signature, key: `qs-staging-${crypto.randomUUID()}` };
-        }
         setStagingAsyncSubmitting(true);
+        setQueuedLanguageRuns([]);
         try {
-          const receipt = CHAPTER_ASYNC_ENABLED
-            ? await enqueueQuestionStudioProductionChapterRun(asyncInput, stagingAsyncRetry.current.key)
-            : await enqueueQuestionStudioStagingRun(asyncInput, stagingAsyncRetry.current.key);
-          stagingAsyncRetry.current = null;
-          setUrlSearchParams(withStagingResumeRunId(urlSearchParams, receipt.id), { replace: true });
-          setStagingAsyncRun({
-            id: receipt.id, publicCode: receipt.publicCode, status: receipt.status,
-            attemptNumber: 0, requestedCount: input.count, generatedCount: 0,
-            startedAt: null, completedAt: null, createdAt: null, updatedAt: null,
-            error: null,
-            queueState: 'dispatchRequested' in receipt && receipt.dispatchRequested
-              ? 'queued_for_processing' : 'awaiting_dispatch',
-            queueMessage: 'dispatchRequested' in receipt && receipt.dispatchRequested
-              ? 'Dispatched and waiting for a worker.' : 'Queued and waiting for the dispatcher.',
-            retryAfterSeconds: receipt.retryAfterSeconds,
-          });
-          setStagingAsyncPollError(null);
-          setReviewSubjectFilter(packageSubject(activePackage));
-          setReviewChapterFilter(packageChapter(activePackage));
-          setReviewPackageFilter(activePackage.packageId);
-          setReviewPageNumber(1);
-          showToast.info(CHAPTER_ASYNC_ENABLED ? 'Review batch queued' : 'Staging run queued',
-            CHAPTER_ASYNC_ENABLED
-              ? ('dispatchRequested' in receipt && receipt.dispatchRequested
-                ? `${receipt.publicCode} is queued and dispatch has been requested; questions will appear here for review.`
-                : `${receipt.publicCode} is saved. Dispatch was not confirmed; retry the saved run from its progress panel.`)
-              : `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
+          for (const language of languages) {
+            const asyncInput: CreateGenerationRunInput = { ...input, language, runtimeMode: activePackage.runtimeMode };
+            const signature = JSON.stringify(asyncInput);
+            let key = stagingAsyncRetry.current.get(signature);
+            if (!key) {
+              key = `qs-staging-${crypto.randomUUID()}`;
+              stagingAsyncRetry.current.set(signature, key);
+            }
+            const receipt = CHAPTER_ASYNC_ENABLED
+              ? await enqueueQuestionStudioProductionChapterRun(asyncInput, key)
+              : await enqueueQuestionStudioStagingRun(asyncInput, key);
+            // Retain confirmed keys until the entire language submission succeeds.
+            // Retrying after a later language fails reuses the already saved runs.
+            setQueuedLanguageRuns((current) => [...current, { id: receipt.id, publicCode: receipt.publicCode, language }]);
+            setUrlSearchParams(withStagingResumeRunId(urlSearchParams, receipt.id), { replace: true });
+            setStagingAsyncRun({
+              id: receipt.id, publicCode: receipt.publicCode, status: receipt.status,
+              attemptNumber: 0, requestedCount: input.count, generatedCount: 0,
+              startedAt: null, completedAt: null, createdAt: null, updatedAt: null,
+              error: null,
+              queueState: 'dispatchRequested' in receipt && receipt.dispatchRequested
+                ? 'queued_for_processing' : 'awaiting_dispatch',
+              queueMessage: 'dispatchRequested' in receipt && receipt.dispatchRequested
+                ? 'Dispatched and waiting for a worker.' : 'Queued and waiting for the dispatcher.',
+              retryAfterSeconds: receipt.retryAfterSeconds,
+            });
+            setStagingAsyncPollError(null);
+            setReviewSubjectFilter(packageSubject(activePackage));
+            setReviewChapterFilter(packageChapter(activePackage));
+            setReviewPackageFilter(activePackage.packageId);
+            setReviewPageNumber(1);
+            showToast.info(CHAPTER_ASYNC_ENABLED ? 'Review batch queued' : 'Staging run queued',
+              CHAPTER_ASYNC_ENABLED
+                ? ('dispatchRequested' in receipt && receipt.dispatchRequested
+                  ? `${receipt.publicCode} is queued and dispatch has been requested; questions will appear here for review.`
+                  : `${receipt.publicCode} is saved. Dispatch was not confirmed; retry the saved run from its progress panel.`)
+                : `${receipt.publicCode} is queued for automated staging dispatch; the scheduler checks every five minutes.`);
+          }
+          stagingAsyncRetry.current.clear();
         } finally {
           setStagingAsyncSubmitting(false);
         }
@@ -726,35 +740,40 @@ export function QuestionStudioCockpitPage() {
       // Never replay uncertain failures; a timed-out request may already have
       // saved a review run. Each HTTP request retains the backend <=50 limit.
       const chunkMax = Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, cpIds.length || 1));
-      const requested = count;
+      const requested = count * languages.length;
       let completed = 0;
       let offset = 0;
       const savedRuns: string[] = [];
       setBulkBusy(true);
       setBulkProgress({ completed, requested, runs: [] });
       try {
-        while (completed < requested) {
-          const remaining = requested - completed;
-          const chunkSize = Math.min(chunkMax, remaining);
-          const chunkCps = cpIds.length > chunkSize
-            ? Array.from({ length: chunkSize }, (_, index) => cpIds[(offset + index) % cpIds.length])
-            : cpIds;
-          const chunkSeed = input.seed && requested > chunkMax
-            ? `${input.seed}:batch:${savedRuns.length + 1}`
-            : input.seed;
-          const result = await generate({
-            ...input,
-            count: chunkSize,
-            cpIds: chunkCps.length ? chunkCps : undefined,
-            seed: chunkSeed,
-          });
-          savedRuns.push(result.publicCode);
-          completed += result.itemCount;
-          offset += chunkSize;
-          setBulkProgress({ completed, requested, runs: [...savedRuns] });
-          setExpandedRuns((current) => new Set(current).add(result.id));
-          if (result.itemCount !== chunkSize) {
-            throw new Error(`Run ${result.publicCode} returned ${result.itemCount} instead of ${chunkSize} items. Remaining batches were not submitted.`);
+        for (const language of languages) {
+          let languageCompleted = 0;
+          while (languageCompleted < count) {
+            const remaining = count - languageCompleted;
+            const chunkSize = Math.min(chunkMax, remaining);
+            const chunkCps = cpIds.length > chunkSize
+              ? Array.from({ length: chunkSize }, (_, index) => cpIds[(offset + index) % cpIds.length])
+              : cpIds;
+            const chunkSeed = input.seed && requested > chunkMax
+              ? `${input.seed}:batch:${savedRuns.length + 1}`
+              : input.seed;
+            const result = await generate({
+              ...input,
+              language,
+              count: chunkSize,
+              cpIds: chunkCps.length ? chunkCps : undefined,
+              seed: chunkSeed,
+            });
+            savedRuns.push(result.publicCode);
+            completed += result.itemCount;
+            languageCompleted += result.itemCount;
+            offset += chunkSize;
+            setBulkProgress({ completed, requested, runs: [...savedRuns] });
+            setExpandedRuns((current) => new Set(current).add(result.id));
+            if (result.itemCount !== chunkSize) {
+              throw new Error(`Run ${result.publicCode} returned ${result.itemCount} instead of ${chunkSize} items. Remaining batches were not submitted.`);
+            }
           }
         }
       } catch (caught) {
@@ -798,6 +817,7 @@ export function QuestionStudioCockpitPage() {
   };
 
   const applyStatus = async (status: GenerationItemStatus, explicitIds?: string[]) => {
+    if (updating || revisingItemId || loadingReviewPage) return;
     const ids = explicitIds ?? [...selectedIds];
     if (ids.length === 0) {
       showToast.info('No items selected', 'Select one or more generated questions first.');
@@ -847,6 +867,12 @@ export function QuestionStudioCockpitPage() {
         `${result.updatedCount} item(s) moved to ${formatStatus(status)}.${outcomeText ? ` ${outcomeText}` : ''}`,
       );
     } catch (caught) {
+      if (caught && typeof caught === 'object' && 'result' in caught) {
+        const partial = caught.result as { items?: Array<{ id: string }> };
+        const succeeded = new Set(partial.items?.map((item) => item.id) ?? []);
+        setSelectedIds((current) => new Set([...current].filter((id) => !succeeded.has(id))));
+        void refreshReviewPage();
+      }
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
   };
@@ -1172,11 +1198,13 @@ export function QuestionStudioCockpitPage() {
                 <p className="mt-1 text-xs font-medium">Engine managed / not classified</p>
               </div>
             )}
-            <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Question count"><Input type="number" min={1} max={ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label="Languages"><div className="flex min-h-10 flex-wrap items-center gap-3 rounded-md border px-3 py-2">{supportedLanguages.map((entry) => <label key={entry} className="flex items-center gap-2 text-xs"><Checkbox checked={languages.includes(entry)} disabled={generating || bulkBusy || stagingAsyncSubmitting || (languages.length === 1 && languages.includes(entry))} onCheckedChange={(checked) => setLanguages((current) => checked === true ? [...current, entry] : current.filter((value) => value !== entry))} />{LANGUAGE_LABELS[entry] ?? entry}</label>)}</div></Field>
+            <Field label="Questions per language"><Input type="number" min={1} max={ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
+          <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>
+          {queuedLanguageRuns.length > 0 && <div role="status" className="flex flex-wrap gap-2 text-xs">{queuedLanguageRuns.map((run) => <Button key={run.id} size="sm" variant="outline" onClick={() => setUrlSearchParams(withStagingResumeRunId(urlSearchParams, run.id), { replace: true })}>{LANGUAGE_LABELS[run.language] ?? run.language}: {run.publicCode}</Button>)}</div>}
           {!ASYNC_ENABLED || !stagingAsyncSelected ? <p className="text-xs text-muted-foreground">
-            Up to {SYNC_BULK_LIMIT} questions per submission. Requests are split into review runs of at most {Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, selectedCpIds.size || 1))} questions. Keep this tab open until completion. After a failure, check saved runs before requesting more. No automatic publication.
+            Up to {SYNC_BULK_LIMIT} questions per language. Requests are split into review runs of at most {Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, selectedCpIds.size || 1))} questions. Keep this tab open until completion. After a failure, check saved runs before requesting more. No automatic publication.
           </p> : null}
           {bulkProgress && <div role="status" aria-live="polite" className="rounded-md border bg-muted/20 px-3 py-2 text-xs">
             Generated {bulkProgress.completed} of {bulkProgress.requested} requested questions in {bulkProgress.runs.length} confirmed review run(s).
@@ -1240,7 +1268,7 @@ export function QuestionStudioCockpitPage() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="flex items-center gap-3 border-y bg-muted/20 px-4 py-2.5 text-xs text-muted-foreground"><Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(checked === true)} aria-label="Select all visible generated items" /><span>{visibleItemIds.length} visible item(s) across {filteredRuns.length} run(s)</span>{updating && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}</div>
-          {loadingReviewPage ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { await reviseItem(input); await refreshReviewPage(); setEditingItemId(null); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { await refreshReviewPage(); setEditingItemId(null); showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
+          {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); void refreshReviewPage(); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
         </CardContent>
         <div className="flex flex-col gap-3 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -1293,7 +1321,7 @@ function RunSection({ run, items, expanded, selectedIds, qualityByItem, duplicat
   const blocked = run.items.filter((item) => (qualityByItem.get(item.id)?.blockerCount ?? 0) > 0).length;
   const editorialState = runReviewState(run);
   const summary = run.reviewSummary;
-  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" aria-label={`${expanded ? "Collapse" : "Expand"} run ${run.publicCode}`} aria-expanded={expanded} onClick={onToggle} className="rounded-md p-1 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><StatusBadge tone={editorialState.tone}>{editorialState.label}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} item(s) in view · {summary.total} total</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked in view</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={summary.unreviewed} /><RunCount label="Fix" value={summary.needsFix} /><RunCount label="Approved" value={summary.approved} /><RunCount label="Rejected" value={summary.rejected} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
+  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" aria-label={`${expanded ? "Collapse" : "Expand"} run ${run.publicCode}`} aria-expanded={expanded} onClick={onToggle} className="rounded-md p-1 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><StatusBadge tone={editorialState.tone}>{editorialState.label}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} item(s) in view · {summary.total} total</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked in view</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{LANGUAGE_LABELS[runSnapshotText(run, 'language')] ?? runSnapshotText(run, 'language')} · {runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={summary.unreviewed} /><RunCount label="Fix" value={summary.needsFix} /><RunCount label="Approved" value={summary.approved} /><RunCount label="Rejected" value={summary.rejected} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
 }
 
 function ReviewItem({ item, quality, duplicate, selected, expanded, editing, revising, canReview, onSelected, onExpanded, onEdit, onDecision, onRevise }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch; selected: boolean; expanded: boolean; editing: boolean; revising: boolean; canReview: boolean; onSelected: (checked: boolean) => void; onExpanded: () => void; onEdit: () => void; onDecision: (status: GenerationItemStatus) => void; onRevise: (input: { itemId: string; expectedVersionNumber: number; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
@@ -1313,6 +1341,7 @@ function ItemInspection({ item, quality, duplicate }: { item: QuestionStudioItem
 
 function RevisionEditor({ item, saving, onCancel, onSave }: { item: QuestionStudioItem; saving: boolean; onCancel: () => void; onSave: (input: { itemId: string; expectedVersionNumber: number; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
   const visualOptions = itemOptionSvgs(item.payload);
+  const [expectedVersionNumber] = useState(item.currentVersionNumber);
   const [stem, setStem] = useState(() => itemStem(item.payload));
   const [explanation, setExplanation] = useState(() => itemExplanation(item.payload));
   const [options, setOptions] = useState(() => { const current = itemOptionValues(item.payload); return current.length >= 2 ? current : ['', '', '', '']; });
@@ -1320,9 +1349,10 @@ function RevisionEditor({ item, saving, onCancel, onSave }: { item: QuestionStud
   const [changeReason, setChangeReason] = useState('Editorial correction during generated-question review');
   const draftQuality = analyzeItemQuality({ ...(item.payload ?? {}), stem, text: stem, explanation, options, correctIndex });
   const updateOption = (index: number, value: string) => setOptions((current) => current.map((option, optionIndex) => optionIndex === index ? value : option));
-  return <div className="ml-8 mt-4 rounded-xl border border-primary/20 bg-primary/[0.03] p-4 lg:ml-16"><div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Create immutable revision</p><p className="mt-1 text-xs text-muted-foreground">Saving creates version {item.currentVersionNumber + 1}; the previous payload remains unchanged.</p></div><Button size="icon" variant="ghost" onClick={onCancel}><X className="h-4 w-4" /></Button></div><div className="mt-4 grid gap-4 lg:grid-cols-2"><Field label="Question stem"><Textarea value={stem} onChange={(event) => setStem(event.target.value)} className="min-h-32" /></Field><Field label="Question-specific explanation"><Textarea value={explanation} onChange={(event) => setExplanation(event.target.value)} className="min-h-32" /></Field></div>{visualOptions.length > 0 ? <div className="mt-4"><p className="mb-2 text-xs font-semibold">Correct visual option</p><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{visualOptions.map((svg, index) => <button type="button" key={index} onClick={() => setCorrectIndex(index)} className={cn('rounded-lg text-left', correctIndex === index ? 'ring-2 ring-success/60' : 'ring-1 ring-border')}><SpatialSvgFigure svg={svg} label={`Option ${String.fromCharCode(65 + index)}`} /></button>)}</div><p className="mt-2 text-[11px] text-muted-foreground">Spatial figures remain immutable in this editor; regenerate the item if the geometry itself needs correction.</p></div> : <div className="mt-4 grid gap-3 md:grid-cols-2">{options.map((option, index) => <div key={index} className="flex items-center gap-2"><button type="button" onClick={() => setCorrectIndex(index)} className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-xs font-bold', correctIndex === index ? 'border-success bg-success/10 text-success' : 'bg-background text-muted-foreground')}>{String.fromCharCode(65 + index)}</button><Input value={option} onChange={(event) => updateOption(index, event.target.value)} placeholder={`Option ${String.fromCharCode(65 + index)}`} /></div>)}</div>}<div className="mt-4 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end"><Field label="Revision reason"><Input value={changeReason} onChange={(event) => setChangeReason(event.target.value)} /></Field><div className="flex flex-wrap gap-2"><Badge variant="outline" className={cn('h-9 px-3', qualityTone(draftQuality))}>{draftQuality.readyForApproval ? `Quality ${draftQuality.score}` : `${draftQuality.blockerCount} blocker(s)`}</Badge><Button variant="outline" onClick={onCancel}>Cancel</Button><Button disabled={saving || !draftQuality.readyForApproval || !changeReason.trim()} onClick={() => void onSave({ itemId: item.id, expectedVersionNumber: item.currentVersionNumber, stem, explanation, options, correctIndex, changeReason })}>{saving ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />} Save revision</Button></div></div>{draftQuality.issues.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{draftQuality.issues.map((issue) => <Badge key={`${issue.code}-${issue.field}`} variant="outline" className={issue.severity === 'blocker' ? 'border-destructive/30 text-destructive' : 'border-warning/30 text-warning'}>{issue.message}</Badge>)}</div>}</div>;
+  return <div className="ml-8 mt-4 rounded-xl border border-primary/20 bg-primary/[0.03] p-4 lg:ml-16"><div className="flex items-center justify-between gap-3"><div><p className="text-sm font-semibold">Create immutable revision</p><p className="mt-1 text-xs text-muted-foreground">Saving creates version {expectedVersionNumber + 1}; the previous payload remains unchanged.</p></div><Button size="icon" variant="ghost" disabled={saving} onClick={onCancel}><X className="h-4 w-4" /></Button></div><div className="mt-4 grid gap-4 lg:grid-cols-2"><Field label="Question stem"><Textarea value={stem} onChange={(event) => setStem(event.target.value)} className="min-h-32" /></Field><Field label="Question-specific explanation"><Textarea value={explanation} onChange={(event) => setExplanation(event.target.value)} className="min-h-32" /></Field></div>{visualOptions.length > 0 ? <div className="mt-4"><p className="mb-2 text-xs font-semibold">Correct visual option</p><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{visualOptions.map((svg, index) => <button type="button" key={index} onClick={() => setCorrectIndex(index)} className={cn('rounded-lg text-left', correctIndex === index ? 'ring-2 ring-success/60' : 'ring-1 ring-border')}><SpatialSvgFigure svg={svg} label={`Option ${String.fromCharCode(65 + index)}`} /></button>)}</div><p className="mt-2 text-[11px] text-muted-foreground">Spatial figures remain immutable in this editor; regenerate the item if the geometry itself needs correction.</p></div> : <div className="mt-4 grid gap-3 md:grid-cols-2">{options.map((option, index) => <div key={index} className="flex items-center gap-2"><button type="button" onClick={() => setCorrectIndex(index)} className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-xs font-bold', correctIndex === index ? 'border-success bg-success/10 text-success' : 'bg-background text-muted-foreground')}>{String.fromCharCode(65 + index)}</button><Input value={option} onChange={(event) => updateOption(index, event.target.value)} placeholder={`Option ${String.fromCharCode(65 + index)}`} /></div>)}</div>}<div className="mt-4 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end"><Field label="Revision reason"><Input value={changeReason} onChange={(event) => setChangeReason(event.target.value)} /></Field><div className="flex flex-wrap gap-2"><Badge variant="outline" className={cn('h-9 px-3', qualityTone(draftQuality))}>{draftQuality.readyForApproval ? `Quality ${draftQuality.score}` : `${draftQuality.blockerCount} blocker(s)`}</Badge><Button variant="outline" disabled={saving} onClick={onCancel}>Cancel</Button><Button disabled={saving || !draftQuality.readyForApproval || !changeReason.trim()} onClick={() => void onSave({ itemId: item.id, expectedVersionNumber, stem, explanation, options, correctIndex, changeReason })}>{saving ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />} Save revision</Button></div></div>{draftQuality.issues.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{draftQuality.issues.map((issue) => <Badge key={`${issue.code}-${issue.field}`} variant="outline" className={issue.severity === 'blocker' ? 'border-destructive/30 text-destructive' : 'border-warning/30 text-warning'}>{issue.message}</Badge>)}</div>}</div>;
 }
 
 function Field({ label, children, className }: { label: string; children: ReactNode; className?: string }) { return <div className={className}><Label className="mb-1.5 block text-xs">{label}</Label>{children}</div>; }
 function Metric({ label, value, icon, tone = 'neutral' }: { label: string; value: number | string; icon: ReactNode; tone?: 'neutral' | 'success' | 'warning' | 'info' }) { const toneClass = tone === 'success' ? 'text-success' : tone === 'warning' ? 'text-warning' : tone === 'info' ? 'text-info' : 'text-muted-foreground'; return <Card><CardContent className="p-4"><div className={cn('flex items-center gap-2 text-xs', toneClass)}>{icon}{label}</div><p className="mt-2 text-xl font-bold">{value}</p></CardContent></Card>; }
 function RunCount({ label, value }: { label: string; value: number }) { return <div className="rounded-md border bg-background px-2 py-1.5"><p className="font-bold text-foreground">{value}</p><p className="text-muted-foreground">{label}</p></div>; }
+
