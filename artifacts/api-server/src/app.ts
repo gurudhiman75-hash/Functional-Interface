@@ -212,6 +212,9 @@ app.get("/health", (_req, res) => {
 // shell calls this before rendering any workspace; keeping it here prevents a
 // Current Affairs visit from importing every legacy route and content registry.
 app.use("/api/admin/session", adminRequestObservability, adminSessionRouter);
+// Gated support ticket endpoints; kept out of the heavyweight legacy router.
+app.use("/api/support/tickets", lazyRouter(() => import("./routes/support-tickets")));
+app.use("/api/admin/support/tickets", adminRequestObservability, lazyRouter(() => import("./routes/admin-support-tickets")));
 
 // Production-activation mounts stay separate from the large legacy router so
 // only the validated Current Affairs operations and bounded editorial surfaces
