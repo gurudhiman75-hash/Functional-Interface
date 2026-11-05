@@ -60,6 +60,7 @@ import {
   reserveQuestionStudioBulkReview,
   getQuestionStudioBulkReviewProgress,
   launchQuestionStudioBulkReviewChild,
+  reconcileQuestionStudioBulkReviewChild,
 } from '@/features/question-studio/api';
 import { isProductionChapterPackage, productionChapterCpIds, PRODUCTION_CHAPTER_BATCH_LIMIT } from '@/features/question-studio/production-chapter';
 import {
@@ -1253,6 +1254,30 @@ export function QuestionStudioCockpitPage() {
                   <span>Batch {batch.batchIndex+1}: {batch.generatedCount}/{batch.count} · {batch.status}
                     {batch.runId && <span className="font-mono"> · {batch.runId}</span>}
                   </span>
+                  {(batch.status==='reserved' || batch.status==='needs_reconciliation') && canRun && (
+                    <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
+                      setBulkAsyncSubmitting(true);
+                      try {
+                        await reconcileQuestionStudioBulkReviewChild(bulkAsyncOperation.id,batch.batchIndex);
+                        setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
+                        showToast.info('Recovered saved run','No additional question run was created or dispatched.');
+                      } catch(error){
+                        showToast.error('Manual check required',error instanceof Error ? error.message : 'Existing run could not be confirmed.');
+                      } finally {setBulkAsyncSubmitting(false);}
+                    }}>Reconcile saved batch</Button>
+                  )}
+                  {batch.runId && batch.status==='queued' && canRun && (
+                    <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
+                      setBulkAsyncSubmitting(true);
+                      try{
+                        await retryQuestionStudioProductionChapterDispatch(batch.runId!);
+                        setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
+                        showToast.info('Saved run dispatch requested','No new generation run was created.');
+                      }catch(error){
+                        showToast.error('Dispatch uncertain',error instanceof Error ? error.message : 'Check the saved run.');
+                      }finally{setBulkAsyncSubmitting(false);}
+                    }}>Request saved dispatch</Button>
+                  )}
                   {batch.status==='planned' && canRun &&
                     bulkAsyncOperation.batches.slice(0,batch.batchIndex).every(x=>x.status==='review' || x.status==='completed') &&
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
