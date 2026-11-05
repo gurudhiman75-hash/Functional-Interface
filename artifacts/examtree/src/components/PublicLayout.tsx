@@ -164,18 +164,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
         <div className={`mx-auto flex w-full items-center gap-4 px-4 sm:px-6 ${isHome ? "h-14 max-w-7xl lg:px-8" : `h-16 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}`}>
           <div className={!isHome && showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-sidebar-border lg:px-5 lg:self-stretch" : "shrink-0"}>
             <Link href="/" className="et-interactive flex min-h-[45px] shrink-0 items-center gap-2 rounded-xl" aria-label="ExamTree home">
-              {isHome ? (
-                <svg className="home-brand-mark" width="35" height="35" viewBox="0 0 40 40" aria-hidden="true">
-                  <defs><linearGradient id="etLogoBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0a78ff"/><stop offset="1" stopColor="#0c2f79"/></linearGradient></defs>
-                  <path d="M4 12.5c5.3-.2 9.6 1.2 13.2 4.3V34C13.3 31.5 9 30.5 4 30.8V12.5Z" fill="#0d2d71"/>
-                  <path d="M36 12.5c-5.3-.2-9.6 1.2-13.2 4.3V34c3.9-2.5 8.2-3.5 13.2-3.2V12.5Z" fill="#0b4ca2"/>
-                  <path d="M20 14c-4-5.6-8.8-6.2-11.1-5 2.8 1.6 5 4.1 6.1 7.2 1.5-.9 3.2-1.7 5-2.2Z" fill="#0a72e8"/>
-                  <path d="M20 14c4-5.6 8.8-6.2 11.1-5-2.8 1.6-5 4.1-6.1 7.2-1.5-.9-3.2-1.7-5-2.2Z" fill="#1398ff"/>
-                  <path d="M20 12.5C18.8 7.8 20.2 4.6 22 3c1.8 2.1 2.7 5.3 1 9.4-1-.2-2-.2-3 .1Z" fill="#1379df"/>
-                </svg>
-              ) : (
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15">E</span>
-              )}
+              <img src="/examtree-mark.svg" width="36" height="36" alt="" aria-hidden="true" className={isHome ? "home-brand-mark h-9 w-9 shrink-0 object-contain" : "h-9 w-9 shrink-0 object-contain"} />
               <span className={`${isHome ? "home-brand-word" : "text-lg"} font-extrabold tracking-[-0.03em] text-foreground`}>{isHome ? "Examtree" : "EXAMTREE"}</span>
             </Link>
           </div>
