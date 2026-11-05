@@ -170,8 +170,12 @@ router.post("/bulk-async/:operationId/children/:index/launch",
       // while any chapter-review run or uncertain bulk reservation is active.
       await tx`SELECT pg_advisory_xact_lock(6218, 20261105)`;
       const busy=await tx`
-        SELECT 1 FROM content.generation_bulk_children
-        WHERE status IN ('reserved','needs_reconciliation','dispatch_requested','queued','running')
+        SELECT 1 FROM content.generation_bulk_children c
+        LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
+        WHERE (c.generation_run_id IS NULL AND
+                 c.status IN ('reserved','needs_reconciliation'))
+           OR (c.generation_run_id IS NOT NULL AND
+                 (r.id IS NULL OR r.status IN ('queued','running','validation')))
         LIMIT 1
       `;
       if(busy.length>0) return false;
