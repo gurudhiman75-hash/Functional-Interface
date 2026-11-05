@@ -84,3 +84,46 @@
 .auth-recovery-page .notebook-form [role=tablist]~div{margin-top:18px}
 .auth-signup.auth-keyboard-open .notebook-stage,.auth-recovery-page.auth-keyboard-open .notebook-stage{padding-top:0}
 }
+
+/* Approved simple login and signup; scope excludes account recovery. */
+.centered-login{background:#fff;color:#17212e}
+.centered-login .notebook-topbar{max-width:none;padding:24px clamp(20px,4.4vw,68px)}
+.centered-login .notebook-brand{font-size:28px;letter-spacing:-.035em;color:#102a50}
+.centered-login .notebook-topbar>button{color:#1674ed}
+.centered-login .notebook-stage{padding:64px 24px 28px}
+.centered-login .notebook-book{max-width:380px}
+.centered-login .notebook-form{padding:0;border:0;border-radius:0;background:#fff;box-shadow:none}
+.centered-login .notebook-form h1{margin:0;font-size:36px;line-height:1.2;font-weight:750;letter-spacing:-.035em;color:#17212e}
+.centered-login .notebook-form h1+p{margin-top:10px;font-size:15px;line-height:1.6;color:#667085}
+.centered-login .notebook-form [data-testid=btn-google-login]{margin-top:28px;height:46px;border:1px solid #cbd1da;border-radius:6px;font-size:14px;font-weight:500;color:#17212e}
+.centered-login .notebook-form [data-testid=btn-google-login]:hover{background:#f8fafc}
+.centered-login .notebook-form input{height:44px;border:1px solid #cbd1da;border-radius:6px;font-size:16px;color:#17212e;box-shadow:none}
+.centered-login .notebook-form input::placeholder{color:#98a2b3}
+.centered-login .notebook-form input:focus-visible{outline:2px solid #1674ed;outline-offset:2px;--tw-ring-color:transparent}
+.centered-login .notebook-form label{font-size:14px;font-weight:500;color:#17212e}
+.centered-login .notebook-form [data-testid=btn-submit]{height:46px;border-radius:6px;background:#1674ed;font-size:15px;font-weight:600;box-shadow:none}
+.centered-login .notebook-form [data-testid=btn-submit]:hover{background:#0960d0}
+.centered-login .notebook-form [data-testid=btn-submit]:disabled{opacity:.6}
+.centered-login .notebook-form [aria-hidden=true] .uppercase{text-transform:none;letter-spacing:0;font-size:13px;font-weight:400}
+.centered-login .auth-forgot{font-size:13px;color:#1674ed;font-weight:400}
+.centered-login .auth-inline-login,.centered-login [data-testid=tab-signup]{font-weight:500;color:#1674ed}
+.centered-login .auth-legal{margin:64px auto 0;font-size:12px;color:#667085}
+.centered-login .auth-legal a{color:inherit;text-decoration:none}
+.centered-login .auth-legal a:hover{text-decoration:underline}
+.centered-login button:focus-visible,.centered-login a:focus-visible{outline:2px solid #1674ed;outline-offset:3px}
+.centered-login.auth-signup .notebook-stage{padding-top:32px}
+.centered-login.auth-signup .auth-intro h1{font-size:34px}
+@media(max-width:600px){
+.centered-login .notebook-topbar{padding:14px 20px}
+.centered-login .notebook-brand{font-size:23px}
+.centered-login .notebook-stage{padding:46px 24px 24px}
+.centered-login .notebook-form{padding:0}
+.centered-login .notebook-form h1{font-size:32px}
+.centered-login .notebook-form h1+p{font-size:14px}
+.centered-login .notebook-form form{gap:16px}
+.centered-login.auth-signup .notebook-stage{padding-top:24px}
+.centered-login.auth-signup .auth-intro h1{font-size:29px}
+.centered-login .auth-legal{margin-top:36px}
+.centered-login.auth-keyboard-open .notebook-stage{padding-top:8px}
+.centered-login.auth-keyboard-open .notebook-form{padding:0}
+}
