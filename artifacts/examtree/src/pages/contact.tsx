@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { API_BASE_URL } from "@/lib/api";
 
 const SUPPORT_EMAIL = "support@examtree.in";
 
@@ -14,6 +15,29 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [category, setCategory] = useState("Mock test access");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<{type:"success"|"error";message:string}|null>(null);
+  const [fallback, setFallback] = useState(false);
+
+  const submitTicket = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (sending) return;
+    setSending(true); setResult(null); setFallback(false);
+    try {
+      const response = await fetch(`${API_BASE_URL}/support/tickets`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, category, message, website }),
+      });
+      const body = await response.json().catch(() => ({})) as {id?:string;error?:string};
+      if (!response.ok || !body.id) throw new Error(body.error || "Unable to submit your request.");
+      setResult({type:"success", message:`Your request was received. Ticket ID: ${body.id}`});
+      setMessage("");
+    } catch (error) {
+      setFallback(true);
+      setResult({type:"error",message:error instanceof Error?error.message:"Support request unavailable. Please email us."});
+    } finally { setSending(false); }
+  };
 
   const mailtoHref = useMemo(() => {
     const subject = `ExamTree support: ${category}`;
@@ -31,10 +55,10 @@ export default function Contact() {
     <PublicPage
       eyebrow="Contact & support"
       title="Tell us what you need help with."
-      description="Prepare a structured support email for account, payment, content, translation, or technical issues."
+      description="Submit a support request, or contact our team directly by email."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <form className="rounded-2xl border border-slate-200 bg-white p-5" onSubmit={(event) => event.preventDefault()}>
+        <form className="rounded-2xl border border-slate-200 bg-white p-5" onSubmit={submitTicket}>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <Label htmlFor="support-name">Name</Label>
@@ -59,15 +83,12 @@ export default function Contact() {
             <Label htmlFor="support-message">Message</Label>
             <Textarea id="support-message" className="mt-1 min-h-32 rounded-md bg-white" placeholder="Share test name, question ID, or issue details." value={message} onChange={(event) => setMessage(event.target.value)} />
           </div>
-          <p id="support-email-note" className="mt-4 text-sm leading-6 text-slate-600">
-            This opens your email app with these details filled in. Nothing is uploaded to ExamTree until you review and send the email.
-          </p>
-          <Button asChild className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950">
-            <a href={mailtoHref} data-testid="contact-email-handoff" aria-describedby="support-email-note">
-              <Send className="mr-2 h-4 w-4" />
-              Open email request
-            </a>
-          </Button>
+          <div aria-hidden="true" className="absolute -left-[10000px]"><Label htmlFor="support-website">Website</Label><Input id="support-website" tabIndex={-1} autoComplete="off" value={website} onChange={(event)=>setWebsite(event.target.value)}/></div>
+          <p id="support-email-note" className="mt-4 text-sm leading-6 text-slate-600">Your request is stored securely for our support team. Never include passwords, OTPs or payment PINs.</p>
+          <Button type="submit" disabled={sending || name.trim().length < 2 || !email.includes("@") || message.trim().length < 12} className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950"><Send className="mr-2 h-4 w-4" />{sending ? "Submitting…" : "Submit support request"}</Button>
+          {result && <p role={result.type==="error"?"alert":"status"} className={`mt-3 text-sm ${result.type==="success"?"text-green-700":"text-red-700"}`}>{result.message}</p>}
+          {fallback && <p className="mt-2 text-sm">If direct submission is unavailable, <a className="font-semibold underline" href={mailtoHref} data-testid="contact-email-handoff">open an email request</a> instead. Sending the email is required; no ticket was created.</p>}
+          {!fallback && <p className="mt-2 text-sm"><a className="underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>
         </form>
         <div className="space-y-4">
           <PublicCard title="Business information">
