@@ -88,7 +88,7 @@ export default function Contact() {
           <Button type="submit" disabled={sending || name.trim().length < 2 || !email.includes("@") || message.trim().length < 12} className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950"><Send className="mr-2 h-4 w-4" />{sending ? "Submitting…" : "Submit support request"}</Button>
           {result && <p role={result.type==="error"?"alert":"status"} className={`mt-3 text-sm ${result.type==="success"?"text-green-700":"text-red-700"}`}>{result.message}</p>}
           {fallback && <p className="mt-2 text-sm">If direct submission is unavailable, <a className="font-semibold underline" href={mailtoHref} data-testid="contact-email-handoff">open an email request</a> instead. Sending the email is required; no ticket was created.</p>}
-          {!fallback && <p className="mt-2 text-sm"><a className="underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>
+          {!fallback && <p className="mt-2 text-sm"><a className="underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>}
         </form>
         <div className="space-y-4">
           <PublicCard title="Business information">
