@@ -29,8 +29,8 @@ router.post("/", async (req,res) => {
   try {
     const result = await sqlClient.begin(async tx => {
       // Serialize per-sender inserts so concurrent requests cannot bypass the hourly limit.
-      await tx`SELECT pg_advisory_xact_lock(hashtext(${senderHash}))`;
-      const rate = await tx`SELECT count(*)::integer AS count FROM platform.support_tickets WHERE (sender_hash=${senderHash} OR email=${email}) AND created_at > now()-interval '1 hour'`;
+      await tx`SELECT pg_advisory_xact_lock(hashtext(${email}))`;
+      const rate = await tx`SELECT count(*)::integer AS count FROM platform.support_tickets WHERE email=${email} AND created_at > now()-interval '1 hour'`;
       if (Number(rate[0]?.count||0)>=5) return null;
       const id=randomUUID();
       await tx`INSERT INTO platform.support_tickets (id,name,email,category,message,status,sender_hash,created_at,updated_at) VALUES (${id}::uuid,${name},${email},${category},${message},'open',${senderHash},now(),now())`;
