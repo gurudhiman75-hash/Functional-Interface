@@ -1,5 +1,6 @@
-// Inert persistence foundation. NOT mounted on any route or dispatcher.
-// Database migration is intentionally unapplied. Do not invoke before release review.
+// Durable parent reservation is mounted only through a separately gated,
+// admin/RBAC-protected bulk route. It never dispatches or enqueues a child.
+// Migration remains unapplied outside the isolated staging validation branch.
 import { randomUUID, createHash } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import { assertEnqueueIdentity, canonicalEnqueueRequest } from "./async-enqueue-contract";
