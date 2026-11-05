@@ -56,8 +56,8 @@ export async function reserveAsyncBulkReviewOperation(input: {
   }) as readonly BulkPlanChild[];
   const hash = canonicalDigest(normalized);
   const actor = input.identity.actorFirebaseUid;
-  const key = "bulk:" + input.identity.idempotencyKey;
-  const requestedBy = input.identity.identityUserId;
+  const key = "bulk:" + canonicalDigest(["qs-bulk-parent-v1", input.identity.idempotencyKey]);
+  const requestedBy = input.identity.identityUserId!;
   try {
     await sqlClient.begin(async tx => {
       const inserted = await tx`
