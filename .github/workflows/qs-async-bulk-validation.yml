@@ -1,0 +1,40 @@
+name: Question Studio Bulk Async Validation
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/question-studio/async-bulk-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts'
+      - 'artifacts/api-server/migrations/20261105_question_studio_async_bulk_operations.sql'
+      - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
+      - 'tests/qs-async-bulk-*.test.mjs'
+      - '.github/workflows/qs-async-bulk-validation.yml'
+permissions:
+  contents: read
+concurrency:
+  group: qs-async-bulk-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Contract and safety tests
+        run: |
+          node --test tests/qs-async-bulk-plan.test.mjs tests/qs-async-bulk-persistence-contract.test.mjs tests/qs-prod-chapter-review-batches.test.mjs
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Admin application typecheck
+        run: pnpm --dir artifacts/admin-app typecheck
+      - name: API bundle build
+        run: pnpm --dir artifacts/api-server build
