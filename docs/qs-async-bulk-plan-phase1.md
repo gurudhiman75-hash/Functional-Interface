@@ -52,3 +52,13 @@ Before merging or enabling:
 5. Obtain explicit deployment approval and enable flags only after the above checks. Bulk release remains off otherwise.
 
 The current UX intentionally requires **one explicit administrator launch per child run**; it is not an autonomous 250-question job scheduler. Adding fully automatic follow-on child dispatch would require its own bounded, durable orchestration and production authorization.
+
+## Isolated Neon validation result (2026-11-05)
+
+- Project: ExamTree; **isolated child branch** `examtree-qs-bulk-review-validation-20261105`, copied from the existing `examtree-qs-async-queue-validation-20261013` staging branch. The main branch was not modified.
+- Applied `20261105_question_studio_async_bulk_operations.sql` successfully to the isolated branch through a single transaction.
+- Inspected PostgreSQL's actual constraints: parent actor/idempotency unique index, 1–250 total bound, 1–13 child bound, child 1–20 bound, unique child run link, JSON CP selection bound, and null-run `reserved` state are installed.
+- Ran a rollback-only PL/pgSQL probe that created a synthetic parent plus two child rows and transitioned the first child to `reserved`; all checks passed. A read afterward confirmed **zero** retained synthetic parent/child rows.
+- No application Cloud Run, Cloud Tasks, IAM, production database or student-question data was changed.
+
+This evidence covers SQL schema and local planner logic only, **not** authenticated request handling, live worker dispatch or frontend compilation.
