@@ -31,6 +31,18 @@ describe('review queue refresh', () => {
     expect(result.current.loadingReviewPage).toBe(false);
   });
 
+  it('uses the latest filters even when refresh was captured before a save', async () => {
+    vi.mocked(getQuestionStudioReviewPage).mockImplementation(async (query) => emptyPage(query.search ?? ''));
+    const { result, rerender } = renderHook(({ search }) => useQuestionStudioReviewPage({ search }), { initialProps: { search: 'old' } });
+    await waitFor(() => expect(result.current.loadingReviewPage).toBe(false));
+    const refreshAtSaveStart = result.current.refreshReviewPage;
+    rerender({ search: 'new' });
+    await waitFor(() => expect(result.current.reviewPage.filters.search).toBe('new'));
+    await act(async () => { await refreshAtSaveStart(); });
+    expect(getQuestionStudioReviewPage).toHaveBeenLastCalledWith(expect.objectContaining({ search: 'new' }));
+    expect(result.current.reviewPage.filters.search).toBe('new');
+  });
+
   it('keeps the current page available while a refresh is pending', async () => {
     const next = deferred<ReturnType<typeof emptyPage>>();
     vi.mocked(getQuestionStudioReviewPage).mockResolvedValueOnce(emptyPage('saved')).mockReturnValueOnce(next.promise);
