@@ -2,10 +2,12 @@
 // independently guarded chapter-review run, never an automatic publication.
 // Reservation is not dispatch; every child requires an admin action.
 import { Router } from "express";
+import { createHash } from "node:crypto";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { reserveAsyncBulkReviewOperation } from "../question-studio/async-bulk-reservations";
 import { recordQuestionStudioEnqueueIntent } from "../question-studio/async-enqueue-foundation";
+import { digestCanonicalEnqueueRequest } from "../question-studio/async-enqueue-contract";
 import { validateAsyncTaskComputeInput } from "../question-studio/async-task-package-capabilities";
 import type { UniversalStudioComputeInput } from "../question-studio/universal-executor";
 import { assertChapterDispatchLaunchApproved, launchProductionChapterDispatch } from "../question-studio/prod-chapter-dispatch-launch";
@@ -187,13 +189,14 @@ router.post("/bulk-async/:operationId/children/:index/launch",
     if(!claim){res.status(409).json({code:"QS_BULK_CHILD_ALREADY_CLAIMED"});return;}
     let receipt;
     try{
+      const keyRow=await sqlClient`
+        SELECT idempotency_key FROM content.generation_bulk_children
+        WHERE operation_id=${id}::uuid AND batch_index=${index}
+      `;
+      if(typeof keyRow[0]?.idempotency_key !== "string") throw new Error("BULK_CHILD_KEY_MISSING");
       receipt=await recordQuestionStudioEnqueueIntent({identity:{
         actorFirebaseUid:req.user.id,identityUserId:req.adminSession.user.id,
-        idempotencyKey:"chapterbulk:"+String((await sqlClient`
-          SELECT substring(idempotency_key from 13) AS key
-          FROM content.generation_bulk_children
-          WHERE operation_id=${id}::uuid AND batch_index=${index}
-        `)[0]?.key ?? ""),
+        idempotencyKey:String(keyRow[0].idempotency_key),
       },compute},"chapter_review");
     }catch{
       await sqlClient`UPDATE content.generation_bulk_children
@@ -218,4 +221,80 @@ router.post("/bulk-async/:operationId/children/:index/launch",
     res.status(503).json({code:"QS_BULK_CHILD_LAUNCH_UNAVAILABLE"});
   }
 });
+
+/** Read-only reconciliation against the original durable enqueue reservation.
+ * Never create a new generation run, Cloud Task, or dispatcher execution. */
+router.post("/bulk-async/:operationId/children/:index/reconcile",
+  requireAdminPermission("content.generation.run"),async(req,res)=>{
+  res.setHeader("Cache-Control","no-store");
+  if(process.env.EXAMTREE_QS_BULK_ASYNC_REVIEW_ENABLED!=="true"){
+    res.status(503).json({code:"QS_BULK_ASYNC_DISABLED"});return;
+  }
+  if(!req.user?.id || !req.adminSession?.user?.id){
+    res.status(403).json({code:"QS_BULK_ADMIN_REQUIRED"});return;
+  }
+  const id=String(req.params.operationId??"");
+  const index=Number(req.params.index);
+  if(!UUID.test(id)|| !Number.isSafeInteger(index)||index<0||index>12){
+    res.status(400).json({code:"QS_BULK_CHILD_INVALID"});return;
+  }
+  try {
+    const parent=await parentForActor(id,req.user.id,req.adminSession.user.id);
+    if(!parent){res.status(404).json({code:"QS_BULK_NOT_FOUND"});return;}
+    const children=await sqlClient`
+      SELECT batch_index,requested_count,selected_cp_ids,idempotency_key,
+             generation_run_id,status
+      FROM content.generation_bulk_children
+      WHERE operation_id=${id}::uuid AND batch_index=${index} LIMIT 1
+    `;
+    const child=children[0];
+    if(!child){res.status(404).json({code:"QS_BULK_CHILD_NOT_FOUND"});return;}
+    if(child.generation_run_id){
+      res.json({runId:String(child.generation_run_id),reconciled:true,alreadyLinked:true});return;
+    }
+    if(!["reserved","needs_reconciliation"].includes(String(child.status))){
+      res.status(409).json({code:"QS_BULK_CHILD_NOT_RESERVED"});return;
+    }
+    const compute=childCompute(parent.canonical_request as UniversalStudioComputeInput,
+      Number(child.requested_count),child.selected_cp_ids as string[]);
+    const requestHash=digestCanonicalEnqueueRequest(compute);
+    const reservationKey="chapter:"+createHash("sha256")
+      .update(String(child.idempotency_key)).digest("hex");
+    const matches=await sqlClient`
+      SELECT r.id,r.request_snapshot
+      FROM content.generation_enqueue_idempotency e
+      JOIN content.generation_runs r ON r.id=e.generation_run_id
+      WHERE e.actor_firebase_uid=${req.user.id}
+        AND e.idempotency_key=${reservationKey}
+        AND e.request_sha256=${requestHash}
+        AND r.requested_by=${req.adminSession.user.id}::uuid
+        AND r.request_snapshot->>'requestedByFirebaseUid'=${req.user.id}
+        AND EXISTS (
+          SELECT 1 FROM platform.outbox_events o
+          WHERE o.aggregate_id=r.id AND o.aggregate_type='generation_run'
+            AND o.event_type='question_studio.generation_run.chapter_review_queued.v1'
+        )
+      LIMIT 1
+    `;
+    if(matches.length!==1){
+      res.status(409).json({code:"QS_BULK_CHILD_NEEDS_OPERATOR_REVIEW"});return;
+    }
+    const runId=String(matches[0].id);
+    const linked=await sqlClient`
+      UPDATE content.generation_bulk_children
+      SET generation_run_id=${runId}::uuid,status='queued',updated_at=now()
+      WHERE operation_id=${id}::uuid AND batch_index=${index}
+        AND generation_run_id IS NULL AND status IN ('reserved','needs_reconciliation')
+      RETURNING generation_run_id
+    `;
+    if(linked.length!==1){
+      res.status(409).json({code:"QS_BULK_CHILD_LINK_CONFLICT"});return;
+    }
+    res.json({runId,reconciled:true,alreadyLinked:false,
+      message:"Existing generation run recovered; no dispatch requested."});
+  }catch{
+    res.status(503).json({code:"QS_BULK_CHILD_RECONCILIATION_UNAVAILABLE"});
+  }
+});
+
 export default router;
