@@ -2,17 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import "@/styles/login-notebook.css";
 import { useLocation, useSearch } from "wouter";
 import {
-  ArrowRight,
-  BarChart3,
-  CalendarDays,
-  FileText,
   CheckCircle2,
   Eye,
   EyeOff,
-  Lock,
-  Mail,
   ShieldCheck,
-  UserRound,
 } from "lucide-react";
 import { getPreparationPreferences } from "@/lib/preparation";
 import { getFirebaseAuth } from "@/lib/firebase";
@@ -315,38 +308,24 @@ export default function Login() {
   const authTitle = isAdminMode
     ? "Admin sign in"
     : tab === "login"
-      ? "Welcome back"
-      : "Create your account";
+      ? "Log in"
+      : "Create an account";
   const authDescription = isAdminMode
     ? "Use an administrator account already authorized by the ExamTree backend."
     : tab === "login"
-      ? "Sign in and pick up where you left off."
-      : "Start your preparation with ExamTree.";
+      ? "Welcome back to Examtree"
+      : "Start your preparation with Examtree";
 
   return (
     <div ref={loginRoot} className={`notebook-login centered-login ${tab === "signup" ? "auth-signup" : ""} ${keyboardOpen ? "auth-keyboard-open" : ""}`}>
       <header className="notebook-topbar">
-        <a href="/" className="notebook-brand"><span>EXAM<span>TREE</span></span></a>
-        <button type="button" onClick={() => setLocation("/")} data-testid="btn-back">Back to home <ArrowRight aria-hidden="true" /></button>
+        <a href="/" className="notebook-brand">Examtree</a>
+        <button type="button" onClick={() => setLocation("/")} data-testid="btn-back">Back to home</button>
       </header>
       <main className="notebook-stage" id="main-content">
         <div className="notebook-book">
-          <div className="auth-book-art" aria-hidden="true">
-            <svg viewBox="0 0 360 190" fill="none">
-              <defs><linearGradient id="page" x1="80" y1="80" x2="240" y2="180" gradientUnits="userSpaceOnUse"><stop stopColor="white"/><stop offset="1" stopColor="#e9e6fa"/></linearGradient><linearGradient id="ribbon" x1="204" y1="55" x2="227" y2="130" gradientUnits="userSpaceOnUse"><stop stopColor="#b6aaff"/><stop offset="1" stopColor="#7164d5"/></linearGradient></defs>
-              <g transform="rotate(-16 80 60)"><rect x="53" y="8" width="66" height="101" rx="3" fill="#f0edff"/><path d="M66 26h38M66 39h25M66 53h35M66 67h30M66 81h25" stroke="#b4aafa" strokeWidth="3"/></g>
-              <g transform="rotate(22 280 70)"><rect x="262" y="20" width="62" height="93" rx="3" fill="#f2efff"/><path d="M274 36h36M285 51h24M285 66h24M285 81h24" stroke="#c0b7f8" strokeWidth="3"/><circle cx="275" cy="51" r="3" stroke="#8e80ee"/><circle cx="275" cy="66" r="3" stroke="#8e80ee"/><circle cx="275" cy="81" r="3" stroke="#8e80ee"/></g>
-              <path d="m83 123 84 18 28-8 97 12-14 40-98-12-12 3-98-22Z" fill="#514f9a"/>
-              <path d="M81 113c37-34 79-19 98 4 32-28 72-21 110-2l-13 56c-40-16-69-18-97-4-29-24-64-19-105-27Z" fill="#d9d5ee" stroke="#9990c8" strokeWidth="2"/>
-              <path d="M86 99c40-28 76-14 93 17 29-30 70-23 104-13l-12 58c-33-12-63-14-92 6-26-26-62-28-101-33Z" fill="url(#page)" stroke="#e1ddef" strokeWidth="2"/>
-              <path d="M179 116v48M99 109c29-13 49-4 65 11M96 120c26-9 48 0 63 9M94 132c25-4 46 3 61 11M202 115c20-10 38-9 62-1M198 127c21-8 39-7 64 1M195 141c20-8 39-5 63 2" stroke="#ddd7f6" strokeWidth="3"/>
-              <path d="M223 98c-10-4-19-3-23 1l-10 48 13-6 9 9 12-51Z" fill="url(#ribbon)" stroke="#8a7bdf"/>
-              <path d="m46 91-13-8m24-2-8-17" stroke="#beb3fa" strokeWidth="4" strokeLinecap="round"/>
-            </svg>
-          </div>
         <section className="notebook-form" data-testid="auth-card">
           <div className="auth-intro">
-            <span className="auth-eyebrow">Your preparation, all in one place</span>
             <h1 className="mt-5 text-2xl font-black tracking-[-0.035em] text-slate-950 sm:text-[30px]">{authTitle}</h1>
             <p className="mt-2 text-sm leading-6 text-slate-500">{authDescription}</p>
             {safeNextPath && !isAdminMode && (
@@ -373,7 +352,7 @@ export default function Login() {
 
               <div className="my-5 flex items-center gap-3" aria-hidden="true">
                 <span className="h-px flex-1 bg-[#eceaf2]" />
-                <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">or use email</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">or</span>
                 <span className="h-px flex-1 bg-[#eceaf2]" />
               </div>
             </>
@@ -384,7 +363,6 @@ export default function Login() {
               <div className="space-y-1.5">
                 <Label htmlFor="name" className="text-xs font-bold text-slate-700">Full name</Label>
                 <div className="relative">
-                  <UserRound className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                   <Input
                     id="name"
                     type="text"
@@ -392,7 +370,7 @@ export default function Login() {
                     enterKeyHint="next"
                     onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); document.getElementById("email")?.focus(); } }}
                     placeholder="Enter your full name"
-                    className="h-12 rounded-xl border-[#dedbe8] bg-white pl-10 text-sm focus-visible:ring-[#6657e8]"
+                    className="h-12 rounded-xl border-[#dedbe8] bg-white px-3 text-sm focus-visible:ring-[#6657e8]"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required={tab === "signup"}
@@ -405,7 +383,6 @@ export default function Login() {
             <div className="space-y-1.5">
               <Label htmlFor="email" className="text-xs font-bold text-slate-700">Email address</Label>
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <Input
                   id="email"
                   type="email"
@@ -413,8 +390,8 @@ export default function Login() {
                   inputMode="email"
                   enterKeyHint="next"
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); document.getElementById("password")?.focus(); } }}
-                  placeholder={isAdminMode ? "Enter your admin email" : "you@example.com"}
-                  className="h-12 rounded-xl border-[#dedbe8] bg-white pl-10 text-sm focus-visible:ring-[#6657e8]"
+                  placeholder={isAdminMode ? "Enter your admin email" : "Enter your email"}
+                  className="h-12 rounded-xl border-[#dedbe8] bg-white px-3 text-sm focus-visible:ring-[#6657e8]"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -429,7 +406,6 @@ export default function Login() {
 
               </div>
               <div className="relative">
-                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <Input
                   id="password"
                   type={showPass ? "text" : "password"}
@@ -437,7 +413,7 @@ export default function Login() {
                   enterKeyHint="done"
                   minLength={tab === "signup" ? 6 : undefined}
                   placeholder={isAdminMode ? "Enter admin password" : tab === "signup" ? "Create a password" : "Enter your password"}
-                  className="h-12 rounded-xl border-[#dedbe8] bg-white pl-10 pr-12 text-sm focus-visible:ring-[#6657e8]"
+                  className="h-12 rounded-xl border-[#dedbe8] bg-white px-3 pr-12 text-sm focus-visible:ring-[#6657e8]"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyUp={(e) => setCapsLockActive(e.getModifierState("CapsLock"))}
@@ -491,7 +467,7 @@ export default function Login() {
               disabled={loading}
               data-testid="btn-submit"
             >
-              {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Sign in →" : "Create account"}
+              {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Log in" : "Create account"}
             </Button>
           </form>
 
@@ -511,11 +487,11 @@ export default function Login() {
             <>
               {tab === "signup" ? (
                 <p className="mt-5 text-center text-[11px] leading-5 text-slate-400">
-                  Already have an account? <button type="button" data-testid="tab-login" onClick={() => setTab("login")} className="auth-inline-login">Sign in</button>
+                  Already have an account? <button type="button" data-testid="tab-login" onClick={() => setTab("login")} className="auth-inline-login">Log in</button>
                 </p>
               ) : (
                 <p className="mt-5 text-center text-xs text-slate-500">
-                  New to ExamTree? <button type="button" data-testid="tab-signup" onClick={() => setTab("signup")} className="min-h-11 rounded-lg px-2 font-bold text-[#6657e8] hover:bg-[#f5f2ff]">Create an account</button>
+                  Don’t have an account? <button type="button" data-testid="tab-signup" onClick={() => setTab("signup")} className="min-h-11 rounded-lg px-2 font-bold text-[#6657e8] hover:bg-[#f5f2ff]">Sign up</button>
                 </p>
               )}
             </>
@@ -531,9 +507,7 @@ export default function Login() {
 
         </section>
         </div>
-        <p className="auth-legal">By continuing, you agree to our <a href="/terms-and-conditions">Terms</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
-        <div className="auth-benefits"><span><FileText /> Practice mocks</span><span><BarChart3 /> Review results</span><span><CalendarDays /> Build consistency</span></div>
-        <a className="auth-recovery" href="/account-recovery">Can’t access your account?</a>
+        <p className="auth-legal"><a href="/terms-and-conditions">Terms</a><span aria-hidden="true"> · </span><a href="/privacy-policy">Privacy</a></p>
       </main>
     </div>
   );
