@@ -69,7 +69,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Attempt Evidence Exports', path: '/users/attempt-exports', icon: FileJson, status: 'live', permission: 'users.students.read', summary: 'Create audited privacy-scoped support and compliance packages from canonical attempt, integrity, investigation and audit evidence.' },
     { label: 'Account Recovery', path: '/users/recovery', icon: LifeBuoy, status: 'live', permission: 'users.students.read', summary: 'Review self-service account recovery requests and begin verified identity recovery without creating duplicate students.' },
     { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
-    { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
+    { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'in_progress', permission: 'users.students.read', summary: 'Review and update student support tickets in the gated canonical support queue.', milestone: 'Deployment, notifications, assignment and history are pending.' },
   ] },
   { id: 'analytics', label: 'Analytics', items: [
     { label: 'Platform Overview', path: '/analytics/overview', icon: LayoutDashboard, status: 'live', summary: 'Read-only learning and commerce overview from existing canonical APIs; traffic remains visibly unavailable until a verified web analytics provider is connected.' },
