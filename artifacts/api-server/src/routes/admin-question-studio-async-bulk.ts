@@ -166,6 +166,26 @@ router.post("/bulk-async/:operationId/children/:index/launch",
     // Atomic claim. A concurrent request cannot enqueue the same child.
     // Claim is deliberately not reset after an uncertain network outcome.
     const claim=await sqlClient.begin(async tx=>{
+      // Serialize admission across bulk parents; refuse an additional launch
+      // while any chapter-review run or uncertain bulk reservation is active.
+      await tx`SELECT pg_advisory_xact_lock(6218, 20261105)`;
+      const busy=await tx`
+        SELECT 1 FROM content.generation_bulk_children
+        WHERE status IN ('reserved','needs_reconciliation','dispatch_requested','queued','running')
+        LIMIT 1
+      `;
+      if(busy.length>0) return false;
+      const activeChapter=await tx`
+        SELECT 1 FROM content.generation_runs r
+        WHERE r.status IN ('queued','running','validation')
+          AND EXISTS (
+            SELECT 1 FROM platform.outbox_events o
+            WHERE o.aggregate_id=r.id AND o.aggregate_type='generation_run'
+              AND o.event_type='question_studio.generation_run.chapter_review_queued.v1'
+          )
+        LIMIT 1
+      `;
+      if(activeChapter.length>0) return false;
       const locked=await tx`
         SELECT id FROM content.generation_bulk_operations
         WHERE id=${id}::uuid AND actor_firebase_uid=${req.user!.id}
