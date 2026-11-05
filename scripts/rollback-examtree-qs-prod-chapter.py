@@ -26,31 +26,34 @@ MAX_WINDOW = dt.timedelta(hours=24)
 UTC = dt.timezone.utc
 BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-4345-be5f-491089b72f10"}
 
-# Immutable release candidate digests and known-good 100%-serving baselines,
-# captured from the 2026-10-26 build-only release at source commit
-# ef518db500293ccefde2465be14284c585081204. NEVER use LATEST.
+# Immutable QS bulk candidate digests from 2026-11-05 build-only release
+# at source commit 9d8e8e157927495f005b784192a3efc02ddcfa99.
+# Baselines are the observed 100%-serving, disabled revisions from the
+# 2026-11-05 release preflight. NEVER use LATEST.
+# This is a proposed release pin update; installing a new Job image and
+# activating generation still require independent production approval.
 SERVICES = {
     "examtree-api": {
-        "baseline": "examtree-api-00002-mch",
-        "candidate_tag": "qs-chapter-ef518db5",
+        "baseline": "examtree-api-00029-qhl",
+        "candidate_tag": "qs-bulk-9d8e8e15",
         "sa": "examtree-api-prod-runtime@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:fe5b42ff05a0a787b1a0f20d216fafe630327bc3efb141df8d05c03bfc89aefd",
+        "digest": "sha256:72fb0854d5e712936e327404ce20071e1760425e15ea138505f51b28a1434895",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED"),
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
-        "candidate_tag": "qs-chapter-ef518db5",
+        "candidate_tag": "qs-bulk-9d8e8e15",
         "sa": "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:bc52c906d25b8c742988c726ad2c549cf9c6f62688c4243bf8da6ec50607b919",
+        "digest": "sha256:9f7730643b4b941240227ac07048437a0c396383e04b6ac5b3c092f7f009ac9e",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED"),
     },
     "examtree-universal-prod": {
-        "baseline": "examtree-universal-prod-00021-5q7",
-        "candidate_tag": "qs-chapter-ef518db5",
+        "baseline": "examtree-universal-prod-00039-bz6",
+        "candidate_tag": "qs-bulk-9d8e8e15",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:37ad6061dc661dc59e07f38bc55ec654c383cb2f005553cec785b1b23b7336e3",
+        "digest": "sha256:6bd418ebf5c728147e1bb0b3b281d908119365540dcede730b1ebd2cbf5f422b",
         "off": ("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED"),
     },
