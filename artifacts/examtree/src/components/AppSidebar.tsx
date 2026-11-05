@@ -102,12 +102,7 @@ export function AppSidebar() {
     >
       <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
         <Link href="/dashboard" aria-label="ExamTree dashboard" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1">
-          <svg width="37" height="37" viewBox="0 0 40 40" aria-hidden="true">
-            <path d="M4 12.5c5.3-.2 9.6 1.2 13.2 4.3V34C13.3 31.5 9 30.5 4 30.8V12.5Z" fill="#0d2d71"/>
-            <path d="M36 12.5c-5.3-.2-9.6 1.2-13.2 4.3V34c3.9-2.5 8.2-3.5 13.2-3.2V12.5Z" fill="#0b4ca2"/>
-            <path d="M20 14c-4-5.6-8.8-6.2-11.1-5 2.8 1.6 5 4.1 6.1 7.2 1.5-.9 3.2-1.7 5-2.2Z" fill="#0a72e8"/>
-            <path d="M20 14c4-5.6 8.8-6.2 11.1-5-2.8 1.6-5 4.1-6.1 7.2-1.5-.9-3.2-1.7-5-2.2Z" fill="#1398ff"/>
-          </svg>
+          <img src="/examtree-mark.svg" width="37" height="37" alt="" aria-hidden="true" className="h-[37px] w-[37px] shrink-0 object-contain" />
           <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-[#0b1b4d]">Examtree</p>
         </Link>
       </SidebarHeader>

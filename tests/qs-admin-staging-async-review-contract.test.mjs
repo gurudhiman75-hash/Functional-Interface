@@ -35,14 +35,14 @@ test("sync Generate remains default unless production chapter review is explicit
   assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput,/);
   assert.match(api,/\/admin\/question-studio\/runs\/async-staging/);
   assert.match(api,/'Idempotency-Key': idempotencyKey/);
-  assert.match(page,/stagingAsyncRetry\.current\.signature !== signature/);
-  assert.match(page,/stagingAsyncRetry\.current = null/);
+  assert.match(page,/stagingAsyncRetry\.current\.get\(signature\)/);
+  assert.match(page,/stagingAsyncRetry\.current\.clear\(\)/);
 });
 
 test("staging async uses the selected package runtime and keeps synchronous Generate unchanged",()=>{
-  assert.match(page,/const asyncInput: CreateGenerationRunInput = \{ \.\.\.input, runtimeMode: activePackage\.runtimeMode \}/);
+  assert.match(page,/const asyncInput: CreateGenerationRunInput = \{ \.\.\.input, language, runtimeMode: activePackage\.runtimeMode \}/);
   assert.match(page,/const signature = JSON\.stringify\(asyncInput\)/);
-  assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput, stagingAsyncRetry\.current\.key\)/);
+  assert.match(page,/enqueueQuestionStudioStagingRun\(asyncInput, key\)/);
   assert.match(api,/runtimeMode: input\.runtimeMode/);
   assert.doesNotMatch(api,/runtimeMode: 'review-only'/);
   assert.ok(page.includes('const result = await generate({'));
@@ -71,3 +71,4 @@ test("server Review filtering accepts legacy flat and async nested snapshots",()
   }
   assert.match(server,/router\.get\("\/review-page"/);
 });
+

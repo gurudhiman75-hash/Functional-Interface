@@ -4,6 +4,9 @@ on:
     branches: [New-main]
     paths:
       - 'artifacts/admin-app/src/features/question-studio/api.ts'
+      - 'artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts'
+      - 'artifacts/admin-app/src/features/question-studio/useQuestionStudio.test.ts'
+      - 'tests/qs-multilanguage-generation.test.mjs'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
       - 'artifacts/admin-app/src/features/question-studio/package-hierarchy.ts'
       - 'artifacts/admin-app/src/features/question-studio/package-hierarchy.test.ts'
@@ -29,10 +32,11 @@ jobs:
           node-version: '22'
           cache: pnpm
       - name: Test gated async UI and legacy Review compatibility
-        run: node --test tests/qs-admin-staging-async-review-contract.test.mjs
+        run: node --test tests/qs-admin-staging-async-review-contract.test.mjs tests/qs-multilanguage-generation.test.mjs
       - name: Install locked admin dependencies
         run: pnpm install --frozen-lockfile --filter @workspace/examtree-admin...
       - name: Test all 64 Quant mappings and safe selector fallbacks
-        run: pnpm --dir artifacts/admin-app exec vitest run src/features/question-studio/package-hierarchy.test.ts
+        run: pnpm --dir artifacts/admin-app exec vitest run src/features/question-studio/package-hierarchy.test.ts src/features/question-studio/useQuestionStudio.test.ts
       - name: Typecheck admin UI
         run: pnpm --dir artifacts/admin-app exec tsc --noEmit -p tsconfig.app.json
+
