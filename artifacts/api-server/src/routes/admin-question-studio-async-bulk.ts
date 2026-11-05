@@ -153,14 +153,19 @@ router.post("/bulk-async/:operationId/children/:index/launch",
     if(!parent){res.status(404).json({code:"QS_BULK_NOT_FOUND"});return;}
     const candidates=await sqlClient`
       SELECT c.batch_index,c.requested_count,c.selected_cp_ids,c.status,
-             c.generation_run_id,r.status::text AS run_status
+             c.generation_run_id,r.status::text AS run_status,
+             (SELECT count(*)::int FROM content.generation_run_items i
+               WHERE i.generation_run_id=c.generation_run_id) AS generated_count
       FROM content.generation_bulk_children c
       LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
       WHERE c.operation_id=${id}::uuid ORDER BY c.batch_index
     `;
+    const terminalComplete=(row: Record<string,unknown>) =>
+      finished.has(String(row.run_status)) &&
+      Number(row.generated_count)===Number(row.requested_count);
     const target=candidates.find(r=>Number(r.batch_index)===index);
     if(!target || target.status!=="planned" || target.generation_run_id ||
-       candidates.some(r=>Number(r.batch_index)<index && !finished.has(String(r.run_status))) ||
+       candidates.some(r=>Number(r.batch_index)<index && !terminalComplete(r)) ||
        candidates.some(r=>Number(r.batch_index)>index && r.status!=="planned")){
       res.status(409).json({code:"QS_BULK_CHILD_NOT_READY"});return;
     }
@@ -203,12 +208,15 @@ router.post("/bulk-async/:operationId/children/:index/launch",
       `;
       if(locked.length!==1) return false;
       const siblings=await tx`
-        SELECT c.batch_index,c.status,c.generation_run_id,r.status::text AS run_status
+        SELECT c.batch_index,c.status,c.requested_count,c.generation_run_id,
+               r.status::text AS run_status,
+               (SELECT count(*)::int FROM content.generation_run_items i
+               WHERE i.generation_run_id=c.generation_run_id) AS generated_count
         FROM content.generation_bulk_children c
         LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
         WHERE c.operation_id=${id}::uuid ORDER BY c.batch_index
       `;
-      if(siblings.some(r=>(Number(r.batch_index)<index && !finished.has(String(r.run_status))) ||
+      if(siblings.some(r=>(Number(r.batch_index)<index && !terminalComplete(r)) ||
                         (Number(r.batch_index)>index && r.status!=="planned") ||
                         (Number(r.batch_index)===index && (r.status!=="planned" || r.generation_run_id)))) return false;
       const updated=await tx`
