@@ -254,7 +254,6 @@ export function QuestionStudioCockpitPage() {
   const [bulkAsyncOperation, setBulkAsyncOperation] = useState<QuestionStudioBulkReviewProgress | null>(null);
   const [bulkAsyncError, setBulkAsyncError] = useState<string | null>(null);
   const [bulkAsyncSubmitting, setBulkAsyncSubmitting] = useState(false);
-  const bulkAsyncRetry = useRef<{ signature:string; key:string } | null>(null);
 
   const [seed, setSeed] = useState('');
   const [stagingAsyncSelected, setStagingAsyncSelected] = useState(CHAPTER_ASYNC_ENABLED);
