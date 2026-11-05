@@ -26,7 +26,17 @@ test("progress rejects missing, duplicated and over-counted children",()=>{
    [{batchIndex:0,count:20,generatedCount:21,status:"review"},{batchIndex:1,count:1,generatedCount:0,status:"planned"}],
  ]) assert.throws(()=>summarizeAsyncBulkReview(op,rows));
 });
-test("bulk persistence is source-only and has no production dispatcher wiring",()=>{
+test("complete state requires every requested generated question",()=>{
+ assert.throws(()=>summarizeAsyncBulkReview({requestedCount:5},[
+   {batchIndex:0,count:5,generatedCount:4,status:"review",runId:"saved"}
+ ]),/BULK_ASYNC_INCOMPLETE_REVIEW_BATCH/);
+ const done=summarizeAsyncBulkReview({requestedCount:5},[
+   {batchIndex:0,count:5,generatedCount:5,status:"review",runId:"saved"}
+ ]);
+ assert.equal(done.readyForReview,true);
+});
+
+test("bulk persistence is default-off and safely guarded",()=>{
  const migration=readFileSync("artifacts/api-server/migrations/20261105_question_studio_async_bulk_operations.sql","utf8");
  const reserve=readFileSync("artifacts/api-server/src/question-studio/async-bulk-reservations.ts","utf8");
  const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts","utf8");
