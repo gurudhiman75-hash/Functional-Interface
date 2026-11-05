@@ -15,3 +15,17 @@ This change adds an **inert** planner for future 1–250-question asynchronous p
 Offline planner tests: `node --test tests/qs-async-bulk-plan.test.mjs`
 
 No production infrastructure or student-facing behavior changes are part of this phase.
+
+## Phase 2: durable reservation groundwork (2026-11-05)
+
+Added an **unapplied** schema in `20261105_question_studio_async_bulk_operations.sql` for a parent operation and its child reservation rows, with a unique actor/idempotency tuple and unique child generation-run links. The unmounted `async-bulk-reservations.ts` writes parent and child plan rows in one transaction, checks canonical request identity on retry, and fails closed if the persisted plan is incomplete. It does not create child generation runs or Cloud Tasks.
+
+Added pure `async-bulk-progress.mjs` aggregation that retains completed child references, identifies partial failures and uncertain work, and never implies incomplete runs have succeeded. Tests: `node --test tests/qs-async-bulk-plan.test.mjs tests/qs-async-bulk-persistence-contract.test.mjs`.
+
+### Still required (not implemented)
+
+- Apply the migration in isolated staging **after reviewing schema compatibility** and validate transactional retry behavior against actual Neon; these source-level tests are not DB integration tests.
+- Create a separately RBAC-gated, opt-in parent reservation endpoint. Independently check each proposed child against canonical package manifest and live release authorization.
+- Implement durable child dispatch reservation/state transitions and reconciliation against the canonical single-run idempotency table. Dispatch only a separately approved child; do not blindly retry uncertain runs.
+- Provide an authenticated, ownership-scoped progress endpoint joining generation-run progress to child rows, plus a cockpit progress UI and resume links.
+- Validate independent timed rollback, paused queues, cost ceilings, signed task identity and full staging E2E before enabling any production async workflow.
