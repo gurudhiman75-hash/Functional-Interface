@@ -486,6 +486,14 @@ export function launchQuestionStudioBulkReviewChild(id: string, index: number) {
   );
 }
 
+export function reconcileQuestionStudioBulkReviewChild(id: string, index: number) {
+  return adminRequest<{runId:string;reconciled:boolean;alreadyLinked:boolean}>(
+    `/admin/question-studio/bulk-async/${encodeURIComponent(id)}/children/${index}/reconcile`,
+    {method:'POST'},
+    {fallbackMessage:'Unable to reconcile the existing child run. No new generation was requested.'},
+  );
+}
+
 export function updateGenerationItems(input: {
   itemIds: string[];
   expectedStatuses: Record<string, GenerationItemStatus>;
