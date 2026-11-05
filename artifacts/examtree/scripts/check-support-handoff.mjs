@@ -13,7 +13,12 @@ for (const [name, source] of [["contact", contact], ["report", report]]) {
   assert.match(source, /support@examtree\.in/, `${name} must use the published support mailbox`);
   assert.match(source, /mailto:/, `${name} must provide a real email handoff`);
   assert.doesNotMatch(source, /<Button type="button"/, `${name} must not retain a dead submit-looking button`);
-  assert.match(source, /Nothing is (uploaded|submitted) to ExamTree until you review and send the email\./, `${name} must explain that no server submission occurs`);
+  if (name === "report") assert.match(source, /Nothing is (uploaded|submitted) to ExamTree until you review and send the email\./, `${name} must explain that no server submission occurs`);
+  else {
+    assert.match(source, /support\/tickets/, "contact must submit via the ticket endpoint");
+    assert.match(source, /Your request was received/, "contact must confirm successful server receipt");
+    assert.match(source, /Sending the email is required; no ticket was created/, "contact must explain email fallback");
+  }
   assert.match(source, /h-11|min-h-11|data-testid=/, `${name} must retain a 44px-class actionable handoff`);
 }
 assert.match(contact, /contact-email-handoff/);
