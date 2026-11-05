@@ -53,6 +53,8 @@ test("bulk persistence is default-off and safely guarded",()=>{
  assert.match(bulk,/validateProductionChapterReview/);
  assert.match(bulk,/QS_BULK_CHILD_RECONCILIATION_REQUIRED/);
  assert.match(bulk,/digestCanonicalEnqueueRequest/);
+ assert.match(bulk,/terminalComplete\(r\)/);
+ assert.match(bulk,/Number\(row\.generated_count\)===Number\(row\.requested_count\)/);
  assert.match(bulk,/needs_reconciliation/);
  assert.ok(!bulk.includes("content.questions") && !bulk.includes("automaticStudentPublication:true"));
 });
