@@ -86,7 +86,10 @@ async function progress(id: string, uid: string, admin: string) {
       selectedCpIds:r.selected_cp_ids};
   });
   const summary=summarizeAsyncBulkReview({requestedCount:Number(parent.requested_count)},children);
-  return {id, status:String(parent.status),...summary};
+  return {id, status: summary.readyForReview ? "completed" :
+    summary.requiresAttention ? "partial_failure" :
+    summary.activeBatches>0 || summary.completedBatches>0 ? "in_progress" : "planned",
+    ...summary};
 }
 router.post("/bulk-async",requireAdminPermission("content.generation.run"),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");
