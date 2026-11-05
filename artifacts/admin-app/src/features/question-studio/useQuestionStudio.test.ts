@@ -32,7 +32,7 @@ describe('review queue refresh', () => {
   });
 
   it('uses the latest filters even when refresh was captured before a save', async () => {
-    vi.mocked(getQuestionStudioReviewPage).mockImplementation(async (query) => emptyPage(query.search ?? ''));
+    vi.mocked(getQuestionStudioReviewPage).mockImplementation(async (query) => emptyPage(query?.search ?? ''));
     const { result, rerender } = renderHook(({ search }) => useQuestionStudioReviewPage({ search }), { initialProps: { search: 'old' } });
     await waitFor(() => expect(result.current.loadingReviewPage).toBe(false));
     const refreshAtSaveStart = result.current.refreshReviewPage;
