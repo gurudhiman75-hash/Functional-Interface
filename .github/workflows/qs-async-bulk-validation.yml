@@ -10,7 +10,6 @@ on:
       - 'artifacts/admin-app/src/features/question-studio/api.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx'
       - 'tests/qs-async-bulk-*.test.mjs'
-      - '.github/workflows/qs-async-bulk-validation.yml'
 permissions:
   contents: read
 concurrency:
