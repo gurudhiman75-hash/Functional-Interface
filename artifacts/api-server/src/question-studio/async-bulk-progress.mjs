@@ -24,6 +24,9 @@ export function summarizeAsyncBulkReview(operation, children) {
     if (status === "planned" || status === "reserved") statuses.planned++;
     else if (["dispatch_requested","queued","running"].includes(status)) statuses.active++;
     else if (["review","completed"].includes(status)) {
+      if (child.generatedCount !== child.count) {
+        throw new RangeError("BULK_ASYNC_INCOMPLETE_REVIEW_BATCH");
+      }
       statuses.completed++;
       awaitingReview += child.generatedCount;
     } else if (status === "failed" || status === "cancelled") statuses.failed++;
@@ -39,7 +42,7 @@ export function summarizeAsyncBulkReview(operation, children) {
     completedBatches:statuses.completed,failedBatches:statuses.failed,
     activeBatches:statuses.active,plannedBatches:statuses.planned,
     needsReconciliationBatches:statuses.needsReconciliation,batches,
-    readyForReview:statuses.completed === batches.length,
+    readyForReview:statuses.completed === batches.length && generated === operation.requestedCount,
     requiresAttention:statuses.failed>0 || statuses.needsReconciliation>0,
   };
 }
