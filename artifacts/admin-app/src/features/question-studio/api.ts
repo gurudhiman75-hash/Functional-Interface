@@ -427,6 +427,73 @@ export function retryQuestionStudioProductionChapterDispatch(runId: string) {
   );
 }
 
+
+export interface QuestionStudioBulkReviewProgress {
+  id: string;
+  status: string;
+  requestedCount: number;
+  generatedCount: number;
+  awaitingReview: number;
+  completedBatches: number;
+  failedBatches: number;
+  activeBatches: number;
+  plannedBatches: number;
+  needsReconciliationBatches: number;
+  readyForReview: boolean;
+  requiresAttention: boolean;
+  batches: Array<{
+    batchIndex: number;
+    count: number;
+    generatedCount: number;
+    status: string;
+    runId: string | null;
+    selectedCpIds: string[];
+  }>;
+}
+
+export function reserveQuestionStudioBulkReview(
+  input: CreateGenerationRunInput, idempotencyKey: string,
+) {
+  return adminRequest<{id: string; reused: boolean; status: string;
+    requestedCount: number; childCount: number}>('/admin/question-studio/bulk-async', {
+    method: 'POST',
+    headers: {'Idempotency-Key': idempotencyKey},
+    body: JSON.stringify({
+      request: {
+        engineId: input.engineId, packageId: input.packageId, exam: input.exam,
+        subject: input.subject, topic: input.topic, subtopic: input.subtopic,
+        language: input.language, difficulty: input.difficulty,
+        count: input.count, runtimeMode: input.runtimeMode,
+        patternId: input.patternId, canonicalProblemId: input.canonicalProblemId,
+      },
+      count: input.count, selectedCpIds: input.cpIds ?? [],
+    }),
+  }, {fallbackMessage:'Unable to reserve asynchronous bulk review.'});
+}
+
+export function getQuestionStudioBulkReviewProgress(id: string) {
+  return adminRequest<QuestionStudioBulkReviewProgress>(
+    `/admin/question-studio/bulk-async/${encodeURIComponent(id)}`,
+    {method:'GET'}, {fallbackMessage:'Unable to load bulk review progress.'});
+}
+
+export function launchQuestionStudioBulkReviewChild(id: string, index: number) {
+  return adminRequest<{runId: string; status: string; dispatchRequested: boolean;
+    needsDispatchAttention: boolean}>(
+    `/admin/question-studio/bulk-async/${encodeURIComponent(id)}/children/${index}/launch`,
+    {method:'POST'},
+    {fallbackMessage:'Unable to launch the next bounded review batch.'},
+  );
+}
+
+export function reconcileQuestionStudioBulkReviewChild(id: string, index: number) {
+  return adminRequest<{runId:string;reconciled:boolean;alreadyLinked:boolean}>(
+    `/admin/question-studio/bulk-async/${encodeURIComponent(id)}/children/${index}/reconcile`,
+    {method:'POST'},
+    {fallbackMessage:'Unable to reconcile the existing child run. No new generation was requested.'},
+  );
+}
+
 export function updateGenerationItems(input: {
   itemIds: string[];
   expectedStatuses: Record<string, GenerationItemStatus>;

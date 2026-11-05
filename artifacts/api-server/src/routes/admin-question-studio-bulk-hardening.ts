@@ -18,6 +18,7 @@ import adminQuestionStudioRunStatusRouter from "./admin-question-studio-run-stat
 import adminQuestionStudioAsyncStagingRouter from "./admin-question-studio-async-staging";
 import adminQuestionStudioAsyncProductionChaptersRouter from "./admin-question-studio-async-production-chapters";
 import adminQuestionStudioAsyncOperationsRouter from "./admin-question-studio-async-operations";
+import adminQuestionStudioAsyncBulkRouter from "./admin-question-studio-async-bulk";
 
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -85,6 +86,8 @@ router.use(adminQuestionStudioAsyncOperationsRouter);
 router.use(adminQuestionStudioAsyncStagingRouter);
 // Independently approved, short-lived production chapter review route.
 router.use(adminQuestionStudioAsyncProductionChaptersRouter);
+// Additional independently disabled parent bulk-review workflow.
+router.use(adminQuestionStudioAsyncBulkRouter);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
   const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds.map(text).filter(Boolean) : [];

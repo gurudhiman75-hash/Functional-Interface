@@ -14,6 +14,7 @@ function harness(asyncMode = false) {
   const noop = () => {};
   const context = {
     bulkBusy: false, generating: false, stagingAsyncSubmitting: false,
+    bulkAsyncSubmitting: false, BULK_ASYNC_ENABLED: false, bulkAsyncSelected: false,
     ASYNC_ENABLED: asyncMode, CHAPTER_ASYNC_ENABLED: asyncMode, stagingAsyncSelected: asyncMode,
     PRODUCTION_CHAPTER_BATCH_LIMIT: 100, SYNC_BULK_LIMIT: 1000, SYNC_CHUNK_TARGET: 10,
     count: 23, languages: ['en', 'hi', 'pa'], selectedCpIds: new Set(['cp1', 'cp2']),
