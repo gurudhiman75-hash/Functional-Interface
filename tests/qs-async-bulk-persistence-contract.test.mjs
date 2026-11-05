@@ -56,3 +56,14 @@ test("bulk persistence is default-off and safely guarded",()=>{
  assert.match(bulk,/needs_reconciliation/);
  assert.ok(!bulk.includes("content.questions") && !bulk.includes("automaticStudentPublication:true"));
 });
+
+test("bulk flow preserves latest multilingual review workflow",()=>{
+ const page=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ assert.match(page,/const \[languages, setLanguages\]/);
+ assert.match(page,/setQueuedLanguageRuns/);
+ assert.match(page,/applyRevision\(result\.item\)/);
+ assert.match(page,/languages\.length !== 1/);
+ assert.match(page,/reserveQuestionStudioBulkReview/);
+ assert.match(page,/reconcileQuestionStudioBulkReviewChild/);
+ assert.match(page,/BULK_ASYNC_ENABLED/);
+});
