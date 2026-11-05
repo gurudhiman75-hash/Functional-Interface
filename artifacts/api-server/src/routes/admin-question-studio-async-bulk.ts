@@ -76,12 +76,17 @@ async function progress(id: string, uid: string, admin: string) {
   `;
   const children=rows.map(r=>{
     const runStatus=r.run_status?String(r.run_status):null;
-    const status=runStatus && finished.has(runStatus) ? "review" :
+    const generated=Number(r.generated_count ?? 0);
+    const requested=Number(r.requested_count);
+    // A terminal run with fewer saved items must be flagged for attention,
+    // rather than blocking the entire parent progress endpoint.
+    const status=runStatus && finished.has(runStatus) && generated !== requested ? "failed" :
+      runStatus && finished.has(runStatus) ? "review" :
       runStatus === "failed" || runStatus === "cancelled" ? "failed" :
       runStatus === "running" || runStatus === "validation" ? "running" :
       runStatus === "queued" ? "queued" : String(r.child_status);
     return {batchIndex:Number(r.batch_index),count:Number(r.requested_count),
-      generatedCount:Number(r.generated_count ?? 0),status,
+      generatedCount:generated,status,
       runId:r.generation_run_id ? String(r.generation_run_id):null,
       selectedCpIds:r.selected_cp_ids};
   });
