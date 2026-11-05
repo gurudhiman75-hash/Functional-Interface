@@ -98,8 +98,9 @@ describe('admin navigation roadmap', () => {
     ]);
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
+      '/users/support',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 48, in_progress: 1, planned: 4 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 48, in_progress: 2, planned: 3 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -125,6 +126,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/mobile/analytics']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/commerce/refunds']?.permission).toBe('commerce.orders.read');
     expect(NAV_LOOKUP['/users/students']?.permission).toBe('users.students.read');
+    expect(NAV_LOOKUP['/users/support']?.permission).toBe('users.students.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
     expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');
     expect(NAV_LOOKUP['/analytics/request-failures']?.permission).toBe('jobs.read');
