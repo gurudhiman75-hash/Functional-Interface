@@ -36,5 +36,13 @@ test("bulk persistence is source-only and has no production dispatcher wiring",(
  assert.match(reserve,/planAsyncChapterReviewBatches/);
  assert.match(reserve,/BULK_ASYNC_RESERVATION_INCOMPLETE/);
  assert.doesNotMatch(reserve,/enqueueAndDispatchChapter|launchProductionChapterDispatch|createTask\(/);
- assert.doesNotMatch(route,/async-bulk-reservations|async-bulk-progress/);
+ assert.match(route,/adminQuestionStudioAsyncBulkRouter/);
+ const bulk=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ assert.match(bulk,/EXAMTREE_QS_BULK_ASYNC_REVIEW_ENABLED/);
+ assert.match(bulk,/requireAdminPermission\\("content\\.generation\\.run"\\)/);
+ assert.match(bulk,/validateProductionChapterReview/);
+ assert.match(bulk,/QS_BULK_CHILD_RECONCILIATION_REQUIRED/);
+ assert.match(bulk,/digestCanonicalEnqueueRequest/);
+ assert.match(bulk,/needs_reconciliation/);
+ assert.doesNotMatch(bulk,/content\\.questions|automaticStudentPublication:true/);
 });
