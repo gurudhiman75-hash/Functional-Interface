@@ -41,7 +41,10 @@ test.describe("CP04 truthful support handoff", () => {
     expect(href).toContain("Aman%20Singh");
     expect(href).toContain("aman%40example.com");
     expect(href).toContain("test%20is%20still%20locked");
-    await expect(page.getByText("Nothing is uploaded to ExamTree until you review and send the email.")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Submit support request" })).toBeVisible();
+    await page.getByRole("button", { name: "Submit support request" }).click();
+    await expect(page.getByRole("alert")).toContainText("Unable to submit your request");
+    await expect(page.getByText("Sending the email is required; no ticket was created.", { exact: false })).toBeVisible();
   });
 
   test("question report composes issue context instead of pretending to submit", async ({ page }) => {
