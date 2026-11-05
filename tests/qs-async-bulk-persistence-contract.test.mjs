@@ -49,10 +49,10 @@ test("bulk persistence is default-off and safely guarded",()=>{
  assert.match(route,/adminQuestionStudioAsyncBulkRouter/);
  const bulk=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
  assert.match(bulk,/EXAMTREE_QS_BULK_ASYNC_REVIEW_ENABLED/);
- assert.match(bulk,/requireAdminPermission\\("content\\.generation\\.run"\\)/);
+ assert.ok(bulk.includes('requireAdminPermission("content.generation.run")'));
  assert.match(bulk,/validateProductionChapterReview/);
  assert.match(bulk,/QS_BULK_CHILD_RECONCILIATION_REQUIRED/);
  assert.match(bulk,/digestCanonicalEnqueueRequest/);
  assert.match(bulk,/needs_reconciliation/);
- assert.doesNotMatch(bulk,/content\\.questions|automaticStudentPublication:true/);
+ assert.ok(!bulk.includes("content.questions") && !bulk.includes("automaticStudentPublication:true"));
 });
