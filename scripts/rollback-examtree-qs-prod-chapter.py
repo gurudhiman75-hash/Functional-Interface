@@ -239,22 +239,26 @@ def validate_service(service, config, expected_expiry=None):
         ):
             raise Stop("Unrecognized live release image: " + service)
         values = env_values(rev["spec"])
-        approval_states = [values.get(flag) for flag in config["off"]]
-        if any(x not in ("true", "false", None) for x in approval_states):
+        persistent = values.get("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED")
+        approvals = [values.get(flag) for flag in config["off"]
+                     if flag != "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED"]
+        if persistent not in (None, "true", "false") or any(
+            state not in (None, "true", "false") for state in approvals
+        ):
             raise Stop("Invalid release approval values: " + service)
-        if "true" in approval_states:
-            persistent = values.get("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED")
-            required = [x for flag, x in zip(config["off"], approval_states)
-                        if flag != "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED"]
-            if any(x != "true" for x in required):
+        if any(state == "true" for state in approvals):
+            if any(state != "true" for state in approvals):
                 raise Stop("Partial release approvals: " + service)
-            if persistent == "true":
-                if values.get("EXAMTREE_QS_PRODUCTION_CANARY_ONLY") == "true":
-                    raise Stop("Persistent release cannot be canary-only: " + service)
-            else:
+            if persistent != "true":
                 observed_expiry = values.get("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT")
                 if not observed_expiry or (expected_expiry is not None and observed_expiry != expected_expiry):
                     raise Stop("Release expiry mismatch: " + service)
+        # Persistent mode may be configured while all execution approvals
+        # remain false. This is preparation, NOT generation authorization.
+        # Reject even this disabled state if the runtime or scope is unsafe.
+        if persistent == "true" or any(state == "true" for state in approvals):
+            if persistent == "true" and values.get("EXAMTREE_QS_PRODUCTION_CANARY_ONLY") == "true":
+                raise Stop("Persistent release cannot be canary-only: " + service)
             if not values.get("EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON"):
                 raise Stop("Release canonical scope missing: " + service)
             if values.get("EXAMTREE_API_RUNTIME") != "cloud-run" or values.get("EXAMTREE_API_STAGING") != "false":
