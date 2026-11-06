@@ -127,7 +127,8 @@ class ServiceGuardTests(unittest.TestCase):
         active["status"]["imageDigest"] = "repository@" + cfg["digest"]
         active["spec"]["containers"][0]["env"] = [
             {"name": cfg["off"][0], "value": "true"},
-            {"name": cfg["off"][1], "value": "false"},
+            {"name": cfg["off"][1], "value": "true"},
+            {"name": cfg["off"][2], "value": "false"},
         ]
         with patch.object(mod, "fetch", return_value=doc), \
              patch.object(mod, "target_revision",
