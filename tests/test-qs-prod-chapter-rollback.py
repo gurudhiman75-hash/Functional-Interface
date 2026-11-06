@@ -135,6 +135,32 @@ class ServiceGuardTests(unittest.TestCase):
             with self.assertRaisesRegex(mod.Stop, "Partial release approvals"):
                 mod.validate_service(service, cfg)
 
+    def test_persistent_review_release_valid_without_old_chapter_expiry(self):
+        service = "examtree-api"
+        cfg = mod.SERVICES[service]
+        live = service + "-00030-qs4"
+        doc = {"status": {"traffic": [{"revisionName": live, "percent": 100}]}}
+        original = self.baseline(service, cfg)
+        active = self.baseline(service, cfg)
+        active["metadata"]["name"] = live
+        active["status"]["imageDigest"] = "repository@" + cfg["digest"]
+        active["spec"]["containers"][0]["env"] = [
+            {"name": key, "value": "true"} for key in cfg["off"]
+        ] + [
+            {"name": "EXAMTREE_QS_PRODUCTION_CANARY_ONLY", "value": "false"},
+            {"name": "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON",
+             "value": '{"mode":"all-eligible-chapters","reviewOnly":true,"chapterWide":true}'},
+            {"name": "EXAMTREE_API_RUNTIME", "value": "cloud-run"},
+            {"name": "EXAMTREE_API_STAGING", "value": "false"},
+        ]
+        with patch.object(mod, "fetch", return_value=doc), \\
+             patch.object(mod, "target_revision",
+                          side_effect=lambda s, n: original if n == cfg["baseline"] else active):
+            mod.validate_service(service, cfg, "2026-10-27T12:53:07Z")
+            active["spec"]["containers"][0]["env"][0]["value"] = "false"
+            with self.assertRaisesRegex(mod.Stop, "Release expiry mismatch"):
+                mod.validate_service(service, cfg, "2026-10-27T12:53:07Z")
+
     def test_rejects_unpinned_or_split_rollback_traffic(self):
         service = "examtree-api"
         cfg = mod.SERVICES[service]
