@@ -1,3 +1,4 @@
+import { beginTestWithInstructions } from "./helpers/start-test";
 import { expect, test, type Page, type Route } from "@playwright/test";
 
 const TEST_ID = "test-runner-dialog-1";
@@ -131,7 +132,7 @@ async function openRunner(page: Page) {
   }, student);
   await page.goto(`/test/${TEST_ID}`);
   await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
-  await page.getByRole("button", { name: "Start Test" }).click();
+  await beginTestWithInstructions(page);
   await expect(page.getByText("Question No 1")).toBeVisible();
 }
 

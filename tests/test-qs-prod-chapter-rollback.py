@@ -81,16 +81,16 @@ class ServiceGuardTests(unittest.TestCase):
                          "containers": [{"env": vals}]},
                 "status": {"conditions": [{"type": "Ready", "status": "True"}]}}
 
-    def test_release_candidate_digests_match_verified_9d8e8e15_images(self):
-        # Verified by the operator from Artifact Registry after the exact
-        # 2026-11-05 build-only image build at commit 9d8e8e157927495f005b784192a3efc02ddcfa99.
+    def test_release_candidate_digests_match_verified_6281ede7_images(self):
+        # Verified by the operator from Artifact Registry and serving revisions
+        # after build of merge 6281ede7b35813e0aa0d6db12c6c51ffb0d35923.
         expected = {
             "examtree-api":
-                "sha256:72fb0854d5e712936e327404ce20071e1760425e15ea138505f51b28a1434895",
+                "sha256:dd304e9ebbe82e9cf01e12d2770fc764e641bb036024757e2f13b9850aae9902",
             "examtree-qs-receiver-prod":
-                "sha256:9f7730643b4b941240227ac07048437a0c396383e04b6ac5b3c092f7f009ac9e",
+                "sha256:fec793c172673498c0ac4fd6a065b2b3b46ed39ca7354add03853bd94f00d36",
             "examtree-universal-prod":
-                "sha256:6bd418ebf5c728147e1bb0b3b281d908119365540dcede730b1ebd2cbf5f422b",
+                "sha256:9f9cd20d7273119e2d8c2e4cc8e4ffa85c7298025b297604918880dc6745b5d",
         }
         self.assertEqual({name: cfg["digest"] for name, cfg
                           in mod.SERVICES.items()}, expected)
@@ -134,6 +134,32 @@ class ServiceGuardTests(unittest.TestCase):
                           side_effect=lambda s, n: original if n == cfg["baseline"] else active):
             with self.assertRaisesRegex(mod.Stop, "Partial release approvals"):
                 mod.validate_service(service, cfg)
+
+    def test_persistent_review_release_valid_without_old_chapter_expiry(self):
+        service = "examtree-api"
+        cfg = mod.SERVICES[service]
+        live = service + "-00030-qs4"
+        doc = {"status": {"traffic": [{"revisionName": live, "percent": 100}]}}
+        original = self.baseline(service, cfg)
+        active = self.baseline(service, cfg)
+        active["metadata"]["name"] = live
+        active["status"]["imageDigest"] = "repository@" + cfg["digest"]
+        active["spec"]["containers"][0]["env"] = [
+            {"name": key, "value": "true"} for key in cfg["off"]
+        ] + [
+            {"name": "EXAMTREE_QS_PRODUCTION_CANARY_ONLY", "value": "false"},
+            {"name": "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON",
+             "value": '{"mode":"all-eligible-chapters","reviewOnly":true,"chapterWide":true}'},
+            {"name": "EXAMTREE_API_RUNTIME", "value": "cloud-run"},
+            {"name": "EXAMTREE_API_STAGING", "value": "false"},
+        ]
+        with (patch.object(mod, "fetch", return_value=doc),
+              patch.object(mod, "target_revision",
+                           side_effect=lambda s, n: original if n == cfg["baseline"] else active)):
+            mod.validate_service(service, cfg, "2026-10-27T12:53:07Z")
+            active["spec"]["containers"][0]["env"][0]["value"] = "false"
+            with self.assertRaisesRegex(mod.Stop, "Release expiry mismatch"):
+                mod.validate_service(service, cfg, "2026-10-27T12:53:07Z")
 
     def test_rejects_unpinned_or_split_rollback_traffic(self):
         service = "examtree-api"
