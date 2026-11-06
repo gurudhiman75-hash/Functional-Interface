@@ -18,6 +18,14 @@ export function productionChapterReleaseActive(env=process.env,now=Date.now()){
      env?.EXAMTREE_API_STAGING!=="false" ||
      env?.EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED!=="true" ||
      !Number.isFinite(now)) return false;
+  // Persistent review-only mode is a separate, explicit operator approval.
+  // It never activates legacy one-run canaries, and all callers still enforce
+  // canonical scope, admin RBAC, worker/receiver approvals and manual review.
+  // No timeout is used in this mode: normal production must remain usable
+  // after the initial deployment without requiring a release-clock refresh.
+  if(env.EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED==="true") {
+    return env.EXAMTREE_QS_PRODUCTION_CANARY_ONLY!=="true";
+  }
   const raw=env.EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT;
   if(typeof raw!=="string" ||
      !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{3})?Z$/.test(raw)) return false;

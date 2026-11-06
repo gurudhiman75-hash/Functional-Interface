@@ -55,6 +55,8 @@ class InMemoryCloud:
             live_env = {key: "true" for key in config["off"]}
             live_env.update(EXAMTREE_API_RUNTIME="cloud-run",
                             EXAMTREE_API_STAGING="false",
+                            EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED="false",
+                            EXAMTREE_QS_PRODUCTION_CANARY_ONLY="false",
                             EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT=EXPIRES,
                             EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON=
                                 '[{"engineId":"reasoning-v1","packageId":"OPS-001","reviewOnly":true,"chapterWide":true}]')
@@ -218,6 +220,27 @@ class SimulatedDeadlineRollbackTests(unittest.TestCase):
                              [{"percent": 100, "revisionName": cfg["baseline"]}])
             values = controller.env_values(controller.template(doc))
             self.assertTrue(all(values[key] == "false" for key in cfg["off"]))
+
+    def test_persistent_mode_rollback_disables_review_without_chapter_expiry(self):
+        cloud = InMemoryCloud()
+        for name in controller.SERVICES:
+            live = cloud.services[name]["status"]["traffic"][0]["revisionName"]
+            for row in cloud.revisions[live]["spec"]["containers"][0]["env"]:
+                if row["name"] == "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED":
+                    row["value"] = "true"
+                elif row["name"] == "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT":
+                    row["value"] = "2026-10-01T00:00:00Z"
+            for row in cloud.services[name]["spec"]["template"]["spec"]["containers"][0]["env"]:
+                if row["name"] == "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED":
+                    row["value"] = "true"
+        self.assertEqual(cloud.execute(dt.datetime(
+            2026, 10, 24, 11, 5, tzinfo=UTC)), 0)
+        self.assertEqual(cloud.scheduler, "PAUSED")
+        for name, cfg in controller.SERVICES.items():
+            values = controller.env_values(controller.template(cloud.services[name]))
+            self.assertEqual(values["EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED"], "false")
+            self.assertEqual(cloud.services[name]["status"]["traffic"],
+                             [{"percent": 100, "revisionName": cfg["baseline"]}])
 
     def test_before_expiry_is_zero_write(self):
         cloud = InMemoryCloud()

@@ -105,6 +105,31 @@ test("release requires explicit prod opt-in and future 24-hour expiry",()=>{
   assert.equal(productionChapterReleaseActive({...env,
     EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT:"2026-10-23T07:59:59Z"},now),false);
 });
+test("persistent production review requires independent opt-in and forbids canary mode",()=>{
+  const now=Date.parse("2026-11-06T08:00:00Z");
+  const base={
+    EXAMTREE_API_RUNTIME:"cloud-run",
+    EXAMTREE_API_STAGING:"false",
+    EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED:"true",
+    EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT:"2026-10-27T12:53:07Z",
+    EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED:"true",
+    EXAMTREE_QS_PRODUCTION_CANARY_ONLY:"false",
+  };
+  assert.equal(productionChapterReleaseActive(base,now),true);
+  for(const updates of [
+    {EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED:"false"},
+    {EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED:"false"},
+    {EXAMTREE_QS_PRODUCTION_CANARY_ONLY:"true"},
+    {EXAMTREE_API_STAGING:"true"},
+    {EXAMTREE_API_RUNTIME:"staging"},
+  ]) {
+    assert.equal(productionChapterReleaseActive({...base,...updates},now),false);
+  }
+  // Legacy release still expires; persistent opt-in must not silently extend it.
+  assert.equal(productionChapterReleaseActive({
+    ...base,EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED:"false",
+  },now),false);
+});
 test("scope authorizes full named chapter, not arbitrary package wildcard",()=>{
   const [e,p]=cases[1];
   const env={EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON:JSON.stringify(scope(e,p))};
