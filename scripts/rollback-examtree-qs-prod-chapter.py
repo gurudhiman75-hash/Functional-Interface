@@ -26,36 +26,35 @@ MAX_WINDOW = dt.timedelta(hours=24)
 UTC = dt.timezone.utc
 BLOCKED_RELEASE_IDS = {"c71b5ccb-8aa6-44e0-b0a5-01a3607a9c98", "48aaff58-d0cb-4345-be5f-491089b72f10"}
 
-# Immutable QS bulk candidate digests from 2026-11-05 build-only release
-# at source commit 9d8e8e157927495f005b784192a3efc02ddcfa99.
-# Baselines are the observed 100%-serving, disabled revisions from the
-# 2026-11-05 release preflight. NEVER use LATEST.
+# Immutable persistent-review images built from merged source commit
+# 6281ede7b35813e0aa0d6db12c6c51ffb0d35923, verified by the operator.
+# Fallbacks remain known disabled revisions; NEVER use LATEST.
 # This is a proposed release pin update; installing a new Job image and
 # activating generation still require independent production approval.
 SERVICES = {
     "examtree-api": {
         "baseline": "examtree-api-00029-qhl",
-        "candidate_tag": "qs-bulk-9d8e8e15",
+        "candidate_tag": "qs-persist-6281ede7",
         "sa": "examtree-api-prod-runtime@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:72fb0854d5e712936e327404ce20071e1760425e15ea138505f51b28a1434895",
+        "digest": "sha256:dd304e9ebbe82e9cf01e12d2770fc764e641bb036024757e2f13b9850aae9902",
         "off": ("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_ROUTE_APPROVED"),
     },
     "examtree-qs-receiver-prod": {
         "baseline": "examtree-qs-receiver-prod-00025-27d",
-        "candidate_tag": "qs-bulk-9d8e8e15",
+        "candidate_tag": "qs-persist-6281ede7",
         "sa": "examtree-qs-receiver-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:9f7730643b4b941240227ac07048437a0c396383e04b6ac5b3c092f7f009ac9e",
+        "digest": "sha256:fec793c172673498c0ac4fd6a065b2b3b46ed39ca7354add03853bd94f00d36",
         "off": ("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_RECEIVER_APPROVED"),
     },
     "examtree-universal-prod": {
         "baseline": "examtree-universal-prod-00039-bz6",
-        "candidate_tag": "qs-bulk-9d8e8e15",
+        "candidate_tag": "qs-persist-6281ede7",
         "sa": "examtree-qs-worker-prod@sarbedutech.iam.gserviceaccount.com",
-        "digest": "sha256:6bd418ebf5c728147e1bb0b3b281d908119365540dcede730b1ebd2cbf5f422b",
+        "digest": "sha256:9f9cd20d7273119e2d8c2e4cc8e4ffa85c7298025b297604918880dc6745b5d",
         "off": ("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED",
                 "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_APPROVED",
                 "EXAMTREE_QS_PRODUCTION_WORKER_APPROVED"),
