@@ -135,6 +135,50 @@ class ServiceGuardTests(unittest.TestCase):
             with self.assertRaisesRegex(mod.Stop, "Partial release approvals"):
                 mod.validate_service(service, cfg)
 
+    def test_persistent_prepared_revision_is_safe_without_execution_approval(self):
+        for service, cfg in mod.SERVICES.items():
+            with self.subTest(service=service):
+                candidate = service + "-99999-prepared"
+                doc = {"status": {"traffic": [{"revisionName": candidate, "percent": 100}]}}
+                baseline = self.baseline(service, cfg)
+                live = self.baseline(service, cfg)
+                live["metadata"]["name"] = candidate
+                live["status"]["imageDigest"] = "repository@" + cfg["digest"]
+                values = {key: "false" for key in cfg["off"]}
+                values.update({
+                    "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED": "true",
+                    "EXAMTREE_QS_PRODUCTION_CANARY_ONLY": "false",
+                    "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_SCOPE_JSON":
+                        '{"mode":"all-eligible-chapters","reviewOnly":true,"chapterWide":true}',
+                    "EXAMTREE_API_RUNTIME": "cloud-run",
+                    "EXAMTREE_API_STAGING": "false",
+                    "EXAMTREE_QS_PRODUCTION_CHAPTER_REVIEW_EXPIRES_AT":
+                        "2026-10-27T12:53:07Z",
+                })
+                live["spec"]["containers"][0]["env"] = [
+                    {"name": key, "value": value} for key, value in values.items()
+                ]
+                with (patch.object(mod, "fetch", return_value=doc),
+                      patch.object(mod, "target_revision",
+                                   side_effect=lambda s, n: baseline if n == cfg["baseline"] else live)):
+                    mod.validate_service(service, cfg)
+                    # Turning on one of several execution approvals is a partial release.
+                    execution_flag = next(key for key in cfg["off"] if
+                                          key != "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED")
+                    values[execution_flag] = "true"
+                    live["spec"]["containers"][0]["env"] = [
+                        {"name": key, "value": value} for key, value in values.items()
+                    ]
+                    with self.assertRaisesRegex(mod.Stop, "Partial release approvals"):
+                        mod.validate_service(service, cfg)
+                    values[execution_flag] = "false"
+                    values["EXAMTREE_QS_PRODUCTION_CANARY_ONLY"] = "true"
+                    live["spec"]["containers"][0]["env"] = [
+                        {"name": key, "value": value} for key, value in values.items()
+                    ]
+                    with self.assertRaisesRegex(mod.Stop, "cannot be canary-only"):
+                        mod.validate_service(service, cfg)
+
     def test_persistent_review_release_valid_without_old_chapter_expiry(self):
         service = "examtree-api"
         cfg = mod.SERVICES[service]
