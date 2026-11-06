@@ -1,3 +1,4 @@
+import { beginTestWithInstructions } from "./helpers/start-test";
 import { expect, test, type Page, type Route } from "@playwright/test";
 
 const FIREBASE_API_KEY = "examtree-e2e-api-key";
@@ -195,7 +196,7 @@ test.describe("CP01B active-session revocation", () => {
     await page.goto(`/test/${TEST_ID}`);
 
     await expect(page.getByRole("heading", { name: "Session Security Mock" })).toBeVisible();
-    await page.getByRole("button", { name: "Start Test" }).click();
+    await beginTestWithInstructions(page);
     await page.getByRole("button", { name: /Four/ }).click();
 
     await expect.poll(async () => page.evaluate((testId) => {

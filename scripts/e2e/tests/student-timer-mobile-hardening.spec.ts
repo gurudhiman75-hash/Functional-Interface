@@ -1,3 +1,4 @@
+import { beginTestWithInstructions } from "./helpers/start-test";
 import { expect, test, type Page, type Route } from "@playwright/test";
 
 const FIREBASE_API_KEY = "examtree-e2e-api-key";
@@ -197,7 +198,7 @@ test.describe("CP01B mobile runner certification", () => {
     await page.goto(`/test/${TEST_ID}`);
 
     await expect(page.getByRole("heading", { name: testDetail.name })).toBeVisible();
-    await page.getByRole("button", { name: "Start Test" }).click();
+    await beginTestWithInstructions(page);
 
     await expect(page.getByText("Question No 1")).toBeVisible();
     await expect(page.getByText(/Time Left:/)).toBeVisible();
