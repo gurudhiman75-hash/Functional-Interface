@@ -296,9 +296,9 @@ def verify_disabled(service, config):
        desired[0].get("latestRevision") is True:
         raise Stop("Rollback traffic not pinned to baseline: " + service)
     values = env_values(template(doc))
-    if any(values.get(flag) != "false" for flag in config["off"]
-           if flag != "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED") or
-       values.get("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED") not in (None, "false"):
+    if (any(values.get(flag) != "false" for flag in config["off"]
+            if flag != "EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED") or
+        values.get("EXAMTREE_QS_PRODUCTION_PERSISTENT_REVIEW_ENABLED") not in (None, "false")):
         raise Stop("Latest service template approval not false: " + service)
 
 def job_approval(job, flag):
