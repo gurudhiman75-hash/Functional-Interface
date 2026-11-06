@@ -88,9 +88,9 @@ class ServiceGuardTests(unittest.TestCase):
             "examtree-api":
                 "sha256:dd304e9ebbe82e9cf01e12d2770fc764e641bb036024757e2f13b9850aae9902",
             "examtree-qs-receiver-prod":
-                "sha256:fec793c172673498c0ac4fd6a065b2b3b46ed39ca7354add03853bd94f00d36",
+                "sha256:fec793c1726734998c0ac4fd6a065b2b3b46ed39ca7354add03853bd94f00d36",
             "examtree-universal-prod":
-                "sha256:9f9cd20d7273119e2d8c2e4cc8e4ffa85c7298025b297604918880dc6745b5d",
+                "sha256:9f9cd20d7273119e2d8c2e4cc8e4ffa85c7298025b2976040918880dc6745b5d",
         }
         self.assertEqual({name: cfg["digest"] for name, cfg
                           in mod.SERVICES.items()}, expected)
