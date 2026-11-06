@@ -1,3 +1,4 @@
+import { beginTestWithInstructions } from "./helpers/start-test";
 import { expect, test, type Page, type Route } from "@playwright/test";
 
 const FIREBASE_API_KEY = "examtree-e2e-api-key";
@@ -491,7 +492,7 @@ test.describe("canonical student reliability", () => {
     const observations = await installApiFixtures(page, state);
     await openAsStudent(page, `/test/${TEST_ID}?seriesId=${SERIES_ID}`);
 
-    await page.getByRole("button", { name: "Start Test" }).click();
+    await beginTestWithInstructions(page);
     await expect(page.getByText("Question No 1")).toBeVisible();
     await page.getByRole("button", { name: /Four/ }).click();
     await page.getByRole("button", { name: "Submit test", exact: true }).click();
