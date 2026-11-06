@@ -153,9 +153,9 @@ class ServiceGuardTests(unittest.TestCase):
             {"name": "EXAMTREE_API_RUNTIME", "value": "cloud-run"},
             {"name": "EXAMTREE_API_STAGING", "value": "false"},
         ]
-        with patch.object(mod, "fetch", return_value=doc), \\
-             patch.object(mod, "target_revision",
-                          side_effect=lambda s, n: original if n == cfg["baseline"] else active):
+        with (patch.object(mod, "fetch", return_value=doc),
+              patch.object(mod, "target_revision",
+                           side_effect=lambda s, n: original if n == cfg["baseline"] else active)):
             mod.validate_service(service, cfg, "2026-10-27T12:53:07Z")
             active["spec"]["containers"][0]["env"][0]["value"] = "false"
             with self.assertRaisesRegex(mod.Stop, "Release expiry mismatch"):
