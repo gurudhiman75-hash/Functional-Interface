@@ -69,7 +69,7 @@ export default function ActivityPage() {
       </section>
       <section className="series-panel series-week"><div className="series-panel-head"><h2>This week</h2></div>
         {attemptsQuery.isLoading ? <p className="series-empty" role="status">Loading your activity…</p> : attemptsQuery.isError ? <div className="series-empty"><p>Activity could not be loaded.</p><button onClick={() => void attemptsQuery.refetch()}>Try again</button></div> : <>
-        <dl><div><dt><FileText />Tests attempted</dt><dd>{week.length}</dd></div><div><dt><Target />Accuracy</dt><dd>{accuracy === null ? "—" : accuracy+"%"}</dd></div><div><dt><Clock3 />Practice time</dt><dd>{minutes >= 60 ? Math.floor(minutes/60)+"h "+minutes%60+"m" : minutes+" min"}</dd></div></dl>
+        <dl><div><dt><FileText />Tests attempted</dt><dd>{week.length}</dd></div><div><dt><Target />Accuracy</dt><dd>{accuracy === null ? "—" : accuracy+"%"}</dd></div><div><dt><Clock3 />Test time</dt><dd>{minutes >= 60 ? Math.floor(minutes/60)+"h "+minutes%60+"m" : minutes+" min"}</dd></div></dl>
         <div className="series-week-chart" role="img" aria-label={"Tests completed Monday to Sunday: "+days.map(d => d.count).join(", ")}>{days.map((d,i) => <div key={i}><div className="series-bar-track"><span style={{height:(d.count/maxCount*100)+"%"}} title={d.count+" tests"} /></div><span>{d.label}</span></div>)}</div>
         {!week.length && <p className="series-chart-note">Complete your first test this week.</p>}
         </>}
