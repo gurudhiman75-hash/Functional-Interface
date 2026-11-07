@@ -49,7 +49,8 @@ export function AppLayout({ children }: AppLayoutProps) {
   const seriesDashboard = location === "/dashboard";
   return (
     <SidebarProvider
-      className={`et-viewport et-page-surface bg-background text-foreground ${seriesDashboard ? "series-dashboard-shell" : ""}`}
+      className="et-viewport et-page-surface bg-background text-foreground"
+      data-series-dashboard={seriesDashboard || undefined}
       style={{ "--sidebar-width": seriesDashboard ? "232px" : "260px" } as CSSProperties}
     >
       <a
