@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { useLocation } from "wouter";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -44,10 +45,13 @@ function CatalogAwareHeader() {
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
+  const [location] = useLocation();
+  const seriesDashboard = location === "/dashboard";
   return (
     <SidebarProvider
       className="et-viewport et-page-surface bg-background text-foreground"
-      style={{ "--sidebar-width": "260px" } as CSSProperties}
+      data-series-dashboard={seriesDashboard || undefined}
+      style={{ "--sidebar-width": seriesDashboard ? "232px" : "260px" } as CSSProperties}
     >
       <a
         href="#main-content"

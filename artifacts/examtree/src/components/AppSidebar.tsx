@@ -74,13 +74,25 @@ export function AppSidebar() {
   const user = getUser();
   const { toast } = useToast();
   const isAdmin = user?.role === "admin";
+  const dashboardLinks: typeof primaryLinks = [
+    { href: "/dashboard", label: "Dashboard", icon: Home },
+    { href: "/my-packages", label: "My test series", icon: ClipboardList },
+    { href: "/mock-tests", label: "Practice", icon: Target },
+    { href: "/performance", label: "Results", icon: BarChart3 },
+    { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+    { href: "/purchases", label: "Purchases", icon: CreditCard },
+    { href: "/resources", label: "Study material", icon: BookOpen },
+    { href: "/contact", label: "Help", icon: CircleHelp },
+    { href: "/profile", label: "Settings", icon: Settings },
+  ];
+  const navigation = location === "/dashboard" ? dashboardLinks : primaryLinks;
   const links = isAdmin
     ? [
-        ...primaryLinks,
+        ...navigation,
         { href: "/admin", label: "Admin", icon: ShieldCheck },
         { href: "/admin/content/questions/generate", label: "Question Studio", icon: WandSparkles },
       ]
-    : primaryLinks;
+    : navigation;
 
   const handleLogout = async () => {
     const auth = getFirebaseAuth();
