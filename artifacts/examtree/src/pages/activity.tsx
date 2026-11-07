@@ -38,7 +38,7 @@ export default function ActivityPage() {
   const week = attempts.filter(a => { const day = localDayNumber(a.createdAt); return day !== null && day >= monday && day <= today; });
   const questions = week.reduce((sum,a) => sum + a.totalQuestions, 0);
   const accuracy = questions ? Math.round(week.reduce((sum,a) => sum + a.correct, 0) / questions * 100) : null;
-  const minutes = Math.round(week.reduce((sum,a) => sum + a.timeSpent, 0) / 60);
+  const minutes = Math.round(week.reduce((sum,a) => sum + a.timeSpent, 0));
   const days = Array.from({length:7},(_,i) => ({label:["M","T","W","T","F","S","S"][i],count:week.filter(a => localDayNumber(a.createdAt) === monday+i).length}));
   const maxCount = Math.max(1,...days.map(d => d.count));
   const topicTests = catalogue.filter(test => test.kind === "topic-wise" || test.kind === "sectional");
@@ -48,15 +48,16 @@ export default function ActivityPage() {
   return <div className="student-hub-dashboard" data-testid="student-dashboard">
     <header className="series-welcome"><div><h1>Welcome back, {firstName}</h1><p>Continue your preparation.</p></div><Link href="/exams" className="series-exam-link">Explore exams <ChevronRight /></Link></header>
     <nav className="series-tabs" aria-label="Preparation views"><Link href="/dashboard" aria-current="page">Overview</Link><Link href="/my-packages">My learning</Link><Link href="/performance">Performance</Link></nav>
-    {resume ? <section className="series-resume" aria-label="Continue saved test"><Clock3 /><div><h2>{resume.testName}</h2><p>{Object.values(resume.answers).filter(value => value !== null).length} questions answered · {Math.ceil(resume.timeLeft/60)} min saved</p></div><Link className="series-button" href={"/test/"+encodeURIComponent(resume.testId)}>Resume test <ArrowRight /></Link></section> :
+    {resume ? <section className="series-resume" aria-label="Continue saved test"><Clock3 /><div><h2>{resume.testName}</h2><p>{Object.values(resume.answers ?? {}).filter(value => value !== null).length} questions answered · {Math.ceil(resume.timeLeft/60)} min saved</p></div><Link className="series-button" href={"/test/"+encodeURIComponent(resume.testId)}>Resume test <ArrowRight /></Link></section> :
       <section className="series-resume"><Clock3 /><div><h2>Ready for your next attempt?</h2><p>Choose a mock test or a short topic practice.</p></div><Link href="/mock-tests" className="series-button">Browse tests <ArrowRight /></Link></section>}
     <div className="series-main-grid">
       <section className="series-panel series-library"><div className="series-panel-head"><h2>My test series</h2><Link href="/my-packages">View all <ArrowRight /></Link></div>
         {purchasesQuery.isLoading ? <p className="series-empty" role="status">Loading your test series…</p> : purchasesQuery.isError ? <div className="series-empty"><p>Your test series could not be loaded.</p><button onClick={() => void purchasesQuery.refetch()}>Try again</button></div> : access.length ? <div className="series-cards">{access.slice(0,2).map((item,index) => {
-          const ids = item.tests?.map(t => t.id);
+          const membership = item.tests?.length ? item.tests : undefined;
+          const ids = membership?.map(t => t.id);
           const completed = ids ? new Set(attempts.filter(a => ids.includes(a.testId)).map(a => a.testId)).size : null;
           const total = ids ? ids.length : item.testCount;
-          const next = item.tests?.find(t => !attempts.some(a => a.testId === t.id)) ?? item.tests?.[0];
+          const next = !attemptsQuery.isLoading && !attemptsQuery.isError ? membership?.find(t => !attempts.some(a => a.testId === t.id)) : undefined;
           return <article className="series-course" key={item.id}>
             <div className={"series-cover cover-"+(index%2)}><FileText /><div><h3>{item.productTitle}</h3><p>{total} tests · Active access</p></div></div>
             <div className="series-course-body">
