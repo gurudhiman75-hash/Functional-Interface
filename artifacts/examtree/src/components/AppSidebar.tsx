@@ -74,7 +74,7 @@ export function AppSidebar() {
   const user = getUser();
   const { toast } = useToast();
   const isAdmin = user?.role === "admin";
-  const dashboardLinks = [
+  const dashboardLinks: typeof primaryLinks = [
     { href: "/dashboard", label: "Dashboard", icon: Home },
     { href: "/my-packages", label: "My test series", icon: ClipboardList },
     { href: "/mock-tests", label: "Practice", icon: Target },
