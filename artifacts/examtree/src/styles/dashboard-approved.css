@@ -1,13 +1,13 @@
 
 /* Approved series-first learner dashboard. Shell styling is dashboard-only. */
-.series-dashboard-shell{background:#f7f7f5;--sidebar:218 53% 14%;--sidebar-foreground:218 65% 97%;--sidebar-accent:213 47% 30%;--sidebar-accent-foreground:0 0% 100%;--sidebar-border:0 0% 100% / .094}
-.series-dashboard-shell [data-sidebar=sidebar],.series-dashboard-shell [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
-.series-dashboard-shell [data-sidebar=header] p{color:#fff}
-.series-dashboard-shell [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
-.series-dashboard-shell [data-sidebar=menu-button]:hover,.series-dashboard-shell [data-sidebar=menu-button][data-active=true]{background:#31577e;color:white;border-left-color:transparent}
-.series-dashboard-shell [data-sidebar=footer] .text-muted-foreground{color:#bdcbe0}
-.series-dashboard-shell .et-shell-header{background:#fff;border-color:#e0e5ec;box-shadow:none}
-.series-dashboard-shell .et-page-content{padding-top:110px}
+.et-viewport[data-series-dashboard=true]{background:#f7f7f5;--sidebar:218 53% 14%;--sidebar-foreground:218 65% 97%;--sidebar-accent:213 47% 30%;--sidebar-accent-foreground:0 0% 100%;--sidebar-border:0 0% 100% / .094}
+.et-viewport[data-series-dashboard=true] [data-sidebar=sidebar],.et-viewport[data-series-dashboard=true] [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
+.et-viewport[data-series-dashboard=true] [data-sidebar=header] p{color:#fff}
+.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
+.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button]:hover,.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button][data-active=true]{background:#31577e;color:white;border-left-color:transparent}
+.et-viewport[data-series-dashboard=true] [data-sidebar=footer] .text-muted-foreground{color:#bdcbe0}
+.et-viewport[data-series-dashboard=true] .et-shell-header{background:#fff;border-color:#e0e5ec;box-shadow:none}
+.et-viewport[data-series-dashboard=true] .et-page-content{padding-top:110px}
 .student-hub-dashboard{width:100%;max-width:1450px;margin:0 auto;color:#13213a;--series-blue:#2168d6;--series-line:#dfe4ec}
 .student-hub-dashboard *{box-sizing:border-box}
 .student-hub-dashboard svg{width:20px;height:20px;flex-shrink:0}
@@ -78,4 +78,4 @@
 .series-resources a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:12px;color:#65758b}
 .student-hub-dashboard a:focus-visible,.student-hub-dashboard button:focus-visible{outline:2px solid #2168d6;outline-offset:4px}
 @media(max-width:1150px){.series-main-grid{grid-template-columns:minmax(0,1fr)}.series-week-chart{max-width:480px}.series-results,.series-subjects{grid-column:auto}}
-@media(max-width:600px){.series-dashboard-shell .et-page-content{padding-top:100px}.series-welcome{align-items:flex-start;gap:10px}.series-exam-link{padding:8px;font-size:11px}.series-tabs{gap:0}.series-tabs a{padding-inline:12px;font-size:13px}.series-resume{flex-wrap:wrap;padding:16px;gap:12px}.series-resume h2{font-size:16px}.series-resume>.series-button{margin-left:42px}.series-panel{padding:17px}.series-panel-head h2{font-size:19px}.series-cards{grid-template-columns:1fr}.series-cover{min-height:105px}.series-result-list article{gap:8px}.series-result-list article>svg{display:none}.series-subject-grid{gap:8px}.series-subject-grid a{padding:10px}.series-resources{gap:12px}}
+@media(max-width:600px){.et-viewport[data-series-dashboard=true] .et-page-content{padding-top:100px}.series-welcome{align-items:flex-start;gap:10px}.series-exam-link{padding:8px;font-size:11px}.series-tabs{gap:0}.series-tabs a{padding-inline:12px;font-size:13px}.series-resume{flex-wrap:wrap;padding:16px;gap:12px}.series-resume h2{font-size:16px}.series-resume>.series-button{margin-left:42px}.series-panel{padding:17px}.series-panel-head h2{font-size:19px}.series-cards{grid-template-columns:1fr}.series-cover{min-height:105px}.series-result-list article{gap:8px}.series-result-list article>svg{display:none}.series-subject-grid{gap:8px}.series-subject-grid a{padding:10px}.series-resources{gap:12px}}
