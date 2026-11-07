@@ -1,6 +1,6 @@
 
 /* Approved series-first learner dashboard. Shell styling is dashboard-only. */
-.series-dashboard-shell{background:#f7f7f5;--sidebar:#111f37;--sidebar-foreground:#f1f5fc;--sidebar-accent:#284970;--sidebar-accent-foreground:#fff;--sidebar-border:#ffffff18}
+.series-dashboard-shell{background:#f7f7f5;--sidebar:218 53% 14%;--sidebar-foreground:218 65% 97%;--sidebar-accent:213 47% 30%;--sidebar-accent-foreground:0 0% 100%;--sidebar-border:0 0% 100% / .094}
 .series-dashboard-shell [data-sidebar=sidebar],.series-dashboard-shell [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
 .series-dashboard-shell [data-sidebar=header] p{color:#fff}
 .series-dashboard-shell [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
