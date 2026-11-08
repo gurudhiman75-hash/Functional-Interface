@@ -450,6 +450,8 @@ export interface QuestionStudioBulkReviewProgress {
     selectedCpIds: string[];
     dueAt: string | null;
     deadlineExpired: boolean;
+    leaseActive?: boolean;
+    overdueNeedsAttention?: boolean;
     dispatchState: 'not_requested' | 'unknown' | 'pending' | 'acknowledged';
     dispatchAcknowledgedAt: string | null;
     dispatchAttempts: number;
