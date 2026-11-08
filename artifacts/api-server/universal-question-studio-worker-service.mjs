@@ -3,6 +3,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
+import {serializeUniversalWorkerResponse} from "./universal-worker-json.mjs";
 import {assertProductionWorkerCanaryInput} from "./production-canary-worker-scope.mjs";
 import {assertProductionWorkerReviewInput} from "./prod-worker-review-scope.mjs";
 import {assertProductionChapterWorkerInput} from "./prod-chapter-review-runtime.mjs";
@@ -21,7 +22,7 @@ let busy = false;
 
 function respond(res, status, data) {
   if (res.destroyed) return;
-  const body = JSON.stringify(data);
+  const body = serializeUniversalWorkerResponse(data);
   if (Buffer.byteLength(body) > responseLimit) {
     respond(res, 502, { ok: false, code: "UNIVERSAL_RESPONSE_TOO_LARGE", error: "Worker response too large" });
     return;
@@ -136,7 +137,19 @@ const server = createServer(async (req, res) => {
   } catch (error) {
     const status = Number(error?.statusCode);
     const safeStatus = Number.isInteger(status) && status >= 400 && status < 600 ? status : 500;
-    console.error(JSON.stringify({ event: "universal_generation_failed", packageId, code: error?.code ?? "UNIVERSAL_GENERATION_FAILED" }));
+    // No question text, request payload, seeds or credentials in Cloud Logging.
+    // A bounded error category and sanitized message help distinguish generator
+    // faults that previously all appeared as UNIVERSAL_GENERATION_FAILED.
+    const safeMessage=String(error?.message ?? "Generation failed")
+      .replace(/https?:[^ ]+/g,"[url]")
+      .replace(/[0-9a-f]{8}-[0-9a-f-]{27,}/gi,"[id]")
+      .replace(/[A-Za-z0-9_+=-]{48,}/g,"[redacted]")
+      .slice(0,200);
+    console.error(JSON.stringify({
+      event: "universal_generation_failed", packageId,
+      code: error?.code ?? "UNIVERSAL_GENERATION_FAILED",
+      errorType: error?.name ?? "Error", reason: safeMessage,
+    }));
     respond(res, safeStatus, {
       ok: false, code: error?.code ?? "UNIVERSAL_GENERATION_FAILED",
       error: String(error?.message ?? "Generation failed"),

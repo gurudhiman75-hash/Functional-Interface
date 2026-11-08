@@ -24,6 +24,7 @@ ENV NODE_ENV=production PORT=8080 EXAMTREE_API_RUNTIME=cloud-run EXAMTREE_API_ST
 WORKDIR /app
 COPY --from=builder /src/artifacts/api-server/dist/question-studio-universal-worker.mjs /app/artifacts/api-server/dist/question-studio-universal-worker.mjs
 COPY --from=builder /src/artifacts/api-server/dist/universal-question-studio-worker-service.mjs /app/artifacts/api-server/dist/universal-question-studio-worker-service.mjs
+COPY --from=builder /src/artifacts/api-server/dist/universal-worker-json.mjs /app/artifacts/api-server/dist/universal-worker-json.mjs
 COPY --from=builder /src/artifacts/api-server/prod-universal-worker-service.mjs /app/artifacts/api-server/dist/prod-universal-worker-service.mjs
 COPY --from=builder /src/artifacts/api-server/production-canary-worker-scope.mjs /app/artifacts/api-server/dist/production-canary-worker-scope.mjs
 COPY --from=builder /src/artifacts/api-server/dist/prod-worker-review-scope.mjs /app/artifacts/api-server/dist/prod-worker-review-scope.mjs
