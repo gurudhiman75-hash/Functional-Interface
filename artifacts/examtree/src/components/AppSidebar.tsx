@@ -11,6 +11,8 @@ import {
   Newspaper,
   Settings,
   ShieldCheck,
+  ShoppingBag,
+  CircleHelp as FaqIcon,
   Target,
   User,
   WandSparkles,
@@ -36,6 +38,9 @@ const primaryLinks = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
   { href: "/exams", label: "Test series", icon: ClipboardList },
   { href: "/mock-tests", label: "Practice", icon: Target },
+  { href: "/pyqs", label: "Previous year papers", icon: ClipboardList },
+  { href: "/store", label: "Store", icon: ShoppingBag },
+  { href: "/exams-covered", label: "Exams covered", icon: BookOpen },
   { href: "/performance", label: "Results", icon: BarChart3 },
   { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
   { href: "/my-packages", label: "My purchases", icon: CreditCard },
@@ -43,12 +48,14 @@ const primaryLinks = [
   { href: "/current-affairs", label: "Current affairs", icon: Newspaper },
   { href: "/profile", label: "Profile & settings", icon: Settings },
   { href: "/contact", label: "Help & support", icon: CircleHelp },
+  { href: "/faq", label: "FAQ", icon: FaqIcon },
 ];
 
 function isLinkActive(location: string, href: string) {
   if (href === "/dashboard") return location === "/dashboard";
   if (href === "/exams") return location === "/exams" || location === "/tests"
     || ["/category/", "/subcategory/", "/test-series/", "/published-tests/"].some(prefix => location.startsWith(prefix));
+  if (href === "/store") return location === "/store" || location === "/packages" || location.startsWith("/store/") || location.startsWith("/packages/");
   if (href === "/resources") return location === "/resources" || (location.startsWith("/resources/") && !location.startsWith("/resources/current-affairs"));
   if (href === "/current-affairs") return location === "/current-affairs" || location.startsWith("/resources/current-affairs");
   if (href === "/performance") return location === "/performance" || location === "/result";
@@ -130,7 +137,6 @@ export function AppSidebar() {
               href="/profile"
               className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition ${location === "/profile" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-primary"}`}
               aria-label="Profile"
-              aria-current={location === "/profile" ? "page" : undefined}
             >
               <Settings className="h-4 w-4" aria-hidden="true" />
             </Link>
