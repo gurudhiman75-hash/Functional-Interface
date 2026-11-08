@@ -10,6 +10,7 @@ import {
   type QuestionStudioCapabilities,
   type QuestionStudioReviewPage,
   type QuestionStudioReviewQuery,
+  type QuestionStudioRun,
   type ReviseGenerationItemInput,
 } from './api';
 import { notifyQuestionStudioRefresh, QUESTION_STUDIO_REFRESH_EVENT } from './events';
@@ -177,6 +178,49 @@ export function useQuestionStudio() {
 }
 
 
+type ReviewUpdate = {
+  id: string;
+  generationRunId: string;
+  status: GenerationItemStatus;
+  conversionSkippedReason: string | null;
+  convertedQuestion: { questionId: string; questionVersionId: string } | null;
+};
+
+// Update only the persisted records returned by the API, not every selected
+// item: partial failures can have a mixture of accepted and rejected writes.
+export function applyReviewResultsToRuns(runs: QuestionStudioRun[], updates: ReviewUpdate[]): QuestionStudioRun[] {
+  const byId = new Map(updates.map(update => [update.id, update]));
+  return runs.map(run => {
+    const relevant = updates.filter(update => update.generationRunId === run.id);
+    if (relevant.length === 0) return run;
+    const items = run.items.map(item => {
+      const update = byId.get(item.id);
+      if (!update) return item;
+      return {
+        ...item,
+        status: update.status,
+        acceptedQuestionId: update.convertedQuestion?.questionId ?? item.acceptedQuestionId,
+        acceptedQuestionVersionId: update.convertedQuestion?.questionVersionId ?? item.acceptedQuestionVersionId,
+      };
+    });
+    // Preserve the backend summary for questions outside the current loaded
+    // page, adjusting only items that actually changed their saved status.
+    const reviewSummary = { ...run.reviewSummary };
+    const counters: Partial<Record<GenerationItemStatus, keyof typeof reviewSummary>> = {
+      unreviewed: 'unreviewed', needs_fix: 'needsFix', approved: 'approved', rejected: 'rejected',
+    };
+    for (const item of run.items) {
+      const update = byId.get(item.id);
+      if (!update || update.status === item.status) continue;
+      const from = counters[item.status];
+      const to = counters[update.status];
+      if (from) reviewSummary[from] = Math.max(0, reviewSummary[from] - 1);
+      if (to) reviewSummary[to] += 1;
+    }
+    return { ...run, items, reviewSummary };
+  });
+}
+
 export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   const page = query.page ?? 1;
   const pageSize = query.pageSize ?? 20;
@@ -229,6 +273,15 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     loadingReviewPage,
     reviewPageError,
     refreshReviewPage,
+    applyReviewResults: (updates: ReviewUpdate[]) => {
+      // Prevent a stale in-flight fetch from overwriting the committed edits.
+      requestId.current += 1;
+      setLoadingReviewPage(false);
+      setReviewPage(current => ({
+        ...current,
+        runs: applyReviewResultsToRuns(current.runs, updates),
+      }));
+    },
     applyRevision: (revision: Awaited<ReturnType<typeof reviseGenerationItem>>['item']) => {
       // A pre-save fetch must never overwrite the newly committed version.
       requestId.current += 1;
