@@ -12,7 +12,6 @@ import {
   Settings,
   ShieldCheck,
   ShoppingBag,
-  CircleHelp as FaqIcon,
   Target,
   User,
   WandSparkles,
@@ -48,7 +47,7 @@ const primaryLinks = [
   { href: "/current-affairs", label: "Current affairs", icon: Newspaper },
   { href: "/profile", label: "Profile & settings", icon: Settings },
   { href: "/contact", label: "Help & support", icon: CircleHelp },
-  { href: "/faq", label: "FAQ", icon: FaqIcon },
+  { href: "/faq", label: "FAQ", icon: CircleHelp },
 ];
 
 function isLinkActive(location: string, href: string) {
