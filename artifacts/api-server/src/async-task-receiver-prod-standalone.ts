@@ -64,6 +64,7 @@ app.get("/health",(_req,res)=>res.status(200).json({status:"ok",service:"qs-rece
 
 app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");
+  let activeClaim:{runId:string;leaseToken:string}|null=null;
   try {
     assertProductionReceiverConfig();
   } catch {
@@ -112,6 +113,7 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
     if(claim.kind!=="claimed"){
       res.status(503).json({code:"ASYNC_TASK_RUN_NOT_CLAIMABLE"});return;
     }
+    activeClaim={runId:claim.runId,leaseToken:claim.leaseToken};
     const compute=computeInputFromQueuedSnapshot(claim.requestSnapshot);
     validateAsyncTaskComputeInput(compute);
     const batch=await runUniversalStudioRemote(compute,{productionPrivateCloudRun:true});
@@ -120,10 +122,25 @@ app.post("/internal/question-studio/async-task",express.json({limit:"2kb"}),asyn
       reviewOnlyOutput: Boolean(chapterGuard),
     });
     if(receipt.status!=="review" && receipt.status!=="already_committed"){
-      res.status(503).json({code:"ASYNC_REVIEW_NOT_COMMITTED"});return;
+      throw Object.assign(new Error("Async review was not committed"),{code:"ASYNC_REVIEW_NOT_COMMITTED"});
     }
+    activeClaim=null;
     res.status(204).end();
   } catch(error){
+    // Only the exact failing claim can be released; successful/terminal runs
+    // and newer claims remain protected by the run-row and fencing token.
+    if(activeClaim){
+      try {
+        const {releaseQuestionStudioAsyncTaskLeaseAfterFailure}=await import(
+          "./question-studio/async-task-lease-claim"
+        );
+        await releaseQuestionStudioAsyncTaskLeaseAfterFailure(
+          activeClaim.runId,activeClaim.leaseToken,
+        );
+      }catch{
+        console.error("QS_PROD_TASK_LEASE_RELEASE_UNAVAILABLE");
+      }
+    }
     if(error instanceof QuestionStudioTaskAuthError){
       res.status(error.statusCode).json({code:error.code,error:"Task authorization failed"});return;
     }

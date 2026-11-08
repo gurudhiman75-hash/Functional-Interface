@@ -61,6 +61,7 @@ import {
   getQuestionStudioBulkReviewProgress,
   launchQuestionStudioBulkReviewChild,
   reconcileQuestionStudioBulkReviewChild,
+  recoverExpiredQuestionStudioBulkReviewChild,
 } from '@/features/question-studio/api';
 import { isProductionChapterPackage, productionChapterCpIds, PRODUCTION_CHAPTER_BATCH_LIMIT } from '@/features/question-studio/production-chapter';
 import {
@@ -1366,7 +1367,8 @@ export function QuestionStudioCockpitPage() {
                     <div className="w-full space-y-1 text-[11px] text-muted-foreground">
                       <p>Dispatch record: {batch.dispatchState==='acknowledged' ? 'Acknowledged by outbox (Cloud Task not independently verified)' :
                         batch.dispatchState==='pending' ? 'Awaiting dispatcher' :
-                        batch.dispatchState==='unknown' ? 'No matching outbox event — operator investigation required' : 'Not requested'}
+                        batch.dispatchState==='unknown' ? 'No matching outbox event — operator investigation required' :
+                        batch.dispatchState==='not_requested' ? 'Not requested' : 'Unknown — backend diagnostics may not be deployed'}
                         {batch.dispatchAttempts>0 ? ` · attempts: ${batch.dispatchAttempts}` : ''}
                       </p>
                       {batch.expectedTaskId && <p className="font-mono break-all">Expected task ID: {batch.expectedTaskId}</p>}
@@ -1375,10 +1377,28 @@ export function QuestionStudioCockpitPage() {
                         <p className="text-destructive font-medium">Run deadline expired. Do not redispatch: the receiver will reject an expired run. Operator recovery required.</p>}
                       {batch.status==='queued' && !batch.deadlineExpired && batch.dispatchState==='acknowledged' &&
                         <p>Dispatch was acknowledged. Verify the task and queue state before any retry; acknowledgement is not proof that a task exists.</p>}
-                      {batch.status==='running' && <p>Worker claimed the run. No dispatch retry is needed.</p>}
+                      {batch.overdueNeedsAttention &&
+                        <p className="text-destructive font-medium">Run deadline and worker lease expired. This batch needs operator recovery; automatic launch is stopped. Do not retry this run.</p>}
+                      {batch.status==='running' && !batch.overdueNeedsAttention &&
+                        <p>Worker claimed the run. No dispatch retry is needed.</p>}
                     </div>
                   )}
-                  {(batch.status==='reserved' || batch.status==='needs_reconciliation') && canRun && (
+                  {batch.runId && batch.overdueNeedsAttention && batch.canRecoverExpired && canRun && (
+                    <Button variant="destructive" size="sm" disabled={bulkAsyncSubmitting || bulkAutoAdvance}
+                      onClick={async()=>{
+                        if(!window.confirm('This expired run has no saved questions or active lease. Mark the old run failed and reset this one bulk batch for a NEW explicit launch? No generation will start automatically.')) return;
+                        setBulkAutoAdvance(false);
+                        setBulkAsyncSubmitting(true);
+                        try {
+                          await recoverExpiredQuestionStudioBulkReviewChild(bulkAsyncOperation.id,batch.batchIndex);
+                          setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
+                          showToast.info('Expired batch recovered','Old run preserved as failed. Launch this planned batch explicitly when the worker fix is deployed.');
+                        } catch(error){
+                          showToast.error('Recovery denied',error instanceof Error ? error.message : 'The run did not pass recovery safety checks.');
+                        } finally {setBulkAsyncSubmitting(false);}
+                      }}>Recover expired empty batch</Button>
+                  )}
+                  {(batch.status==='reserved' || (batch.status==='needs_reconciliation' && !batch.runId)) && canRun && (
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
                       setBulkAsyncSubmitting(true);
                       try {

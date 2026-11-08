@@ -101,3 +101,37 @@ export async function claimQuestionStudioAsyncTask(runId: string, allowSnapshot?
     };
   });
 }
+
+
+// A failed receiver attempt must not strand the lease for 240 seconds while
+// Cloud Tasks burns through its bounded retry attempts. This only expires the
+// exact claimed token; it does not delete the lease, reset its attempt counter,
+// enqueue new work or alter a completed review. The stale worker still cannot
+// commit because its fencing token is expired.
+export async function releaseQuestionStudioAsyncTaskLeaseAfterFailure(
+  runId:string, leaseToken:string,
+):Promise<boolean> {
+  if(!UUID.test(runId) || !UUID.test(leaseToken)) return false;
+  return sqlClient.begin(async tx=>{
+    const runs=await tx`
+      SELECT status::text AS status FROM content.generation_runs
+      WHERE id=${runId}::uuid FOR UPDATE
+    `;
+    if(runs[0]?.status!=="running") return false;
+    const leases=await tx`
+      SELECT lease_token::text AS token,completed_at
+      FROM content.generation_run_task_leases
+      WHERE generation_run_id=${runId}::uuid FOR UPDATE
+    `;
+    if(!leases[0] || leases[0].token!==leaseToken ||
+       leases[0].completed_at!==null) return false;
+    const updated=await tx`
+      UPDATE content.generation_run_task_leases
+      SET lease_expires_at=now()
+      WHERE generation_run_id=${runId}::uuid
+        AND lease_token=${leaseToken}::uuid
+        AND completed_at IS NULL
+    `;
+    return updated.count===1;
+  });
+}

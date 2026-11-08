@@ -90,3 +90,43 @@ test("bulk dispatch diagnostics distinguish outbox acknowledgement from live tas
  assert.match(page,/previous\.status === 'review' \|\| previous\.status === 'completed'/);
  assert.match(page,/setBulkAutoAdvance\(false\)/);
 });
+
+test("overdue production child is projected as attention, never silently left active",()=>{
+ const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const ui=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ const transport=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts","utf8");
+ const lease=readFileSync("artifacts/api-server/src/question-studio/async-task-lease-policy.ts","utf8");
+ assert.match(lease,/QUESTION_STUDIO_TASK_LEASE_SECONDS = 240/);
+ const claims=readFileSync("artifacts/api-server/src/question-studio/async-task-lease-claim.ts","utf8");
+ const receiver=readFileSync("artifacts/api-server/src/async-task-receiver-prod-standalone.ts","utf8");
+ assert.match(claims,/releaseQuestionStudioAsyncTaskLeaseAfterFailure/);
+ assert.match(claims,/AND lease_token=\$\{leaseToken\}::uuid/);
+ assert.match(claims,/SET lease_expires_at=now\(\)/);
+ assert.match(receiver,/await releaseQuestionStudioAsyncTaskLeaseAfterFailure/);
+ assert.match(receiver,/activeClaim=null/);
+ assert.match(transport,/dispatchDeadline: "300s"/);
+ assert.match(route,/const overdue=Boolean\(r\.deadline_expired\) && !Boolean\(r\.lease_active\)/);
+ assert.match(route,/const status=overdue \? "needs_reconciliation"/);
+ assert.match(ui,/backend diagnostics may not be deployed/);
+ assert.match(ui,/batch\.overdueNeedsAttention/);
+ assert.match(ui,/batch\.status==='needs_reconciliation' && !batch\.runId/);
+});
+
+test("expired child recovery is explicit, owner-bound, empty-only and never auto-dispatched",()=>{
+ const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const ui=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ const endpoint=route.slice(route.indexOf('router.post("/bulk-async/:operationId/children/:index/recover-expired"'));
+ assert.match(endpoint,/requireAdminPermission\("content\.generation\.run"\)/);
+ assert.match(endpoint,/o\.actor_firebase_uid/);
+ assert.match(endpoint,/o\.requested_by/);
+ assert.match(endpoint,/new Date\(run\.due_at\)\.getTime\(\)>Date\.now\(\)-600_000/);
+ assert.match(endpoint,/lease_expires_at/);
+ assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
+ assert.match(endpoint,/chapterretry:/);
+ assert.match(endpoint,/status='failed'::generation_run_status/);
+ assert.match(endpoint,/generation_run_id=NULL/);
+ assert.match(endpoint,/platform\.audit_events/);
+ assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(|recordQuestionStudioEnqueueIntent\(/);
+ assert.match(ui,/Recover expired empty batch/);
+ assert.match(ui,/window\.confirm\('This expired run has no saved questions/);
+});

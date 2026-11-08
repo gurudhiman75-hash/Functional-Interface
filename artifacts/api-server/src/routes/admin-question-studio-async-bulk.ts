@@ -2,7 +2,7 @@
 // independently guarded chapter-review run, never an automatic publication.
 // Reservation is not dispatch; every child requires an admin action.
 import { Router } from "express";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { reserveAsyncBulkReviewOperation } from "../question-studio/async-bulk-reservations";
@@ -65,10 +65,14 @@ async function progress(id: string, uid: string, admin: string) {
   if(!parent) return null;
   const rows=await sqlClient`
     SELECT c.batch_index,c.requested_count,c.status AS child_status,
+           c.idempotency_key,
            c.selected_cp_ids,c.generation_run_id,
            r.status::text AS run_status,
            r.due_at AS due_at,
            (r.due_at IS NOT NULL AND r.due_at <= now()) AS deadline_expired,
+           (r.due_at IS NOT NULL AND r.due_at < now()-interval '10 minutes') AS recovery_grace_elapsed,
+           (l.generation_run_id IS NOT NULL AND l.completed_at IS NULL
+             AND l.lease_expires_at > now()) AS lease_active,
            e.id::text AS outbox_event_id,
            e.published_at AS dispatch_acknowledged_at,
            e.last_error AS dispatch_last_error,
@@ -77,6 +81,7 @@ async function progress(id: string, uid: string, admin: string) {
              WHERE i.generation_run_id=c.generation_run_id) AS generated_count
     FROM content.generation_bulk_children c
     LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
+    LEFT JOIN content.generation_run_task_leases l ON l.generation_run_id=r.id
     LEFT JOIN LATERAL (
       SELECT id,published_at,last_error,attempts
       FROM platform.outbox_events
@@ -93,7 +98,14 @@ async function progress(id: string, uid: string, admin: string) {
     const requested=Number(r.requested_count);
     // A terminal run with fewer saved items must be flagged for attention,
     // rather than blocking the entire parent progress endpoint.
-    const status=runStatus && finished.has(runStatus) && generated !== requested ? "failed" :
+    // A Cloud Task can disappear after exhausting retries, leaving a
+    // "running" database row forever. Project a non-retryable attention state
+    // once the deadline and any active lease have both expired. Do not mutate
+    // the original run or imply that the remaining children were launched.
+    const overdue=Boolean(r.deadline_expired) && !Boolean(r.lease_active) &&
+      (runStatus==="queued" || runStatus==="running" || runStatus==="validation");
+    const status=overdue ? "needs_reconciliation" :
+      runStatus && finished.has(runStatus) && generated !== requested ? "failed" :
       runStatus && finished.has(runStatus) ? "review" :
       runStatus === "failed" || runStatus === "cancelled" ? "failed" :
       runStatus === "running" || runStatus === "validation" ? "running" :
@@ -103,6 +115,11 @@ async function progress(id: string, uid: string, admin: string) {
       runId:r.generation_run_id ? String(r.generation_run_id):null,
       selectedCpIds:r.selected_cp_ids,
       deadlineExpired:Boolean(r.deadline_expired),
+      leaseActive:Boolean(r.lease_active),
+      overdueNeedsAttention:overdue,
+      canRecoverExpired:overdue && generated===0 &&
+        String(r.idempotency_key??"").startsWith("chapterbulk:") &&
+        Boolean(r.recovery_grace_elapsed),
       dueAt:r.due_at ?? null,
       // Acknowledgement does not prove that the Cloud Task still exists.
       dispatchState:!r.generation_run_id ? "not_requested" :
@@ -361,6 +378,103 @@ router.post("/bulk-async/:operationId/children/:index/reconcile",
       message:"Existing generation run recovered; no dispatch requested."});
   }catch{
     res.status(503).json({code:"QS_BULK_CHILD_RECONCILIATION_UNAVAILABLE"});
+  }
+});
+
+/** Deliberate operator-only repair of an expired, empty, unleased child.
+ * This never creates a generation run or task. The original failed run and
+ * its outbox remain queryable and the transition is audit logged. */
+router.post("/bulk-async/:operationId/children/:index/recover-expired",
+  requireAdminPermission("content.generation.run"),async(req,res)=>{
+  res.setHeader("Cache-Control","no-store");
+  if(!gate()){res.status(503).json({code:"QS_BULK_ASYNC_DISABLED"});return;}
+  if(!req.user?.id || !req.adminSession?.user?.id){
+    res.status(403).json({code:"QS_BULK_ADMIN_REQUIRED"});return;
+  }
+  const id=String(req.params.operationId??"");
+  const index=Number(req.params.index);
+  if(!UUID.test(id)||!Number.isSafeInteger(index)||index<0||index>12){
+    res.status(400).json({code:"QS_BULK_CHILD_INVALID"});return;
+  }
+  try {
+    const recovered=await sqlClient.begin(async tx=>{
+      await tx`SELECT pg_advisory_xact_lock(6218, 20261105)`;
+      // Lock the same run row first as the worker claim and atomic commit.
+      const rows=await tx`
+        SELECT r.id::text AS "runId", r.status::text AS status,
+               r.due_at, c.idempotency_key AS "idempotencyKey",
+               c.status AS "childStatus"
+        FROM content.generation_bulk_children c
+        JOIN content.generation_bulk_operations o ON o.id=c.operation_id
+        JOIN content.generation_runs r ON r.id=c.generation_run_id
+        WHERE o.id=${id}::uuid AND c.batch_index=${index}
+          AND o.actor_firebase_uid=${req.user!.id}
+          AND o.requested_by=${req.adminSession!.user.id}::uuid
+        FOR UPDATE OF r
+      `;
+      const run=rows[0];
+      if(!run || !["queued","running"].includes(String(run.status)) ||
+         typeof run.idempotencyKey!=="string" ||
+         !run.idempotencyKey.startsWith("chapterbulk:") ||
+         !run.due_at ||
+         new Date(run.due_at).getTime()>Date.now()-600_000) return null;
+      const leases=await tx`
+        SELECT lease_expires_at,completed_at
+        FROM content.generation_run_task_leases
+        WHERE generation_run_id=${run.runId}::uuid FOR UPDATE
+      `;
+      if(leases.some(l=>l.completed_at===null &&
+         new Date(l.lease_expires_at).getTime()>Date.now())) return null;
+      const evidence=await tx`
+        SELECT (SELECT COUNT(*)::int FROM content.generation_run_items i
+                WHERE i.generation_run_id=${run.runId}::uuid) AS items,
+               EXISTS(SELECT 1 FROM platform.outbox_events e
+                WHERE e.aggregate_id=${run.runId}::uuid
+                  AND e.aggregate_type='generation_run'
+                  AND e.event_type='question_studio.generation_run.chapter_review_queued.v1') AS outbox
+      `;
+      if(Number(evidence[0]?.items)!==0 || evidence[0]?.outbox!==true) return null;
+      const newKey="chapterretry:"+createHash("sha256")
+        .update(String(run.idempotencyKey)+":recovery:1").digest("hex");
+      const failed=await tx`
+        UPDATE content.generation_runs
+        SET status='failed'::generation_run_status,
+            failure_reason='Chapter review task expired with no saved questions; operator recovered its bulk child',
+            completed_at=now(),updated_at=now()
+        WHERE id=${run.runId}::uuid AND status IN ('queued','running')
+        RETURNING id
+      `;
+      if(failed.length!==1) return null;
+      const reset=await tx`
+        UPDATE content.generation_bulk_children
+        SET status='planned',generation_run_id=NULL,idempotency_key=${newKey},updated_at=now()
+        WHERE operation_id=${id}::uuid AND batch_index=${index}
+          AND generation_run_id=${run.runId}::uuid
+        RETURNING operation_id
+      `;
+      if(reset.length!==1)throw new Error("QS_BULK_RECOVERY_RACE");
+      await tx`
+        INSERT INTO platform.audit_events (
+          id,actor_type,actor_user_id,action_key,entity_type,entity_id,
+          reason,summary,metadata
+        ) VALUES (
+          ${randomUUID()}::uuid,'user'::audit_actor_type,
+          ${req.adminSession!.user.id}::uuid,
+          'question_studio.generation_run.expired_bulk_recovery',
+          'generation_run',${run.runId}::uuid,
+          'Explicit administrator recovery after run deadline and retry grace; no active lease or saved item',
+          'Reset empty expired bulk child to planned; no generation dispatched',
+          (${JSON.stringify({operationId:id,batchIndex:index,oldRunId:run.runId,reasonCode:"EXPIRED_EMPTY"})}::text)::jsonb
+        )
+      `;
+      return {recovered:true,oldRunId:String(run.runId),batchIndex:index};
+    });
+    if(!recovered){
+      res.status(409).json({code:"QS_BULK_EXPIRED_RECOVERY_NOT_SAFE"});return;
+    }
+    res.status(200).json(recovered);
+  }catch{
+    res.status(503).json({code:"QS_BULK_EXPIRED_RECOVERY_UNAVAILABLE"});
   }
 });
 

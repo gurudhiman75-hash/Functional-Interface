@@ -82,7 +82,10 @@ export function createQuestionStudioTask(event: QuestionStudioTaskEvent, config:
           audience: config.audience,
         },
       },
-      dispatchDeadline: "180s",
+      // Must exceed the 240-second run lease. Otherwise Cloud Tasks can
+      // exhaust redeliveries while the first attempt is still leased.
+      // Receiver compute has its own shorter worker timeout.
+      dispatchDeadline: "300s",
     },
   };
 }
