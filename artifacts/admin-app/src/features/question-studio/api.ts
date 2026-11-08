@@ -452,6 +452,7 @@ export interface QuestionStudioBulkReviewProgress {
     deadlineExpired: boolean;
     leaseActive?: boolean;
     overdueNeedsAttention?: boolean;
+    canRecoverExpired?: boolean;
     dispatchState: 'not_requested' | 'unknown' | 'pending' | 'acknowledged';
     dispatchAcknowledgedAt: string | null;
     dispatchAttempts: number;
@@ -492,6 +493,14 @@ export function launchQuestionStudioBulkReviewChild(id: string, index: number) {
     `/admin/question-studio/bulk-async/${encodeURIComponent(id)}/children/${index}/launch`,
     {method:'POST'},
     {fallbackMessage:'Unable to launch the next bounded review batch.'},
+  );
+}
+
+export function recoverExpiredQuestionStudioBulkReviewChild(id: string, index: number) {
+  return adminRequest<{recovered:true;oldRunId:string;batchIndex:number}>(
+    `/admin/question-studio/bulk-async/${encodeURIComponent(id)}/children/${index}/recover-expired`,
+    {method:'POST'},
+    {fallbackMessage:'Expired batch could not be safely recovered. No replacement run was created.'},
   );
 }
 
