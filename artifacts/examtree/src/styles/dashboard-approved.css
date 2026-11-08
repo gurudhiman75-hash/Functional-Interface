@@ -1,11 +1,6 @@
 
 /* Approved series-first learner dashboard. Shell styling is dashboard-only. */
-.et-viewport[data-series-dashboard=true]{background:#f7f7f5;--sidebar:218 53% 14%;--sidebar-foreground:218 65% 97%;--sidebar-accent:213 47% 30%;--sidebar-accent-foreground:0 0% 100%;--sidebar-border:0 0% 100% / .094}
-.et-viewport[data-series-dashboard=true] [data-sidebar=sidebar],.et-viewport[data-series-dashboard=true] [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
-.et-viewport[data-series-dashboard=true] [data-sidebar=header] p{color:#fff}
-.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
-.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button]:hover,.et-viewport[data-series-dashboard=true] [data-sidebar=menu-button][data-active=true]{background:#31577e;color:white;border-left-color:transparent}
-.et-viewport[data-series-dashboard=true] [data-sidebar=footer] .text-muted-foreground{color:#bdcbe0}
+.et-viewport[data-series-dashboard=true]{background:#f7f7f5}
 .et-viewport[data-series-dashboard=true] .et-shell-header{background:#fff;border-color:#e0e5ec;box-shadow:none}
 .et-viewport[data-series-dashboard=true] .et-page-content{padding-top:110px}
 .student-hub-dashboard{width:100%;max-width:1450px;margin:0 auto;color:#13213a;--series-blue:#2168d6;--series-line:#dfe4ec}

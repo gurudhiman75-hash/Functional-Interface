@@ -1,0 +1,19 @@
+/* Shared sidebar theme, including the portalled mobile drawer. */
+.student-app-sidebar{
+  --sidebar:218 53% 14%;
+  --sidebar-foreground:218 65% 97%;
+  --sidebar-accent:213 47% 30%;
+  --sidebar-accent-foreground:0 0% 100%;
+  --sidebar-border:0 0% 100% / .094;
+  --sidebar-primary:214 85% 76%;
+  --sidebar-primary-foreground:218 53% 14%;
+  background:#111f37;color:#f1f5fc;
+}
+.student-app-sidebar [data-sidebar=sidebar],.student-app-sidebar [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
+.student-app-sidebar [data-sidebar=header] p{color:#fff}
+.student-app-sidebar [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
+.student-app-sidebar [data-sidebar=menu-button]:hover,.student-app-sidebar [data-sidebar=menu-button][data-active=true]{background:#31577e;color:#fff;border-left-color:transparent}
+.student-app-sidebar [data-sidebar=footer] .text-muted-foreground{color:#bdcbe0}
+.student-app-sidebar [data-sidebar=footer] a,.student-app-sidebar [data-sidebar=footer] button{color:#d9e3f2}
+.student-app-sidebar [data-sidebar=footer] a:hover{background:#31577e;color:#fff}
+.student-app-sidebar a:focus-visible,.student-app-sidebar button:focus-visible{outline:2px solid #a8ceff;outline-offset:2px}
