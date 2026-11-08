@@ -84,4 +84,9 @@ test("bulk dispatch diagnostics distinguish outbox acknowledgement from live tas
  assert.match(page,/batch\.dispatchState==='pending' && !batch\.deadlineExpired/);
  assert.match(page,/Run deadline expired\. Do not redispatch/);
  assert.match(page,/Queue pause\/resume remains an operator-only Cloud Tasks action/);
+ assert.match(page,/Run all remaining batches \(up to 250\)/);
+ assert.match(page,/bulkAutoAttemptedChildren\.current\.add\(attemptKey\)/);
+ assert.match(page,/bulkAsyncOperation\.requiresAttention/);
+ assert.match(page,/previous\.status === 'review' \|\| previous\.status === 'completed'/);
+ assert.match(page,/setBulkAutoAdvance\(false\)/);
 });
