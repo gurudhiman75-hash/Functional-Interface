@@ -51,7 +51,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     <SidebarProvider
       className="et-viewport et-page-surface bg-background text-foreground"
       data-series-dashboard={seriesDashboard || undefined}
-      style={{ "--sidebar-width": seriesDashboard ? "232px" : "260px" } as CSSProperties}
+      style={{ "--sidebar-width": "232px" } as CSSProperties}
     >
       <a
         href="#main-content"
