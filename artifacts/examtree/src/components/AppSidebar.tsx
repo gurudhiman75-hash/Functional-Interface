@@ -6,7 +6,6 @@ import {
   CircleHelp,
   ClipboardList,
   CreditCard,
-  FileText,
   Home,
   LogOut,
   Newspaper,
@@ -17,6 +16,7 @@ import {
   WandSparkles,
 } from "lucide-react";
 import { signOut } from "firebase/auth";
+import "@/styles/student-sidebar.css";
 
 import { getFirebaseAuth } from "@/lib/firebase";
 import { clearAuth, getUser } from "@/lib/storage";
@@ -34,39 +34,27 @@ import {
 
 const primaryLinks = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
-  { href: "/exams", label: "My Exams", icon: BookOpen },
-  { href: "/exams", label: "Test Series", icon: ClipboardList },
-  { href: "/mock-tests", label: "Free Tests", icon: FileText },
-  { href: "/mock-tests", label: "Practice by Topic", icon: Target },
-  { href: "/resources", label: "Study Material", icon: BookOpen },
-  { href: "/current-affairs", label: "Current Affairs", icon: Newspaper, badge: "New" },
-  { href: "/performance", label: "Performance", icon: BarChart3 },
-  { href: "/my-packages", label: "My Purchases", icon: CreditCard },
+  { href: "/exams", label: "Test series", icon: ClipboardList },
+  { href: "/mock-tests", label: "Practice", icon: Target },
+  { href: "/performance", label: "Results", icon: BarChart3 },
   { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
-  { href: "/profile", label: "Profile", icon: User },
-  { href: "/profile", label: "Settings", icon: Settings },
-  { href: "/contact", label: "Help & Support", icon: CircleHelp },
+  { href: "/my-packages", label: "My purchases", icon: CreditCard },
+  { href: "/resources", label: "Study material", icon: BookOpen },
+  { href: "/current-affairs", label: "Current affairs", icon: Newspaper },
+  { href: "/profile", label: "Profile & settings", icon: Settings },
+  { href: "/contact", label: "Help & support", icon: CircleHelp },
 ];
 
 function isLinkActive(location: string, href: string) {
-  if (href === "/dashboard") return location === "/dashboard" || location === "/result";
-  if (href === "/") return location === "/";
-  if (href === "/exams") {
-    return location === "/exams"
-      || location === "/tests"
-      || location.startsWith("/category/")
-      || location.startsWith("/subcategory/")
-      || location.startsWith("/test-series/");
-  }
-  if (href === "/resources") return location === "/current-affairs" || location === "/resources" || location.startsWith("/resources/");
-  if (href === "/store") {
-    return location === "/store"
-      || location === "/packages"
-      || location.startsWith("/store/")
-      || (location.startsWith("/packages/") && !location.startsWith("/packages/success/"));
-  }
-  if (href === "/my-packages") return location === "/my-packages" || location === "/purchases";
-  return location === href || location.startsWith(`${href}/`);
+  if (href === "/dashboard") return location === "/dashboard";
+  if (href === "/exams") return location === "/exams" || location === "/tests"
+    || ["/category/", "/subcategory/", "/test-series/", "/published-tests/"].some(prefix => location.startsWith(prefix));
+  if (href === "/resources") return location === "/resources" || (location.startsWith("/resources/") && !location.startsWith("/resources/current-affairs"));
+  if (href === "/current-affairs") return location === "/current-affairs" || location.startsWith("/resources/current-affairs");
+  if (href === "/performance") return location === "/performance" || location === "/result";
+  if (href === "/my-packages") return location === "/purchases" || location === "/my-packages" || location.startsWith("/my-packages/");
+  if (href === "/admin") return location === "/admin" || (location.startsWith("/admin/") && !location.startsWith("/admin/content/questions/generate"));
+  return location === href || location.startsWith(href + "/");
 }
 
 export function AppSidebar() {
@@ -74,25 +62,11 @@ export function AppSidebar() {
   const user = getUser();
   const { toast } = useToast();
   const isAdmin = user?.role === "admin";
-  const dashboardLinks: typeof primaryLinks = [
-    { href: "/dashboard", label: "Dashboard", icon: Home },
-    { href: "/my-packages", label: "My test series", icon: ClipboardList },
-    { href: "/mock-tests", label: "Practice", icon: Target },
-    { href: "/performance", label: "Results", icon: BarChart3 },
-    { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
-    { href: "/purchases", label: "Purchases", icon: CreditCard },
-    { href: "/resources", label: "Study material", icon: BookOpen },
-    { href: "/contact", label: "Help", icon: CircleHelp },
-    { href: "/profile", label: "Settings", icon: Settings },
-  ];
-  const navigation = location === "/dashboard" ? dashboardLinks : primaryLinks;
-  const links = isAdmin
-    ? [
-        ...navigation,
-        { href: "/admin", label: "Admin", icon: ShieldCheck },
-        { href: "/admin/content/questions/generate", label: "Question Studio", icon: WandSparkles },
-      ]
-    : navigation;
+  const links = isAdmin ? [
+    ...primaryLinks,
+    { href: "/admin", label: "Admin", icon: ShieldCheck },
+    { href: "/admin/content/questions/generate", label: "Question Studio", icon: WandSparkles },
+  ] : primaryLinks;
 
   const handleLogout = async () => {
     const auth = getFirebaseAuth();
@@ -109,13 +83,13 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className="border-r border-sidebar-border bg-sidebar text-sidebar-foreground [&_[data-sidebar=sidebar]]:border-sidebar-border [&_[data-sidebar=sidebar]]:bg-sidebar [&_[data-slot=sidebar-inner]]:bg-sidebar"
+      className="student-app-sidebar border-r border-sidebar-border bg-sidebar text-sidebar-foreground [&_[data-sidebar=sidebar]]:border-sidebar-border [&_[data-sidebar=sidebar]]:bg-sidebar [&_[data-slot=sidebar-inner]]:bg-sidebar"
       collapsible="icon"
     >
       <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
         <Link href="/dashboard" aria-label="ExamTree dashboard" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1">
           <img src="/examtree-mark.svg" width="37" height="37" alt="" aria-hidden="true" className="h-[37px] w-[37px] shrink-0 object-contain" />
-          <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-[#0b1b4d]">Examtree</p>
+          <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-sidebar-foreground">Examtree</p>
         </Link>
       </SidebarHeader>
 
@@ -133,7 +107,7 @@ export function AppSidebar() {
                 >
                   <Link href={link.href} className="flex items-center gap-3" aria-current={active ? "page" : undefined}>
                     <link.icon className="h-4 w-4" aria-hidden="true" />
-                    <span className="flex min-w-0 flex-1 items-center justify-between gap-2"><span>{link.label}</span>{"badge" in link && link.badge ? <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[9px] font-extrabold text-white">{link.badge}</span> : null}</span>
+                    <span className="flex min-w-0 flex-1 items-center justify-between gap-2"><span>{link.label}</span></span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
