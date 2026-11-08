@@ -90,3 +90,17 @@ test("bulk dispatch diagnostics distinguish outbox acknowledgement from live tas
  assert.match(page,/previous\.status === 'review' \|\| previous\.status === 'completed'/);
  assert.match(page,/setBulkAutoAdvance\(false\)/);
 });
+
+test("overdue production child is projected as attention, never silently left active",()=>{
+ const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const ui=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ const transport=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts","utf8");
+ const lease=readFileSync("artifacts/api-server/src/question-studio/async-task-lease-policy.ts","utf8");
+ assert.match(lease,/QUESTION_STUDIO_TASK_LEASE_SECONDS = 240/);
+ assert.match(transport,/dispatchDeadline: "300s"/);
+ assert.match(route,/const overdue=Boolean\(r\.deadline_expired\) && !Boolean\(r\.lease_active\)/);
+ assert.match(route,/const status=overdue \? "needs_reconciliation"/);
+ assert.match(ui,/backend diagnostics may not be deployed/);
+ assert.match(ui,/batch\.overdueNeedsAttention/);
+ assert.match(ui,/batch\.status==='needs_reconciliation' && !batch\.runId/);
+});
