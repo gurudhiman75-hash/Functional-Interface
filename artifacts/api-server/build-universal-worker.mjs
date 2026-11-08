@@ -30,6 +30,10 @@ await copyFile(
   path.resolve(dist, "universal-question-studio-worker-service.mjs"),
 );
 await copyFile(
+  path.resolve(here, "universal-worker-json.mjs"),
+  path.resolve(dist, "universal-worker-json.mjs"),
+);
+await copyFile(
   path.resolve(here, "production-canary-worker-scope.mjs"),
   path.resolve(dist, "production-canary-worker-scope.mjs"),
 );
