@@ -136,7 +136,19 @@ const server = createServer(async (req, res) => {
   } catch (error) {
     const status = Number(error?.statusCode);
     const safeStatus = Number.isInteger(status) && status >= 400 && status < 600 ? status : 500;
-    console.error(JSON.stringify({ event: "universal_generation_failed", packageId, code: error?.code ?? "UNIVERSAL_GENERATION_FAILED" }));
+    // No question text, request payload, seeds or credentials in Cloud Logging.
+    // A bounded error category and sanitized message help distinguish generator
+    // faults that previously all appeared as UNIVERSAL_GENERATION_FAILED.
+    const safeMessage=String(error?.message ?? "Generation failed")
+      .replace(/https?:\\/\\/\\S+/g,"[url]")
+      .replace(/[0-9a-f]{8}-[0-9a-f-]{27,}/gi,"[id]")
+      .replace(/[A-Za-z0-9_+\\/=-]{48,}/g,"[redacted]")
+      .slice(0,200);
+    console.error(JSON.stringify({
+      event: "universal_generation_failed", packageId,
+      code: error?.code ?? "UNIVERSAL_GENERATION_FAILED",
+      errorType: error?.name ?? "Error", reason: safeMessage,
+    }));
     respond(res, safeStatus, {
       ok: false, code: error?.code ?? "UNIVERSAL_GENERATION_FAILED",
       error: String(error?.message ?? "Generation failed"),
