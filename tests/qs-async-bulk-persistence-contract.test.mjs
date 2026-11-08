@@ -77,6 +77,9 @@ test("bulk dispatch diagnostics distinguish outbox acknowledgement from live tas
  assert.match(api,/dispatchAcknowledgedAt/);
  assert.match(api,/deadlineExpired/);
  assert.match(api,/expectedTaskId/);
+ const retry=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts","utf8");
+ assert.match(retry,/QS_PROD_CHAPTER_DISPATCH_ALREADY_ACKNOWLEDGED/);
+ assert.match(retry,/QS_PROD_CHAPTER_RUN_EXPIRED/);
  assert.match(page,/Cloud Task not independently verified/);
  assert.match(page,/batch\.dispatchState==='pending' && !batch\.deadlineExpired/);
  assert.match(page,/Run deadline expired\. Do not redispatch/);
