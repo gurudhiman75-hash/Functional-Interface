@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -17,6 +17,8 @@ import { Link, useLocation } from "wouter";
 import { PublicHomeSidebar } from "@/components/PublicHomeSidebar";
 import { PublicSeoFallback } from "@/components/PublicSeoFallback";
 import { getSessionUser } from "@/lib/session-user";
+
+const LearnerLayout = lazy(() => import("@/components/AppLayout").then(module => ({ default: module.AppLayout })));
 
 interface PublicLayoutProps {
   children: ReactNode;
@@ -149,6 +151,21 @@ export function PublicLayout({ children }: PublicLayoutProps) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
+
+  // Signed-in learners keep the same navigation while browsing the catalog.
+  const useLearnerShell = Boolean(user) && (showStudySidebar
+    || location === "/resources" || location.startsWith("/resources/")
+    || location === "/current-affairs");
+  if (useLearnerShell) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-background" role="status" aria-label="Loading preparation workspace" />}>
+        <LearnerLayout>
+          <PublicSeoFallback />
+          {children}
+        </LearnerLayout>
+      </Suspense>
+    );
+  }
 
   return (
     <div className="et-viewport et-page-surface bg-background text-foreground">
