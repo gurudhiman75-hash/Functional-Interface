@@ -347,6 +347,7 @@ export function QuestionStudioCockpitPage() {
     reviewPageError,
     refreshReviewPage,
     applyRevision,
+    applyReviewResults,
   } = useQuestionStudioReviewPage({
     page: reviewPageNumber,
     pageSize: reviewPageSize,
@@ -964,7 +965,7 @@ export function QuestionStudioCockpitPage() {
         status,
         reason: reason.trim() || undefined,
       });
-      await refreshReviewPage();
+      applyReviewResults(result.items);
       setSelectedIds((current) => new Set([...current].filter((id) => !ids.includes(id))));
       setReason('');
       const outcomeText = [
@@ -981,8 +982,8 @@ export function QuestionStudioCockpitPage() {
       if (caught && typeof caught === 'object' && 'result' in caught) {
         const partial = caught.result as { items?: Array<{ id: string }> };
         const succeeded = new Set(partial.items?.map((item) => item.id) ?? []);
+        if (Array.isArray(partial.items)) applyReviewResults(partial.items as Parameters<typeof applyReviewResults>[0]);
         setSelectedIds((current) => new Set([...current].filter((id) => !succeeded.has(id))));
-        void refreshReviewPage();
       }
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
@@ -1486,7 +1487,7 @@ export function QuestionStudioCockpitPage() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="flex items-center gap-3 border-y bg-muted/20 px-4 py-2.5 text-xs text-muted-foreground"><Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(checked === true)} aria-label="Select all visible generated items" /><span>{visibleItemIds.length} visible item(s) across {filteredRuns.length} run(s)</span>{updating && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}</div>
-          {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); void refreshReviewPage(); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
+          {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); showToast.success('Revision saved', 'Question updated in place. The rest of your review list stays open.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
         </CardContent>
         <div className="flex flex-col gap-3 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>
