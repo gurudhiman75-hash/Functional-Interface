@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useQuestionStudio, useQuestionStudioReviewPage } from './useQuestionStudio';
+import { applyReviewResultsToRuns, useQuestionStudio, useQuestionStudioReviewPage } from './useQuestionStudio';
 import { getQuestionStudioCapabilities, getQuestionStudioReviewPage, reviseGenerationItem, updateGenerationItems } from './api';
 
 vi.mock('./api', () => ({
@@ -67,5 +67,41 @@ describe('review mutations', () => {
       await result.current.updateItems({ itemIds: ['item'], expectedStatuses: { item: 'unreviewed' }, status: 'approved' });
     });
     expect(getQuestionStudioCapabilities).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('in-place review updates', () => {
+  it('updates only committed items and preserves unchanged sibling questions', () => {
+    const run = {
+      id: 'run-a',
+      reviewSummary: { total: 2, unreviewed: 2, needsFix: 0, approved: 0, rejected: 0 },
+      items: [
+        { id: 'a', status: 'unreviewed', acceptedQuestionId: null, acceptedQuestionVersionId: null },
+        { id: 'b', status: 'unreviewed', acceptedQuestionId: null, acceptedQuestionVersionId: null },
+      ],
+    } as unknown as Parameters<typeof applyReviewResultsToRuns>[0][number];
+    const output = applyReviewResultsToRuns([run], [{
+      id: 'a', generationRunId: 'run-a', status: 'approved', conversionSkippedReason: null,
+      convertedQuestion: { questionId: 'bank-a', questionVersionId: 'version-a' },
+    }]);
+    expect(output[0].items[0]).toMatchObject({
+      id: 'a', status: 'approved', acceptedQuestionId: 'bank-a',
+    });
+    expect(output[0].items[1]).toBe(run.items[1]);
+    expect(output[0].reviewSummary).toEqual({
+      total: 2, unreviewed: 1, needsFix: 0, approved: 1, rejected: 0,
+    });
+  });
+
+  it('never updates an item absent from the confirmed response', () => {
+    const run = {
+      id: 'run-a',
+      reviewSummary: { total: 1, unreviewed: 1, needsFix: 0, approved: 0, rejected: 0 },
+      items: [{ id: 'a', status: 'unreviewed', acceptedQuestionId: null, acceptedQuestionVersionId: null }],
+    } as unknown as Parameters<typeof applyReviewResultsToRuns>[0][number];
+    expect(applyReviewResultsToRuns([run], [{
+      id: 'not-committed', generationRunId: 'run-a', status: 'rejected',
+      conversionSkippedReason: null, convertedQuestion: null,
+    }])[0]).toEqual(run);
   });
 });
