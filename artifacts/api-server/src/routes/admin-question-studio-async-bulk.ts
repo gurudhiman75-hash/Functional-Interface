@@ -67,10 +67,23 @@ async function progress(id: string, uid: string, admin: string) {
     SELECT c.batch_index,c.requested_count,c.status AS child_status,
            c.selected_cp_ids,c.generation_run_id,
            r.status::text AS run_status,
+           r.due_at AS due_at,
+           (r.due_at IS NOT NULL AND r.due_at <= now()) AS deadline_expired,
+           e.id::text AS outbox_event_id,
+           e.published_at AS dispatch_acknowledged_at,
+           e.last_error AS dispatch_last_error,
+           e.attempts AS dispatch_attempts,
            (SELECT count(*)::int FROM content.generation_run_items i
              WHERE i.generation_run_id=c.generation_run_id) AS generated_count
     FROM content.generation_bulk_children c
     LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
+    LEFT JOIN LATERAL (
+      SELECT id,published_at,last_error,attempts
+      FROM platform.outbox_events
+      WHERE aggregate_id=c.generation_run_id AND aggregate_type='generation_run'
+        AND event_type='question_studio.generation_run.chapter_review_queued.v1'
+      ORDER BY occurred_at LIMIT 1
+    ) e ON true
     WHERE c.operation_id=${id}::uuid
     ORDER BY c.batch_index
   `;
@@ -88,13 +101,27 @@ async function progress(id: string, uid: string, admin: string) {
     return {batchIndex:Number(r.batch_index),count:Number(r.requested_count),
       generatedCount:generated,status,
       runId:r.generation_run_id ? String(r.generation_run_id):null,
-      selectedCpIds:r.selected_cp_ids};
+      selectedCpIds:r.selected_cp_ids,
+      deadlineExpired:Boolean(r.deadline_expired),
+      dueAt:r.due_at ?? null,
+      // Acknowledgement does not prove that the Cloud Task still exists.
+      dispatchState:!r.generation_run_id ? "not_requested" :
+        !r.outbox_event_id ? "unknown" :
+        r.dispatch_acknowledged_at ? "acknowledged" : "pending",
+      dispatchAcknowledgedAt:r.dispatch_acknowledged_at ?? null,
+      dispatchAttempts:Number(r.dispatch_attempts ?? 0),
+      dispatchLastError:r.dispatch_last_error ? String(r.dispatch_last_error) : null,
+      expectedTaskId:r.outbox_event_id
+        ? "qs-" + String(r.outbox_event_id).replaceAll("-","").toLowerCase() : null};
   });
   const summary=summarizeAsyncBulkReview({requestedCount:Number(parent.requested_count)},children);
   return {id, status: summary.readyForReview ? "completed" :
     summary.requiresAttention ? "partial_failure" :
     summary.activeBatches>0 || summary.completedBatches>0 ? "in_progress" : "planned",
-    ...summary};
+    ...summary,
+    // The pure summarizer intentionally projects only core fields; retain the
+    // read-only diagnostics in the owner-scoped API response.
+    batches:children};
 }
 router.post("/bulk-async",requireAdminPermission("content.generation.run"),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");

@@ -448,6 +448,13 @@ export interface QuestionStudioBulkReviewProgress {
     status: string;
     runId: string | null;
     selectedCpIds: string[];
+    dueAt: string | null;
+    deadlineExpired: boolean;
+    dispatchState: 'not_requested' | 'unknown' | 'pending' | 'acknowledged';
+    dispatchAcknowledgedAt: string | null;
+    dispatchAttempts: number;
+    dispatchLastError: string | null;
+    expectedTaskId: string | null;
   }>;
 }
 

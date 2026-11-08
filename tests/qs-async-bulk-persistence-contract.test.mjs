@@ -69,3 +69,24 @@ test("bulk flow preserves latest multilingual review workflow",()=>{
  assert.match(page,/reconcileQuestionStudioBulkReviewChild/);
  assert.match(page,/BULK_ASYNC_ENABLED/);
 });
+
+test("bulk dispatch diagnostics distinguish outbox acknowledgement from live task confirmation",()=>{
+ const api=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const page=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ assert.match(api,/event_type='question_studio\.generation_run\.chapter_review_queued\.v1'/);
+ assert.match(api,/dispatchAcknowledgedAt/);
+ assert.match(api,/deadlineExpired/);
+ assert.match(api,/expectedTaskId/);
+ const retry=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts","utf8");
+ assert.match(retry,/QS_PROD_CHAPTER_DISPATCH_ALREADY_ACKNOWLEDGED/);
+ assert.match(retry,/QS_PROD_CHAPTER_RUN_EXPIRED/);
+ assert.match(page,/Cloud Task not independently verified/);
+ assert.match(page,/batch\.dispatchState==='pending' && !batch\.deadlineExpired/);
+ assert.match(page,/Run deadline expired\. Do not redispatch/);
+ assert.match(page,/Queue pause\/resume remains an operator-only Cloud Tasks action/);
+ assert.match(page,/Run all remaining batches \(up to 250\)/);
+ assert.match(page,/bulkAutoAttemptedChildren\.current\.add\(attemptKey\)/);
+ assert.match(page,/bulkAsyncOperation\.requiresAttention/);
+ assert.match(page,/previous\.status === 'review' \|\| previous\.status === 'completed'/);
+ assert.match(page,/setBulkAutoAdvance\(false\)/);
+});
