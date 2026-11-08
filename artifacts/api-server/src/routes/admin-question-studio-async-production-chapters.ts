@@ -102,7 +102,14 @@ router.post("/runs/:runId/dispatch-production-chapter",
   try {
     assertChapterDispatchLaunchApproved();
     const rows=await sqlClient`
-      SELECT r.status::text AS status, r.request_snapshot AS snapshot
+      SELECT r.status::text AS status, r.request_snapshot AS snapshot,
+             r.due_at <= now() AS deadline_expired,
+             EXISTS (
+               SELECT 1 FROM platform.outbox_events e
+               WHERE e.aggregate_id=r.id AND e.aggregate_type='generation_run'
+                 AND e.event_type='question_studio.generation_run.chapter_review_queued.v1'
+                 AND e.published_at IS NOT NULL
+             ) AS dispatch_acknowledged
       FROM content.generation_runs r
       WHERE r.id=${runId}::uuid
         AND r.requested_by=${req.adminSession.user.id}::uuid
@@ -122,6 +129,14 @@ router.post("/runs/:runId/dispatch-production-chapter",
     }
     if(run.status!=="queued"){
       res.status(200).json({id:runId,status:run.status,dispatchRequested:false});return;
+    }
+    // Fail closed: a Cloud Tasks acknowledgement may already represent a created
+    // task, and a past-due run cannot be claimed by the receiver.
+    if(run.deadline_expired){
+      res.status(409).json({code:"QS_PROD_CHAPTER_RUN_EXPIRED"});return;
+    }
+    if(run.dispatch_acknowledged){
+      res.status(409).json({code:"QS_PROD_CHAPTER_DISPATCH_ALREADY_ACKNOWLEDGED"});return;
     }
     await launchProductionChapterDispatch(runId);
     res.status(202).json({id:runId,status:run.status,dispatchRequested:true});
