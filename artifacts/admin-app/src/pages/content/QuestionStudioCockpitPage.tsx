@@ -1366,7 +1366,8 @@ export function QuestionStudioCockpitPage() {
                     <div className="w-full space-y-1 text-[11px] text-muted-foreground">
                       <p>Dispatch record: {batch.dispatchState==='acknowledged' ? 'Acknowledged by outbox (Cloud Task not independently verified)' :
                         batch.dispatchState==='pending' ? 'Awaiting dispatcher' :
-                        batch.dispatchState==='unknown' ? 'No matching outbox event — operator investigation required' : 'Not requested'}
+                        batch.dispatchState==='unknown' ? 'No matching outbox event — operator investigation required' :
+                        batch.dispatchState==='not_requested' ? 'Not requested' : 'Unknown — backend diagnostics may not be deployed'}
                         {batch.dispatchAttempts>0 ? ` · attempts: ${batch.dispatchAttempts}` : ''}
                       </p>
                       {batch.expectedTaskId && <p className="font-mono break-all">Expected task ID: {batch.expectedTaskId}</p>}
@@ -1375,10 +1376,13 @@ export function QuestionStudioCockpitPage() {
                         <p className="text-destructive font-medium">Run deadline expired. Do not redispatch: the receiver will reject an expired run. Operator recovery required.</p>}
                       {batch.status==='queued' && !batch.deadlineExpired && batch.dispatchState==='acknowledged' &&
                         <p>Dispatch was acknowledged. Verify the task and queue state before any retry; acknowledgement is not proof that a task exists.</p>}
-                      {batch.status==='running' && <p>Worker claimed the run. No dispatch retry is needed.</p>}
+                      {batch.overdueNeedsAttention &&
+                        <p className="text-destructive font-medium">Run deadline and worker lease expired. This batch needs operator recovery; automatic launch is stopped. Do not retry this run.</p>}
+                      {batch.status==='running' && !batch.overdueNeedsAttention &&
+                        <p>Worker claimed the run. No dispatch retry is needed.</p>}
                     </div>
                   )}
-                  {(batch.status==='reserved' || batch.status==='needs_reconciliation') && canRun && (
+                  {(batch.status==='reserved' || (batch.status==='needs_reconciliation' && !batch.runId)) && canRun && (
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
                       setBulkAsyncSubmitting(true);
                       try {
