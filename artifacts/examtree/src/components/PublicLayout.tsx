@@ -152,10 +152,9 @@ export function PublicLayout({ children }: PublicLayoutProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
 
-  // Signed-in learners keep the same navigation while browsing the catalog.
-  const useLearnerShell = Boolean(user) && (showStudySidebar
-    || location === "/resources" || location.startsWith("/resources/")
-    || location === "/current-affairs");
+  // Every signed-in public route uses the same learner navigation.
+  // The signed-in home route already redirects to the dashboard above.
+  const useLearnerShell = Boolean(user) && !isHome;
   if (useLearnerShell) {
     return (
       <Suspense fallback={<div className="min-h-screen bg-background" role="status" aria-label="Loading preparation workspace" />}>
