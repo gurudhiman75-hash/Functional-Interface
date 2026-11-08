@@ -3,6 +3,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
+import {serializeUniversalWorkerResponse} from "./universal-worker-json.mjs";
 import {assertProductionWorkerCanaryInput} from "./production-canary-worker-scope.mjs";
 import {assertProductionWorkerReviewInput} from "./prod-worker-review-scope.mjs";
 import {assertProductionChapterWorkerInput} from "./prod-chapter-review-runtime.mjs";
@@ -21,7 +22,7 @@ let busy = false;
 
 function respond(res, status, data) {
   if (res.destroyed) return;
-  const body = JSON.stringify(data);
+  const body = serializeUniversalWorkerResponse(data);
   if (Buffer.byteLength(body) > responseLimit) {
     respond(res, 502, { ok: false, code: "UNIVERSAL_RESPONSE_TOO_LARGE", error: "Worker response too large" });
     return;
