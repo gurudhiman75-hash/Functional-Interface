@@ -69,6 +69,8 @@ async function progress(id: string, uid: string, admin: string) {
            r.status::text AS run_status,
            r.due_at AS due_at,
            (r.due_at IS NOT NULL AND r.due_at <= now()) AS deadline_expired,
+           (l.generation_run_id IS NOT NULL AND l.completed_at IS NULL
+             AND l.lease_expires_at > now()) AS lease_active,
            e.id::text AS outbox_event_id,
            e.published_at AS dispatch_acknowledged_at,
            e.last_error AS dispatch_last_error,
@@ -77,6 +79,7 @@ async function progress(id: string, uid: string, admin: string) {
              WHERE i.generation_run_id=c.generation_run_id) AS generated_count
     FROM content.generation_bulk_children c
     LEFT JOIN content.generation_runs r ON r.id=c.generation_run_id
+    LEFT JOIN content.generation_run_task_leases l ON l.generation_run_id=r.id
     LEFT JOIN LATERAL (
       SELECT id,published_at,last_error,attempts
       FROM platform.outbox_events
@@ -93,7 +96,14 @@ async function progress(id: string, uid: string, admin: string) {
     const requested=Number(r.requested_count);
     // A terminal run with fewer saved items must be flagged for attention,
     // rather than blocking the entire parent progress endpoint.
-    const status=runStatus && finished.has(runStatus) && generated !== requested ? "failed" :
+    // A Cloud Task can disappear after exhausting retries, leaving a
+    // "running" database row forever. Project a non-retryable attention state
+    // once the deadline and any active lease have both expired. Do not mutate
+    // the original run or imply that the remaining children were launched.
+    const overdue=Boolean(r.deadline_expired) && !Boolean(r.lease_active) &&
+      (runStatus==="queued" || runStatus==="running" || runStatus==="validation");
+    const status=overdue ? "needs_reconciliation" :
+      runStatus && finished.has(runStatus) && generated !== requested ? "failed" :
       runStatus && finished.has(runStatus) ? "review" :
       runStatus === "failed" || runStatus === "cancelled" ? "failed" :
       runStatus === "running" || runStatus === "validation" ? "running" :
@@ -103,6 +113,8 @@ async function progress(id: string, uid: string, admin: string) {
       runId:r.generation_run_id ? String(r.generation_run_id):null,
       selectedCpIds:r.selected_cp_ids,
       deadlineExpired:Boolean(r.deadline_expired),
+      leaseActive:Boolean(r.lease_active),
+      overdueNeedsAttention:overdue,
       dueAt:r.due_at ?? null,
       // Acknowledgement does not prove that the Cloud Task still exists.
       dispatchState:!r.generation_run_id ? "not_requested" :
