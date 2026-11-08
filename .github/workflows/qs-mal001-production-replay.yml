@@ -4,11 +4,13 @@ on:
     branches: [New-main]
     paths:
       - 'tests/qs-mal001-production-replay.test.mjs'
-      - '.github/workflows/qs-mal001-production-replay.yml'
       - 'artifacts/api-server/src/question-studio/universal-generation-worker.ts'
       - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/**'
   workflow_dispatch:
+concurrency:
+  group: qs-mal001-replay-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
