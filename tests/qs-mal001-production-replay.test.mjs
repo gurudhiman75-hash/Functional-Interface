@@ -38,6 +38,10 @@ test('MAL-001 20Q production worker replay completes for the saved seed', {timeo
     assert.equal(result.packageId, 'MAL-001');
     assert.equal(result.engineId, 'quant-v4');
     assert.equal(result.questions.length, 20);
+    // HTTP response path uses JSON.stringify, unlike the structured-clone
+    // worker message. Catch numbers unsupported by plain JSON here.
+    assert.doesNotThrow(() => JSON.stringify({ok:true,batch:result}),
+      'Generated batch must be serializable by the production HTTP response');
     assert.equal(result.quantPlan?.assignments?.reduce((n, a) => n + a.count, 0),20);
   } finally {
     clearTimeout(timer);
