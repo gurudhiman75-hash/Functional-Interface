@@ -254,6 +254,9 @@ export function QuestionStudioCockpitPage() {
   const [bulkAsyncOperation, setBulkAsyncOperation] = useState<QuestionStudioBulkReviewProgress | null>(null);
   const [bulkAsyncError, setBulkAsyncError] = useState<string | null>(null);
   const [bulkAsyncSubmitting, setBulkAsyncSubmitting] = useState(false);
+  const [bulkAutoAdvance, setBulkAutoAdvance] = useState(false);
+  const bulkAutoLaunchInFlight = useRef(false);
+  const bulkAutoAttemptedChildren = useRef(new Set<string>());
 
   const [seed, setSeed] = useState('');
   const [stagingAsyncSelected, setStagingAsyncSelected] = useState(CHAPTER_ASYNC_ENABLED);
@@ -679,6 +682,55 @@ export function QuestionStudioCockpitPage() {
     const timer = window.setInterval(() => void refreshBulk(), 4000);
     return () => {mounted = false;window.clearInterval(timer);};
   }, [bulkResumeId]);
+
+  // Explicit browser-session bulk advancement: each next child is launched only
+  // after every earlier child has fully reached review. Never retry an uncertain
+  // launch response or continue through a partial/failed child. Closing the tab
+  // stops automation; no scheduler, new queue or backend privilege is introduced.
+  useEffect(() => {
+    if (!bulkAutoAdvance || !bulkAsyncOperation ||
+        bulkAutoLaunchInFlight.current || bulkAsyncSubmitting ||
+        generating || stagingAsyncSubmitting || bulkBusy) return;
+    if (bulkAsyncOperation.requiresAttention) {
+      setBulkAutoAdvance(false);
+      showToast.error('Bulk run stopped', 'A batch needs operator review. No further batches were launched.');
+      return;
+    }
+    if (bulkAsyncOperation.readyForReview) {
+      setBulkAutoAdvance(false);
+      showToast.success('Bulk generation complete', 'All saved questions are ready for manual review.');
+      return;
+    }
+    const next = bulkAsyncOperation.batches.find(batch =>
+      batch.status === 'planned' &&
+      bulkAsyncOperation.batches.slice(0,batch.batchIndex)
+        .every(previous => previous.status === 'review' || previous.status === 'completed'));
+    if (!next) return; // An active batch is still being processed.
+    const attemptKey = `${bulkAsyncOperation.id}:${next.batchIndex}`;
+    if (bulkAutoAttemptedChildren.current.has(attemptKey)) return;
+    bulkAutoAttemptedChildren.current.add(attemptKey);
+    bulkAutoLaunchInFlight.current = true;
+    setBulkAsyncSubmitting(true);
+    void (async () => {
+      try {
+        const receipt = await launchQuestionStudioBulkReviewChild(bulkAsyncOperation.id,next.batchIndex);
+        const current = await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id);
+        setBulkAsyncOperation(current);
+        if (!receipt.dispatchRequested) {
+          setBulkAutoAdvance(false);
+          showToast.error('Bulk run paused', 'Dispatch was not confirmed. Inspect the saved run; do not retry blindly.');
+        }
+      } catch (error) {
+        setBulkAutoAdvance(false);
+        showToast.error('Bulk run stopped', error instanceof Error
+          ? error.message : 'A launch was uncertain; inspect the saved run before continuing.');
+      } finally {
+        bulkAutoLaunchInFlight.current = false;
+        setBulkAsyncSubmitting(false);
+      }
+    })();
+  }, [bulkAutoAdvance, bulkAsyncOperation, bulkAsyncSubmitting,
+      generating, stagingAsyncSubmitting, bulkBusy]);
 
   const handleGenerate = async () => {
     if (bulkBusy || generating || stagingAsyncSubmitting || bulkAsyncSubmitting) return;
@@ -1282,6 +1334,27 @@ export function QuestionStudioCockpitPage() {
                   catch {showToast.error('Copy failed','Copy the browser URL manually.');}
                 }}>Copy resume link</Button>
               </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {bulkAutoAdvance ? (
+                  <Button variant="outline" size="sm" onClick={()=>setBulkAutoAdvance(false)}>
+                    Stop automatic batch launches
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="sm" disabled={!canRun || bulkAsyncSubmitting ||
+                    bulkAsyncOperation.readyForReview || bulkAsyncOperation.requiresAttention ||
+                    !bulkAsyncOperation.batches.some(batch=>batch.status==='planned') ||
+                    bulkAutoLaunchInFlight.current}
+                    onClick={()=>{
+                      bulkAutoAttemptedChildren.current.clear();
+                      setBulkAutoAdvance(true);
+                    }}>
+                    Run all remaining batches (up to 250)
+                  </Button>
+                )}
+                <span className="text-muted-foreground">{bulkAutoAdvance
+                  ? 'Automatic sequence active while this tab stays open. Only one saved review batch runs at a time.'
+                  : 'One click advances through completed review batches; keep this tab open. No automatic question approval.'}</span>
+              </div>
               {bulkAsyncOperation.requiresAttention && <p className="text-destructive">A batch failed or needs reconciliation. Do not resubmit the whole operation.</p>}
               <div className="space-y-1">{bulkAsyncOperation.batches.map(batch=>(
                 <div key={batch.batchIndex} className="flex flex-wrap items-center justify-between gap-2 border-t pt-2">
@@ -1329,7 +1402,7 @@ export function QuestionStudioCockpitPage() {
                       }finally{setBulkAsyncSubmitting(false);}
                     }}>Request saved dispatch</Button>
                   )}
-                  {batch.status==='planned' && canRun &&
+                  {batch.status==='planned' && canRun && !bulkAutoAdvance &&
                     bulkAsyncOperation.batches.slice(0,batch.batchIndex).every(x=>x.status==='review' || x.status==='completed') &&
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
                       setBulkAsyncSubmitting(true);
