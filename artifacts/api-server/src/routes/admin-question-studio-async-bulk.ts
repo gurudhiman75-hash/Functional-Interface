@@ -118,7 +118,10 @@ async function progress(id: string, uid: string, admin: string) {
   return {id, status: summary.readyForReview ? "completed" :
     summary.requiresAttention ? "partial_failure" :
     summary.activeBatches>0 || summary.completedBatches>0 ? "in_progress" : "planned",
-    ...summary};
+    ...summary,
+    // The pure summarizer intentionally projects only core fields; retain the
+    // read-only diagnostics in the owner-scoped API response.
+    batches:children};
 }
 router.post("/bulk-async",requireAdminPermission("content.generation.run"),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");
