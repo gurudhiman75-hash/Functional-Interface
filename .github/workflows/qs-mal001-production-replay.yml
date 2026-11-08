@@ -1,0 +1,32 @@
+name: Replay MAL-001 production worker generation
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'tests/qs-mal001-production-replay.test.mjs'
+      - '.github/workflows/qs-mal001-production-replay.yml'
+      - 'artifacts/api-server/src/question-studio/universal-generation-worker.ts'
+      - 'artifacts/api-server/universal-question-studio-worker-service.mjs'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enable package manager
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+      - name: Install worker dependencies
+        run: pnpm install --frozen-lockfile --filter @workspace/api-server...
+      - name: Build isolated production compute worker
+        run: node artifacts/api-server/build-universal-worker.mjs
+      - name: Replay exact saved MAL-001 20Q seed without GCP or DB
+        run: node --test tests/qs-mal001-production-replay.test.mjs
