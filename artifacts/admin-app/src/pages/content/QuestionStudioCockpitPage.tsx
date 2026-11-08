@@ -1288,6 +1288,22 @@ export function QuestionStudioCockpitPage() {
                   <span>Batch {batch.batchIndex+1}: {batch.generatedCount}/{batch.count} · {batch.status}
                     {batch.runId && <span className="font-mono"> · {batch.runId}</span>}
                   </span>
+                  {batch.runId && (
+                    <div className="w-full space-y-1 text-[11px] text-muted-foreground">
+                      <p>Dispatch record: {batch.dispatchState==='acknowledged' ? 'Acknowledged by outbox (Cloud Task not independently verified)' :
+                        batch.dispatchState==='pending' ? 'Awaiting dispatcher' :
+                        batch.dispatchState==='unknown' ? 'No matching outbox event — operator investigation required' : 'Not requested'}
+                        {batch.dispatchAttempts>0 ? ` · attempts: ${batch.dispatchAttempts}` : ''}
+                      </p>
+                      {batch.expectedTaskId && <p className="font-mono break-all">Expected task ID: {batch.expectedTaskId}</p>}
+                      {batch.dispatchLastError && <p className="text-destructive">Dispatch error: {batch.dispatchLastError}</p>}
+                      {batch.status==='queued' && batch.deadlineExpired &&
+                        <p className="text-destructive font-medium">Run deadline expired. Do not redispatch: the receiver will reject an expired run. Operator recovery required.</p>}
+                      {batch.status==='queued' && !batch.deadlineExpired && batch.dispatchState==='acknowledged' &&
+                        <p>Dispatch was acknowledged. Verify the task and queue state before any retry; acknowledgement is not proof that a task exists.</p>}
+                      {batch.status==='running' && <p>Worker claimed the run. No dispatch retry is needed.</p>}
+                    </div>
+                  )}
                   {(batch.status==='reserved' || batch.status==='needs_reconciliation') && canRun && (
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
                       setBulkAsyncSubmitting(true);
@@ -1300,8 +1316,9 @@ export function QuestionStudioCockpitPage() {
                       } finally {setBulkAsyncSubmitting(false);}
                     }}>Reconcile saved batch</Button>
                   )}
-                  {batch.runId && batch.status==='queued' && canRun && (
+                  {batch.runId && batch.status==='queued' && batch.dispatchState==='pending' && !batch.deadlineExpired && canRun && (
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
+                      if (!window.confirm('Only request dispatch after checking the saved run and confirming the dispatcher is not already running. Continue with this same run?')) return;
                       setBulkAsyncSubmitting(true);
                       try{
                         await retryQuestionStudioProductionChapterDispatch(batch.runId!);
@@ -1330,6 +1347,7 @@ export function QuestionStudioCockpitPage() {
                 </div>
               ))}</div>
               {bulkAsyncError && <p className="text-destructive">{bulkAsyncError}</p>}
+              <p className="text-muted-foreground">This panel reads the saved run and outbox; it does not verify live Cloud Tasks queue state. An acknowledged dispatch may still have no task. Do not retry acknowledged or expired runs. Queue pause/resume remains an operator-only Cloud Tasks action.</p>
               <p className="text-muted-foreground">Every batch requires administrator action. Questions remain for manual review; none are automatically published.</p>
             </div>
           )}
