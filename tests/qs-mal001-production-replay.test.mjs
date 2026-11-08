@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Worker } from 'node:worker_threads';
+import {serializeUniversalWorkerResponse} from '../artifacts/api-server/universal-worker-json.mjs';
 
 // Replay the exact PUBLIC, non-secret compute fields of the expired MAL-001
 // chapter run. This is an OFFLINE test: no GCP, Neon, Cloud Tasks or publication.
@@ -40,8 +41,13 @@ test('MAL-001 20Q production worker replay completes for the saved seed', {timeo
     assert.equal(result.questions.length, 20);
     // HTTP response path uses JSON.stringify, unlike the structured-clone
     // worker message. Catch numbers unsupported by plain JSON here.
-    assert.doesNotThrow(() => JSON.stringify({ok:true,batch:result}),
-      'Generated batch must be serializable by the production HTTP response');
+    // Plain JSON.stringify reproduces the original production HTTP 500.
+    assert.throws(() => JSON.stringify({ok:true,batch:result}),/BigInt/);
+    const body = serializeUniversalWorkerResponse({ok:true,batch:result});
+    const decoded = JSON.parse(body);
+    assert.equal(decoded.ok,true);
+    assert.equal(decoded.batch.questions.length,20);
+    assert.equal(decoded.batch.packageId,'MAL-001');
     assert.equal(result.quantPlan?.assignments?.reduce((n, a) => n + a.count, 0),20);
   } finally {
     clearTimeout(timer);
