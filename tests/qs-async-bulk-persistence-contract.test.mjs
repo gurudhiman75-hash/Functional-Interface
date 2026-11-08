@@ -97,6 +97,13 @@ test("overdue production child is projected as attention, never silently left ac
  const transport=readFileSync("artifacts/api-server/src/question-studio/async-cloud-tasks-transport.ts","utf8");
  const lease=readFileSync("artifacts/api-server/src/question-studio/async-task-lease-policy.ts","utf8");
  assert.match(lease,/QUESTION_STUDIO_TASK_LEASE_SECONDS = 240/);
+ const claims=readFileSync("artifacts/api-server/src/question-studio/async-task-lease-claim.ts","utf8");
+ const receiver=readFileSync("artifacts/api-server/src/async-task-receiver-prod-standalone.ts","utf8");
+ assert.match(claims,/releaseQuestionStudioAsyncTaskLeaseAfterFailure/);
+ assert.match(claims,/AND lease_token=\$\{leaseToken\}::uuid/);
+ assert.match(claims,/SET lease_expires_at=now\(\)/);
+ assert.match(receiver,/await releaseQuestionStudioAsyncTaskLeaseAfterFailure/);
+ assert.match(receiver,/activeClaim=null/);
  assert.match(transport,/dispatchDeadline: "300s"/);
  assert.match(route,/const overdue=Boolean\(r\.deadline_expired\) && !Boolean\(r\.lease_active\)/);
  assert.match(route,/const status=overdue \? "needs_reconciliation"/);
