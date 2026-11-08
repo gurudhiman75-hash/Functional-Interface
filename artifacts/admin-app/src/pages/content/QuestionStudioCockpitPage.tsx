@@ -61,6 +61,7 @@ import {
   getQuestionStudioBulkReviewProgress,
   launchQuestionStudioBulkReviewChild,
   reconcileQuestionStudioBulkReviewChild,
+  recoverExpiredQuestionStudioBulkReviewChild,
 } from '@/features/question-studio/api';
 import { isProductionChapterPackage, productionChapterCpIds, PRODUCTION_CHAPTER_BATCH_LIMIT } from '@/features/question-studio/production-chapter';
 import {
@@ -1381,6 +1382,21 @@ export function QuestionStudioCockpitPage() {
                       {batch.status==='running' && !batch.overdueNeedsAttention &&
                         <p>Worker claimed the run. No dispatch retry is needed.</p>}
                     </div>
+                  )}
+                  {batch.runId && batch.overdueNeedsAttention && batch.canRecoverExpired && canRun && (
+                    <Button variant="destructive" size="sm" disabled={bulkAsyncSubmitting || bulkAutoAdvance}
+                      onClick={async()=>{
+                        if(!window.confirm('This expired run has no saved questions or active lease. Mark the old run failed and reset this one bulk batch for a NEW explicit launch? No generation will start automatically.')) return;
+                        setBulkAutoAdvance(false);
+                        setBulkAsyncSubmitting(true);
+                        try {
+                          await recoverExpiredQuestionStudioBulkReviewChild(bulkAsyncOperation.id,batch.batchIndex);
+                          setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
+                          showToast.info('Expired batch recovered','Old run preserved as failed. Launch this planned batch explicitly when the worker fix is deployed.');
+                        } catch(error){
+                          showToast.error('Recovery denied',error instanceof Error ? error.message : 'The run did not pass recovery safety checks.');
+                        } finally {setBulkAsyncSubmitting(false);}
+                      }}>Recover expired empty batch</Button>
                   )}
                   {(batch.status==='reserved' || (batch.status==='needs_reconciliation' && !batch.runId)) && canRun && (
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
