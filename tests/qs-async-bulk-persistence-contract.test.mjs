@@ -130,3 +130,24 @@ test("expired child recovery is explicit, owner-bound, empty-only and never auto
  assert.match(ui,/Recover expired empty batch/);
  assert.match(ui,/window\.confirm\('This expired run has no saved questions/);
 });
+
+test("operator-closed empty bulk run becomes recoverable without overwriting failure history",()=>{
+ const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const page=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ const endpoint=route.slice(route.indexOf('router.post("/bulk-async/:operationId/children/:index/recover-expired"'));
+ assert.match(route,/const safeClosedFailure=runStatus==="failed"/);
+ assert.match(route,/!r\.started_at && Boolean\(r\.completed_at\)/);
+ assert.match(route,/String\(r\.failure_reason\?\?""\)\.startsWith\("Operator-approved closure "\)/);
+ assert.match(route,/canRecoverExpired:\(overdue \|\| safeClosedFailure\)/);
+ assert.match(route,/Boolean\(r\.outbox_event_id\)/);
+ assert.match(endpoint,/const previouslyClosed=run && String\(run\.status\)==="failed"/);
+ assert.match(endpoint,/!run\.startedAt && Boolean\(run\.completedAt\)/);
+ assert.match(endpoint,/AND failure_reason LIKE '%without Cloud Task%'/);
+ assert.match(endpoint,/CASE WHEN status='failed' THEN failure_reason/);
+ assert.match(endpoint,/completed_at=COALESCE\(completed_at,now\(\)\)/);
+ assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
+ assert.match(endpoint,/generation_run_id=NULL/);
+ assert.match(endpoint,/platform\.audit_events/);
+ assert.match(page,/batch\.runId && batch\.canRecoverExpired && canRun/);
+ assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(|recordQuestionStudioEnqueueIntent\(/);
+});
