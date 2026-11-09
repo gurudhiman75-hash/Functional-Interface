@@ -68,6 +68,9 @@ async function progress(id: string, uid: string, admin: string) {
            c.idempotency_key,
            c.selected_cp_ids,c.generation_run_id,
            r.status::text AS run_status,
+           r.started_at AS started_at,
+           r.completed_at AS completed_at,
+           r.failure_reason AS failure_reason,
            r.due_at AS due_at,
            (r.due_at IS NOT NULL AND r.due_at <= now()) AS deadline_expired,
            (r.due_at IS NOT NULL AND r.due_at < now()-interval '10 minutes') AS recovery_grace_elapsed,
@@ -102,6 +105,10 @@ async function progress(id: string, uid: string, admin: string) {
     // "running" database row forever. Project a non-retryable attention state
     // once the deadline and any active lease have both expired. Do not mutate
     // the original run or imply that the remaining children were launched.
+    const safeClosedFailure=runStatus==="failed" &&
+      !r.started_at && Boolean(r.completed_at) &&
+      String(r.failure_reason??"").startsWith("Operator-approved closure ") &&
+      String(r.failure_reason??"").includes("without Cloud Task");
     const overdue=Boolean(r.deadline_expired) && !Boolean(r.lease_active) &&
       (runStatus==="queued" || runStatus==="running" || runStatus==="validation");
     const status=overdue ? "needs_reconciliation" :
@@ -117,7 +124,8 @@ async function progress(id: string, uid: string, admin: string) {
       deadlineExpired:Boolean(r.deadline_expired),
       leaseActive:Boolean(r.lease_active),
       overdueNeedsAttention:overdue,
-      canRecoverExpired:overdue && generated===0 &&
+      canRecoverExpired:(overdue || safeClosedFailure) && generated===0 &&
+        !Boolean(r.lease_active) && Boolean(r.outbox_event_id) &&
         String(r.idempotency_key??"").startsWith("chapterbulk:") &&
         Boolean(r.recovery_grace_elapsed),
       dueAt:r.due_at ?? null,
@@ -402,7 +410,10 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
       // Lock the same run row first as the worker claim and atomic commit.
       const rows=await tx`
         SELECT r.id::text AS "runId", r.status::text AS status,
-               r.due_at, c.idempotency_key AS "idempotencyKey",
+               r.due_at, r.started_at AS "startedAt",
+               r.completed_at AS "completedAt",
+               r.failure_reason AS "failureReason",
+               c.idempotency_key AS "idempotencyKey",
                c.status AS "childStatus"
         FROM content.generation_bulk_children c
         JOIN content.generation_bulk_operations o ON o.id=c.operation_id
@@ -413,7 +424,11 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
         FOR UPDATE OF r
       `;
       const run=rows[0];
-      if(!run || !["queued","running"].includes(String(run.status)) ||
+      const previouslyClosed=run && String(run.status)==="failed" &&
+        !run.startedAt && Boolean(run.completedAt) &&
+        String(run.failureReason??"").startsWith("Operator-approved closure ") &&
+        String(run.failureReason??"").includes("without Cloud Task");
+      if(!run || (!["queued","running"].includes(String(run.status)) && !previouslyClosed) ||
          typeof run.idempotencyKey!=="string" ||
          !run.idempotencyKey.startsWith("chapterbulk:") ||
          !run.due_at ||
@@ -439,9 +454,14 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
       const failed=await tx`
         UPDATE content.generation_runs
         SET status='failed'::generation_run_status,
-            failure_reason='Chapter review task expired with no saved questions; operator recovered its bulk child',
-            completed_at=now(),updated_at=now()
-        WHERE id=${run.runId}::uuid AND status IN ('queued','running')
+            failure_reason=CASE WHEN status='failed' THEN failure_reason
+              ELSE 'Chapter review task expired with no saved questions; operator recovered its bulk child' END,
+            completed_at=COALESCE(completed_at,now()),updated_at=now()
+        WHERE id=${run.runId}::uuid
+          AND (status IN ('queued','running') OR
+            (status='failed' AND started_at IS NULL AND completed_at IS NOT NULL
+             AND failure_reason LIKE 'Operator-approved closure %'
+             AND failure_reason LIKE '%without Cloud Task%'))
         RETURNING id
       `;
       if(failed.length!==1) return null;
@@ -464,7 +484,7 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
           'generation_run',${run.runId}::uuid,
           'Explicit administrator recovery after run deadline and retry grace; no active lease or saved item',
           'Reset empty expired bulk child to planned; no generation dispatched',
-          (${JSON.stringify({operationId:id,batchIndex:index,oldRunId:run.runId,reasonCode:"EXPIRED_EMPTY"})}::text)::jsonb
+          (${JSON.stringify({operationId:id,batchIndex:index,oldRunId:run.runId,reasonCode:previouslyClosed?"OPERATOR_CLOSED_EMPTY":"EXPIRED_EMPTY"})}::text)::jsonb
         )
       `;
       return {recovered:true,oldRunId:String(run.runId),batchIndex:index};

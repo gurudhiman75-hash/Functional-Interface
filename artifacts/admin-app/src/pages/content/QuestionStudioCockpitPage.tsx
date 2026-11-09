@@ -1383,7 +1383,7 @@ export function QuestionStudioCockpitPage() {
                         <p>Worker claimed the run. No dispatch retry is needed.</p>}
                     </div>
                   )}
-                  {batch.runId && batch.overdueNeedsAttention && batch.canRecoverExpired && canRun && (
+                  {batch.runId && batch.canRecoverExpired && canRun && (
                     <Button variant="destructive" size="sm" disabled={bulkAsyncSubmitting || bulkAutoAdvance}
                       onClick={async()=>{
                         if(!window.confirm('This expired run has no saved questions or active lease. Mark the old run failed and reset this one bulk batch for a NEW explicit launch? No generation will start automatically.')) return;
@@ -1392,7 +1392,7 @@ export function QuestionStudioCockpitPage() {
                         try {
                           await recoverExpiredQuestionStudioBulkReviewChild(bulkAsyncOperation.id,batch.batchIndex);
                           setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
-                          showToast.info('Expired batch recovered','Old run preserved as failed. Launch this planned batch explicitly when the worker fix is deployed.');
+                          showToast.info('Expired batch recovered','Previous run preserved. This batch is now planned; launch it explicitly only when the dispatch path is healthy.');
                         } catch(error){
                           showToast.error('Recovery denied',error instanceof Error ? error.message : 'The run did not pass recovery safety checks.');
                         } finally {setBulkAsyncSubmitting(false);}
