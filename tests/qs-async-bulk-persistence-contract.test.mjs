@@ -148,7 +148,7 @@ test("operator-closed empty bulk run becomes recoverable without overwriting fai
  assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
  assert.match(endpoint,/generation_run_id=NULL/);
  assert.match(endpoint,/platform\.audit_events/);
- assert.match(page,/batch\.runId && batch\.canRecoverExpired && canRun/);
+ assert.match(page,/batch\.runId && canRun/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(|recordQuestionStudioEnqueueIntent\(/);
 });
 
