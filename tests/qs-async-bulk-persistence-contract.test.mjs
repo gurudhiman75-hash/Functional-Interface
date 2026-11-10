@@ -128,7 +128,7 @@ test("expired child recovery is explicit, owner-bound, empty-only and never auto
  assert.match(endpoint,/platform\.audit_events/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(|recordQuestionStudioEnqueueIntent\(/);
  assert.match(ui,/Recover expired empty batch/);
- assert.match(ui,/window\.confirm\('This expired run has no saved questions/);
+ assert.match(ui,/window\.confirm\('Request guarded recovery of this expired, empty batch/);
 });
 
 test("operator-closed empty bulk run becomes recoverable without overwriting failure history",()=>{
@@ -150,4 +150,20 @@ test("operator-closed empty bulk run becomes recoverable without overwriting fai
  assert.match(endpoint,/platform\.audit_events/);
  assert.match(page,/batch\.runId && batch\.canRecoverExpired && canRun/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(|recordQuestionStudioEnqueueIntent\(/);
+});
+
+test("expired failed empty batch offers server-guarded recovery even if projection omits eligibility",()=>{
+ const ui=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ const endpoint=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8")
+   .split('router.post("/bulk-async/:operationId/children/:index/recover-expired"')[1];
+ assert.match(ui,/batch\.status==='failed' && batch\.generatedCount===0/);
+ assert.match(ui,/batch\.deadlineExpired && !batch\.leaseActive/);
+ assert.match(ui,/batch\.dispatchState==='acknowledged'/);
+ assert.match(ui,/batch\.canRecoverExpired \|\|/);
+ assert.match(endpoint,/o\.actor_firebase_uid/);
+ assert.match(endpoint,/o\.requested_by/);
+ assert.match(endpoint,/lease_expires_at/);
+ assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
+ assert.match(endpoint,/generation_run_id=NULL/);
+ assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(/);
 });
