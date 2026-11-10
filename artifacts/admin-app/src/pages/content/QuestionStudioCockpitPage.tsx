@@ -1383,10 +1383,14 @@ export function QuestionStudioCockpitPage() {
                         <p>Worker claimed the run. No dispatch retry is needed.</p>}
                     </div>
                   )}
-                  {batch.runId && batch.canRecoverExpired && canRun && (
+                  {batch.runId && canRun &&
+                    (batch.canRecoverExpired ||
+                      (batch.status==='failed' && batch.generatedCount===0 &&
+                       batch.deadlineExpired && !batch.leaseActive &&
+                       batch.dispatchState==='acknowledged')) && (
                     <Button variant="destructive" size="sm" disabled={bulkAsyncSubmitting || bulkAutoAdvance}
                       onClick={async()=>{
-                        if(!window.confirm('This expired run has no saved questions or active lease. Mark the old run failed and reset this one bulk batch for a NEW explicit launch? No generation will start automatically.')) return;
+                        if(!window.confirm('Request guarded recovery of this expired, empty batch? The server will independently verify the old run, dispatch record, saved questions and leases. Unsafe recovery will be rejected. No generation starts automatically.')) return;
                         setBulkAutoAdvance(false);
                         setBulkAsyncSubmitting(true);
                         try {
