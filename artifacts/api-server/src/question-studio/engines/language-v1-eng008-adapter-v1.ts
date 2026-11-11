@@ -85,6 +85,8 @@ export const languageV1Eng008QuestionStudioAdapterV1:QuestionStudioEngineAdapter
  async generate(request):Promise<QuestionStudioGenerationResult>{
   if(!isEng008QuestionStudioRequestV1(request))throw new Error("language-v1 ENG-008 adapter requires ENG-008 package, CP, RC family, or reading-comprehension selector");
   if(request.runtimeMode&&request.runtimeMode!=="review-only")throw new Error("ENG-008 only supports review-only runtime");
+  if(request.optionCount!==undefined&&request.optionCount!==4&&request.optionCount!==5)throw new Error("ENG-008 optionCount must be 4 or 5");
+  if(request.optionCount===5&&!isEng008SetRequestV1(request))throw new Error("ENG-008 five-option banking RC requires a complete linked passage set");
   if(isEng008SetRequestV1(request)){
    const language=lang(request.language),profile=eng008SetProfileV1(request),baseSeed=text(request.seed)||"eng008-cp006-question-studio-approved-v1",allocation=eng008AllocateSetsV1(request,profile);
    const sets=allocation.map((entry,index)=>generateEng008Cp006SetV1({seed:`${baseSeed}:set:${index}`,profile:entry.profile,questionCount:entry.count,optionCount:request.optionCount}));
