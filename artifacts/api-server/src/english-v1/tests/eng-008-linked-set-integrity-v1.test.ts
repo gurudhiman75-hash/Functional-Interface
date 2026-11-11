@@ -59,4 +59,23 @@ for(const profile of ENG008_CP006_SET_PROFILES_V1){
     assert.ok(set.questions.every(q=>q.metadata.reviewOnly===true));
   }
 }
+// Only fully authored banking passage authorities can render five options.
+for(const [profile,passageId,questionCount] of [
+  ["BANKING_PRELIMS_RC","ENG008-BP-B01",10],
+  ["BANKING_MAINS_RC","ENG008-BM-B01",10],
+] as const){
+ const five=generateEng008Cp006SetV1({profile,passageId,questionCount,optionCount:5,seed:`five-options:${profile}`});
+ assert.equal(five.questions.length,10);
+ assert.equal(five.optionCount,5);
+ for(const q of five.questions){
+  assert.equal(q.options.length,5);
+  assert.equal(new Set(q.options.map(option=>option.toLowerCase())).size,5);
+  assert.ok(q.correctOptionIndex>=0&&q.correctOptionIndex<5);
+ }
+ const replay=generateEng008Cp006SetV1({profile,passageId,questionCount,optionCount:5,seed:`five-options:${profile}`});
+ assert.deepEqual(replay,five);
+}
+assert.throws(()=>generateEng008Cp006SetV1({profile:"SSC_FOUNDATION_RC",questionCount:6,optionCount:5,seed:"ssc-five"}),/only for banking/i);
+assert.throws(()=>generateEng008Cp006SetV1({profile:"BANKING_PRELIMS_RC",passageId:"ENG008-BP-B02",questionCount:9,optionCount:5,seed:"unsupported-five"}),/approved fifth distractors/i);
+
 console.log("ENG-008 linked RC set integrity passed.",{wordFitAuthorities:126,fullPrelimsSets:fullSets,profiles:ENG008_CP006_SET_PROFILES_V1.length});
