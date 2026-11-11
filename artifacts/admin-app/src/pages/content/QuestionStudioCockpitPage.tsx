@@ -83,6 +83,7 @@ import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/quest
 import { getStagingResumeRunId, STAGING_ASYNC_RUN_PARAM, withStagingResumeRunId } from '@/features/question-studio/staging-async-resume';
 import { generationChapter, packageMainTopic, sortMainTopics } from '@/features/question-studio/package-hierarchy';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
+import { AdminApiError } from '@/lib/admin-api-error';
 import { cn } from '@/lib/utils';
 
 // Opt-in preview only. Default production builds continue to use synchronous Generate.
@@ -1398,7 +1399,10 @@ export function QuestionStudioCockpitPage() {
                           setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(bulkAsyncOperation.id));
                           showToast.info('Expired batch recovered','Previous run preserved. This batch is now planned; launch it explicitly only when the dispatch path is healthy.');
                         } catch(error){
-                          showToast.error('Recovery denied',error instanceof Error ? error.message : 'The run did not pass recovery safety checks.');
+                          const failure=error instanceof AdminApiError
+                            ? `${error.message} (HTTP ${error.status??'?'}, code ${error.code??'UNKNOWN'})`
+                            : error instanceof Error ? error.message : 'The run did not pass recovery safety checks.';
+                          showToast.error('Recovery denied',failure);
                         } finally {setBulkAsyncSubmitting(false);}
                       }}>Recover expired empty batch</Button>
                   )}
