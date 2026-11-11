@@ -43,8 +43,8 @@ function isEng008SetRequestV1(request:QuestionStudioGenerationRequest){
 function eng008SetProfileV1(request:QuestionStudioGenerationRequest):Eng008SetProfile{
  const t=`${text(request.exam)} ${text(request.examProfile)} ${text(request.topic)} ${text(request.subtopic)} ${text(request.patternId)}`.toLowerCase();
  if(/research|survey|study/.test(t))return"RESEARCH_SURVEY_REPORT_RC";
- if(/(?:banking|bank|ibps|sbi|rrb)[\s_-]*(?:mains|main)/.test(t))return"BANKING_MAINS_RC";
- if(/(?:banking|bank|ibps|sbi|rrb)[\s_-]*(?:prelims|preliminary|pre)/.test(t))return"BANKING_PRELIMS_RC";
+ if(/\b(mains|main)\b/.test(t)&&/\b(sbi|ibps|banking|bank|rrb)\b/.test(t))return"BANKING_MAINS_RC";
+ if(/\b(prelims|preliminary|pre)\b/.test(t)&&/\b(sbi|ibps|banking|bank|rrb)\b/.test(t))return"BANKING_PRELIMS_RC";
  if(/\b(sbi|ibps|banking|bank po|bank clerk|rrb officer|rrb assistant)\b/.test(t))return"BANKING_PRELIMS_RC";
  if(/editorial|current-affairs|current affairs/.test(t))return"SSC_EDITORIAL_CURRENT_AFFAIRS_RC";
  return"SSC_FOUNDATION_RC";
