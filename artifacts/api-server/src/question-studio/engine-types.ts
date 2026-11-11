@@ -47,6 +47,8 @@ export type QuestionStudioGenerationRequest = {
   subject?: string;
   difficulty?: QuestionStudioDifficulty | "Mixed" | string;
   count?: number;
+  /** Requested MCQ option count. Five is supported only by vetted banking RC authorities. */
+  optionCount?: 4 | 5;
   packageId?: string;
   patternId?: string;
   topic?: string;
