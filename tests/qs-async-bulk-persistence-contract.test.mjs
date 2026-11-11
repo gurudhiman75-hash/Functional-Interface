@@ -142,8 +142,8 @@ test("operator-closed empty bulk run becomes recoverable without overwriting fai
  assert.match(route,/Boolean\(r\.outbox_event_id\)/);
  assert.match(endpoint,/const previouslyClosed=run && String\(run\.status\)==="failed"/);
  assert.match(endpoint,/!run\.startedAt && Boolean\(run\.completedAt\)/);
- assert.match(endpoint,/AND failure_reason LIKE '%without Cloud Task%'/);
- assert.match(endpoint,/CASE WHEN status='failed' THEN failure_reason/);
+ assert.match(endpoint,/String\(run\.failureReason\?\?""\)\.includes\("without Cloud Task"\)/);
+ assert.match(endpoint,/if\(!previouslyClosed\)/);
  assert.match(endpoint,/completed_at=COALESCE\(completed_at,now\(\)\)/);
  assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
  assert.match(endpoint,/generation_run_id=NULL/);
@@ -164,6 +164,21 @@ test("expired failed empty batch offers server-guarded recovery even if projecti
  assert.match(endpoint,/o\.requested_by/);
  assert.match(endpoint,/lease_expires_at/);
  assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
+ assert.match(endpoint,/generation_run_id=NULL/);
+ assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(/);
+});
+
+test("terminal failed run is immutable and rejected recoveries return actionable reason codes",()=>{
+ const route=readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-bulk.ts","utf8");
+ const endpoint=route.split('router.post("/bulk-async/:operationId/children/:index/recover-expired"')[1];
+ assert.match(endpoint,/if\(!previouslyClosed\)/);
+ assert.match(endpoint,/QS_BULK_RECOVERY_RUN_NOT_ELIGIBLE/);
+ assert.match(endpoint,/QS_BULK_RECOVERY_DEADLINE_NOT_EXPIRED/);
+ assert.match(endpoint,/QS_BULK_RECOVERY_ACTIVE_LEASE/);
+ assert.match(endpoint,/QS_BULK_RECOVERY_ITEMS_EXIST/);
+ assert.match(endpoint,/QS_BULK_RECOVERY_OUTBOX_MISSING/);
+ assert.match(endpoint,/res.status\(409\).json\(\{code:recovered && "code" in recovered/);
+ assert.match(endpoint,/console.error\("QS_BULK_EXPIRED_RECOVERY_UNAVAILABLE"/);
  assert.match(endpoint,/generation_run_id=NULL/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(/);
 });
