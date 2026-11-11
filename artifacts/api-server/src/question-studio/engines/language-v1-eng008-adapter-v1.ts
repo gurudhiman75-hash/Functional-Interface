@@ -34,8 +34,50 @@ function count(v:number|undefined){if(v==null)return 5;if(!Number.isInteger(v)||
 function diff(v:QuestionStudioGenerationRequest["difficulty"],seed:string):Eng008Difficulty{const d=text(v).toLowerCase();if(d==="easy"||d==="medium"||d==="hard")return d;if(!d||d==="mixed")return(["easy","medium","hard"]as const)[hash(seed)%3]!;throw new Error("ENG-008 difficulty must be Easy, Medium, Hard, or Mixed");}
 function family(request:QuestionStudioGenerationRequest):Eng008RcFamilyId|undefined{const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase());return xs.find((x):x is Eng008RcFamilyId=>familyIds.includes(x as Eng008RcFamilyId));}
 function genre(request:QuestionStudioGenerationRequest):Eng008Genre|undefined{const t=`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase();if(/story|narrative/.test(t))return"narrative";if(/report|expository/.test(t))return"report";return undefined;}
-function isEng008SetRequestV1(request:QuestionStudioGenerationRequest){const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase());const t=`${text(request.exam)} ${text(request.topic)} ${text(request.subtopic)}`.toLowerCase();return xs.includes(ENG008_CP006_ID_V1)||xs.some(x=>x.startsWith("RCSET"))||/full.*passage.*set|multi-question.*rc|linked.*rc.*set/.test(t);}
-function eng008SetProfileV1(request:QuestionStudioGenerationRequest):Eng008SetProfile{const t=`${text(request.exam)} ${text(request.topic)} ${text(request.subtopic)} ${text(request.patternId)}`.toLowerCase();if(/research|survey|study/.test(t))return"RESEARCH_SURVEY_REPORT_RC";if(/banking mains|bank mains|ibps mains|sbi mains/.test(t))return"BANKING_MAINS_RC";if(/banking prelims|bank prelims|ibps prelims|sbi prelims/.test(t))return"BANKING_PRELIMS_RC";if(/editorial|current-affairs|current affairs/.test(t))return"SSC_EDITORIAL_CURRENT_AFFAIRS_RC";return"SSC_FOUNDATION_RC";}
+function isEng008SetRequestV1(request:QuestionStudioGenerationRequest){
+ // Universal async execution requires EXACTLY request.count records. A partial
+ // passage cannot be produced as an implicit set of 6–10 questions.
+ if(request.count!=null&&request.count<5)return false;
+ const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase()).filter(Boolean);
+ // A named question family or legacy checkpoint is an explicit single-question request.
+ if(xs.some(x=>/^ENG-008-CP00[1-57]$/.test(x)||/^(RC-F|RC2-F|BP-F|BM-F|RS-F)/.test(x)))return false;
+ return true; // Ordinary Reading Comprehension defaults to linked, passage-based question sets.
+}
+function eng008SetProfileV1(request:QuestionStudioGenerationRequest):Eng008SetProfile{
+ const t=`${text(request.exam)} ${text(request.examProfile)} ${text(request.topic)} ${text(request.subtopic)} ${text(request.patternId)}`.toLowerCase();
+ if(/research|survey|study/.test(t))return"RESEARCH_SURVEY_REPORT_RC";
+ if(/\b(mains|main)\b/.test(t)&&/\b(sbi|ibps|banking|bank|rrb)\b/.test(t))return"BANKING_MAINS_RC";
+ if(/\b(prelims|preliminary|pre)\b/.test(t)&&/\b(sbi|ibps|banking|bank|rrb)\b/.test(t))return"BANKING_PRELIMS_RC";
+ if(/\b(sbi|ibps|banking|bank po|bank clerk|rrb officer|rrb assistant)\b/.test(t))return"BANKING_PRELIMS_RC";
+ if(/editorial|current-affairs|current affairs/.test(t))return"SSC_EDITORIAL_CURRENT_AFFAIRS_RC";
+ return"SSC_FOUNDATION_RC";
+}
+function eng008SetCountsV1(profile:Eng008SetProfile):number[]{
+ if(profile==="SSC_FOUNDATION_RC")return[6,5];
+ if(profile==="SSC_EDITORIAL_CURRENT_AFFAIRS_RC"||profile==="RESEARCH_SURVEY_REPORT_RC")return[8,6];
+ if(profile==="BANKING_PRELIMS_RC")return[10,9,8];
+ return[10,8];
+}
+function eng008AllocateSetsV1(request:QuestionStudioGenerationRequest,profile:Eng008SetProfile):Array<{profile:Eng008SetProfile;count:number}>{
+ const explicitCp6=[request.patternId,request.canonicalProblemId,request.questionLanguageId].some(v=>text(v).toUpperCase()===ENG008_CP006_ID_V1);
+ const choices=eng008SetCountsV1(profile).map(count=>({profile,count}));
+ // A generic SSC RC request may use either approved SSC passage style, including eight-question sets.
+ if(profile==="SSC_FOUNDATION_RC"&&!explicitCp6)choices.push({profile:"SSC_EDITORIAL_CURRENT_AFFAIRS_RC",count:8});
+ const requested=request.count;
+ if(requested==null)return[choices[0]!];
+ if(!Number.isInteger(requested)||requested<1)throw new Error("ENG-008 count must be a positive integer");
+ if(!Number.isInteger(requested)||requested>250)throw new Error("ENG-008 linked RC request count must be 1–250");
+ const solve=(remaining:number,memo=new Map<number,Array<{profile:Eng008SetProfile;count:number}>|null>()):Array<{profile:Eng008SetProfile;count:number}>|null=>{
+  if(remaining===0)return[];
+  if(memo.has(remaining))return memo.get(remaining)!;
+  for(const choice of choices){if(choice.count>remaining)continue;const rest=solve(remaining-choice.count,memo);if(rest){const result=[choice,...rest];memo.set(remaining,result);return result;}}
+  memo.set(remaining,null);return null;
+ };
+ const allocation=solve(requested);
+ if(!allocation)throw new Error(`ENG-008 cannot form complete linked RC sets with exactly ${requested} questions for ${profile}; choose an approved set size or supported total`);
+ if(explicitCp6&&allocation.length>1)throw new Error("ENG-008-CP006 explicitly selects one passage set; choose a supported single-set count");
+ return allocation;
+}
 export function isEng008QuestionStudioRequestV1(request:QuestionStudioGenerationRequest){if(text(request.packageId).toLowerCase()===ENG008_QUESTION_STUDIO_PACKAGE_ID_V1)return true;const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase());if(xs.includes(ENG008_CP001_ID_V1)||xs.includes(ENG008_CP002_ID_V1)||xs.includes(ENG008_CP003_ID_V1)||xs.includes(ENG008_CP004_ID_V1)||xs.includes(ENG008_CP005_ID_V1)||xs.includes(ENG008_CP006_ID_V1)||xs.includes(ENG008_CP007_ID_V1)||xs.some(x=>x.startsWith("RC-F"))||xs.some(x=>x.startsWith("RC2-F"))||xs.some(x=>x.startsWith("BP-F"))||xs.some(x=>x.startsWith("BM-F"))||xs.some(x=>x.startsWith("RS-F"))||xs.some(x=>x.startsWith("RCSET")))return true;return /reading comprehension|comprehension passage/.test(`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase())&&text(request.subject).toLowerCase()==="english";}
 export const languageV1Eng008QuestionStudioAdapterV1:QuestionStudioEngineAdapter={
  engineId:"language-v1",
@@ -44,9 +86,10 @@ export const languageV1Eng008QuestionStudioAdapterV1:QuestionStudioEngineAdapter
   if(!isEng008QuestionStudioRequestV1(request))throw new Error("language-v1 ENG-008 adapter requires ENG-008 package, CP, RC family, or reading-comprehension selector");
   if(request.runtimeMode&&request.runtimeMode!=="review-only")throw new Error("ENG-008 only supports review-only runtime");
   if(isEng008SetRequestV1(request)){
-   const language=lang(request.language),profile=eng008SetProfileV1(request),baseSeed=text(request.seed)||"eng008-cp006-question-studio-approved-v1",set=generateEng008Cp006SetV1({seed:baseSeed,profile,questionCount:request.count});
-   const questions=set.questions.map((q:any,index:number)=>({...lifecycle,id:q.questionId,questionId:q.questionId,packageId:ENG008_QUESTION_STUDIO_PACKAGE_ID_V1,patternId:q.metadata.familyId,cpId:ENG008_CP006_ID_V1,sourceCpId:q.metadata.cpId,subject:"English",topic:"Reading Comprehension",subtopic:`Full RC Set · ${profile}`,language,locale:"en-IN",stem:q.stem,passage:set.passage,prompt:q.prompt,text:[q.stem,set.passage,q.prompt,...q.options.map((o:string,j:number)=>`${String.fromCharCode(65+j)}. ${o}`)].join("\n\n"),options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,difficulty:`${String(q.metadata.difficulty)[0]!.toUpperCase()}${String(q.metadata.difficulty).slice(1)}`,difficultyLabel:`${String(q.metadata.difficulty)[0]!.toUpperCase()}${String(q.metadata.difficulty).slice(1)}`,genre:q.metadata.genre,familyId:q.metadata.familyId,passageId:q.metadata.passageId,authorityId:q.metadata.authorityId,evidence:q.metadata.evidence,setId:set.setId,setProfile:profile,setQuestionIndex:index+1,setQuestionCount:set.questionCount,registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG008_CP006_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,humanReviewApproved:true,authoringReviewApproved:true,reviewOnly:true,questionStudioDiscoverable:true,questionStudioGenerationEnabled:true,runtimeRegistered:true,readOnly:true,revisionPolicy:"SOURCE_GENERATOR_ONLY",productionReleased:false,generationSeed:baseSeed}));
-   return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG008_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:ENG008_CP006_ID_V1,examProfile:profile,runtimeMode:"review-only",registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG008_CP006_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,humanReviewApproved:true,reviewOnly:true,language,seed:baseSeed,setId:set.setId,passageId:set.passageId,questionCount:set.questionCount}};
+   const language=lang(request.language),profile=eng008SetProfileV1(request),baseSeed=text(request.seed)||"eng008-cp006-question-studio-approved-v1",allocation=eng008AllocateSetsV1(request,profile);
+   const sets=allocation.map((entry,index)=>generateEng008Cp006SetV1({seed:`${baseSeed}:set:${index}`,profile:entry.profile,questionCount:entry.count}));
+   const questions=sets.flatMap((set,setIndex)=>set.questions.map((q:any,index:number)=>({...lifecycle,id:q.questionId,questionId:q.questionId,packageId:ENG008_QUESTION_STUDIO_PACKAGE_ID_V1,patternId:q.metadata.familyId,cpId:ENG008_CP006_ID_V1,sourceCpId:q.metadata.cpId,subject:"English",topic:"Reading Comprehension",subtopic:`Full RC Set · ${set.profile}`,language,locale:"en-IN",stem:q.stem,passage:set.passage,prompt:q.prompt,text:[q.stem,set.passage,q.prompt,...q.options.map((o:string,j:number)=>`${String.fromCharCode(65+j)}. ${o}`)].join("\n\n"),options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,difficulty:`${String(q.metadata.difficulty)[0]!.toUpperCase()}${String(q.metadata.difficulty).slice(1)}`,difficultyLabel:`${String(q.metadata.difficulty)[0]!.toUpperCase()}${String(q.metadata.difficulty).slice(1)}`,genre:q.metadata.genre,familyId:q.metadata.familyId,passageId:q.metadata.passageId,authorityId:q.metadata.authorityId,evidence:q.metadata.evidence,setId:set.setId,setProfile:set.profile,setQuestionIndex:index+1,setQuestionCount:set.questionCount,setIndex:setIndex+1,registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG008_CP006_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,humanReviewApproved:true,authoringReviewApproved:true,reviewOnly:true,questionStudioDiscoverable:true,questionStudioGenerationEnabled:true,runtimeRegistered:true,readOnly:true,revisionPolicy:"SOURCE_GENERATOR_ONLY",productionReleased:false,generationSeed:baseSeed})));
+   return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG008_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:ENG008_CP006_ID_V1,examProfile:profile,runtimeMode:"review-only",registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG008_CP006_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,humanReviewApproved:true,reviewOnly:true,language,seed:baseSeed,setIds:sets.map(set=>set.setId),passageIds:sets.map(set=>set.passageId),questionCount:questions.length,optionCountPolicy:"FOUR_APPROVED_OPTIONS_ONLY_PENDING_FIFTH_DISTRACTOR_AUTHORING"}};
   }
   const language=lang(request.language),n=count(request.count),baseSeed=text(request.seed)||"eng008-question-studio-approved-v1",forcedFamily=family(request),forcedGenre=genre(request),selectors=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase()),forceCp7=selectors.includes(ENG008_CP007_ID_V1)||selectors.includes("BP-F10"),forceCp5=selectors.includes(ENG008_CP005_ID_V1)||selectors.some(x=>x.startsWith("RS-F"))||/research|survey|study|report rc/.test(`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase()),forceCp4=selectors.includes(ENG008_CP004_ID_V1)||selectors.some(x=>x.startsWith("BM-F"))||/banking mains|bank mains|ibps mains|sbi mains/.test(`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase()),forceCp3=!forceCp7&&(selectors.includes(ENG008_CP003_ID_V1)||selectors.some(x=>x.startsWith("BP-F"))||/banking prelims|bank prelims|ibps prelims|sbi prelims/.test(`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase())),forceCp2=selectors.includes(ENG008_CP002_ID_V1)||selectors.some(x=>x.startsWith("RC2-F"))||/editorial|current-affairs|current affairs/.test(`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase()),forceCp1=selectors.includes(ENG008_CP001_ID_V1)||selectors.some(x=>x.startsWith("RC-F")),questions:Record<string,unknown>[]=[];
   const requestedDifficulty=text(request.difficulty).toLowerCase();if(forceCp3&&requestedDifficulty==="hard")throw new Error("ENG-008 CP003 Banking Prelims supports Easy or Medium only");if((forceCp4||forceCp5)&&requestedDifficulty==="easy")throw new Error(forceCp4?"ENG-008 CP004 Banking Mains supports Medium or Hard only":"ENG-008 CP005 Research/Survey RC supports Medium or Hard only");

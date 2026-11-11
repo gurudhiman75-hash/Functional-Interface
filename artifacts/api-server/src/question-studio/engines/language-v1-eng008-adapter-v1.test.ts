@@ -15,5 +15,26 @@ const wordFit=await languageV1QuestionStudioAdapter.generate({...base,canonicalP
 const mainsSet=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-008-CP006",exam:"SBI Mains",subtopic:"Full Passage Set",count:10,seed:"eng008:set:mains"});assert.equal(mainsSet.questions.length,10);assert.equal(new Set(mainsSet.questions.map(q=>q.passageId)).size,1);assert.equal(new Set(mainsSet.questions.map(q=>q.familyId)).size,10);
 const researchSet=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-008-CP006",subtopic:"Research Survey Full Passage Set",count:8,seed:"eng008:set:research"});assert.equal(researchSet.questions.length,8);assert.equal(new Set(researchSet.questions.map(q=>q.passageId)).size,1);
 
+// Generic RC now produces linked sets; explicit question-family selectors remain individual MCQs.
+const generic=await languageV1QuestionStudioAdapter.generate({...base,count:6,seed:"eng008:default-linked"});
+assert.equal(generic.questions.length,6);
+assert.equal(new Set(generic.questions.map(q=>q.setId)).size,1);
+assert.equal(new Set(generic.questions.map(q=>q.familyId)).size,6);
+assert.ok(generic.questions.every(q=>q.cpId==="ENG-008-CP006"&&q.setQuestionCount===6));
+const singleton=await languageV1QuestionStudioAdapter.generate({...base,count:1,seed:"eng008:singleton-contract"});
+assert.equal(singleton.questions.length,1); // Universal dispatcher requires exact count.
+const sbi=await languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:10,seed:"eng008:sbi-profile"});
+assert.equal(sbi.questions.length,10);
+assert.equal(new Set(sbi.questions.map(q=>q.passageId)).size,1);
+assert.ok(sbi.questions.every(q=>q.setProfile==="BANKING_PRELIMS_RC"));
+const ibpsMains=await languageV1QuestionStudioAdapter.generate({...base,examProfile:"IBPS PO Mains",count:20,seed:"eng008:ibps-mains-two-sets"});
+assert.equal(ibpsMains.questions.length,20);
+assert.equal(new Set(ibpsMains.questions.map(q=>q.setId)).size,2);
+assert.ok(ibpsMains.questions.every(q=>q.setProfile==="BANKING_MAINS_RC"&&(q.options as unknown[]).length===4));
+const sscMixed=await languageV1QuestionStudioAdapter.generate({...base,exam:"SSC CGL",count:20,seed:"eng008:ssc-partition"});
+assert.equal(sscMixed.questions.length,20);
+assert.ok(sscMixed.questions.every(q=>q.setId&&q.passageId&&q.setQuestionIndex));
+await assert.rejects(()=>languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:7,seed:"eng008:invalid-partition"}),/cannot form complete linked RC sets/i);
+
 await assert.rejects(languageV1Eng008QuestionStudioAdapterV1.generate({...base,language:"hi",count:1}),/English only/i);await assert.rejects(languageV1Eng008QuestionStudioAdapterV1.generate({...base,runtimeMode:"production",count:1}),/review-only/i);
 console.log("ENG-008 CP001 Question Studio review-only lifecycle tests passed.");
