@@ -495,7 +495,7 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
       return {recovered:true,oldRunId:String(run.runId),batchIndex:index};
     });
     if(!recovered?.recovered){
-      res.status(409).json({code:recovered?.code??"QS_BULK_EXPIRED_RECOVERY_NOT_SAFE"});return;
+      res.status(409).json({code:recovered && "code" in recovered ? recovered.code : "QS_BULK_EXPIRED_RECOVERY_NOT_SAFE"});return;
     }
     res.status(200).json(recovered);
   }catch(error){
