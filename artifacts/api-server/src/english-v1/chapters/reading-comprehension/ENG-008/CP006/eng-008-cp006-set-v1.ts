@@ -1,3 +1,4 @@
+import {eng008ApprovedFifthDistractorV1} from "./eng-008-banking-fifth-distractors-v1";
 import{deterministicIndex}from"../../../../core/deterministic";
 import{ENG008_CP001_PASSAGES_V1}from"../CP001/eng-008-cp001-authorities-v1";
 import{generateEng008Cp001QuestionV1}from"../CP001/eng-008-cp001-v1";
@@ -13,7 +14,7 @@ import{ENG008_CP007_AUTHORITIES_V1,eng008Cp007MaskedPassageV1}from"../CP007/eng-
 import{generateEng008Cp007QuestionV1}from"../CP007/eng-008-cp007-v1";
 
 export type Eng008SetProfile="SSC_FOUNDATION_RC"|"SSC_EDITORIAL_CURRENT_AFFAIRS_RC"|"BANKING_PRELIMS_RC"|"BANKING_MAINS_RC"|"RESEARCH_SURVEY_REPORT_RC";
-export interface GenerateEng008Cp006SetV1Input{seed:string;profile:Eng008SetProfile;questionCount?:number;passageId?:string;}
+export interface GenerateEng008Cp006SetV1Input{seed:string;profile:Eng008SetProfile;questionCount?:number;passageId?:string;optionCount?:4|5;}
 
 const configs={
  SSC_FOUNDATION_RC:{defaultCount:6,allowed:[5,6],passages:ENG008_CP001_PASSAGES_V1,core:["RC-F01","RC-F02","RC-F03","RC-F06"],optional:["RC-F04","RC-F05"]},
@@ -63,14 +64,35 @@ function generate(profile:Eng008SetProfile,passageId:string,family:string,seed:s
 export function generateEng008Cp006SetV1(input:GenerateEng008Cp006SetV1Input){
  const cfg=configs[input.profile],count=input.questionCount??cfg.defaultCount;
  if(!(cfg.allowed as readonly number[]).includes(count))throw new Error(`${input.profile} supports set sizes ${cfg.allowed.join(", ")}`);
- const candidates=input.passageId?cfg.passages.filter(p=>p.id===input.passageId):cfg.passages;
- if(!candidates.length)throw new Error("No passage matches requested ENG-008 CP006 set");
- const passage=candidates[deterministicIndex(`${input.seed}:passage`,candidates.length)]!;
  const families=selectedFamilies(input.profile,count,input.seed);
- const questions=families.map((family,i)=>generate(input.profile,passage.id,family,`${input.seed}:q:${i}:${family}`));
+ const optionCount=input.optionCount??4;
+ if(optionCount===5&&!input.profile.startsWith("BANKING_"))throw new Error("ENG-008 five-option format is approved only for banking RC");
+ const sourceCandidates=input.passageId?cfg.passages.filter(p=>p.id===input.passageId):cfg.passages;
+ // Only passage authorities with an individually authored fifth distractor for
+ // every selected question may enter the five-option track. No synthetic fallback.
+ const candidates=optionCount===5?sourceCandidates.filter(p=>families.every(family=>{
+  const authority=p.questions.find(q=>q.familyId===family);
+  const authorityId=authority?.id??(family==="BP-F10"?ENG008_CP007_AUTHORITIES_V1.find(a=>a.passageId===p.id)?.id:undefined);
+  return authorityId&&eng008ApprovedFifthDistractorV1(input.profile,authorityId,[])!=null;
+ })):sourceCandidates;
+ if(!candidates.length)throw new Error("No ENG-008 passage has approved fifth distractors for all requested questions");
+ const passage=candidates[deterministicIndex(`${input.seed}:passage`,candidates.length)]!;
+ const questions=families.map((family,i)=>{
+  const q=generate(input.profile,passage.id,family,`${input.seed}:q:${i}:${family}`);
+  if(optionCount===4)return q;
+  const fifth=eng008ApprovedFifthDistractorV1(input.profile,q.metadata.authorityId,q.options);
+  if(!fifth)throw new Error(`ENG-008 missing approved fifth distractor: ${q.metadata.authorityId}`);
+  const insertion=deterministicIndex(`${input.seed}:fifth:${i}`,5);
+  const options=[...q.options];
+  options.splice(insertion,0,fifth);
+  const correctOptionIndex=q.correctOptionIndex+(insertion<=q.correctOptionIndex?1:0);
+  if(options.length!==5||new Set(options.map(x=>x.toLocaleLowerCase("en-IN").trim())).size!==5)
+   throw new Error("ENG-008 invalid five-option set");
+  return {...q,options,correctOptionIndex};
+ });
  if(new Set(questions.map(q=>q.metadata.passageId)).size!==1)throw new Error("CP006 set crossed passage boundary");
  const wordFitAuthority=input.profile==="BANKING_PRELIMS_RC"&&families.includes("BP-F10" as any)?ENG008_CP007_AUTHORITIES_V1.find(a=>a.passageId===passage.id):undefined;
  const renderedPassage=wordFitAuthority?eng008Cp007MaskedPassageV1(wordFitAuthority):passage.text;
- return{setId:`ENG-008-CP006-V1:${input.profile}:${passage.id}:${input.seed}`,profile:input.profile,passageId:passage.id,passage:renderedPassage,questionCount:questions.length,questions,reviewOnly:true as const};
+ return{setId:`ENG-008-CP006-V1:${input.profile}:${passage.id}:${input.seed}`,profile:input.profile,passageId:passage.id,passage:renderedPassage,questionCount:questions.length,optionCount,questions,reviewOnly:true as const};
 }
 export const ENG008_CP006_SET_PROFILES_V1=Object.keys(configs) as Eng008SetProfile[];
