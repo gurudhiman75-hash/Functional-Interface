@@ -182,3 +182,11 @@ test("terminal failed run is immutable and rejected recoveries return actionable
  assert.match(endpoint,/generation_run_id=NULL/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(/);
 });
+
+test("recovery denial displays server error code and status for operator diagnosis",()=>{
+ const page=readFileSync("artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx","utf8");
+ assert.match(page,/import \{ AdminApiError \} from '@\/lib\/admin-api-error'/);
+ assert.match(page,/error instanceof AdminApiError/);
+ assert.match(page,/error\.code\?\?'UNKNOWN'/);
+ assert.match(page,/showToast\.error\('Recovery denied',failure\)/);
+});
