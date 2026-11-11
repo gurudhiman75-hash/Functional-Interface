@@ -16,12 +16,14 @@ const mainsSet=await languageV1QuestionStudioAdapter.generate({...base,canonical
 const researchSet=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-008-CP006",subtopic:"Research Survey Full Passage Set",count:8,seed:"eng008:set:research"});assert.equal(researchSet.questions.length,8);assert.equal(new Set(researchSet.questions.map(q=>q.passageId)).size,1);
 
 // Generic RC now produces linked sets; explicit question-family selectors remain individual MCQs.
-const generic=await languageV1QuestionStudioAdapter.generate({...base,count:1,seed:"eng008:default-linked"});
+const generic=await languageV1QuestionStudioAdapter.generate({...base,count:6,seed:"eng008:default-linked"});
 assert.equal(generic.questions.length,6);
 assert.equal(new Set(generic.questions.map(q=>q.setId)).size,1);
 assert.equal(new Set(generic.questions.map(q=>q.familyId)).size,6);
 assert.ok(generic.questions.every(q=>q.cpId==="ENG-008-CP006"&&q.setQuestionCount===6));
-const sbi=await languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:1,seed:"eng008:sbi-profile"});
+const singleton=await languageV1QuestionStudioAdapter.generate({...base,count:1,seed:"eng008:singleton-contract"});
+assert.equal(singleton.questions.length,1); // Universal dispatcher requires exact count.
+const sbi=await languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:10,seed:"eng008:sbi-profile"});
 assert.equal(sbi.questions.length,10);
 assert.equal(new Set(sbi.questions.map(q=>q.passageId)).size,1);
 assert.ok(sbi.questions.every(q=>q.setProfile==="BANKING_PRELIMS_RC"));
