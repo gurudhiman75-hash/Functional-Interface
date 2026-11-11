@@ -35,6 +35,9 @@ function diff(v:QuestionStudioGenerationRequest["difficulty"],seed:string):Eng00
 function family(request:QuestionStudioGenerationRequest):Eng008RcFamilyId|undefined{const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase());return xs.find((x):x is Eng008RcFamilyId=>familyIds.includes(x as Eng008RcFamilyId));}
 function genre(request:QuestionStudioGenerationRequest):Eng008Genre|undefined{const t=`${text(request.topic)} ${text(request.subtopic)}`.toLowerCase();if(/story|narrative/.test(t))return"narrative";if(/report|expository/.test(t))return"report";return undefined;}
 function isEng008SetRequestV1(request:QuestionStudioGenerationRequest){
+ // Universal async execution requires EXACTLY request.count records. A partial
+ // passage cannot be produced as an implicit set of 6–10 questions.
+ if(request.count!=null&&request.count<5)return false;
  const xs=[request.patternId,request.canonicalProblemId,request.questionLanguageId].map(v=>text(v).toUpperCase()).filter(Boolean);
  // A named question family or legacy checkpoint is an explicit single-question request.
  if(xs.some(x=>/^ENG-008-CP00[1-57]$/.test(x)||/^(RC-F|RC2-F|BP-F|BM-F|RS-F)/.test(x)))return false;
@@ -61,10 +64,8 @@ function eng008AllocateSetsV1(request:QuestionStudioGenerationRequest,profile:En
  // A generic SSC RC request may use either approved SSC passage style, including eight-question sets.
  if(profile==="SSC_FOUNDATION_RC"&&!explicitCp6)choices.push({profile:"SSC_EDITORIAL_CURRENT_AFFAIRS_RC",count:8});
  const requested=request.count;
- if(requested==null||requested<Math.min(...choices.map(x=>x.count))){
-  if(requested!=null&&(!Number.isInteger(requested)||requested<1))throw new Error("ENG-008 count must be a positive integer");
-  return[choices[0]!]; // One passage when the upstream batch dispatcher requests one item.
- }
+ if(requested==null)return[choices[0]!];
+ if(!Number.isInteger(requested)||requested<1)throw new Error("ENG-008 count must be a positive integer");
  if(!Number.isInteger(requested)||requested>250)throw new Error("ENG-008 linked RC request count must be 1–250");
  const solve=(remaining:number,memo=new Map<number,Array<{profile:Eng008SetProfile;count:number}>|null>()):Array<{profile:Eng008SetProfile;count:number}>|null=>{
   if(remaining===0)return[];
