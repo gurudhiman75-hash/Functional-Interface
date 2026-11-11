@@ -177,7 +177,7 @@ test("terminal failed run is immutable and rejected recoveries return actionable
  assert.match(endpoint,/QS_BULK_RECOVERY_ACTIVE_LEASE/);
  assert.match(endpoint,/QS_BULK_RECOVERY_ITEMS_EXIST/);
  assert.match(endpoint,/QS_BULK_RECOVERY_OUTBOX_MISSING/);
- assert.match(endpoint,/res.status\(409\).json\(\{code:recovered\?\.code/);
+ assert.match(endpoint,/res.status\(409\).json\(\{code:recovered && "code" in recovered/);
  assert.match(endpoint,/console.error\("QS_BULK_EXPIRED_RECOVERY_UNAVAILABLE"/);
  assert.match(endpoint,/generation_run_id=NULL/);
  assert.doesNotMatch(endpoint,/launchProductionChapterDispatch\(/);
