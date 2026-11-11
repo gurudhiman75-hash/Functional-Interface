@@ -430,16 +430,18 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
         String(run.failureReason??"").includes("without Cloud Task");
       if(!run || (!["queued","running"].includes(String(run.status)) && !previouslyClosed) ||
          typeof run.idempotencyKey!=="string" ||
-         !run.idempotencyKey.startsWith("chapterbulk:") ||
-         !run.due_at ||
-         new Date(run.due_at).getTime()>Date.now()-600_000) return null;
+         !run.idempotencyKey.startsWith("chapterbulk:"))
+        return {recovered:false,code:"QS_BULK_RECOVERY_RUN_NOT_ELIGIBLE"};
+      if(!run.due_at || new Date(run.due_at).getTime()>Date.now()-600_000)
+        return {recovered:false,code:"QS_BULK_RECOVERY_DEADLINE_NOT_EXPIRED"};
       const leases=await tx`
         SELECT lease_expires_at,completed_at
         FROM content.generation_run_task_leases
         WHERE generation_run_id=${run.runId}::uuid FOR UPDATE
       `;
       if(leases.some(l=>l.completed_at===null &&
-         new Date(l.lease_expires_at).getTime()>Date.now())) return null;
+         new Date(l.lease_expires_at).getTime()>Date.now()))
+        return {recovered:false,code:"QS_BULK_RECOVERY_ACTIVE_LEASE"};
       const evidence=await tx`
         SELECT (SELECT COUNT(*)::int FROM content.generation_run_items i
                 WHERE i.generation_run_id=${run.runId}::uuid) AS items,
@@ -448,23 +450,26 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
                   AND e.aggregate_type='generation_run'
                   AND e.event_type='question_studio.generation_run.chapter_review_queued.v1') AS outbox
       `;
-      if(Number(evidence[0]?.items)!==0 || evidence[0]?.outbox!==true) return null;
+      if(Number(evidence[0]?.items)!==0)
+        return {recovered:false,code:"QS_BULK_RECOVERY_ITEMS_EXIST"};
+      if(evidence[0]?.outbox!==true)
+        return {recovered:false,code:"QS_BULK_RECOVERY_OUTBOX_MISSING"};
       const newKey="chapterretry:"+createHash("sha256")
         .update(String(run.idempotencyKey)+":recovery:1").digest("hex");
-      const failed=await tx`
-        UPDATE content.generation_runs
-        SET status='failed'::generation_run_status,
-            failure_reason=CASE WHEN status='failed' THEN failure_reason
-              ELSE 'Chapter review task expired with no saved questions; operator recovered its bulk child' END,
-            completed_at=COALESCE(completed_at,now()),updated_at=now()
-        WHERE id=${run.runId}::uuid
-          AND (status IN ('queued','running') OR
-            (status='failed' AND started_at IS NULL AND completed_at IS NOT NULL
-             AND failure_reason LIKE 'Operator-approved closure %'
-             AND failure_reason LIKE '%without Cloud Task%'))
-        RETURNING id
-      `;
-      if(failed.length!==1) return null;
+      // Already failed and operator-closed runs are immutable history. Do not
+      // rewrite them just to detach their empty bulk child.
+      if(!previouslyClosed){
+        const failed=await tx`
+          UPDATE content.generation_runs
+          SET status='failed'::generation_run_status,
+              failure_reason='Chapter review task expired with no saved questions; operator recovered its bulk child',
+              completed_at=COALESCE(completed_at,now()),updated_at=now()
+          WHERE id=${run.runId}::uuid AND status IN ('queued','running')
+          RETURNING id
+        `;
+        if(failed.length!==1)
+          return {recovered:false,code:"QS_BULK_RECOVERY_RUN_CHANGED"};
+      }
       const reset=await tx`
         UPDATE content.generation_bulk_children
         SET status='planned',generation_run_id=NULL,idempotency_key=${newKey},updated_at=now()
@@ -489,11 +494,17 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
       `;
       return {recovered:true,oldRunId:String(run.runId),batchIndex:index};
     });
-    if(!recovered){
-      res.status(409).json({code:"QS_BULK_EXPIRED_RECOVERY_NOT_SAFE"});return;
+    if(!recovered?.recovered){
+      res.status(409).json({code:recovered?.code??"QS_BULK_EXPIRED_RECOVERY_NOT_SAFE"});return;
     }
     res.status(200).json(recovered);
-  }catch{
+  }catch(error){
+    // Keep error details in server logs, not the admin response.
+    console.error("QS_BULK_EXPIRED_RECOVERY_UNAVAILABLE",{
+      operationId:id,batchIndex:index,
+      errorCode:(error as {code?:string})?.code??"UNKNOWN",
+      message:error instanceof Error?error.message:"Unknown recovery transaction error",
+    });
     res.status(503).json({code:"QS_BULK_EXPIRED_RECOVERY_UNAVAILABLE"});
   }
 });
