@@ -142,7 +142,7 @@ test("operator-closed empty bulk run becomes recoverable without overwriting fai
  assert.match(route,/Boolean\(r\.outbox_event_id\)/);
  assert.match(endpoint,/const previouslyClosed=run && String\(run\.status\)==="failed"/);
  assert.match(endpoint,/!run\.startedAt && Boolean\(run\.completedAt\)/);
- assert.match(endpoint,/AND failure_reason LIKE '%without Cloud Task%'/);
+ assert.match(endpoint,/String\(run\.failureReason\?\?""\)\.includes\("without Cloud Task"\)/);
  assert.match(endpoint,/if\(!previouslyClosed\)/);
  assert.match(endpoint,/completed_at=COALESCE\(completed_at,now\(\)\)/);
  assert.match(endpoint,/Number\(evidence\[0\]\?\.items\)!==0/);
