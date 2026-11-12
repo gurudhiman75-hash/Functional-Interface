@@ -237,7 +237,7 @@ function Diagram({ data }: { data: AlligationData }): ReactNode {
 
 function RatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
   const id = useId();
-  return <figure className="my-2 max-w-2xl rounded-lg border bg-background p-2">
+  return <DiagramSurface title={data.title} footer={data.operation}>
     <svg viewBox="0 0 640 300" width="100%" role="img"
       className="mx-auto block h-auto w-full max-w-[640px] text-foreground"
       aria-labelledby={`${id}-title ${id}-desc`}>
