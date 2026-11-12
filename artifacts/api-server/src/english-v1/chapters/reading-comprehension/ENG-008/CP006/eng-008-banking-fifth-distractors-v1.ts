@@ -20,7 +20,7 @@ export const ENG008_BANKING_FIFTH_DISTRACTORS_V1: Readonly<Record<string,Readonl
   "B02-Q3":"New machinery is the most reliable cure for every packing delay",
   "B02-Q4":"The layout change increased the rate of packing errors",
   "B02-Q5":"planned pauses between shifts",
-  "B02-Q6":"affordable",
+  "B02-Q6":"premium",
   "B02-Q7":"The number of cartons ordered by the factory each week",
   "B02-Q8":"The factory's delivery schedule required longer working hours",
   "B02-Q9":"Why the Factory Bought a Faster Packing Machine",
