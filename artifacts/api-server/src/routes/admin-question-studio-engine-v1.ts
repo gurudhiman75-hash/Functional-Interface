@@ -553,9 +553,20 @@ router.post(
         )
       : {};
 
+    // Five-option RC is explicitly opted in while vetted distractor coverage
+    // is being expanded. Reject unsupported counts and unrelated packages.
+    const requestedOptionCount = req.body?.optionCount;
+    if (requestedOptionCount !== undefined &&
+        (packageId !== "english-eng008-reading-comprehension-v1" ||
+         (requestedOptionCount !== 4 && requestedOptionCount !== 5))) {
+      res.status(400).json({ error: "optionCount is supported only for ENG-008 and must be 4 or 5" });
+      return;
+    }
     const generationRequest: QuestionStudioGenerationRequest = {
       engineId: selectedEngineId,
       exam,
+      examProfile: asString(req.body?.examProfileId ?? req.body?.examProfile) || undefined,
+      optionCount: requestedOptionCount as 4 | 5 | undefined,
       subject,
       difficulty,
       count,
