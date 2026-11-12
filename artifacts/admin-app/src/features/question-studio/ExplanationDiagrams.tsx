@@ -5,7 +5,7 @@ import { Fragment, useId, type ReactNode } from 'react';
  * markers. No images, HTML injection, external fonts, or network requests.
  * The raw explanation stays untouched for editing/persistence.
  */
-const ALLIGATION_MARKER = /\[\[EXAMTREE_ALLIGATION_SVG_V1:([A-Za-z0-9_-]+)\]\]/g;
+const ALLIGATION_MARKER = /\[\[EXAMTREE_ALLIGATION_SVG_V1:([A-Za-z0-9+/_-]+={0,2})\]\]/g;
 const MAX_MARKER_LENGTH = 32768;
 
 type LabelValue = { label: string; value: string; quantity?: string };
