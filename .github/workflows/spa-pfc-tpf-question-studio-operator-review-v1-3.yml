@@ -5,12 +5,16 @@ on:
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
-      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-pfc-tpf-question-studio-operator-review-v1-3:
@@ -45,6 +49,7 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-question-studio-visual-direction-remediation-v1.test.mjs
       - name: Upload PFC TPF Studio operator review V1.3 artifact
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: spa-pfc-tpf-question-studio-operator-review-v1-3
           path: |
