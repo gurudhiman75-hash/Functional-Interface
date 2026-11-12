@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { API_BASE_URL } from "@/lib/api";
+import { getFirebaseAuth } from "@/lib/firebase";
 
 const SUPPORT_EMAIL = "support@examtree.in";
+type SupportTicket = {id:string; category:string; message:string; status:string; publicReply:string; createdAt:string; updatedAt:string};
+const STATUS_LABEL:Record<string,string> = {open:"Open",in_progress:"In progress",resolved:"Resolved",closed:"Closed"};
 
 export default function Contact() {
   usePageMeta("Contact Us", "Contact ExamTree for support, billing, content reports, or partnership questions.");
@@ -19,6 +22,34 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{type:"success"|"error";message:string}|null>(null);
   const [fallback, setFallback] = useState(false);
+  const [tickets, setTickets] = useState<SupportTicket[] | null>(null);
+  const [trackingBusy, setTrackingBusy] = useState(false);
+  const [trackingError, setTrackingError] = useState("");
+  const loadMyRequests = async () => {
+    const user = getFirebaseAuth()?.currentUser;
+    if (!user) {
+      setTrackingError("Sign in with the email used for your support request to view its status.");
+      return;
+    }
+    if (!user.emailVerified) {
+      setTrackingError("Verify your account email before viewing your support requests.");
+      return;
+    }
+    setTrackingBusy(true);
+    setTrackingError("");
+    try {
+      const token = await user.getIdToken();
+      const response = await fetch(`${API_BASE_URL}/support/tickets/mine`, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      });
+      const body = await response.json().catch(() => ({})) as { tickets?:SupportTicket[]; error?:string };
+      if (!response.ok || !Array.isArray(body.tickets)) throw new Error(body.error || "Unable to load requests.");
+      setTickets(body.tickets);
+    } catch (error) {
+      setTrackingError(error instanceof Error ? error.message : "Unable to load requests.");
+    } finally { setTrackingBusy(false); }
+  };
 
   const submitTicket = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +76,7 @@ export default function Contact() {
       if (!response.ok || !body.id) throw new Error(body.error || "Unable to submit your request.");
       setResult({type:"success", message:`Your request was received. Ticket ID: ${body.id}`});
       setMessage("");
+      setTickets(null);
     } catch (error) {
       setFallback(true);
       setResult({type:"error",message:error instanceof Error?error.message:"Support request unavailable. Please email us."});
@@ -104,6 +136,20 @@ export default function Contact() {
           {!fallback && <p className="mt-2 text-sm"><a className="inline-flex min-h-11 items-center rounded-md px-3 underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>}
         </form>
         <div className="space-y-4">
+          <PublicCard title="Track a support request">
+            <p className="text-sm text-slate-600">Sign in with a verified account email matching your request. Ticket IDs alone do not grant access.</p>
+            <Button type="button" variant="outline" className="mt-3 min-h-11" disabled={trackingBusy} onClick={() => void loadMyRequests()}>{trackingBusy ? "Loading…" : "View my support requests"}</Button>
+            {trackingError && <p role="alert" className="mt-2 text-sm text-red-700">{trackingError}</p>}
+            {tickets && <div className="mt-3 space-y-3" aria-label="My support requests">
+              {tickets.length === 0 && <p className="text-sm text-slate-600">No requests found for your verified email.</p>}
+              {tickets.map(ticket => <div key={ticket.id} className="rounded-lg border border-slate-200 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2"><strong className="text-sm">{ticket.category}</strong><span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold">{STATUS_LABEL[ticket.status] || ticket.status}</span></div>
+                <p className="mt-1 break-all text-xs text-slate-500">Ticket {ticket.id}</p>
+                <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{ticket.message}</p>
+                {ticket.publicReply && <div className="mt-2 rounded-md bg-slate-50 p-3"><strong className="text-sm">Support team reply</strong><p className="whitespace-pre-wrap text-sm">{ticket.publicReply}</p></div>}
+              </div>)}
+            </div>}
+          </PublicCard>
           <PublicCard title="Business information">
             <p><strong>Website / brand:</strong> ExamTree</p>
             <p className="mt-1"><strong>Legal business name:</strong> Baljit Kaur</p>
