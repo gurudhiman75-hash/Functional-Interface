@@ -44,6 +44,22 @@ router.post("/", async (req,res) => {
   }
 });
 
+// Ticket history is only available to the authenticated owner of a verified email.
+// A ticket UUID alone never grants access to the stored message or replies.
+router.get("/mine", authenticate, async (req,res) => {
+  if (!enabled()) return void res.status(503).json({error:"Support ticket workflow is not enabled",code:"SUPPORT_TICKETS_DISABLED"});
+  const email = req.user?.email?.trim().toLowerCase();
+  if (!email || req.user?.emailVerified !== true) return void res.status(403).json({error:"Verify your account email to view support requests.",code:"SUPPORT_VERIFIED_EMAIL_REQUIRED"});
+  try {
+    const rows = await sqlClient`SELECT id::text,category,message,status,public_reply AS "publicReply",created_at AS "createdAt",updated_at AS "updatedAt" FROM platform.support_tickets WHERE email=${email} ORDER BY created_at DESC LIMIT 50`;
+    res.setHeader("Cache-Control","private, no-store");
+    res.json({tickets:rows});
+  } catch(error) {
+    console.error("Support ticket history failed",error);
+    res.status(503).json({error:"Unable to load your support requests"});
+  }
+});
+
 const admin = Router();
 admin.use(authenticate);
 admin.get("/", requireAdminPermission("users.students.read"), async(req,res)=>{
@@ -52,16 +68,16 @@ admin.get("/", requireAdminPermission("users.students.read"), async(req,res)=>{
   if (state && !states.has(state))return void res.status(400).json({error:"Invalid status"});
   const page=Math.max(1,Math.min(10000,Number(req.query.page)||1));
   try {
-    const rows=await sqlClient`SELECT id::text,name,email,category,message,status,admin_note AS "adminNote",created_at AS "createdAt",updated_at AS "updatedAt" FROM platform.support_tickets WHERE (${state}='' OR status=${state}) ORDER BY created_at DESC LIMIT 25 OFFSET ${(page-1)*25}`;
+    const rows=await sqlClient`SELECT id::text,name,email,category,message,status,admin_note AS "adminNote",public_reply AS "publicReply",created_at AS "createdAt",updated_at AS "updatedAt" FROM platform.support_tickets WHERE (${state}='' OR status=${state}) ORDER BY created_at DESC LIMIT 25 OFFSET ${(page-1)*25}`;
     res.json({tickets:rows,page});
   }catch(error){console.error("Support ticket list failed",error);res.status(503).json({error:"Unable to load support requests"});}
 });
 admin.patch("/:id", requireAdminPermission("users.students.manage"),async(req,res)=>{
   if(!enabled())return void res.status(503).json({error:"Support ticket workflow is not enabled"});
-  const id=text(req.params.id,60), status=text(req.body?.status,30),note=text(req.body?.note,2000);
-  if(!idPattern.test(id)||!states.has(status)||note.length>2000)return void res.status(400).json({error:"Invalid ticket update"});
+  const id=text(req.params.id,60), status=text(req.body?.status,30),note=text(req.body?.note,2000), publicReply=text(req.body?.publicReply,2000);
+  if(!idPattern.test(id)||!states.has(status)||note.length>2000||publicReply.length>2000)return void res.status(400).json({error:"Invalid ticket update"});
   try{
-    const rows=await sqlClient`UPDATE platform.support_tickets SET status=${status},admin_note=${note},updated_at=now() WHERE id=${id}::uuid RETURNING id::text,status`;
+    const rows=await sqlClient`UPDATE platform.support_tickets SET status=${status},admin_note=${note},public_reply=${publicReply},updated_at=now() WHERE id=${id}::uuid RETURNING id::text,status`;
     if(!rows.length)return void res.status(404).json({error:"Ticket not found"});
     res.json({ticket:rows[0]});
   }catch(error){console.error("Support ticket update failed",error);res.status(503).json({error:"Unable to update ticket"});}
