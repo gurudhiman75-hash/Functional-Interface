@@ -1,0 +1,75 @@
+/* Examtree public discovery motion layer.
+ * Deliberately scoped to the homepage: never animate active test runners.
+ * The page works without animation and honours the OS reduced-motion setting.
+ */
+.home-page {
+  --et-motion-fast: 150ms;
+  --et-motion-standard: 220ms;
+  --et-motion-enter: 420ms;
+  --et-motion-ease: cubic-bezier(.2,.75,.25,1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes et-discovery-arrive {
+    from { opacity: 0; transform: translate3d(0, 12px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  .home-page .home-hero-guest .hero-copy,
+  .home-page .home-hero-guest .hero-search-zone,
+  .home-page .home-hero-guest .hero-auth-panel {
+    animation: et-discovery-arrive var(--et-motion-enter) var(--et-motion-ease) both;
+  }
+  .home-page .home-hero-guest .hero-search-zone { animation-delay: 75ms; }
+  .home-page .home-hero-guest .hero-auth-panel { animation-delay: 115ms; }
+
+  .home-page .et-home-category-card,
+  .home-page .featured-strip-card,
+  .home-page .et-series-card {
+    transition: transform var(--et-motion-standard) var(--et-motion-ease),
+                box-shadow var(--et-motion-standard) var(--et-motion-ease),
+                border-color var(--et-motion-standard) ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .home-page .et-home-category-card:hover,
+    .home-page .featured-strip-card:hover,
+    .home-page .et-series-card:hover {
+      transform: translate3d(0, -3px, 0);
+      box-shadow: 0 14px 30px -22px rgba(21, 45, 96, .32);
+    }
+    .home-page .hero-search-zone button:hover,
+    .home-page .hero-auth-panel button:not(:disabled):hover {
+      filter: brightness(1.035);
+    }
+  }
+  .home-page .hero-search-zone button,
+  .home-page .hero-auth-panel button {
+    transition: background-color var(--et-motion-fast) ease,
+                border-color var(--et-motion-fast) ease,
+                box-shadow var(--et-motion-fast) ease,
+                filter var(--et-motion-fast) ease;
+  }
+  .home-page .exam-switcher button {
+    transition: background-color var(--et-motion-fast) ease,
+                color var(--et-motion-fast) ease,
+                border-color var(--et-motion-fast) ease,
+                box-shadow var(--et-motion-fast) ease;
+  }
+}
+.home-page :is(.et-home-category-card, .featured-strip-card, .et-series-card, .exam-switcher button):focus-visible {
+  outline: 2px solid #315de4;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-hero-guest .hero-copy,
+  .home-page .home-hero-guest .hero-search-zone,
+  .home-page .home-hero-guest .hero-auth-panel {
+    animation: none !important;
+  }
+  .home-page .et-home-category-card,
+  .home-page .et-series-card,
+  .home-page .featured-strip-card {
+    transform: none !important;
+    transition: none !important;
+  }
+  .home-page .featured-marquee-track { animation: none !important; }
+  .home-page { scroll-behavior: auto; }
+}
