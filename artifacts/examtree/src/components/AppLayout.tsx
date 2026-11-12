@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/AppSidebar";
 import { StickyHeader } from "@/components/StickyHeader";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import "@/styles/student-discovery-motion.css";
 
 interface AppLayoutProps {
   children: ReactNode;
