@@ -23,6 +23,18 @@ export default function Contact() {
   const submitTicket = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (sending) return;
+    if (name.trim().length < 2) {
+      setResult({ type: "error", message: "Please enter your name (at least 2 characters)." });
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setResult({ type: "error", message: "Please enter a valid email address." });
+      return;
+    }
+    if (message.trim().length < 12) {
+      setResult({ type: "error", message: "Please describe your issue in at least 12 characters." });
+      return;
+    }
     setSending(true); setResult(null); setFallback(false);
     try {
       const response = await fetch(`${API_BASE_URL}/support/tickets`, {
@@ -85,7 +97,8 @@ export default function Contact() {
           </div>
           <div aria-hidden="true" className="absolute -left-[10000px]"><Label htmlFor="support-website">Website</Label><Input id="support-website" tabIndex={-1} autoComplete="off" value={website} onChange={(event)=>setWebsite(event.target.value)}/></div>
           <p id="support-email-note" className="mt-4 text-sm leading-6 text-slate-600">Your request is stored securely for our support team. Never include passwords, OTPs or payment PINs.</p>
-          <Button type="submit" disabled={sending || name.trim().length < 2 || !email.includes("@") || message.trim().length < 12} className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950"><Send className="mr-2 h-4 w-4" />{sending ? "Submitting…" : "Submit support request"}</Button>
+          <p className="mt-2 text-sm text-slate-600">Enter your name, a valid email, and at least 12 characters describing your issue.</p>
+          <Button type="submit" disabled={sending} className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950"><Send className="mr-2 h-4 w-4" />{sending ? "Submitting…" : "Submit support request"}</Button>
           {result && <p role={result.type==="error"?"alert":"status"} className={`mt-3 text-sm ${result.type==="success"?"text-green-700":"text-red-700"}`}>{result.message}</p>}
           {fallback && <p className="mt-2 text-sm">If direct submission is unavailable, <a className="font-semibold underline" href={mailtoHref} data-testid="contact-email-handoff">open an email request</a> instead. Sending the email is required; no ticket was created.</p>}
           {!fallback && <p className="mt-2 text-sm"><a className="inline-flex min-h-11 items-center rounded-md px-3 underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>}
