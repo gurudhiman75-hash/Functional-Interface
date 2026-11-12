@@ -7,6 +7,7 @@ import { EXAM_COLLECTIONS, getExamCollection } from "@/lib/exam-collections";
 import { catalogExamCodesForSlug, getExamAcquisitionConfig, examHubHref, examDetailsHref, examPreparationHref, examSyllabusHref } from "@/lib/seo-practice";
 import { getStudentTestSeries } from "@/lib/test-series";
 import "@/styles/exam-collections.css";
+import "@/styles/student-discovery-motion.css";
 
 export default function ExamCollectionPage() {
   const { slug } = useParams<{ slug: string }>();
