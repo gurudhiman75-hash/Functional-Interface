@@ -2,10 +2,11 @@ name: Validate SPA PFC TPF Standard Question Studio Integration V1
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
-      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
@@ -47,6 +48,7 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-pfc-tpf-question-studio-standard-integration-v1.test.mjs
       - name: Upload standard PFC TPF Studio integration evidence
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: spa-pfc-tpf-standard-question-studio-integration-v1
           path: artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-standard-question-studio-integration-v1-evidence.json

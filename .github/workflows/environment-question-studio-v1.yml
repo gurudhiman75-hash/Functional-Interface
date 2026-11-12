@@ -8,7 +8,6 @@ on:
       - "artifacts/api-server/src/knowledge-v1/environment-ecology/**"
       - "artifacts/api-server/src/question-studio/engine-registry.ts"
       - "artifacts/api-server/src/question-studio/engine-registry.test.ts"
-      - "artifacts/api-server/src/question-studio/engine-types.ts"
       - "artifacts/api-server/src/question-studio/standard-lifecycle.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-env001-adapter-v1.ts"

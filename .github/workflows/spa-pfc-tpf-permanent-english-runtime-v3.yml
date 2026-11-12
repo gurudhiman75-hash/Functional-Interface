@@ -2,15 +2,20 @@ name: Validate SPA PFC TPF Permanent English Runtime V3
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
-      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-pfc-tpf-permanent-english-runtime-v3:
@@ -39,6 +44,7 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-permanent-english-runtime-v3.test.mjs
       - name: Upload PFC TPF English runtime V3 evidence
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: spa-pfc-tpf-permanent-english-runtime-v3
           path: artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-permanent-english-runtime-v3-evidence.json

@@ -8,7 +8,6 @@ on:
       - "artifacts/api-server/src/knowledge-v1/indian-economy/**"
       - "artifacts/api-server/src/knowledge-v1/deterministic.ts"
       - "artifacts/api-server/src/question-studio/engine-registry.ts"
-      - "artifacts/api-server/src/question-studio/engine-types.ts"
       - "artifacts/api-server/src/question-studio/standard-lifecycle.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
       - "artifacts/api-server/src/question-studio/engines/knowledge-v1-eco001-adapter-v1.ts"
@@ -177,6 +176,7 @@ jobs:
 
       - name: Upload Economy multilingual review Markdown
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: economy-multilingual-review
           path: artifacts/api-server/dist/economy-review/ECO-MULTILINGUAL-V1/*.md

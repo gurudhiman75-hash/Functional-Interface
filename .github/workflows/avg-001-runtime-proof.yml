@@ -11,7 +11,6 @@ on:
       - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
       - artifacts/api-server/src/question-studio/quant-average-unified.test.ts
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
-      - artifacts/api-server/src/question-studio/engine-types.ts
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/api-server/src/routes/admin-question-studio-average.ts
       - artifacts/api-server/src/routes/index.ts
@@ -101,6 +100,7 @@ jobs:
         if: always()
         continue-on-error: true
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: avg-001-freeze-diagnostics
           path: avg-freeze-diagnostics.log
@@ -110,6 +110,7 @@ jobs:
         if: success()
         continue-on-error: true
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: avg-001-approved-english-review
           path: |

@@ -2,15 +2,20 @@ name: Validate SPA PFC-001 Learner Review V1.5.4
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
-      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-pfc-learner-review-v1-5-4:
@@ -46,6 +51,7 @@ jobs:
 
       - name: Upload learner-review V1.5.4 evidence
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: spa-pfc-tpf-source-saturated-english-review-v1-5-4
           path: |

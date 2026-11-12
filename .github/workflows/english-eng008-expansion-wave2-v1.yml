@@ -12,8 +12,11 @@ on:
       - artifacts/api-server/src/english-v1/tests/eng-008-cp005-v1.test.ts
       - artifacts/api-server/src/english-v1/tests/eng-008-cp006-set-v1.test.ts
       - artifacts/api-server/src/english-v1/tests/eng-008-cp007-v1.test.ts
-      - .github/workflows/english-eng008-expansion-wave2-v1.yml
 permissions: { contents: read }
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
