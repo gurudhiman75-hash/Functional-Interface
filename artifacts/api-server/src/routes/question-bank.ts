@@ -506,11 +506,13 @@ router.post("/question-bank", authenticate, async (req, res): Promise<void> => {
     if (!hasEn && !hasHi && !hasPa) {
       return void res.status(400).json({ error: "At least one language question text is required (text / textHi / textPa)" });
     }
-    if (!Array.isArray(options) || options.length !== 4) {
-      return void res.status(400).json({ error: "options must be an array of 4 strings" });
+    if (!Array.isArray(options) || ![4, 5].includes(options.length) ||
+        options.some((option: unknown) => typeof option !== "string" || !option.trim())) {
+      return void res.status(400).json({ error: "options must contain 4 or 5 nonempty strings" });
     }
-    if (typeof correct !== "number" || correct < 0 || correct > 3) {
-      return void res.status(400).json({ error: "correct must be 0-3" });
+    if (typeof correct !== "number" || !Number.isInteger(correct) ||
+        correct < 0 || correct >= options.length) {
+      return void res.status(400).json({ error: "correct must be a valid zero-based option index" });
     }
     if (difficulty && !["Easy", "Medium", "Hard"].includes(difficulty)) {
       return void res.status(400).json({ error: "difficulty must be Easy, Medium, or Hard" });
