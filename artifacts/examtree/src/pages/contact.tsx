@@ -138,7 +138,7 @@ export default function Contact() {
         <div className="space-y-4">
           <PublicCard title="Track a support request">
             <p className="text-sm text-slate-600">Sign in with a verified account email matching your request. Ticket IDs alone do not grant access.</p>
-            <Button type="button" variant="outline" className="mt-3 min-h-11" disabled={trackingBusy} onClick={() => void loadMyRequests()}>{trackingBusy ? "Loading…" : "View my support requests"}</Button>
+            <button type="button" className="mt-3 min-h-11 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 disabled:opacity-50" disabled={trackingBusy} onClick={() => void loadMyRequests()}>{trackingBusy ? "Loading…" : "View my support requests"}</button>
             {trackingError && <p role="alert" className="mt-2 text-sm text-red-700">{trackingError}</p>}
             {tickets && <div className="mt-3 space-y-3" aria-label="My support requests">
               {tickets.length === 0 && <p className="text-sm text-slate-600">No requests found for your verified email.</p>}
