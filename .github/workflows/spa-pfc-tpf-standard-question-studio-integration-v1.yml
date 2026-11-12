@@ -2,6 +2,7 @@ name: Validate SPA PFC TPF Standard Question Studio Integration V1
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
