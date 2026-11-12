@@ -115,13 +115,12 @@ export default function ExamsCovered() {
                   <p className="mt-0.5 text-xs text-slate-500">{group.description}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
                 {items.map((exam) => (
-                  <Link key={exam.href} href={exam.href} className="group flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
-                    <ExamIdentityIcon name={exam.label} familyCode={exam.group.toUpperCase()} className="mb-4" />
-                    <h3 className="break-words text-sm font-bold leading-5 text-slate-900">{exam.label}</h3>
-                    <p className="mb-5 mt-1.5 text-xs leading-5 text-slate-500">{exam.detail}</p>
-                    <span className="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-3 text-xs font-semibold text-teal-700">Explore exam<ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5 motion-reduce:transform-none" /></span>
+                  <Link key={exam.href} href={exam.href} className="group flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-3 transition duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
+                    <div className="mb-2.5 h-8 w-8 shrink-0"><ExamIdentityIcon name={exam.label} familyCode={exam.group.toUpperCase()} /></div>
+                    <h3 className="break-words text-[13px] font-semibold leading-[1.35] text-slate-900">{exam.label}</h3>
+                    <span className="mt-auto flex items-center justify-between gap-2 pt-2.5 text-[11px] font-semibold text-teal-700">Explore exam<ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5 motion-reduce:transform-none" /></span>
                   </Link>
                 ))}
               </div>
