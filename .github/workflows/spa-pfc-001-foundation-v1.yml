@@ -5,7 +5,7 @@ on:
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
-      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
       - ".github/workflows/spa-pfc-001-foundation-v1.yml"
       - "package.json"
       - "pnpm-lock.yaml"
@@ -13,6 +13,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-pfc-foundation-v1:
@@ -116,6 +120,7 @@ jobs:
 
       - name: Upload PFC historical and source-saturation evidence
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: spa-pfc-001-source-saturation-v2
           path: |
