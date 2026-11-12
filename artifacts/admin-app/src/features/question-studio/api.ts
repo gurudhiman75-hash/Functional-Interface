@@ -149,6 +149,7 @@ export interface QuestionStudioCapabilities {
 export interface CreateGenerationRunInput {
   engineId?: string;
   exam: string;
+  optionCount?: 4 | 5;
   subject: string;
   difficulty: string;
   count: number;
@@ -355,6 +356,7 @@ export function enqueueQuestionStudioStagingRun(
     engineId: input.engineId,
     packageId: input.packageId,
     exam: input.exam,
+    optionCount: input.optionCount,
     subject: input.subject,
     topic: input.topic,
     subtopic: input.subtopic,
@@ -395,6 +397,7 @@ export function enqueueQuestionStudioProductionChapterRun(
     engineId: input.engineId,
     packageId: input.packageId,
     exam: input.exam,
+    optionCount: input.optionCount,
     subject: input.subject,
     topic: input.topic,
     subtopic: input.subtopic,
@@ -471,6 +474,7 @@ export function reserveQuestionStudioBulkReview(
     body: JSON.stringify({
       request: {
         engineId: input.engineId, packageId: input.packageId, exam: input.exam,
+        optionCount: input.optionCount,
         subject: input.subject, topic: input.topic, subtopic: input.subtopic,
         language: input.language, difficulty: input.difficulty,
         count: input.count, runtimeMode: input.runtimeMode,
