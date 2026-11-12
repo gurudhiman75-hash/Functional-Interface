@@ -1,3 +1,4 @@
+import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -728,9 +729,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Explanation</CardTitle></CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap text-sm leading-7 text-muted-foreground">
-            {version.explanation}
-          </p>
+          <ExplanationDiagrams explanation={version.explanation} />
         </CardContent>
       </Card>
     </>
@@ -854,6 +853,7 @@ function QuestionEditor({
             onChange={(event) => onChange({ ...editor, explanation: event.target.value })}
             rows={7}
           />
+          {editor.explanation.includes('[[EXAMTREE_ALLIGATION_SVG_V1:') && <div className="mt-2 rounded-md border p-2"><p className="text-xs font-semibold">Explanation preview</p><ExplanationDiagrams explanation={editor.explanation} /></div>}
         </div>
         <div className="space-y-2">
           <Label>Change reason</Label>

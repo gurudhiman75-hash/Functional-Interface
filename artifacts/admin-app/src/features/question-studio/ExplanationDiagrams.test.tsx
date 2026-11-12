@@ -40,6 +40,17 @@ describe('Question Studio explanation diagrams', () => {
     expect(markup).not.toContain('EXAMTREE_ALLIGATION_SVG_V1');
   });
 
+  it('accepts standard Base64 with optional padding as well as Base64URL', () => {
+    const ascii = { ...cross, title: 'Alligation Cross' };
+    const binary = Array.from(new TextEncoder().encode(JSON.stringify(ascii)), byte => String.fromCharCode(byte)).join('');
+    const raw = btoa(binary);
+    const text = 'Before\\n[[EXAMTREE_ALLIGATION_SVG_V1:' + raw + ']]\\nAfter';
+    const parts = splitAlligationExplanation(text);
+    expect(parts.map(part => part.kind)).toEqual(['text', 'diagram', 'text']);
+    expect(renderToStaticMarkup(<ExplanationDiagrams explanation={text} />)).toContain('<svg');
+    expect(renderToStaticMarkup(<ExplanationDiagrams explanation={text} />)).not.toContain('EXAMTREE_ALLIGATION_SVG_V1');
+  });
+
   it('does not execute HTML or SVG code supplied through an explanation marker', () => {
     const malicious = { ...cross, title: '<img src=x onerror=alert(1)>' };
     const markup = renderToStaticMarkup(<ExplanationDiagrams explanation={marker(malicious)} />);

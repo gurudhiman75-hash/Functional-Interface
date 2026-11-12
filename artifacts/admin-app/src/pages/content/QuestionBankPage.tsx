@@ -1,3 +1,4 @@
+import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
 import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
@@ -390,7 +391,7 @@ export function QuestionBankPage() {
                     <span className={cn(correct && 'font-medium text-foreground')}>{o.text}</span>
                     {correct && <CheckCircle2 className="ml-auto h-4 w-4 text-success" />}</div>;
                 })}</div>
-                <div className="rounded-lg border bg-muted/30 p-3"><div className="mb-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground"><FileText className="h-3.5 w-3.5" /> Explanation</div><p className="text-sm leading-relaxed text-foreground">{previewQ.explanation}</p></div>
+                <div className="rounded-lg border bg-muted/30 p-3"><div className="mb-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground"><FileText className="h-3.5 w-3.5" /> Explanation</div><ExplanationDiagrams explanation={previewQ.explanation} /></div>
                 <div className="grid grid-cols-2 gap-3">{[
                   { label: 'Exam', value: examName(previewQ.exam) }, { label: 'Difficulty', value: previewQ.difficulty },
                   { label: 'Languages', value: previewQ.language.join(', ') }, { label: 'Type', value: previewQ.type },
@@ -428,7 +429,7 @@ export function QuestionBankPage() {
                 <div className="space-y-2"><Label>Options</Label>{editForm.options.map((opt, i) => (
                   <div key={i} className="flex items-center gap-2"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-muted text-xs font-bold text-muted-foreground">{String.fromCharCode(65 + i)}</span><Input value={opt} onChange={(e) => setEditForm((p) => ({ ...p, options: p.options.map((o, oi) => oi === i ? e.target.value : o) }))} /></div>
                 ))}</div>
-                <div><Label className="mb-1.5 block">Explanation</Label><Textarea rows={3} value={editForm.explanation} onChange={(e) => setEditForm((p) => ({ ...p, explanation: e.target.value }))} /></div>
+                <div><Label className="mb-1.5 block">Explanation</Label><Textarea rows={3} value={editForm.explanation} onChange={(e) => setEditForm((p) => ({ ...p, explanation: e.target.value }))} />{editForm.explanation.includes('[[EXAMTREE_ALLIGATION_SVG_V1:') && <div className="mt-2 rounded-md border p-2"><p className="text-xs font-semibold">Explanation preview</p><ExplanationDiagrams explanation={editForm.explanation} /></div>}</div>
                 <div className="grid grid-cols-2 gap-3">
                   <div><Label className="mb-1.5 block">Difficulty</Label><Select value={editForm.difficulty} onValueChange={(v) => setEditForm((p) => ({ ...p, difficulty: v }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{FILTER_DIFFICULTY.map((d) => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}</SelectContent></Select></div>
                   <div><Label className="mb-1.5 block">Status</Label><Select value={editForm.status} onValueChange={(v) => setEditForm((p) => ({ ...p, status: v }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{FILTER_STATUS.map((s) => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}</SelectContent></Select></div>
