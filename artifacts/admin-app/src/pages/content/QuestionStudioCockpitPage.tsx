@@ -755,11 +755,12 @@ export function QuestionStudioCockpitPage() {
       activePackage.packageId === 'english-eng008-reading-comprehension-v1'
       && /\\b(sbi|ibps|banking|bank|rrb)\\b/i.test(selectedExamName)
       && languages.length === 1 && languages[0] === 'en'
-      && [8, 9, 10].includes(count)
+      && (/\\b(mains|main)\\b/i.test(selectedExamName)
+        ? [8, 10].includes(count) : [8, 9, 10].includes(count))
       && (cpIds.length === 0 || (cpIds.length === 1 && cpIds[0] === 'ENG-008-CP006'));
     if (bankingFiveOptionPilot && !bankingRcPilotEligible) {
       showToast.error('Five-option RC pilot is limited',
-        'Select a banking exam, English, 8–10 questions and no CP filter (or only ENG-008-CP006).');
+        'Select a banking exam and English; Prelims supports 8–10 questions and Mains 8 or 10. Select no CP filter (or ENG-008-CP006 only).');
       return;
     }
     if (bankingFiveOptionPilot && bulkAsyncMode) {
