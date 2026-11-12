@@ -853,7 +853,7 @@ function QuestionEditor({
             onChange={(event) => onChange({ ...editor, explanation: event.target.value })}
             rows={7}
           />
-          {editor.explanation.includes('[[EXAMTREE_ALLIGATION_SVG_V1:') && <div className="mt-2 rounded-md border p-2"><p className="text-xs font-semibold">Explanation preview</p><ExplanationDiagrams explanation={editor.explanation} /></div>}
+          {editor.explanation.match(/\[\[EXAMTREE_(?:ALLIGATION|RATIO_ADJUSTMENT)_SVG_V1:/) && <div className="mt-2 rounded-md border p-2"><p className="text-xs font-semibold">Explanation preview</p><ExplanationDiagrams explanation={editor.explanation} /></div>}
         </div>
         <div className="space-y-2">
           <Label>Change reason</Label>
