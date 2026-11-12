@@ -7,7 +7,6 @@ on:
     paths:
       - artifacts/examtree/**
       - scripts/e2e/**
-      - .github/workflows/student-reliability-e2e.yml
   pull_request:
     branches:
       - New-main
@@ -15,7 +14,6 @@ on:
     paths:
       - artifacts/examtree/**
       - scripts/e2e/**
-      - .github/workflows/student-reliability-e2e.yml
 
 permissions:
   contents: read
