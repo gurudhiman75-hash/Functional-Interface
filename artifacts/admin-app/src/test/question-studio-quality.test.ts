@@ -15,6 +15,21 @@ describe('authored review explanation presentation', () => {
     expect(itemExplanation({ explanation: ['ਦੂਰੀ = 60 ਕਿਮੀ', 'ਸਮਾਂ = 2 ਘੰਟੇ', 'ਰਫ਼ਤਾਰ = 30 ਕਿਮੀ/ਘੰਟਾ'] }))
       .toBe('ਦੂਰੀ = 60 ਕਿਮੀ\nਸਮਾਂ = 2 ਘੰਟੇ\nਰਫ਼ਤਾਰ = 30 ਕਿਮੀ/ਘੰਟਾ');
   });
+  it('uses full MAL authored lines and recovers source diagrams from packageExplanation', () => {
+    const marker = '[[EXAMTREE_ALLIGATION_SVG_V1:YWJj]]';
+    expect(itemExplanation({ explanation: { lines: ['Method 1', 'Method 2', marker, 'Answer 12'] } }))
+      .toBe(['Method 1', 'Method 2', marker, 'Answer 12'].join('\\n'));
+    expect(itemExplanation({ explanation: { visibleLines: ['Work 1', marker], answerLine: 'Answer 12' } }))
+      .toBe(['Work 1', marker, 'Answer 12'].join('\\n'));
+    expect(itemExplanation({ explanation: 'Work 1', packageExplanation: { lines: ['Work 1', marker] } }))
+      .toBe('Work 1\\n' + marker);
+    expect(itemExplanation({ explanation: 'Work 1\\n' + marker, packageExplanation: { lines: [marker] } }))
+      .toBe('Work 1\\n' + marker);
+    const ratio = '[[EXAMTREE_RATIO_ADJUSTMENT_SVG_V1:YWJj]]';
+    expect(itemExplanation({ explanation: 'Work 1', packageExplanation: { lines: ['Method 2', ratio] } }))
+      .toBe('Work 1\\n' + ratio);
+  });
+
   it('keeps legacy strings and uses an authored conclusion once', () => {
     expect(itemExplanation({ explanation: '  Distance / time = speed.  ' })).toBe('Distance / time = speed.');
     expect(itemExplanation({ explanation: { steps: ['A calculation'], conclusion: 'Final result', finalAnswer: 'Final result' } }))
