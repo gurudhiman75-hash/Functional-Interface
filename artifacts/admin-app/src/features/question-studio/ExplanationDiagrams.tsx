@@ -45,13 +45,14 @@ const labelValue = (value: unknown): value is LabelValue =>
   record(value) && textField(value.label) && textField(value.value) &&
   (value.quantity === undefined || textField(value.quantity));
 const part = (value: unknown): value is Cross['lowerPart'] =>
-  labelValue(value) && record(value) && textField(value.expression);
+  labelValue(value) && 'expression' in value && textField(value.expression);
 const cross = (value: unknown): value is Cross =>
   record(value) && value.version === 1 && value.kind === 'cross' &&
   textField(value.title) && labelValue(value.lower) && labelValue(value.higher) &&
   labelValue(value.mean) && part(value.lowerPart) && part(value.higherPart);
 const deviationRow = (value: unknown): value is DeviationRow =>
-  labelValue(value) && record(value) && textField(value.quantity) && textField(value.deviation);
+  labelValue(value) && 'quantity' in value && textField(value.quantity) &&
+  'deviation' in value && textField(value.deviation);
 export function isAlligationData(value: unknown): value is AlligationData {
   if (!record(value) || value.version !== 1 || !textField(value.title)) return false;
   if (value.kind === 'cross') return cross(value);
