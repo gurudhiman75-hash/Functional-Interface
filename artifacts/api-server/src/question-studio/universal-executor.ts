@@ -42,6 +42,14 @@ export function validateUniversalStudioComputeInput(input: UniversalStudioComput
       input.request.count !== input.count) {
     fail("INVALID_UNIVERSAL_GENERATION_COUNT", "Question count must be between 1 and 50");
   }
+  if (input.request.optionCount !== undefined &&
+      (input.request.optionCount !== 4 && input.request.optionCount !== 5)) {
+    fail("INVALID_UNIVERSAL_OPTION_COUNT", "Question option count must be 4 or 5");
+  }
+  if (input.request.optionCount !== undefined &&
+      input.request.packageId !== "english-eng008-reading-comprehension-v1") {
+    fail("INVALID_UNIVERSAL_OPTION_COUNT", "Explicit option count currently supports ENG-008 only");
+  }
   const packageId = input.request.packageId;
   if (!packageId || typeof packageId !== "string") {
     fail("UNREGISTERED_UNIVERSAL_PACKAGE", "A registered package is required for remote generation");
