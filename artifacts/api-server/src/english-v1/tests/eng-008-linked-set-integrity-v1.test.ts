@@ -78,6 +78,6 @@ for(const [profile,passageId,questionCount] of [
  assert.deepEqual(replay,five);
 }
 assert.throws(()=>generateEng008Cp006SetV1({profile:"SSC_FOUNDATION_RC",questionCount:6,optionCount:5,seed:"ssc-five"}),/only for banking/i);
-assert.throws(()=>generateEng008Cp006SetV1({profile:"BANKING_PRELIMS_RC",passageId:"ENG008-BP-B02",questionCount:9,optionCount:5,seed:"unsupported-five"}),/approved fifth distractors/i);
+assert.throws(()=>generateEng008Cp006SetV1({profile:"BANKING_PRELIMS_RC",passageId:"ENG008-BP-B03",questionCount:9,optionCount:5,seed:"unsupported-five"}),/approved fifth distractors/i);
 
 console.log("ENG-008 linked RC set integrity passed.",{wordFitAuthorities:126,fullPrelimsSets:fullSets,profiles:ENG008_CP006_SET_PROFILES_V1.length});
