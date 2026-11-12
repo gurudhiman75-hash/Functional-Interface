@@ -45,21 +45,41 @@ export function itemStem(payload: Record<string, unknown> | null): string {
   return asText(payload?.text) || asText(payload?.stem);
 }
 
-export function itemExplanation(payload: Record<string, unknown> | null): string {
-  const explanation = payload?.explanation;
-  if (typeof explanation === 'string') return explanation.trim();
-  // Review exports retain authored calculation steps rather than flattening them.
-  // Only accept known text fields; never stringify objects into learner content.
-  const steps = (value: unknown): string[] => Array.isArray(value)
-    ? value.map(asText).filter(Boolean)
+function authoredExplanationText(value: unknown): string {
+  if (typeof value === 'string') return value.trim();
+  // Keep authored order and the original diagram directives. These structured
+  // shapes are emitted by MAL and by other chapter adapters.
+  const lines = (entry: unknown): string[] => Array.isArray(entry)
+    ? entry.map(asText).filter(Boolean)
     : [];
-  if (Array.isArray(explanation)) return steps(explanation).join('\n');
-  const structured = asRecord(explanation);
+  if (Array.isArray(value)) return lines(value).join('\n');
+  const structured = asRecord(value);
+  const directLines = lines(structured.lines);
+  if (directLines.length) return directLines.join('\n');
+  const visibleLines = lines(structured.visibleLines);
+  if (visibleLines.length) return [...visibleLines, asText(structured.answerLine)]
+    .filter(Boolean).join('\n');
   return [
     asText(structured.method),
-    ...steps(structured.steps),
+    ...lines(structured.steps),
     asText(structured.conclusion) || asText(structured.finalAnswer),
   ].filter(Boolean).join('\n');
+}
+
+export function itemExplanation(payload: Record<string, unknown> | null): string {
+  const primary = authoredExplanationText(payload?.explanation);
+  const supplemental = authoredExplanationText(payload?.packageExplanation);
+  if (!supplemental) return primary;
+  if (!primary) return supplemental;
+
+  // Some adapters supply a shortened explanation plus the unflattened
+  // package explanation; recover missing diagram markers without duplicating
+  // the mathematical solution or changing the persisted original.
+  const diagramMarkers = supplemental.match(
+    /\[\[EXAMTREE_(?:ALLIGATION|RATIO_ADJUSTMENT)_SVG_V1:[^\]]+\]\]/g,
+  ) ?? [];
+  const missing = [...new Set(diagramMarkers)].filter(marker => !primary.includes(marker));
+  return missing.length ? [primary, ...missing].join('\n') : primary;
 }
 
 export function itemOptionValues(payload: Record<string, unknown> | null): string[] {
