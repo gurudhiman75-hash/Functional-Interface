@@ -44,6 +44,7 @@ jobs:
         run: node artifacts/api-server/dist/english-v1/eng-008-cp001-review-v1-export.mjs
       - name: Upload ENG-008 CP001 review file
         uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
         with:
           name: ENG-008-CP001-REVIEW-V1
           path: dist/english-v1/ENG-008-CP001-REVIEW-V1.md
