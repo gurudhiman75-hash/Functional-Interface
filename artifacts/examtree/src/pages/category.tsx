@@ -10,6 +10,7 @@ import { examHubHrefForCatalogExam, getExamAcquisitionConfig, examPreparationHre
 import { getStudentTestSeries } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import "@/styles/category-page.css";
+import "@/styles/student-discovery-motion.css";
 
 const normalize = (value: string | undefined) => String(value ?? "").trim().toUpperCase().replace(/[^A-Z0-9]+/g, "_");
 const CATEGORY_LABELS: Record<string, string> = { SSC: "SSC", BANKING: "Banking", PUNJAB: "Punjab", RAILWAY: "Railways" };
