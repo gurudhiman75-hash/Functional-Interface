@@ -14,7 +14,17 @@ export const ENG008_BANKING_FIFTH_DISTRACTORS_V1: Readonly<Record<string,Readonl
   "B01-Q7":"The receipt format that was quickest for the cashier to print",
   "B01-Q8":"The owner wanted to make receipts compulsory for online orders",
   "B01-Q9":"How a Shop Eliminated Paper Receipts",
-  "B01-Q10":"compulsory"
+  "B01-Q10":"compulsory",
+  "B02-Q1":"Printed packing labels",
+  "B02-Q2":"The supervisor reduced the number of packing stations",
+  "B02-Q3":"New machinery is the most reliable cure for every packing delay",
+  "B02-Q4":"The layout change increased the rate of packing errors",
+  "B02-Q5":"planned pauses between shifts",
+  "B02-Q6":"affordable",
+  "B02-Q7":"The number of cartons ordered by the factory each week",
+  "B02-Q8":"The factory's delivery schedule required longer working hours",
+  "B02-Q9":"Why the Factory Bought a Faster Packing Machine",
+  "B02-Q10":"unavoidable"
  },
  BANKING_MAINS_RC: {
   "B01-Q1":"Users cannot apply filters until they have already purchased an item",
@@ -26,7 +36,17 @@ export const ENG008_BANKING_FIFTH_DISTRACTORS_V1: Readonly<Record<string,Readonl
   "B01-Q7":"It supplies evidence that search filters remove the need for recommendations",
   "B01-Q8":"Search rankings should always replace customers' own comparisons",
   "B01-Q9":"the range of discounts provided by different merchants",
-  "B01-Q10":"That some shoppers use filters when comparing products"
+  "B01-Q10":"That some shoppers use filters when comparing products",
+  "M01-Q1":"The posts necessarily cite separate original investigations",
+  "M01-Q2":"They can reliably change decisions after a post is already shared",
+  "M01-Q3":"Online systems should favour uninterrupted sharing irrespective of reliability",
+  "M01-Q4":"Entirely dismissive of any attempt to verify online claims",
+  "M01-Q5":"To argue that any extra click makes an information platform ineffective",
+  "M01-Q6":"A warning shown only after a user has already shared a claim may arrive too late",
+  "M01-Q7":"It offers statistical proof that slower sharing eliminates misinformation",
+  "M01-Q8":"The same number of verification steps should apply to every type of claim",
+  "M01-Q9":"automatically confirmed as fact",
+  "M01-Q10":"Popular posts are invariably drawn from several unrelated sources"
  }
 } as const;
 
