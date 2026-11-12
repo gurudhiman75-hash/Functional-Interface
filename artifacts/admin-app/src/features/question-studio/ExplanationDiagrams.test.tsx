@@ -51,6 +51,29 @@ describe('Question Studio explanation diagrams', () => {
     expect(renderToStaticMarkup(<ExplanationDiagrams explanation={text} />)).not.toContain('EXAMTREE_ALLIGATION_SVG_V1');
   });
 
+  it('renders ratio adjustment directives and leaves normal text in place', () => {
+    const ratio = {
+      version: 1, kind: 'TWO_COMPONENT', title: 'Ratio adjustment',
+      quantityUnit: 'litres',
+      before: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '3 litres' }],
+      operation: 'Add 2 litres of water',
+      after: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '5 litres' }],
+      beforeRatio: '7 : 3', afterRatio: '7 : 5',
+      targetRatio: '7 : 5', note: 'Only water increases',
+    };
+    const text = 'Original composition\\n' +
+      marker(ratio).replace('EXAMTREE_ALLIGATION_SVG_V1', 'EXAMTREE_RATIO_ADJUSTMENT_SVG_V1')
+      + '\\nFinal composition';
+    const pieces = splitAlligationExplanation(text);
+    expect(pieces.map(piece => piece.kind)).toEqual(['text', 'ratio-adjustment', 'text']);
+    const html = renderToStaticMarkup(<ExplanationDiagrams explanation={text} />);
+    expect(html).toContain('<svg');
+    expect(html).toContain('7 : 5');
+    expect(html).toContain('Original composition');
+    expect(html).toContain('Final composition');
+    expect(html).not.toContain('EXAMTREE_RATIO_ADJUSTMENT_SVG_V1');
+  });
+
   it('does not execute HTML or SVG code supplied through an explanation marker', () => {
     const malicious = { ...cross, title: '<img src=x onerror=alert(1)>' };
     const markup = renderToStaticMarkup(<ExplanationDiagrams explanation={marker(malicious)} />);
