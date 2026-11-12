@@ -39,6 +39,11 @@ export function validateAsyncTaskComputeInput(input: UniversalStudioComputeInput
       typeof input.request !== "object" ||
       !Number.isInteger(input.count) || input.count < 1 || input.count > 50 ||
       input.request.count !== input.count) fail("INVALID_UNIVERSAL_GENERATION_COUNT");
+  if (input.request.optionCount !== undefined &&
+      (input.request.optionCount !== 4 && input.request.optionCount !== 5 ||
+       input.request.packageId !== "english-eng008-reading-comprehension-v1")) {
+    fail("INVALID_UNIVERSAL_OPTION_COUNT");
+  }
   const pkg = listAsyncTaskPackages().find(p=>p.enabled && p.packageId===input.request.packageId);
   if (!pkg) fail("UNREGISTERED_UNIVERSAL_PACKAGE");
   if (pkg.engineId !== input.request.engineId) fail("UNIVERSAL_ENGINE_PACKAGE_MISMATCH");
