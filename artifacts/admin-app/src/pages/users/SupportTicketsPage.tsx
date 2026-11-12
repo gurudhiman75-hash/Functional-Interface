@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getFirebaseAuth } from '@/integrations/firebase';
 
-type Ticket = { id:string; name:string; email:string; category:string; message:string; status:string; adminNote:string; createdAt:string };
+type Ticket = { id:string; name:string; email:string; category:string; message:string; status:string; adminNote:string; publicReply:string; createdAt:string };
 const apiBase = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 async function request<T>(path:string, init?:RequestInit):Promise<T> {
   const user=getFirebaseAuth()?.currentUser;
@@ -20,6 +20,7 @@ export function SupportTicketsPage(){
   const [page,setPage]=useState(1);
   const [selected,setSelected]=useState<string|null>(null);
   const [note,setNote]=useState('');
+  const [publicReply,setPublicReply]=useState('');
   const [status,setStatus]=useState('open');
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState('');
@@ -36,7 +37,7 @@ export function SupportTicketsPage(){
     if(!current)return;
     setBusy(true);setNotice('');
     try{
-      await request(`/admin/support/tickets/${current.id}`,{method:'PATCH',body:JSON.stringify({status,note})});
+      await request(`/admin/support/tickets/${current.id}`,{method:'PATCH',body:JSON.stringify({status,note,publicReply})});
       setNotice('Request updated.');await load();setSelected(null);
     }catch(err){setError(err instanceof Error?err.message:'Update failed');}
     finally{setBusy(false);}
@@ -52,7 +53,7 @@ export function SupportTicketsPage(){
     {error&&<p role="alert" className="text-red-700">{error}</p>}
     {notice&&<p role="status" className="text-green-700">{notice}</p>}
     <div className="divide-y rounded border">
-      {tickets.map(t=><button key={t.id} className="block w-full p-4 text-left hover:bg-slate-50" onClick={()=>{setSelected(t.id);setStatus(t.status);setNote(t.adminNote||'');}}>
+      {tickets.map(t=><button key={t.id} className="block w-full p-4 text-left hover:bg-slate-50" onClick={()=>{setSelected(t.id);setStatus(t.status);setNote(t.adminNote||'');setPublicReply(t.publicReply||'');}}>
         <div className="flex justify-between gap-2"><strong>{t.category}</strong><span className="text-xs">{t.status}</span></div>
         <div className="text-sm">{t.name} · {t.email} · {new Date(t.createdAt).toLocaleString()}</div>
         <p className="mt-1 line-clamp-2 whitespace-pre-wrap text-sm text-slate-600">{t.message}</p>
@@ -66,6 +67,7 @@ export function SupportTicketsPage(){
       <a className="underline" href={`mailto:${current.email}?subject=${encodeURIComponent('Re: ExamTree support request '+current.id)}`}>Reply via email</a>
       <label className="block">Status <select className="ml-2 rounded border p-2" value={status} onChange={e=>setStatus(e.target.value)}><option value="open">Open</option><option value="in_progress">In progress</option><option value="resolved">Resolved</option><option value="closed">Closed</option></select></label>
       <label className="block">Internal note<textarea className="mt-1 block w-full rounded border p-2" maxLength={2000} rows={3} value={note} onChange={e=>setNote(e.target.value)}/></label>
+      <label className="block">Reply visible to student<textarea className="mt-1 block w-full rounded border p-2" maxLength={2000} rows={3} value={publicReply} onChange={e=>setPublicReply(e.target.value)}/></label>
       <button className="rounded bg-indigo-950 px-4 py-2 text-white disabled:opacity-50" disabled={busy} onClick={()=>void save()}>Save review</button>
     </div>}
   </section>;
