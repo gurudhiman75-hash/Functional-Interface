@@ -18,16 +18,16 @@ describe('authored review explanation presentation', () => {
   it('uses full MAL authored lines and recovers source diagrams from packageExplanation', () => {
     const marker = '[[EXAMTREE_ALLIGATION_SVG_V1:YWJj]]';
     expect(itemExplanation({ explanation: { lines: ['Method 1', 'Method 2', marker, 'Answer 12'] } }))
-      .toBe(['Method 1', 'Method 2', marker, 'Answer 12'].join('\\n'));
+      .toBe(['Method 1', 'Method 2', marker, 'Answer 12'].join('\n'));
     expect(itemExplanation({ explanation: { visibleLines: ['Work 1', marker], answerLine: 'Answer 12' } }))
-      .toBe(['Work 1', marker, 'Answer 12'].join('\\n'));
+      .toBe(['Work 1', marker, 'Answer 12'].join('\n'));
     expect(itemExplanation({ explanation: 'Work 1', packageExplanation: { lines: ['Work 1', marker] } }))
-      .toBe('Work 1\\n' + marker);
-    expect(itemExplanation({ explanation: 'Work 1\\n' + marker, packageExplanation: { lines: [marker] } }))
-      .toBe('Work 1\\n' + marker);
+      .toBe('Work 1\n' + marker);
+    expect(itemExplanation({ explanation: 'Work 1\n' + marker, packageExplanation: { lines: [marker] } }))
+      .toBe('Work 1\n' + marker);
     const ratio = '[[EXAMTREE_RATIO_ADJUSTMENT_SVG_V1:YWJj]]';
     expect(itemExplanation({ explanation: 'Work 1', packageExplanation: { lines: ['Method 2', ratio] } }))
-      .toBe('Work 1\\n' + ratio);
+      .toBe('Work 1\n' + ratio);
   });
 
   it('keeps legacy strings and uses an authored conclusion once', () => {
