@@ -74,6 +74,26 @@ describe('Question Studio explanation diagrams', () => {
     expect(html).not.toContain('EXAMTREE_RATIO_ADJUSTMENT_SVG_V1');
   });
 
+  it('offers accessible enlargement for alligation cross and ratio diagrams', () => {
+    const crossHtml = renderToStaticMarkup(<ExplanationDiagrams explanation={marker(cross)} />);
+    expect(crossHtml).toContain('aria-label="Enlarge diagram"');
+    expect(crossHtml).toContain('min-w-[480px]');
+    expect(crossHtml).toContain('overflow-auto');
+    const ratio = {
+      version: 1, kind: 'TWO_COMPONENT', title: 'Conserved-part ratio method',
+      quantityUnit: 'kg', operation: 'Remove Darjeeling tea', note: 'Only Darjeeling tea changes',
+      before: [{ label: 'Assam tea', quantity: '79 kg' }, { label: 'Darjeeling tea', quantity: '79 kg' }],
+      after: [{ label: 'Assam tea', quantity: '79 kg' }, { label: 'Darjeeling tea', quantity: '53 kg' }],
+      beforeRatio: '1 : 1', afterRatio: '79 : 53',
+    };
+    const html = renderToStaticMarkup(<ExplanationDiagrams explanation={
+      marker(ratio).replace('EXAMTREE_ALLIGATION_SVG_V1', 'EXAMTREE_RATIO_ADJUSTMENT_SVG_V1')
+    } />);
+    expect(html).toContain('aria-label="Enlarge diagram"');
+    expect(html).toContain('Conserved-part ratio method');
+    expect(html).toContain('79 : 53');
+  });
+
   it('does not execute HTML or SVG code supplied through an explanation marker', () => {
     const malicious = { ...cross, title: '<img src=x onerror=alert(1)>' };
     const markup = renderToStaticMarkup(<ExplanationDiagrams explanation={marker(malicious)} />);

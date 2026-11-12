@@ -1,4 +1,4 @@
-import { Fragment, useId, type ReactNode } from 'react';
+import { Fragment, useId, useState, type ReactNode } from 'react';
 
 /**
  * Lightweight, text-only explanation diagram support for existing MAL-001
@@ -134,10 +134,46 @@ function clip(text: string, max = 28) {
   return text.length > max ? text.slice(0, max - 1) + '…' : text;
 }
 
+/**
+ * All diagrams share one scrollable vector surface and an optional larger
+ * reading mode. Keep the *same* SVG node mounted while expanding so its ARIA
+ * labels remain unique and no additional image requests are made.
+ */
+function DiagramSurface({ title, children, footer }: {
+  title: string; children: ReactNode; footer?: ReactNode;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  return <figure
+    role={expanded ? 'dialog' : undefined}
+    aria-modal={expanded ? true : undefined}
+    aria-label={expanded ? title : undefined}
+    onKeyDown={expanded ? (event) => { if (event.key === 'Escape') setExpanded(false); } : undefined}
+    className={expanded
+      ? 'fixed inset-0 z-[100] m-0 flex flex-col overflow-hidden bg-background p-3 shadow-2xl sm:inset-4 sm:rounded-xl sm:border'
+      : 'my-2 max-w-2xl overflow-hidden rounded-lg border bg-background p-2'}>
+    <div className="mb-2 flex shrink-0 items-center justify-between gap-2">
+      <span className="min-w-0 truncate text-xs font-semibold text-foreground">{title}</span>
+      <button type="button" aria-label={expanded ? 'Close enlarged diagram' : 'Enlarge diagram'}
+        className="shrink-0 rounded-md border px-3 py-1.5 text-xs font-semibold text-primary hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        onClick={() => setExpanded(value => !value)}>
+        {expanded ? 'Close' : 'Enlarge'}
+      </button>
+    </div>
+    <div className="min-h-0 w-full flex-1 overflow-auto overscroll-contain">
+      <div className={expanded
+        ? 'mx-auto w-full min-w-[680px] max-w-[1000px]'
+        : 'mx-auto w-full min-w-[480px] max-w-[640px]'}>
+        {children}
+      </div>
+    </div>
+    {footer && <figcaption className="mt-2 shrink-0 border-t pt-2 text-xs leading-relaxed text-foreground">{footer}</figcaption>}
+  </figure>;
+}
+
 function CrossSvg({ data }: { data: Cross }) {
   const id = useId();
   const description = `${data.lower.label}: ${data.lower.value}; ${data.higher.label}: ${data.higher.value}; ${data.mean.label}: ${data.mean.value}; differences ${data.lowerPart.value} and ${data.higherPart.value}`;
-  return <figure className="my-2 max-w-2xl rounded-lg border bg-background p-2">
+  return <DiagramSurface title={data.title} footer={data.rangePartition ? <>Quantity ratio: {data.rangePartition.quantityRatio} · Total parts: {data.rangePartition.totalParts} · Price gap: {data.rangePartition.priceGap} · Value per part: {data.rangePartition.valuePerPart}</> : undefined}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 314" width="100%"
       className="mx-auto block h-auto w-full max-w-[600px] text-foreground"
       role="img" aria-labelledby={`${id}-title ${id}-desc`}>
@@ -168,11 +204,7 @@ function CrossSvg({ data }: { data: Cross }) {
         <text x="490" y="307" fontSize="12">{clip(data.higherPart.expression, 23)}</text>
       </g>
     </svg>
-    {data.rangePartition && <figcaption className="mt-1 border-t pt-2 text-xs leading-relaxed">
-      Quantity ratio: {data.rangePartition.quantityRatio} · Total parts: {data.rangePartition.totalParts}
-      · Price gap: {data.rangePartition.priceGap} · Value per part: {data.rangePartition.valuePerPart}
-    </figcaption>}
-  </figure>;
+  </DiagramSurface>;
 }
 
 function DeviationView({ data }: { data: Deviation }) {
@@ -205,7 +237,7 @@ function Diagram({ data }: { data: AlligationData }): ReactNode {
 
 function RatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
   const id = useId();
-  return <figure className="my-2 max-w-2xl rounded-lg border bg-background p-2">
+  return <DiagramSurface title={data.title} footer={data.operation}>
     <svg viewBox="0 0 640 300" width="100%" role="img"
       className="mx-auto block h-auto w-full max-w-[640px] text-foreground"
       aria-labelledby={`${id}-title ${id}-desc`}>
@@ -240,8 +272,7 @@ function RatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
       </text>}
       <text x="320" y="288" textAnchor="middle" fill="currentColor" fontSize="11">{clip(data.note, 95)}</text>
     </svg>
-    <figcaption className="mt-1 text-xs">{data.operation}</figcaption>
-  </figure>;
+  </DiagramSurface>;
 }
 
 export function ExplanationDiagrams({ explanation }: { explanation: string }) {
