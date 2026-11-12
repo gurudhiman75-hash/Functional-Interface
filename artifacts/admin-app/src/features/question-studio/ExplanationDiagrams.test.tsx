@@ -13,7 +13,7 @@ const cross = {
 
 function marker(value: unknown) {
   const binary = Array.from(new TextEncoder().encode(JSON.stringify(value)), b => String.fromCharCode(b)).join('');
-  return '[[EXAMTREE_ALLIGATION_SVG_V1:' + btoa(binary).replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/g, '') + ']]';
+  return '[[EXAMTREE_ALLIGATION_SVG_V1:' + btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '') + ']]';
 }
 
 describe('Question Studio explanation diagrams', () => {
@@ -23,8 +23,8 @@ describe('Question Studio explanation diagrams', () => {
   });
 
   it('renders the SVG in place without dropping preceding or following explanation text', () => {
-    const explanation = 'Method 1 — Simple Method\\n₹630 − ₹486 = ₹144.\\nMethod 2 — Alligation Cross\\n' +
-      marker(cross) + '\\nAnswer: ₹48 per kg.';
+    const explanation = 'Method 1 — Simple Method\n₹630 − ₹486 = ₹144.\nMethod 2 — Alligation Cross\n' +
+      marker(cross) + '\nAnswer: ₹48 per kg.';
     const fragments = splitAlligationExplanation(explanation);
     expect(fragments.map(fragment => fragment.kind)).toEqual(['text','diagram','text']);
     const markup = renderToStaticMarkup(<ExplanationDiagrams explanation={explanation} />);
@@ -51,7 +51,7 @@ describe('Question Studio explanation diagrams', () => {
     expect(decodeAlligationMarker('%%%')).toBeNull();
     expect(decodeAlligationMarker('x'.repeat(32769))).toBeNull();
     const markup = renderToStaticMarkup(
-      <ExplanationDiagrams explanation={'Before\\n[[EXAMTREE_ALLIGATION_SVG_V1:abc]]\\nAfter'} />,
+      <ExplanationDiagrams explanation={'Before\n[[EXAMTREE_ALLIGATION_SVG_V1:abc]]\nAfter'} />,
     );
     expect(markup).toContain('Diagram data could not be displayed');
     expect(markup).toContain('Before');
