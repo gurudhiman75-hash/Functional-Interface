@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 const STANDALONE_IMAGE_URL =
   /^\s*(https?:\/\/\S+\.(?:png|jpe?g|gif|webp|svg)(?:\?\S*)?)\s*$/i;
 const STRUCTURED_DIAGRAM_DIRECTIVE_RE =
-  /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1):([A-Za-z0-9_-]+)\]\]/g;
+  /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1):([A-Za-z0-9+/_-]+={0,2})\]\]/g;
 const MAX_STRUCTURED_DIRECTIVE_LENGTH = 32_768;
 
 export function safeImgUrl(src: string): string | null {
