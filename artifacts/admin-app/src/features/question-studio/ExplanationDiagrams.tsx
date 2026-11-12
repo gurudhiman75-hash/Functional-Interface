@@ -5,7 +5,7 @@ import { Fragment, useId, type ReactNode } from 'react';
  * markers. No images, HTML injection, external fonts, or network requests.
  * The raw explanation stays untouched for editing/persistence.
  */
-const ALLIGATION_MARKER = /\[\[EXAMTREE_ALLIGATION_SVG_V1:([A-Za-z0-9+/_-]+={0,2})\]\]/g;
+const DIAGRAM_MARKER = /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1):([A-Za-z0-9+/_-]+={0,2})\]\]/g;
 const MAX_MARKER_LENGTH = 32768;
 
 type LabelValue = { label: string; value: string; quantity?: string };
@@ -32,10 +32,19 @@ type Sequence = {
   version: 1; kind: 'sequence'; title: string;
   stages: Array<{ label: string; diagram: Cross }>;
 };
+export type RatioAdjustmentData = {
+  version: 1; kind: 'TWO_COMPONENT' | 'THREE_COMPONENT';
+  title: string; quantityUnit: string;
+  before: Array<{ label: string; quantity: string }>;
+  operation: string;
+  after: Array<{ label: string; quantity: string }>;
+  beforeRatio: string; afterRatio: string; targetRatio?: string; note: string;
+};
 export type AlligationData = Cross | Deviation | Sequence;
 export type ExplanationPart =
   | { kind: 'text'; text: string }
   | { kind: 'diagram'; data: AlligationData }
+  | { kind: 'ratio-adjustment'; data: RatioAdjustmentData }
   | { kind: 'invalid-diagram' };
 
 const record = (value: unknown): value is Record<string, unknown> =>
@@ -66,27 +75,55 @@ export function isAlligationData(value: unknown): value is AlligationData {
   return false;
 }
 
-export function decodeAlligationMarker(encoded: string): AlligationData | null {
+function isRatioAdjustmentData(value: unknown): value is RatioAdjustmentData {
+  if (!record(value) || value.version !== 1 ||
+      !['TWO_COMPONENT', 'THREE_COMPONENT'].includes(String(value.kind)) ||
+      !textField(value.title) || !textField(value.quantityUnit) ||
+      !textField(value.operation) || !textField(value.beforeRatio) ||
+      !textField(value.afterRatio) || !textField(value.note) ||
+      (value.targetRatio !== undefined && !textField(value.targetRatio))) return false;
+  const expected = value.kind === 'THREE_COMPONENT' ? 3 : 2;
+  const row = (item: unknown) => record(item) && textField(item.label) && textField(item.quantity);
+  return Array.isArray(value.before) && value.before.length === expected &&
+    value.before.every(row) && Array.isArray(value.after) &&
+    value.after.length === expected && value.after.every(row);
+}
+
+function decodeDiagramJson(encoded: string): unknown {
   if (!encoded || encoded.length > MAX_MARKER_LENGTH) return null;
   try {
-    const binary = atob(encoded.replace(/-/g, '+').replace(/_/g, '/')
-      .padEnd(Math.ceil(encoded.length / 4) * 4, '='));
+    const normalized = encoded.replace(/-/g, '+').replace(/_/g, '/');
+    const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '='));
     const utf8 = Uint8Array.from(binary, char => char.charCodeAt(0));
-    const data: unknown = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(utf8));
-    return isAlligationData(data) ? data : null;
-  } catch {
-    return null;
-  }
+    return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(utf8)) as unknown;
+  } catch { return null; }
+}
+
+export function decodeAlligationMarker(encoded: string): AlligationData | null {
+  const data = decodeDiagramJson(encoded);
+  return isAlligationData(data) ? data : null;
+}
+
+export function decodeRatioAdjustmentMarker(encoded: string): RatioAdjustmentData | null {
+  const data = decodeDiagramJson(encoded);
+  return isRatioAdjustmentData(data) ? data : null;
 }
 
 export function splitAlligationExplanation(explanation: string): ExplanationPart[] {
   const parts: ExplanationPart[] = [];
   let start = 0;
-  for (const match of explanation.matchAll(ALLIGATION_MARKER)) {
+  for (const match of explanation.matchAll(DIAGRAM_MARKER)) {
     const at = match.index ?? 0;
     if (at > start) parts.push({ kind: 'text', text: explanation.slice(start, at) });
-    const diagram = decodeAlligationMarker(match[1] ?? '');
-    parts.push(diagram ? { kind: 'diagram', data: diagram } : { kind: 'invalid-diagram' });
+    const kind = match[1];
+    const encoded = match[2] ?? '';
+    if (kind === 'EXAMTREE_RATIO_ADJUSTMENT_SVG_V1') {
+      const diagram = decodeRatioAdjustmentMarker(encoded);
+      parts.push(diagram ? { kind: 'ratio-adjustment', data: diagram } : { kind: 'invalid-diagram' });
+    } else {
+      const diagram = decodeAlligationMarker(encoded);
+      parts.push(diagram ? { kind: 'diagram', data: diagram } : { kind: 'invalid-diagram' });
+    }
     start = at + match[0].length;
   }
   if (start < explanation.length) parts.push({ kind: 'text', text: explanation.slice(start) });
@@ -166,6 +203,47 @@ function Diagram({ data }: { data: AlligationData }): ReactNode {
   </div>;
 }
 
+function RatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
+  const id = useId();
+  return <figure className="my-2 max-w-2xl rounded-lg border bg-background p-2">
+    <svg viewBox="0 0 640 300" width="100%" role="img"
+      className="mx-auto block h-auto w-full max-w-[640px] text-foreground"
+      aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>{data.title}</title>
+      <desc id={`${id}-desc`}>{data.beforeRatio} to {data.afterRatio}: {data.operation}. {data.note}</desc>
+      <text x="320" y="25" textAnchor="middle" fill="currentColor" fontSize="16" fontWeight="600">{clip(data.title, 60)}</text>
+      {([
+        { x: 12, label: 'Before', rows: data.before, ratio: data.beforeRatio },
+        { x: 432, label: 'After', rows: data.after, ratio: data.afterRatio },
+      ] as const).map(group => <g key={group.label}>
+        <rect x={group.x} y="44" width="196" height="214" rx="9" className="fill-background stroke-primary" strokeWidth="1.5" />
+        <text x={group.x + 98} y="65" textAnchor="middle" fill="currentColor" fontSize="14" fontWeight="600">{group.label}</text>
+        {group.rows.map((row, i) => <g key={i}>
+          <text x={group.x + 98} y={90 + i * 44} textAnchor="middle" fill="currentColor" fontSize="12">
+            {clip(row.label, 25)}
+          </text>
+          <text x={group.x + 98} y={107 + i * 44} textAnchor="middle" fill="currentColor" fontSize="13" fontWeight="600">
+            {clip(row.quantity, 25)}
+          </text>
+        </g>)}
+        <text x={group.x + 98} y="242" textAnchor="middle" fill="currentColor" fontSize="14" fontWeight="600">
+          {group.ratio}
+        </text>
+      </g>)}
+      <line x1="228" y1="152" x2="412" y2="152" stroke="currentColor" strokeWidth="2.4" />
+      <path d="M412 152 l-12 -8 v16 z" fill="currentColor" />
+      <rect x="238" y="113" width="164" height="76" rx="8" className="fill-background stroke-primary" strokeWidth="1.5" />
+      <text x="320" y="133" textAnchor="middle" fill="currentColor" fontSize="12" fontWeight="600">Operation</text>
+      <text x="320" y="155" textAnchor="middle" fill="currentColor" fontSize="11">{clip(data.operation, 29)}</text>
+      {data.targetRatio && <text x="320" y="175" textAnchor="middle" fill="currentColor" fontSize="11">
+        Target: {clip(data.targetRatio, 20)}
+      </text>}
+      <text x="320" y="288" textAnchor="middle" fill="currentColor" fontSize="11">{clip(data.note, 95)}</text>
+    </svg>
+    <figcaption className="mt-1 text-xs">{data.operation}</figcaption>
+  </figure>;
+}
+
 export function ExplanationDiagrams({ explanation }: { explanation: string }) {
   const parts = splitAlligationExplanation(explanation);
   if (!parts.length) return <p className="mt-2 text-xs text-muted-foreground">No explanation recorded.</p>;
@@ -174,6 +252,8 @@ export function ExplanationDiagrams({ explanation }: { explanation: string }) {
       ? <div className="whitespace-pre-wrap break-words" key={i}>{part.text}</div>
       : part.kind === 'diagram'
         ? <Diagram key={i} data={part.data} />
+        : part.kind === 'ratio-adjustment'
+          ? <RatioAdjustmentSvg key={i} data={part.data} />
         : <p key={i} role="alert" className="rounded-md border border-destructive/30 p-2 text-destructive">
           Diagram data could not be displayed. Original marker is retained in the editable explanation.
         </p>)}
