@@ -2,6 +2,7 @@ name: Validate SPA PFC-001 Learner Review V1.5.4
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
