@@ -33,6 +33,7 @@ import { getUser, type User } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import { examHubHrefForCatalogExam } from "@/lib/seo-practice";
 import "@/styles/home-section-rhythm.css";
+import "@/styles/discovery-motion.css";
 
 
 const formatCount = (count: number) => new Intl.NumberFormat("en-IN").format(Math.max(0, count || 0));
