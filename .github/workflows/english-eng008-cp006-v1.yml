@@ -6,7 +6,6 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/chapters/reading-comprehension/ENG-008/CP006/**
       - artifacts/api-server/src/english-v1/tests/eng-008-cp006-set-v1.test.ts
-      - .github/workflows/english-eng008-cp006-v1.yml
 permissions: { contents: read }
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
