@@ -62,7 +62,9 @@ for(const profile of ENG008_CP006_SET_PROFILES_V1){
 // Only fully authored banking passage authorities can render five options.
 for(const [profile,passageId,questionCount] of [
   ["BANKING_PRELIMS_RC","ENG008-BP-B01",10],
+  ["BANKING_PRELIMS_RC","ENG008-BP-B02",10],
   ["BANKING_MAINS_RC","ENG008-BM-B01",10],
+  ["BANKING_MAINS_RC","ENG008-BM-M01",10],
 ] as const){
  const five=generateEng008Cp006SetV1({profile,passageId,questionCount,optionCount:5,seed:`five-options:${profile}`});
  assert.equal(five.questions.length,10);
