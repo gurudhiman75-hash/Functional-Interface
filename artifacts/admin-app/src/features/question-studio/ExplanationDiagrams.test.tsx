@@ -61,9 +61,9 @@ describe('Question Studio explanation diagrams', () => {
       beforeRatio: '7 : 3', afterRatio: '7 : 5',
       targetRatio: '7 : 5', note: 'Only water increases',
     };
-    const text = 'Original composition\\n' +
+    const text = 'Original composition\n' +
       marker(ratio).replace('EXAMTREE_ALLIGATION_SVG_V1', 'EXAMTREE_RATIO_ADJUSTMENT_SVG_V1')
-      + '\\nFinal composition';
+      + '\nFinal composition';
     const pieces = splitAlligationExplanation(text);
     expect(pieces.map(piece => piece.kind)).toEqual(['text', 'ratio-adjustment', 'text']);
     const html = renderToStaticMarkup(<ExplanationDiagrams explanation={text} />);
