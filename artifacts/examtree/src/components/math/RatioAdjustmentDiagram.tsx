@@ -1,4 +1,5 @@
 import { diagramLabels, diagramQuantity } from "./diagram-labels";
+import { AlligationDiagram, type AlligationCrossDiagram } from "./AlligationDiagram";
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
@@ -157,7 +158,62 @@ function CompositionPanel({
   );
 }
 
-export function RatioAdjustmentDiagram({
+/**
+ * A pure addition is an alligation of the ORIGINAL mixture and the PURE
+ * added component. Derive it only when one component increases and the other
+ * stays unchanged; removal/replacement is not a positive mixing operation.
+ * Integer quantities yield exact fractions, never rounded percentages.
+ */
+export function derivePureAdditionCross(data: RatioAdjustmentDiagramData): (AlligationCrossDiagram & { quantityRatio: string }) | null {
+  if (data.kind !== 'TWO_COMPONENT' || data.before.length !== 2 || data.after.length !== 2) return null;
+  const quantities = [...data.before, ...data.after].map(row => {
+    const value = /^\s*(\d+)(?:\s|$)/u.exec(row.quantity);
+    return value ? Number(value[1]) : NaN;
+  });
+  if (quantities.some(value => !Number.isSafeInteger(value) || value < 0)) return null;
+  if (data.before.some((row, i) => row.label !== data.after[i]?.label)) return null;
+  const [a, b, afterA, afterB] = quantities as [number, number, number, number];
+  const changed = afterA > a && afterB === b ? 0 : afterB > b && afterA === a ? 1 : -1;
+  if (changed === -1) return null;
+  const originalTotal = a + b;
+  const finalTotal = afterA + afterB;
+  const originalPart = changed === 0 ? a : b;
+  const finalPart = changed === 0 ? afterA : afterB;
+  const otherPart = changed === 0 ? b : a;
+  const added = finalTotal - originalTotal;
+  if (!Number.isSafeInteger(finalTotal * originalTotal) ||
+      originalTotal <= 0 || otherPart <= 0 || added <= 0) return null;
+  const gcd = (x: number, y: number): number => y === 0 ? x : gcd(y, x % y);
+  const fraction = (numerator: number, denominator: number): string => {
+    const divisor = gcd(numerator, denominator);
+    return `${numerator / divisor}/${denominator / divisor}`;
+  };
+  const beforeShare = fraction(originalPart, originalTotal);
+  const targetShare = fraction(finalPart, finalTotal);
+  const oppositeOriginal = fraction(otherPart, finalTotal);
+  const oppositePure = fraction(added * otherPart, originalTotal * finalTotal);
+  const ratioDivisor = gcd(originalTotal, added);
+  const addedLabel = data.before[changed]!.label;
+  return {
+    version: 1, kind: 'cross', title: 'Alligation Cross — Pure Addition',
+    lower: { label: 'Original mixture', value: beforeShare, quantity: `${originalTotal} ${data.quantityUnit}` },
+    higher: { label: `Pure ${addedLabel}`, value: '1 (100%)', quantity: `${added} ${data.quantityUnit}` },
+    mean: { label: `Final ${addedLabel} share`, value: targetShare },
+    lowerPart: { label: 'Original mixture part', value: oppositeOriginal, expression: `1 − ${targetShare}` },
+    higherPart: { label: `Pure ${addedLabel} part`, value: oppositePure, expression: `${targetShare} − ${beforeShare}` },
+    quantityRatio: `Original mixture : pure ${addedLabel} = ${originalTotal / ratioDivisor} : ${added / ratioDivisor}`,
+  };
+}
+
+export function RatioAdjustmentDiagram({ diagram, className }: {
+  diagram: RatioAdjustmentDiagramData; className?: string;
+}) {
+  const alligation = derivePureAdditionCross(diagram);
+  if (alligation) return <AlligationDiagram diagram={alligation} className={className} />;
+  return <OriginalRatioAdjustmentDiagram diagram={diagram} className={className} />;
+}
+
+function OriginalRatioAdjustmentDiagram({
   diagram,
   className,
 }: {

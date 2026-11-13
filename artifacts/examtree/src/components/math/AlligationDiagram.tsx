@@ -11,6 +11,7 @@ export type AlligationCrossDiagram = {
   mean: { label: string; value: string };
   lowerPart: { label: string; value: string; expression: string };
   higherPart: { label: string; value: string; expression: string };
+  quantityRatio?: string;
   rangePartition?: {
     quantityRatio: string;
     totalParts: string;
@@ -232,6 +233,11 @@ function CrossDiagram({
         </g>
       </svg>
 
+      {diagram.quantityRatio ? (
+        <figcaption className="mt-2 rounded-lg border-t border-border/70 bg-muted/40 px-3 py-2 text-xs font-semibold sm:text-sm">
+          {diagram.quantityRatio}
+        </figcaption>
+      ) : null}
       {diagram.rangePartition ? (
         <figcaption className="grid gap-2 border-t border-border/70 pt-3 text-xs sm:grid-cols-2 sm:text-sm">
           <div className="rounded-lg bg-muted/50 px-3 py-2">

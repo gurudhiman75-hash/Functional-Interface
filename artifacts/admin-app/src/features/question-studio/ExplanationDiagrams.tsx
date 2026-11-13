@@ -18,6 +18,7 @@ type Cross = {
   mean: LabelValue;
   lowerPart: LabelValue & { expression: string };
   higherPart: LabelValue & { expression: string };
+  quantityRatio?: string;
   rangePartition?: {
     quantityRatio: string; totalParts: string; priceGap: string;
     valuePerPart: string; meanDistanceFromLowerParts: string;
@@ -173,7 +174,7 @@ function DiagramSurface({ title, children, footer }: {
 function CrossSvg({ data }: { data: Cross }) {
   const id = useId();
   const description = `${data.lower.label}: ${data.lower.value}; ${data.higher.label}: ${data.higher.value}; ${data.mean.label}: ${data.mean.value}; differences ${data.lowerPart.value} and ${data.higherPart.value}`;
-  return <DiagramSurface title={data.title} footer={data.rangePartition ? <>Quantity ratio: {data.rangePartition.quantityRatio} · Total parts: {data.rangePartition.totalParts} · Price gap: {data.rangePartition.priceGap} · Value per part: {data.rangePartition.valuePerPart}</> : undefined}>
+  return <DiagramSurface title={data.title} footer={data.quantityRatio ?? (data.rangePartition ? <>Quantity ratio: {data.rangePartition.quantityRatio} · Total parts: {data.rangePartition.totalParts} · Price gap: {data.rangePartition.priceGap} · Value per part: {data.rangePartition.valuePerPart}</> : undefined)}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 314" width="100%"
       className="mx-auto block h-auto w-full max-w-[600px] text-foreground"
       role="img" aria-labelledby={`${id}-title ${id}-desc`}>
@@ -235,7 +236,60 @@ function Diagram({ data }: { data: AlligationData }): ReactNode {
   </div>;
 }
 
+/**
+ * A pure addition is an alligation of the ORIGINAL mixture and the PURE
+ * added component. Derive it only when one component increases and the other
+ * stays unchanged; removal/replacement is not a positive mixing operation.
+ * Integer quantities yield exact fractions, never rounded percentages.
+ */
+export function derivePureAdditionCross(data: RatioAdjustmentData): (Cross & { quantityRatio: string }) | null {
+  if (data.kind !== 'TWO_COMPONENT' || data.before.length !== 2 || data.after.length !== 2) return null;
+  const quantities = [...data.before, ...data.after].map(row => {
+    const value = /^\s*(\d+)(?:\s|$)/u.exec(row.quantity);
+    return value ? Number(value[1]) : NaN;
+  });
+  if (quantities.some(value => !Number.isSafeInteger(value) || value < 0)) return null;
+  if (data.before.some((row, i) => row.label !== data.after[i]?.label)) return null;
+  const [a, b, afterA, afterB] = quantities as [number, number, number, number];
+  const changed = afterA > a && afterB === b ? 0 : afterB > b && afterA === a ? 1 : -1;
+  if (changed === -1) return null;
+  const originalTotal = a + b;
+  const finalTotal = afterA + afterB;
+  const originalPart = changed === 0 ? a : b;
+  const finalPart = changed === 0 ? afterA : afterB;
+  const otherPart = changed === 0 ? b : a;
+  const added = finalTotal - originalTotal;
+  if (!Number.isSafeInteger(finalTotal * originalTotal) ||
+      originalTotal <= 0 || otherPart <= 0 || added <= 0) return null;
+  const gcd = (x: number, y: number): number => y === 0 ? x : gcd(y, x % y);
+  const fraction = (numerator: number, denominator: number): string => {
+    const divisor = gcd(numerator, denominator);
+    return `${numerator / divisor}/${denominator / divisor}`;
+  };
+  const beforeShare = fraction(originalPart, originalTotal);
+  const targetShare = fraction(finalPart, finalTotal);
+  const oppositeOriginal = fraction(otherPart, finalTotal);
+  const oppositePure = fraction(added * otherPart, originalTotal * finalTotal);
+  const ratioDivisor = gcd(originalTotal, added);
+  const addedLabel = data.before[changed]!.label;
+  return {
+    version: 1, kind: 'cross', title: 'Alligation Cross — Pure Addition',
+    lower: { label: 'Original mixture', value: beforeShare, quantity: `${originalTotal} ${data.quantityUnit}` },
+    higher: { label: `Pure ${addedLabel}`, value: '1 (100%)', quantity: `${added} ${data.quantityUnit}` },
+    mean: { label: `Final ${addedLabel} share`, value: targetShare },
+    lowerPart: { label: 'Original mixture part', value: oppositeOriginal, expression: `1 − ${targetShare}` },
+    higherPart: { label: `Pure ${addedLabel} part`, value: oppositePure, expression: `${targetShare} − ${beforeShare}` },
+    quantityRatio: `Original mixture : pure ${addedLabel} = ${originalTotal / ratioDivisor} : ${added / ratioDivisor}`,
+  };
+}
+
 function RatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
+  const alligation = derivePureAdditionCross(data);
+  if (alligation) return <CrossSvg data={alligation} />;
+  return <OriginalRatioAdjustmentSvg data={data} />;
+}
+
+function OriginalRatioAdjustmentSvg({ data }: { data: RatioAdjustmentData }) {
   const id = useId();
   return <DiagramSurface title={data.title} footer={data.operation}>
     <svg viewBox="0 0 640 300" width="100%" role="img"
