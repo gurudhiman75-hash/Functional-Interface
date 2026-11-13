@@ -55,11 +55,11 @@ describe('Question Studio explanation diagrams', () => {
     const ratio = {
       version: 1, kind: 'TWO_COMPONENT', title: 'Ratio adjustment',
       quantityUnit: 'litres',
-      before: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '3 litres' }],
-      operation: 'Add 2 litres of water',
-      after: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '5 litres' }],
-      beforeRatio: '7 : 3', afterRatio: '7 : 5',
-      targetRatio: '7 : 5', note: 'Only water increases',
+      before: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '5 litres' }],
+      operation: 'Remove 2 litres of water',
+      after: [{ label: 'Milk', quantity: '7 litres' }, { label: 'Water', quantity: '3 litres' }],
+      beforeRatio: '7 : 5', afterRatio: '7 : 3',
+      targetRatio: '7 : 3', note: 'Only water decreases',
     };
     const text = 'Original composition\n' +
       marker(ratio).replace('EXAMTREE_ALLIGATION_SVG_V1', 'EXAMTREE_RATIO_ADJUSTMENT_SVG_V1')
@@ -68,7 +68,7 @@ describe('Question Studio explanation diagrams', () => {
     expect(pieces.map(piece => piece.kind)).toEqual(['text', 'ratio-adjustment', 'text']);
     const html = renderToStaticMarkup(<ExplanationDiagrams explanation={text} />);
     expect(html).toContain('<svg');
-    expect(html).toContain('7 : 5');
+    expect(html).toContain('7 : 3');
     expect(html).toContain('Original composition');
     expect(html).toContain('Final composition');
     expect(html).not.toContain('EXAMTREE_RATIO_ADJUSTMENT_SVG_V1');
