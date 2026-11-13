@@ -8,10 +8,29 @@ import {
 import {
   isRatioAdjustmentDiagramData,
   RatioAdjustmentDiagram,
+  derivePureAdditionCross,
 } from "./RatioAdjustmentDiagram";
 import { diagramQuantity, diagramLabels } from "./diagram-labels";
 import { runMal001QuestionStudioPipeline as run } from "../../../../api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 import { localizeMalExplanationTextV9 as text } from "../../../../api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/chapter-native-explanations-v9";
+const milkAddition = {
+  version: 1 as const, kind: "TWO_COMPONENT" as const, title: "Conserved-part ratio method",
+  quantityUnit: "litres", operation: "Add 11 litres milk",
+  before: [{ label: "milk", quantity: "40 litres" }, { label: "water", quantity: "32 litres" }],
+  after: [{ label: "milk", quantity: "51 litres" }, { label: "water", quantity: "32 litres" }],
+  beforeRatio: "5 : 4", afterRatio: "51 : 32", note: "Water remains unchanged",
+};
+assert.equal(derivePureAdditionCross(milkAddition)?.quantityRatio,
+  "Original mixture : pure milk = 72 : 11");
+assert.equal(derivePureAdditionCross(milkAddition)?.higherPart.value, "44/747");
+const trueCrossHtml = renderToStaticMarkup(createElement(RatioAdjustmentDiagram, { diagram: milkAddition }));
+assert(trueCrossHtml.includes("Alligation Cross"));
+assert(trueCrossHtml.includes("72 : 11"));
+assert(!trueCrossHtml.includes("Conserved-part ratio method"));
+assert.equal(derivePureAdditionCross({
+  ...milkAddition, after: [{ label: "milk", quantity: "29 litres" }, { label: "water", quantity: "32 litres" }],
+}), null);
+
 const marker =
   /\[\[EXAMTREE_(ALLIGATION|RATIO_ADJUSTMENT)_SVG_V1:([^\]]+)\]\]/g;
 const display = new Set([
