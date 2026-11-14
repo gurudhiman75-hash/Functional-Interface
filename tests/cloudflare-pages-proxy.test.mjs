@@ -243,6 +243,58 @@ test("no-AI admin mode migrates only session and deterministic Question Studio",
   }
 });
 
+test("manual approved-question reconciliation alone uses Cloud Run during deterministic handover", async () => {
+  const upstream = "https://examtree-api-ttnfjefqka-el.a.run.app";
+  const legacy = "https://examtree-new.onrender.com";
+  const originalFetch = globalThis.fetch;
+  const observed = [];
+  globalThis.fetch = async (request) => {
+    observed.push(request);
+    return Response.json({ convertedCount: 0 });
+  };
+  try {
+    const env = {
+      EXAMTREE_API_UPSTREAM_ORIGIN: upstream,
+      EXAMTREE_ADMIN_UPSTREAM: "cloud-run-deterministic",
+    };
+    for (const [path, method, destination] of [
+      ["/api/admin/questions/reconcile-approved", "POST", upstream],
+      ["/api/admin/questions/reconcile-approved", "GET", legacy],
+      ["/api/admin/questions/reconcile-approved/other", "POST", legacy],
+      ["/api/admin/questions/reconcile-approved-evil", "POST", legacy],
+      ["/api/admin/questions", "GET", legacy],
+      ["/api/admin/questions/published", "GET", legacy],
+      ["/api/admin/questions/123/actions/publish", "POST", legacy],
+      ["/api/admin/commerce/orders", "POST", legacy],
+      ["/api/admin/tests", "GET", legacy],
+      ["/api/admin/question-studio/review-page", "GET", upstream],
+      ["/api/student/profile", "GET", upstream],
+    ]) {
+      const response = await onRequest({
+        request: req("https://examtree.in" + path, method, {
+          headers: { "Authorization": "Bearer test-admin-token", "Content-Type": "application/json" },
+          body: method === "POST" ? "{}" : undefined,
+        }),
+        env,
+      });
+      assert.equal(response.status, 200, path);
+      assert.equal(observed.at(-1).url, destination + path, path);
+      assert.equal(observed.at(-1).headers.get("Authorization"), "Bearer test-admin-token");
+    }
+    // Without the explicit admin handover flag, reconciliation stays on Render.
+    for (const value of [undefined, "render", "cloud-run-determ", "true"]) {
+      const response = await onRequest({
+        request: req("https://examtree.in/api/admin/questions/reconcile-approved", "POST", { body: "{}" }),
+        env: { EXAMTREE_API_UPSTREAM_ORIGIN: upstream, EXAMTREE_ADMIN_UPSTREAM: value },
+      });
+      assert.equal(response.status, 200);
+      assert.equal(observed.at(-1).url, legacy + "/api/admin/questions/reconcile-approved");
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("Cloud Run only mode requires independent finance handover switch", async () => {
   const upstream = "https://examtree-api-1083299267005.asia-south1.run.app";
   const legacy = "https://examtree-new.onrender.com";
