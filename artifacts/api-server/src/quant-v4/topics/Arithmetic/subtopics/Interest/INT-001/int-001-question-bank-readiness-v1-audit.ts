@@ -142,7 +142,7 @@ const conversion = readFileSync(resolve(repoRoot, "artifacts/api-server/src/lib/
 const lifecycleRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts"), "utf8");
 const registry = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-registry.ts"), "utf8");
 
-assert.ok(bulkRoute.includes("getGeneratedItemApprovalDisposition(item.payload)"));
+assert.ok(bulkRoute.includes("getGeneratedItemApprovalDisposition(item.payload, { manualApproval: true })"));
 assert.ok(bulkRoute.includes('disposition.mode === "question_bank"'));
 assert.ok(bulkRoute.includes("convertApprovedGenerationItem("));
 assert.ok(bulkRoute.includes('approvalMode === "review_only"'));
