@@ -5,46 +5,16 @@ export type GeneratedItemApprovalDisposition = Readonly<{
   reason: string | null;
 }>;
 
-function asRecord(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object" && !Array.isArray(value)
-    ? value as Record<string, unknown>
-    : {};
-}
-
-function asText(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
-
 /**
- * Review-only approval is intentionally narrow. Both lifecycle flags must be
- * explicitly present so incomplete or legacy payloads continue through the
- * established Question Bank conversion and eligibility checks.
+ * This function is called only after an explicit administrator review action,
+ * or when reconciling an item already approved by an administrator.
+ * Chapter-level generation lifecycle labels are NOT a Question Bank veto.
+ * Actual content quality, duplicates and valid answer models are checked
+ * separately in the approval and conversion transactions.
  */
 export function getGeneratedItemApprovalDisposition(
-  value: unknown,
+  _value: unknown,
 ): GeneratedItemApprovalDisposition {
-  const payload = asRecord(value);
-  const generationContext = asRecord(payload.generationContext);
-  const questionBankStatus = asText(
-    payload.questionBankStatus ?? generationContext.questionBankStatus,
-  ).toUpperCase();
-  const questionBankWritable =
-    payload.questionBankWritable ?? generationContext.questionBankWritable;
-
-  if (questionBankStatus === "NOT_STORED" || questionBankWritable === false) {
-    return Object.freeze({
-      mode: "review_only" as const,
-      reason: "Question Bank storage is disabled for this generated item",
-    });
-  }
-
-  if (questionBankWritable !== true) {
-    return Object.freeze({
-      mode: "review_only" as const,
-      reason: "Question Bank lifecycle authority is missing; approval remains review-only",
-    });
-  }
-
   return Object.freeze({
     mode: "question_bank" as const,
     reason: null,
