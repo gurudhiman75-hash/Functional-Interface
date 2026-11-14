@@ -294,7 +294,7 @@ router.post(
             stem: detail.source.stem,
             explanation: detail.source.explanation,
             options: sourceOptions,
-            correctOptionKey: detail.source.options.find(option => option.isCorrect)?.key ?? null,
+            correctOptionKey: asText(detail.source.answerModel?.correctOptionKey) || null,
           }) },
         ],
       });
