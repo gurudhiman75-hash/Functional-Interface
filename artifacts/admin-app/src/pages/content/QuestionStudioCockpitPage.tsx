@@ -101,6 +101,11 @@ const SYNC_BULK_LIMIT = 250;
 const SYNC_CHUNK_TARGET = 25;
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
+function useNativeGroupedReview(packageId: string | undefined, languages: readonly string[]): boolean {
+  return ['AVG-001', 'INT-001'].includes(packageId ?? '') &&
+    languages.length > 1 &&
+    languages.some(entry => entry === 'hi' || entry === 'pa');
+}
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
 
 function packageSubject(entry: GenerationPackage) {
@@ -758,8 +763,7 @@ export function QuestionStudioCockpitPage() {
     // HI/PA review runs would create unrelated canonical questions. Generate
     // the English source once and display paired variants in its review item.
     // Keep all other chapters on their existing per-language workflow.
-    const nativeGroupedReview = ['AVG-001', 'INT-001'].includes(activePackage.packageId) &&
-      languages.includes('en') && languages.some((entry) => entry === 'hi' || entry === 'pa');
+    const nativeGroupedReview = useNativeGroupedReview(activePackage.packageId, languages);
     const generationLanguages = nativeGroupedReview ? ['en'] : languages;
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected && !bulkAsyncMode &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
@@ -1346,9 +1350,9 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Languages"><div className="flex min-h-10 flex-wrap items-center gap-3 rounded-md border px-3 py-2">{supportedLanguages.map((entry) => <label key={entry} className="flex items-center gap-2 text-xs"><Checkbox checked={languages.includes(entry)} disabled={generating || bulkBusy || stagingAsyncSubmitting || (languages.length === 1 && languages.includes(entry))} onCheckedChange={(checked) => setLanguages((current) => checked === true ? [...current, entry] : current.filter((value) => value !== entry))} />{LANGUAGE_LABELS[entry] ?? entry}</label>)}</div></Field>
-            <Field label={['AVG-001', 'INT-001'].includes(activePackage?.packageId ?? '') && languages.includes('en') && languages.some(entry => entry === 'hi' || entry === 'pa') ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label={useNativeGroupedReview(activePackage?.packageId, languages) ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
-          {['AVG-001', 'INT-001'].includes(activePackage?.packageId ?? '') && languages.includes('en') && languages.some(entry => entry === 'hi' || entry === 'pa')
+          {useNativeGroupedReview(activePackage?.packageId, languages)
             ? <p className="rounded-lg border border-primary/20 bg-primary/[0.03] px-3 py-2 text-xs">
                 <strong>{count} canonical question groups</strong> with one English-source review item each.
                 Existing Hindi/Punjabi versions are checked inside each expanded review item using its exact QL and seed;
