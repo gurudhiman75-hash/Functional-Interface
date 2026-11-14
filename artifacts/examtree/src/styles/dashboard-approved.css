@@ -74,3 +74,9 @@
 .student-hub-dashboard a:focus-visible,.student-hub-dashboard button:focus-visible{outline:2px solid #2168d6;outline-offset:4px}
 @media(max-width:1150px){.series-main-grid{grid-template-columns:minmax(0,1fr)}.series-week-chart{max-width:480px}.series-results,.series-subjects{grid-column:auto}}
 @media(max-width:600px){.et-viewport[data-series-dashboard=true] .et-page-content{padding-top:100px}.series-welcome{align-items:flex-start;gap:10px}.series-exam-link{padding:8px;font-size:11px}.series-tabs{gap:0}.series-tabs a{padding-inline:12px;font-size:13px}.series-resume{flex-wrap:wrap;padding:16px;gap:12px}.series-resume h2{font-size:16px}.series-resume>.series-button{margin-left:42px}.series-panel{padding:17px}.series-panel-head h2{font-size:19px}.series-cards{grid-template-columns:1fr}.series-cover{min-height:105px}.series-result-list article{gap:8px}.series-result-list article>svg{display:none}.series-subject-grid{gap:8px}.series-subject-grid a{padding:10px}.series-resources{gap:12px}}
+
+/* Skeletons follow the panel geometry without moving the dashboard chrome. */
+.dashboard-loading{min-width:0}
+.dashboard-loading-cover{height:130px;border-radius:0}
+.dashboard-loading-activity{min-height:256px}
+@media(max-width:600px){.dashboard-loading-cover{height:105px}}

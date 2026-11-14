@@ -137,7 +137,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("student-dashboard")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
     await expect(page.getByRole("button", { name: "Select Targeted Exam" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "My Exams" }).first()).toHaveAttribute("href", "/exams");
+    await expect(page.getByRole("link", { name: "Test series", exact: true }).first()).toHaveAttribute("href", "/exams");
     await expectNoHorizontalOverflow(page);
     expect(["chromium", "firefox", "webkit"]).toContain(browserName);
   });
