@@ -157,6 +157,22 @@ export function normalizeTranslationDraft(value: unknown): TranslationDraftInput
   return { stem, explanation, options, reason };
 }
 
+/** Only approved English-source bank-only records may get translated before taxonomy. */
+export function isUnclassifiedEnglishBankOnlySource(source: {
+  examVersionId: unknown;
+  questionStatus: unknown;
+  approvedVersionId: unknown;
+  questionVersionId: string;
+  sourceLanguage: unknown;
+  bankAcceptanceMode: unknown;
+}): boolean {
+  return !source.examVersionId &&
+    source.questionStatus === "approved" &&
+    source.approvedVersionId === source.questionVersionId &&
+    source.sourceLanguage === "en" &&
+    source.bankAcceptanceMode === "BANK_ONLY";
+}
+
 export function assertTranslationTransition(from: string, to: string): void {
   const source = normalizeTranslationStatus(from);
   const target = normalizeTranslationStatus(to);
