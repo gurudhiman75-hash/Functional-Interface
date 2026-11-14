@@ -403,3 +403,83 @@ test("tagged admin canary routes only non-financial admin requests and cannot re
     assert.equal((await response.json()).code, "ADMIN_CANARY_UPSTREAM_MISCONFIGURED");
   } finally { globalThis.fetch = original; }
 });
+
+test("native localization candidate only receives exact authenticated Hindi/Punjabi preview POST", async () => {
+  const { configuredNativeLocalizationCandidateOrigin } = await import("../functions/api/[[path]].js");
+  const candidate = "https://native-localization-candidate---examtree-api-ttnfjefqka-el.a.run.app";
+  const live = "https://examtree-api-ttnfjefqka-el.a.run.app";
+  const render = "https://examtree-new.onrender.com";
+  assert.equal(configuredNativeLocalizationCandidateOrigin({EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:candidate}),candidate);
+  for(const bad of [
+    "http://native-localization-candidate---examtree-api-ttnfjefqka-el.a.run.app",
+    "https://native-localization-candidate---examtree-api-staging-ttnfjefqka-el.a.run.app",
+    "https://native-localization-candidate---examtree-api-ttnfjefqka-el.a.run.app/other",
+    "https://native-localization-candidate---examtree-api-ttnfjefqka-el.a.run.app.evil",
+    "https://evil.example",
+  ]) assert.throws(()=>configuredNativeLocalizationCandidateOrigin({
+    EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:bad,
+  }));
+  const original=globalThis.fetch;
+  const forwarded=[];
+  globalThis.fetch=async (request)=>{
+    forwarded.push(request);
+    return Response.json({saved:false,approved:false});
+  };
+  try {
+    const id="01111111-1111-4111-8111-111111111111";
+    const base=`/api/admin/translations/questions/${id}/languages/hi/existing-localization`;
+    const env={
+      EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:candidate,
+      EXAMTREE_ADMIN_UPSTREAM:"cloud-run-deterministic",
+      EXAMTREE_API_UPSTREAM_ORIGIN:live,
+    };
+    for(const [path,method,upstream] of [
+      [base,"POST",candidate],
+      [base.replace("/hi/","/pa/"),"POST",candidate],
+      [base,"GET",render],
+      [base.replace("/hi/","/en/"),"POST",render],
+      [base.replace("/existing-localization","/suggest"),"POST",render],
+      [base+"/other","POST",render],
+      [base+"-spoof","POST",render],
+      [`/api/admin/translations/questions/${id}/languages/hi`,"PUT",render],
+      ["/api/admin/translations/queue","GET",render],
+      ["/api/admin/questions/reconcile-approved","POST",live],
+      ["/api/admin/session","GET",live],
+      ["/api/student/profile","GET",live],
+      ["/api/admin/commerce/orders","POST",render],
+    ]) {
+      const response=await onRequest({
+        request:req("https://examtree.in"+path,method,{
+          headers:{"Authorization":"Bearer admin-session","Content-Type":"application/json"},
+          body:["GET","HEAD"].includes(method)?undefined:"{}",
+        }),
+        env,
+      });
+      assert.equal(response.status,200,`${method} ${path}`);
+      const sent=forwarded.at(-1);
+      assert.equal(sent.url,upstream+path,`${method} ${path}`);
+      assert.equal(sent.headers.get("Authorization"),"Bearer admin-session");
+    }
+    // Missing flag is safe: old Render behavior, never implicit candidate.
+    await onRequest({
+      request:req("https://examtree.in"+base,"POST",{body:"{}"}),
+      env:{EXAMTREE_ADMIN_UPSTREAM:"cloud-run-deterministic",EXAMTREE_API_UPSTREAM_ORIGIN:live},
+    });
+    assert.equal(forwarded.at(-1).url,render+base);
+    // An invalid configured URL must not silently leak to Render.
+    const broken=await onRequest({
+      request:req("https://examtree.in"+base,"POST",{body:"{}"}),
+      env:{...env,EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:"https://evil.example"},
+    });
+    assert.equal(broken.status,503);
+    assert.equal((await broken.json()).code,"NATIVE_LOCALIZATION_CANDIDATE_MISCONFIGURED");
+    // The canary remains strictly inert unless the deterministic admin phase is enabled.
+    await onRequest({
+      request:req("https://examtree.in"+base,"POST",{body:"{}"}),
+      env:{...env,EXAMTREE_ADMIN_UPSTREAM:"render"},
+    });
+    assert.equal(forwarded.at(-1).url,render+base);
+  } finally {
+    globalThis.fetch=original;
+  }
+});
