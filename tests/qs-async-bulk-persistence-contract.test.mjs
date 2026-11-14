@@ -64,7 +64,13 @@ test("bulk flow preserves latest multilingual review workflow",()=>{
  assert.match(page,/const \[languages, setLanguages\]/);
  assert.match(page,/setQueuedLanguageRuns/);
  assert.match(page,/applyRevision\(result\.item\)/);
- assert.match(page,/languages\.length !== 1/);
+  // Durable bulk now reserves one independent parent per language, not one language total.
+  assert.match(page,/for \(const language of languages\)/);
+  assert.match(page,/setQueuedBulkLanguageJobs/);
+  assert.match(page,/bulkAsyncRetry\.current\.get\(signature\)/);
+  assert.match(page,/reserveQuestionStudioBulkReview\(asyncInput, key\)/);
+  assert.match(page,/Select a job to launch its batches/);
+  assert.doesNotMatch(page,/Choose one language/);
  assert.match(page,/reserveQuestionStudioBulkReview/);
  assert.match(page,/reconcileQuestionStudioBulkReviewChild/);
  assert.match(page,/BULK_ASYNC_ENABLED/);
