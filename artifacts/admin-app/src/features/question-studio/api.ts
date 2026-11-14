@@ -226,6 +226,33 @@ export function getQuestionStudioCapabilities() {
   );
 }
 
+export type NativeReviewLanguage = 'en' | 'hi' | 'pa';
+export type NativeReviewQuestion = {
+  stem: string;
+  explanation: string;
+  options: string[];
+  correctIndex: number;
+};
+export type NativeReviewVariant =
+  | ({ language: 'hi' | 'pa'; status: 'verified' } & NativeReviewQuestion)
+  | { language: 'hi' | 'pa'; status: 'blocked'; reason: string };
+export interface NativeReviewLocalizations {
+  itemId: string;
+  version: number;
+  packageId: string;
+  source: { language: 'en'; status: 'verified' } & NativeReviewQuestion;
+  variants: NativeReviewVariant[];
+  saved: false;
+  approved: false;
+}
+export function getQuestionStudioNativeReviewLocalizations(itemId: string, version: number) {
+  return adminRequest<NativeReviewLocalizations>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-localizations?version=${version}`,
+    undefined,
+    { fallbackMessage: 'Unable to verify existing Hindi and Punjabi versions.' },
+  );
+}
+
 export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
   const params = new URLSearchParams();
   if (query.page) params.set('page', String(query.page));

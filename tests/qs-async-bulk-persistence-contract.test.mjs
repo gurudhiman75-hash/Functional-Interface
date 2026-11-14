@@ -64,8 +64,13 @@ test("bulk flow preserves latest multilingual review workflow",()=>{
  assert.match(page,/const \[languages, setLanguages\]/);
  assert.match(page,/setQueuedLanguageRuns/);
  assert.match(page,/applyRevision\(result\.item\)/);
-  // Durable bulk now reserves one independent parent per language, not one language total.
-  assert.match(page,/for \(const language of languages\)/);
+  // Native AVG/INT language variants share one English canonical question;
+  // all other packages retain one independent parent per requested language.
+  assert.match(page,/function useNativeGroupedReview\(/);
+  assert.match(page,/const nativeGroupedReview = NATIVE_GROUPED_REVIEW_ENABLED &&/);
+  assert.match(page,/\['AVG-001', 'INT-001'\]\.includes\(activePackage\.packageId\)/);
+  assert.match(page,/const generationLanguages = nativeGroupedReview \? \['en'\] : languages/);
+  assert.match(page,/for \(const language of generationLanguages\)/);
   assert.match(page,/setQueuedBulkLanguageJobs/);
   assert.match(page,/bulkAsyncRetry\.current\.get\(signature\)/);
   assert.match(page,/reserveQuestionStudioBulkReview\(asyncInput, key\)/);

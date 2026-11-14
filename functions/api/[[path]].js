@@ -132,6 +132,13 @@ export async function onRequest({ request, env = {} }) {
   const nativeLocalizationPreviewPath =
     request.method === "POST" &&
     /^\/api\/admin\/translations\/questions\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/languages\/(?:hi|pa)\/existing-localization$/i.test(incoming.pathname);
+  // Separately gated same-seed Review Queue previews. Never expand this
+  // routing change to item approval, status mutations, tests or bulk runs.
+  const nativeReviewPreviewPath =
+    env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
+    request.method === "GET" &&
+    /^\/api\/admin\/question-studio\/items\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/native-localizations$/i.test(incoming.pathname);
+  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
@@ -167,7 +174,7 @@ export async function onRequest({ request, env = {} }) {
   }
   let nativeLocalizationCandidateOrigin;
   try {
-    nativeLocalizationCandidateOrigin = nativeLocalizationPreviewPath && deterministicAdminEnabled
+    nativeLocalizationCandidateOrigin = nativeCandidatePreviewPath && deterministicAdminEnabled
       ? configuredNativeLocalizationCandidateOrigin(env) : null;
   } catch {
     return Response.json({
