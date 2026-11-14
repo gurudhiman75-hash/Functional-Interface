@@ -49,7 +49,11 @@ export function getGeneratedQuestionBankAcceptanceMode(value: unknown): "BANK_ON
 
 export function getGeneratedQuestionBankEligibilityIssue(
   value: unknown,
+  options: { manualBankOnly?: boolean } = {},
 ): string | null {
+  // Manual approval is an explicit, audited bank-storage authority. Old chapter
+  // release flags cannot veto storage; normal payload/answer validation still runs.
+  if (options.manualBankOnly) return null;
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
   const runtimeMode = asText(
@@ -109,8 +113,11 @@ export function getGeneratedQuestionBankEligibilityIssue(
   return null;
 }
 
-export function assertGeneratedQuestionBankEligible(value: unknown): void {
-  const issue = getGeneratedQuestionBankEligibilityIssue(value);
+export function assertGeneratedQuestionBankEligible(
+  value: unknown,
+  options: { manualBankOnly?: boolean } = {},
+): void {
+  const issue = getGeneratedQuestionBankEligibilityIssue(value, options);
   if (issue) {
     throw new Error(
       `Generated question cannot be converted to Question Bank: ${issue}.`,
@@ -241,10 +248,11 @@ function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualCo
 export function normalizeGeneratedQuestionPayload(
   value: unknown,
   context: { itemId: string; generationRunCode: string },
+  options: { manualBankOnly?: boolean } = {},
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
-  assertGeneratedQuestionBankEligible(payload);
+  assertGeneratedQuestionBankEligible(payload, options);
   const baseStem = asText(payload.text) || asText(payload.stem);
   const baseExplanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
@@ -317,17 +325,25 @@ export function normalizeGeneratedQuestionPayload(
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent?.kind ?? null,
         explanationVisualContent: explanationIllustrationSvg ? "spatial_svg_data_image_v1" : null,
-        questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
-        questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
-        questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankAcceptanceAuthority:
-          lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
-        testEligibility: lifecycleValue(payload, generationContext, "testEligibility") ?? null,
-        testEligible: lifecycleValue(payload, generationContext, "testEligible") ?? null,
-        mockTestEligible: lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
-        publiclyPublishable: lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
-        automaticStudentPublication:
-          lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
+        // Preserve original generator metadata separately; manual acceptance never
+        // rewrites persisted generation payloads or grants student/publication rights.
+        sourceQuestionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
+        sourceQuestionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
+        sourceQuestionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankStatus: options.manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
+        questionBankWritable: options.manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
+        questionBankAcceptanceMode: options.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankAcceptanceAuthority: options.manualBankOnly
+          ? "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1"
+          : lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
+        testEligibility: options.manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
+        testEligible: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
+        mockTestEligible: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
+        publiclyPublishable: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
+        automaticStudentPublication: options.manualBankOnly ? false
+          : lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
+        productionReleaseAuthorized: options.manualBankOnly ? false
+          : lifecycleValue(payload, generationContext, "productionReleaseAuthorized") ?? null,
         integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
         deliveryProfileAuthority:
           payload.deliveryProfileAuthority ?? generationContext.deliveryProfileAuthority ?? null,
@@ -341,6 +357,7 @@ export async function convertApprovedGenerationItem(
   client: QuestionSqlExecutor,
   itemId: string,
   actorUserId: string,
+  options: { manualBankOnly?: boolean } = {},
 ): Promise<ConvertedQuestion | null> {
   const rows = await client`
     SELECT
@@ -377,11 +394,11 @@ export async function convertApprovedGenerationItem(
     };
   }
 
-  const acceptanceMode = getGeneratedQuestionBankAcceptanceMode(row.payload);
+  const acceptanceMode = options.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(row.payload);
   const normalized = normalizeGeneratedQuestionPayload(row.payload, {
     itemId,
     generationRunCode: String(row.generationRunCode),
-  });
+  }, options);
   const questionId = randomUUID();
   const questionVersionId = randomUUID();
   const publicCode = questionPublicCode();
@@ -497,6 +514,7 @@ export async function convertApprovedGenerationItem(
         generationRunCode: row.generationRunCode,
         questionBankAcceptanceMode: acceptanceMode,
         downstreamLifecycleLocked: acceptanceMode === "BANK_ONLY",
+        manualBankOnlyAcceptance: options.manualBankOnly === true,
       })}::jsonb
     )
   `;
