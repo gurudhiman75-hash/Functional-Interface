@@ -4,7 +4,8 @@
  * human linguistic approval. Incorrect spellings in distractors are intentional.
  */
 import assert from "node:assert/strict";
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { CP001_FAMILIES } from "./packages/PUN-001/checkpoints/CP001";
 import { CP002_FAMILIES } from "./packages/PUN-001/checkpoints/CP002";
 import { CP003_FAMILIES } from "./packages/PUN-001/checkpoints/CP003";
@@ -35,6 +36,8 @@ const report = {
   checkedGeneratedQuestions:0,
   checkedCp001Words:0,
   checkedCp002CanonicalWords:0,
+  scannedSourceFiles:0,
+  scannedSourceBytes:0,
   warnings:[] as Array<{cp:string;family:string;seed:number;field:string;kind:string;value:string}>,
 };
 function warning(cp:string,family:string,seed:number,field:string,kind:string,value:string) {
@@ -86,7 +89,34 @@ for(const a of CP002_ACTIVE_AUTHORITIES) {
  assert(!a.incorrect.includes(a.correct as never),`${a.id}: correct answer also marked incorrect`);
  screen("CP002",a.id,0,"canonical-spelling",a.correct,true);
 }
+// Scan ALL checkpoint source modules, including authority pools not reached by
+// the sampled generator seeds. Reports are editorial leads, not auto-fixes.
+function scanSourceDir(dir:string,cp:string){
+ for(const item of readdirSync(dir,{withFileTypes:true})){
+  const path=join(dir,item.name);
+  if(item.isDirectory()){scanSourceDir(path,cp);continue;}
+  if(!item.isFile()||!item.name.endsWith(".ts"))continue;
+  const source=readFileSync(path,"utf8");
+  report.scannedSourceFiles++;
+  report.scannedSourceBytes+=Buffer.byteLength(source,"utf8");
+  for(const [kind,re] of [
+    ["REPLACEMENT_OR_INVISIBLE_CODEPOINT",/[\uFFFD\u200B\u200C\u200D]/gu],
+    ["REPEATED_TIPPI_OR_BINDI",/[ੰਂ]{2,}/gu],
+    ["REPEATED_ADDAK",/ੱ{2,}/gu],
+    ["REPEATED_CATEGORY_LABEL",/ਪੜਨਾਂਵ\s+ਪੜਨਾਂਵ/gu],
+  ] as const){
+    for(const m of source.matchAll(re)){
+      const start=Math.max(0,m.index-35),end=Math.min(source.length,m.index+m[0].length+40);
+      warning(cp,item.name,0,"source",kind,source.slice(start,end).replace(/\n/g," "));
+    }
+  }
+ }
+}
+for(let i=1;i<=14;i++){
+ const cp="CP"+String(i).padStart(3,"0");
+ scanSourceDir(join("src/punjabi-v1/packages/PUN-001/checkpoints",cp),cp);
+}
 mkdirSync("dist/punjabi-v1",{recursive:true});
 writeFileSync("dist/punjabi-v1/pun001-orthography-audit.json",JSON.stringify(report,null,2)+"\n");
-console.log(JSON.stringify({families:report.checkedFamilies,generatedQuestions:report.checkedGeneratedQuestions,cp001Words:report.checkedCp001Words,cp002CanonicalWords:report.checkedCp002CanonicalWords,warningCount:report.warnings.length},null,2));
+console.log(JSON.stringify({families:report.checkedFamilies,generatedQuestions:report.checkedGeneratedQuestions,cp001Words:report.checkedCp001Words,cp002CanonicalWords:report.checkedCp002CanonicalWords,sourceFiles:report.scannedSourceFiles,sourceBytes:report.scannedSourceBytes,warningCount:report.warnings.length},null,2));
 console.log("Technical screening complete. Warnings require human editorial review; this is not a linguistic accuracy certification.");
