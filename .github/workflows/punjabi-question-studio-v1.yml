@@ -46,5 +46,17 @@ jobs:
         run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-registry.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-v1/engine-registry.test.mjs
       - name: Run shared Question Studio engine-registry regression
         run: node artifacts/api-server/dist/punjabi-v1/engine-registry.test.mjs
+      - name: Compile all-family Punjabi orthography audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/punjabi-v1/pun001-orthography-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/punjabi-v1/pun001-orthography-audit.test.mjs
+      - name: Run Punjabi orthography audit across all 133 families
+        run: node dist/punjabi-v1/pun001-orthography-audit.test.mjs
+        working-directory: artifacts/api-server
+      - name: Upload Punjabi orthography audit findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pun001-orthography-audit
+          path: artifacts/api-server/dist/punjabi-v1/pun001-orthography-audit.json
+          if-no-files-found: warn
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
