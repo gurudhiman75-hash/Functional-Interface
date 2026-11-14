@@ -2,6 +2,7 @@ import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, BookOpen, FileText, Target } from "lucide-react";
 import { ExamCollectionBanner } from "@/components/ExamCollectionBanner";
+import { PunjabExamCollection } from "@/components/PunjabExamCollection";
 import { usePageMeta } from "@/components/PublicPage";
 import { EXAM_COLLECTIONS, getExamCollection } from "@/lib/exam-collections";
 import { catalogExamCodesForSlug, getExamAcquisitionConfig, examHubHref, examDetailsHref, examPreparationHref, examSyllabusHref } from "@/lib/seo-practice";
@@ -14,6 +15,7 @@ export default function ExamCollectionPage() {
   const seriesQuery = useQuery({ queryKey: ["collection-test-series"], queryFn: getStudentTestSeries, staleTime: 60_000 });
   usePageMeta(collection?.title ?? "Exam Collections", collection?.description ?? "Discover exams by region, qualification and preparation goals.");
   if (!collection) return <main className="collection-page"><Link href="/" className="collection-breadcrumb"><ArrowLeft size={15} /> Home</Link><h1>Explore Exam Collections</h1><p>Choose a collection to find your next exam.</p><div className="exam-collection-banners">{EXAM_COLLECTIONS.map((item) => <ExamCollectionBanner collection={item} key={item.slug} />)}</div></main>;
+  if (collection.slug === "punjab-government") return <PunjabExamCollection collection={collection} seriesQuery={seriesQuery} />;
   const examSlugs = Array.from(new Set(collection.groups.flatMap((group) => group.exams)));
   const codes = new Set(examSlugs.flatMap(catalogExamCodesForSlug));
   const liveSeries = (seriesQuery.data?.series ?? []).filter((series) => codes.has(series.examCode.toUpperCase()) && series.learnerVisibility === "live" && series.liveTestCount > 0).slice(0, 6);
