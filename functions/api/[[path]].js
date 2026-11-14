@@ -110,7 +110,7 @@ export async function onRequest({ request, env = {} }) {
   // their existing upstream during the deterministic admin handover.
   const manualApprovedReconciliationPath =
     incoming.pathname === "/api/admin/questions/reconcile-approved" &&
-    incoming.method === "POST";
+    request.method === "POST";
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
