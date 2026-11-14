@@ -20,6 +20,35 @@ const GROUPS = [
   { label: "Power & technical", Icon: Zap, tone: "purple" },
 ] as const;
 
+type ExamAuthority = "police" | "pspcl" | "psssb" | "ppsc";
+
+function examAuthority(slug: string): ExamAuthority | undefined {
+  if (slug.startsWith("punjab-police-")) return "police";
+  if (slug.startsWith("pspcl-")) return "pspcl";
+  if (slug.startsWith("psssb-") || slug === "punjab-patwari") return "psssb";
+  if (slug === "punjab-pcs" || slug === "punjab-naib-tehsildar") return "ppsc";
+  return undefined;
+}
+
+const AUTHORITY_LABELS: Record<ExamAuthority, string> = {
+  police: "Punjab Police", pspcl: "PSPCL", psssb: "PSSSB", ppsc: "PPSC",
+};
+
+function ExamAuthorityMark({ authority }: { authority: ExamAuthority }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  if ((authority === "police" || authority === "pspcl") && !imageFailed) {
+    return <span className={`punjab-authority-mark punjab-authority-${authority}`} aria-hidden="true">
+      <span className="punjab-authority-image-frame"><img
+        src={`${import.meta.env.BASE_URL}images/exam-authorities/${authority === "police" ? "punjab-police-header.png" : "pspcl.png"}`}
+        alt="" width={authority === "police" ? 300 : 210} height={authority === "police" ? 100 : 72}
+        loading="lazy" decoding="async" onError={() => setImageFailed(true)}
+      /></span>
+    </span>;
+  }
+  const Symbol = authority === "psssb" ? BookOpen : authority === "police" ? ShieldCheck : authority === "pspcl" ? Zap : Landmark;
+  return <span className={`punjab-authority-mark punjab-authority-${authority} punjab-authority-monogram`} aria-hidden="true"><Symbol size={19} strokeWidth={1.65} /><span>{authority === "police" ? "POLICE" : authority.toUpperCase()}</span></span>;
+}
+
 const PUNJABI_EXAM_NAMES: Record<string, string> = {
   "punjab-pcs": "ਪੰਜਾਬ ਸਿਵਲ ਸੇਵਾਵਾਂ",
   "punjab-naib-tehsildar": "ਨਾਇਬ ਤਹਿਸੀਲਦਾਰ",
@@ -50,7 +79,8 @@ export function PunjabExamCollection({ collection, seriesQuery }: Props) {
   }));
   const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
   const visibleExams = exams.filter(({ slug, config, groupIndex }) => {
-    const text = `${config.name} ${slug.replaceAll("-", " ")} ${PUNJABI_EXAM_NAMES[slug] ?? ""} ${collection.groups[groupIndex].title} ${GROUPS[groupIndex]?.label ?? ""}`.toLocaleLowerCase();
+    const authority = examAuthority(slug);
+    const text = `${config.name} ${slug.replaceAll("-", " ")} ${PUNJABI_EXAM_NAMES[slug] ?? ""} ${collection.groups[groupIndex].title} ${GROUPS[groupIndex]?.label ?? ""} ${authority ? AUTHORITY_LABELS[authority] : ""}`.toLocaleLowerCase();
     return (activeGroup === null || activeGroup === groupIndex) && terms.every((term) => text.includes(term));
   });
   const codes = new Set(exams.flatMap(({ slug }) => catalogExamCodesForSlug(slug)));
@@ -112,9 +142,12 @@ export function PunjabExamCollection({ collection, seriesQuery }: Props) {
           {visibleExams.length ? <div className="punjab-exam-grid">
             {visibleExams.map(({ slug, config, groupIndex }) => {
               const { Icon, tone, label } = GROUPS[groupIndex] ?? GROUPS[0];
+              const authority = examAuthority(slug);
               return <article className={`punjab-exam-card punjab-tone-${tone}`} key={slug} data-testid={`punjab-exam-${slug}`}>
-                <div className="punjab-exam-card-top"><span className="punjab-exam-icon"><Icon size={21} strokeWidth={1.7} aria-hidden="true" /></span><span className="punjab-exam-group">{label}</span></div>
-                <h3><Link href={examHubHref(slug)}>{config.name}</Link></h3>
+                <div className="punjab-exam-card-top">
+                  {authority ? <ExamAuthorityMark authority={authority} /> : <span className="punjab-authority-mark punjab-authority-fallback" aria-hidden="true"><Icon size={23} strokeWidth={1.7} /></span>}
+                  <div className="punjab-exam-card-heading"><span className="punjab-exam-authority">{authority ? AUTHORITY_LABELS[authority] : label}</span><h3><Link href={examHubHref(slug)}>{config.name}</Link></h3></div>
+                </div>
                 <p className="punjab-exam-local-name" lang="pa">{PUNJABI_EXAM_NAMES[slug]}</p>
                 <div className="punjab-exam-card-actions">
                   <Link className="punjab-exam-explore" href={examHubHref(slug)} aria-label={`Explore ${config.name}`}>Explore exam <ArrowRight size={15} aria-hidden="true" /></Link>
