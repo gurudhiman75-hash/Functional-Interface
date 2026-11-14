@@ -248,11 +248,11 @@ function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualCo
 export function normalizeGeneratedQuestionPayload(
   value: unknown,
   context: { itemId: string; generationRunCode: string },
-  options: { manualBankOnly?: boolean } = {},
+  approvalOptions: { manualBankOnly?: boolean } = {},
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
-  assertGeneratedQuestionBankEligible(payload, options);
+  assertGeneratedQuestionBankEligible(payload, approvalOptions);
   const baseStem = asText(payload.text) || asText(payload.stem);
   const baseExplanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
@@ -330,19 +330,19 @@ export function normalizeGeneratedQuestionPayload(
         sourceQuestionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         sourceQuestionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         sourceQuestionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankStatus: options.manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
-        questionBankWritable: options.manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
-        questionBankAcceptanceMode: options.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankAcceptanceAuthority: options.manualBankOnly
+        questionBankStatus: approvalOptions.manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
+        questionBankWritable: approvalOptions.manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
+        questionBankAcceptanceMode: approvalOptions.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankAcceptanceAuthority: approvalOptions.manualBankOnly
           ? "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1"
           : lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
-        testEligibility: options.manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
-        testEligible: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
-        mockTestEligible: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
-        publiclyPublishable: options.manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
-        automaticStudentPublication: options.manualBankOnly ? false
+        testEligibility: approvalOptions.manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
+        testEligible: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
+        mockTestEligible: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
+        publiclyPublishable: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
+        automaticStudentPublication: approvalOptions.manualBankOnly ? false
           : lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
-        productionReleaseAuthorized: options.manualBankOnly ? false
+        productionReleaseAuthorized: approvalOptions.manualBankOnly ? false
           : lifecycleValue(payload, generationContext, "productionReleaseAuthorized") ?? null,
         integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
         deliveryProfileAuthority:
