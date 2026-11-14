@@ -483,3 +483,57 @@ test("native localization candidate only receives exact authenticated Hindi/Punj
     globalThis.fetch=original;
   }
 });
+
+test("Review Queue native locale preview canary is opt-in and limited to one read-only item route", async () => {
+  const candidate="https://native-localization-candidate---examtree-api-ttnfjefqka-el.a.run.app";
+  const live="https://examtree-api-ttnfjefqka-el.a.run.app";
+  const original=globalThis.fetch;
+  const observed=[];
+  globalThis.fetch=async request=>{
+    observed.push(request);
+    return Response.json({source:{language:"en"},variants:[]});
+  };
+  try {
+    const id="01111111-1111-4111-8111-111111111111";
+    const path=`/api/admin/question-studio/items/${id}/native-localizations`;
+    const env={
+      EXAMTREE_ADMIN_UPSTREAM:"cloud-run-deterministic",
+      EXAMTREE_API_UPSTREAM_ORIGIN:live,
+      EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:candidate,
+      EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED:"true",
+    };
+    for(const [target,method,destination] of [
+      [path+"?version=2","GET",candidate],
+      [path+"?version=2","POST",live],
+      [path+"/extra","GET",live],
+      [path+"-other","GET",live],
+      [path.replace("/native-localizations","/approve"),"POST",live],
+      ["/api/admin/question-studio/runs","POST",live],
+      ["/api/admin/question-studio/review-page","GET",live],
+      ["/api/admin/session","GET",live],
+    ]) {
+      const result=await onRequest({
+        request:req("https://examtree.in"+target,method,{
+          headers:{"Authorization":"Bearer admin","Content-Type":"application/json"},
+          body:method==="POST"?"{}":undefined,
+        }),env,
+      });
+      assert.equal(result.status,200,method+" "+target);
+      assert.equal(observed.at(-1).url,destination+target,method+" "+target);
+      assert.equal(observed.at(-1).headers.get("Authorization"),"Bearer admin");
+    }
+    for(const candidateFlag of [undefined,"false","yes"]) {
+      await onRequest({
+        request:req("https://examtree.in"+path+"?version=2","GET"),
+        env:{...env,EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED:candidateFlag},
+      });
+      assert.equal(observed.at(-1).url,live+path+"?version=2");
+    }
+    const invalid=await onRequest({
+      request:req("https://examtree.in"+path+"?version=2","GET"),
+      env:{...env,EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN:"https://attacker.example"},
+    });
+    assert.equal(invalid.status,503);
+    assert.equal((await invalid.json()).code,"NATIVE_LOCALIZATION_CANDIDATE_MISCONFIGURED");
+  } finally {globalThis.fetch=original;}
+});
