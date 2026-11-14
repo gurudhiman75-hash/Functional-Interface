@@ -1,3 +1,4 @@
+import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -190,7 +191,7 @@ export default function ProfilePage() {
       <div id="profile-recaptcha" />
       {verificationId && <section className="profile-otp"><label>OTP sent to {pendingPhone}<input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={otp} onChange={event => setOtp(event.target.value.replace(/\D/g, ""))} /></label><button type="button" className="profile-outline" disabled={!!busy} onClick={() => void perform("otp", confirmOtp)}>Confirm OTP</button><button type="button" className="profile-text-button" disabled={!!busy} onClick={() => void perform("phone", sendOtp)}>Resend OTP</button></section>}
       {notice && <p role="status" className="profile-notice">{notice}</p>}{error && <p role="alert" className="profile-error">{error}</p>}
-      <div className="profile-actions"><button type="submit" className="profile-primary" disabled={!!busy || !dirty}>{busy === "save" ? "Saving…" : "Save changes"}</button><button type="button" className="profile-outline" disabled={!!busy} onClick={() => { setForm(fieldsFrom(profile)); setEmail(profile.email ?? ""); setPhone((profile.phoneNumber ?? "").replace(/^\+91/, "")); setVerificationId(null); setNotice(""); setError(""); }}>Cancel</button></div>
+      <div className="profile-actions"><button type="submit" className="profile-primary" aria-busy={busy === "save"} disabled={!!busy || !dirty}><span className="inline-grid"><span className="invisible col-start-1 row-start-1" aria-hidden="true">Save changes</span><span className="col-start-1 row-start-1">{busy === "save" ? <><Spinner className="inline-block mr-2" aria-hidden="true" />Saving…</> : "Save changes"}</span></span></button><button type="button" className="profile-outline" disabled={!!busy} onClick={() => { setForm(fieldsFrom(profile)); setEmail(profile.email ?? ""); setPhone((profile.phoneNumber ?? "").replace(/^\+91/, "")); setVerificationId(null); setNotice(""); setError(""); }}>Cancel</button></div>
     </form>
     <details className="profile-results"><summary>Recent results</summary>
       {attempts.isLoading ? <p role="status">Loading attempts…</p> : attempts.isError ? <p>Recent attempts are unavailable.</p> : attempts.data?.length ? attempts.data.slice(0, 3).map(attempt => {

@@ -1,3 +1,4 @@
+import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 import { useLocation, useSearch } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -55,7 +56,7 @@ export default function PreparationPage() {
         })}
       </div>
       {error && <p role="alert" className="preparation-error">{error}</p>}
-      <button className="preparation-continue" type="button" disabled={!ready || saving || selected.length === 0} onClick={() => finish()}>{saving ? "Saving…" : editing ? "Save choices" : "Continue"}<ArrowRight aria-hidden="true" /></button>
+      <button className="preparation-continue" type="button" aria-busy={saving} disabled={!ready || saving || selected.length === 0} onClick={() => finish()}>{saving ? "Saving…" : editing ? "Save choices" : "Continue"}{saving ? <Spinner aria-hidden="true" /> : <ArrowRight aria-hidden="true" />}</button>
       <button className="preparation-skip" type="button" disabled={saving || (!ready && !canContinueWithoutSaving && !editing)} onClick={() => editing ? navigate("/profile") : canContinueWithoutSaving ? navigate(destination) : void finish(true)}>{editing ? "Cancel" : canContinueWithoutSaving ? "Continue without saving" : "Skip for now"}</button>
       <p className="preparation-note">You can update these in your profile anytime.</p>
     </section>
