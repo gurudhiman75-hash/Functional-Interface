@@ -8,6 +8,7 @@ import {
   languageCodesFromSettings,
   normalizeTranslationDraft,
   normalizeSuggestedLinkedTranslation,
+  isUnclassifiedEnglishBankOnlySource,
   resolveRequestedLanguage,
 } from "./admin-translation-operations";
 
@@ -125,5 +126,28 @@ test("linked AI drafts preserve canonical source option identity without auto-ap
       (error: unknown) => error instanceof TranslationOperationsError &&
         ["DUPLICATE_TRANSLATED_OPTION", "TRANSLATED_OPTION_IDENTITY_MISMATCH"].includes(error.code),
     );
+  }
+});
+
+test("bank-only linked translation eligibility preserves source language and approval", () => {
+  const source = {
+    examVersionId: null,
+    questionStatus: "approved",
+    approvedVersionId: "version-1",
+    questionVersionId: "version-1",
+    sourceLanguage: "en",
+    bankAcceptanceMode: "BANK_ONLY",
+  };
+  assert.equal(isUnclassifiedEnglishBankOnlySource(source), true);
+  for (const invalid of [
+    { sourceLanguage: "pa" },
+    { sourceLanguage: "hi" },
+    { sourceLanguage: null },
+    { questionStatus: "draft" },
+    { approvedVersionId: "different-version" },
+    { bankAcceptanceMode: null },
+    { examVersionId: "exam-1" },
+  ]) {
+    assert.equal(isUnclassifiedEnglishBankOnlySource({ ...source, ...invalid }), false);
   }
 });
