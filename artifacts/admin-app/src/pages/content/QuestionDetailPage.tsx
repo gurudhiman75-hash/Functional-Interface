@@ -140,6 +140,8 @@ export function QuestionDetailPage() {
   const { id = '' } = useParams();
   const { hasPermission } = useAdminPermissions();
   const canEdit = hasPermission('content.questions.update');
+  const canTranslate = hasPermission('content.translations.update') ||
+    hasPermission('content.translations.review');
   const canApprove = hasPermission('content.questions.approve');
   const canArchive = hasPermission('content.questions.delete');
 
@@ -358,6 +360,17 @@ export function QuestionDetailPage() {
                 <ArrowLeft className="mr-1.5 h-4 w-4" /> Question Bank
               </Link>
             </Button>
+            {canTranslate && question.approvedVersionId &&
+              ['en', ''].includes(generationValue(
+                detail.versions.find((version) => version.id === question.approvedVersionId),
+                'language',
+              )) && (['hi', 'pa'] as const).map((language) => (
+                <Button key={language} asChild variant="outline" size="sm">
+                  <Link to={`/settings/languages?questionVersionId=${encodeURIComponent(question.approvedVersionId!)}&languageCode=${language}`}>
+                    {language === 'hi' ? 'Hindi translation' : 'Punjabi translation'}
+                  </Link>
+                </Button>
+              ))}
             <Button variant="outline" size="sm" onClick={() => void load()} disabled={saving}>
               <RefreshCw className="mr-1.5 h-4 w-4" /> Refresh
             </Button>
