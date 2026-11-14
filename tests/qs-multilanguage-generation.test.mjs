@@ -86,3 +86,34 @@ test('queues one run per language and retains keys across a partial submission f
   assert.equal(h.context.stagingAsyncRetry.current.size, 0);
   assert.ok(h.receipts.every(({ input }) => input.count === 23));
 });
+
+test('native AVG questions share one English review source instead of three unrelated language runs', async () => {
+  const h=harness();
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  await h.run();
+  assert.equal(h.calls.length,3);
+  assert.equal(h.calls.reduce((total,call)=>total+call.count,0),23);
+  assert.ok(h.calls.every(call=>call.language==='en'));
+  assert.equal(h.state.progress.requested,23);
+  assert.equal(h.errors.length,0);
+});
+
+test('native Interest grouping supports Hindi plus Punjabi with implicit English authority', async () => {
+  const h=harness(true);
+  h.context.activePackage={...h.context.activePackage,packageId:'INT-001'};
+  h.context.languages=['hi','pa'];
+  await h.run();
+  assert.equal(h.receipts.length,1);
+  assert.equal(h.receipts[0].input.language,'en');
+  assert.equal(h.state.queued.length,1);
+  assert.equal(h.state.queued[0].language,'en');
+});
+
+test('single-language Hindi remains independently generated to preserve language-only workflows', async () => {
+  const h=harness();
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  h.context.languages=['hi'];
+  await h.run();
+  assert.equal(h.calls.length,3);
+  assert.ok(h.calls.every(call=>call.language==='hi'));
+});
