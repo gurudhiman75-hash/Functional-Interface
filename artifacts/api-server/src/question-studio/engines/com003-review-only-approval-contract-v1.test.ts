@@ -48,7 +48,7 @@ const policySource = readFileSync(
   resolve(process.cwd(), "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"),
   "utf8",
 );
-assert(policySource.includes('questionBankStatus === "NOT_STORED" && questionBankWritable === false'));
+assert(policySource.includes('questionBankStatus === "NOT_STORED" || questionBankWritable === false'));
 assert(policySource.includes('mode: "review_only" as const'));
 assert.deepEqual(getGeneratedItemApprovalDisposition(persistedPayload, { manualApproval: true }), { mode: "question_bank", reason: null });
 
