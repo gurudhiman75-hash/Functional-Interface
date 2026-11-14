@@ -1,175 +1,168 @@
-import { useMemo, useState } from "react";
-import { Mail, Send, ShieldCheck } from "lucide-react";
-import { PublicCard, PublicPage, usePageMeta } from "@/components/PublicPage";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "wouter";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, CreditCard, FileText, Languages, LifeBuoy, Mail, Monitor, Plus, Send, ShieldCheck, UserRound, X } from "lucide-react";
+import { usePageMeta } from "@/components/PublicPage";
 import { API_BASE_URL } from "@/lib/api";
 import { getFirebaseAuth } from "@/lib/firebase";
+import { HelpQuestions, SupportLanguageSelector, useSupportLanguage } from "@/features/support/HelpContent";
+import { SUPPORT_CATEGORIES } from "@/features/support/content";
 
 const SUPPORT_EMAIL = "support@examtree.in";
-type SupportTicket = {id:string; category:string; message:string; status:string; publicReply:string; createdAt:string; updatedAt:string};
-const STATUS_LABEL:Record<string,string> = {open:"Open",in_progress:"In progress",resolved:"Resolved",closed:"Closed"};
+type SupportTicket = { id: string; category: string; message: string; status: string; publicReply: string; createdAt: string; updatedAt: string };
+type FormError = "nameError" | "emailError" | "messageError" | "sendError";
+const topicIcons = [UserRound, BookOpen, CreditCard, Languages, Monitor];
 
 export default function Contact() {
-  usePageMeta("Contact Us", "Contact ExamTree for support, billing, content reports, or partnership questions.");
+  const { language, setLanguage, copy: t } = useSupportLanguage();
+  usePageMeta(t.title, t.subtitle);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [category, setCategory] = useState("Mock test access");
+  const [category, setCategory] = useState<string>(SUPPORT_CATEGORIES[0]);
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
+  const [open, setOpen] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
   const [sending, setSending] = useState(false);
-  const [result, setResult] = useState<{type:"success"|"error";message:string}|null>(null);
-  const [fallback, setFallback] = useState(false);
+  const sendingRef = useRef(false);
+  const [error, setError] = useState<FormError | null>(null);
+  const [receivedId, setReceivedId] = useState("");
   const [tickets, setTickets] = useState<SupportTicket[] | null>(null);
   const [trackingBusy, setTrackingBusy] = useState(false);
-  const [trackingError, setTrackingError] = useState("");
-  const loadMyRequests = async () => {
-    const user = getFirebaseAuth()?.currentUser;
-    if (!user) {
-      setTrackingError("Sign in with the email used for your support request to view its status.");
-      return;
-    }
-    if (!user.emailVerified) {
-      setTrackingError("Verify your account email before viewing your support requests.");
-      return;
-    }
+  const [trackingError, setTrackingError] = useState<"trackingHint" | "verify" | "trackError" | null>(null);
+  const detailsRef = useRef<HTMLInputElement>(null);
+  const continueRef = useRef<HTMLButtonElement>(null);
+  const newRequestRef = useRef<HTMLButtonElement>(null);
+  const trackingRef = useRef(false);
+
+  // Switching language or closing/reopening the dialog does not discard a draft.
+  useEffect(() => {
+    if (open && step === 2 && !receivedId) detailsRef.current?.focus();
+  }, [open, step, receivedId]);
+
+  async function loadMyRequests() {
+    if (trackingRef.current) return;
+    trackingRef.current = true;
     setTrackingBusy(true);
-    setTrackingError("");
+    setTrackingError(null);
+    setTickets(null);
     try {
+      const auth = getFirebaseAuth();
+      await auth?.authStateReady();
+      const user = auth?.currentUser;
+      if (!user) { setTrackingError("trackingHint"); return; }
+      if (!user.emailVerified) { setTrackingError("verify"); return; }
       const token = await user.getIdToken();
       const response = await fetch(`${API_BASE_URL}/support/tickets/mine`, {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
+        headers: { Authorization: `Bearer ${token}` }, cache: "no-store",
       });
-      const body = await response.json().catch(() => ({})) as { tickets?:SupportTicket[]; error?:string };
-      if (!response.ok || !Array.isArray(body.tickets)) throw new Error(body.error || "Unable to load requests.");
-      setTickets(body.tickets);
-    } catch (error) {
-      setTrackingError(error instanceof Error ? error.message : "Unable to load requests.");
-    } finally { setTrackingBusy(false); }
-  };
+      const body = await response.json().catch(() => ({})) as { tickets?: SupportTicket[] };
+      if (!response.ok || !Array.isArray(body.tickets)) throw new Error("Support history unavailable");
+      // Do not reveal a previous account's history if auth changed during the fetch.
+      if (auth?.currentUser?.uid === user.uid) setTickets(body.tickets);
+    } catch { setTrackingError("trackError"); }
+    finally { trackingRef.current = false; setTrackingBusy(false); }
+  }
 
-  const submitTicket = async (event: React.FormEvent<HTMLFormElement>) => {
+  async function submitTicket(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (sending) return;
-    if (name.trim().length < 2) {
-      setResult({ type: "error", message: "Please enter your name (at least 2 characters)." });
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setResult({ type: "error", message: "Please enter a valid email address." });
-      return;
-    }
-    if (message.trim().length < 12) {
-      setResult({ type: "error", message: "Please describe your issue in at least 12 characters." });
-      return;
-    }
-    setSending(true); setResult(null); setFallback(false);
+    if (sendingRef.current) return;
+    if (name.trim().length < 2) { setError("nameError"); detailsRef.current?.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setError("emailError"); document.getElementById("support-email")?.focus(); return; }
+    if (message.trim().length < 12) { setError("messageError"); document.getElementById("support-message")?.focus(); return; }
+    sendingRef.current = true;
+    setSending(true); setError(null);
     try {
       const response = await fetch(`${API_BASE_URL}/support/tickets`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, category, message, website }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), category, message: message.trim(), website }),
       });
-      const body = await response.json().catch(() => ({})) as {id?:string;error?:string};
-      if (!response.ok || !body.id) throw new Error(body.error || "Unable to submit your request.");
-      setResult({type:"success", message:`Your request was received. Ticket ID: ${body.id}`});
-      setMessage("");
-      setTickets(null);
-    } catch (error) {
-      setFallback(true);
-      setResult({type:"error",message:error instanceof Error?error.message:"Support request unavailable. Please email us."});
-    } finally { setSending(false); }
-  };
+      const body = await response.json().catch(() => ({})) as { id?: string };
+      if (!response.ok || typeof body.id !== "string" || !body.id) throw new Error("Support submission unavailable");
+      setReceivedId(body.id); setMessage(""); setTickets(null);
+    } catch { setError("sendError"); }
+    finally { sendingRef.current = false; setSending(false); }
+  }
 
   const mailtoHref = useMemo(() => {
     const subject = `ExamTree support: ${category}`;
-    const body = [
-      `Name: ${name || "Not provided"}`,
-      `Reply email: ${email || "Not provided"}`,
-      `Issue category: ${category}`,
-      "",
-      message || "Please describe the issue here.",
-    ].join("\n");
+    const body = [`Name: ${name || "Not provided"}`, `Reply email: ${email || "Not provided"}`, `Issue category: ${category}`, `Help language: ${language}`, "", message || "Please describe the issue here."].join("\n");
     return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }, [category, email, message, name]);
+  }, [category, email, message, name, language]);
 
-  return (
-    <PublicPage
-      eyebrow="Contact & support"
-      title="Tell us what you need help with."
-      description="Submit a support request, or contact our team directly by email."
-    >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <form className="rounded-2xl border border-slate-200 bg-white p-5" onSubmit={submitTicket}>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <Label htmlFor="support-name">Name</Label>
-              <Input id="support-name" className="mt-1 rounded-md bg-white" placeholder="Your name" value={name} onChange={(event) => setName(event.target.value)} />
-            </div>
-            <div>
-              <Label htmlFor="support-email">Email</Label>
-              <Input id="support-email" className="mt-1 rounded-md bg-white" placeholder="you@example.com" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-            </div>
-          </div>
-          <div className="mt-4">
-            <Label htmlFor="support-category">Issue category</Label>
-            <select id="support-category" className="mt-1 h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm" value={category} onChange={(event) => setCategory(event.target.value)}>
-              <option>Mock test access</option>
-              <option>Payment or refund</option>
-              <option>Wrong answer or ambiguity</option>
-              <option>Punjabi / Hindi translation issue</option>
-              <option>Technical support</option>
-            </select>
-          </div>
-          <div className="mt-4">
-            <Label htmlFor="support-message">Message</Label>
-            <Textarea id="support-message" className="mt-1 min-h-32 rounded-md bg-white" placeholder="Share test name, question ID, or issue details." value={message} onChange={(event) => setMessage(event.target.value)} />
-          </div>
-          <div aria-hidden="true" className="absolute -left-[10000px]"><Label htmlFor="support-website">Website</Label><Input id="support-website" tabIndex={-1} autoComplete="off" value={website} onChange={(event)=>setWebsite(event.target.value)}/></div>
-          <p id="support-email-note" className="mt-4 text-sm leading-6 text-slate-600">Your request is stored securely for our support team. Never include passwords, OTPs or payment PINs.</p>
-          <p className="mt-2 text-sm text-slate-600">Enter your name, a valid email, and at least 12 characters describing your issue.</p>
-          <Button type="submit" disabled={sending} className="mt-4 rounded-md bg-[#1e1b4b] text-white hover:bg-indigo-950"><Send className="mr-2 h-4 w-4" />{sending ? "Submitting…" : "Submit support request"}</Button>
-          {result && <p role={result.type==="error"?"alert":"status"} className={`mt-3 text-sm ${result.type==="success"?"text-green-700":"text-red-700"}`}>{result.message}</p>}
-          {fallback && <p className="mt-2 text-sm">If direct submission is unavailable, <a className="font-semibold underline" href={mailtoHref} data-testid="contact-email-handoff">open an email request</a> instead. Sending the email is required; no ticket was created.</p>}
-          {!fallback && <p className="mt-2 text-sm"><a className="inline-flex min-h-11 items-center rounded-md px-3 underline" href={mailtoHref} data-testid="contact-email-handoff">Prefer email? Open your email app</a></p>}
-        </form>
-        <div className="space-y-4">
-          <PublicCard title="Track a support request">
-            <p className="text-sm text-slate-600">Sign in with a verified account email matching your request. Ticket IDs alone do not grant access.</p>
-            <button type="button" className="mt-3 min-h-11 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 disabled:opacity-50" disabled={trackingBusy} onClick={() => void loadMyRequests()}>{trackingBusy ? "Loading…" : "View my support requests"}</button>
-            {trackingError && <p role="alert" className="mt-2 text-sm text-red-700">{trackingError}</p>}
-            {tickets && <div className="mt-3 space-y-3" aria-label="My support requests">
-              {tickets.length === 0 && <p className="text-sm text-slate-600">No requests found for your verified email.</p>}
-              {tickets.map(ticket => <div key={ticket.id} className="rounded-lg border border-slate-200 p-3">
-                <div className="flex flex-wrap items-center justify-between gap-2"><strong className="text-sm">{ticket.category}</strong><span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold">{STATUS_LABEL[ticket.status] || ticket.status}</span></div>
-                <p className="mt-1 break-all text-xs text-slate-500">Ticket {ticket.id}</p>
-                <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{ticket.message}</p>
-                {ticket.publicReply && <div className="mt-2 rounded-md bg-slate-50 p-3"><strong className="text-sm">Support team reply</strong><p className="whitespace-pre-wrap text-sm">{ticket.publicReply}</p></div>}
-              </div>)}
-            </div>}
-          </PublicCard>
-          <PublicCard title="Business information">
-            <p><strong>Website / brand:</strong> ExamTree</p>
-            <p className="mt-1"><strong>Legal business name:</strong> Baljit Kaur</p>
-          </PublicCard>
-          <PublicCard title="Support email">
-            <div className="flex items-center gap-2 font-semibold text-slate-950">
-              <Mail className="h-4 w-4 text-teal-600" />
-              <a className="underline-offset-4 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-            </div>
-            <p className="mt-2">Include screenshots for rendering or payment issues when they help explain the problem, after redacting sensitive information.</p>
-          </PublicCard>
-          <PublicCard title="What to include">
-            <div className="flex items-center gap-2 font-semibold text-slate-950">
-              <ShieldCheck className="h-4 w-4 text-indigo-700" />
-              Share only the details needed to identify the issue.
-            </div>
-            <p className="mt-2">For payments include the provider reference, date, and amount. Never send passwords, OTPs, UPI PINs, full card numbers, or CVV codes.</p>
-          </PublicCard>
-        </div>
+  function openRequest() { setReceivedId(""); setError(null); setStep(1); setOpen(true); }
+  const categoryLabel = (value: string) => {
+    const index = SUPPORT_CATEGORIES.findIndex(item => item === value);
+    return index < 0 ? value : t.categoryLabels[index];
+  };
+  const statusLabel = (value: string) => Object.hasOwn(t.status, value) ? t.status[value as keyof typeof t.status] : t.status.unknown;
+
+  return <div className="support-page" lang={language}>
+    <div className="support-topline"><span className="support-eyebrow">{t.eyebrow}</span><SupportLanguageSelector language={language} onChange={setLanguage} /></div>
+    <header className="support-hero">
+      <div><h1>{t.title}</h1><p>{t.subtitle}</p><div className="support-actions">
+        <button ref={newRequestRef} type="button" className="support-button support-button-gold" onClick={openRequest}><Plus size={18} aria-hidden="true" />{t.newRequest}</button>
+        <a className="support-button" href="#help-questions"><BookOpen size={18} aria-hidden="true" />{t.browse}</a>
+      </div></div>
+      <div className="support-hero-icon" aria-hidden="true"><LifeBuoy size={52} strokeWidth={1.2} /></div>
+    </header>
+    <div className="support-columns">
+      <div className="min-w-0">
+        <section className="support-panel" aria-labelledby="support-requests-title" aria-busy={trackingBusy}>
+          <div className="support-section-heading"><FileText size={20} aria-hidden="true" /><h2 id="support-requests-title">{t.requests}</h2></div>
+          <p className="support-muted">{t.requestsHint}</p>
+          {tickets === null && !trackingError && <div className="support-empty"><FileText size={26} aria-hidden="true" /><p className="support-muted">{t.trackingHint}</p></div>}
+          <button type="button" className="support-button mt-4" disabled={trackingBusy} onClick={() => void loadMyRequests()}>{trackingBusy ? t.loading : tickets === null ? t.load : t.refresh}</button>
+          {trackingError && <div className="support-notice" role="alert">{t[trackingError]}{trackingError === "trackingHint" && <><br /><Link href="/login/student" className="support-inline-link">{t.signIn}<ArrowRight size={16} aria-hidden="true" /></Link></>}</div>}
+          {tickets && <div aria-label={t.requests}>
+            <p className="support-muted mt-4">{tickets.length ? t.original : t.empty}</p>
+            {tickets.map(ticket => <article key={ticket.id} className="support-ticket">
+              <div className="support-ticket-head"><h3>{categoryLabel(ticket.category)}</h3><span className="support-status" data-status={ticket.status}>{statusLabel(ticket.status)}</span></div>
+              <p className="support-muted mt-1">{t.ticket}: <bdi>{ticket.id}</bdi></p>
+              <p className="support-ticket-message" dir="auto">{ticket.message}</p>
+              {ticket.publicReply && <div className="support-reply"><strong>{t.reply}</strong><p dir="auto">{ticket.publicReply}</p></div>}
+            </article>)}
+          </div>}
+        </section>
+        <HelpQuestions language={language} />
       </div>
-    </PublicPage>
-  );
+      <aside className="support-sidebar">
+        <section className="support-panel" aria-labelledby="support-topics-title"><h2 id="support-topics-title" className="mb-3">{t.topics}</h2>
+          {t.topicLabels.map((label, index) => { const Icon = topicIcons[index]; return <div className="support-topic-row" key={index}><Icon size={19} aria-hidden="true" /><div><strong>{label}</strong><p>{t.topicDescriptions[index]}</p></div></div>; })}
+        </section>
+        <section className="support-panel support-email-panel"><Mail size={24} aria-hidden="true" /><h2>{t.emailTitle}</h2><p className="support-muted">{t.emailHint}</p><a href={`mailto:${SUPPORT_EMAIL}`} className="support-inline-link">{SUPPORT_EMAIL}</a></section>
+        <details className="support-business"><summary>{t.business}</summary><p>{t.brand}: ExamTree</p><p>{t.legal}: Baljit Kaur</p></details>
+      </aside>
+    </div>
+    <DialogPrimitive.Root open={open} onOpenChange={value => { if (!sendingRef.current) setOpen(value); }}>
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm" />
+        <DialogPrimitive.Content lang={language} className="support-dialog fixed left-1/2 top-1/2 z-50 max-h-[90dvh] w-[calc(100%-24px)] max-w-xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-7" onCloseAutoFocus={event => { event.preventDefault(); newRequestRef.current?.focus(); }}>
+          <SupportLanguageSelector language={language} onChange={setLanguage} />
+          <DialogPrimitive.Close aria-label={t.close} disabled={sending} className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"><X size={20} aria-hidden="true" /></DialogPrimitive.Close>
+          <DialogPrimitive.Title className="mt-5 text-xl font-bold leading-relaxed">{t.formTitle}</DialogPrimitive.Title>
+          <DialogPrimitive.Description className="support-muted mt-1">{t.formHint}</DialogPrimitive.Description>
+          {receivedId ? <div className="support-success" role="status"><CheckCircle2 size={44} aria-hidden="true" /><p>{t.received}<br /><strong>{receivedId}</strong></p><DialogPrimitive.Close className="support-button support-button-navy">{t.done}</DialogPrimitive.Close></div> : <>
+            <div className="support-stepper"><span aria-current={step === 1 ? "step" : undefined}><b>1</b>{t.issueStep}</span><span aria-hidden="true">→</span><span aria-current={step === 2 ? "step" : undefined}><b>2</b>{t.detailsStep}</span></div>
+            {step === 1 ? <div><fieldset><legend className="text-sm font-semibold">{t.choose}</legend><div className="support-categories">
+              {SUPPORT_CATEGORIES.map((value, index) => <label key={value}><input type="radio" name="support-category" value={value} checked={category === value} onChange={() => setCategory(value)} />{t.categoryLabels[index]}</label>)}
+            </div></fieldset><button ref={continueRef} type="button" className="support-button support-button-navy w-full" onClick={() => setStep(2)}>{t.next}<ArrowRight size={17} aria-hidden="true" /></button></div> : <form onSubmit={submitTicket} noValidate>
+              <fieldset disabled={sending} className="support-form-fields">
+                <div className="grid gap-4 sm:grid-cols-2"><div><label htmlFor="support-name">{t.name}</label><input ref={detailsRef} id="support-name" autoComplete="name" maxLength={120} required placeholder={t.namePlaceholder} value={name} onChange={event => setName(event.target.value)} aria-invalid={error === "nameError"} aria-describedby={error === "nameError" ? "support-form-error" : undefined} /></div>
+                <div><label htmlFor="support-email">{t.email}</label><input id="support-email" type="email" autoComplete="email" maxLength={254} required placeholder="you@example.com" value={email} onChange={event => setEmail(event.target.value)} aria-invalid={error === "emailError"} aria-describedby={error === "emailError" ? "support-form-error" : undefined} /></div></div>
+                <div><label htmlFor="support-category">{t.category}</label><select id="support-category" value={category} onChange={event => setCategory(event.target.value)}>{SUPPORT_CATEGORIES.map((value, index) => <option key={value} value={value}>{t.categoryLabels[index]}</option>)}</select></div>
+                <div><label htmlFor="support-message">{t.message}</label><textarea id="support-message" required maxLength={5000} placeholder={t.messagePlaceholder} value={message} onChange={event => setMessage(event.target.value)} aria-invalid={error === "messageError"} aria-describedby={error === "messageError" ? "support-form-error support-email-note" : "support-email-note"} /></div>
+                <div aria-hidden="true" className="absolute -left-[10000px]"><label htmlFor="support-website">Website</label><input id="support-website" tabIndex={-1} autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} /></div>
+                <p className="support-form-hint">{t.detailsHint}</p>
+                <p id="support-email-note" className="support-muted flex gap-2"><ShieldCheck size={18} className="shrink-0" aria-hidden="true" />{t.privacy}</p>
+              </fieldset>
+              {error && <p id="support-form-error" role="alert" className="support-notice">{t[error]}{error === "sendError" && <span className="mt-2 block">{t.fallback}</span>}</p>}
+              <div className="mt-5 flex flex-wrap gap-3"><button type="button" className="support-button" disabled={sending} onClick={() => { setStep(1); setError(null); requestAnimationFrame(() => continueRef.current?.focus()); }}><ArrowLeft size={17} aria-hidden="true" />{t.back}</button><button type="submit" className="support-button support-button-navy flex-1" disabled={sending}><Send size={17} aria-hidden="true" />{sending ? t.sending : t.submit}</button></div>
+              <a className="support-inline-link mt-3" href={mailtoHref} data-testid="contact-email-handoff"><Mail size={17} aria-hidden="true" />{t.emailAction}</a>
+            </form>}
+          </>}
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
+  </div>;
 }

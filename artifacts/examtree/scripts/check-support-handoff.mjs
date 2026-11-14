@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const contact = fs.readFileSync(fileURLToPath(new URL("../src/pages/contact.tsx", import.meta.url)), "utf8");
+const supportContent = fs.readFileSync(fileURLToPath(new URL("../src/features/support/content.ts", import.meta.url)), "utf8");
 const report = fs.readFileSync(fileURLToPath(new URL("../src/pages/report-question.tsx", import.meta.url)), "utf8");
 const proof = fs.readFileSync(fileURLToPath(new URL("../../../scripts/e2e/tests/student-support-handoff.spec.ts", import.meta.url)), "utf8");
 const pkg = JSON.parse(fs.readFileSync(fileURLToPath(new URL("../package.json", import.meta.url)), "utf8"));
@@ -16,8 +17,10 @@ for (const [name, source] of [["contact", contact], ["report", report]]) {
   if (name === "report") assert.match(source, /Nothing is (uploaded|submitted) to ExamTree until you review and send the email\./, `${name} must explain that no server submission occurs`);
   else {
     assert.match(source, /support\/tickets/, "contact must submit via the ticket endpoint");
-    assert.match(source, /Your request was received/, "contact must confirm successful server receipt");
-    assert.match(source, /Sending the email is required; no ticket was created/, "contact must explain email fallback");
+    assert.match(supportContent, /Your request was received/, "contact must confirm successful server receipt");
+    assert.match(supportContent, /Sending the email is required; no ticket was created/, "contact must explain email fallback");
+    assert.match(source, /t\.received/, "contact must render its localized receipt");
+    assert.match(source, /t\.fallback/, "contact must render its localized email fallback");
   }
   assert.match(source, /h-11|min-h-11|data-testid=/, `${name} must retain a 44px-class actionable handoff`);
 }
