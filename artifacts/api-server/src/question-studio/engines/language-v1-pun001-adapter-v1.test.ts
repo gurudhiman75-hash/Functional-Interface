@@ -133,6 +133,32 @@ for (const question of chapter.questions) {
   assert.equal(question.publiclyPublishable, false);
 }
 
+// Punjabi-native stem regression: context labels must form readable, complete questions.
+// These checks use the same public adapter as Question Studio, not private generators.
+for (const [selector, expected, forbidden] of [
+  ["PUN-001-CP003-F04", "ਹੇਠਾਂ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ", "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ"],
+  ["PUN-001-CP003-F06", "ਹੇਠਾਂ ਦਿੱਤੇ ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ", "ਪੜਨਾਂਵ ਪੜਨਾਂਵ"],
+  ["PUN-001-CP004-F07", "ਦੇ ਅਨੁਸਾਰ", "ਦਾ ਸਹੀ ਮਿਲਾਪ"],
+] as const) {
+  const result = await languageV1Pun001QuestionStudioAdapterV1.generate({
+    packageId: "PUN-001",
+    canonicalProblemId: selector,
+    language: "pa",
+    difficulty: "Medium",
+    count: 4,
+    seed: "pun001-native-stem-regression",
+  });
+  assert.equal(result.questions.length, 4);
+  for (const question of result.questions) {
+    const stem = String(question.stem);
+    assert.ok(stem.includes(expected), `${selector} should use native Punjabi wording: ${stem}`);
+    assert.ok(!stem.includes(forbidden), `${selector} has obsolete wording: ${stem}`);
+    assert.equal((question.options as string[]).length, 4);
+    assert.ok(Number.isInteger(question.correctIndex));
+    assert.ok(String(question.explanation).trim());
+  }
+}
+
 await assert.rejects(
   () =>
     languageV1Pun001QuestionStudioAdapterV1.generate({
