@@ -287,6 +287,23 @@ export function ownerOfInt001PermanentQl(qlId: string) {
   return qlOwnerMap.get(String(qlId).toUpperCase()) ?? null;
 }
 
+/**
+ * Rebuild the existing locale of one exact permanent Interest QL/seed.
+ * Used only for equality-checked canonical translation drafts; never
+ * substitutes another QL or invents an unapproved localization.
+ */
+export async function generateInt001ExistingLocalizedQuestion(
+  qlId: string,
+  seed: string,
+  language: Int001ChapterAdminLanguage,
+) {
+  const canonicalQl = qlOf(qlId);
+  if (!canonicalQl || !seed.trim()) throw new Error("Interest localization requires an exact QL and seed.");
+  const owner = qlOwnerMap.get(canonicalQl);
+  if (!owner) throw new Error("Interest localization QL owner is missing.");
+  return normalizeQuestion(await sourceQuestion(canonicalQl, language, seed), owner, canonicalQl, language, seed);
+}
+
 export async function generateInt001ChapterAdminQuestionStudioBatch(request: Int001ChapterAdminRequest = {}) {
   const language = languageOf(request.language);
   const checkpointId = checkpointOf(request.checkpointId ?? request.cpId);
