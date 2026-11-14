@@ -251,6 +251,7 @@ export function QuestionStudioCockpitPage() {
   const [languages, setLanguages] = useState<string[]>(['en']);
   const [queuedLanguageRuns, setQueuedLanguageRuns] = useState<Array<{ id: string; publicCode: string; language: string }>>([]);
   const [count, setCount] = useState(10);
+  const [bankingFiveOptionPilot, setBankingFiveOptionPilot] = useState(false);
   const [bulkProgress, setBulkProgress] = useState<{ completed: number; requested: number; runs: string[] } | null>(null);
   const [bulkBusy, setBulkBusy] = useState(false);
   const [bulkAsyncSelected, setBulkAsyncSelected] = useState(false);
@@ -750,6 +751,24 @@ export function QuestionStudioCockpitPage() {
       return;
     }
     const cpIds = [...selectedCpIds];
+    const selectedExamName = EXAMS.find((entry) => entry.code === exam)?.name ?? exam;
+    const bankingRcPilotEligible =
+      activePackage.packageId === 'english-eng008-reading-comprehension-v1'
+      && /\\b(sbi|ibps|banking|bank|rrb)\\b/i.test(selectedExamName)
+      && languages.length === 1 && languages[0] === 'en'
+      && (/\\b(mains|main)\\b/i.test(selectedExamName)
+        ? [8, 10].includes(count) : [8, 9, 10].includes(count))
+      && (cpIds.length === 0 || (cpIds.length === 1 && cpIds[0] === 'ENG-008-CP006'));
+    if (bankingFiveOptionPilot && !bankingRcPilotEligible) {
+      showToast.error('Five-option RC pilot is limited',
+        'Select a banking exam and English; Prelims supports 8–10 questions and Mains 8 or 10. Select no CP filter (or ENG-008-CP006 only).');
+      return;
+    }
+    if (bankingFiveOptionPilot && bulkAsyncMode) {
+      showToast.error('Pilot supports one passage only',
+        'Disable durable bulk review for the five-option RC pilot.');
+      return;
+    }
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected && !bulkAsyncMode &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
       showToast.error('Invalid batch size', `Choose 1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions for a chapter review batch.`);
@@ -766,6 +785,7 @@ export function QuestionStudioCockpitPage() {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const input: CreateGenerationRunInput = {
         exam: selectedExam?.name ?? exam,
+        optionCount: bankingFiveOptionPilot ? 5 : undefined,
         engineId: activePackage.engineId,
         subject: packageSubject(activePackage),
         difficulty: difficultyFilterSupported ? difficulty : 'Mixed',
@@ -1305,6 +1325,12 @@ export function QuestionStudioCockpitPage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <Field label="Exam profile"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
+            {activePackage?.packageId === 'english-eng008-reading-comprehension-v1' && /\\b(sbi|ibps|banking|bank|rrb)\\b/i.test(EXAMS.find(entry=>entry.code===exam)?.name ?? exam) ? (
+              <label className="flex items-center gap-2 rounded-md border px-3 py-2 text-xs">
+                <Checkbox checked={bankingFiveOptionPilot} onCheckedChange={v=>setBankingFiveOptionPilot(v===true)} />
+                Pilot: five options (A–E), one vetted banking passage only
+              </label>
+            ) : null}
             {difficultyFilterSupported ? (
               <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedDifficulties.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
             ) : (

@@ -36,5 +36,15 @@ assert.equal(sscMixed.questions.length,20);
 assert.ok(sscMixed.questions.every(q=>q.setId&&q.passageId&&q.setQuestionIndex));
 await assert.rejects(()=>languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:7,seed:"eng008:invalid-partition"}),/cannot form complete linked RC sets/i);
 
+const opt5Prelims=await languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",canonicalProblemId:"ENG-008-CP006",count:10,optionCount:5,seed:"pilot-sbi-5"});
+assert.equal(opt5Prelims.questions.length,10);
+assert.equal(new Set(opt5Prelims.questions.map(q=>q.passageId)).size,1);
+assert.ok(opt5Prelims.questions.every(q=>(q.options as string[]).length===5));
+assert.ok(opt5Prelims.questions.every(q=>Number(q.correctIndex)>=0&&Number(q.correctIndex)<5));
+const opt5Mains=await languageV1QuestionStudioAdapter.generate({...base,exam:"IBPS PO Mains",canonicalProblemId:"ENG-008-CP006",count:10,optionCount:5,seed:"pilot-ibps-5"});
+assert.ok(opt5Mains.questions.every(q=>(q.options as string[]).length===5));
+await assert.rejects(()=>languageV1QuestionStudioAdapter.generate({...base,exam:"SSC CGL",count:6,optionCount:5,seed:"ssc-disallowed"}),/only for banking/i);
+await assert.rejects(()=>languageV1QuestionStudioAdapter.generate({...base,exam:"SBI PO",count:1,optionCount:5,seed:"banking-single-disallowed"}),/requires a complete linked passage set/i);
+
 await assert.rejects(languageV1Eng008QuestionStudioAdapterV1.generate({...base,language:"hi",count:1}),/English only/i);await assert.rejects(languageV1Eng008QuestionStudioAdapterV1.generate({...base,runtimeMode:"production",count:1}),/review-only/i);
 console.log("ENG-008 CP001 Question Studio review-only lifecycle tests passed.");

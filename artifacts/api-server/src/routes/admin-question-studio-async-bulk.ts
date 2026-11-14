@@ -21,7 +21,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{1
 const TOP = new Set(["request","count","selectedCpIds","examProfileId","difficultyPreset",
   "difficultyDistribution","forwardLegacyExamProfile","difficultyFilterSupported"]);
 const REQUEST = new Set(["engineId","packageId","canonicalProblemId","questionLanguageId","exam",
-  "examProfile","subject","topic","subtopic","language","difficulty","count","runtimeMode","patternId"]);
+  "examProfile","subject","topic","subtopic","language","difficulty","count","runtimeMode","patternId","optionCount"]);
 const finished = new Set(["review","approved","partially_approved"]);
 function object(value: unknown): value is Record<string,unknown> {
   return !!value && typeof value === "object" && !Array.isArray(value);
