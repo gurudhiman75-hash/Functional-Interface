@@ -132,6 +132,13 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-translation-operations.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-translation-operations.test.mjs
           node artifacts/api-server/dist/admin-translation-operations.test.mjs
 
+      - name: Test native same-seed localized question identity
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/native-linked-localization.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/native-linked-localization.test.mjs
+          node artifacts/api-server/dist/native-linked-localization.test.mjs
+
       - name: Typecheck admin application
         run: pnpm run typecheck:admin
 
