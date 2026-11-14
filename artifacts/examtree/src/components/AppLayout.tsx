@@ -4,6 +4,7 @@ import { AlertTriangle, RefreshCw } from "lucide-react";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { StickyHeader } from "@/components/StickyHeader";
+import "@/styles/learner-motion.css";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 interface AppLayoutProps {
@@ -63,6 +64,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <SidebarInset className="min-w-0 overflow-x-clip">
         <CatalogAwareHeader />
         <main
+          key={location}
           id="main-content"
           tabIndex={-1}
           className="et-page-content flex flex-1 flex-col gap-6 bg-transparent px-4 pb-5 pt-24 transition-[padding] duration-200 sm:px-6 sm:pb-7 sm:pt-28 lg:px-8"

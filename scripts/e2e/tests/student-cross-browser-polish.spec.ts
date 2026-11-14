@@ -235,3 +235,35 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(["chromium", "firefox", "webkit"]).toContain(browserName);
   });
 });
+
+test("learner motion keeps chrome steady and respects reduced motion", async ({ page }) => {
+  await installFixtures(page);
+  await page.addInitScript(() => window.localStorage.setItem("user", JSON.stringify({
+    id: "e2e-student", email: "student.e2e@examtree.local", name: "E2E Student", role: "student",
+  })));
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/dashboard");
+  const main = page.locator("main#main-content");
+  await expect(page.getByTestId("student-dashboard")).toBeVisible();
+  await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("et-learner-arrive");
+  await expect.poll(() => main.evaluate(el => getComputedStyle(el).transform)).toBe("none");
+  const header = page.locator(".et-shell-header");
+  const headerBefore = await header.boundingBox();
+  const explore = page.getByRole("link", { name: "Explore exams", exact: true });
+  await expect.poll(() => explore.evaluate(el => getComputedStyle(el).transitionDuration)).toBe("0.16s");
+  await explore.hover();
+  const headerAfter = await header.boundingBox();
+  expect(headerAfter?.y).toBe(headerBefore?.y);
+  await explore.click();
+  await expect(page).toHaveURL(/\/exams$/);
+  await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("et-learner-arrive");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  const sidebarLink = page.getByRole("link", { name: "Test series", exact: true });
+  await sidebarLink.hover();
+  await expect.poll(() => sidebarLink.evaluate(el => getComputedStyle(el).transitionDuration)).toBe("0s");
+  await expect.poll(() => sidebarLink.evaluate(el => getComputedStyle(el).transform)).toBe("none");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expectNoHorizontalOverflow(page);
+});
