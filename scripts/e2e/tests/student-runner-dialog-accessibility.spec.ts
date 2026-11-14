@@ -212,3 +212,40 @@ test.describe("CP02 runner dialog accessibility", () => {
     await expect(page.getByText("Question No 1")).toBeVisible();
   });
 });
+
+
+test("submission freezes controls until the request settles", async ({ page }) => {
+  await openRunner(page);
+  let requestCount = 0;
+  let releaseSubmission!: () => void;
+  const pending = new Promise<void>(resolve => { releaseSubmission = resolve; });
+  await page.route("**/api/attempts", async route => {
+    if (route.request().method() !== "POST") return route.fallback();
+    requestCount += 1;
+    await pending;
+    await fulfillJson(route, { error: "Submission unavailable" }, 503);
+  });
+  try {
+    await page.getByRole("button", { name: "Submit test", exact: true }).click();
+    await page.getByTestId("btn-confirm-submit").click();
+    const progress = page.getByTestId("submission-progress");
+    await expect(progress).toBeVisible();
+    await expect(progress).toBeFocused();
+    await expect.poll(() => requestCount).toBe(1);
+    const controls = page.locator('fieldset[aria-label="Test controls"]');
+    await expect(controls).toBeDisabled();
+    await expect(controls).toHaveAttribute("inert");
+    expect(await controls.locator("button, select, input").evaluateAll(elements =>
+      elements.every(element => element.matches(":disabled")),
+    )).toBe(true);
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Escape");
+    await expect(progress).toBeFocused();
+    await expect(progress).toBeVisible();
+    expect(requestCount).toBe(1);
+  } finally {
+    releaseSubmission();
+  }
+  await expect(page).toHaveURL(/\/result\?/);
+  await expect(page.getByTestId("submission-progress")).toBeHidden();
+});

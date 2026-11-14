@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useParams, useSearch } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -137,6 +137,12 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [questionOpenedAt, setQuestionOpenedAt] = useState<number>(() => Date.now());
   const [attemptRecordId] = useState<string>(() => `${test.id}_${getUser()?.id ?? "anon"}_${Date.now()}`);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const submissionInFlight = useRef(false);
+  const submissionStatus = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isSubmitting) submissionStatus.current?.focus();
+  }, [isSubmitting]);
 
   // ── Language availability ──────────────────────────────────────────────────
   // Priority 1: explicit config (subcategory or test) with > 1 lang
@@ -499,7 +505,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     const handlePopState = () => {
       // Re-push so the guard stays active if user dismisses the modal
       window.history.pushState({ testGuard: true }, "");
-      setShowPauseModal(true);
+      if (!submissionInFlight.current) setShowPauseModal(true);
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -509,7 +515,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   }, [shouldProtectAttempt]);
 
   const handleSubmit = useCallback(async () => {
-    if (isSubmitting) return;
+    if (submissionInFlight.current) return;
+    submissionInFlight.current = true;
     setIsSubmitting(true);
     try {
     const timeSpent = hasSectionalTiming
@@ -592,6 +599,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       setLocation(`/result?testId=${encodeURIComponent(test.id)}`);
     }
     } finally {
+      submissionInFlight.current = false;
       setIsSubmitting(false);
     }
   }, [
@@ -615,10 +623,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   ]);
 
   useEffect(() => {
-    // Don't run timer in practice mode
-    if (attemptType === "PRACTICE") return;
+    // Freeze the attempt snapshot while the submission request is in flight.
+    if (attemptType === "PRACTICE" || isSubmitting) return;
 
     const interval = setInterval(() => {
+      if (submissionInFlight.current) return;
       if (hasSectionalTiming) {
         setSectionTimeLeftByName((current) => {
           const activeSectionName = effectiveSections[currentSectionIndex]?.name ?? "";
@@ -642,10 +651,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [attemptType, currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, effectiveSections]);
+  }, [attemptType, isSubmitting, currentSectionIndex, getSectionLimitSeconds, handleSubmit, hasSectionalTiming, effectiveSections]);
 
   useEffect(() => {
-    if (!hasSectionalTiming) return;
+    if (!hasSectionalTiming || isSubmitting) return;
     if (sectionTimeLeft > 0) return;
 
     if (currentSectionIndex < effectiveSections.length - 1) {
@@ -656,7 +665,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     }
 
     handleSubmit();
-  }, [currentSectionIndex, handleSubmit, hasSectionalTiming, sectionTimeLeft, effectiveSections.length]);
+  }, [isSubmitting, currentSectionIndex, handleSubmit, hasSectionalTiming, sectionTimeLeft, effectiveSections.length]);
 
   const goToPrevious = () => {
     if (currentQuestionIndex > 0) {
@@ -818,7 +827,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     totalQuestions > 0 ? Math.min(100, Math.round((currentQuestionNumber / totalQuestions) * 100)) : 0;
 
   return (
-    <div className={`relative isolate z-[200] min-h-screen text-gray-900 ${isTcsInterface ? "tcs-ion-console bg-white" : "bg-gray-100"}`} data-test-interface={interfaceVariant}>
+    <>
+    <fieldset disabled={isSubmitting} inert={isSubmitting} className="contents" aria-label="Test controls">
+    <div className={`relative isolate z-[200] min-h-screen text-gray-900 ${isTcsInterface ? "tcs-ion-console bg-white" : "bg-gray-100"}`} data-test-interface={interfaceVariant} aria-busy={isSubmitting}>
       {attemptType === "PRACTICE" && !wrongOnly && !sectionParam && (
         <div className="fixed top-4 left-1/2 z-[300] -translate-x-1/2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-800 shadow-md">
           Practice Mode &mdash; answers will not count toward your score
@@ -1558,6 +1569,19 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       )}
     </div>
+    </fieldset>
+      {isSubmitting && (
+        <div className="fixed inset-0 z-[500] flex items-center justify-center bg-slate-950/60 p-4">
+          <div ref={submissionStatus} role="dialog" aria-modal="true" aria-labelledby="submission-heading"
+            aria-describedby="submission-description" tabIndex={-1} data-testid="submission-progress"
+            onKeyDown={event => { if (event.key === "Tab" || event.key === "Escape") event.preventDefault(); }}
+            className="w-full max-w-sm rounded-lg border border-slate-200 bg-white p-6 text-center shadow-xl outline-none">
+            <h2 id="submission-heading" className="text-lg font-semibold">Submitting your test…</h2>
+            <p id="submission-description" role="status" className="mt-2 text-sm text-slate-600">Please wait while we save your answers. Test controls are temporarily disabled.</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
