@@ -104,7 +104,15 @@ export async function onRequest({ request, env = {} }) {
   ].some((prefix) => incoming.pathname === prefix || incoming.pathname.startsWith(prefix + "/"));
   const adminFinanceRenderBridge = incoming.pathname === "/api/admin/commerce" ||
     incoming.pathname.startsWith("/api/admin/commerce/");
-  const adminUseCloudRun = adminCloudRunEnabled || (deterministicAdminEnabled && deterministicAdminPath);
+  // Approved Question Studio items are reconciled into the canonical bank by
+  // the same Cloud Run backend that accepts them. Route only this authenticated
+  // mutation; keep ordinary Question Bank CRUD and all other admin paths on
+  // their existing upstream during the deterministic admin handover.
+  const manualApprovedReconciliationPath =
+    incoming.pathname === "/api/admin/questions/reconcile-approved" &&
+    request.method === "POST";
+  const adminUseCloudRun = adminCloudRunEnabled ||
+    (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
     (adminRenderBridge && (!adminUseCloudRun || adminFinanceRenderBridge)) ||
     /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
@@ -139,6 +147,9 @@ export async function onRequest({ request, env = {} }) {
   const actualUpstream =
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
     qsAdminOrigin ||
+    // One exact admin mutation is promoted ahead of the legacy Render bridge.
+    // It must remain opt-in and must never expand other question/admin routes.
+    (deterministicAdminEnabled && manualApprovedReconciliationPath ? upstreamOrigin : null) ||
     (financialHandoverPath && !financeCloudRunEnabled ? LEGACY_API_ORIGIN : upstreamOrigin);
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
