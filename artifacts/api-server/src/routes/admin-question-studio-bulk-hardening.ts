@@ -301,6 +301,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
               tx as QuestionSqlExecutor,
               itemId,
               actorUserId,
+              { manualBankOnly: true },
             );
             if (!convertedQuestion) {
               throw Object.assign(new Error("Approved item could not be converted to Question Bank"), { code: "CONVERSION_FAILED" });
