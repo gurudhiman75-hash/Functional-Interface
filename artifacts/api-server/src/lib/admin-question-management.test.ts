@@ -172,6 +172,57 @@ test("normalizes generated questions before canonical conversion", () => {
   assert.equal(normalized.options.length, 3);
 });
 
+test("manual approval stores legacy chapter questions as private bank-only items", () => {
+  for (const [packageId, questionBankStatus] of [
+    ["PUN-001", "REVIEW_ONLY"],
+    ["AVG-001", "REVIEW_ONLY"],
+    ["INT-001", "NOT_STORED"],
+  ]) {
+    const payload = {
+      packageId,
+      text: "What is the correct answer?",
+      explanation: "The second option is correct.",
+      options: ["Incorrect", "Correct", "Also incorrect", "Incorrect again"],
+      correctIndex: 1,
+      questionBankStatus,
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      publiclyPublishable: false,
+      generationContext: { language: "pa", questionBankStatus, questionBankWritable: false },
+    };
+    assert.throws(() => normalizeGeneratedQuestionPayload(payload, {
+      itemId: "item-legacy",
+      generationRunCode: "GEN-LEGACY",
+    }), /Question Bank/);
+    const normalized = normalizeGeneratedQuestionPayload(payload, {
+      itemId: "item-approved",
+      generationRunCode: "GEN-APPROVED",
+    }, { manualBankOnly: true });
+    const generation = normalized.answerModel.generation as Record<string, unknown>;
+    assert.equal(generation.sourceQuestionBankStatus, questionBankStatus);
+    assert.equal(generation.sourceQuestionBankWritable, false);
+    assert.equal(generation.questionBankStatus, "READY_FOR_STORAGE");
+    assert.equal(generation.questionBankWritable, true);
+    assert.equal(generation.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(generation.questionBankAcceptanceAuthority, "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1");
+    assert.equal(generation.testEligible, false);
+    assert.equal(generation.mockTestEligible, false);
+    assert.equal(generation.publiclyPublishable, false);
+    assert.equal(generation.automaticStudentPublication, false);
+    assert.equal(generation.productionReleaseAuthorized, false);
+    assert.equal(normalized.correctIndex, 1);
+  }
+});
+
+test("manual storage still rejects invalid answer models", () => {
+  assert.throws(() => normalizeGeneratedQuestionPayload({
+    text: "Invalid",
+    options: ["A"],
+    correctIndex: 8,
+    questionBankWritable: false,
+  }, { itemId: "item-bad", generationRunCode: "GEN-BAD" }, { manualBankOnly: true }), /invalid option model/);
+});
+
 test("creates stable-format public question codes", () => {
   const code = questionPublicCode(
     new Date("2026-07-16T00:00:00.000Z"),
