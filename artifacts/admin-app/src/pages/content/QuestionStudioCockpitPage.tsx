@@ -250,6 +250,7 @@ export function QuestionStudioCockpitPage() {
   const [difficulty, setDifficulty] = useState('Medium');
   const [languages, setLanguages] = useState<string[]>(['en']);
   const [queuedLanguageRuns, setQueuedLanguageRuns] = useState<Array<{ id: string; publicCode: string; language: string }>>([]);
+  const [queuedBulkLanguageJobs, setQueuedBulkLanguageJobs] = useState<Array<{ id: string; language: string }>>([]);
   const [count, setCount] = useState(10);
   const [bulkProgress, setBulkProgress] = useState<{ completed: number; requested: number; runs: string[] } | null>(null);
   const [bulkBusy, setBulkBusy] = useState(false);
@@ -273,7 +274,9 @@ export function QuestionStudioCockpitPage() {
   // Retain the same idempotency key after a transport error; never replay a
   // potentially committed request with a different key unless its input changes.
   const stagingAsyncRetry = useRef(new Map<string, string>());
-  const bulkAsyncRetry = useRef<{ signature:string; key:string } | null>(null);
+  // One stable idempotency key per language/request, including after a partial
+  // multi-language reservation. Do not create fresh keys on an uncertain retry.
+  const bulkAsyncRetry = useRef(new Map<string, string>());
   const [search, setSearch] = useState('');
   const [serverSearch, setServerSearch] = useState('');
   const [reviewPageNumber, setReviewPageNumber] = useState(1);
@@ -778,29 +781,50 @@ export function QuestionStudioCockpitPage() {
         seed: seed.trim() || undefined,
       };
       if (bulkAsyncMode) {
-        if (languages.length !== 1) {
-          showToast.error('Choose one language', 'Bulk review currently requires one language per job. Other generation modes support multiple languages.');
-          return;
-        }
-        const asyncInput: CreateGenerationRunInput = {...input, seed: undefined, runtimeMode:activePackage.runtimeMode};
-        const signature = JSON.stringify(asyncInput);
-        if (!bulkAsyncRetry.current || bulkAsyncRetry.current.signature !== signature) {
-          bulkAsyncRetry.current = {signature, key:`qs-bulk-${crypto.randomUUID()}`};
-        }
+        // The durable bulk endpoint accepts one language per operation. Reserve
+        // a separate parent for each selected language, retaining every parent
+        // ID and stable retry key. Child batches still require explicit launch.
         setBulkAsyncSubmitting(true);
+        const confirmed: Array<{ id: string; language: string }> = [];
         try {
-          const receipt = await reserveQuestionStudioBulkReview(asyncInput,bulkAsyncRetry.current.key);
-          bulkAsyncRetry.current = null;
-          setUrlSearchParams(previous => {
-            const next = new URLSearchParams(previous);
-            next.set(BULK_RESUME_PARAM,receipt.id);
-            return next;
-          }, {replace:true});
-          setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(receipt.id));
-          setBulkAsyncError(null);
-          showToast.success('Bulk review saved',
-            `${receipt.requestedCount} questions planned in ${receipt.childCount} review batches. Launch each child explicitly below.`);
-        } finally {setBulkAsyncSubmitting(false);}
+          for (const language of languages) {
+            const asyncInput: CreateGenerationRunInput = {
+              ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
+            };
+            const signature = JSON.stringify(asyncInput);
+            let key = bulkAsyncRetry.current.get(signature);
+            if (!key) {
+              key = `qs-bulk-${crypto.randomUUID()}`;
+              bulkAsyncRetry.current.set(signature, key);
+            }
+            const receipt = await reserveQuestionStudioBulkReview(asyncInput, key);
+            confirmed.push({ id: receipt.id, language });
+            setQueuedBulkLanguageJobs((current) => current.some(job => job.id === receipt.id)
+              ? current : [...current, { id: receipt.id, language }]);
+            setUrlSearchParams(previous => {
+              const next = new URLSearchParams(previous);
+              next.set(BULK_RESUME_PARAM, receipt.id);
+              return next;
+            }, { replace: true });
+            setBulkAutoAdvance(false);
+            setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(receipt.id));
+            setBulkAsyncError(null);
+          }
+          for (const language of languages) {
+            bulkAsyncRetry.current.delete(JSON.stringify({
+              ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
+            }));
+          }
+          showToast.success('Multilingual bulk reviews saved',
+            `${confirmed.length} language job(s), ${count} questions per language (${count * confirmed.length} planned). Each job has separately launched review batches.`);
+        } catch (caught) {
+          const detail = caught instanceof Error ? caught.message : 'Reservation could not be confirmed.';
+          setBulkAsyncError(detail);
+          showToast.error('Some language jobs may need attention',
+            `${confirmed.length} language job(s) confirmed. ${detail} Inspect saved jobs before retrying; existing requests retain their idempotency keys.`);
+        } finally {
+          setBulkAsyncSubmitting(false);
+        }
         return;
       }
       if (ASYNC_ENABLED && stagingAsyncSelected) {
@@ -1317,6 +1341,27 @@ export function QuestionStudioCockpitPage() {
             <Field label="Questions per language"><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
           <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>
+          {queuedBulkLanguageJobs.length > 0 && (
+            <div role="status" className="flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-muted-foreground">Saved bulk language jobs:</span>
+              {queuedBulkLanguageJobs.map(job => (
+                <Button key={job.id} size="sm" variant={bulkResumeId === job.id ? 'secondary' : 'outline'}
+                  onClick={() => {
+                    // Changing the active language must never keep auto-launching
+                    // child batches from a previously selected parent operation.
+                    setBulkAutoAdvance(false);
+                    setUrlSearchParams(previous => {
+                      const next = new URLSearchParams(previous);
+                      next.set(BULK_RESUME_PARAM, job.id);
+                      return next;
+                    }, { replace: true });
+                  }}>
+                  {LANGUAGE_LABELS[job.language] ?? job.language} · {job.id.slice(0,8)}
+                </Button>
+              ))}
+              <span className="text-muted-foreground">Select a job to launch its batches. Copy its resume link to return later.</span>
+            </div>
+          )}
           {queuedLanguageRuns.length > 0 && <div role="status" className="flex flex-wrap gap-2 text-xs">{queuedLanguageRuns.map((run) => <Button key={run.id} size="sm" variant="outline" onClick={() => setUrlSearchParams(withStagingResumeRunId(urlSearchParams, run.id), { replace: true })}>{LANGUAGE_LABELS[run.language] ?? run.language}: {run.publicCode}</Button>)}</div>}
           {!ASYNC_ENABLED || !stagingAsyncSelected ? <p className="text-xs text-muted-foreground">
             Up to {SYNC_BULK_LIMIT} questions per language. Requests are split into review runs of at most {Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, selectedCpIds.size || 1))} questions. Keep this tab open until completion. After a failure, check saved runs before requesting more. No automatic publication.
@@ -1325,7 +1370,7 @@ export function QuestionStudioCockpitPage() {
             <label className="flex items-center gap-2 text-xs">
               <Checkbox checked={bulkAsyncSelected} onCheckedChange={v=>setBulkAsyncSelected(v===true)}
                 disabled={bulkAsyncSubmitting || stagingAsyncSubmitting || bulkBusy}/>
-              Plan a durable bulk review (up to 250 questions; batches of 20 maximum, launched individually)
+              Plan durable bulk reviews (up to 250 questions per language; separate language jobs with batches of 20, launched individually)
             </label>
           )}
           {BULK_ASYNC_ENABLED && bulkAsyncOperation && (
