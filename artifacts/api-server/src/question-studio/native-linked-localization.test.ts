@@ -69,3 +69,18 @@ test("existing AVG-001 localized output uses an explicit permanent QL and same q
     assert.notEqual(translated.stem,english.stem);
   }
 });
+
+test("existing INT-001 localized output uses the same permanent QL and exact seed", async () => {
+  const source = {
+    packageId: "INT-001",
+    canonicalProblemId: "INT-CP-001",
+    questionLanguageId: "INT-QL-012:en",
+    seed: "native-linked-parity:INT-QL-012:v1",
+  };
+  const english = await nativeLocalizedQuestion(source, "en");
+  for (const language of ["hi", "pa"] as const) {
+    const translated = await nativeLocalizedQuestion(source, language);
+    assertNativeLocalizedAnswerParity(english, translated);
+    assert.notEqual(translated.stem, english.stem);
+  }
+});
