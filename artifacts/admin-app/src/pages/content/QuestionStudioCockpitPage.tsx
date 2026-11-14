@@ -754,6 +754,13 @@ export function QuestionStudioCockpitPage() {
       return;
     }
     const cpIds = [...selectedCpIds];
+    // Released native localizers reuse one QL/seed, so generating independent
+    // HI/PA review runs would create unrelated canonical questions. Generate
+    // the English source once and display paired variants in its review item.
+    // Keep all other chapters on their existing per-language workflow.
+    const nativeGroupedReview = ['AVG-001', 'INT-001'].includes(activePackage.packageId) &&
+      languages.includes('en') && languages.some((entry) => entry === 'hi' || entry === 'pa');
+    const generationLanguages = nativeGroupedReview ? ['en'] : languages;
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected && !bulkAsyncMode &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
       showToast.error('Invalid batch size', `Choose 1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions for a chapter review batch.`);
@@ -788,7 +795,7 @@ export function QuestionStudioCockpitPage() {
         setBulkAsyncSubmitting(true);
         const confirmed: Array<{ id: string; language: string }> = [];
         try {
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             const asyncInput: CreateGenerationRunInput = {
               ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
             };
@@ -811,13 +818,13 @@ export function QuestionStudioCockpitPage() {
             setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(receipt.id));
             setBulkAsyncError(null);
           }
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             bulkAsyncRetry.current.delete(JSON.stringify({
               ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
             }));
           }
           showToast.success('Multilingual bulk reviews saved',
-            `${confirmed.length} language job(s), ${count} questions per language (${count * confirmed.length} planned). Each job has separately launched review batches.`);
+            `${confirmed.length} native question-group source job(s), ${count} review questions each (${count * confirmed.length} total canonical questions). Each job has separately launched review batches.`);
         } catch (caught) {
           const detail = caught instanceof Error ? caught.message : 'Reservation could not be confirmed.';
           setBulkAsyncError(detail);
@@ -833,7 +840,7 @@ export function QuestionStudioCockpitPage() {
         setStagingAsyncSubmitting(true);
         setQueuedLanguageRuns([]);
         try {
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             const asyncInput: CreateGenerationRunInput = { ...input, language, runtimeMode: activePackage.runtimeMode };
             const signature = JSON.stringify(asyncInput);
             let key = stagingAsyncRetry.current.get(signature);
@@ -880,14 +887,14 @@ export function QuestionStudioCockpitPage() {
       // Never replay uncertain failures; a timed-out request may already have
       // saved a review run. Each HTTP request retains the backend <=50 limit.
       const chunkMax = Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, cpIds.length || 1));
-      const requested = count * languages.length;
+      const requested = count * generationLanguages.length;
       let completed = 0;
       let offset = 0;
       const savedRuns: string[] = [];
       setBulkBusy(true);
       setBulkProgress({ completed, requested, runs: [] });
       try {
-        for (const language of languages) {
+        for (const language of generationLanguages) {
           let languageCompleted = 0;
           while (languageCompleted < count) {
             const remaining = count - languageCompleted;
@@ -1339,9 +1346,16 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Languages"><div className="flex min-h-10 flex-wrap items-center gap-3 rounded-md border px-3 py-2">{supportedLanguages.map((entry) => <label key={entry} className="flex items-center gap-2 text-xs"><Checkbox checked={languages.includes(entry)} disabled={generating || bulkBusy || stagingAsyncSubmitting || (languages.length === 1 && languages.includes(entry))} onCheckedChange={(checked) => setLanguages((current) => checked === true ? [...current, entry] : current.filter((value) => value !== entry))} />{LANGUAGE_LABELS[entry] ?? entry}</label>)}</div></Field>
-            <Field label="Questions per language"><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label={['AVG-001', 'INT-001'].includes(activePackage?.packageId ?? '') && languages.includes('en') && languages.some(entry => entry === 'hi' || entry === 'pa') ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
-          <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>
+          {['AVG-001', 'INT-001'].includes(activePackage?.packageId ?? '') && languages.includes('en') && languages.some(entry => entry === 'hi' || entry === 'pa')
+            ? <p className="rounded-lg border border-primary/20 bg-primary/[0.03] px-3 py-2 text-xs">
+                <strong>{count} canonical question groups</strong> with one English-source review item each.
+                Existing Hindi/Punjabi versions are checked inside each expanded review item using its exact QL and seed;
+                no additional language-specific question records or AI translation are generated.
+                Native previews are not saved or approved translations.
+              </p>
+            : <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>}
           {queuedBulkLanguageJobs.length > 0 && (
             <div role="status" className="flex flex-wrap items-center gap-2 text-xs">
               <span className="text-muted-foreground">Saved bulk language jobs:</span>
