@@ -157,52 +157,6 @@ export function normalizeTranslationDraft(value: unknown): TranslationDraftInput
   return { stem, explanation, options, reason };
 }
 
-/**
- * Validates a model-suggested *draft* against the immutable canonical option
- * identity. This does not verify semantic equivalence or approve publication:
- * human review and the full translation quality gate are still required.
- */
-/**
- * A manually approved English-source, bank-only question may receive linked
- * translations before its exam-version taxonomy is assigned. Non-English
- * generated questions must never be misrepresented as English sources.
- */
-export function isUnclassifiedEnglishBankOnlySource(source: {
-  examVersionId: unknown;
-  questionStatus: unknown;
-  approvedVersionId: unknown;
-  questionVersionId: string;
-  sourceLanguage: unknown;
-  bankAcceptanceMode: unknown;
-}): boolean {
-  return !source.examVersionId &&
-    source.questionStatus === "approved" &&
-    source.approvedVersionId === source.questionVersionId &&
-    source.sourceLanguage === "en" &&
-    source.bankAcceptanceMode === "BANK_ONLY";
-}
-
-export function normalizeSuggestedLinkedTranslation(
-  value: unknown,
-  sourceOptions: TranslationOptionInput[],
-): TranslationDraftInput {
-  const draft = normalizeTranslationDraft({
-    ...asRecord(value),
-    reason: "AI-assisted linked translation draft; requires editorial review",
-  });
-  if (draft.options.length !== sourceOptions.length ||
-      draft.options.some((option, index) =>
-        option.key !== sourceOptions[index]?.key ||
-        option.sortOrder !== sourceOptions[index]?.sortOrder)) {
-    throw new TranslationOperationsError(
-      "TRANSLATED_OPTION_IDENTITY_MISMATCH",
-      "Translation must preserve every source option key and order. No answer-key changes are allowed.",
-      422,
-    );
-  }
-  return draft;
-}
-
 export function assertTranslationTransition(from: string, to: string): void {
   const source = normalizeTranslationStatus(from);
   const target = normalizeTranslationStatus(to);
