@@ -1,4 +1,5 @@
 import { getSessionUser } from "@/lib/session-user";
+import { getRestoredAuthHeader } from "@/lib/restored-auth-header";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "/api";
@@ -142,15 +143,7 @@ async function getAuthHeader(): Promise<Record<string, string>> {
   if (!requestMayNeedFirebaseAuth()) return {};
 
   const { getFirebaseAuth } = await import("@/lib/firebase");
-  const currentUser = getFirebaseAuth()?.currentUser;
-  if (!currentUser) return {};
-
-  try {
-    const token = await currentUser.getIdToken();
-    return { Authorization: `Bearer ${token}` };
-  } catch {
-    return {};
-  }
+  return getRestoredAuthHeader(getFirebaseAuth());
 }
 
 function currentSeriesId(): string | null {

@@ -7,6 +7,7 @@ on:
     paths:
       - artifacts/examtree/**
       - tests/student-route-recovery.test.mjs
+      - tests/student-auth-restoration.test.mjs
       - pnpm-lock.yaml
       - pnpm-workspace.yaml
       - .github/workflows/frontend-production-quality.yml
@@ -15,6 +16,7 @@ on:
     paths:
       - artifacts/examtree/**
       - tests/student-route-recovery.test.mjs
+      - tests/student-auth-restoration.test.mjs
       - pnpm-lock.yaml
       - pnpm-workspace.yaml
       - .github/workflows/frontend-production-quality.yml
@@ -52,7 +54,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Check student route recovery
-        run: node --experimental-strip-types --test tests/student-route-recovery.test.mjs
+        run: node --experimental-strip-types --test tests/student-route-recovery.test.mjs tests/student-auth-restoration.test.mjs
 
       - name: Run student frontend production gate
         run: pnpm --dir artifacts/examtree quality
