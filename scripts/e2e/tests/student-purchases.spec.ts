@@ -133,7 +133,7 @@ test.describe("canonical student purchase history", () => {
 
     await expect(page.getByTestId("my-purchases-page")).toBeVisible();
     await expect(page.getByRole("heading", { name: "My purchases", exact: true })).toBeVisible();
-    await expect(page.getByRole("link", { name: "My Purchases", exact: true })).toHaveAttribute("aria-current", "page");
+    await expect(page.getByRole("link", { name: "My purchases", exact: true })).toHaveAttribute("aria-current", "page");
 
     const entitlement = page.getByTestId(`purchase-entitlement-${entitlementId}`);
     await expect(entitlement.getByText("Banking Mock Test Pack", { exact: true })).toBeVisible();

@@ -526,12 +526,44 @@ test.describe("canonical student reliability", () => {
 
     await expect(page.getByTestId("student-dashboard")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Recent attempts" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Recent results" })).toBeVisible();
     await expect(page.getByText("Foundation Mock").first()).toBeVisible();
-    await expect(page.getByText(/Score 100% · Accuracy 100%/)).toBeVisible();
+    const recentResults = page.locator(".series-results");
+    await expect(recentResults.getByText("Foundation Mock", { exact: true })).toBeVisible();
+    await expect(recentResults.getByText("100%", { exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: /Review mistakes/ }).first()).toHaveAttribute(
       "href",
       "/result?attemptId=attempt-result-1",
     );
   });
+});
+
+
+test("dashboard loading stays local and becomes static with reduced motion", async ({ page }) => {
+  await installApiFixtures(page, { completedFirst: true, serverDraft: null });
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route(/\/api\/(?:tests|attempts|commerce\/purchases)(?:\?.*)?$/, async route => {
+    await gate;
+    await route.fallback();
+  });
+  try {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await openAsStudent(page, "/dashboard");
+    await expect(page.locator(".dashboard-loading")).toHaveCount(4);
+    await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Test series", exact: true })).toHaveAttribute("href", "/exams");
+    await expect.poll(() => page.locator(".loading-placeholder").first().evaluate(el => getComputedStyle(el).opacity)).toBe("1");
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    const shimmer = page.locator(".dashboard-loading .skeleton-shimmer").first();
+    await expect.poll(() => shimmer.evaluate(el => getComputedStyle(el, "::after").animationName)).toBe("none");
+    await expect.poll(() => page.locator(".loading-placeholder").first().evaluate(el => getComputedStyle(el).opacity)).toBe("1");
+    release();
+    await expect(page.locator(".dashboard-loading")).toHaveCount(0);
+    await expect(page.locator(".series-results").getByText("Foundation Mock", { exact: true })).toBeVisible();
+  } finally {
+    release();
+  }
 });

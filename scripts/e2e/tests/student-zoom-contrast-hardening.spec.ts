@@ -136,7 +136,7 @@ test.describe("CP02 zoom reflow and contrast", () => {
     expect(await contrastRatio(activity)).toBeGreaterThanOrEqual(4.5);
     expect(await contrastRatio(profile)).toBeGreaterThanOrEqual(4.5);
 
-    const sidebarTests = page.getByRole("link", { name: "My Exams" });
+    const sidebarTests = page.getByRole("link", { name: "Test series", exact: true });
     await expect(sidebarTests).toBeVisible();
     expect(await contrastRatio(sidebarTests)).toBeGreaterThanOrEqual(4.5);
   });

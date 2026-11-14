@@ -63,7 +63,7 @@ test.describe("CP02 preparation chrome accessibility", () => {
     await expectTouchTarget(selector);
     await expectTouchTarget(page.getByRole("button", { name: "My activity" }));
     await expectTouchTarget(page.getByRole("button", { name: "User profile" }));
-    await expectTouchTarget(page.getByRole("link", { name: "My Exams" }));
+    await expectTouchTarget(page.getByRole("link", { name: "Test series", exact: true }));
     await expectTouchTarget(page.getByRole("link", { name: "Profile", exact: true }).first());
 
     await expect(page.getByRole("link", { name: "ExamTree dashboard" })).toBeVisible();
