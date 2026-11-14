@@ -1346,11 +1346,16 @@ export function QuestionStudioCockpitPage() {
               <span className="text-muted-foreground">Saved bulk language jobs:</span>
               {queuedBulkLanguageJobs.map(job => (
                 <Button key={job.id} size="sm" variant={bulkResumeId === job.id ? 'secondary' : 'outline'}
-                  onClick={() => setUrlSearchParams(previous => {
-                    const next = new URLSearchParams(previous);
-                    next.set(BULK_RESUME_PARAM, job.id);
-                    return next;
-                  }, { replace: true })}>
+                  onClick={() => {
+                    // Changing the active language must never keep auto-launching
+                    // child batches from a previously selected parent operation.
+                    setBulkAutoAdvance(false);
+                    setUrlSearchParams(previous => {
+                      const next = new URLSearchParams(previous);
+                      next.set(BULK_RESUME_PARAM, job.id);
+                      return next;
+                    }, { replace: true });
+                  }}>
                   {LANGUAGE_LABELS[job.language] ?? job.language} · {job.id.slice(0,8)}
                 </Button>
               ))}
