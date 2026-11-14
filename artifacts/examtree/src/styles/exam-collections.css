@@ -50,3 +50,8 @@
 .collection-page> .collection-punjab{min-height:320px}
 .collection-page .collection-punjab .collection-banner-copy h1{line-height:1.45;letter-spacing:0}
 @media(max-width:720px){.collection-punjab{min-height:300px}.collection-punjab .collection-banner-copy{width:61%}.collection-punjab .collection-banner-copy h3{font-size:25px}.collection-punjab-art{right:15px;width:35%;height:74%}.collection-punjab .collection-banner-label{font-size:9px}.collection-punjab .collection-banner-chips{gap:4px}.collection-punjab .collection-banner-chips span{font-size:9px;padding:4px 6px}.collection-page .collection-punjab .collection-banner-copy h1{font-size:30px}}
+
+.collection-exam-identity{display:flex;align-items:center;gap:12px;min-height:52px;margin-bottom:12px}
+.collection-exam-logo{display:flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;padding:4px;border:1px solid #e1e8e5;border-radius:10px;background:#fff}
+.collection-exam-identity h4{min-width:0;margin:0;overflow-wrap:anywhere}
+@media(max-width:720px){.collection-exam-identity{gap:11px}.collection-exam-logo{flex-basis:40px;width:40px;height:40px}}

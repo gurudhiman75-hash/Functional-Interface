@@ -86,3 +86,11 @@
 .category-series-logo{padding:6px}
 .category-switcher a{padding:8px 13px}
 @media(max-width:720px){.category-hero-logo{width:66px;height:66px;padding:9px}.category-exam-card{min-height:236px;padding:18px 13px 0}.category-exam-logo{width:58px;height:58px;padding:7px;border-radius:15px}.category-exam-family{font-size:8px;padding:4px 6px}.category-exam-card h3{font-size:15px}.category-exam-action{font-size:11px}}
+
+/* Consistent compact authority badge beside each exam name. */
+.category-exam-card .category-exam-card-top{justify-content:flex-start;align-items:center;gap:12px;min-height:68px;margin-bottom:14px}
+.category-exam-card .category-exam-logo{width:48px;height:48px;padding:5px;border-radius:11px;flex:0 0 48px;box-shadow:none}
+.category-exam-heading{min-width:0;flex:1}.category-exam-heading .category-exam-family{display:inline-block;font-size:9px;padding:3px 6px}
+.category-exam-card .category-exam-heading h3{margin:6px 0 0;font-size:15px;line-height:1.4}
+@media(max-width:720px){.category-exam-card .category-exam-card-top{gap:9px;min-height:82px}.category-exam-card .category-exam-logo{width:40px;height:40px;flex-basis:40px;padding:4px;border-radius:9px}.category-exam-card .category-exam-heading h3{font-size:13px}.category-exam-heading .category-exam-family{font-size:8px}}
+@media(max-width:360px){.category-exam-card .category-exam-card-top{align-items:flex-start;flex-direction:column;gap:9px}}

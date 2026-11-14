@@ -85,8 +85,8 @@ export default function CategoryPage() {
           const examTests = categoryTests.filter((test) => exam.id.startsWith("general-") ? !test.subcategoryId : test.subcategoryId === exam.id);
           const free = examTests.filter((test) => (test.access ?? "free") === "free").length;
           return <Link className="category-exam-card" key={exam.id} href={examHref(exam)} data-testid={`btn-open-exam-${exam.id}`}>
-            <div className="category-exam-card-top"><span className="category-exam-logo"><ExamIdentityIcon icon={exam.icon} name={exam.name} examCode={exam.id} familyCode={category.id} /></span><span className="category-exam-family">{label}</span></div>
-            <h3>{exam.name}</h3>{exam.description ? <p className="category-exam-description">{exam.description}</p> : null}<p className="category-exam-inventory">{exam.totalTests > 0 ? `${count(exam.totalTests)} tests${free > 0 ? ` · ${count(free)} free` : ""}` : "Syllabus & preparation"}</p><span className="category-exam-action">Explore exam <ArrowRight size={15} /></span>
+            <div className="category-exam-card-top"><span className="category-exam-logo"><ExamIdentityIcon icon={exam.icon} name={exam.name} examCode={exam.id} familyCode={category.id} /></span><div className="category-exam-heading"><span className="category-exam-family">{label}</span><h3>{exam.name}</h3></div></div>
+            {exam.description ? <p className="category-exam-description">{exam.description}</p> : null}<p className="category-exam-inventory">{exam.totalTests > 0 ? `${count(exam.totalTests)} tests${free > 0 ? ` · ${count(free)} free` : ""}` : "Syllabus & preparation"}</p><span className="category-exam-action">Explore exam <ArrowRight size={15} /></span>
           </Link>;
         })}</div> : <div className="category-inline-state"><Search size={24} /><div><h3>{query ? "No matching exams" : "Exams are being added"}</h3><p>{query ? "Try a shorter exam name or clear your search." : "Check back for exams in this category."}</p></div>{query ? <button type="button" onClick={() => setExamQuery("")}>Clear search</button> : null}</div>}
       </section>

@@ -1,27 +1,21 @@
 import { useEffect, useState } from "react";
 import { Landmark, TrainFront, ShieldCheck, GraduationCap, BriefcaseBusiness } from "lucide-react";
 import { isImageIcon } from "@/components/CategoryIcon";
+import { resolveExamIdentity } from "@/lib/exam-identity";
 import "@/styles/exam-identity.css";
 
 type IdentityProps = { icon?: string; name: string; examCode?: string; familyCode?: string; className?: string };
 
 export function examIdentityAsset({ name, examCode, familyCode }: Omit<IdentityProps, "className" | "icon">) {
-  const text = [examCode, name].filter(Boolean).join(" ").toUpperCase().replace(/_/g, " ");
-  const family = String(familyCode ?? "").toUpperCase();
-  let file: string | undefined;
-  if (/\bSBI\b/.test(text)) file = "sbi-library-official.png";
-  else if (/\bIBPS\b/.test(text)) file = "ibps-library-official.png";
-  else if (/\bRBI\b|RESERVE BANK/.test(text)) file = "rbi-library-official.png";
-  else if (/\bSSC\b|STAFF SELECTION COMMISSION/.test(text) || family === "SSC") file = "ssc-library-official.png";
-  else if (/RAILWAY|\bRRB\b/.test(text) || family === "RAILWAY") file = "railways-library-official.png";
-  else if (/PUNJAB|PSSSB|PPSC|PSPCL/.test(text) || family === "PUNJAB") file = "punjab-official.svg";
-  return file ? `${import.meta.env.BASE_URL}category-icons/${file}` : undefined;
+  const asset = resolveExamIdentity({ name, examCode, familyCode })?.asset;
+  return asset ? `${import.meta.env.BASE_URL}${asset}` : undefined;
 }
 
 /** Uploaded image, local exam logo, then a visible family symbol. */
 export function ExamIdentityIcon(props: IdentityProps) {
   const { icon, name, familyCode, className = "" } = props;
   const official = examIdentityAsset(props);
+  const identity = resolveExamIdentity(props);
   const uploaded = icon && isImageIcon(icon) ? icon : undefined;
   const sources = Array.from(new Set([...(official?.includes("-library-official.") ? [official, uploaded] : [uploaded, official])].filter((src): src is string => Boolean(src))));
   const sourceKey = sources.join("|");
@@ -30,5 +24,8 @@ export function ExamIdentityIcon(props: IdentityProps) {
   const source = sources.find((src) => !failedSources.includes(src));
   const family = `${familyCode ?? ""} ${name}`.toUpperCase();
   const Symbol = /RAIL|RRB/.test(family) ? TrainFront : /POLICE|DEFENCE/.test(family) ? ShieldCheck : /TEACH|EDUCATION/.test(family) ? GraduationCap : /BANK|RBI|IBPS|SBI|PUNJAB|STATE/.test(family) ? Landmark : BriefcaseBusiness;
-  return <span className={`exam-identity-icon ${className}`} aria-hidden="true">{source ? <img src={source} alt="" loading="lazy" decoding="async" draggable={false} onError={() => setFailedSources((failed) => [...failed, source])} /> : <Symbol strokeWidth={1.6} />}</span>;
+  const isCrest = source === official && identity?.layout === "crest";
+  return <span className={`exam-identity-icon ${!source && identity ? "exam-identity-monogram" : ""} ${className}`} aria-hidden="true" data-exam-authority={identity?.label}>
+    {source ? <span className={`exam-identity-image${isCrest ? " exam-identity-crest" : ""}`}><img src={source} alt="" loading="lazy" decoding="async" draggable={false} onError={() => setFailedSources((failed) => [...failed, source])} /></span> : identity ? <><Symbol strokeWidth={1.6} /><span>{identity.label.toUpperCase()}</span></> : <Symbol strokeWidth={1.6} />}
+  </span>;
 }
