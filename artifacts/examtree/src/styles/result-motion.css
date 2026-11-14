@@ -1,0 +1,35 @@
+/* Presentation only, confined to the saved result screen. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes et-result-appear {
+    from { opacity: .88; }
+    to { opacity: 1; }
+  }
+  .et-result-motion > div > section {
+    animation: et-result-appear 180ms ease-out;
+  }
+  .et-result-motion .et-result-review-enter {
+    animation: et-result-appear 140ms ease-out;
+  }
+  .et-result-motion :is(button, a) {
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: 140ms;
+    transition-timing-function: ease-out;
+  }
+  .et-result-motion [role="progressbar"] > div {
+    transition: transform 320ms ease-out;
+  }
+}
+/* Keep targets still, including the shared button's existing hover lift. */
+.et-result-motion .et-button:hover,
+.et-result-motion .et-button:active {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .et-result-motion > div > section,
+  .et-result-motion .et-result-review-enter,
+  .et-result-motion :is(button, a),
+  .et-result-motion [role="progressbar"] > div {
+    animation: none;
+    transition: none;
+  }
+}
