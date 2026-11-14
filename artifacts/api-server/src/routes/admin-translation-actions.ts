@@ -274,10 +274,13 @@ router.post(
         throw new TranslationOperationsError("NATIVE_LOCALIZATION_TAXONOMY_REQUIRED",
           "Assign exam taxonomy before localizing a non-bank-only question.",409);
       }
+      const rawOptions = Array.isArray(source.options) ? source.options.map(asRecord) : [];
       const sourceOptions = asOptions(source.options);
-      const correctIndex = sourceOptions.findIndex(option => option.key === asText(asRecord(source.answerModel).correctOptionKey));
-      if (correctIndex < 0 || sourceOptions.filter(option=>option.isCorrect).length!==1 ||
-          !sourceOptions[correctIndex]?.isCorrect) throw new TranslationOperationsError(
+      const answerModel = asRecord(source.answerModel);
+      const correctIndex = sourceOptions.findIndex(option => option.key === asText(answerModel.correctOptionKey));
+      if (correctIndex < 0 || correctIndex !== Number(answerModel.correctIndex) ||
+          rawOptions.filter(option=>option.isCorrect===true).length!==1 ||
+          rawOptions[correctIndex]?.isCorrect!==true) throw new TranslationOperationsError(
             "NATIVE_LOCALIZATION_ANSWER_MODEL_INVALID","Canonical option identity is invalid.",422);
       const canonical = {
         stem: asText(source.stem), explanation: asText(source.explanation),
