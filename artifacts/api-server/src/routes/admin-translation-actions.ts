@@ -8,6 +8,7 @@ import {
   normalizeLanguageConfiguration,
   normalizeTranslationDraft,
   normalizeSuggestedLinkedTranslation,
+  isUnclassifiedEnglishBankOnlySource,
   normalizeTranslationStatus,
   type TranslationOptionInput,
   type TranslationTermRule,
@@ -386,11 +387,10 @@ router.put(
         // assigns taxonomy. Let English-source approved versions acquire linked
         // Hindi/Punjabi drafts now; test publication still enforces exam mapping.
         // Non-English generator output must not be falsely labelled English.
-        const unclassifiedBankOnlyEnglish = !source.examVersionId &&
-          source.questionStatus === "approved" &&
-          source.approvedVersionId === questionVersionId &&
-          source.bankAcceptanceMode === "BANK_ONLY" &&
-          (source.sourceLanguage === "en");
+        const unclassifiedBankOnlyEnglish = isUnclassifiedEnglishBankOnlySource({
+          ...source,
+          questionVersionId,
+        });
         if (!source.examVersionId && !unclassifiedBankOnlyEnglish) {
           throw new TranslationOperationsError(
             "QUESTION_SOURCE_LANGUAGE_NOT_ELIGIBLE",
