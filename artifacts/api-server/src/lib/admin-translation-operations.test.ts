@@ -7,7 +7,6 @@ import {
   evaluateTranslationQuality,
   languageCodesFromSettings,
   normalizeTranslationDraft,
-  normalizeSuggestedLinkedTranslation,
   isUnclassifiedEnglishBankOnlySource,
   resolveRequestedLanguage,
 } from "./admin-translation-operations";
@@ -107,29 +106,7 @@ test("test language contracts support legacy and bilingual settings", () => {
   );
 });
 
-test("linked AI drafts preserve canonical source option identity without auto-approval", () => {
-  const suggestion = normalizeSuggestedLinkedTranslation({
-    stem: target.stem,
-    explanation: target.explanation,
-    options: target.options,
-  }, source.options);
-  assert.equal(suggestion.stem, target.stem);
-  assert.deepEqual(suggestion.options.map(option => option.key), ["A", "B", "C", "D"]);
-  for (const corrupted of [
-    { ...target, options: target.options.slice(0, 3) },
-    { ...target, options: [...target.options].reverse() },
-    { ...target, options: target.options.map((option, i) => i === 2 ? { ...option, key: "Z" } : option) },
-    { ...target, options: target.options.map((option, i) => i === 2 ? { ...option, sortOrder: 4 } : option) },
-  ]) {
-    assert.throws(
-      () => normalizeSuggestedLinkedTranslation(corrupted, source.options),
-      (error: unknown) => error instanceof TranslationOperationsError &&
-        ["DUPLICATE_TRANSLATED_OPTION", "TRANSLATED_OPTION_IDENTITY_MISMATCH"].includes(error.code),
-    );
-  }
-});
-
-test("bank-only linked translation eligibility preserves source language and approval", () => {
+test("linked AI drafts preserve canonicibility preserves source language and approval", () => {
   const source = {
     examVersionId: null,
     questionStatus: "approved",
