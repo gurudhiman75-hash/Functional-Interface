@@ -763,7 +763,10 @@ export function QuestionStudioCockpitPage() {
     // HI/PA review runs would create unrelated canonical questions. Generate
     // the English source once and display paired variants in its review item.
     // Keep all other chapters on their existing per-language workflow.
-    const nativeGroupedReview = useNativeGroupedReview(activePackage.packageId, languages);
+    // Inline the condition because isolated generation-contract tests execute
+    // this callback directly; keep it equivalent to the UI selection helper.
+    const nativeGroupedReview = ['AVG-001', 'INT-001'].includes(activePackage.packageId) &&
+      languages.length > 1 && languages.some(entry => entry === 'hi' || entry === 'pa');
     const generationLanguages = nativeGroupedReview ? ['en'] : languages;
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected && !bulkAsyncMode &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
