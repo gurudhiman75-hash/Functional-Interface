@@ -263,10 +263,10 @@ export function generateCP004F07(seed: number, difficulty: PunjabiDifficulty): P
   const index = ordinal(seed, CP004_AGREEMENT_CONTEXTS.length);
   const context = CP004_AGREEMENT_CONTEXTS[index]!;
   const stem = variant([
-    `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ${context.targetPa} ਵਾਲਾ ਸਹੀ ਵਾਕ ਚੁਣੋ।`,
-    `${context.targetPa} ਦਾ ਸਹੀ ਮਿਲਾਪ ਕਿਸ ਵਾਕ ਵਿੱਚ ਹੈ?`,
-    `ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ${context.targetPa} ਦਾ ਮਿਲਾਪ ਸਹੀ ਹੈ?`,
-    `ਹੇਠ ਦਿੱਤੇ ਵਾਕਾਂ ਵਿੱਚੋਂ ${context.targetPa} ਅਨੁਸਾਰ ਸਹੀ ਵਾਕ ਪਛਾਣੋ।`,
+    `ਹੇਠਾਂ ਦਿੱਤੇ ਵਾਕਾਂ ਵਿੱਚੋਂ ${context.targetPa} ਦੇ ਅਨੁਸਾਰ ਸਹੀ ਵਾਕ ਚੁਣੋ।`,
+    `ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ਕਰਤਾ ਅਤੇ ਕਿਰਿਆ ਦਾ ਰੂਪ ${context.targetPa} ਦੇ ਅਨੁਸਾਰ ਹੈ?`,
+    `ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ${context.targetPa} ਦੇ ਅਨੁਸਾਰ ਸ਼ਬਦਾਂ ਦਾ ਮੇਲ ਸਹੀ ਹੈ?`,
+    `ਹੇਠਾਂ ਦਿੱਤੇ ਵਾਕਾਂ ਵਿੱਚੋਂ ${context.targetPa} ਦੇ ਅਨੁਸਾਰ ਵਿਆਕਰਨ ਪੱਖੋਂ ਸਹੀ ਵਾਕ ਪਛਾਣੋ।`,
   ], index);
   return assemble({
     seed, difficulty, familyId: "F07", subtype: "CONTEXTUAL_GENDER_NUMBER_USAGE",
