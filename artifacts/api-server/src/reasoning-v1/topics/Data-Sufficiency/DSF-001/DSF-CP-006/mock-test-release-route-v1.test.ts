@@ -27,7 +27,7 @@ assert.ok(route.slice(cp005Start, cp006Start).includes('mockTestEligible: false 
 assert.ok(!route.includes('/reasoning/data-sufficiency/mock'));
 assert.ok(!route.includes('/reasoning/data-sufficiency/publish'));
 
-assert.ok(converter.includes('mockTestEligible: lifecycleValue(payload, generationContext, "mockTestEligible")'));
+assert.ok(converter.includes('mockTestEligible: approvalOptions.manualBankOnly ? false'));
 assert.ok(testsRoute.includes('String(row.status) !== "published"'));
 assert.ok(testsRoute.includes('code: "QUESTION_NOT_PUBLISHED"'));
 assert.ok(seriesLib.includes('["qa_approved", "scheduled", "live", "completed"].includes(status)'));
