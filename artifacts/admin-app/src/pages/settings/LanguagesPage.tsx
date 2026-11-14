@@ -38,6 +38,7 @@ import {
   getTestTranslation,
   getTranslationOverview,
   saveQuestionTranslation,
+  suggestLinkedQuestionTranslation,
   saveTestTranslation,
   transitionQuestionTranslation,
   transitionTestTranslation,
@@ -321,6 +322,30 @@ export function LanguagesPage() {
   const reloadQuestion = async () => {
     if (!selectedQuestion) return;
     hydrateQuestion(await getQuestionTranslation(selectedQuestion.questionVersionId, selectedQuestion.languageCode));
+  };
+
+  const suggestQuestion = async () => {
+    if (!selectedQuestion || !['hi', 'pa'].includes(selectedQuestion.languageCode)) return;
+    setQuestionBusy(true);
+    try {
+      const result = await suggestLinkedQuestionTranslation(
+        selectedQuestion.questionVersionId,
+        selectedQuestion.languageCode as 'hi' | 'pa',
+      );
+      // The suggestion populates the local editor only. Saving and approving
+      // remain separate explicit administrative actions.
+      setStem(result.draft.stem);
+      setExplanation(result.draft.explanation);
+      setOptions(result.draft.options.map(({ key, text, sortOrder }) => ({ key, text, sortOrder })));
+      setQuestionReason('AI-assisted linked translation draft; manually verified by editor');
+      showToast.info('Translation draft prepared',
+        `Review all wording, values and answer meanings before saving. ${result.quality.errorCount} automatic blocker(s); nothing has been saved.`);
+    } catch (caught) {
+      showToast.error('Translation suggestion unavailable',
+        caught instanceof Error ? caught.message : 'No draft was generated.');
+    } finally {
+      setQuestionBusy(false);
+    }
   };
 
   const saveQuestion = async () => {
@@ -685,11 +710,15 @@ export function LanguagesPage() {
         }, { replace: true });
       } }}>
         <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-4xl">
-          <SheetHeader><SheetTitle>{selectedQuestion?.publicCode} · {selectedQuestion?.languageName}</SheetTitle><SheetDescription>Source comparison, option-safe editing, deterministic quality and auditable review.</SheetDescription></SheetHeader>
+          <SheetHeader><SheetTitle>{selectedQuestion?.publicCode} · {selectedQuestion?.languageName}</SheetTitle><SheetDescription>Both languages share one canonical question version and answer key. AI suggestions are unsaved drafts; verify every option before manual approval.</SheetDescription></SheetHeader>
           {questionBusy && !questionDetail ? <div className="flex min-h-64 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div> : questionDetail ? <div className="mt-6 space-y-4">
             <div className="grid gap-4 lg:grid-cols-2"><Card><CardHeader><CardTitle className="text-sm">English source</CardTitle></CardHeader><CardContent className="space-y-3"><p className="whitespace-pre-wrap text-sm">{questionDetail.source.stem}</p><p className="whitespace-pre-wrap text-sm text-muted-foreground">{questionDetail.source.explanation}</p>{questionDetail.source.options.map((option) => <p key={option.key} className="rounded-lg border p-3 text-sm"><strong>{option.key}.</strong> {option.text}</p>)}</CardContent></Card><Card><CardHeader><div className="flex justify-between"><CardTitle className="text-sm">Target translation</CardTitle><Badge variant="outline" className={statusClass(questionDetail.target?.status ?? 'missing')}>{label(questionDetail.target?.status ?? 'missing')}</Badge></div></CardHeader><CardContent className="space-y-3" dir={questionDetail.language.direction}><Textarea rows={5} value={stem} onChange={(event) => setStem(event.target.value)} disabled={!canEdit} placeholder="Translated stem" /><Textarea rows={7} value={explanation} onChange={(event) => setExplanation(event.target.value)} disabled={!canEdit} placeholder="Translated explanation" />{options.map((option, index) => <div key={option.key} className="grid grid-cols-[40px_minmax(0,1fr)] gap-2"><span className="rounded border p-2 text-center font-semibold">{option.key}</span><Input value={option.text} disabled={!canEdit} onChange={(event) => setOptions((current) => current.map((entry, entryIndex) => entryIndex === index ? { ...entry, text: event.target.value } : entry))} /></div>)}</CardContent></Card></div>
             <Card><CardHeader><div className="flex justify-between"><CardTitle className="text-sm">Quality gate</CardTitle>{questionDetail.quality && <Badge variant="outline" className={statusClass(questionDetail.quality.approvable ? 'approved' : 'needs_fix')}>{questionDetail.quality.score}/100</Badge>}</div></CardHeader><CardContent className="space-y-2">{questionDetail.quality?.issues.map((issue) => <div key={`${issue.code}:${issue.message}`} className={cn('flex gap-2 rounded-lg border p-3 text-sm', issue.severity === 'error' ? 'border-destructive/30 bg-destructive/5' : 'border-warning/30 bg-warning/5')}>{issue.severity === 'error' ? <XCircle className="h-4 w-4 shrink-0 text-destructive" /> : <AlertTriangle className="h-4 w-4 shrink-0 text-warning" />}<span>{issue.message}</span></div>)}{questionDetail.quality?.issues.length === 0 && <p className="flex items-center gap-2 text-sm text-success"><CheckCircle2 className="h-4 w-4" />No blocking quality issues.</p>}{!questionDetail.quality && <p className="text-sm text-muted-foreground">Save a draft to generate quality evidence.</p>}</CardContent></Card>
-            <Card><CardHeader><CardTitle className="text-sm">Ownership and actions</CardTitle></CardHeader><CardContent className="space-y-3"><div className="grid gap-3 md:grid-cols-2"><select className="h-10 rounded-md border bg-background px-3 text-sm" value={questionTranslator} onChange={(event) => setQuestionTranslator(event.target.value)} disabled={!canReview}><option value="">Translator unassigned</option>{overview?.reviewers.filter((reviewer) => reviewer.permissions.includes('content.translations.update')).map((reviewer) => <option key={reviewer.id} value={reviewer.id}>{reviewer.displayName}</option>)}</select><select className="h-10 rounded-md border bg-background px-3 text-sm" value={questionReviewer} onChange={(event) => setQuestionReviewer(event.target.value)} disabled={!canReview}><option value="">Reviewer unassigned</option>{overview?.reviewers.filter((reviewer) => reviewer.permissions.includes('content.translations.review')).map((reviewer) => <option key={reviewer.id} value={reviewer.id}>{reviewer.displayName}</option>)}</select></div><Input value={questionReason} onChange={(event) => setQuestionReason(event.target.value)} placeholder="Required audit reason" /><div className="flex flex-wrap gap-2">{canEdit && <Button disabled={questionBusy} onClick={() => void saveQuestion()}><Save className="mr-1.5 h-4 w-4" />Save draft</Button>}{canReview && <Button variant="outline" disabled={questionBusy || !questionDetail.target} onClick={() => void saveQuestionAssignment()}>Save assignment</Button>}{canReview && questionDetail.target && <><Button variant="outline" disabled={questionBusy} onClick={() => void changeQuestionStatus('in_review')}>Submit review</Button><Button variant="outline" disabled={questionBusy} onClick={() => void changeQuestionStatus('needs_fix')}>Needs fix</Button><Button disabled={questionBusy || !questionDetail.quality?.approvable} onClick={() => void changeQuestionStatus('approved')}><ShieldCheck className="mr-1.5 h-4 w-4" />Approve</Button></>}</div></CardContent></Card>
+            <Card><CardHeader><CardTitle className="text-sm">Ownership and actions</CardTitle></CardHeader><CardContent className="space-y-3"><div className="grid gap-3 md:grid-cols-2"><select className="h-10 rounded-md border bg-background px-3 text-sm" value={questionTranslator} onChange={(event) => setQuestionTranslator(event.target.value)} disabled={!canReview}><option value="">Translator unassigned</option>{overview?.reviewers.filter((reviewer) => reviewer.permissions.includes('content.translations.update')).map((reviewer) => <option key={reviewer.id} value={reviewer.id}>{reviewer.displayName}</option>)}</select><select className="h-10 rounded-md border bg-background px-3 text-sm" value={questionReviewer} onChange={(event) => setQuestionReviewer(event.target.value)} disabled={!canReview}><option value="">Reviewer unassigned</option>{overview?.reviewers.filter((reviewer) => reviewer.permissions.includes('content.translations.review')).map((reviewer) => <option key={reviewer.id} value={reviewer.id}>{reviewer.displayName}</option>)}</select></div><Input value={questionReason} onChange={(event) => setQuestionReason(event.target.value)} placeholder="Required audit reason" /><div className="flex flex-wrap gap-2">{canEdit && ['hi', 'pa'].includes(selectedQuestion?.languageCode ?? '') &&
+                <Button variant="outline" disabled={questionBusy} onClick={() => void suggestQuestion()}>
+                  <Languages className="mr-1.5 h-4 w-4" />Suggest translation
+                </Button>}
+              {canEdit && <Button disabled={questionBusy} onClick={() => void saveQuestion()}><Save className="mr-1.5 h-4 w-4" />Save draft</Button>}{canReview && <Button variant="outline" disabled={questionBusy || !questionDetail.target} onClick={() => void saveQuestionAssignment()}>Save assignment</Button>}{canReview && questionDetail.target && <><Button variant="outline" disabled={questionBusy} onClick={() => void changeQuestionStatus('in_review')}>Submit review</Button><Button variant="outline" disabled={questionBusy} onClick={() => void changeQuestionStatus('needs_fix')}>Needs fix</Button><Button disabled={questionBusy || !questionDetail.quality?.approvable} onClick={() => void changeQuestionStatus('approved')}><ShieldCheck className="mr-1.5 h-4 w-4" />Approve</Button></>}</div></CardContent></Card>
             <Card><CardHeader><CardTitle className="text-sm">Discussion and history</CardTitle></CardHeader><CardContent className="space-y-3">{questionDetail.target && <div className="flex gap-2"><Input value={comment} onChange={(event) => setComment(event.target.value)} placeholder="Editorial comment" /><Button variant="outline" disabled={questionBusy} onClick={() => void postComment()}>Add</Button></div>}{questionDetail.history.map((event) => <div key={event.id} className="rounded-lg border p-3 text-sm"><div className="flex justify-between gap-3"><strong>{event.summary}</strong><span className="text-xs text-muted-foreground">{time(event.occurredAt)}</span></div>{event.reason && <p className="mt-2 whitespace-pre-wrap text-muted-foreground">{event.reason}</p>}</div>)}{questionDetail.history.length === 0 && <p className="text-sm text-muted-foreground">No history yet.</p>}</CardContent></Card>
           </div> : null}
         </SheetContent>
