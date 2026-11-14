@@ -340,7 +340,7 @@ export function getQuestionTranslation(questionVersionId: string, languageCode: 
   );
 }
 
-export function suggestLinkedQuestionTranslation(questionVersionId: string, languageCode: 'hi' | 'pa') {
+export function loadExistingLinkedLocalization(questionVersionId: string, languageCode: 'hi' | 'pa') {
   return request<{
     questionVersionId: string;
     languageCode: string;
@@ -348,6 +348,7 @@ export function suggestLinkedQuestionTranslation(questionVersionId: string, lang
     quality: TranslationQualityResult;
     saved: false;
     approved: false;
+    source: 'NATIVE_RELEASED_LOCALIZATION';
   }>(
     `/admin/translations/questions/${encodeURIComponent(questionVersionId)}/languages/${encodeURIComponent(languageCode)}/suggest`,
     { method: 'POST', body: JSON.stringify({}) },
