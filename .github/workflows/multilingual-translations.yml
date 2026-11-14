@@ -33,7 +33,6 @@ on:
       - docs/database-migrations/2026-07-21-multilingual-translation-validation.md
       - scripts/validate-multilingual-migration.mjs
       - docs/frontend-truth-audit.md
-      - .github/workflows/multilingual-translations.yml
   push:
     branches:
       - New-main
