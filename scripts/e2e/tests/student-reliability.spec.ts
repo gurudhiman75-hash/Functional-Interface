@@ -567,3 +567,24 @@ test("dashboard loading stays local and becomes static with reduced motion", asy
     release();
   }
 });
+
+test("saved result motion preserves scores, filters and reduced-motion behavior", async ({ page }) => {
+  await installApiFixtures(page, { completedFirst: true, serverDraft: null });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await openAsStudent(page, `/result?attemptId=${RESULT_ID}`);
+  const summary = page.getByTestId("result-summary");
+  await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+  await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
+  await expect.poll(() => summary.evaluate(el => getComputedStyle(el).transform)).toBe("none");
+  await page.getByRole("button", { name: "Wrong (0)", exact: true }).click();
+  await expect(page.getByText("No questions match this filter.")).toBeVisible();
+  await expect.poll(() => page.locator(".et-result-review-enter").evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
+  await page.getByRole("button", { name: "All (2)", exact: true }).click();
+  await expect(page.getByText("Adding two and two gives four.")).toBeVisible();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await expect.poll(() => page.locator(".et-result-review-enter").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+});

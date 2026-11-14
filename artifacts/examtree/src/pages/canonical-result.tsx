@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
+import "@/styles/result-motion.css";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -64,7 +65,19 @@ function clampPercent(value: number) {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+function subscribeToMotionPreference(notify: () => void) {
+  const query = window.matchMedia(reducedMotionQuery);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+}
+
 export default function CanonicalResult() {
+  const reduceMotion = useSyncExternalStore(
+    subscribeToMotionPreference,
+    () => window.matchMedia(reducedMotionQuery).matches,
+    () => true,
+  );
   const [, setLocation] = useLocation();
   const params = typeof window === "undefined" ? null : new URLSearchParams(window.location.search);
   const attemptId = params?.get("attemptId") ?? null;
@@ -183,7 +196,7 @@ export default function CanonicalResult() {
   const durationAvailable = result.timeSpent > 0;
 
   return (
-    <div className="min-w-0 bg-[#f7f8fc] py-5 sm:py-7">
+    <div className="et-result-motion min-w-0 bg-[#f7f8fc] py-5 sm:py-7">
       <div className="mx-auto w-full max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
         <button
           type="button"
@@ -348,8 +361,8 @@ export default function CanonicalResult() {
                   <YAxis dataKey="name" type="category" width={112} tick={{ fontSize: 11 }} />
                   <Tooltip />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
-                  <Bar dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -394,9 +407,9 @@ export default function CanonicalResult() {
                     <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
                     <Tooltip />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar dataKey="correct" name="Correct" stackId="answers" fill="#10b981" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="wrong" name="Wrong" stackId="answers" fill="#f43f5e" />
-                    <Bar dataKey="unanswered" name="Skipped" stackId="answers" fill="#fbbf24" radius={[4, 4, 0, 0]} />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="correct" name="Correct" stackId="answers" fill="#10b981" radius={[0, 0, 0, 0]} />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="wrong" name="Wrong" stackId="answers" fill="#f43f5e" />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="unanswered" name="Skipped" stackId="answers" fill="#fbbf24" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -477,7 +490,7 @@ export default function CanonicalResult() {
             </div>
           </div>
 
-          <div className="mt-5 space-y-4">
+          <div key={filter} className="et-result-review-enter mt-5 space-y-4">
             {filteredReview.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-8 text-center text-sm text-slate-500">No questions match this filter.</div>
             ) : filteredReview.map(({ item, questionNumber }) => {
