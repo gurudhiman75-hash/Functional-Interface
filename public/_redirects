@@ -1,0 +1,3 @@
+# Cloudflare Pages serves student SPA using its built-in 404-less fallback.
+# Admin deep links are handled by functions/admin/[[path]].js.
+# Do not add 200 rewrites: Pages rejects these as infinite redirect loops.

@@ -1,0 +1,521 @@
+import { useMemo, useState } from "react";
+import { useLocation } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import {
+  ArrowLeft,
+  Award,
+  BarChart3,
+  BookOpen,
+  CheckCircle2,
+  Clock3,
+  FileQuestion,
+  Flag,
+  ListChecks,
+  RotateCcw,
+  Target,
+  Timer,
+  TrendingUp,
+  XCircle,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { QuestionRichText } from "@/components/QuestionRichText";
+import { getAttemptById, getUserAttempts } from "@/lib/data";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { analyzeDifficulty, analyzeMarking, analyzeResultSections, attemptComparison, previousSavedAttempt } from "@/lib/individual-test-analysis";
+import { aggregateTopics } from "@/lib/performance-metrics";
+import type { TestAttempt } from "@/lib/storage";
+
+type ReviewFilter = "all" | "correct" | "wrong" | "flagged" | "unanswered";
+type CanonicalResult = TestAttempt & {
+  attemptNumber?: number;
+  submittedAt?: string;
+  createdAt?: string;
+  seriesId?: string | null;
+};
+
+function formatDuration(seconds: number): string {
+  const safe = Math.max(0, Math.round(seconds));
+  if (safe < 60) return `${safe} sec`;
+  const minutes = Math.floor(safe / 60);
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const remaining = minutes % 60;
+  return remaining ? `${hours} hr ${remaining} min` : `${hours} hr`;
+}
+
+function formatSubmittedAt(value: string | undefined): string | null {
+  if (!value) return null;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return new Intl.DateTimeFormat("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(parsed);
+}
+
+function reviewState(item: NonNullable<TestAttempt["questionReview"]>[number]) {
+  if (item.selected == null) return "unanswered";
+  return item.selected === item.correct ? "correct" : "wrong";
+}
+
+function clampPercent(value: number) {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+export default function CanonicalResult() {
+  const [, setLocation] = useLocation();
+  const params = typeof window === "undefined" ? null : new URLSearchParams(window.location.search);
+  const attemptId = params?.get("attemptId") ?? null;
+  const requestedTestId = params?.get("testId") ?? null;
+  const [filter, setFilter] = useState<ReviewFilter>("all");
+
+  const resultQuery = useQuery({
+    queryKey: ["canonical-attempt-result", attemptId],
+    queryFn: () => getAttemptById(attemptId!),
+    enabled: Boolean(attemptId),
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  const result = resultQuery.data as CanonicalResult | undefined;
+  const historyQuery = useQuery({
+    queryKey: ["canonical-result-history", result?.testId],
+    queryFn: () => getUserAttempts(),
+    enabled: Boolean(result?.testId),
+    staleTime: 60_000,
+    retry: false,
+  });
+  const review = result?.questionReview ?? [];
+  const counts = useMemo(() => ({
+    all: review.length,
+    correct: review.filter((item) => reviewState(item) === "correct").length,
+    wrong: review.filter((item) => reviewState(item) === "wrong").length,
+    flagged: review.filter((item) => item.flagged).length,
+    unanswered: review.filter((item) => reviewState(item) === "unanswered").length,
+  }), [review]);
+  const filteredReview = useMemo(() => review.map((item, index) => ({ item, questionNumber: index + 1 })).filter(({ item }) => {
+    if (filter === "all") return true;
+    if (filter === "flagged") return item.flagged;
+    return reviewState(item) === filter;
+  }), [filter, review]);
+
+  if (!attemptId) {
+    return (
+      <div className="min-h-[70vh] bg-[#f7f8fc] px-4 py-12">
+        <div className="mx-auto flex min-h-[58vh] max-w-xl items-center">
+          <div className="w-full rounded-3xl border border-amber-200 bg-white p-8 text-center shadow-[0_16px_44px_rgba(37,42,68,0.05)]">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-600"><Clock3 className="h-7 w-7" /></span>
+            <h1 className="mt-5 text-xl font-bold tracking-tight text-slate-950">Submission is not confirmed yet</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              ExamTree only shows a score after the server has committed your attempt. If your connection dropped during submission, your saved attempt remains recoverable and no earlier or local score is presented as this attempt&apos;s official result.
+            </p>
+            <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
+              {requestedTestId && (
+                <Button className="min-h-11 rounded-xl bg-[#6657e8] hover:bg-[#594bd9]" onClick={() => setLocation(`/test/${encodeURIComponent(requestedTestId)}`)}>
+                  Return to saved test
+                </Button>
+              )}
+              <Button className="min-h-11 rounded-xl" variant="outline" onClick={() => setLocation("/dashboard")}>Open My Activity</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (resultQuery.isLoading) {
+    return (
+      <div className="min-h-[70vh] bg-[#f7f8fc] px-4 py-8">
+        <div className="mx-auto max-w-6xl space-y-5">
+          <div className="skeleton-shimmer h-72 rounded-3xl" />
+          <div className="grid gap-4 md:grid-cols-2"><div className="skeleton-shimmer h-48 rounded-3xl" /><div className="skeleton-shimmer h-48 rounded-3xl" /></div>
+          <div className="skeleton-shimmer h-72 rounded-3xl" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!result || resultQuery.isError) {
+    return (
+      <div className="min-h-[70vh] bg-[#f7f8fc] px-4 py-12">
+        <div className="mx-auto flex min-h-[58vh] max-w-xl items-center">
+          <div className="w-full rounded-3xl border border-[#e5e2f4] bg-white p-8 text-center shadow-[0_16px_44px_rgba(37,42,68,0.05)]">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f3f0ff] text-[#6657e8]"><FileQuestion className="h-7 w-7" /></span>
+            <h1 className="mt-5 text-xl font-bold tracking-tight text-slate-950">Result is not available</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              The attempt may still be syncing, or this link does not belong to your account.
+            </p>
+            <Button className="mt-6 min-h-11 rounded-xl bg-[#6657e8] hover:bg-[#594bd9]" onClick={() => setLocation("/dashboard")}>Open My Activity</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const accuracy = result.correct + result.wrong > 0
+    ? Math.round((result.correct / (result.correct + result.wrong)) * 100)
+    : 0;
+  const boundedScore = clampPercent(result.score);
+  const totalQuestions = Math.max(0, result.totalQuestions || result.correct + result.wrong + result.unanswered);
+  const correctShare = totalQuestions > 0 ? (result.correct / totalQuestions) * 100 : 0;
+  const wrongShare = totalQuestions > 0 ? (result.wrong / totalQuestions) * 100 : 0;
+  const unansweredShare = totalQuestions > 0 ? (result.unanswered / totalQuestions) * 100 : 0;
+  const submittedAt = formatSubmittedAt(result.submittedAt ?? result.createdAt);
+  const seriesUrl = result.seriesId ? `/test-series/${encodeURIComponent(result.seriesId)}` : null;
+  const retryUrl = `/test/${encodeURIComponent(result.testId)}${result.seriesId ? `?seriesId=${encodeURIComponent(result.seriesId)}` : ""}`;
+  const answered = Math.max(0, result.correct + result.wrong);
+  const attemptRate = totalQuestions > 0 ? Math.round((answered / totalQuestions) * 100) : null;
+  const secondsPerAnswer = result.timeSpent > 0 && answered > 0 ? Math.round(result.timeSpent / answered) : null;
+  const topicMetrics = aggregateTopics([result]).filter((topic) => topic.answered >= 3);
+  const sections = analyzeResultSections(result);
+  const difficulty = analyzeDifficulty(review);
+  const marking = analyzeMarking(result);
+  const prior = historyQuery.isSuccess ? previousSavedAttempt(result, historyQuery.data ?? []) : null;
+  const comparison = attemptComparison(result, prior);
+  const measuredSections = sections.filter((section) => section.answered >= 5 && section.accuracy != null);
+  const strongestSection = [...measuredSections].sort((left, right) => (right.accuracy ?? 0) - (left.accuracy ?? 0))[0] ?? null;
+  const weakSections = measuredSections.filter((section) => (section.accuracy ?? 100) < 70)
+    .sort((left, right) => (left.accuracy ?? 0) - (right.accuracy ?? 0));
+  const focusSection = weakSections[0] ?? null;
+  const focusTopics = topicMetrics.filter((topic) => topic.accuracy < 70).slice(0, 3);
+  const durationAvailable = result.timeSpent > 0;
+
+  return (
+    <div className="min-w-0 bg-[#f7f8fc] py-5 sm:py-7">
+      <div className="mx-auto w-full max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
+        <button
+          type="button"
+          onClick={() => setLocation(seriesUrl ?? "/dashboard")}
+          className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-sm font-semibold text-foreground/90 transition hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {seriesUrl ? "Back to Test Series" : "Back to My Activity"}
+        </button>
+
+        <section className="overflow-hidden rounded-3xl border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_8%,rgba(108,92,241,0.14),transparent_25rem),linear-gradient(120deg,#ffffff_0%,#f8f6ff_100%)] shadow-[0_16px_44px_rgba(37,42,68,0.05)]" data-testid="result-summary">
+          <div className="grid gap-7 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_310px] lg:items-center lg:p-8">
+            <div className="min-w-0">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#6657e8]">Canonical saved result</p>
+              <h1 className="mt-2 text-2xl font-bold tracking-[-0.035em] text-slate-950 sm:text-3xl">{result.testName}</h1>
+              <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-bold text-slate-600">
+                <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">{result.category}</span>
+                {result.attemptNumber != null && <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">Attempt {result.attemptNumber}</span>}
+                {submittedAt && <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">Submitted {submittedAt}</span>}
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4"><div className="flex items-center gap-2 text-xs font-bold text-emerald-700"><CheckCircle2 className="h-4 w-4" />Correct</div><p className="mt-2 text-2xl font-black tracking-tight text-slate-950">{result.correct}</p></div>
+                <div className="rounded-2xl border border-rose-100 bg-rose-50/70 p-4"><div className="flex items-center gap-2 text-xs font-bold text-rose-700"><XCircle className="h-4 w-4" />Wrong</div><p className="mt-2 text-2xl font-black tracking-tight text-slate-950">{result.wrong}</p></div>
+                <div className="rounded-2xl border border-amber-100 bg-amber-50/70 p-4"><div className="flex items-center gap-2 text-xs font-bold text-amber-700"><FileQuestion className="h-4 w-4" />Unanswered</div><p className="mt-2 text-2xl font-black tracking-tight text-slate-950">{result.unanswered}</p></div>
+                <div className="rounded-2xl border border-[#e6e1f8] bg-white/75 p-4"><div className="flex items-center gap-2 text-xs font-bold text-slate-600"><Timer className="h-4 w-4 text-[#6657e8]" />Time spent</div><p className="mt-2 text-2xl font-black tracking-tight text-slate-950">{formatDuration(result.timeSpent)}</p></div>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-white bg-white/90 p-5 shadow-[0_12px_36px_rgba(71,61,145,0.08)]">
+              <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-full p-[12px]" style={{ background: `conic-gradient(#6657e8 ${boundedScore * 3.6}deg,#ece9fb 0deg)` }}>
+                <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white text-center">
+                  <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Score</span>
+                  <span className="mt-1 text-4xl font-black tracking-[-0.04em] text-slate-950">{result.score}%</span>
+                  {result.actualScore != null && <span className="mt-1 text-xs font-bold text-slate-500">{result.actualScore} marks</span>}
+                </div>
+              </div>
+              <div className="mt-5 flex items-center justify-between text-xs"><span className="font-semibold text-slate-500">Accuracy</span><strong className="text-slate-950">{accuracy}%</strong></div>
+              <Progress value={accuracy} className="mt-2 h-2" />
+              <div className="mt-5 grid gap-2">
+                {seriesUrl && <Button className="min-h-11 rounded-xl bg-[#6657e8] hover:bg-[#594bd9]" onClick={() => setLocation(seriesUrl)}><Target className="mr-2 h-4 w-4" />Continue Test Series</Button>}
+                <Button className="min-h-11 rounded-xl border-[#dcd8ec] bg-white text-slate-700 hover:bg-[#f7f5ff]" variant="outline" onClick={() => setLocation(retryUrl)}><RotateCcw className="mr-2 h-4 w-4" />Retake test</Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-3 sm:grid-cols-3" aria-label="Attempt diagnostics">
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Attempt rate</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{attemptRate == null ? "—" : String(attemptRate) + "%"}</p>
+            <p className="mt-1 text-xs text-slate-500">{answered} of {totalQuestions} questions answered</p>
+          </div>
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Average time per answer</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{secondsPerAnswer == null ? "—" : String(secondsPerAnswer) + "s"}</p>
+            <p className="mt-1 text-xs text-slate-500">Recorded test duration divided by answered questions</p>
+          </div>
+          <div className="rounded-2xl border border-[#e5e2f4] bg-white p-4">
+            <p className="text-xs font-semibold text-slate-500">Questions attempted accurately</p>
+            <p className="mt-2 text-2xl font-black text-slate-950">{answered > 0 ? String(accuracy) + "%" : "—"}</p>
+            <p className="mt-1 text-xs text-slate-500">Correct answers out of questions attempted</p>
+          </div>
+        </section>
+
+
+        <section className="grid gap-4 lg:grid-cols-2" aria-label="Marks and progress" data-testid="result-extended-diagnostics">
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700"><Target className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold text-slate-950">Marks & negative marking</h2><p className="mt-1 text-xs text-slate-500">Calculated only when the saved marking rules are available.</p></div>
+            </div>
+            {marking ? (
+              <>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-xl bg-emerald-50 px-2 py-4"><p className="text-xs font-semibold text-emerald-700">Earned</p><p className="mt-1 text-xl font-extrabold text-slate-950">+{marking.marksGained}</p></div>
+                  <div className="rounded-xl bg-rose-50 px-2 py-4"><p className="text-xs font-semibold text-rose-700">Penalty</p><p className="mt-1 text-xl font-extrabold text-slate-950">−{marking.marksLost}</p></div>
+                  <div className="rounded-xl bg-indigo-50 px-2 py-4"><p className="text-xs font-semibold text-indigo-700">Calculated net</p><p className="mt-1 text-xl font-extrabold text-slate-950">{marking.calculatedNet}</p></div>
+                </div>
+                <p className="mt-3 text-xs leading-5 text-slate-500">
+                  {result.correct} correct × {result.marksPerQuestion} marks; {result.wrong} wrong × {result.negativeMarks} penalty.
+                  {marking.reportedNet != null && marking.reportedNet !== marking.calculatedNet
+                    ? " Official saved marks: " + marking.reportedNet + ". The calculation differs; the saved score remains authoritative."
+                    : ""}
+                </p>
+              </>
+            ) : (
+              <div className="mt-5 rounded-2xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                Per-question marking and penalty settings are not both recorded for this attempt.
+                {result.actualScore != null ? " Saved official marks: " + result.actualScore + "." : " The percentage result above is still available."}
+              </div>
+            )}
+          </div>
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700"><TrendingUp className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold text-slate-950">Compared with last attempt</h2><p className="mt-1 text-xs text-slate-500">Only an earlier saved real attempt of this exact test.</p></div>
+            </div>
+            {comparison ? (
+              <>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Previous score</p><p className="mt-1 text-xl font-extrabold text-slate-900">{comparison.previousScore}%</p></div>
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Score change</p><p className={"mt-1 text-xl font-extrabold " + (comparison.scoreDelta > 0 ? "text-emerald-700" : comparison.scoreDelta < 0 ? "text-rose-700" : "text-slate-900")}>{comparison.scoreDelta > 0 ? "+" : ""}{comparison.scoreDelta} pp</p></div>
+                  <div className="rounded-xl bg-slate-50 p-3"><p className="text-xs text-slate-500">Accuracy change</p><p className="mt-1 text-xl font-extrabold text-slate-900">{comparison.accuracyDelta == null ? "—" : (comparison.accuracyDelta > 0 ? "+" : "") + comparison.accuracyDelta + " pp"}</p></div>
+                </div>
+                <p className="mt-3 text-xs text-slate-500">Answered questions: {comparison.answeredDelta > 0 ? "+" : ""}{comparison.answeredDelta} compared with the earlier attempt. Percentage-point comparisons are not a rank or percentile.</p>
+              </>
+            ) : (
+              <div className="mt-5 rounded-2xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+                {historyQuery.isLoading ? "Checking your earlier saved tests…" : historyQuery.isError ? "Previous-attempt history could not be loaded. This test result is still valid." : "No earlier confirmed real attempt of this test is available to compare."}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]" aria-label="Attempt analysis">
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BarChart3 className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Answer distribution</h2><p className="mt-1 text-sm text-slate-500">A simple view of how this saved attempt was answered.</p></div>
+            </div>
+            <div className="mt-6 flex h-3 overflow-hidden rounded-full bg-slate-100" aria-label="Answer distribution bar">
+              {correctShare > 0 && <div className="bg-emerald-500" style={{ width: `${correctShare}%` }} />}
+              {wrongShare > 0 && <div className="bg-rose-500" style={{ width: `${wrongShare}%` }} />}
+              {unansweredShare > 0 && <div className="bg-amber-400" style={{ width: `${unansweredShare}%` }} />}
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              <div><p className="text-xs font-bold text-emerald-700">Correct</p><p className="mt-1 text-lg font-black text-slate-950">{totalQuestions > 0 ? Math.round(correctShare) : 0}%</p></div>
+              <div><p className="text-xs font-bold text-rose-700">Wrong</p><p className="mt-1 text-lg font-black text-slate-950">{totalQuestions > 0 ? Math.round(wrongShare) : 0}%</p></div>
+              <div><p className="text-xs font-bold text-amber-700">Unanswered</p><p className="mt-1 text-lg font-black text-slate-950">{totalQuestions > 0 ? Math.round(unansweredShare) : 0}%</p></div>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><Award className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Performance insights</h2><p className="mt-1 text-sm text-slate-500">Only sections with at least five answers qualify for strength and focus suggestions.</p></div>
+            </div>
+            {strongestSection ? (
+              <div className="mt-5 space-y-3">
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4"><p className="text-[10px] font-black uppercase tracking-[0.14em] text-emerald-700">Strongest section</p><div className="mt-1 flex items-end justify-between gap-3"><strong className="text-sm text-slate-950">{strongestSection.name}</strong><span className="text-xl font-black text-emerald-700">{strongestSection.accuracy}%</span></div></div>
+                {focusSection && focusSection.name !== strongestSection.name && <div className="rounded-2xl border border-amber-100 bg-amber-50/70 p-4"><p className="text-[10px] font-black uppercase tracking-[0.14em] text-amber-700">Focus next</p><div className="mt-1 flex items-end justify-between gap-3"><strong className="text-sm text-slate-950">{focusSection.name}</strong><span className="text-xl font-black text-amber-700">{focusSection.accuracy}%</span></div></div>}
+              </div>
+            ) : (
+              <div className="mt-5 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-5 text-sm leading-6 text-slate-500">Section-level insights will appear when the saved attempt contains section statistics.</div>
+            )}
+          </div>
+        </section>
+
+        {sections.length > 0 && (
+          <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="section-performance">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><ListChecks className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Section performance</h2><p className="mt-1 text-sm text-slate-500">Accuracy and answer mix from the committed attempt.</p></div>
+            </div>
+
+            <div role="img" aria-label="Section accuracy and attempt-rate comparison" className="mt-5 h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={sections} layout="vertical" margin={{ top: 4, left: 2, right: 18, bottom: 4 }}>
+                  <CartesianGrid stroke="#edf0f7" strokeDasharray="3 4" horizontal={false} />
+                  <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11 }} />
+                  <YAxis dataKey="name" type="category" width={112} tick={{ fontSize: 11 }} />
+                  <Tooltip />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Bar dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {sections.map((section) => (
+                <div key={section.name} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4 sm:p-5">
+                  <div className="flex items-center justify-between gap-3"><strong className="truncate text-sm text-slate-950">{section.name}</strong><span className="rounded-full border border-[#ded9fa] bg-white px-2.5 py-1 text-xs font-black text-[#6657e8]">{section.accuracy == null ? "—" : String(section.accuracy) + "%"}</span></div>
+                  <Progress value={section.accuracy ?? 0} className="mt-4 h-2" />
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+                    <div className="rounded-xl border border-emerald-100 bg-white px-2 py-2"><p className="text-sm font-black text-emerald-700">{section.correct}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Correct</p></div>
+                    <div className="rounded-xl border border-rose-100 bg-white px-2 py-2"><p className="text-sm font-black text-rose-700">{section.wrong}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Wrong</p></div>
+                    <div className="rounded-xl border border-amber-100 bg-white px-2 py-2"><p className="text-sm font-black text-amber-700">{section.unanswered}</p><p className="mt-0.5 text-[10px] font-bold text-slate-500">Skipped</p></div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
+                    <span className="rounded-lg bg-white px-2.5 py-1.5">{section.attemptRate == null ? "—" : section.attemptRate + "%"} attempted</span>
+                    <span className="rounded-lg bg-white px-2.5 py-1.5">{section.seconds == null ? "Time not recorded" : formatDuration(section.seconds) + " recorded"}</span>
+                    {section.netMarks != null && <span className="rounded-lg bg-white px-2.5 py-1.5">{section.netMarks} net marks*</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {marking && <p className="mt-3 text-xs text-slate-500">*Section net marks are calculated from the recorded question marking rules, not an independently recorded section score.</p>}
+          </section>
+        )}
+
+
+        <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="difficulty-analysis">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BarChart3 className="h-5 w-5" /></span>
+            <div>
+              <h2 className="text-lg font-bold tracking-tight text-slate-950">Difficulty-wise analysis</h2>
+              <p className="mt-1 text-sm text-slate-500">Question counts grouped by their saved Easy, Medium and Hard labels. {difficulty.taggedQuestions} of {difficulty.reviewQuestions} reviewed questions have a difficulty label.</p>
+            </div>
+          </div>
+          {difficulty.rows.length > 0 ? (
+            <>
+              <div role="img" aria-label="Correct, wrong and unanswered saved questions by recorded difficulty" className="mt-5 h-56 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={difficulty.rows} margin={{ top: 8, left: -18, right: 8, bottom: 0 }}>
+                    <CartesianGrid vertical={false} stroke="#edf0f7" strokeDasharray="3 4" />
+                    <XAxis dataKey="difficulty" tick={{ fontSize: 11 }} />
+                    <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                    <Tooltip />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="correct" name="Correct" stackId="answers" fill="#10b981" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="wrong" name="Wrong" stackId="answers" fill="#f43f5e" />
+                    <Bar dataKey="unanswered" name="Skipped" stackId="answers" fill="#fbbf24" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                {difficulty.rows.map((row) => (
+                  <div key={row.difficulty} className="rounded-xl border border-slate-100 bg-[#fbfaff] p-4">
+                    <p className="text-sm font-bold text-slate-900">{row.difficulty}</p>
+                    <p className="mt-1 text-lg font-black text-indigo-700">{row.accuracy == null ? "—" : row.accuracy + "%"} <span className="text-xs font-normal text-slate-500">accuracy</span></p>
+                    <p className="mt-1 text-xs text-slate-500">{row.answered}/{row.total} attempted · {row.unanswered} skipped</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : <p className="mt-5 rounded-xl bg-slate-50 p-5 text-sm text-slate-600">Difficulty tags were not saved with these questions, so an Easy/Medium/Hard breakdown cannot be calculated.</p>}
+        </section>
+
+        {topicMetrics.length > 0 && (
+          <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="topic-performance">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><Target className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Topic performance</h2><p className="mt-1 text-sm text-slate-500">Based only on tagged questions in this attempt with at least three answered per topic.</p></div>
+            </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {topicMetrics.map((topic) => (
+                <div key={topic.section + "|" + topic.topic} className="rounded-2xl border border-[#ece9f5] bg-[#fbfaff] p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div><p className="text-sm font-bold text-slate-950">{topic.topic}</p><p className="mt-1 text-xs text-slate-500">{topic.section} · {topic.correct}/{topic.answered} correct</p></div>
+                    <span className="text-lg font-black text-[#6657e8]">{topic.accuracy}%</span>
+                  </div>
+                  <Progress value={topic.accuracy} className="mt-3 h-2" />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+
+        <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="next-step-recommendations">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><Target className="h-5 w-5" /></span>
+            <div><h2 className="text-lg font-bold text-slate-950">Your next practice priorities</h2><p className="mt-1 text-sm text-slate-500">Focus threshold: below 70% accuracy, with at least five section answers or three tagged topic answers. These are study suggestions, not exam cutoffs.</p></div>
+          </div>
+          {weakSections.length > 0 || focusTopics.length > 0 ? (
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {weakSections.slice(0, 3).map((section) => (
+                <div key={section.name} className="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Review section</p>
+                  <p className="mt-1 font-bold text-slate-900">{section.name} · {section.accuracy}%</p>
+                  <p className="mt-2 text-sm leading-5 text-slate-600">{section.correct} correct from {section.answered} answers. Revisit mistakes and skipped questions before your next test.</p>
+                </div>
+              ))}
+              {focusTopics.map((topic) => (
+                <div key={topic.section + "|" + topic.topic} className="rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-indigo-700">Practice topic</p>
+                  <p className="mt-1 font-bold text-slate-900">{topic.topic} · {topic.accuracy}%</p>
+                  <p className="mt-2 text-sm leading-5 text-slate-600">{topic.section} · {topic.correct} correct out of {topic.answered} tagged answers.</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-5 rounded-xl bg-slate-50 p-5 text-sm leading-6 text-slate-600">{measuredSections.length > 0 || topicMetrics.length > 0 ? "No section or topic currently meets the focus threshold. Continue practicing and review your incorrect answers below." : "Not enough saved section or tagged topic data for reliable priorities. Review your incorrect answers below."}</p>
+          )}
+          {durationAvailable && <p className="mt-4 text-xs text-slate-500">Average recorded pace: {secondsPerAnswer} seconds per answered question. Per-question timing is not available in this saved result.</p>}
+        </section>
+
+        <section className="rounded-3xl border border-[#e5e2f4] bg-white p-5 shadow-[0_10px_34px_rgba(37,42,68,0.04)] sm:p-6" data-testid="solution-review">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BookOpen className="h-5 w-5" /></span>
+              <div><h2 className="text-lg font-bold tracking-tight text-slate-950">Solution review</h2><p className="mt-1 text-sm leading-6 text-slate-500">Answers and explanations come from the immutable submitted test version.</p></div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {(["all", "correct", "wrong", "flagged", "unanswered"] as ReviewFilter[]).map((item) => (
+                <Button key={item} className={`min-h-11 rounded-xl ${filter === item ? "bg-[#6657e8] text-white hover:bg-[#594bd9]" : "border-[#dedbea] bg-white text-slate-600 hover:bg-[#f7f5ff]"}`} size="sm" variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>
+                  {item[0]!.toUpperCase() + item.slice(1)} ({counts[item]})
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-4">
+            {filteredReview.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-8 text-center text-sm text-slate-500">No questions match this filter.</div>
+            ) : filteredReview.map(({ item, questionNumber }) => {
+              const state = reviewState(item);
+              return (
+                <article key={item.questionId} className="overflow-hidden rounded-2xl border border-[#e9e7f1] bg-white">
+                  <div className="flex items-start justify-between gap-4 border-b border-[#efedf5] bg-[#fbfaff] px-4 py-4 sm:px-5">
+                    <div className="min-w-0"><p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Question {questionNumber} · {item.section}</p><div className="mt-2 font-semibold leading-6 text-slate-950"><QuestionRichText content={item.text} lang="en" /></div></div>
+                    <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-black ${state === "correct" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : state === "wrong" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>
+                      {state === "correct" ? <CheckCircle2 className="h-3.5 w-3.5" /> : state === "wrong" ? <XCircle className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />}
+                      {state === "correct" ? "Correct" : state === "wrong" ? "Wrong" : "Unanswered"}
+                    </span>
+                  </div>
+                  <div className="p-4 sm:p-5">
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {item.options.map((option, optionIndex) => {
+                        const correct = optionIndex === item.correct;
+                        const selected = optionIndex === item.selected;
+                        return (
+                          <div key={optionIndex} className={`rounded-xl border px-3 py-3 text-sm leading-6 ${correct ? "border-emerald-200 bg-emerald-50/70" : selected ? "border-rose-200 bg-rose-50/70" : "border-[#eceaf2] bg-white"}`}>
+                            <div className="flex items-start gap-2"><strong className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[11px] ${correct ? "bg-emerald-100 text-emerald-700" : selected ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-500"}`}>{String.fromCharCode(65 + optionIndex)}</strong><div className="min-w-0 text-slate-700">
+                              <QuestionRichText content={option} lang="en" />
+                              {correct && <span className="mt-1 inline-block text-[11px] font-bold text-emerald-700">Correct answer</span>}
+                              {selected && !correct && <span className="mt-1 inline-block text-[11px] font-bold text-rose-700">Your answer</span>}
+                            </div></div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {item.flagged && <p className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700"><Flag className="h-3.5 w-3.5" />Marked for review</p>}
+                    {item.explanation && <div className="mt-4 rounded-2xl border border-[#e4e0f5] bg-[#f8f6ff] p-4 text-sm leading-6 text-slate-700"><p className="mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#6657e8]">Explanation</p><QuestionRichText content={item.explanation} lang="en" /></div>}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,86 @@
+.notebook-login{min-height:100svh;color:#101238;background:radial-gradient(ellipse at 0 95%,#eeeaff 0,transparent 35%),radial-gradient(ellipse at 100% 60%,#f4efff 0,transparent 30%),#fff;overflow-x:clip}
+.notebook-topbar{max-width:1536px;margin:auto;padding:26px clamp(20px,5.4vw,84px);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.notebook-brand{font-size:28px;font-weight:800;letter-spacing:.06em;color:#0b113c}
+.notebook-brand>span>span{color:#5145d9}
+.notebook-topbar>button{display:flex;align-items:center;gap:8px;min-height:44px;font-size:14px;color:#0b113c}
+.notebook-topbar>button svg{width:18px;height:18px}
+.notebook-stage{padding:106px 20px 32px;position:relative}
+.notebook-book{position:relative;max-width:568px;margin:auto}
+.auth-book-art{position:absolute;left:50%;top:-148px;transform:translateX(-50%);width:360px;height:190px;z-index:1;pointer-events:none;filter:drop-shadow(0 10px 7px #554d8c20)}
+.auth-book-art svg{width:100%;height:100%}
+.notebook-form{position:relative;padding:46px 43px 25px;border:1px solid #dad9f1;border-radius:25px;background:#ffffffec;box-shadow:0 18px 45px #28234812}
+.auth-intro{text-align:center}
+.auth-eyebrow{display:inline-block;border-radius:30px;background:#f1eeff;color:#4538d0;font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:8px 16px}
+.notebook-form h1{font-size:clamp(30px,3.3vw,43px);line-height:1.15;margin-top:15px;font-weight:800;color:#0c103a}
+.notebook-form h1+p{font-size:16px;color:#65709a;margin-top:7px}
+.notebook-form input{background:white;border-radius:8px;font-size:16px;height:48px;border-color:#d8d9ec;scroll-margin-block:90px}
+.notebook-form label{font-size:13px;font-weight:500;color:#101238}
+.notebook-form [data-testid=btn-google-login]{margin-top:24px;border-color:#d8d9ec;background:white;border-radius:8px;height:50px;font-size:16px;color:#0c103a}
+.notebook-form [data-testid=btn-submit]{background:linear-gradient(110deg,#4840d5,#4336c4);border-radius:8px;height:50px;box-shadow:none;font-size:16px}
+.notebook-form [data-testid=btn-submit]:hover{background:#382aaf}
+.notebook-form form{margin-top:0}
+.auth-forgot-row{text-align:right}
+.auth-forgot{min-height:44px;padding:2px 0;color:#493ddb;font-weight:500;font-size:13px}
+.notebook-form .auth-forgot-row:empty{display:none}
+.auth-inline-login{color:#493ddb;font-weight:700;min-height:44px;padding:8px;border-radius:8px}
+.auth-legal{text-align:center;font-size:12px;color:#65709a;margin:18px auto 0;max-width:568px}
+.auth-legal a{color:#4536cf;text-decoration:underline}
+.auth-benefits{display:flex;justify-content:center;gap:0;margin:40px auto 0;max-width:760px;color:#46467d;font-size:14px}
+.auth-benefits span{display:flex;gap:15px;align-items:center;padding:0 30px;border-right:1px solid #ddddeb}
+.auth-benefits span:last-child{border-right:0}
+.auth-benefits svg{width:28px;height:28px;stroke-width:1.5}
+.auth-recovery{display:flex;min-height:44px;align-items:center;justify-content:center;text-align:center;margin-top:22px;font-size:12px;color:#65709a}
+.notebook-login button:focus-visible,.notebook-login a:focus-visible{outline:2px solid #6151db;outline-offset:3px}
+@media(max-width:600px){
+.notebook-topbar{padding:12px 18px}.notebook-brand{font-size:20px}.notebook-topbar>button{font-size:12px}
+.notebook-stage{padding:75px 14px 24px}
+.auth-book-art{width:220px;height:116px;top:-90px}
+.notebook-form{padding:29px 20px 18px;border-radius:20px}
+.auth-eyebrow{font-size:8px;padding:6px 10px}
+.notebook-form h1{font-size:29px;margin-top:10px}
+.notebook-form h1+p{font-size:13px;line-height:1.5}
+.notebook-form [data-testid=btn-google-login]{margin-top:16px;font-size:14px;height:44px}
+.notebook-form input,.notebook-form [data-testid=btn-submit]{height:44px}
+.notebook-form .my-5{margin-block:14px}
+.notebook-form form{display:flex;flex-direction:column;gap:12px}
+.notebook-form form>div,.notebook-form form>button{margin-top:0}
+.notebook-form .mt-5{margin-top:12px}
+.auth-legal{font-size:10px;padding:0 8px}
+.auth-benefits{gap:16px;margin-top:24px;flex-wrap:wrap;font-size:11px}
+.auth-benefits span{padding:0;gap:6px;border:0}
+.auth-benefits svg{width:20px;height:20px}
+.auth-keyboard-open .auth-book-art,.auth-keyboard-open .auth-intro,.auth-keyboard-open .auth-benefits,.auth-keyboard-open .auth-legal{display:none}
+.auth-keyboard-open .notebook-stage{padding-top:0}
+.auth-keyboard-open .notebook-topbar{padding-block:4px}
+.auth-keyboard-open .notebook-form{padding-top:12px;padding-bottom:18px}
+.auth-keyboard-open .notebook-form [data-testid=btn-google-login]{margin-top:0}
+}
+@media(prefers-reduced-motion:reduce){.notebook-login *{transition:none!important;scroll-behavior:auto!important}}
+
+.auth-signup .auth-intro h1{font-size:34px}
+.auth-recovery-page .notebook-stage{padding-top:28px}
+.auth-recovery-page .notebook-form{padding-top:30px}
+.recovery-art{display:flex;align-items:center;justify-content:center;width:68px;height:68px;background:#f1edff;border-radius:20px;margin:0 auto 18px;color:#6554de}
+.recovery-art svg{width:34px;height:34px;stroke-width:1.5}
+.auth-recovery-page .notebook-form h1{font-size:34px}
+.auth-recovery-page [role=tab]{min-height:44px;border-radius:8px}
+.auth-recovery-page [role=tab][aria-selected=true]{background:white;color:#4536cf}
+.auth-recovery-page button[type=submit]{min-height:48px;background:linear-gradient(110deg,#4840d5,#4336c4);color:white;border-radius:8px;font-weight:700}
+.auth-recovery-page textarea{font-size:16px;border-color:#d8d9ec;border-radius:8px;scroll-margin-block:90px}
+.auth-recovery-page .notebook-form .text-muted-foreground{color:#65709a}
+@media(max-width:600px){
+.auth-signup .auth-book-art{width:160px;height:85px;top:-65px}
+.auth-signup .notebook-stage{padding-top:50px}
+.auth-signup .notebook-form{padding-top:24px}
+.auth-signup .auth-intro h1,.auth-recovery-page .notebook-form h1{font-size:27px}
+.auth-signup .auth-intro h1+p{font-size:12px}
+.auth-signup .notebook-form form{gap:10px}
+.auth-signup .auth-benefits{display:none}
+.auth-recovery-page .notebook-stage{padding-top:8px}
+.auth-recovery-page .notebook-form{padding-top:22px}
+.recovery-art{width:48px;height:48px;border-radius:14px;margin-bottom:12px}
+.recovery-art svg{width:26px;height:26px}
+.auth-recovery-page .notebook-form [role=tablist]{margin-top:18px}
+.auth-recovery-page .notebook-form [role=tablist]~div{margin-top:18px}
+.auth-signup.auth-keyboard-open .notebook-stage,.auth-recovery-page.auth-keyboard-open .notebook-stage{padding-top:0}
+}
