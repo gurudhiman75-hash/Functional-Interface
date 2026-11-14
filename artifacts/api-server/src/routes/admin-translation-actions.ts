@@ -228,6 +228,10 @@ router.put(
             q.primary_taxonomy_node_id::text AS "taxonomyNodeId",
             q.public_code AS "publicCode",
             qv.exam_version_id::text AS "examVersionId",
+            q.status::text AS "questionStatus",
+            q.approved_version_id::text AS "approvedVersionId",
+            qv.answer_model->'generation'->>'language' AS "sourceLanguage",
+            qv.answer_model->'generation'->>'questionBankAcceptanceMode' AS "bankAcceptanceMode",
             COALESCE(
               json_agg(json_build_object(
                 'key', qo.option_key,
@@ -247,21 +251,45 @@ router.put(
         const source = sourceRows[0];
         if (!source) throw new TranslationOperationsError("QUESTION_VERSION_NOT_FOUND", "Question version not found.", 404);
 
-        const languageRows = await tx`
-          SELECT l.id::text AS id
-          FROM catalog.languages l
-          JOIN catalog.exam_version_languages evl
-            ON evl.language_id = l.id
-           AND evl.exam_version_id = ${String(source.examVersionId)}::uuid
-          WHERE lower(l.code) = ${languageCode}
-            AND l.is_active = true
-          LIMIT 1
-        `;
+        // Generated bank-only questions have no exam version until the owner
+        // assigns taxonomy. Let English-source approved versions acquire linked
+        // Hindi/Punjabi drafts now; test publication still enforces exam mapping.
+        // Non-English generator output must not be falsely labelled English.
+        const unclassifiedBankOnlyEnglish = !source.examVersionId &&
+          source.questionStatus === "approved" &&
+          source.approvedVersionId === questionVersionId &&
+          source.bankAcceptanceMode === "BANK_ONLY" &&
+          (source.sourceLanguage === "en");
+        if (!source.examVersionId && !unclassifiedBankOnlyEnglish) {
+          throw new TranslationOperationsError(
+            "QUESTION_SOURCE_LANGUAGE_NOT_ELIGIBLE",
+            "Assign exam taxonomy or use an approved English-source bank-only question for linked translations.",
+            409,
+          );
+        }
+        const languageRows = unclassifiedBankOnlyEnglish
+          ? await tx`
+              SELECT l.id::text AS id
+              FROM catalog.languages l
+              WHERE lower(l.code) = ${languageCode}
+                AND l.is_active = true
+              LIMIT 1
+            `
+          : await tx`
+              SELECT l.id::text AS id
+              FROM catalog.languages l
+              JOIN catalog.exam_version_languages evl
+                ON evl.language_id = l.id
+               AND evl.exam_version_id = ${String(source.examVersionId)}::uuid
+              WHERE lower(l.code) = ${languageCode}
+                AND l.is_active = true
+              LIMIT 1
+            `;
         const languageId = asText(languageRows[0]?.id);
         if (!languageId) {
           throw new TranslationOperationsError(
             "LANGUAGE_NOT_ALLOWED_FOR_EXAM",
-            `Language ${languageCode} is not active for this question's exam version.`,
+            `Language ${languageCode} is not active or is not enabled for this question's exam version.`,
             409,
           );
         }
