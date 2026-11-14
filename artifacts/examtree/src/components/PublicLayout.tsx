@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
+import { lazyWithRecovery as lazy } from "@/components/lazyWithRecovery";
 import {
   ArrowRight,
   BarChart3,
