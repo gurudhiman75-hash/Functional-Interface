@@ -38,7 +38,7 @@ import {
   getTestTranslation,
   getTranslationOverview,
   saveQuestionTranslation,
-  suggestLinkedQuestionTranslation,
+  loadExistingLinkedLocalization,
   saveTestTranslation,
   transitionQuestionTranslation,
   transitionTestTranslation,
@@ -328,7 +328,7 @@ export function LanguagesPage() {
     if (!selectedQuestion || !['hi', 'pa'].includes(selectedQuestion.languageCode)) return;
     setQuestionBusy(true);
     try {
-      const result = await suggestLinkedQuestionTranslation(
+      const result = await loadExistingLinkedLocalization(
         selectedQuestion.questionVersionId,
         selectedQuestion.languageCode as 'hi' | 'pa',
       );
