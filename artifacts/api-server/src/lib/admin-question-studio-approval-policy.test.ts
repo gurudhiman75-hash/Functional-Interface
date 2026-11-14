@@ -59,3 +59,17 @@ for (const payload of [
 }
 
 console.log("Question Studio approval disposition policy: PASS");
+
+for (const payload of [
+  {},
+  { questionBankStatus: "NOT_STORED", questionBankWritable: false },
+  { generationContext: { questionBankStatus: "REVIEW_ONLY", questionBankWritable: false } },
+  { runtimeMode: "DYNAMIC_CANDIDATE", questionBankWritable: false },
+]) {
+  // Legacy policy still reports chapter restriction outside an admin action,
+  // but an explicit manual approval can always store a bank-only question.
+  assert.deepEqual(getGeneratedItemApprovalDisposition(payload, { manualApproval: true }), {
+    mode: "question_bank",
+    reason: null,
+  });
+}

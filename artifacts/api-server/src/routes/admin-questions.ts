@@ -1,3 +1,4 @@
+import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality";
 import { randomUUID } from "node:crypto";
 import { Router, type Response } from "express";
 
@@ -904,7 +905,14 @@ router.post(
         const results = [];
         const skipped: Array<{ itemId: string; reason: string }> = [];
         for (const row of pending) {
-          const disposition = getGeneratedItemApprovalDisposition(row.payload);
+          // Legacy-approved items never received a canonical question. Ensure
+          // they still satisfy the current approval quality gate before storage.
+          const quality = analyzeGeneratedQuestionPayload(row.payload);
+          if (!quality.readyForApproval) {
+            skipped.push({ itemId: String(row.id), reason: "Question failed the current approval quality gate" });
+            continue;
+          }
+          const disposition = getGeneratedItemApprovalDisposition(row.payload, { manualApproval: true });
           if (disposition.mode !== "question_bank") {
             skipped.push({
               itemId: String(row.id),
@@ -916,6 +924,7 @@ router.post(
             tx as QuestionSqlExecutor,
             String(row.id),
             actorUserId,
+            { manualBankOnly: true },
           );
           if (result) results.push(result);
         }

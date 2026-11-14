@@ -142,14 +142,14 @@ const conversion = readFileSync(resolve(repoRoot, "artifacts/api-server/src/lib/
 const lifecycleRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts"), "utf8");
 const registry = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-registry.ts"), "utf8");
 
-assert.ok(bulkRoute.includes("getGeneratedItemApprovalDisposition(item.payload)"));
+assert.ok(bulkRoute.includes("getGeneratedItemApprovalDisposition(item.payload, { manualApproval: true })"));
 assert.ok(bulkRoute.includes('disposition.mode === "question_bank"'));
 assert.ok(bulkRoute.includes("convertApprovedGenerationItem("));
 assert.ok(bulkRoute.includes('approvalMode === "review_only"'));
 assert.ok(conversion.includes('if (acceptanceMode === "BANK_ONLY") return null'));
 assert.ok(conversion.includes('questionBankAcceptanceAuthority'));
-assert.ok(conversion.includes('testEligible: lifecycleValue(payload, generationContext, "testEligible")'));
-assert.ok(conversion.includes('publiclyPublishable: lifecycleValue(payload, generationContext, "publiclyPublishable")'));
+assert.ok(conversion.includes('testEligible: approvalOptions.manualBankOnly ? false'));
+assert.ok(conversion.includes('publiclyPublishable: approvalOptions.manualBankOnly ? false'));
 assert.ok(lifecycleRoute.includes("question.generationTestEligible === false"));
 assert.ok(lifecycleRoute.includes("question.generationPubliclyPublishable === false"));
 const hardeningIndex = registry.indexOf("router.use(adminQuestionStudioBulkHardeningRouter)");

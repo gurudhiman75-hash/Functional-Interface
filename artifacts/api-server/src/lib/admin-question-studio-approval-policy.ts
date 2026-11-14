@@ -22,7 +22,13 @@ function asText(value: unknown): string {
  */
 export function getGeneratedItemApprovalDisposition(
   value: unknown,
+  options: { manualApproval?: boolean } = {},
 ): GeneratedItemApprovalDisposition {
+  // Explicit, authenticated administrator approval supersedes chapter-level
+  // storage locks. Ordinary callers still see the original chapter disposition.
+  if (options.manualApproval) {
+    return Object.freeze({ mode: "question_bank" as const, reason: null });
+  }
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
   const questionBankStatus = asText(
