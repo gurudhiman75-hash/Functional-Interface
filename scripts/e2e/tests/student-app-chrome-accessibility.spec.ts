@@ -69,3 +69,30 @@ test.describe("CP02 preparation chrome accessibility", () => {
     await expect(page.getByRole("link", { name: "ExamTree dashboard" })).toBeVisible();
   });
 });
+
+
+test("learner selector and portalled mobile drawer respect motion preferences", async ({ page }) => {
+  await installFixtures(page);
+  await page.addInitScript(() => localStorage.setItem("user", JSON.stringify({ id: "app-chrome-student", name: "Chrome Student", email: "chrome@example.test", role: "student" })));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/dashboard");
+  const selector = page.getByRole("button", { name: "Select Targeted Exam" });
+  await selector.click();
+  const panel = page.getByRole("dialog", { name: "Choose exam or published test" });
+  await expect(panel).toHaveAttribute("data-et-motion", "learner");
+  await expect.poll(() => panel.evaluate(el => getComputedStyle(el).animationName)).toBe("et-overlay-show");
+  await page.keyboard.press("Escape");
+  await expect(panel).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const trigger = page.locator('[data-sidebar="trigger"]');
+  await trigger.click();
+  const drawer = page.locator('[role="dialog"][data-et-surface="sheet"]');
+  await expect(drawer).toHaveAttribute("data-et-motion", "learner");
+  // A portalled drawer is outside the shell DOM, but inside its React scope.
+  expect(await drawer.evaluate(el => el.closest(".et-viewport") === null)).toBe(true);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => drawer.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await page.keyboard.press("Escape");
+  await expect(drawer).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});

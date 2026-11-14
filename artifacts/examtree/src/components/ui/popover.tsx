@@ -1,3 +1,4 @@
+import { useLearnerSurfaceMotion } from "@/components/learner-motion-scope"
 import * as React from "react"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 
@@ -15,6 +16,7 @@ const PopoverContent = React.forwardRef<
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
+      {...useLearnerSurfaceMotion("menu")}
       ref={ref}
       align={align}
       sideOffset={sideOffset}

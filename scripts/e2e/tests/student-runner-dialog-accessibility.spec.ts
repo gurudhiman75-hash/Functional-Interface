@@ -145,6 +145,7 @@ async function expectModalContract(
   const cancel = dialog.getByRole("button", { name: cancelLabel, exact: true });
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveAttribute("aria-modal", "true");
+  await expect(dialog).not.toHaveAttribute("data-et-motion", "learner");
   await expect(dialog).toHaveAttribute("aria-labelledby");
   await expect(dialog).toHaveAttribute("aria-describedby");
   await expect(cancel).toBeFocused();

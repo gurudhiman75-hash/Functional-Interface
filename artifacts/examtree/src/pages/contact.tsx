@@ -1,3 +1,4 @@
+import "@/styles/learner-overlay-motion.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -136,8 +137,8 @@ export default function Contact() {
     </div>
     <DialogPrimitive.Root open={open} onOpenChange={value => { if (!sendingRef.current) setOpen(value); }}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm" />
-        <DialogPrimitive.Content lang={language} className="support-dialog fixed left-1/2 top-1/2 z-50 max-h-[90dvh] w-[calc(100%-24px)] max-w-xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-7" onCloseAutoFocus={event => { event.preventDefault(); newRequestRef.current?.focus(); }}>
+        <DialogPrimitive.Overlay data-et-motion="learner" data-et-surface="overlay" className="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm" />
+        <DialogPrimitive.Content data-et-motion="learner" data-et-surface="dialog" lang={language} className="support-dialog fixed left-1/2 top-1/2 z-50 max-h-[90dvh] w-[calc(100%-24px)] max-w-xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-7" onCloseAutoFocus={event => { event.preventDefault(); newRequestRef.current?.focus(); }}>
           <SupportLanguageSelector language={language} onChange={setLanguage} />
           <DialogPrimitive.Close aria-label={t.close} disabled={sending} className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"><X size={20} aria-hidden="true" /></DialogPrimitive.Close>
           <DialogPrimitive.Title className="mt-5 text-xl font-bold leading-relaxed">{t.formTitle}</DialogPrimitive.Title>
