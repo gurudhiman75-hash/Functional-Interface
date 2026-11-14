@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   AlertTriangle,
   BookOpenCheck,
@@ -133,6 +134,9 @@ function LanguageCoverageCard({ language, canManage, onToggle }: {
 }
 
 export function LanguagesPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const linkedQuestionVersionId = searchParams.get('questionVersionId');
+  const linkedLanguageCode = searchParams.get('languageCode');
   const { hasPermission } = useAdminPermissions();
   const canEdit = hasPermission('content.translations.update');
   const canReview = hasPermission('content.translations.review');
@@ -238,6 +242,66 @@ export function LanguagesPage() {
     setQuestionTranslator(detail.target?.translatorUserId ?? '');
     setQuestionReviewer(detail.target?.reviewerUserId ?? '');
   };
+
+  // Question Studio/Question Bank can open the existing linked-translation
+  // editor directly, even when a bank-only question has no exam taxonomy yet.
+  // The translation uses the SAME canonical version and SAME option keys.
+  useEffect(() => {
+    if (!linkedQuestionVersionId || !linkedLanguageCode ||
+        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(linkedQuestionVersionId) ||
+        !['hi', 'pa'].includes(linkedLanguageCode)) return;
+    let active = true;
+    setQuestionBusy(true);
+    void getQuestionTranslation(linkedQuestionVersionId, linkedLanguageCode).then((detail) => {
+      if (!active) return;
+      const source = detail.source;
+      const target = detail.target;
+      setSelectedQuestion({
+        questionId: source.questionId,
+        questionVersionId: source.questionVersionId,
+        publicCode: source.publicCode,
+        questionStatus: source.questionStatus,
+        versionNumber: source.versionNumber,
+        sourceStem: source.stem,
+        difficulty: source.difficulty,
+        questionType: source.questionType,
+        examVersionId: source.examVersionId ?? '',
+        examVersionName: source.examVersionName ?? '',
+        examCode: source.examCode ?? '',
+        examName: source.examName ?? '',
+        taxonomyNodeId: source.taxonomyNodeId,
+        taxonomyCode: source.taxonomyCode,
+        taxonomyName: source.taxonomyName,
+        languageId: detail.language.id,
+        languageCode: detail.language.code,
+        languageName: detail.language.name,
+        languageNativeName: detail.language.nativeName,
+        translationId: target?.id ?? null,
+        status: target?.status ?? 'missing',
+        translatorUserId: target?.translatorUserId ?? null,
+        translatorName: target?.translatorName ?? null,
+        reviewerUserId: target?.reviewerUserId ?? null,
+        reviewerName: target?.reviewerName ?? null,
+        submittedAt: target?.submittedAt ?? null,
+        reviewedAt: target?.reviewedAt ?? null,
+        updatedAt: target?.updatedAt ?? null,
+        qualitySnapshot: target?.qualitySnapshot ?? null,
+        sourceOptionCount: source.options.length,
+        translatedOptionCount: target?.options.length ?? 0,
+      });
+      setQuestionDetail(detail);
+      setStem(target?.stem ?? '');
+      setExplanation(target?.explanation ?? '');
+      setOptions(target?.options.length
+        ? target.options.map(({ key, text, sortOrder }) => ({ key, text, sortOrder }))
+        : source.options.map(({ key, sortOrder }) => ({ key, text: '', sortOrder })));
+      setQuestionTranslator(target?.translatorUserId ?? '');
+      setQuestionReviewer(target?.reviewerUserId ?? '');
+    }).catch((error: unknown) => {
+      if (active) showToast.error('Linked translation unavailable', error instanceof Error ? error.message : 'Unable to open linked translation.');
+    }).finally(() => { if (active) setQuestionBusy(false); });
+    return () => { active = false; };
+  }, [linkedQuestionVersionId, linkedLanguageCode]);
 
   const openQuestion = async (item: TranslationQueueItem) => {
     setSelectedQuestion(item);
@@ -612,7 +676,14 @@ export function LanguagesPage() {
         </Tabs>
       ) : null}
 
-      <Sheet open={Boolean(selectedQuestion)} onOpenChange={(open) => { if (!open) { setSelectedQuestion(null); setQuestionDetail(null); } }}>
+      <Sheet open={Boolean(selectedQuestion)} onOpenChange={(open) => { if (!open) {
+        setSelectedQuestion(null); setQuestionDetail(null);
+        if (linkedQuestionVersionId || linkedLanguageCode) setSearchParams((current) => {
+          const next = new URLSearchParams(current);
+          next.delete('questionVersionId'); next.delete('languageCode');
+          return next;
+        }, { replace: true });
+      } }}>
         <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-4xl">
           <SheetHeader><SheetTitle>{selectedQuestion?.publicCode} · {selectedQuestion?.languageName}</SheetTitle><SheetDescription>Source comparison, option-safe editing, deterministic quality and auditable review.</SheetDescription></SheetHeader>
           {questionBusy && !questionDetail ? <div className="flex min-h-64 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div> : questionDetail ? <div className="mt-6 space-y-4">
