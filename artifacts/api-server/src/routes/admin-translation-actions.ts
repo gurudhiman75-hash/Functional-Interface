@@ -209,7 +209,7 @@ router.use(authenticate);
 // Existing, released locale engines only. No network AI, no DB writes,
 // no implicit approval and no automatic publication.
 router.post(
-  "/questions/:questionVersionId/languages/:languageCode/suggest",
+  "/questions/:questionVersionId/languages/:languageCode/existing-localization",
   requireAdminPermission("content.translations.update"),
   async (req, res) => {
     try {
