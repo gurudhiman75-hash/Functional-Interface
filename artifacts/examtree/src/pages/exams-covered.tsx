@@ -118,8 +118,7 @@ export default function ExamsCovered() {
               <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
                 {items.map((exam) => (
                   <Link key={exam.href} href={exam.href} className="group flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-3 transition duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none">
-                    <div className="mb-2.5 h-8 w-8 shrink-0"><ExamIdentityIcon name={exam.label} familyCode={exam.group.toUpperCase()} /></div>
-                    <h3 className="break-words text-[13px] font-semibold leading-[1.35] text-slate-900">{exam.label}</h3>
+                    <div className="flex min-w-0 items-center gap-2.5"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-50 p-1"><ExamIdentityIcon name={exam.label} familyCode={exam.group.toUpperCase()} /></span><h3 className="min-w-0 break-words text-[13px] font-semibold leading-[1.35] text-slate-900">{exam.label}</h3></div>
                     <span className="mt-auto flex items-center justify-between gap-2 pt-2.5 text-[11px] font-semibold text-teal-700">Explore exam<ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5 motion-reduce:transform-none" /></span>
                   </Link>
                 ))}

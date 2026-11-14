@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, BookOpen, FileText, Target } from "lucide-react";
 import { ExamCollectionBanner } from "@/components/ExamCollectionBanner";
 import { PunjabExamCollection } from "@/components/PunjabExamCollection";
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { usePageMeta } from "@/components/PublicPage";
 import { EXAM_COLLECTIONS, getExamCollection } from "@/lib/exam-collections";
 import { catalogExamCodesForSlug, getExamAcquisitionConfig, examHubHref, examDetailsHref, examPreparationHref, examSyllabusHref } from "@/lib/seo-practice";
@@ -32,7 +33,7 @@ export default function ExamCollectionPage() {
       {collection.groups.map((group) => <div className="collection-group" key={group.title}><h3>{group.title}</h3><p>{group.description}</p><div className="collection-exam-grid">{group.exams.map((examSlug) => {
         const config = getExamAcquisitionConfig(examSlug);
         if (!config) return null;
-        return <article key={examSlug} className="collection-exam-card"><h4>{config.name}</h4><p>{config.hub.preparationSummary}</p>
+        return <article key={examSlug} className="collection-exam-card"><div className="collection-exam-identity"><span className="collection-exam-logo"><ExamIdentityIcon name={config.name} examCode={examSlug} /></span><h4>{config.name}</h4></div><p>{config.hub.preparationSummary}</p>
           <Link className="collection-exam-primary" href={examHubHref(examSlug)}>Explore exam <ArrowRight size={15} /></Link>
           <div className="collection-exam-links"><Link href={examDetailsHref(examSlug)}>Exam details</Link><Link href={examSyllabusHref(examSlug)}>Syllabus</Link><Link href={examPreparationHref(examSlug)}>Preparation</Link><a href={config.officialUrl} target="_blank" rel="noopener noreferrer">Official eligibility &amp; notice ↗</a></div>
         </article>;
