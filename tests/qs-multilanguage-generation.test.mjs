@@ -15,6 +15,7 @@ function harness(asyncMode = false) {
   const context = {
     bulkBusy: false, generating: false, stagingAsyncSubmitting: false,
     bulkAsyncSubmitting: false, BULK_ASYNC_ENABLED: false, bulkAsyncSelected: false,
+    NATIVE_GROUPED_REVIEW_ENABLED: true,
     ASYNC_ENABLED: asyncMode, CHAPTER_ASYNC_ENABLED: asyncMode, stagingAsyncSelected: asyncMode,
     PRODUCTION_CHAPTER_BATCH_LIMIT: 100, SYNC_BULK_LIMIT: 1000, SYNC_CHUNK_TARGET: 10,
     count: 23, languages: ['en', 'hi', 'pa'], selectedCpIds: new Set(['cp1', 'cp2']),
@@ -116,4 +117,13 @@ test('single-language Hindi remains independently generated to preserve language
   await h.run();
   assert.equal(h.calls.length,3);
   assert.ok(h.calls.every(call=>call.language==='hi'));
+});
+
+test('native grouping cannot turn on without explicit production feature flag', async () => {
+  const h=harness();
+  h.context.NATIVE_GROUPED_REVIEW_ENABLED=false;
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  await h.run();
+  assert.equal(h.calls.length,9);
+  assert.deepEqual([...new Set(h.calls.map(call=>call.language))],['en','hi','pa']);
 });
