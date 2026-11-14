@@ -387,6 +387,24 @@ router.put(
         // assigns taxonomy. Let English-source approved versions acquire linked
         // Hindi/Punjabi drafts now; test publication still enforces exam mapping.
         // Non-English generator output must not be falsely labelled English.
+        if (source.sourceLanguage && source.sourceLanguage !== "en") {
+          throw new TranslationOperationsError(
+            "LINKED_SOURCE_NOT_ENGLISH",
+            "This version was generated in another language. Choose a verified English canonical source.",
+            409,
+          );
+        }
+        const sourceOptions = asOptions(source.options);
+        if (input.options.length !== sourceOptions.length ||
+            input.options.some((option, index) =>
+              option.key !== sourceOptions[index]?.key ||
+              option.sortOrder !== sourceOptions[index]?.sortOrder)) {
+          throw new TranslationOperationsError(
+            "TRANSLATED_OPTION_IDENTITY_MISMATCH",
+            "The target translation must preserve every source option key and order.",
+            422,
+          );
+        }
         const unclassifiedBankOnlyEnglish = isUnclassifiedEnglishBankOnlySource({
           ...source,
           questionVersionId,
