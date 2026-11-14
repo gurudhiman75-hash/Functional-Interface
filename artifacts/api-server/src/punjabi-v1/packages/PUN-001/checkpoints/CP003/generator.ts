@@ -89,7 +89,7 @@ export function generateCP003F06(seed: number, difficulty: PunjabiDifficulty): P
   if (difficulty !== "Medium") throw new Error("CP003 F06 supports Medium only");
   const t = CP003_PRONOUN_CONTEXTS[ordinal(seed, 60)]!;
   const distractors = PRONOUN_CATEGORIES.filter((x) => x !== t.category).map((c, i) => pronounsByCategory.get(c)![ordinal(seed + i * 7, 10)]!.sentence);
-  return assemble({ seed, difficulty, familyId: "F06", subtype: "PRONOUN_CATEGORY_SENTENCE_SELECTION", stem: `ਹੇਠਾਂ ਦਿੱਤੇ ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ${t.categoryNamePa} ਪੜਨਾਂਵ ਵਰਤਿਆ ਗਿਆ ਹੈ?`, correctAnswer: t.sentence, distractors, explanation: `‘${t.sentence}’ ਵਿੱਚ ‘${t.target}’ ${t.categoryNamePa} ਹੈ।`, authorityIds: [t.id] });
+  return assemble({ seed, difficulty, familyId: "F06", subtype: "PRONOUN_CATEGORY_SENTENCE_SELECTION", stem: `ਹੇਠਾਂ ਦਿੱਤੇ ਕਿਹੜੇ ਵਾਕ ਵਿੱਚ ${t.categoryNamePa} ਵਰਤਿਆ ਗਿਆ ਹੈ?`, correctAnswer: t.sentence, distractors, explanation: `‘${t.sentence}’ ਵਿੱਚ ‘${t.target}’ ${t.categoryNamePa} ਹੈ।`, authorityIds: [t.id] });
 }
 export function generateCP003F07(seed: number, difficulty: PunjabiDifficulty): PunjabiGeneratedQuestion {
   if (difficulty !== "Medium") throw new Error("CP003 F07 supports Medium only");
