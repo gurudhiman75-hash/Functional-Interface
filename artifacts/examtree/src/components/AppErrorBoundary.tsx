@@ -1,7 +1,9 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { recoverStaleRoute } from "@/lib/route-recovery";
 
 type Props = {
   children: ReactNode;
+  resetKey?: string;
 };
 
 type State = {
@@ -15,8 +17,15 @@ export class AppErrorBoundary extends Component<Props, State> {
     return { hasError: true };
   }
 
-  componentDidCatch(_error: Error, _errorInfo: ErrorInfo) {
-    // Keep the fallback UI visible in production if a route crashes.
+  componentDidCatch(error: Error, _errorInfo: ErrorInfo) {
+    recoverStaleRoute(error);
+    console.error("Student page failed to render", error);
+  }
+
+  componentDidUpdate(previousProps: Props) {
+    if (this.state.hasError && previousProps.resetKey !== this.props.resetKey) {
+      this.setState({ hasError: false });
+    }
   }
 
   render() {

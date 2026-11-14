@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { lazyWithRecovery as lazy } from "@/components/lazyWithRecovery";
 import { Redirect, Route, Router as WouterRouter, Switch, useLocation, useSearch } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -384,6 +385,11 @@ function RouteSkeleton() {
   );
 }
 
+function StudentRouteBoundary() {
+  const [location] = useLocation();
+  return <AppErrorBoundary resetKey={location}><RouteMathBoundary><Router /></RouteMathBoundary></AppErrorBoundary>;
+}
+
 function App() {
   return (
     <AppErrorBoundary>
@@ -391,9 +397,7 @@ function App() {
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <RouteAuthSessionSync />
-            <RouteMathBoundary>
-              <Router />
-            </RouteMathBoundary>
+            <StudentRouteBoundary />
           </WouterRouter>
           <Toaster />
         </TooltipProvider>

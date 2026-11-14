@@ -1,4 +1,5 @@
-import { lazy, Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
+import { lazyWithRecovery as lazy } from "@/components/lazyWithRecovery";
 import { useLocation } from "wouter";
 
 const ExamCatalogProvider = lazy(() =>
