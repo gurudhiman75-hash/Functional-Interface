@@ -35,6 +35,7 @@ let e2eSignedInUser: FirebaseUser | null = e2eAuthUser;
 const e2eAuthInstance = e2eAuthUser
   ? ({
       get currentUser() { return e2eSignedInUser; },
+      authStateReady: async () => {},
       // Modular signOut delegates to auth.signOut(). Keep a separate mutable
       // state because Firebase Auth marks currentUser as read-only.
       signOut: async () => { e2eSignedInUser = null; },
