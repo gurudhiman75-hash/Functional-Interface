@@ -340,6 +340,20 @@ export function getQuestionTranslation(questionVersionId: string, languageCode: 
   );
 }
 
+export function suggestLinkedQuestionTranslation(questionVersionId: string, languageCode: 'hi' | 'pa') {
+  return request<{
+    questionVersionId: string;
+    languageCode: string;
+    draft: { stem: string; explanation: string; options: TranslationOption[] };
+    quality: TranslationQualityResult;
+    saved: false;
+    approved: false;
+  }>(
+    `/admin/translations/questions/${encodeURIComponent(questionVersionId)}/languages/${encodeURIComponent(languageCode)}/suggest`,
+    { method: 'POST', body: JSON.stringify({}) },
+  );
+}
+
 export function saveQuestionTranslation(input: {
   questionVersionId: string;
   languageCode: string;
