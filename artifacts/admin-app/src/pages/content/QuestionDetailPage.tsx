@@ -361,7 +361,11 @@ export function QuestionDetailPage() {
               </Link>
             </Button>
             {canTranslate && question.approvedVersionId &&
-              ['en', ''].includes(generationValue(
+              ['AVG-001', 'INT-001'].includes(generationValue(
+                detail.versions.find((version) => version.id === question.approvedVersionId),
+                'packageId',
+              )) &&
+              ['en'].includes(generationValue(
                 detail.versions.find((version) => version.id === question.approvedVersionId),
                 'language',
               )) && (['hi', 'pa'] as const).map((language) => (
