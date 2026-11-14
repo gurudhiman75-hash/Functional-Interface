@@ -38,7 +38,7 @@ const bulkRouteSource = readFileSync(
   resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"),
   "utf8",
 );
-assert(bulkRouteSource.includes("const disposition = getGeneratedItemApprovalDisposition(item.payload);"));
+assert(bulkRouteSource.includes("const disposition = getGeneratedItemApprovalDisposition(item.payload, { manualApproval: true });"));
 assert(bulkRouteSource.includes('if (disposition.mode === "question_bank")'));
 assert(bulkRouteSource.includes("convertedCount: converted.length"));
 assert(bulkRouteSource.includes('result.approvalMode === "review_only"'));
@@ -50,6 +50,7 @@ const policySource = readFileSync(
 );
 assert(policySource.includes('questionBankStatus === "NOT_STORED" && questionBankWritable === false'));
 assert(policySource.includes('mode: "review_only" as const'));
+assert.deepEqual(getGeneratedItemApprovalDisposition(persistedPayload, { manualApproval: true }), { mode: "question_bank", reason: null });
 
 console.log("[COM003-REVIEW-ONLY-APPROVAL-CONTRACT-V1]", {
   valid: true,
