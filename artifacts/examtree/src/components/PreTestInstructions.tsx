@@ -19,13 +19,21 @@ const copy = {
   },
 };
 
-export function PreTestInstructions({ test, practice, variant, candidateName, languages, testLanguage, onLanguageChange, accepted, onAccept, onBack, onBegin }: {
+export function PreTestInstructions({ test, practice, variant, candidateName, languages, testLanguage, onLanguageChange, accepted, onAccept, onBack, onBegin, onInterfaceChange, selectedMode, allowModeChange, wrongQuestionCount, onModeChange, onReview }: {
+  selectedMode: "REAL" | "PRACTICE" | "PRACTICE_WRONG"; allowModeChange: boolean; wrongQuestionCount: number;
+  onInterfaceChange: (variant: "classic" | "tcs") => void;
+  onModeChange: (mode: "REAL" | "PRACTICE" | "PRACTICE_WRONG") => void; onReview?: () => void;
   test: Test; practice: boolean; variant: "classic" | "tcs"; candidateName?: string;
   languages: Language[]; testLanguage: Language; onLanguageChange: (language: Language) => void;
   accepted: boolean; onAccept: (accepted: boolean) => void; onBack: () => void; onBegin: () => void;
 }) {
   const [instructionLanguage, setInstructionLanguage] = useState<Language>("en");
   const t = copy[instructionLanguage];
+  const labels = {
+    en: { setup: "Test setup", interface: "Test interface", mode: "Test mode", real: "Real Exam", practice: "Practice", wrong: "Practice Wrong Questions", timed: "Timed · Section rules apply", untimed: "No timer · Free navigation", review: "View Solutions & Review", note: "Both interfaces use the same questions and scoring. TCS iON–style is an Examtree simulation, not an official TCS iON product." },
+    hi: { setup: "परीक्षा सेटअप", interface: "परीक्षा इंटरफ़ेस", mode: "परीक्षा मोड", real: "परीक्षा मोड", practice: "अभ्यास", wrong: "गलत प्रश्नों का अभ्यास", timed: "समय सीमा और खंड नियम लागू", untimed: "समय सीमा नहीं · स्वतंत्र नेविगेशन", review: "हल और समीक्षा देखें", note: "दोनों इंटरफ़ेस में प्रश्न और अंक योजना समान हैं। TCS iON–style Examtree का अभ्यास इंटरफ़ेस है, आधिकारिक TCS iON उत्पाद नहीं।" },
+    pa: { setup: "ਟੈਸਟ ਸੈਟਅੱਪ", interface: "ਟੈਸਟ ਇੰਟਰਫੇਸ", mode: "ਟੈਸਟ ਮੋਡ", real: "ਪ੍ਰੀਖਿਆ ਮੋਡ", practice: "ਅਭਿਆਸ", wrong: "ਗ਼ਲਤ ਪ੍ਰਸ਼ਨਾਂ ਦਾ ਅਭਿਆਸ", timed: "ਸਮੇਂ ਦੀ ਹੱਦ ਅਤੇ ਭਾਗਾਂ ਦੇ ਨਿਯਮ ਲਾਗੂ", untimed: "ਸਮੇਂ ਦੀ ਹੱਦ ਨਹੀਂ · ਖੁੱਲ੍ਹੀ ਆਵਾਜਾਈ", review: "ਹੱਲ ਅਤੇ ਸਮੀਖਿਆ ਵੇਖੋ", note: "ਦੋਵਾਂ ਇੰਟਰਫੇਸਾਂ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਅਤੇ ਅੰਕ ਯੋਜਨਾ ਇੱਕੋ ਹਨ। TCS iON–style Examtree ਦਾ ਅਭਿਆਸ ਇੰਟਰਫੇਸ ਹੈ, ਅਧਿਕਾਰਤ TCS iON ਉਤਪਾਦ ਨਹੀਂ।" },
+  }[instructionLanguage];
   const count = test.sections.reduce((sum, section) => sum + section.questions.length, 0);
   const correct = test.marksPerQuestion ?? 1;
   const wrong = test.negativeMarks ?? 0;
@@ -37,6 +45,18 @@ export function PreTestInstructions({ test, practice, variant, candidateName, la
       <main className="pretest-main">
         <div className="pretest-scroll" tabIndex={0} aria-label={t.general}>
           <h2>{t.general}</h2>
+          <section className="pretest-setup" aria-label={labels.setup}>
+            <fieldset><legend>{labels.interface}</legend><div className="pretest-options">
+              <button type="button" aria-pressed={variant === "classic"} onClick={() => onInterfaceChange("classic")}>Examtree Classic</button>
+              <button type="button" aria-pressed={variant === "tcs"} onClick={() => onInterfaceChange("tcs")}>TCS iON–style</button>
+            </div><p>{labels.note}</p></fieldset>
+            <fieldset><legend>{labels.mode}</legend>{allowModeChange ? <div className="pretest-options">
+              <button type="button" aria-pressed={selectedMode === "REAL"} onClick={() => onModeChange("REAL")}>{labels.real}<small>{labels.timed}</small></button>
+              <button type="button" aria-pressed={selectedMode === "PRACTICE"} onClick={() => onModeChange("PRACTICE")}>{labels.practice}<small>{labels.untimed}</small></button>
+              {wrongQuestionCount > 0 && <button type="button" aria-pressed={selectedMode === "PRACTICE_WRONG"} onClick={() => onModeChange("PRACTICE_WRONG")}>{labels.wrong}<small>{wrongQuestionCount} · {labels.untimed}</small></button>}
+            </div> : <p>{selectedMode === "PRACTICE_WRONG" ? labels.wrong : labels.practice} · {labels.untimed}</p>}</fieldset>
+            {onReview && <button type="button" className="pretest-review" onClick={onReview}>{labels.review}</button>}
+          </section>
           <ol className="pretest-rules"><li>{t.questions}: <strong>{count}</strong> · {t.duration}: <strong>{practice ? t.untimed : `${test.duration} ${t.minutes}`}</strong></li><li>{practice ? t.practice : t.timing}</li><li>{!practice && test.sectionTimingMode === "fixed" ? t.fixed : t.flexible}</li><li>{locked ? t.locked : t.free}</li></ol>
           <h3>{t.scoring}</h3><div className="pretest-scoring"><span>{t.correct}: <strong>+{correct}</strong></span><span>{t.wrong}: <strong>{wrong > 0 ? `−${wrong}` : 0}</strong></span><span>{t.unanswered}: <strong>0</strong></span></div>
           <h3>{t.palette}</h3><ul className="pretest-legend">{t.statuses.map((status, index) => (variant === "tcs" || index !== 4) && <li key={status}><span aria-hidden="true" className={`pretest-symbol pretest-symbol-${index} ${variant}`} />{status}</li>)}</ul>

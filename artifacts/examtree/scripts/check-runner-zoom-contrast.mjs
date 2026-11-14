@@ -33,7 +33,7 @@ assert.match(proof, /visualViewport\?\.scale[\s\S]*?toBeGreaterThanOrEqual\(1\.9
 assert.match(proof, /scrollWidth - window\.innerWidth[\s\S]*?toBeLessThanOrEqual\(1\)/, "runner/result reflow certification must reject horizontal overflow");
 assert.match(proof, /contrastRatio[\s\S]*?toBeGreaterThanOrEqual\(4\.5\)/, "runner/result zoom certification must retain an AA 4.5:1 contrast gate");
 assert.match(proof, /beginTestWithInstructions\(page\)[\s\S]*?Question No 1/, "runner certification must enter the real active exam surface through the pre-test flow");
-assert.match(pretestHelper, /Continue to Instructions[\s\S]*?General Instructions[\s\S]*?I have read and understood the instructions[\s\S]*?begin\.click\(\)/, "pre-test helper must require instructions and acknowledgement before beginning");
+assert.match(pretestHelper, /General Instructions[\s\S]*?I have read and understood the instructions[\s\S]*?begin\.click\(\)/, "pre-test helper must require instructions and acknowledgement before beginning");
 assert.match(proof, /runner reflow-safe at a 390px viewport[\s\S]*?Pause & Exit[\s\S]*?\^Next[\s\S]*?\^Submit/, "390px runner reflow proof must keep critical mobile navigation visible");
 assert.match(proof, /document\.fullscreenElement[\s\S]*?toBe\(true\)/, "runner zoom proof must verify REAL exam immersive mode is actually active");
 assert.match(proof, /getByRole\("button", \{ name: "Exit fullscreen", exact: true \}\)/, "runner zoom proof must exercise the visible fullscreen exit control");

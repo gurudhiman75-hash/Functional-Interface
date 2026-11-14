@@ -1569,7 +1569,6 @@ export default function Test() {
   const { data: entitlements } = useMyEntitlements();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [started, setStarted] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(false);
   const [instructionsAccepted, setInstructionsAccepted] = useState(false);
   const [testLanguage, setTestLanguage] = useState<Language>("en");
   const isWrongOnlyMode = search.includes("wrongOnly=true");
@@ -1703,14 +1702,6 @@ export default function Test() {
     return { ...resolvedTest, sections: sampledSections, totalQuestions: total };
   }, [resolvedTest, sectionFilterParam]);
 
-  // Direct practice links still show instructions before starting the timer/session.
-  useEffect(() => {
-    if ((isWrongOnlyMode && filteredTest) || (sectionFilterParam && sectionFilteredTest)) {
-      setShowInstructions(true);
-      setInstructionsAccepted(false);
-    }
-  }, [isWrongOnlyMode, filteredTest, sectionFilterParam, sectionFilteredTest]);
-
   if (!id) return null;
 
   if (catalogError) {
@@ -1820,7 +1811,7 @@ export default function Test() {
     );
   }
 
-  if (!started && showInstructions && !getActiveTestSession(id!)) {
+  if (!started && !getActiveTestSession(id!)) {
     const instructionTest = selectedMode === "PRACTICE_WRONG" && filteredTest
       ? filteredTest
       : selectedMode === "PRACTICE" && sectionFilteredTest
@@ -1834,7 +1825,12 @@ export default function Test() {
     return <PreTestInstructions test={instructionTest} practice={selectedMode !== "REAL"} variant={selectedInterface}
       candidateName={getUser()?.name} languages={languages} testLanguage={language} onLanguageChange={setTestLanguage}
       accepted={instructionsAccepted} onAccept={setInstructionsAccepted}
-      onBack={() => { if (isWrongOnlyMode || sectionFilterParam) setLocation(backUrl); else setShowInstructions(false); }}
+      onBack={() => setLocation(backUrl)}
+      onInterfaceChange={variant => { chooseInterface(variant); setInstructionsAccepted(false); }}
+      selectedMode={selectedMode} allowModeChange={!isWrongOnlyMode && !sectionFilterParam}
+      wrongQuestionCount={filteredTest ? wrongQuestionIds.size : 0}
+      onModeChange={mode => { setSelectedMode(mode); setInstructionsAccepted(false); }}
+      onReview={firstRealAttempt ? () => setLocation(`/result?testId=${encodeURIComponent(id!)}&attemptId=${encodeURIComponent(firstRealAttempt.id)}`) : undefined}
       onBegin={() => {
         setTestLanguage(language);
         if (selectedMode === "REAL") document.documentElement.requestFullscreen?.().catch(() => {});
@@ -1843,147 +1839,17 @@ export default function Test() {
   }
 
   if (!started) {
-    const totalQ = resolvedTest.sections.reduce((s, sec) => s + sec.questions.length, 0);
-    const hasDraft = Boolean(getActiveTestSession(id!));
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
         <div className="w-full max-w-lg rounded-lg border border-gray-200 bg-white p-8 shadow-lg">
           <h1 className="text-xl font-bold text-gray-900">{resolvedTest.name}</h1>
-          <div className="mt-4 grid grid-cols-3 gap-3 rounded-md bg-gray-50 p-4 text-center text-sm">
-            <div>
-              <p className="text-xs text-gray-500">Duration</p>
-              <p className="mt-0.5 font-semibold text-gray-800">{resolvedTest.duration} min</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">Questions</p>
-              <p className="mt-0.5 font-semibold text-gray-800">{totalQ}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">Sections</p>
-              <p className="mt-0.5 font-semibold text-gray-800">{resolvedTest.sections.length}</p>
-            </div>
-          </div>
-          {resolvedTest.sections.length > 1 && (
-            <div className="mt-4 space-y-1.5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Sections</p>
-              {resolvedTest.sections.map((sec) => (
-                <div key={sec.id} className="flex items-center justify-between rounded border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
-                  <span className="text-gray-700">{sec.name}</span>
-                  <span className="text-xs text-gray-500">{sec.questions.length} questions</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {((resolvedTest.marksPerQuestion ?? 1) !== 1 || (resolvedTest.negativeMarks ?? 0) !== 0) && (
-            <div className="mt-4 rounded border border-blue-100 bg-blue-50 px-4 py-3 text-sm">
-              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-blue-600">Marking Scheme</p>
-              <div className="flex flex-wrap gap-4">
-                <span className="font-semibold text-emerald-700">+{resolvedTest.marksPerQuestion ?? 1} correct</span>
-                {(resolvedTest.negativeMarks ?? 0) > 0 && (
-                  <span className="font-semibold text-red-600">−{resolvedTest.negativeMarks} wrong</span>
-                )}
-                <span className="text-gray-500">0 skipped</span>
-              </div>
-            </div>
-          )}
-          {hasDraft && (
-            <p className="mt-4 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
-              You have a saved session for this test. Clicking Resume will continue from where you left off.
-            </p>
-          )}
-
-          <div className="mt-5">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Test Interface</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="group" aria-label="Test interface">
-              <button type="button" aria-pressed={selectedInterface === "classic"} onClick={() => chooseInterface("classic")}
-                className={`rounded-lg border p-3 text-left transition ${selectedInterface === "classic" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
-                <p className="text-sm font-semibold text-gray-800">Examtree Classic</p>
-                <p className="mt-1 text-xs text-gray-500">Familiar modern test layout</p>
-              </button>
-              <button type="button" aria-pressed={selectedInterface === "tcs"} onClick={() => chooseInterface("tcs")}
-                className={`rounded-lg border p-3 text-left transition ${selectedInterface === "tcs" ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500" : "border-gray-200 hover:border-gray-300"}`}>
-                <p className="text-sm font-semibold text-gray-800">TCS iON–style</p>
-                <p className="mt-1 text-xs text-gray-500">Exam-centre inspired layout and palette</p>
-              </button>
-            </div>
-            <p className="mt-2 text-xs text-gray-500">Both interfaces use the same test, rules, answers, and scoring. This is an Examtree simulation, not an official TCS iON product.</p>
-          </div>
-          {!hasDraft && (
-            <div className="mt-5">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Select Mode</p>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedMode("REAL")}
-                  className={`rounded-lg border p-3 text-left transition ${
-                    selectedMode === "REAL"
-                      ? "border-blue-500 bg-blue-50 ring-1 ring-blue-500"
-                      : "border-gray-200 bg-white hover:border-gray-300"
-                  }`}
-                >
-                  <p className="text-sm font-semibold text-gray-800">Real Exam</p>
-                  <p className="mt-0.5 text-xs text-gray-500">Timed · Section rules apply</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedMode("PRACTICE")}
-                  className={`rounded-lg border p-3 text-left transition ${
-                    selectedMode === "PRACTICE"
-                      ? "border-green-500 bg-green-50 ring-1 ring-green-500"
-                      : "border-gray-200 bg-white hover:border-gray-300"
-                  }`}
-                >
-                  <p className="text-sm font-semibold text-gray-800">Practice</p>
-                  <p className="mt-0.5 text-xs text-gray-500">No timer · Free navigation</p>
-                </button>
-              </div>
-              {filteredTest && (
-                <button
-                  type="button"
-                  onClick={() => setSelectedMode("PRACTICE_WRONG")}
-                  className={`mt-3 w-full rounded-lg border p-3 text-left transition ${
-                    selectedMode === "PRACTICE_WRONG"
-                      ? "border-orange-500 bg-orange-50 ring-1 ring-orange-500"
-                      : "border-gray-200 bg-white hover:border-gray-300"
-                  }`}
-                >
-                  <p className="text-sm font-semibold text-gray-800">Practice Wrong Questions</p>
-                  <p className="mt-0.5 text-xs text-gray-500">
-                    {wrongQuestionIds.size} question{wrongQuestionIds.size !== 1 ? "s" : ""} you got wrong or skipped · No timer
-                  </p>
-                </button>
-              )}
-            </div>
-          )}
-          {firstRealAttempt && (
-            <div className="mt-5">
-              <Button
-                variant="outline"
-                className="w-full border-purple-300 text-purple-700 hover:bg-purple-50"
-                onClick={() => setLocation(`/result?testId=${encodeURIComponent(id!)}&attemptId=${encodeURIComponent(firstRealAttempt.id)}`)}
-              >
-                View Solutions &amp; Review
-              </Button>
-            </div>
-          )}
-          <div className="mt-4 flex gap-3">
+          <p className="my-5 text-sm text-gray-600">You have a saved session for this test. Resume to continue from where you left off.</p>
+          <div className="flex gap-3">
             <Button variant="outline" onClick={() => setLocation(backUrl)}>Back</Button>
-            <Button
-              className="flex-1 bg-blue-600 text-white hover:bg-blue-700"
-              onClick={() => {
-                if (hasDraft) {
-                  if (getActiveTestSession(id!)?.attemptType === "REAL") {
-                    document.documentElement.requestFullscreen?.().catch(() => {});
-                  }
-                  setStarted(true);
-                } else {
-                  setInstructionsAccepted(false);
-                  setShowInstructions(true);
-                }
-              }}
-            >
-              {hasDraft ? "Resume Test" : "Continue to Instructions"}
-            </Button>
+            <Button className="flex-1" onClick={() => {
+              if (getActiveTestSession(id!)?.attemptType === "REAL") document.documentElement.requestFullscreen?.().catch(() => {});
+              setStarted(true);
+            }}>Resume Test</Button>
           </div>
         </div>
       </div>
