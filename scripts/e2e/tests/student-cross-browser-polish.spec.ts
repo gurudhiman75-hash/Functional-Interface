@@ -262,7 +262,10 @@ test("learner motion keeps chrome steady and respects reduced motion", async ({ 
   await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   const sidebarLink = page.getByRole("link", { name: "Test series", exact: true });
   await sidebarLink.hover();
-  await expect.poll(() => sidebarLink.evaluate(el => getComputedStyle(el).transitionDuration)).toBe("0s");
+  // The global accessibility reset uses a near-zero duration with !important.
+  await expect.poll(() => sidebarLink.evaluate(el =>
+    Math.max(...getComputedStyle(el).transitionDuration.split(",").map(value => parseFloat(value)))
+  )).toBeLessThanOrEqual(0.001);
   await expect.poll(() => sidebarLink.evaluate(el => getComputedStyle(el).transform)).toBe("none");
   await page.setViewportSize({ width: 390, height: 844 });
   await expectNoHorizontalOverflow(page);
