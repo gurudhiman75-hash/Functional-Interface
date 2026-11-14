@@ -112,7 +112,7 @@ export async function onRequest({ request, env = {} }) {
     incoming.pathname === "/api/admin/questions/reconcile-approved" &&
     incoming.method === "POST";
   const adminUseCloudRun = adminCloudRunEnabled ||
-    (deterministicAdminEnabled && (deterministicAdminPath || manualApprovedReconciliationPath));
+    (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
     (adminRenderBridge && (!adminUseCloudRun || adminFinanceRenderBridge)) ||
     /^\/api\/billing\/(?:cashfree\/)?webhook$/.test(incoming.pathname) ||
@@ -147,6 +147,9 @@ export async function onRequest({ request, env = {} }) {
   const actualUpstream =
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
     qsAdminOrigin ||
+    // One exact admin mutation is promoted ahead of the legacy Render bridge.
+    // It must remain opt-in and must never expand other question/admin routes.
+    (deterministicAdminEnabled && manualApprovedReconciliationPath ? upstreamOrigin : null) ||
     (financialHandoverPath && !financeCloudRunEnabled ? LEGACY_API_ORIGIN : upstreamOrigin);
   const url = new URL(incoming.pathname + incoming.search, actualUpstream);
   const headers = new Headers(request.headers);
