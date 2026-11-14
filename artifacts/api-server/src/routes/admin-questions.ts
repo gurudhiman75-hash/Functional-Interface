@@ -912,7 +912,7 @@ router.post(
             skipped.push({ itemId: String(row.id), reason: "Question failed the current approval quality gate" });
             continue;
           }
-          const disposition = getGeneratedItemApprovalDisposition(row.payload);
+          const disposition = getGeneratedItemApprovalDisposition(row.payload, { manualApproval: true });
           if (disposition.mode !== "question_bank") {
             skipped.push({
               itemId: String(row.id),
