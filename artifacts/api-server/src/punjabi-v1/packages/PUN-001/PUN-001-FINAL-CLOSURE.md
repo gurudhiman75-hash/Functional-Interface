@@ -1,6 +1,6 @@
 # PUN-001 Final Closure — Punjabi Language & Grammar
 
-**Status:** OWNER_APPROVED / REVIEW_ONLY / CONTENT_FROZEN  
+**Status:** OWNER_APPROVED / CONTENT_FROZEN / BANK_ONLY QUESTION BANK STORAGE (after manual quality approval)  
 **Closure date:** 2026-09-24  
 **Final approved content tip:** `b1c416e0463dd16c4e388864ba75877e0c727934`
 
@@ -57,12 +57,13 @@ Some individual authority records retain `REVIEW_PENDING` as a provenance/source
 
 ## Question Studio contract
 
-PUN-001 remains registered in Question Studio strictly as a review-only package:
+PUN-001 retains review-first generation and manual approval. Once an item passes the transactional quality gate and an administrator approves it, it is eligible for BANK_ONLY Question Bank storage. This does not authorize student-facing release:
 
 - all CP001–CP014 exported and selectable;
 - deterministic generation enabled;
 - Punjabi learner language only;
-- `questionBankWritable = false`;
+- `questionBankWritable = true` for newly generated items, with `questionBankAcceptanceMode = BANK_ONLY`;
+- already approved historical review-only rows retain immutable payload restrictions and require a separate, audited reconciliation;
 - `testEligible = false`;
 - `mockTestEligible = false`;
 - `publiclyPublishable = false`;
@@ -70,7 +71,7 @@ PUN-001 remains registered in Question Studio strictly as a review-only package:
 - `productionReleaseAuthorized = false`;
 - permanent QL allocation = `NOT_ALLOCATED`.
 
-Content freeze does **not** authorize Question Bank, test/mock, public/student, or production promotion.
+Content freeze plus the administrator’s explicit request authorizes **Question Bank storage after successful manual item approval**, but does **not** authorize test/mock, public/student, or production publication.
 
 ## Reopening rule
 
