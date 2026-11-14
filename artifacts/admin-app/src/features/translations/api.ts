@@ -350,7 +350,7 @@ export function loadExistingLinkedLocalization(questionVersionId: string, langua
     approved: false;
     source: 'NATIVE_RELEASED_LOCALIZATION';
   }>(
-    `/admin/translations/questions/${encodeURIComponent(questionVersionId)}/languages/${encodeURIComponent(languageCode)}/suggest`,
+    `/admin/translations/questions/${encodeURIComponent(questionVersionId)}/languages/${encodeURIComponent(languageCode)}/existing-localization`,
     { method: 'POST', body: JSON.stringify({}) },
   );
 }
