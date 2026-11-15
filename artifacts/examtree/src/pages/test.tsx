@@ -34,6 +34,7 @@ import {
 } from "@/lib/storage";
 import { submitAttempt, getPackagesByTest, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
+import { StudentProfileAvatar } from "@/components/StudentProfileAvatar";
 import { PreTestInstructions } from "@/components/PreTestInstructions";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -1303,7 +1304,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           <aside className={isTcsInterface ? "tcs-ion-sidebar min-w-0 space-y-0" : "min-w-0 space-y-3"}>
             {isTcsInterface && (
               <div className="tcs-ion-candidate">
-                <span className="tcs-ion-avatar" aria-hidden="true">👤</span>
+                <StudentProfileAvatar className="tcs-ion-avatar" fallback={<span aria-hidden="true">👤</span>} />
                 <div className="min-w-0">
                   <p className="truncate font-bold text-[#143a58]">{user?.name || "Examtree learner"}</p>
                   <p className="text-xs text-gray-600">Candidate</p>

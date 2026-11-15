@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UserRound } from "lucide-react";
+import { StudentProfileAvatar } from "@/components/StudentProfileAvatar";
 import type { Test } from "@/lib/data";
 import { LANGUAGE_LABELS, type Language } from "@/lib/lang-utils";
 import "@/styles/pre-test-instructions.css";
@@ -65,7 +66,7 @@ export function PreTestInstructions({ test, practice, variant, candidateName, la
         </div>
         <div className="pretest-readiness"><label className="pretest-language">{t.language}: <select data-testid="pretest-language" value={testLanguage} onChange={e => onLanguageChange(e.target.value as Language)}>{languages.map(lang => <option key={lang} value={lang}>{LANGUAGE_LABELS[lang]}</option>)}</select></label><p>{t.languageNote}</p><label className="pretest-acknowledgement"><input data-testid="pretest-accept" type="checkbox" checked={accepted} onChange={e => onAccept(e.target.checked)} /><strong>{t.accept}</strong></label></div>
       </main>
-      <aside className="pretest-candidate" aria-label={t.candidate}><div className="pretest-avatar"><UserRound size={72} aria-hidden="true" /></div><p>{t.candidate}</p><strong className="pretest-name">{candidateName || t.candidate}</strong><dl><div><dt>{t.questions}</dt><dd>{count}</dd></div><div><dt>{t.duration}</dt><dd>{practice ? t.untimed : `${test.duration} ${t.minutes}`}</dd></div><div><dt>{t.marks}</dt><dd>{count * correct}</dd></div></dl><p className="pretest-interface">{t.mode}: {variant === "tcs" ? t.simulation : t.classic}</p></aside>
+      <aside className="pretest-candidate" aria-label={t.candidate}><StudentProfileAvatar className="pretest-avatar" fallback={<UserRound size={72} aria-hidden="true" />} /><p>{t.candidate}</p><strong className="pretest-name">{candidateName || t.candidate}</strong><dl><div><dt>{t.questions}</dt><dd>{count}</dd></div><div><dt>{t.duration}</dt><dd>{practice ? t.untimed : `${test.duration} ${t.minutes}`}</dd></div><div><dt>{t.marks}</dt><dd>{count * correct}</dd></div></dl><p className="pretest-interface">{t.mode}: {variant === "tcs" ? t.simulation : t.classic}</p></aside>
     </div>
     <footer className="pretest-footer"><button type="button" onClick={onBack}>{t.back}</button><button type="button" data-testid="begin-test" disabled={!accepted} onClick={onBegin}>{t.begin}</button></footer>
   </div>;
