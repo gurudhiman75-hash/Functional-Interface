@@ -144,11 +144,11 @@ export async function onRequest({ request, env = {} }) {
   const nativeEditorialPath =
     env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
     ((request.method === "GET" &&
-      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial$/i.test(incoming.pathname)) ||
+      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial$/i.test(incoming.pathname)) ||
      (request.method === "PUT" &&
-      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial\\/(?:hi|pa)$/i.test(incoming.pathname)) ||
+      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:hi|pa)$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
-      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial\\/(?:hi|pa)\\/decision$/i.test(incoming.pathname)));
+      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:hi|pa)\/decision$/i.test(incoming.pathname)));
   const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath || nativeEditorialPath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
