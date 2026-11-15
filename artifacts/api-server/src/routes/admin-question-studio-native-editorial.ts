@@ -158,7 +158,7 @@ router.put(itemPath+"/:language",requireAdminPermission("content.generation.revi
       await tx`INSERT INTO content.question_studio_native_locale_events
         (native_locale_id,revision,action,actor_user_id,reason,snapshot)
         VALUES (${next.id}::uuid,${next.revision},'save_draft',${userId}::uuid,${reason},
-          ${JSON.stringify({language,...question})}::jsonb)`;
+          ${JSON.stringify({language,stem:question.stem,explanation:question.explanation,options:question.options,correctIndex:question.correctIndex})}::jsonb)`;
       return {language,revision:Number(next.revision),status:"draft"};
     });
     if(!saved){res.status(409).json({code:"NATIVE_EDITORIAL_REVISION_CHANGED"});return;}
