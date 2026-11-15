@@ -4,6 +4,14 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
 
 const router = Router();
+// Separate opt-in from the existing read-only native preview. Schema migration
+// must be verified before enabling editorial persistence in a candidate.
+router.use((_req,res,next)=>{
+  if(process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED!=="true"){
+    res.status(404).json({code:"NATIVE_EDITORIAL_NOT_ENABLED"});return;
+  }
+  next();
+});
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type Locale = "hi" | "pa";
 function text(value: unknown): string { return typeof value === "string" ? value.trim() : ""; }
