@@ -26,15 +26,24 @@ export async function getPrivateProductionWorkerIdentityToken(
   let origin:URL;
   try {origin=new URL(audience);}
   catch {throw new PrivateQuestionStudioWorkerAuthError();}
+  const nativeTagPrefix="qs-native-candidate---";
+  const tagged=origin.hostname.startsWith(nativeTagPrefix+"examtree-universal-prod-");
+  const standard=origin.hostname.startsWith("examtree-universal-prod-");
   if(origin.protocol!=="https:" ||
-     !origin.hostname.startsWith("examtree-universal-prod-") ||
+     !(standard || (tagged && env.EXAMTREE_QS_NATIVE_CANDIDATE_BINDING_ENABLED==="true")) ||
      !origin.hostname.endsWith(".run.app") ||
      origin.pathname!=="/" || origin.search || origin.hash ||
      origin.username || origin.password) {
     throw new PrivateQuestionStudioWorkerAuthError();
   }
   const endpoint=new URL(IDENTITY_ENDPOINT);
-  endpoint.searchParams.set("audience",origin.origin);
+  // Cloud Run authenticated traffic tags share the service's canonical
+  // identity audience. Send requests to the tagged hostname, but mint the
+  // OIDC token for the untagged service URL, not the tag URL.
+  const canonicalAudience=tagged
+    ?"https://"+origin.hostname.slice(nativeTagPrefix.length)
+    :origin.origin;
+  endpoint.searchParams.set("audience",canonicalAudience);
   endpoint.searchParams.set("format","full");
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),5000);

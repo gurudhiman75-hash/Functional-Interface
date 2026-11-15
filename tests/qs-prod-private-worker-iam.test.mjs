@@ -39,6 +39,18 @@ test("private Cloud Run IAM identity is restricted to production receiver and ex
   const url=new URL(calls[0].url);
   assert.equal(url.hostname,"metadata.google.internal");
   assert.equal(url.searchParams.get("audience"),origin);
+  const tagged="https://qs-native-candidate---examtree-universal-prod-123456789.asia-south1.run.app";
+  await assert.rejects(identity(tagged,fake,prodEnv),/identity unavailable/i);
+  const testToken=await identity(tagged,fake,{
+    ...prodEnv,EXAMTREE_QS_NATIVE_CANDIDATE_BINDING_ENABLED:"true",
+  });
+  assert.equal(testToken,token);
+  assert.equal(new URL(calls.at(-1).url).searchParams.get("audience"),origin,
+    "Tagged request must mint OIDC for canonical private Cloud Run service");
+  await assert.rejects(identity(
+    "https://other-tag---examtree-universal-prod-123456789.asia-south1.run.app",fake,{
+      ...prodEnv,EXAMTREE_QS_NATIVE_CANDIDATE_BINDING_ENABLED:"true",
+    }),/identity unavailable/i);
   assert.equal(url.searchParams.get("format"),"full");
   assert.equal(calls[0].opts.headers["Metadata-Flavor"],"Google");
   await assert.rejects(identity(origin,async()=>new Response("bad",{status:200}),prodEnv),/identity unavailable/i);
@@ -51,6 +63,7 @@ test("production receiver opts into IAM and staging preserves legacy shared-toke
   const remote=readFileSync("artifacts/api-server/src/question-studio/remote-universal-studio-client.ts","utf8");
   assert.match(source,/runUniversalStudioRemote\(compute,\{productionPrivateCloudRun:true\}\)/);
   assert.match(staging,/runUniversalStudioRemote\(compute\)/);
+  assert.match(source,/EXAMTREE_QS_NATIVE_CANDIDATE_BINDING_ENABLED/);
   assert.match(remote,/opts\.productionPrivateCloudRun/);
   assert.match(remote,/getPrivateProductionWorkerIdentityToken\(url\.origin\)/);
   assert.match(remote,/headers\.Authorization=/);
