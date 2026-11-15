@@ -42,12 +42,55 @@ export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supporte
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
-function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, onSave, onDecision }: {
+function ManualLocaleCreator({ language,source,busy,onSave }: {
+  language:'hi'|'pa';
+  source:NativeReviewQuestion;
+  busy:boolean;
+  onSave:(question:NativeReviewQuestion,reason:string,expectedRevision:number)=>Promise<void>;
+}) {
+  const [open,setOpen]=useState(false);
+  const [stem,setStem]=useState('');
+  const [explanation,setExplanation]=useState('');
+  const [options,setOptions]=useState(()=>source.options.map(()=>''));
+  const [reason,setReason]=useState('Manual translation after approved English correction');
+  return <div className="mt-3">
+    {!open ? <Button type="button" size="sm" variant="outline"
+      onClick={()=>setOpen(true)}>Create manual {language.toUpperCase()} translation</Button> :
+      <div lang={language} className="space-y-3">
+        <label className="block text-xs font-medium">Translated question
+          <Textarea className="mt-1" rows={3} value={stem} onChange={e=>setStem(e.target.value)}/>
+        </label>
+        {options.map((option,index)=><label className="block text-xs font-medium" key={index}>
+          Option {String.fromCharCode(65+index)}{source.correctIndex===index?' · correct answer':''}
+          <Input className="mt-1" value={option} onChange={e=>setOptions(old=>old.map((x,i)=>i===index?e.target.value:x))}/>
+        </label>)}
+        <label className="block text-xs font-medium">Translated explanation
+          <Textarea className="mt-1" rows={5} value={explanation}
+            onChange={e=>setExplanation(e.target.value)}/>
+        </label>
+        <label className="block text-xs font-medium">Editorial change reason
+          <Input className="mt-1" value={reason} onChange={e=>setReason(e.target.value)}/>
+        </label>
+        <div className="flex gap-2">
+          <Button type="button" size="sm" disabled={busy || !stem.trim() || !explanation.trim() ||
+            options.some(v=>!v.trim()) || new Set(options.map(v=>v.trim())).size!==options.length ||
+            reason.trim().length<8}
+            onClick={()=>void onSave({stem,explanation,options,correctIndex:source.correctIndex},reason,0)
+              .then(()=>setOpen(false)).catch(()=>{})}>Save manual draft</Button>
+          <Button size="sm" type="button" variant="outline" disabled={busy}
+            onClick={()=>setOpen(false)}>Cancel</Button>
+        </div>
+      </div>}
+  </div>;
+}
+
+function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, manualSource, onSave, onDecision }: {
   variant: NativeReviewVariant;
   draft?: NativeEditorialDraft;
   busy: boolean;
   englishApproved: boolean;
   editorialEnabled: boolean;
+  manualSource?: NativeReviewQuestion;
   onSave: (question: NativeReviewQuestion, reason: string, expectedRevision: number) => Promise<void>;
   onDecision: (decision: 'approved' | 'needs_fix', reason: string, expectedRevision: number) => Promise<void>;
 }) {
@@ -64,6 +107,8 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
         <Badge variant="outline">Needs verification</Badge></div>
       <p className="mt-3 text-xs text-warning"><AlertTriangle className="mr-1 inline h-3.5 w-3.5" />
         {variant.status === 'blocked' ? variant.reason : 'Localization unavailable'}</p>
+      {englishApproved && editorialEnabled && manualSource && <ManualLocaleCreator
+        language={variant.language} source={manualSource} busy={busy} onSave={onSave} />}
     </div>
   );
   const q = working ?? visible;
@@ -406,6 +451,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       {(snapshot || drafts.length > 0) && <div className={languageView==='both' ? "mt-3 grid gap-3 lg:grid-cols-2" : "mt-3 max-w-3xl"}>
         {variants.filter(variant=>languageView==='both' || variant.language===languageView).map(variant => <VariantCard key={variant.language} variant={variant}
           draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} englishApproved={item.status==='approved'} editorialEnabled={EDITORIAL_ENABLED}
+          manualSource={item.status==='approved' && item.currentVersionNumber>1 ? snapshot?.source : undefined}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
           onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}
       </div>}
