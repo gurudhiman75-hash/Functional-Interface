@@ -25,7 +25,7 @@ export async function prepareNativeReviewSnapshot(
   try {
     assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en"));
   }catch{return null;}
-  const variants=await Promise.all(active.map(async language:Promise<PersistedNativeVariant>=>{
+  const variants=await Promise.all(active.map(async (language):Promise<PersistedNativeVariant>=>{
     try{
       const localized=await nativeLocalizedQuestion(payload,language);
       assertNativeLocalizedAnswerParity(source,localized);
