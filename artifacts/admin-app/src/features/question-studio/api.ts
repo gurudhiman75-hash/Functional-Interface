@@ -420,7 +420,11 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
     engineId?: string;
   }>(
     '/admin/question-studio/runs',
-    { method: 'POST', body: JSON.stringify(input) },
+    { method: 'POST',
+      ...(input.nativeGroupedReview && input.language === 'en' &&
+        input.languages?.some(language => language === 'hi' || language === 'pa')
+          ? { headers: { 'X-Examtree-Native-Grouped-Review': 'true' } } : {}),
+      body: JSON.stringify(input) },
     { fallbackMessage: 'Unable to create the generation run.' },
   );
 }
