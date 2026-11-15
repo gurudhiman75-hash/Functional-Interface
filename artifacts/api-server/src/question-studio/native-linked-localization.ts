@@ -100,7 +100,7 @@ export async function nativeLocalizedQuestion(
   // question pipeline with the exact saved CP, QL, difficulty and seed.
   if (packageId === "MAL-001") {
     if (!MAL_001_QUESTION_STUDIO_CP_IDS.includes(cpId as Mal001QuestionStudioCpId) ||
-        !/^MAL-QL-\\d{3}$/.test(qlId)) {
+        !/^MAL-QL-\d{3}$/.test(qlId)) {
       throw new Error("NATIVE_LOCALIZATION_MAL_SELECTOR_INVALID");
     }
     const difficulty=string(payload.difficulty);
