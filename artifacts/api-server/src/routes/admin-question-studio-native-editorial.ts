@@ -48,9 +48,6 @@ async function sourceFor(itemId: string, expectedVersion: number) {
   catch { return {code:"NATIVE_EDITORIAL_SOURCE_PARITY_FAILED",http:409} as const; }
   return {row,source,payload,sourceVersionId:String(row.sourceVersionId)};
 }
-function invalidSource(value: Awaited<ReturnType<typeof sourceFor>>): value is {code:string;http:number} {
-  return "code" in value;
-}
 const itemPath="/items/:itemId/native-editorial";
 router.get(itemPath,requireAdminPermission("content.generation.read"),async(req,res)=>{
   res.setHeader("Cache-Control","private, no-store");
@@ -58,7 +55,7 @@ router.get(itemPath,requireAdminPermission("content.generation.read"),async(req,
   if (!UUID.test(id)||!Number.isInteger(version)||version<1) {res.status(400).json({code:"NATIVE_EDITORIAL_INVALID_REQUEST"});return;}
   try {
     const result=await sourceFor(id,version);
-    if(invalidSource(result)){res.status(result.http).json({code:result.code});return;}
+    if('code' in result){res.status(result.http).json({code:result.code});return;}
     const rows=await sqlClient`
       SELECT language_code AS language,stem,explanation,options,correct_index AS "correctIndex",
              status,revision,change_reason AS "changeReason",
@@ -87,7 +84,7 @@ router.put(itemPath+"/:language",requireAdminPermission("content.generation.revi
   const question=body!.question as {stem:string;explanation:string;options:string[];correctIndex:number};
   try {
     const result=await sourceFor(itemId,version);
-    if(invalidSource(result)){res.status(result.http).json({code:result.code});return;}
+    if('code' in result){res.status(result.http).json({code:result.code});return;}
     if (question.correctIndex!==result.source.correctIndex || question.options.length!==result.source.options.length) {
       res.status(422).json({code:"NATIVE_EDITORIAL_ANSWER_MAPPING_CHANGED"});return;
     }
@@ -150,7 +147,7 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
   }
   try {
     const result=await sourceFor(itemId,version);
-    if(invalidSource(result)){res.status(result.http).json({code:result.code});return;}
+    if('code' in result){res.status(result.http).json({code:result.code});return;}
     const {listQuestionStudioPackages}=await import("../question-studio/engine-registry");
     const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===result.payload.packageId);
     if(!pkg?.supportedLanguages.includes(language)){
