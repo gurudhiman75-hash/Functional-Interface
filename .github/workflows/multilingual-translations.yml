@@ -130,6 +130,9 @@ jobs:
           ! grep -F 'mockLanguages' artifacts/admin-app/src/pages/settings/LanguagesPage.tsx
           ! grep -F 'localStorage' artifacts/admin-app/src/features/translations/api.ts
 
+      - name: Typecheck Question Studio native editorial API
+        run: pnpm --dir artifacts/api-server typecheck
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
