@@ -138,7 +138,18 @@ export async function onRequest({ request, env = {} }) {
     env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
     request.method === "GET" &&
     /^\/api\/admin\/question-studio\/items\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/native-localizations$/i.test(incoming.pathname);
-  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath;
+  // Native drafts and independent editorial decisions use the same tagged
+  // candidate as native review. Scope methods and routes exactly; do not
+  // forward ordinary Question Studio approvals or published translations.
+  const nativeEditorialPath =
+    env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
+    ((request.method === "GET" &&
+      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial$/i.test(incoming.pathname)) ||
+     (request.method === "PUT" &&
+      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial\\/(?:hi|pa)$/i.test(incoming.pathname)) ||
+     (request.method === "POST" &&
+      /^\\/api\\/admin\\/question-studio\\/items\\/[0-9a-f-]{36}\\/native-editorial\\/(?:hi|pa)\\/decision$/i.test(incoming.pathname)));
+  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath || nativeEditorialPath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
