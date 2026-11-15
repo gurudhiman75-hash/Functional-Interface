@@ -3,6 +3,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "./e
 import type { QuestionStudioGenerationRequest } from "./engine-types";
 import { runAvg001QuestionStudioPipeline, type Avg001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
 import { generateInt001ExistingLocalizedQuestion } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-adapter-v1";
+import { runMal001QuestionStudioPipeline, MAL_001_QUESTION_STUDIO_CP_IDS, type Mal001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
 export type NativeLocale = "en" | "hi" | "pa";
 export type NativeLocalizedQuestion = {
@@ -91,6 +92,34 @@ export async function nativeLocalizedQuestion(
       explanation: pkg.explanationLines.join("\n"),
       options: [...pkg.options],
       correctIndex: pkg.correctIndex,
+    };
+  }
+  // MAL-001 persists a *per-question* seed from its standard batch adapter.
+  // Calling the batch API here would append another :CP:index suffix and
+  // silently regenerate a different question. Replay its released single-
+  // question pipeline with the exact saved CP, QL, difficulty and seed.
+  if (packageId === "MAL-001") {
+    if (!MAL_001_QUESTION_STUDIO_CP_IDS.includes(cpId as Mal001QuestionStudioCpId) ||
+        !/^MAL-QL-\d{3}$/.test(qlId)) {
+      throw new Error("NATIVE_LOCALIZATION_MAL_SELECTOR_INVALID");
+    }
+    const difficulty=string(payload.difficulty);
+    if (difficulty && !["Easy","Medium","Hard"].includes(difficulty)) {
+      throw new Error("NATIVE_LOCALIZATION_MAL_DIFFICULTY_INVALID");
+    }
+    const pkg=runMal001QuestionStudioPipeline(cpId as Mal001QuestionStudioCpId, {
+      seed, questionLanguageId:qlId, language,
+      ...(difficulty ? {difficulty:difficulty as "Easy"|"Medium"|"Hard"} : {}),
+    });
+    const lines=Array.isArray(pkg.explanation?.lines) ? pkg.explanation.lines.map(line=>String(line ?? "")) :
+      Array.isArray((pkg.explanation as {visibleLines?:string[]})?.visibleLines)
+        ? [...((pkg.explanation as {visibleLines:string[]}).visibleLines),
+          String((pkg.explanation as {answerLine?:string})?.answerLine ?? "")].filter(Boolean) : [];
+    return {
+      stem:string(pkg.stem),
+      explanation:lines.join("\n\n"),
+      options:[...pkg.options].map(option=>String(option).trim()),
+      correctIndex:Number(pkg.correctIndex),
     };
   }
   // Native chapter engines already accept a canonical CP, permanent QL and

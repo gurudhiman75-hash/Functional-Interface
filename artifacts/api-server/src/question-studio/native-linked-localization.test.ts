@@ -6,6 +6,8 @@ import {
   nativeLocalizedQuestion,
 } from "./native-linked-localization";
 
+import { runMal001QuestionStudioPipeline } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
+
 const canonical = {
   stem: "What is the average of five numbers?",
   explanation: "Add the numbers and divide by five.",
@@ -97,5 +99,33 @@ test("registered MAL-001 chapter reuses its existing tri-language generator thro
     const localized=await nativeLocalizedQuestion(identity,language);
     assertNativeLocalizedAnswerParity(en,localized);
     assert.notEqual(localized.stem,en.stem);
+  }
+});
+
+test("MAL-001 replays an exact saved batch child seed without adding another suffix", async () => {
+  const identity = {
+    packageId: "MAL-001",
+    canonicalProblemId: "MAL-CP-002",
+    questionLanguageId: "MAL-QL-021",
+    difficulty: "Medium",
+    // Shape of a real version-1 persisted standard batch child (the terminal
+    // :CP:index segment is already part of the *question* seed).
+    seed: "qs-async:example:SSC_CGL_T1:chapter-mix:Medium:slot:1:MAL-CP-002:1",
+  };
+  const direct = runMal001QuestionStudioPipeline("MAL-CP-002", {
+    seed:identity.seed, questionLanguageId:"MAL-QL-021", difficulty:"Medium", language:"en",
+  });
+  const persistedSource = {
+    stem:direct.stem,
+    options:[...direct.options],
+    explanation:(direct.explanation.lines ?? []).join("\n\n"),
+    correctIndex:direct.correctIndex,
+  };
+  const reconstructed = await nativeLocalizedQuestion(identity, "en");
+  assert.doesNotThrow(() => assertNativeEnglishSourceParity(persistedSource, reconstructed));
+  for (const language of ["hi", "pa"] as const) {
+    const variant = await nativeLocalizedQuestion(identity, language);
+    assertNativeLocalizedAnswerParity(persistedSource, variant);
+    assert.notEqual(variant.stem, persistedSource.stem);
   }
 });
