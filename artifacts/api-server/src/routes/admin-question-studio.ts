@@ -155,6 +155,18 @@ router.get("/items/:itemId/native-localizations",
           const generated=await nativeLocalizedQuestion(payload,"en");
           assertNativeEnglishSourceParity(source,generated);
         } catch(error) {
+          // English revision v2+ may be a deliberately corrected, separately
+          // approved question. Its old generated HI/PA must not be reused;
+          // show explicit manual-localization cards instead.
+          if(expectedVersion>1 && row.status==="approved"){
+            return {itemId,version:expectedVersion,packageId,
+              source:{language:"en",status:"verified",...source},
+              variants:(["hi","pa"] as const)
+                .filter(locale=>pkg.supportedLanguages.includes(locale))
+                .map(language=>({language,status:"blocked" as const,
+                  reason:"English was revised; create and review a fresh manual translation."})),
+              saved:false,approved:false};
+          }
           throw {status:409,code:"NATIVE_REVIEW_SOURCE_PARITY_FAILED",
             error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version."};
         }
