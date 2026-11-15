@@ -58,7 +58,13 @@ async function sourceFor(itemId: string, expectedVersion: number) {
   if(!readPersistedNativeSnapshot(payload)){
     const {nativeLocalizedQuestion,assertNativeEnglishSourceParity}=await import("../question-studio/native-linked-localization");
     try {assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en"));}
-    catch {return {code:"NATIVE_EDITORIAL_SOURCE_PARITY_FAILED",http:409} as const;}
+    catch {
+      // A human-revised English question can still have independently
+      // authored translations, but only after English was reapproved.
+      // It must never inherit generated locale snapshots from an older source.
+      if(Number(row.version)<=1 || row.status!=="approved")
+        return {code:"NATIVE_EDITORIAL_SOURCE_PARITY_FAILED",http:409} as const;
+    }
   }
   return {row,source,payload,sourceVersionId:String(row.sourceVersionId)};
 }
