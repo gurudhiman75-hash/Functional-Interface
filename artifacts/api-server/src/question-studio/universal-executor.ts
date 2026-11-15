@@ -185,5 +185,23 @@ export async function executeUniversalStudioCompute(
       statusCode: 422, code: "UNIVERSAL_GENERATION_BATCH_MISMATCH",
     });
   }
-  return { questions: generatedQuestions, generationContexts, quantPlan, engineId: pkg.engineId, packageId: pkg.packageId };
+  // Compute-only Universal worker already owns the chapter engines. Prepare
+  // the released Hindi/Punjabi variants here, not in the isolated task
+  // receiver. The receiver validates fingerprint and answer mapping before
+  // saving; none of these candidate variants is automatically approved.
+  const normalizedQuestions=generatedQuestions.map(question=>{
+    const {nativeReviewSnapshot:_discardedUntrustedSnapshot,...safe}=question;
+    return {
+      ...safe,
+      packageId:typeof safe.packageId==="string"&&safe.packageId.trim()?safe.packageId:pkg.packageId,
+      language:typeof safe.language==="string"&&safe.language.trim()?safe.language:request.language,
+    };
+  });
+  const nativeSnapshots=await (await import("./persisted-native-review"))
+    .prepareNativeReviewBatch(normalizedQuestions);
+  const completeQuestions=normalizedQuestions.map((question,index)=>({
+    ...question,
+    ...(nativeSnapshots[index]?{nativeReviewSnapshot:nativeSnapshots[index]}:{}),
+  }));
+  return { questions: completeQuestions, generationContexts, quantPlan, engineId: pkg.engineId, packageId: pkg.packageId };
 }
