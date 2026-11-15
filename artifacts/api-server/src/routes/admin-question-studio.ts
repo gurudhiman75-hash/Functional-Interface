@@ -3,7 +3,7 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
-import { nativeLocalizedQuestion, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
+import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
 import { listQuestionStudioPackages } from "../question-studio/engine-registry";
 
 const router = Router();
@@ -74,11 +74,12 @@ router.get("/items/:itemId/native-localizations",
           error:"This item does not have registered multilingual languages and a reusable canonical QL/CP/seed.",
         });return;
       }
-      const sourceOptions=Array.isArray(payload.options)?payload.options.map(x=>String(x??"").trim()):[];
+      const sourceOptions=Array.isArray(payload.options)?payload.options.map(x=>
+        typeof x==="string"?x.trim():asString(x && typeof x==="object" && "text" in x ? x.text : "")):[];
       const correctIndex=Number(payload.correctIndex??payload.correct);
       const source={
         stem:asString(payload.text)||asString(payload.stem),
-        explanation:asString(payload.explanation),
+        explanation:nativeExplanationText(payload.explanation),
         options:sourceOptions,
         correctIndex,
       };
