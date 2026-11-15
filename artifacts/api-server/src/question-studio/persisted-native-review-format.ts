@@ -4,7 +4,7 @@ export type PersistedNativeVariant =
   | ({language:"hi"|"pa";status:"verified"} & NativeReviewQuestion)
   | {language:"hi"|"pa";status:"blocked";reason:string};
 export type PersistedNativeSnapshot = {
-  schemaVersion:1;sourceHash:string;variants:PersistedNativeVariant[];
+  schemaVersion:1;sourceHash:string;identityHash:string;variants:PersistedNativeVariant[];
   generatedAt:string;sourceVerified:true;
 };
 const text=(x:unknown)=>typeof x==="string"?x.trim():"";
@@ -31,12 +31,21 @@ export function nativeSourceHash(source:NativeReviewQuestion):string {
     source.stem,source.explanation,source.options,source.correctIndex,
   ])).digest("hex");
 }
+export function nativeIdentityHash(payload:Record<string,unknown>):string {
+  return createHash("sha256").update(JSON.stringify([
+    text(payload.packageId),
+    text(payload.canonicalProblemId||payload.selectedCpId||payload.cpId),
+    text(payload.questionLanguageId||payload.qlId),
+    text(payload.seed),text(payload.difficulty),text(payload.language),
+  ])).digest("hex");
+}
 export function readPersistedNativeSnapshot(payload:Record<string,unknown>):PersistedNativeSnapshot|null {
   const raw=payload.nativeReviewSnapshot;
   if(!raw||typeof raw!=="object"||Array.isArray(raw))return null;
   const snap=raw as Partial<PersistedNativeSnapshot>;
   if(snap.schemaVersion!==1||snap.sourceVerified!==true||
      snap.sourceHash!==nativeSourceHash(nativeSourceQuestion(payload))||
+     snap.identityHash!==nativeIdentityHash(payload)||
      !Array.isArray(snap.variants))return null;
   if(!snap.variants.every(v=>v && ["hi","pa"].includes(v.language) &&
       (v.status==="blocked" || v.status==="verified" &&
