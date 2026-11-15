@@ -1,4 +1,6 @@
 import { toQuestionStudioPreview } from "../quant-v4/generation-engine";
+import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "./engine-registry";
+import type { QuestionStudioGenerationRequest } from "./engine-types";
 import { runAvg001QuestionStudioPipeline, type Avg001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
 import { generateInt001ExistingLocalizedQuestion } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-adapter-v1";
 
@@ -74,7 +76,53 @@ export async function nativeLocalizedQuestion(
       correctIndex: pkg.correctIndex,
     };
   }
-  throw new Error("NATIVE_LOCALIZATION_UNSUPPORTED_PACKAGE");
+  // Native chapter engines already accept a canonical CP, permanent QL and
+  // deterministic seed through the central registry. Reuse that contract for
+  // every registered chapter with an authored locale; never invent a fallback.
+  const pkg=listQuestionStudioPackages().find(entry=>entry.packageId===packageId && entry.enabled);
+  if (!pkg || !pkg.supportedLanguages.includes("en") || !pkg.supportedLanguages.includes(language)) {
+    throw new Error("NATIVE_LOCALIZATION_UNSUPPORTED_LANGUAGE_OR_PACKAGE");
+  }
+  if (!pkg.cpIds.includes(cpId) && !(pkg.dynamicCandidateCpIds ?? []).includes(cpId)) {
+    throw new Error("NATIVE_LOCALIZATION_CP_NOT_REGISTERED");
+  }
+  const request: QuestionStudioGenerationRequest = {
+    engineId:pkg.engineId, packageId, canonicalProblemId:cpId,
+    questionLanguageId:qlId, seed, language, count:1,
+    ...(string(payload.exam)?{exam:string(payload.exam)}:{}),
+    ...(string(payload.runtimeMode)?{runtimeMode:string(payload.runtimeMode)}:{}),
+    ...(string(payload.difficulty)?{difficulty:string(payload.difficulty)}:{}),
+  };
+  const result=await generateQuestionStudioQuestions(request);
+  if (result.questions.length!==1) throw new Error("NATIVE_LOCALIZATION_NOT_SINGLE_QUESTION");
+  const question=record(result.questions[0]);
+  const generatedCp=string(question.canonicalProblemId||question.selectedCpId||question.cpId);
+  const generatedQl=string(question.questionLanguageId||question.qlId);
+  const generatedSeed=string(question.seed);
+  if ((generatedCp && generatedCp!==cpId) ||
+      (generatedQl && generatedQl!==qlId) ||
+      (generatedSeed && generatedSeed!==seed)) {
+    throw new Error("NATIVE_LOCALIZATION_REGENERATED_IDENTITY_DRIFT");
+  }
+  const explanationValue=question.explanation;
+  const explanation=typeof explanationValue==="string" ? explanationValue.trim()
+    : Array.isArray(explanationValue)
+      ? explanationValue.map(value=>string(value)).filter(Boolean).join("\\n")
+      : Array.isArray(record(explanationValue).lines)
+        ? (record(explanationValue).lines as unknown[]).map(value=>string(value)).filter(Boolean).join("\\n")
+        : "";
+  const options=Array.isArray(question.options)?question.options.map(value=>
+    typeof value==="string"?value.trim():string(record(value).text)): [];
+  const generatedIndex=Number(question.correctIndex??question.correct);
+  if (!string(question.stem||question.text)||!explanation||
+      options.length<2||options.some(option=>!option)||
+      !Number.isInteger(generatedIndex)||generatedIndex<0||generatedIndex>=options.length) {
+    throw new Error("NATIVE_LOCALIZATION_INCOMPLETE_GENERATED_CONTENT");
+  }
+  return {
+    stem:string(question.stem||question.text),
+    explanation,options,correctIndex:generatedIndex,
+  };
 }
 
 /** Fail-closed comparison to a canonical approved version, including the
