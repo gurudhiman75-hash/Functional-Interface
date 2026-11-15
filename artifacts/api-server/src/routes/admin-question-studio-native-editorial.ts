@@ -68,14 +68,28 @@ router.get(itemPath,requireAdminPermission("content.generation.read"),async(req,
   const id=text(req.params.itemId),version=Number(req.query.version);
   if (!UUID.test(id)||!Number.isInteger(version)||version<1) {res.status(400).json({code:"NATIVE_EDITORIAL_INVALID_REQUEST"});return;}
   try {
-    const result=await sourceFor(id,version);
-    if('code' in result){res.status(result.http).json({code:result.code});return;}
+    // Listing saved editorial drafts is a lightweight database read. Generator
+    // parity remains mandatory for every mutation in sourceFor(), while the
+    // separate native preview endpoint verifies generated language content.
+    const versions=await sqlClient`
+      SELECT i.current_version_number AS version,i.status::text AS status,
+        v.id::text AS "sourceVersionId",v.payload->>'language' AS language
+      FROM content.generation_run_items i
+      JOIN content.generation_item_versions v ON v.generation_item_id=i.id
+        AND v.version_number=i.current_version_number
+      WHERE i.id=${id}::uuid LIMIT 1`;
+    const result=versions[0];
+    if(!result){res.status(404).json({code:"NATIVE_EDITORIAL_ITEM_NOT_FOUND"});return;}
+    if(Number(result.version)!==version){res.status(409).json({code:"NATIVE_EDITORIAL_SOURCE_CHANGED"});return;}
+    if(result.status==="rejected"||result.language!=="en"){
+      res.status(422).json({code:"NATIVE_EDITORIAL_SOURCE_NOT_ELIGIBLE"});return;
+    }
     const rows=await sqlClient`
       SELECT language_code AS language,stem,explanation,options,correct_index AS "correctIndex",
              status,revision,change_reason AS "changeReason",
              updated_at AS "updatedAt",reviewed_at AS "reviewedAt"
       FROM content.question_studio_native_locales
-      WHERE source_generation_version_id=${result.sourceVersionId}::uuid
+      WHERE source_generation_version_id=${String(result.sourceVersionId)}::uuid
       ORDER BY language_code`;
     res.json({itemId:id,version,locales:rows});
   }catch(error){
