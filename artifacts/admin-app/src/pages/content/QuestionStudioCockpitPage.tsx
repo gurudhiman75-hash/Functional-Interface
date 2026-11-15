@@ -803,7 +803,9 @@ export function QuestionStudioCockpitPage() {
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
         subtopic: activePackage.subtopic,
-        language: languages[0],
+        language: nativeGroupedReview ? 'en' : languages[0],
+        nativeGroupedReview,
+        languages: languages.filter((language): language is 'en'|'hi'|'pa' => language === 'en' || language === 'hi' || language === 'pa'),
         seed: seed.trim() || undefined,
       };
       if (bulkAsyncMode) {
