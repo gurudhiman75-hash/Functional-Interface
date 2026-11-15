@@ -419,9 +419,9 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
         WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
       const item=items[0];
       if(!item || Number(item.version)!==version ||
-         String(item.generationVersionId)!==source.sourceVersionId) return {code:"NATIVE_PROMOTION_SOURCE_CHANGED",http:409};
+         String(item.generationVersionId)!==source.sourceVersionId) abortNativeReview("NATIVE_PROMOTION_SOURCE_CHANGED");
       if(item.status!=="approved"||!item.questionVersionId||!item.questionId)
-        return {code:"NATIVE_PROMOTION_ENGLISH_NOT_ACCEPTED",http:409};
+        abortNativeReview("NATIVE_PROMOTION_ENGLISH_NOT_ACCEPTED");
       await tx`SELECT id FROM content.questions WHERE id=${String(item.questionId)}::uuid FOR UPDATE`;
       const bank=await tx`SELECT q.id::text AS "questionId",q.status::text AS status,
             q.approved_version_id::text AS "approvedVersionId",
@@ -442,7 +442,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
       const b=bank[0];
       if(!b||!["approved","published"].includes(String(b.status))||
          ![b.approvedVersionId,b.publishedVersionId].includes(item.questionVersionId))
-        return {code:"NATIVE_PROMOTION_BANK_SOURCE_NOT_APPROVED",http:409};
+        abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_NOT_APPROVED");
       const sourceOptions=source.source.options;
       const bankOptions=Array.isArray(b.options)?b.options as Array<Record<string,unknown>>:[];
       if(text(b.sourceLanguage)&&b.sourceLanguage!=="en" ||
@@ -451,9 +451,9 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
          bankOptions.some((o,index)=>text(o.text)!==sourceOptions[index] ||
            Boolean(o.isCorrect)!==(index===source.source.correctIndex) ||
            text(o.key)!==String.fromCharCode(65+index)))
-        return {code:"NATIVE_PROMOTION_BANK_SOURCE_PARITY_FAILED",http:409};
+        abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_PARITY_FAILED");
       if(!b.examVersionId && b.bankAcceptanceMode!=="BANK_ONLY")
-        return {code:"NATIVE_PROMOTION_BANK_TAXONOMY_REQUIRED",http:409};
+        abortNativeReview("NATIVE_PROMOTION_BANK_TAXONOMY_REQUIRED");
 
       const drafts=await tx`SELECT id::text AS id,language_code AS language,
           stem,explanation,options,correct_index AS "correctIndex",revision,status,
@@ -466,7 +466,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           Number(d.revision)!==(d.language==="hi"?hi:pa) ||
           !d.reviewerUserId || d.correctIndex!==source.source.correctIndex ||
           !Array.isArray(d.options)||d.options.length!==sourceOptions.length))
-        return {code:"NATIVE_PROMOTION_LOCALES_NOT_APPROVED",http:409};
+        abortNativeReview("NATIVE_PROMOTION_LOCALES_NOT_APPROVED");
       const machineAuthored=new Set<string>();
       for(const d of drafts) {
         if(d.editorUserId!==d.reviewerUserId)continue;
@@ -480,7 +480,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           ORDER BY created_at DESC,id DESC LIMIT 1`;
         if(events[0]?.machineGenerated!=="true" ||
            Number(events[0]?.revision)!==Number(d.revision))
-          return {code:"NATIVE_PROMOTION_SELF_REVIEW_BLOCKED",http:409};
+          abortNativeReview("NATIVE_PROMOTION_SELF_REVIEW_BLOCKED");
         machineAuthored.add(String(d.language));
       }
 
@@ -495,12 +495,12 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           SELECT l.id::text AS id FROM catalog.languages l
           WHERE lower(l.code)=${language} AND l.is_active=true LIMIT 1`;
         const languageId=String(languageRows[0]?.id??"");
-        if(!languageId) return {code:"NATIVE_PROMOTION_LANGUAGE_NOT_ALLOWED",http:409};
+        if(!languageId) abortNativeReview("NATIVE_PROMOTION_LANGUAGE_NOT_ALLOWED");
         const existing=await tx`SELECT id::text AS id FROM content.question_translations
           WHERE question_version_id=${String(b.versionId)}::uuid
             AND language_id=${languageId}::uuid FOR UPDATE`;
         // Never replace an existing translation or its review history.
-        if(existing.length) return {code:"NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS",http:409};
+        if(existing.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
         const options=(d.options as string[]).map((option,index)=>({
           key:String.fromCharCode(65+index),text:String(option),sortOrder:index+1,
         }));
@@ -521,7 +521,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
             forbiddenVariants:Array.isArray(t.forbiddenVariants)?t.forbiddenVariants.map(String):[],
           })),
         });
-        if(!quality.approvable) return {code:"NATIVE_PROMOTION_QUALITY_BLOCKED",http:409};
+        if(!quality.approvable) abortNativeReview("NATIVE_PROMOTION_QUALITY_BLOCKED");
         const inserted=await tx`
           INSERT INTO content.question_translations
             (question_version_id,language_id,stem,explanation,status,translator_user_id,
@@ -531,7 +531,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
             ${machineAuthored.has(language)?null:String(d.editorUserId)}::uuid,
             NULL,${JSON.stringify(quality)}::jsonb)
           ON CONFLICT (question_version_id,language_id) DO NOTHING RETURNING id::text AS id`;
-        if(!inserted.length) return {code:"NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS",http:409};
+        if(!inserted.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
         const translationId=String(inserted[0]!.id);
         for(const option of options) await tx`
           INSERT INTO content.question_translation_options
@@ -546,9 +546,11 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
       }
       return {translations:result,questionVersionId:String(b.versionId),status:"draft"};
     });
-    if("code" in outcome){res.status(outcome.http).json({code:outcome.code});return;}
     res.json(outcome);
   }catch(error){
+    if(error && typeof error==="object" && "nativeReviewCode" in error){
+      res.status(409).json({code:String(error.nativeReviewCode)});return;
+    }
     console.error("Native translation promotion failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_PROMOTION_UNAVAILABLE"});
   }
