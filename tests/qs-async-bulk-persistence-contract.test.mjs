@@ -68,7 +68,8 @@ test("bulk flow preserves latest multilingual review workflow",()=>{
   // all other packages retain one independent parent per requested language.
   assert.match(page,/function useNativeGroupedReview\(/);
   assert.match(page,/const nativeGroupedReview = NATIVE_GROUPED_REVIEW_ENABLED &&/);
-  assert.match(page,/\['AVG-001', 'INT-001'\]\.includes\(activePackage\.packageId\)/);
+  assert.match(page,/activePackage\.supportedLanguages\.includes\('en'\)/);
+  assert.match(page,/languages\.every\(entry => activePackage\.supportedLanguages\.includes\(entry\)\)/);
   assert.match(page,/const generationLanguages = nativeGroupedReview \? \['en'\] : languages/);
   assert.match(page,/for \(const language of generationLanguages\)/);
   assert.match(page,/setQueuedBulkLanguageJobs/);
