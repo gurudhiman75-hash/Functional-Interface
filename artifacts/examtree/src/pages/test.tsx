@@ -34,7 +34,7 @@ import {
 } from "@/lib/storage";
 import { submitAttempt, getPackagesByTest, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
-import { SscCbtHeader, SscCbtSidebar } from "@/components/SscCbtChrome";
+import { SscCbtHeader, SscCbtSidebar, SscCbtActions } from "@/components/SscCbtChrome";
 import { PreTestInstructions } from "@/components/PreTestInstructions";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -864,6 +864,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
 
       {isTcsInterface && <SscCbtHeader name={test.name} candidate={user?.name || "Examtree learner"}
         time={attemptType === "PRACTICE" ? "Untimed" : formatTime(activeTimeLeft)} scale={questionTextScale}
+        onTextSizeChange={setQuestionTextScale}
         onZoom={delta => setQuestionTextScale(value => Math.min(200, Math.max(80, value + delta)))}
         onInstructions={() => setShowTcsInstructions(true)} onPaper={() => setShowTcsPaper(true)}
         onSymbols={() => { const legend = document.getElementById("ssc-cbt-symbols") as HTMLDetailsElement | null; if (legend) { legend.open = true; legend.scrollIntoView({ block: "nearest" }); legend.querySelector("summary")?.focus(); } }}
@@ -1247,6 +1248,9 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               </div>
             </div>
 
+            {isTcsInterface ? <SscCbtActions flagged={currentQuestionFlagged} answered={allQuestions.filter(question => { const value = attemptType === "PRACTICE" ? practiceAnswers[question.id] : answers[question.id]; return value !== null && value !== undefined; }).length}
+              submitting={isSubmitting} onReview={toggleReview} onSave={goToNext} onSubmit={() => setShowSubmitModal(true)} onClear={clearResponse}
+              onNextWrong={attemptType === "PRACTICE" && Object.keys(realExamAnswers).length > 0 ? goToNextWrongQuestion : undefined} /> : (
             <div className={isTcsInterface ? "tcs-ion-actions mt-0 flex flex-wrap items-center justify-between gap-2 border-x border-b border-[#c4ced5] bg-[#f5f7f8] px-4 py-3" : "mt-0 flex flex-wrap items-center justify-between gap-2 rounded-b border-x border-b border-gray-300 bg-gray-50 px-5 py-3"}>
               <div className="flex flex-wrap gap-2">
                 <button
@@ -1284,8 +1288,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               >
                 Save & Next
               </button>
-              {isTcsInterface && <><button type="button" onClick={() => setShowSubmitModal(true)} disabled={isSubmitting}>Submit test</button><span className="ssc-cbt-total">Total Questions answered: <b>{allQuestions.filter(question => { const value = attemptType === "PRACTICE" ? practiceAnswers[question.id] : answers[question.id]; return value !== null && value !== undefined; }).length}</b></span></>}
             </div>
+            )}
           </section>
 
           <div className="hidden lg:flex lg:items-start lg:justify-center lg:px-1 lg:pt-1">
@@ -1293,9 +1297,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               type="button"
               aria-label={sidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
               onClick={() => setSidebarCollapsed((v) => !v)}
-              className="flex h-8 w-5 items-center justify-center rounded border border-gray-300 bg-white text-gray-400 shadow-sm hover:bg-gray-50 hover:text-gray-600 transition"
+              className={isTcsInterface ? "ssc-cbt-sidebar-toggle" : "flex h-8 w-5 items-center justify-center rounded border border-gray-300 bg-white text-gray-400 shadow-sm hover:bg-gray-50 hover:text-gray-600 transition"}
+              aria-expanded={!sidebarCollapsed}
             >
-              {(isTcsInterface ? !sidebarCollapsed : sidebarCollapsed) ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
+              {isTcsInterface ? <span aria-hidden="true" className={sidebarCollapsed ? "ssc-cbt-toggle-arrow is-collapsed" : "ssc-cbt-toggle-arrow"} /> : sidebarCollapsed ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
             </button>
           </div>
 
