@@ -21,7 +21,7 @@ test("same-seed native identity rejects unknown chapters rather than translating
       questionLanguageId: "UNSUPPORTED-QL-001",
       seed: "stable",
     }, "hi"),
-    /NATIVE_LOCALIZATION_UNSUPPORTED_PACKAGE/,
+    /NATIVE_LOCALIZATION_UNSUPPORTED_LANGUAGE_OR_PACKAGE/,
   );
   await assert.rejects(
     nativeLocalizedQuestion({
