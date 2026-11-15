@@ -36,6 +36,11 @@ export class NativeReviewSnapshotCache<T> {
     return task;
   }
 
+  lookup(key:string):"hit"|"inflight"|"miss" {
+    const cached=this.completed.get(key);
+    if(cached && cached.expires>Date.now())return "hit";
+    return this.pending.has(key) ? "inflight" : "miss";
+  }
   invalidate(key:string) {this.completed.delete(key);}
   get size(){return this.completed.size;}
 }
