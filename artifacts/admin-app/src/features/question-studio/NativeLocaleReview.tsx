@@ -148,9 +148,9 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
               onClick={()=>void onDecision('approved',approvalReason,draft?.revision ?? 0).then(()=>setReason('')).catch(()=>{})}>
               Approve {variant.language.toUpperCase()}
             </Button>
-            <Button type="button" size="sm" variant="outline" disabled={busy || !draft || !reasonValid ||
-                variant.status!=='verified'}
-              onClick={()=>void onDecision('needs_fix',reason,draft!.revision).then(()=>setReason('')).catch(()=>{})}>
+            <Button type="button" size="sm" variant="outline"
+              disabled={busy || draft?.status==='approved' || variant.status!=='verified'}
+              onClick={()=>void onDecision('needs_fix',reasonValid?reason:'Flagged for localized editorial corrections.',draft?.revision ?? 0).then(()=>setReason('')).catch(()=>{})}>
               Needs fix
             </Button>
           </>}
@@ -249,8 +249,20 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           reason,
         });
       }else{
+        let revision=expectedRevision;
+        if(revision===0){
+          const variant=snapshot?.variants.find(v=>v.language===language);
+          if(!variant||variant.status!=='verified')
+            throw new Error('Cannot mark an unverified native variant for editing.');
+          const saved=await saveQuestionStudioNativeEditorial(item.id,language,{
+            expectedVersion:item.currentVersionNumber,expectedRevision:0,changeReason:reason,
+            question:{stem:variant.stem,explanation:variant.explanation,
+              options:variant.options,correctIndex:variant.correctIndex},
+          });
+          revision=saved.revision;
+        }
         await decideQuestionStudioNativeEditorial(item.id,language,{
-          expectedVersion:item.currentVersionNumber,expectedRevision,decision,reason,
+          expectedVersion:item.currentVersionNumber,expectedRevision:revision,decision,reason,
         });
       }
       await refreshEditorial();
