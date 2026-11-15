@@ -84,3 +84,18 @@ test("existing INT-001 localized output uses the same permanent QL and exact see
     assert.notEqual(translated.stem, english.stem);
   }
 });
+
+test("registered MAL-001 chapter reuses its existing tri-language generator through the universal registry", async () => {
+  const identity={
+    packageId:"MAL-001",
+    canonicalProblemId:"MAL-CP-001",
+    questionLanguageId:"MAL-QL-005",
+    seed:"mal-001-multilingual:MAL-QL-005:0",
+  };
+  const en=await nativeLocalizedQuestion(identity,"en");
+  for(const language of ["hi","pa"] as const) {
+    const localized=await nativeLocalizedQuestion(identity,language);
+    assertNativeLocalizedAnswerParity(en,localized);
+    assert.notEqual(localized.stem,en.stem);
+  }
+});
