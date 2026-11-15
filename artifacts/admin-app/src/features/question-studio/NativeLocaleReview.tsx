@@ -10,7 +10,8 @@ import {
   type QuestionStudioItem,
 } from './api';
 
-const VERIFIED_PACKAGES = new Set(['AVG-001', 'INT-001']);
+// Discover language coverage from the registered Question Studio capabilities,
+// never from a hardcoded chapter-name allowlist.
 const LANGUAGE_NAMES = { hi: 'हिन्दी · Hindi', pa: 'ਪੰਜਾਬੀ · Punjabi' } as const;
 
 function sourceLanguage(item: QuestionStudioItem): string {
@@ -18,10 +19,13 @@ function sourceLanguage(item: QuestionStudioItem): string {
 }
 
 /** Expose availability, not an approval/translation status. */
-export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem): boolean {
-  return VERIFIED_PACKAGES.has(String(item.payload?.packageId ?? '')) && sourceLanguage(item) === 'en' &&
+export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supportedLanguages: readonly string[]): boolean {
+  return supportedLanguages.includes('en') &&
+    supportedLanguages.some(language => language === 'hi' || language === 'pa') &&
+    sourceLanguage(item) === 'en' &&
     typeof item.payload?.seed === 'string' && Boolean(item.payload.seed) &&
-    Boolean(item.payload?.questionLanguageId);
+    Boolean(item.payload?.questionLanguageId || item.payload?.qlId) &&
+    Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
 function VariantCard({ variant }: { variant: NativeReviewVariant }) {
@@ -71,12 +75,12 @@ function VariantCard({ variant }: { variant: NativeReviewVariant }) {
 }
 
 /**
- * One canonical review item; two *existing released* language variants.
+ * One canonical review item; registered *existing released* language variants.
  * Bounded GET happens only after a reviewer expands the item.
  * This component never approves or writes translations.
  */
-export function NativeLocaleReview({ item }: { item: QuestionStudioItem }) {
-  const eligible = hasVerifiedNativeLocaleEngine(item);
+export function NativeLocaleReview({ item, supportedLanguages }: { item: QuestionStudioItem; supportedLanguages: readonly string[] }) {
+  const eligible = hasVerifiedNativeLocaleEngine(item, supportedLanguages);
   const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
