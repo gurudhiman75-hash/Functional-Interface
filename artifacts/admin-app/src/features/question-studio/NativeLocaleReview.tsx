@@ -20,6 +20,7 @@ import {
 // Discover language coverage from the registered Question Studio capabilities,
 // never from a hardcoded chapter-name allowlist.
 const LANGUAGE_NAMES = { hi: 'हिन्दी · Hindi', pa: 'ਪੰਜਾਬੀ · Punjabi' } as const;
+const EDITORIAL_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_NATIVE_EDITORIAL_ENABLED === 'true';
 
 function sourceLanguage(item: QuestionStudioItem): string {
   return typeof item.payload?.language === 'string' ? item.payload.language : '';
@@ -39,10 +40,11 @@ export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supporte
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
-function VariantCard({ variant, draft, busy, onSave, onDecision }: {
+function VariantCard({ variant, draft, busy, editorialEnabled, onSave, onDecision }: {
   variant: NativeReviewVariant;
   draft?: NativeEditorialDraft;
   busy: boolean;
+  editorialEnabled: boolean;
   onSave: (question: NativeReviewQuestion, reason: string, expectedRevision: number) => Promise<void>;
   onDecision: (decision: 'approved' | 'needs_fix', reason: string, expectedRevision: number) => Promise<void>;
 }) {
@@ -116,7 +118,7 @@ function VariantCard({ variant, draft, busy, onSave, onDecision }: {
           </div>}
         </>
       )}
-      <div className="mt-3 space-y-2 border-t pt-3">
+      {editorialEnabled && <div className="mt-3 space-y-2 border-t pt-3">
         <label className="block text-xs font-medium">Editorial reason / notes (minimum 8 characters)
           <Textarea className="mt-1" rows={2} value={reason} onChange={event=>setReason(event.target.value)}
             placeholder="Check Punjabi grammar, mathematical values and explanation..." />
@@ -145,7 +147,7 @@ function VariantCard({ variant, draft, busy, onSave, onDecision }: {
             </Button>
           </>}
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
@@ -175,7 +177,8 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     setBusy(true);
     void Promise.all([
       getQuestionStudioNativeReviewLocalizations(item.id, item.currentVersionNumber),
-      getQuestionStudioNativeEditorial(item.id, item.currentVersionNumber),
+      EDITORIAL_ENABLED ? getQuestionStudioNativeEditorial(item.id, item.currentVersionNumber) :
+        Promise.resolve({itemId:item.id,version:item.currentVersionNumber,locales:[] as NativeEditorialDraft[]}),
     ]).then(([result, editorial]) => {
         if (live) {
           if (result.itemId !== item.id || result.version !== item.currentVersionNumber)
@@ -232,7 +235,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            English source above (use Revise to edit English) · language-specific draft editing and human approval · not published to the Question Bank
+            English source above · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">
@@ -251,7 +254,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       {actionError && <p role="alert" className="mt-2 text-xs text-destructive">{actionError}</p>}
       {!busy && snapshot && <div className="mt-3 grid gap-3 lg:grid-cols-2">
         {variants.map(variant => <VariantCard key={variant.language} variant={variant}
-          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving}
+          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} editorialEnabled={EDITORIAL_ENABLED}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
           onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}
       </div>}
