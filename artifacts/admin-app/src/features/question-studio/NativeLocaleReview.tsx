@@ -10,6 +10,7 @@ import {
   getQuestionStudioNativeEditorial,
   saveQuestionStudioNativeEditorial,
   decideQuestionStudioNativeEditorial,
+  promoteQuestionStudioNativeEditorial,
   type NativeEditorialDraft,
   type NativeReviewQuestion,
   type NativeReviewLocalizations,
@@ -163,6 +164,8 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
   const [drafts, setDrafts] = useState<NativeEditorialDraft[]>([]);
   const [saving, setSaving] = useState(false);
+  const [handoffReason, setHandoffReason] = useState('');
+  const [handoffSuccess, setHandoffSuccess] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
@@ -220,6 +223,25 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       throw error;
     }finally{setSaving(false);}
   }
+  const readyForHandoff = item.status === 'approved' &&
+    drafts.some(d => d.language === 'hi' && d.status === 'approved') &&
+    drafts.some(d => d.language === 'pa' && d.status === 'approved');
+  async function sendToBankReview() {
+    const hindi = drafts.find(d=>d.language==='hi');
+    const punjabi = drafts.find(d=>d.language==='pa');
+    if (!hindi || !punjabi || !readyForHandoff || handoffReason.trim().length < 8) return;
+    setSaving(true);setActionError(null);
+    try {
+      await promoteQuestionStudioNativeEditorial(item.id,{
+        expectedVersion:item.currentVersionNumber,
+        revisions:{hi:hindi.revision,pa:punjabi.revision},
+        reason:handoffReason,
+      });
+      setHandoffSuccess(true);
+    }catch(error){
+      setActionError(error instanceof Error ? error.message : 'Could not send to bank review.');
+    }finally{setSaving(false);}
+  }
   const variants = useMemo(() => snapshot?.variants ?? [], [snapshot]);
   if (!available) return null;
   if (!eligible) return <section className="ml-8 mt-3 rounded-xl border border-warning/30 bg-warning/5 p-3 text-xs text-warning lg:ml-16">
@@ -252,6 +274,30 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
         </Button>
       </div>}
       {actionError && <p role="alert" className="mt-2 text-xs text-destructive">{actionError}</p>}
+      {EDITORIAL_ENABLED && !busy && snapshot && <div className="mt-4 border-t pt-3">
+        <p className="text-xs font-semibold">Question Bank translation handoff</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Requires approved English and separately reviewed Hindi/Punjabi. Creates translation drafts
+          for the canonical bank question; does not approve their publication or student delivery.
+        </p>
+        {handoffSuccess ? <p role="status" className="mt-2 text-xs text-success">
+          Sent to Question Bank translation drafts. Complete the normal translation review to approve release.
+        </p> : <>
+          <label className="mt-2 block text-xs font-medium">Handoff reason
+            <Textarea rows={2} className="mt-1" value={handoffReason}
+              onChange={event=>setHandoffReason(event.target.value)}
+              placeholder="Both language versions independently reviewed and checked..." />
+          </label>
+          <Button className="mt-2" size="sm" type="button"
+            disabled={!readyForHandoff || handoffReason.trim().length < 8 || saving}
+            onClick={()=>void sendToBankReview()}>
+            Send approved languages to Question Bank review
+          </Button>
+          {!readyForHandoff && <p className="mt-1 text-xs text-muted-foreground">
+            Approve the English item and both language drafts before handoff.
+          </p>}
+        </>}
+      </div>}
       {!busy && snapshot && <div className="mt-3 grid gap-3 lg:grid-cols-2">
         {variants.map(variant => <VariantCard key={variant.language} variant={variant}
           draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} editorialEnabled={EDITORIAL_ENABLED}
