@@ -1,3 +1,4 @@
+import { TestPreparing, isTestLoadingRoute } from "@/components/TestPreparing";
 import { Suspense, type ReactNode } from "react";
 import { lazyWithRecovery as lazy } from "@/components/lazyWithRecovery";
 import { useLocation } from "wouter";
@@ -7,6 +8,8 @@ const ExamCatalogProvider = lazy(() =>
 );
 
 function CatalogRouteSkeleton() {
+  const [location] = useLocation();
+  if (isTestLoadingRoute(location)) return <TestPreparing />;
   return (
     <div className="examtree-shell min-h-screen bg-background">
       <div className="mx-auto max-w-6xl space-y-5 px-4 py-10 sm:px-6 lg:px-8">
