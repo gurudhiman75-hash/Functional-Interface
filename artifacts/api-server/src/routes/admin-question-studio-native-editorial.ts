@@ -2,6 +2,7 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
+import { evaluateTranslationQuality, type TranslationOptionInput } from "../lib/admin-translation-operations";
 
 const router = Router();
 // Separate opt-in from the existing read-only native preview. Schema migration
@@ -174,9 +175,24 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
         WHERE source_generation_version_id=${result.sourceVersionId}::uuid AND language_code=${language} FOR UPDATE`;
       const old=rows[0];
       if(!old||Number(old.revision)!==revision) return null;
+      const editorRows=await tx`SELECT editor_user_id::text AS "editorUserId"
+        FROM content.question_studio_native_locales WHERE id=${old.id}::uuid`;
+      if(String(editorRows[0]?.editorUserId)===userId) return "self_approval_blocked";
       const q={stem:old.stem,explanation:old.explanation,options:old.options,correctIndex:Number(old.correctIndex)};
       if(!validQuestion(q)||q.correctIndex!==result.source.correctIndex||
          q.options.length!==result.source.options.length) return null;
+      if(decision==="approved"){
+        const asOptions=(values:string[]):TranslationOptionInput[]=>values.map((value,index)=>({
+          key:String.fromCharCode(65+index),text:value,sortOrder:index+1,
+        }));
+        const quality=evaluateTranslationQuality({
+          source:{stem:result.source.stem,explanation:result.source.explanation,
+            options:asOptions(result.source.options)},
+          target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
+          languageCode:language,
+        });
+        if(!quality.approvable) return "quality_blocked";
+      }
       // Never conflate editorial approval with a published translation.
       const next=await tx`
         UPDATE content.question_studio_native_locales
@@ -191,6 +207,8 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
           ${JSON.stringify({language,...q,status:decision})}::jsonb)`;
       return {language,status:decision,revision:Number(next[0]!.revision)};
     });
+    if(updated==="quality_blocked"){res.status(409).json({code:"NATIVE_EDITORIAL_QUALITY_BLOCKED"});return;}
+    if(updated==="self_approval_blocked"){res.status(409).json({code:"NATIVE_EDITORIAL_SELF_APPROVAL_BLOCKED"});return;}
     if(!updated){res.status(409).json({code:"NATIVE_EDITORIAL_REVISION_OR_CONTENT_CHANGED"});return;}
     res.json(updated);
   }catch(error){
