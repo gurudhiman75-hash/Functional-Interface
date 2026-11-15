@@ -209,13 +209,20 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     return ()=>{live=false;};
   },[eligible,token,retry]);
 
+  async function refreshEditorial() {
+    const editorial=await getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber);
+    if(editorial.itemId!==item.id || editorial.version!==item.currentVersionNumber)
+      throw new Error('Saved edits belong to another source version.');
+    setDrafts(editorial.locales);
+  }
+
   async function save(language: 'hi' | 'pa', question: NativeReviewQuestion, reason: string, expectedRevision: number) {
     setSaving(true);setActionError(null);
     try {
       await saveQuestionStudioNativeEditorial(item.id,language,{
         expectedVersion:item.currentVersionNumber,expectedRevision,changeReason:reason,question,
       });
-      setRetry(value=>value+1);
+      await refreshEditorial();
     }catch(error){
       const message=error instanceof Error?error.message:'Could not save localized draft.';
       setActionError(message);throw error;
@@ -227,7 +234,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       await decideQuestionStudioNativeEditorial(item.id,language,{
         expectedVersion:item.currentVersionNumber,expectedRevision,decision,reason,
       });
-      setRetry(value=>value+1);
+      await refreshEditorial();
     }catch(error){
       setActionError(error instanceof Error?error.message:'Could not record language decision.');
       throw error;
