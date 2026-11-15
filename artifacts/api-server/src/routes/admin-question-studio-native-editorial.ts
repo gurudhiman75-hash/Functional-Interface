@@ -3,6 +3,7 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 
 import { evaluateTranslationQuality, type TranslationOptionInput } from "../lib/admin-translation-operations";
+import { readPersistedNativeSnapshot, nativeSourceQuestion } from "../question-studio/persisted-native-review-format";
 
 const router = Router();
 // Separate opt-in from the existing read-only native preview. Schema migration
@@ -45,21 +46,20 @@ async function sourceFor(itemId: string, expectedVersion: number) {
   if (String(row.status)==="rejected")
     return {code:"NATIVE_EDITORIAL_SOURCE_REJECTED",http:409} as const;
   const payload=row.payload as Record<string,unknown>;
-  // Load chapter runtimes only for an editorial request, not every Queue read.
-  const {nativeLocalizedQuestion,nativeExplanationText,assertNativeEnglishSourceParity}=await import("../question-studio/native-linked-localization");
-  const source={
-    stem:text(payload.text)||text(payload.stem),
-    explanation:nativeExplanationText(payload.explanation),
-    options:Array.isArray(payload.options)?payload.options.map(x=>typeof x==="string"?x.trim():text((x as {text?:unknown})?.text)):[],
-    correctIndex:Number(payload.correctIndex??payload.correct),
-  };
+  const source=nativeSourceQuestion(payload);
   if (payload.language!=="en" || !validQuestion(source) ||
     !text(payload.seed) || !text(payload.packageId) ||
     !text(payload.canonicalProblemId||payload.selectedCpId||payload.cpId) ||
     !text(payload.questionLanguageId||payload.qlId))
       return {code:"NATIVE_EDITORIAL_SOURCE_NOT_ELIGIBLE",http:422} as const;
-  try { assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en")); }
-  catch { return {code:"NATIVE_EDITORIAL_SOURCE_PARITY_FAILED",http:409} as const; }
+  // A generator-verified immutable snapshot is bound to a sha256 fingerprint
+  // of the original English question. Editing or replacing the source
+  // invalidates the snapshot, forcing the existing exact native parity check.
+  if(!readPersistedNativeSnapshot(payload)){
+    const {nativeLocalizedQuestion,assertNativeEnglishSourceParity}=await import("../question-studio/native-linked-localization");
+    try {assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en"));}
+    catch {return {code:"NATIVE_EDITORIAL_SOURCE_PARITY_FAILED",http:409} as const;}
+  }
   return {row,source,payload,sourceVersionId:String(row.sourceVersionId)};
 }
 const itemPath="/items/:itemId/native-editorial";
