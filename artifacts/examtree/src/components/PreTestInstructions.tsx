@@ -31,9 +31,9 @@ export function PreTestInstructions({ test, practice, variant, candidateName, la
   const [instructionLanguage, setInstructionLanguage] = useState<Language>("en");
   const t = copy[instructionLanguage];
   const labels = {
-    en: { setup: "Test setup", interface: "Test interface", mode: "Test mode", real: "Real Exam", practice: "Practice", wrong: "Practice Wrong Questions", timed: "Timed · Section rules apply", untimed: "No timer · Free navigation", review: "View Solutions & Review", note: "Both interfaces use the same questions and scoring. TCS iON–style is an Examtree simulation, not an official TCS iON product." },
-    hi: { setup: "परीक्षा सेटअप", interface: "परीक्षा इंटरफ़ेस", mode: "परीक्षा मोड", real: "परीक्षा मोड", practice: "अभ्यास", wrong: "गलत प्रश्नों का अभ्यास", timed: "समय सीमा और खंड नियम लागू", untimed: "समय सीमा नहीं · स्वतंत्र नेविगेशन", review: "हल और समीक्षा देखें", note: "दोनों इंटरफ़ेस में प्रश्न और अंक योजना समान हैं। TCS iON–style Examtree का अभ्यास इंटरफ़ेस है, आधिकारिक TCS iON उत्पाद नहीं।" },
-    pa: { setup: "ਟੈਸਟ ਸੈਟਅੱਪ", interface: "ਟੈਸਟ ਇੰਟਰਫੇਸ", mode: "ਟੈਸਟ ਮੋਡ", real: "ਪ੍ਰੀਖਿਆ ਮੋਡ", practice: "ਅਭਿਆਸ", wrong: "ਗ਼ਲਤ ਪ੍ਰਸ਼ਨਾਂ ਦਾ ਅਭਿਆਸ", timed: "ਸਮੇਂ ਦੀ ਹੱਦ ਅਤੇ ਭਾਗਾਂ ਦੇ ਨਿਯਮ ਲਾਗੂ", untimed: "ਸਮੇਂ ਦੀ ਹੱਦ ਨਹੀਂ · ਖੁੱਲ੍ਹੀ ਆਵਾਜਾਈ", review: "ਹੱਲ ਅਤੇ ਸਮੀਖਿਆ ਵੇਖੋ", note: "ਦੋਵਾਂ ਇੰਟਰਫੇਸਾਂ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਅਤੇ ਅੰਕ ਯੋਜਨਾ ਇੱਕੋ ਹਨ। TCS iON–style Examtree ਦਾ ਅਭਿਆਸ ਇੰਟਰਫੇਸ ਹੈ, ਅਧਿਕਾਰਤ TCS iON ਉਤਪਾਦ ਨਹੀਂ।" },
+    en: { setup: "Test setup", interface: "Test interface", mode: "Test mode", real: "Real Exam", practice: "Practice", wrong: "Practice Wrong Questions", timed: "Timed · Section rules apply", untimed: "No timer · Free navigation", review: "View Solutions & Review", note: "Both interfaces use the same questions and scoring. SSC CBT–style is an Examtree simulation, not an official SSC product." },
+    hi: { setup: "परीक्षा सेटअप", interface: "परीक्षा इंटरफ़ेस", mode: "परीक्षा मोड", real: "परीक्षा मोड", practice: "अभ्यास", wrong: "गलत प्रश्नों का अभ्यास", timed: "समय सीमा और खंड नियम लागू", untimed: "समय सीमा नहीं · स्वतंत्र नेविगेशन", review: "हल और समीक्षा देखें", note: "दोनों इंटरफ़ेस में प्रश्न और अंक योजना समान हैं। SSC CBT–style Examtree का अभ्यास इंटरफ़ेस है, आधिकारिक SSC उत्पाद नहीं।" },
+    pa: { setup: "ਟੈਸਟ ਸੈਟਅੱਪ", interface: "ਟੈਸਟ ਇੰਟਰਫੇਸ", mode: "ਟੈਸਟ ਮੋਡ", real: "ਪ੍ਰੀਖਿਆ ਮੋਡ", practice: "ਅਭਿਆਸ", wrong: "ਗ਼ਲਤ ਪ੍ਰਸ਼ਨਾਂ ਦਾ ਅਭਿਆਸ", timed: "ਸਮੇਂ ਦੀ ਹੱਦ ਅਤੇ ਭਾਗਾਂ ਦੇ ਨਿਯਮ ਲਾਗੂ", untimed: "ਸਮੇਂ ਦੀ ਹੱਦ ਨਹੀਂ · ਖੁੱਲ੍ਹੀ ਆਵਾਜਾਈ", review: "ਹੱਲ ਅਤੇ ਸਮੀਖਿਆ ਵੇਖੋ", note: "ਦੋਵਾਂ ਇੰਟਰਫੇਸਾਂ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਅਤੇ ਅੰਕ ਯੋਜਨਾ ਇੱਕੋ ਹਨ। SSC CBT–style Examtree ਦਾ ਅਭਿਆਸ ਇੰਟਰਫੇਸ ਹੈ, ਅਧਿਕਾਰਤ SSC ਉਤਪਾਦ ਨਹੀਂ।" },
   }[instructionLanguage];
   const count = test.sections.reduce((sum, section) => sum + section.questions.length, 0);
   const correct = test.marksPerQuestion ?? 1;
@@ -49,7 +49,7 @@ export function PreTestInstructions({ test, practice, variant, candidateName, la
           <section className="pretest-setup" aria-label={labels.setup}>
             <fieldset><legend>{labels.interface}</legend><div className="pretest-options">
               <button type="button" aria-pressed={variant === "classic"} onClick={() => onInterfaceChange("classic")}>Examtree Classic</button>
-              <button type="button" aria-pressed={variant === "tcs"} onClick={() => onInterfaceChange("tcs")}>TCS iON–style</button>
+              <button type="button" aria-pressed={variant === "tcs"} onClick={() => onInterfaceChange("tcs")}>SSC CBT–style</button>
             </div><p>{labels.note}</p></fieldset>
             <fieldset><legend>{labels.mode}</legend>{allowModeChange ? <div className="pretest-options">
               <button type="button" aria-pressed={selectedMode === "REAL"} onClick={() => onModeChange("REAL")}>{labels.real}<small>{labels.timed}</small></button>
