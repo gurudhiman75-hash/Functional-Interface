@@ -194,7 +194,7 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
       if(!old||Number(old.revision)!==revision) return null;
       const editorRows=await tx`SELECT editor_user_id::text AS "editorUserId"
         FROM content.question_studio_native_locales WHERE id=${old.id}::uuid`;
-      if(String(editorRows[0]?.editorUserId)===userId) return "self_approval_blocked";
+      if(decision==="approved" && String(editorRows[0]?.editorUserId)===userId) return "self_approval_blocked";
       const q={stem:old.stem,explanation:old.explanation,options:old.options,correctIndex:Number(old.correctIndex)};
       if(!validQuestion(q)||q.correctIndex!==result.source.correctIndex||
          q.options.length!==result.source.options.length) return null;
