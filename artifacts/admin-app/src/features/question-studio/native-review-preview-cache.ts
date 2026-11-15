@@ -4,6 +4,8 @@ import { getQuestionStudioNativeReviewLocalizations, type NativeReviewLocalizati
 // English revision cannot reuse a stale generated Hindi/Punjabi preview.
 // Never cache editorial drafts or approvals.
 const maxEntries=80;
+const maxConcurrentPrefetch=2;
+const prefetching=new Set<string>();
 const previews=new Map<string,Promise<NativeReviewLocalizations>>();
 const key=(itemId:string,version:number)=>itemId+':'+version;
 
@@ -30,7 +32,10 @@ export function loadNativePreview(itemId:string,version:number,refresh=false) {
 }
 // Initiated only on a deliberate pointer/focus interaction; no bulk requests.
 export function prefetchNativePreview(itemId:string,version:number) {
-  void loadNativePreview(itemId,version).catch(()=>{});
+  const id=key(itemId,version);
+  if(previews.has(id)||prefetching.has(id)||prefetching.size>=maxConcurrentPrefetch) return;
+  prefetching.add(id);
+  void loadNativePreview(itemId,version).catch(()=>{}).finally(()=>prefetching.delete(id));
 }
 export function invalidateNativePreview(itemId:string,version:number) {
   previews.delete(key(itemId,version));
