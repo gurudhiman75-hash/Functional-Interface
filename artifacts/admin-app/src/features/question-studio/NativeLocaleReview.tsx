@@ -260,7 +260,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     }finally{setSaving(false);}
   }
   const remainingLanguages=(['hi','pa'] as const).filter(language=>
-    supportedLanguages.includes(language) &&
+    supportedLanguages.includes(language) && snapshot?.variants.some(variant=>variant.language===language) &&
     !drafts.some(d=>d.language===language && d.status==='approved'));
   const allReadyForApproval=Boolean(snapshot) && item.status==='approved' &&
     remainingLanguages.length>0 &&
@@ -326,7 +326,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            English source above · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
+            {snapshot?.saved ? 'Pre-generated and saved native versions' : 'Verified native previews'} · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">
