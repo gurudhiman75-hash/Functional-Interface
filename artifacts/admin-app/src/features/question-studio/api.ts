@@ -244,7 +244,7 @@ export interface NativeReviewLocalizations {
   packageId: string;
   source: { language: 'en'; status: 'verified' } & NativeReviewQuestion;
   variants: NativeReviewVariant[];
-  saved: false;
+  saved: boolean;
   approved: false;
 }
 export function getQuestionStudioNativeReviewLocalizations(itemId: string, version: number) {
