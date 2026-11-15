@@ -111,16 +111,10 @@ router.get("/items/:itemId/native-localizations",
           throw {status:422,code:"NATIVE_REVIEW_SOURCE_INCOMPLETE",
             error:"The English source must pass review before linked locale inspection."};
         }
-        // Refuse all versions if the source was revised away from the exact
-        // engine output. This prevents silently pairing unrelated questions.
-        try {
-          const generated=await nativeLocalizedQuestion(payload,"en");
-          assertNativeEnglishSourceParity(source,generated);
-        } catch(error) {
-          throw {status:409,code:"NATIVE_REVIEW_SOURCE_PARITY_FAILED",
-            error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version."};
-        }
-        const variants=await Promise.all((["hi","pa"] as const)
+        // Generate all released languages concurrently. We still refuse to
+        // return or cache any localized preview until exact English parity
+        // succeeds; failed locales remain independently blocked.
+        const variantTasks=Promise.all((["hi","pa"] as const)
           .filter(locale=>pkg.supportedLanguages.includes(locale)).map(async locale=>{
           try {
             const question=await nativeLocalizedQuestion(payload,locale);
@@ -132,6 +126,16 @@ router.get("/items/:itemId/native-localizations",
           }
         }));
   
+        // Refuse all versions if the source was revised away from the exact
+        // engine output. This prevents silently pairing unrelated questions.
+        try {
+          const generated=await nativeLocalizedQuestion(payload,"en");
+          assertNativeEnglishSourceParity(source,generated);
+        } catch(error) {
+          throw {status:409,code:"NATIVE_REVIEW_SOURCE_PARITY_FAILED",
+            error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version."};
+        }
+        const variants=await variantTasks;
           return {itemId,version:expectedVersion,packageId,
             source:{language:"en",status:"verified",...source},variants,saved:false,approved:false};
         });
