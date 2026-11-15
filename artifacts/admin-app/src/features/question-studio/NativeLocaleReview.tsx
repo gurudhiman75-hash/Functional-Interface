@@ -125,7 +125,7 @@ function VariantCard({ variant, draft, busy, onSave, onDecision }: {
           {editing ? <>
             <Button type="button" size="sm" disabled={busy || !reasonValid || !q.stem.trim() || !q.explanation.trim() ||
                 q.options.some(option=>!option.trim())}
-              onClick={() => void onSave(q,reason,draft?.revision ?? 0).then(()=>{setEditing(false);setWorking(null);setReason('');})}>
+              onClick={() => void onSave(q,reason,draft?.revision ?? 0).then(()=>{setEditing(false);setWorking(null);setReason('');}).catch(()=>{})}>
               Save language draft
             </Button>
             <Button type="button" size="sm" variant="outline" disabled={busy}
@@ -135,12 +135,12 @@ function VariantCard({ variant, draft, busy, onSave, onDecision }: {
               onClick={()=>{setWorking({...visible,options:[...visible.options]});setEditing(true);}}>Edit language</Button>
             <Button type="button" size="sm" disabled={busy || !draft || !reasonValid || draft.status==='approved' ||
                 variant.status!=='verified'}
-              onClick={()=>void onDecision('approved',reason,draft!.revision).then(()=>setReason(''))}>
+              onClick={()=>void onDecision('approved',reason,draft!.revision).then(()=>setReason('')).catch(()=>{})}>
               Approve {variant.language.toUpperCase()}
             </Button>
             <Button type="button" size="sm" variant="outline" disabled={busy || !draft || !reasonValid ||
                 variant.status!=='verified'}
-              onClick={()=>void onDecision('needs_fix',reason,draft!.revision).then(()=>setReason(''))}>
+              onClick={()=>void onDecision('needs_fix',reason,draft!.revision).then(()=>setReason('')).catch(()=>{})}>
               Needs fix
             </Button>
           </>}
