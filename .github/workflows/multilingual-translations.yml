@@ -8,6 +8,10 @@ on:
     paths:
       - artifacts/api-server/src/question-studio/native-linked-localization.ts
       - artifacts/api-server/src/question-studio/native-linked-localization.test.ts
+      - artifacts/api-server/src/question-studio/native-review-snapshot-cache.ts
+      - artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts
+      - artifacts/admin-app/src/features/question-studio/native-review-preview-cache.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
       - artifacts/api-server/src/routes/admin-question-studio-native-editorial.ts
       - artifacts/api-server/src/routes/admin-question-studio.ts
       - artifacts/admin-app/src/features/question-studio/NativeLocaleReview.tsx
@@ -47,6 +51,10 @@ on:
     paths:
       - artifacts/api-server/src/question-studio/native-linked-localization.ts
       - artifacts/api-server/src/question-studio/native-linked-localization.test.ts
+      - artifacts/api-server/src/question-studio/native-review-snapshot-cache.ts
+      - artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts
+      - artifacts/admin-app/src/features/question-studio/native-review-preview-cache.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
       - artifacts/api-server/src/routes/admin-question-studio-native-editorial.ts
       - artifacts/api-server/src/routes/admin-question-studio.ts
       - artifacts/admin-app/src/features/question-studio/NativeLocaleReview.tsx
@@ -146,6 +154,11 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-translation-operations.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-translation-operations.test.mjs
           node artifacts/api-server/dist/admin-translation-operations.test.mjs
+
+      - name: Test native review preview cache
+        run: |
+          pnpm exec esbuild artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts --bundle --platform=node --format=esm --outfile=/tmp/native-review-snapshot-cache.test.mjs
+          node --test /tmp/native-review-snapshot-cache.test.mjs
 
       - name: Test native same-seed localized question identity
         env:
