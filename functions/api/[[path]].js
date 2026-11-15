@@ -154,7 +154,18 @@ export async function onRequest({ request, env = {} }) {
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/promote$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/approve-languages$/i.test(incoming.pathname)));
-  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath || nativeEditorialPath;
+  // Only an explicitly selected grouped-native Generate request is sent to
+  // the tagged backend canary. The normal English-only and async routes keep
+  // their existing upstreams. Admin authentication/RBAC is still enforced
+  // by the exact same backend route.
+  const nativeGroupedGeneratePath =
+    env.EXAMTREE_NATIVE_GROUPED_GENERATION_CANDIDATE_ENABLED === "true" &&
+    env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
+    request.method === "POST" &&
+    incoming.pathname === "/api/admin/question-studio/runs" &&
+    request.headers.get("X-Examtree-Native-Grouped-Review") === "true";
+  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath ||
+    nativeReviewPreviewPath || nativeEditorialPath || nativeGroupedGeneratePath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
