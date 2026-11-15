@@ -3,6 +3,7 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
+import nativeEditorialRouter from "./admin-question-studio-native-editorial";
 
 const router = Router();
 
@@ -25,6 +26,7 @@ function asPositiveInteger(value: unknown, fallback: number, max: number) {
 }
 
 router.use(authenticate);
+router.use(nativeEditorialRouter);
 
 // Read-only multilingual inspection for a single review item. Do not run
 // the locale engines for every item on a paginated queue query: they are
