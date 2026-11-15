@@ -320,7 +320,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const remainingLanguages=(['hi','pa'] as const).filter(language=>
     supportedLanguages.includes(language) && snapshot?.variants.some(variant=>variant.language===language) &&
     !drafts.some(d=>d.language===language && d.status==='approved'));
-  const allReadyForApproval=Boolean(snapshot) && item.status==='approved' &&
+  const allReadyForApproval=snapshot !== null && item.status==='approved' &&
     remainingLanguages.length>0 &&
     remainingLanguages.every(language=>
       !drafts.some(d=>d.language===language && d.status==='needs_fix') &&
