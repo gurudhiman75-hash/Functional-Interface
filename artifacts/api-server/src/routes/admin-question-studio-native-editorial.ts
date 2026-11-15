@@ -236,6 +236,10 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
 });
 
 
+function abortNativeReview(code:string):never {
+  throw Object.assign(new Error(code),{nativeReviewCode:code});
+}
+
 /** One atomic editorial decision across any subset of generated languages.
  * English is approved first using the existing canonical Question Studio flow.
  * Generated (not human-edited) variants may be approved without an extra Save
@@ -297,9 +301,9 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
         WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
       const src=sourceRows[0];
       if(!src||Number(src.version)!==version||src.sourceVersionId!==result.sourceVersionId)
-        return {code:"NATIVE_APPROVE_SOURCE_CHANGED",http:409};
+        abortNativeReview("NATIVE_APPROVE_SOURCE_CHANGED");
       if(src.status!=="approved")
-        return {code:"NATIVE_APPROVE_ENGLISH_FIRST",http:409};
+        abortNativeReview("NATIVE_APPROVE_ENGLISH_FIRST");
       const outcome:Array<{language:string;status:string;revision:number}>=[];
       for(const language of selected as ("hi"|"pa")[]){
         const rows=await tx`
@@ -311,26 +315,26 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
         const old=rows[0];
         const expected=Number(revisions[language]);
         if((old?Number(old.revision):0)!==expected)
-          return {code:"NATIVE_APPROVE_REVISION_CHANGED",http:409};
+          abortNativeReview("NATIVE_APPROVE_REVISION_CHANGED");
         if(old?.status==="approved"){
           outcome.push({language,status:"approved",revision:Number(old.revision)});
           continue;
         }
         if(old?.status==="needs_fix")
-          return {code:"NATIVE_APPROVE_FIX_REQUIRED",http:409};
+          abortNativeReview("NATIVE_APPROVE_FIX_REQUIRED");
         const q=old?{stem:String(old.stem),explanation:String(old.explanation),
           options:old.options as string[],correctIndex:Number(old.correctIndex)}
           :precomputed[language];
         if(!q||!validQuestion(q)||q.correctIndex!==result.source.correctIndex||
            q.options.length!==result.source.options.length)
-          return {code:"NATIVE_APPROVE_ANSWER_MAPPING_CHANGED",http:409};
+          abortNativeReview("NATIVE_APPROVE_ANSWER_MAPPING_CHANGED");
         const quality=evaluateTranslationQuality({
           source:{stem:result.source.stem,explanation:result.source.explanation,
             options:asOptions(result.source.options)},
           target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
           languageCode:language,
         });
-        if(!quality.approvable)return {code:"NATIVE_APPROVE_QUALITY_BLOCKED",http:409};
+        if(!quality.approvable)abortNativeReview("NATIVE_APPROVE_QUALITY_BLOCKED");
         let nativeId:string;
         let newRevision:number;
         if(old){
@@ -343,7 +347,7 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
               WHERE native_locale_id=${String(old.id)}::uuid
               ORDER BY created_at DESC,id DESC LIMIT 1`;
             if(audit[0]?.machineGenerated!=="true")
-              return {code:"NATIVE_APPROVE_SELF_REVIEW_BLOCKED",http:409};
+              abortNativeReview("NATIVE_APPROVE_SELF_REVIEW_BLOCKED");
           }
           const updated=await tx`
             UPDATE content.question_studio_native_locales
@@ -363,7 +367,7 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
               'approved','Native machine-generated snapshot',${actor}::uuid,${actor}::uuid,now())
             ON CONFLICT (source_generation_version_id,language_code) DO NOTHING
             RETURNING id::text AS id,revision`;
-          if(!inserted[0])return {code:"NATIVE_APPROVE_CONCURRENT_EDIT",http:409};
+          if(!inserted[0])abortNativeReview("NATIVE_APPROVE_CONCURRENT_EDIT");
           nativeId=String(inserted[0].id);
           newRevision=Number(inserted[0].revision);
         }
@@ -376,9 +380,11 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
       }
       return {approved:outcome,englishStatus:"approved"};
     });
-    if("code" in approved){res.status(approved.http).json({code:approved.code});return;}
     res.json(approved);
   }catch(error){
+    if(error && typeof error==="object" && "nativeReviewCode" in error){
+      res.status(409).json({code:String(error.nativeReviewCode)});return;
+    }
     console.error("Native grouped approval failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_APPROVE_UNAVAILABLE"});
   }
