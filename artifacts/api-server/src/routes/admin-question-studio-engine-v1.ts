@@ -710,7 +710,8 @@ router.post(
         (requestedNative.length>0 || req.body?.nativeGroupedReview===true);
       const nativeSnapshots=prepareNative
         ? await (await import("../question-studio/persisted-native-review"))
-          .prepareNativeReviewBatch(generatedQuestions)
+          .prepareNativeReviewBatch(generatedQuestions,
+            (requestedNative.length>0?requestedNative:["hi","pa"]) as Array<"hi"|"pa">)
         : [];
       const requestSnapshot = {
         ...generationRequest,
