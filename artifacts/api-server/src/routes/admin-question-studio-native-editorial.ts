@@ -279,7 +279,15 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
     // immutable CP/QL/seed. No machine translation or alternate question.
     const embedded=readPersistedNativeSnapshot(result.payload);
     const precomputed:Record<string,{stem:string;explanation:string;options:string[];correctIndex:number}>={};
+    const existingRows=await sqlClient`
+      SELECT language_code AS language
+      FROM content.question_studio_native_locales
+      WHERE source_generation_version_id=${result.sourceVersionId}::uuid`;
+    const hasSaved=new Set(existingRows.map(row=>String(row.language)));
     for(const language of selected as ("hi"|"pa")[]){
+      // Manually edited drafts already carry their content in Neon. Do not
+      // call an old native engine when English was deliberately revised.
+      if(hasSaved.has(language))continue;
       const v=embedded?.variants.find(v=>v.language===language);
       if(v?.status==="verified"){
         precomputed[language]={stem:v.stem,explanation:v.explanation,options:v.options,correctIndex:v.correctIndex};
