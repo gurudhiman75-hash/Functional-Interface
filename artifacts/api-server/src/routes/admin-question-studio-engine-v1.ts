@@ -753,7 +753,7 @@ router.post(
         for (let index = 0; index < generatedQuestions.length; index += 1) {
           const itemId = randomUUID();
           const versionId = randomUUID();
-          const question = generatedQuestions[index] as Record<string, unknown>;
+          const { nativeReviewSnapshot: _untrustedNativeSnapshot, ...question } = generatedQuestions[index] as Record<string, unknown>;
           const payload = {
             ...question,
             ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
