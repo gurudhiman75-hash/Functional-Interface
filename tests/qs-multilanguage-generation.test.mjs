@@ -19,7 +19,7 @@ function harness(asyncMode = false) {
     ASYNC_ENABLED: asyncMode, CHAPTER_ASYNC_ENABLED: asyncMode, stagingAsyncSelected: asyncMode,
     PRODUCTION_CHAPTER_BATCH_LIMIT: 100, SYNC_BULK_LIMIT: 1000, SYNC_CHUNK_TARGET: 10,
     count: 23, languages: ['en', 'hi', 'pa'], selectedCpIds: new Set(['cp1', 'cp2']),
-    activePackage: { packageId: 'avg', engineId: 'quant-v4', topic: 'Average', subtopic: 'Average', runtimeMode: 'review-only' },
+    activePackage: { packageId: 'avg', engineId: 'quant-v4', topic: 'Average', subtopic: 'Average', runtimeMode: 'review-only', supportedLanguages: ['en'] },
     capabilities: { maxBatchSize: 50 }, exam: 'ssc', EXAMS: [], difficulty: 'Medium', difficultyFilterSupported: true, seed: 'test',
     packageSubject: () => 'Quant', packageChapter: () => 'Average',
     stagingAsyncRetry: { current: new Map() }, crypto: { randomUUID },
@@ -90,7 +90,7 @@ test('queues one run per language and retains keys across a partial submission f
 
 test('native AVG questions share one English review source instead of three unrelated language runs', async () => {
   const h=harness();
-  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001',supportedLanguages:['en','hi','pa']};
   await h.run();
   assert.equal(h.calls.length,3);
   assert.equal(h.calls.reduce((total,call)=>total+call.count,0),23);
@@ -101,7 +101,7 @@ test('native AVG questions share one English review source instead of three unre
 
 test('native Interest grouping supports Hindi plus Punjabi with implicit English authority', async () => {
   const h=harness(true);
-  h.context.activePackage={...h.context.activePackage,packageId:'INT-001'};
+  h.context.activePackage={...h.context.activePackage,packageId:'INT-001',supportedLanguages:['en','hi','pa']};
   h.context.languages=['hi','pa'];
   await h.run();
   assert.equal(h.receipts.length,1);
@@ -112,7 +112,7 @@ test('native Interest grouping supports Hindi plus Punjabi with implicit English
 
 test('single-language Hindi remains independently generated to preserve language-only workflows', async () => {
   const h=harness();
-  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001',supportedLanguages:['en','hi','pa']};
   h.context.languages=['hi'];
   await h.run();
   assert.equal(h.calls.length,3);
@@ -122,8 +122,24 @@ test('single-language Hindi remains independently generated to preserve language
 test('native grouping cannot turn on without explicit production feature flag', async () => {
   const h=harness();
   h.context.NATIVE_GROUPED_REVIEW_ENABLED=false;
-  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001'};
+  h.context.activePackage={...h.context.activePackage,packageId:'AVG-001',supportedLanguages:['en','hi','pa']};
   await h.run();
   assert.equal(h.calls.length,9);
   assert.deepEqual([...new Set(h.calls.map(call=>call.language))],['en','hi','pa']);
+});
+
+test('any other registered trilingual chapter uses one canonical source', async () => {
+  const h=harness();
+  h.context.activePackage={...h.context.activePackage,packageId:'MAL-001',supportedLanguages:['en','hi','pa']};
+  await h.run();
+  assert.equal(h.calls.reduce((n,call)=>n+call.count,0),23);
+  assert.ok(h.calls.every(call=>call.language==='en'));
+});
+test('chapters without English localization retain independent language generation', async () => {
+  const h=harness();
+  h.context.activePackage={...h.context.activePackage,packageId:'PNJ-001',supportedLanguages:['hi','pa']};
+  h.context.languages=['hi','pa'];
+  await h.run();
+  assert.equal(h.calls.reduce((n,call)=>n+call.count,0),46);
+  assert.deepEqual([...new Set(h.calls.map(call=>call.language))],['hi','pa']);
 });

@@ -10,18 +10,26 @@ import {
   type QuestionStudioItem,
 } from './api';
 
-const VERIFIED_PACKAGES = new Set(['AVG-001', 'INT-001']);
+// Discover language coverage from the registered Question Studio capabilities,
+// never from a hardcoded chapter-name allowlist.
 const LANGUAGE_NAMES = { hi: 'हिन्दी · Hindi', pa: 'ਪੰਜਾਬੀ · Punjabi' } as const;
 
 function sourceLanguage(item: QuestionStudioItem): string {
   return typeof item.payload?.language === 'string' ? item.payload.language : '';
 }
 
-/** Expose availability, not an approval/translation status. */
-export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem): boolean {
-  return VERIFIED_PACKAGES.has(String(item.payload?.packageId ?? '')) && sourceLanguage(item) === 'en' &&
+/** The registered language capability is separate from whether a legacy
+ * question preserved its exact canonical source identity for safe linking. */
+export function hasRegisteredNativeLocales(item: QuestionStudioItem, supportedLanguages: readonly string[]): boolean {
+  return supportedLanguages.includes('en') &&
+    supportedLanguages.some(language => language === 'hi' || language === 'pa') &&
+    sourceLanguage(item) === 'en';
+}
+export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supportedLanguages: readonly string[]): boolean {
+  return hasRegisteredNativeLocales(item, supportedLanguages) &&
     typeof item.payload?.seed === 'string' && Boolean(item.payload.seed) &&
-    Boolean(item.payload?.questionLanguageId);
+    Boolean(item.payload?.questionLanguageId || item.payload?.qlId) &&
+    Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
 function VariantCard({ variant }: { variant: NativeReviewVariant }) {
@@ -44,7 +52,7 @@ function VariantCard({ variant }: { variant: NativeReviewVariant }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm font-semibold">{name}</span>
         <Badge variant="outline" className="border-success/40 text-success">
-          <CheckCircle2 className="mr-1 h-3 w-3" /> Parity verified
+          <CheckCircle2 className="mr-1 h-3 w-3" /> Answer mapping checked
         </Badge>
       </div>
       <p lang={variant.language} className="mt-3 whitespace-pre-wrap text-sm leading-relaxed">{variant.stem}</p>
@@ -71,12 +79,13 @@ function VariantCard({ variant }: { variant: NativeReviewVariant }) {
 }
 
 /**
- * One canonical review item; two *existing released* language variants.
+ * One canonical review item; registered *existing released* language variants.
  * Bounded GET happens only after a reviewer expands the item.
  * This component never approves or writes translations.
  */
-export function NativeLocaleReview({ item }: { item: QuestionStudioItem }) {
-  const eligible = hasVerifiedNativeLocaleEngine(item);
+export function NativeLocaleReview({ item, supportedLanguages }: { item: QuestionStudioItem; supportedLanguages: readonly string[] }) {
+  const available = hasRegisteredNativeLocales(item, supportedLanguages);
+  const eligible = hasVerifiedNativeLocaleEngine(item, supportedLanguages);
   const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
@@ -104,7 +113,11 @@ export function NativeLocaleReview({ item }: { item: QuestionStudioItem }) {
   }, [eligible, token, retry]);
 
   const variants = useMemo(() => snapshot?.variants ?? [], [snapshot]);
-  if (!eligible) return null;
+  if (!available) return null;
+  if (!eligible) return <section className="ml-8 mt-3 rounded-xl border border-warning/30 bg-warning/5 p-3 text-xs text-warning lg:ml-16">
+    <div className="flex items-center gap-2 font-semibold"><AlertTriangle className="h-4 w-4" /> Native localized versions need source identity</div>
+    <p className="mt-1">This chapter declares Hindi/Punjabi support, but this saved question lacks an exact CP, QL or seed. No unrelated language question will be substituted.</p>
+  </section>;
   return (
     <section className="ml-8 mt-3 rounded-xl border bg-muted/10 p-3 lg:ml-16"
       aria-label={'Native Hindi and Punjabi versions for review item ' + item.itemNumber}>
@@ -114,7 +127,7 @@ export function NativeLocaleReview({ item }: { item: QuestionStudioItem }) {
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            English source above · same QL and seed · read-only review previews, not saved or approved translations
+            English source above · same CP, QL and seed · answer mapping checked · read-only review previews, not saved or approved translations
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">
