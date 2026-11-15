@@ -128,12 +128,15 @@ export async function commitQuestionStudioAsyncReview(input:{
       productionReleaseAuthorized:false,
     } : sourceLifecycle;
     for(let index=0;index<input.batch.questions.length;index++){
-      const question=input.batch.questions[index]!;
+      // Never trust a native preview supplied by the compute worker. Only
+      // the server-verified version created above may enter review storage.
+      const {nativeReviewSnapshot:_untrustedNativeSnapshot,...question} =
+        input.batch.questions[index]! as Record<string,unknown>;
       const itemId=randomUUID();
       const payload={
         ...question,
-        ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
         ...lifecycle,
+        ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
         generationContexts:input.batch.generationContexts,
         validationResult:"pending",
       };
