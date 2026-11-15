@@ -700,6 +700,18 @@ router.post(
         return;
       }
 
+      // Multilingual groups are prepared once, before the review transaction.
+      // Disabled for legacy generation requests; a failed native generator can
+      // never corrupt or block the English canonical question.
+      const requestedNative=Array.isArray(req.body?.languages)
+        ? req.body.languages.filter((language:unknown)=>language==="hi"||language==="pa")
+        : [];
+      const prepareNative=process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED==="true" &&
+        (requestedNative.length>0 || req.body?.nativeGroupedReview===true);
+      const nativeSnapshots=prepareNative
+        ? await (await import("../question-studio/persisted-native-review"))
+          .prepareNativeReviewBatch(generatedQuestions)
+        : [];
       const requestSnapshot = {
         ...generationRequest,
         seed: quantPlan?.seed ?? generationRequest.seed,
@@ -743,6 +755,7 @@ router.post(
           const question = generatedQuestions[index] as Record<string, unknown>;
           const payload = {
             ...question,
+            ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
             ...packageLifecycle,
             generationContexts,
             validationResult: "pending",
