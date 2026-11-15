@@ -1,3 +1,5 @@
+import { Spinner } from "@/components/ui/spinner";
+import "@/styles/form-feedback-motion.css";
 import { useEffect, useRef, useState } from "react";
 import "@/styles/login-notebook.css";
 import { useLocation, useSearch } from "wouter";
@@ -489,8 +491,10 @@ export default function Login() {
               type="submit"
               className="h-12 w-full rounded-xl bg-[#6657e8] text-sm font-bold text-white shadow-[0_9px_24px_rgba(102,87,232,0.18)] hover:bg-[#594bd9]"
               disabled={loading}
+              aria-busy={loading}
               data-testid="btn-submit"
             >
+              {loading && <Spinner aria-hidden="true" />}
               {loading ? "Please wait..." : isAdminMode ? "Enter Admin Console" : tab === "login" ? "Sign in →" : "Create account"}
             </Button>
           </form>

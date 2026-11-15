@@ -1,3 +1,4 @@
+import "@/styles/form-feedback-motion.css";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
@@ -188,7 +189,7 @@ export default function ProfilePage() {
     <div className="profile-person">
       <div className="profile-avatar">{photo.data?.photo ? <img src={photo.data.photo} alt="Your profile" /> : initials}</div>
       <div><h2>{form.fullName || user.name}</h2><p className="profile-account-status">Account status: Signed in</p>
-        <button type="button" className="profile-text-button" disabled={!!busy} onClick={() => photoInput.current?.click()}><Camera aria-hidden="true" />{busy === "photo" ? "Uploading…" : "Change photo"}</button>
+        <button type="button" className="profile-text-button" aria-busy={busy === "photo"} disabled={!!busy} onClick={() => photoInput.current?.click()}>{busy === "photo" ? <Spinner aria-hidden="true" /> : <Camera aria-hidden="true" />}{busy === "photo" ? "Uploading…" : "Change photo"}</button>
         <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file) void perform("photo", () => changePhoto(file)); }} />
         {photo.isError && <button type="button" className="profile-text-button" onClick={() => photo.refetch()}>Retry photo</button>}
       </div>
@@ -213,8 +214,8 @@ export default function ProfilePage() {
       </fieldset>
       <div id="profile-recaptcha" ref={recaptchaHost} />
       {verificationId && <section className="profile-otp"><label>OTP sent to {pendingPhone}<input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={otp} onChange={event => setOtp(event.target.value.replace(/\D/g, ""))} /></label><button type="button" className="profile-outline" disabled={!!busy} onClick={() => void perform("otp", confirmOtp)}>Confirm OTP</button><button type="button" className="profile-text-button" disabled={!!busy} onClick={() => void perform("phone", sendOtp)}>Resend OTP</button></section>}
-      {notice && <p role="status" className="profile-notice">{notice}</p>}{error && <p role="alert" className="profile-error">{error}</p>}
-      <div className="profile-actions"><button type="submit" className="profile-primary" aria-busy={busy === "save"} disabled={!!busy || !dirty}><span className="inline-grid"><span className="invisible col-start-1 row-start-1" aria-hidden="true">Save changes</span><span className="col-start-1 row-start-1">{busy === "save" ? <><Spinner className="inline-block mr-2" aria-hidden="true" />Saving…</> : "Save changes"}</span></span></button><button type="button" className="profile-outline" disabled={!!busy} onClick={() => { setForm(fieldsFrom(profile)); setEmail(profile.email ?? ""); setPhone((profile.phoneNumber ?? "").replace(/^\+91/, "")); setVerificationId(null); setNotice(""); setError(""); }}>Cancel</button></div>
+      <div className="profile-feedback-slot">{notice && <p role="status" className="profile-notice">{notice}</p>}{error && <p role="alert" className="profile-error">{error}</p>}</div>
+      <div className="profile-actions"><button type="submit" className="profile-primary" aria-busy={busy === "save"} disabled={!!busy || !dirty}><span className="inline-grid"><span className="invisible col-start-1 row-start-1" aria-hidden="true">Save changes</span><span className="col-start-1 row-start-1">{busy === "save" ? <><Spinner className="inline-block mr-2" aria-hidden="true" />Saving…</> : notice === "Profile saved." && !dirty ? "Saved" : "Save changes"}</span></span></button><button type="button" className="profile-outline" disabled={!!busy} onClick={() => { setForm(fieldsFrom(profile)); setEmail(profile.email ?? ""); setPhone((profile.phoneNumber ?? "").replace(/^\+91/, "")); setVerificationId(null); setNotice(""); setError(""); }}>Cancel</button></div>
     </form>
     <details className="profile-results"><summary>Recent results</summary>
       {attempts.isLoading ? <p role="status">Loading attempts…</p> : attempts.isError ? <p>Recent attempts are unavailable.</p> : attempts.data?.length ? attempts.data.slice(0, 3).map(attempt => {

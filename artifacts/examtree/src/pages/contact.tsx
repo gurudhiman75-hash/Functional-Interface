@@ -1,3 +1,5 @@
+import { Spinner } from "@/components/ui/spinner";
+import "@/styles/form-feedback-motion.css";
 import "@/styles/learner-overlay-motion.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
@@ -158,7 +160,7 @@ export default function Contact() {
                 <p id="support-email-note" className="support-muted flex gap-2"><ShieldCheck size={18} className="shrink-0" aria-hidden="true" />{t.privacy}</p>
               </fieldset>
               {error && <p id="support-form-error" role="alert" className="support-notice">{t[error]}{error === "sendError" && <span className="mt-2 block">{t.fallback}</span>}</p>}
-              <div className="mt-5 flex flex-wrap gap-3"><button type="button" className="support-button" disabled={sending} onClick={() => { setStep(1); setError(null); requestAnimationFrame(() => continueRef.current?.focus()); }}><ArrowLeft size={17} aria-hidden="true" />{t.back}</button><button type="submit" className="support-button support-button-navy flex-1" disabled={sending}><Send size={17} aria-hidden="true" />{sending ? t.sending : t.submit}</button></div>
+              <div className="mt-5 flex flex-wrap gap-3"><button type="button" className="support-button" disabled={sending} onClick={() => { setStep(1); setError(null); requestAnimationFrame(() => continueRef.current?.focus()); }}><ArrowLeft size={17} aria-hidden="true" />{t.back}</button><button type="submit" className="support-button support-button-navy flex-1" aria-busy={sending} disabled={sending}>{sending ? <Spinner aria-hidden="true" /> : <Send size={17} aria-hidden="true" />}{sending ? t.sending : t.submit}</button></div>
               <a className="support-inline-link mt-3" href={mailtoHref} data-testid="contact-email-handoff"><Mail size={17} aria-hidden="true" />{t.emailAction}</a>
             </form>}
           </>}
