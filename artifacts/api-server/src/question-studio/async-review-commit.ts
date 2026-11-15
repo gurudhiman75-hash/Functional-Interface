@@ -8,6 +8,7 @@ import { listAsyncTaskPackages, validateAsyncTaskComputeInput } from "./async-ta
 import type { UniversalStudioComputeResult } from "./universal-executor";
 import { validateQuestionStudioAsyncReviewBatch,
          QuestionStudioReviewCommitError } from "./async-review-commit-contract";
+import { readPersistedNativeSnapshot } from "./persisted-native-review-format";
 
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -50,12 +51,9 @@ export async function commitQuestionStudioAsyncReview(input:{
   if(!UUID.test(input.runId)||!UUID.test(input.leaseToken)){
     throw new QuestionStudioReviewCommitError("ASYNC_REVIEW_CLAIM_INVALID","Invalid run or claim token");
   }
-  // Native-language generation is compute-only and happens outside the
-  // database transaction. A version's verified snapshots are then persisted
-  // atomically with its English source. Reviewer UI never needs to regenerate
-  // these completed language groups.
-  const nativeSnapshots=await (await import("./persisted-native-review"))
-    .prepareNativeReviewBatch(input.batch.questions as Record<string,unknown>[]);
+  // The isolated receiver must NOT load native chapter generation engines.
+  // The Universal compute worker prepares snapshots; this receiver validates
+  // their immutable source identity and answer mapping before storing them.
   return sqlClient.begin(async(tx)=>{
     // Lock the same canonical run row first as the claim helper does. All
     // subsequent ownership checks, inserts and status updates happen inside
@@ -130,13 +128,14 @@ export async function commitQuestionStudioAsyncReview(input:{
     for(let index=0;index<input.batch.questions.length;index++){
       // Never trust a native preview supplied by the compute worker. Only
       // the server-verified version created above may enter review storage.
-      const {nativeReviewSnapshot:_untrustedNativeSnapshot,...question} =
-        input.batch.questions[index]! as Record<string,unknown>;
+      const candidate=input.batch.questions[index]! as Record<string,unknown>;
+      const verifiedNative=readPersistedNativeSnapshot(candidate);
+      const {nativeReviewSnapshot:_untrustedNativeSnapshot,...question}=candidate;
       const itemId=randomUUID();
       const payload={
         ...question,
         ...lifecycle,
-        ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
+        ...(verifiedNative ? {nativeReviewSnapshot:verifiedNative} : {}),
         generationContexts:input.batch.generationContexts,
         validationResult:"pending",
       };
