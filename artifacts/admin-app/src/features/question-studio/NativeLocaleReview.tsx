@@ -10,6 +10,7 @@ import {
   getQuestionStudioNativeEditorial,
   saveQuestionStudioNativeEditorial,
   decideQuestionStudioNativeEditorial,
+  approveQuestionStudioNativeLanguages,
   promoteQuestionStudioNativeEditorial,
   type NativeEditorialDraft,
   type NativeReviewQuestion,
@@ -41,10 +42,11 @@ export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supporte
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
-function VariantCard({ variant, draft, busy, editorialEnabled, onSave, onDecision }: {
+function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, onSave, onDecision }: {
   variant: NativeReviewVariant;
   draft?: NativeEditorialDraft;
   busy: boolean;
+  englishApproved: boolean;
   editorialEnabled: boolean;
   onSave: (question: NativeReviewQuestion, reason: string, expectedRevision: number) => Promise<void>;
   onDecision: (decision: 'approved' | 'needs_fix', reason: string, expectedRevision: number) => Promise<void>;
@@ -66,6 +68,7 @@ function VariantCard({ variant, draft, busy, editorialEnabled, onSave, onDecisio
   );
   const q = working ?? visible;
   const reasonValid = reason.trim().length >= 8;
+  const approvalReason=reasonValid ? reason.trim() : 'Verified localized question, options, and explanation against canonical English.';
   return (
     <div className="min-w-0 rounded-xl border bg-background p-3" aria-label={name + ' native localization'}>
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -124,6 +127,9 @@ function VariantCard({ variant, draft, busy, editorialEnabled, onSave, onDecisio
           <Textarea className="mt-1" rows={2} value={reason} onChange={event=>setReason(event.target.value)}
             placeholder="Check Punjabi grammar, mathematical values and explanation..." />
         </label>
+        {!englishApproved && !editing && <p className="text-xs text-warning">
+          Approve the English source first to unlock language approvals.
+        </p>}
         <div className="flex flex-wrap gap-2">
           {editing ? <>
             <Button type="button" size="sm" disabled={busy || !reasonValid || !q.stem.trim() || !q.explanation.trim() ||
@@ -136,9 +142,10 @@ function VariantCard({ variant, draft, busy, editorialEnabled, onSave, onDecisio
           </> : <>
             <Button type="button" size="sm" variant="outline" disabled={busy}
               onClick={()=>{setWorking({...visible,options:[...visible.options]});setEditing(true);}}>Edit language</Button>
-            <Button type="button" size="sm" disabled={busy || !draft || !reasonValid || draft.status==='approved' ||
-                variant.status!=='verified'}
-              onClick={()=>void onDecision('approved',reason,draft!.revision).then(()=>setReason('')).catch(()=>{})}>
+            <Button type="button" size="sm"
+              disabled={busy || !englishApproved || draft?.status==='approved' ||
+                draft?.status==='needs_fix' || variant.status!=='verified'}
+              onClick={()=>void onDecision('approved',approvalReason,draft?.revision ?? 0).then(()=>setReason('')).catch(()=>{})}>
               Approve {variant.language.toUpperCase()}
             </Button>
             <Button type="button" size="sm" variant="outline" disabled={busy || !draft || !reasonValid ||
@@ -232,13 +239,50 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   async function decide(language:'hi'|'pa',decision:'approved'|'needs_fix',reason:string,expectedRevision:number) {
     setSaving(true);setActionError(null);
     try {
-      await decideQuestionStudioNativeEditorial(item.id,language,{
-        expectedVersion:item.currentVersionNumber,expectedRevision,decision,reason,
-      });
+      if(decision==='approved'){
+        await approveQuestionStudioNativeLanguages(item.id,{
+          expectedVersion:item.currentVersionNumber,languages:[language],
+          revisions:{
+            hi:language==='hi'?expectedRevision:(drafts.find(d=>d.language==='hi')?.revision ?? 0),
+            pa:language==='pa'?expectedRevision:(drafts.find(d=>d.language==='pa')?.revision ?? 0),
+          },
+          reason,
+        });
+      }else{
+        await decideQuestionStudioNativeEditorial(item.id,language,{
+          expectedVersion:item.currentVersionNumber,expectedRevision,decision,reason,
+        });
+      }
       await refreshEditorial();
     }catch(error){
       setActionError(error instanceof Error?error.message:'Could not record language decision.');
       throw error;
+    }finally{setSaving(false);}
+  }
+  const remainingLanguages=(['hi','pa'] as const).filter(language=>
+    supportedLanguages.includes(language) &&
+    !drafts.some(d=>d.language===language && d.status==='approved'));
+  const allReadyForApproval=Boolean(snapshot) && item.status==='approved' &&
+    remainingLanguages.length>0 &&
+    remainingLanguages.every(language=>
+      !drafts.some(d=>d.language===language && d.status==='needs_fix') &&
+      snapshot.variants.some(v=>v.language===language && v.status==='verified'));
+  async function approveRemainingLanguages() {
+    if(!allReadyForApproval||saving)return;
+    setSaving(true);setActionError(null);
+    try{
+      await approveQuestionStudioNativeLanguages(item.id,{
+        expectedVersion:item.currentVersionNumber,
+        languages:remainingLanguages,
+        revisions:{
+          hi:drafts.find(d=>d.language==='hi')?.revision ?? 0,
+          pa:drafts.find(d=>d.language==='pa')?.revision ?? 0,
+        },
+        reason:'Reviewed all remaining native versions against approved English source.',
+      });
+      await refreshEditorial();
+    }catch(error){
+      setActionError(error instanceof Error?error.message:'Could not approve all languages.');
     }finally{setSaving(false);}
   }
   const readyForHandoff = item.status === 'approved' &&
@@ -308,6 +352,21 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
         </Button>
       </div>}
       {actionError && <p role="alert" className="mt-2 text-xs text-destructive">{actionError}</p>}
+      {EDITORIAL_ENABLED && <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border bg-background p-3">
+        <div>
+          <p className="text-xs font-semibold">English approval: {item.status==='approved'?'Approved':'Required first'}</p>
+          <p className="text-[11px] text-muted-foreground">
+            {item.status==='approved'
+              ? 'Approve each generated language below, or approve remaining languages in one action.'
+              : 'Use Approve on the English question above before approving Hindi or Punjabi.'}
+          </p>
+        </div>
+        <Button size="sm" type="button" disabled={!allReadyForApproval || saving}
+          onClick={()=>void approveRemainingLanguages()}>
+          <CheckCircle2 className="mr-1 h-4 w-4" />
+          Approve remaining languages
+        </Button>
+      </div>}
       {EDITORIAL_ENABLED && snapshot && <div className="mt-4 border-t pt-3">
         <p className="text-xs font-semibold">Question Bank translation handoff</p>
         <p className="mt-1 text-xs text-muted-foreground">
@@ -334,7 +393,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       </div>}
       {(snapshot || drafts.length > 0) && <div className={languageView==='both' ? "mt-3 grid gap-3 lg:grid-cols-2" : "mt-3 max-w-3xl"}>
         {variants.filter(variant=>languageView==='both' || variant.language===languageView).map(variant => <VariantCard key={variant.language} variant={variant}
-          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} editorialEnabled={EDITORIAL_ENABLED}
+          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} englishApproved={item.status==='approved'} editorialEnabled={EDITORIAL_ENABLED}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
           onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}
       </div>}
