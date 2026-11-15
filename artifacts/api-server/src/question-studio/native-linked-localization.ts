@@ -22,6 +22,23 @@ function asOptions(value: unknown): string[] {
   return Array.isArray(value) ? value.map((option) => String(option ?? "").trim()) : [];
 }
 
+/** Preserve authored localized explanation order for ordinary and structured
+ * chapter outputs, without inventing or machine translating any wording. */
+export function nativeExplanationText(value: unknown): string {
+  if (typeof value==="string") return value.trim();
+  if (Array.isArray(value)) return value.map(string).filter(Boolean).join("\n");
+  const structured=record(value);
+  if (Array.isArray(structured.lines)) {
+    return structured.lines.map(string).filter(Boolean).join("\n");
+  }
+  if (Array.isArray(structured.visibleLines)) {
+    return [...structured.visibleLines.map(string),string(structured.answerLine)].filter(Boolean).join("\n");
+  }
+  return [string(structured.method),
+    ...(Array.isArray(structured.steps)?structured.steps.map(string):[]),
+    string(structured.conclusion||structured.finalAnswer)].filter(Boolean).join("\n");
+}
+
 /**
  * Rebuild only an already-authored, approved engine localization from a
  * persisted exact QL + question seed. No LLM and no guessed translation.
@@ -104,13 +121,7 @@ export async function nativeLocalizedQuestion(
       (generatedSeed && generatedSeed!==seed)) {
     throw new Error("NATIVE_LOCALIZATION_REGENERATED_IDENTITY_DRIFT");
   }
-  const explanationValue=question.explanation;
-  const explanation=typeof explanationValue==="string" ? explanationValue.trim()
-    : Array.isArray(explanationValue)
-      ? explanationValue.map(value=>string(value)).filter(Boolean).join("\\n")
-      : Array.isArray(record(explanationValue).lines)
-        ? (record(explanationValue).lines as unknown[]).map(value=>string(value)).filter(Boolean).join("\\n")
-        : "";
+  const explanation=nativeExplanationText(question.explanation);
   const options=Array.isArray(question.options)?question.options.map(value=>
     typeof value==="string"?value.trim():string(record(value).text)): [];
   const generatedIndex=Number(question.correctIndex??question.correct);
