@@ -268,3 +268,45 @@ test.describe("student workflow hardening", () => {
     expect(new URL(page.url()).searchParams.get("next")).toBe("/test-series/home-series-banking");
   });
 });
+test("profile feedback reports real saves, preserves drafts on failure and respects reduced motion", async ({ page }) => {
+  await installStudentFixtures(page);
+  await seedStudent(page);
+  let failSave = false;
+  let release!: () => void;
+  const pending = new Promise<void>(resolve => { release = resolve; });
+  await page.route("**/api/users/me/profile", async route => {
+    if (route.request().method() !== "PUT") return route.fallback();
+    await pending;
+    if (failSave) return route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ error: "Profile save unavailable" }) });
+    return fulfillJson(route, { ...route.request().postDataJSON(), email: student.email, phoneNumber: null, emailVerified: true, phoneVerified: false, hasPhoto: false });
+  });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/profile");
+  const name = page.getByLabel("Full name", { exact: true });
+  await name.fill("Feedback Student");
+  const save = page.getByRole("button", { name: "Save changes", exact: true });
+  await save.scrollIntoViewIfNeeded();
+  const initialBox = await save.boundingBox();
+  try {
+    await save.click();
+    const saving = page.getByRole("button", { name: "Saving…", exact: true });
+    await expect(saving).toHaveAttribute("aria-busy", "true");
+    await expect(saving).toBeDisabled();
+    await expect(page.getByText("Profile saved.", { exact: true })).toHaveCount(0);
+    release();
+    const saved = page.getByRole("button", { name: "Saved", exact: true });
+    await expect(saved).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "Profile saved." })).toBeVisible();
+    const savedBox = await saved.boundingBox();
+    expect(Math.abs((savedBox?.width ?? 0) - (initialBox?.width ?? 0))).toBeLessThan(1);
+    expect(Math.abs((savedBox?.y ?? 0) - (initialBox?.y ?? 0))).toBeLessThan(2);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect.poll(() => page.locator(".profile-notice").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+    failSave = true;
+    await name.fill("Unsaved draft name");
+    await page.getByRole("button", { name: "Save changes", exact: true }).click();
+    await expect(page.locator(".profile-error")).toBeVisible();
+    await expect(name).toHaveValue("Unsaved draft name");
+    await expect(page.getByRole("button", { name: "Saved", exact: true })).toHaveCount(0);
+  } finally { release(); }
+});

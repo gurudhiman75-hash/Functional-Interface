@@ -1,0 +1,28 @@
+/* Form-only presentation: the timed-test runner has none of these scopes. */
+@media (prefers-reduced-motion: no-preference) {
+  :is(.student-profile, .notebook-login, .preparation-screen, .support-page, .support-dialog)
+    :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) {
+    transition: border-color 140ms ease-out, background-color 140ms ease-out, box-shadow 140ms ease-out;
+  }
+  @keyframes et-form-feedback-show {
+    from { opacity: .45; }
+    to { opacity: 1; }
+  }
+  :is(.student-profile, .preparation-screen, .support-page, .support-dialog)
+    :is([role="alert"], .profile-notice, .support-success) {
+    animation: et-form-feedback-show 160ms ease-out;
+  }
+  :is(.student-profile, .notebook-login, .preparation-screen, .support-dialog) button {
+    transition: background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, opacity 140ms ease-out;
+  }
+}
+/* Reserve one feedback row so short profile notices do not move Save/Cancel. */
+.student-profile .profile-feedback-slot { min-block-size: 4.5rem; display: grid; align-items: center; }
+.student-profile .profile-feedback-slot > p { margin-block: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  :is(.student-profile, .notebook-login, .preparation-screen, .support-page, .support-dialog)
+    :is(input, textarea, select, button, [role="alert"], .profile-notice, .support-success) {
+    animation: none;
+    transition: none;
+  }
+}
