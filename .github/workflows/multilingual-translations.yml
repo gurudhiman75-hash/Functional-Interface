@@ -10,6 +10,11 @@ on:
       - artifacts/api-server/src/question-studio/native-linked-localization.test.ts
       - artifacts/api-server/src/question-studio/native-review-snapshot-cache.ts
       - artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review-format.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review-format.test.ts
+      - artifacts/api-server/src/question-studio/async-review-commit.ts
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/admin-app/src/features/question-studio/native-review-preview-cache.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
       - artifacts/api-server/src/routes/admin-question-studio-native-editorial.ts
@@ -53,6 +58,11 @@ on:
       - artifacts/api-server/src/question-studio/native-linked-localization.test.ts
       - artifacts/api-server/src/question-studio/native-review-snapshot-cache.ts
       - artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review-format.ts
+      - artifacts/api-server/src/question-studio/persisted-native-review-format.test.ts
+      - artifacts/api-server/src/question-studio/async-review-commit.ts
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/admin-app/src/features/question-studio/native-review-preview-cache.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
       - artifacts/api-server/src/routes/admin-question-studio-native-editorial.ts
@@ -154,6 +164,11 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-translation-operations.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-translation-operations.test.mjs
           node artifacts/api-server/dist/admin-translation-operations.test.mjs
+
+      - name: Verify persisted multilingual question version identity
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/persisted-native-review-format.test.ts --bundle --platform=node --format=esm --outfile=/tmp/persisted-native-review-format.test.mjs
+          node --test /tmp/persisted-native-review-format.test.mjs
 
       - name: Test native review preview cache
         run: |
