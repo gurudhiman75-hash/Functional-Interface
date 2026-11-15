@@ -30,6 +30,8 @@ async function sourceFor(itemId: string, expectedVersion: number) {
   if (!row) return {code:"NATIVE_EDITORIAL_ITEM_NOT_FOUND",http:404} as const;
   if (Number(row.version)!==expectedVersion)
     return {code:"NATIVE_EDITORIAL_SOURCE_CHANGED",http:409} as const;
+  if (String(row.status)==="rejected")
+    return {code:"NATIVE_EDITORIAL_SOURCE_REJECTED",http:409} as const;
   const payload=row.payload as Record<string,unknown>;
   const source={
     stem:text(payload.text)||text(payload.stem),
@@ -96,6 +98,9 @@ router.put(itemPath+"/:language",requireAdminPermission("content.generation.revi
     // Exact source is verified above. A manually edited locale is always a draft,
     // and must receive a new explicit human decision after each edit.
     const saved=await sqlClient.begin(async tx=>{
+      const sourceLock=await tx`SELECT current_version_number AS version
+        FROM content.generation_run_items WHERE id=${itemId}::uuid FOR UPDATE`;
+      if(Number(sourceLock[0]?.version)!==version) return null;
       const rows=await tx`
         SELECT id::text AS id, revision FROM content.question_studio_native_locales
         WHERE source_generation_version_id=${result.sourceVersionId}::uuid AND language_code=${language} FOR UPDATE`;
@@ -146,7 +151,15 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
   try {
     const result=await sourceFor(itemId,version);
     if(invalidSource(result)){res.status(result.http).json({code:result.code});return;}
+    const {listQuestionStudioPackages}=await import("../question-studio/engine-registry");
+    const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===result.payload.packageId);
+    if(!pkg?.supportedLanguages.includes(language)){
+      res.status(422).json({code:"NATIVE_EDITORIAL_LANGUAGE_UNSUPPORTED"});return;
+    }
     const updated=await sqlClient.begin(async tx=>{
+      const sourceLock=await tx`SELECT current_version_number AS version
+        FROM content.generation_run_items WHERE id=${itemId}::uuid FOR UPDATE`;
+      if(Number(sourceLock[0]?.version)!==version) return null;
       const rows=await tx`
         SELECT id::text AS id,revision,stem,explanation,options,correct_index AS "correctIndex"
         FROM content.question_studio_native_locales
