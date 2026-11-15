@@ -182,9 +182,10 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
       res.status(422).json({code:"NATIVE_EDITORIAL_LANGUAGE_UNSUPPORTED"});return;
     }
     const updated=await sqlClient.begin(async tx=>{
-      const sourceLock=await tx`SELECT current_version_number AS version
+      const sourceLock=await tx`SELECT current_version_number AS version,status::text AS status
         FROM content.generation_run_items WHERE id=${itemId}::uuid FOR UPDATE`;
       if(Number(sourceLock[0]?.version)!==version) return null;
+      if(decision==="approved" && sourceLock[0]?.status!=="approved") return "english_first";
       const rows=await tx`
         SELECT id::text AS id,revision,stem,explanation,options,correct_index AS "correctIndex"
         FROM content.question_studio_native_locales
@@ -223,6 +224,7 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
           ${JSON.stringify({language,...q,status:decision})}::jsonb)`;
       return {language,status:decision,revision:Number(next[0]!.revision)};
     });
+    if(updated==="english_first"){res.status(409).json({code:"NATIVE_APPROVE_ENGLISH_FIRST"});return;}
     if(updated==="quality_blocked"){res.status(409).json({code:"NATIVE_EDITORIAL_QUALITY_BLOCKED"});return;}
     if(updated==="self_approval_blocked"){res.status(409).json({code:"NATIVE_EDITORIAL_SELF_APPROVAL_BLOCKED"});return;}
     if(!updated){res.status(409).json({code:"NATIVE_EDITORIAL_REVISION_OR_CONTENT_CHANGED"});return;}
