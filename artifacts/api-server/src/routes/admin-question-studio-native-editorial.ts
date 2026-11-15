@@ -250,6 +250,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
          String(item.generationVersionId)!==source.sourceVersionId) return {code:"NATIVE_PROMOTION_SOURCE_CHANGED",http:409};
       if(item.status!=="approved"||!item.questionVersionId||!item.questionId)
         return {code:"NATIVE_PROMOTION_ENGLISH_NOT_ACCEPTED",http:409};
+      await tx`SELECT id FROM content.questions WHERE id=${String(item.questionId)}::uuid FOR UPDATE`;
       const bank=await tx`SELECT q.id::text AS "questionId",q.status::text AS status,
             q.approved_version_id::text AS "approvedVersionId",
             q.published_version_id::text AS "publishedVersionId",
@@ -265,7 +266,7 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           LEFT JOIN content.question_options o ON o.question_version_id=v.id
           WHERE q.id=${String(item.questionId)}::uuid
             AND v.id=${String(item.questionVersionId)}::uuid AND q.deleted_at IS NULL
-          GROUP BY q.id,v.id FOR UPDATE OF q`;
+          GROUP BY q.id,v.id`;
       const b=bank[0];
       if(!b||!["approved","published"].includes(String(b.status))||
          ![b.approvedVersionId,b.publishedVersionId].includes(item.questionVersionId))
