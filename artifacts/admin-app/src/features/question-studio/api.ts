@@ -253,6 +253,57 @@ export function getQuestionStudioNativeReviewLocalizations(itemId: string, versi
   );
 }
 
+export interface NativeEditorialDraft extends NativeReviewQuestion {
+  language: 'hi' | 'pa';
+  status: 'draft' | 'needs_fix' | 'approved';
+  revision: number;
+  changeReason: string;
+  updatedAt: string;
+  reviewedAt: string | null;
+}
+export interface NativeEditorialState {
+  itemId: string;
+  version: number;
+  locales: NativeEditorialDraft[];
+}
+export function getQuestionStudioNativeEditorial(itemId: string, version: number) {
+  return adminRequest<NativeEditorialState>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial?version=${version}`,
+    undefined,
+    { fallbackMessage: 'Unable to load saved language edits.' },
+  );
+}
+export function saveQuestionStudioNativeEditorial(
+  itemId: string, language: 'hi' | 'pa',
+  input: { expectedVersion: number; expectedRevision: number; changeReason: string; question: NativeReviewQuestion },
+) {
+  return adminRequest<{language:'hi'|'pa';revision:number;status:'draft'}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/${language}`,
+    {method:'PUT', body:JSON.stringify(input)},
+    {fallbackMessage:'Unable to save native language draft.'},
+  );
+}
+export function decideQuestionStudioNativeEditorial(
+  itemId: string, language: 'hi' | 'pa',
+  input: { expectedVersion: number; expectedRevision: number; decision:'approved'|'needs_fix';reason:string },
+) {
+  return adminRequest<{language:'hi'|'pa';revision:number;status:'approved'|'needs_fix'}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/${language}/decision`,
+    {method:'POST', body:JSON.stringify(input)},
+    {fallbackMessage:'Unable to record native language editorial decision.'},
+  );
+}
+
+export function promoteQuestionStudioNativeEditorial(
+  itemId:string, input:{expectedVersion:number;revisions:{hi:number;pa:number};reason:string},
+) {
+  return adminRequest<{status:'draft';questionVersionId:string;translations:{hi:string;pa:string}}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/promote`,
+    {method:'POST',body:JSON.stringify(input)},
+    {fallbackMessage:'Could not send approved language drafts to Question Bank review.'},
+  );
+}
+
 export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
   const params = new URLSearchParams();
   if (query.page) params.set('page', String(query.page));
