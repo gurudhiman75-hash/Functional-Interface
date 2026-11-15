@@ -13,7 +13,7 @@ on:
       - artifacts/admin-app/src/features/question-studio/NativeLocaleReview.tsx
       - artifacts/admin-app/src/features/question-studio/api.ts
       - artifacts/api-server/migrations/20261115_question_studio_native_locale_editorial.sql
-      - functions/api/[[path]].js
+      - functions/api/**
       - artifacts/api-server/src/lib/admin-translation-operations.ts
       - artifacts/api-server/src/lib/admin-translation-operations.test.ts
       - artifacts/api-server/src/lib/admin-test-localization.ts
@@ -52,7 +52,7 @@ on:
       - artifacts/admin-app/src/features/question-studio/NativeLocaleReview.tsx
       - artifacts/admin-app/src/features/question-studio/api.ts
       - artifacts/api-server/migrations/20261115_question_studio_native_locale_editorial.sql
-      - functions/api/[[path]].js
+      - functions/api/**
       - artifacts/api-server/src/lib/admin-translation-operations.ts
       - artifacts/api-server/src/lib/admin-translation-operations.test.ts
       - artifacts/api-server/src/lib/admin-test-localization.ts
