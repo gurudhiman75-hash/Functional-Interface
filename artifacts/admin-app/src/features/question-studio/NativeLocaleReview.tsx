@@ -1,10 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, CheckCircle2, Languages, Loader2, RefreshCw } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ExplanationDiagrams } from './ExplanationDiagrams';
 import {
   getQuestionStudioNativeReviewLocalizations,
+  getQuestionStudioNativeEditorial,
+  saveQuestionStudioNativeEditorial,
+  decideQuestionStudioNativeEditorial,
+  type NativeEditorialDraft,
+  type NativeReviewQuestion,
   type NativeReviewLocalizations,
   type NativeReviewVariant,
   type QuestionStudioItem,
@@ -32,48 +39,113 @@ export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supporte
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
 
-function VariantCard({ variant }: { variant: NativeReviewVariant }) {
+function VariantCard({ variant, draft, busy, onSave, onDecision }: {
+  variant: NativeReviewVariant;
+  draft?: NativeEditorialDraft;
+  busy: boolean;
+  onSave: (question: NativeReviewQuestion, reason: string, expectedRevision: number) => Promise<void>;
+  onDecision: (decision: 'approved' | 'needs_fix', reason: string, expectedRevision: number) => Promise<void>;
+}) {
   const [showExplanation, setShowExplanation] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [working, setWorking] = useState<NativeReviewQuestion | null>(null);
+  const [reason, setReason] = useState('');
   const name = LANGUAGE_NAMES[variant.language];
-  if (variant.status === 'blocked') return (
+  const visible: NativeReviewQuestion | null = draft ?? (variant.status === 'verified' ? variant : null);
+  const update = (change: Partial<NativeReviewQuestion>) => setWorking(previous => ({...(previous ?? visible!), ...change}));
+  if (!visible) return (
     <div className="rounded-xl border border-warning/30 bg-warning/5 p-3" aria-label={name + ' localization blocked'}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="text-sm font-semibold">{name}</span>
-        <Badge variant="outline" className="border-warning/40 text-warning">Needs verification</Badge>
-      </div>
-      <p className="mt-3 flex items-start gap-2 text-xs text-warning">
-        <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-        {variant.reason}
-      </p>
+      <div className="flex items-center justify-between gap-2"><span className="text-sm font-semibold">{name}</span>
+        <Badge variant="outline">Needs verification</Badge></div>
+      <p className="mt-3 text-xs text-warning"><AlertTriangle className="mr-1 inline h-3.5 w-3.5" />
+        {variant.status === 'blocked' ? variant.reason : 'Localization unavailable'}</p>
     </div>
   );
+  const q = working ?? visible;
+  const reasonValid = reason.trim().length >= 8;
   return (
     <div className="min-w-0 rounded-xl border bg-background p-3" aria-label={name + ' native localization'}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm font-semibold">{name}</span>
-        <Badge variant="outline" className="border-success/40 text-success">
-          <CheckCircle2 className="mr-1 h-3 w-3" /> Answer mapping checked
-        </Badge>
+        <Badge variant="outline">{draft ? (
+          draft.status === 'approved' ? 'Editorially approved' :
+          draft.status === 'needs_fix' ? 'Needs changes' : 'Saved draft'
+        ) : 'Generated · answer index checked'}</Badge>
       </div>
-      <p lang={variant.language} className="mt-3 whitespace-pre-wrap text-sm leading-relaxed">{variant.stem}</p>
-      <div lang={variant.language} className="mt-3 space-y-1.5">
-        {variant.options.map((option, index) => (
-          <div key={index} className={'rounded-md border px-2.5 py-2 text-xs ' +
-            (index === variant.correctIndex ? 'border-success/40 bg-success/5' : '')}>
-            <span className="mr-2 font-mono font-semibold">{String.fromCharCode(65 + index)}.</span>{option}
-            {index === variant.correctIndex && <span className="ml-2 text-[10px] text-success">(correct)</span>}
-          </div>
-        ))}
-      </div>
-      <Button type="button" size="sm" variant="ghost" className="mt-3 h-8 px-1 text-xs"
-        onClick={() => setShowExplanation(value => !value)}>
-        {showExplanation ? 'Hide explanation' : 'Show localized explanation'}
-      </Button>
-      {showExplanation && (
-        <div lang={variant.language} className="mt-2 rounded-lg border bg-muted/20 p-3 text-xs leading-relaxed">
-          <ExplanationDiagrams explanation={variant.explanation} />
+      <p className="mt-1 text-[11px] text-muted-foreground">
+        {draft ? `Draft revision ${draft.revision} · linked to this English source version` :
+          'Native draft not saved or editorially approved'}
+      </p>
+      {editing ? (
+        <div lang={variant.language} className="mt-3 space-y-3">
+          <label className="block text-xs font-medium">Question stem
+            <Textarea className="mt-1" value={q.stem} onChange={event => update({stem:event.target.value})} rows={3} />
+          </label>
+          {q.options.map((option,index) => (
+            <label key={index} className="block text-xs font-medium">
+              Option {String.fromCharCode(65+index)} {index===visible.correctIndex && '· correct answer'}
+              <Input className="mt-1" value={option} onChange={event => update({options:q.options.map((v,i)=>i===index?event.target.value:v)})} />
+            </label>
+          ))}
+          <label className="block text-xs font-medium">Localized explanation
+            <Textarea className="mt-1" value={q.explanation} rows={6}
+              onChange={event => update({explanation:event.target.value})} />
+          </label>
+          <p className="text-xs text-muted-foreground">
+            Answer position and number of options are locked to English. Check figures, units and grammar manually.
+          </p>
         </div>
+      ) : (
+        <>
+          <p lang={variant.language} className="mt-3 whitespace-pre-wrap text-sm leading-relaxed">{visible.stem}</p>
+          <div lang={variant.language} className="mt-3 space-y-1.5">
+            {visible.options.map((option,index) => (
+              <div key={index} className={'rounded-md border px-2.5 py-2 text-xs ' +
+                (index === visible.correctIndex ? 'border-success/40 bg-success/5' : '')}>
+                <span className="mr-2 font-mono font-semibold">{String.fromCharCode(65 + index)}.</span>{option}
+                {index === visible.correctIndex && <span className="ml-2 text-[10px] text-success">(correct)</span>}
+              </div>
+            ))}
+          </div>
+          <Button type="button" size="sm" variant="ghost" className="mt-3 h-8 px-1 text-xs"
+            onClick={() => setShowExplanation(value => !value)}>
+            {showExplanation ? 'Hide explanation' : 'Show localized explanation'}
+          </Button>
+          {showExplanation && <div lang={variant.language} className="mt-2 rounded-lg border bg-muted/20 p-3 text-xs leading-relaxed">
+            <ExplanationDiagrams explanation={visible.explanation} />
+          </div>}
+        </>
       )}
+      <div className="mt-3 space-y-2 border-t pt-3">
+        <label className="block text-xs font-medium">Editorial reason / notes (minimum 8 characters)
+          <Textarea className="mt-1" rows={2} value={reason} onChange={event=>setReason(event.target.value)}
+            placeholder="Check Punjabi grammar, mathematical values and explanation..." />
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {editing ? <>
+            <Button type="button" size="sm" disabled={busy || !reasonValid || !q.stem.trim() || !q.explanation.trim() ||
+                q.options.some(option=>!option.trim())}
+              onClick={() => void onSave(q,reason,draft?.revision ?? 0).then(()=>{setEditing(false);setWorking(null);setReason('');})}>
+              Save language draft
+            </Button>
+            <Button type="button" size="sm" variant="outline" disabled={busy}
+              onClick={()=>{setEditing(false);setWorking(null);}}>Cancel</Button>
+          </> : <>
+            <Button type="button" size="sm" variant="outline" disabled={busy}
+              onClick={()=>{setWorking({...visible,options:[...visible.options]});setEditing(true);}}>Edit language</Button>
+            <Button type="button" size="sm" disabled={busy || !draft || !reasonValid || draft.status==='approved' ||
+                variant.status!=='verified'}
+              onClick={()=>void onDecision('approved',reason,draft!.revision).then(()=>setReason(''))}>
+              Approve {variant.language.toUpperCase()}
+            </Button>
+            <Button type="button" size="sm" variant="outline" disabled={busy || !draft || !reasonValid ||
+                variant.status!=='verified'}
+              onClick={()=>void onDecision('needs_fix',reason,draft!.revision).then(()=>setReason(''))}>
+              Needs fix
+            </Button>
+          </>}
+        </div>
+      </div>
     </div>
   );
 }
@@ -87,6 +159,9 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const available = hasRegisteredNativeLocales(item, supportedLanguages);
   const eligible = hasVerifiedNativeLocaleEngine(item, supportedLanguages);
   const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
+  const [drafts, setDrafts] = useState<NativeEditorialDraft[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -95,14 +170,20 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     if (!eligible) return;
     let live = true;
     setSnapshot(null);
+    setDrafts([]);
     setError(null);
     setBusy(true);
-    void getQuestionStudioNativeReviewLocalizations(item.id, item.currentVersionNumber)
-      .then(result => {
+    void Promise.all([
+      getQuestionStudioNativeReviewLocalizations(item.id, item.currentVersionNumber),
+      getQuestionStudioNativeEditorial(item.id, item.currentVersionNumber),
+    ]).then(([result, editorial]) => {
         if (live) {
           if (result.itemId !== item.id || result.version !== item.currentVersionNumber)
             throw new Error('The preview belongs to a different review version.');
+          if(editorial.itemId !== item.id || editorial.version !== item.currentVersionNumber)
+            throw new Error('Saved language drafts belong to a different source version.');
           setSnapshot(result);
+          setDrafts(editorial.locales);
         }
       })
       .catch(caught => {
@@ -112,6 +193,30 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     return () => { live = false; };
   }, [eligible, token, retry]);
 
+  async function save(language: 'hi' | 'pa', question: NativeReviewQuestion, reason: string, expectedRevision: number) {
+    setSaving(true);setActionError(null);
+    try {
+      await saveQuestionStudioNativeEditorial(item.id,language,{
+        expectedVersion:item.currentVersionNumber,expectedRevision,changeReason:reason,question,
+      });
+      setRetry(value=>value+1);
+    }catch(error){
+      const message=error instanceof Error?error.message:'Could not save localized draft.';
+      setActionError(message);throw error;
+    }finally{setSaving(false);}
+  }
+  async function decide(language:'hi'|'pa',decision:'approved'|'needs_fix',reason:string,expectedRevision:number) {
+    setSaving(true);setActionError(null);
+    try {
+      await decideQuestionStudioNativeEditorial(item.id,language,{
+        expectedVersion:item.currentVersionNumber,expectedRevision,decision,reason,
+      });
+      setRetry(value=>value+1);
+    }catch(error){
+      setActionError(error instanceof Error?error.message:'Could not record language decision.');
+      throw error;
+    }finally{setSaving(false);}
+  }
   const variants = useMemo(() => snapshot?.variants ?? [], [snapshot]);
   if (!available) return null;
   if (!eligible) return <section className="ml-8 mt-3 rounded-xl border border-warning/30 bg-warning/5 p-3 text-xs text-warning lg:ml-16">
@@ -127,7 +232,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            English source above · same CP, QL and seed · answer mapping checked · read-only review previews, not saved or approved translations
+            English source above (use Revise to edit English) · language-specific draft editing and human approval · not published to the Question Bank
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">
@@ -143,8 +248,12 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           <RefreshCw className="mr-1 h-3 w-3" />Retry
         </Button>
       </div>}
+      {actionError && <p role="alert" className="mt-2 text-xs text-destructive">{actionError}</p>}
       {!busy && snapshot && <div className="mt-3 grid gap-3 lg:grid-cols-2">
-        {variants.map(variant => <VariantCard key={variant.language} variant={variant} />)}
+        {variants.map(variant => <VariantCard key={variant.language} variant={variant}
+          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving}
+          onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
+          onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}
       </div>}
     </section>
   );
