@@ -6,7 +6,10 @@ import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSour
 const router = Router();
 // Separate opt-in from the existing read-only native preview. Schema migration
 // must be verified before enabling editorial persistence in a candidate.
-router.use((_req,res,next)=>{
+router.use((req,res,next)=>{
+  // This router is mounted beside other Question Studio routes. Do not gate
+  // normal generation, queue reads or the existing native preview.
+  if (!req.path.includes("/native-editorial")) { next();return; }
   if(process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED!=="true"){
     res.status(404).json({code:"NATIVE_EDITORIAL_NOT_ENABLED"});return;
   }
