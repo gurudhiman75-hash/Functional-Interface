@@ -43,13 +43,28 @@ export function readPersistedNativeSnapshot(payload:Record<string,unknown>):Pers
   const raw=payload.nativeReviewSnapshot;
   if(!raw||typeof raw!=="object"||Array.isArray(raw))return null;
   const snap=raw as Partial<PersistedNativeSnapshot>;
-  if(snap.schemaVersion!==1||snap.sourceVerified!==true||
-     snap.sourceHash!==nativeSourceHash(nativeSourceQuestion(payload))||
-     snap.identityHash!==nativeIdentityHash(payload)||
-     !Array.isArray(snap.variants))return null;
-  if(!snap.variants.every(v=>v && ["hi","pa"].includes(v.language) &&
-      (v.status==="blocked" || v.status==="verified" &&
-       typeof v.stem==="string"&&typeof v.explanation==="string"&&
-       Array.isArray(v.options)&&Number.isInteger(v.correctIndex))))return null;
+  const source=nativeSourceQuestion(payload);
+  if(!source.stem||!source.explanation||source.options.length<2 ||
+    !Number.isInteger(source.correctIndex)||source.correctIndex<0||
+    source.correctIndex>=source.options.length||
+    snap.schemaVersion!==1||snap.sourceVerified!==true||
+    snap.sourceHash!==nativeSourceHash(source)||
+    snap.identityHash!==nativeIdentityHash(payload)||
+    !Array.isArray(snap.variants)||snap.variants.length<1||snap.variants.length>2)return null;
+  const languages=new Set<string>();
+  for(const v of snap.variants){
+    if(!v||!["hi","pa"].includes(v.language)||languages.has(v.language))return null;
+    languages.add(v.language);
+    if(v.status==="blocked"){
+      if(typeof v.reason!=="string"||!v.reason.trim())return null;
+    }else if(v.status==="verified"){
+      if(typeof v.stem!=="string"||!v.stem.trim()||
+         typeof v.explanation!=="string"||!v.explanation.trim()||
+         !Array.isArray(v.options)||v.options.length!==source.options.length||
+         !v.options.every(option=>typeof option==="string"&&option.trim())||
+         v.correctIndex!==source.correctIndex||
+         v.stem.trim()===source.stem.trim())return null;
+    }else return null;
+  }
   return snap as PersistedNativeSnapshot;
 }
