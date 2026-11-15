@@ -50,6 +50,14 @@ export async function commitQuestionStudioAsyncReview(input:{
   if(!UUID.test(input.runId)||!UUID.test(input.leaseToken)){
     throw new QuestionStudioReviewCommitError("ASYNC_REVIEW_CLAIM_INVALID","Invalid run or claim token");
   }
+  // Native-language generation is compute-only and happens outside the
+  // database transaction. A version's verified snapshots are then persisted
+  // atomically with its English source. Reviewer UI never needs to regenerate
+  // these completed language groups.
+  const nativeSnapshots=process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED==="true"
+    ? await (await import("./persisted-native-review")).prepareNativeReviewBatch(
+      input.batch.questions as Record<string,unknown>[])
+    : [];
   return sqlClient.begin(async(tx)=>{
     // Lock the same canonical run row first as the claim helper does. All
     // subsequent ownership checks, inserts and status updates happen inside
@@ -126,6 +134,7 @@ export async function commitQuestionStudioAsyncReview(input:{
       const itemId=randomUUID();
       const payload={
         ...question,
+        ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
         ...lifecycle,
         generationContexts:input.batch.generationContexts,
         validationResult:"pending",
