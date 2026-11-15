@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
-import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
+
 import { evaluateTranslationQuality, type TranslationOptionInput } from "../lib/admin-translation-operations";
 
 const router = Router();
@@ -45,6 +45,8 @@ async function sourceFor(itemId: string, expectedVersion: number) {
   if (String(row.status)==="rejected")
     return {code:"NATIVE_EDITORIAL_SOURCE_REJECTED",http:409} as const;
   const payload=row.payload as Record<string,unknown>;
+  // Load chapter runtimes only for an editorial request, not every Queue read.
+  const {nativeLocalizedQuestion,nativeExplanationText,assertNativeEnglishSourceParity}=await import("../question-studio/native-linked-localization");
   const source={
     stem:text(payload.text)||text(payload.stem),
     explanation:nativeExplanationText(payload.explanation),
