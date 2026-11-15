@@ -145,6 +145,7 @@ async function expectModalContract(
   const cancel = dialog.getByRole("button", { name: cancelLabel, exact: true });
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveAttribute("aria-modal", "true");
+  await expect(dialog).not.toHaveAttribute("data-et-motion", "learner");
   await expect(dialog).toHaveAttribute("aria-labelledby");
   await expect(dialog).toHaveAttribute("aria-describedby");
   await expect(cancel).toBeFocused();
@@ -233,7 +234,8 @@ test("submission freezes controls until the request settles", async ({ page }) =
     await expect(progress).toBeFocused();
     await expect.poll(() => requestCount).toBe(1);
     const controls = page.locator('fieldset[aria-label="Test controls"]');
-    await expect(controls).toBeDisabled();
+    // Playwright does not treat the fieldset container as a disabled control.
+    await expect(controls).toHaveAttribute("disabled");
     await expect(controls).toHaveAttribute("inert");
     expect(await controls.locator("button, select, input").evaluateAll(elements =>
       elements.every(element => element.matches(":disabled")),

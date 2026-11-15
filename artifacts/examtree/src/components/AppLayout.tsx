@@ -1,3 +1,5 @@
+import { LearnerMotionScope } from "@/components/learner-motion-scope";
+import "@/styles/learner-overlay-motion.css";
 import type { CSSProperties, ReactNode } from "react";
 import { useLocation } from "wouter";
 import { AlertTriangle, RefreshCw } from "lucide-react";
@@ -49,6 +51,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const [location] = useLocation();
   const seriesDashboard = location === "/dashboard";
   return (
+    <LearnerMotionScope>
     <SidebarProvider
       className="et-viewport et-page-surface bg-background text-foreground"
       data-series-dashboard={seriesDashboard || undefined}
@@ -73,5 +76,6 @@ export function AppLayout({ children }: AppLayoutProps) {
         </main>
       </SidebarInset>
     </SidebarProvider>
+    </LearnerMotionScope>
   );
 }

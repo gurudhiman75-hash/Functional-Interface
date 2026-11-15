@@ -108,6 +108,9 @@ export function StickyHeader() {
           {open && (
             <div
               id="exam-selector-panel"
+              data-et-motion="learner"
+              data-et-surface="dialog"
+              data-state="open"
               role="dialog"
               aria-label="Choose exam or published test"
               className="et-popover absolute left-1/2 top-full mt-3 max-h-[70vh] w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 overflow-y-auto rounded-2xl p-4"
