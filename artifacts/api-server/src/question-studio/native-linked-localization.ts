@@ -117,7 +117,7 @@ export async function nativeLocalizedQuestion(
           String((pkg.explanation as {answerLine?:string})?.answerLine ?? "")].filter(Boolean) : [];
     return {
       stem:string(pkg.stem),
-      explanation:lines.join("\\n\\n"),
+      explanation:lines.join("\n\n"),
       options:[...pkg.options].map(option=>String(option).trim()),
       correctIndex:Number(pkg.correctIndex),
     };
