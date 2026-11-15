@@ -54,10 +54,8 @@ export async function commitQuestionStudioAsyncReview(input:{
   // database transaction. A version's verified snapshots are then persisted
   // atomically with its English source. Reviewer UI never needs to regenerate
   // these completed language groups.
-  const nativeSnapshots=process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED==="true"
-    ? await (await import("./persisted-native-review")).prepareNativeReviewBatch(
-      input.batch.questions as Record<string,unknown>[])
-    : [];
+  const nativeSnapshots=await (await import("./persisted-native-review"))
+    .prepareNativeReviewBatch(input.batch.questions as Record<string,unknown>[]);
   return sqlClient.begin(async(tx)=>{
     // Lock the same canonical run row first as the claim helper does. All
     // subsequent ownership checks, inserts and status updates happen inside
