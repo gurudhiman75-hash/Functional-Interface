@@ -1,7 +1,7 @@
 import { nativeLocalizedQuestion, assertNativeEnglishSourceParity,
          assertNativeLocalizedAnswerParity } from "./native-linked-localization";
 import { listQuestionStudioPackages } from "./engine-registry";
-import { nativeSourceQuestion,nativeSourceHash,type PersistedNativeSnapshot,
+import { nativeSourceQuestion,nativeSourceHash,nativeIdentityHash,type PersistedNativeSnapshot,
          type PersistedNativeVariant } from "./persisted-native-review-format";
 const string=(x:unknown)=>typeof x==="string"?x.trim():"";
 
@@ -34,7 +34,7 @@ export async function prepareNativeReviewSnapshot(
       return {language,status:"blocked",reason:"The native generator did not pass canonical answer parity."};
     }
   }));
-  return {schemaVersion:1,sourceHash:nativeSourceHash(source),variants,
+  return {schemaVersion:1,sourceHash:nativeSourceHash(source),identityHash:nativeIdentityHash(payload),variants,
     generatedAt:new Date().toISOString(),sourceVerified:true};
 }
 /** Small batches of expensive native-language snapshots. No unbounded fanout. */
