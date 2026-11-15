@@ -458,10 +458,25 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
         ORDER BY language_code FOR UPDATE`;
       if(drafts.length!==2 || drafts.some(d=>d.status!=="approved" ||
           Number(d.revision)!==(d.language==="hi"?hi:pa) ||
-          !d.reviewerUserId || d.editorUserId===d.reviewerUserId ||
-          d.correctIndex!==source.source.correctIndex ||
+          !d.reviewerUserId || d.correctIndex!==source.source.correctIndex ||
           !Array.isArray(d.options)||d.options.length!==sourceOptions.length))
         return {code:"NATIVE_PROMOTION_LOCALES_NOT_APPROVED",http:409};
+      const machineAuthored=new Set<string>();
+      for(const d of drafts) {
+        if(d.editorUserId!==d.reviewerUserId)continue;
+        // Generated language content has no human translator. Only a
+        // machine-origin audit event for this exact approved revision
+        // qualifies; manually edited self-reviews never qualify.
+        const events=await tx`
+          SELECT snapshot->>'machineGenerated' AS "machineGenerated",revision
+          FROM content.question_studio_native_locale_events
+          WHERE native_locale_id=${String(d.id)}::uuid AND action='approve'
+          ORDER BY created_at DESC,id DESC LIMIT 1`;
+        if(events[0]?.machineGenerated!=="true" ||
+           Number(events[0]?.revision)!==Number(d.revision))
+          return {code:"NATIVE_PROMOTION_SELF_REVIEW_BLOCKED",http:409};
+        machineAuthored.add(String(d.language));
+      }
 
       const result:Record<string,string>={};
       for(const d of drafts){
@@ -506,7 +521,8 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
             (question_version_id,language_id,stem,explanation,status,translator_user_id,
               reviewer_user_id,quality_snapshot)
           VALUES(${String(b.versionId)}::uuid,${languageId}::uuid,${String(d.stem)},
-            ${String(d.explanation)},'draft',${String(d.editorUserId)}::uuid,
+            ${String(d.explanation)},'draft',
+            ${machineAuthored.has(language)?null:String(d.editorUserId)}::uuid,
             NULL,${JSON.stringify(quality)}::jsonb)
           ON CONFLICT (question_version_id,language_id) DO NOTHING RETURNING id::text AS id`;
         if(!inserted.length) return {code:"NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS",http:409};
