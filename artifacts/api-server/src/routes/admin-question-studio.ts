@@ -4,6 +4,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { nativeLocalizedQuestion, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
+import { listQuestionStudioPackages } from "../question-studio/engine-registry";
 
 const router = Router();
 
@@ -61,10 +62,16 @@ router.get("/items/:itemId/native-localizations",
       const payload=row.payload as Record<string,unknown>;
       const packageId=asString(payload?.packageId);
       const language=asString(payload?.language);
-      if (!["AVG-001","INT-001"].includes(packageId)||language!=="en") {
+      const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===packageId);
+      const cpId=asString(payload.canonicalProblemId||payload.selectedCpId||payload.cpId);
+      const qlId=asString(payload.questionLanguageId||payload.qlId);
+      const seed=asString(payload.seed);
+      if (!pkg || !pkg.supportedLanguages.includes("en") ||
+          !pkg.supportedLanguages.some(locale=>locale==="hi"||locale==="pa") ||
+          !cpId || !qlId || !seed || language!=="en") {
         res.status(422).json({
           code:"NATIVE_REVIEW_NOT_SUPPORTED",
-          error:"Linked previews are available only for verified English-source Averages and Interest questions.",
+          error:"This item does not have registered multilingual languages and a reusable canonical QL/CP/seed.",
         });return;
       }
       const sourceOptions=Array.isArray(payload.options)?payload.options.map(x=>String(x??"").trim()):[];
@@ -90,7 +97,8 @@ router.get("/items/:itemId/native-localizations",
           error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version.",
         });return;
       }
-      const variants=await Promise.all((["hi","pa"] as const).map(async locale=>{
+      const variants=await Promise.all((["hi","pa"] as const)
+        .filter(locale=>pkg.supportedLanguages.includes(locale)).map(async locale=>{
         try {
           const question=await nativeLocalizedQuestion(payload,locale);
           assertNativeLocalizedAnswerParity(source,question);
