@@ -169,6 +169,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const [actionError, setActionError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
+  const [languageView, setLanguageView] = useState<'both'|'hi'|'pa'>('both');
   const [busy, setBusy] = useState(false);
   const token = item.id + ':' + item.currentVersionNumber;
   // Native regeneration and saved editorial rows have different latency.
@@ -288,6 +289,15 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           {variants.filter(variant => variant.status === 'verified').length}/2 localized versions verified
         </Badge>}
       </div>
+      <div className="mt-3 flex flex-wrap items-center gap-1 rounded-lg border bg-background p-1" role="group" aria-label="Native review language view">
+        {([
+          ['both','Compare both'],['hi','Hindi only'],['pa','Punjabi only'],
+        ] as const).map(([value,label])=><Button key={value} type="button" size="sm"
+          variant={languageView===value?'secondary':'ghost'}
+          aria-pressed={languageView===value}
+          className="h-8 text-xs"
+          onClick={()=>setLanguageView(value)}>{label}</Button>)}
+      </div>
       {busy && <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground" role="status">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Verifying native languages in parallel; saved edits are available as soon as they load…
       </div>}
@@ -322,8 +332,8 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           </p>}
         </>}
       </div>}
-      {(snapshot || drafts.length > 0) && <div className="mt-3 grid gap-3 lg:grid-cols-2">
-        {variants.map(variant => <VariantCard key={variant.language} variant={variant}
+      {(snapshot || drafts.length > 0) && <div className={languageView==='both' ? "mt-3 grid gap-3 lg:grid-cols-2" : "mt-3 max-w-3xl"}>
+        {variants.filter(variant=>languageView==='both' || variant.language===languageView).map(variant => <VariantCard key={variant.language} variant={variant}
           draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} editorialEnabled={EDITORIAL_ENABLED}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
           onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}
