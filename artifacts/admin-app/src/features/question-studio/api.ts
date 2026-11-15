@@ -159,6 +159,8 @@ export interface CreateGenerationRunInput {
   subtopic?: string;
   language: string;
   seed?: string;
+  nativeGroupedReview?: boolean;
+  languages?: Array<'en'|'hi'|'pa'>;
   runtimeMode?: string;
   canonicalProblemId?: string;
 }
@@ -291,6 +293,17 @@ export function decideQuestionStudioNativeEditorial(
     `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/${language}/decision`,
     {method:'POST', body:JSON.stringify(input)},
     {fallbackMessage:'Unable to record native language editorial decision.'},
+  );
+}
+
+export function approveQuestionStudioNativeLanguages(
+  itemId:string,
+  input:{expectedVersion:number;languages:Array<'hi'|'pa'>;revisions:{hi:number;pa:number};reason:string},
+) {
+  return adminRequest<{englishStatus:'approved';approved:Array<{language:'hi'|'pa';status:'approved';revision:number}>}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/approve-languages`,
+    {method:'POST',body:JSON.stringify(input)},
+    {fallbackMessage:'Could not approve selected language versions.'},
   );
 }
 
