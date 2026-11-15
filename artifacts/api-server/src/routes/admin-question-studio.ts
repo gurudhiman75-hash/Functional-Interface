@@ -5,6 +5,7 @@ import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import nativeEditorialRouter from "./admin-question-studio-native-editorial";
 import { NativeReviewSnapshotCache } from "../question-studio/native-review-snapshot-cache";
+import { nativeSourceQuestion,readPersistedNativeSnapshot } from "../question-studio/persisted-native-review-format";
 
 const router = Router();
 
@@ -72,6 +73,23 @@ router.get("/items/:itemId/native-localizations",
       const row=rows[0]!;
       if (Number(row.version)!==expectedVersion) {
         res.status(409).json({code:"NATIVE_REVIEW_VERSION_CHANGED",error:"The review item changed. Refresh before inspecting locales."});return;
+      }
+      // New grouped generation persists verified native variants before review.
+      // This is a pure JSON/source-fingerprint read: no native engines,
+      // language regeneration, or cross-user mutable approval cache.
+      const savedPayload=row.payload as Record<string,unknown>;
+      const persisted=readPersistedNativeSnapshot(savedPayload);
+      if(persisted) {
+        const source=nativeSourceQuestion(savedPayload);
+        res.setHeader("Cache-Control","private, no-store");
+        res.setHeader("X-Native-Review-Cache","persisted");
+        res.setHeader("Server-Timing",`db;dur=${Date.now()-started}, native;dur=0`);
+        res.json({
+          itemId,version:expectedVersion,packageId:asString(savedPayload.packageId),
+          source:{language:"en",status:"verified",...source},
+          variants:persisted.variants,saved:true,approved:false,
+        });
+        return;
       }
       const dbMs=Date.now()-started;
       const cacheKey=itemId+":"+expectedVersion;
