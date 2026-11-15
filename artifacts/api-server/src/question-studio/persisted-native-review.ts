@@ -38,13 +38,15 @@ export async function prepareNativeReviewSnapshot(
     generatedAt:new Date().toISOString(),sourceVerified:true};
 }
 /** Small batches of expensive native-language snapshots. No unbounded fanout. */
-export async function prepareNativeReviewBatch(questions:Record<string,unknown>[]) {
+export async function prepareNativeReviewBatch(
+  questions:Record<string,unknown>[], languages:readonly ("hi"|"pa")[]=["hi","pa"],
+) {
   const result:Array<PersistedNativeSnapshot|null>=new Array(questions.length).fill(null);
   let index=0;
   await Promise.all(Array.from({length:Math.min(3,questions.length)},async()=>{
     while(index<questions.length){
       const next=index++;
-      try{result[next]=await prepareNativeReviewSnapshot(questions[next]!);}
+      try{result[next]=await prepareNativeReviewSnapshot(questions[next]!,languages);}
       catch{result[next]=null;}
     }
   }));
