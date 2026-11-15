@@ -588,3 +588,37 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
 });
+
+test("test preparation shows context during real loading and clears before the instructions", async ({ page }) => {
+  const observations = await installApiFixtures(page, { completedFirst: false, serverDraft: null });
+  await page.route("**/api/tests", route => fulfillJson(route, [{ ...testDetail, sections: [] }]));
+  let release!: () => void;
+  const pending = new Promise<void>(resolve => { release = resolve; });
+  await page.route("**/api/attempt-sessions", async route => {
+    await pending;
+    await route.fallback();
+  });
+  try {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await openAsStudent(page, `/test/${TEST_ID}?seriesId=${SERIES_ID}`);
+    const preparing = page.getByTestId("test-preparing");
+    await expect(preparing.getByRole("heading", { name: "Preparing your test…" })).toBeVisible();
+    await expect(preparing.getByText(testDetail.name, { exact: true })).toBeVisible();
+    await expect(preparing.getByRole("status")).toContainText("Loading questions and checking your saved progress.");
+    await expect(page.getByText("Question No 1", { exact: true })).toHaveCount(0);
+    for (const width of [1280, 390, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    }
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect.poll(() => preparing.locator(".test-preparing-spinner").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+    release();
+    await expect(preparing).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "General Instructions" })).toBeVisible();
+    await expect(page.getByText("Question No 1", { exact: true })).toHaveCount(0);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await beginTestWithInstructions(page);
+    await expect(page.getByText("Question No 1", { exact: true })).toBeVisible();
+    expect(observations.sessionAuthorization).toHaveLength(1);
+  } finally { release(); }
+});

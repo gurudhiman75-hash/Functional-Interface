@@ -1,3 +1,4 @@
+import { TestPreparing } from "@/components/TestPreparing";
 import { useEffect } from "react";
 import { useLocation, useParams } from "wouter";
 
@@ -11,9 +12,5 @@ export default function PublishedTest() {
     if (id) setLocation(`/test/${encodeURIComponent(id)}`, { replace: true });
   }, [id, setLocation]);
 
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center text-sm text-muted-foreground">
-      Opening secure test interface…
-    </div>
-  );
+  return <TestPreparing />;
 }

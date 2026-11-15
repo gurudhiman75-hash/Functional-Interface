@@ -1,3 +1,4 @@
+import { TestPreparing, isTestLoadingRoute } from "@/components/TestPreparing";
 import { Suspense, useEffect, useState } from "react";
 import { lazyWithRecovery as lazy } from "@/components/lazyWithRecovery";
 import { Redirect, Route, Router as WouterRouter, Switch, useLocation, useSearch } from "wouter";
@@ -368,6 +369,8 @@ function Router() {
 }
 
 function RouteSkeleton() {
+  const [location] = useLocation();
+  if (isTestLoadingRoute(location)) return <TestPreparing />;
   return (
     <div className="examtree-shell min-h-screen bg-background" role="status" aria-label="Loading page">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
