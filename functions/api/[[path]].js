@@ -50,6 +50,22 @@ export function configuredAdminCanaryOrigin(env = {}) {
   }
   return url.origin;
 }
+// Opt-in, single-route native localization canary. The destination is an
+// explicitly tagged production-service revision, never a request parameter.
+export function configuredNativeLocalizationCandidateOrigin(env = {}) {
+  const raw = env.EXAMTREE_NATIVE_LOCALIZATION_CANDIDATE_ORIGIN;
+  if (typeof raw !== "string" || !raw.trim()) return null;
+  let url;
+  try { url = new URL(raw.trim()); }
+  catch { throw new Error("Invalid native localization candidate origin"); }
+  if (url.protocol !== "https:" || url.username || url.password ||
+      (url.pathname !== "/" && url.pathname !== "") || url.search || url.hash ||
+      !/^native-localization-candidate---examtree-api-[a-z0-9-]+\.a\.run\.app$/.test(url.hostname) ||
+      url.hostname.startsWith("native-localization-candidate---examtree-api-staging-")) {
+    throw new Error("Native localization candidate must be the tagged production ExamTree API revision");
+  }
+  return url.origin;
+}
 const METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]);
 
 export async function onRequest({ request, env = {} }) {
@@ -111,6 +127,18 @@ export async function onRequest({ request, env = {} }) {
   const manualApprovedReconciliationPath =
     incoming.pathname === "/api/admin/questions/reconcile-approved" &&
     request.method === "POST";
+  // Only previewing an existing released locale variant is routed to the
+  // zero-normal-traffic candidate. Translation save/review stays on Render.
+  const nativeLocalizationPreviewPath =
+    request.method === "POST" &&
+    /^\/api\/admin\/translations\/questions\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/languages\/(?:hi|pa)\/existing-localization$/i.test(incoming.pathname);
+  // Separately gated same-seed Review Queue previews. Never expand this
+  // routing change to item approval, status mutations, tests or bulk runs.
+  const nativeReviewPreviewPath =
+    env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
+    request.method === "GET" &&
+    /^\/api\/admin\/question-studio\/items\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/native-localizations$/i.test(incoming.pathname);
+  const nativeCandidatePreviewPath = nativeLocalizationPreviewPath || nativeReviewPreviewPath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
@@ -144,7 +172,18 @@ export async function onRequest({ request, env = {} }) {
       error: "The tagged admin canary URL is not configured correctly." },
       { status: 503, headers: { "Cache-Control": "no-store" } });
   }
+  let nativeLocalizationCandidateOrigin;
+  try {
+    nativeLocalizationCandidateOrigin = nativeCandidatePreviewPath && deterministicAdminEnabled
+      ? configuredNativeLocalizationCandidateOrigin(env) : null;
+  } catch {
+    return Response.json({
+      code: "NATIVE_LOCALIZATION_CANDIDATE_MISCONFIGURED",
+      error: "Native localization candidate URL is not configured correctly.",
+    }, { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
   const actualUpstream =
+    (nativeLocalizationCandidateOrigin || null) ||
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
     qsAdminOrigin ||
     // One exact admin mutation is promoted ahead of the legacy Render bridge.

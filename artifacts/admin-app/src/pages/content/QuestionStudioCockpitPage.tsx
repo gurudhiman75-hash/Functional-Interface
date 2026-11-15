@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 
 import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
+import { NativeLocaleReview, hasVerifiedNativeLocaleEngine } from '@/features/question-studio/NativeLocaleReview';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { showToast } from '@/components/shared/toast';
@@ -93,6 +94,9 @@ const STAGING_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_STAGING
 const CHAPTER_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true';
 const ASYNC_ENABLED = STAGING_ASYNC_ENABLED || CHAPTER_ASYNC_ENABLED;
 const BULK_ASYNC_ENABLED = CHAPTER_ASYNC_ENABLED && import.meta.env.VITE_QUESTION_STUDIO_BULK_ASYNC_REVIEW === 'true';
+// Safe rollout: expose native grouped generation/review only once the tagged
+// production Cloud Run candidate has the new read-only locale endpoint.
+const NATIVE_GROUPED_REVIEW_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_NATIVE_GROUPED_REVIEW === 'true';
 const BULK_RESUME_PARAM = 'qsBulkOperationId';
 
 // Large sync submissions are split into separately saved bounded review runs.
@@ -100,6 +104,12 @@ const SYNC_BULK_LIMIT = 250;
 const SYNC_CHUNK_TARGET = 25;
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
+function useNativeGroupedReview(packageId: string | undefined, languages: readonly string[]): boolean {
+  return NATIVE_GROUPED_REVIEW_ENABLED &&
+    ['AVG-001', 'INT-001'].includes(packageId ?? '') &&
+    languages.length > 1 &&
+    languages.some(entry => entry === 'hi' || entry === 'pa');
+}
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
 
 function packageSubject(entry: GenerationPackage) {
@@ -753,6 +763,16 @@ export function QuestionStudioCockpitPage() {
       return;
     }
     const cpIds = [...selectedCpIds];
+    // Released native localizers reuse one QL/seed, so generating independent
+    // HI/PA review runs would create unrelated canonical questions. Generate
+    // the English source once and display paired variants in its review item.
+    // Keep all other chapters on their existing per-language workflow.
+    // Inline the condition because isolated generation-contract tests execute
+    // this callback directly; keep it equivalent to the UI selection helper.
+    const nativeGroupedReview = NATIVE_GROUPED_REVIEW_ENABLED &&
+      ['AVG-001', 'INT-001'].includes(activePackage.packageId) &&
+      languages.length > 1 && languages.some(entry => entry === 'hi' || entry === 'pa');
+    const generationLanguages = nativeGroupedReview ? ['en'] : languages;
     if (CHAPTER_ASYNC_ENABLED && stagingAsyncSelected && !bulkAsyncMode &&
         (!Number.isInteger(count) || count < 1 || count > PRODUCTION_CHAPTER_BATCH_LIMIT)) {
       showToast.error('Invalid batch size', `Choose 1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions for a chapter review batch.`);
@@ -787,7 +807,7 @@ export function QuestionStudioCockpitPage() {
         setBulkAsyncSubmitting(true);
         const confirmed: Array<{ id: string; language: string }> = [];
         try {
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             const asyncInput: CreateGenerationRunInput = {
               ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
             };
@@ -810,13 +830,13 @@ export function QuestionStudioCockpitPage() {
             setBulkAsyncOperation(await getQuestionStudioBulkReviewProgress(receipt.id));
             setBulkAsyncError(null);
           }
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             bulkAsyncRetry.current.delete(JSON.stringify({
               ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
             }));
           }
           showToast.success('Multilingual bulk reviews saved',
-            `${confirmed.length} language job(s), ${count} questions per language (${count * confirmed.length} planned). Each job has separately launched review batches.`);
+            `${confirmed.length} native question-group source job(s), ${count} review questions each (${count * confirmed.length} total canonical questions). Each job has separately launched review batches.`);
         } catch (caught) {
           const detail = caught instanceof Error ? caught.message : 'Reservation could not be confirmed.';
           setBulkAsyncError(detail);
@@ -832,7 +852,7 @@ export function QuestionStudioCockpitPage() {
         setStagingAsyncSubmitting(true);
         setQueuedLanguageRuns([]);
         try {
-          for (const language of languages) {
+          for (const language of generationLanguages) {
             const asyncInput: CreateGenerationRunInput = { ...input, language, runtimeMode: activePackage.runtimeMode };
             const signature = JSON.stringify(asyncInput);
             let key = stagingAsyncRetry.current.get(signature);
@@ -879,14 +899,14 @@ export function QuestionStudioCockpitPage() {
       // Never replay uncertain failures; a timed-out request may already have
       // saved a review run. Each HTTP request retains the backend <=50 limit.
       const chunkMax = Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, cpIds.length || 1));
-      const requested = count * languages.length;
+      const requested = count * generationLanguages.length;
       let completed = 0;
       let offset = 0;
       const savedRuns: string[] = [];
       setBulkBusy(true);
       setBulkProgress({ completed, requested, runs: [] });
       try {
-        for (const language of languages) {
+        for (const language of generationLanguages) {
           let languageCompleted = 0;
           while (languageCompleted < count) {
             const remaining = count - languageCompleted;
@@ -1338,9 +1358,16 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Languages"><div className="flex min-h-10 flex-wrap items-center gap-3 rounded-md border px-3 py-2">{supportedLanguages.map((entry) => <label key={entry} className="flex items-center gap-2 text-xs"><Checkbox checked={languages.includes(entry)} disabled={generating || bulkBusy || stagingAsyncSubmitting || (languages.length === 1 && languages.includes(entry))} onCheckedChange={(checked) => setLanguages((current) => checked === true ? [...current, entry] : current.filter((value) => value !== entry))} />{LANGUAGE_LABELS[entry] ?? entry}</label>)}</div></Field>
-            <Field label="Questions per language"><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label={useNativeGroupedReview(activePackage?.packageId, languages) ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
-          <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>
+          {useNativeGroupedReview(activePackage?.packageId, languages)
+            ? <p className="rounded-lg border border-primary/20 bg-primary/[0.03] px-3 py-2 text-xs">
+                <strong>{count} canonical question groups</strong> with one English-source review item each.
+                Existing Hindi/Punjabi versions are checked inside each expanded review item using its exact QL and seed;
+                no additional language-specific question records or AI translation are generated.
+                Native previews are not saved or approved translations.
+              </p>
+            : <p className="text-xs text-muted-foreground">{count} questions × {languages.length} language(s) = {count * languages.length} total. Each language gets separate review runs with independently generated questions. Select a saved run below to view its progress.</p>}
           {queuedBulkLanguageJobs.length > 0 && (
             <div role="status" className="flex flex-wrap items-center gap-2 text-xs">
               <span className="text-muted-foreground">Saved bulk language jobs:</span>
@@ -1526,7 +1553,7 @@ export function QuestionStudioCockpitPage() {
         <TabsContent value="review" className="mt-0">
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Subject, chapter, status and search are filtered server-side. Exact duplicates are checked across the full generated corpus; near-duplicate similarity and other quality signals are evaluated on the current page.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Review each canonical question once. For released multilingual engines, expand a question to inspect its dedicated Hindi and Punjabi versions side by side with the English source. Parity verification never implies approval. Subject, chapter, status and search are filtered server-side; quality signals are evaluated on the current page.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
@@ -1620,7 +1647,7 @@ function RunSection({ run, items, expanded, selectedIds, qualityByItem, duplicat
 function ReviewItem({ item, quality, duplicate, selected, expanded, editing, revising, canReview, onSelected, onExpanded, onEdit, onDecision, onRevise }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch; selected: boolean; expanded: boolean; editing: boolean; revising: boolean; canReview: boolean; onSelected: (checked: boolean) => void; onExpanded: () => void; onEdit: () => void; onDecision: (status: GenerationItemStatus) => void; onRevise: (input: { itemId: string; expectedVersionNumber: number; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
   const stem = itemStem(item.payload) || 'Generated stem unavailable';
   const cpId = firstText(item.payload, ['selectedCpId', 'canonicalProblemId', 'cpId'], '');
-  return <div className="border-b px-4 py-4 last:border-b-0"><div className="flex items-start gap-3"><Checkbox checked={selected} onCheckedChange={(checked) => onSelected(checked === true)} aria-label={`Select generated item ${item.itemNumber}`} /><button type="button" aria-label={`${expanded ? "Collapse" : "Expand"} item ${item.itemNumber}`} aria-expanded={expanded} onClick={onExpanded} className="mt-0.5 rounded-md p-1 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-[10px] text-muted-foreground">Item {item.itemNumber} · v{item.currentVersionNumber}</span>{cpId && <Badge variant="secondary" className="font-mono text-[10px]">{cpId}</Badge>}<StatusBadge tone={itemStatusTone(item.status)}>{formatStatus(item.status)}</StatusBadge><Badge variant="outline" className={cn('text-[10px]', qualityTone(quality))}>{quality.readyForApproval ? quality.warningCount ? `${quality.score} · warnings` : `${quality.score} · ready` : `${quality.score} · blocked`}</Badge>{duplicate && <Badge variant="outline" className="border-warning/30 text-warning">{duplicate.exact ? 'Exact duplicate' : `${Math.round(duplicate.similarity * 100)}% similar`}</Badge>}{item.acceptedQuestionId && <Badge className="bg-success/10 text-success hover:bg-success/10">In Question Bank</Badge>}</div><p className="mt-2 text-sm leading-relaxed">{stem}</p>{item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}<div className="mt-3 flex flex-wrap gap-2">{item.acceptedQuestionId ? <><Button asChild size="sm" variant="outline"><Link to={`/content/questions/${item.acceptedQuestionId}`}><ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Open canonical question</Link></Button>
+  return <div className="border-b px-4 py-4 last:border-b-0"><div className="flex items-start gap-3"><Checkbox checked={selected} onCheckedChange={(checked) => onSelected(checked === true)} aria-label={`Select generated item ${item.itemNumber}`} /><button type="button" aria-label={`${expanded ? "Collapse" : "Expand"} item ${item.itemNumber}`} aria-expanded={expanded} onClick={onExpanded} className="mt-0.5 rounded-md p-1 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-[10px] text-muted-foreground">Item {item.itemNumber} · v{item.currentVersionNumber}</span>{cpId && <Badge variant="secondary" className="font-mono text-[10px]">{cpId}</Badge>}{NATIVE_GROUPED_REVIEW_ENABLED && hasVerifiedNativeLocaleEngine(item) ? <span className="inline-flex items-center gap-1" aria-label="English source with Hindi and Punjabi native variants available for verification"><Badge variant="secondary" className="text-[10px]">EN source</Badge><Badge variant="outline" className="text-[10px]">HI · हिन्दी</Badge><Badge variant="outline" className="text-[10px]">PA · ਪੰਜਾਬੀ</Badge></span> : firstText(item.payload, ['language'], '') ? <Badge variant="outline" className="text-[10px]">{LANGUAGE_LABELS[firstText(item.payload, ['language'], '')] ?? firstText(item.payload, ['language'], '')}</Badge> : null}<StatusBadge tone={itemStatusTone(item.status)}>{formatStatus(item.status)}</StatusBadge><Badge variant="outline" className={cn('text-[10px]', qualityTone(quality))}>{quality.readyForApproval ? quality.warningCount ? `${quality.score} · warnings` : `${quality.score} · ready` : `${quality.score} · blocked`}</Badge>{duplicate && <Badge variant="outline" className="border-warning/30 text-warning">{duplicate.exact ? 'Exact duplicate' : `${Math.round(duplicate.similarity * 100)}% similar`}</Badge>}{item.acceptedQuestionId && <Badge className="bg-success/10 text-success hover:bg-success/10">In Question Bank</Badge>}</div><p className="mt-2 text-sm leading-relaxed">{stem}</p>{item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}<div className="mt-3 flex flex-wrap gap-2">{item.acceptedQuestionId ? <><Button asChild size="sm" variant="outline"><Link to={`/content/questions/${item.acceptedQuestionId}`}><ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Open canonical question</Link></Button>
               {item.acceptedQuestionVersionId &&
                 ['AVG-001', 'INT-001'].includes(firstText(item.payload, ['packageId'], '')) &&
                 firstText(item.payload, ['language', 'locale'], 'en').toLowerCase() === 'en' &&
@@ -1631,7 +1658,7 @@ function ReviewItem({ item, quality, duplicate, selected, expanded, editing, rev
                     </Link>
                   </Button>
                 ))}
-            </> : <><Button size="sm" variant="outline" onClick={onEdit} disabled={!canReview}><PencilLine className="mr-1.5 h-3.5 w-3.5" /> {editing ? 'Close editor' : 'Revise'}</Button><Button size="sm" onClick={() => onDecision('approved')} disabled={!canReview || quality.blockerCount > 0 || item.status === 'approved'}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> Approve</Button><Button size="sm" variant="outline" onClick={() => onDecision('needs_fix')} disabled={!canReview || item.status === 'needs_fix'}><AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> Needs fix</Button><Button size="sm" variant="ghost" onClick={() => onDecision('rejected')} disabled={!canReview || item.status === 'rejected'} className="text-destructive"><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button></>}</div></div></div><div className="ml-8 mt-2 lg:ml-16"><button type="button" onClick={onExpanded} aria-expanded={expanded} className="rounded-md px-2 py-1.5 text-xs font-semibold text-primary hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? "Hide options & explanation" : "View options & explanation"}</button></div>{expanded && <section aria-label={`Options, correct answer, explanation and quality for item ${item.itemNumber}`} className="mt-3"><ItemInspection item={item} quality={quality} duplicate={duplicate} /></section>}{editing && !item.acceptedQuestionId && <RevisionEditor item={item} saving={revising} onCancel={onEdit} onSave={onRevise} />}</div>;
+            </> : <><Button size="sm" variant="outline" onClick={onEdit} disabled={!canReview}><PencilLine className="mr-1.5 h-3.5 w-3.5" /> {editing ? 'Close editor' : 'Revise'}</Button><Button size="sm" onClick={() => onDecision('approved')} disabled={!canReview || quality.blockerCount > 0 || item.status === 'approved'}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> Approve</Button><Button size="sm" variant="outline" onClick={() => onDecision('needs_fix')} disabled={!canReview || item.status === 'needs_fix'}><AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> Needs fix</Button><Button size="sm" variant="ghost" onClick={() => onDecision('rejected')} disabled={!canReview || item.status === 'rejected'} className="text-destructive"><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button></>}</div></div></div><div className="ml-8 mt-2 lg:ml-16"><button type="button" onClick={onExpanded} aria-expanded={expanded} className="rounded-md px-2 py-1.5 text-xs font-semibold text-primary hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">{expanded ? "Hide options & explanation" : "View options & explanation"}</button></div>{expanded && <section aria-label={`Options, correct answer, explanation and quality for item ${item.itemNumber}`} className="mt-3"><ItemInspection item={item} quality={quality} duplicate={duplicate} />{NATIVE_GROUPED_REVIEW_ENABLED && <NativeLocaleReview item={item} />}</section>}{editing && !item.acceptedQuestionId && <RevisionEditor item={item} saving={revising} onCancel={onEdit} onSave={onRevise} />}</div>;
 }
 
 function ItemInspection({ item, quality, duplicate }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch }) {

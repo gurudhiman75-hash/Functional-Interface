@@ -3,6 +3,7 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
+import { nativeLocalizedQuestion, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
 
 const router = Router();
 
@@ -25,6 +26,90 @@ function asPositiveInteger(value: unknown, fallback: number, max: number) {
 }
 
 router.use(authenticate);
+
+// Read-only multilingual inspection for a single review item. Do not run
+// the locale engines for every item on a paginated queue query: they are
+// regenerated on demand only when a reviewer opens an eligible question.
+// These previews are NOT stored translations or an approval decision.
+router.get("/items/:itemId/native-localizations",
+  requireAdminPermission("content.generation.read"),
+  async (req, res) => {
+    const itemId=asString(req.params.itemId);
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(itemId)) {
+      res.status(400).json({code:"NATIVE_REVIEW_INVALID_ITEM",error:"Invalid review item."});return;
+    }
+    const expectedVersion=Number(req.query.version);
+    if (!Number.isInteger(expectedVersion)||expectedVersion<1) {
+      res.status(400).json({code:"NATIVE_REVIEW_VERSION_REQUIRED",error:"An exact item version is required."});return;
+    }
+    try {
+      const rows=await sqlClient`
+        SELECT i.current_version_number AS "version", i.status::text AS status,
+               v.payload
+        FROM content.generation_run_items i
+        JOIN content.generation_item_versions v
+          ON v.generation_item_id=i.id
+         AND v.version_number=i.current_version_number
+        WHERE i.id=${itemId}::uuid
+        LIMIT 1
+      `;
+      if (!rows.length) {res.status(404).json({code:"NATIVE_REVIEW_ITEM_NOT_FOUND"});return;}
+      const row=rows[0]!;
+      if (Number(row.version)!==expectedVersion) {
+        res.status(409).json({code:"NATIVE_REVIEW_VERSION_CHANGED",error:"The review item changed. Refresh before inspecting locales."});return;
+      }
+      const payload=row.payload as Record<string,unknown>;
+      const packageId=asString(payload?.packageId);
+      const language=asString(payload?.language);
+      if (!["AVG-001","INT-001"].includes(packageId)||language!=="en") {
+        res.status(422).json({
+          code:"NATIVE_REVIEW_NOT_SUPPORTED",
+          error:"Linked previews are available only for verified English-source Averages and Interest questions.",
+        });return;
+      }
+      const sourceOptions=Array.isArray(payload.options)?payload.options.map(x=>String(x??"").trim()):[];
+      const correctIndex=Number(payload.correctIndex??payload.correct);
+      const source={
+        stem:asString(payload.text)||asString(payload.stem),
+        explanation:asString(payload.explanation),
+        options:sourceOptions,
+        correctIndex,
+      };
+      if (!source.stem||!source.explanation||sourceOptions.length<2||
+          !Number.isInteger(correctIndex)||correctIndex<0||correctIndex>=sourceOptions.length) {
+        res.status(422).json({code:"NATIVE_REVIEW_SOURCE_INCOMPLETE",error:"The English source must pass review before linked locale inspection."});return;
+      }
+      // Refuse all versions if the source was revised away from the exact
+      // engine output. This prevents silently pairing unrelated questions.
+      try {
+        const generated=await nativeLocalizedQuestion(payload,"en");
+        assertNativeEnglishSourceParity(source,generated);
+      } catch(error) {
+        res.status(409).json({
+          code:"NATIVE_REVIEW_SOURCE_PARITY_FAILED",
+          error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version.",
+        });return;
+      }
+      const variants=await Promise.all((["hi","pa"] as const).map(async locale=>{
+        try {
+          const question=await nativeLocalizedQuestion(payload,locale);
+          assertNativeLocalizedAnswerParity(source,question);
+          return {language:locale,status:"verified" as const,...question};
+        } catch {
+          return {language:locale,status:"blocked" as const,
+            reason:"The released localization did not pass same-seed answer/format parity."};
+        }
+      }));
+      res.setHeader("Cache-Control","private, no-store");
+      res.json({itemId,version:expectedVersion,packageId,
+        source:{language:"en",status:"verified",...source},
+        variants, saved:false,approved:false});
+    } catch(error) {
+      console.error("Question Studio locale review failed",error instanceof Error?error.message:"unknown");
+      res.status(500).json({code:"NATIVE_REVIEW_UNAVAILABLE",error:"Unable to inspect native localized variants."});
+    }
+  },
+);
 
 router.get("/review-page", requireAdminPermission("content.generation.read"), async (req, res) => {
   const page = asPositiveInteger(req.query?.page, 1, 1000000);
