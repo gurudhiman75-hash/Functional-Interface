@@ -5,6 +5,7 @@ import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import nativeEditorialRouter from "./admin-question-studio-native-editorial";
 import { NativeReviewSnapshotCache } from "../question-studio/native-review-snapshot-cache";
+import { nativeSourceQuestion,readPersistedNativeSnapshot } from "../question-studio/persisted-native-review-format";
 
 const router = Router();
 
@@ -73,6 +74,23 @@ router.get("/items/:itemId/native-localizations",
       if (Number(row.version)!==expectedVersion) {
         res.status(409).json({code:"NATIVE_REVIEW_VERSION_CHANGED",error:"The review item changed. Refresh before inspecting locales."});return;
       }
+      // New grouped generation persists verified native variants before review.
+      // This is a pure JSON/source-fingerprint read: no native engines,
+      // language regeneration, or cross-user mutable approval cache.
+      const savedPayload=row.payload as Record<string,unknown>;
+      const persisted=readPersistedNativeSnapshot(savedPayload);
+      if(persisted) {
+        const source=nativeSourceQuestion(savedPayload);
+        res.setHeader("Cache-Control","private, no-store");
+        res.setHeader("X-Native-Review-Cache","persisted");
+        res.setHeader("Server-Timing",`db;dur=${Date.now()-started}, native;dur=0`);
+        res.json({
+          itemId,version:expectedVersion,packageId:asString(savedPayload.packageId),
+          source:{language:"en",status:"verified",...source},
+          variants:persisted.variants,saved:true,approved:false,
+        });
+        return;
+      }
       const dbMs=Date.now()-started;
       const cacheKey=itemId+":"+expectedVersion;
       const cacheState=nativePreviewCache.lookup(cacheKey);
@@ -137,6 +155,18 @@ router.get("/items/:itemId/native-localizations",
           const generated=await nativeLocalizedQuestion(payload,"en");
           assertNativeEnglishSourceParity(source,generated);
         } catch(error) {
+          // English revision v2+ may be a deliberately corrected, separately
+          // approved question. Its old generated HI/PA must not be reused;
+          // show explicit manual-localization cards instead.
+          if(expectedVersion>1 && row.status==="approved"){
+            return {itemId,version:expectedVersion,packageId,
+              source:{language:"en",status:"verified",...source},
+              variants:(["hi","pa"] as const)
+                .filter(locale=>pkg.supportedLanguages.includes(locale))
+                .map(language=>({language,status:"blocked" as const,
+                  reason:"English was revised; create and review a fresh manual translation."})),
+              saved:false,approved:false};
+          }
           throw {status:409,code:"NATIVE_REVIEW_SOURCE_PARITY_FAILED",
             error:"Source no longer matches the saved native generator. Linked locales cannot be verified for this version."};
         }

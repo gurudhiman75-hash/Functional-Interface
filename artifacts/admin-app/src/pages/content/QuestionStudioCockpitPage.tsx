@@ -301,6 +301,8 @@ export function QuestionStudioCockpitPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const [expandedRuns, setExpandedRuns] = useState<Set<string>>(() => new Set());
   const [expandedItems, setExpandedItems] = useState<Set<string>>(() => new Set());
+  const [focusedReview, setFocusedReview] = useState(true);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const enabledPackages = useMemo(
@@ -671,9 +673,43 @@ export function QuestionStudioCockpitPage() {
     }).filter(({ items }) => items.length > 0);
   }, [duplicates, qualityByItem, qualityFilter, reviewRuns]);
 
+  // One canonical EN/HI/PA group per focus step; the full paginated list
+  // remains available. Focus never selects hidden questions for bulk actions.
+  const focusEntries=useMemo(()=>filteredRuns.flatMap(({run,items})=>
+    items.map(item=>({run,item}))),[filteredRuns]);
+  const safeFocusedIndex=Math.min(Math.max(focusedIndex,0),Math.max(0,focusEntries.length-1));
+  const reviewDisplayRuns=useMemo(()=>{
+    if(!focusedReview)return filteredRuns;
+    const target=focusEntries[safeFocusedIndex];
+    return target?[{run:target.run,items:[target.item]}]:[];
+  },[focusedReview,filteredRuns,focusEntries,safeFocusedIndex]);
+
+  useEffect(()=>{
+    if(!focusedReview || workspaceView!=='review')return;
+    const listener=(event:KeyboardEvent)=>{
+      const target=event.target;
+      if(event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||
+         target instanceof HTMLElement && (target.isContentEditable ||
+           ['INPUT','TEXTAREA','SELECT'].includes(target.tagName)))return;
+      if(event.key==='ArrowRight'||event.key.toLowerCase()==='j'){
+        event.preventDefault();
+        setFocusedIndex(index=>Math.min(index+1,focusEntries.length-1));
+        setEditingItemId(null);
+        setSelectedIds(new Set());
+      }else if(event.key==='ArrowLeft'||event.key.toLowerCase()==='k'){
+        event.preventDefault();
+        setFocusedIndex(index=>Math.max(0,index-1));
+        setEditingItemId(null);
+        setSelectedIds(new Set());
+      }
+    };
+    window.addEventListener('keydown',listener);
+    return ()=>window.removeEventListener('keydown',listener);
+  },[focusedReview,workspaceView,focusEntries.length]);
+
   const visibleItemIds = useMemo(
-    () => filteredRuns.flatMap(({ items }) => items.map((item) => item.id)),
-    [filteredRuns],
+    () => reviewDisplayRuns.flatMap(({ items }) => items.map(item=>item.id)),
+    [reviewDisplayRuns],
   );
 
   const stats = useMemo(() => {
@@ -803,7 +839,9 @@ export function QuestionStudioCockpitPage() {
         cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
         subtopic: activePackage.subtopic,
-        language: languages[0],
+        language: nativeGroupedReview ? 'en' : languages[0],
+        nativeGroupedReview,
+        languages: languages.filter((language): language is 'en'|'hi'|'pa' => language === 'en' || language === 'hi' || language === 'pa'),
         seed: seed.trim() || undefined,
       };
       if (bulkAsyncMode) {
@@ -1559,7 +1597,13 @@ export function QuestionStudioCockpitPage() {
         <TabsContent value="review" className="mt-0">
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Review each canonical question once. For released multilingual engines, expand a question to inspect its dedicated Hindi and Punjabi versions side by side with the English source. Parity verification never implies approval. Subject, chapter, status and search are filtered server-side; quality signals are evaluated on the current page.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Multilingual Review Studio</CardTitle><p className="mt-1 text-xs text-muted-foreground">Review each canonical question once. For released multilingual engines, expand a question to inspect its dedicated Hindi and Punjabi versions side by side with the English source. Parity verification never implies approval. Subject, chapter, status and search are filtered server-side; quality signals are evaluated on the current page.</p></div><div className="flex flex-wrap items-center gap-2">
+            <Badge variant="outline">{selectedIds.size} selected</Badge>
+            <Button size="sm" type="button" variant={focusedReview?'secondary':'outline'}
+              onClick={()=>{setFocusedReview(v=>!v);setSelectedIds(new Set());}}>
+              {focusedReview?'Show full queue':'Focus one question'}
+            </Button>
+          </div></div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
@@ -1594,7 +1638,23 @@ export function QuestionStudioCockpitPage() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="flex items-center gap-3 border-y bg-muted/20 px-4 py-2.5 text-xs text-muted-foreground"><Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(checked === true)} aria-label="Select all visible generated items" /><span>{visibleItemIds.length} visible item(s) across {filteredRuns.length} run(s)</span>{updating && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}</div>
-          {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} nativeLanguagesByPackage={reviewNativeLanguagesByPackage} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); showToast.success('Revision saved', 'Question updated in place. The rest of your review list stays open.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
+          {focusedReview && focusEntries.length>0 && <div className="flex flex-wrap items-center justify-between gap-3 border-b bg-background p-3">
+            <div>
+              <p className="text-sm font-semibold">Review question {safeFocusedIndex+1} of {focusEntries.length}</p>
+              <p className="text-xs text-muted-foreground">English first · independently approve Hindi/Punjabi · left/right arrows or J/K to navigate</p>
+            </div>
+            <div className="flex gap-2">
+              <Button type="button" size="sm" variant="outline" disabled={safeFocusedIndex===0}
+                onClick={()=>{setFocusedIndex(v=>Math.max(0,v-1));setEditingItemId(null);setSelectedIds(new Set());}}>
+                <ChevronLeft className="mr-1 h-4 w-4"/> Previous
+              </Button>
+              <Button type="button" size="sm" variant="outline" disabled={safeFocusedIndex>=focusEntries.length-1}
+                onClick={()=>{setFocusedIndex(v=>Math.min(v+1,focusEntries.length-1));setEditingItemId(null);setSelectedIds(new Set());}}>
+                Next <ChevronRight className="ml-1 h-4 w-4"/>
+              </Button>
+            </div>
+          </div>}
+          {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{reviewDisplayRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} nativeLanguagesByPackage={reviewNativeLanguagesByPackage} expanded={focusedReview || expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={focusedReview ? new Set(items.map(item=>item.id)) : expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => focusedReview ? setFocusedReview(false) : setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => focusedReview ? setFocusedReview(false) : setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); showToast.success('Revision saved', 'Question updated in place. The rest of your review list stays open.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
         </CardContent>
         <div className="flex flex-col gap-3 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>

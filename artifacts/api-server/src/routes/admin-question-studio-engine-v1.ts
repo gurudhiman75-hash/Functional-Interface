@@ -700,6 +700,30 @@ router.post(
         return;
       }
 
+      // Multilingual groups are prepared once, before the review transaction.
+      // Disabled for legacy generation requests; a failed native generator can
+      // never corrupt or block the English canonical question.
+      const requestedNative=Array.isArray(req.body?.languages)
+        ? req.body.languages.filter((language:unknown)=>language==="hi"||language==="pa")
+        : [];
+      const prepareNative=process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED==="true" &&
+        (requestedNative.length>0 || req.body?.nativeGroupedReview===true);
+      const nativeSnapshots=prepareNative
+        ? await (async()=>{
+          const requested=(requestedNative.length>0?requestedNative:["hi","pa"]) as Array<"hi"|"pa">;
+          const {readPersistedNativeSnapshot}=await import("../question-studio/persisted-native-review-format");
+          const prepared=generatedQuestions.map(question=>readPersistedNativeSnapshot(question));
+          // The signed Universal worker may already have computed valid
+          // native versions. Avoid regenerating them in the API process.
+          if(prepared.every(snapshot=>snapshot &&
+            requested.every(language=>snapshot.variants.some(v=>v.language===language))))
+            return prepared.map(snapshot=>snapshot&&({...snapshot,
+              variants:snapshot.variants.filter(v=>requested.includes(v.language))}));
+          const {prepareNativeReviewBatch}=await import("../question-studio/persisted-native-review");
+          const computed=await prepareNativeReviewBatch(generatedQuestions,requested);
+          return computed.map((snapshot,index)=>snapshot || prepared[index]);
+        })()
+        : [];
       const requestSnapshot = {
         ...generationRequest,
         seed: quantPlan?.seed ?? generationRequest.seed,
@@ -740,9 +764,10 @@ router.post(
         for (let index = 0; index < generatedQuestions.length; index += 1) {
           const itemId = randomUUID();
           const versionId = randomUUID();
-          const question = generatedQuestions[index] as Record<string, unknown>;
+          const { nativeReviewSnapshot: _untrustedNativeSnapshot, ...question } = generatedQuestions[index] as Record<string, unknown>;
           const payload = {
             ...question,
+            ...(nativeSnapshots[index] ? {nativeReviewSnapshot:nativeSnapshots[index]} : {}),
             ...packageLifecycle,
             generationContexts,
             validationResult: "pending",
