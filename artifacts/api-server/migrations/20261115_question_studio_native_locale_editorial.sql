@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS content.question_studio_native_locale_events (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   native_locale_id uuid NOT NULL REFERENCES content.question_studio_native_locales(id) ON DELETE RESTRICT,
   revision integer NOT NULL,
-  action varchar(20) NOT NULL CHECK (action IN ('save_draft','approve','needs_fix')),
+  action varchar(20) NOT NULL CHECK (action IN ('save_draft','approve','needs_fix','send_to_bank_review')),
   actor_user_id uuid NOT NULL REFERENCES identity.users(id) ON DELETE RESTRICT,
   reason text NOT NULL,
   snapshot jsonb NOT NULL,
