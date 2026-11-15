@@ -47,8 +47,11 @@ function assertProductionReceiverConfig():void {
   let worker:URL;
   try {worker=new URL(rawWorker??"");}
   catch {throw new Error("QS_PRODUCTION_WORKER_NOT_ISOLATED");}
+  const taggedNative=worker.hostname.startsWith("qs-native-candidate---examtree-universal-prod-");
+  const standard=worker.hostname.startsWith("examtree-universal-prod-");
   if(worker.protocol!=="https:" ||
-     !worker.hostname.startsWith("examtree-universal-prod-") ||
+     !(standard || (taggedNative &&
+       env.EXAMTREE_QS_NATIVE_CANDIDATE_BINDING_ENABLED==="true")) ||
      !worker.hostname.endsWith(".run.app") ||
      worker.pathname!=="/" || worker.search || worker.hash ||
      worker.username || worker.password ||
