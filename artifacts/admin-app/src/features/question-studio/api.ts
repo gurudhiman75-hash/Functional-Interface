@@ -294,6 +294,16 @@ export function decideQuestionStudioNativeEditorial(
   );
 }
 
+export function promoteQuestionStudioNativeEditorial(
+  itemId:string, input:{expectedVersion:number;revisions:{hi:number;pa:number};reason:string},
+) {
+  return adminRequest<{status:'draft';questionVersionId:string;translations:{hi:string;pa:string}}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/promote`,
+    {method:'POST',body:JSON.stringify(input)},
+    {fallbackMessage:'Could not send approved language drafts to Question Bank review.'},
+  );
+}
+
 export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
   const params = new URLSearchParams();
   if (query.page) params.set('page', String(query.page));
