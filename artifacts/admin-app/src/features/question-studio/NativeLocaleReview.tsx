@@ -5,8 +5,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ExplanationDiagrams } from './ExplanationDiagrams';
+import { loadNativePreview } from './native-review-preview-cache';
 import {
-  getQuestionStudioNativeReviewLocalizations,
   getQuestionStudioNativeEditorial,
   saveQuestionStudioNativeEditorial,
   decideQuestionStudioNativeEditorial,
@@ -171,33 +171,43 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const [retry, setRetry] = useState(0);
   const [busy, setBusy] = useState(false);
   const token = item.id + ':' + item.currentVersionNumber;
+  // Native regeneration and saved editorial rows have different latency.
+  // Load them independently: a quick draft read must not be hidden behind
+  // a slower generator, and switching questions reuses an immutable preview.
   useEffect(() => {
     if (!eligible) return;
-    let live = true;
+    let live=true;
     setSnapshot(null);
     setDrafts([]);
     setError(null);
+    setActionError(null);
     setBusy(true);
-    void Promise.all([
-      getQuestionStudioNativeReviewLocalizations(item.id, item.currentVersionNumber),
-      EDITORIAL_ENABLED ? getQuestionStudioNativeEditorial(item.id, item.currentVersionNumber) :
-        Promise.resolve({itemId:item.id,version:item.currentVersionNumber,locales:[] as NativeEditorialDraft[]}),
-    ]).then(([result, editorial]) => {
-        if (live) {
-          if (result.itemId !== item.id || result.version !== item.currentVersionNumber)
-            throw new Error('The preview belongs to a different review version.');
-          if(editorial.itemId !== item.id || editorial.version !== item.currentVersionNumber)
+    const forced=retry>0;
+    void loadNativePreview(item.id,item.currentVersionNumber,forced)
+      .then(result=>{
+        if(!live) return;
+        if(result.itemId!==item.id || result.version!==item.currentVersionNumber)
+          throw new Error('The preview belongs to a different review version.');
+        setSnapshot(result);
+      })
+      .catch(caught=>{
+        if(live) setError(caught instanceof Error?caught.message:'Could not load localized versions.');
+      })
+      .finally(()=>{if(live)setBusy(false);});
+    if(EDITORIAL_ENABLED){
+      void getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber)
+        .then(editorial=>{
+          if(!live)return;
+          if(editorial.itemId!==item.id || editorial.version!==item.currentVersionNumber)
             throw new Error('Saved language drafts belong to a different source version.');
-          setSnapshot(result);
           setDrafts(editorial.locales);
-        }
-      })
-      .catch(caught => {
-        if (live) setError(caught instanceof Error ? caught.message : 'Could not load localized versions.');
-      })
-      .finally(() => { if (live) setBusy(false); });
-    return () => { live = false; };
-  }, [eligible, token, retry]);
+        })
+        .catch(caught=>{
+          if(live)setActionError(caught instanceof Error?caught.message:'Could not load saved edits.');
+        });
+    }
+    return ()=>{live=false;};
+  },[eligible,token,retry]);
 
   async function save(language: 'hi' | 'pa', question: NativeReviewQuestion, reason: string, expectedRevision: number) {
     setSaving(true);setActionError(null);
@@ -242,7 +252,14 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       setActionError(error instanceof Error ? error.message : 'Could not send to bank review.');
     }finally{setSaving(false);}
   }
-  const variants = useMemo(() => snapshot?.variants ?? [], [snapshot]);
+  const variants = useMemo(() => {
+    if(snapshot) return snapshot.variants;
+    if(!EDITORIAL_ENABLED) return [] as NativeReviewVariant[];
+    return drafts.map(draft=>({
+      language:draft.language,status:'blocked' as const,
+      reason:'Generated comparison still loading; editorial draft is available.',
+    }));
+  },[snapshot,drafts]);
   if (!available) return null;
   if (!eligible) return <section className="ml-8 mt-3 rounded-xl border border-warning/30 bg-warning/5 p-3 text-xs text-warning lg:ml-16">
     <div className="flex items-center gap-2 font-semibold"><AlertTriangle className="h-4 w-4" /> Native localized versions need source identity</div>
@@ -265,16 +282,16 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
         </Badge>}
       </div>
       {busy && <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground" role="status">
-        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Checking released Hindi and Punjabi versions…
+        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Verifying native languages in parallel; saved edits are available as soon as they load…
       </div>}
-      {!busy && error && <div className="mt-3 flex items-start justify-between gap-3 rounded-lg border border-warning/30 p-3">
+      {error && <div className="mt-3 flex items-start justify-between gap-3 rounded-lg border border-warning/30 p-3">
         <p className="text-xs text-warning"><AlertTriangle className="mr-1 inline h-3.5 w-3.5" />{error}</p>
         <Button type="button" size="sm" variant="outline" onClick={() => setRetry(value => value + 1)}>
           <RefreshCw className="mr-1 h-3 w-3" />Retry
         </Button>
       </div>}
       {actionError && <p role="alert" className="mt-2 text-xs text-destructive">{actionError}</p>}
-      {EDITORIAL_ENABLED && !busy && snapshot && <div className="mt-4 border-t pt-3">
+      {EDITORIAL_ENABLED && snapshot && <div className="mt-4 border-t pt-3">
         <p className="text-xs font-semibold">Question Bank translation handoff</p>
         <p className="mt-1 text-xs text-muted-foreground">
           Requires approved English and separately reviewed Hindi/Punjabi. Creates translation drafts
@@ -298,7 +315,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           </p>}
         </>}
       </div>}
-      {!busy && snapshot && <div className="mt-3 grid gap-3 lg:grid-cols-2">
+      {(snapshot || drafts.length > 0) && <div className="mt-3 grid gap-3 lg:grid-cols-2">
         {variants.map(variant => <VariantCard key={variant.language} variant={variant}
           draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} editorialEnabled={EDITORIAL_ENABLED}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
