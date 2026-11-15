@@ -157,7 +157,7 @@ jobs:
 
       - name: Test native review preview cache
         run: |
-          pnpm exec esbuild artifacts/api-server/src/question-studio/native-review-snapshot-cache.test.ts --bundle --platform=node --format=esm --outfile=/tmp/native-review-snapshot-cache.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/native-review-snapshot-cache.test.ts --bundle --platform=node --format=esm --outfile=/tmp/native-review-snapshot-cache.test.mjs
           node --test /tmp/native-review-snapshot-cache.test.mjs
 
       - name: Test native same-seed localized question identity
