@@ -695,10 +695,12 @@ export function QuestionStudioCockpitPage() {
         event.preventDefault();
         setFocusedIndex(index=>Math.min(index+1,focusEntries.length-1));
         setEditingItemId(null);
+        setSelectedIds(new Set());
       }else if(event.key==='ArrowLeft'||event.key.toLowerCase()==='k'){
         event.preventDefault();
         setFocusedIndex(index=>Math.max(0,index-1));
         setEditingItemId(null);
+        setSelectedIds(new Set());
       }
     };
     window.addEventListener('keydown',listener);
@@ -1643,11 +1645,11 @@ export function QuestionStudioCockpitPage() {
             </div>
             <div className="flex gap-2">
               <Button type="button" size="sm" variant="outline" disabled={safeFocusedIndex===0}
-                onClick={()=>{setFocusedIndex(v=>Math.max(0,v-1));setEditingItemId(null);}}>
+                onClick={()=>{setFocusedIndex(v=>Math.max(0,v-1));setEditingItemId(null);setSelectedIds(new Set());}}>
                 <ChevronLeft className="mr-1 h-4 w-4"/> Previous
               </Button>
               <Button type="button" size="sm" variant="outline" disabled={safeFocusedIndex>=focusEntries.length-1}
-                onClick={()=>{setFocusedIndex(v=>Math.min(v+1,focusEntries.length-1));setEditingItemId(null);}}>
+                onClick={()=>{setFocusedIndex(v=>Math.min(v+1,focusEntries.length-1));setEditingItemId(null);setSelectedIds(new Set());}}>
                 Next <ChevronRight className="ml-1 h-4 w-4"/>
               </Button>
             </div>
