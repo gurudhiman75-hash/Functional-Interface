@@ -3,8 +3,6 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
-import { nativeLocalizedQuestion, nativeExplanationText, assertNativeEnglishSourceParity, assertNativeLocalizedAnswerParity } from "../question-studio/native-linked-localization";
-import { listQuestionStudioPackages } from "../question-studio/engine-registry";
 
 const router = Router();
 
@@ -59,6 +57,13 @@ router.get("/items/:itemId/native-localizations",
       if (Number(row.version)!==expectedVersion) {
         res.status(409).json({code:"NATIVE_REVIEW_VERSION_CHANGED",error:"The review item changed. Refresh before inspecting locales."});return;
       }
+      // Keep normal paged review reads lightweight. Generation engines load only
+      // when a reviewer opens this specialized native-language preview route.
+      const [{nativeLocalizedQuestion,nativeExplanationText,assertNativeEnglishSourceParity,
+        assertNativeLocalizedAnswerParity},{listQuestionStudioPackages}]=await Promise.all([
+        import("../question-studio/native-linked-localization"),
+        import("../question-studio/engine-registry"),
+      ]);
       const payload=row.payload as Record<string,unknown>;
       const packageId=asString(payload?.packageId);
       const language=asString(payload?.language);
