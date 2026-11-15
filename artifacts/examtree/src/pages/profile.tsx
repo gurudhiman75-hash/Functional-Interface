@@ -17,6 +17,7 @@ import {
   loadProfilePhoto, uploadProfilePhoto, prepareProfilePhoto,
   type StudentProfileFields, type StudentProfile,
 } from "@/lib/student-profile";
+import { profileVerificationError } from "@/lib/profile-verification-errors";
 import "@/styles/student-profile.css";
 
 const states = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"];
@@ -27,6 +28,8 @@ function fieldsFrom(profile: StudentProfile): StudentProfileFields {
 function messageFor(error: unknown): string {
   if (error instanceof ApiError && error.body && typeof error.body === "object" && "error" in error.body) return String(error.body.error);
   const code = (error as { code?: string })?.code;
+  const verificationMessage = profileVerificationError(code);
+  if (verificationMessage) return verificationMessage;
   if (["auth/credential-already-in-use", "auth/email-already-in-use", "auth/account-exists-with-different-credential"].includes(code ?? "")) return "That email or mobile number is already linked to another account.";
   if (code === "auth/requires-recent-login") return "Please sign out and sign in again before changing contact details.";
   if (code === "auth/invalid-verification-code") return "The OTP is incorrect. Please check it and try again.";
@@ -53,6 +56,8 @@ export default function ProfilePage() {
   const hydrated = useRef<string | null>(null);
   const recaptcha = useRef<RecaptchaVerifier | null>(null);
   const photoInput = useRef<HTMLInputElement>(null);
+  const recaptchaHost = useRef<HTMLDivElement>(null);
+  const actionInFlight = useRef(false);
   const query = useQuery({ queryKey: ["student-profile", user?.id], queryFn: loadStudentProfile, enabled: !!user, retry: false, refetchOnWindowFocus: false });
   const preparation = useQuery({ queryKey: ["preparation-preferences", user?.id], queryFn: getPreparationPreferences, enabled: !!user, retry: false });
   const attempts = useQuery({ queryKey: ["my-attempts", user?.id], queryFn: () => getUserAttempts(user?.id), enabled: !!user, retry: false });
@@ -63,7 +68,7 @@ export default function ProfilePage() {
     setForm(fieldsFrom(query.data)); setEmail(query.data.email ?? "");
     setPhone((query.data.phoneNumber ?? "").replace(/^\+91/, ""));
   }, [query.data, user?.id]);
-  useEffect(() => () => { recaptcha.current?.clear(); }, []);
+  useEffect(() => () => { recaptcha.current?.clear(); recaptcha.current = null; }, []);
   useEffect(() => {
     const viewport = window.visualViewport;
     const baseline = window.innerHeight;
@@ -80,8 +85,10 @@ export default function ProfilePage() {
     setForm(current => ({ ...current, [key]: value })); setNotice("");
   }
   async function perform(name: string, operation: () => Promise<void>) {
+    if (actionInFlight.current) return;
+    actionInFlight.current = true;
     setBusy(name); setError(""); setNotice("");
-    try { await operation(); } catch (error) { setError(messageFor(error)); } finally { setBusy(null); }
+    try { await operation(); } catch (error) { setError(messageFor(error)); } finally { actionInFlight.current = false; setBusy(null); }
   }
   function currentFirebaseUser() {
     const current = getFirebaseAuth()?.currentUser;
@@ -111,19 +118,35 @@ export default function ProfilePage() {
   }
   async function sendOtp() {
     const auth = getFirebaseAuth();
-    if (!auth?.currentUser) throw new Error("Please sign in again.");
+    if (!auth) throw new Error("Please sign in again.");
+    await auth.authStateReady();
+    if (!auth.currentUser) throw new Error("Please sign in again.");
     const normalized = phone.replace(/[\s()-]/g, "");
     const fullPhone = normalized.startsWith("+") ? normalized : "+91" + normalized;
     if (!/^\+[1-9]\d{7,14}$/.test(fullPhone)) throw new Error("Enter a valid mobile number.");
     await checkProfileContact({ phoneNumber: fullPhone });
     if (fullPhone === auth.currentUser.phoneNumber) { await refreshContacts(); setNotice("Mobile number is verified."); return; }
     recaptcha.current?.clear();
-    recaptcha.current = new RecaptchaVerifier(auth, "profile-recaptcha", { size: "normal" });
+    recaptcha.current = null;
+    const host = recaptchaHost.current;
+    if (!host) throw new Error("Verification is not ready. Reload the page and try again.");
+    // A fresh child prevents a failed or expired challenge from reusing an old widget.
+    const container = document.createElement("div");
+    host.replaceChildren(container);
+    let verifier: RecaptchaVerifier | null = null;
     try {
-      const id = await new PhoneAuthProvider(auth).verifyPhoneNumber(fullPhone, recaptcha.current);
+      verifier = new RecaptchaVerifier(auth, container, { size: "normal" });
+      recaptcha.current = verifier;
+      const id = await new PhoneAuthProvider(auth).verifyPhoneNumber(fullPhone, verifier);
       setVerificationId(id); setPendingPhone(fullPhone); setOtp("");
       setNotice("OTP sent to " + fullPhone + ".");
-    } finally { recaptcha.current?.clear(); recaptcha.current = null; }
+    } finally {
+      if (verifier && recaptcha.current === verifier) {
+        verifier.clear();
+        recaptcha.current = null;
+      }
+      if (host.isConnected) host.replaceChildren();
+    }
   }
   async function confirmOtp() {
     if (!verificationId || !/^\d{6}$/.test(otp)) throw new Error("Enter the six-digit OTP.");
@@ -188,7 +211,7 @@ export default function ProfilePage() {
       <p className="profile-contact-help">Contact changes are saved after verification. Other details use Save changes.</p>
       <button type="button" className="profile-text-button" onClick={() => void perform("refresh", async () => { await refreshContacts(); setNotice("Verification status refreshed."); })}>Refresh verification</button>
       </fieldset>
-      <div id="profile-recaptcha" />
+      <div id="profile-recaptcha" ref={recaptchaHost} />
       {verificationId && <section className="profile-otp"><label>OTP sent to {pendingPhone}<input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={otp} onChange={event => setOtp(event.target.value.replace(/\D/g, ""))} /></label><button type="button" className="profile-outline" disabled={!!busy} onClick={() => void perform("otp", confirmOtp)}>Confirm OTP</button><button type="button" className="profile-text-button" disabled={!!busy} onClick={() => void perform("phone", sendOtp)}>Resend OTP</button></section>}
       {notice && <p role="status" className="profile-notice">{notice}</p>}{error && <p role="alert" className="profile-error">{error}</p>}
       <div className="profile-actions"><button type="submit" className="profile-primary" aria-busy={busy === "save"} disabled={!!busy || !dirty}><span className="inline-grid"><span className="invisible col-start-1 row-start-1" aria-hidden="true">Save changes</span><span className="col-start-1 row-start-1">{busy === "save" ? <><Spinner className="inline-block mr-2" aria-hidden="true" />Saving…</> : "Save changes"}</span></span></button><button type="button" className="profile-outline" disabled={!!busy} onClick={() => { setForm(fieldsFrom(profile)); setEmail(profile.email ?? ""); setPhone((profile.phoneNumber ?? "").replace(/^\+91/, "")); setVerificationId(null); setNotice(""); setError(""); }}>Cancel</button></div>

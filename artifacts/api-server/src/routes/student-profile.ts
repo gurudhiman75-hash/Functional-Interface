@@ -5,6 +5,8 @@ import { storage } from "../lib/firebase-admin";
 import { authenticate } from "../middlewares/auth";
 import { validateStudentProfile, validatedAvatar } from "../lib/student-profile-validation";
 
+import { profileStorageError } from "../lib/profile-storage-error";
+
 const router = Router();
 router.use(authenticate);
 async function studentId(req: Request): Promise<string | null> {
@@ -17,11 +19,16 @@ async function studentId(req: Request): Promise<string | null> {
   `;
   return row?.id ? String(row.id) : null;
 }
-function failure(res: Response, error: unknown) {
+function failure(res: Response, error: unknown, photo = false) {
+  const storageFailure = photo ? profileStorageError(error) : null;
+  if (storageFailure) {
+    console.error("Student profile storage request failed", { code: storageFailure.code });
+    return res.status(storageFailure.status).json({ error: storageFailure.error, code: storageFailure.code });
+  }
   const code = (error as { code?: string })?.code;
   if (code === "23505") return res.status(409).json({ error: "That email or mobile number is already linked to another account." });
   console.error("Student profile request failed", error instanceof Error ? error.message : "Unknown error");
-  return res.status(500).json({ error: "Unable to update your profile. Please try again." });
+  return res.status(500).json({ error: "Unable to update your profile. Please try again.", code: "PROFILE_REQUEST_FAILED" });
 }
 async function profile(userId: string, req: Request) {
   const [row] = await sqlClient`
@@ -106,7 +113,7 @@ router.get("/me/profile/photo", async (req, res) => {
     res.setHeader("Cache-Control", "private, no-store");
     const [bytes] = await storage.bucket().file(String(row.key)).download();
     return res.json({ photo: "data:image/jpeg;base64," + bytes.toString("base64") });
-  } catch (error) { return failure(res, error); }
+  } catch (error) { return failure(res, error, true); }
 });
 router.put("/me/profile/photo", async (req, res) => {
   let bytes;
@@ -127,6 +134,6 @@ router.put("/me/profile/photo", async (req, res) => {
     if (previous?.key) await storage.bucket().file(String(previous.key)).delete().catch(() => undefined);
     res.setHeader("Cache-Control", "private, no-store");
     return res.json({ photo: "data:image/jpeg;base64," + bytes.toString("base64") });
-  } catch (error) { return failure(res, error); }
+  } catch (error) { return failure(res, error, true); }
 });
 export default router;
