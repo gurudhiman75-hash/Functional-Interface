@@ -57,6 +57,7 @@ router.get("/items/:itemId/native-localizations",
       res.status(400).json({code:"NATIVE_REVIEW_VERSION_REQUIRED",error:"An exact item version is required."});return;
     }
     try {
+      const started=Date.now();
       const rows=await sqlClient`
         SELECT i.current_version_number AS "version", i.status::text AS status,
                v.payload
@@ -72,11 +73,15 @@ router.get("/items/:itemId/native-localizations",
       if (Number(row.version)!==expectedVersion) {
         res.status(409).json({code:"NATIVE_REVIEW_VERSION_CHANGED",error:"The review item changed. Refresh before inspecting locales."});return;
       }
+      const dbMs=Date.now()-started;
+      const cacheKey=itemId+":"+expectedVersion;
+      const cacheState=nativePreviewCache.lookup(cacheKey);
+      const previewStarted=Date.now();
       // The DB version check above always runs, even for a cached preview.
       // Only immutable native generator output is cached; editorial drafts are
       // read separately, and approvals are never cached.
       const snapshot=await nativePreviewCache.getOrCreate(
-        itemId+":"+expectedVersion,async ():Promise<CachedNativePreview>=>{
+        cacheKey,async ():Promise<CachedNativePreview>=>{
         // Keep normal paged review reads lightweight. Generation engines load only
         // when a reviewer opens this specialized native-language preview route.
         const [{nativeLocalizedQuestion,nativeExplanationText,assertNativeEnglishSourceParity,
@@ -140,7 +145,8 @@ router.get("/items/:itemId/native-localizations",
             source:{language:"en",status:"verified",...source},variants,saved:false,approved:false};
         });
       res.setHeader("Cache-Control","private, no-store");
-      res.setHeader("X-Native-Review-Cache", "instance");
+      res.setHeader("X-Native-Review-Cache", cacheState);
+      res.setHeader("Server-Timing", `db;dur=${dbMs}, native;dur=${Date.now()-previewStarted}`);
       res.json(snapshot);
     } catch(error) {
       if (error && typeof error==="object" && "status" in error && "code" in error) {
