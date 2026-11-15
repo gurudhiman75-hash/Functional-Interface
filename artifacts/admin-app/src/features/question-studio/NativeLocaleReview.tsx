@@ -112,6 +112,7 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
     </div>
   );
   const q = working ?? visible;
+  const canReviewVariant=variant.status==="verified" || Boolean(manualSource && draft);
   const reasonValid = reason.trim().length >= 8;
   const approvalReason=reasonValid ? reason.trim() : 'Verified localized question, options, and explanation against canonical English.';
   return (
@@ -189,12 +190,12 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
               onClick={()=>{setWorking({...visible,options:[...visible.options]});setEditing(true);}}>Edit language</Button>
             <Button type="button" size="sm"
               disabled={busy || !englishApproved || draft?.status==='approved' ||
-                draft?.status==='needs_fix' || variant.status!=='verified'}
+                draft?.status==='needs_fix' || !canReviewVariant}
               onClick={()=>void onDecision('approved',approvalReason,draft?.revision ?? 0).then(()=>setReason('')).catch(()=>{})}>
               Approve {variant.language.toUpperCase()}
             </Button>
             <Button type="button" size="sm" variant="outline"
-              disabled={busy || draft?.status==='approved' || variant.status!=='verified'}
+              disabled={busy || draft?.status==='approved' || !canReviewVariant}
               onClick={()=>void onDecision('needs_fix',reasonValid?reason:'Flagged for localized editorial corrections.',draft?.revision ?? 0).then(()=>setReason('')).catch(()=>{})}>
               Needs fix
             </Button>
@@ -323,7 +324,9 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     remainingLanguages.length>0 &&
     remainingLanguages.every(language=>
       !drafts.some(d=>d.language===language && d.status==='needs_fix') &&
-      snapshot.variants.some(v=>v.language===language && v.status==='verified'));
+      (snapshot.variants.some(v=>v.language===language && v.status==='verified') ||
+       (item.currentVersionNumber>1 &&
+        drafts.some(d=>d.language===language && d.status==='draft'))));
   async function approveRemainingLanguages() {
     if(!allReadyForApproval||saving)return;
     setSaving(true);setActionError(null);
