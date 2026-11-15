@@ -34,7 +34,7 @@ import {
 } from "@/lib/storage";
 import { submitAttempt, getPackagesByTest, getTest, type Test } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
-import { StudentProfileAvatar } from "@/components/StudentProfileAvatar";
+import { SscCbtHeader, SscCbtSidebar } from "@/components/SscCbtChrome";
 import { PreTestInstructions } from "@/components/PreTestInstructions";
 import { TestPaywall } from "@/components/TestPaywall";
 import { testHasInlineQuestions } from "@/lib/test-bank";
@@ -129,6 +129,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const [showPauseModal, setShowPauseModal] = useState(false);
   const [showTcsInstructions, setShowTcsInstructions] = useState(false);
   const [showTcsPaper, setShowTcsPaper] = useState(false);
+  const [questionTextScale, setQuestionTextScale] = useState(100);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, number | null>>({}); // User's answers in practice mode
   const [revealedPracticeQuestions, setRevealedPracticeQuestions] = useState<Set<number>>(new Set());
   const [showSolutionQuestions, setShowSolutionQuestions] = useState<Set<number>>(new Set()); // Track which practice questions show solutions
@@ -265,7 +266,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   type QuestionStatus = "NOT_VISITED" | "NOT_ANSWERED" | "ANSWERED" | "MARKED" | "ANSWERED_MARKED";
 
   const getQuestionStatus = (question: { id: number }): QuestionStatus => {
-    const answer = answers[question.id];
+    const answer = isTcsInterface && attemptType === "PRACTICE" ? practiceAnswers[question.id] : answers[question.id];
     const isFlagged = Boolean(flags[question.id]);
     const isVisited = visitedQuestionIds.includes(question.id);
 
@@ -290,7 +291,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         ANSWERED_MARKED: 0,
       } as Record<QuestionStatus, number>,
     );
-  }, [allQuestions, answers, flags, visitedQuestionIds]);
+  }, [allQuestions, answers, flags, visitedQuestionIds, isTcsInterface, attemptType, practiceAnswers]);
 
   const isFirstQuestion = currentSectionIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
@@ -700,17 +701,16 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   };
 
   const clearResponse = () => {
-    setAnswers((current) => ({ ...current, [q.id]: null }));
+    if (isTcsInterface && attemptType === "PRACTICE") {
+      setPracticeAnswers(current => ({ ...current, [q.id]: null }));
+      setShowSolutionQuestions(current => new Set([...current].filter(id => id !== q.id)));
+    } else setAnswers((current) => ({ ...current, [q.id]: null }));
   };
 
   const toggleReview = () => {
     setFlags((current) => ({ ...current, [q.id]: !current[q.id] }));
   };
 
-  const markForReviewAndNext = () => {
-    setFlags((current) => ({ ...current, [q.id]: true }));
-    goToNext();
-  };
 
   const goToNextWrongQuestion = useCallback(() => {
     if (attemptType !== "PRACTICE" || Object.keys(realExamAnswers).length === 0) return;
@@ -862,15 +862,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
         </div>
       )}
 
-      {isTcsInterface && (
-        <nav className="tcs-ion-utility-bar" aria-label="Exam tools">
-          <button type="button" onClick={() => setShowTcsPaper(true)}>Question Paper</button>
-          <button type="button" onClick={() => setShowTcsInstructions(true)}>View Instructions</button>
-          <span className="tcs-ion-utility-note">Examtree simulation · not an official TCS iON product</span>
-        </nav>
-      )}
+      {isTcsInterface && <SscCbtHeader name={test.name} candidate={user?.name || "Examtree learner"}
+        time={attemptType === "PRACTICE" ? "Untimed" : formatTime(activeTimeLeft)} scale={questionTextScale}
+        onZoom={delta => setQuestionTextScale(value => Math.min(200, Math.max(80, value + delta)))}
+        onInstructions={() => setShowTcsInstructions(true)} onPaper={() => setShowTcsPaper(true)}
+        onSymbols={() => { const legend = document.getElementById("ssc-cbt-symbols") as HTMLDetailsElement | null; if (legend) { legend.open = true; legend.scrollIntoView({ block: "nearest" }); legend.querySelector("summary")?.focus(); } }}
+        onPause={() => setShowPauseModal(true)} />}
       {/* Interface-specific header; both variants share the same attempt state and submission. */}
-      <header className={isTcsInterface ? "sticky top-0 z-[210] tcs-ion-header" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
+      {!isTcsInterface && <header className={isTcsInterface ? "sticky top-0 z-[210] tcs-ion-header" : "sticky top-0 z-[210] bg-blue-600 shadow-md"}>
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-6">
           <div className="min-w-0">
             {isTcsInterface && <p className="text-[10px] font-bold uppercase tracking-[.16em] text-blue-200">Examtree · Exam simulation</p>}
@@ -937,11 +936,11 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
             })}
           </div>
         </div>
-      </header>
+      </header>}
 
-      <main className={isTcsInterface ? "tcs-ion-main" : "px-3 py-4 sm:px-5 lg:py-5"}>
+      <main data-sidebar-collapsed={sidebarCollapsed} className={isTcsInterface ? "tcs-ion-main" : "px-3 py-4 sm:px-5 lg:py-5"}>
         <div className={`grid gap-0 lg:items-start ${sidebarCollapsed ? "lg:grid-cols-[1fr_auto]" : isTcsInterface ? "lg:grid-cols-[minmax(0,1fr)_auto_320px]" : "lg:grid-cols-[1fr_auto_280px]"}`}>
-          <section className="min-w-0">
+          <section className={isTcsInterface ? "ssc-cbt-workspace min-w-0" : "min-w-0"}>
             {/* Question card */}
             <div className={isTcsInterface ? "tcs-ion-question-card border border-[#c4ced5] bg-white" : "rounded border border-gray-300 bg-white shadow-sm"}>
               <div className={isTcsInterface ? "tcs-ion-question-title flex items-center justify-between border-b border-[#c4ced5] bg-[#d6e8f6] px-5 py-2" : "flex items-center justify-between border-b border-gray-200 px-5 py-3"}>
@@ -950,7 +949,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   {hasSectionalTiming && (
                     <span className="text-xs font-semibold text-gray-500">Section time: {formatTime(sectionTimeLeft)}</span>
                   )}
-                  {availableLangs.length > 1 && (
+                  {!isTcsInterface && availableLangs.length > 1 && (
                     <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-100 p-1">
                       {availableLangs.map((l) => (
                         <button
@@ -970,8 +969,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                   )}
                 </div>
               </div>
-              {isTcsInterface && <div className="tcs-ion-question-meta"><span>Marks for correct answer: <b>{test.marksPerQuestion ?? 1}</b></span><span>Negative Marks: <b>{test.negativeMarks ?? 0}</b></span><span>View in: <b>{LANGUAGE_LABELS[lang]}</b></span></div>}
-              <div className={isTcsInterface ? "tcs-ion-question-content space-y-5 px-5 py-5" : "space-y-5 px-5 py-5"}>
+              {isTcsInterface && <div className="tcs-ion-question-meta"><span>Marks: +{test.marksPerQuestion ?? 1} / −{test.negativeMarks ?? 0}</span><label>Select Language: <select value={lang} onChange={event => setLang(event.target.value as Language)}>{availableLangs.map(language => <option key={language} value={language}>{LANGUAGE_LABELS[language]}</option>)}</select></label></div>}
+              <div className={isTcsInterface ? "tcs-ion-question-content space-y-5 px-5 py-5" : "space-y-5 px-5 py-5"} style={isTcsInterface ? { fontSize: `${questionTextScale / 100}rem` } : undefined}>
 
               {/* DI Set context panel */}
               {q.diSetId && (q.diSetImageUrl || q.diSetDescription) && (
@@ -1037,27 +1036,26 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                     badgeCls += "border border-gray-300 bg-gray-100 text-gray-600";
                   }
 
-                  if (isTcsInterface && !isPracticeRevealed) {
-                    const selected = realSelected || isUserPracticeSelection;
-                    btnCls = `tcs-ion-option flex w-full items-center gap-3 border px-3 py-2.5 text-left text-sm ${selected ? "tcs-ion-option-selected" : ""}`;
-                    badgeCls = "tcs-ion-radio flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-500 text-[0px]";
-                  }
-
+                  const selectOption = () => {
+                    const timeTaken = Math.round((Date.now() - questionOpenedAt) / 1000);
+                    saveQuestionResponse({ attemptId: attemptRecordId, questionId: q.id, selectedOption: index, timeTaken });
+                    if (attemptType === "PRACTICE") {
+                      setPracticeAnswers(current => ({ ...current, [q.id]: index }));
+                      setPracticeTimeTaken(current => ({ ...current, [q.id]: timeTaken }));
+                    } else {
+                      setAnswers(current => ({ ...current, [q.id]: index }));
+                    }
+                  };
+                  if (isTcsInterface) return <div key={index} className={`ssc-cbt-option-row ${isPracticeRevealed && isCorrectOption ? "ssc-cbt-option-correct" : isWrongSelection ? "ssc-cbt-option-wrong" : ""}`}>
+                    <input type="radio" name={`question-${q.id}`} aria-labelledby={`ssc-option-${q.id}-${index}`} checked={realSelected || isUserPracticeSelection} disabled={isPracticeRevealed} onChange={selectOption} />
+                    <div id={`ssc-option-${q.id}-${index}`} className="ssc-cbt-option-text"><QuestionRichText content={option} inline lang={lang} />{isPracticeRevealed && isCorrectOption && <span className="ml-2 text-sm">(Correct answer)</span>}</div>
+                  </div>;
                   return (
                     <button
                       key={index}
                       type="button"
                       disabled={isPracticeRevealed}
-                      onClick={() => {
-                        const timeTaken = Math.round((Date.now() - questionOpenedAt) / 1000);
-                        saveQuestionResponse({ attemptId: attemptRecordId, questionId: q.id, selectedOption: index, timeTaken });
-                        if (attemptType === "PRACTICE") {
-                          setPracticeAnswers((current) => ({ ...current, [q.id]: index }));
-                          setPracticeTimeTaken((current) => ({ ...current, [q.id]: timeTaken }));
-                        } else {
-                          setAnswers((current) => ({ ...current, [q.id]: index }));
-                        }
-                      }}
+                      onClick={selectOption}
                       className={btnCls}
                     >
                       <span className={badgeCls}>
@@ -1253,14 +1251,14 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
-                  onClick={isTcsInterface ? markForReviewAndNext : toggleReview}
+                  onClick={toggleReview}
                   className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
                     currentQuestionFlagged
                       ? "border-violet-400 bg-violet-50 text-violet-700"
                       : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
                   }`}
                 >
-                  {isTcsInterface ? "Mark for Review & Next" : currentQuestionFlagged ? "Marked for review" : "Mark for Review & Next"}
+                  {isTcsInterface ? currentQuestionFlagged ? "Unmark Review" : "Mark for Review" : currentQuestionFlagged ? "Marked for review" : "Mark for Review & Next"}
                 </button>
                 <button
                   type="button"
@@ -1286,6 +1284,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               >
                 Save & Next
               </button>
+              {isTcsInterface && <><button type="button" onClick={() => setShowSubmitModal(true)} disabled={isSubmitting}>Submit test</button><span className="ssc-cbt-total">Total Questions answered: <b>{allQuestions.filter(question => { const value = attemptType === "PRACTICE" ? practiceAnswers[question.id] : answers[question.id]; return value !== null && value !== undefined; }).length}</b></span></>}
             </div>
           </section>
 
@@ -1296,22 +1295,13 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
               onClick={() => setSidebarCollapsed((v) => !v)}
               className="flex h-8 w-5 items-center justify-center rounded border border-gray-300 bg-white text-gray-400 shadow-sm hover:bg-gray-50 hover:text-gray-600 transition"
             >
-              {sidebarCollapsed ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
+              {(isTcsInterface ? !sidebarCollapsed : sidebarCollapsed) ? <ChevronLeft className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
             </button>
           </div>
 
-          {!sidebarCollapsed && (
+          {isTcsInterface && !sidebarCollapsed && <SscCbtSidebar sections={effectiveSections} active={currentSectionIndex} locked={lockedSections} restricted={hasLockedSections} currentQuestion={currentQuestionIndex} getStatus={getQuestionStatus} onNavigate={navigateToSection} onNext={() => navigateToSection(currentSectionIndex + 1, 0)} />}
+          {!isTcsInterface && !sidebarCollapsed && (
           <aside className={isTcsInterface ? "tcs-ion-sidebar min-w-0 space-y-0" : "min-w-0 space-y-3"}>
-            {isTcsInterface && (
-              <div className="tcs-ion-candidate">
-                <StudentProfileAvatar className="tcs-ion-avatar" fallback={<span aria-hidden="true">👤</span>} />
-                <div className="min-w-0">
-                  <p className="truncate font-bold text-[#143a58]">{user?.name || "Examtree learner"}</p>
-                  <p className="text-xs text-gray-600">Candidate</p>
-                  <p className="mt-1 text-xs font-semibold text-[#143a58]">Time Left: {formatTime(activeTimeLeft)}</p>
-                </div>
-              </div>
-            )}
             {currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
@@ -1463,10 +1453,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
           <div className="tcs-ion-dialog">
             <div className="tcs-ion-dialog-heading"><h2>General Instructions</h2><button type="button" onClick={() => setShowTcsInstructions(false)}>Close</button></div>
             <ol className="list-decimal space-y-3 px-8 py-5 text-sm leading-6">
-              <li>Time remaining is shown in the examination header. The test is submitted when the timer reaches zero.</li>
+              <li>{attemptType === "PRACTICE" ? "Practice is untimed. You can review explanations as you practise." : "Time remaining is shown in the examination header. The test is submitted when the timer reaches zero."}</li>
               <li>Click a question number in the palette to navigate. Locked sections cannot be revisited.</li>
-              <li>Use Save &amp; Next to proceed, Clear Response to remove an answer, and Mark for Review &amp; Next to flag it.</li>
-              <li>Green indicates answered, red indicates visited but unanswered, purple indicates marked for review, and white indicates not visited.</li>
+              <li>Use Save &amp; Next to proceed, Clear Response to remove an answer, and Mark for Review to flag the current question.</li>
+              <li>Green indicates answered; blue indicates not answered or not visited. Purple indicates marked for review, with a green outline when an answer is also selected.</li>
               <li>Correct answer: +{test.marksPerQuestion ?? 1}; wrong answer: {test.negativeMarks ?? 0} marks deducted; unanswered: 0.</li>
             </ol>
           </div>
