@@ -3,6 +3,7 @@ import {
   createGenerationRun,
   getQuestionStudioCapabilities,
   getQuestionStudioReviewPage,
+  getQuestionStudioReviewDuplicates,
   reviseGenerationItem,
   updateGenerationItems,
   type CreateGenerationRunInput,
@@ -247,7 +248,24 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     setReviewPageError(null);
     try {
       const next = await getQuestionStudioReviewPage(latestQuery.current);
-      if (currentRequest === requestId.current) setReviewPage(next);
+      if (currentRequest === requestId.current) {
+        setReviewPage(next);
+        // Secondary, nonblocking cross-run duplicate scan. Never delay first
+        // paint or overwrite newer review edits with a stale badge response.
+        const ids=next.runs.flatMap(run=>run.items.map(item=>item.id));
+        if(ids.length) {
+          const groups:Array<string[]>=[];
+          for(let index=0;index<ids.length;index+=200)
+            groups.push(ids.slice(index,index+200));
+          void Promise.all(groups.map(group=>getQuestionStudioReviewDuplicates(group)))
+            .then(results=>{
+              if(currentRequest!==requestId.current)return;
+              const matches=results.flatMap(result=>result.duplicateMatches);
+              setReviewPage(current=>({...current,duplicateMatches:matches}));
+            })
+            .catch(()=>{/* Optional warning lookup never blanks out the review queue. */});
+        }
+      }
     } catch (caught) {
       if (currentRequest === requestId.current) {
         setReviewPageError(caught instanceof Error ? caught.message : 'Unable to load review queue.');

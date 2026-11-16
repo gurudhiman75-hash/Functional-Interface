@@ -1,4 +1,5 @@
 import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
+import { promoteQuestionStudioNativeEditorial } from '@/features/question-studio/api';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -42,6 +43,8 @@ import { Textarea } from '@/components/ui/textarea';
 import {
   createQuestionVersion,
   getQuestionDetail,
+  getQuestionBankNativeLanguages,
+  type QuestionBankNativeLanguages,
   getQuestionTaxonomyOptions,
   transitionQuestion,
   updateQuestionTaxonomy,
@@ -77,6 +80,20 @@ const EMPTY_TAXONOMY: TaxonomyState = {
   subjectId: '',
   topicId: '',
 };
+
+// Reader-only formatting for common LaTeX inline notation used by native
+// Quant questions; the immutable source in the editor/DB remains unchanged.
+function readableMath(value:string):string {
+  return value
+    .replace(/\\text\{([^{}]*)\}/g,'$1')
+    .replace(/\\(?:mathrm|operatorname)\{([^{}]*)\}/g,'$1')
+    .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,'($1 / $2)')
+    .replace(/\\(?:left|right)\b/g,'')
+    .replace(/\\(?:times|cdot)\b/g,'×')
+    .replace(/\\div\b/g,'÷')
+    .replace(/\\,/g,' ')
+    .replace(/\\(?:\(|\)|\[|\])/g,'');
+}
 
 function formatStatus(value: string) {
   return value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -146,6 +163,10 @@ export function QuestionDetailPage() {
   const canArchive = hasPermission('content.questions.delete');
 
   const [detail, setDetail] = useState<QuestionDetailResponse | null>(null);
+  const [nativeLanguages,setNativeLanguages]=useState<QuestionBankNativeLanguages|null>(null);
+  const [nativeLoading,setNativeLoading]=useState(true);
+  const [nativeError,setNativeError]=useState('');
+
   const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -183,6 +204,20 @@ export function QuestionDetailPage() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  // Do not delay English Question Bank details while loading native versions.
+  useEffect(()=>{
+    let active=true;
+    setNativeLoading(true);
+    setNativeLanguages(null);
+    setNativeError('');
+    void getQuestionBankNativeLanguages(id)
+      .then(data=>{if(active)setNativeLanguages(data);})
+      .catch(error=>{if(active)setNativeError(error instanceof Error?error.message:'Language versions unavailable');})
+      .finally(()=>{if(active)setNativeLoading(false);});
+    return ()=>{active=false;};
+  },[id,detail?.question.approvedVersionId]);
+
 
   const currentVersion = useMemo(() => {
     if (!detail) return undefined;
@@ -412,7 +447,17 @@ export function QuestionDetailPage() {
             />
           ) : (
             <>
-              <QuestionPreview version={viewedVersion} />
+              <QuestionBankLanguagePreview
+                version={viewedVersion} native={nativeLanguages} loading={nativeLoading} error={nativeError}
+                onRefresh={async()=>{
+                  try {
+                    setNativeLanguages(await getQuestionBankNativeLanguages(id));
+                    setNativeError('');
+                  } catch(caught){
+                    setNativeError(caught instanceof Error?caught.message:'Could not refresh languages');
+                  }
+                }}
+              />
               <Card>
                 <CardHeader><CardTitle className="text-base">Metadata</CardTitle></CardHeader>
                 <CardContent className="grid gap-4 sm:grid-cols-2">
@@ -709,13 +754,118 @@ export function QuestionDetailPage() {
   );
 }
 
+function QuestionBankLanguagePreview({
+  version,native,loading,error,onRefresh,
+}:{
+  version:QuestionVersion;
+  native:QuestionBankNativeLanguages|null;
+  loading:boolean;
+  error:string;
+  onRefresh:()=>Promise<void>;
+}) {
+  const [language,setLanguage]=useState<'en'|'hi'|'pa'>('en');
+  const [sending,setSending]=useState(false);
+  const [sendError,setSendError]=useState('');
+  const {hasPermission}=useAdminPermissions();
+  const hi=native?.languages.find(locale=>locale.language==='hi');
+  const pa=native?.languages.find(locale=>locale.language==='pa');
+  const canSend=hasPermission('content.translations.review') &&
+    native?.studioItemId && native.studioVersion &&
+    hi?.source==='studio' && pa?.source==='studio' &&
+    typeof hi.revision==='number' && typeof pa.revision==='number';
+  const sendApproved=async()=>{
+    if(!canSend || sending)return;
+    setSending(true);setSendError('');
+    try{
+      await promoteQuestionStudioNativeEditorial(native!.studioItemId!,{
+        expectedVersion:native!.studioVersion!,
+        revisions:{hi:hi!.revision!,pa:pa!.revision!},
+        reason:'Send both approved native language versions to Question Bank review.',
+      });
+      await onRefresh();
+    }catch(caught){
+      setSendError(caught instanceof Error?caught.message:'Could not hand off native languages');
+    }finally{setSending(false);}
+  };
+  const locale=native?.languages.find(item=>item.language===language);
+  const variants=[
+    {code:'en' as const,label:'English'},
+    {code:'hi' as const,label:'हिन्दी · Hindi'},
+    {code:'pa' as const,label:'ਪੰਜਾਬੀ · Punjabi'},
+  ];
+  const isBank=locale?.source==='question_bank';
+  const options=(locale?.options??[]).map((entry,index)=>
+    typeof entry==='string'
+      ?{key:String.fromCharCode(65+index),text:entry}
+      :{key:entry.key,text:entry.text}
+  );
+  const status=language==='en'?'Canonical English':
+    isBank?`Question Bank · ${locale?.status??'draft'}`:
+    locale?.source==='studio'?'Approved in Studio · not yet handed off':
+    'Not available in Question Bank';
+  return <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Question language versions</CardTitle>
+      <p className="text-xs text-muted-foreground">
+        All languages belong to the same English question. Studio approval does not automatically publish translations.
+      </p>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Question language">
+        {variants.map(({code,label})=><Button
+          key={code} size="sm" type="button"
+          variant={language===code?'default':'outline'}
+          aria-pressed={language===code}
+          onClick={()=>setLanguage(code)}
+        >{label}</Button>)}
+      </div>
+      <Badge variant="outline">{status}</Badge>
+      {language==='en'?<QuestionPreview version={version} />:
+        loading?<p className="text-sm text-muted-foreground">Loading language versions…</p>:
+        error?<p className="text-sm text-destructive">{error}</p>:
+        locale?.stem && locale.explanation && options.length>0?
+          <div className="space-y-4">
+            <div className="rounded-lg border p-3">
+              <p className="mb-2 text-xs font-semibold">Question</p>
+              <p className="whitespace-pre-wrap text-sm leading-7">{readableMath(locale.stem)}</p>
+            </div>
+            <div className="space-y-2">
+              {options.map((option,index)=><div key={index} className={
+                'rounded-lg border p-3 text-sm '+(
+                  locale.correctIndex===index?'border-success/50 bg-success/5':'')
+              }>
+                <span className="font-semibold">{option.key}.</span> {readableMath(option.text)}
+                {locale.correctIndex===index&&<Badge className="ml-2">Correct</Badge>}
+              </div>)}
+            </div>
+            <div className="rounded-lg border p-3">
+              <p className="text-xs font-semibold">Explanation</p>
+              <ExplanationDiagrams explanation={readableMath(locale.explanation)} />
+            </div>
+          </div>:
+          <p className="text-sm text-muted-foreground">
+            This language has not been handed off to Question Bank review.
+          </p>}
+      {language!=='en'&&locale?.source==='studio'&&
+        <p className="text-xs text-muted-foreground">
+          Approved in Question Studio. These are not yet Question Bank translation drafts.
+        </p>}
+      {canSend&&<Button type="button" variant="outline" size="sm"
+        disabled={sending} onClick={()=>void sendApproved()}>
+        {sending?'Sending languages…':'Send Hindi & Punjabi to Question Bank review'}
+      </Button>}
+      {sendError&&<p role="alert" className="text-xs text-destructive">{sendError}</p>}
+    </CardContent>
+  </Card>;
+}
+
 function QuestionPreview({ version }: { version: QuestionVersion }) {
   return (
     <>
       <Card>
         <CardHeader><CardTitle className="text-base">Question stem</CardTitle></CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap text-sm font-medium leading-7">{version.stem}</p>
+          <p className="whitespace-pre-wrap text-sm font-medium leading-7">{readableMath(version.stem)}</p>
         </CardContent>
       </Card>
       <Card>
@@ -746,7 +896,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Explanation</CardTitle></CardHeader>
         <CardContent>
-          <ExplanationDiagrams explanation={version.explanation} />
+          <ExplanationDiagrams explanation={readableMath(version.explanation)} />
         </CardContent>
       </Card>
     </>

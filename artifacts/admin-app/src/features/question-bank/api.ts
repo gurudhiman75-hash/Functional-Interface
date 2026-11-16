@@ -217,6 +217,34 @@ export function getQuestionTaxonomyOptions() {
   );
 }
 
+export interface QuestionBankNativeLanguage {
+  language:'hi'|'pa';
+  stem?:string;
+  explanation?:string;
+  options?: string[] | Array<{key:string;text:string;sortOrder:number}>;
+  correctIndex?:number|null;
+  status:string;
+  source:'studio'|'question_bank'|'none';
+  revision?:number;
+  translationId?:string;
+}
+
+export interface QuestionBankNativeLanguages {
+  questionId:string;
+  questionVersionId:string;
+  studioItemId:string|null;
+  studioVersion:number|null;
+  languages:QuestionBankNativeLanguage[];
+}
+
+export function getQuestionBankNativeLanguages(questionId:string) {
+  return adminRequest<QuestionBankNativeLanguages>(
+    `/admin/question-studio/bank-question/${encodeURIComponent(questionId)}/languages`,
+    undefined,
+    {fallbackMessage:'Unable to load the Hindi and Punjabi versions.'},
+  );
+}
+
 export function getQuestionDetail(questionId: string) {
   return adminRequest<QuestionDetailResponse>(
     `/admin/questions/${encodeURIComponent(questionId)}`,

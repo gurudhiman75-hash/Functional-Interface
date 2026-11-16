@@ -317,6 +317,16 @@ export function promoteQuestionStudioNativeEditorial(
   );
 }
 
+export function getQuestionStudioReviewDuplicates(itemIds: string[]) {
+  if (!itemIds.length) return Promise.resolve({duplicateMatches: [] as QuestionStudioReviewDuplicateMatch[]});
+  const params = new URLSearchParams({ itemIds: itemIds.join(',') });
+  return adminRequest<{duplicateMatches: QuestionStudioReviewDuplicateMatch[]}>(
+    `/admin/question-studio/review-duplicates?${params.toString()}`,
+    undefined,
+    {fallbackMessage:'Unable to load duplicate warnings.'},
+  );
+}
+
 export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
   const params = new URLSearchParams();
   if (query.page) params.set('page', String(query.page));

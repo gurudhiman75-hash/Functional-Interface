@@ -145,6 +145,8 @@ export async function onRequest({ request, env = {} }) {
     env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
     env.EXAMTREE_NATIVE_EDITORIAL_ENABLED === "true" &&
     ((request.method === "GET" &&
+      /^\/api\/admin\/question-studio\/bank-question\/[0-9a-f-]{36}\/languages$/i.test(incoming.pathname)) ||
+     (request.method === "GET" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial$/i.test(incoming.pathname)) ||
      (request.method === "PUT" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:hi|pa)$/i.test(incoming.pathname)) ||

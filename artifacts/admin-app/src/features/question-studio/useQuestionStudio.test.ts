@@ -1,10 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { applyReviewResultsToRuns, useQuestionStudio, useQuestionStudioReviewPage } from './useQuestionStudio';
-import { getQuestionStudioCapabilities, getQuestionStudioReviewPage, reviseGenerationItem, updateGenerationItems } from './api';
+import { getQuestionStudioCapabilities, getQuestionStudioReviewPage, getQuestionStudioReviewDuplicates, reviseGenerationItem, updateGenerationItems } from './api';
 
 vi.mock('./api', () => ({
-  getQuestionStudioCapabilities: vi.fn(), getQuestionStudioReviewPage: vi.fn(),
+  getQuestionStudioCapabilities: vi.fn(), getQuestionStudioReviewPage: vi.fn(), getQuestionStudioReviewDuplicates: vi.fn(),
   reviseGenerationItem: vi.fn(), updateGenerationItems: vi.fn(), createGenerationRun: vi.fn(),
 }));
 const emptyPage = (search: string) => ({ runs: [], duplicateMatches: [], pagination: { page: 1, pageSize: 20, totalRuns: 0, totalPages: 0, hasPreviousPage: false, hasNextPage: false }, filters: { subject: null, chapter: null, packageId: null, status: null, search }, generatedAt: '' });
@@ -16,6 +16,7 @@ function deferred<T>() {
 
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.mocked(getQuestionStudioReviewDuplicates).mockResolvedValue({duplicateMatches:[]});
   vi.mocked(getQuestionStudioCapabilities).mockResolvedValue({ generationSystem: 'quant-v4', packages: [], difficulties: ['Easy'], languages: ['en', 'hi', 'pa'], maxBatchSize: 50 });
 });
 
@@ -53,6 +54,25 @@ describe('review queue refresh', () => {
     expect(result.current.reviewPage.filters.search).toBe('saved');
     await act(async () => { next.resolve(emptyPage('updated')); await refresh; });
     expect(result.current.reviewPage.filters.search).toBe('updated');
+  });
+});
+
+describe('nonblocking duplicate warnings', () => {
+  it('renders review items before the global duplicate lookup finishes', async () => {
+    const pending=deferred<{duplicateMatches: Array<{itemId:string;matchedItemId:string;matchedRunCode:string;similarity:number;exact:boolean}>}>();
+    const page={...emptyPage(''),runs:[{
+      id:'run-1',items:[{id:'item-1',status:'unreviewed'}],
+    }]} as unknown as Awaited<ReturnType<typeof getQuestionStudioReviewPage>>;
+    vi.mocked(getQuestionStudioReviewPage).mockResolvedValue(page);
+    vi.mocked(getQuestionStudioReviewDuplicates).mockReturnValue(pending.promise);
+    const {result}=renderHook(()=>useQuestionStudioReviewPage({}));
+    await waitFor(()=>expect(result.current.loadingReviewPage).toBe(false));
+    expect(result.current.reviewPage.runs[0]?.items[0]?.id).toBe('item-1');
+    expect(result.current.reviewPage.duplicateMatches).toEqual([]);
+    await act(async ()=>pending.resolve({duplicateMatches:[{
+      itemId:'item-1',matchedItemId:'item-2',matchedRunCode:'QS-002',similarity:1,exact:true,
+    }]}));
+    await waitFor(()=>expect(result.current.reviewPage.duplicateMatches).toHaveLength(1));
   });
 });
 
