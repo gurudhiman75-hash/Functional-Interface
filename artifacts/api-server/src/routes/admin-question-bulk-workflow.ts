@@ -217,11 +217,14 @@ router.post(
             actionKey = "content.question.approved";
           } else if (action === "publish") {
             const approvedVersionId = String(question.approvedVersionId ?? "");
-            if (!approvedVersionId) throw Object.assign(new Error("Approve the question before publishing"), { code: "QUESTION_NOT_APPROVED" });
+            if (!approvedVersionId || String(question.status) !== "approved") throw Object.assign(new Error("Approve the question before publishing"), { code: "QUESTION_NOT_APPROVED" });
 
             const readinessRows = await tx`
               SELECT
                 v.exam_version_id IS NOT NULL AS "hasExam",
+                COALESCE(v.answer_model #>> '{generation,questionBankAcceptanceMode}', '') <> 'BANK_ONLY' AS "notBankOnly",
+                COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false' AS "testEligible",
+                COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false' AS "publiclyPublishable",
                 q.primary_taxonomy_node_id IS NOT NULL AS "hasPrimaryTaxonomy",
                 length(trim(v.stem)) > 0 AS "hasStem",
                 length(trim(v.explanation)) > 0 AS "hasExplanation",
