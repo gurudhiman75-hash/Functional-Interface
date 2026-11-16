@@ -763,8 +763,8 @@ function QuestionBankLanguagePreview({
     if(!canSend || sending)return;
     setSending(true);setSendError('');
     try{
-      await promoteQuestionStudioNativeEditorial(native.studioItemId!,{
-        expectedVersion:native.studioVersion!,
+      await promoteQuestionStudioNativeEditorial(native!.studioItemId!,{
+        expectedVersion:native!.studioVersion!,
         revisions:{hi:hi!.revision!,pa:pa!.revision!},
         reason:'Send both approved native language versions to Question Bank review.',
       });
