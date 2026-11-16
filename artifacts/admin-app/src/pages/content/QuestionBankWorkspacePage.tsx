@@ -78,8 +78,7 @@ function taxonomyName(question: LiveQuestion, nodeType: string) {
 
 function hasCompleteTaxonomy(question: LiveQuestion) {
   return Boolean(
-    question.examVersionId
-    && question.primaryTaxonomyNodeId
+    question.primaryTaxonomyNodeId
     && taxonomyName(question, 'subject')
     && taxonomyName(question, 'topic'),
   );
@@ -194,7 +193,7 @@ export function QuestionBankWorkspacePage() {
     [taxonomyOptions, bulkTaxonomy.familyId],
   );
   const allowedNodes = useMemo(
-    () => taxonomyOptions?.nodes.filter((node) => node.examVersionIds.includes(bulkTaxonomy.examVersionId)) ?? [],
+    () => taxonomyOptions?.nodes.filter((node) => !bulkTaxonomy.examVersionId || node.examVersionIds.includes(bulkTaxonomy.examVersionId)) ?? [],
     [taxonomyOptions, bulkTaxonomy.examVersionId],
   );
   const subjects = useMemo(() => allowedNodes.filter((node) => node.nodeType === 'subject'), [allowedNodes]);
@@ -258,12 +257,12 @@ export function QuestionBankWorkspacePage() {
   };
 
   const assignBulkTaxonomy = async () => {
-    if (!bulkTaxonomy.examVersionId || !bulkTaxonomy.subjectId || !bulkTaxonomy.topicId) {
-      showToast.warning('Taxonomy incomplete', 'Select an exam, subject and topic.');
+    if (!bulkTaxonomy.subjectId || !bulkTaxonomy.topicId) {
+      showToast.warning('Classification incomplete', 'Select a subject and topic.');
       return;
     }
-    await runBulk('assign-taxonomy', 'Taxonomy assigned', {
-      examVersionId: bulkTaxonomy.examVersionId,
+    await runBulk('assign-taxonomy', 'Classification saved', {
+      examVersionId: bulkTaxonomy.examVersionId || undefined,
       primaryTaxonomyNodeId: bulkTaxonomy.topicId,
       taxonomyNodeIds: [bulkTaxonomy.subjectId, bulkTaxonomy.topicId],
     });
@@ -335,11 +334,11 @@ export function QuestionBankWorkspacePage() {
           <CardHeader><CardTitle className="text-base">Bulk manage {selected.length} selected question{selected.length === 1 ? '' : 's'}</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              <Select value={bulkTaxonomy.familyId} onValueChange={(value) => setBulkTaxonomy({ ...EMPTY_BULK_TAXONOMY, familyId: value })}><SelectTrigger><SelectValue placeholder="Exam family" /></SelectTrigger><SelectContent>{taxonomyOptions?.families.map((family) => <SelectItem key={family.id} value={family.id}>{family.name}</SelectItem>)}</SelectContent></Select>
-              <Select value={bulkTaxonomy.examId} onValueChange={(value) => { const exam = exams.find((entry) => entry.id === value); setBulkTaxonomy((current) => ({ ...current, examId: value, examVersionId: exam?.currentVersionId ?? '', subjectId: '', topicId: '' })); }} disabled={!bulkTaxonomy.familyId}><SelectTrigger><SelectValue placeholder="Exam" /></SelectTrigger><SelectContent>{exams.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.name}</SelectItem>)}</SelectContent></Select>
-              <Select value={bulkTaxonomy.subjectId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, subjectId: value, topicId: '' }))} disabled={!bulkTaxonomy.examVersionId}><SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger><SelectContent>{subjects.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
+              <Select value={bulkTaxonomy.familyId} onValueChange={(value) => setBulkTaxonomy({ ...EMPTY_BULK_TAXONOMY, familyId: value })}><SelectTrigger><SelectValue placeholder="Optional exam family" /></SelectTrigger><SelectContent>{taxonomyOptions?.families.map((family) => <SelectItem key={family.id} value={family.id}>{family.name}</SelectItem>)}</SelectContent></Select>
+              <Select value={bulkTaxonomy.examId} onValueChange={(value) => { const exam = exams.find((entry) => entry.id === value); setBulkTaxonomy((current) => ({ ...current, examId: value, examVersionId: exam?.currentVersionId ?? '', subjectId: '', topicId: '' })); }} disabled={!bulkTaxonomy.familyId}><SelectTrigger><SelectValue placeholder="Optional exam" /></SelectTrigger><SelectContent>{exams.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.name}</SelectItem>)}</SelectContent></Select>
+              <Select value={bulkTaxonomy.subjectId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, subjectId: value, topicId: '' }))} ><SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger><SelectContent>{subjects.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
               <Select value={bulkTaxonomy.topicId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, topicId: value }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent>{bulkTopics.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
-              <Button onClick={() => void assignBulkTaxonomy()} disabled={bulkBusy || !canEdit}><Tags className="mr-1.5 h-4 w-4" /> Assign taxonomy</Button>
+              <Button onClick={() => void assignBulkTaxonomy()} disabled={bulkBusy || !canEdit}><Tags className="mr-1.5 h-4 w-4" /> Save classification</Button>
             </div>
             <div className="grid gap-3 lg:grid-cols-[180px_minmax(220px,1fr)_repeat(5,auto)]">
               <Select value={bulkDifficulty} onValueChange={setBulkDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select>
@@ -371,10 +370,10 @@ export function QuestionBankWorkspacePage() {
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full text-left text-sm">
                   <thead className="border-b bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground"><tr><th className="w-10 px-4 py-3"><input type="checkbox" checked={visible.length > 0 && visible.every((question) => selectedIds.has(question.id))} onChange={toggleVisible} aria-label="Select visible questions" /></th><th className="px-4 py-3 font-medium">Question</th><th className="px-4 py-3 font-medium">Exam / Taxonomy</th><th className="px-4 py-3 font-medium">Readiness</th><th className="px-4 py-3 font-medium">Difficulty</th><th className="px-4 py-3 font-medium">Status</th><th className="px-4 py-3 font-medium">Updated</th></tr></thead>
-                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'No exam'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3">{question.publishedVersionId ? <Badge className="bg-primary/10 text-primary">Published</Badge> : isReadyToPublish(question) ? <Badge className="bg-success/10 text-success">Ready</Badge> : !hasCompleteTaxonomy(question) ? <Badge variant="outline">Needs taxonomy</Badge> : <Badge variant="secondary">Not ready</Badge>}</td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
+                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'Shared Question Bank'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3">{question.publishedVersionId ? <Badge className="bg-primary/10 text-primary">Published</Badge> : isReadyToPublish(question) ? <Badge className="bg-success/10 text-success">Ready</Badge> : !hasCompleteTaxonomy(question) ? <Badge variant="outline">Needs taxonomy</Badge> : <Badge variant="secondary">Not ready</Badge>}</td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
                 </table>
               </div>
-              <div className="divide-y md:hidden">{visible.map((question) => <div key={question.id} className="p-4"><div className="flex items-start gap-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} className="mt-1" aria-label={`Select ${question.publicCode}`} /><Link to={`/content/questions/${question.id}`} className="min-w-0 flex-1"><div className="flex flex-wrap items-center justify-between gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge></div><p className="mt-3 line-clamp-3 text-sm font-medium leading-5">{question.stem}</p><div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground"><span>{question.examName || 'No exam'}</span><span>•</span><span>{taxonomyName(question, 'topic') || 'No topic'}</span><span>•</span><span>{question.difficulty}</span></div></Link></div></div>)}</div>
+              <div className="divide-y md:hidden">{visible.map((question) => <div key={question.id} className="p-4"><div className="flex items-start gap-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} className="mt-1" aria-label={`Select ${question.publicCode}`} /><Link to={`/content/questions/${question.id}`} className="min-w-0 flex-1"><div className="flex flex-wrap items-center justify-between gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge></div><p className="mt-3 line-clamp-3 text-sm font-medium leading-5">{question.stem}</p><div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground"><span>{question.examName || 'Shared bank'}</span><span>•</span><span>{taxonomyName(question, 'topic') || 'No topic'}</span><span>•</span><span>{question.difficulty}</span></div></Link></div></div>)}</div>
               <div className="flex items-center justify-between border-t px-4 py-3 text-sm text-muted-foreground"><span>Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}</span><div className="flex items-center gap-2"><Button variant="outline" size="icon" className="h-8 w-8" disabled={page <= 1} onClick={() => setPage((current) => Math.max(1, current - 1))}><ChevronLeft className="h-4 w-4" /></Button><span className="min-w-12 text-center text-xs">{page} / {pageCount}</span><Button variant="outline" size="icon" className="h-8 w-8" disabled={page >= pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}><ChevronRight className="h-4 w-4" /></Button></div></div>
             </>
           )}
