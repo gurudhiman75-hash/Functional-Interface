@@ -63,6 +63,11 @@ async function publicationSnapshot(
       q.status,
       q.approved_version_id::text AS "approvedVersionId",
       v.exam_version_id::text AS "examVersionId",
+      v.answer_model #>> '{generation,questionBankAcceptanceMode}' AS "questionBankAcceptanceMode",
+      CASE WHEN v.answer_model #>> '{generation,testEligible}' IN ('true','false')
+        THEN (v.answer_model #>> '{generation,testEligible}')::boolean ELSE NULL END AS "generationTestEligible",
+      CASE WHEN v.answer_model #>> '{generation,publiclyPublishable}' IN ('true','false')
+        THEN (v.answer_model #>> '{generation,publiclyPublishable}')::boolean ELSE NULL END AS "generationPubliclyPublishable",
       q.primary_taxonomy_node_id::text AS "primaryTaxonomyNodeId",
       v.stem,
       v.explanation,
@@ -99,6 +104,9 @@ async function publicationSnapshot(
     explanation: row.explanation ? String(row.explanation) : "",
     optionCount: Number(row.optionCount ?? 0),
     correctOptionCount: Number(row.correctOptionCount ?? 0),
+    questionBankAcceptanceMode: row.questionBankAcceptanceMode ? String(row.questionBankAcceptanceMode) : null,
+    generationTestEligible: row.generationTestEligible == null ? null : Boolean(row.generationTestEligible),
+    generationPubliclyPublishable: row.generationPubliclyPublishable == null ? null : Boolean(row.generationPubliclyPublishable),
   };
 }
 
