@@ -255,9 +255,9 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const [languageView, setLanguageView] = useState<'both'|'hi'|'pa'>('both');
   const [busy, setBusy] = useState(false);
   const token = item.id + ':' + item.currentVersionNumber;
-  // Native regeneration and saved editorial rows have different latency.
-  // Load them independently: a quick draft read must not be hidden behind
-  // a slower generator, and switching questions reuses an immutable preview.
+  // Once both native languages have approved persisted editorial records,
+  // their immutable content is already available. Do not re-run expensive
+  // native generators just to open an approved question.
   useEffect(() => {
     if (!eligible) return;
     let live=true;
@@ -267,27 +267,36 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     setActionError(null);
     setBusy(true);
     const forced=retry>0;
-    void loadNativePreview(item.id,item.currentVersionNumber,forced)
-      .then(result=>{
-        if(!live) return;
-        if(result.itemId!==item.id || result.version!==item.currentVersionNumber)
-          throw new Error('The preview belongs to a different review version.');
-        setSnapshot(result);
-      })
-      .catch(caught=>{
-        if(live) setError(caught instanceof Error?caught.message:'Could not load localized versions.');
-      })
-      .finally(()=>{if(live)setBusy(false);});
-    if(EDITORIAL_ENABLED){
+    const fetchGenerated=()=>{
+      void loadNativePreview(item.id,item.currentVersionNumber,forced)
+        .then(result=>{
+          if(!live)return;
+          if(result.itemId!==item.id || result.version!==item.currentVersionNumber)
+            throw new Error('The preview belongs to a different review version.');
+          setSnapshot(result);
+        })
+        .catch(caught=>{
+          if(live)setError(caught instanceof Error?caught.message:'Could not load localized versions.');
+        })
+        .finally(()=>{if(live)setBusy(false);});
+    };
+    if(!EDITORIAL_ENABLED){fetchGenerated();}
+    else {
       void getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber)
         .then(editorial=>{
           if(!live)return;
           if(editorial.itemId!==item.id || editorial.version!==item.currentVersionNumber)
             throw new Error('Saved language drafts belong to a different source version.');
           setDrafts(editorial.locales);
+          if(!forced && ['hi','pa'].every(language=>
+            editorial.locales.some(d=>d.language===language && d.status==='approved'))){
+            setBusy(false);
+          } else fetchGenerated();
         })
         .catch(caught=>{
-          if(live)setActionError(caught instanceof Error?caught.message:'Could not load saved edits.');
+          if(!live)return;
+          setActionError(caught instanceof Error?caught.message:'Could not load saved edits.');
+          fetchGenerated();
         });
     }
     return ()=>{live=false;};
@@ -397,10 +406,12 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const variants = useMemo(() => {
     if(snapshot) return snapshot.variants;
     if(!EDITORIAL_ENABLED) return [] as NativeReviewVariant[];
-    return drafts.map(draft=>({
-      language:draft.language,status:'blocked' as const,
-      reason:'Generated comparison still loading; editorial draft is available.',
-    }));
+    return drafts.map(draft=>draft.status==='approved'
+      ? {language:draft.language,status:'verified' as const,
+         stem:draft.stem,options:draft.options,
+         explanation:draft.explanation,correctIndex:draft.correctIndex}
+      : {language:draft.language,status:'blocked' as const,
+         reason:'Saved editorial draft available; generation preview is loading.'});
   },[snapshot,drafts]);
   if (!available) return null;
   if (!eligible) return <section className="ml-8 mt-3 rounded-xl border border-warning/30 bg-warning/5 p-3 text-xs text-warning lg:ml-16">
@@ -416,7 +427,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            {snapshot?.saved ? 'Pre-generated and saved native versions' : 'Verified native previews'} · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
+            {snapshot?.saved ? 'Pre-generated and saved native versions' : !snapshot && drafts.every(d=>d.status==='approved') && drafts.length===2 ? 'Saved approved language versions' : 'Verified native previews'} · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">
