@@ -42,6 +42,9 @@ import { Textarea } from '@/components/ui/textarea';
 import {
   createQuestionVersion,
   getQuestionDetail,
+  getQuestionBankNativeLanguages,
+  type QuestionBankNativeLanguages,
+  type QuestionBankNativeLanguage,
   getQuestionTaxonomyOptions,
   transitionQuestion,
   updateQuestionTaxonomy,
@@ -146,6 +149,10 @@ export function QuestionDetailPage() {
   const canArchive = hasPermission('content.questions.delete');
 
   const [detail, setDetail] = useState<QuestionDetailResponse | null>(null);
+  const [nativeLanguages,setNativeLanguages]=useState<QuestionBankNativeLanguages|null>(null);
+  const [nativeLoading,setNativeLoading]=useState(true);
+  const [nativeError,setNativeError]=useState('');
+
   const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -183,6 +190,20 @@ export function QuestionDetailPage() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  // Do not delay English Question Bank details while loading native versions.
+  useEffect(()=>{
+    let active=true;
+    setNativeLoading(true);
+    setNativeLanguages(null);
+    setNativeError('');
+    void getQuestionBankNativeLanguages(id)
+      .then(data=>{if(active)setNativeLanguages(data);})
+      .catch(error=>{if(active)setNativeError(error instanceof Error?error.message:'Language versions unavailable');})
+      .finally(()=>{if(active)setNativeLoading(false);});
+    return ()=>{active=false;};
+  },[id,detail?.question.approvedVersionId]);
+
 
   const currentVersion = useMemo(() => {
     if (!detail) return undefined;
@@ -412,7 +433,7 @@ export function QuestionDetailPage() {
             />
           ) : (
             <>
-              <QuestionPreview version={viewedVersion} />
+              <QuestionBankLanguagePreview version={viewedVersion} native={nativeLanguages} loading={nativeLoading} error={nativeError} />
               <Card>
                 <CardHeader><CardTitle className="text-base">Metadata</CardTitle></CardHeader>
                 <CardContent className="grid gap-4 sm:grid-cols-2">
@@ -707,6 +728,83 @@ export function QuestionDetailPage() {
       </div>
     </div>
   );
+}
+
+function QuestionBankLanguagePreview({
+  version,native,loading,error,
+}:{
+  version:QuestionVersion;
+  native:QuestionBankNativeLanguages|null;
+  loading:boolean;
+  error:string;
+}) {
+  const [language,setLanguage]=useState<'en'|'hi'|'pa'>('en');
+  const locale=native?.languages.find(item=>item.language===language);
+  const variants=[
+    {code:'en' as const,label:'English'},
+    {code:'hi' as const,label:'हिन्दी · Hindi'},
+    {code:'pa' as const,label:'ਪੰਜਾਬੀ · Punjabi'},
+  ];
+  const isBank=locale?.source==='question_bank';
+  const options=(locale?.options??[]).map((entry,index)=>
+    typeof entry==='string'
+      ?{key:String.fromCharCode(65+index),text:entry}
+      :{key:entry.key,text:entry.text}
+  );
+  const status=language==='en'?'Canonical English':
+    isBank?`Question Bank · ${locale?.status??'draft'}`:
+    locale?.source==='studio'?'Approved in Studio · not yet handed off':
+    'Not available in Question Bank';
+  return <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Question language versions</CardTitle>
+      <p className="text-xs text-muted-foreground">
+        All languages belong to the same English question. Studio approval does not automatically publish translations.
+      </p>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Question language">
+        {variants.map(({code,label})=><Button
+          key={code} size="sm" type="button"
+          variant={language===code?'default':'outline'}
+          aria-pressed={language===code}
+          onClick={()=>setLanguage(code)}
+        >{label}</Button>)}
+      </div>
+      <Badge variant="outline">{status}</Badge>
+      {language==='en'?<QuestionPreview version={version} />:
+        loading?<p className="text-sm text-muted-foreground">Loading language versions…</p>:
+        error?<p className="text-sm text-destructive">{error}</p>:
+        locale?.stem && locale.explanation && options.length>0?
+          <div className="space-y-4">
+            <div className="rounded-lg border p-3">
+              <p className="mb-2 text-xs font-semibold">Question</p>
+              <p className="whitespace-pre-wrap text-sm leading-7">{locale.stem}</p>
+            </div>
+            <div className="space-y-2">
+              {options.map((option,index)=><div key={index} className={
+                'rounded-lg border p-3 text-sm '+(
+                  locale.correctIndex===index?'border-success/50 bg-success/5':'')
+              }>
+                <span className="font-semibold">{option.key}.</span> {option.text}
+                {locale.correctIndex===index&&<Badge className="ml-2">Correct</Badge>}
+              </div>)}
+            </div>
+            <div className="rounded-lg border p-3">
+              <p className="text-xs font-semibold">Explanation</p>
+              <ExplanationDiagrams explanation={locale.explanation} />
+            </div>
+          </div>:
+          <p className="text-sm text-muted-foreground">
+            This language has not been handed off to Question Bank review.
+          </p>}
+      {language!=='en'&&locale?.source==='studio'&&
+        <p className="text-xs text-muted-foreground">
+          Approved in Question Studio only. Open the source review item and use
+          “Send approved languages to Question Bank review” to create draft translations.
+        </p>}
+    </CardContent>
+  </Card>;
 }
 
 function QuestionPreview({ version }: { version: QuestionVersion }) {
