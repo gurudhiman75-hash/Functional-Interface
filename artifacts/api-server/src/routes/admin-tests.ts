@@ -63,6 +63,9 @@ async function validatePublishedSelections(
     SELECT
       r.id::text AS id,
       v.exam_version_id::text AS "examVersionId",
+      v.answer_model #>> '{generation,questionBankAcceptanceMode}' AS "bankAcceptanceMode",
+      v.answer_model #>> '{generation,testEligible}' AS "generationTestEligible",
+      v.answer_model #>> '{generation,publiclyPublishable}' AS "generationPubliclyPublishable",
       q.status::text AS status,
       q.published_version_id::text AS "publishedVersionId",
       EXISTS (
@@ -78,15 +81,19 @@ async function validatePublishedSelections(
   const found = new Map(rows.map((row) => [String(row.id), row]));
   for (const questionVersionId of questionVersionIds) {
     const row = found.get(questionVersionId);
-    if (!row || !row.examVersionId) {
+    if (!row || !row.publishedVersionId) {
       issues.push({ code: "QUESTION_VERSION_MISSING", message: `Question version ${questionVersionId} does not exist` });
       continue;
     }
     if (String(row.publishedVersionId ?? "") !== questionVersionId || String(row.status) !== "published") {
       issues.push({ code: "QUESTION_NOT_PUBLISHED", message: `Question version ${questionVersionId} is not currently published` });
     }
-    if (String(row.examVersionId) !== input.examVersionId) {
-      issues.push({ code: "QUESTION_EXAM_MISMATCH", message: `Question version ${questionVersionId} belongs to a different exam version` });
+    // Exam versions describe test configurations, not exclusive ownership of canonical questions.
+    // Reuse only already-published public/scored-eligible questions.
+    if (row.bankAcceptanceMode === "BANK_ONLY" ||
+        row.generationTestEligible === "false" ||
+        row.generationPubliclyPublishable === "false") {
+      issues.push({ code: "QUESTION_NOT_RELEASE_ELIGIBLE", message: `Question version ${questionVersionId} is not eligible for scored public tests` });
     }
     if (!row.hasTaxonomy) {
       issues.push({ code: "QUESTION_TAXONOMY_MISSING", message: `Question version ${questionVersionId} has incomplete taxonomy` });
@@ -543,7 +550,9 @@ router.post("/auto-assemble", requireAdminPermission("tests.create"), async (req
       JOIN content.question_versions v ON v.id = q.published_version_id
       WHERE q.status = 'published'::question_status
         AND q.deleted_at IS NULL
-        AND v.exam_version_id = ${examVersionId}::uuid
+        AND COALESCE(v.answer_model #>> '{generation,questionBankAcceptanceMode}', '') <> 'BANK_ONLY'
+        AND COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false'
+        AND COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false'
         AND EXISTS (
           SELECT 1 FROM content.question_taxonomy_links qtl WHERE qtl.question_version_id = v.id
         )
@@ -558,7 +567,7 @@ router.post("/auto-assemble", requireAdminPermission("tests.create"), async (req
       requestedCount: questionCount,
       selectedCount: Math.min(questionCount, matching.length),
       shortages: matching.length < questionCount
-        ? [`Only ${matching.length} published questions matched the selected exam and difficulty filters.`]
+        ? [`Only ${matching.length} public, scored-eligible questions matched the difficulty filters.`]
         : [],
       generatedAt: new Date().toISOString(),
     });
