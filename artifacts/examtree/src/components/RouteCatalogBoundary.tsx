@@ -11,8 +11,8 @@ function CatalogRouteSkeleton() {
   const [location] = useLocation();
   if (isTestLoadingRoute(location)) return <TestPreparing />;
   return (
-    <div className="examtree-shell min-h-screen bg-background">
-      <div className="mx-auto max-w-6xl space-y-5 px-4 py-10 sm:px-6 lg:px-8">
+    <div className="examtree-shell min-h-screen bg-background" role="status" aria-label="Loading page">
+      <div className="mx-auto max-w-6xl space-y-5 px-4 py-10 sm:px-6 lg:px-8 loading-placeholder" aria-hidden="true">
         <div className="skeleton-shimmer h-12 w-48 rounded-md" />
         <div className="grid gap-4 md:grid-cols-3">
           <div className="skeleton-shimmer h-40 rounded-md" />

@@ -11,19 +11,19 @@
     to { opacity: 0; }
   }
   [data-et-motion="learner"][data-et-surface][data-state="open"] {
-    animation-duration: 160ms;
-    animation-timing-function: cubic-bezier(.2,.7,.3,1);
+    animation-duration: var(--et-motion-feedback);
+    animation-timing-function: var(--et-motion-ease-out);
   }
   [data-et-motion="learner"][data-et-surface][data-state="closed"] {
-    animation-duration: 120ms;
+    animation-duration: var(--et-motion-exit);
     animation-timing-function: ease-out;
   }
   [data-et-motion="learner"]:is([data-et-surface="dialog"], [data-et-surface="overlay"], [data-et-surface="tabs"])[data-state="open"],
   [data-et-motion="learner"][data-et-surface="tabs"][data-state="active"] {
-    animation: et-overlay-show 160ms ease-out;
+    animation: et-overlay-show var(--et-motion-feedback) ease-out;
   }
   [data-et-motion="learner"]:is([data-et-surface="dialog"], [data-et-surface="overlay"])[data-state="closed"] {
-    animation: et-overlay-hide 120ms ease-out;
+    animation: et-overlay-hide var(--et-motion-exit) ease-out;
   }
   [data-et-motion="learner"][data-et-surface="menu"][data-state="open"] {
     animation-name: et-menu-show;
@@ -32,11 +32,11 @@
     animation-name: et-menu-hide;
   }
   [data-et-motion="learner"][data-et-surface="sheet"][data-state] {
-    animation-duration: 220ms;
+    animation-duration: var(--et-motion-drawer);
   }
   [data-et-motion="learner"][data-et-surface="menu"] [role^="menuitem"],
   [data-et-motion="learner"][data-et-surface="menu"] [role="option"] {
-    transition: background-color 120ms ease-out, color 120ms ease-out;
+    transition: background-color var(--et-motion-exit) ease-out, color var(--et-motion-exit) ease-out;
   }
 }
 @media (prefers-reduced-motion: reduce) {

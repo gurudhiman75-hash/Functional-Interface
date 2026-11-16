@@ -146,6 +146,7 @@ async function expectModalContract(
   await expect(dialog).toBeVisible();
   await expect(dialog).toHaveAttribute("aria-modal", "true");
   await expect(dialog).not.toHaveAttribute("data-et-motion", "learner");
+  await expect(page.locator("[data-route-frame]")).toHaveClass("animate-fadeInUp");
   await expect(dialog).toHaveAttribute("aria-labelledby");
   await expect(dialog).toHaveAttribute("aria-describedby");
   await expect(cancel).toBeFocused();

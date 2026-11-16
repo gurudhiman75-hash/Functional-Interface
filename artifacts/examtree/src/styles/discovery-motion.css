@@ -3,9 +3,9 @@
  * The page works without animation and honours the OS reduced-motion setting.
  */
 .home-page {
-  --et-motion-fast: 150ms;
-  --et-motion-standard: 220ms;
-  --et-motion-enter: 420ms;
+  --et-motion-fast: var(--et-motion-feedback);
+  --et-motion-standard: var(--et-motion-page);
+  --et-motion-enter: var(--et-motion-page);
   --et-motion-ease: cubic-bezier(.2,.75,.25,1);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -18,8 +18,6 @@
   .home-page .home-hero-guest .hero-auth-panel {
     animation: et-discovery-arrive var(--et-motion-enter) var(--et-motion-ease) both;
   }
-  .home-page .home-hero-guest .hero-search-zone { animation-delay: 75ms; }
-  .home-page .home-hero-guest .hero-auth-panel { animation-delay: 115ms; }
 
   .home-page .et-home-category-card,
   .home-page .featured-strip-card,

@@ -575,6 +575,9 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   const summary = page.getByTestId("result-summary");
   await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
+  await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationDuration)).toBe("0.2s");
+  await expect.poll(() => page.locator("main#main-content").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await expect.poll(() => page.locator("[data-route-frame]").evaluate(el => getComputedStyle(el).transform)).toBe("none");
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).transform)).toBe("none");
   await page.getByRole("button", { name: "Wrong (0)", exact: true }).click();
   await expect(page.getByText("No questions match this filter.")).toBeVisible();
