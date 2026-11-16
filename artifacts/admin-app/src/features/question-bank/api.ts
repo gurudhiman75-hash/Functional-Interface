@@ -233,6 +233,7 @@ export interface QuestionBankNativeLanguages {
   questionId:string;
   questionVersionId:string;
   studioItemId:string|null;
+  studioVersion:number|null;
   languages:QuestionBankNativeLanguage[];
 }
 
