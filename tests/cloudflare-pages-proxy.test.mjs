@@ -522,6 +522,23 @@ test("Review Queue native locale preview canary is opt-in and limited to one rea
       assert.equal(observed.at(-1).url,destination+target,method+" "+target);
       assert.equal(observed.at(-1).headers.get("Authorization"),"Bearer admin");
     }
+    // New Review Queue GETs are explicitly marked by the frontend. A
+    // browser/caller without the marker retains the old production route.
+    for(const path of [
+      "/api/admin/question-studio/review-page?page=1",
+      "/api/admin/question-studio/review-duplicates?itemIds="+id,
+    ]){
+      await onRequest({request:req("https://examtree.in"+path,"GET",{
+        headers:{"X-Examtree-Review-Read":"native-candidate","Authorization":"Bearer admin"},
+      }),env});
+      assert.equal(observed.at(-1).url,candidate+path);
+      await onRequest({request:req("https://examtree.in"+path,"GET"),env});
+      assert.equal(observed.at(-1).url,live+path);
+    }
+    await onRequest({request:req("https://examtree.in/api/admin/question-studio/review-page","POST",{
+      headers:{"X-Examtree-Review-Read":"native-candidate"},body:"{}",
+    }),env});
+    assert.equal(observed.at(-1).url,live+"/api/admin/question-studio/review-page");
     for(const candidateFlag of [undefined,"false","yes"]) {
       await onRequest({
         request:req("https://examtree.in"+path+"?version=2","GET"),
