@@ -56,7 +56,7 @@ test.describe("CP02 accessibility foundation", () => {
     await expect(page.locator("#main-content")).toBeFocused();
 
     const motion = await page.evaluate(() => {
-      const routeShell = document.querySelector(".animate-fadeInUp");
+      const routeShell = document.querySelector("[data-route-frame]");
       const main = document.querySelector("#main-content");
       return {
         animationDuration: routeShell ? getComputedStyle(routeShell).animationDuration : null,
