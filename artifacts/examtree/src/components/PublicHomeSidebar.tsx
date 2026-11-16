@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
+import "@/styles/student-sidebar.css";
 import { getSessionUser } from "@/lib/session-user";
 
 type SidebarItem = {
@@ -110,7 +111,7 @@ export function PublicHomeSidebar() {
 
   return (
     <aside
-      className="hidden min-h-[calc(100vh-4rem)] border-r border-sidebar-border bg-sidebar lg:block"
+      className="student-app-sidebar hidden min-h-[calc(100vh-4rem)] border-r border-sidebar-border bg-sidebar lg:block"
       aria-label="Student navigation"
       data-testid="public-study-sidebar"
     >
