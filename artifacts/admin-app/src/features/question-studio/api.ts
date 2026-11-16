@@ -322,7 +322,7 @@ export function getQuestionStudioReviewDuplicates(itemIds: string[]) {
   const params = new URLSearchParams({ itemIds: itemIds.join(',') });
   return adminRequest<{duplicateMatches: QuestionStudioReviewDuplicateMatch[]}>(
     `/admin/question-studio/review-duplicates?${params.toString()}`,
-    undefined,
+    {headers:{'X-Examtree-Review-Read':'native-candidate'}},
     {fallbackMessage:'Unable to load duplicate warnings.'},
   );
 }
@@ -340,7 +340,7 @@ export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {
   const suffix = params.toString();
   return adminRequest<QuestionStudioReviewPage>(
     `/admin/question-studio/review-page${suffix ? `?${suffix}` : ''}`,
-    undefined,
+    {headers:{'X-Examtree-Review-Read':'native-candidate'}},
     { fallbackMessage: 'Unable to load the Question Studio review queue.' },
   );
 }
