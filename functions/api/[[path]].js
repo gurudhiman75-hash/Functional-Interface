@@ -166,8 +166,18 @@ export async function onRequest({ request, env = {} }) {
     request.method === "POST" &&
     incoming.pathname === "/api/admin/question-studio/runs" &&
     request.headers.get("X-Examtree-Native-Grouped-Review") === "true";
+  // Only review-queue GETs explicitly marked by the new admin UI use the
+  // updated tagged candidate. Ordinary admin reads/mutations keep their
+  // existing upstream and authentication/RBAC. No Cloud Run traffic change.
+  const nativeFastReviewReadPath =
+    env.EXAMTREE_NATIVE_REVIEW_CANDIDATE_ENABLED === "true" &&
+    request.method === "GET" &&
+    (incoming.pathname === "/api/admin/question-studio/review-page" ||
+      incoming.pathname === "/api/admin/question-studio/review-duplicates") &&
+    request.headers.get("X-Examtree-Review-Read") === "native-candidate";
   const nativeCandidatePreviewPath = nativeLocalizationPreviewPath ||
-    nativeReviewPreviewPath || nativeEditorialPath || nativeGroupedGeneratePath;
+    nativeReviewPreviewPath || nativeEditorialPath ||
+    nativeGroupedGeneratePath || nativeFastReviewReadPath;
   const adminUseCloudRun = adminCloudRunEnabled ||
     (deterministicAdminEnabled && deterministicAdminPath);
   const financialHandoverPath =
