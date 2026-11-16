@@ -44,7 +44,6 @@ import {
   getQuestionDetail,
   getQuestionBankNativeLanguages,
   type QuestionBankNativeLanguages,
-  type QuestionBankNativeLanguage,
   getQuestionTaxonomyOptions,
   transitionQuestion,
   updateQuestionTaxonomy,
