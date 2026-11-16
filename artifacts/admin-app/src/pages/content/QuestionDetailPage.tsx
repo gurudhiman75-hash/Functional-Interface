@@ -81,6 +81,20 @@ const EMPTY_TAXONOMY: TaxonomyState = {
   topicId: '',
 };
 
+// Reader-only formatting for common LaTeX inline notation used by native
+// Quant questions; the immutable source in the editor/DB remains unchanged.
+function readableMath(value:string):string {
+  return value
+    .replace(/\\text\{([^{}]*)\}/g,'$1')
+    .replace(/\\(?:mathrm|operatorname)\{([^{}]*)\}/g,'$1')
+    .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,'($1 / $2)')
+    .replace(/\\(?:left|right)\b/g,'')
+    .replace(/\\(?:times|cdot)\b/g,'×')
+    .replace(/\\div\b/g,'÷')
+    .replace(/\\,/g,' ')
+    .replace(/\\(?:\(|\)|\[|\])/g,'');
+}
+
 function formatStatus(value: string) {
   return value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
@@ -813,20 +827,20 @@ function QuestionBankLanguagePreview({
           <div className="space-y-4">
             <div className="rounded-lg border p-3">
               <p className="mb-2 text-xs font-semibold">Question</p>
-              <p className="whitespace-pre-wrap text-sm leading-7">{locale.stem}</p>
+              <p className="whitespace-pre-wrap text-sm leading-7">{readableMath(locale.stem)}</p>
             </div>
             <div className="space-y-2">
               {options.map((option,index)=><div key={index} className={
                 'rounded-lg border p-3 text-sm '+(
                   locale.correctIndex===index?'border-success/50 bg-success/5':'')
               }>
-                <span className="font-semibold">{option.key}.</span> {option.text}
+                <span className="font-semibold">{option.key}.</span> {readableMath(option.text)}
                 {locale.correctIndex===index&&<Badge className="ml-2">Correct</Badge>}
               </div>)}
             </div>
             <div className="rounded-lg border p-3">
               <p className="text-xs font-semibold">Explanation</p>
-              <ExplanationDiagrams explanation={locale.explanation} />
+              <ExplanationDiagrams explanation={readableMath(locale.explanation)} />
             </div>
           </div>:
           <p className="text-sm text-muted-foreground">
@@ -851,7 +865,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Question stem</CardTitle></CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap text-sm font-medium leading-7">{version.stem}</p>
+          <p className="whitespace-pre-wrap text-sm font-medium leading-7">{readableMath(version.stem)}</p>
         </CardContent>
       </Card>
       <Card>
@@ -882,7 +896,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Explanation</CardTitle></CardHeader>
         <CardContent>
-          <ExplanationDiagrams explanation={version.explanation} />
+          <ExplanationDiagrams explanation={readableMath(version.explanation)} />
         </CardContent>
       </Card>
     </>
