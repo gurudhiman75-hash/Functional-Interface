@@ -190,6 +190,71 @@ router.get("/items/:itemId/native-localizations",
   },
 );
 
+
+// Duplicate checks are a separate, bounded secondary read. The client renders
+// questions first, then fills in duplicate badges asynchronously.
+router.get("/review-duplicates",requireAdminPermission("content.generation.read"),async(req,res)=>{
+  res.setHeader("Cache-Control","private, no-store");
+  const raw=asString(req.query?.itemIds);
+  const pageItemIds=raw.split(",").filter(Boolean);
+  if(!pageItemIds.length||pageItemIds.length>250||
+    pageItemIds.some(id=>!/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id))||
+    new Set(pageItemIds).size!==pageItemIds.length){
+    res.status(400).json({code:"REVIEW_DUPLICATES_INVALID_ITEMS"});return;
+  }
+  try{
+    const matches = pageItemIds.length > 0
+      ? await sqlClient`
+          WITH current_payloads AS (
+            SELECT
+              i.id,
+              r.public_code AS "runCode",
+              r.created_at AS "runCreatedAt",
+              NULLIF(v.payload ->> 'contentFingerprint', '') AS fingerprint,
+              LOWER(
+                REGEXP_REPLACE(
+                  TRIM(COALESCE(NULLIF(v.payload ->> 'text', ''), v.payload ->> 'stem', '')),
+                  '[[:space:][:punct:]]+',
+                  ' ',
+                  'g'
+                )
+              ) AS "normalizedStem"
+            FROM content.generation_run_items i
+            INNER JOIN content.generation_runs r
+              ON r.id = i.generation_run_id
+            INNER JOIN content.generation_item_versions v
+              ON v.generation_item_id = i.id
+             AND v.version_number = i.current_version_number
+          )
+          SELECT DISTINCT ON (source.id)
+            source.id::text AS "itemId",
+            matched.id::text AS "matchedItemId",
+            matched."runCode" AS "matchedRunCode",
+            1::float AS similarity,
+            true AS exact
+          FROM current_payloads source
+          INNER JOIN current_payloads matched
+            ON matched.id <> source.id
+           AND source."normalizedStem" <> ''
+           AND source."normalizedStem" = matched."normalizedStem"
+           AND (
+             source.fingerprint IS NULL
+             OR matched.fingerprint IS NULL
+             OR source.fingerprint = matched.fingerprint
+           )
+          WHERE source.id = ANY(${pageItemIds}::uuid[])
+          ORDER BY source.id, matched."runCreatedAt" DESC, matched.id
+        `
+      : [];
+
+
+    res.json({duplicateMatches:matches});
+  }catch(error){
+    console.error("Review duplicate lookup failed",error instanceof Error?error.message:"unknown");
+    res.status(500).json({code:"REVIEW_DUPLICATES_UNAVAILABLE"});
+  }
+});
+
 router.get("/review-page", requireAdminPermission("content.generation.read"), async (req, res) => {
   const page = asPositiveInteger(req.query?.page, 1, 1000000);
   const pageSize = asPositiveInteger(req.query?.pageSize, 20, 50);
@@ -431,50 +496,9 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         `
       : [];
 
-    const pageItemIds = items.map((item) => String(item.id));
-    const duplicateMatches = pageItemIds.length > 0
-      ? await sqlClient`
-          WITH current_payloads AS (
-            SELECT
-              i.id,
-              r.public_code AS "runCode",
-              r.created_at AS "runCreatedAt",
-              NULLIF(v.payload ->> 'contentFingerprint', '') AS fingerprint,
-              LOWER(
-                REGEXP_REPLACE(
-                  TRIM(COALESCE(NULLIF(v.payload ->> 'text', ''), v.payload ->> 'stem', '')),
-                  '[[:space:][:punct:]]+',
-                  ' ',
-                  'g'
-                )
-              ) AS "normalizedStem"
-            FROM content.generation_run_items i
-            INNER JOIN content.generation_runs r
-              ON r.id = i.generation_run_id
-            INNER JOIN content.generation_item_versions v
-              ON v.generation_item_id = i.id
-             AND v.version_number = i.current_version_number
-          )
-          SELECT DISTINCT ON (source.id)
-            source.id::text AS "itemId",
-            matched.id::text AS "matchedItemId",
-            matched."runCode" AS "matchedRunCode",
-            1::float AS similarity,
-            true AS exact
-          FROM current_payloads source
-          INNER JOIN current_payloads matched
-            ON matched.id <> source.id
-           AND source."normalizedStem" <> ''
-           AND source."normalizedStem" = matched."normalizedStem"
-           AND (
-             source.fingerprint IS NULL
-             OR matched.fingerprint IS NULL
-             OR source.fingerprint = matched.fingerprint
-           )
-          WHERE source.id = ANY(${pageItemIds}::uuid[])
-          ORDER BY source.id, matched."runCreatedAt" DESC, matched.id
-        `
-      : [];
+    // Load duplicate warnings separately after the visible page has rendered.
+    // The global normalized-stem scan must never block Review Queue first paint.
+    const duplicateMatches: Array<{itemId:string;matchedItemId:string;matchedRunCode:string;similarity:number;exact:boolean}> = [];
 
     const itemsByRun = new Map<string, typeof items>();
     for (const item of items) {
