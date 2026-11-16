@@ -50,6 +50,7 @@ function languageCodeFromSettings(value: unknown): string {
 async function validatePublishedSelections(
   client: SqlExecutor,
   input: NormalizedTestDraftInput,
+  allowBankOnlyDraft = false,
 ): Promise<TestValidationIssue[]> {
   const issues = validateTestDraftShape(input);
   const questionVersionIds = input.sections.flatMap((section) => section.questions.map((question) => question.questionVersionId));
@@ -68,6 +69,7 @@ async function validatePublishedSelections(
       v.answer_model #>> '{generation,publiclyPublishable}' AS "generationPubliclyPublishable",
       q.status::text AS status,
       q.published_version_id::text AS "publishedVersionId",
+      q.approved_version_id::text AS "approvedVersionId",
       EXISTS (
         SELECT 1
         FROM content.question_taxonomy_links qtl
@@ -81,18 +83,23 @@ async function validatePublishedSelections(
   const found = new Map(rows.map((row) => [String(row.id), row]));
   for (const questionVersionId of questionVersionIds) {
     const row = found.get(questionVersionId);
-    if (!row || !row.publishedVersionId) {
+    if (!row || (!row.publishedVersionId && !row.approvedVersionId)) {
       issues.push({ code: "QUESTION_VERSION_MISSING", message: `Question version ${questionVersionId} does not exist` });
       continue;
     }
-    if (String(row.publishedVersionId ?? "") !== questionVersionId || String(row.status) !== "published") {
+    const approvedBankOnlyDraft = allowBankOnlyDraft &&
+      String(row.status) === "approved" &&
+      String(row.approvedVersionId ?? "") === questionVersionId &&
+      row.bankAcceptanceMode === "BANK_ONLY";
+    if (!approvedBankOnlyDraft &&
+        (String(row.publishedVersionId ?? "") !== questionVersionId || String(row.status) !== "published")) {
       issues.push({ code: "QUESTION_NOT_PUBLISHED", message: `Question version ${questionVersionId} is not currently published` });
     }
-    // Exam versions describe test configurations, not exclusive ownership of canonical questions.
-    // Reuse only already-published public/scored-eligible questions.
-    if (row.bankAcceptanceMode === "BANK_ONLY" ||
-        row.generationTestEligible === "false" ||
-        row.generationPubliclyPublishable === "false") {
+    // Draft-only admission does not grant QA, scoring, or student-publication authority.
+    if (!approvedBankOnlyDraft &&
+        (row.bankAcceptanceMode === "BANK_ONLY" ||
+         row.generationTestEligible === "false" ||
+         row.generationPubliclyPublishable === "false")) {
       issues.push({ code: "QUESTION_NOT_RELEASE_ELIGIBLE", message: `Question version ${questionVersionId} is not eligible for scored public tests` });
     }
     if (!row.hasTaxonomy) {
@@ -598,7 +605,7 @@ router.post("/", requireAdminPermission("tests.create"), async (req, res) => {
       return;
     }
     const input = normalizeTestDraftInput(req.body);
-    const issues = await validatePublishedSelections(sqlClient, input);
+    const issues = await validatePublishedSelections(sqlClient, input, true);
     // Permit incomplete section/question composition in a saved draft.
     // Still reject non-structural issues such as unpublished, mismatched or
     // missing question versions; lifecycle QA/publish validates all issues.
@@ -663,7 +670,7 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
       return;
     }
     const input = normalizeTestDraftInput(req.body);
-    const issues = await validatePublishedSelections(sqlClient, input);
+    const issues = await validatePublishedSelections(sqlClient, input, true);
     // Permit incomplete section/question composition in a saved draft.
     // Still reject non-structural issues such as unpublished, mismatched or
     // missing question versions; lifecycle QA/publish validates all issues.
