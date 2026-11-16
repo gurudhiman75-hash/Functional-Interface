@@ -265,7 +265,7 @@ export async function updateQuestionTaxonomy(
   questionId: string,
   input: {
     expectedLockVersion: number;
-    examVersionId: string;
+    examVersionId?: string | null;
     primaryTaxonomyNodeId: string;
     taxonomyNodeIds: string[];
   },
