@@ -6,6 +6,7 @@ import {
   nativeLocalizedQuestion,
 } from "./native-linked-localization";
 
+import { evaluateTranslationQuality } from "../lib/admin-translation-operations";
 import { runMal001QuestionStudioPipeline } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
 const canonical = {
@@ -127,5 +128,26 @@ test("MAL-001 replays an exact saved batch child seed without adding another suf
     const variant = await nativeLocalizedQuestion(identity, language);
     assertNativeLocalizedAnswerParity(persistedSource, variant);
     assert.notEqual(variant.stem, persistedSource.stem);
+  }
+});
+
+test("released MAL-001 native generated answers pass editorial quality gate for one-click approval", async () => {
+  const identity={
+    packageId:"MAL-001",canonicalProblemId:"MAL-CP-002",questionLanguageId:"MAL-QL-021",
+    difficulty:"Medium",seed:"qs-async:regression:SSC_CGL_T1:chapter-mix:Medium:slot:1:MAL-CP-002:0",
+  };
+  const source=await nativeLocalizedQuestion(identity,"en");
+  const asOptions=(options:string[])=>options.map((text,index)=>({
+    key:String.fromCharCode(65+index),text,sortOrder:index+1,
+  }));
+  for(const language of ["hi","pa"] as const){
+    const target=await nativeLocalizedQuestion(identity,language);
+    assertNativeLocalizedAnswerParity(source,target);
+    const quality=evaluateTranslationQuality({
+      source:{stem:source.stem,explanation:source.explanation,options:asOptions(source.options)},
+      target:{stem:target.stem,explanation:target.explanation,options:asOptions(target.options)},
+      languageCode:language,
+    });
+    assert.equal(quality.approvable,true,language+" generated localization rejected: "+JSON.stringify(quality.issues));
   }
 });
