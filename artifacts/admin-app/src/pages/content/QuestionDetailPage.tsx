@@ -378,6 +378,9 @@ export function QuestionDetailPage() {
     || '—';
   const subjectLabel = viewedVersion.taxonomy.find((node) => node.nodeType === 'subject')?.name
     || '—';
+  const bankOnly = generationValue(viewedVersion,'questionBankAcceptanceMode') === 'BANK_ONLY';
+  const noExamAssignment = !viewedVersion.examVersionId;
+
   const publishedVersionNumber = detail.versions.find(
     (version) => version.id === question.publishedVersionId,
   )?.versionNumber;
@@ -483,10 +486,25 @@ export function QuestionDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Tags className="h-4 w-4" /> Exam and taxonomy
+                <Tags className="h-4 w-4" /> Optional exam-specific taxonomy
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              {bankOnly && noExamAssignment && (
+                <div className="rounded-lg border border-success/30 bg-success/5 p-3 text-sm">
+                  <p className="font-semibold">Reusable Question Bank question</p>
+                  <p className="mt-1 text-muted-foreground">
+                    No exam taxonomy is required to retain this approved English question
+                    or to send its approved Hindi and Punjabi versions into Question Bank review.
+                    This form assigns an exam-specific version for publication; don't choose
+                    an arbitrary exam just to complete multilingual review.
+                  </p>
+                </div>
+              )}
+              {!bankOnly && <p className="text-xs text-muted-foreground">
+                This section assigns taxonomy for an exam-specific version. It is not a
+                universal cross-exam eligibility setting.
+              </p>}
               {publishedVersionFrozen && (
                 <div className="rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm text-warning">
                   The published version is frozen. Create a new draft version before changing taxonomy.
@@ -1047,6 +1065,8 @@ function QuestionEditor({
 }
 
 function PublishingReadiness({ detail }: { detail: QuestionDetailResponse }) {
+  const canonical=detail.versions.find(v=>v.id===detail.question.approvedVersionId);
+  const bankOnly=canonical && generationValue(canonical,'questionBankAcceptanceMode')==='BANK_ONLY';
   if (detail.question.publishedVersionId) {
     return (
       <Card>
@@ -1065,6 +1085,16 @@ function PublishingReadiness({ detail }: { detail: QuestionDetailResponse }) {
     <Card>
       <CardHeader><CardTitle className="text-base">Publishing readiness</CardTitle></CardHeader>
       <CardContent>
+        {bankOnly && !canonical?.examVersionId && (
+          <div className="mb-3 rounded-md border bg-muted/20 p-3 text-sm">
+            <p className="font-medium">Approved for Question Bank storage</p>
+            <p className="mt-1 text-muted-foreground">
+              Exam taxonomy is not required for multilingual Question Bank handoff.
+              The restrictions below apply to publishing this question for a
+              specific exam, not to saving or reviewing its languages.
+            </p>
+          </div>
+        )}
         {detail.publicationIssues.length === 0 ? (
           <p className="text-sm font-medium text-success">Ready to publish.</p>
         ) : (
