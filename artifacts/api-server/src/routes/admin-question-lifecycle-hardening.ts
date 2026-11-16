@@ -84,7 +84,8 @@ router.post(
         }
 
         const issues: string[] = [];
-        if (!question.approvedVersionId) issues.push("Approve a question version before publishing.");
+        if (!question.approvedVersionId || question.status !== "approved") issues.push("Approve a question version before publishing.");
+        if (question.questionBankAcceptanceMode === "BANK_ONLY") issues.push("BANK_ONLY questions cannot be publicly published.");
         if (!question.examVersionId) issues.push("Assign an exam version.");
         if (!question.primaryTaxonomyNodeId) issues.push("Assign a primary taxonomy topic.");
         if (Number(question.taxonomyCount ?? 0) === 0) issues.push("Assign taxonomy to the approved version.");
