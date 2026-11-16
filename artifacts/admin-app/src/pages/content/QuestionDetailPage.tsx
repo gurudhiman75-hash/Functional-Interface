@@ -1,4 +1,5 @@
 import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
+import { promoteQuestionStudioNativeEditorial } from '@/features/question-studio/api';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -432,7 +433,17 @@ export function QuestionDetailPage() {
             />
           ) : (
             <>
-              <QuestionBankLanguagePreview version={viewedVersion} native={nativeLanguages} loading={nativeLoading} error={nativeError} />
+              <QuestionBankLanguagePreview
+                version={viewedVersion} native={nativeLanguages} loading={nativeLoading} error={nativeError}
+                onRefresh={async()=>{
+                  try {
+                    setNativeLanguages(await getQuestionBankNativeLanguages(id));
+                    setNativeError('');
+                  } catch(caught){
+                    setNativeError(caught instanceof Error?caught.message:'Could not refresh languages');
+                  }
+                }}
+              />
               <Card>
                 <CardHeader><CardTitle className="text-base">Metadata</CardTitle></CardHeader>
                 <CardContent className="grid gap-4 sm:grid-cols-2">
@@ -730,14 +741,38 @@ export function QuestionDetailPage() {
 }
 
 function QuestionBankLanguagePreview({
-  version,native,loading,error,
+  version,native,loading,error,onRefresh,
 }:{
   version:QuestionVersion;
   native:QuestionBankNativeLanguages|null;
   loading:boolean;
   error:string;
+  onRefresh:()=>Promise<void>;
 }) {
   const [language,setLanguage]=useState<'en'|'hi'|'pa'>('en');
+  const [sending,setSending]=useState(false);
+  const [sendError,setSendError]=useState('');
+  const {hasPermission}=useAdminPermissions();
+  const hi=native?.languages.find(locale=>locale.language==='hi');
+  const pa=native?.languages.find(locale=>locale.language==='pa');
+  const canSend=hasPermission('content.translations.review') &&
+    native?.studioItemId && native.studioVersion &&
+    hi?.source==='studio' && pa?.source==='studio' &&
+    typeof hi.revision==='number' && typeof pa.revision==='number';
+  const sendApproved=async()=>{
+    if(!canSend || sending)return;
+    setSending(true);setSendError('');
+    try{
+      await promoteQuestionStudioNativeEditorial(native.studioItemId!,{
+        expectedVersion:native.studioVersion!,
+        revisions:{hi:hi!.revision!,pa:pa!.revision!},
+        reason:'Send both approved native language versions to Question Bank review.',
+      });
+      await onRefresh();
+    }catch(caught){
+      setSendError(caught instanceof Error?caught.message:'Could not hand off native languages');
+    }finally{setSending(false);}
+  };
   const locale=native?.languages.find(item=>item.language===language);
   const variants=[
     {code:'en' as const,label:'English'},
@@ -799,9 +834,13 @@ function QuestionBankLanguagePreview({
           </p>}
       {language!=='en'&&locale?.source==='studio'&&
         <p className="text-xs text-muted-foreground">
-          Approved in Question Studio only. Open the source review item and use
-          “Send approved languages to Question Bank review” to create draft translations.
+          Approved in Question Studio. These are not yet Question Bank translation drafts.
         </p>}
+      {canSend&&<Button type="button" variant="outline" size="sm"
+        disabled={sending} onClick={()=>void sendApproved()}>
+        {sending?'Sending languages…':'Send Hindi & Punjabi to Question Bank review'}
+      </Button>}
+      {sendError&&<p role="alert" className="text-xs text-destructive">{sendError}</p>}
     </CardContent>
   </Card>;
 }
