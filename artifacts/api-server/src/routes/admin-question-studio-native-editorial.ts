@@ -242,8 +242,8 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
 });
 
 
-function abortNativeReview(code:string):never {
-  throw Object.assign(new Error(code),{nativeReviewCode:code});
+function abortNativeReview(code:string, details?:unknown):never {
+  throw Object.assign(new Error(code),{nativeReviewCode:code,nativeReviewDetails:details});
 }
 
 /** One atomic editorial decision across any subset of generated languages.
@@ -348,7 +348,11 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
           target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
           languageCode:language,
         });
-        if(!quality.approvable)abortNativeReview("NATIVE_APPROVE_QUALITY_BLOCKED");
+        if(!quality.approvable)abortNativeReview("NATIVE_APPROVE_QUALITY_BLOCKED",{
+          language,issues:quality.issues.filter(issue=>issue.severity==="error").map(issue=>({
+            code:issue.code,field:issue.field,message:issue.message,
+          })),
+        });
         let nativeId:string;
         let newRevision:number;
         if(old){
@@ -397,7 +401,8 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
     res.json(approved);
   }catch(error){
     if(error && typeof error==="object" && "nativeReviewCode" in error){
-      res.status(409).json({code:String(error.nativeReviewCode)});return;
+      res.status(409).json({code:String(error.nativeReviewCode),
+        details:"nativeReviewDetails" in error?error.nativeReviewDetails:null});return;
     }
     console.error("Native grouped approval failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_APPROVE_UNAVAILABLE"});
@@ -563,7 +568,8 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
     res.json(outcome);
   }catch(error){
     if(error && typeof error==="object" && "nativeReviewCode" in error){
-      res.status(409).json({code:String(error.nativeReviewCode)});return;
+      res.status(409).json({code:String(error.nativeReviewCode),
+        details:"nativeReviewDetails" in error?error.nativeReviewDetails:null});return;
     }
     console.error("Native translation promotion failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_PROMOTION_UNAVAILABLE"});
