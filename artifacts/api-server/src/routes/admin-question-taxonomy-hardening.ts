@@ -85,34 +85,41 @@ router.patch(
           );
         }
 
-        const examVersions = await tx`
-          SELECT ev.id
-          FROM catalog.exam_versions ev
-          INNER JOIN catalog.exams e ON e.id = ev.exam_id
-          WHERE ev.id = ${input.examVersionId}::uuid AND e.is_active = true
-          LIMIT 1
-        `;
-        if (examVersions.length === 0) {
-          throw new QuestionManagementError("EXAM_VERSION_NOT_FOUND", "Selected exam version is unavailable", 400);
+        if (input.examVersionId) {
+          const examVersions = await tx`
+            SELECT ev.id
+            FROM catalog.exam_versions ev
+            INNER JOIN catalog.exams e ON e.id = ev.exam_id
+            WHERE ev.id = ${input.examVersionId}::uuid AND e.is_active = true
+            LIMIT 1
+          `;
+          if (examVersions.length === 0) {
+            throw new QuestionManagementError("EXAM_VERSION_NOT_FOUND", "Selected exam version is unavailable", 400);
+          }
         }
 
         for (const nodeId of input.taxonomyNodeIds) {
           const nodes = await tx`
             SELECT n.id
             FROM catalog.taxonomy_nodes n
-            INNER JOIN catalog.exam_taxonomy_nodes etn
-              ON etn.taxonomy_node_id = n.id
-             AND etn.exam_version_id = ${input.examVersionId}::uuid
-             AND etn.is_active = true
             WHERE n.id = ${nodeId}::uuid
               AND n.is_active = true
               AND n.deleted_at IS NULL
+              AND (
+                ${input.examVersionId}::uuid IS NULL
+                OR EXISTS (
+                  SELECT 1 FROM catalog.exam_taxonomy_nodes etn
+                  WHERE etn.taxonomy_node_id = n.id
+                    AND etn.exam_version_id = ${input.examVersionId}::uuid
+                    AND etn.is_active = true
+                )
+              )
             LIMIT 1
           `;
           if (nodes.length === 0) {
             throw new QuestionManagementError(
-              "TAXONOMY_NOT_AVAILABLE_FOR_EXAM",
-              "One or more taxonomy selections are not available for the selected exam.",
+              "TAXONOMY_NOT_AVAILABLE",
+              "One or more taxonomy selections are inactive or unavailable for the optional exam.",
               400,
             );
           }
@@ -164,7 +171,7 @@ router.patch(
             'question',
             ${questionId}::uuid,
             ${String(targetVersionId)}::uuid,
-            ${`Assigned exam and taxonomy to ${String(question.publicCode)}`},
+            ${`Assigned academic classification to ${String(question.publicCode)}`},
             ${metadata}::jsonb
           )
         `;
