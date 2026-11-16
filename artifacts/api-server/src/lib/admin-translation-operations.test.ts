@@ -128,3 +128,23 @@ test("linked AI drafts preserve canonicibility preserves source language and app
     assert.equal(isUnclassifiedEnglishBankOnlySource({ ...source, ...invalid }), false);
   }
 });
+
+test("localized LaTeX math labels are not treated as immutable runtime placeholders", () => {
+  const source={
+    stem:String.raw`A mixture contains \\(20\\,\\text{kg}\\) coffee and chicory in ratio \\(2:3\\). {studentId}`,
+    explanation:String.raw`Use \\(\\frac{\\text{coffee}}{\\text{chicory}}=\\frac{2}{3}\\) to calculate \\(20\\,\\text{kg}\\).`,
+    options:[{key:"A",text:"20 kg",sortOrder:1},{key:"B",text:"10 kg",sortOrder:2}],
+  };
+  const target={
+    stem:String.raw`कॉफी और चिकोरी में \\(20\\,\\text{किग्रा}\\) मिश्रण है, अनुपात \\(2:3\\) है। {studentId}`,
+    explanation:String.raw`\\(\\frac{\\text{कॉफी}}{\\text{चिकोरी}}=\\frac{2}{3}\\) से \\(20\\,\\text{किग्रा}\\) की गणना करें।`,
+    options:[{key:"A",text:"20 किग्रा",sortOrder:1},{key:"B",text:"10 किग्रा",sortOrder:2}],
+  };
+  assert.equal(evaluateTranslationQuality({source,target,languageCode:"hi"}).approvable,true);
+  const missingPlaceholder={...target,stem:target.stem.replace("{studentId}","")};
+  assert.ok(evaluateTranslationQuality({source,target:missingPlaceholder,languageCode:"hi"})
+    .issues.some(issue=>issue.code==="PROTECTED_TOKEN_MISSING"));
+  const changedNumber={...target,stem:target.stem.replace("20","21")};
+  assert.ok(evaluateTranslationQuality({source,target:changedNumber,languageCode:"hi"})
+    .issues.some(issue=>issue.code==="PROTECTED_TOKEN_MISSING"));
+});

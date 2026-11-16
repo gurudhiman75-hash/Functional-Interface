@@ -197,7 +197,16 @@ function normalizedComparable(value: string): string {
 }
 
 function protectedTokens(value: string): string[] {
-  const matches = value.match(/\{\{[^{}]+\}\}|\{[^{}]+\}|\b\d+(?:[.,]\d+)*(?:%|°|₹|rs\.?|km|kg|m|cm|hr|hrs|min|mins|sec|secs)?\b/gi) ?? [];
+  // LaTeX uses braces for math grouping and translatable words:
+  // \(20\,\text{kg}\) -> \(20\,\text{किग्रा}\) is valid localization.
+  // Do not confuse those braces with runtime placeholders like {studentId}
+  // or {{questionId}}. Keep numbers inside math for exact-value QA.
+  const withoutMathBraces = value
+    .replace(/\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|\$[^$\n]*\$/g,
+      (math) => math.replace(/[{}]/g, " "))
+    .replace(/\\(?:text|mathrm|operatorname|textbf|textrm|mathbf|mathit)\{[^{}]*\}/g,
+      (label) => label.replace(/[{}]/g, " "));
+  const matches = withoutMathBraces.match(/\{\{[^{}]+\}\}|\{[^{}]+\}|\b\d+(?:[.,]\d+)*(?:%|°|₹|rs\.?|km|kg|m|cm|hr|hrs|min|mins|sec|secs)?\b/gi) ?? [];
   return matches.map((token) => normalizedComparable(token)).sort();
 }
 

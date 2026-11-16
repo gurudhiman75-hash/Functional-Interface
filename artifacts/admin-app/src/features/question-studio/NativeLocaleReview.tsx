@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { AdminApiError } from '@/lib/admin-api-error';
 import { ExplanationDiagrams } from './ExplanationDiagrams';
 import { loadNativePreview } from './native-review-preview-cache';
 import {
@@ -40,6 +41,35 @@ export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supporte
     typeof item.payload?.seed === 'string' && Boolean(item.payload.seed) &&
     Boolean(item.payload?.questionLanguageId || item.payload?.qlId) &&
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
+}
+
+function nativeApprovalError(error:unknown):string {
+  if(!(error instanceof AdminApiError))
+    return error instanceof Error?error.message:'Could not approve selected languages.';
+  const code=error.code??'NATIVE_APPROVE_UNKNOWN';
+  const prefix=code==='NATIVE_APPROVE_QUALITY_BLOCKED'
+    ? 'A language failed translation quality checks'
+    :code==='NATIVE_APPROVE_ENGLISH_FIRST'
+      ? 'Approve the English question before its translations'
+      :code==='NATIVE_APPROVE_REVISION_CHANGED'
+        ? 'A translation changed; reload the draft before approval'
+        :code==='NATIVE_APPROVE_SOURCE_CHANGED'
+          ? 'The English question version changed; reload it'
+          :code==='NATIVE_APPROVE_SELF_REVIEW_BLOCKED'
+            ? 'A different reviewer must approve a manually edited translation'
+            :error.message;
+  const details=error.details;
+  if(code==='NATIVE_APPROVE_QUALITY_BLOCKED' && details && typeof details==='object'){
+    const data=details as {language?:unknown;issues?:unknown};
+    const issues=Array.isArray(data.issues)
+      ?data.issues.slice(0,3).map(issue=>{
+        if(!issue||typeof issue!=='object')return '';
+        const row=issue as {code?:unknown;message?:unknown};
+        return String(row.message||row.code||'Translation issue').slice(0,250);
+      }).filter(Boolean):[];
+    return `${prefix} (${String(data.language||'language')}): ${issues.join(' • ')||code}`;
+  }
+  return `${prefix} [${code}${error.status?' · HTTP '+error.status:''}]`;
 }
 
 function ManualLocaleCreator({ language,source,busy,onSave }: {
@@ -342,7 +372,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       });
       await refreshEditorial();
     }catch(error){
-      setActionError(error instanceof Error?error.message:'Could not approve all languages.');
+      setActionError(nativeApprovalError(error));
     }finally{setSaving(false);}
   }
   const readyForHandoff = item.status === 'approved' &&
