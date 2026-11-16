@@ -588,7 +588,8 @@ router.get("/bank-question/:questionId/languages",requireAdminPermission("conten
     const versionId=String(bank[0]?.versionId??"");
     if(!versionId){res.status(404).json({code:"BANK_NATIVE_NOT_FOUND"});return;}
     const studio=await sqlClient`
-      SELECT i.id::text AS "itemId",v.id::text AS "sourceVersionId"
+      SELECT i.id::text AS "itemId",i.current_version_number AS "studioVersion",
+        v.id::text AS "sourceVersionId"
       FROM content.generation_run_items i
       JOIN content.generation_item_versions v
         ON v.generation_item_id=i.id AND v.version_number=i.current_version_number
@@ -623,6 +624,7 @@ router.get("/bank-question/:questionId/languages",requireAdminPermission("conten
       correctIndex:studioRows.find(v=>v.language===row.language)?.correctIndex??null,
     });
     res.json({questionId,questionVersionId:versionId,studioItemId:studio[0]?.itemId??null,
+      studioVersion:studio[0]?.studioVersion??null,
       languages:["hi","pa"].map(language=>locales.get(language)??{
         language,status:"not_handed_off",source:"none",
       })});
