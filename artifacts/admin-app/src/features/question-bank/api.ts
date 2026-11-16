@@ -166,6 +166,7 @@ export interface PublishedQuestion {
   publicCode: string;
   status: QuestionStatus;
   publishedAt: string | null;
+  draftOnly?: boolean;
   versionId: string;
   versionNumber: number;
   questionType: string;
@@ -200,6 +201,14 @@ export function getLiveQuestions() {
 }
 
 export const getLiveApprovedQuestions = getLiveQuestions;
+
+export function getDraftSelectableQuestions() {
+  return adminRequest<{ questions: PublishedQuestion[]; generatedAt: string }>(
+    '/admin/questions/draft-selectable',
+    undefined,
+    { fallbackMessage: 'Unable to load approved Question Bank draft inventory.' },
+  );
+}
 
 export function getPublishedQuestions() {
   return adminRequest<{ questions: PublishedQuestion[]; generatedAt: string }>(
