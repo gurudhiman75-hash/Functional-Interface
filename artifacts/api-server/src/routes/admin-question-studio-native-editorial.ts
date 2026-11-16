@@ -575,4 +575,61 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
     res.status(500).json({code:"NATIVE_PROMOTION_UNAVAILABLE"});
   }
 });
+
+// Read-only multilingual detail: Studio approval is distinct from Question Bank handoff.
+router.get("/bank-question/:questionId/languages",requireAdminPermission("content.generation.read"),async(req,res)=>{
+  res.setHeader("Cache-Control","private, no-store");
+  const questionId=text(req.params.questionId);
+  if(!UUID.test(questionId)){res.status(400).json({code:"BANK_NATIVE_INVALID_ID"});return;}
+  try{
+    const bank=await sqlClient`
+      SELECT q.id::text AS id,COALESCE(q.approved_version_id,q.current_draft_version_id)::text AS "versionId"
+      FROM content.questions q WHERE q.id=${questionId}::uuid AND q.deleted_at IS NULL LIMIT 1`;
+    const versionId=String(bank[0]?.versionId??"");
+    if(!versionId){res.status(404).json({code:"BANK_NATIVE_NOT_FOUND"});return;}
+    const studio=await sqlClient`
+      SELECT i.id::text AS "itemId",v.id::text AS "sourceVersionId"
+      FROM content.generation_run_items i
+      JOIN content.generation_item_versions v
+        ON v.generation_item_id=i.id AND v.version_number=i.current_version_number
+      WHERE i.accepted_question_id=${questionId}::uuid
+        AND i.accepted_question_version_id=${versionId}::uuid
+      ORDER BY i.updated_at DESC LIMIT 1`;
+    const studioVersion=String(studio[0]?.sourceVersionId??"");
+    const studioRows=studioVersion?await sqlClient`
+      SELECT language_code AS language,stem,explanation,options,
+        correct_index AS "correctIndex",status,revision
+      FROM content.question_studio_native_locales
+      WHERE source_generation_version_id=${studioVersion}::uuid AND status='approved'
+      ORDER BY language_code`:[];
+    const bankRows=await sqlClient`
+      SELECT l.code AS language,t.id::text AS id,t.stem,t.explanation,t.status,
+        COALESCE(jsonb_agg(jsonb_build_object('key',o.option_key,'text',o.text,'sortOrder',o.sort_order)
+          ORDER BY o.sort_order) FILTER(WHERE o.id IS NOT NULL),'[]'::jsonb) AS options
+      FROM content.question_translations t
+      JOIN catalog.languages l ON l.id=t.language_id
+      LEFT JOIN content.question_translation_options o ON o.question_translation_id=t.id
+      WHERE t.question_version_id=${versionId}::uuid AND lower(l.code) IN ('hi','pa')
+      GROUP BY l.code,t.id,t.stem,t.explanation,t.status`;
+    const locales=new Map<string,Record<string,unknown>>();
+    for(const row of studioRows)locales.set(String(row.language),{
+      language:row.language,stem:row.stem,explanation:row.explanation,
+      options:row.options,correctIndex:row.correctIndex,
+      status:"approved_in_studio",source:"studio",revision:row.revision,
+    });
+    for(const row of bankRows)locales.set(String(row.language),{
+      language:row.language,stem:row.stem,explanation:row.explanation,
+      options:row.options,status:row.status,source:"question_bank",translationId:row.id,
+      correctIndex:studioRows.find(v=>v.language===row.language)?.correctIndex??null,
+    });
+    res.json({questionId,questionVersionId:versionId,studioItemId:studio[0]?.itemId??null,
+      languages:["hi","pa"].map(language=>locales.get(language)??{
+        language,status:"not_handed_off",source:"none",
+      })});
+  }catch(error){
+    console.error("Question Bank native languages read failed",error instanceof Error?error.message:"unknown");
+    res.status(500).json({code:"BANK_NATIVE_LANGUAGES_UNAVAILABLE"});
+  }
+});
+
 export default router;
