@@ -24,7 +24,8 @@ test('review and publication remain blocked while test structure is incomplete',
   assert.match(routes,/loadStoredValidation\(testId, input\.expectedCurrentDraftVersionId/);
   assert.match(routes,/blockingIssues = issues\.filter\(\(issue\) => !issue\.code\.startsWith\("STRUCTURE_"\)\)/);
   assert.match(routes,/QUESTION_NOT_PUBLISHED/);
-  assert.match(routes,/QUESTION_EXAM_MISMATCH/);
+  assert.match(routes,/QUESTION_NOT_RELEASE_ELIGIBLE/);
+  assert.match(routes,/QUESTION_NOT_PUBLISHED/);
 });
 
 test('local recovery and autosave survive invalid checkpoints',()=>{
@@ -42,5 +43,7 @@ test('picker offers exam inventory, topic and difficulty, and existing sections'
   assert.match(page,/availableDifficulties/);
   assert.match(page,/setTopicFilter/);
   assert.match(page,/eligibleQuestions/);
-  assert.match(page,/No published questions for this exam version yet/);
+  assert.match(page,/No eligible published questions available yet/);
+  assert.match(page,/Eligible published questions from any exam can be added/);
+  assert.doesNotMatch(page,/question\.examVersionId === draft\.examVersionId/);
 });
