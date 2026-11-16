@@ -16,7 +16,7 @@ export type NormalizedQuestionVersionInput = {
 
 export type NormalizedQuestionTaxonomyInput = {
   expectedLockVersion: number;
-  examVersionId: string;
+  examVersionId: string | null;
   primaryTaxonomyNodeId: string;
   taxonomyNodeIds: string[];
 };
@@ -151,11 +151,10 @@ export function normalizeQuestionTaxonomyInput(value: unknown): NormalizedQuesti
   const input = value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
     : {};
-  const examVersionId = asUuid(
-    input.examVersionId,
-    "EXAM_VERSION_REQUIRED",
-    "Select an exam version before saving taxonomy",
-  );
+  // Academic classification belongs to the shared bank; exam mapping is optional.
+  const examVersionId = input.examVersionId == null || input.examVersionId === ""
+    ? null
+    : asUuid(input.examVersionId, "INVALID_EXAM_VERSION", "Invalid exam version identifier");
   const primaryTaxonomyNodeId = asUuid(
     input.primaryTaxonomyNodeId,
     "PRIMARY_TAXONOMY_REQUIRED",
