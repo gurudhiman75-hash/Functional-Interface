@@ -1,19 +1,24 @@
-/* Shared sidebar theme, including the portalled mobile drawer. */
+/* Main website navigation theme, including the portalled mobile drawer. */
 .student-app-sidebar{
-  --sidebar:218 53% 14%;
-  --sidebar-foreground:218 65% 97%;
-  --sidebar-accent:213 47% 30%;
-  --sidebar-accent-foreground:0 0% 100%;
-  --sidebar-border:0 0% 100% / .094;
-  --sidebar-primary:214 85% 76%;
-  --sidebar-primary-foreground:218 53% 14%;
-  background:#111f37;color:#f1f5fc;
+  --sidebar:215.68 49.33% 14.71%;
+  --sidebar-foreground:213.00 43.48% 90.98%;
+  --sidebar-accent:213.96 42.40% 24.51%;
+  --sidebar-accent-foreground:0.00 0.00% 100.00%;
+  --sidebar-primary:148.29 45.45% 69.80%;
+  --sidebar-primary-foreground:215.68 49.33% 14.71%;
+  --sidebar-ring:148.29 45.45% 69.80%;
+  --sidebar-border:214 25% 34%;
+  background:#132238;color:#DEE7F2;
 }
-.student-app-sidebar [data-sidebar=sidebar],.student-app-sidebar [data-slot=sidebar-inner]{background:#111f37;color:#f1f5fc}
+.student-app-sidebar [data-sidebar=sidebar],.student-app-sidebar [data-slot=sidebar-inner]{background:#132238;color:#DEE7F2}
 .student-app-sidebar [data-sidebar=header] p{color:#fff}
-.student-app-sidebar [data-sidebar=menu-button]{color:#d9e3f2;border-radius:8px;font-weight:500}
-.student-app-sidebar [data-sidebar=menu-button]:hover,.student-app-sidebar [data-sidebar=menu-button][data-active=true]{background:#31577e;color:#fff;border-left-color:transparent}
-.student-app-sidebar [data-sidebar=footer] .text-muted-foreground{color:#bdcbe0}
-.student-app-sidebar [data-sidebar=footer] a,.student-app-sidebar [data-sidebar=footer] button{color:#d9e3f2}
-.student-app-sidebar [data-sidebar=footer] a:hover{background:#31577e;color:#fff}
-.student-app-sidebar a:focus-visible,.student-app-sidebar button:focus-visible{outline:2px solid #a8ceff;outline-offset:2px}
+.student-app-sidebar [data-sidebar=menu-button]{color:#DEE7F2;border-radius:8px;font-weight:500}
+.student-app-sidebar [data-sidebar=menu-button]:hover{background:#1C304B;color:#fff}
+.student-app-sidebar [data-sidebar=menu-button][data-active=true],.student-app-sidebar a[aria-current=page]{background:#243B59;color:#fff;border-left-color:#8FD5B0}
+.student-app-sidebar [data-sidebar=menu-button][data-active=true] svg{color:#8FD5B0}
+.student-app-sidebar [data-sidebar=footer] .text-muted-foreground{color:#B8C7DA}
+.student-app-sidebar [data-sidebar=footer] a,.student-app-sidebar [data-sidebar=footer] button{color:#DEE7F2}
+.student-app-sidebar [data-sidebar=footer] a:hover{background:#243B59;color:#fff}
+.student-app-sidebar [data-sidebar=footer] button:hover{background:#432F43;color:#FFE2E8}
+.student-app-sidebar a:focus-visible,.student-app-sidebar button:focus-visible{outline:2px solid #8FD5B0;outline-offset:2px}
+.student-app-sidebar [data-sidebar=footer] [class~="bg-primary/10"]{background:#243B59;color:#8FD5B0}
