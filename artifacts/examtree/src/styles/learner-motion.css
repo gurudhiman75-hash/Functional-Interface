@@ -1,8 +1,8 @@
 /* Learner shell only: active timed tests render outside AppLayout. */
 .et-viewport {
-  --et-learner-fast: 160ms;
-  --et-learner-enter: 200ms;
-  --et-learner-ease: cubic-bezier(.2,.7,.3,1);
+  --et-learner-fast: var(--et-motion-feedback);
+  --et-learner-enter: var(--et-motion-page);
+  --et-learner-ease: var(--et-motion-ease-out);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -55,3 +55,6 @@
     transform: none;
   }
 }
+
+/* Results already animate their own sections: avoid a second enclosing fade. */
+.et-viewport .et-page-content:has(> .et-result-motion) { animation: none; }

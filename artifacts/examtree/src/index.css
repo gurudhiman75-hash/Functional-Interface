@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./styles/motion-tokens.css";
 @plugin "@tailwindcss/typography";
 
 .pa-caption {
@@ -411,13 +412,13 @@
   transform: translateX(-100%);
   background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.08), transparent);
   pointer-events: none;
-  animation: shimmer 1.8s ease-in-out 200ms infinite;
+  animation: shimmer var(--et-motion-shimmer) ease-in-out var(--et-motion-loader-delay) infinite;
 }
 
 /* Reserve the layout immediately, but avoid flashing placeholders on fast requests. */
 .loading-placeholder {
   opacity: 0;
-  animation: loading-reveal 160ms ease-out 200ms forwards;
+  animation: loading-reveal var(--et-motion-feedback) ease-out var(--et-motion-loader-delay) forwards;
 }
 
 @keyframes loading-reveal {

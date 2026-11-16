@@ -154,7 +154,8 @@ function Router() {
 
   return (
     <Suspense fallback={<RouteSkeleton />}>
-      <div key={location} className="animate-fadeInUp">
+      {/* Keep existing test-route motion; other screens own their entry effects. */}
+      <div key={location} data-route-frame="" className={isTestLoadingRoute(location) ? "animate-fadeInUp" : undefined}>
         <Switch>
           <Route path="/" component={() => renderCatalogPublicRoute(Home)} />
           <Route path="/login" component={() => <Login />} />

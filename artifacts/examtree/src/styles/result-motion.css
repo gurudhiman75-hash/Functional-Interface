@@ -5,14 +5,14 @@
     to { opacity: 1; }
   }
   .et-result-motion > div > section {
-    animation: et-result-appear 180ms ease-out;
+    animation: et-result-appear var(--et-motion-page) ease-out;
   }
   .et-result-motion .et-result-review-enter {
-    animation: et-result-appear 140ms ease-out;
+    animation: et-result-appear var(--et-motion-feedback) ease-out;
   }
   .et-result-motion :is(button, a) {
     transition-property: background-color, border-color, color, box-shadow;
-    transition-duration: 140ms;
+    transition-duration: var(--et-motion-feedback);
     transition-timing-function: ease-out;
   }
   .et-result-motion [role="progressbar"] > div {
@@ -20,8 +20,8 @@
   }
 }
 /* Keep targets still, including the shared button's existing hover lift. */
-.et-result-motion .et-button:hover,
-.et-result-motion .et-button:active {
+.et-viewport .et-result-motion .et-button:hover,
+.et-viewport .et-result-motion .et-button:not(:disabled):not([aria-disabled="true"]):active {
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -33,3 +33,6 @@
     transition: none;
   }
 }
+
+/* Review rows provide feedback themselves; do not fade their section as well. */
+.et-result-motion > div > section:has(.et-result-review-enter) { animation: none; }

@@ -2,7 +2,7 @@
 @media (prefers-reduced-motion: no-preference) {
   :is(.student-profile, .notebook-login, .preparation-screen, .support-page, .support-dialog)
     :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) {
-    transition: border-color 140ms ease-out, background-color 140ms ease-out, box-shadow 140ms ease-out;
+    transition: border-color var(--et-motion-feedback) ease-out, background-color var(--et-motion-feedback) ease-out, box-shadow var(--et-motion-feedback) ease-out;
   }
   @keyframes et-form-feedback-show {
     from { opacity: .45; }
@@ -10,10 +10,10 @@
   }
   :is(.student-profile, .preparation-screen, .support-page, .support-dialog)
     :is([role="alert"], .profile-notice, .support-success) {
-    animation: et-form-feedback-show 160ms ease-out;
+    animation: et-form-feedback-show var(--et-motion-feedback) ease-out;
   }
   :is(.student-profile, .notebook-login, .preparation-screen, .support-dialog) button {
-    transition: background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, opacity 140ms ease-out;
+    transition: background-color var(--et-motion-feedback) ease-out, border-color var(--et-motion-feedback) ease-out, color var(--et-motion-feedback) ease-out, opacity var(--et-motion-feedback) ease-out;
   }
 }
 /* Reserve one feedback row so short profile notices do not move Save/Cancel. */

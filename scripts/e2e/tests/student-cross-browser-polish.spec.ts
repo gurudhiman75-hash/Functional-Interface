@@ -247,6 +247,8 @@ test("learner motion keeps chrome steady and respects reduced motion", async ({ 
   const main = page.locator("main#main-content");
   await expect(page.getByTestId("student-dashboard")).toBeVisible();
   await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("et-learner-arrive");
+  await expect.poll(() => page.locator("[data-route-frame]").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await expect.poll(() => page.locator("[data-route-frame]").evaluate(el => getComputedStyle(el).transform)).toBe("none");
   await expect.poll(() => main.evaluate(el => getComputedStyle(el).transform)).toBe("none");
   const header = page.locator(".et-shell-header");
   const headerBefore = await header.boundingBox();
@@ -258,6 +260,8 @@ test("learner motion keeps chrome steady and respects reduced motion", async ({ 
   await explore.click();
   await expect(page).toHaveURL(/\/exams$/);
   await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("et-learner-arrive");
+  await expect.poll(() => page.locator("[data-route-frame]").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
+  await expect.poll(() => page.locator("[data-route-frame]").evaluate(el => getComputedStyle(el).transform)).toBe("none");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect.poll(() => main.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   const sidebarLink = page.getByRole("link", { name: "Test series", exact: true });
