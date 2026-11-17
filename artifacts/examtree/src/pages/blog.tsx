@@ -11,7 +11,7 @@ export default function Blog() {
   const { tests, isLoading } = useExamCatalog();
   const [activeTopic, setActiveTopic] = useState("All topics");
   const [search, setSearch] = useState("");
-  usePageMeta("Free Exam Practice & Study Guides", "Practice free questions and explore exam preparation guides for Punjab Police, PSSSB, SSC and banking exams.", { canonicalPath: "/blog" });
+  usePageMeta("Free Exam Practice & Study Guides", "Practice free questions and explore exam preparation guides for Punjab Police, PSSSB, SSC and banking exams.", { canonicalPath: "/blog", robots: "noindex,follow" });
 
   const practiceTests = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
