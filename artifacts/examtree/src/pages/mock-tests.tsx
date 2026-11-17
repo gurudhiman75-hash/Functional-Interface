@@ -1,3 +1,4 @@
+import "@/styles/catalog-typography.css";
 import { useMemo } from "react";
 import { useLocation } from "wouter";
 import { Clock3, ClipboardList } from "lucide-react";
@@ -12,7 +13,7 @@ export default function MockTestsHub() {
   const featured = useMemo(() => tests.slice(0, 9), [tests]);
 
   return (
-    <PublicPage
+    <div className="student-catalog"><PublicPage
       eyebrow="Mock test hub"
       title="Find free, featured, latest, and subject-wise mocks."
       description="Browse exam-ready mocks with difficulty, language, PYQ/generated labels, and timing metadata."
@@ -26,14 +27,14 @@ export default function MockTestsHub() {
       ) : featured.length === 0 ? (
         <section className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center" data-testid="mock-tests-empty">
           <ClipboardList className="mx-auto h-9 w-9 text-slate-400" aria-hidden="true" />
-          <h2 className="mt-3 text-lg font-semibold text-slate-950">No mock tests are published yet</h2>
+          <h2 className="mt-3 text-lg font-medium text-slate-950">No mock tests are published yet</h2>
           <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600">
             The catalog loaded successfully, but there are no mock tests to show right now. Check the full exam explorer for newly published tests.
           </p>
           <button
             type="button"
             onClick={() => setLocation("/tests")}
-            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-[#1e1b4b] px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-950"
+            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-md bg-[#1e1b4b] px-5 py-2 text-sm font-medium text-white transition hover:bg-indigo-950"
           >
             Open exam explorer
           </button>
@@ -49,14 +50,14 @@ export default function MockTestsHub() {
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-semibold text-slate-950">{test.name}</h3>
+                  <h3 className="font-medium text-slate-950">{test.name}</h3>
                   <p className="mt-1 text-xs text-slate-500">{test.category} / {test.subcategoryName ?? "General"}</p>
                 </div>
-                <span className="rounded-md border border-indigo-200 bg-indigo-50 px-2 py-1 text-[11px] font-semibold text-indigo-700">
+                <span className="rounded-md border border-indigo-200 bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700">
                   {(test.access ?? "free") === "free" ? "Free" : "Premium"}
                 </span>
               </div>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
+              <div className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
                 <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1">
                   <ClipboardList className="h-3.5 w-3.5" />
                   {test.totalQuestions} Q
@@ -74,6 +75,6 @@ export default function MockTestsHub() {
           ))}
         </div>
       )}
-    </PublicPage>
+    </PublicPage></div>
   );
 }

@@ -1,3 +1,4 @@
+import "@/styles/catalog-typography.css";
 import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, BookOpen, FileText, Target } from "lucide-react";

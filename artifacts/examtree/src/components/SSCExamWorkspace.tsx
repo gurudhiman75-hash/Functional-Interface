@@ -1,3 +1,4 @@
+import "@/styles/catalog-typography.css";
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, BookOpen, CalendarDays, BarChart3, Bell, Brain, Calculator, Clock3, FileText, Globe2, Languages, Loader2, Target } from "lucide-react";

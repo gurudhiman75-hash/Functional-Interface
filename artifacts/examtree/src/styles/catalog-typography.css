@@ -1,0 +1,35 @@
+/* Catalogue and learning content only; pre-test, runner, and sidebar are excluded. */
+@import "./student-typography.css";
+:is(.student-catalog, .collection-page, .ssc-workspace, .punjab-directory) {
+  font-family: "Inter", "Noto Sans Gurmukhi", "Noto Sans Devanagari", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+:is(.student-catalog, .collection-page, .ssc-workspace, .punjab-directory) :is(h1,h2,h3,h4) {
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+.student-catalog.student-catalog h1 { font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
+.student-catalog.student-catalog h3 { font-weight: 600; }
+:is(.collection-page.collection-page, .ssc-workspace.ssc-workspace) :is(h1,h2,h3,h4,strong) { font-weight: 600; }
+:is(.collection-page.collection-page, .ssc-workspace.ssc-workspace) :is(.collection-banner-label,.collection-banner-link,.ssc-test-format) { font-weight: 500; }
+.collection-page.collection-page .collection-banner-chips span,
+.collection-page.collection-page .collection-banner-label,
+.ssc-workspace.ssc-workspace :is(.ssc-test-meta,.ssc-test-format,.ssc-access,.ssc-header-features,.ssc-series-features span,.ssc-published-count) { font-size: 12px; line-height: 1.6; }
+.ssc-workspace.ssc-workspace :is(.ssc-stage-tabs button,.ssc-format-tabs button,.ssc-test-action) { font-size: 13px; font-weight: 500; }
+.ssc-workspace.ssc-workspace .ssc-header-identity h1 { font-size: 24px; letter-spacing: -.02em; }
+.ssc-workspace.ssc-workspace .ssc-test-title h3 { white-space: normal; overflow-wrap: anywhere; }
+.student-catalog.student-catalog :is(h2,h3) { white-space: normal; }
+:is(.student-catalog, .collection-page, .ssc-workspace, .punjab-directory) :lang(pa) { font-family: "Noto Sans Gurmukhi", sans-serif; line-height: 1.9; letter-spacing: normal; text-transform: none; }
+:is(.student-catalog, .collection-page, .ssc-workspace, .punjab-directory) :lang(hi) { font-family: "Noto Sans Devanagari", sans-serif; line-height: 1.8; letter-spacing: normal; text-transform: none; }
+@media (min-width:640px) {
+  .student-catalog.student-catalog h1,
+  .ssc-workspace.ssc-workspace .ssc-header-identity h1 { font-size: 28px; }
+}
+
+.punjab-directory.punjab-directory h1 { font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
+.punjab-directory.punjab-directory :is(h2,h3,h4) { font-weight: 600; }
+.punjab-directory.punjab-directory h2 { font-size: 20px; }
+.punjab-directory.punjab-directory .punjab-exam-card h3 { white-space: normal; overflow-wrap: anywhere; line-height: 1.6; }
+@media (min-width:640px) { .punjab-directory.punjab-directory h1 { font-size: 28px; } }
