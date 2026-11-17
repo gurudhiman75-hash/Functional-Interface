@@ -92,10 +92,10 @@ export function AppSidebar() {
       className="student-app-sidebar border-r border-sidebar-border bg-sidebar text-sidebar-foreground [&_[data-sidebar=sidebar]]:border-sidebar-border [&_[data-sidebar=sidebar]]:bg-sidebar [&_[data-slot=sidebar-inner]]:bg-sidebar"
       collapsible="icon"
     >
-      <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
-        <Link href="/dashboard" aria-label="ExamTree dashboard" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1">
-          <img src="/examtree-mark.svg" width="37" height="37" alt="" aria-hidden="true" className="h-[37px] w-[37px] shrink-0 object-contain" />
-          <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-sidebar-foreground">Examtree</p>
+      <SidebarHeader className="border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:px-1">
+        <Link href="/dashboard" aria-label="ExamTree dashboard" className="flex min-h-11 items-center gap-3 rounded-xl px-1 py-1 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0">
+          <img src="/examtree-mark-on-dark.svg" width="37" height="37" alt="" aria-hidden="true" className="h-[37px] w-[37px] shrink-0 object-contain" />
+          <p className="truncate text-[21px] font-extrabold tracking-[-0.04em] text-sidebar-foreground group-data-[collapsible=icon]:hidden">Examtree</p>
         </Link>
       </SidebarHeader>
 
