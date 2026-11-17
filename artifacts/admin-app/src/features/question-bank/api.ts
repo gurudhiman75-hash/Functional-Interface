@@ -226,6 +226,14 @@ export function getQuestionTaxonomyOptions() {
   );
 }
 
+export function syncQuestionStudioTaxonomy() {
+  return adminRequest<{ success: boolean; subjects: number; sections: number; topics: number; edges: number; packages: number }>(
+    '/admin/questions/taxonomy/sync-studio',
+    { method: 'POST', body: JSON.stringify({ confirm: true }) },
+    { fallbackMessage: 'Unable to synchronize Question Studio taxonomy.' },
+  );
+}
+
 export interface QuestionBankNativeLanguage {
   language:'hi'|'pa';
   stem?:string;
