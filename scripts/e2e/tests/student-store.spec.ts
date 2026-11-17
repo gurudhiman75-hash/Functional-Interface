@@ -96,3 +96,27 @@ test.describe("student Store", () => {
     expect(overflow).toBeLessThanOrEqual(1);
   });
 });
+
+test("Store typography keeps multilingual titles readable at narrow widths", async ({ page }) => {
+  await installStoreFixtures(page);
+  const title = "ਪੰਜਾਬ ਸਰਕਾਰ ਪ੍ਰੀਖਿਆਵਾਂ ਦੀ ਤਿਆਰੀ";
+  await page.route("**/api/commerce/products", route => fulfillJson(route, {
+    products: [{ ...storeProduct, title, description: "हिन्दी और पंजाबी में अभ्यास प्रश्न।" }], salesEnabled: false,
+  }));
+  await page.goto("/store");
+  const card = page.getByTestId(`store-product-${storeProduct.id}`);
+  const heading = card.getByRole("heading", { name: title });
+  await expect(heading).toBeVisible();
+  await expect(heading).toHaveCSS("font-weight", "600");
+  const label = card.getByText("Current price", { exact: true });
+  const labelSize = await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+  expect(labelSize).toBeGreaterThanOrEqual(12);
+  expect(labelSize).toBeLessThanOrEqual(13);
+  await expect(label).toHaveCSS("text-transform", "none");
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    expect(await heading.evaluate(el => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+  }
+  await expect(card.getByText("हिन्दी और पंजाबी में अभ्यास प्रश्न।")).toBeVisible();
+});

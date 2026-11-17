@@ -136,6 +136,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page).toHaveURL(new RegExp("/dashboard$"));
     await expect(page.getByTestId("student-dashboard")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Welcome back, E2E/ })).toHaveCSS("font-weight", "600");
     await expect(page.getByRole("button", { name: "Select Targeted Exam" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Test series", exact: true }).first()).toHaveAttribute("href", "/exams");
     await expectNoHorizontalOverflow(page);
