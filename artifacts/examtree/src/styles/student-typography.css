@@ -1,18 +1,18 @@
 /* Content typography only. No sidebar, pre-test or timed-runner selectors. */
-:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion) {
+:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion, .student-performance) {
   font-family: "Inter", "Noto Sans Gurmukhi", "Noto Sans Devanagari", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.6;
   font-variant-numeric: tabular-nums;
 }
-:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion) :lang(pa) {
+:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion, .student-performance) :lang(pa) {
   font-family: "Noto Sans Gurmukhi", sans-serif;
   line-height: 1.9;
   letter-spacing: normal;
   text-transform: none;
 }
-:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion) :lang(hi) {
+:is(.student-hub-dashboard, .store-page, .student-profile, .et-result-motion, .student-performance) :lang(hi) {
   font-family: "Noto Sans Devanagari", sans-serif;
   line-height: 1.8;
   letter-spacing: normal;
