@@ -1,5 +1,5 @@
 /* Saved Results header only. */
-.et-result-motion .result-header { display:grid; grid-template-columns:minmax(0,1fr) 230px; grid-template-areas:"content score" "actions score"; gap:28px 32px; padding:32px; border:1px solid #deddf0; border-radius:24px; background:radial-gradient(circle at 92% 5%,#e9e4ff99,transparent 55%),linear-gradient(120deg,#edf5ff,#faf8ff); box-shadow:0 12px 36px #252a4408; }
+.et-result-motion .result-header { display:grid; grid-template-columns:minmax(0,1fr) 230px; grid-template-areas:"content score" "actions score"; gap:28px 32px; padding:32px; border:1px solid #deddf0; border-radius:24px; position:relative; isolation:isolate; overflow:hidden; background:#fff; box-shadow:0 10px 30px #252a4407; }
 .result-header-content{grid-area:content;min-width:0}
 .result-completed{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:99px;background:#e2f0eb;color:#2c6554;font-size:12px;font-weight:600}
 .result-completed svg{width:16px;height:16px}
@@ -35,4 +35,30 @@
  .result-header-stats dt{flex-direction:column;align-items:flex-start;gap:8px;line-height:1.5;min-height:74px}
  .result-header-stats dd{font-size:20px}.result-header-stats dd span{font-size:13px}
  .result-header-actions{flex-direction:column}.result-header-actions button{width:100%}
+}
+
+/* Decorative layers stay behind content and never intercept interaction. */
+.et-result-motion .result-header::before {
+ content:""; position:absolute; z-index:-1; pointer-events:none;
+ inset:0 0 0 52%;
+ background:radial-gradient(ellipse at 72% 48%,#e9e3ff9c,transparent 65%),radial-gradient(ellipse at 100% 90%,#e2efffbd,transparent 65%);
+}
+.et-result-motion .result-header::after {
+ content:""; position:absolute; z-index:-1; pointer-events:none;
+ right:-160px; bottom:-230px; width:470px; height:600px;
+ border:1px solid #c7c4f44d; border-radius:50%; transform:rotate(32deg);
+ box-shadow:0 0 0 18px #d5d0fa24,0 0 0 36px #d5d0fa24,0 0 0 54px #d5d0fa24,0 0 0 72px #d5d0fa1a;
+}
+.result-header-score { position:relative; border-left:0; }
+.result-header-score::before {
+ content:""; position:absolute; top:0; right:0; width:18px; height:18px;
+ border-radius:50%; background:#ffe49a;
+ box-shadow:-26px 26px 0 -5px #c4b5fd,16px 36px 0 -6px #ddd6fe;
+ pointer-events:none;
+}
+.result-score-inner { background:#fff; }
+@media(max-width:767px) {
+ .et-result-motion .result-header::before { inset:0 0 45%; }
+ .et-result-motion .result-header::after { top:-210px; bottom:auto; right:-300px; opacity:.55; }
+ .result-header-score::before { right:8px; }
 }
