@@ -500,7 +500,7 @@ test.describe("canonical student reliability", () => {
     await page.getByTestId("btn-confirm-submit").dblclick();
 
     await expect(page).toHaveURL(new RegExp(`/result\\?.*attemptId=${RESULT_ID}`));
-    await expect(page.getByText("Canonical saved result")).toBeVisible();
+    await expect(page.getByText("Test completed")).toBeVisible();
     await expect(page.getByText("100%", { exact: true }).first()).toBeVisible();
     expect(observations.attemptPosts).toBe(1);
     expect(observations.attemptAuthorization).toContain(`Bearer ${FIREBASE_TOKEN}`);
@@ -511,7 +511,7 @@ test.describe("canonical student reliability", () => {
       sessionStorage.removeItem(`examtree.attempt.handoff.${attemptId}`);
     }, RESULT_ID);
     await page.reload();
-    await expect(page.getByText("Canonical saved result")).toBeVisible();
+    await expect(page.getByText("Test completed")).toBeVisible();
     await expect.poll(() => observations.resultGets).toBeGreaterThan(0);
 
     await page.getByRole("button", { name: "Continue Test Series" }).click();
@@ -574,8 +574,8 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   await openAsStudent(page, `/result?attemptId=${RESULT_ID}`);
   const summary = page.getByTestId("result-summary");
   await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
-  await expect(summary.getByText("Canonical saved result", { exact: true })).toHaveCSS("font-size", "12px");
-  await expect(summary.getByText("Canonical saved result", { exact: true })).toHaveCSS("text-transform", "none");
+  await expect(summary.getByText("Test completed", { exact: true })).toHaveCSS("font-size", "12px");
+  await expect(summary.getByText("Test completed", { exact: true })).toHaveCSS("text-transform", "none");
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationDuration)).toBe("0.2s");
   await expect.poll(() => page.locator("main#main-content").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
@@ -584,14 +584,18 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   await page.getByRole("button", { name: "Wrong (0)", exact: true }).click();
   await expect(page.getByText("No questions match this filter.")).toBeVisible();
   await expect.poll(() => page.locator(".et-result-review-enter").evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
-  await page.getByRole("button", { name: "All (2)", exact: true }).click();
+  await summary.getByRole("button", { name: "Review answers", exact: true }).click();
+  await expect(page.locator("#solution-review-heading")).toBeFocused();
+  await expect(summary.locator(".result-score-marks")).toHaveText("2 / 2");
   await expect(page.getByText("Adding two and two gives four.")).toBeVisible();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await expect.poll(() => page.locator(".et-result-review-enter").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
-  await page.setViewportSize({ width: 390, height: 844 });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
-  await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+  for (const width of [320, 390, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+  }
 });
 
 test("test preparation shows context during real loading and clears before the instructions", async ({ page }) => {

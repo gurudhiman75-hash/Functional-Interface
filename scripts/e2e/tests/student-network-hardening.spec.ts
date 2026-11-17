@@ -280,7 +280,7 @@ test.describe("CP01B network recovery", () => {
 
     await expect(page).toHaveURL(new RegExp(`/result\\?testId=${TEST_ID}$`));
     await expect(page.getByRole("heading", { name: "Submission is not confirmed yet" })).toBeVisible();
-    await expect(page.getByText("Canonical saved result")).toHaveCount(0);
+    await expect(page.getByText("Test completed")).toHaveCount(0);
     await expect(page.getByText("50%", { exact: true })).toHaveCount(0);
     expect(observations.attemptPosts).toBe(1);
 
