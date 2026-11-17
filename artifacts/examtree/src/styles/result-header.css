@@ -62,3 +62,17 @@
  .et-result-motion .result-header::after { top:-210px; bottom:auto; right:-300px; opacity:.55; }
  .result-header-score::before { right:8px; }
 }
+
+/* Keep stat labels readable at intermediate widths and on narrow phones. */
+.result-header-stats dt { min-width:0; flex-direction:column; align-items:flex-start; line-height:1.5; min-height:74px; overflow-wrap:anywhere; }
+.result-header-stats dd { min-width:0; max-width:100%; }
+@media (min-width:768px) and (max-width:1023px) {
+ .et-result-motion .result-header { grid-template-columns:minmax(0,1fr); grid-template-areas:"score" "content" "actions"; }
+ .result-header-score { padding:0; }
+}
+@media (max-width:479px) {
+ .result-header-stats { grid-template-columns:minmax(0,1fr); gap:10px; }
+ .result-header-stats>div { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:12px; padding:12px; }
+ .result-header-stats dt { flex-direction:row; align-items:center; min-height:0; gap:10px; }
+ .result-header-stats dd { margin:0; font-size:20px; text-align:right; }
+}
