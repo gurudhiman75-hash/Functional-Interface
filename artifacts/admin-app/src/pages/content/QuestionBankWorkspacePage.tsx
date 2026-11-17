@@ -36,6 +36,7 @@ import {
   createQuestionVersion,
   getLiveQuestions,
   getQuestionTaxonomyOptions,
+  syncQuestionStudioTaxonomy,
   reconcileApprovedQuestions,
   type LiveQuestion,
   type QuestionStatus,
@@ -115,10 +116,12 @@ export function QuestionBankWorkspacePage() {
   const canOpenGeneration = hasPermission('content.generation.read');
   const canReconcile = hasPermission('content.generation.review');
   const canEdit = hasPermission('content.questions.update');
+  const canManageTaxonomy = hasPermission('content.taxonomy.manage');
   const canArchive = hasPermission('content.questions.delete');
 
   const [questions, setQuestions] = useState<LiveQuestion[]>([]);
   const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(null);
+  const [syncingTaxonomy, setSyncingTaxonomy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [bulkBusy, setBulkBusy] = useState(false);
   const [error, setError] = useState('');
@@ -262,6 +265,21 @@ export function QuestionBankWorkspacePage() {
     }
   };
 
+  const syncStudioTaxonomy = async () => {
+    if (!window.confirm('Import active Question Studio subjects, sections and topics into the shared taxonomy catalog?')) return;
+    setSyncingTaxonomy(true);
+    try {
+      const result = await syncQuestionStudioTaxonomy();
+      setTaxonomyOptions(await getQuestionTaxonomyOptions());
+      showToast.success('Studio taxonomy synchronized',
+        `${result.sections} sections and ${result.topics} topics added from ${result.packages} registered packages.`);
+    } catch (caught) {
+      showToast.error('Unable to synchronize taxonomy', caught instanceof Error ? caught.message : 'Taxonomy sync failed.');
+    } finally {
+      setSyncingTaxonomy(false);
+    }
+  };
+
   const assignBulkTaxonomy = async () => {
     if (!bulkTaxonomy.subjectId || !bulkTaxonomy.topicId) {
       showToast.warning('Classification incomplete', 'Select a subject and topic.');
@@ -347,6 +365,7 @@ export function QuestionBankWorkspacePage() {
               {sections.length > 0 && <Select value={bulkTaxonomy.sectionId || 'all-sections'} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, sectionId: value === 'all-sections' ? '' : value, topicId: '' }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="All sections" /></SelectTrigger><SelectContent><SelectItem value="all-sections">All sections</SelectItem>{sections.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>}
               <Select value={bulkTaxonomy.topicId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, topicId: value, sectionId: allowedNodes.find((node) => node.id === value)?.parentIds.find((id) => sections.some((section) => section.id === id)) ?? current.sectionId }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent>{bulkTopics.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
               <Button onClick={() => void assignBulkTaxonomy()} disabled={bulkBusy || !canEdit}><Tags className="mr-1.5 h-4 w-4" /> Save classification</Button>
+              {canManageTaxonomy && <Button variant="outline" onClick={() => void syncStudioTaxonomy()} disabled={syncingTaxonomy}>{syncingTaxonomy ? 'Syncing…' : 'Sync Studio topics'}</Button>}
             </div>
             <div className="grid gap-3 lg:grid-cols-[180px_minmax(220px,1fr)_repeat(5,auto)]">
               <Select value={bulkDifficulty} onValueChange={setBulkDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select>
