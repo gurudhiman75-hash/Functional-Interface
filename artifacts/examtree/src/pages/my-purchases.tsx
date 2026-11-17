@@ -118,7 +118,7 @@ function AccessCard({ entitlement }: { entitlement: CommerceEntitlement }) {
   const active = entitlement.accessStatus === "active";
 
   return (
-    <article className="rounded-[24px] border border-[#e4e1f0] bg-white p-5 shadow-[0_10px_30px_rgba(48,44,83,0.04)] dark:border-border dark:bg-card" data-testid={`purchase-entitlement-${entitlement.id}`}>
+    <article className="catalog-learning-card flex h-full flex-col rounded-[24px] border border-[#e4e1f0] bg-white p-5 shadow-[0_10px_30px_rgba(48,44,83,0.04)] dark:border-border dark:bg-card" data-testid={`purchase-entitlement-${entitlement.id}`}>
       <div className="flex items-start justify-between gap-4">
         <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${active ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300" : "bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/45 dark:text-violet-300"}`}>
           <PackageCheck className="h-5 w-5" aria-hidden="true" />
@@ -153,7 +153,7 @@ function AccessCard({ entitlement }: { entitlement: CommerceEntitlement }) {
       ) : null}
 
       {active ? (
-        <Link href={`/my-packages/${encodeURIComponent(entitlement.id)}`} className="et-interactive mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#594bd9]">
+        <Link href={`/my-packages/${encodeURIComponent(entitlement.id)}`} className="catalog-card-action et-interactive mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#594bd9]">
           Open package <ArrowRight className="h-4 w-4" />
         </Link>
       ) : null}
@@ -176,7 +176,7 @@ function OrderCard({
   const activeAccess = entitlements.some((item) => item.accessStatus === "active");
 
   return (
-    <article className="rounded-[24px] border border-[#e4e1f0] bg-white p-5 shadow-[0_10px_30px_rgba(48,44,83,0.04)] dark:border-border dark:bg-card" data-testid={`purchase-order-${order.id}`}>
+    <article className="catalog-learning-card flex h-full flex-col rounded-[24px] border border-[#e4e1f0] bg-white p-5 shadow-[0_10px_30px_rgba(48,44,83,0.04)] dark:border-border dark:bg-card" data-testid={`purchase-order-${order.id}`}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 items-start gap-3">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/45 dark:text-violet-300">
