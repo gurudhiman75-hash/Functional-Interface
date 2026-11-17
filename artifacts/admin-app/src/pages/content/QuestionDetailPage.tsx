@@ -70,6 +70,7 @@ interface TaxonomyState {
   examId: string;
   examVersionId: string;
   subjectId: string;
+  sectionId: string;
   topicId: string;
 }
 
@@ -78,6 +79,7 @@ const EMPTY_TAXONOMY: TaxonomyState = {
   examId: '',
   examVersionId: '',
   subjectId: '',
+  sectionId: '',
   topicId: '',
 };
 
@@ -141,6 +143,31 @@ function editorFromVersion(version: QuestionVersion): EditorState {
   };
 }
 
+function normalizeTaxonomyLabel(value: string): string {
+  return value.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9\u0a00-\u0a7f\u0900-\u097f]+/g, ' ').trim().replace(/\s+/g, ' ');
+}
+
+// Only exact, unique catalog matches are suggested. Never silently guess a chapter.
+function prefillGenerationTaxonomy(state: TaxonomyState, version: QuestionVersion, nodes: TaxonomyOptionsResponse['nodes']): TaxonomyState {
+  if (state.topicId) return state;
+  const candidates = [generationValue(version, 'subtopic'), generationValue(version, 'topic')]
+    .map(normalizeTaxonomyLabel).filter(Boolean);
+  for (const name of candidates) {
+    const matching = nodes.filter((node) => node.nodeType === 'topic' &&
+      [node.name, node.code].some((value) => normalizeTaxonomyLabel(value) === name));
+    if (matching.length !== 1) continue;
+    const topic = matching[0];
+    const sections = nodes.filter((node) => node.nodeType === 'section' && topic.parentIds.includes(node.id));
+    const possibleSubjects = nodes.filter((node) => node.nodeType === 'subject' &&
+      (topic.parentIds.includes(node.id) || sections.some((section) => section.parentIds.includes(node.id))));
+    if (possibleSubjects.length !== 1 || (state.subjectId && state.subjectId !== possibleSubjects[0].id)) continue;
+    return { ...state, subjectId: possibleSubjects[0].id,
+      sectionId: sections.length === 1 ? sections[0].id : '',
+      topicId: topic.id };
+  }
+  return state;
+}
+
 function taxonomyFromVersion(version: QuestionVersion): TaxonomyState {
   const primary = version.taxonomy.find((node) => node.isPrimary);
   const topic = primary ?? version.taxonomy.find((node) => node.nodeType === 'topic');
@@ -149,6 +176,7 @@ function taxonomyFromVersion(version: QuestionVersion): TaxonomyState {
     examId: version.examId ?? '',
     examVersionId: version.examVersionId ?? '',
     subjectId: version.taxonomy.find((node) => node.nodeType === 'subject')?.id ?? '',
+    sectionId: version.taxonomy.find((node) => node.nodeType === 'section')?.id ?? '',
     topicId: topic?.id ?? '',
   };
 }
@@ -194,6 +222,8 @@ export function QuestionDetailPage() {
       ]);
       applyDetail(next);
       setTaxonomyOptions(options);
+      const version = next.versions.find((entry) => entry.id === next.question.displayVersionId) ?? next.versions[0];
+      if (version) setTaxonomy(prefillGenerationTaxonomy(taxonomyFromVersion(version), version, options.nodes));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load question.');
     } finally {
@@ -236,21 +266,24 @@ export function QuestionDetailPage() {
     [taxonomy.familyId, taxonomyOptions],
   );
 
-  const allowedNodes = useMemo(
-    () => taxonomyOptions?.nodes.filter((node) => !taxonomy.examVersionId || node.examVersionIds.includes(taxonomy.examVersionId)) ?? [],
-    [taxonomy.examVersionId, taxonomyOptions],
-  );
+  // Academic subjects/sections/topics are shared across exams.
+  const allowedNodes = useMemo(() => taxonomyOptions?.nodes ?? [], [taxonomyOptions]);
 
   const subjects = useMemo(
     () => allowedNodes.filter((node) => node.nodeType === 'subject'),
     [allowedNodes],
   );
 
-  const topics = useMemo(
-    () => allowedNodes.filter(
-      (node) => node.nodeType === 'topic' && node.parentIds.includes(taxonomy.subjectId),
-    ),
+  const sections = useMemo(
+    () => allowedNodes.filter((node) => node.nodeType === 'section' && node.parentIds.includes(taxonomy.subjectId)),
     [allowedNodes, taxonomy.subjectId],
+  );
+  const topics = useMemo(
+    () => allowedNodes.filter((node) => node.nodeType === 'topic' &&
+      (node.parentIds.includes(taxonomy.subjectId) ||
+        sections.some((section) => (!taxonomy.sectionId || section.id === taxonomy.sectionId) && node.parentIds.includes(section.id))) &&
+      (!taxonomy.sectionId || node.parentIds.includes(taxonomy.sectionId))),
+    [allowedNodes, taxonomy.subjectId, taxonomy.sectionId, sections],
   );
 
   const beginEdit = () => {
@@ -299,7 +332,7 @@ export function QuestionDetailPage() {
         expectedLockVersion: detail.question.lockVersion,
         examVersionId: taxonomy.examVersionId || null,
         primaryTaxonomyNodeId: taxonomy.topicId,
-        taxonomyNodeIds: [taxonomy.subjectId, taxonomy.topicId],
+        taxonomyNodeIds: [taxonomy.subjectId, ...(taxonomy.sectionId ? [taxonomy.sectionId] : []), taxonomy.topicId],
       });
       applyDetail(next);
       showToast.success('Classification saved', 'Subject and topic are saved in the shared Question Bank.');
@@ -536,6 +569,7 @@ export function QuestionDetailPage() {
                         examId: value,
                         examVersionId: exam?.currentVersionId ?? '',
                         subjectId: '',
+                        sectionId: '',
                         topicId: '',
                       }));
                     }}
@@ -557,6 +591,7 @@ export function QuestionDetailPage() {
                     onValueChange={(value) => setTaxonomy((current) => ({
                       ...current,
                       subjectId: value,
+                      sectionId: '',
                       topicId: '',
                     }))}
                     disabled={!canEdit || publishedVersionFrozen}
@@ -570,6 +605,18 @@ export function QuestionDetailPage() {
                   </Select>
                 </div>
 
+                {sections.length > 0 && <div className="space-y-2">
+                  <Label>Section (optional)</Label>
+                  <Select value={taxonomy.sectionId || 'all-sections'} onValueChange={(value) =>
+                    setTaxonomy((current) => ({ ...current, sectionId: value === 'all-sections' ? '' : value, topicId: '' }))}
+                    disabled={!canEdit || publishedVersionFrozen || !taxonomy.subjectId}>
+                    <SelectTrigger><SelectValue placeholder="All sections" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-sections">All sections</SelectItem>
+                      {sections.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>}
                 <div className="space-y-2">
                   <Label>Topic</Label>
                   <Select
@@ -577,6 +624,8 @@ export function QuestionDetailPage() {
                     onValueChange={(value) => setTaxonomy((current) => ({
                       ...current,
                       topicId: value,
+                      sectionId: allowedNodes.find((node) => node.id === value)?.parentIds.find((id) =>
+                        sections.some((section) => section.id === id)) ?? current.sectionId,
                     }))}
                     disabled={!canEdit || publishedVersionFrozen || !taxonomy.subjectId}
                   >
@@ -589,6 +638,9 @@ export function QuestionDetailPage() {
                   </Select>
                 </div>
               </div>
+              {!viewedVersion.taxonomy.length && taxonomy.topicId && (
+                <p className="text-xs text-muted-foreground">Suggested from the generation topic/subtopic. Review the selection and save; nothing is classified automatically.</p>
+              )}
               {canEdit && (
                 <div className="flex justify-end">
                   <Button
