@@ -46,6 +46,7 @@ import {
   getQuestionBankNativeLanguages,
   type QuestionBankNativeLanguages,
   getQuestionTaxonomyOptions,
+  syncQuestionStudioTaxonomy,
   transitionQuestion,
   updateQuestionTaxonomy,
   type QuestionDetailResponse,
@@ -185,6 +186,7 @@ export function QuestionDetailPage() {
   const { id = '' } = useParams();
   const { hasPermission } = useAdminPermissions();
   const canEdit = hasPermission('content.questions.update');
+  const canManageTaxonomy = hasPermission('content.taxonomy.manage');
   const canTranslate = hasPermission('content.translations.update') ||
     hasPermission('content.translations.review');
   const canApprove = hasPermission('content.questions.approve');
@@ -196,6 +198,7 @@ export function QuestionDetailPage() {
   const [nativeError,setNativeError]=useState('');
 
   const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(null);
+  const [syncingTaxonomy, setSyncingTaxonomy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -318,6 +321,24 @@ export function QuestionDetailPage() {
       );
     } finally {
       setSaving(false);
+    }
+  };
+
+  const syncStudioTaxonomy = async () => {
+    if (!window.confirm('Import active Question Studio sections and topics into the shared taxonomy catalog? Existing classifications will be preserved.')) return;
+    setSyncingTaxonomy(true);
+    try {
+      const result = await syncQuestionStudioTaxonomy();
+      const options = await getQuestionTaxonomyOptions();
+      setTaxonomyOptions(options);
+      if (currentVersion) setTaxonomy((current) => prefillGenerationTaxonomy(current, currentVersion, options.nodes));
+      showToast.success('Studio taxonomy synchronized',
+        `${result.sections} sections and ${result.topics} topics added; ${result.packages} registered packages examined.`);
+    } catch (caught) {
+      showToast.error('Unable to sync Studio taxonomy',
+        caught instanceof Error ? caught.message : 'Taxonomy sync failed.');
+    } finally {
+      setSyncingTaxonomy(false);
     }
   };
 
@@ -541,6 +562,12 @@ export function QuestionDetailPage() {
                   The published version is frozen. Create a new draft version before changing taxonomy.
                 </div>
               )}
+              {canManageTaxonomy && <div className="flex items-center justify-between gap-3 rounded-lg border p-3">
+                <p className="text-xs text-muted-foreground">Missing a Studio chapter? Import all registered subjects, sections and topics into the shared catalog.</p>
+                <Button variant="outline" size="sm" disabled={syncingTaxonomy} onClick={() => void syncStudioTaxonomy()}>
+                  {syncingTaxonomy ? 'Syncing…' : 'Sync Studio topics'}
+                </Button>
+              </div>}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Exam family (optional)</Label>
