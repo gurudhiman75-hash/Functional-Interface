@@ -153,19 +153,10 @@ router.post(
                 WHERE n.id = ${nodeId}::uuid
                   AND n.is_active = true
                   AND n.deleted_at IS NULL
-                  AND (
-                    ${examVersionId || null}::uuid IS NULL
-                    OR EXISTS (
-                      SELECT 1 FROM catalog.exam_taxonomy_nodes etn
-                      WHERE etn.taxonomy_node_id = n.id
-                        AND etn.exam_version_id = ${examVersionId || null}::uuid
-                        AND etn.is_active = true
-                    )
-                  )
                 LIMIT 1
               `;
               if (nodeRows.length === 0) {
-                throw Object.assign(new Error("One or more academic classifications are inactive or unavailable for the optional exam"), { code: "TAXONOMY_NOT_AVAILABLE_FOR_EXAM" });
+                throw Object.assign(new Error("One or more academic classifications are inactive"), { code: "TAXONOMY_NOT_AVAILABLE_FOR_EXAM" });
               }
             }
 
