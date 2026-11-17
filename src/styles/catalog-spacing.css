@@ -1,0 +1,25 @@
+/* Scoped catalogue spacing; no application shell or test-runner selectors. */
+.student-catalog :is(.catalog-feature-card,.catalog-learning-card,.catalog-mock-card,.catalog-series-row) { padding: 20px; min-width: 0; }
+.student-catalog .catalog-card-action { margin-top: auto; padding-top: 12px; padding-bottom: 12px; }
+.student-catalog .catalog-feature-card > :nth-last-child(2) { margin-bottom: 20px; }
+.student-catalog .catalog-learning-card > a.catalog-card-action { margin-top: auto; }
+.student-catalog .catalog-learning-card > :nth-last-child(2) { margin-bottom: 20px; }
+.student-catalog .catalog-mock-meta { margin-top: auto; padding-top: 20px; }
+.student-catalog .catalog-series-action { min-width: 144px; }
+.collection-page :is(.collection-exam-card,.collection-test-card,.collection-plan-card) { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.collection-page :is(.collection-exam-card,.collection-test-card,.collection-plan-card) > p { margin: 0; }
+.collection-page .collection-exam-card > a:last-child { margin-top: auto; }
+.punjab-directory .punjab-exam-card { display: flex; flex-direction: column; padding: 20px; }
+.punjab-directory .punjab-exam-local-name { margin-top: 12px; margin-bottom: 16px; }
+.punjab-directory .punjab-exam-card-actions { margin-top: auto; gap: 10px; padding-top: 4px; flex-wrap: wrap; }
+.punjab-directory .punjab-exam-card-actions > a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.punjab-directory .punjab-exam-more { margin-top: 12px; }
+.ssc-workspace .ssc-test-meta { margin-top: 8px; row-gap: 8px; }
+@media (min-width:640px) {
+  .student-catalog :is(.catalog-feature-card,.catalog-learning-card,.catalog-series-row) { padding: 24px; }
+}
+@media (max-width:639px) {
+  .student-catalog .catalog-series-action { min-width: 0; }
+  .punjab-directory .punjab-exam-card { padding: 16px; }
+  .punjab-directory .punjab-exam-card-actions > a { flex: 1 1 110px; }
+}

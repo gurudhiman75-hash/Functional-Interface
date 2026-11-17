@@ -1,0 +1,62 @@
+/* Shared phone layout; imported after each exam family's desktop palette. */
+@media (max-width:850px){
+ .ssc-workspace .ssc-catalog-layout{grid-template-columns:minmax(0,1fr)!important}
+ .ssc-workspace .ssc-catalog-main,.ssc-workspace .ssc-toolkit{min-width:0}
+ .ssc-workspace .ssc-toolkit{grid-template-columns:1fr!important}
+ .ssc-workspace .ssc-featured-series{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+ .ssc-workspace .ssc-series-content{display:flex!important;flex-direction:column;align-items:flex-start}
+ .ssc-workspace .ssc-series-content>a,.ssc-workspace .ssc-series-content>button{min-height:44px!important}
+}
+@media (max-width:600px){
+ .ssc-workspace .ssc-workspace-inner{padding:12px 12px 28px!important}
+ .ssc-workspace .ssc-exam-header,.ssc-workspace .ssc-exam-header.is-signed-in{display:flex!important;flex-direction:column;align-items:stretch;gap:14px!important;padding:14px!important;min-height:0!important}
+ .ssc-workspace .ssc-header-content{width:100%;grid-template-columns:64px minmax(0,1fr)!important;column-gap:12px!important;padding:0!important;min-width:0}
+ .ssc-workspace .ssc-header-logo{width:64px!important;height:70px!important;flex-shrink:0}
+ .ssc-workspace .ssc-header-identity h1{font-size:25px!important;line-height:1.2;overflow-wrap:anywhere}
+ .ssc-workspace .ssc-header-identity h1 span{font-size:inherit!important}
+ .ssc-workspace .ssc-exam-subtitle{font-size:13px!important;line-height:1.5}
+ .ssc-workspace .ssc-header-features{grid-column:1/-1!important;margin:12px 0 0!important;gap:10px!important;font-size:12px!important;flex-wrap:wrap}
+ .ssc-workspace .ssc-header-features span+span{padding-left:10px!important}
+ .ssc-workspace .ssc-date-panel{width:100%;min-width:0!important;max-width:none;min-height:80px!important;padding:12px!important;gap:10px!important}
+ .ssc-workspace .ssc-date-panel>div{min-width:0}
+ .ssc-workspace .ssc-date-panel>svg{width:28px!important;height:28px!important;flex-shrink:0}
+ .ssc-workspace .ssc-date-panel strong{font-size:14px!important}
+ .ssc-workspace .ssc-countdown{min-width:68px!important;padding-left:10px!important}
+ .ssc-workspace .ssc-countdown strong{font-size:30px!important}
+ .ssc-workspace .ssc-countdown span{font-size:11px!important}
+ .ssc-workspace .ssc-main-switch{flex-wrap:wrap}
+ .ssc-workspace .ssc-main-switch button{min-height:44px!important;padding:0 14px!important}
+ .ssc-workspace .ssc-main-switch>a{min-height:44px;align-items:center}
+ .ssc-workspace .ssc-series-art{min-height:0!important;aspect-ratio:1.85;padding:20px 24px!important}
+ .ssc-workspace .ssc-series-art>strong{font-size:20cqw!important;max-width:48%}
+ .ssc-workspace .ssc-series-art-compact>strong{font-size:6cqw!important;max-width:52%}
+ .ssc-workspace .ssc-series-art>span{font-size:9px!important}
+ .ssc-workspace .ssc-series-art small{font-size:7px!important}
+ .ssc-workspace .ssc-series-content{padding:18px!important;gap:8px!important}
+ .ssc-workspace .ssc-series-content h2{font-size:23px!important}
+ .ssc-workspace .ssc-series-content>p{font-size:13px!important}
+ .ssc-workspace .ssc-series-content>a,.ssc-workspace .ssc-series-content>button{width:100%;justify-content:center;font-size:13px!important;margin-top:8px!important}
+ .ssc-workspace .ssc-practice-card{padding:14px!important;scroll-margin-top:80px}
+ .ssc-workspace .ssc-section-heading{flex-wrap:wrap;gap:6px!important}
+ .ssc-workspace .ssc-section-heading h2{font-size:21px!important}
+ .ssc-workspace .ssc-published-count{font-size:10px!important}
+ .ssc-workspace .ssc-stage-tabs{display:flex;flex-wrap:wrap;gap:6px!important}
+ .ssc-workspace .ssc-stage-tabs button{min-height:44px!important;padding:0 12px!important;font-size:13px!important}
+ .ssc-workspace .ssc-format-tabs{display:flex;flex-wrap:wrap;gap:8px!important}
+ .ssc-workspace .ssc-format-tabs button{min-height:44px!important;padding:0 13px!important;font-size:12px!important}
+ .ssc-workspace .ssc-test-row{flex-direction:column;align-items:stretch;gap:12px;padding:14px!important}
+ .ssc-workspace .ssc-test-row-main{min-width:0}
+ .ssc-workspace .ssc-test-title h3{font-size:14px!important;overflow-wrap:anywhere}
+ .ssc-workspace .ssc-test-meta{gap:8px!important;line-height:1.6}
+ .ssc-workspace .ssc-test-action{width:100%;min-height:44px!important;font-size:13px!important}
+ .ssc-workspace .ssc-empty-links a{min-height:44px;font-size:12px}
+ .ssc-workspace .ssc-toolkit>section{padding:16px!important}
+ .ssc-workspace .ssc-toolkit h2{font-size:23px!important}
+ .ssc-workspace .ssc-toolkit section>a,.ssc-workspace .ssc-toolkit section>button{min-height:64px}
+ .ssc-workspace .ssc-toolkit h3{font-size:14px!important}
+ .ssc-workspace .ssc-toolkit section>a p,.ssc-workspace .ssc-toolkit section>button p{font-size:12px!important}
+ .ssc-workspace .ssc-subject-section>div{grid-template-columns:1fr!important}
+ .ssc-workspace .ssc-subject-section a{min-height:60px}
+ .ssc-workspace .ssc-subject-section h3{font-size:14px!important}
+ .ssc-workspace .ssc-subject-section p{display:block!important;font-size:12px!important}
+}

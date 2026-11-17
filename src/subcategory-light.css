@@ -1,0 +1,180 @@
+/* Approved light visual treatment for the public exam/subcategory page.
+   Keep this stylesheet route-scoped so other public and learner surfaces retain
+   their own contrast systems. */
+
+#main-content:has(#subcategory-title) {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(108, 92, 241, 0.045), transparent 29rem),
+    #fafbff;
+}
+
+#main-content:has(#subcategory-title) > div {
+  background: transparent !important;
+}
+
+/* Hero: replace the high-contrast dark snapshot block with a soft exam-summary strip. */
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] {
+  border-color: #e7e8f2 !important;
+  box-shadow: 0 10px 34px rgba(35, 39, 74, 0.045) !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child {
+  border-color: #ecebfa !important;
+  background: linear-gradient(110deg, #fbfaff 0%, #f5f4ff 100%) !important;
+  color: #0f172a !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child > p {
+  color: #6c5cf1 !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 1rem !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 > * {
+  margin-top: 0 !important;
+  border-color: #e7e5f7 !important;
+  padding: 0.8rem 0 !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 span:first-child {
+  color: #64748b !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 span:last-child {
+  color: #0f172a !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 svg {
+  color: #6c5cf1 !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child > div:last-child:not(.space-y-4) {
+  border-color: #e6e4f4 !important;
+  background: rgba(255, 255, 255, 0.76) !important;
+  color: #64748b !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child > div:last-child:not(.space-y-4) span {
+  color: #0f172a !important;
+}
+
+/* Keep the active format control purple, but make surrounding chrome softer. */
+#main-content:has(#subcategory-title) [role="tablist"] {
+  border-color: #e6e7f1 !important;
+  box-shadow: 0 5px 18px rgba(35, 39, 74, 0.025);
+}
+
+#main-content:has(#subcategory-title) article {
+  border-color: #e8e9f2 !important;
+  box-shadow: 0 7px 24px rgba(35, 39, 74, 0.035) !important;
+}
+
+#main-content:has(#subcategory-title) article:hover {
+  border-color: #d9d8ee !important;
+  box-shadow: 0 12px 28px rgba(35, 39, 74, 0.055) !important;
+}
+
+/* Packages: move commerce below the test list and present it as a light horizontal rail. */
+#main-content:has(#subcategory-title) div:has(> section[aria-label$=" tests"] + aside[aria-label="Exam packages"]) {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+#main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky {
+  position: static !important;
+  top: auto !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+#main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child {
+  border: 1px solid #e8e6f5;
+  background: linear-gradient(105deg, #fbfaff 0%, #f5f4ff 100%) !important;
+  color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+#main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child p:first-child {
+  color: #6c5cf1 !important;
+}
+
+#main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child p:last-child {
+  color: #64748b !important;
+}
+
+/* Readiness: retain hierarchy without the previous navy block. */
+#main-content:has(#subcategory-title) section[aria-labelledby="exam-ready-heading"] {
+  border: 1px solid #e6e4f4;
+  background:
+    radial-gradient(circle at 88% 35%, rgba(108, 92, 241, 0.11), transparent 23rem),
+    linear-gradient(115deg, #fbfaff 0%, #f4f3ff 100%) !important;
+  color: #0f172a !important;
+  box-shadow: 0 10px 30px rgba(35, 39, 74, 0.035);
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="exam-ready-heading"] p:first-child {
+  color: #6c5cf1 !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="exam-ready-heading"] h2 {
+  color: #16213f !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="exam-ready-heading"] h2 + p {
+  color: #64748b !important;
+}
+
+#main-content:has(#subcategory-title) section[aria-labelledby="exam-ready-heading"] > div > div:last-child {
+  border: 1px solid rgba(108, 92, 241, 0.09);
+  box-shadow: 0 10px 26px rgba(35, 39, 74, 0.045) !important;
+}
+
+@media (min-width: 640px) {
+  #main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 > * {
+    padding: 0 1rem !important;
+    border-bottom: 0 !important;
+    border-right: 1px solid #e7e5f7;
+  }
+
+  #main-content:has(#subcategory-title) section[aria-labelledby="subcategory-title"] > div > div:last-child .space-y-4 > *:last-child {
+    border-right: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 0.75rem 2rem;
+  }
+
+  #main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child h2,
+  #main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child p:first-child {
+    grid-column: 1;
+  }
+
+  #main-content:has(#subcategory-title) aside[aria-label="Exam packages"] > .sticky > div:first-child p:last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+}
