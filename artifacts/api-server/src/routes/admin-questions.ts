@@ -589,21 +589,12 @@ router.patch(
             WHERE n.id = ${nodeId}::uuid
               AND n.is_active = true
               AND n.deleted_at IS NULL
-              AND (
-                ${input.examVersionId}::uuid IS NULL
-                OR EXISTS (
-                  SELECT 1 FROM catalog.exam_taxonomy_nodes etn
-                  WHERE etn.taxonomy_node_id = n.id
-                    AND etn.exam_version_id = ${input.examVersionId}::uuid
-                    AND etn.is_active = true
-                )
-              )
             LIMIT 1
           `;
           if (nodes.length === 0) {
             throw new QuestionManagementError(
               "TAXONOMY_NOT_AVAILABLE",
-              "One or more taxonomy selections are inactive or unavailable for the optional exam.",
+              "One or more taxonomy selections are inactive.",
               400,
             );
           }
