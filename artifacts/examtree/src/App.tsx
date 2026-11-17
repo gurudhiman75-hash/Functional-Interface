@@ -15,7 +15,7 @@ import { getSessionUser } from "@/lib/session-user";
 
 const AppLayout = lazy(() => import("@/components/AppLayout").then((module) => ({ default: module.AppLayout })));
 const ExamCollectionPage = lazy(() => import("@/pages/exam-collection"));
-const Home = lazy(() => import("@/pages/home"));
+const Home = lazy(() => window.location.hostname === "blog.examtree.in" ? import("@/pages/blog") : import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
 const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
@@ -157,7 +157,7 @@ function Router() {
       {/* Keep existing test-route motion; other screens own their entry effects. */}
       <div key={location} data-route-frame="" className={isTestLoadingRoute(location) ? "animate-fadeInUp" : undefined}>
         <Switch>
-          <Route path="/" component={() => renderCatalogPublicRoute(window.location.hostname === "blog.examtree.in" ? Blog : Home)} />
+          <Route path="/" component={() => renderCatalogPublicRoute(Home)} />
           <Route path="/login" component={() => <Login />} />
           <Route path="/login/student" component={() => <Login />} />
           <Route path="/login/admin" component={() => <Login />} />
