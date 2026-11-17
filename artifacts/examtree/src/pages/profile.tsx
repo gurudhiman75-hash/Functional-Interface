@@ -1,3 +1,4 @@
+import "@/styles/student-typography.css";
 import "@/styles/form-feedback-motion.css";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useRef, useState } from "react";

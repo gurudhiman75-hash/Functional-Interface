@@ -1,3 +1,4 @@
+import "@/styles/student-typography.css";
 import { useMemo } from "react";
 import { DashboardLoading } from "@/components/dashboard-loading";
 import { useQuery } from "@tanstack/react-query";

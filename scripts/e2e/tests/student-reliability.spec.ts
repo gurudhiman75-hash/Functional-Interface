@@ -574,6 +574,8 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   await openAsStudent(page, `/result?attemptId=${RESULT_ID}`);
   const summary = page.getByTestId("result-summary");
   await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+  await expect(summary.getByText("Canonical saved result", { exact: true })).toHaveCSS("font-size", "12px");
+  await expect(summary.getByText("Canonical saved result", { exact: true })).toHaveCSS("text-transform", "none");
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("et-result-appear");
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationDuration)).toBe("0.2s");
   await expect.poll(() => page.locator("main#main-content").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
