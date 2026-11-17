@@ -1,3 +1,4 @@
+import "@/styles/result-header.css";
 import { chartColours } from "@/lib/chart-colours";
 import "@/styles/student-typography.css";
 import { useMemo, useState, useSyncExternalStore } from "react";
@@ -6,6 +7,7 @@ import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
+  ArrowRight,
   Award,
   BarChart3,
   BookOpen,
@@ -209,40 +211,42 @@ export default function CanonicalResult() {
           {seriesUrl ? "Back to Test Series" : "Back to My Activity"}
         </button>
 
-        <section className="overflow-hidden rounded-3xl border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_8%,rgba(108,92,241,0.14),transparent_25rem),linear-gradient(120deg,#ffffff_0%,#f8f6ff_100%)] shadow-[0_16px_44px_rgba(37,42,68,0.05)]" data-testid="result-summary">
-          <div className="grid gap-7 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_310px] lg:items-center lg:p-8">
-            <div className="min-w-0">
-              <p className="text-xs font-semibold tracking-normal text-[#6657e8]">Canonical saved result</p>
-              <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 sm:text-[28px]">{result.testName}</h1>
-              <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
-                <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">{result.category}</span>
-                {result.attemptNumber != null && <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">Attempt {result.attemptNumber}</span>}
-                {submittedAt && <span className="rounded-full border border-[#e2def5] bg-white/85 px-3 py-1.5">Submitted {submittedAt}</span>}
-              </div>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4"><div className="flex items-center gap-2 text-xs font-semibold text-emerald-700"><CheckCircle2 className="h-4 w-4" />Correct</div><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{result.correct}</p></div>
-                <div className="rounded-2xl border border-rose-100 bg-rose-50/70 p-4"><div className="flex items-center gap-2 text-xs font-semibold text-rose-700"><XCircle className="h-4 w-4" />Wrong</div><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{result.wrong}</p></div>
-                <div className="rounded-2xl border border-amber-100 bg-amber-50/70 p-4"><div className="flex items-center gap-2 text-xs font-semibold text-amber-700"><FileQuestion className="h-4 w-4" />Unanswered</div><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{result.unanswered}</p></div>
-                <div className="rounded-2xl border border-[#e6e1f8] bg-white/75 p-4"><div className="flex items-center gap-2 text-xs font-semibold text-slate-600"><Timer className="h-4 w-4 text-[#6657e8]" />Time spent</div><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{formatDuration(result.timeSpent)}</p></div>
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-white bg-white/90 p-5 shadow-[0_12px_36px_rgba(71,61,145,0.08)]">
-              <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-full p-[12px]" style={{ background: `conic-gradient(#6657e8 ${boundedScore * 3.6}deg,#ece9fb 0deg)` }}>
-                <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white text-center">
-                  <span className="text-xs font-semibold tracking-normal text-slate-500">Score</span>
-                  <span className="mt-1 text-4xl font-semibold tracking-tight text-slate-950">{result.score}%</span>
-                  {result.actualScore != null && <span className="mt-1 text-xs font-semibold text-slate-600">{result.actualScore} marks</span>}
-                </div>
-              </div>
-              <div className="mt-5 flex items-center justify-between text-xs"><span className="font-medium text-slate-600">Accuracy</span><strong className="text-slate-950">{accuracy}%</strong></div>
-              <Progress value={accuracy} className="mt-2 h-2" />
-              <div className="mt-5 grid gap-2">
-                {seriesUrl && <Button className="min-h-11 rounded-xl bg-[#6657e8] hover:bg-[#594bd9]" onClick={() => setLocation(seriesUrl)}><Target className="mr-2 h-4 w-4" />Continue Test Series</Button>}
-                <Button className="min-h-11 rounded-xl border-[#dcd8ec] bg-white text-slate-700 hover:bg-[#f7f5ff]" variant="outline" onClick={() => setLocation(retryUrl)}><RotateCcw className="mr-2 h-4 w-4" />Retake test</Button>
+        <section className="result-header" data-testid="result-summary" aria-label="Test result summary">
+          <div className="result-header-content">
+            <span className="result-completed"><CheckCircle2 aria-hidden="true" />Test completed</span>
+            <h1>{result.testName}</h1>
+            <p className="result-header-meta">
+              {result.attemptNumber != null && <span>Attempt {result.attemptNumber}</span>}
+              {submittedAt && <span>{submittedAt}</span>}
+              {result.category && <span>{result.category}</span>}
+            </p>
+            <dl className="result-header-stats">
+              <div><dt><span className="result-stat-icon result-stat-blue"><Target aria-hidden="true" /></span>Accuracy</dt><dd>{accuracy}%</dd></div>
+              <div><dt><span className="result-stat-icon result-stat-yellow"><CheckCircle2 aria-hidden="true" /></span>Correct answers</dt><dd>{result.correct}<span> / {totalQuestions}</span></dd></div>
+              <div><dt><span className="result-stat-icon result-stat-purple"><Clock3 aria-hidden="true" /></span>Time spent</dt><dd>{formatDuration(result.timeSpent)}</dd></div>
+            </dl>
+          </div>
+          <div className="result-header-score">
+            <div className="result-score-ring" style={{ background: `conic-gradient(from -90deg, #6657e8 ${boundedScore * 3.6}deg, #dedcf7 0deg)` }}>
+              <div className="result-score-inner">
+                <span className="result-score-label">Score</span>
+                {result.actualScore != null && Number.isFinite(result.actualScore) ? <>
+                  <strong className="result-score-marks">{result.actualScore}{result.marksPerQuestion != null && result.marksPerQuestion > 0 && totalQuestions > 0 && <span> / {Math.round(totalQuestions * result.marksPerQuestion * 100) / 100}</span>}</strong>
+                  <span className="result-score-percent">{result.score}%</span>
+                  <span className="result-score-label">marks earned</span>
+                </> : <strong className="result-score-percent result-score-percentage-only">{result.score}%</strong>}
               </div>
             </div>
+          </div>
+          <div className="result-header-actions">
+            <Button className="result-review-button" onClick={() => {
+              setFilter("all");
+              const heading = document.getElementById("solution-review-heading");
+              heading?.focus({ preventScroll: true });
+              heading?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+            }}>Review answers <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>
+            <Button className="result-retake-button" variant="outline" onClick={() => setLocation(retryUrl)}>Retake test</Button>
+            {seriesUrl && <Button className="result-continue-button" variant="ghost" onClick={() => setLocation(seriesUrl)}>Continue Test Series <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>}
           </div>
         </section>
 
@@ -481,7 +485,7 @@ export default function CanonicalResult() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex items-start gap-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f2efff] text-[#6657e8]"><BookOpen className="h-5 w-5" /></span>
-              <div><h2 className="text-lg font-semibold tracking-tight text-slate-950">Solution review</h2><p className="mt-1 text-sm leading-6 text-slate-600">Answers and explanations come from the immutable submitted test version.</p></div>
+              <div><h2 id="solution-review-heading" tabIndex={-1} className="scroll-mt-24 text-lg font-semibold tracking-tight text-slate-950">Solution review</h2><p className="mt-1 text-sm leading-6 text-slate-600">Answers and explanations come from the immutable submitted test version.</p></div>
             </div>
             <div className="flex flex-wrap gap-2">
               {(["all", "correct", "wrong", "flagged", "unanswered"] as ReviewFilter[]).map((item) => (

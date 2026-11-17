@@ -165,7 +165,7 @@ test.describe("CP01B student production hardening", () => {
     await openAsStudent(page, `/result?testId=${encodeURIComponent(TEST_ID)}`, [staleAttempt]);
 
     await expect(page.getByRole("heading", { name: "Submission is not confirmed yet" })).toBeVisible();
-    await expect(page.getByText("Canonical saved result")).toHaveCount(0);
+    await expect(page.getByText("Test completed")).toHaveCount(0);
     expect(observations.attemptByIdGets).toBe(0);
   });
 
