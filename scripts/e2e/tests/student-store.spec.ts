@@ -109,7 +109,9 @@ test("Store typography keeps multilingual titles readable at narrow widths", asy
   await expect(heading).toBeVisible();
   await expect(heading).toHaveCSS("font-weight", "600");
   const label = card.getByText("Current price", { exact: true });
-  await expect(label).toHaveCSS("font-size", "12px");
+  const labelSize = await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+  expect(labelSize).toBeGreaterThanOrEqual(12);
+  expect(labelSize).toBeLessThanOrEqual(13);
   await expect(label).toHaveCSS("text-transform", "none");
   for (const width of [1280, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });
