@@ -107,6 +107,7 @@ const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-quest
 const adminQuestionBulkWorkflowRouter = lazyRouter(() => import("./admin-question-bulk-workflow"));
 const adminQuestionLifecycleHardeningRouter = lazyRouter(() => import("./admin-question-lifecycle-hardening"));
 const adminQuestionTaxonomyHardeningRouter = lazyRouter(() => import("./admin-question-taxonomy-hardening"));
+const adminQuestionTaxonomyStudioSyncRouter = lazyRouter(() => import("./admin-question-taxonomy-studio-sync"));
 const adminQuestionsRouter = lazyRouter(() => import("./admin-questions"));
 const adminStudentDirectoryResilientRouter = lazyRouter(() => import("./admin-student-directory-resilient"));
 const adminStudentDirectoryHardeningRouter = lazyRouter(() => import("./admin-student-directory-hardening"));
@@ -255,6 +256,7 @@ router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
 router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);
 router.use("/admin/questions", adminQuestionTaxonomyHardeningRouter);
+router.use("/admin/questions", adminQuestionTaxonomyStudioSyncRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 router.use("/admin/translations", adminTranslationHardeningRouter);
 router.use("/admin/translations", adminTranslationActionsRouter);
