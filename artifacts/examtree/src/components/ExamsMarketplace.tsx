@@ -249,11 +249,11 @@ export default function ExamsMarketplace() {
               {featuredSeries.map((seriesItem, index) => {
                 const comingSoon = seriesItem.learnerVisibility === "coming_soon";
                 return (
-                  <article key={seriesItem.id} className={`min-w-0 overflow-hidden rounded-2xl border p-5 shadow-[0_8px_28px_rgba(37,42,68,0.045)] ${FEATURE_TONES[index % FEATURE_TONES.length]}`}>
+                  <article key={seriesItem.id} className={`catalog-feature-card flex min-w-0 flex-col overflow-hidden rounded-2xl border p-5 shadow-[0_8px_28px_rgba(37,42,68,0.045)] ${FEATURE_TONES[index % FEATURE_TONES.length]}`}>
                     <div className="flex min-w-0 items-start justify-between gap-3"><span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${FEATURE_ICON_TONES[index % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} icon={seriesItem.iconUrl} size="md" /></span><span className="shrink-0 rounded-full border border-white bg-white/80 px-2.5 py-1 text-xs font-semibold text-slate-600">{comingSoon ? "COMING SOON" : index === 0 && seriesItem.attemptCount > 0 ? "MOST ATTEMPTED" : "LIVE"}</span></div>
                     <p className="mt-5 truncate text-xs font-semibold tracking-normal text-[#6657e8]">{seriesItem.examName}</p><h3 className="mt-1.5 min-h-11 text-base font-semibold leading-5 text-slate-950">{seriesItem.name}</h3>
                     {comingSoon ? <p className="mt-3 line-clamp-2 min-h-10 text-xs leading-5 text-slate-500">{seriesItem.learnerMessage || "Tests are being prepared. No questions are available yet."}</p> : <div className="mt-4 flex min-w-0 flex-wrap gap-x-3 gap-y-1 text-xs font-medium text-slate-500"><span>{formatCount(seriesItem.testCount)} tests</span><span>{formatCount(seriesItem.questionCount)} questions</span>{seriesItem.attemptCount > 0 ? <span className="inline-flex items-center gap-1"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</span> : null}</div>}
-                    <Button className="mt-5 min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>{comingSoon ? "View details" : "View Series"}</Button>
+                    <Button className="catalog-card-action mt-5 min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>{comingSoon ? "View details" : "View Series"}</Button>
                   </article>
                 );
               })}

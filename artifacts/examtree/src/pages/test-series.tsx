@@ -283,7 +283,7 @@ export default function TestSeriesPage() {
             {visibleMembers.map((member, index) => {
               const catalogTest = catalogTestById.get(member.testId);
               return (
-                <article key={member.id} className={`rounded-2xl border bg-white p-5 shadow-[0_7px_24px_rgba(37,42,68,0.035)] transition ${member.unlocked ? "border-[#ddd8f7] hover:border-[#cfc7f5]" : "border-slate-200 opacity-90"}`}>
+                <article key={member.id} className={`catalog-series-row rounded-2xl border bg-white p-5 shadow-[0_7px_24px_rgba(37,42,68,0.035)] transition ${member.unlocked ? "border-[#ddd8f7] hover:border-[#cfc7f5]" : "border-slate-200 opacity-90"}`}>
                   {catalogTest?.iconUrl ? <div className="mb-3 flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border bg-white"><CategoryIcon icon={catalogTest.iconUrl} className="h-7 w-7" /></div> : null}
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div className="flex min-w-0 gap-4">
@@ -303,7 +303,7 @@ export default function TestSeriesPage() {
                       </div>
                     </div>
                     <Button
-                      className={`min-h-11 w-full shrink-0 rounded-xl md:w-auto ${member.completed ? "" : "bg-[#6657e8] hover:bg-[#594bd9]"}`}
+                      className={`catalog-series-action min-h-11 w-full shrink-0 rounded-xl md:w-auto ${member.completed ? "" : "bg-[#6657e8] hover:bg-[#594bd9]"}`}
                       variant={member.completed ? "outline" : "default"}
                       disabled={!member.unlocked}
                       onClick={() => setLocation(`/test/${member.testId}?seriesId=${encodeURIComponent(series.id)}`)}

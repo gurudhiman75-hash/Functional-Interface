@@ -1,5 +1,6 @@
 /* Catalogue and learning content only; pre-test, runner, and sidebar are excluded. */
 @import "./student-typography.css";
+@import "./catalog-spacing.css";
 :is(.student-catalog, .collection-page, .ssc-workspace, .punjab-directory) {
   font-family: "Inter", "Noto Sans Gurmukhi", "Noto Sans Devanagari", sans-serif;
   font-size: 14px;
