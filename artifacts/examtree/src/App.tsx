@@ -15,7 +15,7 @@ import { getSessionUser } from "@/lib/session-user";
 
 const AppLayout = lazy(() => import("@/components/AppLayout").then((module) => ({ default: module.AppLayout })));
 const ExamCollectionPage = lazy(() => import("@/pages/exam-collection"));
-const Home = lazy(() => import("@/pages/home"));
+const Home = lazy(() => window.location.hostname === "blog.examtree.in" ? import("@/pages/blog") : import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
 const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
