@@ -1,3 +1,4 @@
+import "@/styles/catalog-typography.css";
 import { useState } from "react";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { Link } from "wouter";
