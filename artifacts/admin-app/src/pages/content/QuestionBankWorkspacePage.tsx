@@ -101,11 +101,12 @@ interface BulkTaxonomyState {
   examId: string;
   examVersionId: string;
   subjectId: string;
+  sectionId: string;
   topicId: string;
 }
 
 const EMPTY_BULK_TAXONOMY: BulkTaxonomyState = {
-  familyId: '', examId: '', examVersionId: '', subjectId: '', topicId: '',
+  familyId: '', examId: '', examVersionId: '', subjectId: '', sectionId: '', topicId: '',
 };
 
 export function QuestionBankWorkspacePage() {
@@ -193,14 +194,18 @@ export function QuestionBankWorkspacePage() {
     () => taxonomyOptions?.exams.filter((exam) => exam.familyId === bulkTaxonomy.familyId) ?? [],
     [taxonomyOptions, bulkTaxonomy.familyId],
   );
-  const allowedNodes = useMemo(
-    () => taxonomyOptions?.nodes.filter((node) => !bulkTaxonomy.examVersionId || node.examVersionIds.includes(bulkTaxonomy.examVersionId)) ?? [],
-    [taxonomyOptions, bulkTaxonomy.examVersionId],
-  );
+  const allowedNodes = useMemo(() => taxonomyOptions?.nodes ?? [], [taxonomyOptions]);
   const subjects = useMemo(() => allowedNodes.filter((node) => node.nodeType === 'subject'), [allowedNodes]);
-  const bulkTopics = useMemo(
-    () => allowedNodes.filter((node) => node.nodeType === 'topic' && node.parentIds.includes(bulkTaxonomy.subjectId)),
+  const sections = useMemo(
+    () => allowedNodes.filter((node) => node.nodeType === 'section' && node.parentIds.includes(bulkTaxonomy.subjectId)),
     [allowedNodes, bulkTaxonomy.subjectId],
+  );
+  const bulkTopics = useMemo(
+    () => allowedNodes.filter((node) => node.nodeType === 'topic' &&
+      (node.parentIds.includes(bulkTaxonomy.subjectId) ||
+       sections.some((section) => (!bulkTaxonomy.sectionId || section.id === bulkTaxonomy.sectionId) && node.parentIds.includes(section.id))) &&
+      (!bulkTaxonomy.sectionId || node.parentIds.includes(bulkTaxonomy.sectionId))),
+    [allowedNodes, bulkTaxonomy.subjectId, bulkTaxonomy.sectionId, sections],
   );
 
   const toggleSelected = (id: string) => {
@@ -265,7 +270,7 @@ export function QuestionBankWorkspacePage() {
     await runBulk('assign-taxonomy', 'Classification saved', {
       examVersionId: bulkTaxonomy.examVersionId || undefined,
       primaryTaxonomyNodeId: bulkTaxonomy.topicId,
-      taxonomyNodeIds: [bulkTaxonomy.subjectId, bulkTaxonomy.topicId],
+      taxonomyNodeIds: [bulkTaxonomy.subjectId, ...(bulkTaxonomy.sectionId ? [bulkTaxonomy.sectionId] : []), bulkTaxonomy.topicId],
     });
   };
 
@@ -337,9 +342,10 @@ export function QuestionBankWorkspacePage() {
             <p className="text-xs text-muted-foreground">Save shared subject/topic classification without an exam. Optional exam mapping is only for exam-specific public release; classified questions remain subject to separate approval and release gates.</p>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
               <Select value={bulkTaxonomy.familyId} onValueChange={(value) => setBulkTaxonomy({ ...EMPTY_BULK_TAXONOMY, familyId: value })}><SelectTrigger><SelectValue placeholder="Optional exam family" /></SelectTrigger><SelectContent>{taxonomyOptions?.families.map((family) => <SelectItem key={family.id} value={family.id}>{family.name}</SelectItem>)}</SelectContent></Select>
-              <Select value={bulkTaxonomy.examId} onValueChange={(value) => { const exam = exams.find((entry) => entry.id === value); setBulkTaxonomy((current) => ({ ...current, examId: value, examVersionId: exam?.currentVersionId ?? '', subjectId: '', topicId: '' })); }} disabled={!bulkTaxonomy.familyId}><SelectTrigger><SelectValue placeholder="Optional exam" /></SelectTrigger><SelectContent>{exams.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.name}</SelectItem>)}</SelectContent></Select>
-              <Select value={bulkTaxonomy.subjectId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, subjectId: value, topicId: '' }))} ><SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger><SelectContent>{subjects.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
-              <Select value={bulkTaxonomy.topicId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, topicId: value }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent>{bulkTopics.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
+              <Select value={bulkTaxonomy.examId} onValueChange={(value) => { const exam = exams.find((entry) => entry.id === value); setBulkTaxonomy((current) => ({ ...current, examId: value, examVersionId: exam?.currentVersionId ?? '', subjectId: '', sectionId: '', topicId: '' })); }} disabled={!bulkTaxonomy.familyId}><SelectTrigger><SelectValue placeholder="Optional exam" /></SelectTrigger><SelectContent>{exams.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.name}</SelectItem>)}</SelectContent></Select>
+              <Select value={bulkTaxonomy.subjectId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, subjectId: value, sectionId: '', topicId: '' }))} ><SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger><SelectContent>{subjects.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
+              {sections.length > 0 && <Select value={bulkTaxonomy.sectionId || 'all-sections'} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, sectionId: value === 'all-sections' ? '' : value, topicId: '' }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="All sections" /></SelectTrigger><SelectContent><SelectItem value="all-sections">All sections</SelectItem>{sections.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>}
+              <Select value={bulkTaxonomy.topicId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, topicId: value, sectionId: allowedNodes.find((node) => node.id === value)?.parentIds.find((id) => sections.some((section) => section.id === id)) ?? current.sectionId }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent>{bulkTopics.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
               <Button onClick={() => void assignBulkTaxonomy()} disabled={bulkBusy || !canEdit}><Tags className="mr-1.5 h-4 w-4" /> Save classification</Button>
             </div>
             <div className="grid gap-3 lg:grid-cols-[180px_minmax(220px,1fr)_repeat(5,auto)]">
