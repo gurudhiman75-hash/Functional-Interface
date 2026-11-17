@@ -591,10 +591,19 @@ test("saved result motion preserves scores, filters and reduced-motion behavior"
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect.poll(() => summary.evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await expect.poll(() => page.locator(".et-result-review-enter").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
-  for (const width of [320, 390, 1280]) {
+  for (const width of [320, 390, 768, 1024, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     await expect(summary.getByText("100%", { exact: true }).first()).toBeVisible();
+    const statOverflow = await summary.locator(".result-header-stats > div").evaluateAll(cards => cards.some(card => {
+      const bounds = card.getBoundingClientRect();
+      return [...card.querySelectorAll("dt, dd")].some(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        return [...range.getClientRects()].some(rect => rect.left < bounds.left - 1 || rect.right > bounds.right + 1);
+      });
+    }));
+    expect(statOverflow).toBe(false);
   }
 });
 
