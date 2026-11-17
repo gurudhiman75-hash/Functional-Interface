@@ -93,8 +93,8 @@ router.post(
       : [];
 
     if (action === "assign-taxonomy") {
-      if (!UUID_RE.test(examVersionId) || !UUID_RE.test(primaryTaxonomyNodeId) || taxonomyNodeIds.length === 0 || !taxonomyNodeIds.includes(primaryTaxonomyNodeId)) {
-        res.status(400).json({ error: "Exam version and taxonomy are required", code: "INVALID_TAXONOMY_INPUT" });
+      if ((examVersionId !== "" && !UUID_RE.test(examVersionId)) || !UUID_RE.test(primaryTaxonomyNodeId) || taxonomyNodeIds.length === 0 || !taxonomyNodeIds.includes(primaryTaxonomyNodeId)) {
+        res.status(400).json({ error: "Subject and topic classification are required", code: "INVALID_TAXONOMY_INPUT" });
         return;
       }
     }
@@ -131,35 +131,45 @@ router.post(
 
           if (action === "assign-taxonomy") {
             if (!editableVersionId) throw Object.assign(new Error("Question has no editable version"), { code: "QUESTION_VERSION_REQUIRED" });
+            if (String(question.publishedVersionId ?? "") === editableVersionId) {
+              throw Object.assign(new Error("Create a new draft before changing a published version"), { code: "PUBLISHED_VERSION_FROZEN" });
+            }
 
-            const examRows = await tx`
-              SELECT ev.id
-              FROM catalog.exam_versions ev
-              JOIN catalog.exams e ON e.id = ev.exam_id
-              WHERE ev.id = ${examVersionId}::uuid AND e.is_active = true
-              LIMIT 1
-            `;
-            if (examRows.length === 0) throw Object.assign(new Error("Selected exam version is unavailable"), { code: "EXAM_VERSION_NOT_FOUND" });
+            if (examVersionId) {
+              const examRows = await tx`
+                SELECT ev.id
+                FROM catalog.exam_versions ev
+                JOIN catalog.exams e ON e.id = ev.exam_id
+                WHERE ev.id = ${examVersionId}::uuid AND e.is_active = true
+                LIMIT 1
+              `;
+              if (examRows.length === 0) throw Object.assign(new Error("Selected exam version is unavailable"), { code: "EXAM_VERSION_NOT_FOUND" });
+            }
 
             for (const nodeId of taxonomyNodeIds) {
               const nodeRows = await tx`
                 SELECT n.id
                 FROM catalog.taxonomy_nodes n
-                JOIN catalog.exam_taxonomy_nodes etn
-                  ON etn.taxonomy_node_id = n.id
-                 AND etn.exam_version_id = ${examVersionId}::uuid
-                 AND etn.is_active = true
                 WHERE n.id = ${nodeId}::uuid
                   AND n.is_active = true
                   AND n.deleted_at IS NULL
+                  AND (
+                    ${examVersionId || null}::uuid IS NULL
+                    OR EXISTS (
+                      SELECT 1 FROM catalog.exam_taxonomy_nodes etn
+                      WHERE etn.taxonomy_node_id = n.id
+                        AND etn.exam_version_id = ${examVersionId || null}::uuid
+                        AND etn.is_active = true
+                    )
+                  )
                 LIMIT 1
               `;
               if (nodeRows.length === 0) {
-                throw Object.assign(new Error("One or more taxonomy selections are unavailable for the selected exam"), { code: "TAXONOMY_NOT_AVAILABLE_FOR_EXAM" });
+                throw Object.assign(new Error("One or more academic classifications are inactive or unavailable for the optional exam"), { code: "TAXONOMY_NOT_AVAILABLE_FOR_EXAM" });
               }
             }
 
-            await tx`UPDATE content.question_versions SET exam_version_id = ${examVersionId}::uuid WHERE id = ${editableVersionId}::uuid`;
+            await tx`UPDATE content.question_versions SET exam_version_id = ${examVersionId || null}::uuid WHERE id = ${editableVersionId}::uuid`;
             await tx`DELETE FROM content.question_taxonomy_links WHERE question_version_id = ${editableVersionId}::uuid`;
             for (const nodeId of taxonomyNodeIds) {
               await tx`
@@ -207,11 +217,14 @@ router.post(
             actionKey = "content.question.approved";
           } else if (action === "publish") {
             const approvedVersionId = String(question.approvedVersionId ?? "");
-            if (!approvedVersionId) throw Object.assign(new Error("Approve the question before publishing"), { code: "QUESTION_NOT_APPROVED" });
+            if (!approvedVersionId || String(question.status) !== "approved") throw Object.assign(new Error("Approve the question before publishing"), { code: "QUESTION_NOT_APPROVED" });
 
             const readinessRows = await tx`
               SELECT
                 v.exam_version_id IS NOT NULL AS "hasExam",
+                COALESCE(v.answer_model #>> '{generation,questionBankAcceptanceMode}', '') <> 'BANK_ONLY' AS "notBankOnly",
+                COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false' AS "testEligible",
+                COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false' AS "publiclyPublishable",
                 q.primary_taxonomy_node_id IS NOT NULL AS "hasPrimaryTaxonomy",
                 length(trim(v.stem)) > 0 AS "hasStem",
                 length(trim(v.explanation)) > 0 AS "hasExplanation",

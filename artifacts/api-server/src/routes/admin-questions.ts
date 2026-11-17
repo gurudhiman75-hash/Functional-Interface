@@ -63,6 +63,11 @@ async function publicationSnapshot(
       q.status,
       q.approved_version_id::text AS "approvedVersionId",
       v.exam_version_id::text AS "examVersionId",
+      v.answer_model #>> '{generation,questionBankAcceptanceMode}' AS "questionBankAcceptanceMode",
+      CASE WHEN v.answer_model #>> '{generation,testEligible}' IN ('true','false')
+        THEN (v.answer_model #>> '{generation,testEligible}')::boolean ELSE NULL END AS "generationTestEligible",
+      CASE WHEN v.answer_model #>> '{generation,publiclyPublishable}' IN ('true','false')
+        THEN (v.answer_model #>> '{generation,publiclyPublishable}')::boolean ELSE NULL END AS "generationPubliclyPublishable",
       q.primary_taxonomy_node_id::text AS "primaryTaxonomyNodeId",
       v.stem,
       v.explanation,
@@ -99,6 +104,9 @@ async function publicationSnapshot(
     explanation: row.explanation ? String(row.explanation) : "",
     optionCount: Number(row.optionCount ?? 0),
     correctOptionCount: Number(row.correctOptionCount ?? 0),
+    questionBankAcceptanceMode: row.questionBankAcceptanceMode ? String(row.questionBankAcceptanceMode) : null,
+    generationTestEligible: row.generationTestEligible == null ? null : Boolean(row.generationTestEligible),
+    generationPubliclyPublishable: row.generationPubliclyPublishable == null ? null : Boolean(row.generationPubliclyPublishable),
   };
 }
 
@@ -341,6 +349,88 @@ router.get(
   },
 );
 
+/** Admin-only draft inventory; BANK_ONLY approval never grants public release. */
+router.get(
+  "/draft-selectable",
+  requireAdminPermission("content.questions.read"),
+  async (_req, res) => {
+    try {
+      const questions = await sqlClient`
+        SELECT
+          q.id,
+          q.public_code AS "publicCode",
+          q.status,
+          q.published_at AS "publishedAt",
+          (q.status = 'approved'::question_status AND v.id = q.approved_version_id
+             AND v.answer_model #>> '{generation,questionBankAcceptanceMode}' = 'BANK_ONLY') AS "draftOnly",
+          v.id AS "versionId",
+          v.version_number AS "versionNumber",
+          v.question_type AS "questionType",
+          v.difficulty,
+          v.stem,
+          v.explanation,
+          v.answer_model AS "answerModel",
+          ev.id AS "examVersionId",
+          e.code AS "examCode",
+          e.name AS "examName",
+          ef.code AS "examFamilyCode",
+          ef.name AS "examFamilyName",
+          COALESCE((
+            SELECT json_agg(
+              json_build_object(
+                'id', o.id,
+                'key', o.option_key,
+                'text', o.text,
+                'sortOrder', o.sort_order,
+                'isCorrect', o.is_correct
+              ) ORDER BY o.sort_order
+            )
+            FROM content.question_options o
+            WHERE o.question_version_id = v.id
+          ), '[]'::json) AS options,
+          COALESCE((
+            SELECT json_agg(
+              json_build_object(
+                'id', n.id,
+                'code', n.code,
+                'nodeType', n.node_type,
+                'name', n.name,
+                'isPrimary', l.is_primary
+              ) ORDER BY l.is_primary DESC, n.node_type, n.name
+            )
+            FROM content.question_taxonomy_links l
+            INNER JOIN catalog.taxonomy_nodes n ON n.id = l.taxonomy_node_id
+            WHERE l.question_version_id = v.id
+          ), '[]'::json) AS taxonomy
+        FROM content.questions q
+        INNER JOIN content.question_versions v ON v.id = CASE
+          WHEN q.status = 'approved'::question_status THEN q.approved_version_id
+          ELSE q.published_version_id END
+        LEFT JOIN catalog.exam_versions ev ON ev.id = v.exam_version_id
+        LEFT JOIN catalog.exams e ON e.id = ev.exam_id
+        LEFT JOIN catalog.exam_families ef ON ef.id = e.family_id
+        WHERE q.deleted_at IS NULL
+          AND q.primary_taxonomy_node_id IS NOT NULL
+          AND (
+            (q.status = 'published'::question_status
+              AND q.published_version_id = v.id
+              AND COALESCE(v.answer_model #>> '{generation,questionBankAcceptanceMode}', '') <> 'BANK_ONLY'
+              AND COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false'
+              AND COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false')
+            OR (q.status = 'approved'::question_status
+              AND q.approved_version_id = v.id
+              AND v.answer_model #>> '{generation,questionBankAcceptanceMode}' = 'BANK_ONLY')
+          )
+        ORDER BY q.published_at DESC NULLS LAST, q.updated_at DESC
+        LIMIT 5000
+      `;
+      res.json({ questions, generatedAt: new Date().toISOString() });
+    } catch (error) {
+      sendQuestionError(res, error, "Unable to load draft-selectable questions");
+    }
+  },
+);
+
 router.get(
   "/",
   requireAdminPermission("content.questions.read"),
@@ -479,34 +569,41 @@ router.patch(
           );
         }
 
-        const examVersions = await tx`
-          SELECT ev.id
-          FROM catalog.exam_versions ev
-          INNER JOIN catalog.exams e ON e.id = ev.exam_id
-          WHERE ev.id = ${input.examVersionId}::uuid AND e.is_active = true
-          LIMIT 1
-        `;
-        if (examVersions.length === 0) {
-          throw new QuestionManagementError("EXAM_VERSION_NOT_FOUND", "Selected exam version is unavailable", 400);
+        if (input.examVersionId) {
+          const examVersions = await tx`
+            SELECT ev.id
+            FROM catalog.exam_versions ev
+            INNER JOIN catalog.exams e ON e.id = ev.exam_id
+            WHERE ev.id = ${input.examVersionId}::uuid AND e.is_active = true
+            LIMIT 1
+          `;
+          if (examVersions.length === 0) {
+            throw new QuestionManagementError("EXAM_VERSION_NOT_FOUND", "Selected exam version is unavailable", 400);
+          }
         }
 
         for (const nodeId of input.taxonomyNodeIds) {
           const nodes = await tx`
             SELECT n.id
             FROM catalog.taxonomy_nodes n
-            INNER JOIN catalog.exam_taxonomy_nodes etn
-              ON etn.taxonomy_node_id = n.id
-             AND etn.exam_version_id = ${input.examVersionId}::uuid
-             AND etn.is_active = true
             WHERE n.id = ${nodeId}::uuid
               AND n.is_active = true
               AND n.deleted_at IS NULL
+              AND (
+                ${input.examVersionId}::uuid IS NULL
+                OR EXISTS (
+                  SELECT 1 FROM catalog.exam_taxonomy_nodes etn
+                  WHERE etn.taxonomy_node_id = n.id
+                    AND etn.exam_version_id = ${input.examVersionId}::uuid
+                    AND etn.is_active = true
+                )
+              )
             LIMIT 1
           `;
           if (nodes.length === 0) {
             throw new QuestionManagementError(
-              "TAXONOMY_NOT_AVAILABLE_FOR_EXAM",
-              "One or more taxonomy selections are not available for the selected exam.",
+              "TAXONOMY_NOT_AVAILABLE",
+              "One or more taxonomy selections are inactive or unavailable for the optional exam.",
               400,
             );
           }
@@ -552,7 +649,7 @@ router.patch(
             'question',
             ${questionId}::uuid,
             ${String(targetVersionId)}::uuid,
-            ${`Assigned exam and taxonomy to ${String(question.publicCode)}`},
+            ${`Assigned academic classification to ${String(question.publicCode)}`},
             ${tx.json({
               examVersionId: input.examVersionId,
               primaryTaxonomyNodeId: input.primaryTaxonomyNodeId,

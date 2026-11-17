@@ -24,7 +24,12 @@ test('review and publication remain blocked while test structure is incomplete',
   assert.match(routes,/loadStoredValidation\(testId, input\.expectedCurrentDraftVersionId/);
   assert.match(routes,/blockingIssues = issues\.filter\(\(issue\) => !issue\.code\.startsWith\("STRUCTURE_"\)\)/);
   assert.match(routes,/QUESTION_NOT_PUBLISHED/);
-  assert.match(routes,/QUESTION_EXAM_MISMATCH/);
+  assert.match(routes,/QUESTION_NOT_RELEASE_ELIGIBLE/);
+  assert.match(routes,/allowBankOnlyDraft = false/);
+  assert.match(routes,/approvedBankOnlyDraft = allowBankOnlyDraft/);
+  assert.match(routes,/row\.bankAcceptanceMode === "BANK_ONLY"/);
+  assert.match(routes,/validatePublishedSelections\(sqlClient, input, true\)/);
+  assert.match(routes,/return validatePublishedSelections\(client, normalized\)/);
 });
 
 test('local recovery and autosave survive invalid checkpoints',()=>{
@@ -35,6 +40,7 @@ test('local recovery and autosave survive invalid checkpoints',()=>{
 
 test('picker offers exam inventory, topic and difficulty, and existing sections',()=>{
   assert.match(page,/getLiveTests\(\)/);
+  assert.match(page,/getDraftSelectableQuestions\(\)/);
   assert.match(page,/setSectionTemplates\(/);
   assert.match(page,/Use existing section/);
   assert.match(page,/Create new section/);
@@ -42,5 +48,7 @@ test('picker offers exam inventory, topic and difficulty, and existing sections'
   assert.match(page,/availableDifficulties/);
   assert.match(page,/setTopicFilter/);
   assert.match(page,/eligibleQuestions/);
-  assert.match(page,/No published questions for this exam version yet/);
+  assert.match(page,/No eligible Question Bank questions available yet/);
+  assert.match(page,/Approved BANK_ONLY questions are draft-only/);
+  assert.doesNotMatch(page,/question\.examVersionId === draft\.examVersionId/);
 });

@@ -16,7 +16,7 @@ export type NormalizedQuestionVersionInput = {
 
 export type NormalizedQuestionTaxonomyInput = {
   expectedLockVersion: number;
-  examVersionId: string;
+  examVersionId: string | null;
   primaryTaxonomyNodeId: string;
   taxonomyNodeIds: string[];
 };
@@ -49,6 +49,7 @@ export type PublishableQuestionSnapshot = {
   correctOptionCount: number;
   generationPubliclyPublishable?: boolean | null;
   generationTestEligible?: boolean | null;
+  questionBankAcceptanceMode?: string | null;
 };
 
 export class QuestionManagementError extends Error {
@@ -151,11 +152,10 @@ export function normalizeQuestionTaxonomyInput(value: unknown): NormalizedQuesti
   const input = value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
     : {};
-  const examVersionId = asUuid(
-    input.examVersionId,
-    "EXAM_VERSION_REQUIRED",
-    "Select an exam version before saving taxonomy",
-  );
+  // Academic classification belongs to the shared bank; exam mapping is optional.
+  const examVersionId = input.examVersionId == null || input.examVersionId === ""
+    ? null
+    : asUuid(input.examVersionId, "INVALID_EXAM_VERSION", "Invalid exam version identifier");
   const primaryTaxonomyNodeId = asUuid(
     input.primaryTaxonomyNodeId,
     "PRIMARY_TAXONOMY_REQUIRED",
@@ -252,6 +252,7 @@ export function getPublicationIssues(snapshot: PublishableQuestionSnapshot): str
   if (snapshot.status !== "approved") issues.push("The question must be approved before publishing.");
   if (!snapshot.approvedVersionId) issues.push("An approved version is required.");
   if (!snapshot.examVersionId) issues.push("Assign an exam version.");
+  if (snapshot.questionBankAcceptanceMode === "BANK_ONLY") issues.push("BANK_ONLY questions cannot be publicly published.");
   if (!snapshot.primaryTaxonomyNodeId) issues.push("Assign a primary taxonomy topic.");
   if (snapshot.taxonomyNodeIds.length === 0) issues.push("Assign taxonomy to the approved version.");
   if (!snapshot.stem.trim()) issues.push("Question stem is missing.");

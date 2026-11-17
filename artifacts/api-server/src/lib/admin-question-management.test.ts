@@ -69,6 +69,29 @@ test("requires an editorial change reason", () => {
   );
 });
 
+test("allows shared-bank classification without any exam assignment", () => {
+  const topicId = "22222222-2222-4222-8222-222222222222";
+  const result = normalizeQuestionTaxonomyInput({
+    expectedLockVersion: 2,
+    primaryTaxonomyNodeId: topicId,
+    taxonomyNodeIds: [],
+  });
+  assert.equal(result.examVersionId, null);
+  assert.deepEqual(result.taxonomyNodeIds, [topicId]);
+});
+
+test("rejects a malformed optional exam assignment", () => {
+  assert.throws(
+    () => normalizeQuestionTaxonomyInput({
+      expectedLockVersion: 2,
+      examVersionId: "invalid",
+      primaryTaxonomyNodeId: "22222222-2222-4222-8222-222222222222",
+    }),
+    (error: unknown) => error instanceof QuestionManagementError
+      && error.code === "INVALID_EXAM_VERSION",
+  );
+});
+
 test("normalizes taxonomy and includes the primary node", () => {
   const result = normalizeQuestionTaxonomyInput({
     expectedLockVersion: 4,

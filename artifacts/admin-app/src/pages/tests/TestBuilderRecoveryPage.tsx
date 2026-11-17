@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-import { getPublishedQuestions, getQuestionTaxonomyOptions, type PublishedQuestion } from '@/features/question-bank/api';
+import { getDraftSelectableQuestions, getQuestionTaxonomyOptions, type PublishedQuestion } from '@/features/question-bank/api';
 import { createLiveTest, getLiveTest, getLiveTests, getTestCatalog, saveLiveTestDraft, type LiveTestDetail, type TestCatalogExamVersion, type TestDraftInput } from '@/features/test-builder/api';
 import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
@@ -135,7 +135,7 @@ export function TestBuilderRecoveryPage() {
   const activeSection = draft.sections.find((section) => section.clientKey === activeSectionKey) ?? draft.sections[0];
   const selectedExam = catalog.find((exam) => exam.id === draft.examVersionId);
   const eligibleQuestions = useMemo(() => questions.filter(
-    (question) => draft.examVersionId && question.examVersionId === draft.examVersionId,
+    (question) => Boolean(draft.examVersionId && question.versionId),
   ), [draft.examVersionId, questions]);
   const topics = useMemo(() => [...new Set(eligibleQuestions.flatMap(
     (question) => question.taxonomy.map((node) => node.name),
@@ -152,14 +152,14 @@ export function TestBuilderRecoveryPage() {
       (value) => value.toLowerCase().includes(term));
   }), [eligibleQuestions, query, difficultyFilter, topicFilter]);
   const inventoryByExam = useMemo(() => catalog.map((exam) => ({
-    exam, count: questions.filter((question) => question.examVersionId === exam.id).length,
+    exam, count: questions.length,
   })).filter((entry) => entry.count > 0), [catalog, questions]);
 
   const load = useCallback(async () => {
     setLoading(true); setError(null); setSaveGuidance(null); setConflict(false); hydratedRef.current = false;
     try {
       const [catalogResponse, questionResponse, testResponse, existingTests, taxonomy] = await Promise.all([
-        getTestCatalog(), getPublishedQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
+        getTestCatalog(), getDraftSelectableQuestions(), editId ? getLiveTest(editId) : Promise.resolve(null),
         getLiveTests().catch(() => ({ tests: [] })),
         getQuestionTaxonomyOptions().catch(() => ({ nodes: [] })),
       ]);
@@ -343,11 +343,11 @@ export function TestBuilderRecoveryPage() {
           </div>
         </CardContent></Card>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="flex flex-col gap-3 p-4 md:flex-row md:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1}</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => setDraft((current) => ({ ...current, sections: current.sections.map((item) => item.clientKey === section.clientKey ? { ...item, name: event.target.value } : item) }))} /></div><Button variant="outline" onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length === 1} onClick={() => setDraft((current) => ({ ...current, sections: current.sections.filter((item) => item.clientKey !== section.clientKey) }))}><Trash2 className="h-4 w-4" /></Button></CardContent></Card>)}</div></TabsContent>
       <TabsContent value="questions"><Card>
-        <CardHeader><CardTitle>Choose published questions</CardTitle></CardHeader>
+        <CardHeader><CardTitle>Choose Question Bank questions for a test draft</CardTitle></CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Badge variant="secondary">{questions.length} published questions across all exams</Badge>
-            <Badge variant="outline">{eligibleQuestions.length} eligible for selected exam</Badge>
+            <Badge variant="secondary">{questions.length} approved-bank and published questions</Badge>
+            <Badge variant="outline">{eligibleQuestions.length} selectable for draft</Badge>
             <Badge variant="outline">{selectedIds.length} selected in test</Badge>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
@@ -356,7 +356,7 @@ export function TestBuilderRecoveryPage() {
                 setDraft((current) => ({...current, examVersionId:value, languageCode:catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections:current.sections.map((section) => ({...section,questionVersionIds:[]})),totalMarks:0}));
                 setDifficultyFilter('all'); setTopicFilter('all');
               }}><SelectTrigger><SelectValue placeholder="Select an exam with published questions" /></SelectTrigger>
-                <SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.examName} · {exam.versionName} ({questions.filter((question) => question.examVersionId === exam.id).length} published)</SelectItem>)}</SelectContent>
+                <SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.examName} · {exam.versionName} ({questions.length} draft-selectable)</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div><Label className="mb-1 block text-xs">Add questions to section</Label>
@@ -367,18 +367,18 @@ export function TestBuilderRecoveryPage() {
             </div>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
-            <div><Label className="mb-1 block text-xs">Search code, stem or topic</Label><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search published questions..." /></div>
+            <div><Label className="mb-1 block text-xs">Search code, stem or topic</Label><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search approved bank or published questions..." /></div>
             <div><Label className="mb-1 block text-xs">Topic</Label><Select value={topicFilter} onValueChange={setTopicFilter}><SelectTrigger><SelectValue placeholder="All topics" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((topic) => <SelectItem key={topic} value={topic}>{topic}</SelectItem>)}</SelectContent></Select></div>
             <div><Label className="mb-1 block text-xs">Difficulty</Label><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger><SelectValue placeholder="All difficulties" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{availableDifficulties.map((difficulty) => <SelectItem key={difficulty} value={difficulty}>{difficulty}</SelectItem>)}</SelectContent></Select></div>
           </div>
           {!draft.examVersionId ? <div className="rounded-lg border p-4 space-y-3"><p className="text-sm font-medium">Choose an exam to see eligible published questions.</p><p className="text-xs text-muted-foreground">Currently available:</p><div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Button key={exam.id} size="sm" variant="outline" onClick={() => setDraft((current) => ({...current,examVersionId:exam.id}))}>{exam.examName} · {count}</Button>)}</div></div>
-          : !examHasInventory ? <div className="space-y-3 rounded-lg border p-4"><p className="text-sm font-semibold">No published questions for this exam version yet.</p><p className="text-xs text-muted-foreground">Approved questions must be published and assigned to this exact exam version before they can be used in a student test. You can still save the test as a draft. Questions currently approved but not published are not eligible for student tests.</p><Button variant="outline" size="sm" onClick={() => setShowOtherExams(!showOtherExams)}>{showOtherExams ? 'Hide' : 'Show'} exams with published questions</Button>{showOtherExams && <div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Badge key={exam.id} variant="secondary">{exam.examName} · {count}</Badge>)}</div>}</div>
-          : <><p className="text-xs text-muted-foreground">Showing {filteredQuestions.length} matching published questions. Only this exam version's questions can be added. Selected questions can be moved between sections by deselecting and reselecting.</p><div className="max-h-[600px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No questions match these filters. Clear search, topic or difficulty.</p> : filteredQuestions.map((question) => {
+          : !examHasInventory ? <div className="space-y-3 rounded-lg border p-4"><p className="text-sm font-semibold">No eligible Question Bank questions available yet.</p><p className="text-xs text-muted-foreground">Approved BANK_ONLY questions may be selected and saved in private test drafts, but are blocked from test QA and student publication until separately released. Exam origin does not restrict selection.</p><Button variant="outline" size="sm" onClick={() => setShowOtherExams(!showOtherExams)}>{showOtherExams ? 'Hide' : 'Show'} exams with published questions</Button>{showOtherExams && <div className="flex flex-wrap gap-2">{inventoryByExam.map(({exam,count}) => <Badge key={exam.id} variant="secondary">{exam.examName} · {count}</Badge>)}</div>}</div>
+          : <><p className="text-xs text-muted-foreground">Showing {filteredQuestions.length} matching Question Bank questions. Approved BANK_ONLY questions are draft-only; published eligible questions may proceed through QA. Selected questions can be moved between sections by deselecting and reselecting.</p><div className="max-h-[600px] divide-y overflow-y-auto rounded-lg border">{filteredQuestions.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No questions match these filters. Clear search, topic or difficulty.</p> : filteredQuestions.map((question) => {
             const checked = selectedIds.includes(question.versionId);
             const owner = draft.sections.find((section) => section.questionVersionIds.includes(question.versionId));
             return <div key={question.versionId} className="flex gap-3 p-3">
               <Checkbox checked={checked} onCheckedChange={() => toggleQuestion(question.versionId)} aria-label={`Select question ${question.publicCode}`} />
-              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="secondary">{question.difficulty}</Badge>{question.taxonomy.slice(0,2).map((node) => <Badge key={node.id} variant="outline">{node.name}</Badge>)}{owner && <Badge>{owner.name}</Badge>}</div><p className="mt-2 text-sm">{question.stem}</p><Button className="mt-2" size="sm" variant={checked ? 'secondary' : 'outline'} onClick={() => toggleQuestion(question.versionId)}>{checked ? 'Remove from test' : `Add to ${activeSection?.name ?? 'section'}`}</Button></div>
+              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="secondary">{question.difficulty}</Badge>{question.draftOnly && <Badge variant="outline">BANK_ONLY · draft only</Badge>}{question.taxonomy.slice(0,2).map((node) => <Badge key={node.id} variant="outline">{node.name}</Badge>)}{owner && <Badge>{owner.name}</Badge>}</div><p className="mt-2 text-sm">{question.stem}</p><Button className="mt-2" size="sm" variant={checked ? 'secondary' : 'outline'} onClick={() => toggleQuestion(question.versionId)}>{checked ? 'Remove from test' : `Add to ${activeSection?.name ?? 'section'}`}</Button></div>
             </div>;
           })}</div></>}
         </CardContent>

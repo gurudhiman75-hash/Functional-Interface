@@ -237,7 +237,7 @@ export function QuestionDetailPage() {
   );
 
   const allowedNodes = useMemo(
-    () => taxonomyOptions?.nodes.filter((node) => node.examVersionIds.includes(taxonomy.examVersionId)) ?? [],
+    () => taxonomyOptions?.nodes.filter((node) => !taxonomy.examVersionId || node.examVersionIds.includes(taxonomy.examVersionId)) ?? [],
     [taxonomy.examVersionId, taxonomyOptions],
   );
 
@@ -289,20 +289,20 @@ export function QuestionDetailPage() {
   };
 
   const saveTaxonomy = async () => {
-    if (!detail || !taxonomy.examVersionId || !taxonomy.subjectId || !taxonomy.topicId) {
-      showToast.warning('Taxonomy incomplete', 'Select an exam, subject and topic.');
+    if (!detail || !taxonomy.subjectId || !taxonomy.topicId) {
+      showToast.warning('Classification incomplete', 'Select a subject and topic.');
       return;
     }
     setSaving(true);
     try {
       const next = await updateQuestionTaxonomy(detail.question.id, {
         expectedLockVersion: detail.question.lockVersion,
-        examVersionId: taxonomy.examVersionId,
+        examVersionId: taxonomy.examVersionId || null,
         primaryTaxonomyNodeId: taxonomy.topicId,
         taxonomyNodeIds: [taxonomy.subjectId, taxonomy.topicId],
       });
       applyDetail(next);
-      showToast.success('Taxonomy saved', 'Exam, subject and topic are now assigned.');
+      showToast.success('Classification saved', 'Subject and topic are saved in the shared Question Bank.');
     } catch (caught) {
       showToast.error(
         'Unable to save taxonomy',
@@ -486,7 +486,7 @@ export function QuestionDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Tags className="h-4 w-4" /> Optional exam-specific taxonomy
+                <Tags className="h-4 w-4" /> Question Bank classification
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -494,16 +494,14 @@ export function QuestionDetailPage() {
                 <div className="rounded-lg border border-success/30 bg-success/5 p-3 text-sm">
                   <p className="font-semibold">Reusable Question Bank question</p>
                   <p className="mt-1 text-muted-foreground">
-                    No exam taxonomy is required to retain this approved English question
-                    or to send its approved Hindi and Punjabi versions into Question Bank review.
-                    This form assigns an exam-specific version for publication; don't choose
-                    an arbitrary exam just to complete multilingual review.
+                    Classify by subject and topic without choosing an exam.
+                    Approved language versions remain independently reviewed; this does not publish to students.
                   </p>
                 </div>
               )}
               {!bankOnly && <p className="text-xs text-muted-foreground">
-                This section assigns taxonomy for an exam-specific version. It is not a
-                universal cross-exam eligibility setting.
+                Subject and topic are shared academic classifications. Exam family and exam are
+                optional metadata for an exam-specific release, not a restriction on bank reuse.
               </p>}
               {publishedVersionFrozen && (
                 <div className="rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm text-warning">
@@ -512,7 +510,7 @@ export function QuestionDetailPage() {
               )}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label>Exam family</Label>
+                  <Label>Exam family (optional)</Label>
                   <Select
                     value={taxonomy.familyId}
                     onValueChange={(value) => setTaxonomy({ ...EMPTY_TAXONOMY, familyId: value })}
@@ -528,7 +526,7 @@ export function QuestionDetailPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Exam</Label>
+                  <Label>Exam (optional)</Label>
                   <Select
                     value={taxonomy.examId}
                     onValueChange={(value) => {
@@ -561,7 +559,7 @@ export function QuestionDetailPage() {
                       subjectId: value,
                       topicId: '',
                     }))}
-                    disabled={!canEdit || publishedVersionFrozen || !taxonomy.examVersionId}
+                    disabled={!canEdit || publishedVersionFrozen}
                   >
                     <SelectTrigger><SelectValue placeholder="Select subject" /></SelectTrigger>
                     <SelectContent>
@@ -597,7 +595,7 @@ export function QuestionDetailPage() {
                     onClick={() => void saveTaxonomy()}
                     disabled={saving || publishedVersionFrozen}
                   >
-                    <Save className="mr-1.5 h-4 w-4" /> Save taxonomy
+                    <Save className="mr-1.5 h-4 w-4" /> Save classification
                   </Button>
                 </div>
               )}
