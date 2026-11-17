@@ -1,3 +1,4 @@
+import { chartColours } from "@/lib/chart-colours";
 import { useMemo, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -107,9 +108,9 @@ export default function PerformanceOverview() {
   const belowTarget = measuredSections.filter((section) => (section.accuracy ?? 100) < 70);
   const weakestSection = belowTarget.length > 0 ? belowTarget[belowTarget.length - 1] : null;
   const responseMix = [
-    { name: "Correct", value: summary.correct, color: "#16a085" },
-    { name: "Incorrect", value: summary.wrong, color: "#f97373" },
-    { name: "Unanswered", value: summary.unanswered, color: "#cbd5e1" },
+    { name: "Correct", value: summary.correct, color: chartColours.correct },
+    { name: "Incorrect", value: summary.wrong, color: chartColours.incorrect },
+    { name: "Unanswered", value: summary.unanswered, color: chartColours.skipped },
   ];
 
   const tiles = [
@@ -200,14 +201,14 @@ export default function PerformanceOverview() {
                       <div role="img" aria-label="Line chart comparing percentage score and answer accuracy over the latest saved tests" className="h-64 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={trend} margin={{ top: 10, right: 12, left: -15, bottom: 0 }}>
-                            <defs><linearGradient id="et-score-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#4f46e5" stopOpacity={0.23} /><stop offset="100%" stopColor="#4f46e5" stopOpacity={0.01} /></linearGradient></defs>
+                            <defs><linearGradient id="et-score-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={chartColours.score} stopOpacity={0.23} /><stop offset="100%" stopColor={chartColours.score} stopOpacity={0.01} /></linearGradient></defs>
                             <CartesianGrid stroke="#edf0f7" strokeDasharray="3 4" vertical={false} />
                             <XAxis dataKey="index" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "#64748b" }} />
                             <YAxis domain={[0, 100]} tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "#64748b" }} />
                             <Tooltip labelFormatter={(value) => "Attempt " + String(value)} />
                             <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
-                            <Area type="monotone" dataKey="score" name="Score %" stroke="#4f46e5" strokeWidth={3} fill="url(#et-score-gradient)" />
-                            <Area type="monotone" dataKey="accuracy" name="Accuracy %" stroke="#0d9488" strokeWidth={2} fill="transparent" connectNulls={false} />
+                            <Area type="monotone" dataKey="score" name="Score %" stroke={chartColours.score} strokeWidth={3} fill="url(#et-score-gradient)" />
+                            <Area type="monotone" dataKey="accuracy" name="Accuracy %" stroke={chartColours.accuracy} strokeWidth={2} fill="transparent" connectNulls={false} />
                           </AreaChart>
                         </ResponsiveContainer>
                       </div>
@@ -247,8 +248,8 @@ export default function PerformanceOverview() {
                             <YAxis type="category" dataKey="name" width={115} tick={{ fontSize: 10 }} />
                             <Tooltip />
                             <Legend wrapperStyle={{ fontSize: 11 }} />
-                            <Bar dataKey="accuracy" name="Accuracy %" fill="#4f46e5" radius={[0, 4, 4, 0]} barSize={12} />
-                            <Bar dataKey="attemptRate" name="Attempt rate %" fill="#14b8a6" radius={[0, 4, 4, 0]} barSize={12} />
+                            <Bar dataKey="accuracy" name="Accuracy %" fill={chartColours.accuracy} radius={[0, 4, 4, 0]} barSize={12} />
+                            <Bar dataKey="attemptRate" name="Attempt rate %" fill={chartColours.attemptRate} radius={[0, 4, 4, 0]} barSize={12} />
                           </BarChart>
                         </ResponsiveContainer>
                       </div>

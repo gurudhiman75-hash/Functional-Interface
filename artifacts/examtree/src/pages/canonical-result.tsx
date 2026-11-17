@@ -1,3 +1,4 @@
+import { chartColours } from "@/lib/chart-colours";
 import "@/styles/student-typography.css";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import "@/styles/result-motion.css";
@@ -362,8 +363,8 @@ export default function CanonicalResult() {
                   <YAxis dataKey="name" type="category" width={112} tick={{ fontSize: 11 }} />
                   <Tooltip />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
-                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="accuracy" name="Accuracy" fill="#6556e8" barSize={13} radius={[0, 4, 4, 0]} />
-                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="attemptRate" name="Attempt rate" fill="#0d9488" barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="accuracy" name="Accuracy" fill={chartColours.accuracy} barSize={13} radius={[0, 4, 4, 0]} />
+                  <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="attemptRate" name="Attempt rate" fill={chartColours.attemptRate} barSize={13} radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -408,9 +409,9 @@ export default function CanonicalResult() {
                     <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
                     <Tooltip />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="correct" name="Correct" stackId="answers" fill="#10b981" radius={[0, 0, 0, 0]} />
-                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="wrong" name="Wrong" stackId="answers" fill="#f43f5e" />
-                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="unanswered" name="Skipped" stackId="answers" fill="#fbbf24" radius={[4, 4, 0, 0]} />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="correct" name="Correct" stackId="answers" fill={chartColours.correct} radius={[0, 0, 0, 0]} />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="wrong" name="Wrong" stackId="answers" fill={chartColours.incorrect} />
+                    <Bar isAnimationActive={!reduceMotion} animationDuration={450} animationEasing="ease-out" dataKey="unanswered" name="Skipped" stackId="answers" fill={chartColours.skipped} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
