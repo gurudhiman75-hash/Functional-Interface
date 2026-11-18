@@ -26,6 +26,18 @@ function subjectLabel(engine: string, declared: string | undefined, topic: strin
   return "";
 }
 
+// The catalog name column is varchar(180). Some Studio metadata contains long
+// descriptions rather than human-sized chapter names. Preserve full text in
+// description, while deriving a stable, unique display label for the picker.
+const MAX_TAXONOMY_NAME = 180;
+function catalogName(raw: string): string {
+  const name = raw.trim();
+  if (Array.from(name).length <= MAX_TAXONOMY_NAME) return name;
+  const hash = createHash("sha256").update(name).digest("hex").slice(0, 12);
+  const suffix = `… [${hash}]`;
+  return Array.from(name).slice(0, MAX_TAXONOMY_NAME - Array.from(suffix).length).join("").trimEnd() + suffix;
+}
+
 interface NodeRow { id: string; code: string; name: string; nodeType: string }
 interface EdgeRow { parentId: string; childId: string }
 
@@ -67,7 +79,8 @@ router.post("/taxonomy/sync-studio", requireAdminPermission("content.taxonomy.ma
       }
 
       async function ensureNode(type: "subject" | "section" | "topic", name: string, parentId: string | null, alternateParentId?: string) {
-        const normalized = normalize(name);
+        const displayName = catalogName(name);
+        const normalized = normalize(displayName);
         if (!normalized) throw Error("Empty Question Studio taxonomy label");
         const matches = nodes.filter((node) => node.nodeType === type && normalize(node.name) === normalized);
         const underParent = matches.filter((node) =>
@@ -80,9 +93,10 @@ router.post("/taxonomy/sync-studio", requireAdminPermission("content.taxonomy.ma
           const code = "QS_" + createHash("sha256").update(key).digest("hex").slice(0, 22).toUpperCase();
           const codeMatches = nodes.filter((entry) => entry.code === code);
           if (codeMatches.length) throw Error(`Conflicting Studio taxonomy code ${code}`);
-          node = { id: randomUUID(), code, name: name.trim(), nodeType: type };
-          await tx`INSERT INTO catalog.taxonomy_nodes (id, code, node_type, name, is_active)
-            VALUES (${node.id}::uuid, ${code}, ${type}, ${node.name}, true)`;
+          node = { id: randomUUID(), code, name: displayName, nodeType: type };
+          const fullDescription = displayName === name.trim() ? null : name.trim();
+          await tx`INSERT INTO catalog.taxonomy_nodes (id, code, node_type, name, description, is_active)
+            VALUES (${node.id}::uuid, ${code}, ${type}, ${node.name}, ${fullDescription}, true)`;
           nodes.push(node);
           if (type === "subject") created.subjects++;
           else if (type === "section") created.sections++;
