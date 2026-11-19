@@ -480,7 +480,8 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
               'renderer', v.payload -> 'renderer',
               'semanticMetadata', v.payload -> 'semanticMetadata',
               'contentFingerprint', v.payload -> 'contentFingerprint'
-            )) AS payload
+            )) AS payload,
+            v.payload -> 'nativeReviewSnapshot' AS "savedNativeReview"
           FROM content.generation_run_items i
           INNER JOIN content.generation_runs r
             ON r.id = i.generation_run_id
@@ -516,7 +517,19 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
     for (const item of items) {
       const runId = String(item.generationRunId);
       const bucket = itemsByRun.get(runId) ?? [];
-      bucket.push(item);
+      const payload = item.payload as Record<string, unknown> | null;
+      const saved = payload && readPersistedNativeSnapshot({
+        ...payload, nativeReviewSnapshot: item.savedNativeReview,
+      });
+      bucket.push({ ...item, savedNativeReview: payload && saved ? {
+        itemId: item.id,
+        version: item.currentVersionNumber,
+        packageId: payload?.packageId,
+        source: { ...nativeSourceQuestion(payload), language: "en", status: "verified" },
+        variants: saved.variants,
+        saved: true,
+        approved: false,
+      } : null });
       itemsByRun.set(runId, bucket);
     }
 

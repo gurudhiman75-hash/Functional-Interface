@@ -32,6 +32,7 @@ export interface QuestionStudioItem {
   updatedAt: string;
   versionId: string | null;
   payload: Record<string, unknown> | null;
+  savedNativeReview?: NativeReviewLocalizations | null;
 }
 
 export interface QuestionStudioRun {

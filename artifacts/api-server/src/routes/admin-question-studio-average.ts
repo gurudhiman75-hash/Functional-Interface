@@ -475,6 +475,15 @@ router.post(
         return;
       }
 
+      const selectedLocales: Array<"hi" | "pa"> = Array.isArray(req.body?.languages)
+        ? [...new Set<"hi" | "pa">(req.body.languages.filter((locale: unknown) => locale === "hi" || locale === "pa"))]
+        : [];
+      const nativeSnapshots = process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED === "true"
+        && req.body?.nativeGroupedReview === true && selectedLocales.length > 0
+        ? await (await import("../question-studio/persisted-native-review"))
+            .prepareNativeReviewBatch(generatedQuestions, selectedLocales)
+        : [];
+
       const providerModel = staRequest
         ? "reasoning-v1-sta-001"
         : worRequest
@@ -537,6 +546,7 @@ router.post(
 
           const payload = {
             ...question,
+            ...(nativeSnapshots[index] ? { nativeReviewSnapshot: nativeSnapshots[index] } : {}),
             generationContext: result.generationContext,
             validationResult: "pending",
           };

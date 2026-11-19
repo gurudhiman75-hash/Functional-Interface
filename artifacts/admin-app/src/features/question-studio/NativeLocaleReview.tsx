@@ -244,7 +244,11 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
 export function NativeLocaleReview({ item, supportedLanguages }: { item: QuestionStudioItem; supportedLanguages: readonly string[] }) {
   const available = hasRegisteredNativeLocales(item, supportedLanguages);
   const eligible = hasVerifiedNativeLocaleEngine(item, supportedLanguages);
-  const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
+  const embedded = item.savedNativeReview;
+  const savedSnapshot = embedded?.itemId === item.id && embedded.version === item.currentVersionNumber ? embedded : null;
+  const [loadedSnapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
+  const snapshot = loadedSnapshot?.itemId === item.id && loadedSnapshot.version === item.currentVersionNumber
+    ? loadedSnapshot : savedSnapshot;
   const [drafts, setDrafts] = useState<NativeEditorialDraft[]>([]);
   const [saving, setSaving] = useState(false);
   const [handoffReason, setHandoffReason] = useState('');
@@ -265,9 +269,10 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
     setDrafts([]);
     setError(null);
     setActionError(null);
-    setBusy(true);
+    setBusy(!savedSnapshot);
     const forced=retry>0;
     const fetchGenerated=()=>{
+      if (savedSnapshot && !forced) return;
       void loadNativePreview(item.id,item.currentVersionNumber,forced)
         .then(result=>{
           if(!live)return;
@@ -300,7 +305,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
         });
     }
     return ()=>{live=false;};
-  },[eligible,token,retry]);
+  },[eligible,token,retry,Boolean(savedSnapshot)]);
 
   async function refreshEditorial() {
     const editorial=await getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber);
