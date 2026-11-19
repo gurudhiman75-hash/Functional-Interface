@@ -10,7 +10,7 @@ const source = readFileSync('artifacts/admin-app/src/pages/content/QuestionStudi
 const handler = source.slice(source.indexOf('  const handleGenerate = async () => {'), source.indexOf('  const applyStatus = async'));
 function harness(asyncMode = false) {
   const calls = [], receipts = [], errors = [];
-  const state = { queued: [], progress: null };
+  const state = { queued: [], progress: null, batchRunIds: [] };
   const noop = () => {};
   const context = {
     bulkBusy: false, generating: false, stagingAsyncSubmitting: false,
@@ -29,6 +29,9 @@ function harness(asyncMode = false) {
     setReviewPackageFilter: noop, setReviewPageNumber: noop, setWorkspaceView: noop,
     setStatusFilter: noop, setQualityFilter: noop, setSearch: noop, setServerSearch: noop,
     setBulkBusy: noop, setExpandedRuns: noop, ALL: 'all', resumeRunId: null,
+    setBatchRunIds: (value) => { state.batchRunIds = value; },
+    generationChapter: () => "Average", setBatchTopic: noop, setBatchLocales: noop, setBatchApprovalLanguages: noop, setBatchHandoffSummary: noop,
+    setFocusedReview: noop, setFocusedIndex: noop, setBatchSelection: noop, setBatchFailures: noop, setSelectedIds: noop,
     setBulkProgress: (value) => { state.progress = value; },
     setQueuedLanguageRuns: (value) => { state.queued = typeof value === 'function' ? value(state.queued) : value; },
     showToast: { success: noop, info: noop, error: (...args) => errors.push(args) },
@@ -46,6 +49,7 @@ test('generates the requested count for every selected language within request l
   const h = harness();
   await h.run();
   assert.equal(h.calls.length, 9);
+  assert.equal(h.state.batchRunIds.join(","), Array.from({ length: 9 }, (_, i) => `run${i + 1}`).join(","));
   for (const language of ['en', 'hi', 'pa']) {
     assert.equal(h.calls.filter((call) => call.language === language).reduce((sum, call) => sum + call.count, 0), 23);
   }

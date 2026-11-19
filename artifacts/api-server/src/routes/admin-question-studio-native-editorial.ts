@@ -408,18 +408,21 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
     res.status(500).json({code:"NATIVE_APPROVE_UNAVAILABLE"});
   }
 });
-/** Explicit promotion to the existing Question Bank translation review queue.
- * Not a publish operation: creates DRAFT canonical translations only. Both
- * independent editorial approvals must exist, and canonical English must
- * already have been accepted as the same immutable source version. */
-router.post(itemPath+"/promote",requireAdminPermission("content.translations.review"),async(req,res)=>{
+/** Carry approved Studio revisions to the same immutable English bank version.
+ * Regular promotion creates drafts. Batch acceptance preserves editorial
+ * decisions and applies the Question Bank translation quality gate. */
+router.post([itemPath+"/promote",itemPath+"/accept-approved"],requireAdminPermission("content.translations.review"),async(req,res)=>{
   res.setHeader("Cache-Control","private, no-store");
   const itemId=text(req.params.itemId),body=req.body as Record<string,unknown>|undefined;
   const version=Number(body?.expectedVersion),reason=text(body?.reason),userId=req.adminSession?.user.id;
   const revisions=body?.revisions as Record<string,unknown>|undefined;
-  const hi=Number(revisions?.hi),pa=Number(revisions?.pa);
+  const acceptApprovedLocales=req.path.endsWith("/accept-approved");
+  const locales: unknown = acceptApprovedLocales ? body?.languages : ["hi","pa"];
+  const bankStatus=acceptApprovedLocales?"approved":"draft";
   if(!userId||!UUID.test(itemId)||!Number.isInteger(version)||version<1||
-    !Number.isInteger(hi)||hi<1||!Number.isInteger(pa)||pa<1||
+    !Array.isArray(locales)||locales.length<1||locales.length>2||new Set(locales).size!==locales.length||
+    !locales.every(locale=>(locale==="hi"||locale==="pa")&&
+      Number.isInteger(Number(revisions?.[locale]))&&Number(revisions?.[locale])>0)||
     reason.length<8||reason.length>2000){
     res.status(400).json({code:"NATIVE_PROMOTION_INVALID_REQUEST"});return;
   }
@@ -479,10 +482,10 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           editor_user_id::text AS "editorUserId",reviewer_user_id::text AS "reviewerUserId"
         FROM content.question_studio_native_locales
         WHERE source_generation_version_id=${source.sourceVersionId}::uuid
-          AND language_code IN ('hi','pa')
+          AND language_code = ANY(${locales}::text[])
         ORDER BY language_code FOR UPDATE`;
-      if(drafts.length!==2 || drafts.some(d=>d.status!=="approved" ||
-          Number(d.revision)!==(d.language==="hi"?hi:pa) ||
+      if(drafts.length!==locales.length || drafts.some(d=>d.status!=="approved" ||
+          Number(d.revision)!==Number(revisions?.[String(d.language)]) ||
           !d.reviewerUserId || d.correctIndex!==source.source.correctIndex ||
           !Array.isArray(d.options)||d.options.length!==sourceOptions.length))
         abortNativeReview("NATIVE_PROMOTION_LOCALES_NOT_APPROVED");
@@ -515,11 +518,25 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           WHERE lower(l.code)=${language} AND l.is_active=true LIMIT 1`;
         const languageId=String(languageRows[0]?.id??"");
         if(!languageId) abortNativeReview("NATIVE_PROMOTION_LANGUAGE_NOT_ALLOWED");
-        const existing=await tx`SELECT id::text AS id FROM content.question_translations
+        const existing=await tx`SELECT id::text AS id,status FROM content.question_translations
           WHERE question_version_id=${String(b.versionId)}::uuid
             AND language_id=${languageId}::uuid FOR UPDATE`;
         // Never replace an existing translation or its review history.
-        if(existing.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
+        if(existing.length) {
+          if(acceptApprovedLocales && existing[0]?.status==="approved"){
+            const events=await tx`SELECT 1 FROM content.question_studio_native_locale_events
+              WHERE native_locale_id=${String(d.id)}::uuid AND revision=${Number(d.revision)}
+                AND action='send_to_bank_review' AND snapshot->>'translationId'=${String(existing[0].id)}
+                AND snapshot->>'bankStatus'='approved'`;
+            if(events.length){
+              result[language]=String(existing[0].id);
+              continue;
+            }
+          }
+          abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
+        }
+        if(acceptApprovedLocales && !machineAuthored.has(language) && d.editorUserId===userId)
+          abortNativeReview("NATIVE_PROMOTION_SELF_REVIEW_BLOCKED");
         const options=(d.options as string[]).map((option,index)=>({
           key:String.fromCharCode(65+index),text:String(option),sortOrder:index+1,
         }));
@@ -544,11 +561,12 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
         const inserted=await tx`
           INSERT INTO content.question_translations
             (question_version_id,language_id,stem,explanation,status,translator_user_id,
-              reviewer_user_id,quality_snapshot)
+              reviewer_user_id,reviewed_at,quality_snapshot)
           VALUES(${String(b.versionId)}::uuid,${languageId}::uuid,${String(d.stem)},
-            ${String(d.explanation)},'draft',
+            ${String(d.explanation)},${bankStatus},
             ${machineAuthored.has(language)?null:String(d.editorUserId)}::uuid,
-            NULL,${JSON.stringify(quality)}::jsonb)
+            ${acceptApprovedLocales?String(d.reviewerUserId):null}::uuid,
+            CASE WHEN ${acceptApprovedLocales} THEN now() ELSE NULL END,${JSON.stringify(quality)}::jsonb)
           ON CONFLICT (question_version_id,language_id) DO NOTHING RETURNING id::text AS id`;
         if(!inserted.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
         const translationId=String(inserted[0]!.id);
@@ -560,10 +578,10 @@ router.post(itemPath+"/promote",requireAdminPermission("content.translations.rev
           (native_locale_id,revision,action,actor_user_id,reason,snapshot)
           VALUES(${String(d.id)}::uuid,${Number(d.revision)},'send_to_bank_review',
             ${userId}::uuid,${reason},
-            ${JSON.stringify({translationId,questionVersionId:b.versionId,language,quality})}::jsonb)`;
+            ${JSON.stringify({translationId,questionVersionId:b.versionId,language,quality,bankStatus})}::jsonb)`;
         result[language]=translationId;
       }
-      return {translations:result,questionVersionId:String(b.versionId),status:"draft"};
+      return {translations:result,questionVersionId:String(b.versionId),status:bankStatus};
     });
     res.json(outcome);
   }catch(error){
