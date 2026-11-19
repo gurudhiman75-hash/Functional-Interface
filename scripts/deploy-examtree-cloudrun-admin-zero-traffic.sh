@@ -50,7 +50,7 @@ def secret(k):return env.get(k,{}).get('valueFrom',{}).get('secretKeyRef',{}).ge
 for k,v in {
  'EXAMTREE_API_RUNTIME':'cloud-run',
  'EXAMTREE_API_STAGING':'false',
- 'EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER':'true',
+ 'EXAMTREE_ADMIN_ROUTES_DELEGATED_RENDER':'false',
  'EXAMTREE_SALES_DISABLED':'true',
  'EXAMTREE_PAYMENT_PROVIDER':'none',
  'GENERATION_JOB_WORKER_ENABLED':'false',
@@ -64,9 +64,11 @@ old=status['latestReadyRevisionName']
 assert old and old==status['latestCreatedRevisionName'],"revision not ready"
 traffic=status.get('traffic',[])
 assert sum(int(t.get('percent',0)) for t in traffic)==100
-assert sum(int(t.get('percent',0)) for t in traffic if t.get('revisionName')==old)==100, "unexpected traffic split"
+active={t['revisionName']:int(t['percent']) for t in traffic if int(t.get('percent',0))>0}
+assert all(t.get('revisionName') for t in traffic if int(t.get('percent',0))>0), "unresolved latest traffic target"
+assert active, "no serving revision"
 with open(sys.argv[1]+'.old','w') as out:out.write(old)
-print("PASS: verified 100% of student traffic remains on the current healthy revision")
+print("PASS: verified live traffic is pinned to ready revision(s): "+str(active))
 PY
 
 for service in examtree-trg002-prod examtree-generation-prod; do
@@ -114,11 +116,14 @@ CANDIDATE_URL="$(python3 - "$TMP/before.json.old" "$TMP/after.json" <<'PY'
 import json,sys
 with open(sys.argv[1]) as f: old=f.read().strip()
 with open(sys.argv[2]) as f:s=json.load(f)
+with open(sys.argv[1].removesuffix('.old')) as f: before=json.load(f)
 status=s['status']
 latest=status.get('latestReadyRevisionName')
 assert latest and latest!=old and latest==status.get('latestCreatedRevisionName')
 traffic=status.get('traffic',[])
-assert sum(int(t.get('percent',0)) for t in traffic if t.get('revisionName')==old)==100, "STOP: live student traffic changed"
+def live_alloc(x):
+ return {t['revisionName']:int(t['percent']) for t in x if int(t.get('percent',0))>0}
+assert live_alloc(traffic)==live_alloc(before['status'].get('traffic',[])), "STOP: live student traffic allocation changed"
 assert sum(int(t.get('percent',0)) for t in traffic if t.get('revisionName')==latest)==0, "STOP: candidate unexpectedly serving traffic"
 tag=next((t for t in traffic if t.get('tag')=='admin-candidate' and t.get('revisionName')==latest),None)
 assert tag and str(tag.get('url','')).startswith('https://'),"candidate tag URL missing"

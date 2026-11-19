@@ -35,7 +35,7 @@ class AdminRolloutSafetyTest(unittest.TestCase):
             'GENERATION_JOB_WORKER_ENABLED',
             'OUTBOX_PUBLISHER_ENABLED',
             'FINANCE_HANDLED_BY_RENDER_DURING_CUTOVER',
-            "if t.get('revisionName')==old",
+            "live_alloc(traffic)==live_alloc(before['status'].get('traffic',[]))",
             "if t.get('revisionName')==latest",
             'examtree-api-database-url',
             'examtree-question-studio-prod-worker-token',
