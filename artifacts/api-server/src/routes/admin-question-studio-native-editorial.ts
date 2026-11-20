@@ -209,6 +209,7 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
           key:String.fromCharCode(65+index),text:value,sortOrder:index+1,
         }));
         const quality=evaluateTranslationQuality({
+          allowIndependentExplanation: true,
           source:{stem:result.source.stem,explanation:result.source.explanation,
             options:asOptions(result.source.options)},
           target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
@@ -343,6 +344,7 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
            q.options.length!==result.source.options.length)
           abortNativeReview("NATIVE_APPROVE_ANSWER_MAPPING_CHANGED");
         const quality=evaluateTranslationQuality({
+          allowIndependentExplanation: true,
           source:{stem:result.source.stem,explanation:result.source.explanation,
             options:asOptions(result.source.options)},
           target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
@@ -549,6 +551,7 @@ router.post([itemPath+"/promote",itemPath+"/accept-approved"],requireAdminPermis
           WHERE language_id=${languageId}::uuid AND is_active=true
             AND (scope_taxonomy_node_id IS NULL OR scope_taxonomy_node_id=${b.taxonomyNodeId??null}::uuid)`;
         const quality=evaluateTranslationQuality({
+          allowIndependentExplanation: true,
           source:{stem:source.source.stem,explanation:source.source.explanation,options:baseOptions},
           target:{stem:String(d.stem),explanation:String(d.explanation),options},
           languageCode:language,
