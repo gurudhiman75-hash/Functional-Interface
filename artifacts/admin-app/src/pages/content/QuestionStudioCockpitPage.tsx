@@ -95,11 +95,13 @@ import { AdminApiError } from '@/lib/admin-api-error';
 import { cn } from '@/lib/utils';
 
 // Opt-in preview only. Default production builds continue to use synchronous Generate.
+const BACKGROUND_BATCH_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_BACKGROUND_BATCHES === 'true';
 const STAGING_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_STAGING === 'true';
 // Explicitly separate production approval; OFF in existing frontend builds.
-const CHAPTER_ASYNC_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true';
-const ASYNC_ENABLED = STAGING_ASYNC_ENABLED || CHAPTER_ASYNC_ENABLED;
-const BULK_ASYNC_ENABLED = CHAPTER_ASYNC_ENABLED && import.meta.env.VITE_QUESTION_STUDIO_BULK_ASYNC_REVIEW === 'true';
+const CHAPTER_ASYNC_ENABLED = !BACKGROUND_BATCH_ENABLED && import.meta.env.VITE_QUESTION_STUDIO_ASYNC_PRODUCTION_CHAPTER === 'true';
+const ASYNC_ENABLED = BACKGROUND_BATCH_ENABLED || STAGING_ASYNC_ENABLED || CHAPTER_ASYNC_ENABLED;
+const BULK_ASYNC_ENABLED = BACKGROUND_BATCH_ENABLED ||
+  (CHAPTER_ASYNC_ENABLED && import.meta.env.VITE_QUESTION_STUDIO_BULK_ASYNC_REVIEW === 'true');
 // Safe rollout: expose native grouped generation/review only once the tagged
 // production Cloud Run candidate has the new read-only locale endpoint.
 const NATIVE_GROUPED_REVIEW_ENABLED = import.meta.env.VITE_QUESTION_STUDIO_NATIVE_GROUPED_REVIEW === 'true';
@@ -762,7 +764,7 @@ export function QuestionStudioCockpitPage() {
   // launch response or continue through a partial/failed child. Closing the tab
   // stops automation; no scheduler, new queue or backend privilege is introduced.
   useEffect(() => {
-    if (!bulkAutoAdvance || !bulkAsyncOperation ||
+    if (!bulkAutoAdvance || !bulkAsyncOperation || bulkAsyncOperation.executionMode === 'background' ||
         bulkAutoLaunchInFlight.current || bulkAsyncSubmitting ||
         generating || stagingAsyncSubmitting || bulkBusy) return;
     if (bulkAsyncOperation.requiresAttention) {
@@ -808,7 +810,7 @@ export function QuestionStudioCockpitPage() {
 
   const handleGenerate = async () => {
     if (bulkBusy || generating || stagingAsyncSubmitting || bulkAsyncSubmitting) return;
-    const bulkAsyncMode = BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected;
+    const bulkAsyncMode = BULK_ASYNC_ENABLED && stagingAsyncSelected && (BACKGROUND_BATCH_ENABLED || bulkAsyncSelected);
     const asyncMode = ASYNC_ENABLED && stagingAsyncSelected;
     const limit = bulkAsyncMode ? SYNC_BULK_LIMIT : asyncMode ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT;
     if (!Number.isInteger(count) || count < 1 || count > limit) {
@@ -878,7 +880,7 @@ export function QuestionStudioCockpitPage() {
               key = `qs-bulk-${crypto.randomUUID()}`;
               bulkAsyncRetry.current.set(signature, key);
             }
-            const receipt = await reserveQuestionStudioBulkReview(asyncInput, key);
+            const receipt = await reserveQuestionStudioBulkReview(asyncInput, key, BACKGROUND_BATCH_ENABLED);
             confirmed.push({ id: receipt.id, language });
             setQueuedBulkLanguageJobs((current) => current.some(job => job.id === receipt.id)
               ? current : [...current, { id: receipt.id, language }]);
@@ -896,8 +898,10 @@ export function QuestionStudioCockpitPage() {
               ...input, language, seed: undefined, runtimeMode: activePackage.runtimeMode,
             }));
           }
-          showToast.success('Multilingual bulk reviews saved',
-            `${confirmed.length} native question-group source job(s), ${count} review questions each (${count * confirmed.length} total canonical questions). Each job has separately launched review batches.`);
+          showToast.success(BACKGROUND_BATCH_ENABLED ? 'Background generation queued' : 'Bulk reviews saved',
+            `${confirmed.length} job(s), ${count} questions each. ${BACKGROUND_BATCH_ENABLED
+              ? 'You can close this tab while the jobs run.'
+              : 'Launch the saved review batches to start generation.'}`);
         } catch (caught) {
           const detail = caught instanceof Error ? caught.message : 'Reservation could not be confirmed.';
           setBulkAsyncError(detail);
@@ -1533,7 +1537,7 @@ export function QuestionStudioCockpitPage() {
               </div>
             )}
             <Field label="Languages"><div className="flex min-h-10 flex-wrap items-center gap-3 rounded-md border px-3 py-2">{supportedLanguages.map((entry) => <label key={entry} className="flex items-center gap-2 text-xs"><Checkbox checked={languages.includes(entry)} disabled={generating || bulkBusy || stagingAsyncSubmitting || (languages.length === 1 && languages.includes(entry))} onCheckedChange={(checked) => setLanguages((current) => checked === true ? [...current, entry] : current.filter((value) => value !== entry))} />{LANGUAGE_LABELS[entry] ?? entry}</label>)}</div></Field>
-            <Field label={useNativeGroupedReview(activePackage?.supportedLanguages ?? [], languages) ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label={useNativeGroupedReview(activePackage?.supportedLanguages ?? [], languages) ? 'Canonical question groups' : 'Questions per language'}><Input type="number" min={1} max={BULK_ASYNC_ENABLED && stagingAsyncSelected && (BACKGROUND_BATCH_ENABLED || bulkAsyncSelected) ? SYNC_BULK_LIMIT : ASYNC_ENABLED && stagingAsyncSelected ? (CHAPTER_ASYNC_ENABLED ? PRODUCTION_CHAPTER_BATCH_LIMIT : capabilities.maxBatchSize) : SYNC_BULK_LIMIT} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
           {useNativeGroupedReview(activePackage?.supportedLanguages ?? [], languages)
             ? <p className="rounded-lg border border-primary/20 bg-primary/[0.03] px-3 py-2 text-xs">
@@ -1561,14 +1565,14 @@ export function QuestionStudioCockpitPage() {
                   {LANGUAGE_LABELS[job.language] ?? job.language} · {job.id.slice(0,8)}
                 </Button>
               ))}
-              <span className="text-muted-foreground">Select a job to launch its batches. Copy its resume link to return later.</span>
+              <span className="text-muted-foreground">{BACKGROUND_BATCH_ENABLED ? 'Select a job to view its progress.' : 'Select a job to launch its batches.'}</span>
             </div>
           )}
           {queuedLanguageRuns.length > 0 && <div role="status" className="flex flex-wrap gap-2 text-xs">{queuedLanguageRuns.map((run) => <Button key={run.id} size="sm" variant="outline" onClick={() => setUrlSearchParams(withStagingResumeRunId(urlSearchParams, run.id), { replace: true })}>{LANGUAGE_LABELS[run.language] ?? run.language}: {run.publicCode}</Button>)}</div>}
           {!ASYNC_ENABLED || !stagingAsyncSelected ? <p className="text-xs text-muted-foreground">
             Up to {SYNC_BULK_LIMIT} questions per language. Requests are split into review runs of at most {Math.min(capabilities.maxBatchSize, Math.max(SYNC_CHUNK_TARGET, selectedCpIds.size || 1))} questions. Keep this tab open until completion. After a failure, check saved runs before requesting more. No automatic publication.
           </p> : null}
-          {BULK_ASYNC_ENABLED && stagingAsyncSelected && (
+          {BULK_ASYNC_ENABLED && !BACKGROUND_BATCH_ENABLED && stagingAsyncSelected && (
             <label className="flex items-center gap-2 text-xs">
               <Checkbox checked={bulkAsyncSelected} onCheckedChange={v=>setBulkAsyncSelected(v===true)}
                 disabled={bulkAsyncSubmitting || stagingAsyncSubmitting || bulkBusy}/>
@@ -1585,7 +1589,9 @@ export function QuestionStudioCockpitPage() {
                   catch {showToast.error('Copy failed','Copy the browser URL manually.');}
                 }}>Copy resume link</Button>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
+              {bulkAsyncOperation.executionMode === 'background' ? (
+                <p className="text-muted-foreground">Batches run on the server and appear in Review as they finish.</p>
+              ) : <div className="flex flex-wrap items-center gap-2">
                 {bulkAutoAdvance ? (
                   <Button variant="outline" size="sm" onClick={()=>setBulkAutoAdvance(false)}>
                     Stop automatic batch launches
@@ -1605,14 +1611,14 @@ export function QuestionStudioCockpitPage() {
                 <span className="text-muted-foreground">{bulkAutoAdvance
                   ? 'Automatic sequence active while this tab stays open. Only one saved review batch runs at a time.'
                   : 'One click advances through completed review batches; keep this tab open. No automatic question approval.'}</span>
-              </div>
+              </div>}
               {bulkAsyncOperation.requiresAttention && <p className="text-destructive">A batch failed or needs reconciliation. Do not resubmit the whole operation.</p>}
               <div className="space-y-1">{bulkAsyncOperation.batches.map(batch=>(
                 <div key={batch.batchIndex} className="flex flex-wrap items-center justify-between gap-2 border-t pt-2">
                   <span>Batch {batch.batchIndex+1}: {batch.generatedCount}/{batch.count} · {batch.status}
                     {batch.runId && <span className="font-mono"> · {batch.runId}</span>}
                   </span>
-                  {batch.runId && (
+                  {batch.runId && bulkAsyncOperation.executionMode !== 'background' && (
                     <div className="w-full space-y-1 text-[11px] text-muted-foreground">
                       <p>Dispatch record: {batch.dispatchState==='acknowledged' ? 'Acknowledged by outbox (Cloud Task not independently verified)' :
                         batch.dispatchState==='pending' ? 'Awaiting dispatcher' :
@@ -1679,7 +1685,7 @@ export function QuestionStudioCockpitPage() {
                       }finally{setBulkAsyncSubmitting(false);}
                     }}>Request saved dispatch</Button>
                   )}
-                  {batch.status==='planned' && canRun && !bulkAutoAdvance &&
+                  {bulkAsyncOperation.executionMode !== 'background' && batch.status==='planned' && canRun && !bulkAutoAdvance &&
                     bulkAsyncOperation.batches.slice(0,batch.batchIndex).every(x=>x.status==='review' || x.status==='completed') &&
                     <Button variant="outline" size="sm" disabled={bulkAsyncSubmitting} onClick={async()=>{
                       setBulkAsyncSubmitting(true);
@@ -1706,7 +1712,7 @@ export function QuestionStudioCockpitPage() {
             {bulkProgress.runs.length > 0 && <span className="mt-1 block font-mono">{bulkProgress.runs.join(' · ')}</span>}
           </div>}
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-            <Field label={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Server-assigned production seed" : "Optional deterministic seed"}><Input value={seed} onChange={(event) => setSeed(event.target.value)} disabled={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected} placeholder={CHAPTER_ASYNC_ENABLED && stagingAsyncSelected ? "Assigned after enqueue" : "Leave blank for a fresh generated seed"} /></Field>
+            <Field label={(BACKGROUND_BATCH_ENABLED || CHAPTER_ASYNC_ENABLED) && stagingAsyncSelected ? "Server-assigned seed" : "Optional deterministic seed"}><Input value={seed} onChange={(event) => setSeed(event.target.value)} disabled={(BACKGROUND_BATCH_ENABLED || CHAPTER_ASYNC_ENABLED) && stagingAsyncSelected} placeholder={(BACKGROUND_BATCH_ENABLED || CHAPTER_ASYNC_ENABLED) && stagingAsyncSelected ? "Assigned after enqueue" : "Leave blank for a fresh generated seed"} /></Field>
 
             <div className="space-y-2">
               {ASYNC_ENABLED && (
@@ -1714,10 +1720,10 @@ export function QuestionStudioCockpitPage() {
                   <Checkbox checked={stagingAsyncSelected}
                     onCheckedChange={(value) => setStagingAsyncSelected(value === true)}
                     disabled={generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy} />
-                  <span>{CHAPTER_ASYNC_ENABLED ? `Queue a production chapter review batch (1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions; subject to server approval; no automatic publication).` : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
+                  <span>{BACKGROUND_BATCH_ENABLED ? 'Run in background (up to 250 questions per language). You can close this tab.' : CHAPTER_ASYNC_ENABLED ? `Queue a production chapter review batch (1–${PRODUCTION_CHAPTER_BATCH_LIMIT} questions; subject to server approval; no automatic publication).` : 'Use isolated staging async queue (automatic staging dispatch when Cloud Scheduler and Cloud Tasks are running; normal Generate is unchanged).'}</span>
                 </label>
               )}
-              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy ? 'Working…' : BULK_ASYNC_ENABLED && stagingAsyncSelected && bulkAsyncSelected ? 'Create bulk review job' : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
+              <Button onClick={() => void handleGenerate()} disabled={loading || generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy || !activePackage || !canRun} className="min-w-44">{generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating || stagingAsyncSubmitting || bulkAsyncSubmitting || bulkBusy ? 'Working…' : BULK_ASYNC_ENABLED && stagingAsyncSelected && (BACKGROUND_BATCH_ENABLED || bulkAsyncSelected) ? (BACKGROUND_BATCH_ENABLED ? 'Queue background batch' : 'Create bulk review job') : stagingAsyncSelected && ASYNC_ENABLED ? (CHAPTER_ASYNC_ENABLED ? 'Queue chapter review batch' : 'Queue staging batch') : 'Generate review batch'}</Button>
             </div>
           </div>
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageMainTopic(activePackage)} · {generationChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}

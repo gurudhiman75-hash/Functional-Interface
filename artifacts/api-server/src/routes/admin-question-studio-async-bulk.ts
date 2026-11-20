@@ -16,6 +16,9 @@ import { productionChapterReleaseActive, readCanonicalChapterManifest,
 import { planAsyncChapterReviewBatches } from "../question-studio/async-bulk-plan.mjs";
 import { summarizeAsyncBulkReview } from "../question-studio/async-bulk-progress.mjs";
 
+import { backgroundBatchesEnabled } from "../question-studio/background-batch-config";
+import { validateUniversalStudioComputeInput } from "../question-studio/universal-executor";
+
 const router = Router();
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const TOP = new Set(["request","count","selectedCpIds","examProfileId","difficultyPreset",
@@ -51,17 +54,18 @@ function validateBody(body: unknown): body is UniversalStudioComputeInput {
      body.request.count!==body.count || body.request.seed!==undefined) return false;
   return true;
 }
-async function parentForActor(id: string, uid: string, admin: string) {
+async function parentForActor(id: string, uid: string, admin: string, includeBackground = false) {
   const rows=await sqlClient`
-    SELECT id,requested_count,child_count,status,canonical_request
+    SELECT id,requested_count,child_count,status,canonical_request,execution_mode
     FROM content.generation_bulk_operations
     WHERE id=${id}::uuid AND actor_firebase_uid=${uid} AND requested_by=${admin}::uuid
+      AND (execution_mode='manual' OR ${includeBackground})
     LIMIT 1
   `;
   return rows[0] ?? null;
 }
 async function progress(id: string, uid: string, admin: string) {
-  const parent=await parentForActor(id,uid,admin);
+  const parent=await parentForActor(id,uid,admin,backgroundBatchesEnabled());
   if(!parent) return null;
   const rows=await sqlClient`
     SELECT c.batch_index,c.requested_count,c.status AS child_status,
@@ -140,7 +144,7 @@ async function progress(id: string, uid: string, admin: string) {
         ? "qs-" + String(r.outbox_event_id).replaceAll("-","").toLowerCase() : null};
   });
   const summary=summarizeAsyncBulkReview({requestedCount:Number(parent.requested_count)},children);
-  return {id, status: summary.readyForReview ? "completed" :
+  return {id, executionMode:parent.execution_mode, status: summary.readyForReview ? "completed" :
     summary.requiresAttention ? "partial_failure" :
     summary.activeBatches>0 || summary.completedBatches>0 ? "in_progress" : "planned",
     ...summary,
@@ -148,9 +152,10 @@ async function progress(id: string, uid: string, admin: string) {
     // read-only diagnostics in the owner-scoped API response.
     batches:children};
 }
-router.post("/bulk-async",requireAdminPermission("content.generation.run"),async(req,res)=>{
+router.post(["/bulk-async","/bulk-async/background"],requireAdminPermission("content.generation.run"),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");
-  if(!gate()){res.status(503).json({code:"QS_BULK_ASYNC_DISABLED"});return;}
+  const background=req.path.endsWith("/background");
+  if(!(background ? backgroundBatchesEnabled() : gate())){res.status(503).json({code:"QS_BULK_ASYNC_DISABLED"});return;}
   if(!req.user?.id || !req.adminSession?.user?.id){res.status(403).json({code:"QS_BULK_ADMIN_REQUIRED"});return;}
   const key=req.get("Idempotency-Key");
   if(typeof key!=="string" || !/^[a-zA-Z0-9:_-]{8,64}$/.test(key) ||
@@ -158,15 +163,18 @@ router.post("/bulk-async",requireAdminPermission("content.generation.run"),async
   try {
     const compute=req.body as UniversalStudioComputeInput;
     const planned=planAsyncChapterReviewBatches({totalCount:compute.count,
-      selectedCpIds:compute.selectedCpIds,operationId:key});
+      selectedCpIds:compute.selectedCpIds,operationId:key,distributeCps:background});
     for(const part of planned) {
       const child=childCompute(compute,part.count,[...part.selectedCpIds]);
-      if(!scopeCheck(child)){res.status(403).json({code:"QS_BULK_SCOPE_DENIED"});return;}
-      validateAsyncTaskComputeInput(child);
+      if(background) validateUniversalStudioComputeInput(child);
+      else {
+        if(!scopeCheck(child)){res.status(403).json({code:"QS_BULK_SCOPE_DENIED"});return;}
+        validateAsyncTaskComputeInput(child);
+      }
     }
     const receipt=await reserveAsyncBulkReviewOperation({identity:{
       actorFirebaseUid:req.user.id,identityUserId:req.adminSession.user.id,idempotencyKey:key,
-    },compute});
+    },compute,executionMode:background?"background":"manual"});
     res.status(receipt.reused?200:202).json({id:receipt.id,reused:receipt.reused,
       status:receipt.status,requestedCount:receipt.requestedCount,childCount:receipt.children.length});
   } catch(error) {
@@ -177,7 +185,7 @@ router.post("/bulk-async",requireAdminPermission("content.generation.run"),async
 });
 router.get("/bulk-async/:operationId",requireAdminPermission("content.generation.read"),async(req,res)=>{
   res.setHeader("Cache-Control","no-store");
-  if(process.env.EXAMTREE_QS_BULK_ASYNC_REVIEW_ENABLED!=="true"){
+  if(process.env.EXAMTREE_QS_BULK_ASYNC_REVIEW_ENABLED!=="true" && !backgroundBatchesEnabled()){
     res.status(503).json({code:"QS_BULK_ASYNC_DISABLED"});return;
   }
   const id=String(req.params.operationId??"");
@@ -421,6 +429,7 @@ router.post("/bulk-async/:operationId/children/:index/recover-expired",
         WHERE o.id=${id}::uuid AND c.batch_index=${index}
           AND o.actor_firebase_uid=${req.user!.id}
           AND o.requested_by=${req.adminSession!.user.id}::uuid
+          AND o.execution_mode='manual'
         FOR UPDATE OF r
       `;
       const run=rows[0];

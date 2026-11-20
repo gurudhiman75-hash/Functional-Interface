@@ -34,6 +34,7 @@ function reject(code: string): never {
 export async function reserveAsyncBulkReviewOperation(input: {
   identity: EnqueueIdentity;
   compute: UniversalStudioComputeInput;
+  executionMode?: "manual" | "background";
 }): Promise<BulkOperationReceipt> {
   assertEnqueueIdentity(input.identity);
   if (!input.identity.identityUserId) reject("BULK_ASYNC_ADMIN_ID_REQUIRED");
@@ -54,20 +55,22 @@ export async function reserveAsyncBulkReviewOperation(input: {
     totalCount: compute.count,
     selectedCpIds: compute.selectedCpIds,
     operationId,
+    distributeCps: input.executionMode === "background",
   }) as readonly BulkPlanChild[];
   const hash = canonicalDigest(normalized);
   const actor = input.identity.actorFirebaseUid;
-  const key = "bulk:" + canonicalDigest(["qs-bulk-parent-v1", input.identity.idempotencyKey]);
+  const executionMode = input.executionMode ?? "manual";
+  const key = (executionMode === "manual" ? "bulk:" : "background:") + canonicalDigest(["qs-bulk-parent-v1", input.identity.idempotencyKey]);
   const requestedBy = input.identity.identityUserId!;
   try {
     await sqlClient.begin(async tx => {
       const inserted = await tx`
         INSERT INTO content.generation_bulk_operations (
           id,actor_firebase_uid,requested_by,idempotency_key,request_sha256,
-          canonical_request,requested_count,child_count
+          canonical_request,requested_count,child_count,execution_mode
         ) VALUES (
           ${operationId}::uuid,${actor},${requestedBy}::uuid,${key},${hash},
-          (${JSON.stringify(normalized)}::text)::jsonb,${compute.count},${children.length}
+          (${JSON.stringify(normalized)}::text)::jsonb,${compute.count},${children.length},${executionMode}
         )
         ON CONFLICT (actor_firebase_uid,idempotency_key) DO NOTHING
         RETURNING id

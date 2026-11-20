@@ -74,7 +74,7 @@ test("bulk flow preserves latest multilingual review workflow",()=>{
   assert.match(page,/for \(const language of generationLanguages\)/);
   assert.match(page,/setQueuedBulkLanguageJobs/);
   assert.match(page,/bulkAsyncRetry\.current\.get\(signature\)/);
-  assert.match(page,/reserveQuestionStudioBulkReview\(asyncInput, key\)/);
+  assert.match(page,/reserveQuestionStudioBulkReview\(asyncInput, key, BACKGROUND_BATCH_ENABLED\)/);
   assert.match(page,/Select a job to launch its batches/);
   assert.doesNotMatch(page,/Choose one language/);
  assert.match(page,/reserveQuestionStudioBulkReview/);

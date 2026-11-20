@@ -7,7 +7,7 @@ export const MAX_BULK_REVIEW_REQUEST = 250;
 export const MAX_CHAPTER_REVIEW_CHILD = 20;
 
 export function planAsyncChapterReviewBatches({
-  totalCount, selectedCpIds = [], operationId,
+  totalCount, selectedCpIds = [], operationId, distributeCps = false,
 }) {
   if (!Number.isSafeInteger(totalCount) || totalCount < 1 ||
       totalCount > MAX_BULK_REVIEW_REQUEST) {
@@ -20,24 +20,29 @@ export function planAsyncChapterReviewBatches({
   if (!Array.isArray(selectedCpIds) ||
       selectedCpIds.some(cp => typeof cp !== "string" || !cp.trim()) ||
       new Set(selectedCpIds).size !== selectedCpIds.length ||
-      selectedCpIds.length > MAX_CHAPTER_REVIEW_CHILD) {
+      selectedCpIds.length > (distributeCps ? Math.min(totalCount, 50) : MAX_CHAPTER_REVIEW_CHILD)) {
     throw new RangeError("BULK_ASYNC_CP_SELECTION_INVALID");
   }
   const batchCount = Math.ceil(totalCount / MAX_CHAPTER_REVIEW_CHILD);
   const minCount = Math.floor(totalCount / batchCount);
-  if (selectedCpIds.length > minCount) {
+  if (!distributeCps && selectedCpIds.length > minCount) {
     throw new RangeError("BULK_ASYNC_CP_SELECTION_EXCEEDS_SMALLEST_BATCH");
   }
   const extra = totalCount % batchCount;
   const batches = Array.from({length:batchCount}, (_, index) => {
     const count = minCount + (index < extra ? 1 : 0);
+    const offset = index * minCount + Math.min(index, extra);
+    const cpIds = distributeCps && selectedCpIds.length > minCount
+      ? Array.from({length: Math.min(count, selectedCpIds.length)}, (_, slot) =>
+          selectedCpIds[(offset + slot) % selectedCpIds.length])
+      : selectedCpIds;
     const key = createHash("sha256")
       .update(JSON.stringify(["qs-chapter-bulk-v1", operationId, index]))
       .digest("hex");
     return Object.freeze({
       batchIndex: index,
       count,
-      selectedCpIds: Object.freeze([...selectedCpIds]),
+      selectedCpIds: Object.freeze([...cpIds]),
       idempotencyKey: "chapterbulk:" + key,
     });
   });

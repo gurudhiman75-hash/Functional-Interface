@@ -28,7 +28,7 @@ export const CHAPTER_REVIEW_OUTBOX_EVENT_TYPE =
   "question_studio.generation_run.chapter_review_queued.v1" as const;
 const STANDARD_OUTBOX_EVENT_TYPE = "question_studio.generation_run.queued.v1";
 
-export type QuestionStudioEnqueueChannel = "standard" | "chapter_review";
+export type QuestionStudioEnqueueChannel = "standard" | "chapter_review" | "background";
 
 
 export async function recordQuestionStudioEnqueueIntent(
@@ -42,7 +42,7 @@ export async function recordQuestionStudioEnqueueIntent(
       "Asynchronous generation has not been enabled", 503);
   }
   assertEnqueueIdentity(input.identity);
-  if (channel !== "standard" && channel !== "chapter_review") {
+  if (channel !== "standard" && channel !== "chapter_review" && channel !== "background") {
     throw new EnqueueValidationError("QUESTION_STUDIO_ENQUEUE_CHANNEL_INVALID",
       "Unsupported asynchronous enqueue channel", 400);
   }
@@ -51,7 +51,9 @@ export async function recordQuestionStudioEnqueueIntent(
   const actorUid = input.identity.actorFirebaseUid;
   const key = channel === "chapter_review"
     ? "chapter:" + createHash("sha256").update(input.identity.idempotencyKey).digest("hex")
-    : input.identity.idempotencyKey;
+    : channel === "background"
+      ? "background:" + createHash("sha256").update(input.identity.idempotencyKey).digest("hex")
+      : input.identity.idempotencyKey;
   const eventType = channel === "chapter_review"
     ? CHAPTER_REVIEW_OUTBOX_EVENT_TYPE : STANDARD_OUTBOX_EVENT_TYPE;
   const requestSha = digestCanonicalEnqueueRequest(input.compute);
@@ -68,6 +70,7 @@ export async function recordQuestionStudioEnqueueIntent(
     ...seeded,
     requestedByFirebaseUid: actorUid,
     queueVersion: 1,
+    ...(channel === "background" ? { backgroundBatch: true } : {}),
   };
   const actorUuid = input.identity.identityUserId ?? null;
   const reqSnapshot = JSON.stringify(snapshot);
@@ -116,7 +119,7 @@ export async function recordQuestionStudioEnqueueIntent(
                            engineId:input.compute.request.engineId, queueVersion:1})}::text)::jsonb
         )
       `;
-      await tx`
+      if (channel !== "background") await tx`
         INSERT INTO platform.outbox_events (
           id, aggregate_type, aggregate_id, event_type, payload
         ) VALUES (

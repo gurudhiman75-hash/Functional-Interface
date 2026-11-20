@@ -537,6 +537,7 @@ export function retryQuestionStudioProductionChapterDispatch(runId: string) {
 
 
 export interface QuestionStudioBulkReviewProgress {
+  executionMode?: 'manual' | 'background';
   id: string;
   status: string;
   requestedCount: number;
@@ -570,10 +571,10 @@ export interface QuestionStudioBulkReviewProgress {
 }
 
 export function reserveQuestionStudioBulkReview(
-  input: CreateGenerationRunInput, idempotencyKey: string,
+  input: CreateGenerationRunInput, idempotencyKey: string, background = false,
 ) {
   return adminRequest<{id: string; reused: boolean; status: string;
-    requestedCount: number; childCount: number}>('/admin/question-studio/bulk-async', {
+    requestedCount: number; childCount: number}>(`/admin/question-studio/bulk-async${background ? '/background' : ''}`, {
     method: 'POST',
     headers: {'Idempotency-Key': idempotencyKey},
     body: JSON.stringify({

@@ -199,7 +199,10 @@ if (!workerSmoke || workerSmoke.questions?.length !== 3
 console.log("[render-build] TRG-002 off-thread Medium English generation smoke passed");
 
 await esbuild({
-  entryPoints: [path.resolve(artifactDir, "src/index.ts")],
+  entryPoints: [
+    path.resolve(artifactDir, "src/index.ts"),
+    path.resolve(artifactDir, "src/question-studio-background-job.ts"),
+  ],
   platform: "node",
   bundle: true,
   format: "esm",

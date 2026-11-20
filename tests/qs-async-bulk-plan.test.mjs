@@ -34,3 +34,16 @@ test("operation and child index domain separate idempotency keys",()=>{
   assert.notEqual(a[0].idempotencyKey,a[1].idempotencyKey);
   assert.notEqual(a[0].idempotencyKey,b[0].idempotencyKey);
 });
+
+test("background planning covers a CP selection larger than one child", () => {
+  const selectedCpIds = Array.from({ length: 25 }, (_, i) => `cp-${i + 1}`);
+  const batches = planAsyncChapterReviewBatches({
+    totalCount: 41,
+    selectedCpIds,
+    operationId: "background-test",
+    distributeCps: true,
+  });
+  assert.equal(batches.reduce((total, batch) => total + batch.count, 0), 41);
+  assert(batches.every(batch => batch.selectedCpIds.length <= batch.count && batch.count <= 20));
+  assert.deepEqual(new Set(batches.flatMap(batch => batch.selectedCpIds)), new Set(selectedCpIds));
+});
