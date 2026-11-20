@@ -59,9 +59,7 @@ import {
   getQuestionStudioRunProgress,
   getQuestionStudioReviewPage,
   updateGenerationItems,
-  getQuestionStudioNativeEditorial,
-  approveQuestionStudioNativeLanguages,
-  promoteQuestionStudioNativeEditorial,
+  acceptQuestionStudioNativeBatch,
   getQuestionStudioStagingOperations,
   type QuestionStudioStagingOperations,
   type QuestionStudioBulkReviewProgress,
@@ -724,6 +722,19 @@ export function QuestionStudioCockpitPage() {
     return ()=>window.removeEventListener('keydown',listener);
   },[focusedReview,workspaceView,focusEntries.length]);
 
+  const nextFocusedItem = focusEntries[safeFocusedIndex + 1]?.item;
+  useEffect(() => {
+    if (!NATIVE_GROUPED_REVIEW_ENABLED || workspaceView !== 'review' || !focusedReview || !nextFocusedItem) return;
+    const saved = nextFocusedItem.savedNativeReview;
+    if (saved?.itemId === nextFocusedItem.id && saved.version === nextFocusedItem.currentVersionNumber) return;
+    const languages = reviewNativeLanguagesByPackage.get(firstText(nextFocusedItem.payload, ['packageId'], '')) ?? [];
+    if (!hasVerifiedNativeLocaleEngine(nextFocusedItem, languages)) return;
+    const timer = window.setTimeout(() => {
+      prefetchNativePreview(nextFocusedItem.id, nextFocusedItem.currentVersionNumber);
+    }, 250);
+    return () => window.clearTimeout(timer);
+  }, [workspaceView, focusedReview, nextFocusedItem, reviewNativeLanguagesByPackage]);
+
   const visibleItemIds = useMemo(
     () => reviewDisplayRuns.flatMap(({ items }) => items.map(item=>item.id)),
     [reviewDisplayRuns],
@@ -1169,30 +1180,26 @@ export function QuestionStudioCockpitPage() {
             added += banked.length;
             continue;
           }
-          for (let index = 0; index < banked.length; index += 4) {
-            await Promise.all(banked.slice(index, index + 4).map(async item => {
-              try {
-                const expectedVersion = item.currentVersionNumber;
-                const editorial = await getQuestionStudioNativeEditorial(item.id, expectedVersion);
-                const revisions = { hi: 0, pa: 0 };
-                for (const draft of editorial.locales.filter(draft => batchLocales.includes(draft.language))) {
-                  if (draft.status !== 'approved') throw new Error('Review and approve saved language edits before adding them to the bank.');
-                  revisions[draft.language] = draft.revision;
-                }
-                const reason = 'Bulk review approval for the current topic batch';
-                const locales = await approveQuestionStudioNativeLanguages(item.id, {
-                  expectedVersion, languages: batchLocales, revisions, reason,
-                });
-                for (const locale of locales.approved) revisions[locale.language] = locale.revision;
-                const handoff = await promoteQuestionStudioNativeEditorial(item.id, {
-                  expectedVersion, revisions, reason, acceptApprovedLocales: true, languages: batchLocales,
-                });
-                if (handoff.status !== 'approved') throw new Error('Bank approval for the selected languages was not confirmed.');
+          if (!banked.length) continue;
+          try {
+            const handoff = await acceptQuestionStudioNativeBatch(
+              banked.map(item => ({ itemId: item.id, expectedVersion: item.currentVersionNumber })),
+              batchLocales,
+            );
+            const byId = new Map(handoff.results.map(outcome => [outcome.itemId, outcome]));
+            for (const item of banked) {
+              const outcome = byId.get(item.id);
+              if (outcome?.ok) {
                 added += 1;
-              } catch (caught) {
-                failed.push({ itemId: item.id, message: `English is in the bank. ${caught instanceof Error ? caught.message : 'Language handoff failed.'}` });
+                continue;
               }
-            }));
+              const detail = outcome?.details?.issues?.[0]?.message ?? outcome?.code ?? 'Language handoff was not confirmed.';
+              const language = outcome?.details?.language;
+              failed.push({ itemId: item.id, message: `English is in the bank. ${language ? LANGUAGE_LABELS[language] + ': ' : ''}${detail}` });
+            }
+          } catch (caught) {
+            const detail = caught instanceof Error ? caught.message : 'Language handoff was not confirmed.';
+            failed.push(...banked.map(item => ({ itemId: item.id, message: `English is in the bank. ${detail}` })));
           }
         } catch (caught) {
           failed.push(...chunk.map(item => ({
@@ -1205,7 +1212,7 @@ export function QuestionStudioCockpitPage() {
       const summary = `${added} fully added · ${failed.length} need attention`;
       setBatchHandoffSummary(summary);
       showToast.info('Question Bank handoff', summary);
-      await refreshReviewPage();
+      void refreshReviewPage({ background: true });
     } finally {
       setBatchReviewBusy(false);
     }
@@ -1886,7 +1893,7 @@ export function QuestionStudioCockpitPage() {
         </Select>}
         <Button disabled={!canReview || !batchSelection.length || batchReviewBusy || updating}
           onClick={() => void approveSelectedBatch()}>
-          {batchReviewBusy ? 'Working…' : 'Approve selected & add to Question Bank'}
+          {batchReviewBusy ? 'Saving approvals…' : 'Approve selected & add to Question Bank'}
         </Button>
       </div>}
         </TabsContent>

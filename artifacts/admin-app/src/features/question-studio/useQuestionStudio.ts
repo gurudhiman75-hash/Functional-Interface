@@ -243,9 +243,9 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     packageId: packageId || undefined, status, search: search || undefined,
   };
 
-  const refreshReviewPage = useCallback(async () => {
+  const refreshReviewPage = useCallback(async ({ background = false } = {}) => {
     const currentRequest = ++requestId.current;
-    setLoadingReviewPage(true);
+    if (!background) setLoadingReviewPage(true);
     setReviewPageError(null);
     try {
       const next = await getQuestionStudioReviewPage(latestQuery.current);

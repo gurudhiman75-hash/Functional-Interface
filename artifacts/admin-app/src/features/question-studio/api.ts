@@ -309,6 +309,18 @@ export function approveQuestionStudioNativeLanguages(
   );
 }
 
+export function acceptQuestionStudioNativeBatch(
+  items: Array<{ itemId: string; expectedVersion: number }>,
+  languages: Array<'hi' | 'pa'>,
+) {
+  return adminRequest<{ results: Array<{ itemId: string; ok: boolean; code?: string;
+    details?: { language?: string; issues?: Array<{ message: string }> } }> }>(
+    '/admin/question-studio/native-editorial/batch-accept',
+    { method: 'POST', body: JSON.stringify({ items, languages }) },
+    { fallbackMessage: 'Could not add the selected language versions to Question Bank.' },
+  );
+}
+
 export function promoteQuestionStudioNativeEditorial(
   itemId:string, input:{expectedVersion:number;revisions:{hi:number;pa:number};reason:string;acceptApprovedLocales?:boolean;languages?:Array<"hi"|"pa">},
 ) {
