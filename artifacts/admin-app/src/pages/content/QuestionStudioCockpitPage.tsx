@@ -57,6 +57,11 @@ import {
   enqueueQuestionStudioProductionChapterRun,
   retryQuestionStudioProductionChapterDispatch,
   getQuestionStudioRunProgress,
+  getQuestionStudioReviewPage,
+  updateGenerationItems,
+  getQuestionStudioNativeEditorial,
+  approveQuestionStudioNativeLanguages,
+  promoteQuestionStudioNativeEditorial,
   getQuestionStudioStagingOperations,
   type QuestionStudioStagingOperations,
   type QuestionStudioBulkReviewProgress,
@@ -250,6 +255,15 @@ export function QuestionStudioCockpitPage() {
     reviseItem,
   } = useQuestionStudio();
 
+  const [batchApprovalLanguages, setBatchApprovalLanguages] = useState<'en' | 'all'>('en');
+  const [batchRunIds, setBatchRunIds] = useState<string[]>([]);
+  const [batchSelection, setBatchSelection] = useState<QuestionStudioItem[]>([]);
+  const [batchReviewBusy, setBatchReviewBusy] = useState(false);
+  const [batchFailures, setBatchFailures] = useState<Array<{ itemId: string; message?: string }>>([]);
+  const batchRunFilter = batchRunIds.join(',');
+  const [batchTopic, setBatchTopic] = useState('');
+  const [batchLocales, setBatchLocales] = useState<Array<'hi' | 'pa'>>([]);
+  const [batchHandoffSummary, setBatchHandoffSummary] = useState('');
   const [workspaceView, setWorkspaceView] = useState<'generate' | 'review'>('generate');
   const [subject, setSubject] = useState('');
   const [mainTopic, setMainTopic] = useState('');
@@ -372,15 +386,18 @@ export function QuestionStudioCockpitPage() {
     applyReviewResults,
   } = useQuestionStudioReviewPage({
     page: reviewPageNumber,
+    runIds: batchRunFilter || undefined,
     pageSize: reviewPageSize,
-    subject: reviewSubjectFilter === ALL ? undefined : reviewSubjectFilter,
-    chapter: reviewChapterFilter === ALL ? undefined : reviewChapterFilter,
-    packageId: reviewPackageFilter === ALL ? undefined : reviewPackageFilter,
+    subject: batchRunFilter || reviewSubjectFilter === ALL ? undefined : reviewSubjectFilter,
+    chapter: batchRunFilter || reviewChapterFilter === ALL ? undefined : reviewChapterFilter,
+    packageId: batchRunFilter || reviewPackageFilter === ALL ? undefined : reviewPackageFilter,
     status: statusFilter === ALL ? undefined : statusFilter as GenerationItemStatus,
     search: serverSearch || undefined,
   });
 
-  const reviewRuns = reviewPage.runs;
+  const reviewRuns = useMemo(() => batchRunFilter
+    ? reviewPage.runs.filter(run => batchRunFilter.split(',').includes(run.id))
+    : reviewPage.runs, [batchRunFilter, reviewPage.runs]);
 
   // A bounded read-only summary of outbox-backed staging runs. Do not infer
   // Cloud Tasks queue/Scheduler state from a healthy DB response.
@@ -947,6 +964,25 @@ export function QuestionStudioCockpitPage() {
       let completed = 0;
       let offset = 0;
       const savedRuns: string[] = [];
+      const savedRunIds: string[] = [];
+      setBatchRunIds([]);
+      setBatchTopic(generationChapter(activePackage));
+      setBatchLocales(nativeGroupedReview ? input.languages?.filter((locale): locale is 'hi' | 'pa' => locale !== 'en') ?? [] : []);
+      setBatchApprovalLanguages('en');
+      setBatchHandoffSummary('');
+      setFocusedReview(true);
+      setFocusedIndex(0);
+      setBatchSelection([]);
+      setBatchFailures([]);
+      setSelectedIds(new Set());
+      setReviewSubjectFilter(ALL);
+      setReviewChapterFilter(ALL);
+      setReviewPackageFilter(ALL);
+      setStatusFilter(ALL);
+      setQualityFilter('all');
+      setSearch('');
+      setServerSearch('');
+      setReviewPageNumber(1);
       setBulkBusy(true);
       setBulkProgress({ completed, requested, runs: [] });
       try {
@@ -969,6 +1005,9 @@ export function QuestionStudioCockpitPage() {
               seed: chunkSeed,
             });
             savedRuns.push(result.publicCode);
+            savedRunIds.push(result.id);
+            setBatchRunIds([...savedRunIds]);
+            setWorkspaceView('review');
             completed += result.itemCount;
             languageCompleted += result.itemCount;
             offset += chunkSize;
@@ -997,9 +1036,6 @@ export function QuestionStudioCockpitPage() {
         setStagingAsyncRun(null);
         setStagingAsyncPollError(null);
       }
-      setReviewSubjectFilter(packageSubject(activePackage));
-      setReviewChapterFilter(packageChapter(activePackage));
-      setReviewPackageFilter(activePackage.packageId);
       setStatusFilter(ALL);
       setQualityFilter('all');
       setSearch('');
@@ -1079,6 +1115,101 @@ export function QuestionStudioCockpitPage() {
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
   };
+
+  function canSelectForBatchHandoff(item: QuestionStudioItem) {
+    if (firstText(item.payload, ['language', 'languageCode'], 'en') !== 'en') return false;
+    if (batchApprovalLanguages === 'all' && item.status === 'approved' && item.acceptedQuestionId) return true;
+    return item.status === 'unreviewed' && !item.acceptedQuestionId && analyzeItemQuality(item.payload).readyForApproval;
+  }
+
+  async function selectEligibleBatch() {
+    if (!batchRunFilter || batchReviewBusy) return;
+    setBatchReviewBusy(true);
+    try {
+      const first = await getQuestionStudioReviewPage({ runIds: batchRunFilter, pageSize: 50 });
+      const rest = await Promise.all(Array.from({ length: Math.max(0, first.pagination.totalPages - 1) },
+        (_, index) => getQuestionStudioReviewPage({ runIds: batchRunFilter, pageSize: 50, page: index + 2 })));
+      const eligible = [first, ...rest].flatMap(page => page.runs.filter(run => batchRunIds.includes(run.id)).flatMap(run => run.items))
+        .filter(canSelectForBatchHandoff);
+      setBatchSelection(eligible);
+      setBatchFailures([]);
+    } catch (caught) {
+      showToast.error('Could not select batch', caught instanceof Error ? caught.message : 'Reload the review queue and try again.');
+    } finally {
+      setBatchReviewBusy(false);
+    }
+  }
+
+  async function approveSelectedBatch() {
+    if (!canReview || batchReviewBusy || updating || !batchSelection.length) return;
+    const includeLocales = batchApprovalLanguages === 'all' && batchLocales.length > 0;
+    const languageLabel = includeLocales ? ["English", ...batchLocales.map(locale => locale === 'hi' ? 'Hindi' : 'Punjabi')].join(', ') + ' versions' : 'English version';
+    if (!window.confirm(`Approve the ${languageLabel} of ${batchSelection.length} selected questions and add them to Question Bank?`)) return;
+    setBatchReviewBusy(true);
+    const failed: Array<{ itemId: string; message?: string }> = [];
+    let added = 0;
+    try {
+      for (let offset = 0; offset < batchSelection.length; offset += 25) {
+        const chunk = batchSelection.slice(offset, offset + 25);
+        try {
+          const result = await updateGenerationItems({
+            itemIds: chunk.map(item => item.id),
+            status: 'approved',
+            expectedStatuses: Object.fromEntries(chunk.map(item => [item.id, item.status])),
+            bankHandoff: { expectedVersions: Object.fromEntries(chunk.map(item => [item.id, item.currentVersionNumber])) },
+          });
+          applyReviewResults(result.items);
+          const outcomes = result.results ?? [];
+          failed.push(...outcomes.filter(result => !result.ok));
+          const unconfirmed = chunk.filter(item => !outcomes.some(result => result.itemId === item.id && !result.ok)
+            && !result.items.some(result => result.id === item.id && result.convertedQuestion));
+          failed.push(...unconfirmed.map(item => ({ itemId: item.id, message: 'Question Bank write was not confirmed.' })));
+          const banked = chunk.filter(item => result.items.some(update => update.id === item.id && update.convertedQuestion));
+          if (!includeLocales) {
+            added += banked.length;
+            continue;
+          }
+          for (let index = 0; index < banked.length; index += 4) {
+            await Promise.all(banked.slice(index, index + 4).map(async item => {
+              try {
+                const expectedVersion = item.currentVersionNumber;
+                const editorial = await getQuestionStudioNativeEditorial(item.id, expectedVersion);
+                const revisions = { hi: 0, pa: 0 };
+                for (const draft of editorial.locales.filter(draft => batchLocales.includes(draft.language))) {
+                  if (draft.status !== 'approved') throw new Error('Review and approve saved language edits before adding them to the bank.');
+                  revisions[draft.language] = draft.revision;
+                }
+                const reason = 'Bulk review approval for the current topic batch';
+                const locales = await approveQuestionStudioNativeLanguages(item.id, {
+                  expectedVersion, languages: batchLocales, revisions, reason,
+                });
+                for (const locale of locales.approved) revisions[locale.language] = locale.revision;
+                const handoff = await promoteQuestionStudioNativeEditorial(item.id, {
+                  expectedVersion, revisions, reason, acceptApprovedLocales: true, languages: batchLocales,
+                });
+                if (handoff.status !== 'approved') throw new Error('Bank approval for the selected languages was not confirmed.');
+                added += 1;
+              } catch (caught) {
+                failed.push({ itemId: item.id, message: `English is in the bank. ${caught instanceof Error ? caught.message : 'Language handoff failed.'}` });
+              }
+            }));
+          }
+        } catch (caught) {
+          failed.push(...chunk.map(item => ({
+            itemId: item.id, message: caught instanceof Error ? caught.message : 'Question Bank write was not confirmed.',
+          })));
+        }
+      }
+      setBatchFailures(failed);
+      setBatchSelection(batchSelection.filter(item => failed.some(failure => failure.itemId === item.id)));
+      const summary = `${added} fully added · ${failed.length} need attention`;
+      setBatchHandoffSummary(summary);
+      showToast.info('Question Bank handoff', summary);
+      await refreshReviewPage();
+    } finally {
+      setBatchReviewBusy(false);
+    }
+  }
 
   const toggleAllVisible = (checked: boolean) => {
     setSelectedIds((current) => {
@@ -1594,7 +1725,34 @@ export function QuestionStudioCockpitPage() {
       </Card>
         </TabsContent>
 
-        <TabsContent value="review" className="mt-0">
+        <TabsContent value="review" className="mt-0 space-y-4">
+      {batchRunFilter && <Card>
+        <CardHeader className="gap-2">
+          <CardTitle className="text-base">{batchTopic} batch</CardTitle>
+          {batchHandoffSummary && <p role="status" className="text-sm">{batchHandoffSummary}</p>}
+          {bulkProgress && <div role="status" className="space-y-1 text-sm">
+            <p>{bulkProgress.completed} of {bulkProgress.requested} generated</p>
+            <progress className="h-2 w-full accent-primary" max={bulkProgress.requested} value={bulkProgress.completed} />
+          </div>}
+        </CardHeader>
+        <CardContent className="flex flex-wrap items-center gap-2">
+          <Button variant="outline" disabled={batchReviewBusy || !canReview} onClick={() => void selectEligibleBatch()}>
+            Select eligible across batch
+          </Button>
+          <Button variant="outline" disabled={batchReviewBusy || !canReview || !selectedIds.size}
+            onClick={() => setBatchSelection(allItems.map(({ item }) => item).filter(item => selectedIds.has(item.id) && canSelectForBatchHandoff(item)))}>
+            Use checked questions
+          </Button>
+          <Button variant="ghost" disabled={batchReviewBusy || !batchSelection.length} onClick={() => setBatchSelection([])}>Clear selection</Button>
+          <Button className="ml-auto" variant="ghost" disabled={batchReviewBusy || bulkBusy} onClick={() => {
+            setBatchRunIds([]);
+            setBatchSelection([]);
+            setBatchFailures([]);
+            setSelectedIds(new Set());
+            setReviewPageNumber(1);
+          }}>Show full queue</Button>
+        </CardContent>
+      </Card>}
       <Card>
         <CardHeader className="space-y-4">
           <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Multilingual Review Studio</CardTitle><p className="mt-1 text-xs text-muted-foreground">Review each canonical question once. For released multilingual engines, expand a question to inspect its dedicated Hindi and Punjabi versions side by side with the English source. Parity verification never implies approval. Subject, chapter, status and search are filtered server-side; quality signals are evaluated on the current page.</p></div><div className="flex flex-wrap items-center gap-2">
@@ -1609,15 +1767,15 @@ export function QuestionStudioCockpitPage() {
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
+            <Select disabled={Boolean(batchRunFilter)} value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All subjects</SelectItem>{reviewSubjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={reviewChapterFilter} onValueChange={(value) => { setReviewChapterFilter(value); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
+            <Select disabled={Boolean(batchRunFilter)} value={reviewChapterFilter} onValueChange={(value) => { setReviewChapterFilter(value); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Chapter" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All chapters</SelectItem>{reviewChapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={reviewPackageFilter} onValueChange={(value) => { setReviewPackageFilter(value); setReviewPageNumber(1); }}>
+            <Select disabled={Boolean(batchRunFilter)} value={reviewPackageFilter} onValueChange={(value) => { setReviewPackageFilter(value); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Question family" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value={ALL}>All question families</SelectItem>
@@ -1637,6 +1795,13 @@ export function QuestionStudioCockpitPage() {
           </div>
         </CardHeader>
         <CardContent className="p-0">
+          {batchRunFilter && batchFailures.length > 0 && <div role="status" className="max-h-44 overflow-auto border-y p-4 text-sm">
+            <p className="font-medium">{batchFailures.length} questions need attention</p>
+            <ul className="mt-2 space-y-1">{batchFailures.map(failure => {
+              const item = batchSelection.find(selected => selected.id === failure.itemId);
+              return <li key={failure.itemId}>{item ? firstText(item.payload, ['stem', 'text'], failure.itemId) : failure.itemId} · {failure.message}</li>;
+            })}</ul>
+          </div>}
           <div className="flex items-center gap-3 border-y bg-muted/20 px-4 py-2.5 text-xs text-muted-foreground"><Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(checked === true)} aria-label="Select all visible generated items" /><span>{visibleItemIds.length} visible item(s) across {filteredRuns.length} run(s)</span>{updating && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}</div>
           {focusedReview && focusEntries.length>0 && <div className="flex flex-wrap items-center justify-between gap-3 border-b bg-background p-3">
             <div>
@@ -1654,7 +1819,23 @@ export function QuestionStudioCockpitPage() {
               </Button>
             </div>
           </div>}
+          <div className={batchRunFilter && focusedReview && focusEntries.length ? 'grid xl:grid-cols-[minmax(14rem,1fr)_3fr]' : undefined}>
+          {batchRunFilter && focusedReview && focusEntries.length > 0 && <ul aria-label="Questions in this batch"
+            className="max-h-72 overflow-auto border-b xl:max-h-[32rem] xl:border-b-0 xl:border-r">
+            {focusEntries.map(({ item }, index) => <li key={item.id} className="flex items-center gap-2 border-b px-3 py-2">
+              <Checkbox aria-label={`Select question ${index + 1}`} checked={batchSelection.some(selected => selected.id === item.id)}
+                disabled={batchReviewBusy || !canReview || !canSelectForBatchHandoff(item)}
+                onCheckedChange={checked => setBatchSelection(current => checked === true
+                  ? [...current.filter(selected => selected.id !== item.id), item] : current.filter(selected => selected.id !== item.id))} />
+              <button type="button" aria-current={index === safeFocusedIndex ? 'true' : undefined}
+                className="min-w-0 flex-1 truncate rounded p-1 text-left text-sm aria-[current=true]:bg-muted aria-[current=true]:font-semibold"
+                onClick={() => { setFocusedIndex(index); setEditingItemId(null); }}>
+                {firstText(item.payload, ['stem', 'text'], `Question ${index + 1}`)}
+              </button>
+            </li>)}
+          </ul>}
           {loadingReviewPage && reviewRuns.length === 0 ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{reviewDisplayRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} nativeLanguagesByPackage={reviewNativeLanguagesByPackage} expanded={focusedReview || expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={focusedReview ? new Set(items.map(item=>item.id)) : expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview && !updating && !loadingReviewPage && !revisingItemId} onToggle={() => focusedReview ? setFocusedReview(false) : setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => focusedReview ? setFocusedReview(false) : setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { const result = await reviseItem(input); applyRevision(result.item); setEditingItemId(null); showToast.success('Revision saved', 'Question updated in place. The rest of your review list stays open.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
+          </div>
         </CardContent>
         <div className="flex flex-col gap-3 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -1696,6 +1877,18 @@ export function QuestionStudioCockpitPage() {
           </div>
         </div>
       </Card>
+      {batchRunFilter && <div className="sticky bottom-0 z-10 flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-background p-4 shadow-sm">
+        <span role="status" className="text-sm font-medium">{batchSelection.length} questions selected</span>
+        {batchLocales.length > 0 && import.meta.env.VITE_QUESTION_STUDIO_NATIVE_EDITORIAL_ENABLED === 'true' && <Select
+          value={batchApprovalLanguages} onValueChange={value => setBatchApprovalLanguages(value as 'en' | 'all')} disabled={batchReviewBusy}>
+          <SelectTrigger aria-label="Approval languages" className="w-auto"><SelectValue /></SelectTrigger>
+          <SelectContent><SelectItem value="en">English only</SelectItem><SelectItem value="all">All batch languages</SelectItem></SelectContent>
+        </Select>}
+        <Button disabled={!canReview || !batchSelection.length || batchReviewBusy || updating}
+          onClick={() => void approveSelectedBatch()}>
+          {batchReviewBusy ? 'Working…' : 'Approve selected & add to Question Bank'}
+        </Button>
+      </div>}
         </TabsContent>
       </Tabs>
     </div>

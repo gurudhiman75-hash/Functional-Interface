@@ -153,7 +153,7 @@ export async function onRequest({ request, env = {} }) {
      (request.method === "POST" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:hi|pa)\/decision$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
-      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/promote$/i.test(incoming.pathname)) ||
+      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:promote|accept-approved)$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/approve-languages$/i.test(incoming.pathname)));
   // Only an explicitly selected grouped-native Generate request is sent to
