@@ -274,6 +274,7 @@ export function evaluateTranslationQuality(input: {
   target: TranslationSource;
   languageCode: string;
   terms?: TranslationTermRule[];
+  allowIndependentExplanation?: boolean;
 }): TranslationQualityResult {
   const languageCode = input.languageCode.trim().toLowerCase();
   const issues: TranslationQualityIssue[] = [];
@@ -296,7 +297,9 @@ export function evaluateTranslationQuality(input: {
   }
 
   addTokenIssues(issues, "stem", source.stem, target.stem);
-  addTokenIssues(issues, "explanation", source.explanation, target.explanation);
+  if (!input.allowIndependentExplanation) {
+    addTokenIssues(issues, "explanation", source.explanation, target.explanation);
+  }
 
   const sourceOptions = new Map(source.options.map((option) => [option.key, option]));
   const targetOptions = new Map(target.options.map((option) => [option.key, option]));
