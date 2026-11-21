@@ -22,7 +22,7 @@ import type {
   QuestionStudioGenerationResult,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 
 export const PUN_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "PUN-001" as const;
 export const PUN_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -63,7 +63,8 @@ export const PUN_001_QUESTION_STUDIO_CP_IDS_V1 = Object.freeze(
   cpDefinitions.map((definition) => definition.cpId),
 );
 
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+// Editorial approval may store in Question Bank, but never releases to tests or students.
+const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 const difficulties: readonly PunjabiDifficulty[] = ["Easy", "Medium", "Hard"];
 
 function normalizedText(value: unknown) {
@@ -224,7 +225,9 @@ export const PUN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefin
   reviewSurfaceRequired: lifecycle.reviewSurfaceRequired,
   manualApprovalRequired: lifecycle.manualApprovalRequired,
   questionBankStatus: lifecycle.questionBankStatus,
-  questionBankWritable: false,
+  questionBankWritable: lifecycle.questionBankWritable,
+  questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
+  questionBankAcceptanceAuthority: lifecycle.questionBankAcceptanceAuthority,
   testEligibility: lifecycle.testEligibility,
   testEligible: false,
   mockTestEligible: false,
@@ -385,7 +388,7 @@ export const languageV1Pun001QuestionStudioAdapterV1: QuestionStudioEngineAdapte
         readOnly: true,
         revisionPolicy: PUN_001_REVISION_POLICY_V1,
         permanentQlAllocation: "NOT_ALLOCATED",
-        questionBankWritable: false,
+        questionBankWritable: lifecycle.questionBankWritable,
         testEligible: false,
         mockTestEligible: false,
         publiclyPublishable: false,
