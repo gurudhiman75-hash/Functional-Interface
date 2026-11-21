@@ -180,3 +180,10 @@ test("native receiver tag requires the exact pinned run and base audience", () =
   assert.throws(()=>assertIsolatedChapterDispatch(pinned,
     {...tagged,audience:new URL(tagged.handlerUrl).origin},manifest,NOW),/RECEIVER_INVALID/);
 });
+
+test("reserve-only API canary is scoped and does not launch the dispatcher", () => {
+  const route = readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts","utf8");
+  assert.match(route,/EXAMTREE_QS_NATIVE_CANARY_RESERVE_ONLY==="true"/);
+  assert.match(route,/reserveNativeCanary && \(compute.count!==1[\s\S]*?packageId!=="MAL-001"[\s\S]*?language!=="en"/);
+  assert.match(route,/reserveNativeCanary\s*\? \{\.\.\.await enqueue\(\),dispatchRequested:false\}\s*: await enqueueAndDispatchChapter\(enqueue\)/);
+});
