@@ -17,7 +17,13 @@ export type NormalizedGeneratedQuestion = {
   difficulty: string;
   options: string[];
   correctIndex: number;
-  answerModel: Record<string, unknown>;
+  answerModel: Record<string, unknown> & {
+    generation: {
+      questionBankAcceptanceMode: "BANK_ONLY" | "FULL_RELEASE";
+      questionBankAcceptanceAuthority: unknown;
+      [key: string]: unknown;
+    };
+  };
 };
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -245,6 +251,23 @@ function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualCo
   throw new Error("SPA-001 approval requires exactly four rendered SVG options");
 }
 
+function useManualBankOnlyAcceptance(
+  payload: Record<string, unknown>,
+  generationContext: Record<string, unknown>,
+  requested: boolean,
+): boolean {
+  if (!requested) return false;
+
+  // Manual approval can provide storage authority when the source needs it.
+  // Preserve explicit release authority when the source already has it.
+  const hasReleaseAuthority =
+    getGeneratedQuestionBankAcceptanceMode(payload) === "FULL_RELEASE" &&
+    lifecycleValue(payload, generationContext, "testEligible") === true &&
+    lifecycleValue(payload, generationContext, "publiclyPublishable") === true &&
+    getGeneratedQuestionBankEligibilityIssue(payload) === null;
+  return !hasReleaseAuthority;
+}
+
 export function normalizeGeneratedQuestionPayload(
   value: unknown,
   context: { itemId: string; generationRunCode: string },
@@ -252,7 +275,10 @@ export function normalizeGeneratedQuestionPayload(
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
-  assertGeneratedQuestionBankEligible(payload, approvalOptions);
+  const manualBankOnly = useManualBankOnlyAcceptance(
+    payload, generationContext, approvalOptions.manualBankOnly === true,
+  );
+  assertGeneratedQuestionBankEligible(payload, { manualBankOnly });
   const baseStem = asText(payload.text) || asText(payload.stem);
   const baseExplanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
@@ -330,19 +356,19 @@ export function normalizeGeneratedQuestionPayload(
         sourceQuestionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         sourceQuestionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         sourceQuestionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankStatus: approvalOptions.manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
-        questionBankWritable: approvalOptions.manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
-        questionBankAcceptanceMode: approvalOptions.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankAcceptanceAuthority: approvalOptions.manualBankOnly
+        questionBankStatus: manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
+        questionBankWritable: manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
+        questionBankAcceptanceMode: manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankAcceptanceAuthority: manualBankOnly
           ? "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1"
           : lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
-        testEligibility: approvalOptions.manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
-        testEligible: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
-        mockTestEligible: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
-        publiclyPublishable: approvalOptions.manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
-        automaticStudentPublication: approvalOptions.manualBankOnly ? false
+        testEligibility: manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
+        testEligible: manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
+        mockTestEligible: manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
+        publiclyPublishable: manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
+        automaticStudentPublication: manualBankOnly ? false
           : lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
-        productionReleaseAuthorized: approvalOptions.manualBankOnly ? false
+        productionReleaseAuthorized: manualBankOnly ? false
           : lifecycleValue(payload, generationContext, "productionReleaseAuthorized") ?? null,
         integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
         deliveryProfileAuthority:
@@ -394,11 +420,11 @@ export async function convertApprovedGenerationItem(
     };
   }
 
-  const acceptanceMode = options.manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(row.payload);
   const normalized = normalizeGeneratedQuestionPayload(row.payload, {
     itemId,
     generationRunCode: String(row.generationRunCode),
   }, options);
+  const acceptanceMode = normalized.answerModel.generation.questionBankAcceptanceMode;
   const questionId = randomUUID();
   const questionVersionId = randomUUID();
   const publicCode = questionPublicCode();
@@ -514,7 +540,8 @@ export async function convertApprovedGenerationItem(
         generationRunCode: row.generationRunCode,
         questionBankAcceptanceMode: acceptanceMode,
         downstreamLifecycleLocked: acceptanceMode === "BANK_ONLY",
-        manualBankOnlyAcceptance: options.manualBankOnly === true,
+        manualBankOnlyAcceptance: normalized.answerModel.generation.questionBankAcceptanceAuthority
+          === "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1",
       })}::jsonb
     )
   `;
