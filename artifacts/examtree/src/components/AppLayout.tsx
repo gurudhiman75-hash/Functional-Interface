@@ -8,6 +8,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { StickyHeader } from "@/components/StickyHeader";
 import "@/styles/learner-motion.css";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import "@/styles/student-discovery-motion.css";
 
 interface AppLayoutProps {
   children: ReactNode;

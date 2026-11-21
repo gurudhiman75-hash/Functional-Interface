@@ -1,0 +1,77 @@
+/* Examtree Phase 2: lightweight student chrome + discovery interactions.
+   Intentionally excludes the mock-test runner and Question Studio.
+   No JS animation loop, scroll handler or additional dependency. */
+:where(.et-viewport, .category-redesign, .collection-page) {
+  --et-ease-out: cubic-bezier(.2,.75,.25,1);
+  --et-interaction-fast: 150ms;
+  --et-interaction-normal: 210ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes et-phase2-enter {
+    from { opacity: 0; transform: translate3d(0, 10px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  /* Enter only once when the route mounts. Never shift a running timer or question. */
+  .et-viewport[data-series-dashboard="true"] .student-hub-dashboard > .series-welcome,
+  .et-viewport[data-series-dashboard="true"] .student-hub-dashboard > .series-main-grid,
+  .category-redesign .category-hero,
+  .collection-page > .exam-collection-banner {
+    animation: et-phase2-enter 360ms var(--et-ease-out) both;
+  }
+  .et-viewport[data-series-dashboard="true"] .student-hub-dashboard > .series-main-grid {
+    animation-delay: 65ms;
+  }
+
+  .student-app-sidebar [data-sidebar="menu-button"] {
+    transition: background-color var(--et-interaction-fast,150ms) ease,
+      color var(--et-interaction-fast,150ms) ease,
+      box-shadow var(--et-interaction-fast,150ms) ease;
+  }
+  .student-app-sidebar [data-sidebar="menu-button"] svg {
+    transition: transform var(--et-interaction-normal,210ms) var(--et-ease-out,cubic-bezier(.2,.75,.25,1));
+  }
+  .student-hub-dashboard :is(.series-tabs a, .series-button, .series-exam-link),
+  .category-redesign :is(.category-exam-action, .category-breadcrumb a),
+  .collection-page :is(.collection-exam-primary, .collection-breadcrumb) {
+    transition: background-color 160ms ease, color 160ms ease,
+      border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .student-hub-dashboard :is(.series-course, .series-panel),
+  .category-redesign :is(.category-exam-card, .category-series-card),
+  .collection-page :is(.collection-exam-card, .collection-test-card, .collection-plan-card) {
+    transition: transform 210ms var(--et-ease-out),
+      border-color 210ms ease, box-shadow 210ms var(--et-ease-out);
+  }
+
+  @media (hover:hover) and (pointer:fine) {
+    .student-app-sidebar [data-sidebar="menu-button"]:hover svg { transform: translateX(2px); }
+    .student-hub-dashboard .series-course:hover,
+    .category-redesign :is(.category-exam-card, .category-series-card):hover,
+    .collection-page :is(.collection-exam-card, .collection-test-card):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -23px rgba(20,47,88,.32);
+    }
+    .student-hub-dashboard .series-panel:hover,
+    .collection-page .collection-plan-card:hover {
+      box-shadow: 0 10px 26px -23px rgba(20,47,88,.2);
+    }
+  }
+}
+.student-hub-dashboard :is(.series-tabs a, .series-button, .series-exam-link):focus-visible,
+.category-redesign :is(.category-exam-action, .category-exam-card a, .category-series-card a):focus-visible,
+.collection-page :is(.collection-exam-primary, .collection-test-card a, .collection-exam-card a):focus-visible {
+  outline: 2px solid #315de4;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion:reduce) {
+  .student-app-sidebar [data-sidebar="menu-button"],
+  .student-app-sidebar [data-sidebar="menu-button"] svg,
+  .student-hub-dashboard :is(.series-course, .series-panel, .series-button, .series-tabs a, .series-exam-link),
+  .category-redesign :is(.category-hero, .category-exam-card, .category-series-card, .category-exam-action),
+  .collection-page :is(.collection-exam-card, .collection-test-card, .collection-plan-card, .collection-exam-primary) {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
