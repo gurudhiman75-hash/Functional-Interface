@@ -171,3 +171,12 @@ test("build-only artifact includes immutable canonical manifest; no deployment c
     assert.doesNotMatch(content,/\bdeploy\b\s+--/);
   }
 });
+
+test("native receiver tag requires the exact pinned run and base audience", () => {
+  const tagged = {...config, handlerUrl:config.handlerUrl.replace("https://","https://native---")};
+  assert.throws(()=>assertIsolatedChapterDispatch(env(),tagged,manifest,NOW),/RECEIVER_INVALID/);
+  const pinned = env({EXAMTREE_QS_NATIVE_DISPATCH_CANARY_RUN_ID:RUN});
+  assert.equal(assertIsolatedChapterDispatch(pinned,tagged,manifest,NOW),RUN);
+  assert.throws(()=>assertIsolatedChapterDispatch(pinned,
+    {...tagged,audience:new URL(tagged.handlerUrl).origin},manifest,NOW),/RECEIVER_INVALID/);
+});

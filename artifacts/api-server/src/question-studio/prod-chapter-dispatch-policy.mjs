@@ -38,12 +38,17 @@ export function assertIsolatedChapterDispatch(env,config,manifest,now=Date.now()
   let endpoint;
   try {endpoint=new URL(config.handlerUrl);}
   catch {throw new Error("QS_CHAPTER_DISPATCH_RECEIVER_INVALID");}
+  const native = endpoint.hostname === "native---examtree-qs-receiver-prod-ttnfjefqka-el.a.run.app";
+  const expectedAudience = native ? "https://examtree-qs-receiver-prod-ttnfjefqka-el.a.run.app" : endpoint.origin;
+  const approvedHost = native
+    ? env.EXAMTREE_QS_NATIVE_DISPATCH_CANARY_RUN_ID === runId
+    : endpoint.hostname.startsWith("examtree-qs-receiver-prod-");
   if(endpoint.protocol!=="https:" ||
-     !endpoint.hostname.startsWith("examtree-qs-receiver-prod-") ||
+     !approvedHost ||
      !endpoint.hostname.endsWith(".run.app") ||
      endpoint.pathname!=="/internal/question-studio/async-task" ||
      endpoint.search || endpoint.hash || endpoint.username || endpoint.password ||
-     config.audience!==endpoint.origin) {
+     config.audience!==expectedAudience) {
     throw new Error("QS_CHAPTER_DISPATCH_RECEIVER_INVALID");
   }
   const scope=readProductionChapterScope(env,manifest);

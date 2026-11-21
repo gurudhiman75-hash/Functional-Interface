@@ -56,6 +56,12 @@ export function getQuestionStudioTaskConfig(env: Record<string,string|undefined>
       expectedAudience.username || expectedAudience.password) {
     throw new QuestionStudioTaskTransportError("TASK_URL_INVALID", "Cloud Tasks destination must use the configured Cloud Run internal receiver");
   }
+  if (env.CLOUD_RUN_JOB === "examtree-qs-chapter-dispatch-prod" &&
+      env.EXAMTREE_QS_NATIVE_DISPATCH_CANARY_RUN_ID &&
+      env.EXAMTREE_QS_NATIVE_DISPATCH_CANARY_RUN_ID === env.EXAMTREE_QS_PRODUCTION_CHAPTER_DISPATCH_RUN_ID &&
+      endpoint.hostname === "examtree-qs-receiver-prod-ttnfjefqka-el.a.run.app") {
+    endpoint.hostname = "native---" + endpoint.hostname;
+  }
   return { projectId, region, queueId, handlerUrl: endpoint.toString(), audience: expectedAudience.origin, serviceAccount };
 }
 
