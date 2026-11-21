@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import { readCanonicalChapterManifest } from "../question-studio/prod-chapter-review-policy.mjs";
 import { sqlClient } from "./db";
 
 export type QuestionSqlExecutor = typeof sqlClient;
@@ -268,10 +269,33 @@ function useManualBankOnlyAcceptance(
   return !hasReleaseAuthority;
 }
 
+const EDITORIAL_RELEASE_AUTHORITY = "ADMIN_CANONICAL_CHAPTER_EDITORIAL_RELEASE_V1";
+
+function canReleaseApprovedChapterQuestion(value: unknown): boolean {
+  if (
+    process.env.EXAMTREE_API_RUNTIME !== "cloud-run" ||
+    process.env.EXAMTREE_API_STAGING !== "false" ||
+    process.env.EXAMTREE_QS_EDITORIAL_PUBLICATION_ENABLED !== "true"
+  ) return false;
+
+  const payload = asRecord(value);
+  const context = asRecord(payload.generationContext);
+  const packageId = asText(lifecycleValue(payload, context, "packageId"));
+  const engineId = asText(lifecycleValue(payload, context, "engineId"));
+  if (!packageId || !asText(payload.explanation)) return false;
+
+  const manifest = readCanonicalChapterManifest();
+  const matches = (manifest.packages as unknown[]).map(asRecord).filter((entry) =>
+    entry.enabled === true && entry.packageId === packageId &&
+    (!engineId || entry.engineId === engineId),
+  );
+  return matches.length === 1;
+}
+
 export function normalizeGeneratedQuestionPayload(
   value: unknown,
   context: { itemId: string; generationRunCode: string },
-  approvalOptions: { manualBankOnly?: boolean } = {},
+  approvalOptions: { manualBankOnly?: boolean; editorialRelease?: boolean } = {},
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
@@ -279,6 +303,7 @@ export function normalizeGeneratedQuestionPayload(
     payload, generationContext, approvalOptions.manualBankOnly === true,
   );
   assertGeneratedQuestionBankEligible(payload, { manualBankOnly });
+  const editorialRelease = manualBankOnly && approvalOptions.editorialRelease === true;
   const baseStem = asText(payload.text) || asText(payload.stem);
   const baseExplanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
@@ -351,21 +376,21 @@ export function normalizeGeneratedQuestionPayload(
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent?.kind ?? null,
         explanationVisualContent: explanationIllustrationSvg ? "spatial_svg_data_image_v1" : null,
-        // Preserve original generator metadata separately; manual acceptance never
-        // rewrites persisted generation payloads or grants student/publication rights.
+        // Preserve source metadata separately from the editorial release decision.
         sourceQuestionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         sourceQuestionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         sourceQuestionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
         questionBankStatus: manualBankOnly ? "READY_FOR_STORAGE" : lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         questionBankWritable: manualBankOnly ? true : lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
-        questionBankAcceptanceMode: manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
-        questionBankAcceptanceAuthority: manualBankOnly
+        questionBankAcceptanceMode: editorialRelease ? "FULL_RELEASE"
+          : manualBankOnly ? "BANK_ONLY" : getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankAcceptanceAuthority: editorialRelease ? EDITORIAL_RELEASE_AUTHORITY : manualBankOnly
           ? "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1"
           : lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
-        testEligibility: manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
-        testEligible: manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
+        testEligibility: editorialRelease ? "ELIGIBLE" : manualBankOnly ? "INELIGIBLE" : lifecycleValue(payload, generationContext, "testEligibility") ?? null,
+        testEligible: editorialRelease ? true : manualBankOnly ? false : lifecycleValue(payload, generationContext, "testEligible") ?? null,
         mockTestEligible: manualBankOnly ? false : lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
-        publiclyPublishable: manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
+        publiclyPublishable: editorialRelease ? true : manualBankOnly ? false : lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
         automaticStudentPublication: manualBankOnly ? false
           : lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
         productionReleaseAuthorized: manualBankOnly ? false
@@ -423,7 +448,10 @@ export async function convertApprovedGenerationItem(
   const normalized = normalizeGeneratedQuestionPayload(row.payload, {
     itemId,
     generationRunCode: String(row.generationRunCode),
-  }, options);
+  }, {
+    ...options,
+    editorialRelease: options.manualBankOnly === true && canReleaseApprovedChapterQuestion(row.payload),
+  });
   const acceptanceMode = normalized.answerModel.generation.questionBankAcceptanceMode;
   const questionId = randomUUID();
   const questionVersionId = randomUUID();
@@ -539,6 +567,8 @@ export async function convertApprovedGenerationItem(
         generationItemId: itemId,
         generationRunCode: row.generationRunCode,
         questionBankAcceptanceMode: acceptanceMode,
+        editorialPublicationAuthority: normalized.answerModel.generation.questionBankAcceptanceAuthority === EDITORIAL_RELEASE_AUTHORITY
+          ? EDITORIAL_RELEASE_AUTHORITY : null,
         downstreamLifecycleLocked: acceptanceMode === "BANK_ONLY",
         manualBankOnlyAcceptance: normalized.answerModel.generation.questionBankAcceptanceAuthority
           === "ADMIN_MANUAL_QUESTION_BANK_ACCEPTANCE_V1",
