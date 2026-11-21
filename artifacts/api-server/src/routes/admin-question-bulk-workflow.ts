@@ -227,8 +227,25 @@ router.post(
               WHERE q.id = ${item.questionId}::uuid
             `;
             const readiness = readinessRows[0];
-            const ready = readiness && Object.values(readiness).every(Boolean);
-            if (!ready) throw Object.assign(new Error("Question is not publication-ready"), { code: "QUESTION_NOT_PUBLISHABLE" });
+            const checks = {
+              notBankOnly: "question is restricted to Question Bank",
+              testEligible: "question is ineligible for tests",
+              publiclyPublishable: "question is ineligible for public publication",
+              hasExam: "approved version has no exam assignment",
+              hasPrimaryTaxonomy: "question has no primary taxonomy",
+              hasTaxonomy: "approved version has no taxonomy links",
+              hasStem: "question stem is missing",
+              hasExplanation: "explanation is missing",
+              hasOptions: "at least two options are required",
+              hasSingleCorrect: "exactly one correct option is required",
+            };
+            const blockers = Object.entries(checks)
+              .filter(([key]) => !readiness?.[key])
+              .map(([, message]) => message);
+            if (blockers.length) throw Object.assign(
+              new Error(`Cannot publish. ${blockers.join("; ")}.`),
+              { code: "QUESTION_NOT_PUBLISHABLE" },
+            );
 
             auditVersionId = approvedVersionId;
             nextStatus = "published";
