@@ -195,12 +195,11 @@ export function TestBuilderPage() {
   const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion;
 
   const availableQuestions = useMemo(() => publishedQuestions.filter((question) => {
-    if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
     if (difficultyFilter !== 'all' && question.difficulty.toLowerCase() !== difficultyFilter.toLowerCase()) return false;
     const term = search.trim().toLowerCase();
     if (term && !question.stem.toLowerCase().includes(term) && !question.publicCode.toLowerCase().includes(term)) return false;
     return true;
-  }), [publishedQuestions, draft.examVersionId, difficultyFilter, search]);
+  }), [publishedQuestions, difficultyFilter, search]);
 
   const localIssues = useMemo(() => {
     const issues: TestValidationIssue[] = [];
@@ -389,7 +388,7 @@ export function TestBuilderPage() {
           <Card><CardHeader><CardTitle className="text-base">Published Question Bank</CardTitle></CardHeader><CardContent className="space-y-4">
             <div className="rounded-lg border bg-muted/20 p-3 text-sm">Questions are added to <strong>{activeSection?.name ?? 'the active section'}</strong>. Selecting an already-used question removes it from its previous section.</div>
             <div className="flex flex-wrap gap-2"><Input className="max-w-sm" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search published questions" /><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger className="w-40"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Moderate">Moderate</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select><Input className="w-32" type="number" min={1} max={300} value={draft.desiredQuestionCount} onChange={(event) => setDraft((current) => ({ ...current, desiredQuestionCount: Number(event.target.value) }))} /><Button onClick={() => void autoAssemble()} disabled={assembling}>{assembling ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Auto-assemble</Button></div>
-            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version to load its published questions.</p> : availableQuestions.length === 0 ? <p className="py-12 text-center text-sm text-muted-foreground">No published questions match these filters.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{availableQuestions.map((question) => <label key={question.versionId} className="flex cursor-pointer items-start gap-3 p-3 hover:bg-muted/30"><Checkbox className="mt-1" checked={selectedQuestionSet.has(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div className="min-w-0 flex-1"><div className="flex flex-wrap gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="outline">{question.difficulty}</Badge>{question.taxonomy.map((node) => <Badge key={node.id} variant="secondary">{node.name}</Badge>)}</div><p className="mt-2 text-sm leading-6">{question.stem}</p></div></label>)}</div>}
+            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version to start building the test.</p> : availableQuestions.length === 0 ? <p className="py-12 text-center text-sm text-muted-foreground">No published questions match these filters.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{availableQuestions.map((question) => <label key={question.versionId} className="flex cursor-pointer items-start gap-3 p-3 hover:bg-muted/30"><Checkbox className="mt-1" checked={selectedQuestionSet.has(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div className="min-w-0 flex-1"><div className="flex flex-wrap gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="outline">{question.difficulty}</Badge>{question.taxonomy.map((node) => <Badge key={node.id} variant="secondary">{node.name}</Badge>)}</div><p className="mt-2 text-sm leading-6">{question.stem}</p></div></label>)}</div>}
           </CardContent></Card>
         </TabsContent>
 

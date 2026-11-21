@@ -251,7 +251,6 @@ export function getPublicationIssues(snapshot: PublishableQuestionSnapshot): str
   const issues: string[] = [];
   if (snapshot.status !== "approved") issues.push("The question must be approved before publishing.");
   if (!snapshot.approvedVersionId) issues.push("An approved version is required.");
-  if (!snapshot.examVersionId) issues.push("Assign an exam version.");
   if (snapshot.questionBankAcceptanceMode === "BANK_ONLY") issues.push("BANK_ONLY questions cannot be publicly published.");
   if (!snapshot.primaryTaxonomyNodeId) issues.push("Assign a primary taxonomy topic.");
   if (snapshot.taxonomyNodeIds.length === 0) issues.push("Assign taxonomy to the approved version.");

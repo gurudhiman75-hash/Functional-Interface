@@ -285,7 +285,6 @@ async function buildAssemblyPlan(
       JOIN content.question_versions v ON v.id = q.published_version_id
       WHERE q.status = 'published'::question_status
         AND q.deleted_at IS NULL
-        AND v.exam_version_id = ${String(detail.blueprint.examVersionId)}::uuid
         AND lower(v.difficulty) = ANY(${Object.keys(section.difficultyTargets)}::text[])
         AND NOT (v.id = ANY(${usedVersionIds}::uuid[]))
         AND EXISTS (

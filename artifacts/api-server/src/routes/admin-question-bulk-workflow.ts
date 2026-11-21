@@ -212,7 +212,6 @@ router.post(
 
             const readinessRows = await tx`
               SELECT
-                v.exam_version_id IS NOT NULL AS "hasExam",
                 COALESCE(v.answer_model #>> '{generation,questionBankAcceptanceMode}', '') <> 'BANK_ONLY' AS "notBankOnly",
                 COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false' AS "testEligible",
                 COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false' AS "publiclyPublishable",
@@ -231,7 +230,6 @@ router.post(
               notBankOnly: "question is restricted to Question Bank",
               testEligible: "question is ineligible for tests",
               publiclyPublishable: "question is ineligible for public publication",
-              hasExam: "approved version has no exam assignment",
               hasPrimaryTaxonomy: "question has no primary taxonomy",
               hasTaxonomy: "approved version has no taxonomy links",
               hasStem: "question stem is missing",

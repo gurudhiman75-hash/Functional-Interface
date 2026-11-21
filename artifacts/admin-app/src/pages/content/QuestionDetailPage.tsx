@@ -1167,8 +1167,7 @@ function PublishingReadiness({ detail }: { detail: QuestionDetailResponse }) {
             <p className="font-medium">Approved for Question Bank storage</p>
             <p className="mt-1 text-muted-foreground">
               Exam taxonomy is not required for multilingual Question Bank handoff.
-              The restrictions below apply to publishing this question for a
-              specific exam, not to saving or reviewing its languages.
+              The checks below apply when publishing this question to Test Builder.
             </p>
           </div>
         )}
