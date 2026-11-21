@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Archive,
   CheckCircle2,
@@ -15,7 +15,7 @@ import {
   Upload,
   X,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -86,9 +86,13 @@ function hasCompleteTaxonomy(question: LiveQuestion) {
 }
 
 function isReadyToPublish(question: LiveQuestion) {
+  const generation = (question.answerModel?.generation ?? {}) as Record<string, unknown>;
   return Boolean(
     question.approvedVersionId
-    && question.examVersionId
+    && question.status === 'approved'
+    && generation.questionBankAcceptanceMode !== 'BANK_ONLY'
+    && generation.testEligible !== false
+    && generation.publiclyPublishable !== false
     && hasCompleteTaxonomy(question)
     && question.stem.trim()
     && question.explanation.trim()
@@ -110,7 +114,28 @@ const EMPTY_BULK_TAXONOMY: BulkTaxonomyState = {
   familyId: '', examId: '', examVersionId: '', subjectId: '', sectionId: '', topicId: '',
 };
 
+type QuestionBankReturn = {
+  locationKey: string;
+  questionId: string;
+  questions: LiveQuestion[];
+  taxonomyOptions: TaxonomyOptionsResponse | null;
+  search: string;
+  difficulty: string;
+  status: string;
+  topic: string;
+  readiness: ReadinessFilter;
+  page: number;
+  selectedIds: Set<string>;
+};
+
+let questionBankReturn: QuestionBankReturn | undefined;
+
 export function QuestionBankWorkspacePage() {
+  const location = useLocation();
+  const [restored] = useState(() =>
+    questionBankReturn?.locationKey === location.key ? questionBankReturn : undefined,
+  );
+  const restoredRow = useRef<HTMLTableRowElement>(null);
   const navigate = useNavigate();
   const { hasPermission } = useAdminPermissions();
   const canOpenGeneration = hasPermission('content.generation.read');
@@ -119,28 +144,28 @@ export function QuestionBankWorkspacePage() {
   const canManageTaxonomy = hasPermission('content.taxonomy.manage');
   const canArchive = hasPermission('content.questions.delete');
 
-  const [questions, setQuestions] = useState<LiveQuestion[]>([]);
-  const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(null);
+  const [questions, setQuestions] = useState<LiveQuestion[]>(restored?.questions ?? []);
+  const [taxonomyOptions, setTaxonomyOptions] = useState<TaxonomyOptionsResponse | null>(restored?.taxonomyOptions ?? null);
   const [syncingTaxonomy, setSyncingTaxonomy] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!restored);
   const [bulkBusy, setBulkBusy] = useState(false);
   const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
-  const [difficulty, setDifficulty] = useState('all');
-  const [status, setStatus] = useState('all');
-  const [topic, setTopic] = useState('all');
-  const [readiness, setReadiness] = useState<ReadinessFilter>('all');
-  const [page, setPage] = useState(1);
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [search, setSearch] = useState(restored?.search ?? '');
+  const [difficulty, setDifficulty] = useState(restored?.difficulty ?? 'all');
+  const [status, setStatus] = useState(restored?.status ?? 'all');
+  const [topic, setTopic] = useState(restored?.topic ?? 'all');
+  const [readiness, setReadiness] = useState<ReadinessFilter>(restored?.readiness ?? 'all');
+  const [page, setPage] = useState(restored?.page ?? 1);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(restored?.selectedIds ?? new Set());
   const [bulkTaxonomy, setBulkTaxonomy] = useState<BulkTaxonomyState>(EMPTY_BULK_TAXONOMY);
   const [bulkDifficulty, setBulkDifficulty] = useState('Medium');
   const [bulkReason, setBulkReason] = useState('');
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (background = false) => {
+    if (!background) setLoading(true);
     setError('');
     try {
-      if (canReconcile) await reconcileApprovedQuestions();
+      if (!background && canReconcile) await reconcileApprovedQuestions();
       const [questionResult, optionResult] = await Promise.all([
         getLiveQuestions(),
         getQuestionTaxonomyOptions(),
@@ -151,13 +176,17 @@ export function QuestionBankWorkspacePage() {
         [...current].filter((id) => questionResult.questions.some((question) => question.id === id)),
       ));
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Unable to load Question Bank.');
+      if (!background) setError(caught instanceof Error ? caught.message : 'Unable to load Question Bank.');
     } finally {
       setLoading(false);
     }
   }, [canReconcile]);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    questionBankReturn = undefined;
+    restoredRow.current?.scrollIntoView({ block: 'nearest' });
+    void load(Boolean(restored));
+  }, [load, restored]);
 
   const topics = useMemo(
     () => Array.from(new Set(questions.map((question) => taxonomyName(question, 'topic')).filter(Boolean))).sort(),
@@ -186,9 +215,10 @@ export function QuestionBankWorkspacePage() {
     });
   }, [questions, search, difficulty, status, topic, readiness]);
 
-  useEffect(() => { setPage(1); }, [search, difficulty, status, topic, readiness]);
-
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  useEffect(() => {
+    if (!loading) setPage((current) => Math.min(current, pageCount));
+  }, [loading, pageCount]);
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const selected = questions.filter((question) => selectedIds.has(question.id));
   const hasFilters = Boolean(search.trim()) || difficulty !== 'all' || status !== 'all' || topic !== 'all' || readiness !== 'all';
@@ -334,8 +364,15 @@ export function QuestionBankWorkspacePage() {
     await runBulk(action, label);
   };
 
+  const rememberQuestion = (questionId: string) => {
+    questionBankReturn = {
+      locationKey: location.key, questionId, questions, taxonomyOptions,
+      search, difficulty, status, topic, readiness, page, selectedIds,
+    };
+  };
+
   const clearFilters = () => {
-    setSearch(''); setDifficulty('all'); setStatus('all'); setTopic('all'); setReadiness('all');
+    setPage(1); setSearch(''); setDifficulty('all'); setStatus('all'); setTopic('all'); setReadiness('all');
   };
 
   return (
@@ -384,11 +421,11 @@ export function QuestionBankWorkspacePage() {
       <Card>
         <CardContent className="p-0">
           <div className="flex flex-col gap-3 border-b p-4 xl:flex-row xl:items-center">
-            <div className="relative min-w-0 flex-1"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search question, code, exam or taxonomy..." className="pl-9" /></div>
-            <Select value={readiness} onValueChange={(value) => setReadiness(value as ReadinessFilter)}><SelectTrigger className="w-full xl:w-48"><SelectValue placeholder="Readiness" /></SelectTrigger><SelectContent><SelectItem value="all">All readiness</SelectItem><SelectItem value="missing-taxonomy">Missing taxonomy</SelectItem><SelectItem value="ready-to-publish">Ready to publish</SelectItem><SelectItem value="published">Published to builder</SelectItem></SelectContent></Select>
-            <Select value={status} onValueChange={setStatus}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Status" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{Array.from(new Set(questions.map((question) => question.status))).sort().map((value) => <SelectItem key={value} value={value}>{formatStatus(value)}</SelectItem>)}</SelectContent></Select>
-            <Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Difficulty" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{Array.from(new Set(questions.map((question) => question.difficulty))).sort().map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
-            <Select value={topic} onValueChange={setTopic}><SelectTrigger className="w-full xl:w-52"><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
+            <div className="relative min-w-0 flex-1"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => { setSearch(event.target.value); setPage(1); }} placeholder="Search question, code, exam or taxonomy..." className="pl-9" /></div>
+            <Select value={readiness} onValueChange={(value) => { setReadiness(value as ReadinessFilter); setPage(1); }}><SelectTrigger className="w-full xl:w-48"><SelectValue placeholder="Readiness" /></SelectTrigger><SelectContent><SelectItem value="all">All readiness</SelectItem><SelectItem value="missing-taxonomy">Missing taxonomy</SelectItem><SelectItem value="ready-to-publish">Ready to publish</SelectItem><SelectItem value="published">Published to builder</SelectItem></SelectContent></Select>
+            <Select value={status} onValueChange={(value) => { setStatus(value); setPage(1); }}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Status" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{Array.from(new Set(questions.map((question) => question.status))).sort().map((value) => <SelectItem key={value} value={value}>{formatStatus(value)}</SelectItem>)}</SelectContent></Select>
+            <Select value={difficulty} onValueChange={(value) => { setDifficulty(value); setPage(1); }}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Difficulty" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{Array.from(new Set(questions.map((question) => question.difficulty))).sort().map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
+            <Select value={topic} onValueChange={(value) => { setTopic(value); setPage(1); }}><SelectTrigger className="w-full xl:w-52"><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
             {hasFilters && <Button variant="ghost" size="sm" onClick={clearFilters}><X className="mr-1.5 h-4 w-4" /> Clear</Button>}
           </div>
 
@@ -397,7 +434,9 @@ export function QuestionBankWorkspacePage() {
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full text-left text-sm">
                   <thead className="border-b bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground"><tr><th className="w-10 px-4 py-3"><input type="checkbox" checked={visible.length > 0 && visible.every((question) => selectedIds.has(question.id))} onChange={toggleVisible} aria-label="Select visible questions" /></th><th className="px-4 py-3 font-medium">Question</th><th className="px-4 py-3 font-medium">Exam / Taxonomy</th><th className="px-4 py-3 font-medium">Readiness</th><th className="px-4 py-3 font-medium">Difficulty</th><th className="px-4 py-3 font-medium">Status</th><th className="px-4 py-3 font-medium">Updated</th></tr></thead>
-                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'Shared Question Bank'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3">{question.publishedVersionId ? <Badge className="bg-primary/10 text-primary">Published</Badge> : isReadyToPublish(question) ? <Badge className="bg-success/10 text-success">Ready</Badge> : !hasCompleteTaxonomy(question) ? <Badge variant="outline">Needs classification</Badge> : !question.examVersionId ? <Badge variant="secondary">Shared bank · exam release not assigned</Badge> : <Badge variant="secondary">Not ready</Badge>}</td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
+                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} ref={question.id === restored?.questionId ? restoredRow : undefined} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} state={{ fromQuestionBank: true }} onClick={(event) => {
+                    if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) rememberQuestion(question.id);
+                  }} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'Shared Question Bank'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3">{question.publishedVersionId ? <Badge className="bg-primary/10 text-primary">Published</Badge> : isReadyToPublish(question) ? <Badge className="bg-success/10 text-success">Ready</Badge> : !hasCompleteTaxonomy(question) ? <Badge variant="outline">Needs classification</Badge> : <Badge variant="secondary">Not ready</Badge>}</td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
                 </table>
               </div>
               <div className="divide-y md:hidden">{visible.map((question) => <div key={question.id} className="p-4"><div className="flex items-start gap-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} className="mt-1" aria-label={`Select ${question.publicCode}`} /><Link to={`/content/questions/${question.id}`} className="min-w-0 flex-1"><div className="flex flex-wrap items-center justify-between gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge></div><p className="mt-3 line-clamp-3 text-sm font-medium leading-5">{question.stem}</p><div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground"><span>{question.examName || 'Shared bank'}</span><span>•</span><span>{taxonomyName(question, 'topic') || 'No topic'}</span><span>•</span><span>{question.difficulty}</span></div></Link></div></div>)}</div>

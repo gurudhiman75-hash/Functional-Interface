@@ -1,7 +1,7 @@
 import { ExplanationDiagrams } from '@/features/question-studio/ExplanationDiagrams';
 import { promoteQuestionStudioNativeEditorial } from '@/features/question-studio/api';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   Archive,
   ArrowLeft,
@@ -183,6 +183,8 @@ function taxonomyFromVersion(version: QuestionVersion): TaxonomyState {
 }
 
 export function QuestionDetailPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { id = '' } = useParams();
   const { hasPermission } = useAdminPermissions();
   const canEdit = hasPermission('content.questions.update');
@@ -411,7 +413,11 @@ export function QuestionDetailPage() {
           </p>
           <div className="mt-4 flex gap-2">
             <Button asChild variant="outline">
-              <Link to="/content/questions">
+              <Link to="/content/questions" onClick={(event) => {
+                if (!location.state?.fromQuestionBank || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                navigate(-1);
+              }}>
                 <ArrowLeft className="mr-1.5 h-4 w-4" /> Question Bank
               </Link>
             </Button>
@@ -448,7 +454,11 @@ export function QuestionDetailPage() {
         actions={(
           <div className="flex flex-wrap gap-2">
             <Button asChild variant="outline" size="sm">
-              <Link to="/content/questions">
+              <Link to="/content/questions" onClick={(event) => {
+                if (!location.state?.fromQuestionBank || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                navigate(-1);
+              }}>
                 <ArrowLeft className="mr-1.5 h-4 w-4" /> Question Bank
               </Link>
             </Button>
