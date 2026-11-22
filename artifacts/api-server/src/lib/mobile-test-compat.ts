@@ -70,6 +70,7 @@ export function legacyMobileSection(row: JsonRecord, questions: unknown[] = []) 
   return {
     id: text(row.id, text(row.sectionKey, "section")),
     name: text(row.name, "General"),
+    durationSeconds: Math.max(0, numberValue(row.durationSeconds)),
     questions,
   };
 }
@@ -83,6 +84,9 @@ export function legacyMobileTest(row: JsonRecord, sections: unknown[] = []) {
   const durationSeconds = Math.max(0, numberValue(row.durationSeconds));
   const totalQuestions = Math.max(0, integerValue(row.questionCount));
   const description = text(row.description);
+  const sectionTimings = sections.map(record)
+    .filter((section) => numberValue(section.durationSeconds) > 0)
+    .map((section) => ({ name: text(section.name), minutes: numberValue(section.durationSeconds) / 60 }));
 
   return {
     id: text(row.id),
@@ -102,6 +106,12 @@ export function legacyMobileTest(row: JsonRecord, sections: unknown[] = []) {
     avgScore: Math.max(0, integerValue(row.avgScore)),
     difficulty: normalizeMobileDifficulty(settings.difficulty),
     sections,
+    sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none",
+    sectionTimings,
+    sectionSettings: sections.map(record).map((section) => ({
+      name: text(section.name),
+      locked: settings.lockCompletedSections === true,
+    })),
     marksPerQuestion: Math.max(0, numberValue(row.marksPerQuestion, 1)),
     negativeMarks: Math.max(0, numberValue(row.negativeMarks, 0)),
     languages: normalizeLanguages(row.languages, settings.languageCode),
