@@ -752,15 +752,18 @@ function allowedLifecycleStatuses(action: string): string[] {
   if (action === "needs-fix") return ["under_qa", "qa_approved", "scheduled"];
   if (action === "approve") return ["under_qa"];
   if (action === "schedule") return ["qa_approved", "scheduled"];
+  if (action === "approve-publish") return ["draft", "content_ready", "under_qa"];
   if (action === "publish") return ["qa_approved", "scheduled", "live"];
   if (action === "archive") return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
   if (action === "restore-draft") return ["archived", "needs_fix"];
   return [];
 }
 
-for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "archive", "restore-draft"] as const) {
+for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "archive", "restore-draft"] as const) {
   const config = getTestLifecycleConfig(action);
-  router.post(`/:id/actions/${action}`, requireAdminPermission(config.permission), async (req, res) => {
+  const permissions = [requireAdminPermission(config.permission)];
+  if (action === "approve-publish") permissions.push(requireAdminPermission("tests.approve"));
+  router.post(`/:id/actions/${action}`, ...permissions, async (req, res) => {
     try {
       const testId = assertTestId(req.params.id);
       const actorUserId = req.adminSession?.user.id;
@@ -802,7 +805,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
           );
         }
 
-        if (["submit-qa", "approve", "schedule", "publish"].includes(action)) {
+        if (["submit-qa", "approve", "schedule", "publish", "approve-publish"].includes(action)) {
           const issues = await loadStoredValidation(testId, input.expectedCurrentDraftVersionId, tx as SqlExecutor);
           if (issues.length > 0) {
             throw new TestManagementError("TEST_VALIDATION_FAILED", "Resolve validation issues before continuing", 409, issues);
@@ -834,7 +837,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
           `;
         }
 
-        if (action === "publish") {
+        if (action === "publish" || action === "approve-publish") {
           const numberRows = await tx`
             SELECT COALESCE(MAX(publication_number), 0)::int + 1 AS "nextPublicationNumber"
             FROM assessment.test_publications
@@ -888,6 +891,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
             ${input.reason || null},
             ${`${String(testRecord.publicCode)} moved from ${String(testRecord.status)} to ${input.config.status}`},
             ${tx.json({
+              ...(action === "approve-publish" ? { approvedByUserId: actorUserId, approvalMode: "direct" } : {}),
               previousStatus: testRecord.status,
               status: input.config.status,
               scheduledAt: input.scheduledAt,

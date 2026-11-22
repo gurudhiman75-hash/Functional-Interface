@@ -51,6 +51,7 @@ export type TestLifecycleAction =
   | "approve"
   | "schedule"
   | "publish"
+  | "approve-publish"
   | "archive"
   | "restore-draft";
 
@@ -87,6 +88,12 @@ const lifecycleConfigs: Record<TestLifecycleAction, TestLifecycleConfig> = {
     actionKey: "assessment.test.scheduled",
   },
   publish: {
+    status: "live",
+    permission: "tests.publish",
+    requiresReason: false,
+    actionKey: "assessment.test.published",
+  },
+  "approve-publish": {
     status: "live",
     permission: "tests.publish",
     requiresReason: false,
