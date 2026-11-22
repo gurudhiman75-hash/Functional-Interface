@@ -100,6 +100,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
   const hasSectionalTiming = test.sectionTimingMode === "fixed" && effectiveSections.length > 0 && !sectionParam;
   const hasLockedSections = Boolean(test.sectionSettings?.some((section) => section.locked)) && initialMode !== "PRACTICE" && !sectionParam;
 
+  const waitForSectionTimer = hasSectionalTiming && hasLockedSections;
+
   const getSectionLimitSeconds = useCallback(
     (sectionIndex: number) => {
       const sectionName = effectiveSections[sectionIndex]?.name.trim().toLowerCase() ?? "";
@@ -746,6 +748,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       return;
     }
 
+    if (waitForSectionTimer && sectionIndex !== currentSectionIndex) return;
+
     // Block locked (completed) sections
     if (lockedSections.includes(sectionIndex)) {
       toast({
@@ -1305,10 +1309,10 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
             </button>
           </div>
 
-          {isTcsInterface && !sidebarCollapsed && <SscCbtSidebar sections={effectiveSections} active={currentSectionIndex} locked={lockedSections} restricted={hasLockedSections} currentQuestion={currentQuestionIndex} getStatus={getQuestionStatus} onNavigate={navigateToSection} onNext={() => navigateToSection(currentSectionIndex + 1, 0)} />}
+          {isTcsInterface && !sidebarCollapsed && <SscCbtSidebar sections={effectiveSections} active={currentSectionIndex} locked={lockedSections} restricted={hasLockedSections} currentQuestion={currentQuestionIndex} getStatus={getQuestionStatus} onNavigate={navigateToSection} onNext={waitForSectionTimer ? undefined : () => navigateToSection(currentSectionIndex + 1, 0)} />}
           {!isTcsInterface && !sidebarCollapsed && (
           <aside className={isTcsInterface ? "tcs-ion-sidebar min-w-0 space-y-0" : "min-w-0 space-y-3"}>
-            {currentSectionIndex < effectiveSections.length - 1 && (
+            {!waitForSectionTimer && currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
                 onClick={() => navigateToSection(currentSectionIndex + 1, 0)}
@@ -1389,7 +1393,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                             <button
                               key={question.id}
                               type="button"
-                              disabled={isLocked && !isActive}
+                              disabled={(isLocked || waitForSectionTimer) && !isActive}
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
                               aria-label={`Question ${questionIndex + 1}, ${status.replace(/_/g, " ").toLowerCase()}`}
                               aria-current={isCurrent ? "step" : undefined}

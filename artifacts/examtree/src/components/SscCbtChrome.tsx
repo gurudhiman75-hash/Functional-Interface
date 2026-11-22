@@ -16,7 +16,7 @@ export function SscCbtHeader({ name, candidate, time, scale, onZoom, onTextSizeC
 export function SscCbtSidebar({ sections, active, locked, restricted, currentQuestion, getStatus, onNavigate, onNext }: {
   sections: TestSection[]; active: number; locked: number[]; restricted: boolean; currentQuestion: number;
   getStatus: (question: { id: number }) => SscQuestionStatus;
-  onNavigate: (section: number, question: number) => void; onNext: () => void;
+  onNavigate: (section: number, question: number) => void; onNext?: () => void;
 }) {
   const section = sections[active];
   const answered = section.questions.filter(question => ["ANSWERED", "ANSWERED_MARKED"].includes(getStatus(question))).length;
@@ -25,7 +25,7 @@ export function SscCbtSidebar({ sections, active, locked, restricted, currentQue
     <h2>{section.name}</h2>
     <div className="ssc-cbt-question-grid">{section.questions.map((question, index) => <button type="button" key={question.id} className={`ssc-status-${getStatus(question).toLowerCase()}`} aria-label={`Question ${index + 1}, ${getStatus(question).replace(/_/g, " ").toLowerCase()}`} aria-current={index === currentQuestion ? "step" : undefined} onClick={() => onNavigate(active, index)}>{index + 1}</button>)}</div>
     <div className="ssc-cbt-analysis"><h3>PART-{active < 26 ? String.fromCharCode(65 + active) : active + 1} Analysis</h3><dl><div><dt>Answered</dt><dd>{answered}</dd></div><div><dt>Not Answered</dt><dd>{section.questions.length - answered}</dd></div></dl></div>
-    {active < sections.length - 1 && <button type="button" className="ssc-cbt-next-section" onClick={onNext}>Jump to Next Section</button>}
+    {onNext && active < sections.length - 1 && <button type="button" className="ssc-cbt-next-section" onClick={onNext}>Jump to Next Section</button>}
     <details className="ssc-cbt-legend" id="ssc-cbt-symbols"><summary>Symbols</summary><ul><li><i className="ssc-status-answered" />Answered</li><li><i className="ssc-status-not_answered" />Not answered</li><li><i className="ssc-status-not_visited" />Not visited</li><li><i className="ssc-status-marked" />Marked for review</li><li><i className="ssc-status-answered_marked" />Answered &amp; marked</li></ul></details>
   </aside>;
 }
