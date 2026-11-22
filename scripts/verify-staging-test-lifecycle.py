@@ -63,9 +63,53 @@ def check(name, ok, detail=""):
     return ok
 
 
+_api_key = None
+
+
+def firebase_web_api_key():
+    """The Firebase *web* API key is public (it ships in the website's JS); look it up via gcloud."""
+    global _api_key
+    if _api_key:
+        return _api_key
+    names = gcloud("services", "api-keys", "list", f"--project={PROJECT}",
+                   "--format=value(name,displayName)").splitlines()
+    ranked = sorted(names, key=lambda line: (0 if "Browser key" in line else 1 if "Firebase" in line else 2))
+    for line in ranked:
+        name = line.split()[0] if line.split() else ""
+        if not name:
+            continue
+        out = subprocess.run(["gcloud", "services", "api-keys", "get-key-string", name, "--format=value(keyString)"],
+                             capture_output=True, text=True, timeout=60)
+        if out.returncode == 0 and out.stdout.strip().startswith("AIza"):
+            _api_key = out.stdout.strip()
+            return _api_key
+    sys.exit("FAIL: could not find the Firebase web API key; use the paste-token option instead.")
+
+
+def sign_in(email, password):
+    body = json.dumps({"email": email, "password": password, "returnSecureToken": True}).encode()
+    req = urllib.request.Request(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + firebase_web_api_key(),
+        data=body, method="POST", headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            return json.loads(resp.read())["idToken"]
+    except urllib.error.HTTPError as err:
+        reason = json.loads(err.read() or b"{}").get("error", {}).get("message", f"HTTP {err.code}")
+        sys.exit(f"FAIL: sign-in failed ({reason}). Accounts that only use Google sign-in need the paste-token option.")
+
+
 def token(label):
     if not sys.stdin.isatty():
         sys.exit("FAIL: interactive terminal required; never pipe tokens in.")
+    choice = input(f"\n{label} account - [1] sign in with email + password  [2] paste a Firebase ID token: ").strip()
+    if choice == "1":
+        email = input(f"{label} email: ").strip()
+        password = getpass.getpass(f"{label} password (hidden): ")
+        value = sign_in(email, password)
+        password = ""
+        print(f"{label}: signed in")
+        return value
     value = getpass.getpass(f"Paste STAGING {label} Firebase ID token (hidden): ").strip()
     if not JWT.match(value):
         sys.exit("FAIL: expected a Firebase ID token (three dot-separated parts).")
