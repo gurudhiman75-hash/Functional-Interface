@@ -278,3 +278,51 @@ export function autoAssembleTest(input: {
     { fallbackMessage: 'Unable to auto-assemble the test.' },
   );
 }
+
+export interface PickerQuestion {
+  questionId: string;
+  versionId: string;
+  publicCode: string;
+  status: string;
+  draftOnly: boolean;
+  questionType: string;
+  difficulty: string;
+  stem: string;
+  explanation: string | null;
+  examVersionId: string | null;
+  usedInTests: number;
+  lastUsedAt: string | null;
+  options: Array<{ id: string; key: string; text: string; sortOrder: number; isCorrect: boolean }>;
+  taxonomy: Array<{ id: string; code: string; nodeType: string; name: string; isPrimary: boolean }>;
+  languages: string[];
+}
+
+export interface QuestionPickerFilters {
+  q?: string;
+  difficulties?: string[];
+  languages?: string[];
+  examVersionId?: string;
+  usage?: 'any' | 'unused';
+  sort?: 'newest' | 'least_used';
+  excludeVersionIds?: string[];
+  limit?: number;
+  offset?: number;
+}
+
+export function searchQuestionPicker(filters: QuestionPickerFilters) {
+  const params = new URLSearchParams();
+  if (filters.q) params.set('q', filters.q);
+  if (filters.difficulties?.length) params.set('difficulties', filters.difficulties.join(','));
+  if (filters.languages?.length) params.set('languages', filters.languages.join(','));
+  if (filters.examVersionId) params.set('examVersionId', filters.examVersionId);
+  if (filters.usage === 'unused') params.set('usage', 'unused');
+  if (filters.sort) params.set('sort', filters.sort);
+  if (filters.excludeVersionIds?.length) params.set('excludeVersionIds', filters.excludeVersionIds.slice(0, 500).join(','));
+  params.set('limit', String(filters.limit ?? 30));
+  params.set('offset', String(filters.offset ?? 0));
+  return adminRequest<{ questions: PickerQuestion[]; total: number; limit: number; offset: number }>(
+    `/admin/tests/question-picker?${params.toString()}`,
+    {},
+    { fallbackMessage: 'Unable to search questions.' },
+  );
+}

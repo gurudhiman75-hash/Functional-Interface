@@ -45,8 +45,10 @@ import {
   type LiveTestDetail,
   type TestCatalogExamVersion,
   type TestDraftInput,
+  type PickerQuestion,
   type TestValidationIssue,
 } from '@/features/test-builder/api';
+import { QuestionPicker } from '@/features/test-builder/QuestionPicker';
 
 interface BuilderSection {
   clientKey: string;
@@ -156,8 +158,8 @@ export function TestBuilderPage() {
   const [detail, setDetail] = useState<LiveTestDetail | null>(null);
   const [draft, setDraft] = useState<BuilderDraft>(freshDraft);
   const [activeSectionKey, setActiveSectionKey] = useState('section-1');
-  const [search, setSearch] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState('all');
+  const [pickedCache, setPickedCache] = useState<Map<string, PickerQuestion>>(new Map());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [assembling, setAssembling] = useState(false);
@@ -197,16 +199,15 @@ export function TestBuilderPage() {
     () => new Map(publishedQuestions.map((question) => [question.versionId, question])),
     [publishedQuestions],
   );
+  const lookupQuestion = (id: string) => {
+    const known = questionMap.get(id);
+    if (known) return { versionId: id, publicCode: known.publicCode, stem: known.stem, difficulty: known.difficulty, options: known.options.map((o) => ({ id: o.id, key: o.key, text: o.text })) };
+    const picked = pickedCache.get(id);
+    return picked ? { versionId: id, publicCode: picked.publicCode, stem: picked.stem, difficulty: picked.difficulty, options: picked.options.map((o) => ({ id: o.id, key: o.key, text: o.text })) } : null;
+  };
   const selectedQuestionIds = draft.sections.flatMap((section) => section.questionVersionIds);
   const selectedQuestionSet = useMemo(() => new Set(selectedQuestionIds), [selectedQuestionIds.join('|')]);
   const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion;
-
-  const availableQuestions = useMemo(() => publishedQuestions.filter((question) => {
-    if (difficultyFilter !== 'all' && question.difficulty.toLowerCase() !== difficultyFilter.toLowerCase()) return false;
-    const term = search.trim().toLowerCase();
-    if (term && !question.stem.toLowerCase().includes(term) && !question.publicCode.toLowerCase().includes(term)) return false;
-    return true;
-  }), [publishedQuestions, difficultyFilter, search]);
 
   const localIssues = useMemo(() => {
     const issues: TestValidationIssue[] = [];
@@ -254,18 +255,41 @@ export function TestBuilderPage() {
     }));
   };
 
-  const toggleQuestion = (questionVersionId: string) => {
+  const addPickedQuestion = (question: PickerQuestion) => {
     if (!activeSection) return;
+    setPickedCache((current) => new Map(current).set(question.versionId, question));
     setDraft((current) => {
-      const alreadySelected = current.sections.some((section) => section.questionVersionIds.includes(questionVersionId));
-      const sections = current.sections.map((section) => {
-        const without = section.questionVersionIds.filter((id) => id !== questionVersionId);
-        if (section.clientKey !== activeSection.clientKey || alreadySelected) return { ...section, questionVersionIds: without };
-        return { ...section, questionVersionIds: [...without, questionVersionId] };
-      });
+      if (current.sections.some((section) => section.questionVersionIds.includes(question.versionId))) return current;
+      const sections = current.sections.map((section) => section.clientKey === activeSection.clientKey
+        ? { ...section, questionVersionIds: [...section.questionVersionIds, question.versionId] }
+        : section);
       const count = sections.flatMap((section) => section.questionVersionIds).length;
       return { ...current, sections, totalMarks: count * current.marksPerQuestion };
     });
+  };
+
+  const removePickedQuestion = (versionId: string) => {
+    setDraft((current) => {
+      const sections = current.sections.map((section) => ({ ...section, questionVersionIds: section.questionVersionIds.filter((id) => id !== versionId) }));
+      const count = sections.flatMap((section) => section.questionVersionIds).length;
+      return { ...current, sections, totalMarks: count * current.marksPerQuestion };
+    });
+  };
+
+  const movePickedQuestion = (versionId: string, direction: -1 | 1) => {
+    if (!activeSection) return;
+    setDraft((current) => ({
+      ...current,
+      sections: current.sections.map((section) => {
+        if (section.clientKey !== activeSection.clientKey) return section;
+        const ids = [...section.questionVersionIds];
+        const from = ids.indexOf(versionId);
+        const to = from + direction;
+        if (from < 0 || to < 0 || to >= ids.length) return section;
+        [ids[from], ids[to]] = [ids[to], ids[from]];
+        return { ...section, questionVersionIds: ids };
+      }),
+    }));
   };
 
   const refreshQuestionVersions = async () => {
@@ -429,11 +453,28 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="questions">
-          <Card><CardHeader><CardTitle className="text-base">Approved Question Bank</CardTitle></CardHeader><CardContent className="space-y-4">
-            <Button variant="outline" size="sm" onClick={() => void refreshQuestionVersions()} disabled={saving}>Use latest approved versions</Button>
-            <div className="rounded-lg border bg-muted/20 p-3 text-sm">Questions are added to <strong>{activeSection?.name ?? 'the active section'}</strong>. Selecting an already-used question removes it from its previous section.</div>
-            <div className="flex flex-wrap gap-2"><Input className="max-w-sm" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search questions" /><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger className="w-40"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Moderate">Moderate</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select><Input className="w-32" type="number" min={1} max={300} value={draft.desiredQuestionCount} onChange={(event) => setDraft((current) => ({ ...current, desiredQuestionCount: Number(event.target.value) }))} /><Button onClick={() => void autoAssemble()} disabled={assembling}>{assembling ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Auto-assemble</Button></div>
-            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version to start building the test.</p> : availableQuestions.length === 0 ? <p className="py-12 text-center text-sm text-muted-foreground">No approved questions match these filters.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{availableQuestions.map((question) => <div key={question.versionId} className="flex cursor-pointer items-start gap-3 p-3 hover:bg-muted/30"><Checkbox aria-label={`Select ${question.publicCode}`} className="mt-1" checked={selectedQuestionSet.has(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div className="min-w-0 flex-1"><div className="flex flex-wrap gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="outline">{question.difficulty}</Badge>{question.taxonomy.map((node) => <Badge key={node.id} variant="secondary">{node.name}</Badge>)}</div><p className="mt-2 text-sm leading-6">{question.stem}</p></div>{canEditQuestions && <Button asChild variant="ghost" size="sm"><Link to={`/content/questions/${question.id}`} target="_blank" rel="noopener noreferrer">Edit question</Link></Button>}</div>)}</div>}
+          <Card><CardHeader><CardTitle className="text-base">Choose questions</CardTitle></CardHeader><CardContent className="space-y-4">
+            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version in Basic info to start building the test.</p> : <>
+              <div className="flex flex-wrap items-center gap-2">
+                <Select value={activeSection?.clientKey ?? ''} onValueChange={setActiveSectionKey}>
+                  <SelectTrigger className="w-56"><SelectValue placeholder="Section" /></SelectTrigger>
+                  <SelectContent>{draft.sections.map((section) => <SelectItem key={section.clientKey} value={section.clientKey}>{section.name} ({section.questionVersionIds.length})</SelectItem>)}</SelectContent>
+                </Select>
+                <Button variant="outline" size="sm" onClick={() => void refreshQuestionVersions()} disabled={saving}>Use latest approved versions</Button>
+                <Input className="w-24" type="number" min={1} max={300} value={draft.desiredQuestionCount} onChange={(event) => setDraft((current) => ({ ...current, desiredQuestionCount: Number(event.target.value) }))} />
+                <Button variant="outline" size="sm" onClick={() => void autoAssemble()} disabled={assembling}>{assembling ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Fill with random questions</Button>
+              </div>
+              <QuestionPicker
+                examVersionId={draft.examVersionId}
+                sectionName={activeSection?.name ?? 'Section'}
+                sectionQuestions={(activeSection?.questionVersionIds ?? []).map((id) => lookupQuestion(id) ?? { versionId: id, publicCode: 'Question', stem: id, difficulty: '' })}
+                allSelectedIds={selectedQuestionIds}
+                canEditQuestions={canEditQuestions}
+                onAdd={addPickedQuestion}
+                onRemove={removePickedQuestion}
+                onMove={movePickedQuestion}
+              />
+            </>}
           </CardContent></Card>
         </TabsContent>
 
@@ -442,7 +483,7 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="preview">
-          <Card><CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader><CardContent className="space-y-6"><div className="rounded-lg border bg-muted/20 p-4"><h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p><p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p></div>{draft.sections.map((section) => <div key={section.clientKey}><div className="mb-3 flex items-center justify-between"><h3 className="font-semibold">{section.name}</h3><Badge variant="outline">{section.questionVersionIds.length} questions</Badge></div><div className="space-y-4">{section.questionVersionIds.map((id, index) => { const question = questionMap.get(id); if (!question) return null; return <div key={id} className="rounded-lg border p-4"><p className="text-sm font-medium">{index + 1}. {question.stem}</p><div className="mt-3 grid gap-2 sm:grid-cols-2">{question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}</div><p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p></div>; })}</div></div>)}</CardContent></Card>
+          <Card><CardHeader><CardTitle className="text-base">Exact student test preview</CardTitle></CardHeader><CardContent className="space-y-6"><div className="rounded-lg border bg-muted/20 p-4"><h2 className="font-display text-xl font-semibold">{draft.title || 'Untitled test'}</h2><p className="mt-1 text-sm text-muted-foreground">{selectedExam?.examName ?? 'No exam selected'} • {draft.durationMinutes} minutes • {draft.totalMarks} marks</p><p className="mt-3 whitespace-pre-wrap text-sm">{draft.instructions}</p></div>{draft.sections.map((section) => <div key={section.clientKey}><div className="mb-3 flex items-center justify-between"><h3 className="font-semibold">{section.name}</h3><Badge variant="outline">{section.questionVersionIds.length} questions</Badge></div><div className="space-y-4">{section.questionVersionIds.map((id, index) => { const question = lookupQuestion(id); if (!question) return null; return <div key={id} className="rounded-lg border p-4"><p className="text-sm font-medium">{index + 1}. {question.stem}</p><div className="mt-3 grid gap-2 sm:grid-cols-2">{question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}</div><p className="mt-3 text-xs text-muted-foreground">+{draft.marksPerQuestion} / -{draft.negativeMarks}</p></div>; })}</div></div>)}</CardContent></Card>
         </TabsContent>
       </Tabs>
     </div>
