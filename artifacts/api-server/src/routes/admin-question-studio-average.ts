@@ -475,11 +475,9 @@ router.post(
         return;
       }
 
-      const selectedLocales: Array<"hi" | "pa"> = Array.isArray(req.body?.languages)
-        ? [...new Set<"hi" | "pa">(req.body.languages.filter((locale: unknown) => locale === "hi" || locale === "pa"))]
-        : [];
-      const nativeSnapshots = process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED === "true"
-        && req.body?.nativeGroupedReview === true && selectedLocales.length > 0
+      const nativeModule = await import("../question-studio/persisted-native-review");
+      const selectedLocales = nativeModule.nativeLanguagesToPrepare("AVG-001", req.body?.languages);
+      const nativeSnapshots = selectedLocales.length > 0
         ? await (await import("../question-studio/persisted-native-review"))
             .prepareNativeReviewBatch(generatedQuestions, selectedLocales)
         : [];
