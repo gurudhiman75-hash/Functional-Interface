@@ -102,8 +102,8 @@ def sign_in(email, password):
 def token(label):
     if not sys.stdin.isatty():
         sys.exit("FAIL: interactive terminal required; never pipe tokens in.")
-    choice = input(f"\n{label} account - [1] sign in with email + password  [2] paste a Firebase ID token: ").strip()
-    if choice == "1":
+    choice = input(f"\n{label} account - press Enter to sign in with email + password, or type 2 to paste a token: ").strip()
+    if choice != "2":
         email = input(f"{label} email: ").strip()
         password = getpass.getpass(f"{label} password (hidden): ")
         value = sign_in(email, password)
