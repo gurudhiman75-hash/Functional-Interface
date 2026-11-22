@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Archive, ArrowLeft, CheckSquare, ListChecks, Loader2, Plus, RefreshCw, Rocket, Search } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
@@ -26,9 +26,12 @@ export function LegacyTestBuilderRedirect() {
 
 export function TestsWorkspacePage() {
   const { id } = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-  const editing = id !== undefined;
-  const testId = id && id !== 'new' ? id : null;
+  // /tests/new is its own route (no :id param), so detect it from the path.
+  const isNew = pathname.replace(/\/+$/, '') === '/tests/new' || id === 'new';
+  const editing = isNew || id !== undefined;
+  const testId = !isNew && id ? id : null;
 
   const [tests, setTests] = useState<LiveTestSummary[]>([]);
   const [catalog, setCatalog] = useState<TestCatalogExamVersion[]>([]);
