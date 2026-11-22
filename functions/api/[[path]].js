@@ -221,7 +221,10 @@ export async function onRequest({ request, env = {} }) {
       error: "Native localization candidate URL is not configured correctly.",
     }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
+  const studentTestPreview = incoming.hostname === "fix-qs-publication-readiness.functional-interface.pages.dev" &&
+    /^\/api\/(?:tests|published-tests|attempts|attempt-sessions)(?:\/|$)/.test(incoming.pathname);
   const actualUpstream =
+    (studentTestPreview ? "https://qs-pub---examtree-api-ttnfjefqka-el.a.run.app" : null) ||
     (nativeLocalizationCandidateOrigin || null) ||
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
     qsAdminOrigin ||
