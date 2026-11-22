@@ -103,7 +103,10 @@ async function validateStoredTest(
             OR q.id IS NULL
             OR q.status::text <> 'published'
             OR q.published_version_id IS DISTINCT FROM tq.question_version_id
-            OR qv.exam_version_id IS DISTINCT FROM t.exam_version_id
+            OR q.deleted_at IS NOT NULL
+            OR qv.answer_model #>> '{generation,questionBankAcceptanceMode}' = 'BANK_ONLY'
+            OR qv.answer_model #>> '{generation,testEligible}' = 'false'
+            OR qv.answer_model #>> '{generation,publiclyPublishable}' = 'false'
             OR NOT EXISTS (
               SELECT 1
               FROM content.question_taxonomy_links qtl
@@ -129,7 +132,7 @@ async function validateStoredTest(
   if (Number(row.sectionCount) < 1) issues.push("at least one section is required");
   if (Number(row.questionCount) < 1) issues.push("at least one question is required");
   if (Number(row.invalidQuestionCount) > 0) {
-    issues.push(`${Number(row.invalidQuestionCount)} question selection(s) are unpublished, mismatched, or missing taxonomy`);
+    issues.push(`${Number(row.invalidQuestionCount)} question selection(s) use an unpublished or ineligible question version, or are missing taxonomy`);
   }
   if (issues.length > 0) {
     throw Object.assign(new Error(`Test is not ready: ${issues.join("; ")}`), {
