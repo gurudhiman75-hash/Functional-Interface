@@ -268,6 +268,9 @@ export function validateTestDraftShape(input: NormalizedTestDraftInput): TestVal
   }
 
   const timedSections = input.sections.filter((section) => section.durationMinutes != null);
+  if (timedSections.length > 0 && timedSections.length < input.sections.length) {
+    issues.push({ code: "STRUCTURE_SECTION_TIME_REQUIRED", message: "Enter a time for every section or use the shared timer" });
+  }
   if (timedSections.length > 0) {
     const sectionDuration = timedSections.reduce((sum, section) => sum + Number(section.durationMinutes), 0);
     if (sectionDuration !== input.durationMinutes) {

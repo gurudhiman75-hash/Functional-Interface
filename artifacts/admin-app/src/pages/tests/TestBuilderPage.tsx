@@ -59,6 +59,7 @@ interface BuilderDraft {
   title: string;
   description: string;
   durationMinutes: number;
+  lockCompletedSections: boolean;
   totalMarks: number;
   marksPerQuestion: number;
   negativeMarks: number;
@@ -76,6 +77,7 @@ const freshDraft = (): BuilderDraft => ({
   title: '',
   description: '',
   durationMinutes: 60,
+  lockCompletedSections: false,
   totalMarks: 0,
   marksPerQuestion: 2,
   negativeMarks: 0.5,
@@ -112,6 +114,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     title: version.title,
     description: version.description ?? '',
     durationMinutes: version.durationSeconds / 60,
+    lockCompletedSections: settings.lockCompletedSections === true,
     totalMarks: version.totalMarks,
     marksPerQuestion,
     negativeMarks,
@@ -215,6 +218,7 @@ export function TestBuilderPage() {
       issues.push({ code: 'MARKS_MISMATCH', message: `Selected questions total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
     }
     const timed = draft.sections.filter((section) => section.durationMinutes !== '');
+    if (timed.length > 0 && timed.length < draft.sections.length) issues.push({ code: 'SECTION_TIME_REQUIRED', message: 'Enter a time for every section or use the shared timer.' });
     if (timed.length > 0) {
       const total = timed.reduce((sum, section) => sum + Number(section.durationMinutes || 0), 0);
       if (total !== draft.durationMinutes) issues.push({ code: 'DURATION_MISMATCH', message: `Section durations total ${total} minutes, while test duration is ${draft.durationMinutes}.` });
@@ -273,6 +277,7 @@ export function TestBuilderPage() {
       languageCode: draft.languageCode,
       access: draft.access,
       difficulty: draft.difficulty,
+      lockCompletedSections: draft.lockCompletedSections,
       sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
       navigationRules: { switchSections: true, markForReview: true },
     },
@@ -364,7 +369,7 @@ export function TestBuilderPage() {
       <Tabs defaultValue="details" className="space-y-4">
         <TabsList className="flex h-auto flex-wrap justify-start">
           <TabsTrigger value="details">Basic info</TabsTrigger>
-          <TabsTrigger value="sections">Sections</TabsTrigger>
+          <TabsTrigger value="sections">Sections &amp; timing</TabsTrigger>
           <TabsTrigger value="questions">Published questions</TabsTrigger>
           <TabsTrigger value="validation">Validation</TabsTrigger>
           <TabsTrigger value="preview"><Eye className="mr-1.5 h-4 w-4" /> Preview</TabsTrigger>
@@ -381,7 +386,16 @@ export function TestBuilderPage() {
         </TabsContent>
 
         <TabsContent value="sections">
-          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Duration (optional)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
+          <Card className="mb-4"><CardContent className="space-y-2 pt-5">
+            <label className="flex items-center gap-2 text-sm font-medium">
+              <Checkbox checked={draft.lockCompletedSections} onCheckedChange={(checked) =>
+                setDraft((current) => ({ ...current, lockCompletedSections: checked === true }))
+              } />
+              Lock completed sections
+            </label>
+            <p className="text-sm text-muted-foreground">In exam mode, students cannot return to an earlier section after moving on. Enter minutes for every section to use separate timers, or leave them blank for one shared timer.</p>
+          </CardContent></Card>
+          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Section time (minutes)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
         </TabsContent>
 
         <TabsContent value="questions">
