@@ -209,6 +209,7 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
           key:String.fromCharCode(65+index),text:value,sortOrder:index+1,
         }));
         const quality=evaluateTranslationQuality({
+          allowIndependentExplanation: true,
           source:{stem:result.source.stem,explanation:result.source.explanation,
             options:asOptions(result.source.options)},
           target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
@@ -242,8 +243,8 @@ router.post(itemPath+"/:language/decision",requireAdminPermission("content.gener
 });
 
 
-function abortNativeReview(code:string, details?:unknown):never {
-  throw Object.assign(new Error(code),{nativeReviewCode:code,nativeReviewDetails:details});
+function abortNativeReview(code:string, details?:unknown,http=409):never {
+  throw Object.assign(new Error(code),{nativeReviewCode:code,nativeReviewDetails:details,nativeReviewHttp:http});
 }
 
 /** One atomic editorial decision across any subset of generated languages.
@@ -267,314 +268,391 @@ router.post(itemPath+"/approve-languages",requireAdminPermission("content.genera
     res.status(400).json({code:"NATIVE_APPROVE_INVALID_REQUEST"});return;
   }
   try {
-    const result=await sourceFor(itemId,version);
-    if("code" in result){res.status(result.http).json({code:result.code});return;}
-    const {listQuestionStudioPackages}=await import("../question-studio/engine-registry");
-    const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===result.payload.packageId);
-    if(!pkg||!selected.every(x=>pkg.supportedLanguages.includes(x))){
-      res.status(422).json({code:"NATIVE_APPROVE_UNSUPPORTED_LANGUAGE"});return;
-    }
-    // A persisted generator-verified snapshot avoids any expensive work.
-    // Legacy questions are reconstructed once on demand using the same
-    // immutable CP/QL/seed. No machine translation or alternate question.
-    const embedded=readPersistedNativeSnapshot(result.payload);
-    const precomputed:Record<string,{stem:string;explanation:string;options:string[];correctIndex:number}>={};
-    const existingRows=await sqlClient`
-      SELECT language_code AS language
-      FROM content.question_studio_native_locales
-      WHERE source_generation_version_id=${result.sourceVersionId}::uuid`;
-    const hasSaved=new Set(existingRows.map(row=>String(row.language)));
-    for(const language of selected as ("hi"|"pa")[]){
-      // Manually edited drafts already carry their content in Neon. Do not
-      // call an old native engine when English was deliberately revised.
-      if(hasSaved.has(language))continue;
-      const v=embedded?.variants.find(v=>v.language===language);
-      if(v?.status==="verified"){
-        precomputed[language]={stem:v.stem,explanation:v.explanation,options:v.options,correctIndex:v.correctIndex};
-      }else if(!embedded){
-        const {nativeLocalizedQuestion,assertNativeLocalizedAnswerParity}=await import("../question-studio/native-linked-localization");
-        try {
-          const native=await nativeLocalizedQuestion(result.payload,language);
-          assertNativeLocalizedAnswerParity(result.source,native);
-          precomputed[language]=native;
-        }catch {
-          res.status(409).json({code:"NATIVE_APPROVE_GENERATION_BLOCKED",language});return;
-        }
-      }
-    }
-    const asOptions=(values:string[]):TranslationOptionInput[]=>values.map((value,index)=>({
-      key:String.fromCharCode(65+index),text:value,sortOrder:index+1,
-    }));
-    const approved=await sqlClient.begin(async tx=>{
-      const sourceRows=await tx`
-        SELECT i.current_version_number AS version,i.status::text AS status,
-          v.id::text AS "sourceVersionId"
-        FROM content.generation_run_items i
-        JOIN content.generation_item_versions v ON v.generation_item_id=i.id
-          AND v.version_number=i.current_version_number
-        WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
-      const src=sourceRows[0];
-      if(!src||Number(src.version)!==version||src.sourceVersionId!==result.sourceVersionId)
-        abortNativeReview("NATIVE_APPROVE_SOURCE_CHANGED");
-      if(src.status!=="approved")
-        abortNativeReview("NATIVE_APPROVE_ENGLISH_FIRST");
-      const outcome:Array<{language:string;status:string;revision:number}>=[];
-      for(const language of selected as ("hi"|"pa")[]){
-        const rows=await tx`
-          SELECT id::text AS id,revision,status,stem,explanation,options,
-                 correct_index AS "correctIndex",editor_user_id::text AS "editorUserId"
-          FROM content.question_studio_native_locales
-          WHERE source_generation_version_id=${result.sourceVersionId}::uuid
-            AND language_code=${language} FOR UPDATE`;
-        const old=rows[0];
-        const expected=Number(revisions[language]);
-        if((old?Number(old.revision):0)!==expected)
-          abortNativeReview("NATIVE_APPROVE_REVISION_CHANGED");
-        if(old?.status==="approved"){
-          outcome.push({language,status:"approved",revision:Number(old.revision)});
-          continue;
-        }
-        if(old?.status==="needs_fix")
-          abortNativeReview("NATIVE_APPROVE_FIX_REQUIRED");
-        const q=old?{stem:String(old.stem),explanation:String(old.explanation),
-          options:old.options as string[],correctIndex:Number(old.correctIndex)}
-          :precomputed[language];
-        if(!q||!validQuestion(q)||q.correctIndex!==result.source.correctIndex||
-           q.options.length!==result.source.options.length)
-          abortNativeReview("NATIVE_APPROVE_ANSWER_MAPPING_CHANGED");
-        const quality=evaluateTranslationQuality({
-          source:{stem:result.source.stem,explanation:result.source.explanation,
-            options:asOptions(result.source.options)},
-          target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
-          languageCode:language,
-        });
-        if(!quality.approvable)abortNativeReview("NATIVE_APPROVE_QUALITY_BLOCKED",{
-          language,issues:quality.issues.filter(issue=>issue.severity==="error").map(issue=>({
-            code:issue.code,field:issue.field,message:issue.message,
-          })),
-        });
-        let nativeId:string;
-        let newRevision:number;
-        if(old){
-          // An actual human edit requires a different reviewer. The machine
-          // generated no-edit draft is distinguishable by its audited origin.
-          if(String(old.editorUserId)===actor){
-            const audit=await tx`
-              SELECT snapshot->>'machineGenerated' AS "machineGenerated"
-              FROM content.question_studio_native_locale_events
-              WHERE native_locale_id=${String(old.id)}::uuid
-              ORDER BY created_at DESC,id DESC LIMIT 1`;
-            if(audit[0]?.machineGenerated!=="true")
-              abortNativeReview("NATIVE_APPROVE_SELF_REVIEW_BLOCKED");
-          }
-          const updated=await tx`
-            UPDATE content.question_studio_native_locales
-            SET status='approved',revision=revision+1,reviewer_user_id=${actor}::uuid,
-                reviewed_at=now(),updated_at=now()
-            WHERE id=${String(old.id)}::uuid RETURNING revision`;
-          nativeId=String(old.id);
-          newRevision=Number(updated[0]!.revision);
-        }else{
-          const inserted=await tx`
-            INSERT INTO content.question_studio_native_locales
-              (source_generation_version_id,language_code,stem,explanation,
-                options,correct_index,status,change_reason,editor_user_id,
-                reviewer_user_id,reviewed_at)
-            VALUES(${result.sourceVersionId}::uuid,${language},${q.stem},
-              ${q.explanation},${JSON.stringify(q.options)}::jsonb,${q.correctIndex},
-              'approved','Native machine-generated snapshot',${actor}::uuid,${actor}::uuid,now())
-            ON CONFLICT (source_generation_version_id,language_code) DO NOTHING
-            RETURNING id::text AS id,revision`;
-          if(!inserted[0])abortNativeReview("NATIVE_APPROVE_CONCURRENT_EDIT");
-          nativeId=String(inserted[0].id);
-          newRevision=Number(inserted[0].revision);
-        }
-        await tx`
-          INSERT INTO content.question_studio_native_locale_events
-            (native_locale_id,revision,action,actor_user_id,reason,snapshot)
-          VALUES(${nativeId}::uuid,${newRevision},'approve',${actor}::uuid,${reason},
-            ${JSON.stringify({language,...q,status:"approved",machineGenerated:!old,quality})}::jsonb)`;
-        outcome.push({language,status:"approved",revision:newRevision});
-      }
-      return {approved:outcome,englishStatus:"approved"};
-    });
-    res.json(approved);
+    res.json(await approveNativeLanguages(itemId, version, reason, actor, selected, revisions));
   }catch(error){
     if(error && typeof error==="object" && "nativeReviewCode" in error){
-      res.status(409).json({code:String(error.nativeReviewCode),
-        details:"nativeReviewDetails" in error?error.nativeReviewDetails:null});return;
+      const code=String(error.nativeReviewCode);
+      const details="nativeReviewDetails" in error?error.nativeReviewDetails:null;
+      const http="nativeReviewHttp" in error ? Number(error.nativeReviewHttp) : 409;
+      const payload=code==="NATIVE_APPROVE_GENERATION_BLOCKED"
+        ? {code, ...(details as {language: Locale})}
+        : http===409 ? {code,details:details??null} : {code};
+      res.status(http).json(payload);return;
     }
     console.error("Native grouped approval failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_APPROVE_UNAVAILABLE"});
   }
 });
-/** Explicit promotion to the existing Question Bank translation review queue.
- * Not a publish operation: creates DRAFT canonical translations only. Both
- * independent editorial approvals must exist, and canonical English must
- * already have been accepted as the same immutable source version. */
-router.post(itemPath+"/promote",requireAdminPermission("content.translations.review"),async(req,res)=>{
+async function approveNativeLanguages(
+  itemId:string, version:number, reason:string, actor:string, selected:Locale[],
+  revisions?:Record<string,unknown>,
+) {
+  const result=await sourceFor(itemId,version);
+  if("code" in result) abortNativeReview(result.code,undefined,result.http);
+  const {listQuestionStudioPackages}=await import("../question-studio/engine-registry");
+  const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===result.payload.packageId);
+  if(!pkg||!selected.every(x=>pkg.supportedLanguages.includes(x))){
+    abortNativeReview("NATIVE_APPROVE_UNSUPPORTED_LANGUAGE",undefined,422);
+  }
+  // A persisted generator-verified snapshot avoids any expensive work.
+  // Legacy questions are reconstructed once on demand using the same
+  // immutable CP/QL/seed. No machine translation or alternate question.
+  const embedded=readPersistedNativeSnapshot(result.payload);
+  const precomputed:Record<string,{stem:string;explanation:string;options:string[];correctIndex:number}>={};
+  const existingRows=await sqlClient`
+    SELECT language_code AS language, revision, status
+    FROM content.question_studio_native_locales
+    WHERE source_generation_version_id=${result.sourceVersionId}::uuid`;
+  if (!revisions && existingRows.some(row=>selected.includes(row.language as Locale) && row.status!=="approved"))
+    abortNativeReview("NATIVE_APPROVE_SAVED_EDIT_REQUIRES_REVIEW");
+  const expectedRevisions=revisions ?? Object.fromEntries(existingRows.map(row=>[String(row.language),Number(row.revision)]));
+  const hasSaved=new Set(existingRows.map(row=>String(row.language)));
+  for(const language of selected as ("hi"|"pa")[]){
+    // Manually edited drafts already carry their content in Neon. Do not
+    // call an old native engine when English was deliberately revised.
+    if(hasSaved.has(language))continue;
+    const v=embedded?.variants.find(v=>v.language===language);
+    if(v?.status==="verified"){
+      precomputed[language]={stem:v.stem,explanation:v.explanation,options:v.options,correctIndex:v.correctIndex};
+    }else if(!embedded){
+      const {nativeLocalizedQuestion,assertNativeLocalizedAnswerParity}=await import("../question-studio/native-linked-localization");
+      try {
+        const native=await nativeLocalizedQuestion(result.payload,language);
+        assertNativeLocalizedAnswerParity(result.source,native);
+        precomputed[language]=native;
+      }catch {
+        abortNativeReview("NATIVE_APPROVE_GENERATION_BLOCKED",{language});
+      }
+    }
+  }
+  const asOptions=(values:string[]):TranslationOptionInput[]=>values.map((value,index)=>({
+    key:String.fromCharCode(65+index),text:value,sortOrder:index+1,
+  }));
+  return sqlClient.begin(async tx=>{
+    const sourceRows=await tx`
+      SELECT i.current_version_number AS version,i.status::text AS status,
+        v.id::text AS "sourceVersionId"
+      FROM content.generation_run_items i
+      JOIN content.generation_item_versions v ON v.generation_item_id=i.id
+        AND v.version_number=i.current_version_number
+      WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
+    const src=sourceRows[0];
+    if(!src||Number(src.version)!==version||src.sourceVersionId!==result.sourceVersionId)
+      abortNativeReview("NATIVE_APPROVE_SOURCE_CHANGED");
+    if(src.status!=="approved")
+      abortNativeReview("NATIVE_APPROVE_ENGLISH_FIRST");
+    const outcome:Array<{language:string;status:string;revision:number}>=[];
+    for(const language of selected as ("hi"|"pa")[]){
+      const rows=await tx`
+        SELECT id::text AS id,revision,status,stem,explanation,options,
+               correct_index AS "correctIndex",editor_user_id::text AS "editorUserId"
+        FROM content.question_studio_native_locales
+        WHERE source_generation_version_id=${result.sourceVersionId}::uuid
+          AND language_code=${language} FOR UPDATE`;
+      const old=rows[0];
+      const expected=Number(expectedRevisions[language] ?? 0);
+      if((old?Number(old.revision):0)!==expected)
+        abortNativeReview("NATIVE_APPROVE_REVISION_CHANGED");
+      if(old?.status==="approved"){
+        outcome.push({language,status:"approved",revision:Number(old.revision)});
+        continue;
+      }
+      if(old?.status==="needs_fix")
+        abortNativeReview("NATIVE_APPROVE_FIX_REQUIRED");
+      const q=old?{stem:String(old.stem),explanation:String(old.explanation),
+        options:old.options as string[],correctIndex:Number(old.correctIndex)}
+        :precomputed[language];
+      if(!q||!validQuestion(q)||q.correctIndex!==result.source.correctIndex||
+         q.options.length!==result.source.options.length)
+        abortNativeReview("NATIVE_APPROVE_ANSWER_MAPPING_CHANGED");
+      const quality=evaluateTranslationQuality({
+        allowIndependentExplanation: true,
+        source:{stem:result.source.stem,explanation:result.source.explanation,
+          options:asOptions(result.source.options)},
+        target:{stem:q.stem,explanation:q.explanation,options:asOptions(q.options)},
+        languageCode:language,
+      });
+      if(!quality.approvable)abortNativeReview("NATIVE_APPROVE_QUALITY_BLOCKED",{
+        language,issues:quality.issues.filter(issue=>issue.severity==="error").map(issue=>({
+          code:issue.code,field:issue.field,message:issue.message,
+        })),
+      });
+      let nativeId:string;
+      let newRevision:number;
+      if(old){
+        // An actual human edit requires a different reviewer. The machine
+        // generated no-edit draft is distinguishable by its audited origin.
+        if(String(old.editorUserId)===actor){
+          const audit=await tx`
+            SELECT snapshot->>'machineGenerated' AS "machineGenerated"
+            FROM content.question_studio_native_locale_events
+            WHERE native_locale_id=${String(old.id)}::uuid
+            ORDER BY created_at DESC,id DESC LIMIT 1`;
+          if(audit[0]?.machineGenerated!=="true")
+            abortNativeReview("NATIVE_APPROVE_SELF_REVIEW_BLOCKED");
+        }
+        const updated=await tx`
+          UPDATE content.question_studio_native_locales
+          SET status='approved',revision=revision+1,reviewer_user_id=${actor}::uuid,
+              reviewed_at=now(),updated_at=now()
+          WHERE id=${String(old.id)}::uuid RETURNING revision`;
+        nativeId=String(old.id);
+        newRevision=Number(updated[0]!.revision);
+      }else{
+        const inserted=await tx`
+          INSERT INTO content.question_studio_native_locales
+            (source_generation_version_id,language_code,stem,explanation,
+              options,correct_index,status,change_reason,editor_user_id,
+              reviewer_user_id,reviewed_at)
+          VALUES(${result.sourceVersionId}::uuid,${language},${q.stem},
+            ${q.explanation},${JSON.stringify(q.options)}::jsonb,${q.correctIndex},
+            'approved','Native machine-generated snapshot',${actor}::uuid,${actor}::uuid,now())
+          ON CONFLICT (source_generation_version_id,language_code) DO NOTHING
+          RETURNING id::text AS id,revision`;
+        if(!inserted[0])abortNativeReview("NATIVE_APPROVE_CONCURRENT_EDIT");
+        nativeId=String(inserted[0].id);
+        newRevision=Number(inserted[0].revision);
+      }
+      await tx`
+        INSERT INTO content.question_studio_native_locale_events
+          (native_locale_id,revision,action,actor_user_id,reason,snapshot)
+        VALUES(${nativeId}::uuid,${newRevision},'approve',${actor}::uuid,${reason},
+          ${JSON.stringify({language,...q,status:"approved",machineGenerated:!old,quality})}::jsonb)`;
+      outcome.push({language,status:"approved",revision:newRevision});
+    }
+    return {approved:outcome,englishStatus:"approved"};
+  });
+}
+
+/** Carry approved Studio revisions to the same immutable English bank version.
+ * Regular promotion creates drafts. Batch acceptance preserves editorial
+ * decisions and applies the Question Bank translation quality gate. */
+router.post([itemPath+"/promote",itemPath+"/accept-approved"],requireAdminPermission("content.translations.review"),async(req,res)=>{
   res.setHeader("Cache-Control","private, no-store");
   const itemId=text(req.params.itemId),body=req.body as Record<string,unknown>|undefined;
   const version=Number(body?.expectedVersion),reason=text(body?.reason),userId=req.adminSession?.user.id;
   const revisions=body?.revisions as Record<string,unknown>|undefined;
-  const hi=Number(revisions?.hi),pa=Number(revisions?.pa);
+  const acceptApprovedLocales=req.path.endsWith("/accept-approved");
+  const locales: unknown = acceptApprovedLocales ? body?.languages : ["hi","pa"];
   if(!userId||!UUID.test(itemId)||!Number.isInteger(version)||version<1||
-    !Number.isInteger(hi)||hi<1||!Number.isInteger(pa)||pa<1||
+    !Array.isArray(locales)||locales.length<1||locales.length>2||new Set(locales).size!==locales.length||
+    !locales.every(locale=>(locale==="hi"||locale==="pa")&&
+      Number.isInteger(Number(revisions?.[locale]))&&Number(revisions?.[locale])>0)||
     reason.length<8||reason.length>2000){
     res.status(400).json({code:"NATIVE_PROMOTION_INVALID_REQUEST"});return;
   }
   try {
-    const source=await sourceFor(itemId,version);
-    if('code' in source){res.status(source.http).json({code:source.code});return;}
-    const outcome=await sqlClient.begin(async tx=>{
-      const items=await tx`SELECT i.status::text AS status,
-           i.current_version_number AS version,
-           i.accepted_question_id::text AS "questionId",
-           i.accepted_question_version_id::text AS "questionVersionId",
-           v.id::text AS "generationVersionId"
-        FROM content.generation_run_items i
-        JOIN content.generation_item_versions v ON v.generation_item_id=i.id
-          AND v.version_number=i.current_version_number
-        WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
-      const item=items[0];
-      if(!item || Number(item.version)!==version ||
-         String(item.generationVersionId)!==source.sourceVersionId) abortNativeReview("NATIVE_PROMOTION_SOURCE_CHANGED");
-      if(item.status!=="approved"||!item.questionVersionId||!item.questionId)
-        abortNativeReview("NATIVE_PROMOTION_ENGLISH_NOT_ACCEPTED");
-      await tx`SELECT id FROM content.questions WHERE id=${String(item.questionId)}::uuid FOR UPDATE`;
-      const bank=await tx`SELECT q.id::text AS "questionId",q.status::text AS status,
-            q.approved_version_id::text AS "approvedVersionId",
-            q.published_version_id::text AS "publishedVersionId",
-            v.id::text AS "versionId",v.stem,v.explanation,
-            v.exam_version_id::text AS "examVersionId",
-            v.answer_model->'generation'->>'language' AS "sourceLanguage",
-            v.answer_model->'generation'->>'questionBankAcceptanceMode' AS "bankAcceptanceMode",
-            q.primary_taxonomy_node_id::text AS "taxonomyNodeId",
-            COALESCE(json_agg(json_build_object('key',o.option_key,'text',o.text,
-              'sortOrder',o.sort_order,'isCorrect',o.is_correct) ORDER BY o.sort_order)
-              FILTER (WHERE o.id IS NOT NULL),'[]'::json) AS options
-          FROM content.questions q JOIN content.question_versions v ON v.question_id=q.id
-          LEFT JOIN content.question_options o ON o.question_version_id=v.id
-          WHERE q.id=${String(item.questionId)}::uuid
-            AND v.id=${String(item.questionVersionId)}::uuid AND q.deleted_at IS NULL
-          GROUP BY q.id,v.id`;
-      const b=bank[0];
-      if(!b||!["approved","published"].includes(String(b.status))||
-         ![b.approvedVersionId,b.publishedVersionId].includes(item.questionVersionId))
-        abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_NOT_APPROVED");
-      const sourceOptions=source.source.options;
-      const bankOptions=Array.isArray(b.options)?b.options as Array<Record<string,unknown>>:[];
-      if(text(b.sourceLanguage)&&b.sourceLanguage!=="en" ||
-         text(b.stem)!==source.source.stem || text(b.explanation)!==source.source.explanation ||
-         bankOptions.length!==sourceOptions.length ||
-         bankOptions.some((o,index)=>text(o.text)!==sourceOptions[index] ||
-           Boolean(o.isCorrect)!==(index===source.source.correctIndex) ||
-           text(o.key)!==String.fromCharCode(65+index)))
-        abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_PARITY_FAILED");
-      if(!b.examVersionId && b.bankAcceptanceMode!=="BANK_ONLY")
-        abortNativeReview("NATIVE_PROMOTION_BANK_TAXONOMY_REQUIRED");
-
-      const drafts=await tx`SELECT id::text AS id,language_code AS language,
-          stem,explanation,options,correct_index AS "correctIndex",revision,status,
-          editor_user_id::text AS "editorUserId",reviewer_user_id::text AS "reviewerUserId"
-        FROM content.question_studio_native_locales
-        WHERE source_generation_version_id=${source.sourceVersionId}::uuid
-          AND language_code IN ('hi','pa')
-        ORDER BY language_code FOR UPDATE`;
-      if(drafts.length!==2 || drafts.some(d=>d.status!=="approved" ||
-          Number(d.revision)!==(d.language==="hi"?hi:pa) ||
-          !d.reviewerUserId || d.correctIndex!==source.source.correctIndex ||
-          !Array.isArray(d.options)||d.options.length!==sourceOptions.length))
-        abortNativeReview("NATIVE_PROMOTION_LOCALES_NOT_APPROVED");
-      const machineAuthored=new Set<string>();
-      for(const d of drafts) {
-        if(d.editorUserId!==d.reviewerUserId)continue;
-        // Generated language content has no human translator. Only a
-        // machine-origin audit event for this exact approved revision
-        // qualifies; manually edited self-reviews never qualify.
-        const events=await tx`
-          SELECT snapshot->>'machineGenerated' AS "machineGenerated",revision
-          FROM content.question_studio_native_locale_events
-          WHERE native_locale_id=${String(d.id)}::uuid AND action='approve'
-          ORDER BY created_at DESC,id DESC LIMIT 1`;
-        if(events[0]?.machineGenerated!=="true" ||
-           Number(events[0]?.revision)!==Number(d.revision))
-          abortNativeReview("NATIVE_PROMOTION_SELF_REVIEW_BLOCKED");
-        machineAuthored.add(String(d.language));
-      }
-
-      const result:Record<string,string>={};
-      for(const d of drafts){
-        const language=String(d.language);
-        const languageRows=b.examVersionId ? await tx`
-          SELECT l.id::text AS id FROM catalog.languages l
-          JOIN catalog.exam_version_languages evl ON evl.language_id=l.id
-          WHERE lower(l.code)=${language} AND l.is_active=true
-            AND evl.exam_version_id=${String(b.examVersionId)}::uuid LIMIT 1` : await tx`
-          SELECT l.id::text AS id FROM catalog.languages l
-          WHERE lower(l.code)=${language} AND l.is_active=true LIMIT 1`;
-        const languageId=String(languageRows[0]?.id??"");
-        if(!languageId) abortNativeReview("NATIVE_PROMOTION_LANGUAGE_NOT_ALLOWED");
-        const existing=await tx`SELECT id::text AS id FROM content.question_translations
-          WHERE question_version_id=${String(b.versionId)}::uuid
-            AND language_id=${languageId}::uuid FOR UPDATE`;
-        // Never replace an existing translation or its review history.
-        if(existing.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
-        const options=(d.options as string[]).map((option,index)=>({
-          key:String.fromCharCode(65+index),text:String(option),sortOrder:index+1,
-        }));
-        const baseOptions=sourceOptions.map((option,index)=>({
-          key:String.fromCharCode(65+index),text:option,sortOrder:index+1,
-        }));
-        const termRows=await tx`SELECT source_text AS "sourceText",
-          preferred_text AS "preferredText",forbidden_variants AS "forbiddenVariants"
-          FROM content.translation_terms
-          WHERE language_id=${languageId}::uuid AND is_active=true
-            AND (scope_taxonomy_node_id IS NULL OR scope_taxonomy_node_id=${b.taxonomyNodeId??null}::uuid)`;
-        const quality=evaluateTranslationQuality({
-          source:{stem:source.source.stem,explanation:source.source.explanation,options:baseOptions},
-          target:{stem:String(d.stem),explanation:String(d.explanation),options},
-          languageCode:language,
-          terms:termRows.map(t=>({
-            sourceText:String(t.sourceText),preferredText:String(t.preferredText),
-            forbiddenVariants:Array.isArray(t.forbiddenVariants)?t.forbiddenVariants.map(String):[],
-          })),
-        });
-        if(!quality.approvable) abortNativeReview("NATIVE_PROMOTION_QUALITY_BLOCKED");
-        const inserted=await tx`
-          INSERT INTO content.question_translations
-            (question_version_id,language_id,stem,explanation,status,translator_user_id,
-              reviewer_user_id,quality_snapshot)
-          VALUES(${String(b.versionId)}::uuid,${languageId}::uuid,${String(d.stem)},
-            ${String(d.explanation)},'draft',
-            ${machineAuthored.has(language)?null:String(d.editorUserId)}::uuid,
-            NULL,${JSON.stringify(quality)}::jsonb)
-          ON CONFLICT (question_version_id,language_id) DO NOTHING RETURNING id::text AS id`;
-        if(!inserted.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
-        const translationId=String(inserted[0]!.id);
-        for(const option of options) await tx`
-          INSERT INTO content.question_translation_options
-            (question_translation_id,option_key,text,sort_order)
-          VALUES(${translationId}::uuid,${option.key},${option.text},${option.sortOrder})`;
-        await tx`INSERT INTO content.question_studio_native_locale_events
-          (native_locale_id,revision,action,actor_user_id,reason,snapshot)
-          VALUES(${String(d.id)}::uuid,${Number(d.revision)},'send_to_bank_review',
-            ${userId}::uuid,${reason},
-            ${JSON.stringify({translationId,questionVersionId:b.versionId,language,quality})}::jsonb)`;
-        result[language]=translationId;
-      }
-      return {translations:result,questionVersionId:String(b.versionId),status:"draft"};
-    });
-    res.json(outcome);
+    res.json(await promoteNativeLanguages(itemId, version, reason, userId, locales, revisions, acceptApprovedLocales));
   }catch(error){
     if(error && typeof error==="object" && "nativeReviewCode" in error){
-      res.status(409).json({code:String(error.nativeReviewCode),
+      res.status("nativeReviewHttp" in error ? Number(error.nativeReviewHttp) : 409).json({code:String(error.nativeReviewCode),
         details:"nativeReviewDetails" in error?error.nativeReviewDetails:null});return;
     }
     console.error("Native translation promotion failed",error instanceof Error?error.message:"unknown");
     res.status(500).json({code:"NATIVE_PROMOTION_UNAVAILABLE"});
   }
 });
+
+async function promoteNativeLanguages(
+  itemId:string, version:number, reason:string, userId:string, locales:Locale[],
+  revisions:Record<string,unknown>|undefined, acceptApprovedLocales:boolean,
+) {
+  const bankStatus=acceptApprovedLocales?"approved":"draft";
+  const source=await sourceFor(itemId,version);
+  if('code' in source) abortNativeReview(source.code,undefined,source.http);
+  return sqlClient.begin(async tx=>{
+    const items=await tx`SELECT i.status::text AS status,
+         i.current_version_number AS version,
+         i.accepted_question_id::text AS "questionId",
+         i.accepted_question_version_id::text AS "questionVersionId",
+         v.id::text AS "generationVersionId"
+      FROM content.generation_run_items i
+      JOIN content.generation_item_versions v ON v.generation_item_id=i.id
+        AND v.version_number=i.current_version_number
+      WHERE i.id=${itemId}::uuid FOR UPDATE OF i`;
+    const item=items[0];
+    if(!item || Number(item.version)!==version ||
+       String(item.generationVersionId)!==source.sourceVersionId) abortNativeReview("NATIVE_PROMOTION_SOURCE_CHANGED");
+    if(item.status!=="approved"||!item.questionVersionId||!item.questionId)
+      abortNativeReview("NATIVE_PROMOTION_ENGLISH_NOT_ACCEPTED");
+    await tx`SELECT id FROM content.questions WHERE id=${String(item.questionId)}::uuid FOR UPDATE`;
+    const bank=await tx`SELECT q.id::text AS "questionId",q.status::text AS status,
+          q.approved_version_id::text AS "approvedVersionId",
+          q.published_version_id::text AS "publishedVersionId",
+          v.id::text AS "versionId",v.stem,v.explanation,
+          v.exam_version_id::text AS "examVersionId",
+          v.answer_model->'generation'->>'language' AS "sourceLanguage",
+          v.answer_model->'generation'->>'questionBankAcceptanceMode' AS "bankAcceptanceMode",
+          q.primary_taxonomy_node_id::text AS "taxonomyNodeId",
+          COALESCE(json_agg(json_build_object('key',o.option_key,'text',o.text,
+            'sortOrder',o.sort_order,'isCorrect',o.is_correct) ORDER BY o.sort_order)
+            FILTER (WHERE o.id IS NOT NULL),'[]'::json) AS options
+        FROM content.questions q JOIN content.question_versions v ON v.question_id=q.id
+        LEFT JOIN content.question_options o ON o.question_version_id=v.id
+        WHERE q.id=${String(item.questionId)}::uuid
+          AND v.id=${String(item.questionVersionId)}::uuid AND q.deleted_at IS NULL
+        GROUP BY q.id,v.id`;
+    const b=bank[0];
+    if(!b||!["approved","published"].includes(String(b.status))||
+       ![b.approvedVersionId,b.publishedVersionId].includes(item.questionVersionId))
+      abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_NOT_APPROVED");
+    const sourceOptions=source.source.options;
+    const bankOptions=Array.isArray(b.options)?b.options as Array<Record<string,unknown>>:[];
+    if(text(b.sourceLanguage)&&b.sourceLanguage!=="en" ||
+       text(b.stem)!==source.source.stem || text(b.explanation)!==source.source.explanation ||
+       bankOptions.length!==sourceOptions.length ||
+       bankOptions.some((o,index)=>text(o.text)!==sourceOptions[index] ||
+         Boolean(o.isCorrect)!==(index===source.source.correctIndex) ||
+         text(o.key)!==String.fromCharCode(65+index)))
+      abortNativeReview("NATIVE_PROMOTION_BANK_SOURCE_PARITY_FAILED");
+    if(!b.examVersionId && b.bankAcceptanceMode!=="BANK_ONLY")
+      abortNativeReview("NATIVE_PROMOTION_BANK_TAXONOMY_REQUIRED");
+
+    const drafts=await tx`SELECT id::text AS id,language_code AS language,
+        stem,explanation,options,correct_index AS "correctIndex",revision,status,
+        editor_user_id::text AS "editorUserId",reviewer_user_id::text AS "reviewerUserId"
+      FROM content.question_studio_native_locales
+      WHERE source_generation_version_id=${source.sourceVersionId}::uuid
+        AND language_code = ANY(${locales}::text[])
+      ORDER BY language_code FOR UPDATE`;
+    if(drafts.length!==locales.length || drafts.some(d=>d.status!=="approved" ||
+        Number(d.revision)!==Number(revisions?.[String(d.language)]) ||
+        !d.reviewerUserId || d.correctIndex!==source.source.correctIndex ||
+        !Array.isArray(d.options)||d.options.length!==sourceOptions.length))
+      abortNativeReview("NATIVE_PROMOTION_LOCALES_NOT_APPROVED");
+    const machineAuthored=new Set<string>();
+    for(const d of drafts) {
+      if(d.editorUserId!==d.reviewerUserId)continue;
+      // Generated language content has no human translator. Only a
+      // machine-origin audit event for this exact approved revision
+      // qualifies; manually edited self-reviews never qualify.
+      const events=await tx`
+        SELECT snapshot->>'machineGenerated' AS "machineGenerated",revision
+        FROM content.question_studio_native_locale_events
+        WHERE native_locale_id=${String(d.id)}::uuid AND action='approve'
+        ORDER BY created_at DESC,id DESC LIMIT 1`;
+      if(events[0]?.machineGenerated!=="true" ||
+         Number(events[0]?.revision)!==Number(d.revision))
+        abortNativeReview("NATIVE_PROMOTION_SELF_REVIEW_BLOCKED");
+      machineAuthored.add(String(d.language));
+    }
+
+    const result:Record<string,string>={};
+    for(const d of drafts){
+      const language=String(d.language);
+      const languageRows=b.examVersionId ? await tx`
+        SELECT l.id::text AS id FROM catalog.languages l
+        JOIN catalog.exam_version_languages evl ON evl.language_id=l.id
+        WHERE lower(l.code)=${language} AND l.is_active=true
+          AND evl.exam_version_id=${String(b.examVersionId)}::uuid LIMIT 1` : await tx`
+        SELECT l.id::text AS id FROM catalog.languages l
+        WHERE lower(l.code)=${language} AND l.is_active=true LIMIT 1`;
+      const languageId=String(languageRows[0]?.id??"");
+      if(!languageId) abortNativeReview("NATIVE_PROMOTION_LANGUAGE_NOT_ALLOWED");
+      const existing=await tx`SELECT id::text AS id,status FROM content.question_translations
+        WHERE question_version_id=${String(b.versionId)}::uuid
+          AND language_id=${languageId}::uuid FOR UPDATE`;
+      // Never replace an existing translation or its review history.
+      if(existing.length) {
+        if(acceptApprovedLocales && existing[0]?.status==="approved"){
+          const events=await tx`SELECT 1 FROM content.question_studio_native_locale_events
+            WHERE native_locale_id=${String(d.id)}::uuid AND revision=${Number(d.revision)}
+              AND action='send_to_bank_review' AND snapshot->>'translationId'=${String(existing[0].id)}
+              AND snapshot->>'bankStatus'='approved'`;
+          if(events.length){
+            result[language]=String(existing[0].id);
+            continue;
+          }
+        }
+        abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
+      }
+      if(acceptApprovedLocales && !machineAuthored.has(language) && d.editorUserId===userId)
+        abortNativeReview("NATIVE_PROMOTION_SELF_REVIEW_BLOCKED");
+      const options=(d.options as string[]).map((option,index)=>({
+        key:String.fromCharCode(65+index),text:String(option),sortOrder:index+1,
+      }));
+      const baseOptions=sourceOptions.map((option,index)=>({
+        key:String.fromCharCode(65+index),text:option,sortOrder:index+1,
+      }));
+      const termRows=await tx`SELECT source_text AS "sourceText",
+        preferred_text AS "preferredText",forbidden_variants AS "forbiddenVariants"
+        FROM content.translation_terms
+        WHERE language_id=${languageId}::uuid AND is_active=true
+          AND (scope_taxonomy_node_id IS NULL OR scope_taxonomy_node_id=${b.taxonomyNodeId??null}::uuid)`;
+      const quality=evaluateTranslationQuality({
+        allowIndependentExplanation: true,
+        source:{stem:source.source.stem,explanation:source.source.explanation,options:baseOptions},
+        target:{stem:String(d.stem),explanation:String(d.explanation),options},
+        languageCode:language,
+        terms:termRows.map(t=>({
+          sourceText:String(t.sourceText),preferredText:String(t.preferredText),
+          forbiddenVariants:Array.isArray(t.forbiddenVariants)?t.forbiddenVariants.map(String):[],
+        })),
+      });
+      if(!quality.approvable) abortNativeReview("NATIVE_PROMOTION_QUALITY_BLOCKED");
+      const inserted=await tx`
+        INSERT INTO content.question_translations
+          (question_version_id,language_id,stem,explanation,status,translator_user_id,
+            reviewer_user_id,reviewed_at,quality_snapshot)
+        VALUES(${String(b.versionId)}::uuid,${languageId}::uuid,${String(d.stem)},
+          ${String(d.explanation)},${bankStatus},
+          ${machineAuthored.has(language)?null:String(d.editorUserId)}::uuid,
+          ${acceptApprovedLocales?String(d.reviewerUserId):null}::uuid,
+          CASE WHEN ${acceptApprovedLocales} THEN now() ELSE NULL END,${JSON.stringify(quality)}::jsonb)
+        ON CONFLICT (question_version_id,language_id) DO NOTHING RETURNING id::text AS id`;
+      if(!inserted.length) abortNativeReview("NATIVE_PROMOTION_TRANSLATION_ALREADY_EXISTS");
+      const translationId=String(inserted[0]!.id);
+      for(const option of options) await tx`
+        INSERT INTO content.question_translation_options
+          (question_translation_id,option_key,text,sort_order)
+        VALUES(${translationId}::uuid,${option.key},${option.text},${option.sortOrder})`;
+      await tx`INSERT INTO content.question_studio_native_locale_events
+        (native_locale_id,revision,action,actor_user_id,reason,snapshot)
+        VALUES(${String(d.id)}::uuid,${Number(d.revision)},'send_to_bank_review',
+          ${userId}::uuid,${reason},
+          ${JSON.stringify({translationId,questionVersionId:b.versionId,language,quality,bankStatus})}::jsonb)`;
+      result[language]=translationId;
+    }
+    return {translations:result,questionVersionId:String(b.versionId),status:bankStatus};
+  });
+}
+
+router.post("/native-editorial/batch-accept",
+  requireAdminPermission("content.generation.read"),
+  requireAdminPermission("content.generation.review"),
+  requireAdminPermission("content.translations.review"),
+  async (req,res)=>{
+    res.setHeader("Cache-Control","private, no-store");
+    const actor=req.adminSession?.user.id;
+    const {items,languages}=req.body ?? {};
+    if (!actor || !Array.isArray(items) || items.length<1 || items.length>25 ||
+      !items.every(item=>item && typeof item.itemId==="string" && UUID.test(item.itemId) &&
+        Number.isSafeInteger(item.expectedVersion) && item.expectedVersion>0) ||
+      new Set(items.map(item=>item.itemId.toLowerCase())).size!==items.length ||
+      !Array.isArray(languages) || languages.length<1 || languages.length>2 ||
+      new Set(languages).size!==languages.length || !languages.every(locale=>locale==="hi" || locale==="pa")) {
+      res.status(400).json({code:"NATIVE_BATCH_INVALID_REQUEST"});return;
+    }
+    const reason="Bulk review approval for the current topic batch";
+    const results=[];
+    for (let offset=0;offset<items.length;offset+=4) {
+      results.push(...await Promise.all(items.slice(offset,offset+4).map(async ({itemId,expectedVersion})=>{
+        try {
+          const approval=await approveNativeLanguages(itemId,expectedVersion,reason,actor,languages);
+          const revisions=Object.fromEntries(approval.approved.map(locale=>[locale.language,locale.revision]));
+          await promoteNativeLanguages(itemId,expectedVersion,reason,actor,languages,revisions,true);
+          return {itemId,ok:true};
+        } catch (error) {
+          if (error && typeof error==="object" && "nativeReviewCode" in error)
+            return {itemId,ok:false,code:String(error.nativeReviewCode),details:"nativeReviewDetails" in error?error.nativeReviewDetails:null};
+          console.error("Native batch handoff failed",error instanceof Error?error.message:"unknown");
+          return {itemId,ok:false,code:"NATIVE_BATCH_UNAVAILABLE"};
+        }
+      })));
+    }
+    res.json({results});
+  },
+);
 
 // Read-only multilingual detail: Studio approval is distinct from Question Bank handoff.
 router.get("/bank-question/:questionId/languages",requireAdminPermission("content.generation.read"),async(req,res)=>{

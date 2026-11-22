@@ -197,6 +197,7 @@ export type TestLifecycleAction =
   | 'approve'
   | 'schedule'
   | 'publish'
+  | 'approve-publish'
   | 'archive'
   | 'restore-draft';
 

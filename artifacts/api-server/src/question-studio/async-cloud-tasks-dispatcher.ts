@@ -64,6 +64,15 @@ export async function runQuestionStudioTaskDispatchOnce(
       const {createProductionChapterSnapshotGuard} =
         await import("./prod-chapter-review-runtime.mjs");
       const guard = createProductionChapterSnapshotGuard(runId);
+      const nativeCanary = new URL(config.handlerUrl).hostname.startsWith("native---");
+      const snapshot = event.requestSnapshot as {count?:number;request?:{
+        engineId?:string;packageId?:string;language?:string;count?:number
+      }} | null;
+      if (nativeCanary && (snapshot?.count !== 1 || snapshot.request?.count !== 1 ||
+          snapshot.request.engineId !== "quant-v4" || snapshot.request.packageId !== "MAL-001" ||
+          snapshot.request.language !== "en")) {
+        throw new Error("QS_NATIVE_DISPATCH_CANARY_SCOPE_DENIED");
+      }
       if (runId !== chapterRunId ||
           payload?.runId !== runId || payload?.queueVersion !== 1 ||
           payload?.channel !== "chapter_review" ||

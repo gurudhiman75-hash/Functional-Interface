@@ -244,8 +244,13 @@ function VariantCard({ variant, draft, busy, englishApproved, editorialEnabled, 
 export function NativeLocaleReview({ item, supportedLanguages }: { item: QuestionStudioItem; supportedLanguages: readonly string[] }) {
   const available = hasRegisteredNativeLocales(item, supportedLanguages);
   const eligible = hasVerifiedNativeLocaleEngine(item, supportedLanguages);
-  const [snapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
+  const embedded = item.savedNativeReview;
+  const savedSnapshot = embedded?.itemId === item.id && embedded.version === item.currentVersionNumber ? embedded : null;
+  const [loadedSnapshot, setSnapshot] = useState<NativeReviewLocalizations | null>(null);
+  const snapshot = loadedSnapshot?.itemId === item.id && loadedSnapshot.version === item.currentVersionNumber
+    ? loadedSnapshot : savedSnapshot;
   const [drafts, setDrafts] = useState<NativeEditorialDraft[]>([]);
+  const [loadedEditorialToken, setLoadedEditorialToken] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [handoffReason, setHandoffReason] = useState('');
   const [handoffSuccess, setHandoffSuccess] = useState(false);
@@ -255,19 +260,21 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const [languageView, setLanguageView] = useState<'both'|'hi'|'pa'>('both');
   const [busy, setBusy] = useState(false);
   const token = item.id + ':' + item.currentVersionNumber;
-  // Once both native languages have approved persisted editorial records,
-  // their immutable content is already available. Do not re-run expensive
-  // native generators just to open an approved question.
+  const editorialReady = !EDITORIAL_ENABLED || loadedEditorialToken === token;
+  const bothApproved = (['hi', 'pa'] as const).every(language =>
+    drafts.some(draft => draft.language === language && draft.status === 'approved'));
   useEffect(() => {
     if (!eligible) return;
     let live=true;
     setSnapshot(null);
     setDrafts([]);
+    setLoadedEditorialToken(null);
     setError(null);
     setActionError(null);
-    setBusy(true);
+    setBusy(!savedSnapshot);
     const forced=retry>0;
     const fetchGenerated=()=>{
+      if (savedSnapshot && !forced) return;
       void loadNativePreview(item.id,item.currentVersionNumber,forced)
         .then(result=>{
           if(!live)return;
@@ -280,27 +287,23 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
         })
         .finally(()=>{if(live)setBusy(false);});
     };
-    if(!EDITORIAL_ENABLED){fetchGenerated();}
-    else {
+    fetchGenerated();
+    if (EDITORIAL_ENABLED) {
       void getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber)
         .then(editorial=>{
           if(!live)return;
           if(editorial.itemId!==item.id || editorial.version!==item.currentVersionNumber)
             throw new Error('Saved language drafts belong to a different source version.');
           setDrafts(editorial.locales);
-          if(!forced && ['hi','pa'].every(language=>
-            editorial.locales.some(d=>d.language===language && d.status==='approved'))){
-            setBusy(false);
-          } else fetchGenerated();
+          setLoadedEditorialToken(token);
         })
         .catch(caught=>{
           if(!live)return;
           setActionError(caught instanceof Error?caught.message:'Could not load saved edits.');
-          fetchGenerated();
         });
     }
     return ()=>{live=false;};
-  },[eligible,token,retry]);
+  },[eligible,token,retry,Boolean(savedSnapshot)]);
 
   async function refreshEditorial() {
     const editorial=await getQuestionStudioNativeEditorial(item.id,item.currentVersionNumber);
@@ -359,7 +362,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
   const remainingLanguages=(['hi','pa'] as const).filter(language=>
     supportedLanguages.includes(language) && snapshot?.variants.some(variant=>variant.language===language) &&
     !drafts.some(d=>d.language===language && d.status==='approved'));
-  const allReadyForApproval=snapshot !== null && item.status==='approved' &&
+  const allReadyForApproval=editorialReady && snapshot !== null && item.status==='approved' &&
     remainingLanguages.length>0 &&
     remainingLanguages.every(language=>
       !drafts.some(d=>d.language===language && d.status==='needs_fix') &&
@@ -443,10 +446,10 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
           className="h-8 text-xs"
           onClick={()=>setLanguageView(value)}>{label}</Button>)}
       </div>
-      {busy && <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground" role="status">
+      {busy && !bothApproved && <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground" role="status">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Verifying native languages in parallel; saved edits are available as soon as they load…
       </div>}
-      {error && <div className="mt-3 flex items-start justify-between gap-3 rounded-lg border border-warning/30 p-3">
+      {error && !bothApproved && <div className="mt-3 flex items-start justify-between gap-3 rounded-lg border border-warning/30 p-3">
         <p className="text-xs text-warning"><AlertTriangle className="mr-1 inline h-3.5 w-3.5" />{error}</p>
         <Button type="button" size="sm" variant="outline" onClick={() => setRetry(value => value + 1)}>
           <RefreshCw className="mr-1 h-3 w-3" />Retry
@@ -483,7 +486,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
               placeholder="Both language versions independently reviewed and checked..." />
           </label>
           <Button className="mt-2" size="sm" type="button"
-            disabled={!readyForHandoff || handoffReason.trim().length < 8 || saving}
+            disabled={!editorialReady || !readyForHandoff || handoffReason.trim().length < 8 || saving}
             onClick={()=>void sendToBankReview()}>
             Send approved languages to Question Bank review
           </Button>
@@ -494,7 +497,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
       </div>}
       {(snapshot || drafts.length > 0) && <div className={languageView==='both' ? "mt-3 grid gap-3 lg:grid-cols-2" : "mt-3 max-w-3xl"}>
         {variants.filter(variant=>languageView==='both' || variant.language===languageView).map(variant => <VariantCard key={variant.language} variant={variant}
-          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving} englishApproved={item.status==='approved'} editorialEnabled={EDITORIAL_ENABLED}
+          draft={drafts.find(draft=>draft.language===variant.language)} busy={saving || !editorialReady} englishApproved={item.status==='approved'} editorialEnabled={EDITORIAL_ENABLED}
           manualSource={item.status==='approved' && item.currentVersionNumber>1 ? snapshot?.source : undefined}
           onSave={(question,reason,revision)=>save(variant.language,question,reason,revision)}
           onDecision={(decision,reason,revision)=>decide(variant.language,decision,reason,revision)} />)}

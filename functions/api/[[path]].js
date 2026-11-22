@@ -153,7 +153,7 @@ export async function onRequest({ request, env = {} }) {
      (request.method === "POST" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:hi|pa)\/decision$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
-      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/promote$/i.test(incoming.pathname)) ||
+      /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/(?:promote|accept-approved)$/i.test(incoming.pathname)) ||
      (request.method === "POST" &&
       /^\/api\/admin\/question-studio\/items\/[0-9a-f-]{36}\/native-editorial\/approve-languages$/i.test(incoming.pathname)));
   // Only an explicitly selected grouped-native Generate request is sent to
@@ -221,7 +221,10 @@ export async function onRequest({ request, env = {} }) {
       error: "Native localization candidate URL is not configured correctly.",
     }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
+  const studentTestPreview = incoming.hostname === "fix-qs-publication-readiness.functional-interface.pages.dev" &&
+    /^\/api\/(?:tests|published-tests|attempts|attempt-sessions)(?:\/|$)/.test(incoming.pathname);
   const actualUpstream =
+    (studentTestPreview ? "https://qs-pub---examtree-api-ttnfjefqka-el.a.run.app" : null) ||
     (nativeLocalizationCandidateOrigin || null) ||
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
     qsAdminOrigin ||

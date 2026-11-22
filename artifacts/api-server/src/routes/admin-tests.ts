@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Router, type Response } from "express";
 
-import { requireAdminPermission } from "../lib/admin-rbac";
+import { hasAdminPermission, requireAdminPermission } from "../lib/admin-rbac";
 import {
   TestManagementError,
   getTestLifecycleConfig,
@@ -47,10 +47,10 @@ function languageCodeFromSettings(value: unknown): string {
   return code || "en";
 }
 
-async function validatePublishedSelections(
+async function validateQuestionSelections(
   client: SqlExecutor,
   input: NormalizedTestDraftInput,
-  allowBankOnlyDraft = false,
+  allowDraftSelections = false,
 ): Promise<TestValidationIssue[]> {
   const issues = validateTestDraftShape(input);
   const questionVersionIds = input.sections.flatMap((section) => section.questions.map((question) => question.questionVersionId));
@@ -87,22 +87,20 @@ async function validatePublishedSelections(
       issues.push({ code: "QUESTION_VERSION_MISSING", message: `Question version ${questionVersionId} does not exist` });
       continue;
     }
-    const approvedBankOnlyDraft = allowBankOnlyDraft &&
-      String(row.status) === "approved" &&
-      String(row.approvedVersionId ?? "") === questionVersionId &&
-      row.bankAcceptanceMode === "BANK_ONLY";
-    if (!approvedBankOnlyDraft &&
-        (String(row.publishedVersionId ?? "") !== questionVersionId || String(row.status) !== "published")) {
-      issues.push({ code: "QUESTION_NOT_PUBLISHED", message: `Question version ${questionVersionId} is not currently published` });
+    const approvedVersion = String(row.approvedVersionId ?? "") === questionVersionId &&
+      ["approved", "published"].includes(String(row.status));
+    const publishedVersion = String(row.publishedVersionId ?? "") === questionVersionId &&
+      String(row.status) === "published";
+    if (!approvedVersion && !publishedVersion) {
+      issues.push({ code: "QUESTION_NOT_APPROVED", message: `Question version ${questionVersionId} is not currently approved or published` });
     }
-    // Draft-only admission does not grant QA, scoring, or student-publication authority.
-    if (!approvedBankOnlyDraft &&
+    if (!(allowDraftSelections && approvedVersion) &&
         (row.bankAcceptanceMode === "BANK_ONLY" ||
          row.generationTestEligible === "false" ||
          row.generationPubliclyPublishable === "false")) {
       issues.push({ code: "QUESTION_NOT_RELEASE_ELIGIBLE", message: `Question version ${questionVersionId} is not eligible for scored public tests` });
     }
-    if (!row.hasTaxonomy) {
+    if (!allowDraftSelections && !row.hasTaxonomy) {
       issues.push({ code: "QUESTION_TAXONOMY_MISSING", message: `Question version ${questionVersionId} has incomplete taxonomy` });
     }
   }
@@ -212,7 +210,7 @@ async function loadStoredValidation(
       }),
     })),
   };
-  return validatePublishedSelections(client, normalized);
+  return validateQuestionSelections(client, normalized);
 }
 
 async function insertTestVersion(
@@ -605,13 +603,24 @@ router.post("/", requireAdminPermission("tests.create"), async (req, res) => {
       return;
     }
     const input = normalizeTestDraftInput(req.body);
-    const issues = await validatePublishedSelections(sqlClient, input, true);
+    const issues = await validateQuestionSelections(sqlClient, input, true);
     // Permit incomplete section/question composition in a saved draft.
     // Still reject non-structural issues such as unpublished, mismatched or
     // missing question versions; lifecycle QA/publish validates all issues.
     const blockingIssues = issues.filter((issue) => !issue.code.startsWith("STRUCTURE_"));
     if (blockingIssues.length > 0) {
       throw new TestManagementError("TEST_VALIDATION_FAILED", "The test draft has validation issues", 409, blockingIssues);
+    }
+
+    const accessMode = input.settings.initialAccessMode;
+    if (accessMode !== undefined) {
+      if (accessMode !== "free" && accessMode !== "premium") {
+        throw new TestManagementError("INVALID_ACCESS_MODE", "Choose Free or Premium");
+      }
+      if (!req.adminSession || !hasAdminPermission(req.adminSession, "commerce.products.manage")) {
+        throw new TestManagementError("ACCESS_POLICY_PERMISSION_REQUIRED", "Package management permission is required to set student access", 403);
+      }
+      delete input.settings.initialAccessMode;
     }
 
     const testId = randomUUID();
@@ -630,6 +639,19 @@ router.post("/", requireAdminPermission("tests.create"), async (req, res) => {
           now()
         )
       `;
+      if (accessMode === "free" || accessMode === "premium") {
+        await tx`
+          INSERT INTO commerce.test_access_policies (test_id, access_mode, source, changed_by)
+          VALUES (${testId}::uuid, ${accessMode}, 'admin', ${actorUserId}::uuid)
+        `;
+        await tx`
+          INSERT INTO platform.audit_events (id, actor_type, actor_user_id,
+            action_key, entity_type, entity_id, summary, metadata)
+          VALUES (${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
+            'commerce.test.access_policy.changed', 'test', ${testId}::uuid,
+            'Student access set during test creation', ${tx.json({ accessMode })})
+        `;
+      }
       const versionId = await insertTestVersion(tx as SqlExecutor, testId, actorUserId, input, 1);
       await tx`
         UPDATE assessment.tests
@@ -670,7 +692,7 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
       return;
     }
     const input = normalizeTestDraftInput(req.body);
-    const issues = await validatePublishedSelections(sqlClient, input, true);
+    const issues = await validateQuestionSelections(sqlClient, input, true);
     // Permit incomplete section/question composition in a saved draft.
     // Still reject non-structural issues such as unpublished, mismatched or
     // missing question versions; lifecycle QA/publish validates all issues.
@@ -752,15 +774,18 @@ function allowedLifecycleStatuses(action: string): string[] {
   if (action === "needs-fix") return ["under_qa", "qa_approved", "scheduled"];
   if (action === "approve") return ["under_qa"];
   if (action === "schedule") return ["qa_approved", "scheduled"];
+  if (action === "approve-publish") return ["draft", "content_ready", "under_qa"];
   if (action === "publish") return ["qa_approved", "scheduled", "live"];
   if (action === "archive") return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
   if (action === "restore-draft") return ["archived", "needs_fix"];
   return [];
 }
 
-for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "archive", "restore-draft"] as const) {
+for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "archive", "restore-draft"] as const) {
   const config = getTestLifecycleConfig(action);
-  router.post(`/:id/actions/${action}`, requireAdminPermission(config.permission), async (req, res) => {
+  const permissions = [requireAdminPermission(config.permission)];
+  if (action === "approve-publish") permissions.push(requireAdminPermission("tests.approve"));
+  router.post(`/:id/actions/${action}`, ...permissions, async (req, res) => {
     try {
       const testId = assertTestId(req.params.id);
       const actorUserId = req.adminSession?.user.id;
@@ -802,7 +827,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
           );
         }
 
-        if (["submit-qa", "approve", "schedule", "publish"].includes(action)) {
+        if (["submit-qa", "approve", "schedule", "publish", "approve-publish"].includes(action)) {
           const issues = await loadStoredValidation(testId, input.expectedCurrentDraftVersionId, tx as SqlExecutor);
           if (issues.length > 0) {
             throw new TestManagementError("TEST_VALIDATION_FAILED", "Resolve validation issues before continuing", 409, issues);
@@ -834,7 +859,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
           `;
         }
 
-        if (action === "publish") {
+        if (action === "publish" || action === "approve-publish") {
           const numberRows = await tx`
             SELECT COALESCE(MAX(publication_number), 0)::int + 1 AS "nextPublicationNumber"
             FROM assessment.test_publications
@@ -888,6 +913,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
             ${input.reason || null},
             ${`${String(testRecord.publicCode)} moved from ${String(testRecord.status)} to ${input.config.status}`},
             ${tx.json({
+              ...(action === "approve-publish" ? { approvedByUserId: actorUserId, approvalMode: "direct" } : {}),
               previousStatus: testRecord.status,
               status: input.config.status,
               scheduledAt: input.scheduledAt,

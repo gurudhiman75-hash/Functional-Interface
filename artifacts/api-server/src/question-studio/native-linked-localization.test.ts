@@ -151,3 +151,18 @@ test("released MAL-001 native generated answers pass editorial quality gate for 
     assert.equal(quality.approvable,true,language+" generated localization rejected: "+JSON.stringify(quality.issues));
   }
 });
+
+test("SAP batch snapshots replay the selected source seed and save both languages", async () => {
+  const { generateQuestion } = await import("../quant-v4/question-studio-generation-engine");
+  const { prepareNativeReviewBatch } = await import("./persisted-native-review");
+  const batch = await generateQuestion({
+    packageId: "SAP", language: "en", count: 4,
+    seed: "sap-native-review-regression", difficulty: "Medium",
+  });
+  const snapshots = await prepareNativeReviewBatch(batch.questions as Record<string, unknown>[]);
+  assert.equal(snapshots.length, 4);
+  for (const snapshot of snapshots) {
+    assert.deepEqual(snapshot?.variants.map(({ language, status }) => [language, status]),
+      [["hi", "verified"], ["pa", "verified"]]);
+  }
+});

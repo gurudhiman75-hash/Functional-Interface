@@ -264,6 +264,16 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
   const status = asString(req.query?.status) || null;
   const search = asString(req.query?.search).slice(0, 200);
   const searchPattern = search ? `%${search}%` : null;
+  const runIds = typeof req.query.runIds === "string" ? req.query.runIds.split(",") : [];
+  if (req.query.runIds !== undefined && (
+    runIds.length === 0 || runIds.length > 500 ||
+    runIds.some(id => !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id))
+  )) {
+    res.status(400).json({ error: "Invalid review run selection" });
+    return;
+  }
+  const selectedRunIds = runIds.length ? runIds : null;
+
 
   if (status && !ITEM_STATUSES.has(status)) {
     res.status(400).json({ error: "Invalid review status filter" });
@@ -275,7 +285,8 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
       SELECT COUNT(*)::int AS total
       FROM content.generation_runs r
       WHERE
-        (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
+        (${selectedRunIds}::uuid[] IS NULL OR r.id = ANY(${selectedRunIds}::uuid[]))
+        AND (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
         AND (
           ${chapter}::text IS NULL
           OR COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic') = ${chapter}
@@ -377,7 +388,8 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         ) AS "reviewSummary"
       FROM content.generation_runs r
       WHERE
-        (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
+        (${selectedRunIds}::uuid[] IS NULL OR r.id = ANY(${selectedRunIds}::uuid[]))
+        AND (${subject}::text IS NULL OR COALESCE(r.request_snapshot ->> 'subject', r.request_snapshot -> 'request' ->> 'subject') = ${subject})
         AND (
           ${chapter}::text IS NULL
           OR COALESCE(r.request_snapshot ->> 'topic', r.request_snapshot -> 'request' ->> 'topic') = ${chapter}
@@ -418,7 +430,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
               )
           )
         )
-      ORDER BY r.created_at DESC
+      ORDER BY r.created_at DESC, r.id DESC
       LIMIT ${pageSize}
       OFFSET ${offset}
     `;
@@ -468,7 +480,8 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
               'renderer', v.payload -> 'renderer',
               'semanticMetadata', v.payload -> 'semanticMetadata',
               'contentFingerprint', v.payload -> 'contentFingerprint'
-            )) AS payload
+            )) AS payload,
+            v.payload -> 'nativeReviewSnapshot' AS "savedNativeReview"
           FROM content.generation_run_items i
           INNER JOIN content.generation_runs r
             ON r.id = i.generation_run_id
@@ -504,7 +517,19 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
     for (const item of items) {
       const runId = String(item.generationRunId);
       const bucket = itemsByRun.get(runId) ?? [];
-      bucket.push(item);
+      const payload = item.payload as Record<string, unknown> | null;
+      const saved = payload && readPersistedNativeSnapshot({
+        ...payload, nativeReviewSnapshot: item.savedNativeReview,
+      });
+      bucket.push({ ...item, savedNativeReview: payload && saved ? {
+        itemId: item.id,
+        version: item.currentVersionNumber,
+        packageId: payload?.packageId,
+        source: { ...nativeSourceQuestion(payload), language: "en", status: "verified" },
+        variants: saved.variants,
+        saved: true,
+        approved: false,
+      } : null });
       itemsByRun.set(runId, bucket);
     }
 

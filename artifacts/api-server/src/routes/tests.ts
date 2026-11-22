@@ -83,7 +83,8 @@ async function loadCanonicalTestMetadata(identifier?: string, allowSeriesBound =
             'id', s.id::text,
             'sectionKey', s.section_key,
             'name', s.name,
-            'sortOrder', s.sort_order
+            'sortOrder', s.sort_order,
+            'durationSeconds', s.duration_seconds
           ) ORDER BY s.sort_order
         )
         FROM assessment.test_sections s
@@ -314,7 +315,8 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
         s.id::text AS id,
         s.section_key AS "sectionKey",
         s.name,
-        s.sort_order AS "sortOrder"
+        s.sort_order AS "sortOrder",
+        s.duration_seconds AS "durationSeconds"
       FROM assessment.test_sections s
       WHERE s.test_version_id = ${publishedVersionId}::uuid
       ORDER BY s.sort_order

@@ -1,3 +1,5 @@
+import { replaySapQuestionStudioSource } from "../quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-adapter";
+import { localizeSapQuestionPackage } from "../quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/localization/runtime";
 import { toQuestionStudioPreview } from "../quant-v4/generation-engine";
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "./engine-registry";
 import type { QuestionStudioGenerationRequest } from "./engine-types";
@@ -58,6 +60,19 @@ export async function nativeLocalizedQuestion(
   const qlId = string(payload.questionLanguageId || record(payload.metadata).questionLanguageId || payload.qlId);
   if (!seed || !cpId || !qlId) {
     throw new Error("NATIVE_LOCALIZATION_SOURCE_IDENTITY_MISSING");
+  }
+
+  if (packageId === "SAP") {
+    const sourceSeed = record(payload.traceability).sourceSeed ?? record(payload.semanticMetadata).sourceSeed;
+    if (typeof sourceSeed !== "number") throw new Error("NATIVE_LOCALIZATION_SAP_SOURCE_SEED_MISSING");
+    const english = replaySapQuestionStudioSource(cpId, qlId, seed, sourceSeed);
+    const localized = language === "en" ? english : localizeSapQuestionPackage(english, language);
+    return {
+      stem: localized.stem.trim(),
+      explanation: localized.explanation.lines.join("\n\n").trim(),
+      options: asOptions(localized.options),
+      correctIndex: localized.correctIndex,
+    };
   }
 
   if (packageId === "AVG-001") {

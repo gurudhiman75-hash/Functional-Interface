@@ -420,3 +420,13 @@ export function runSapQuestionStudioPipeline(
       : `Unable to generate SAP content from ${scope}.`,
   );
 }
+
+/** Replay the exact authored SAP source selected by a previous batch. */
+export function replaySapQuestionStudioSource(checkpointId: string, qlId: string, seed: string, sourceSeed: number) {
+  const descriptor = SAP_QUESTION_STUDIO_QLS.find(entry =>
+    entry.checkpointId === checkpointId && entry.qlId === qlId);
+  if (!descriptor || !Number.isSafeInteger(sourceSeed)) throw new Error("Invalid saved SAP source identity");
+  const registered = REGISTRATION_BY_QL.get(descriptor.qlId);
+  if (!registered) throw new Error(`Missing SAP generator registration for ${descriptor.qlId}.`);
+  return normalizePackage(descriptor, registered.generate(sourceSeed), seed, sourceSeed);
+}

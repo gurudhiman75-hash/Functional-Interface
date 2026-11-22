@@ -171,3 +171,19 @@ test("build-only artifact includes immutable canonical manifest; no deployment c
     assert.doesNotMatch(content,/\bdeploy\b\s+--/);
   }
 });
+
+test("native receiver tag requires the exact pinned run and base audience", () => {
+  const tagged = {...config, handlerUrl:config.handlerUrl.replace("https://","https://native---")};
+  assert.throws(()=>assertIsolatedChapterDispatch(env(),tagged,manifest,NOW),/RECEIVER_INVALID/);
+  const pinned = env({EXAMTREE_QS_NATIVE_DISPATCH_CANARY_RUN_ID:RUN});
+  assert.equal(assertIsolatedChapterDispatch(pinned,tagged,manifest,NOW),RUN);
+  assert.throws(()=>assertIsolatedChapterDispatch(pinned,
+    {...tagged,audience:new URL(tagged.handlerUrl).origin},manifest,NOW),/RECEIVER_INVALID/);
+});
+
+test("reserve-only API canary is scoped and does not launch the dispatcher", () => {
+  const route = readFileSync("artifacts/api-server/src/routes/admin-question-studio-async-production-chapters.ts","utf8");
+  assert.match(route,/EXAMTREE_QS_NATIVE_CANARY_RESERVE_ONLY==="true"/);
+  assert.match(route,/reserveNativeCanary && \(compute.count!==1[\s\S]*?packageId!=="MAL-001"[\s\S]*?language!=="en"/);
+  assert.match(route,/reserveNativeCanary\s*\? \{\.\.\.await enqueue\(\),dispatchRequested:false\}\s*: await enqueueAndDispatchChapter\(enqueue\)/);
+});

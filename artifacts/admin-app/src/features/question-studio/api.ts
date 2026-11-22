@@ -32,6 +32,7 @@ export interface QuestionStudioItem {
   updatedAt: string;
   versionId: string | null;
   payload: Record<string, unknown> | null;
+  savedNativeReview?: NativeReviewLocalizations | null;
 }
 
 export interface QuestionStudioRun {
@@ -65,6 +66,7 @@ export interface QuestionStudioRun {
 }
 
 export interface QuestionStudioReviewQuery {
+  runIds?: string;
   page?: number;
   pageSize?: number;
   subject?: string;
@@ -307,11 +309,23 @@ export function approveQuestionStudioNativeLanguages(
   );
 }
 
-export function promoteQuestionStudioNativeEditorial(
-  itemId:string, input:{expectedVersion:number;revisions:{hi:number;pa:number};reason:string},
+export function acceptQuestionStudioNativeBatch(
+  items: Array<{ itemId: string; expectedVersion: number }>,
+  languages: Array<'hi' | 'pa'>,
 ) {
-  return adminRequest<{status:'draft';questionVersionId:string;translations:{hi:string;pa:string}}>(
-    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/promote`,
+  return adminRequest<{ results: Array<{ itemId: string; ok: boolean; code?: string;
+    details?: { language?: string; issues?: Array<{ message: string }> } }> }>(
+    '/admin/question-studio/native-editorial/batch-accept',
+    { method: 'POST', body: JSON.stringify({ items, languages }) },
+    { fallbackMessage: 'Could not add the selected language versions to Question Bank.' },
+  );
+}
+
+export function promoteQuestionStudioNativeEditorial(
+  itemId:string, input:{expectedVersion:number;revisions:{hi:number;pa:number};reason:string;acceptApprovedLocales?:boolean;languages?:Array<"hi"|"pa">},
+) {
+  return adminRequest<{status:'draft'|'approved';questionVersionId:string;translations:Partial<Record<'hi'|'pa',string>>}>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/native-editorial/${input.acceptApprovedLocales ? "accept-approved" : "promote"}`,
     {method:'POST',body:JSON.stringify(input)},
     {fallbackMessage:'Could not send approved language drafts to Question Bank review.'},
   );
@@ -329,6 +343,7 @@ export function getQuestionStudioReviewDuplicates(itemIds: string[]) {
 
 export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
   const params = new URLSearchParams();
+  if (query.runIds) params.set('runIds', query.runIds);
   if (query.page) params.set('page', String(query.page));
   if (query.pageSize) params.set('pageSize', String(query.pageSize));
   if (query.subject) params.set('subject', query.subject);
@@ -620,6 +635,7 @@ export function reconcileQuestionStudioBulkReviewChild(id: string, index: number
 export function updateGenerationItems(input: {
   itemIds: string[];
   expectedStatuses: Record<string, GenerationItemStatus>;
+  bankHandoff?: { expectedVersions: Record<string, number> };
   status: GenerationItemStatus;
   reason?: string;
 }) {
@@ -637,8 +653,9 @@ export function updateGenerationItems(input: {
     converted: ConvertedQuestion[];
     convertedCount: number;
     reviewOnlyApprovedCount: number;
+    results?: Array<{ itemId: string; ok: boolean; code?: string; message?: string }>;
   }>(
-    '/admin/question-studio/items/bulk',
+    input.bankHandoff ? '/admin/question-studio/items/bulk-bank' : '/admin/question-studio/items/bulk',
     { method: 'PATCH', body: JSON.stringify(input) },
     { fallbackMessage: 'Unable to update generated questions.' },
   );

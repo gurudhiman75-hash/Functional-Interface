@@ -31,8 +31,9 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import {
-  getPublishedQuestions,
+  getDraftSelectableQuestions,
   type PublishedQuestion,
 } from '@/features/question-bank/api';
 import {
@@ -59,6 +60,7 @@ interface BuilderDraft {
   title: string;
   description: string;
   durationMinutes: number;
+  lockCompletedSections: boolean;
   totalMarks: number;
   marksPerQuestion: number;
   negativeMarks: number;
@@ -76,13 +78,14 @@ const freshDraft = (): BuilderDraft => ({
   title: '',
   description: '',
   durationMinutes: 60,
+  lockCompletedSections: false,
   totalMarks: 0,
   marksPerQuestion: 2,
   negativeMarks: 0.5,
   desiredQuestionCount: 100,
   testType: 'full_mock',
   languageCode: 'en',
-  access: 'free',
+  access: 'premium',
   difficulty: 'Moderate',
   instructions: 'Read every question carefully. Submit the test before the timer ends.',
   sections: [{ clientKey: 'section-1', name: 'Section 1', durationMinutes: '', questionVersionIds: [] }],
@@ -112,6 +115,7 @@ function draftFromDetail(detail: LiveTestDetail): BuilderDraft {
     title: version.title,
     description: version.description ?? '',
     durationMinutes: version.durationSeconds / 60,
+    lockCompletedSections: settings.lockCompletedSections === true,
     totalMarks: version.totalMarks,
     marksPerQuestion,
     negativeMarks,
@@ -141,6 +145,9 @@ function detailsFromError(error: unknown): TestValidationIssue[] {
 
 export function TestBuilderPage() {
   const navigate = useNavigate();
+  const { hasPermission } = useAdminPermissions();
+  const canSetAccess = hasPermission('commerce.products.manage');
+  const canEditQuestions = hasPermission('content.questions.update');
   const [searchParams] = useSearchParams();
   const editId = searchParams.get('edit') ?? '';
 
@@ -163,7 +170,7 @@ export function TestBuilderPage() {
     try {
       const [catalogResponse, questionResponse, testResponse] = await Promise.all([
         getTestCatalog(),
-        getPublishedQuestions(),
+        getDraftSelectableQuestions(),
         editId ? getLiveTest(editId) : Promise.resolve(null),
       ]);
       setCatalog(catalogResponse.examVersions);
@@ -195,12 +202,11 @@ export function TestBuilderPage() {
   const calculatedMarks = selectedQuestionIds.length * draft.marksPerQuestion;
 
   const availableQuestions = useMemo(() => publishedQuestions.filter((question) => {
-    if (draft.examVersionId && question.examVersionId !== draft.examVersionId) return false;
     if (difficultyFilter !== 'all' && question.difficulty.toLowerCase() !== difficultyFilter.toLowerCase()) return false;
     const term = search.trim().toLowerCase();
     if (term && !question.stem.toLowerCase().includes(term) && !question.publicCode.toLowerCase().includes(term)) return false;
     return true;
-  }), [publishedQuestions, draft.examVersionId, difficultyFilter, search]);
+  }), [publishedQuestions, difficultyFilter, search]);
 
   const localIssues = useMemo(() => {
     const issues: TestValidationIssue[] = [];
@@ -211,11 +217,12 @@ export function TestBuilderPage() {
       if (!section.name.trim()) issues.push({ code: 'SECTION_NAME_REQUIRED', message: 'Every section needs a name.' });
       if (section.questionVersionIds.length === 0) issues.push({ code: 'EMPTY_SECTION', message: `${section.name || 'A section'} has no questions.` });
     });
-    if (selectedQuestionIds.length === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Select at least one published question.' });
+    if (selectedQuestionIds.length === 0) issues.push({ code: 'QUESTIONS_REQUIRED', message: 'Select at least one approved question.' });
     if (Math.abs(calculatedMarks - draft.totalMarks) > 0.001) {
       issues.push({ code: 'MARKS_MISMATCH', message: `Selected questions total ${calculatedMarks} marks, while test total is ${draft.totalMarks}.` });
     }
     const timed = draft.sections.filter((section) => section.durationMinutes !== '');
+    if (timed.length > 0 && timed.length < draft.sections.length) issues.push({ code: 'SECTION_TIME_REQUIRED', message: 'Enter a time for every section or use the shared timer.' });
     if (timed.length > 0) {
       const total = timed.reduce((sum, section) => sum + Number(section.durationMinutes || 0), 0);
       if (total !== draft.durationMinutes) issues.push({ code: 'DURATION_MISMATCH', message: `Section durations total ${total} minutes, while test duration is ${draft.durationMinutes}.` });
@@ -261,6 +268,32 @@ export function TestBuilderPage() {
     });
   };
 
+  const refreshQuestionVersions = async () => {
+    try {
+      const { questions } = await getDraftSelectableQuestions();
+      const previousIds = new Map([
+        ...(detail?.sections.flatMap((section) => section.questions.map((question) =>
+          [question.questionVersionId, question.questionId] as const,
+        )) ?? []),
+        ...publishedQuestions.map((question) => [question.versionId, question.id] as const),
+      ]);
+      const latestVersions = new Map(questions.map((question) => [question.id, question.versionId]));
+      setPublishedQuestions(questions);
+      setDraft((current) => ({
+        ...current,
+        sections: current.sections.map((section) => ({
+          ...section,
+          questionVersionIds: section.questionVersionIds.map((id) =>
+            latestVersions.get(previousIds.get(id) ?? '') ?? id,
+          ),
+        })),
+      }));
+      showToast.success('Question Bank refreshed', 'Selections now use the latest available versions.');
+    } catch (caught) {
+      showToast.error('Unable to refresh questions', caught instanceof Error ? caught.message : 'Try again.');
+    }
+  };
+
   const payload = (): TestDraftInput => ({
     expectedCurrentDraftVersionId: detail?.test.currentDraftVersionId ?? null,
     examVersionId: draft.examVersionId,
@@ -272,8 +305,9 @@ export function TestBuilderPage() {
     settings: {
       testType: draft.testType,
       languageCode: draft.languageCode,
-      access: draft.access,
+      ...(!detail && canSetAccess ? { initialAccessMode: draft.access } : {}),
       difficulty: draft.difficulty,
+      lockCompletedSections: draft.lockCompletedSections,
       sectionTiming: draft.sections.some((section) => section.durationMinutes !== '') ? 'sectional' : 'shared',
       navigationRules: { switchSections: true, markForReview: true },
     },
@@ -365,8 +399,8 @@ export function TestBuilderPage() {
       <Tabs defaultValue="details" className="space-y-4">
         <TabsList className="flex h-auto flex-wrap justify-start">
           <TabsTrigger value="details">Basic info</TabsTrigger>
-          <TabsTrigger value="sections">Sections</TabsTrigger>
-          <TabsTrigger value="questions">Published questions</TabsTrigger>
+          <TabsTrigger value="sections">Sections &amp; timing</TabsTrigger>
+          <TabsTrigger value="questions">Questions</TabsTrigger>
           <TabsTrigger value="validation">Validation</TabsTrigger>
           <TabsTrigger value="preview"><Eye className="mr-1.5 h-4 w-4" /> Preview</TabsTrigger>
         </TabsList>
@@ -376,20 +410,30 @@ export function TestBuilderPage() {
             <div className="grid gap-4 md:grid-cols-2"><div className="space-y-2"><Label>Exam version</Label><Select value={draft.examVersionId} onValueChange={(value) => setDraft((current) => ({ ...current, examVersionId: value, languageCode: catalog.find((exam) => exam.id === value)?.languages.find((language) => language.isPrimary)?.code ?? 'en', sections: current.sections.map((section) => ({ ...section, questionVersionIds: [] })), totalMarks: 0 }))}><SelectTrigger><SelectValue placeholder="Select exam" /></SelectTrigger><SelectContent>{catalog.map((exam) => <SelectItem key={exam.id} value={exam.id}>{exam.familyName} • {exam.examName} • {exam.versionName}</SelectItem>)}</SelectContent></Select></div><div className="space-y-2"><Label>Title</Label><Input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} placeholder="SSC CGL Full Mock 01" /></div></div>
             <div className="space-y-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><NumberField label="Duration (minutes)" value={draft.durationMinutes} min={1} onChange={(value) => setDraft((current) => ({ ...current, durationMinutes: value }))} /><NumberField label="Marks per question" value={draft.marksPerQuestion} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, marksPerQuestion: value, totalMarks: selectedQuestionIds.length * value }))} /><NumberField label="Negative marks" value={draft.negativeMarks} min={0} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, negativeMarks: value }))} /><NumberField label="Total marks" value={draft.totalMarks} min={0.01} step={0.25} onChange={(value) => setDraft((current) => ({ ...current, totalMarks: value }))} /></div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Test type" value={draft.testType} options={[['full_mock', 'Full Mock'], ['sectional', 'Sectional Test'], ['quiz', 'Quiz'], ['previous_year', 'Previous Year']]} onChange={(value) => setDraft((current) => ({ ...current, testType: value }))} /><SelectField label="Access" value={draft.access} options={[['free', 'Free'], ['paid', 'Paid'], ['premium', 'Premium']]} onChange={(value) => setDraft((current) => ({ ...current, access: value }))} /><SelectField label="Difficulty" value={draft.difficulty} options={[['Easy', 'Easy'], ['Moderate', 'Moderate'], ['Hard', 'Hard'], ['Mixed', 'Mixed']]} onChange={(value) => setDraft((current) => ({ ...current, difficulty: value }))} /><div className="space-y-2"><Label>Language</Label><Select value={draft.languageCode} onValueChange={(value) => setDraft((current) => ({ ...current, languageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{selectedExam?.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>) ?? <SelectItem value="en">English</SelectItem>}</SelectContent></Select></div></div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><SelectField label="Test type" value={draft.testType} options={[['full_mock', 'Full Mock'], ['sectional', 'Sectional Test'], ['quiz', 'Quiz'], ['previous_year', 'Previous Year']]} onChange={(value) => setDraft((current) => ({ ...current, testType: value }))} />{!detail && canSetAccess && <SelectField label="Student access" value={draft.access} options={[['free', 'Free'], ['premium', 'Premium']]} onChange={(value) => setDraft((current) => ({ ...current, access: value }))} />}<SelectField label="Difficulty" value={draft.difficulty} options={[['Easy', 'Easy'], ['Moderate', 'Moderate'], ['Hard', 'Hard'], ['Mixed', 'Mixed']]} onChange={(value) => setDraft((current) => ({ ...current, difficulty: value }))} /><div className="space-y-2"><Label>Language</Label><Select value={draft.languageCode} onValueChange={(value) => setDraft((current) => ({ ...current, languageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{selectedExam?.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>) ?? <SelectItem value="en">English</SelectItem>}</SelectContent></Select></div></div>
             <div className="space-y-2"><Label>Instructions</Label><Textarea value={draft.instructions} onChange={(event) => setDraft((current) => ({ ...current, instructions: event.target.value }))} rows={5} /></div>
           </CardContent></Card>
         </TabsContent>
 
         <TabsContent value="sections">
-          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Duration (optional)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
+          <Card className="mb-4"><CardContent className="space-y-2 pt-5">
+            <label className="flex items-center gap-2 text-sm font-medium">
+              <Checkbox checked={draft.lockCompletedSections} onCheckedChange={(checked) =>
+                setDraft((current) => ({ ...current, lockCompletedSections: checked === true }))
+              } />
+              Lock completed sections
+            </label>
+            <p className="text-sm text-muted-foreground">In exam mode, students cannot return to an earlier section after moving on. Enter minutes for every section to use separate timers, or leave them blank for one shared timer.</p>
+          </CardContent></Card>
+          <div className="space-y-4"><div className="flex justify-end"><Button onClick={addSection}><Plus className="mr-1.5 h-4 w-4" /> Add section</Button></div>{draft.sections.map((section, index) => <Card key={section.clientKey} className={section.clientKey === activeSectionKey ? 'border-primary/50' : ''}><CardContent className="p-4"><div className="flex flex-col gap-4 lg:flex-row lg:items-end"><div className="flex-1 space-y-2"><Label>Section {index + 1} name</Label><Input value={section.name} onFocus={() => setActiveSectionKey(section.clientKey)} onChange={(event) => updateSection(section.clientKey, { name: event.target.value })} /></div><div className="w-full space-y-2 lg:w-48"><Label>Section time (minutes)</Label><Input type="number" min={1} value={section.durationMinutes} onChange={(event) => updateSection(section.clientKey, { durationMinutes: event.target.value })} placeholder="Shared timer" /></div><Button variant={section.clientKey === activeSectionKey ? 'default' : 'outline'} onClick={() => setActiveSectionKey(section.clientKey)}>{section.questionVersionIds.length} questions</Button><Button variant="ghost" size="icon" disabled={draft.sections.length <= 1} onClick={() => removeSection(section.clientKey)}><Trash2 className="h-4 w-4" /></Button></div></CardContent></Card>)}</div>
         </TabsContent>
 
         <TabsContent value="questions">
-          <Card><CardHeader><CardTitle className="text-base">Published Question Bank</CardTitle></CardHeader><CardContent className="space-y-4">
+          <Card><CardHeader><CardTitle className="text-base">Approved Question Bank</CardTitle></CardHeader><CardContent className="space-y-4">
+            <Button variant="outline" size="sm" onClick={() => void refreshQuestionVersions()} disabled={saving}>Use latest approved versions</Button>
             <div className="rounded-lg border bg-muted/20 p-3 text-sm">Questions are added to <strong>{activeSection?.name ?? 'the active section'}</strong>. Selecting an already-used question removes it from its previous section.</div>
-            <div className="flex flex-wrap gap-2"><Input className="max-w-sm" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search published questions" /><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger className="w-40"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Moderate">Moderate</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select><Input className="w-32" type="number" min={1} max={300} value={draft.desiredQuestionCount} onChange={(event) => setDraft((current) => ({ ...current, desiredQuestionCount: Number(event.target.value) }))} /><Button onClick={() => void autoAssemble()} disabled={assembling}>{assembling ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Auto-assemble</Button></div>
-            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version to load its published questions.</p> : availableQuestions.length === 0 ? <p className="py-12 text-center text-sm text-muted-foreground">No published questions match these filters.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{availableQuestions.map((question) => <label key={question.versionId} className="flex cursor-pointer items-start gap-3 p-3 hover:bg-muted/30"><Checkbox className="mt-1" checked={selectedQuestionSet.has(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div className="min-w-0 flex-1"><div className="flex flex-wrap gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="outline">{question.difficulty}</Badge>{question.taxonomy.map((node) => <Badge key={node.id} variant="secondary">{node.name}</Badge>)}</div><p className="mt-2 text-sm leading-6">{question.stem}</p></div></label>)}</div>}
+            <div className="flex flex-wrap gap-2"><Input className="max-w-sm" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search questions" /><Select value={difficultyFilter} onValueChange={setDifficultyFilter}><SelectTrigger className="w-40"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Moderate">Moderate</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select><Input className="w-32" type="number" min={1} max={300} value={draft.desiredQuestionCount} onChange={(event) => setDraft((current) => ({ ...current, desiredQuestionCount: Number(event.target.value) }))} /><Button onClick={() => void autoAssemble()} disabled={assembling}>{assembling ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Auto-assemble</Button></div>
+            {!draft.examVersionId ? <p className="py-12 text-center text-sm text-muted-foreground">Select an exam version to start building the test.</p> : availableQuestions.length === 0 ? <p className="py-12 text-center text-sm text-muted-foreground">No approved questions match these filters.</p> : <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">{availableQuestions.map((question) => <div key={question.versionId} className="flex cursor-pointer items-start gap-3 p-3 hover:bg-muted/30"><Checkbox aria-label={`Select ${question.publicCode}`} className="mt-1" checked={selectedQuestionSet.has(question.versionId)} onCheckedChange={() => toggleQuestion(question.versionId)} /><div className="min-w-0 flex-1"><div className="flex flex-wrap gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge variant="outline">{question.difficulty}</Badge>{question.taxonomy.map((node) => <Badge key={node.id} variant="secondary">{node.name}</Badge>)}</div><p className="mt-2 text-sm leading-6">{question.stem}</p></div>{canEditQuestions && <Button asChild variant="ghost" size="sm"><Link to={`/content/questions/${question.id}`} target="_blank" rel="noopener noreferrer">Edit question</Link></Button>}</div>)}</div>}
           </CardContent></Card>
         </TabsContent>
 

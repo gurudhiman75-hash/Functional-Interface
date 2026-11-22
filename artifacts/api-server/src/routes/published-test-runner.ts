@@ -131,7 +131,7 @@ router.get("/tests/:id", async (req, res, next) => {
       attempts: 0, avgScore: 0, difficulty,
       maxAttempts: resolveAttemptLimit(test.settings),
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none", sectionTimings,
-      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
+      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: settings.lockCompletedSections === true })),
       sections: sections.map((section) => ({ id: String(section.id), name: String(section.name), questions: questionsBySection.get(String(section.id)) ?? [] })),
       languages: [String(settings.languageCode ?? "en")],
       marksPerQuestion: firstQuestion ? Number(firstQuestion.marks) : 1,

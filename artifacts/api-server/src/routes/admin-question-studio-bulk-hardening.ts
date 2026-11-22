@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 
 import {
   convertApprovedGenerationItem,
@@ -90,6 +90,14 @@ router.use(adminQuestionStudioAsyncProductionChaptersRouter);
 router.use(adminQuestionStudioAsyncBulkRouter);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
+  await reviewItems(req, res, false);
+});
+
+router.patch("/items/bulk-bank", requireAdminPermission("content.generation.review"), async (req, res) => {
+  await reviewItems(req, res, true);
+});
+
+async function reviewItems(req: Request, res: Response, bankHandoff: boolean) {
   const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds.map(text).filter(Boolean) : [];
   if (rawIds.length > MAX_BULK_REVIEW_ITEMS) {
     res.status(400).json({
@@ -123,6 +131,13 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
   }
   const status = text(req.body?.status);
   const reason = text(req.body?.reason).slice(0, 1000);
+
+  const expectedVersions = req.body?.bankHandoff?.expectedVersions;
+  if (bankHandoff && (status !== "approved" || !expectedVersions ||
+    itemIds.some(id => !Number.isSafeInteger(expectedVersions[id]) || expectedVersions[id] < 1))) {
+    res.status(400).json({ error: "Bank handoff requires the reviewed version of every question", code: "EXPECTED_REVIEW_VERSION_REQUIRED" });
+    return;
+  }
   const actorUserId = req.adminSession?.user.id;
 
   if (!actorUserId) {
@@ -155,6 +170,8 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
             i.generation_run_id::text AS "generationRunId",
             i.status::text AS status,
             i.accepted_question_id::text AS "acceptedQuestionId",
+            i.accepted_question_version_id::text AS "acceptedQuestionVersionId",
+            i.current_version_number AS "currentVersionNumber",
             r.status::text AS "runStatus",
             v.payload
           FROM content.generation_run_items i
@@ -168,6 +185,25 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
+
+        if (bankHandoff && text(item.payload?.language || item.payload?.languageCode || "en") !== "en") {
+          throw Object.assign(new Error("Batch bank handoff requires an English source question"), { code: "ENGLISH_SOURCE_REQUIRED" });
+        }
+        if (bankHandoff && Number(item.currentVersionNumber) !== expectedVersions[itemId]) {
+          throw Object.assign(new Error("Question was revised. Review the latest version before adding it to the bank."), { code: "GENERATION_ITEM_VERSION_CONFLICT" });
+        }
+        if (bankHandoff && item.status === "approved" && item.acceptedQuestionId && item.acceptedQuestionVersionId) {
+          const convertedQuestion = await convertApprovedGenerationItem(
+            tx as QuestionSqlExecutor, itemId, actorUserId, { manualBankOnly: true },
+          );
+          if (!convertedQuestion) {
+            throw Object.assign(new Error("Bank question could not be recovered"), { code: "CONVERSION_FAILED" });
+          }
+          return {
+            itemId, generationRunId: String(item.generationRunId), previousStatus: "approved",
+            status: "approved", ok: true, approvalMode: "question_bank", convertedQuestion,
+          } satisfies ItemResult;
+        }
         const expectedStatus = text(expectedStatuses[itemId]);
         if (String(item.status) !== expectedStatus) {
           throw Object.assign(
@@ -293,6 +329,9 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         let convertedQuestion: ConvertedQuestion | null = null;
         if (status === "approved") {
           const disposition = getGeneratedItemApprovalDisposition(item.payload, { manualApproval: true });
+          if (bankHandoff && disposition.mode !== "question_bank") {
+            throw Object.assign(new Error(disposition.reason ?? "This question is eligible for editorial review only."), { code: "QUESTION_BANK_HANDOFF_BLOCKED" });
+          }
           approvalMode = disposition.mode;
           conversionSkippedReason = disposition.reason;
 
@@ -387,6 +426,6 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
     results,
     generatedAt: new Date().toISOString(),
   });
-});
+}
 
 export default router;

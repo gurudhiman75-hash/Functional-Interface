@@ -131,7 +131,6 @@ async function buildPlan(
       JOIN content.question_versions v ON v.id = q.published_version_id
       WHERE q.status = 'published'::question_status
         AND q.deleted_at IS NULL
-        AND v.exam_version_id = ${String(detail.blueprint.examVersionId)}::uuid
         AND lower(v.difficulty) = ANY(${["easy", "medium", "hard"]}::text[])
         AND EXISTS (
           SELECT 1

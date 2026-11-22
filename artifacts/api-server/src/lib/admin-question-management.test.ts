@@ -143,7 +143,7 @@ test("reports all publication blockers", () => {
     correctOptionCount: 0,
   });
 
-  assert.ok(issues.length >= 8);
+  assert.ok(issues.length >= 7);
   assert.throws(
     () => assertQuestionPublishable({
       status: "draft",
@@ -161,11 +161,11 @@ test("reports all publication blockers", () => {
   );
 });
 
-test("accepts a complete approved question for publication", () => {
+test("accepts a complete approved question without an exam assignment for publication", () => {
   assert.doesNotThrow(() => assertQuestionPublishable({
     status: "approved",
     approvedVersionId: "11111111-1111-4111-8111-111111111111",
-    examVersionId: "22222222-2222-4222-8222-222222222222",
+    examVersionId: null,
     primaryTaxonomyNodeId: "33333333-3333-4333-8333-333333333333",
     taxonomyNodeIds: ["33333333-3333-4333-8333-333333333333"],
     stem: "Question",

@@ -230,6 +230,7 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   const packageId = query.packageId ?? '';
   const status = query.status;
   const search = query.search ?? '';
+  const runIds = query.runIds;
 
   const [reviewPage, setReviewPage] = useState<QuestionStudioReviewPage>(EMPTY_REVIEW_PAGE);
   const [loadingReviewPage, setLoadingReviewPage] = useState(true);
@@ -238,13 +239,13 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   const requestId = useRef(0);
   const latestQuery = useRef<QuestionStudioReviewQuery>({});
   latestQuery.current = {
-    page, pageSize, subject: subject || undefined, chapter: chapter || undefined,
+    page, pageSize, runIds, subject: subject || undefined, chapter: chapter || undefined,
     packageId: packageId || undefined, status, search: search || undefined,
   };
 
-  const refreshReviewPage = useCallback(async () => {
+  const refreshReviewPage = useCallback(async ({ background = false } = {}) => {
     const currentRequest = ++requestId.current;
-    setLoadingReviewPage(true);
+    if (!background) setLoadingReviewPage(true);
     setReviewPageError(null);
     try {
       const next = await getQuestionStudioReviewPage(latestQuery.current);
@@ -278,7 +279,7 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   useEffect(() => {
     void refreshReviewPage();
     return () => { requestId.current += 1; };
-  }, [chapter, packageId, page, pageSize, search, status, subject, refreshReviewPage]);
+  }, [chapter, packageId, page, pageSize, runIds, search, status, subject, refreshReviewPage]);
 
   useEffect(() => {
     const handleRefresh = () => void refreshReviewPage();

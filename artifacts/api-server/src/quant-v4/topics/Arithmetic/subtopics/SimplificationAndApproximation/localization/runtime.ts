@@ -42,6 +42,39 @@ import type { SapTranslationLanguage } from "./types";
 
 export { translateSapLearnerText, polishSapLocalizedTextV2 };
 
+
+function localizeMissingDecimalExplanation(base: any, language: SapTranslationLanguage): string[] | undefined {
+  if (base.questionLanguageId !== "SAP-QL-096") return;
+  const lines = base.explanation?.lines;
+  if (!Array.isArray(lines)) return;
+  const source = lines.join("\n");
+  const subtraction = /^Subtract (\S+) and (\S+) from (\S+)\.$/m.exec(source);
+  const remainder = /^The remaining exact value is (\S+), which as a decimal is (\S+)\.$/m.exec(source);
+  const conversion = /^Check: Convert (\S+) to (\S+)\.$/m.exec(source);
+  const check = /^Check: (.+) exactly\.$/m.exec(source);
+  if (!subtraction || !remainder || !conversion || !check) return;
+  const [, fraction, percent, total] = subtraction;
+  const [, exact, decimal] = remainder;
+  const [, checkedDecimal, hundredths] = conversion;
+  const equation = check[1];
+
+  return language === "hi" ? [
+    "ज्ञात पदों को सटीक रूप में लिखें, अज्ञात मान निकालें और उसे दशमलव में व्यक्त करें।",
+    `${total} में से ${fraction} और ${percent} घटाएँ।`,
+    `शेष का सटीक मान ${exact} है, जो दशमलव में ${decimal} है।`,
+    `इसलिए उत्तर ${decimal} है।`,
+    `जाँच: ${checkedDecimal} को ${hundredths} के रूप में लिखें।`,
+    `जाँच: ${equation} ठीक बराबर है।`,
+  ] : [
+    "ਪਤਾ ਹੋਏ ਪਦਾਂ ਨੂੰ ਸਟੀਕ ਰੂਪ ਵਿੱਚ ਲਿਖੋ, ਅਣਜਾਣ ਮੁੱਲ ਕੱਢੋ ਅਤੇ ਉਸ ਨੂੰ ਦਸ਼ਮਲਵ ਵਿੱਚ ਲਿਖੋ।",
+    `${total} ਵਿੱਚੋਂ ${fraction} ਅਤੇ ${percent} ਘਟਾਓ।`,
+    `ਬਾਕੀ ਦਾ ਸਟੀਕ ਮੁੱਲ ${exact} ਹੈ, ਜੋ ਦਸ਼ਮਲਵ ਵਿੱਚ ${decimal} ਹੈ।`,
+    `ਇਸ ਲਈ ਉੱਤਰ ${decimal} ਹੈ।`,
+    `ਜਾਂਚ: ${checkedDecimal} ਨੂੰ ${hundredths} ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`,
+    `ਜਾਂਚ: ${equation} ਬਿਲਕੁਲ ਸਹੀ ਹੈ।`,
+  ];
+}
+
 export function localizeSapQuestionPackage(base: any, language: SapTranslationLanguage) {
   const genericIntermediate = applySapLocalizationPolishV6(
     localizeSapQuestionPackageV1(base, language),
@@ -58,8 +91,10 @@ export function localizeSapQuestionPackage(base: any, language: SapTranslationLa
   const ql062FinalV10 = applySapQl062FinalV10(base, humanReviewedV9, language);
   const authoredFinal = applySapAuthoredPresentationV3(base, ql062FinalV10, language);
 
+  const explanation = localizeMissingDecimalExplanation(base, language);
   return Object.freeze({
     ...authoredFinal,
+    ...(explanation ? { explanation: Object.freeze({ ...authoredFinal.explanation, lines: Object.freeze(explanation) }) } : {}),
     questionBankStatus: "WRITABLE" as const,
     questionBankWritable: true as const,
     testEligibility: "ELIGIBLE" as const,

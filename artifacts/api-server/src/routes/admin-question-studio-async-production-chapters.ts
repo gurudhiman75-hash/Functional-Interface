@@ -53,8 +53,14 @@ router.post("/runs/async-production-chapter",
     res.status(400).json({code:"QS_PROD_CHAPTER_PAYLOAD_INVALID"});return;
   }
   try {
-    assertChapterDispatchLaunchApproved(env);
+    const reserveNativeCanary=env.EXAMTREE_QS_NATIVE_CANARY_RESERVE_ONLY==="true";
+    if(!reserveNativeCanary) assertChapterDispatchLaunchApproved(env);
     const compute=req.body as UniversalStudioComputeInput;
+    if(reserveNativeCanary && (compute.count!==1 || compute.request.count!==1 ||
+       compute.request.engineId!=="quant-v4" || compute.request.packageId!=="MAL-001" ||
+       compute.request.language!=="en")){
+      res.status(403).json({code:"QS_NATIVE_CANARY_SCOPE_DENIED"});return;
+    }
     // Prevent a request from supplying its own run identifier or seed.
     const manifest=readCanonicalChapterManifest();
     if(compute.request.seed!==undefined ||
@@ -65,9 +71,10 @@ router.post("/runs/async-production-chapter",
     validateAsyncTaskComputeInput(compute);
     const identity={actorFirebaseUid:req.user.id,
       identityUserId:req.adminSession.user.id,idempotencyKey:key};
-    const receipt=await enqueueAndDispatchChapter(()=>recordQuestionStudioEnqueueIntent({
-      identity,compute,
-    }, "chapter_review"));
+    const enqueue=()=>recordQuestionStudioEnqueueIntent({identity,compute}, "chapter_review");
+    const receipt=reserveNativeCanary
+      ? {...await enqueue(),dispatchRequested:false}
+      : await enqueueAndDispatchChapter(enqueue);
     res.status(receipt.reused?200:202).json({
       id:receipt.id,publicCode:receipt.publicCode,status:receipt.status,
       reused:receipt.reused,retryAfterSeconds:receipt.retryAfterSeconds,

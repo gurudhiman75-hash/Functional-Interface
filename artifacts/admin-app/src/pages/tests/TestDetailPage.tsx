@@ -100,6 +100,7 @@ export function TestDetailPage() {
 
   const runAction = async (action: TestLifecycleAction, success: string) => {
     if (!detail?.test.currentDraftVersionId) return;
+    if (action === 'approve-publish' && !window.confirm('Approve this version and publish it now?')) return;
     setSaving(true);
     setActionIssues([]);
     try {
@@ -166,6 +167,11 @@ export function TestDetailPage() {
           <Card><CardHeader><CardTitle className="text-base">Server validation</CardTitle></CardHeader><CardContent>{blockingIssues.length === 0 ? <div className="flex items-center gap-2 text-sm font-medium text-success"><CheckCircle2 className="h-4 w-4" /> Ready for the next lifecycle action.</div> : <div className="space-y-2">{blockingIssues.map((issue, index) => <div key={`${issue.code}-${index}`} className="flex gap-2 rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" /><div><p>{issue.message}</p><p className="mt-1 text-xs text-muted-foreground">{issue.code}</p></div></div>)}</div>}</CardContent></Card>
 
           <Card><CardHeader><CardTitle className="text-base">Lifecycle actions</CardTitle></CardHeader><CardContent className="space-y-3"><div className="space-y-2"><Label>Action reason</Label><Textarea value={actionReason} onChange={(event) => setActionReason(event.target.value)} rows={3} placeholder="Required for needs-fix, archive and restore" /></div>
+            {canApprove && canPublish && ['draft', 'content_ready', 'under_qa'].includes(test.status) && (
+              <Button className="w-full justify-start" onClick={() => void runAction('approve-publish', 'Test approved and published')} disabled={saving || detail.validationIssues.length > 0}>
+                <Rocket className="mr-1.5 h-4 w-4" /> Approve &amp; publish
+              </Button>
+            )}
             {canUpdate && ['draft', 'needs_fix', 'content_ready'].includes(test.status) && <Button className="w-full justify-start" onClick={() => void runAction('submit-qa', 'Submitted for QA')} disabled={saving || detail.validationIssues.length > 0}><Send className="mr-1.5 h-4 w-4" /> Submit for QA</Button>}
             {canApprove && test.status === 'under_qa' && <Button className="w-full justify-start" onClick={() => void runAction('approve', 'QA approved')} disabled={saving || detail.validationIssues.length > 0}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve test</Button>}
             {canApprove && ['under_qa', 'qa_approved', 'scheduled'].includes(test.status) && <Button variant="outline" className="w-full justify-start" onClick={() => void runAction('needs-fix', 'Sent back for fixes')} disabled={saving}><XCircle className="mr-1.5 h-4 w-4" /> Mark needs fix</Button>}

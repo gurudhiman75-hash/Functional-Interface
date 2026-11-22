@@ -30,7 +30,7 @@ export function loadNativePreview(itemId:string,version:number,refresh=false) {
   }
   return task;
 }
-// Initiated only on a deliberate pointer/focus interaction; no bulk requests.
+// Share the version-scoped request between the focused panel and bounded prefetch.
 export function prefetchNativePreview(itemId:string,version:number) {
   const id=key(itemId,version);
   if(previews.has(id)||prefetching.has(id)||prefetching.size>=maxConcurrentPrefetch) return;

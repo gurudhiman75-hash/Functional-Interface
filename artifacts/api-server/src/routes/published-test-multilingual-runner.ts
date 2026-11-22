@@ -269,7 +269,7 @@ router.get("/tests/:id", async (req, res, next) => {
       difficulty,
       sectionTimingMode: sectionTimings.length > 0 ? "fixed" : "none",
       sectionTimings,
-      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: false })),
+      sectionSettings: sections.map((section) => ({ name: String(section.name), locked: settings.lockCompletedSections === true })),
       sections: sections.map((section) => {
         const localized = translations.sections.get(String(section.id));
         return {
