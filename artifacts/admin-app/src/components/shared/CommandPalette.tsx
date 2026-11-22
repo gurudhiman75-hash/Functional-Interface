@@ -92,7 +92,7 @@ export function CommandPalette() {
         icon: ListChecks,
         group: 'Quick actions',
         status: 'live',
-        action: () => navigateTo('/tests/builder'),
+        action: () => navigateTo('/tests/new'),
       },
     ];
 
