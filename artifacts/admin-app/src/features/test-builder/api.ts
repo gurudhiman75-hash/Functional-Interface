@@ -198,6 +198,7 @@ export type TestLifecycleAction =
   | 'schedule'
   | 'publish'
   | 'approve-publish'
+  | 'approve-schedule'
   | 'archive'
   | 'restore-draft';
 
@@ -249,6 +250,7 @@ export function transitionLiveTest(
     reason?: string;
     scheduledAt?: string;
     closesAt?: string;
+    acknowledgeActiveAttempts?: boolean;
   },
 ) {
   return adminRequest<LiveTestDetail>(

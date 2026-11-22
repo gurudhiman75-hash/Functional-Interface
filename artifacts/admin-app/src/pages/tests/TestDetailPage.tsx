@@ -13,9 +13,7 @@ import {
   PencilLine,
   RefreshCw,
   Rocket,
-  Send,
   Undo2,
-  XCircle,
 } from 'lucide-react';
 
 import { CatalogBrandingEditor } from '@/components/shared/CatalogBrandingEditor';
@@ -36,17 +34,22 @@ import {
   type TestLifecycleAction,
   type TestValidationIssue,
 } from '@/features/test-builder/api';
+import {
+  ACTIVE_ATTEMPTS_WARNING,
+  canPublish as canPublishStatus,
+  canSchedule as canScheduleStatus,
+  hasUnpublishedChanges,
+  publishAction,
+  runPublishAction,
+  scheduleAction,
+  statusBadgeClass,
+  statusGroup,
+  statusLabel,
+} from '@/features/test-builder/lifecycle';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 function formatStatus(status: LiveTestStatus) {
   return status.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function statusClass(status: LiveTestStatus) {
-  if (status === 'live' || status === 'qa_approved') return 'bg-success/10 text-success hover:bg-success/10';
-  if (status === 'under_qa' || status === 'scheduled' || status === 'needs_fix') return 'bg-warning/10 text-warning hover:bg-warning/10';
-  if (status === 'archived') return 'bg-destructive/10 text-destructive hover:bg-destructive/10';
-  return 'bg-muted text-muted-foreground hover:bg-muted';
 }
 
 function formatDate(value: string | null | undefined) {
@@ -123,6 +126,36 @@ export function TestDetailPage() {
     }
   };
 
+  const runPublish = async (mode: 'publish' | 'schedule') => {
+    if (!detail?.test.currentDraftVersionId) return;
+    const test = detail.test;
+    const action = mode === 'publish' ? publishAction(test.status) : scheduleAction(test.status);
+    if (mode === 'publish' && !window.confirm(test.status === 'live'
+      ? 'Publish these changes? Students will see the new version.'
+      : 'Publish this test now? Students will be able to see it.')) return;
+    setSaving(true);
+    setActionIssues([]);
+    try {
+      const next = await runPublishAction(test.id, action, {
+        expectedCurrentDraftVersionId: test.currentDraftVersionId!,
+        reason: actionReason.trim() || undefined,
+        scheduledAt: mode === 'schedule' && scheduledAt ? new Date(scheduledAt).toISOString() : undefined,
+        closesAt: closesAt ? new Date(closesAt).toISOString() : undefined,
+      }, (count) => window.confirm(ACTIVE_ATTEMPTS_WARNING(count)));
+      if (!next) return;
+      setDetail(next);
+      setActionReason('');
+      setScheduledAt('');
+      setClosesAt('');
+      showToast.success(mode === 'publish' ? 'Published' : 'Scheduled', `${next.test.publicCode} is now ${statusLabel(next.test)}.`);
+    } catch (caught) {
+      setActionIssues(errorIssues(caught));
+      showToast.error(mode === 'publish' ? 'Publish failed' : 'Schedule failed', caught instanceof Error ? caught.message : 'Unable to update test.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) return <div className="flex min-h-80 items-center justify-center text-sm text-muted-foreground"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading live test…</div>;
   if (error || !detail || !detail.currentVersion) return <Card><CardContent className="flex min-h-64 flex-col items-center justify-center p-6 text-center"><AlertTriangle className="h-8 w-8 text-destructive" /><p className="mt-3 font-medium">{error || 'Test unavailable'}</p><div className="mt-4 flex gap-2"><Button asChild variant="outline"><Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Tests</Link></Button><Button onClick={() => void load()}><RefreshCw className="mr-1.5 h-4 w-4" /> Retry</Button></div></CardContent></Card>;
 
@@ -141,7 +174,7 @@ export function TestDetailPage() {
         actions={<div className="flex flex-wrap gap-2"><Button asChild variant="outline" size="sm"><Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Tests</Link></Button><Button asChild variant="outline" size="sm"><Link to={`/tests/builder?edit=${test.id}`}><PencilLine className="mr-1.5 h-4 w-4" /> Edit in Builder</Link></Button><Button variant="outline" size="sm" onClick={() => void load()} disabled={saving}><RefreshCw className="mr-1.5 h-4 w-4" /> Refresh</Button></div>}
       />
 
-      <div className="mb-5 flex flex-wrap items-center gap-2"><Badge className={statusClass(test.status)}>{formatStatus(test.status)}</Badge><Badge variant="outline">Draft v{version.versionNumber}</Badge>{test.publishedVersionId && <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Published version retained</Badge>}<Badge variant="outline">{questionCount} questions</Badge><Badge variant="outline">{version.totalMarks} marks</Badge><Badge variant="outline">{Math.round(version.durationSeconds / 60)} minutes</Badge></div>
+      <div className="mb-5 flex flex-wrap items-center gap-2"><Badge className={statusBadgeClass(statusGroup(test.status), hasUnpublishedChanges(test))}>{statusLabel(test)}</Badge><Badge variant="outline">Draft v{version.versionNumber}</Badge>{test.publishedVersionId && <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Published version retained</Badge>}<Badge variant="outline">{questionCount} questions</Badge><Badge variant="outline">{version.totalMarks} marks</Badge><Badge variant="outline">{Math.round(version.durationSeconds / 60)} minutes</Badge></div>
 
       <div className="mb-5"><CatalogBrandingEditor entityType="test" entityId={test.id} title="Test icon" /></div>
 
@@ -166,16 +199,17 @@ export function TestDetailPage() {
         <div className="space-y-5">
           <Card><CardHeader><CardTitle className="text-base">Server validation</CardTitle></CardHeader><CardContent>{blockingIssues.length === 0 ? <div className="flex items-center gap-2 text-sm font-medium text-success"><CheckCircle2 className="h-4 w-4" /> Ready for the next lifecycle action.</div> : <div className="space-y-2">{blockingIssues.map((issue, index) => <div key={`${issue.code}-${index}`} className="flex gap-2 rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" /><div><p>{issue.message}</p><p className="mt-1 text-xs text-muted-foreground">{issue.code}</p></div></div>)}</div>}</CardContent></Card>
 
-          <Card><CardHeader><CardTitle className="text-base">Lifecycle actions</CardTitle></CardHeader><CardContent className="space-y-3"><div className="space-y-2"><Label>Action reason</Label><Textarea value={actionReason} onChange={(event) => setActionReason(event.target.value)} rows={3} placeholder="Required for needs-fix, archive and restore" /></div>
-            {canApprove && canPublish && ['draft', 'content_ready', 'under_qa'].includes(test.status) && (
-              <Button className="w-full justify-start" onClick={() => void runAction('approve-publish', 'Test approved and published')} disabled={saving || detail.validationIssues.length > 0}>
-                <Rocket className="mr-1.5 h-4 w-4" /> Approve &amp; publish
+          <Card><CardHeader><CardTitle className="text-base">Publish</CardTitle></CardHeader><CardContent className="space-y-3">
+            {hasUnpublishedChanges(test) && <div className="rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm">Students still see the published version. Publish to replace it with these changes.</div>}
+            {test.status === 'live' && !hasUnpublishedChanges(test) && <div className="rounded-lg border p-3 text-sm text-muted-foreground">This test is live. Edit it in the Builder to prepare changes; students keep seeing this version until you publish.</div>}
+            {canPublish && canApprove && canPublishStatus(test) && (
+              <Button className="w-full justify-start" onClick={() => void runPublish('publish')} disabled={saving || detail.validationIssues.length > 0}>
+                <Rocket className="mr-1.5 h-4 w-4" /> {test.status === 'live' ? 'Publish changes' : 'Publish now'}
               </Button>
             )}
-            {canUpdate && ['draft', 'needs_fix', 'content_ready'].includes(test.status) && <Button className="w-full justify-start" onClick={() => void runAction('submit-qa', 'Submitted for QA')} disabled={saving || detail.validationIssues.length > 0}><Send className="mr-1.5 h-4 w-4" /> Submit for QA</Button>}
-            {canApprove && test.status === 'under_qa' && <Button className="w-full justify-start" onClick={() => void runAction('approve', 'QA approved')} disabled={saving || detail.validationIssues.length > 0}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve test</Button>}
-            {canApprove && ['under_qa', 'qa_approved', 'scheduled'].includes(test.status) && <Button variant="outline" className="w-full justify-start" onClick={() => void runAction('needs-fix', 'Sent back for fixes')} disabled={saving}><XCircle className="mr-1.5 h-4 w-4" /> Mark needs fix</Button>}
-            {canPublish && ['qa_approved', 'scheduled'].includes(test.status) && <div className="space-y-3 rounded-lg border p-3"><div className="space-y-2"><Label>Schedule time</Label><Input type="datetime-local" value={scheduledAt} onChange={(event) => setScheduledAt(event.target.value)} /></div><div className="space-y-2"><Label>Optional closing time</Label><Input type="datetime-local" value={closesAt} onChange={(event) => setClosesAt(event.target.value)} /></div><div className="grid gap-2"><Button variant="outline" onClick={() => void runAction('schedule', 'Test scheduled')} disabled={saving || !scheduledAt || detail.validationIssues.length > 0}><CalendarClock className="mr-1.5 h-4 w-4" /> Schedule</Button><Button onClick={() => void runAction('publish', 'Test published')} disabled={saving || detail.validationIssues.length > 0}><Rocket className="mr-1.5 h-4 w-4" /> Publish now</Button></div></div>}
+            {canPublish && canApprove && canScheduleStatus(test.status) && <div className="space-y-3 rounded-lg border p-3"><div className="space-y-2"><Label>Schedule for</Label><Input type="datetime-local" value={scheduledAt} onChange={(event) => setScheduledAt(event.target.value)} /></div><div className="space-y-2"><Label>Optional closing time</Label><Input type="datetime-local" value={closesAt} onChange={(event) => setClosesAt(event.target.value)} /></div><Button variant="outline" className="w-full" onClick={() => void runPublish('schedule')} disabled={saving || !scheduledAt || detail.validationIssues.length > 0}><CalendarClock className="mr-1.5 h-4 w-4" /> Schedule</Button><p className="text-xs text-muted-foreground">Note: automatic go-live for scheduled tests is not switched on yet.</p></div>}
+            {!(canPublish && canApprove) && <p className="text-sm text-muted-foreground">You need publish and approve permissions to publish tests.</p>}
+            <div className="space-y-2 pt-2"><Label>Reason (required to archive or restore)</Label><Textarea value={actionReason} onChange={(event) => setActionReason(event.target.value)} rows={2} /></div>
             {canUpdate && test.status !== 'archived' && <Button variant="destructive" className="w-full justify-start" onClick={() => void runAction('archive', 'Test archived')} disabled={saving}><Archive className="mr-1.5 h-4 w-4" /> Archive</Button>}
             {canUpdate && ['archived', 'needs_fix'].includes(test.status) && <Button variant="outline" className="w-full justify-start" onClick={() => void runAction('restore-draft', 'Restored as draft')} disabled={saving}><Undo2 className="mr-1.5 h-4 w-4" /> Restore as draft</Button>}
           </CardContent></Card>
