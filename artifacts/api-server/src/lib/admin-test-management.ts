@@ -52,6 +52,7 @@ export type TestLifecycleAction =
   | "schedule"
   | "publish"
   | "approve-publish"
+  | "approve-schedule"
   | "archive"
   | "restore-draft";
 
@@ -98,6 +99,12 @@ const lifecycleConfigs: Record<TestLifecycleAction, TestLifecycleConfig> = {
     permission: "tests.publish",
     requiresReason: false,
     actionKey: "assessment.test.published",
+  },
+  "approve-schedule": {
+    status: "scheduled",
+    permission: "tests.publish",
+    requiresReason: false,
+    actionKey: "assessment.test.scheduled",
   },
   archive: {
     status: "archived",
@@ -283,6 +290,42 @@ export function validateTestDraftShape(input: NormalizedTestDraftInput): TestVal
   return issues;
 }
 
+/**
+ * Single source of truth for which test statuses each lifecycle action may
+ * start from. Used by both the per-test and the bulk lifecycle routes so the
+ * two cannot drift apart.
+ *
+ * "approve-publish" / "approve-schedule" are the direct paths: an authorised
+ * admin publishes or schedules without a separate QA round. "live" is allowed
+ * for approve-publish so an edited version of a live test can replace the
+ * published one (the route rejects it when there are no unpublished changes).
+ */
+export function allowedLifecycleStatuses(action: string): string[] {
+  switch (action) {
+    case "submit-qa": return ["draft", "needs_fix", "content_ready"];
+    case "needs-fix": return ["under_qa", "qa_approved", "scheduled"];
+    case "approve": return ["under_qa"];
+    case "schedule": return ["qa_approved", "scheduled"];
+    case "approve-schedule": return ["draft", "content_ready", "under_qa", "needs_fix", "scheduled"];
+    case "approve-publish": return ["draft", "content_ready", "under_qa", "needs_fix", "scheduled", "live"];
+    case "publish": return ["qa_approved", "scheduled", "live"];
+    case "archive": return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
+    case "restore-draft": return ["archived", "needs_fix"];
+    default: return [];
+  }
+}
+
+/** True when the draft version differs from what students currently see. */
+export function hasUnpublishedChanges(input: {
+  status: string;
+  currentDraftVersionId: string | null;
+  publishedVersionId: string | null;
+}): boolean {
+  return input.status === "live"
+    && !!input.currentDraftVersionId
+    && input.currentDraftVersionId !== input.publishedVersionId;
+}
+
 export function getTestLifecycleConfig(action: string): TestLifecycleConfig {
   const config = lifecycleConfigs[action as TestLifecycleAction];
   if (!config) {
@@ -303,7 +346,7 @@ export function normalizeTestLifecycleInput(action: string, value: unknown) {
   const scheduledAt = input.scheduledAt == null || input.scheduledAt === ""
     ? null
     : new Date(String(input.scheduledAt));
-  if (action === "schedule") {
+  if (action === "schedule" || action === "approve-schedule") {
     if (!scheduledAt || Number.isNaN(scheduledAt.getTime()) || scheduledAt.getTime() <= Date.now()) {
       throw new TestManagementError("INVALID_TEST_SCHEDULE", "Choose a future publication time");
     }

@@ -4,7 +4,9 @@ import { Router, type Response } from "express";
 import { hasAdminPermission, requireAdminPermission } from "../lib/admin-rbac";
 import {
   TestManagementError,
+  allowedLifecycleStatuses,
   getTestLifecycleConfig,
+  hasUnpublishedChanges,
   isUuid,
   normalizeTestDraftInput,
   normalizeTestLifecycleInput,
@@ -740,7 +742,9 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
         SET
           exam_version_id = ${input.examVersionId}::uuid,
           current_draft_version_id = ${versionId}::uuid,
-          status = 'draft'::test_status,
+          -- A live test stays live while its next version is edited: students
+          -- keep seeing published_version_id until the edit is published.
+          status = CASE WHEN status = 'live'::test_status THEN 'live'::test_status ELSE 'draft'::test_status END,
           updated_at = now()
         WHERE id = ${testId}::uuid
       `;
@@ -769,22 +773,10 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
   }
 });
 
-function allowedLifecycleStatuses(action: string): string[] {
-  if (action === "submit-qa") return ["draft", "needs_fix", "content_ready"];
-  if (action === "needs-fix") return ["under_qa", "qa_approved", "scheduled"];
-  if (action === "approve") return ["under_qa"];
-  if (action === "schedule") return ["qa_approved", "scheduled"];
-  if (action === "approve-publish") return ["draft", "content_ready", "under_qa"];
-  if (action === "publish") return ["qa_approved", "scheduled", "live"];
-  if (action === "archive") return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
-  if (action === "restore-draft") return ["archived", "needs_fix"];
-  return [];
-}
-
-for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "archive", "restore-draft"] as const) {
+for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "approve-schedule", "archive", "restore-draft"] as const) {
   const config = getTestLifecycleConfig(action);
   const permissions = [requireAdminPermission(config.permission)];
-  if (action === "approve-publish") permissions.push(requireAdminPermission("tests.approve"));
+  if (action === "approve-publish" || action === "approve-schedule") permissions.push(requireAdminPermission("tests.approve"));
   router.post(`/:id/actions/${action}`, ...permissions, async (req, res) => {
     try {
       const testId = assertTestId(req.params.id);
@@ -826,15 +818,30 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
             409,
           );
         }
+        if (
+          (action === "approve-publish" || action === "publish") &&
+          String(testRecord.status) === "live" &&
+          !hasUnpublishedChanges({
+            status: String(testRecord.status),
+            currentDraftVersionId: testRecord.currentDraftVersionId ? String(testRecord.currentDraftVersionId) : null,
+            publishedVersionId: testRecord.publishedVersionId ? String(testRecord.publishedVersionId) : null,
+          })
+        ) {
+          throw new TestManagementError(
+            "NO_UNPUBLISHED_CHANGES",
+            "This test is already live with no unpublished changes",
+            409,
+          );
+        }
 
-        if (["submit-qa", "approve", "schedule", "publish", "approve-publish"].includes(action)) {
+        if (["submit-qa", "approve", "schedule", "publish", "approve-publish", "approve-schedule"].includes(action)) {
           const issues = await loadStoredValidation(testId, input.expectedCurrentDraftVersionId, tx as SqlExecutor);
           if (issues.length > 0) {
             throw new TestManagementError("TEST_VALIDATION_FAILED", "Resolve validation issues before continuing", 409, issues);
           }
         }
 
-        if (action === "schedule") {
+        if (action === "schedule" || action === "approve-schedule") {
           const numberRows = await tx`
             SELECT COALESCE(MAX(publication_number), 0)::int + 1 AS "nextPublicationNumber"
             FROM assessment.test_publications
@@ -913,7 +920,7 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
             ${input.reason || null},
             ${`${String(testRecord.publicCode)} moved from ${String(testRecord.status)} to ${input.config.status}`},
             ${tx.json({
-              ...(action === "approve-publish" ? { approvedByUserId: actorUserId, approvalMode: "direct" } : {}),
+              ...(action === "approve-publish" || action === "approve-schedule" ? { approvedByUserId: actorUserId, approvalMode: "direct" } : {}),
               previousStatus: testRecord.status,
               status: input.config.status,
               scheduledAt: input.scheduledAt,
