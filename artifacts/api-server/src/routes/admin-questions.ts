@@ -410,7 +410,6 @@ router.get(
         LEFT JOIN catalog.exams e ON e.id = ev.exam_id
         LEFT JOIN catalog.exam_families ef ON ef.id = e.family_id
         WHERE q.deleted_at IS NULL
-          AND q.primary_taxonomy_node_id IS NOT NULL
           AND (
             (q.status = 'published'::question_status
               AND q.published_version_id = v.id
@@ -418,8 +417,7 @@ router.get(
               AND COALESCE(v.answer_model #>> '{generation,testEligible}', 'true') <> 'false'
               AND COALESCE(v.answer_model #>> '{generation,publiclyPublishable}', 'true') <> 'false')
             OR (q.status = 'approved'::question_status
-              AND q.approved_version_id = v.id
-              AND v.answer_model #>> '{generation,questionBankAcceptanceMode}' = 'BANK_ONLY')
+              AND q.approved_version_id = v.id)
           )
         ORDER BY q.published_at DESC NULLS LAST, q.updated_at DESC
         LIMIT 5000
