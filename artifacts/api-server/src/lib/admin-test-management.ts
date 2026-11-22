@@ -362,6 +362,8 @@ export function normalizeTestLifecycleInput(action: string, value: unknown) {
   return {
     config,
     expectedCurrentDraftVersionId,
+    // Admin explicitly accepts replacing a live version while students are mid-attempt.
+    acknowledgeActiveAttempts: input.acknowledgeActiveAttempts === true,
     reason,
     scheduledAt: scheduledAt?.toISOString() ?? null,
     closesAt: closesAt?.toISOString() ?? null,

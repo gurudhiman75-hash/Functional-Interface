@@ -166,3 +166,10 @@ test("a test a reviewer flagged needs_fix cannot be directly published or schedu
   assert.ok(!allowedLifecycleStatuses("approve-publish").includes("needs_fix"));
   assert.ok(!allowedLifecycleStatuses("approve-schedule").includes("needs_fix"));
 });
+
+test("acknowledgeActiveAttempts is false unless explicitly true", () => {
+  const base = { expectedCurrentDraftVersionId: draftVersionId };
+  assert.equal(normalizeTestLifecycleInput("approve-publish", base).acknowledgeActiveAttempts, false);
+  assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: "true" }).acknowledgeActiveAttempts, false);
+  assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: true }).acknowledgeActiveAttempts, true);
+});
