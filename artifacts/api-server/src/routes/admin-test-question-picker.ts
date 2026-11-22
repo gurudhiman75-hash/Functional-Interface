@@ -6,6 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 router.use(authenticate);
 
 /**
@@ -123,6 +124,50 @@ router.get("/question-picker", requireAdminPermission("tests.read"), async (req,
   } catch (error) {
     console.error("Unable to search test question picker", error);
     res.status(500).json({ error: "Unable to search questions for the test", code: "QUESTION_PICKER_FAILED" });
+  }
+});
+
+/**
+ * GET /api/admin/tests/question-picker/info?versionIds=a,b,c
+ * Readiness facts for questions already placed in a test: how many other
+ * published tests use them, approved languages, correct option and difficulty.
+ */
+router.get("/question-picker/info", requireAdminPermission("tests.read"), async (req, res) => {
+  const raw = typeof req.query.versionIds === "string" ? req.query.versionIds.split(",") : [];
+  const ids = [...new Set(raw.map((id) => id.trim()))].filter((id) => UUID_PATTERN.test(id)).slice(0, 500);
+  const excludeTestId = typeof req.query.excludeTestId === "string" && UUID_PATTERN.test(req.query.excludeTestId)
+    ? req.query.excludeTestId : null;
+  if (ids.length === 0) {
+    res.json({ questions: [] });
+    return;
+  }
+  try {
+    const rows = await sqlClient`
+      SELECT
+        v.id::text AS "versionId",
+        v.difficulty,
+        (SELECT o.option_key FROM content.question_options o
+          WHERE o.question_version_id = v.id AND o.is_correct ORDER BY o.sort_order LIMIT 1) AS "correctOptionKey",
+        (SELECT COUNT(DISTINCT t.id)::int
+          FROM assessment.test_questions tq
+          JOIN assessment.tests t ON t.published_version_id = tq.test_version_id
+          WHERE tq.question_version_id = v.id AND t.deleted_at IS NULL
+            AND t.status <> 'archived'::test_status
+            AND (${excludeTestId}::uuid IS NULL OR t.id <> ${excludeTestId}::uuid)) AS "usedInTests",
+        ARRAY(
+          SELECT 'en' UNION
+          SELECT DISTINCT lower(l.code)
+          FROM content.question_translations qt
+          JOIN catalog.languages l ON l.id = qt.language_id
+          WHERE qt.question_version_id = v.id AND lower(qt.status) = 'approved'
+        ) AS languages
+      FROM content.question_versions v
+      WHERE v.id = ANY(${ids}::uuid[])
+    `;
+    res.json({ questions: rows });
+  } catch (error) {
+    console.error("Unable to load question readiness info", error);
+    res.status(500).json({ error: "Unable to load question details", code: "QUESTION_INFO_FAILED" });
   }
 });
 

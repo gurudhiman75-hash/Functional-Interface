@@ -1,3 +1,5 @@
+import { loadTestVersionMeta, pinnedAttemptVersionId } from "../lib/attempt-version-pin";
+import { optionalAuthenticate } from "../middlewares/optionalAuth";
 import { Router, type IRouter } from "express";
 
 import { sqlClient } from "../lib/db";
@@ -63,13 +65,18 @@ async function loadPublishedTest(identifier: string) {
   return rows[0] ?? null;
 }
 
-router.get("/tests/:id", async (req, res, next) => {
+router.get("/tests/:id", optionalAuthenticate, async (req, res, next) => {
   const identifier = String(req.params.id ?? "").trim();
   if (!identifier) return next();
 
   try {
     const test = await loadPublishedTest(identifier);
     if (!test) return next();
+    const pinned = await pinnedAttemptVersionId(req.user?.id, String(test.id));
+    if (pinned && pinned !== String(test.publishedVersionId)) {
+      const meta = await loadTestVersionMeta(pinned);
+      if (meta) Object.assign(test, meta, { publishedVersionId: pinned });
+    }
 
     const sections = await sqlClient`
       SELECT s.id::text AS id, s.name, s.section_key AS "sectionKey",

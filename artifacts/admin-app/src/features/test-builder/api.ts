@@ -326,3 +326,21 @@ export function searchQuestionPicker(filters: QuestionPickerFilters) {
     { fallbackMessage: 'Unable to search questions.' },
   );
 }
+
+export interface QuestionReadinessInfo {
+  versionId: string;
+  difficulty: string;
+  correctOptionKey: string | null;
+  usedInTests: number;
+  languages: string[];
+}
+
+export function getQuestionReadinessInfo(versionIds: string[], excludeTestId?: string) {
+  const params = new URLSearchParams({ versionIds: versionIds.slice(0, 500).join(',') });
+  if (excludeTestId) params.set('excludeTestId', excludeTestId);
+  return adminRequest<{ questions: QuestionReadinessInfo[] }>(
+    `/admin/tests/question-picker/info?${params.toString()}`,
+    {},
+    { fallbackMessage: 'Unable to load question details.' },
+  );
+}

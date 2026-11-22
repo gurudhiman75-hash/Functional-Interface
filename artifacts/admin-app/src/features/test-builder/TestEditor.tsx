@@ -14,8 +14,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { getTranslationOverview, updateExamVersionLanguages } from '@/features/translations/api';
+import { assembleBlueprint, getBlueprints, type BlueprintSummary } from '@/features/test-blueprints/api';
 import {
-  autoAssembleTest, createLiveTest, getLiveTest, saveLiveTestDraft, transitionLiveTest,
+  autoAssembleTest, createLiveTest, getLiveTest, getQuestionReadinessInfo, saveLiveTestDraft, transitionLiveTest,
   type LiveTestDetail, type PickerQuestion, type TestCatalogExamVersion, type TestDraftInput,
 } from './api';
 import {
@@ -34,7 +35,7 @@ interface EditorDraft {
 interface QuestionCard {
   versionId: string; questionId?: string; publicCode: string; stem: string; difficulty: string;
   options: Array<{ key: string; text: string; isCorrect?: boolean }>;
-  usedInTests?: number; languages?: string[];
+  usedInTests?: number; languages?: string[]; correctOptionKey?: string | null;
 }
 
 const newKey = () => `section-${Date.now()}-${Math.round(Math.random() * 1000)}`;
@@ -111,6 +112,13 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [scheduleAt, setScheduleAt] = useState('');
   const [fillCount, setFillCount] = useState(25);
+  const [blueprints, setBlueprints] = useState<BlueprintSummary[]>([]);
+  const [patternId, setPatternId] = useState('');
+
+  useEffect(() => {
+    if (testId) return;
+    getBlueprints().then(({ blueprints: list }) => setBlueprints(list.filter((b) => !b.deletedAt))).catch(() => setBlueprints([]));
+  }, [testId]);
 
   const loadedIdRef = useRef<string | null>(null);
   const apply = (next: LiveTestDetail) => {
@@ -122,6 +130,22 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
     setCards((current) => new Map([...current, ...cardsFromDetail(next)]));
     setActiveKey((key) => (d.sections.some((s) => s.clientKey === key) ? key : d.sections[0]?.clientKey ?? 'section-1'));
     setServerIssues(next.validationIssues.filter((i) => !i.code.startsWith('STRUCTURE_')).map((i) => i.message));
+    enrich(next.sections.flatMap((s) => s.questions.map((q) => q.questionVersionId)), next.test.id);
+  };
+
+  /** Load usage, languages and answer key for questions so readiness warnings cover them. */
+  const enrich = (ids: string[], excludeTestId?: string) => {
+    if (!ids.length) return;
+    getQuestionReadinessInfo(ids, excludeTestId)
+      .then(({ questions }) => setCards((current) => {
+        const merged = new Map(current);
+        questions.forEach((info) => {
+          const card = merged.get(info.versionId);
+          if (card) merged.set(info.versionId, { ...card, usedInTests: info.usedInTests, languages: info.languages, correctOptionKey: info.correctOptionKey, difficulty: card.difficulty || info.difficulty });
+        });
+        return merged;
+      }))
+      .catch(() => undefined);
   };
 
   useEffect(() => {
@@ -164,7 +188,7 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
     const map = new Map<string, ReadinessQuestionInfo>();
     cards.forEach((c, id) => map.set(id, {
       difficulty: c.difficulty, usedInTests: c.usedInTests, languages: c.languages,
-      correctOptionKey: c.options.find((o) => o.isCorrect)?.key ?? null,
+      correctOptionKey: c.correctOptionKey ?? c.options.find((o) => o.isCorrect)?.key ?? null,
     }));
     return map;
   }, [cards]);
@@ -336,10 +360,28 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
         return next;
       });
       setSection(active.clientKey, { questionVersionIds: [...active.questionVersionIds, ...fresh.map((q) => q.questionVersionId)] });
+      enrich(fresh.map((q) => q.questionVersionId), detail?.test.id);
       if (result.shortages.length) showToast.warning('Fewer questions available', result.shortages[0]);
       else showToast.success('Added', `${fresh.length} questions added to ${active.name}. Swap any you don't want.`);
     } catch (error) {
       showToast.error('Could not fill', error instanceof Error ? error.message : 'Try again.');
+    } finally {
+      setBusy('');
+    }
+  };
+
+  const startFromPattern = async () => {
+    const pattern = blueprints.find((b) => b.id === patternId);
+    if (!pattern) return;
+    if (draft.title.trim().length < 3) { showToast.warning('Add a title first', 'Enter the test title, then create from the pattern.'); return; }
+    setBusy('fill');
+    try {
+      const result = await assembleBlueprint(pattern.id, { title: draft.title.trim(), seed: `${draft.title}-${Date.now()}`, changeReason: `Created from pattern ${pattern.code} in Tests workspace` });
+      onChanged();
+      onSaved(result.testId);
+      showToast.success('Test created from pattern', `${result.publicCode}: review the questions, swap any you don't want, then publish.`);
+    } catch (error) {
+      showToast.error('Could not build from pattern', error instanceof Error ? error.message : 'Try again.');
     } finally {
       setBusy('');
     }
@@ -431,6 +473,23 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
           </div>
 
           {view === 'build' && <>
+            {!detail && draft.examVersionId && blueprints.some((b) => b.examVersionId === draft.examVersionId) && (
+              <Card className="border-primary/30">
+                <CardContent className="flex flex-wrap items-end gap-3 p-4">
+                  <div className="min-w-56 flex-1 space-y-1.5">
+                    <Label>Start from exam pattern (optional)</Label>
+                    <Select value={patternId} onValueChange={setPatternId}>
+                      <SelectTrigger><SelectValue placeholder="Choose a pattern" /></SelectTrigger>
+                      <SelectContent>{blueprints.filter((b) => b.examVersionId === draft.examVersionId).map((b) => <SelectItem key={b.id} value={b.id}>{b.name} · {b.sectionCount} sections · {b.questionCount} Q</SelectItem>)}</SelectContent>
+                    </Select>
+                  </div>
+                  <Button size="sm" className="h-10" disabled={!patternId || !!busy} onClick={() => void startFromPattern()}>
+                    {busy === 'fill' ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />} Build from pattern
+                  </Button>
+                  <p className="w-full text-xs text-muted-foreground">Creates the sections, timing and marks from the pattern and picks matching questions. You can then swap any question before publishing.</p>
+                </CardContent>
+              </Card>
+            )}
             <Card>
               <CardHeader className="pb-3"><CardTitle className="text-base">Setup</CardTitle></CardHeader>
               <CardContent className="space-y-4">

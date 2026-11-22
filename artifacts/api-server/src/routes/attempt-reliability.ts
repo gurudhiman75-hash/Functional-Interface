@@ -117,7 +117,8 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
     const testId = String(publication.testId);
     const testVersionId = String(publication.testVersionId);
     const publicationId = String(publication.publicationId);
-    const lockKey = `${userId}:${publicationId}`;
+    // Lock per student+test (not per publication) so a republish can't race a resume.
+    const lockKey = `${userId}:test:${testId}`;
 
     const result = await sqlClient.begin(async (sql) => {
       await sql`SELECT pg_advisory_xact_lock(hashtextextended(${lockKey}, 0))`;
@@ -136,16 +137,23 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
         FROM learning.attempts attempt
         JOIN assessment.test_publications publication ON publication.id = attempt.test_publication_id
         WHERE attempt.user_id = ${userId}::uuid
-          AND attempt.test_publication_id = ${publicationId}::uuid
+          AND publication.test_id = ${testId}::uuid
           AND attempt.status = 'in_progress'
+          AND attempt.abandoned_at IS NULL
         ORDER BY attempt.started_at DESC
         LIMIT 1
         FOR UPDATE OF attempt
       `;
 
+      // Resume the unfinished attempt on whichever publication it started on
+      // (attempt version pinning): a newer publication never restarts it.
       if (activeRows[0]) {
         const row = activeRows[0] as Record<string, unknown>;
-        const snapshot = readAttemptSessionSnapshot(row.resultSnapshot, { testId, testVersionId, seriesId });
+        const snapshot = readAttemptSessionSnapshot(row.resultSnapshot, {
+          testId,
+          testVersionId: String(row.testVersionId),
+          seriesId,
+        });
         if (snapshot.seriesId == null && seriesId) {
           snapshot.seriesId = seriesId;
           snapshot.savedAt = new Date().toISOString();
@@ -164,9 +172,12 @@ router.post("/attempt-sessions", authenticate, async (req, res) => {
       const sequenceRows = await sql`
         SELECT COALESCE(MAX(attempt.attempt_number), 0)::int + 1 AS "attemptNumber"
         FROM learning.attempts attempt
+        JOIN assessment.test_publications publication ON publication.id = attempt.test_publication_id
         WHERE attempt.user_id = ${userId}::uuid
-          AND attempt.test_publication_id = ${publicationId}::uuid
+          AND publication.test_id = ${testId}::uuid
       `;
+      // Attempt limits count across every publication of the test, so
+      // republishing does not hand out fresh attempts.
       const attemptNumber = Number(sequenceRows[0]?.attemptNumber ?? 1);
       const maxAttempts = resolveAttemptLimit(publication.settings);
       if (attemptNumber > maxAttempts) {

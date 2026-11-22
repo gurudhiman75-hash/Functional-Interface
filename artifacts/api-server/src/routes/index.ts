@@ -158,6 +158,15 @@ const retiredLegacyRouter = lazyRouter(() => import("./retired-legacy"));
 
 const router: IRouter = Router();
 router.use(healthRouter);
+// Switch due scheduled tests live (throttled to once a minute per instance;
+// waits at most 1.5s so a slow database never stalls ordinary requests).
+router.use((_req, _res, next) => {
+  const timeout = new Promise<void>((resolve) => setTimeout(resolve, 1500));
+  Promise.race([
+    import("../lib/scheduled-test-activation").then((m) => m.maybeActivateDueScheduledTests()),
+    timeout,
+  ]).catch(() => undefined).finally(() => next());
+});
 // Public products must resolve before unrelated routers with router-wide authentication.
 // Checkout and purchase history enforce authentication inside their own handlers.
 router.use(canonicalCommerceCheckoutRouter);

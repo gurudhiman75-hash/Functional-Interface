@@ -21,7 +21,6 @@ import { authenticate } from "../middlewares/auth";
 const router = Router();
 type SqlExecutor = typeof sqlClient;
 
-const ACTIVE_ATTEMPT_WINDOW_HOURS = 6;
 
 function sendTestError(res: Response, error: unknown, fallback: string): void {
   if (error instanceof TestManagementError) {
@@ -835,36 +834,8 @@ for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish"
             409,
           );
         }
-        // Replacing a live version while students are mid-attempt is not yet safe:
-        // the student runner serves the *current* published version and a new
-        // publication row starts a fresh attempt instead of resuming the old one.
-        // Block unless the admin explicitly acknowledges it. "Active" = in progress
-        // with activity in the last ACTIVE_ATTEMPT_WINDOW_HOURS (abandoned attempts
-        // must not block publishing forever).
-        if (
-          (action === "approve-publish" || action === "publish") &&
-          String(testRecord.status) === "live" &&
-          !input.acknowledgeActiveAttempts
-        ) {
-          const activeRows = await tx`
-            SELECT COUNT(*)::int AS count
-            FROM learning.attempts attempt
-            JOIN assessment.test_publications publication ON publication.id = attempt.test_publication_id
-            WHERE publication.test_id = ${testId}::uuid
-              AND attempt.status = 'in_progress'
-              AND attempt.last_activity_at > now() - make_interval(hours => ${ACTIVE_ATTEMPT_WINDOW_HOURS})
-          `;
-          const activeAttempts = Number(activeRows[0]?.count ?? 0);
-          if (activeAttempts > 0) {
-            throw new TestManagementError(
-              "TEST_HAS_ACTIVE_ATTEMPTS",
-              `${activeAttempts} student attempt(s) are in progress. Publishing a new version now can disrupt them.`,
-              409,
-              { activeAttempts, windowHours: ACTIVE_ATTEMPT_WINDOW_HOURS },
-            );
-          }
-        }
-
+        // Students mid-attempt keep the version their attempt started on
+        // (see lib/attempt-version-pin.ts), so publishing a new version is safe.
         if (["submit-qa", "approve", "schedule", "publish", "approve-publish", "approve-schedule"].includes(action)) {
           const issues = await loadStoredValidation(testId, input.expectedCurrentDraftVersionId, tx as SqlExecutor);
           if (issues.length > 0) {
