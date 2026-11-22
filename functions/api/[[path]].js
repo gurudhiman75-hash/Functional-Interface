@@ -66,6 +66,28 @@ export function configuredNativeLocalizationCandidateOrigin(env = {}) {
   }
   return url.origin;
 }
+// Preview-only staging mode. A Pages PREVIEW deployment (branch or hash
+// subdomain of functional-interface.pages.dev) may send ALL /api traffic to the
+// isolated staging API so a branch can be tested end to end in the UI.
+// Two independent guards keep production out of it:
+//   1. EXAMTREE_PREVIEW_STAGING_API_ORIGIN is set only in the Pages *preview*
+//      environment, so production deployments never see it;
+//   2. it is ignored on any hostname other than <sub>.functional-interface.pages.dev
+//      (never examtree.in, www, test, blog or the bare production pages.dev).
+// The origin must be the dedicated examtree-api-staging Cloud Run service.
+const PREVIEW_HOST = /^[a-z0-9-]+\.functional-interface\.pages\.dev$/;
+export function configuredPreviewStagingOrigin(env = {}, hostname = "") {
+  const raw = env.EXAMTREE_PREVIEW_STAGING_API_ORIGIN;
+  if (typeof raw !== "string" || !raw.trim() || !PREVIEW_HOST.test(hostname)) return null;
+  let url;
+  try { url = new URL(raw.trim()); } catch { throw new Error("Invalid preview staging API origin"); }
+  if (url.protocol !== "https:" || url.username || url.password ||
+      (url.pathname !== "/" && url.pathname !== "") || url.search || url.hash ||
+      !/^examtree-api-staging-[a-z0-9-]+\.(?:a\.run\.app|asia-south1\.run\.app)$/.test(url.hostname)) {
+    throw new Error("Preview staging origin must be the dedicated examtree-api-staging service");
+  }
+  return url.origin;
+}
 const METHODS = new Set(["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]);
 
 export async function onRequest({ request, env = {} }) {
@@ -83,6 +105,23 @@ export async function onRequest({ request, env = {} }) {
     return new Response("Cross-origin API request not permitted", {
       status: 403, headers: { "Cache-Control": "no-store" },
     });
+  }
+  let previewStagingOrigin;
+  try { previewStagingOrigin = configuredPreviewStagingOrigin(env, incoming.hostname); }
+  catch {
+    return Response.json({ code: "PREVIEW_STAGING_MISCONFIGURED",
+      error: "The preview staging API is not configured correctly." },
+      { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
+  // Payment callbacks must never reach the staging database: fail closed.
+  if (previewStagingOrigin && (
+    /^\/api\/billing\//.test(incoming.pathname) ||
+    /^\/api\/commerce\/orders\//.test(incoming.pathname) ||
+    incoming.pathname === "/api/packages/verify" ||
+    incoming.pathname === "/api/admin/commerce" || incoming.pathname.startsWith("/api/admin/commerce/"))) {
+    return Response.json({ code: "PREVIEW_STAGING_FINANCE_DISABLED",
+      error: "Payments are disabled on staging previews." },
+      { status: 503, headers: { "Cache-Control": "no-store" } });
   }
   let upstreamOrigin;
   try { upstreamOrigin = configuredApiOrigin(env); }
@@ -224,6 +263,7 @@ export async function onRequest({ request, env = {} }) {
   const studentTestPreview = incoming.hostname === "fix-qs-publication-readiness.functional-interface.pages.dev" &&
     /^\/api\/(?:tests|published-tests|attempts|attempt-sessions)(?:\/|$)/.test(incoming.pathname);
   const actualUpstream =
+    previewStagingOrigin ||
     (studentTestPreview ? "https://qs-pub---examtree-api-ttnfjefqka-el.a.run.app" : null) ||
     (nativeLocalizationCandidateOrigin || null) ||
     (adminRenderBridge && !adminFinanceRenderBridge && adminCanaryOrigin ? adminCanaryOrigin : null) ||
