@@ -739,7 +739,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
     toast({ title: "All questions reviewed", description: "No more wrong or skipped questions ahead." });
   }, [attemptType, realExamAnswers, effectiveSections, currentSectionIndex, currentQuestionIndex, toast]);
 
-  const navigateToSection = (sectionIndex: number, questionIndex = 0) => {
+  const navigateToSection = (sectionIndex: number, questionIndex = 0, finishSection = false) => {
     // Practice mode: always allow free navigation
     if (attemptType === "PRACTICE") {
       setCurrentSectionIndex(sectionIndex);
@@ -748,7 +748,8 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
       return;
     }
 
-    if (waitForSectionTimer && sectionIndex !== currentSectionIndex) return;
+    if (hasLockedSections && sectionIndex !== currentSectionIndex &&
+        (waitForSectionTimer || !finishSection || sectionIndex !== currentSectionIndex + 1)) return;
 
     // Block locked (completed) sections
     if (lockedSections.includes(sectionIndex)) {
@@ -1309,17 +1310,17 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
             </button>
           </div>
 
-          {isTcsInterface && !sidebarCollapsed && <SscCbtSidebar sections={effectiveSections} active={currentSectionIndex} locked={lockedSections} restricted={hasLockedSections} currentQuestion={currentQuestionIndex} getStatus={getQuestionStatus} onNavigate={navigateToSection} onNext={waitForSectionTimer ? undefined : () => navigateToSection(currentSectionIndex + 1, 0)} />}
+          {isTcsInterface && !sidebarCollapsed && <SscCbtSidebar sections={effectiveSections} active={currentSectionIndex} locked={lockedSections} restricted={hasLockedSections} currentQuestion={currentQuestionIndex} getStatus={getQuestionStatus} onNavigate={navigateToSection} onNext={waitForSectionTimer ? undefined : () => navigateToSection(currentSectionIndex + 1, 0, true)} />}
           {!isTcsInterface && !sidebarCollapsed && (
           <aside className={isTcsInterface ? "tcs-ion-sidebar min-w-0 space-y-0" : "min-w-0 space-y-3"}>
             {!waitForSectionTimer && currentSectionIndex < effectiveSections.length - 1 && (
               <button
                 type="button"
-                onClick={() => navigateToSection(currentSectionIndex + 1, 0)}
+                onClick={() => navigateToSection(currentSectionIndex + 1, 0, true)}
                 className="flex w-full items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 transition"
               >
                 <ChevronRight className="h-4 w-4" />
-                Jump to Next Section
+                {hasLockedSections ? 'Finish section' : 'Jump to Next Section'}
               </button>
             )}
 
@@ -1393,7 +1394,7 @@ function TestRunner({ test, showSuccessMessage, initialMode, subcategoryLanguage
                             <button
                               key={question.id}
                               type="button"
-                              disabled={(isLocked || waitForSectionTimer) && !isActive}
+                              disabled={(isLocked || hasLockedSections) && !isActive}
                               onClick={() => navigateToSection(sectionIndex, questionIndex)}
                               aria-label={`Question ${questionIndex + 1}, ${status.replace(/_/g, " ").toLowerCase()}`}
                               aria-current={isCurrent ? "step" : undefined}
