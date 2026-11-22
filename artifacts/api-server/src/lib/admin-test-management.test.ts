@@ -161,3 +161,8 @@ test("approve-schedule requires a future time and uses the scheduled status", ()
   const ok = normalizeTestLifecycleInput("approve-schedule", { expectedCurrentDraftVersionId: draftVersionId, scheduledAt: future });
   assert.equal(ok.scheduledAt, future);
 });
+
+test("a test a reviewer flagged needs_fix cannot be directly published or scheduled", () => {
+  assert.ok(!allowedLifecycleStatuses("approve-publish").includes("needs_fix"));
+  assert.ok(!allowedLifecycleStatuses("approve-schedule").includes("needs_fix"));
+});

@@ -9,7 +9,7 @@ import { authenticate } from "../middlewares/auth";
 const router = Router();
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const ACTIONS = ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "approve-schedule", "archive", "restore-draft"] as const;
+const ACTIONS = ["submit-qa", "needs-fix", "approve", "schedule", "publish", "archive", "restore-draft"] as const;
 type BulkAction = typeof ACTIONS[number];
 
 type BulkItem = {
@@ -58,8 +58,8 @@ function nextStatus(action: BulkAction): string {
   if (action === "submit-qa") return "under_qa";
   if (action === "needs-fix") return "needs_fix";
   if (action === "approve") return "qa_approved";
-  if (action === "schedule" || action === "approve-schedule") return "scheduled";
-  if (action === "publish" || action === "approve-publish") return "live";
+  if (action === "schedule") return "scheduled";
+  if (action === "publish") return "live";
   if (action === "archive") return "archived";
   return "draft";
 }
@@ -142,9 +142,7 @@ router.use(authenticate);
 
 for (const action of ACTIONS) {
   const config = getTestLifecycleConfig(action);
-  const permissions = [requireAdminPermission(config.permission)];
-  if (action === "approve-publish" || action === "approve-schedule") permissions.push(requireAdminPermission("tests.approve"));
-  router.post(`/bulk/actions/${action}`, ...permissions, async (req, res) => {
+  router.post(`/bulk/actions/${action}`, requireAdminPermission(config.permission), async (req, res) => {
     const actorUserId = req.adminSession?.user.id;
     if (!actorUserId) {
       res.status(403).json({ error: "Administrator session required" });
@@ -165,7 +163,7 @@ for (const action of ACTIONS) {
       res.status(400).json({ error: "A reason is required", code: "REASON_REQUIRED" });
       return;
     }
-    if ((action === "schedule" || action === "approve-schedule") && !scheduledAt) {
+    if (action === "schedule" && !scheduledAt) {
       res.status(400).json({ error: "A schedule time is required", code: "SCHEDULE_REQUIRED" });
       return;
     }
@@ -199,7 +197,7 @@ for (const action of ACTIONS) {
           }
 
           if (
-            (action === "approve-publish" || action === "publish") &&
+            action === "publish" &&
             String(test.status) === "live" &&
             !hasUnpublishedChanges({
               status: String(test.status),
@@ -210,13 +208,13 @@ for (const action of ACTIONS) {
             throw Object.assign(new Error("Already live with no unpublished changes"), { code: "NO_UNPUBLISHED_CHANGES" });
           }
 
-          if (["submit-qa", "approve", "schedule", "publish", "approve-publish", "approve-schedule"].includes(action)) {
+          if (["submit-qa", "approve", "schedule", "publish"].includes(action)) {
             await validateStoredTest(tx as typeof sqlClient, item.testId, item.expectedCurrentDraftVersionId);
           }
 
           const status = nextStatus(action);
-          const isSchedule = action === "schedule" || action === "approve-schedule";
-          const isPublish = action === "publish" || action === "approve-publish";
+          const isSchedule = action === "schedule";
+          const isPublish = action === "publish";
           if (isSchedule || isPublish) {
             const numberRows = await tx`
               SELECT COALESCE(MAX(publication_number), 0)::int + 1 AS "nextPublicationNumber"
@@ -273,7 +271,7 @@ for (const action of ACTIONS) {
               ${item.expectedCurrentDraftVersionId}::uuid,
               ${reason || null},
               ${`${String(test.publicCode)} bulk lifecycle ${action}`},
-              ${tx.json({ action, ...(action.startsWith("approve-") ? { approvalMode: "direct" } : {}), previousStatus: test.status, status, scheduledAt: scheduledAt || null, closesAt: closesAt || null })}
+              ${tx.json({ action, previousStatus: test.status, status, scheduledAt: scheduledAt || null, closesAt: closesAt || null })}
             )
           `;
 

@@ -306,8 +306,8 @@ export function allowedLifecycleStatuses(action: string): string[] {
     case "needs-fix": return ["under_qa", "qa_approved", "scheduled"];
     case "approve": return ["under_qa"];
     case "schedule": return ["qa_approved", "scheduled"];
-    case "approve-schedule": return ["draft", "content_ready", "under_qa", "needs_fix", "scheduled"];
-    case "approve-publish": return ["draft", "content_ready", "under_qa", "needs_fix", "scheduled", "live"];
+    case "approve-schedule": return ["draft", "content_ready", "under_qa", "scheduled"];
+    case "approve-publish": return ["draft", "content_ready", "under_qa", "scheduled", "live"];
     case "publish": return ["qa_approved", "scheduled", "live"];
     case "archive": return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
     case "restore-draft": return ["archived", "needs_fix"];

@@ -71,7 +71,10 @@ async function enforceQaGate(req: Request, res: Response, next: NextFunction) {
     `;
 
     const issues: Array<{ code: string; message: string }> = [];
-    if (!req.route.path.endsWith("/approve-publish") && !assignments[0]?.reviewerUserId) {
+    // Direct actions (approve-publish / approve-schedule) are the QA-free path: they still
+    // block on open QA comments but do not require an assigned reviewer.
+    const isDirectAction = req.route.path.endsWith("/approve-publish") || req.route.path.endsWith("/approve-schedule");
+    if (!isDirectAction && !assignments[0]?.reviewerUserId) {
       issues.push({
         code: "TEST_QA_REVIEWER_UNASSIGNED",
         message: "Assign a QA reviewer to this test version before approval or publication.",
@@ -106,5 +109,6 @@ router.post("/:id/actions/schedule", requireAdminPermission("tests.publish"), en
 router.post("/:id/actions/publish", requireAdminPermission("tests.publish"), enforceQaGate);
 
 router.post("/:id/actions/approve-publish", requireAdminPermission("tests.publish"), requireAdminPermission("tests.approve"), enforceQaGate);
+router.post("/:id/actions/approve-schedule", requireAdminPermission("tests.publish"), requireAdminPermission("tests.approve"), enforceQaGate);
 
 export default router;
