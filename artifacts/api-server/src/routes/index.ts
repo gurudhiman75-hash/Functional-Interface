@@ -159,9 +159,9 @@ const retiredLegacyRouter = lazyRouter(() => import("./retired-legacy"));
 const router: IRouter = Router();
 router.use(healthRouter);
 // Switch due scheduled tests live (throttled to once a minute per instance;
-// waits at most 1.5s so a slow database never stalls ordinary requests).
+// waits at most 10s (Cloud Run throttles CPU after the response, so the work must finish first) so a slow database cannot stall ordinary requests).
 router.use((_req, _res, next) => {
-  const timeout = new Promise<void>((resolve) => setTimeout(resolve, 1500));
+  const timeout = new Promise<void>((resolve) => setTimeout(resolve, 10_000));
   Promise.race([
     import("../lib/scheduled-test-activation").then((m) => m.maybeActivateDueScheduledTests()),
     timeout,

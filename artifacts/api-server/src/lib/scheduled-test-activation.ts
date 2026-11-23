@@ -91,7 +91,7 @@ export async function maybeActivateDueScheduledTests(
   lastRunAt = now;
   running = run()
     .then((ids) => { if (ids.length) console.info(`[scheduler] ${ids.length} scheduled test(s) went live`, ids); })
-    .catch((error) => { console.error("[scheduler] scheduled test activation failed", error); })
+    .catch((error) => { lastRunAt = 0; console.error("[scheduler] scheduled test activation failed", error); })
     .finally(() => { running = null; });
   return running;
 }
