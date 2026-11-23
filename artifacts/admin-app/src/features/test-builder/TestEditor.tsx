@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  AlertTriangle, Archive, CalendarClock, CheckCircle2, Eye, History, Loader2, Pencil, Plus, Rocket, RotateCcw, Save, Sparkles, Trash2, Wrench,
+  AlertTriangle, Archive, CalendarClock, CheckCircle2, Copy, Eye, EyeOff, History, Loader2, Pencil, Plus, Rocket, RotateCcw, Save, Sparkles, Trash2, Wrench,
 } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
@@ -23,6 +23,7 @@ import {
   ACTIVE_ATTEMPTS_WARNING, canPublish, canSchedule, hasUnpublishedChanges, publishAction, runPublishAction,
   scheduleAction, statusBadgeClass, statusGroup, statusLabel,
 } from './lifecycle';
+import { DistributionPanel } from './DistributionPanel';
 import { ExamLanguagesPanel } from './ExamLanguagesPanel';
 import { QuestionPicker } from './QuestionPicker';
 import { blockers, evaluateReadiness, warnings, type ReadinessItem, type ReadinessQuestionInfo } from './readiness';
@@ -112,6 +113,7 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
   const [serverIssues, setServerIssues] = useState<string[]>([]);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [scheduleAt, setScheduleAt] = useState('');
+  const [closesAt, setClosesAt] = useState('');
   const [fillCount, setFillCount] = useState(25);
   const [blueprints, setBlueprints] = useState<BlueprintSummary[]>([]);
   const [patternId, setPatternId] = useState('');
@@ -157,6 +159,7 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
     setServerIssues([]);
     setView('build');
     setScheduleOpen(false);
+    setClosesAt('');
     if (!testId) {
       const d = freshDraft();
       loadedIdRef.current = null;
@@ -312,12 +315,22 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
       }
       scheduledAt = when.toISOString();
     }
+    let closesAtIso: string | undefined;
+    if (closesAt) {
+      const end = new Date(closesAt);
+      const start = kind === 'schedule' && scheduledAt ? new Date(scheduledAt).getTime() : Date.now();
+      if (Number.isNaN(end.getTime()) || end.getTime() <= start + 60_000) {
+        showToast.warning('Closing time is too early', 'Pick a closing time after the test goes live.');
+        return;
+      }
+      closesAtIso = end.toISOString();
+    }
     setBusy(kind);
     try {
       const saved = await persist();
       if (!saved?.test.currentDraftVersionId) return;
       const action = kind === 'publish' ? publishAction(saved.test.status) : scheduleAction(saved.test.status);
-      const next = await runPublishAction(saved.test.id, action, { expectedCurrentDraftVersionId: saved.test.currentDraftVersionId, scheduledAt }, (n) => window.confirm(ACTIVE_ATTEMPTS_WARNING(n)));
+      const next = await runPublishAction(saved.test.id, action, { expectedCurrentDraftVersionId: saved.test.currentDraftVersionId, scheduledAt, closesAt: closesAtIso }, (n) => window.confirm(ACTIVE_ATTEMPTS_WARNING(n)));
       if (!next) return;
       apply(next);
       onChanged();
@@ -326,6 +339,44 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
     } catch (error) {
       setServerIssues(errorDetails(error));
       showToast.error(kind === 'publish' ? 'Could not publish' : 'Could not schedule', error instanceof Error ? error.message : 'Try again.');
+    } finally {
+      setBusy('');
+    }
+  };
+
+  const takeOffline = async () => {
+    if (!detail?.test.currentDraftVersionId) return;
+    if (!window.confirm('Take this test offline? Students will stop seeing it, but nothing is deleted. Students already mid-attempt can finish. You can publish it again any time.')) return;
+    setBusy('archive');
+    try {
+      const next = await transitionLiveTest(detail.test.id, 'take-offline', { expectedCurrentDraftVersionId: detail.test.currentDraftVersionId });
+      apply(next);
+      onChanged();
+      showToast.success('Taken offline', `${detail.test.publicCode} is back to draft.`);
+    } catch (error) {
+      showToast.error('Could not take offline', error instanceof Error ? error.message : 'Try again.');
+    } finally {
+      setBusy('');
+    }
+  };
+
+  const duplicate = async () => {
+    if (!detail) return;
+    setBusy('save');
+    try {
+      const base = payload();
+      const copy = await createLiveTest({
+        ...base,
+        expectedCurrentDraftVersionId: null,
+        title: `${draft.title.trim()} (copy)`,
+        settings: { ...base.settings, ...(canSetAccess ? { initialAccessMode: draft.access } : {}) },
+        changeReason: `Duplicated from ${detail.test.publicCode}`,
+      });
+      onChanged();
+      showToast.success('Duplicated', `${copy.test.publicCode} created as a draft.`);
+      onSaved(copy.test.id);
+    } catch (error) {
+      showToast.error('Could not duplicate', error instanceof Error ? error.message : 'Try again.');
     } finally {
       setBusy('');
     }
@@ -443,6 +494,12 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
               <CalendarClock className="mr-1.5 h-4 w-4" /> Schedule
             </Button>
           )}
+          {detail && (group === 'live' || group === 'scheduled') && (
+            <Button variant="outline" size="sm" onClick={() => void takeOffline()} disabled={!!busy}><EyeOff className="mr-1.5 h-4 w-4" /> Take offline</Button>
+          )}
+          {detail && (
+            <Button variant="ghost" size="sm" onClick={() => void duplicate()} disabled={!!busy}><Copy className="mr-1.5 h-4 w-4" /> Duplicate</Button>
+          )}
           {detail && group !== 'archived' && (
             <Button variant="ghost" size="sm" onClick={() => void archiveOrRestore('archive')} disabled={!!busy}><Archive className="mr-1.5 h-4 w-4" /> Archive</Button>
           )}
@@ -507,6 +564,14 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
                   </div>
                   <div className="space-y-1.5"><Label>Title</Label><Input value={draft.title} onChange={(e) => setField('title', e.target.value)} placeholder="SSC CGL Full Mock 01" /></div>
                 </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label>Closes at (optional)</Label>
+                    <Input type="datetime-local" value={closesAt} onChange={(e) => setClosesAt(e.target.value)} />
+                    <p className="text-xs text-muted-foreground">Applied when you publish or schedule. After this time students can no longer start the test. Leave empty to keep it open.</p>
+                  </div>
+                </div>
+                {detail && <DistributionPanel testId={detail.test.id} testCode={detail.test.publicCode} canManage={canSetAccess} />}
                 {exam && (
                   <ExamLanguagesPanel examVersionId={exam.id} examName={exam.examName} current={exam.languages} canManage={canManageLanguages} onChanged={onCatalogChanged} />
                 )}

@@ -156,6 +156,10 @@ export function QuestionPicker({
         </div>
         <p className="text-xs text-muted-foreground">
           {loading && rows.length === 0 ? 'Searching…' : `${total} matching question${total === 1 ? '' : 's'}`}. Adding to <strong>{sectionName}</strong>.
+          {!loading && !error && total < 10 && (
+            <> Running short? <Link to="/content/questions/generate" target="_blank" rel="noreferrer" className="font-medium text-primary underline">Generate more questions</Link>
+            {' '}(new questions must be approved and published before they show up here).</>
+          )}
         </p>
         {error && <p className="rounded-md border border-destructive/30 bg-destructive/5 p-2 text-sm text-destructive">{error}</p>}
         <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">
