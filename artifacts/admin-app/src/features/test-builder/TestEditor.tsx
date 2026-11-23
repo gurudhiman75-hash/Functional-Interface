@@ -23,6 +23,7 @@ import {
   ACTIVE_ATTEMPTS_WARNING, canPublish, canSchedule, hasUnpublishedChanges, publishAction, runPublishAction,
   scheduleAction, statusBadgeClass, statusGroup, statusLabel,
 } from './lifecycle';
+import { ExamLanguagesPanel } from './ExamLanguagesPanel';
 import { QuestionPicker } from './QuestionPicker';
 import { blockers, evaluateReadiness, warnings, type ReadinessItem, type ReadinessQuestionInfo } from './readiness';
 
@@ -506,6 +507,9 @@ export function TestEditor({ testId, catalog, onCatalogChanged, onSaved, onChang
                   </div>
                   <div className="space-y-1.5"><Label>Title</Label><Input value={draft.title} onChange={(e) => setField('title', e.target.value)} placeholder="SSC CGL Full Mock 01" /></div>
                 </div>
+                {exam && (
+                  <ExamLanguagesPanel examVersionId={exam.id} examName={exam.examName} current={exam.languages} canManage={canManageLanguages} onChanged={onCatalogChanged} />
+                )}
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
                   <NumberField label="Duration (min)" value={draft.durationMinutes} min={1} onChange={(v) => setField('durationMinutes', v)} />
                   <NumberField label="Marks / question" value={draft.marksPerQuestion} min={0.25} step={0.25} onChange={(v) => setField('marksPerQuestion', v)} />
