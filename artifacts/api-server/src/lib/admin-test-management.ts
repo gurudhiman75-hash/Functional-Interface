@@ -54,6 +54,7 @@ export type TestLifecycleAction =
   | "approve-publish"
   | "approve-schedule"
   | "archive"
+  | "take-offline"
   | "restore-draft";
 
 export interface TestLifecycleConfig {
@@ -111,6 +112,14 @@ const lifecycleConfigs: Record<TestLifecycleAction, TestLifecycleConfig> = {
     permission: "tests.update",
     requiresReason: true,
     actionKey: "assessment.test.archived",
+  },
+  // Hide a live or scheduled test from students without archiving it. The
+  // published version is kept so students mid-attempt can still finish.
+  "take-offline": {
+    status: "draft",
+    permission: "tests.publish",
+    requiresReason: false,
+    actionKey: "assessment.test.taken_offline",
   },
   "restore-draft": {
     status: "draft",
@@ -310,6 +319,7 @@ export function allowedLifecycleStatuses(action: string): string[] {
     case "approve-publish": return ["draft", "content_ready", "under_qa", "scheduled", "live"];
     case "publish": return ["qa_approved", "scheduled", "live"];
     case "archive": return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
+    case "take-offline": return ["live", "scheduled"];
     case "restore-draft": return ["archived", "needs_fix"];
     default: return [];
   }

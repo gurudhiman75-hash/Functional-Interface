@@ -774,7 +774,7 @@ router.put("/:id/draft", requireAdminPermission("tests.update"), async (req, res
   }
 });
 
-for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "approve-schedule", "archive", "restore-draft"] as const) {
+for (const action of ["submit-qa", "needs-fix", "approve", "schedule", "publish", "approve-publish", "approve-schedule", "archive", "take-offline", "restore-draft"] as const) {
   const config = getTestLifecycleConfig(action);
   const permissions = [requireAdminPermission(config.permission)];
   if (action === "approve-publish" || action === "approve-schedule") permissions.push(requireAdminPermission("tests.approve"));

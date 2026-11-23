@@ -200,6 +200,7 @@ export type TestLifecycleAction =
   | 'approve-publish'
   | 'approve-schedule'
   | 'archive'
+  | 'take-offline'
   | 'restore-draft';
 
 export function getTestCatalog() {

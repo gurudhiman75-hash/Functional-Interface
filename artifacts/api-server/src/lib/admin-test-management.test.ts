@@ -173,3 +173,12 @@ test("acknowledgeActiveAttempts is false unless explicitly true", () => {
   assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: "true" }).acknowledgeActiveAttempts, false);
   assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: true }).acknowledgeActiveAttempts, true);
 });
+
+test("take-offline hides a live or scheduled test as a draft without needing a reason", () => {
+  const config = getTestLifecycleConfig("take-offline");
+  assert.equal(config.status, "draft");
+  assert.equal(config.permission, "tests.publish");
+  assert.equal(config.requiresReason, false);
+  assert.deepEqual(allowedLifecycleStatuses("take-offline"), ["live", "scheduled"]);
+  assert.deepEqual(allowedLifecycleStatuses("take-offline").includes("archived"), false);
+});
