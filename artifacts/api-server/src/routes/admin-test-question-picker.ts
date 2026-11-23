@@ -28,7 +28,7 @@ router.get("/question-picker", requireAdminPermission("tests.read"), async (req,
         JOIN descendants parent ON parent.id = edge.parent_id
       ),
       eligible AS (
-        SELECT q.id AS question_id, q.public_code, q.status, q.published_at, q.updated_at, v.*
+        SELECT q.id AS root_question_id, q.public_code, q.status, q.published_at, q.updated_at, v.*
         FROM content.questions q
         JOIN content.question_versions v ON v.id = CASE
           WHEN q.status = 'approved'::question_status THEN q.approved_version_id
@@ -74,7 +74,7 @@ router.get("/question-picker", requireAdminPermission("tests.read"), async (req,
           ) = ${f.languages.length}` : sql``}
       )
       SELECT
-        f.question_id::text AS "questionId",
+        f.root_question_id::text AS "questionId",
         f.id::text AS "versionId",
         f.public_code AS "publicCode",
         f.status::text AS status,
