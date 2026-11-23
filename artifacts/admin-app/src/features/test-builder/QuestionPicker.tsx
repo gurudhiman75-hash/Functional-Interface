@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { searchQuestionPicker, type PickerQuestion } from './api';
+import { getQuestionPickerFacets, searchQuestionPicker, type PickerFacets, type PickerQuestion } from './api';
 
 export interface PickedQuestionInfo {
   versionId: string;
@@ -46,6 +46,10 @@ export function QuestionPicker({
   const [punjabi, setPunjabi] = useState(false);
   const [unusedOnly, setUnusedOnly] = useState(false);
   const [thisExamOnly, setThisExamOnly] = useState(false);
+  const [subjectId, setSubjectId] = useState('all');
+  const [topicId, setTopicId] = useState('all');
+  const [qType, setQType] = useState('all');
+  const [facets, setFacets] = useState<PickerFacets>({ nodes: [], questionTypes: [] });
   const [rows, setRows] = useState<PickerQuestion[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -54,6 +58,12 @@ export function QuestionPicker({
   const [searched, setSearched] = useState(false);
   const requestId = useRef(0);
   const selectedKey = allSelectedIds.join('|');
+
+  useEffect(() => {
+    let alive = true;
+    getQuestionPickerFacets().then((f) => { if (alive) setFacets(f); }).catch(() => undefined);
+    return () => { alive = false; };
+  }, []);
 
   const run = async (offset: number) => {
     const id = ++requestId.current;
@@ -65,6 +75,8 @@ export function QuestionPicker({
         q: search.trim(),
         difficulties: difficulty === 'all' ? [] : [difficulty],
         languages,
+        taxonomyNodeIds: topicId !== 'all' ? [topicId] : subjectId !== 'all' ? [subjectId] : [],
+        questionTypes: qType === 'all' ? [] : [qType],
         usage: unusedOnly ? 'unused' : 'any',
         examVersionId: thisExamOnly ? examVersionId : undefined,
         excludeVersionIds: allSelectedIds,
@@ -90,7 +102,7 @@ export function QuestionPicker({
     const timer = window.setTimeout(() => { void run(0); }, 250);
     return () => window.clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, difficulty, hindi, punjabi, unusedOnly, thisExamOnly, examVersionId, selectedKey]);
+  }, [search, difficulty, subjectId, topicId, qType, hindi, punjabi, unusedOnly, thisExamOnly, examVersionId, selectedKey]);
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
@@ -110,6 +122,31 @@ export function QuestionPicker({
               <SelectItem value="hard">Hard</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Select value={subjectId} onValueChange={(v) => { setSubjectId(v); setTopicId('all'); }}>
+            <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All subjects</SelectItem>
+              {facets.nodes.filter((n) => n.nodeType === 'subject').map((n) => <SelectItem key={n.id} value={n.id}>{n.name}</SelectItem>)}
+            </SelectContent>
+          </Select>
+          <Select value={topicId} onValueChange={setTopicId}>
+            <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All topics</SelectItem>
+              {facets.nodes.filter((n) => n.nodeType === 'topic' && (subjectId === 'all' || facets.nodes.find((s) => s.id === subjectId)?.name === n.parentName)).map((n) => <SelectItem key={n.id} value={n.id}>{n.name}</SelectItem>)}
+            </SelectContent>
+          </Select>
+          {facets.questionTypes.length > 1 && (
+            <Select value={qType} onValueChange={setQType}>
+              <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All types</SelectItem>
+                {facets.questionTypes.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          )}
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
           <label className="flex items-center gap-1.5"><Checkbox checked={hindi} onCheckedChange={(v) => setHindi(v === true)} /> Has Hindi</label>
@@ -132,7 +169,7 @@ export function QuestionPicker({
                   <p className="text-xs">
                     Applied: {[search.trim() && `text "${search.trim()}"`, difficulty !== 'all' && difficulty, hindi && 'Hindi', punjabi && 'Punjabi', unusedOnly && 'never used', thisExamOnly && 'this exam only', allSelectedIds.length > 0 && `${allSelectedIds.length} already in test hidden`].filter(Boolean).join(', ') || 'no filters'}
                   </p>
-                  <Button variant="outline" size="sm" onClick={() => { setSearch(''); setDifficulty('all'); setHindi(false); setPunjabi(false); setUnusedOnly(false); setThisExamOnly(false); }}>Clear filters</Button>
+                  <Button variant="outline" size="sm" onClick={() => { setSearch(''); setDifficulty('all'); setSubjectId('all'); setTopicId('all'); setQType('all'); setHindi(false); setPunjabi(false); setUnusedOnly(false); setThisExamOnly(false); }}>Clear filters</Button>
                 </>
               )}
             </div>

@@ -196,4 +196,27 @@ router.get("/question-picker/info", requireAdminPermission("tests.read"), async 
   }
 });
 
+/** GET /api/admin/tests/question-picker/facets: subjects, topics and question types for the filter bar. */
+router.get("/question-picker/facets", requireAdminPermission("tests.read"), async (_req, res) => {
+  try {
+    const nodes = await sqlClient`
+      SELECT n.id::text AS id, n.name, n.node_type AS "nodeType",
+        (SELECT p.name FROM catalog.taxonomy_edges e JOIN catalog.taxonomy_nodes p ON p.id = e.parent_id
+          WHERE e.child_id = n.id ORDER BY p.name LIMIT 1) AS "parentName"
+      FROM catalog.taxonomy_nodes n
+      WHERE n.node_type IN ('subject', 'topic') AND COALESCE(n.is_active, true)
+      ORDER BY n.node_type DESC, n.name
+      LIMIT 1000
+    `;
+    const types = await sqlClient`
+      SELECT DISTINCT question_type AS "questionType" FROM content.question_versions
+      WHERE question_type IS NOT NULL ORDER BY 1 LIMIT 50
+    `;
+    res.json({ nodes, questionTypes: types.map((row) => String(row.questionType)) });
+  } catch (error) {
+    console.error("Unable to load question picker facets", error);
+    res.json({ nodes: [], questionTypes: [] });
+  }
+});
+
 export default router;

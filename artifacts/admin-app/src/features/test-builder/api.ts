@@ -302,6 +302,8 @@ export interface QuestionPickerFilters {
   difficulties?: string[];
   languages?: string[];
   examVersionId?: string;
+  taxonomyNodeIds?: string[];
+  questionTypes?: string[];
   usage?: 'any' | 'unused';
   sort?: 'newest' | 'least_used';
   excludeVersionIds?: string[];
@@ -315,6 +317,8 @@ export function searchQuestionPicker(filters: QuestionPickerFilters) {
   if (filters.difficulties?.length) params.set('difficulties', filters.difficulties.join(','));
   if (filters.languages?.length) params.set('languages', filters.languages.join(','));
   if (filters.examVersionId) params.set('examVersionId', filters.examVersionId);
+  if (filters.taxonomyNodeIds?.length) params.set('taxonomyNodeIds', filters.taxonomyNodeIds.join(','));
+  if (filters.questionTypes?.length) params.set('questionTypes', filters.questionTypes.join(','));
   if (filters.usage === 'unused') params.set('usage', 'unused');
   if (filters.sort) params.set('sort', filters.sort);
   if (filters.excludeVersionIds?.length) params.set('excludeVersionIds', filters.excludeVersionIds.slice(0, 500).join(','));
@@ -347,4 +351,13 @@ export function getQuestionReadinessInfo(versionIds: string[], excludeTestId?: s
     {},
     { fallbackMessage: 'Unable to load question details.' },
   );
+}
+
+export interface PickerFacets {
+  nodes: Array<{ id: string; name: string; nodeType: string; parentName: string | null }>;
+  questionTypes: string[];
+}
+
+export function getQuestionPickerFacets() {
+  return adminRequest<PickerFacets>('/admin/tests/question-picker/facets');
 }
