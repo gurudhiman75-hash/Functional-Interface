@@ -37,6 +37,20 @@ export async function prepareNativeReviewSnapshot(
   return {schemaVersion:1,sourceHash:nativeSourceHash(source),identityHash:nativeIdentityHash(payload),variants,
     generatedAt:new Date().toISOString(),sourceVerified:true};
 }
+/** Which native languages to prepare at generation time.
+ * Default: every Hindi/Punjabi language the package supports, so reviewers see all
+ * languages instantly. An explicit request list narrows it. Kill switch:
+ * EXAMTREE_NATIVE_SNAPSHOT_DISABLED=true restores English-only generation. */
+export function nativeLanguagesToPrepare(
+  packageId: unknown, requested: unknown, env: Record<string, string | undefined> = process.env,
+): ("hi"|"pa")[] {
+  if (env.EXAMTREE_NATIVE_SNAPSHOT_DISABLED === "true") return [];
+  const pkg = listQuestionStudioPackages().find(p => p.enabled && p.packageId === string(packageId));
+  if (!pkg) return [];
+  const supported = (["hi","pa"] as const).filter(lang => pkg.supportedLanguages.includes(lang));
+  const asked = Array.isArray(requested) ? requested.filter((l): l is "hi"|"pa" => l === "hi" || l === "pa") : [];
+  return asked.length ? supported.filter(lang => asked.includes(lang)) : [...supported];
+}
 /** Small batches of expensive native-language snapshots. No unbounded fanout. */
 export async function prepareNativeReviewBatch(
   questions:Record<string,unknown>[], languages:readonly ("hi"|"pa")[]=["hi","pa"],

@@ -271,9 +271,9 @@ async function buildAssemblyPlan(
       WITH RECURSIVE descendants(id) AS (
         SELECT unnest(${section.taxonomyNodeIds}::uuid[])
         UNION
-        SELECT edge.child_node_id
+        SELECT edge.child_id
         FROM catalog.taxonomy_edges edge
-        JOIN descendants parent ON parent.id = edge.parent_node_id
+        JOIN descendants parent ON parent.id = edge.parent_id
       )
       SELECT
         q.id::text AS "questionId",

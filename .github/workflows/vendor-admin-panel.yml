@@ -164,7 +164,7 @@ jobs:
           grep -F 'adminTestQaGateRouter' artifacts/api-server/src/routes/index.ts
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
           ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
-          grep -F "path: '/tests/qa'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "path:'/tests/qa'" artifacts/admin-app/src/App.tsx
 
       - name: Enforce canonical Exam Blueprints
         run: |

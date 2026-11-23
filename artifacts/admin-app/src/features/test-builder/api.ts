@@ -198,6 +198,7 @@ export type TestLifecycleAction =
   | 'schedule'
   | 'publish'
   | 'approve-publish'
+  | 'approve-schedule'
   | 'archive'
   | 'restore-draft';
 
@@ -249,6 +250,7 @@ export function transitionLiveTest(
     reason?: string;
     scheduledAt?: string;
     closesAt?: string;
+    acknowledgeActiveAttempts?: boolean;
   },
 ) {
   return adminRequest<LiveTestDetail>(
@@ -275,4 +277,87 @@ export function autoAssembleTest(input: {
     { method: 'POST', body: JSON.stringify(input) },
     { fallbackMessage: 'Unable to auto-assemble the test.' },
   );
+}
+
+export interface PickerQuestion {
+  questionId: string;
+  versionId: string;
+  publicCode: string;
+  status: string;
+  draftOnly: boolean;
+  questionType: string;
+  difficulty: string;
+  stem: string;
+  explanation: string | null;
+  examVersionId: string | null;
+  usedInTests: number;
+  lastUsedAt: string | null;
+  options: Array<{ id: string; key: string; text: string; sortOrder: number; isCorrect: boolean }>;
+  taxonomy: Array<{ id: string; code: string; nodeType: string; name: string; isPrimary: boolean }>;
+  languages: string[];
+}
+
+export interface QuestionPickerFilters {
+  q?: string;
+  difficulties?: string[];
+  languages?: string[];
+  examVersionId?: string;
+  taxonomyNodeIds?: string[];
+  questionTypes?: string[];
+  usage?: 'any' | 'unused';
+  sort?: 'newest' | 'least_used';
+  excludeVersionIds?: string[];
+  limit?: number;
+  offset?: number;
+}
+
+export function searchQuestionPicker(filters: QuestionPickerFilters) {
+  const params = new URLSearchParams();
+  if (filters.q) params.set('q', filters.q);
+  if (filters.difficulties?.length) params.set('difficulties', filters.difficulties.join(','));
+  if (filters.languages?.length) params.set('languages', filters.languages.join(','));
+  if (filters.examVersionId) params.set('examVersionId', filters.examVersionId);
+  if (filters.taxonomyNodeIds?.length) params.set('taxonomyNodeIds', filters.taxonomyNodeIds.join(','));
+  if (filters.questionTypes?.length) params.set('questionTypes', filters.questionTypes.join(','));
+  if (filters.usage === 'unused') params.set('usage', 'unused');
+  if (filters.sort) params.set('sort', filters.sort);
+  if (filters.excludeVersionIds?.length) params.set('excludeVersionIds', filters.excludeVersionIds.slice(0, 500).join(','));
+  params.set('limit', String(filters.limit ?? 30));
+  params.set('offset', String(filters.offset ?? 0));
+  return adminRequest<{
+    questions: PickerQuestion[]; total: number; limit: number; offset: number;
+    bankTotal?: number | null;
+    appliedFilters?: { search: string; difficulties: string[]; languages: string[]; examVersionId: string | null; usage: string; excludedCount: number };
+  }>(
+    `/admin/tests/question-picker?${params.toString()}`,
+    {},
+    { fallbackMessage: 'Unable to search questions.' },
+  );
+}
+
+export interface QuestionReadinessInfo {
+  versionId: string;
+  difficulty: string;
+  correctOptionKey: string | null;
+  usedInTests: number;
+  languages: string[];
+}
+
+export function getQuestionReadinessInfo(versionIds: string[], excludeTestId?: string) {
+  const params = new URLSearchParams({ versionIds: versionIds.slice(0, 500).join(',') });
+  if (excludeTestId) params.set('excludeTestId', excludeTestId);
+  return adminRequest<{ questions: QuestionReadinessInfo[] }>(
+    `/admin/tests/question-picker/info?${params.toString()}`,
+    {},
+    { fallbackMessage: 'Unable to load question details.' },
+  );
+}
+
+export interface PickerFacets {
+  nodes: Array<{ id: string; name: string; nodeType: string; parentName: string | null }>;
+  questionTypes: string[];
+}
+
+export function getQuestionPickerFacets() {
+  return adminRequest<PickerFacets>('/admin/tests/question-picker/facets');
 }

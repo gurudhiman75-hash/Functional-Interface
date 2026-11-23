@@ -134,6 +134,7 @@ const adminTestSeriesRouter = lazyRouter(() => import("./admin-test-series"));
 const adminTestQaGateRouter = lazyRouter(() => import("./admin-test-qa-gate"));
 const adminTestQaRouter = lazyRouter(() => import("./admin-test-qa"));
 const adminTestTranslationsRouter = lazyRouter(() => import("./admin-test-translations"));
+const adminTestQuestionPickerRouter = lazyRouter(() => import("./admin-test-question-picker"));
 const adminTestsRouter = lazyRouter(() => import("./admin-tests"));
 const adminTranslationActionsRouter = lazyRouter(() => import("./admin-translation-actions"));
 const adminTranslationHardeningRouter = lazyRouter(() => import("./admin-translation-hardening"));
@@ -157,6 +158,15 @@ const retiredLegacyRouter = lazyRouter(() => import("./retired-legacy"));
 
 const router: IRouter = Router();
 router.use(healthRouter);
+// Switch due scheduled tests live (throttled to once a minute per instance;
+// waits at most 10s (Cloud Run throttles CPU after the response, so the work must finish first) so a slow database cannot stall ordinary requests).
+router.use((_req, _res, next) => {
+  const timeout = new Promise<void>((resolve) => setTimeout(resolve, 10_000));
+  Promise.race([
+    import("../lib/scheduled-test-activation").then((m) => m.maybeActivateDueScheduledTests()),
+    timeout,
+  ]).catch(() => undefined).finally(() => next());
+});
 // Public products must resolve before unrelated routers with router-wide authentication.
 // Checkout and purchase history enforce authentication inside their own handlers.
 router.use(canonicalCommerceCheckoutRouter);
@@ -286,6 +296,7 @@ router.use("/admin/test-qa", adminTestQaRouter);
 router.use("/admin/tests", adminTestBulkWorkflowRouter);
 router.use("/admin/tests", adminTestLocalizationGateRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
+router.use("/admin/tests", adminTestQuestionPickerRouter);
 router.use("/admin/tests", adminTestsRouter);
 router.use(retiredLegacyRouter);
 export default router;

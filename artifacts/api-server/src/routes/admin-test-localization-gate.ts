@@ -66,5 +66,6 @@ router.post("/:id/actions/schedule", requireAdminPermission("tests.publish"), en
 router.post("/:id/actions/publish", requireAdminPermission("tests.publish"), enforceLocalizationGate);
 
 router.post("/:id/actions/approve-publish", requireAdminPermission("tests.publish"), requireAdminPermission("tests.approve"), enforceLocalizationGate);
+router.post("/:id/actions/approve-schedule", requireAdminPermission("tests.publish"), requireAdminPermission("tests.approve"), enforceLocalizationGate);
 
 export default router;

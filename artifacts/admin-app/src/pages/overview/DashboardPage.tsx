@@ -80,7 +80,7 @@ export function DashboardPage() {
         icon={<Activity className="h-5 w-5" />}
         actions={<>
           <Button variant="outline" size="sm" onClick={() => navigate('/analytics/business')}>Analytics</Button>
-          <Button size="sm" onClick={() => navigate('/tests/builder')}><Plus className="mr-1.5 h-4 w-4" /> New Test</Button>
+          <Button size="sm" onClick={() => navigate('/tests/new')}><Plus className="mr-1.5 h-4 w-4" /> New Test</Button>
         </>}
       />
 

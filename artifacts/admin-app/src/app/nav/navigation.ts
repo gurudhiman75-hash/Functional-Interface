@@ -36,9 +36,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Media Library', path: '/content/media', icon: ImageIcon, status: 'live', permission: 'content.taxonomy.read', summary: 'Upload, import from Firebase Storage, validate and reuse canonical image assets across exams, tests, mobile promotions, notifications and learning content.', milestone: 'Firebase-backed canonical media indexing and reuse.' },
   ] },
   { id: 'tests', label: 'Tests', items: [
-    { label: 'Tests', path: '/tests', icon: FileText, status: 'live', summary: 'Canonical test inventory, lifecycle and publication workspace.' },
-    { label: 'Test Builder', path: '/tests/builder', icon: ListChecks, status: 'live', summary: 'Compose test sections and questions, validate totals and publish student-ready tests.' },
-    { label: 'Test QA', path: '/tests/qa', icon: ClipboardCheck, status: 'live', permission: 'tests.read', summary: 'Canonical pre-publication validation, reviewer ownership, issue resolution, candidate preview and release gate.' },
+    { label: 'Tests', path: '/tests', icon: FileText, status: 'live', summary: 'One workspace to find, build, check, publish, schedule and archive tests.' },
     { label: 'Test Series', path: '/tests/series', icon: Box, status: 'live', permission: 'tests.read', summary: 'Create immutable exam-series versions with ordered tests, release windows, readiness checks and progression rules.' },
     { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Define immutable exam structures, preview Question Bank shortages and assemble deterministic test drafts.' },
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Plan releases, inspect missed schedules, drag QA-approved tests onto dates, publish immediately, postpone or unschedule.' },

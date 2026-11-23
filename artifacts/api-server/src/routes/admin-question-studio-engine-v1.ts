@@ -703,11 +703,11 @@ router.post(
       // Multilingual groups are prepared once, before the review transaction.
       // Disabled for legacy generation requests; a failed native generator can
       // never corrupt or block the English canonical question.
-      const requestedNative=Array.isArray(req.body?.languages)
-        ? req.body.languages.filter((language:unknown)=>language==="hi"||language==="pa")
-        : [];
-      const prepareNative=process.env.EXAMTREE_NATIVE_EDITORIAL_ENABLED==="true" &&
-        (requestedNative.length>0 || req.body?.nativeGroupedReview===true);
+      // Hindi/Punjabi are prepared by default for packages that support them,
+      // so review shows all languages at once (kill switch in nativeLanguagesToPrepare).
+      const requestedNative=(await import("../question-studio/persisted-native-review"))
+        .nativeLanguagesToPrepare(req.body?.packageId, req.body?.languages);
+      const prepareNative=requestedNative.length>0;
       const nativeSnapshots=prepareNative
         ? await (async()=>{
           const requested=(requestedNative.length>0?requestedNative:["hi","pa"]) as Array<"hi"|"pa">;

@@ -4,6 +4,7 @@ import { evaluateTestAccess, resolveCanonicalStudentUserId } from "../lib/canoni
 import { cacheGet, cacheSet, TTL } from "../lib/cache";
 import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { sqlClient } from "../lib/db";
+import { loadTestVersionMeta, pinnedAttemptVersionId } from "../lib/attempt-version-pin";
 import { legacyMobileQuestion, legacyMobileSection, legacyMobileTest } from "../lib/mobile-test-compat";
 import { authenticate } from "../middlewares/auth";
 import { optionalAuthenticate } from "../middlewares/optionalAuth";
@@ -309,7 +310,13 @@ router.get("/:id", optionalAuthenticate, async (req, res) => {
       }
     }
 
-    const publishedVersionId = String(test.publishedVersionId);
+    // Students mid-attempt keep the version they started (attempt version pinning).
+    const pinnedVersionId = await pinnedAttemptVersionId(req.user?.id, testId);
+    const publishedVersionId = pinnedVersionId ?? String(test.publishedVersionId);
+    if (pinnedVersionId && pinnedVersionId !== String(test.publishedVersionId)) {
+      const meta = await loadTestVersionMeta(pinnedVersionId);
+      if (meta) Object.assign(test, meta, { publishedVersionId: pinnedVersionId });
+    }
     const sectionRows = await sqlClient`
       SELECT
         s.id::text AS id,

@@ -1,3 +1,5 @@
+import { loadTestVersionMeta, pinnedAttemptVersionId } from "../lib/attempt-version-pin";
+import { optionalAuthenticate } from "../middlewares/optionalAuth";
 import { Router, type IRouter } from "express";
 
 import { AttemptReliabilityError } from "../lib/attempt-reliability";
@@ -153,12 +155,17 @@ async function loadTranslations(testVersionId: string, languageCodes: string[]) 
 // Multilingual tests are served with every approved configured translation in a
 // single immutable publication payload. English-only tests continue through the
 // proven runner mounted immediately after this focused route.
-router.get("/tests/:id", async (req, res, next) => {
+router.get("/tests/:id", optionalAuthenticate, async (req, res, next) => {
   const identifier = String(req.params.id ?? "").trim();
   if (!identifier) return next();
   try {
     const test = await loadPublishedTest(identifier);
     if (!test) return next();
+    const pinned = await pinnedAttemptVersionId(req.user?.id, String(test.id));
+    if (pinned && pinned !== String(test.publishedVersionId)) {
+      const meta = await loadTestVersionMeta(pinned);
+      if (meta) Object.assign(test, meta, { publishedVersionId: pinned });
+    }
     const settings = asRecord(test.settings);
     const languageCodes = languageCodesFromSettings(settings);
     if (!languageCodes.some((code) => code !== "en")) return next();

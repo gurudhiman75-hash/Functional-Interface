@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Router } from "express";
 
-import { getTestLifecycleConfig, TestManagementError } from "../lib/admin-test-management";
+import { allowedLifecycleStatuses, getTestLifecycleConfig, hasUnpublishedChanges, TestManagementError } from "../lib/admin-test-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -51,13 +51,7 @@ function normalizeItems(value: unknown): BulkItem[] {
 }
 
 function allowedStatuses(action: BulkAction): string[] {
-  if (action === "submit-qa") return ["draft", "needs_fix", "content_ready"];
-  if (action === "needs-fix") return ["under_qa", "qa_approved", "scheduled"];
-  if (action === "approve") return ["under_qa"];
-  if (action === "schedule") return ["qa_approved", "scheduled"];
-  if (action === "publish") return ["qa_approved", "scheduled", "live"];
-  if (action === "archive") return ["draft", "content_ready", "under_qa", "needs_fix", "qa_approved", "scheduled", "live", "completed"];
-  return ["archived", "needs_fix"];
+  return allowedLifecycleStatuses(action);
 }
 
 function nextStatus(action: BulkAction): string {
@@ -183,7 +177,8 @@ for (const action of ACTIONS) {
               id::text AS id,
               public_code AS "publicCode",
               status::text AS status,
-              current_draft_version_id::text AS "currentDraftVersionId"
+              current_draft_version_id::text AS "currentDraftVersionId",
+              published_version_id::text AS "publishedVersionId"
             FROM assessment.tests
             WHERE id = ${item.testId}::uuid
               AND deleted_at IS NULL
@@ -201,12 +196,26 @@ for (const action of ACTIONS) {
             );
           }
 
+          if (
+            action === "publish" &&
+            String(test.status) === "live" &&
+            !hasUnpublishedChanges({
+              status: String(test.status),
+              currentDraftVersionId: test.currentDraftVersionId ? String(test.currentDraftVersionId) : null,
+              publishedVersionId: test.publishedVersionId ? String(test.publishedVersionId) : null,
+            })
+          ) {
+            throw Object.assign(new Error("Already live with no unpublished changes"), { code: "NO_UNPUBLISHED_CHANGES" });
+          }
+
           if (["submit-qa", "approve", "schedule", "publish"].includes(action)) {
             await validateStoredTest(tx as typeof sqlClient, item.testId, item.expectedCurrentDraftVersionId);
           }
 
           const status = nextStatus(action);
-          if (action === "schedule" || action === "publish") {
+          const isSchedule = action === "schedule";
+          const isPublish = action === "publish";
+          if (isSchedule || isPublish) {
             const numberRows = await tx`
               SELECT COALESCE(MAX(publication_number), 0)::int + 1 AS "nextPublicationNumber"
               FROM assessment.test_publications
@@ -222,8 +231,8 @@ for (const action of ACTIONS) {
                 ${item.testId}::uuid,
                 ${item.expectedCurrentDraftVersionId}::uuid,
                 ${publicationNumber},
-                ${action === "schedule" ? scheduledAt : null}::timestamptz,
-                ${action === "publish" ? new Date().toISOString() : null}::timestamptz,
+                ${isSchedule ? scheduledAt : null}::timestamptz,
+                ${isPublish ? new Date().toISOString() : null}::timestamptz,
                 ${closesAt || null}::timestamptz,
                 ${actorUserId}::uuid,
                 ${tx.json({ status })}
@@ -231,7 +240,7 @@ for (const action of ACTIONS) {
             `;
           }
 
-          if (action === "publish") {
+          if (isPublish) {
             await tx`
               UPDATE assessment.tests
               SET status = 'live'::test_status,

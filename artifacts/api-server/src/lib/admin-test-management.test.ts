@@ -112,3 +112,64 @@ test("creates stable-format public test codes", () => {
     "T-20260717-1111111111",
   );
 });
+
+// ---- Direct publish / schedule and live-edit safety ----
+
+import {
+  allowedLifecycleStatuses,
+  hasUnpublishedChanges,
+} from "./admin-test-management";
+
+test("direct publish is allowed from draft without a QA round", () => {
+  assert.ok(allowedLifecycleStatuses("approve-publish").includes("draft"));
+  assert.ok(allowedLifecycleStatuses("approve-schedule").includes("draft"));
+});
+
+test("legacy QA-gated schedule/publish transitions are unchanged", () => {
+  assert.deepEqual(allowedLifecycleStatuses("schedule"), ["qa_approved", "scheduled"]);
+  assert.deepEqual(allowedLifecycleStatuses("publish"), ["qa_approved", "scheduled", "live"]);
+  assert.ok(!allowedLifecycleStatuses("publish").includes("draft"));
+});
+
+test("an edited live test can be republished but archived tests cannot be published", () => {
+  assert.ok(allowedLifecycleStatuses("approve-publish").includes("live"));
+  assert.ok(!allowedLifecycleStatuses("approve-publish").includes("archived"));
+  assert.ok(!allowedLifecycleStatuses("approve-schedule").includes("live"));
+});
+
+test("unknown lifecycle actions have no allowed statuses", () => {
+  assert.deepEqual(allowedLifecycleStatuses("nope"), []);
+});
+
+test("hasUnpublishedChanges is true only for a live test whose draft differs from published", () => {
+  const v1 = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  const v2 = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
+  assert.equal(hasUnpublishedChanges({ status: "live", currentDraftVersionId: v2, publishedVersionId: v1 }), true);
+  assert.equal(hasUnpublishedChanges({ status: "live", currentDraftVersionId: v1, publishedVersionId: v1 }), false);
+  assert.equal(hasUnpublishedChanges({ status: "draft", currentDraftVersionId: v2, publishedVersionId: v1 }), false);
+  assert.equal(hasUnpublishedChanges({ status: "live", currentDraftVersionId: null, publishedVersionId: v1 }), false);
+});
+
+test("approve-schedule requires a future time and uses the scheduled status", () => {
+  const config = getTestLifecycleConfig("approve-schedule");
+  assert.equal(config.status, "scheduled");
+  assert.throws(
+    () => normalizeTestLifecycleInput("approve-schedule", { expectedCurrentDraftVersionId: draftVersionId }),
+    (error: unknown) => error instanceof TestManagementError && error.code === "INVALID_TEST_SCHEDULE",
+  );
+  const future = new Date(Date.now() + 3_600_000).toISOString();
+  const ok = normalizeTestLifecycleInput("approve-schedule", { expectedCurrentDraftVersionId: draftVersionId, scheduledAt: future });
+  assert.equal(ok.scheduledAt, future);
+});
+
+test("a test a reviewer flagged needs_fix cannot be directly published or scheduled", () => {
+  assert.ok(!allowedLifecycleStatuses("approve-publish").includes("needs_fix"));
+  assert.ok(!allowedLifecycleStatuses("approve-schedule").includes("needs_fix"));
+});
+
+test("acknowledgeActiveAttempts is false unless explicitly true", () => {
+  const base = { expectedCurrentDraftVersionId: draftVersionId };
+  assert.equal(normalizeTestLifecycleInput("approve-publish", base).acknowledgeActiveAttempts, false);
+  assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: "true" }).acknowledgeActiveAttempts, false);
+  assert.equal(normalizeTestLifecycleInput("approve-publish", { ...base, acknowledgeActiveAttempts: true }).acknowledgeActiveAttempts, true);
+});
