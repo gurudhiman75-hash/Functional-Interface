@@ -320,7 +320,11 @@ export function searchQuestionPicker(filters: QuestionPickerFilters) {
   if (filters.excludeVersionIds?.length) params.set('excludeVersionIds', filters.excludeVersionIds.slice(0, 500).join(','));
   params.set('limit', String(filters.limit ?? 30));
   params.set('offset', String(filters.offset ?? 0));
-  return adminRequest<{ questions: PickerQuestion[]; total: number; limit: number; offset: number }>(
+  return adminRequest<{
+    questions: PickerQuestion[]; total: number; limit: number; offset: number;
+    bankTotal?: number | null;
+    appliedFilters?: { search: string; difficulties: string[]; languages: string[]; examVersionId: string | null; usage: string; excludedCount: number };
+  }>(
     `/admin/tests/question-picker?${params.toString()}`,
     {},
     { fallbackMessage: 'Unable to search questions.' },

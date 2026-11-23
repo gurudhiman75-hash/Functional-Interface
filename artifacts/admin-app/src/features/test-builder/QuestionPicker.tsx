@@ -50,6 +50,8 @@ export function QuestionPicker({
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [bankTotal, setBankTotal] = useState<number | null>(null);
+  const [searched, setSearched] = useState(false);
   const requestId = useRef(0);
   const selectedKey = allSelectedIds.join('|');
 
@@ -73,6 +75,8 @@ export function QuestionPicker({
       if (id !== requestId.current) return;
       setRows((current) => (offset === 0 ? result.questions : [...current, ...result.questions]));
       setTotal(result.total);
+      setBankTotal(result.bankTotal ?? null);
+      setSearched(true);
     } catch (caught) {
       if (id !== requestId.current) return;
       setError(caught instanceof Error ? caught.message : 'Unable to search questions.');
@@ -118,7 +122,21 @@ export function QuestionPicker({
         </p>
         {error && <p className="rounded-md border border-destructive/30 bg-destructive/5 p-2 text-sm text-destructive">{error}</p>}
         <div className="max-h-[560px] divide-y overflow-y-auto rounded-lg border">
-          {rows.length === 0 && !loading && !error && <p className="p-8 text-center text-sm text-muted-foreground">No questions match these filters.</p>}
+          {rows.length === 0 && !loading && !error && (
+            <div className="space-y-2 p-6 text-center text-sm text-muted-foreground">
+              {!searched && <p>Loading questions…</p>}
+              {searched && bankTotal === 0 && <p>The question bank on this server has no published or approved questions yet. Approve questions in Question Studio first.</p>}
+              {searched && bankTotal !== 0 && (
+                <>
+                  <p>No questions match these filters{bankTotal ? ` (the bank has ${bankTotal} usable questions)` : ''}.</p>
+                  <p className="text-xs">
+                    Applied: {[search.trim() && `text "${search.trim()}"`, difficulty !== 'all' && difficulty, hindi && 'Hindi', punjabi && 'Punjabi', unusedOnly && 'never used', thisExamOnly && 'this exam only', allSelectedIds.length > 0 && `${allSelectedIds.length} already in test hidden`].filter(Boolean).join(', ') || 'no filters'}
+                  </p>
+                  <Button variant="outline" size="sm" onClick={() => { setSearch(''); setDifficulty('all'); setHindi(false); setPunjabi(false); setUnusedOnly(false); setThisExamOnly(false); }}>Clear filters</Button>
+                </>
+              )}
+            </div>
+          )}
           {rows.map((question) => (
             <div key={question.versionId} className="flex items-start gap-3 p-3">
               <div className="min-w-0 flex-1">

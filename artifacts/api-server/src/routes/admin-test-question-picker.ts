@@ -114,9 +114,34 @@ router.get("/question-picker", requireAdminPermission("tests.read"), async (req,
       LIMIT ${f.limit} OFFSET ${f.offset}
     `;
     const total = rows.length ? Number(rows[0].totalCount) : 0;
+    // When nothing matches, report how many usable questions exist at all so
+    // the builder can say whether the filters or the bank itself is empty.
+    let bankTotal: number | null = null;
+    if (total === 0) {
+      const counts = await sql`
+        SELECT COUNT(*)::int AS n
+        FROM content.questions q
+        JOIN content.question_versions v ON v.id = CASE
+          WHEN q.status = 'approved'::question_status THEN q.approved_version_id
+          ELSE q.published_version_id END
+        WHERE q.deleted_at IS NULL
+          AND q.status IN ('published'::question_status, 'approved'::question_status)
+      `;
+      bankTotal = Number(counts[0]?.n ?? 0);
+    }
+    console.info("[question-picker]", JSON.stringify({
+      search: f.search ? "yes" : "no", difficulties: f.difficulties, languages: f.languages,
+      examVersionId: f.examVersionId, usage: f.usage, excluded: f.excludeVersionIds.length,
+      taxonomy: f.taxonomyNodeIds.length, offset: f.offset, total, bankTotal,
+    }));
     res.json({
       questions: rows.map(({ totalCount: _total, ...row }) => row),
       total,
+      bankTotal,
+      appliedFilters: {
+        search: f.search, difficulties: f.difficulties, languages: f.languages,
+        examVersionId: f.examVersionId, usage: f.usage, excludedCount: f.excludeVersionIds.length,
+      },
       limit: f.limit,
       offset: f.offset,
       generatedAt: new Date().toISOString(),
