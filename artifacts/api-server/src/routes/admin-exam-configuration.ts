@@ -30,7 +30,7 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
   try {
     const [families, exams, versions, languages] = await Promise.all([
       sqlClient`SELECT f.id::text AS id,f.code,f.name,f.description,f.is_active AS "isActive",COUNT(e.id)::int AS "examCount" FROM catalog.exam_families f LEFT JOIN catalog.exams e ON e.family_id=f.id GROUP BY f.id ORDER BY f.name`,
-      sqlClient`SELECT e.id::text AS id,e.family_id::text AS "familyId",e.code,e.name,e.description,e.is_active AS "isActive",e.updated_at AS "updatedAt",COUNT(v.id)::int AS "versionCount",MAX(v.version_number)::int AS "latestVersionNumber",MAX(v.id::text) FILTER (WHERE v.is_current) AS "currentVersionId" FROM catalog.exams e LEFT JOIN catalog.exam_versions v ON v.exam_id=e.id GROUP BY e.id ORDER BY e.name`,
+      sqlClient`SELECT e.id::text AS id,e.family_id::text AS "familyId",e.code,e.name,e.description,(e.logo_data_url IS NOT NULL) AS "hasLogo",e.logo_data_url AS "logoDataUrl",e.is_active AS "isActive",e.updated_at AS "updatedAt",COUNT(v.id)::int AS "versionCount",MAX(v.version_number)::int AS "latestVersionNumber",MAX(v.id::text) FILTER (WHERE v.is_current) AS "currentVersionId" FROM catalog.exams e LEFT JOIN catalog.exam_versions v ON v.exam_id=e.id GROUP BY e.id ORDER BY e.name`,
       sqlClient`
         SELECT v.id::text AS id,v.exam_id::text AS "examId",v.version_number AS "versionNumber",v.name,v.effective_from AS "effectiveFrom",v.effective_until AS "effectiveUntil",v.is_current AS "isCurrent",v.created_at AS "createdAt",
           COALESCE((SELECT json_agg(json_build_object('id',l.id::text,'code',l.code,'name',l.name,'isPrimary',evl.is_primary) ORDER BY evl.is_primary DESC,l.name) FROM catalog.exam_version_languages evl JOIN catalog.languages l ON l.id=evl.language_id WHERE evl.exam_version_id=v.id),'[]'::json) AS languages,
@@ -88,6 +88,34 @@ router.patch("/exams/:examId", requireAdminPermission("content.taxonomy.manage")
     console.error("Unable to update exam metadata", error);
     res.status(typed.statusCode ?? 500).json({ error: typed.message ?? "Unable to update exam metadata", code: typed.code ?? "EXAM_METADATA_UPDATE_FAILED" });
   }
+});
+
+
+const logoPattern = /^data:image\/(png|jpeg|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+router.put("/exams/:examId/logo", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
+  const examId = String(req.params.examId ?? "");
+  const dataUrl = String(req.body?.dataUrl ?? "");
+  const alt = text(req.body?.alt, 200);
+  if (!uuid.test(examId) || !logoPattern.test(dataUrl) || dataUrl.length > 300_000) {
+    return void res.status(400).json({ error: "Upload a PNG, JPEG, WebP or SVG logo under about 200 KB.", code: "INVALID_EXAM_LOGO" });
+  }
+  try {
+    const rows = await sqlClient`UPDATE catalog.exams SET logo_data_url=${dataUrl},logo_alt=${alt || null},updated_at=now() WHERE id=${examId}::uuid RETURNING code`;
+    if (!rows[0]) return void res.status(404).json({ error: "Exam not found", code: "EXAM_NOT_FOUND" });
+    await sqlClient`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata) VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${req.adminSession!.user.id}::uuid,'settings.exam.logo_updated','exam',${examId}::uuid,${`Updated logo for exam ${rows[0].code}`},${"Exam logo uploaded"},${sqlClient.json({ bytes: dataUrl.length })})`;
+    res.json({ ok: true });
+  } catch (error) { console.error("Unable to save exam logo", error); res.status(500).json({ error: "Unable to save exam logo", code: "EXAM_LOGO_FAILED" }); }
+});
+
+router.delete("/exams/:examId/logo", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
+  const examId = String(req.params.examId ?? "");
+  if (!uuid.test(examId)) return void res.status(400).json({ error: "Invalid exam", code: "INVALID_EXAM" });
+  try {
+    const rows = await sqlClient`UPDATE catalog.exams SET logo_data_url=NULL,logo_alt=NULL,updated_at=now() WHERE id=${examId}::uuid RETURNING code`;
+    if (!rows[0]) return void res.status(404).json({ error: "Exam not found", code: "EXAM_NOT_FOUND" });
+    await sqlClient`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata) VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${req.adminSession!.user.id}::uuid,'settings.exam.logo_removed','exam',${examId}::uuid,${`Removed logo for exam ${rows[0].code}`},${"Exam logo removed"},${sqlClient.json({})})`;
+    res.json({ ok: true });
+  } catch (error) { console.error("Unable to remove exam logo", error); res.status(500).json({ error: "Unable to remove exam logo", code: "EXAM_LOGO_FAILED" }); }
 });
 
 router.post("/exams/:examId/versions", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
