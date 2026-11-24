@@ -120,7 +120,12 @@ function AdminRedirect({ to = "/admin/" }: { to?: string }) {
   return <RouteSkeleton />;
 }
 
-const queryClient = new QueryClient();
+// Keep fetched data fresh for a minute and don't refetch on every tab focus, so
+// returning to a page shows data instantly instead of a spinner. Queries that
+// need live data (orders, purchases) set their own staleTime.
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 60_000, gcTime: 10 * 60_000, refetchOnWindowFocus: false, retry: 1 } },
+});
 
 type ProtectedRouteProps = {
   component: React.ComponentType;

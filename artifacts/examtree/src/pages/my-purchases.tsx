@@ -245,6 +245,7 @@ export default function MyPurchasesPage() {
   const purchasesQuery = useQuery({
     queryKey: ["commerce-purchases", getSessionUser()?.id],
     queryFn: getCommercePurchases,
+    staleTime: 0,
     retry: 1,
     staleTime: 30_000,
   });
