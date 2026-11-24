@@ -255,38 +255,20 @@ async function reviewItems(req: Request, res: Response, bankHandoff: boolean) {
           const sourceFingerprint = text(payload.contentFingerprint) || null;
           const duplicates = sourceStem
             ? await tx`
-                WITH current_payloads AS (
-                  SELECT
-                    other.id,
-                    run.public_code AS "runCode",
-                    NULLIF(version.payload ->> 'contentFingerprint', '') AS fingerprint,
-                    LOWER(
-                      REGEXP_REPLACE(
-                        TRIM(COALESCE(NULLIF(version.payload ->> 'text', ''), version.payload ->> 'stem', '')),
-                        '[[:space:][:punct:]]+',
-                        ' ',
-                        'g'
-                      )
-                    ) AS "normalizedStem"
-                  FROM content.generation_run_items other
-                  INNER JOIN content.generation_runs run
-                    ON run.id = other.generation_run_id
-                  INNER JOIN content.generation_item_versions version
-                    ON version.generation_item_id = other.id
-                   AND version.version_number = other.current_version_number
-                  WHERE other.id <> ${itemId}::uuid
-                )
-                SELECT
-                  current_payloads.id::text AS "matchedItemId",
-                  current_payloads."runCode" AS "matchedRunCode"
-                FROM current_payloads
-                WHERE current_payloads."normalizedStem" = LOWER(
-                  REGEXP_REPLACE(TRIM(${sourceStem}), '[[:space:][:punct:]]+', ' ', 'g')
-                )
+                SELECT other.id::text AS "matchedItemId", run.public_code AS "matchedRunCode"
+                FROM content.generation_item_versions version
+                INNER JOIN content.generation_run_items other
+                  ON other.id = version.generation_item_id
+                 AND version.version_number = other.current_version_number
+                INNER JOIN content.generation_runs run
+                  ON run.id = other.generation_run_id
+                WHERE other.id <> ${itemId}::uuid
+                  AND LOWER(REGEXP_REPLACE(TRIM(COALESCE(NULLIF(version.payload ->> 'text', ''), version.payload ->> 'stem', '')), '[[:space:][:punct:]]+', ' ', 'g'))
+                    = LOWER(REGEXP_REPLACE(TRIM(${sourceStem}), '[[:space:][:punct:]]+', ' ', 'g'))
                   AND (
                     ${sourceFingerprint}::text IS NULL
-                    OR current_payloads.fingerprint IS NULL
-                    OR current_payloads.fingerprint = ${sourceFingerprint}
+                    OR NULLIF(version.payload ->> 'contentFingerprint', '') IS NULL
+                    OR NULLIF(version.payload ->> 'contentFingerprint', '') = ${sourceFingerprint}
                   )
                 LIMIT 1
               `
