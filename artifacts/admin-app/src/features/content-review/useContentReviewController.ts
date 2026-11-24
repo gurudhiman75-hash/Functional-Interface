@@ -106,7 +106,11 @@ export function useContentReviewController() {
         `${selectedItem.publicCode} moved through the canonical lifecycle.`,
       );
       setActionReason('');
-      await collaboration.refresh();
+      if (selectedItem.entityType === 'generation_item') collaboration.patchItem(selectedItem.entityId, decision === 'approve' ? 'approved' : decision === 'needs_fix' ? 'needs_fix' : decision === 'reject' ? 'rejected' : 'unreviewed');
+      // Move on to the next item straight away instead of waiting for the list to reload.
+      const nextKey = queue[selectedIndex + 1]?.key ?? queue[selectedIndex - 1]?.key ?? null;
+      if (nextKey) setSelectedKey(nextKey);
+      void collaboration.refresh();
     } catch (caught) {
       showToast.error('Decision failed', caught instanceof Error ? caught.message : 'Unable to update review status.');
     }
