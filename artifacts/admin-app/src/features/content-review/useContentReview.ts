@@ -15,14 +15,26 @@ const EMPTY_WORKSPACE: ContentReviewWorkspace = {
   generatedAt: '',
 };
 
+// Remembers the last loaded queue so coming back to the page shows it instantly
+// while a fresh copy loads quietly in the background.
+let cachedWorkspace: ContentReviewWorkspace | null = null;
+
 export function useContentReview() {
-  const [workspace, setWorkspace] = useState<ContentReviewWorkspace>(EMPTY_WORKSPACE);
-  const [loading, setLoading] = useState(true);
+  const [workspace, setWorkspaceState] = useState<ContentReviewWorkspace>(cachedWorkspace ?? EMPTY_WORKSPACE);
+  const [loading, setLoading] = useState(cachedWorkspace === null);
+  const setWorkspace = useCallback((next: ContentReviewWorkspace) => { cachedWorkspace = next; setWorkspaceState(next); }, []);
+  const patchItem = useCallback((entityId: string, status: string) => {
+    setWorkspaceState((current) => {
+      const next = { ...current, items: current.items.map((item) => (item.entityId === entityId ? { ...item, status } : item)) };
+      cachedWorkspace = next;
+      return next;
+    });
+  }, []);
   const [mutating, setMutating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    setLoading(true);
+    if (cachedWorkspace === null) setLoading(true);
     setError(null);
     try {
       setWorkspace(await getContentReviewWorkspace());
@@ -31,7 +43,7 @@ export function useContentReview() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [setWorkspace]);
 
   useEffect(() => {
     void refresh();
@@ -101,6 +113,7 @@ export function useContentReview() {
     mutating,
     error,
     refresh,
+    patchItem,
     assign,
     comment,
     resolveComment,
