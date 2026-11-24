@@ -55,9 +55,26 @@ router.get("/commerce/products", async (_req, res) => {
       SELECT p.id::text AS id, p.code, v.title, v.description, v.currency,
         v.list_price_minor::float8 AS "listPriceMinor", v.sale_price_minor::float8 AS "salePriceMinor",
         v.validity_days AS "validityDays", v.sale_start_at AS "saleStartAt", v.sale_end_at AS "saleEndAt",
-        (SELECT COUNT(*)::int FROM commerce.product_version_tests pvt WHERE pvt.product_version_id = v.id) AS "testCount"
+        coverage."testCount", coverage.exams
       FROM commerce.products p
       JOIN commerce.product_versions v ON v.product_id = p.id AND v.version_number = p.current_version_number
+      CROSS JOIN LATERAL (
+        SELECT COALESCE(SUM(exam.test_count), 0)::int AS "testCount",
+          COALESCE(json_agg(json_build_object(
+            'examCode', exam.code, 'name', exam.name,
+            'familyCode', exam.family_code, 'familyName', exam.family_name
+          ) ORDER BY exam.name, exam.code) FILTER (WHERE exam.code IS NOT NULL), '[]'::json) AS exams
+        FROM (
+          SELECT e.code, e.name, ef.code AS family_code, ef.name AS family_name, COUNT(*)::int AS test_count
+          FROM commerce.product_version_tests pvt
+          LEFT JOIN assessment.tests t ON t.id = pvt.test_id
+          LEFT JOIN catalog.exam_versions ev ON ev.id = t.exam_version_id
+          LEFT JOIN catalog.exams e ON e.id = ev.exam_id
+          LEFT JOIN catalog.exam_families ef ON ef.id = e.family_id
+          WHERE pvt.product_version_id = v.id
+          GROUP BY e.code, e.name, ef.code, ef.name
+        ) exam
+      ) coverage
       WHERE p.status = 'active'
         AND (v.sale_start_at IS NULL OR v.sale_start_at <= now())
         AND (v.sale_end_at IS NULL OR v.sale_end_at > now())

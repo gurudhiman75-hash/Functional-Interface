@@ -1,88 +1,147 @@
 import "@/styles/student-typography.css";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Clock3,
-  CreditCard,
-  Package,
-  Search,
-  ShieldCheck,
-  ShoppingBag,
-  Sparkles,
-} from "lucide-react";
+import { Link } from "wouter";
+import { ArrowRight, ClipboardList, Clock3, Search, ShoppingBag } from "lucide-react";
 
+import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { Button } from "@/components/ui/button";
-import {
-  commerceDiscountPercent,
-  formatCommerceMoney,
-  getCommerceProducts,
-  type CommerceProduct,
-} from "@/lib/commerce";
+import { formatCommerceMoney, getCommerceProducts, type CommerceProduct } from "@/lib/commerce";
+import { resolveExamIdentity } from "@/lib/exam-identity";
 
-type StoreFilter = "all" | "discounted";
+const VIEWS = [
+  { value: "all", label: "All products" },
+  { value: "package", label: "Packages" },
+  { value: "bundle", label: "Bundles" },
+] as const;
+type StoreView = (typeof VIEWS)[number]["value"];
 type StoreSort = "catalog" | "price-asc" | "price-desc";
 
-function validityLabel(product: CommerceProduct) {
-  if (!product.validityDays || product.validityDays <= 0) return "Validity shown at checkout";
-  return `${product.validityDays} day${product.validityDays === 1 ? "" : "s"} access`;
+const EMPTY_PRODUCTS: CommerceProduct[] = [];
+const control = "min-h-11 rounded-lg border border-slate-200 bg-white text-sm text-slate-700 focus:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-border dark:bg-card dark:text-foreground";
+const filterControl = control + " et-interactive px-3 font-semibold aria-pressed:border-blue-400 aria-pressed:text-[#2443b5] dark:aria-pressed:text-blue-300";
+const statusPanel = "rounded-2xl border border-slate-200 bg-white px-5 py-9 text-center dark:border-border dark:bg-card";
+
+function isBundle(product: CommerceProduct) {
+  return (product.exams?.length ?? 0) > 1 || /\bbundles?\b/i.test(product.title + " " + product.code.replace(/[_-]/g, " "));
 }
 
-function StoreCard({ product, onOpen }: { product: CommerceProduct; onOpen: () => void }) {
-  const discount = commerceDiscountPercent(product);
-  const free = product.salePriceMinor <= 0;
+function StoreMarks({ product }: { product: CommerceProduct }) {
+  const exams = product.exams?.length ? product.exams.map((exam) => ({
+    name: exam.name,
+    examCode: exam.examCode,
+    familyCode: exam.familyCode ?? undefined,
+  })) : [{ name: product.title, examCode: product.code }];
+  const marks = new Map<string, (typeof exams)[number]>();
+  for (const exam of exams) {
+    const key = resolveExamIdentity(exam)?.label ?? exam.examCode;
+    if (!marks.has(key)) marks.set(key, exam);
+  }
+  return (
+    <div className="flex shrink-0 items-center gap-2" aria-hidden="true">
+      {Array.from(marks).slice(0, 2).map(([key, exam]) => (
+        <span key={key} className="flex size-12 items-center justify-center rounded-xl border border-slate-200 bg-white p-1.5 sm:size-[52px]">
+          <ExamIdentityIcon {...exam} />
+        </span>
+      ))}
+      {marks.size > 2 && <span className="rounded-md bg-white px-1.5 py-1 text-xs font-semibold text-slate-600">+{marks.size - 2}</span>}
+    </div>
+  );
+}
+
+function ProductDetails({ product, bundle }: { product: CommerceProduct; bundle: boolean }) {
+  const days = product.validityDays;
+  return (
+    <ul className={bundle ? "mb-2 flex flex-wrap gap-x-3 gap-y-1 text-xs" : "my-3 grid gap-2 text-xs"}>
+      <li className="flex items-center gap-1.5 text-slate-600 dark:text-muted-foreground">
+        <ClipboardList className="size-4 shrink-0 text-[#5168a3] dark:text-blue-300" aria-hidden="true" />
+        {product.testCount} {product.testCount === 1 ? "test" : "tests"}
+      </li>
+      <li className="flex items-center gap-1.5 text-slate-600 dark:text-muted-foreground">
+        <Clock3 className="size-4 shrink-0 text-[#5168a3] dark:text-blue-300" aria-hidden="true" />
+        {days ? days + (days === 1 ? " day access" : " days access") : "Validity shown at checkout"}
+      </li>
+    </ul>
+  );
+}
+
+function ProductPrice({ product }: { product: CommerceProduct }) {
+  return (
+    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+      <span className="text-xl font-bold tracking-tight text-slate-950 dark:text-foreground">
+        {product.salePriceMinor <= 0 ? "Free" : formatCommerceMoney(product.salePriceMinor, product.currency)}
+      </span>
+      {product.listPriceMinor > product.salePriceMinor && (
+        <s className="text-xs text-slate-600 dark:text-muted-foreground">{formatCommerceMoney(product.listPriceMinor, product.currency)}</s>
+      )}
+    </div>
+  );
+}
+
+function StoreCard({ product, bundle = false, teal = false }: { product: CommerceProduct; bundle?: boolean; teal?: boolean }) {
+  const savings = product.listPriceMinor - product.salePriceMinor;
+  const coverage = product.exams?.map((exam) => exam.name).join(" + ") || product.description;
+  const family = product.exams?.[0]?.familyName;
+  const banner = teal ? "bg-[#e9f5f4] dark:bg-teal-950/45" : "bg-[#ebf1ff] dark:bg-blue-950/45";
+  const rings = teal ? "border-teal-200 outline-teal-200 dark:border-teal-900 dark:outline-teal-900" : "border-blue-200 outline-blue-200 dark:border-blue-900 dark:outline-blue-900";
+  const buttonTone = bundle
+    ? teal ? "bg-[#13746c] text-white hover:bg-[#105f59]" : "bg-[#244ace] text-white hover:bg-[#1b3cb1]"
+    : "border border-[#d9e2fc] bg-white text-[#2443b5] hover:bg-blue-50 dark:border-border dark:bg-card dark:text-blue-300 dark:hover:bg-muted";
+  const action = bundle ? "View bundle" : "View package";
+  const title = <h3 className={"font-bold leading-tight tracking-tight text-slate-950 dark:text-foreground " + (bundle ? "text-lg sm:text-[22px]" : "text-base")}>{product.title}</h3>;
+  const details = <ProductDetails product={product} bundle={bundle} />;
 
   return (
-    <article className="group flex min-h-[330px] flex-col rounded-[26px] border border-[#e6e3f3] bg-white p-5 shadow-[0_12px_36px_rgba(48,44,83,0.045)] transition hover:-translate-y-0.5 hover:border-[#d7d1f5] hover:shadow-[0_18px_44px_rgba(48,44,83,0.08)] dark:border-border dark:bg-card sm:p-6" data-testid={`store-product-${product.id}`}>
-      <div className="flex items-start justify-between gap-3">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/50 dark:text-violet-300">
-          <Package className="h-5 w-5" aria-hidden="true" />
-        </span>
-        <div className="flex flex-wrap justify-end gap-2">
-          {discount > 0 ? <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">{discount}% off</span> : null}
-          <span className="rounded-full border border-[#e5e1f5] bg-[#faf9ff] px-2.5 py-1 text-xs font-semibold text-slate-600 dark:border-border dark:bg-muted dark:text-muted-foreground">{product.code}</span>
-        </div>
-      </div>
-
-      <h2 className="mt-5 text-lg font-semibold leading-6 tracking-tight text-slate-950 dark:text-foreground">{product.title}</h2>
-      <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-muted-foreground">{product.description || "Published ExamTree preparation package."}</p>
-
-      <div className="mt-5 grid grid-cols-2 gap-2 text-xs">
-        <div className="rounded-xl bg-[#f8f7fc] px-3 py-3 dark:bg-muted/50">
-          <p className="text-xs font-semibold tracking-normal text-slate-500 dark:text-muted-foreground">Tests</p>
-          <p className="mt-1 font-semibold text-slate-800 dark:text-foreground">{product.testCount}</p>
-        </div>
-        <div className="rounded-xl bg-[#f8f7fc] px-3 py-3 dark:bg-muted/50">
-          <p className="text-xs font-semibold tracking-normal text-slate-500 dark:text-muted-foreground">Validity</p>
-          <p className="mt-1 truncate font-semibold text-slate-800 dark:text-foreground">{validityLabel(product)}</p>
-        </div>
-      </div>
-
-      <div className="mt-auto pt-6">
-        <div className="flex items-end justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold tracking-normal text-slate-500 dark:text-muted-foreground">Current price</p>
-            <div className="mt-1 flex flex-wrap items-baseline gap-2">
-              <span className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-foreground">{free ? "Free" : formatCommerceMoney(product.salePriceMinor, product.currency)}</span>
-              {discount > 0 ? <span className="text-xs font-medium text-slate-500 line-through">{formatCommerceMoney(product.listPriceMinor, product.currency)}</span> : null}
-            </div>
+    <article className={"flex h-full min-w-0 flex-col overflow-hidden border border-slate-200 bg-white dark:border-border dark:bg-card " + (bundle ? "rounded-2xl" : "rounded-xl p-4 shadow-sm")} data-testid={"store-product-" + product.id}>
+      {bundle ? (
+        <div className={"relative isolate flex flex-1 flex-wrap items-center justify-between gap-3 overflow-hidden p-4 sm:min-h-32 sm:p-5 " + banner}>
+          <span aria-hidden="true" className={"pointer-events-none absolute -right-16 -top-16 -z-10 size-52 rounded-full border outline outline-offset-[14px] " + rings} />
+          <div className="min-w-0 flex-1 basis-40">
+            {savings > 0 && (
+              <span className={"mb-2 inline-flex rounded-md bg-white px-2 py-1 text-xs font-semibold dark:bg-card " + (teal ? "text-[#12665f] dark:text-teal-300" : "text-[#2043ba] dark:text-blue-300")}>
+                Save {formatCommerceMoney(savings, product.currency)}
+              </span>
+            )}
+            {title}
+            {coverage && <p className="mt-1.5 line-clamp-2 text-sm text-slate-600 dark:text-muted-foreground">{coverage}</p>}
           </div>
-          <Button onClick={onOpen} className="min-h-11 rounded-xl bg-[#6657e8] px-4 font-semibold text-white hover:bg-[#594bd9]" data-testid={`btn-view-store-product-${product.id}`}>
-            View <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <StoreMarks product={product} />
         </div>
+      ) : (
+        <>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <StoreMarks product={product} />
+            {family && <span className="rounded-md bg-blue-50 px-2 py-1 text-xs font-semibold text-[#284786] dark:bg-blue-950/45 dark:text-blue-300">{family}</span>}
+          </div>
+          {title}
+          {product.description && <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-600 dark:text-muted-foreground">{product.description}</p>}
+          {details}
+        </>
+      )}
+      <div className={"mt-auto flex flex-wrap items-center justify-between gap-2 " + (bundle ? "px-4 py-3 sm:px-5" : "border-t border-slate-200 pt-2 dark:border-border")}>
+        <div className={bundle ? undefined : "py-1"}>
+          {bundle && details}
+          <ProductPrice product={product} />
+        </div>
+        <Link
+          href={"/store/product/" + encodeURIComponent(product.id)}
+          aria-label={action + ": " + product.title}
+          className={"et-interactive inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg px-2.5 text-xs font-semibold " + buttonTone}
+          data-testid={"btn-view-store-product-" + product.id}
+        >
+          {action} <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
       </div>
     </article>
   );
 }
 
 export default function StorePage() {
-  const [, setLocation] = useLocation();
+  const [view, setView] = useState<StoreView>("all");
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<StoreFilter>("all");
   const [sort, setSort] = useState<StoreSort>("catalog");
+  const [family, setFamily] = useState("");
+  const [discounted, setDiscounted] = useState(false);
 
   const productsQuery = useQuery({
     queryKey: ["commerce-products"],
@@ -90,149 +149,126 @@ export default function StorePage() {
     retry: 1,
     staleTime: 60_000,
   });
-
-  const products = productsQuery.data?.products ?? [];
-  const discountedCount = useMemo(() => products.filter((product) => commerceDiscountPercent(product) > 0).length, [products]);
-  const visibleProducts = useMemo(() => {
+  const products = productsQuery.data?.products ?? EMPTY_PRODUCTS;
+  const { bundles, packages, families } = useMemo(() => {
     const needle = search.trim().toLowerCase();
+    const familyLabels = new Map<string, string>();
+    for (const product of products) {
+      if (isBundle(product)) continue;
+      for (const exam of product.exams ?? []) {
+        if (exam.familyCode && exam.familyName) familyLabels.set(exam.familyCode, exam.familyName);
+      }
+    }
     const matching = products.filter((product) => {
-      if (filter === "discounted" && commerceDiscountPercent(product) <= 0) return false;
-      if (!needle) return true;
-      return `${product.title} ${product.description} ${product.code}`.toLowerCase().includes(needle);
+      if (discounted && product.salePriceMinor >= product.listPriceMinor) return false;
+      const terms = [product.title, product.code, product.description, ...(product.exams ?? []).flatMap((exam) => [exam.name, exam.examCode, exam.familyName])];
+      return terms.join(" ").toLowerCase().includes(needle);
     });
+    if (sort !== "catalog") {
+      matching.sort((a, b) => sort === "price-asc" ? a.salePriceMinor - b.salePriceMinor : b.salePriceMinor - a.salePriceMinor);
+    }
+    return {
+      bundles: matching.filter(isBundle),
+      packages: matching.filter((product) => !isBundle(product) && (!family || product.exams?.some((exam) => exam.familyCode === family))),
+      families: Array.from(familyLabels).sort((a, b) => a[1].localeCompare(b[1])),
+    };
+  }, [products, search, sort, family, discounted]);
 
-    if (sort === "price-asc") return [...matching].sort((left, right) => left.salePriceMinor - right.salePriceMinor);
-    if (sort === "price-desc") return [...matching].sort((left, right) => right.salePriceMinor - left.salePriceMinor);
-    return matching;
-  }, [filter, products, search, sort]);
+  const showBundles = view !== "package" && (bundles.length > 0 || view === "bundle");
+  const showPackages = view !== "bundle" && (packages.length > 0 || Boolean(family) || view === "package");
+  const hasResults = (showBundles && bundles.length > 0) || (showPackages && packages.length > 0);
+  const emptyResults = <p className="rounded-xl border border-dashed border-slate-200 px-4 py-6 text-center text-sm text-slate-600 dark:border-border dark:text-muted-foreground">No products match this selection.</p>;
 
   return (
-    <div className="sites-page-shell store-page min-h-screen bg-[#f7f8fc] dark:bg-background" data-testid="store-page">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-9">
-        <section className="overflow-hidden rounded-[30px] border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_10%,rgba(102,87,232,0.14),transparent_24rem),linear-gradient(135deg,#ffffff_0%,#f5f2ff_62%,#faf9ff_100%)] shadow-[0_18px_52px_rgba(44,42,76,0.055)] dark:border-border dark:bg-none dark:bg-card">
-          <div className="grid gap-7 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-center lg:p-10">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#ddd7fb] bg-white/85 px-3 py-1.5 text-xs font-semibold tracking-normal text-[#6657e8] dark:border-violet-800 dark:bg-violet-950/30 dark:text-violet-300">
-                <ShoppingBag className="h-3.5 w-3.5" /> ExamTree Store
-              </span>
-              <h1 className="mt-4 max-w-3xl text-2xl font-semibold leading-tight tracking-tight text-slate-950 dark:text-foreground sm:text-[28px]">Choose preparation access with clear pricing and real coverage.</h1>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 dark:text-muted-foreground sm:text-[15px]">
-                Every package shown here comes from the active ExamTree commerce catalog. Prices, validity and included-test counts are read from the published product version—not invented in the storefront.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-slate-600 dark:text-muted-foreground">
-                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><ShieldCheck className="h-4 w-4 text-[#6657e8]" /> Server-verified access</span>
-                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><CreditCard className="h-4 w-4 text-[#6657e8]" /> {productsQuery.data?.salesEnabled === false ? "Purchases paused" : "Secure checkout"}</span>
-                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#e6e2f5] bg-white/80 px-3 dark:border-border dark:bg-muted/40"><CheckCircle2 className="h-4 w-4 text-[#6657e8]" /> Canonical entitlements</span>
-              </div>
-            </div>
-
-            <div className="rounded-[24px] border border-white/90 bg-white/88 p-5 shadow-[0_12px_34px_rgba(73,62,139,0.08)] backdrop-blur dark:border-border dark:bg-muted/40">
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/50 dark:text-violet-300"><Sparkles className="h-5 w-5" /></span>
-                <div>
-                  <p className="text-xs font-semibold tracking-normal text-slate-500 dark:text-muted-foreground">Published now</p>
-                  <p className="mt-0.5 text-2xl font-semibold tracking-tight text-slate-950 dark:text-foreground">{productsQuery.isLoading ? "—" : products.length}</p>
-                </div>
-              </div>
-              <p className="mt-4 text-xs leading-5 text-slate-600 dark:text-muted-foreground">Only products currently active and inside their configured sale window are returned by the Store API.</p>
-              <button type="button" onClick={() => document.getElementById("store-catalog")?.scrollIntoView({ behavior: "smooth", block: "start" })} className="et-interactive mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-sm font-semibold text-white hover:bg-[#594bd9]">
-                Browse packages <ArrowRight className="h-4 w-4" />
+    <div className="sites-page-shell store-page min-h-screen bg-[#f7f9fc] dark:bg-background" data-testid="store-page">
+      <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8 lg:py-9">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-950 dark:text-foreground sm:text-4xl">ExamTree Store</h1>
+            <p className="mt-2 text-sm text-slate-600 dark:text-muted-foreground sm:text-base">Shop test packages for individual exams or bundles for multiple exams.</p>
+          </div>
+          <Link href="/my-packages" className={control + " et-interactive inline-flex items-center gap-2 px-3 font-semibold"}>
+            <ShoppingBag className="size-4 text-[#244ace] dark:text-blue-300" aria-hidden="true" /> My purchases
+          </Link>
+        </div>
+        <div className="my-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex max-w-full flex-wrap gap-1 rounded-xl bg-slate-100 p-1 dark:bg-muted" role="group" aria-label="Product type">
+            {VIEWS.map(({ value, label }) => (
+              <button key={value} type="button" onClick={() => { setView(value); setFamily(""); }} aria-pressed={view === value} className={"et-interactive min-h-11 rounded-lg px-3 text-sm font-semibold sm:px-4 " + (view === value ? "bg-white text-[#2243b5] shadow-sm dark:bg-card dark:text-blue-300" : "text-slate-600 dark:text-muted-foreground")}>
+                {label}
               </button>
-            </div>
+            ))}
           </div>
-        </section>
-
-        <section id="store-catalog" className="scroll-mt-24 pt-7" aria-labelledby="store-catalog-title">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-xs font-semibold tracking-normal text-[#6657e8] dark:text-violet-300">Store catalog</p>
-              <h2 id="store-catalog-title" className="mt-1 text-2xl font-semibold tracking-tight text-slate-950 dark:text-foreground">Available packages</h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-muted-foreground">Search the currently published commerce catalog.</p>
-            </div>
-
-            <div className="grid gap-2 sm:grid-cols-[minmax(240px,1fr)_auto] lg:min-w-[560px]">
-              <label className="relative block">
-                <span className="sr-only">Search Store</span>
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" aria-hidden="true" />
-                <input
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Search packages"
-                  className="min-h-11 w-full rounded-xl border border-[#e2dfed] bg-white pl-10 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-[#9c91ef] focus:ring-2 focus:ring-[#6657e8]/10 dark:border-border dark:bg-card dark:text-foreground"
-                  data-testid="store-search"
-                />
-              </label>
-              <select
-                value={sort}
-                onChange={(event) => setSort(event.target.value as StoreSort)}
-                className="min-h-11 rounded-xl border border-[#e2dfed] bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:border-[#9c91ef] dark:border-border dark:bg-card dark:text-foreground"
-                aria-label="Sort Store packages"
-              >
-                <option value="catalog">Catalog order</option>
-                <option value="price-asc">Price: low to high</option>
-                <option value="price-desc">Price: high to low</option>
-              </select>
-            </div>
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
+            <label className="relative min-w-0 flex-1 sm:w-64">
+              <span className="sr-only">Search the store</span>
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500" aria-hidden="true" />
+              <input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search exams, packages, or bundles" className={control + " w-full pl-9 pr-2"} data-testid="store-search" />
+            </label>
+            <select value={sort} onChange={(event) => setSort(event.target.value as StoreSort)} aria-label="Sort store products" className={control + " max-w-full px-2"}>
+              <option value="catalog">Catalog order</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
+            <button type="button" onClick={() => setDiscounted(!discounted)} aria-pressed={discounted} className={filterControl}>On sale</button>
           </div>
+        </div>
 
-          <div className="mt-5 flex flex-wrap gap-2" aria-label="Store filters">
-            <button type="button" onClick={() => setFilter("all")} aria-pressed={filter === "all"} className={`et-interactive min-h-11 rounded-xl border px-4 text-sm font-semibold transition ${filter === "all" ? "border-[#6657e8] bg-[#6657e8] text-white" : "border-[#e2dfed] bg-white text-slate-600 hover:border-[#c9c2f3] hover:text-[#6657e8] dark:border-border dark:bg-card dark:text-muted-foreground"}`}>
-              All packages {products.length > 0 ? `(${products.length})` : ""}
-            </button>
-            <button type="button" onClick={() => setFilter("discounted")} aria-pressed={filter === "discounted"} className={`et-interactive min-h-11 rounded-xl border px-4 text-sm font-semibold transition ${filter === "discounted" ? "border-[#6657e8] bg-[#6657e8] text-white" : "border-[#e2dfed] bg-white text-slate-600 hover:border-[#c9c2f3] hover:text-[#6657e8] dark:border-border dark:bg-card dark:text-muted-foreground"}`}>
-              On sale {discountedCount > 0 ? `(${discountedCount})` : ""}
-            </button>
+        {productsQuery.data?.salesEnabled === false && (
+          <p role="status" className="mb-5 text-sm font-medium text-amber-800 dark:text-amber-300">Purchases are temporarily paused.</p>
+        )}
+        {productsQuery.isLoading ? (
+          <div className="grid gap-4 sm:grid-cols-2" role="status" aria-label="Loading the store">
+            {[0, 1].map((index) => <div key={index} className="skeleton-shimmer h-48 rounded-2xl" />)}
           </div>
-
-          {productsQuery.isLoading ? (
-            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3" role="status" aria-label="Loading Store packages">
-              {Array.from({ length: 6 }, (_, index) => <div key={index} className="skeleton-shimmer h-[330px] rounded-[26px]" />)}
-            </div>
-          ) : productsQuery.isError ? (
-            <div className="mt-6 rounded-[26px] border border-rose-200 bg-white p-7 text-center shadow-sm dark:border-rose-900 dark:bg-card">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-300"><ShoppingBag className="h-5 w-5" /></span>
-              <h3 className="mt-4 text-lg font-semibold text-slate-950 dark:text-foreground">Store is temporarily unavailable</h3>
-              <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 dark:text-muted-foreground">The commerce catalog could not be loaded. No cached or sample pricing is being shown.</p>
-              <Button variant="outline" className="mt-5 min-h-11 rounded-xl" onClick={() => productsQuery.refetch()}>Try again</Button>
-            </div>
-          ) : visibleProducts.length > 0 ? (
-            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3" data-testid="store-product-grid">
-              {visibleProducts.map((product) => (
-                <StoreCard key={product.id} product={product} onOpen={() => setLocation(`/store/product/${encodeURIComponent(product.id)}`)} />
-              ))}
-            </div>
-          ) : products.length === 0 ? (
-            <div className="mt-6 rounded-[26px] border border-dashed border-[#dcd8eb] bg-white px-6 py-12 text-center dark:border-border dark:bg-card">
-              <ShoppingBag className="mx-auto h-7 w-7 text-[#6657e8]" />
-              <h3 className="mt-4 text-lg font-semibold text-slate-950 dark:text-foreground">No packages are currently published for sale</h3>
-              <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 dark:text-muted-foreground">When an active commerce product is published, it will appear here automatically. You can continue using available tests in the meantime.</p>
-              <Button className="mt-5 min-h-11 rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => setLocation("/exams")}>Browse tests</Button>
-            </div>
-          ) : (
-            <div className="mt-6 rounded-[26px] border border-dashed border-[#dcd8eb] bg-white px-6 py-10 text-center dark:border-border dark:bg-card">
-              <Search className="mx-auto h-6 w-6 text-slate-500" />
-              <h3 className="mt-3 font-semibold text-slate-950 dark:text-foreground">No packages match these filters</h3>
-              <button type="button" className="et-interactive mt-3 min-h-11 rounded-xl px-4 text-sm font-semibold text-[#6657e8] hover:bg-[#f3f0ff] dark:text-violet-300 dark:hover:bg-violet-950/30" onClick={() => { setSearch(""); setFilter("all"); }}>Clear filters</button>
-            </div>
-          )}
-        </section>
-
-        <section className="mt-8 grid gap-3 pb-8 md:grid-cols-3" aria-label="Store trust information">
-          {[
-            [ShieldCheck, "Server-confirmed access", "Paid access is granted by canonical entitlements only after the payment event is verified on the server."],
-            [CreditCard, "Provider-backed checkout", "Paid orders use the configured Razorpay provider. If payments are not configured, Store reports that instead of simulating a purchase."],
-            [Clock3, "Published validity", "Where a package has a configured validity period, Store shows that exact value from its current product version."],
-          ].map(([Icon, title, description]) => {
-            const ItemIcon = Icon as typeof ShieldCheck;
-            return (
-              <div key={String(title)} className="rounded-2xl border border-[#e7e4f1] bg-white p-5 dark:border-border dark:bg-card">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3f0ff] text-[#6657e8] dark:bg-violet-950/50 dark:text-violet-300"><ItemIcon className="h-4 w-4" /></span>
-                <h3 className="mt-4 text-sm font-semibold text-slate-950 dark:text-foreground">{String(title)}</h3>
-                <p className="mt-1.5 text-xs leading-5 text-slate-600 dark:text-muted-foreground">{String(description)}</p>
-              </div>
-            );
-          })}
-        </section>
+        ) : productsQuery.isError ? (
+          <div className={statusPanel}>
+            <h2 className="text-lg font-semibold">Store is temporarily unavailable</h2>
+            <Button variant="outline" className="mt-4 min-h-11" onClick={() => productsQuery.refetch()}>Try again</Button>
+          </div>
+        ) : products.length === 0 ? (
+          <div className={statusPanel}>
+            <h2 className="text-lg font-semibold">No products are currently published for sale</h2>
+            <Button asChild className="mt-4 min-h-11"><Link href="/exams">Browse tests</Link></Button>
+          </div>
+        ) : (
+          <div className="space-y-7" data-testid="store-product-grid">
+            {showBundles && (
+              <section aria-labelledby="store-bundles-title">
+                <h2 id="store-bundles-title" className="mb-3 text-2xl font-bold tracking-tight">Exam bundles</h2>
+                {bundles.length > 0 ? (
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    {bundles.map((product, index) => <StoreCard key={product.id} product={product} bundle teal={index % 2 === 1} />)}
+                  </div>
+                ) : emptyResults}
+              </section>
+            )}
+            {showPackages && (
+              <section aria-labelledby="store-packages-title">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <h2 id="store-packages-title" className="text-2xl font-bold tracking-tight">Exam packages</h2>
+                  {families.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter packages by exam family">
+                      {[["", "All exams"], ...families].map(([value, label]) => (
+                        <button key={value} type="button" onClick={() => setFamily(value)} aria-pressed={family === value} className={filterControl}>{label}</button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {packages.length > 0 ? (
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {packages.map((product) => <StoreCard key={product.id} product={product} />)}
+                  </div>
+                ) : emptyResults}
+              </section>
+            )}
+            {!showBundles && !showPackages && emptyResults}
+            {!hasResults && (search.trim() || family || discounted) && (
+              <Button variant="outline" className="min-h-11" onClick={() => { setSearch(""); setFamily(""); setDiscounted(false); }}>Clear filters</Button>
+            )}
+          </div>
+        )}
+        <p className="mt-5 text-xs text-slate-600 dark:text-muted-foreground">Independent exam preparation by ExamTree.</p>
       </div>
     </div>
   );
