@@ -39,6 +39,7 @@ type Exam = {
   code: string;
   name: string;
   description: string | null;
+  logoDataUrl?: string | null;
   isActive: boolean;
   versionCount: number;
   latestVersionNumber: number | null;
@@ -263,6 +264,27 @@ export function ExamConfigurationPage() {
     setEditReason('');
   };
 
+  const uploadLogo = async (file: File | undefined) => {
+    if (!editingExam || !file) return;
+    if (file.size > 200 * 1024) { showToast.error('Logo too large', 'Please use an image under 200 KB.'); return; }
+    const dataUrl = await new Promise<string>((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(String(r.result)); r.onerror = () => reject(r.error); r.readAsDataURL(file); });
+    try {
+      await call(`/admin/exam-configuration/exams/${editingExam.id}/logo`, { method: 'PUT', body: JSON.stringify({ dataUrl, alt: `${editingExam.name} logo` }) });
+      setEditingExam({ ...editingExam, logoDataUrl: dataUrl });
+      showToast.success('Logo saved', 'The logo now shows on this exam in the student app.');
+      await refresh();
+    } catch (error) { showToast.error('Unable to save logo', error instanceof Error ? error.message : 'Request failed.'); }
+  };
+
+  const removeLogo = async () => {
+    if (!editingExam) return;
+    try {
+      await call(`/admin/exam-configuration/exams/${editingExam.id}/logo`, { method: 'DELETE' });
+      setEditingExam({ ...editingExam, logoDataUrl: null });
+      await refresh();
+    } catch (error) { showToast.error('Unable to remove logo', error instanceof Error ? error.message : 'Request failed.'); }
+  };
+
   const saveExamEdit = async () => {
     if (!editingExam) return;
     setSavingExam(true);
@@ -404,7 +426,17 @@ export function ExamConfigurationPage() {
             <Field label="Marks per correct"><Input type="number" step="0.01" value={positive} onChange={(event) => setPositive(event.target.value)} /></Field>
             <Field label="Negative marks per wrong"><Input type="number" step="0.01" value={negative} onChange={(event) => setNegative(event.target.value)} /></Field>
             <div className="sm:col-span-2">
-              <Field label="Change reason">
+              <Field label="Logo (optional)">
+              <div className="flex items-center gap-3">
+                <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border bg-white">
+                  {editingExam?.logoDataUrl ? <img src={editingExam.logoDataUrl} alt="" className="h-full w-full object-contain p-1" /> : <span className="text-[10px] text-muted-foreground">No logo</span>}
+                </div>
+                <Input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={(event) => void uploadLogo(event.target.files?.[0])} />
+                {editingExam?.logoDataUrl ? <Button type="button" variant="outline" size="sm" onClick={() => void removeLogo()}>Remove</Button> : null}
+              </div>
+              <p className="text-xs text-muted-foreground">PNG, JPEG, WebP or SVG, under 200 KB. Saved immediately. Shown on student store and test cards; exams without a logo show an initials tile.</p>
+            </Field>
+            <Field label="Change reason">
                 <Input value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Initial official pattern / describe the pattern change" />
               </Field>
             </div>
