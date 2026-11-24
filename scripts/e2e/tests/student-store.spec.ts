@@ -14,6 +14,18 @@ const storeProduct = {
   testCount: 25,
 };
 
+const bankingExam = { examCode: "IBPS_PO", name: "IBPS PO", familyCode: "BANKING", familyName: "Banking" };
+const sscExam = { examCode: "SSC_CGL", name: "SSC CGL", familyCode: "SSC", familyName: "SSC" };
+const combinedProduct = {
+  ...storeProduct,
+  id: "22222222-2222-4222-8222-222222222222",
+  code: "SSC-IBPS-180",
+  title: "SSC and Banking Practice",
+  validityDays: 180,
+  testCount: 70,
+  exams: [sscExam, bankingExam],
+};
+
 async function fulfillJson(route: Route, body: unknown, status = 200) {
   await route.fulfill({ status, contentType: "application/json", body: JSON.stringify(body) });
 }
@@ -25,7 +37,7 @@ async function installStoreFixtures(page: Page) {
     const path = url.pathname.replace(/^\/api/, "");
 
     if (path === "/commerce/products") {
-      return fulfillJson(route, { products: [storeProduct], salesEnabled: true, checkoutProvider: "cashfree", generatedAt: "2026-08-29T08:00:00.000Z" });
+      return fulfillJson(route, { products: [{ ...storeProduct, exams: [bankingExam] }, combinedProduct], salesEnabled: true, checkoutProvider: "cashfree", generatedAt: "2026-08-29T08:00:00.000Z" });
     }
     if (path === "/categories") return fulfillJson(route, []);
     if (path === "/subcategories") return fulfillJson(route, []);
@@ -59,9 +71,9 @@ test.describe("student Store", () => {
 
     await expect(page).toHaveURL(/\/store$/);
     await expect(page.getByTestId("store-page")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Available packages" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Exam packages" })).toBeVisible();
     await expect(page.getByText(storeProduct.title, { exact: true })).toBeVisible();
-    await expect(page.getByText("25", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("25 tests", { exact: true })).toBeVisible();
     await expect(page.getByText(/₹499/).first()).toBeVisible();
   });
 
@@ -82,14 +94,36 @@ test.describe("student Store", () => {
     expect(next).toBe(`/checkout/${storeProduct.id}`);
   });
 
+
+  test("multi-exam products show the bundle layout and official exam logos", async ({ page }) => {
+    await installStoreFixtures(page);
+    await page.goto("/store");
+
+    const bundle = page.getByTestId("store-product-" + combinedProduct.id);
+    const singlePackage = page.getByTestId("store-product-" + storeProduct.id);
+    await expect(page.getByRole("heading", { name: "Exam bundles" })).toBeVisible();
+    await expect(bundle.getByText("SSC CGL + IBPS PO")).toBeVisible();
+    await expect(bundle.locator('img[src$="ssc-library-official.png"]')).toBeVisible();
+    await expect(bundle.locator('img[src$="ibps-library-official.png"]')).toBeVisible();
+
+    await page.getByRole("button", { name: "Packages", exact: true }).click();
+    await expect(bundle).toHaveCount(0);
+    await expect(singlePackage).toBeVisible();
+
+    await page.getByRole("button", { name: "Bundles", exact: true }).click();
+    await expect(singlePackage).toHaveCount(0);
+    await bundle.getByRole("link", { name: "View bundle: " + combinedProduct.title }).click();
+    await expect(page).toHaveURL(new RegExp("/store/product/" + combinedProduct.id + "$"));
+  });
+
   test("Store controls remain usable on a narrow mobile viewport", async ({ page }) => {
     await installStoreFixtures(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/store");
 
     await expectTouchTarget(page.getByTestId("store-search"));
-    await expectTouchTarget(page.getByRole("combobox", { name: "Sort Store packages" }));
-    await expectTouchTarget(page.getByRole("button", { name: /All packages/ }));
+    await expectTouchTarget(page.getByRole("combobox", { name: "Sort store products" }));
+    await expectTouchTarget(page.getByRole("button", { name: "All products" }));
     await expectTouchTarget(page.getByTestId(`btn-view-store-product-${storeProduct.id}`));
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -107,11 +141,9 @@ test("Store typography keeps multilingual titles readable at narrow widths", asy
   const card = page.getByTestId(`store-product-${storeProduct.id}`);
   const heading = card.getByRole("heading", { name: title });
   await expect(heading).toBeVisible();
-  await expect(heading).toHaveCSS("font-weight", "600");
-  const label = card.getByText("Current price", { exact: true });
-  const labelSize = await label.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-  expect(labelSize).toBeGreaterThanOrEqual(12);
-  expect(labelSize).toBeLessThanOrEqual(13);
+  await expect(heading).toHaveCSS("font-weight", "700");
+  const label = card.getByText("25 tests", { exact: true });
+  await expect(label).toHaveCSS("font-size", "12px");
   await expect(label).toHaveCSS("text-transform", "none");
   for (const width of [1280, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });

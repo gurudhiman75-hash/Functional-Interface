@@ -114,6 +114,7 @@ function StoreCard({ product, bundle = false, teal = false }: { product: Commerc
             {family && <span className="rounded-md bg-blue-50 px-2 py-1 text-xs font-semibold text-[#284786] dark:bg-blue-950/45 dark:text-blue-300">{family}</span>}
           </div>
           {title}
+          {product.description && <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-600 dark:text-muted-foreground">{product.description}</p>}
           {details}
         </>
       )}
