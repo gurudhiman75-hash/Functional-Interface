@@ -1,5 +1,12 @@
 import { ApiError, getApiErrorCode, apiRequest } from "@/lib/api";
 
+export type CommerceExam = {
+  examCode: string;
+  name: string;
+  familyCode: string | null;
+  familyName: string | null;
+};
+
 export type CommerceProduct = {
   id: string;
   code: string;
@@ -12,6 +19,7 @@ export type CommerceProduct = {
   saleStartAt: string | null;
   saleEndAt: string | null;
   testCount: number;
+  exams?: CommerceExam[];
 };
 
 type CommerceProductsResponse = {
