@@ -24,9 +24,9 @@ import {
   XCircle,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { getAttemptRecords, getAttemptResponses, getAttempts, getPercentileHistory, getStreak, acknowledgeStreakCelebration, getUser, recordPercentile, recordDailyChallengeCompleted, isDailyChallengeCompletedToday, type TestAttempt } from "@/lib/storage";
+import { getAttemptRecords, getAttemptResponses, getAttempts, getPercentileHistory, getUser, recordPercentile, recordDailyChallengeCompleted, isDailyChallengeCompletedToday, type TestAttempt } from "@/lib/storage";
 import { MicroReward, type Reward } from "@/components/MicroReward";
-import { getAttemptById, getCategoryFreeTestIds, getDailyChallenge, getLeaderboard, getPackagesByCategory, getPackagesByTest, getResponsesByAttemptId, getTests, getWeakAreaAnalysis } from "@/lib/data";
+import { getAttemptById, getCategoryFreeTestIds, getDailyChallenge, getLeaderboard, getPackagesByCategory, getPackagesByTest, getResponsesByAttemptId, getStreakSummary, getTests, getWeakAreaAnalysis } from "@/lib/data";
 import { useMyEntitlements } from "@/hooks/use-my-entitlements";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -116,6 +116,12 @@ export default function Result() {
     staleTime: 60_000,
   });
 
+  const { data: streakData } = useQuery({
+    queryKey: ["attempts-streak"],
+    queryFn: getStreakSummary,
+    enabled: Boolean(user),
+    staleTime: 0,
+  });
   const { data: dailyChallenge } = useQuery({
     queryKey: ["daily-challenge"],
     queryFn: getDailyChallenge,
@@ -360,21 +366,20 @@ export default function Result() {
   // ---- Micro rewards ----
   const [rewards, setRewards] = useState<Reward[]>([]);
 
+  // Streak celebration arrives after the server answers, so it has its own effect.
+  useEffect(() => {
+    if (!streakData?.attemptedToday || streakData.currentStreak < 1) return;
+    let celebrated: string | null = null;
+    try { celebrated = localStorage.getItem("streak_celebrated_date"); } catch { /* ignore */ }
+    if (celebrated === streakData.lastAttemptDate) return;
+    try { localStorage.setItem("streak_celebrated_date", streakData.lastAttemptDate ?? ""); } catch { /* ignore */ }
+    setRewards((current) => [...current, { id: "streak", emoji: "🔥", title: `${streakData.currentStreak}-day streak!`, subtitle: "Keep it up — you're on a roll." }]);
+  }, [streakData]);
+
   useEffect(() => {
     const pending: Reward[] = [];
 
     // Streak increase
-    const streak = getStreak();
-    if (streak.justIncremented) {
-      pending.push({
-        id: "streak",
-        emoji: "🔥",
-        title: `${streak.currentStreak}-day streak!`,
-        subtitle: "Keep it up — you're on a roll.",
-      });
-      acknowledgeStreakCelebration();
-    }
-
     // Score improvement
     if (scoreImprovementDelta !== null && scoreImprovementDelta > 0) {
       pending.push({

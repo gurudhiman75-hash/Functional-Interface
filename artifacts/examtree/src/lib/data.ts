@@ -910,3 +910,16 @@ export async function uploadImageToStorage(
   const { url } = await response.json();
   return url;
 }
+
+
+export interface StreakSummary {
+  currentStreak: number;
+  longestStreak: number;
+  lastAttemptDate: string | null;
+  attemptedToday: boolean;
+}
+
+/** Daily streak computed by the server from real attempts, so it follows the student across devices. */
+export function getStreakSummary(): Promise<StreakSummary> {
+  return apiRequest<StreakSummary>("/attempts/streak");
+}
