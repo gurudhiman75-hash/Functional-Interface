@@ -8,6 +8,7 @@ import { authenticate } from "../middlewares/auth";
 import { refreshLeaderboard } from "../lib/refresh-leaderboard";
 import { cacheDel, CacheKey } from "../lib/cache";
 import { getQuestionColumnState } from "../lib/question-columns";
+import { istDay, summarizeStreak } from "../lib/streak";
 
 const router: IRouter = Router();
 
@@ -17,6 +18,22 @@ router.get("/", authenticate, async (req, res) => {
 
   const userAttempts = await db.select().from(attempts).where(eq(attempts.userId, userId));
   return res.json(userAttempts.map(TestAttempt.parse));
+});
+
+router.get("/streak", authenticate, async (req, res) => {
+  const userId = req.user?.id;
+  if (!userId) return res.status(401).json({ error: "Unauthorized" });
+  try {
+    const rows = await db
+      .select({ createdAt: attempts.createdAt, attemptType: attempts.attemptType })
+      .from(attempts)
+      .where(eq(attempts.userId, userId));
+    const days = rows.filter((row) => (row.attemptType ?? "REAL") === "REAL").map((row) => istDay(row.createdAt));
+    return res.json(summarizeStreak(days, istDay(new Date())));
+  } catch (error) {
+    console.error("Unable to compute streak", error);
+    return res.status(500).json({ error: "Unable to compute streak" });
+  }
 });
 
 router.get("/:id", authenticate, async (req, res) => {
