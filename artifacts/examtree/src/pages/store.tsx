@@ -7,6 +7,7 @@ import { ArrowRight, ClipboardList, Clock3, Search, ShoppingBag } from "lucide-r
 import { ExamIdentityIcon } from "@/components/ExamIdentityIcon";
 import { Button } from "@/components/ui/button";
 import { formatCommerceMoney, getCommerceProducts, type CommerceProduct } from "@/lib/commerce";
+import { API_BASE_URL } from "@/lib/api";
 import { resolveExamIdentity } from "@/lib/exam-identity";
 
 const VIEWS = [
@@ -31,6 +32,7 @@ function StoreMarks({ product }: { product: CommerceProduct }) {
     name: exam.name,
     examCode: exam.examCode,
     familyCode: exam.familyCode ?? undefined,
+    icon: exam.hasLogo ? `${API_BASE_URL}/commerce/exam-logo/${encodeURIComponent(exam.examCode)}` : undefined,
   })) : [{ name: product.title, examCode: product.code }];
   const marks = new Map<string, (typeof exams)[number]>();
   for (const exam of exams) {

@@ -5,6 +5,7 @@ export type CommerceExam = {
   name: string;
   familyCode: string | null;
   familyName: string | null;
+  hasLogo?: boolean;
 };
 
 export type CommerceProduct = {
