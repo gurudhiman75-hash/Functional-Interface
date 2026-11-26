@@ -12,8 +12,10 @@ import {
 const pkg = PUN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
 assert.equal(pkg.engineId, "language-v1");
 assert.equal(pkg.packageId, "PUN-001");
-assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
-assert.equal(pkg.questionBankWritable, false);
+assert.equal(pkg.lifecycleStage, "BANK_ONLY");
+assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(pkg.questionBankWritable, true);
+assert.equal(pkg.questionBankAcceptanceMode, "BANK_ONLY");
 assert.equal(pkg.testEligible, false);
 assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
@@ -89,7 +91,9 @@ for (const question of explicitA.questions) {
   assert.equal(question.difficulty, "Easy");
   assert.equal(question.registrationStatus, "REGISTERED_REVIEW_ONLY");
   assert.equal(question.reviewOnly, true);
-  assert.equal(question.questionBankWritable, false);
+  assert.equal(question.questionBankWritable, true);
+  assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
+  assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
   assert.equal(question.testEligible, false);
   assert.equal(question.mockTestEligible, false);
   assert.equal(question.publiclyPublishable, false);
@@ -127,7 +131,9 @@ assert.deepEqual(
 );
 for (const question of chapter.questions) {
   assert.equal(question.reviewOnly, true);
-  assert.equal(question.questionBankWritable, false);
+  assert.equal(question.questionBankWritable, true);
+  assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
+  assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
   assert.equal(question.testEligible, false);
   assert.equal(question.mockTestEligible, false);
   assert.equal(question.publiclyPublishable, false);
