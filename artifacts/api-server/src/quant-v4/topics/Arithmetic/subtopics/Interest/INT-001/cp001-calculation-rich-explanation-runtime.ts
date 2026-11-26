@@ -228,7 +228,7 @@ function workedSteps(
       const interest = divideRational(multiplyRational(multiplyRational(P, rate), time), rational(100));
       const numerator = multiplyRational(multiplyRational(P, rate), time);
       return [
-        `${c.given}: $P=${m(P)},\ R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $P=${m(P)},\\;R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$I=\\frac{P\\times R\\times T}{100}$$`,
         `${c.substitute}: $$I=\\frac{${m(P)}\\times ${m(rate)}\\times ${m(time)}}{100}$$`,
         `${c.calculate}: $$I=\\frac{${m(numerator)}}{100}=${m(interest)}$$`,
@@ -240,7 +240,7 @@ function workedSteps(
       const interest = divideRational(multiplyRational(multiplyRational(P, rate), time), rational(100));
       const amount = addRational(P, interest);
       return [
-        `${c.given}: $P=${m(P)},\ R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $P=${m(P)},\\;R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$I=\\frac{PRT}{100},\\qquad A=P+I$$`,
         `${c.substitute}: $$I=\\frac{${m(P)}\\times ${m(rate)}\\times ${m(time)}}{100}=${m(interest)}$$`,
         `${c.calculate}: $$A=${m(P)}+${m(interest)}=${m(amount)}$$`,
@@ -252,7 +252,7 @@ function workedSteps(
       const time = requireValue(T, "time");
       const denominator = multiplyRational(rate, time);
       return [
-        `${c.given}: $I=${m(interest)},\ R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $I=${m(interest)},\\;R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$P=\\frac{100I}{RT}$$`,
         `${c.substitute}: $$P=\\frac{100\\times ${m(interest)}}{${m(rate)}\\times ${m(time)}}$$`,
         `${c.calculate}: $$RT=${m(denominator)},\\qquad P=\\frac{${m(multiplyRational(rational(100), interest))}}{${m(denominator)}}=${m(P)}$$`,
@@ -265,7 +265,7 @@ function workedSteps(
       const rt = multiplyRational(rate, time);
       const factor = addRational(rational(100), rt);
       return [
-        `${c.given}: $A=${m(amount)},\ R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $A=${m(amount)},\\;R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$P=\\frac{100A}{100+RT}$$`,
         `${c.substitute}: $$P=\\frac{100\\times ${m(amount)}}{100+${m(rate)}\\times ${m(time)}}$$`,
         `${c.calculate}: $$100+RT=${m(factor)},\\qquad P=\\frac{${m(multiplyRational(rational(100), amount))}}{${m(factor)}}=${m(P)}$$`,
@@ -277,7 +277,7 @@ function workedSteps(
       const denominator = multiplyRational(P, time);
       const rate = divideRational(multiplyRational(rational(100), interest), denominator);
       return [
-        `${c.given}: $P=${m(P)},\ I=${m(interest)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $P=${m(P)},\\;I=${m(interest)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$R=\\frac{100I}{PT}$$`,
         `${c.substitute}: $$R=\\frac{100\\times ${m(interest)}}{${m(P)}\\times ${m(time)}}$$`,
         `${c.calculate}: $$R=\\frac{${m(multiplyRational(rational(100), interest))}}{${m(denominator)}}=${p(rate)}$$`,
@@ -289,7 +289,7 @@ function workedSteps(
       const interest = subtractRational(amount, P);
       const rate = divideRational(multiplyRational(rational(100), interest), multiplyRational(P, time));
       return [
-        `${c.given}: $P=${m(P)},\ A=${m(amount)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $P=${m(P)},\\;A=${m(amount)},\\;T=${duration(time, language)}$.`,
         `${c.calculate}: $$I=A-P=${m(amount)}-${m(P)}=${m(interest)}$$`,
         `${c.formula}: $$R=\\frac{100I}{PT}$$`,
         `${c.substitute}: $$R=\\frac{100\\times ${m(interest)}}{${m(P)}\\times ${m(time)}}=${p(rate)}$$`,
@@ -300,7 +300,7 @@ function workedSteps(
       const rate = requireValue(R, "rate");
       const time = divideRational(multiplyRational(rational(100), interest), multiplyRational(P, rate));
       return [
-        `${c.given}: $P=${m(P)},\ I=${m(interest)},\ R=${p(rate)}$.`,
+        `${c.given}: $P=${m(P)},\\;I=${m(interest)},\\;R=${p(rate)}$.`,
         `${c.formula}: $$T=\\frac{100I}{PR}$$`,
         `${c.substitute}: $$T=\\frac{100\\times ${m(interest)}}{${m(P)}\\times ${m(rate)}}$$`,
         `${c.calculate}: $$T=${m(time)}\\text{ ${c.years}}=${duration(time, language)}$$`,
@@ -312,7 +312,7 @@ function workedSteps(
       const interest = subtractRational(amount, P);
       const time = divideRational(multiplyRational(rational(100), interest), multiplyRational(P, rate));
       return [
-        `${c.given}: $P=${m(P)},\ A=${m(amount)},\ R=${p(rate)}$.`,
+        `${c.given}: $P=${m(P)},\\;A=${m(amount)},\\;R=${p(rate)}$.`,
         `${c.calculate}: $$I=A-P=${m(amount)}-${m(P)}=${m(interest)}$$`,
         `${c.formula}: $$T=\\frac{100I}{PR}$$`,
         `${c.substitute}: $$T=\\frac{100\\times ${m(interest)}}{${m(P)}\\times ${m(rate)}}=${duration(time, language)}$$`,
@@ -323,7 +323,7 @@ function workedSteps(
       const { known, target } = knownTargetTimes(data);
       const result = divideRational(multiplyRational(interest, target), known);
       return [
-        `${c.given}: $I_1=${m(interest)},\ T_1=${duration(known, language)},\ T_2=${duration(target, language)}$.`,
+        `${c.given}: $I_1=${m(interest)},\\;T_1=${duration(known, language)},\\;T_2=${duration(target, language)}$.`,
         `${c.formula}: $$I_2=I_1\\times\\frac{T_2}{T_1}$$`,
         `${c.substitute}: $$I_2=${m(interest)}\\times\\frac{${m(target)}}{${m(known)}}$$`,
         `${c.calculate}: $$I_2=${m(result)}$$`,
@@ -335,7 +335,7 @@ function workedSteps(
       const interestRatio = subtractRational(multiple, rational(1));
       const rate = divideRational(multiplyRational(rational(100), interestRatio), time);
       return [
-        `${c.given}: $\\frac{A}{P}=${m(multiple)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $\\frac{A}{P}=${m(multiple)},\\;T=${duration(time, language)}$.`,
         `${c.calculate}: $$\\frac{I}{P}=\\frac{A}{P}-1=${m(multiple)}-1=${m(interestRatio)}$$`,
         `${c.formula}: $$R=\\frac{100(I/P)}{T}$$`,
         `${c.substitute}: $$R=\\frac{100\\times ${m(interestRatio)}}{${m(time)}}=${p(rate)}$$`,
@@ -347,7 +347,7 @@ function workedSteps(
       const interestRatio = subtractRational(multiple, rational(1));
       const time = divideRational(multiplyRational(rational(100), interestRatio), rate);
       return [
-        `${c.given}: $\\frac{A}{P}=${m(multiple)},\ R=${p(rate)}$.`,
+        `${c.given}: $\\frac{A}{P}=${m(multiple)},\\;R=${p(rate)}$.`,
         `${c.calculate}: $$\\frac{I}{P}=${m(multiple)}-1=${m(interestRatio)}$$`,
         `${c.formula}: $$T=\\frac{100(I/P)}{R}$$`,
         `${c.substitute}: $$T=\\frac{100\\times ${m(interestRatio)}}{${m(rate)}}=${duration(time, language)}$$`,
@@ -358,7 +358,7 @@ function workedSteps(
       const rate = requireValue(R, "rate");
       const time = divideRational(multiplyRational(rational(100), interestRatio), rate);
       return [
-        `${c.given}: $\\frac{I}{P}=${m(interestRatio)},\ R=${p(rate)}$.`,
+        `${c.given}: $\\frac{I}{P}=${m(interestRatio)},\\;R=${p(rate)}$.`,
         `${c.formula}: $$T=\\frac{100(I/P)}{R}$$`,
         `${c.substitute}: $$T=\\frac{100\\times ${m(interestRatio)}}{${m(rate)}}$$`,
         `${c.calculate}: $$T=${m(time)}\\text{ ${c.years}}=${duration(time, language)}$$`,
@@ -369,7 +369,7 @@ function workedSteps(
       const time = requireValue(T, "time");
       const rate = divideRational(multiplyRational(rational(100), interestRatio), time);
       return [
-        `${c.given}: $\\frac{I}{P}=${m(interestRatio)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $\\frac{I}{P}=${m(interestRatio)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$R=\\frac{100(I/P)}{T}$$`,
         `${c.substitute}: $$R=\\frac{100\\times ${m(interestRatio)}}{${m(time)}}$$`,
         `${c.calculate}: $$R=${p(rate)}$$`,
@@ -384,7 +384,7 @@ function workedSteps(
       const timeGap = subtractRational(T2, T1);
       const annual = divideRational(amountGap, timeGap);
       return [
-        `${c.given}: $A_1=${m(A1)},\ A_2=${m(A2)},\ T_1=${m(T1)},\ T_2=${m(T2)}$.`,
+        `${c.given}: $A_1=${m(A1)},\\;A_2=${m(A2)},\\;T_1=${m(T1)},\\;T_2=${m(T2)}$.`,
         `${c.formula}: $$J=\\frac{A_2-A_1}{T_2-T_1}$$`,
         `${c.substitute}: $$J=\\frac{${m(A2)}-${m(A1)}}{${m(T2)}-${m(T1)}}=\\frac{${m(amountGap)}}{${m(timeGap)}}$$`,
         `${c.calculate}: $$J=${m(annual)}$$`,
@@ -443,7 +443,7 @@ function workedSteps(
       const interestRatio = divideRational(net, rational(100));
       const multiple = addRational(rational(1), interestRatio);
       return [
-        `${c.given}: $R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$\\frac{A}{P}=1+\\frac{RT}{100}$$`,
         `${c.substitute}: $$\\frac{A}{P}=1+\\frac{${m(rate)}\\times ${m(time)}}{100}=1+\\frac{${m(net)}}{100}$$`,
         `${c.calculate}: $$\\frac{A}{P}=1+${m(interestRatio)}=${m(multiple)}$$`,
@@ -455,7 +455,7 @@ function workedSteps(
       const net = multiplyRational(rate, time);
       const ratio = divideRational(net, rational(100));
       return [
-        `${c.given}: $R=${p(rate)},\ T=${duration(time, language)}$.`,
+        `${c.given}: $R=${p(rate)},\\;T=${duration(time, language)}$.`,
         `${c.formula}: $$\\frac{I}{P}=\\frac{RT}{100}$$`,
         `${c.substitute}: $$\\frac{I}{P}=\\frac{${m(rate)}\\times ${m(time)}}{100}=\\frac{${m(net)}}{100}$$`,
         `${c.calculate}: $$\\frac{I}{P}=${m(ratio)}$$`,
