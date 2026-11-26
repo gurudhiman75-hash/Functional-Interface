@@ -193,13 +193,13 @@ function Router() {
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
           <Route path="/packages/success/:id" component={() => <Redirect to="/my-packages" />} />
-          <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
-          <Route path="/packages" component={() => renderPublicRoute(Store)} />
+          <Route path="/packages/:id">{(params) => <Redirect to={`/store/product/${params.id}`} />}</Route>
+          <Route path="/packages" component={() => <Redirect to="/store" />} />
 
           <Route path="/dashboard" component={() => <ProtectedRoute component={Dashboard} />} />
           <Route path="/my-packages/:id" component={() => <ProtectedRoute component={PurchasedPackage} />} />
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
-          <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
+          <Route path="/purchases" component={() => <Redirect to="/my-packages" />} />
           <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
