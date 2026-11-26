@@ -49,6 +49,18 @@ function calculateDiscount(coupon: Record<string, unknown>, subtotalMinor: numbe
   return Math.max(0, Math.min(subtotalMinor, capped));
 }
 
+// Public, cacheable exam logo (uploaded by an admin). Kept out of the product list so that payload stays small.
+router.get("/commerce/exam-logo/:code", async (req, res) => {
+  const code = String(req.params.code ?? "").slice(0, 120);
+  try {
+    const rows = await sqlClient`SELECT logo_data_url AS "dataUrl" FROM catalog.exams WHERE code = ${code} AND logo_data_url IS NOT NULL LIMIT 1`;
+    const match = /^data:(image\/(?:png|jpeg|webp|svg\+xml));base64,([A-Za-z0-9+/=]+)$/.exec(String(rows[0]?.dataUrl ?? ""));
+    if (!match) return void res.status(404).end();
+    res.set({ "Content-Type": match[1], "Cache-Control": "public, max-age=3600", "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox" });
+    res.send(Buffer.from(match[2], "base64"));
+  } catch (error) { console.error("Unable to serve exam logo", error); res.status(500).end(); }
+});
+
 router.get("/commerce/products", async (_req, res) => {
   try {
     const rows = await sqlClient`
@@ -62,17 +74,18 @@ router.get("/commerce/products", async (_req, res) => {
         SELECT COALESCE(SUM(exam.test_count), 0)::int AS "testCount",
           COALESCE(json_agg(json_build_object(
             'examCode', exam.code, 'name', exam.name,
-            'familyCode', exam.family_code, 'familyName', exam.family_name
+            'familyCode', exam.family_code, 'familyName', exam.family_name,
+            'hasLogo', exam.has_logo
           ) ORDER BY exam.name, exam.code) FILTER (WHERE exam.code IS NOT NULL), '[]'::json) AS exams
         FROM (
-          SELECT e.code, e.name, ef.code AS family_code, ef.name AS family_name, COUNT(*)::int AS test_count
+          SELECT e.code, e.name, ef.code AS family_code, ef.name AS family_name, (e.logo_data_url IS NOT NULL) AS has_logo, COUNT(*)::int AS test_count
           FROM commerce.product_version_tests pvt
           LEFT JOIN assessment.tests t ON t.id = pvt.test_id
           LEFT JOIN catalog.exam_versions ev ON ev.id = t.exam_version_id
           LEFT JOIN catalog.exams e ON e.id = ev.exam_id
           LEFT JOIN catalog.exam_families ef ON ef.id = e.family_id
           WHERE pvt.product_version_id = v.id
-          GROUP BY e.code, e.name, ef.code, ef.name
+          GROUP BY e.code, e.name, ef.code, ef.name, (e.logo_data_url IS NOT NULL)
         ) exam
       ) coverage
       WHERE p.status = 'active'
