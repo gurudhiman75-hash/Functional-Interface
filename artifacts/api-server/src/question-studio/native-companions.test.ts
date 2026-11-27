@@ -54,7 +54,7 @@ test("identical options in another order are put in English order; text options 
   assert.equal(alignLocalizedOptions(src, wrong), wrong);
 });
 
-import { numbersCompatible } from "./persisted-native-review";
+import { numbersCompatible, optionNumbersCompatible, sameQuestionId } from "./persisted-native-review";
 test("numbers: English numbers must all be present, extra translated labels are fine", () => {
   assert.equal(numbersCompatible("Match List I with List II. 75.84%, 846", "सूची-1 को सूची-2 से मिलाइए। 75.84%, 846"), true);
   assert.equal(numbersCompatible("120 metres, 3/4", "140 मीटर, 3/4"), false);
@@ -70,4 +70,18 @@ test("options with translated units are matched by their unique numbers", () => 
   const dup = { options: ["5 km", "5 m", "6 km", "7 km"], correctIndex: 0 };
   const same = { stem: "x", explanation: "y", options: ["6 किमी", "5 मी", "5 किमी", "7 किमी"], correctIndex: 2 };
   assert.equal(alignLocalizedOptions(dup, same), same);
+});
+
+test("ordinals and single digits written as words are not required; data numbers and option numbers are", () => {
+  assert.equal(numbersCompatible("Using the 1st, 2nd and 3rd letters of WONDER. 1-2-1-2 pattern", "शब्द WONDER के पहले, दूसरे और तीसरे अक्षर"), true);
+  assert.equal(numbersCompatible("Sum is 45 and 7", "योग 54 है"), false);
+  assert.equal(optionNumbersCompatible(["35 km", "36 km"], ["३५ किमी", "36 किमी"]), true);
+  assert.equal(optionNumbersCompatible(["35 km", "36 km"], ["36 किमी", "35 किमी"]), false);
+});
+
+test("question ids with a language-specific name in the middle still match on checkpoint, QL and trailing hash", () => {
+  assert.equal(sameQuestionId("BLR-CP-002:BLR-QL-008:BLR-CP002-PROT-SELF-IDENTITY:223:1115ed22:en",
+    "BLR-CP-002:BLR-QL-008:CP002-NO-SIBLING-SELF-FATHERS-SON:223:1115ed22:hi-IN"), true);
+  assert.equal(sameQuestionId("BLR-CP-002:BLR-QL-008:A:223:1115ed22:en", "BLR-CP-002:BLR-QL-009:A:223:1115ed22:hi-IN"), false);
+  assert.equal(sameQuestionId("BLR-CP-002:BLR-QL-008:A:223:1115ed22:en", "BLR-CP-002:BLR-QL-008:A:224:1115ed22:hi-IN"), false);
 });

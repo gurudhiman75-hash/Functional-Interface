@@ -617,7 +617,7 @@ export function generateAlgebraStudioQuestionV4(input: {
   const delivery = buildOptions(
     source.canonicalAnswer,
     language,
-    `${input.seed}:${input.pattern.prototypeId}:${language}`,
+    `${input.seed}:${input.pattern.prototypeId}:en`,
     input.pattern.prototypeId,
   );
   const steps = String(source.explanation ?? "").split(/\n+/).map((step) => step.trim()).filter(Boolean);
