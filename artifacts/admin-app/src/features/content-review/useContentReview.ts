@@ -23,7 +23,7 @@ export function useContentReview() {
   const [workspace, setWorkspaceState] = useState<ContentReviewWorkspace>(cachedWorkspace ?? EMPTY_WORKSPACE);
   const [loading, setLoading] = useState(cachedWorkspace === null);
   const setWorkspace = useCallback((next: ContentReviewWorkspace) => { cachedWorkspace = next; setWorkspaceState(next); }, []);
-  const patchItem = useCallback((entityId: string, status: string) => {
+  const patchItem = useCallback((entityId: string, status: ContentReviewWorkspace['items'][number]['status']) => {
     setWorkspaceState((current) => {
       const next = { ...current, items: current.items.map((item) => (item.entityId === entityId ? { ...item, status } : item)) };
       cachedWorkspace = next;
