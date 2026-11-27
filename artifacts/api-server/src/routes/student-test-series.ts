@@ -4,6 +4,7 @@ import { ensureCatalogBrandingSchema } from "../lib/catalog-entity-branding";
 import { auth } from "../lib/firebase-admin";
 import { sqlClient } from "../lib/db";
 import { requireTestAccess } from "../lib/canonical-commerce-entitlements";
+import { testSeriesItemKind } from "../lib/admin-test-series";
 import {
   assertSeriesTestAccess,
   evaluateStudentSeriesEligibility,
@@ -361,6 +362,7 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
       iconUrl: asString(row.iconUrl),
       sortOrder: Number(row.sortOrder),
       title: String(row.titleOverride || row.title || "Untitled test"),
+      kind: testSeriesItemKind(row.configuration),
       description: row.description == null ? null : String(row.description),
       durationSeconds: Number(row.durationSeconds ?? 0),
       totalMarks: Number(row.totalMarks ?? 0),
