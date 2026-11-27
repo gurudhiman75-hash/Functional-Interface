@@ -31,6 +31,21 @@ export function nativeSourceHash(source:NativeReviewQuestion):string {
     source.stem,source.explanation,source.options,source.correctIndex,
   ])).digest("hex");
 }
+const EXACT_NATIVE_REPLAY_PACKAGES = new Set(["TRG-001", "DIR-001", "CAE-001", "CAL-001", "OPS-001"]);
+
+export function supportsExactNativeReplay(packageId: unknown): boolean {
+  return EXACT_NATIVE_REPLAY_PACKAGES.has(text(packageId));
+}
+
+export function hasNativeReplaySeed(payload: Record<string, unknown>): boolean {
+  if (payload.provenance === "CONTROLLED_NOVEL") return false;
+  return Boolean(text(payload.seed)) || (
+    ["DIR-001", "CAE-001", "OPS-001"].includes(text(payload.packageId)) &&
+    typeof payload.numericSeed === "number" && Number.isInteger(payload.numericSeed) &&
+    payload.numericSeed >= 0 && payload.numericSeed <= 0xffffffff
+  );
+}
+
 export function nativeIdentityHash(payload:Record<string,unknown>):string {
   return createHash("sha256").update(JSON.stringify([
     text(payload.packageId),

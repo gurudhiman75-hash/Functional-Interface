@@ -113,6 +113,8 @@ function validatePackageDifficulty(
     );
   }
 
+  if (raw === "Mixed" && pkg.mixedDifficultySupported) return "Mixed";
+
   const normalized = raw.toLowerCase() === "moderate" ? "Medium" : (raw || "Medium");
   if (!pkg.supportedDifficulties?.includes(normalized as "Easy" | "Medium" | "Hard")) {
     throw Object.assign(
@@ -372,7 +374,9 @@ router.get(
               .filter((entry): entry is readonly [string, string] => Boolean(entry[1])),
           ),
           supportedLanguages: pkg.supportedLanguages,
-          supportedDifficulties: pkg.supportedDifficulties ?? [],
+          supportedDifficulties: pkg.mixedDifficultySupported
+            ? ["Mixed", ...(pkg.supportedDifficulties ?? [])]
+            : pkg.supportedDifficulties ?? [],
           difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
           runtimeMode: pkg.runtimeMode,
           supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
@@ -564,6 +568,8 @@ router.post(
       topic,
       subtopic,
       language: language as "en" | "hi" | "pa",
+      nativeGroupedReview: language === "en" && Array.isArray(req.body?.languages) &&
+        req.body.languages.some((locale: unknown) => locale === "hi" || locale === "pa"),
       seed,
       runtimeMode,
       canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,

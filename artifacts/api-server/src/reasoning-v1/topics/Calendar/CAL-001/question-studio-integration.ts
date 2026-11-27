@@ -24,6 +24,7 @@ export const CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   supportedLanguages: ["en", "hi", "pa"],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   difficultyFilterSupported: true,
+  mixedDifficultySupported: true,
   runtimeMode: "review-only",
   supportedRuntimeModes: ["review-only"],
   lifecycleId: QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.lifecycleId,

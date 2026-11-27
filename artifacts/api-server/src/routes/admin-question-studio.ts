@@ -5,7 +5,7 @@ import { authenticate } from "../middlewares/auth";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import nativeEditorialRouter from "./admin-question-studio-native-editorial";
 import { NativeReviewSnapshotCache } from "../question-studio/native-review-snapshot-cache";
-import { nativeSourceQuestion,readPersistedNativeSnapshot } from "../question-studio/persisted-native-review-format";
+import { supportsExactNativeReplay, hasNativeReplaySeed, nativeSourceQuestion, readPersistedNativeSnapshot } from "../question-studio/persisted-native-review-format";
 
 const router = Router();
 
@@ -79,7 +79,9 @@ router.get("/items/:itemId/native-localizations",
       // language regeneration, or cross-user mutable approval cache.
       const savedPayload=row.payload as Record<string,unknown>;
       const persisted=readPersistedNativeSnapshot(savedPayload);
-      if(persisted) {
+      const retryBlocked = persisted && supportsExactNativeReplay(savedPayload.packageId) &&
+        persisted.variants.some(variant => variant.status === "blocked");
+      if(persisted && !retryBlocked) {
         const source=nativeSourceQuestion(savedPayload);
         res.setHeader("Cache-Control","private, no-store");
         res.setHeader("X-Native-Review-Cache","persisted");
@@ -113,10 +115,9 @@ router.get("/items/:itemId/native-localizations",
         const pkg=listQuestionStudioPackages().find(p=>p.enabled && p.packageId===packageId);
         const cpId=asString(payload.canonicalProblemId||payload.selectedCpId||payload.cpId);
         const qlId=asString(payload.questionLanguageId||payload.qlId);
-        const seed=asString(payload.seed);
         if (!pkg || !pkg.supportedLanguages.includes("en") ||
             !pkg.supportedLanguages.some(locale=>locale==="hi"||locale==="pa") ||
-            !cpId || !qlId || !seed || language!=="en") {
+            !cpId || !qlId || !hasNativeReplaySeed(payload) || language!=="en") {
           throw {status:422,code:"NATIVE_REVIEW_NOT_SUPPORTED",
             error:"This item does not have registered multilingual languages and a reusable canonical QL/CP/seed."};
         }
@@ -139,6 +140,8 @@ router.get("/items/:itemId/native-localizations",
         // succeeds; failed locales remain independently blocked.
         const variantTasks=Promise.all((["hi","pa"] as const)
           .filter(locale=>pkg.supportedLanguages.includes(locale)).map(async locale=>{
+          const saved = persisted?.variants.find(variant => variant.language === locale && variant.status === "verified");
+          if (saved) return saved;
           try {
             const question=await nativeLocalizedQuestion(payload,locale);
             assertNativeLocalizedAnswerParity(source,question);

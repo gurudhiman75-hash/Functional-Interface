@@ -325,7 +325,7 @@ function localizeStem(question: ApprovedOpsQuestion, locale: ApprovedOpsLocale):
       return hi ? `${m[1]} को सही बनाने के लिए कौन-सा गणितीय चिह्न-युग्म और पूरी संख्या-युग्म दोनों आपस में बदलने होंगे?` : `${m[1]} ਨੂੰ ਸਹੀ ਬਣਾਉਣ ਲਈ ਕਿਹੜਾ ਗਣਿਤੀ ਚਿੰਨ੍ਹ-ਜੋੜਾ ਅਤੇ ਪੂਰੀ ਸੰਖਿਆ-ਜੋੜਾ ਦੋਵੇਂ ਆਪਸ ਵਿੱਚ ਬਦਲਣੇ ਹੋਣਗੇ?`;
     }
     case "OPS-CAND-027": {
-      const m = requireMatch(question.stem, /^Which operator pair and digit pair must both be interchanged throughout (.+) to make it correct\?$/u, id);
+      const m = requireMatch(question.stem, /^Which operator pair and digit pair must (?:both )?be interchanged throughout (.+) to make it correct\?$/u, id);
       return hi ? `${m[1]} को सही बनाने के लिए कौन-सा गणितीय चिह्न-युग्म और अंक-युग्म पूरे समीकरण में आपस में बदलने होंगे?` : `${m[1]} ਨੂੰ ਸਹੀ ਬਣਾਉਣ ਲਈ ਕਿਹੜਾ ਗਣਿਤੀ ਚਿੰਨ੍ਹ-ਜੋੜਾ ਅਤੇ ਅੰਕ-ਜੋੜਾ ਪੂਰੇ ਸਮੀਕਰਨ ਵਿੱਚ ਆਪਸ ਵਿੱਚ ਬਦਲਣਾ ਹੋਵੇਗਾ?`;
     }
     case "OPS-CAND-028": {
@@ -474,6 +474,9 @@ function localizeText(source: string, locale: ApprovedOpsLocale): string {
   if ((match = adapted.match(/^(\d+) digit pairs were checked\.$/u))) return hi ? `${match[1]} अंक-युग्म जाँचे गए।` : `${match[1]} ਅੰਕ-ਜੋੜੇ ਜਾਂਚੇ ਗਏ।`;
   if ((match = adapted.match(/^(\d+) compound choices were checked\.$/u))) return hi ? `${match[1]} संयुक्त विकल्प जाँचे गए।` : `${match[1]} ਸਾਂਝੇ ਵਿਕਲਪ ਜਾਂਚੇ ਗਏ।`;
   if ((match = adapted.match(/^(\d+) operator pairs × (\d+) digit pairs were tested\.$/u))) return hi ? `${match[1]} चिह्न-युग्म × ${match[2]} अंक-युग्म जाँचे गए।` : `${match[1]} ਚਿੰਨ੍ਹ-ਜੋੜੇ × ${match[2]} ਅੰਕ-ਜੋੜੇ ਜਾਂਚੇ ਗਏ।`;
+  if (adapted === "All six basic operator pairs were tested.") {
+    return hi ? "सभी छह मूल संक्रिया-चिह्न युग्मों की जाँच की गई।" : "ਸਾਰੇ ਛੇ ਮੂਲ ਸੰਕਿਰਿਆ-ਚਿੰਨ੍ਹ ਜੋੜਿਆਂ ਦੀ ਜਾਂਚ ਕੀਤੀ ਗਈ।";
+  }
   if ((match = adapted.match(/^All six basic operator pairs were tested, and every pair used two operators visible in the original equation\.$/u))) return hi ? "सभी छह मूल चिह्न-युग्म जाँचे गए और हर युग्म के दोनों चिह्न मूल समीकरण में मौजूद थे।" : "ਸਾਰੇ ਛੇ ਮੂਲ ਚਿੰਨ੍ਹ-ਜੋੜੇ ਜਾਂਚੇ ਗਏ ਅਤੇ ਹਰ ਜੋੜੇ ਦੇ ਦੋਵੇਂ ਚਿੰਨ੍ਹ ਮੂਲ ਸਮੀਕਰਨ ਵਿੱਚ ਮੌਜੂਦ ਸਨ।";
   if ((match = adapted.match(/^([ABC]) must be (.+) because (.+) is true; (.+)$/u))) return hi ? `${match[1]} का अर्थ ${match[2]} होना चाहिए क्योंकि ${match[3]} सही है; ${localizeText(match[4], locale)}` : `${match[1]} ਦਾ ਅਰਥ ${match[2]} ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ ਕਿਉਂਕਿ ${match[3]} ਸਹੀ ਹੈ; ${localizeText(match[4], locale)}`;
   if ((match = adapted.match(/^Using A = \+ and B = = gives (.+), which is true; reversing them gives (.+), which is false\.$/u))) return hi ? `A = + और B = = रखने पर ${match[1]} मिलता है, जो सही है; उल्टा रखने पर ${match[2]} मिलता है, जो गलत है।` : `A = + ਅਤੇ B = = ਰੱਖਣ ਉੱਤੇ ${match[1]} ਮਿਲਦਾ ਹੈ, ਜੋ ਸਹੀ ਹੈ; ਉਲਟ ਰੱਖਣ ਉੱਤੇ ${match[2]} ਮਿਲਦਾ ਹੈ, ਜੋ ਗਲਤ ਹੈ।`;

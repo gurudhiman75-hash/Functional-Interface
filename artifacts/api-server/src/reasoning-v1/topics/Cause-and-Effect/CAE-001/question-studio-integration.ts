@@ -33,6 +33,7 @@ export const CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1: QuestionStudioPackageDe
   supportedLanguages: ["en", "hi", "pa"],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   difficultyFilterSupported: true,
+  mixedDifficultySupported: true,
   runtimeMode: "review-only",
   supportedRuntimeModes: ["review-only"],
   ...QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1,
@@ -130,6 +131,22 @@ function questionProfileFor(
     : "FOUR_WAY";
 }
 
+export function replayCae001Question(
+  cpId: string, qlId: string, seed: number, language: string, optionCount: number,
+) {
+  const ql = CAE_PROVISIONAL_QL_IDS.find(id => id === qlId);
+  if (!ql) throw new Error("Unknown CAE-001 question identity");
+  const question = generateReviewedCaeQuestion({
+    qlId: ql,
+    locale: localeFor(language),
+    seed,
+    questionProfile: questionProfileFor(ql, optionCount === 5),
+  });
+  assertCaeGeneratedAnswerIntegrity(question);
+  if (question.checkpointId !== cpId) throw new Error("CAE-001 native replay checkpoint mismatch");
+  return question;
+}
+
 function generateOne(input: {
   qlId: (typeof CAE_PROVISIONAL_QL_IDS)[number];
   locale: CaeLocale;
@@ -152,10 +169,10 @@ function generateOne(input: {
       questionProfile,
     });
   }
-  throw new Error(
+  throw Object.assign(new Error(
     input.qlId +
-    " could not produce the requested difficulty inside the bounded CAE-001 search.",
-  );
+    " could not produce the requested difficulty. Select Mixed to use the difficulties available for this checkpoint.",
+  ), { statusCode: 422, code: "QUESTION_STUDIO_CHECKPOINT_DIFFICULTY_UNAVAILABLE" });
 }
 
 export async function generateCae001QuestionStudioBatch(

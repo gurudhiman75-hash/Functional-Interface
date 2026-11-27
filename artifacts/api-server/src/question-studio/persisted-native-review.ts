@@ -1,7 +1,7 @@
 import { nativeLocalizedQuestion, assertNativeEnglishSourceParity, nativeExplanationText,
          assertNativeLocalizedAnswerParity } from "./native-linked-localization";
 import { listQuestionStudioPackages } from "./engine-registry";
-import { nativeSourceQuestion,nativeSourceHash,nativeIdentityHash,type PersistedNativeSnapshot,
+import { hasNativeReplaySeed,nativeSourceQuestion,nativeSourceHash,nativeIdentityHash,type PersistedNativeSnapshot,
          type PersistedNativeVariant } from "./persisted-native-review-format";
 const string=(x:unknown)=>typeof x==="string"?x.trim():"";
 
@@ -13,7 +13,7 @@ export async function prepareNativeReviewSnapshot(
 ):Promise<PersistedNativeSnapshot|null> {
   const packageId=string(payload.packageId);
   const pkg=listQuestionStudioPackages().find(p=>p.enabled&&p.packageId===packageId);
-  if(!pkg||string(payload.language)!=="en"||!string(payload.seed)||
+  if(!pkg||string(payload.language)!=="en"||!hasNativeReplaySeed(payload)||
      !string(payload.canonicalProblemId||payload.selectedCpId||payload.cpId)||
      !string(payload.questionLanguageId||payload.qlId))return null;
   const active=languages.filter(lang=>pkg.supportedLanguages.includes(lang));

@@ -116,6 +116,88 @@ function renderStem(sourceStem: string, kind: Trg001V5StemKind, locale: Locale) 
   const source = sourceStem.trim();
   let m: RegExpMatchArray | null;
 
+  // Reviewed English stem rotations can share a QL without sharing the
+  // registry's original phrasing. Match the complete alternate templates.
+  m = source.match(/^For acute θ, (.+?)\. Determine (.+?) exactly\.$/u);
+  if (m && kind !== "for_acute_determine_exact") {
+    return native(locale,
+      `θ न्यूनकोण है और ${nativeClause(m[1], locale)}। ${nativeTarget(m[2], locale)} का सटीक मान ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${nativeClause(m[1], locale)}। ${nativeTarget(m[2], locale)} ਦਾ ਸਹੀ ਮਾਨ ਕੱਢੋ।`);
+  }
+  m = source.match(/^In a right triangle, the sides (adjacent|opposite) and (adjacent|opposite) to θ are ([\d.]+) and ([\d.]+) units\. Find (.+?)\.$/u);
+  if (m && m[1] !== m[2]) {
+    const [adjacent, opposite] = m[1] === "adjacent" ? [m[3], m[4]] : [m[4], m[3]];
+    return native(locale,
+      `समकोण त्रिभुज में θ से सटी हुई भुजा ${adjacent} इकाई और θ के सामने वाली भुजा ${opposite} इकाई है। ${nativeTarget(m[5], locale)} ज्ञात कीजिए।`,
+      `ਸਮਕੋਣ ਤਿਕੋਣ ਵਿੱਚ θ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ${adjacent} ਇਕਾਈ ਅਤੇ θ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ${opposite} ਇਕਾਈ ਹੈ। ${nativeTarget(m[5], locale)} ਕੱਢੋ।`);
+  }
+
+  m = source.match(/^The perpendicular and base of a right triangle are ([\d.]+) and ([\d.]+) units\. If θ is opposite the perpendicular, find (.+?)\.$/u);
+  if (m) {
+    return native(locale,
+      `एक समकोण त्रिभुज का लंब ${m[1]} इकाई और आधार ${m[2]} इकाई है। यदि θ लंब के सामने है, तो ${nativeTarget(m[3], locale)} ज्ञात कीजिए।`,
+      `ਇੱਕ ਸਮਕੋਣ ਤਿਕੋਣ ਦਾ ਲੰਬ ${m[1]} ਇਕਾਈ ਅਤੇ ਆਧਾਰ ${m[2]} ਇਕਾਈ ਹੈ। ਜੇ θ ਲੰਬ ਦੇ ਸਾਹਮਣੇ ਹੈ, ਤਾਂ ${nativeTarget(m[3], locale)} ਕੱਢੋ।`);
+  }
+
+  m = source.match(/^In a right triangle, the side opposite θ is ([\d.]+) units and the hypotenuse is ([\d.]+) units\. Find (.+?)\.$/u);
+  if (m) {
+    return native(locale,
+      `समकोण त्रिभुज में θ के सामने वाली भुजा ${m[1]} इकाई है और कर्ण ${m[2]} इकाई है। ${nativeTarget(m[3], locale)} ज्ञात कीजिए।`,
+      `ਸਮਕੋਣ ਤਿਕੋਣ ਵਿੱਚ θ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ${m[1]} ਇਕਾਈ ਹੈ ਅਤੇ ਕਰਣ ${m[2]} ਇਕਾਈ ਹੈ। ${nativeTarget(m[3], locale)} ਕੱਢੋ।`);
+  }
+  const adjacentFirst = source.match(/^For an acute angle θ, the adjacent side is ([\d.]+) units and the hypotenuse is ([\d.]+) units\. Find (.+?)\.$/u);
+  const hypotenuseFirst = source.match(/^For acute θ, the hypotenuse is ([\d.]+) and the adjacent leg is ([\d.]+)\. Determine (.+?)\.$/u);
+  if (adjacentFirst || hypotenuseFirst) {
+    const adjacent = adjacentFirst?.[1] ?? hypotenuseFirst?.[2];
+    const hypotenuse = adjacentFirst?.[2] ?? hypotenuseFirst?.[1];
+    const target = (adjacentFirst ?? hypotenuseFirst)![3];
+    return native(locale,
+      `θ न्यूनकोण है। उससे सटी हुई भुजा ${adjacent} इकाई है और कर्ण ${hypotenuse} इकाई है। ${nativeTarget(target, locale)} ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ। ਉਸ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ${adjacent} ਇਕਾਈ ਹੈ ਅਤੇ ਕਰਣ ${hypotenuse} ਇਕਾਈ ਹੈ। ${nativeTarget(target, locale)} ਕੱਢੋ।`);
+  }
+  m = source.match(/^For acute θ, the opposite and adjacent legs are ([\d.]+) and ([\d.]+) units\. Determine (.+?)\.$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है। उसके सामने वाली भुजा ${m[1]} इकाई है और उससे सटी हुई भुजा ${m[2]} इकाई है। ${nativeTarget(m[3], locale)} ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ। ਉਸ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ${m[1]} ਇਕਾਈ ਹੈ ਅਤੇ ਉਸ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ${m[2]} ਇਕਾਈ ਹੈ। ${nativeTarget(m[3], locale)} ਕੱਢੋ।`);
+  }
+  m = source.match(/^For acute θ, (sinθ=[\d/]+)\. If the hypotenuse measures ([\d.]+) units, what is the opposite side\?$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${m[1]}। यदि कर्ण ${m[2]} इकाई है, तो θ के सामने वाली भुजा की लंबाई क्या है?`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${m[1]}। ਜੇ ਕਰਣ ${m[2]} ਇਕਾਈ ਹੈ, ਤਾਂ θ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ਦੀ ਲੰਬਾਈ ਕੀ ਹੈ?`);
+  }
+  m = source.match(/^For acute θ, (cosθ=[\d/]+)\. A similar right triangle has hypotenuse ([\d.]+) units; find its adjacent leg\.$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${m[1]}। एक समरूप समकोण त्रिभुज का कर्ण ${m[2]} इकाई है। उसमें θ से सटी हुई भुजा की लंबाई ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${m[1]}। ਇੱਕ ਸਮਰੂਪ ਸਮਕੋਣ ਤਿਕੋਣ ਦਾ ਕਰਣ ${m[2]} ਇਕਾਈ ਹੈ। ਉਸ ਵਿੱਚ θ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।`);
+  }
+  m = source.match(/^For acute θ, (opposite:adjacent=\d+:\d+)\. If the adjacent leg becomes ([\d.]+) units, determine the hypotenuse\.$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${nativeClause(m[1], locale)}। यदि θ से सटी हुई भुजा ${m[2]} इकाई हो जाए, तो कर्ण की लंबाई ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${nativeClause(m[1], locale)}। ਜੇ θ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ${m[2]} ਇਕਾਈ ਹੋ ਜਾਵੇ, ਤਾਂ ਕਰਣ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।`);
+  }
+  m = source.match(/^For acute θ, (adjacent:opposite=\d+:\d+)\. If the adjacent leg is ([\d.]+) units, determine the opposite leg\.$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${nativeClause(m[1], locale)}। यदि θ से सटी हुई भुजा ${m[2]} इकाई है, तो उसके सामने वाली भुजा की लंबाई ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${nativeClause(m[1], locale)}। ਜੇ θ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ${m[2]} ਇਕਾਈ ਹੈ, ਤਾਂ ਉਸ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।`);
+  }
+  m = source.match(/^For an acute angle θ, (tan θ\s*=\s*[\d/]+)\. Which statement is correct\?$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${m[1]}। कौन-सा कथन सही है?`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${m[1]}। ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?`);
+  }
+  m = source.match(/^For acute θ with (cosθ\s*=\s*[\d/]+), determine (sin²θ) exactly\.$/u);
+  if (m) {
+    return native(locale,
+      `θ न्यूनकोण है और ${m[1]}। ${m[2]} का सटीक मान ज्ञात कीजिए।`,
+      `θ ਨਿਊਨ ਕੋਣ ਹੈ ਅਤੇ ${m[1]}। ${m[2]} ਦਾ ਸਹੀ ਮਾਨ ਕੱਢੋ।`);
+  }
+
   switch (kind) {
     case "opposite_side": {
       m = source.match(/^In right triangle ([A-Z]+), ∠([A-Z]) = 90°\. Relative to angle ([A-Z]), which side is opposite\?$/u);

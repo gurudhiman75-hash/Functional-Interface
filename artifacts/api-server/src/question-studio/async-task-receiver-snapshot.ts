@@ -36,6 +36,7 @@ export function computeInputFromQueuedSnapshot(snapshot:unknown):UniversalStudio
     topic:request.topic,subtopic:request.subtopic,language:request.language,
     difficulty:request.difficulty,count:request.count,seed:request.seed,
     runtimeMode:request.runtimeMode,patternId:request.patternId,
+    nativeGroupedReview:request.nativeGroupedReview === true || undefined,
   };
   return {
     request:safeRequest as UniversalStudioComputeInput["request"],

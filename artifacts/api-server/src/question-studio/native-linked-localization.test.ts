@@ -166,3 +166,90 @@ test("SAP batch snapshots replay the selected source seed and save both language
       [["hi", "verified"], ["pa", "verified"]]);
   }
 });
+
+test("grouped review batches preserve the generated English identity across all three languages", async () => {
+  const { executeUniversalStudioCompute } = await import("./universal-executor");
+  const { readPersistedNativeSnapshot, nativeSourceQuestion } = await import("./persisted-native-review-format");
+  const { canonicalEnqueueRequest } = await import("./async-enqueue-contract");
+  const { computeInputFromQueuedSnapshot } = await import("./async-task-receiver-snapshot");
+  const cases = [
+    { packageId: "TRG-001", engineId: "quant-v4", difficulty: "Mixed" },
+    { packageId: "DIR-001", engineId: "reasoning-v1", difficulty: "Medium" },
+    { packageId: "CAE-001", engineId: "reasoning-v1", difficulty: "Medium" },
+    { packageId: "CAL-001", engineId: "reasoning-v1", difficulty: "Medium" },
+    { packageId: "OPS-001", engineId: "reasoning-v1", difficulty: "Mixed" },
+  ] as const;
+  for (const input of cases) {
+    const count = 6;
+    const queued = canonicalEnqueueRequest({
+      request: { ...input, count, language: "en", nativeGroupedReview: true,
+        exam: "SSC_CGL_T1", seed: "chapter-parity-20261127" },
+      count,
+      selectedCpIds: [],
+    });
+    const workerInput = computeInputFromQueuedSnapshot({ ...queued, queueVersion: 1 });
+    assert.equal(workerInput.request.nativeGroupedReview, true);
+    const batch = await executeUniversalStudioCompute(workerInput);
+    assert.equal(batch.questions.length, count);
+    for (const question of batch.questions) {
+      const label = input.packageId + " " + String(question.questionId);
+      const snapshot = readPersistedNativeSnapshot(question);
+      assert.deepEqual(snapshot?.variants.map(v => [v.language, v.status]),
+        [["hi", "verified"], ["pa", "verified"]], label);
+      assertNativeEnglishSourceParity(nativeSourceQuestion(question), await nativeLocalizedQuestion(question, "en"));
+      for (const variant of snapshot!.variants) {
+        assert.equal(variant.status, "verified", label);
+        assertNativeLocalizedAnswerParity(nativeSourceQuestion(question), variant);
+        assert.deepEqual(await nativeLocalizedQuestion(question, variant.language), {
+          stem: variant.stem, explanation: variant.explanation, options: variant.options, correctIndex: variant.correctIndex,
+        }, label);
+      }
+    }
+  }
+});
+
+test("CAE-001 generates scoped Medium questions with linked languages in both exam profiles", async () => {
+  const { executeUniversalStudioCompute } = await import("./universal-executor");
+  const { readPersistedNativeSnapshot } = await import("./persisted-native-review-format");
+  const selectedCpIds = ["CAE-CP-001", "CAE-CP-002"];
+  for (const [exam, optionCount] of [["SSC CGL", 4], ["IBPS PO", 5]] as const) {
+    const count = 12;
+    const batch = await executeUniversalStudioCompute({
+      request: { packageId: "CAE-001", engineId: "reasoning-v1", count,
+        language: "en", nativeGroupedReview: true, seed: "cae-scoped-difficulty",
+        difficulty: "Medium", exam },
+      count,
+      selectedCpIds,
+    });
+    assert.deepEqual(batch.questions.map(q => q.cpId), selectedCpIds.flatMap(cp => Array(6).fill(cp)));
+    for (const question of batch.questions) {
+      assert.equal(question.difficulty, "Medium");
+      assert.equal((question.options as unknown[]).length, optionCount);
+      assert.deepEqual(readPersistedNativeSnapshot(question)?.variants.map(v => v.status), ["verified", "verified"]);
+    }
+  }
+});
+
+test("scoped Mixed batches respect Trigonometry difficulty and replay audited OPS templates", async () => {
+  const { executeUniversalStudioCompute } = await import("./universal-executor");
+  const { readPersistedNativeSnapshot } = await import("./persisted-native-review-format");
+  for (const [packageId, engineId, selectedCpIds] of [
+    ["TRG-001", "quant-v4", ["TRG-CP-001", "TRG-CP-002", "TRG-CP-003", "TRG-CP-004", "TRG-CP-005", "TRG-CP-006"]],
+    ["OPS-001", "reasoning-v1", ["OPS-CP-005"]],
+  ] as const) {
+    for (const cpId of selectedCpIds) {
+      const batch = await executeUniversalStudioCompute({
+        request: { packageId, engineId, difficulty: "Mixed", count: 2, language: "en",
+          nativeGroupedReview: true, exam: "SSC_CGL_T1", seed: "chapter-parity-20261127" },
+        count: 2,
+        selectedCpIds: [cpId],
+      });
+      assert.equal(batch.questions.length, 2, cpId);
+      for (const question of batch.questions) {
+        assert.equal(question.canonicalProblemId, cpId);
+        assert.deepEqual(readPersistedNativeSnapshot(question)?.variants.map(v => v.status),
+          ["verified", "verified"], cpId + " " + String(question.questionId));
+      }
+    }
+  }
+});

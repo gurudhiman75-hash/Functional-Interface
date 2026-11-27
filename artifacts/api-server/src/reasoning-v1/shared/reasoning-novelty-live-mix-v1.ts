@@ -7,6 +7,7 @@ import {
   buildReasoningNoveltyMixPlanV1,
   auditReasoningNoveltyMixV1,
 } from "./reasoning-novelty-governance-v1";
+import { supportsExactNativeReplay } from "../../question-studio/persisted-native-review-format";
 import { reasoningNoveltyProviderByIdV1 } from "./reasoning-novelty-provider-registry-v1";
 import { REASONING_V1_NOVELTY_HUMAN_CONTENT_REVIEW_V1 } from "./reasoning-novelty-human-content-review-v1";
 import { generateOpsControlledNovelInferThenFillCandidateV1 } from "../topics/Mathematical-Operations/OPS-001/ops-001-controlled-novelty-discovery-v1";
@@ -273,7 +274,9 @@ export async function applyReasoningControlledNovelMixV1(
   const blockedReason =
     language !== "en"
       ? "SUPPORTED_LANGUAGE_NOT_REVIEWED_FOR_NOVELTY"
-      : hasExplicitSubchapterScope(request)
+      : request.nativeGroupedReview && supportsExactNativeReplay(activation.packageId)
+        ? "GROUPED_REVIEW_REQUIRES_LOCALIZED_SOURCE"
+        : hasExplicitSubchapterScope(request)
         ? "EXPLICIT_QL_OR_CP_SCOPE_PRESERVED"
         : difficulty !== activation.calibratedDifficulty
           ? "REQUESTED_DIFFICULTY_DOES_NOT_MATCH_NOVELTY_FAMILY_CALIBRATION"

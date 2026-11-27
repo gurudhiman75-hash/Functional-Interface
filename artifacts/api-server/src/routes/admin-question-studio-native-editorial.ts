@@ -3,7 +3,7 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 
 import { evaluateTranslationQuality, type TranslationOptionInput } from "../lib/admin-translation-operations";
-import { readPersistedNativeSnapshot, nativeSourceQuestion } from "../question-studio/persisted-native-review-format";
+import { supportsExactNativeReplay, readPersistedNativeSnapshot, nativeSourceQuestion } from "../question-studio/persisted-native-review-format";
 
 const router = Router();
 // Separate opt-in from the existing read-only native preview. Schema migration
@@ -314,9 +314,10 @@ async function approveNativeLanguages(
     const v=embedded?.variants.find(v=>v.language===language);
     if(v?.status==="verified"){
       precomputed[language]={stem:v.stem,explanation:v.explanation,options:v.options,correctIndex:v.correctIndex};
-    }else if(!embedded){
-      const {nativeLocalizedQuestion,assertNativeLocalizedAnswerParity}=await import("../question-studio/native-linked-localization");
+    }else if(!embedded || (v?.status==="blocked" && supportsExactNativeReplay(result.payload.packageId))){
+      const {nativeLocalizedQuestion,assertNativeEnglishSourceParity,assertNativeLocalizedAnswerParity}=await import("../question-studio/native-linked-localization");
       try {
+        if (embedded) assertNativeEnglishSourceParity(result.source, await nativeLocalizedQuestion(result.payload,"en"));
         const native=await nativeLocalizedQuestion(result.payload,language);
         assertNativeLocalizedAnswerParity(result.source,native);
         precomputed[language]=native;

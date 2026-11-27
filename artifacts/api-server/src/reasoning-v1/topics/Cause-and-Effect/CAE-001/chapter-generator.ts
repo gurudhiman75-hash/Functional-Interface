@@ -477,6 +477,8 @@ export function generateCaeQuestion(input: {
     stem = relationshipStem("DIRECT_RELATIONSHIP", context, world, locale);
     explanation = `${renderTrace(world, locale, trace)}. ${copy.directStep}`;
     questionProfile = profile;
+    // Establish the causal direction and rule out the reverse direction.
+    inferenceBurden = 2;
   } else if (plan.kind === "COMMON_OR_INDEPENDENT") {
     const effects = world.nodes.filter((node) => node.role === "EFFECT");
     const commonPairs = effects.flatMap((first, index) => effects.slice(index + 1).filter((second) => solveCaeRelationship(world, first.id, second.id) === "COMMON_CAUSE").map((second) => [first.id, second.id] as const));
@@ -495,7 +497,9 @@ export function generateCaeQuestion(input: {
       ? `${renderTrace(world, locale, trace)} → ${nodeById(world, visibleNodeIds[0]!).text[locale].replace(/[.।]+$/u, "")} / ${nodeById(world, visibleNodeIds[1]!).text[locale].replace(/[.।]+$/u, "")}. ${copy.commonCause}.`
       : `${copy.noCausalLink}. ${copy.noPathPair}`;
     questionProfile = profile;
-    inferenceBurden = relationship === "COMMON_CAUSE" ? 2 : 1;
+    // A shared cause requires ruling out both direct directions and
+    // identifying the common antecedent.
+    inferenceBurden = relationship === "COMMON_CAUSE" ? 3 : 1;
   } else if (plan.kind === "PROBABLE_CAUSE" || plan.kind === "PROBABLE_EFFECT") {
     const pairs = directPairs(world);
     const pair = pick(pairs, selectionSeed, plan.kind === "PROBABLE_CAUSE" ? "cause target" : "effect target");
