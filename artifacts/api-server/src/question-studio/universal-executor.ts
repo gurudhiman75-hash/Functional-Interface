@@ -110,6 +110,14 @@ export async function executeUniversalStudioCompute(
   const generatedQuestions: Array<Record<string, unknown>> = [];
   const generationContexts: Array<Record<string, unknown>> = [];
   let quantPlan: UniversalStudioComputeResult["quantPlan"] = null;
+  // Remembers each English batch request so Hindi/Punjabi can be generated from
+  // the very same request when a saved question cannot be replayed from a seed.
+  const batchRequests = new Map<string, Record<string, unknown>>();
+  const tagBatch = (batchRequest: Record<string, unknown>, questions: Array<Record<string, unknown>>) => {
+    const key = `b${batchRequests.size}`;
+    batchRequests.set(key, batchRequest);
+    return questions.map((question, index) => ({ ...question, nativeCompanionRef: { key, index } }));
+  };
 
   if (pkg.engineId === "quant-v4") {
     // GEO-001 frozen QLs have checkpoint-specific difficulty availability.
@@ -136,8 +144,12 @@ export async function executeUniversalStudioCompute(
       forwardLegacyExamProfile: input.forwardLegacyExamProfile === true || pkg.packageId === "NUM-001" || pkg.packageId === "SAP",
       difficultyFilterSupported: pkg.difficultyFilterSupported !== false
         && input.difficultyFilterSupported !== false,
-      generateCandidateBatch: (candidateRequest) =>
-        generateQuestionStudioQuestions({ ...candidateRequest, engineId: "quant-v4" }),
+      generateCandidateBatch: async (candidateRequest) => {
+        const candidate = await generateQuestionStudioQuestions({ ...candidateRequest, engineId: "quant-v4" });
+        return Array.isArray(candidate.questions)
+          ? { ...candidate, questions: tagBatch({ ...candidateRequest, engineId: "quant-v4" } as Record<string, unknown>, candidate.questions as Array<Record<string, unknown>>) }
+          : candidate;
+      },
     });
     quantPlan = result.plan;
     generatedQuestions.push(...result.questions);
@@ -157,9 +169,8 @@ export async function executeUniversalStudioCompute(
       const cpSeed = request.seed && item.cpId
         ? `${request.seed}:cp:${item.cpId}:slot:${index + 1}`
         : request.seed;
-      const result = await generateQuestionStudioQuestions({
-        ...request, count: item.count, seed: cpSeed, canonicalProblemId: item.cpId,
-      });
+      const partRequest = { ...request, count: item.count, seed: cpSeed, canonicalProblemId: item.cpId };
+      const result = await generateQuestionStudioQuestions(partRequest);
       if (result.engineId !== pkg.engineId ||
           !Array.isArray(result.questions) || result.questions.length !== item.count) {
         throw Object.assign(new Error("Question Studio returned an incomplete or mismatched batch"), {
@@ -168,7 +179,10 @@ export async function executeUniversalStudioCompute(
       }
       const context = { ...(result.generationContext ?? {}), engineId: result.engineId };
       generationContexts.push({ cpId: item.cpId, context });
-      for (const question of result.questions) {
+      const taggedQuestions = Array.isArray(result.questions)
+        ? tagBatch(partRequest as Record<string, unknown>, result.questions as Array<Record<string, unknown>>)
+        : result.questions;
+      for (const question of taggedQuestions) {
         generatedQuestions.push({
           ...question,
           canonicalProblemId: typeof question.canonicalProblemId === "string" && question.canonicalProblemId.trim()
@@ -197,11 +211,39 @@ export async function executeUniversalStudioCompute(
       language:typeof safe.language==="string"&&safe.language.trim()?safe.language:request.language,
     };
   });
+  const companionCache = new Map<string, Promise<Array<Record<string, unknown>> | null>>();
+  const companionBatch = (key: string, language: "hi" | "pa") => {
+    const cacheKey = `${key}:${language}`;
+    if (!companionCache.has(cacheKey)) {
+      const original = batchRequests.get(key);
+      companionCache.set(cacheKey, original
+        ? generateQuestionStudioQuestions({ ...original, language } as never)
+            .then((out) => (Array.isArray(out.questions) ? out.questions as Array<Record<string, unknown>> : null))
+            .catch((error) => {
+              console.warn("[native-review] companion batch failed", { packageId: pkg.packageId, language, reason: error instanceof Error ? error.message : String(error) });
+              return null;
+            })
+        : Promise.resolve(null));
+    }
+    return companionCache.get(cacheKey)!;
+  };
   const nativeSnapshots=await (await import("./persisted-native-review"))
-    .prepareNativeReviewBatch(normalizedQuestions);
-  const completeQuestions=normalizedQuestions.map((question,index)=>({
-    ...question,
-    ...(nativeSnapshots[index]?{nativeReviewSnapshot:nativeSnapshots[index]}:{}),
-  }));
+    .prepareNativeReviewBatch(normalizedQuestions, ["hi", "pa"], async (question) => {
+      const ref = question.nativeCompanionRef as { key?: string; index?: number } | undefined;
+      if (!ref || typeof ref.key !== "string" || typeof ref.index !== "number") return undefined;
+      const [hi, pa] = await Promise.all((["hi", "pa"] as const).map((language) =>
+        pkg.supportedLanguages.includes(language) ? companionBatch(ref.key!, language) : Promise.resolve(null)));
+      const companions: Record<string, Record<string, unknown>> = {};
+      if (hi?.[ref.index!]) companions.hi = hi[ref.index!]!;
+      if (pa?.[ref.index!]) companions.pa = pa[ref.index!]!;
+      return companions;
+    });
+  const completeQuestions=normalizedQuestions.map((question,index)=>{
+    const { nativeCompanionRef: _ref, ...clean } = question;
+    return {
+      ...clean,
+      ...(nativeSnapshots[index]?{nativeReviewSnapshot:nativeSnapshots[index]}:{}),
+    };
+  });
   return { questions: completeQuestions, generationContexts, quantPlan, engineId: pkg.engineId, packageId: pkg.packageId };
 }
