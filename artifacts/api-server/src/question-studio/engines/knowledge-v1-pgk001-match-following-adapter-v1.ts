@@ -243,7 +243,7 @@ export const knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1:
 
       const selected = deterministicShuffle(
         candidates,
-        `${seed}:${language}:${cpId ?? "ALL_CPS"}:${conceptId ?? "ALL_CONCEPTS"}:${difficulty}`,
+        `${seed}:en:${cpId ?? "ALL_CPS"}:${conceptId ?? "ALL_CONCEPTS"}:${difficulty}`,
       ).slice(0, count);
 
       const questions = selected.map((question) => {

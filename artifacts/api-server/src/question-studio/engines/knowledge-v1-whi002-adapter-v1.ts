@@ -193,7 +193,7 @@ export const knowledgeV1Whi002QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const candidates = corpus.filter((q) => (!questionId || q.englishQuestionId.toUpperCase() === questionId) && (difficulty === "Mixed" || q.difficulty === difficulty));
     if (!candidates.length) throw new Error(`WHI-002 selectors produced no ${difficulty} questions`);
     if (count > candidates.length) throw new Error(`WHI-002 cannot fill ${count} questions from ${candidates.length} candidates without repeats`);
-    const selected = deterministicShuffle(candidates, `${seed}:${language}:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
+    const selected = deterministicShuffle(candidates, `${seed}:en:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
     const result = selected.map((q) => ({
       ...lifecycle,
       id: q.questionId,

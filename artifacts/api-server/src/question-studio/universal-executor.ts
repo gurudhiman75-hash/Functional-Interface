@@ -227,15 +227,45 @@ export async function executeUniversalStudioCompute(
     }
     return companionCache.get(cacheKey)!;
   };
+  // Second attempt: ask for the English question's exact checkpoint and
+  // question-language ID in the other language (frozen question banks).
+  const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+  const companionByQuestionLanguage = async (
+    key: string, index: number, language: "hi" | "pa", english: Record<string, unknown>,
+  ): Promise<Record<string, unknown> | null> => {
+    const original = batchRequests.get(key);
+    const cpId = text(english.canonicalProblemId || english.selectedCpId || english.cpId);
+    const qlId = text(english.questionLanguageId || english.qlId);
+    if (!original || !qlId || index > 60) return null;
+    const tag = language.toUpperCase();
+    for (const candidateQl of [...new Set([qlId, qlId.replace(/-EN\b/, `-${tag}`).replace(/:en\b/, `:${language}`)])]) {
+      try {
+        const out = await generateQuestionStudioQuestions({
+          ...original, language, count: index + 1,
+          ...(cpId ? { canonicalProblemId: cpId } : {}), questionLanguageId: candidateQl,
+        } as never);
+        const found = Array.isArray(out.questions) ? out.questions[index] as Record<string, unknown> | undefined : undefined;
+        if (found) return found;
+      } catch { /* try the next spelling */ }
+    }
+    return null;
+  };
   const nativeSnapshots=await (await import("./persisted-native-review"))
     .prepareNativeReviewBatch(normalizedQuestions, ["hi", "pa"], async (question) => {
       const ref = question.nativeCompanionRef as { key?: string; index?: number } | undefined;
       if (!ref || typeof ref.key !== "string" || typeof ref.index !== "number") return undefined;
-      const [hi, pa] = await Promise.all((["hi", "pa"] as const).map((language) =>
-        pkg.supportedLanguages.includes(language) ? companionBatch(ref.key!, language) : Promise.resolve(null)));
-      const companions: Record<string, Record<string, unknown>> = {};
-      if (hi?.[ref.index!]) companions.hi = hi[ref.index!]!;
-      if (pa?.[ref.index!]) companions.pa = pa[ref.index!]!;
+      const [hi, pa] = await Promise.all((["hi", "pa"] as const).map(async (language) => {
+        if (!pkg.supportedLanguages.includes(language)) return [] as Array<Record<string, unknown>>;
+        const candidates: Array<Record<string, unknown>> = [];
+        const aligned = (await companionBatch(ref.key!, language))?.[ref.index!];
+        if (aligned) candidates.push(aligned);
+        const exact = await companionByQuestionLanguage(ref.key!, ref.index!, language, question);
+        if (exact) candidates.push(exact);
+        return candidates;
+      }));
+      const companions: Record<string, Array<Record<string, unknown>>> = {};
+      if (hi.length) companions.hi = hi;
+      if (pa.length) companions.pa = pa;
       return companions;
     });
   const completeQuestions=normalizedQuestions.map((question,index)=>{

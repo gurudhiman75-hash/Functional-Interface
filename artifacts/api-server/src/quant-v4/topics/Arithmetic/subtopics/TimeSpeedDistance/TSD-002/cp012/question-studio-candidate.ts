@@ -196,10 +196,10 @@ export function previewTsdCp012StudioCandidate(request: TsdCp012StudioRequest = 
   if (!selected.length) throw new Error("No CP012 review candidates match the requested filters.");
   if (count > selected.length) throw new Error(`Requested ${count} CP012 questions but only ${selected.length} reviewed combinations match the filters.`);
 
-  const questions = shuffled(selected, `${seed}:${language}`).slice(0, count).map((question, index) => {
+  const questions = shuffled(selected, `${seed}:en`).slice(0, count).map((question, index) => {
     const verification = verify(question);
     if (!verification.accepted) throw new Error(`${language}/${question.familyId}: independent verifier rejected Studio candidate (${verification.reason})`);
-    const optionModel = optionsFor(question, language, `${seed}:${language}:${question.familyId}:${index}`);
+    const optionModel = optionsFor(question, language, `${seed}:en:${question.familyId}:${index}`);
     return Object.freeze({
       questionId: `TSD-CP012-${language}-${question.familyId}-${hash(`${seed}:${index}`).toString(16)}`,
       canonicalItemId: question.familyId,

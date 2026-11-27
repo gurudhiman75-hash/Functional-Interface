@@ -157,7 +157,7 @@ export const knowledgeV1Whi003004QuestionStudioAdapterV1: QuestionStudioEngineAd
     const candidates = corpus.filter((q) => (!questionId || q.englishQuestionId.toUpperCase() === questionId) && (difficulty === "Mixed" || q.difficulty === difficulty));
     if (!candidates.length || count > candidates.length) throw new Error(`${config.packageId} cannot fill ${count} questions from ${candidates.length} candidates without repeats`);
     const seed = request.seed?.trim() || `${config.cp.toLowerCase()}-review-v1`;
-    const selected = deterministicShuffle(candidates, `${seed}:${language}:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
+    const selected = deterministicShuffle(candidates, `${seed}:en:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
     const authority = `WHI-001-${config.cp}-EN-HI-PA-REVIEW-CORPORA-V1`;
     const questions = selected.map((q) => ({
       ...lifecycle, id: q.questionId, questionId: q.questionId, sourceQuestionId: q.englishQuestionId,

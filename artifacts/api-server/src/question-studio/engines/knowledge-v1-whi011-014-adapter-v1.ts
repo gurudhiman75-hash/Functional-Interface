@@ -238,7 +238,7 @@ export const knowledgeV1Whi011014QuestionStudioAdapterV1: QuestionStudioEngineAd
     if (!candidates.length) throw new Error(`${packageId(cp)} selectors produced no ${difficulty} questions`);
     if (count > candidates.length) throw new Error(`${packageId(cp)} cannot fill ${count} questions from ${candidates.length} candidates without repeats`);
     const seed = request.seed?.trim() || `whi-001-cp${cp}-review-v1`;
-    const selected = deterministicShuffle(candidates, `${seed}:${language}:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
+    const selected = deterministicShuffle(candidates, `${seed}:en:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
     const spec = packageByCp.get(cp)!;
     const questions = selected.map((q) => ({
       ...lifecycle,

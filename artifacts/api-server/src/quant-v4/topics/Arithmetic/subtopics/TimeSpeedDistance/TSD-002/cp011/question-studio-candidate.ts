@@ -302,10 +302,10 @@ export function previewTsdCp011StudioCandidate(request: TsdCp011StudioRequest = 
   if (!selected.length) throw new Error("No CP011 review candidates match the requested filters.");
   if (count > selected.length) throw new Error(`Requested ${count} CP011 questions but only ${selected.length} reviewed combinations match the filters.`);
 
-  const questions = shuffled(selected, `${seed}:${language}`).slice(0, count).map((q, index) => {
+  const questions = shuffled(selected, `${seed}:en`).slice(0, count).map((q, index) => {
     const verification = verifyTsdCp011(q.input, q.solution);
     if (!verification.accepted) throw new Error(`${language}/${q.familyId}: independent verifier rejected Studio candidate`);
-    const optionModel = optionsFor(q.input, q.solution, language, `${seed}:${language}:${q.familyId}:${index}`);
+    const optionModel = optionsFor(q.input, q.solution, language, `${seed}:en:${q.familyId}:${index}`);
     return Object.freeze({
       questionId: `TSD-CP011-${language}-${q.familyId}-${hash(`${seed}:${index}`).toString(16)}`,
       canonicalItemId: q.familyId,
