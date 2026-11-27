@@ -113,6 +113,19 @@ function explanationText(question: Record<string, any>): string {
   ].filter((value) => typeof value === "string" && value.trim()).join("\n\n");
 }
 
+export function replayDir001Question(cpId: string, qlId: string, seed: number, language: QuestionStudioLanguage) {
+  const question = generateLocalized(qlId, seed, language);
+  if (question.checkpointId !== cpId || (language !== "en" && question.metadata?.answerParityVerified !== true)) {
+    throw new Error("DIR-001 native replay failed checkpoint or answer parity");
+  }
+  return {
+    stem: String(question.stem).trim(),
+    options: question.options.map((option: {label: string}) => option.label.trim()),
+    correctIndex: Number(question.correctIndex),
+    explanation: explanationText(question),
+  };
+}
+
 function resolveInstance(
   preferredQl: string,
   pool: readonly string[],
@@ -171,6 +184,7 @@ export const DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
   supportedLanguages: ["en", "hi", "pa"],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   difficultyFilterSupported: true,
+  mixedDifficultySupported: true,
   runtimeMode: DIR001_QUESTION_STUDIO_RUNTIME_MODE_V1,
   supportedRuntimeModes: [DIR001_QUESTION_STUDIO_RUNTIME_MODE_V1],
   lifecycleId: lifecycle.lifecycleId,

@@ -61,6 +61,7 @@ export const TRG_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   permanentQlCount: 144,
   permanentQlIds: [...TRG_001_AUTHORITY_ALIGNED_IDS],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
+  mixedDifficultySupported: true,
   supportedLanguages: [...TRG_001_QUESTION_STUDIO_LANGUAGES],
   enabled: ACTIVATION.execution.questionStudioEnabled,
   runtimeMode: TRG_001_INTERNAL_ACTIVATION.runtimeMode,
@@ -135,7 +136,7 @@ function difficultyMatches(actual: string, requested: unknown) {
     return actual.toLowerCase() === band;
   }
   const normalized = String(requested).trim().toLowerCase();
-  return actual.toLowerCase() === (normalized === "moderate" ? "medium" : normalized);
+  return normalized === "mixed" || actual.toLowerCase() === (normalized === "moderate" ? "medium" : normalized);
 }
 
 function stableHash(value: string) {
@@ -184,6 +185,13 @@ function requestedQlIds(request: Trg001QuestionStudioRequest) {
     return TRG_001_AUTHORITY_ALIGNED_IDS.filter((candidateQlId) => cpForQlId(candidateQlId) === selector);
   }
   throw Object.assign(new Error(`Unknown TRG-001 canonical problem or CP '${selector}'.`), { statusCode: 400 });
+}
+
+export function listTrg001CpSupportedDifficulties(cpId: string) {
+  const qlIds = TRG_001_AUTHORITY_ALIGNED_IDS.filter(qlId => cpForQlId(qlId) === cpId);
+  const bands = new Set(qlIds.map(qlId =>
+    generatePostFreezeRemediatedTrg001Question(qlId, "difficulty-eligibility").difficulty));
+  return (["Easy", "Medium", "Hard"] as const).filter(difficulty => bands.has(difficulty));
 }
 
 function sourceQuestion(qlId: string, seed: string, language: Trg001QuestionStudioLanguage) {

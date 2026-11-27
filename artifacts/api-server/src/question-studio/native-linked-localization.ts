@@ -8,6 +8,13 @@ import { generateInt001ExistingLocalizedQuestion } from "../quant-v4/topics/Arit
 import { runTmw001QuestionStudioPipeline } from "../quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/question-studio-adapter";
 import { runMal001QuestionStudioPipeline, MAL_001_QUESTION_STUDIO_CP_IDS, type Mal001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
+import { generateApprovedTrg001QuestionStudioQuestion } from "../quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/question-studio-runtime";
+import { replayCal001Question } from "../reasoning-v1/topics/Calendar/CAL-001/question-studio-runtime";
+import { replayDir001Question } from "../reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-question-studio-integration";
+import { replayCae001Question } from "../reasoning-v1/topics/Cause-and-Effect/CAE-001/question-studio-integration";
+import { replayOps001Question } from "./engines/reasoning-v1-adapter";
+import { nativeSourceQuestion } from "./persisted-native-review-format";
+
 export type NativeLocale = "en" | "hi" | "pa";
 export type NativeLocalizedQuestion = {
   stem: string;
@@ -59,8 +66,32 @@ export async function nativeLocalizedQuestion(
   const seed = string(payload.seed);
   const cpId = string(payload.canonicalProblemId || payload.selectedCpId || payload.cpId);
   const qlId = string(payload.questionLanguageId || record(payload.metadata).questionLanguageId || payload.qlId);
-  if (!seed || !cpId || !qlId) {
+  if (!cpId || !qlId || payload.provenance === "CONTROLLED_NOVEL") {
     throw new Error("NATIVE_LOCALIZATION_SOURCE_IDENTITY_MISSING");
+  }
+
+  // Replay the item the English renderer actually selected. These adapters
+  // persist either its exact seed or its numeric generator identity.
+  if (packageId === "DIR-001" || packageId === "OPS-001" || packageId === "CAE-001") {
+    const numericSeed = payload.numericSeed;
+    if (typeof numericSeed !== "number" || !Number.isInteger(numericSeed) || numericSeed < 0 || numericSeed > 0xffffffff) {
+      throw new Error("NATIVE_LOCALIZATION_SOURCE_IDENTITY_MISSING");
+    }
+    if (packageId === "DIR-001") return replayDir001Question(cpId, qlId, numericSeed, language);
+    if (packageId === "OPS-001") {
+      return replayOps001Question(cpId, qlId, string(payload.generationSeed), numericSeed, language, payload.requestedExam);
+    }
+    const optionCount = Array.isArray(payload.options) ? payload.options.length : 0;
+    return nativeSourceQuestion(replayCae001Question(cpId, qlId, numericSeed, language, optionCount));
+  }
+  if (packageId === "CAL-001" && cpId === qlId && string(payload.questionId)) {
+    return replayCal001Question(qlId, string(payload.questionId), language);
+  }
+  if (!seed) throw new Error("NATIVE_LOCALIZATION_SOURCE_IDENTITY_MISSING");
+  if (packageId === "TRG-001") {
+    const question = generateApprovedTrg001QuestionStudioQuestion(qlId, seed, language);
+    if (question.cpId !== cpId) throw new Error("NATIVE_LOCALIZATION_REGENERATED_IDENTITY_DRIFT");
+    return nativeSourceQuestion(question);
   }
 
   if (packageId === "SAP") {

@@ -139,6 +139,7 @@ function toSharedPackage(card: Record<string, unknown>): QuestionStudioPackageDe
         }).filter((entry): entry is "Easy" | "Medium" | "Hard" =>
           entry === "Easy" || entry === "Medium" || entry === "Hard")
       : ["Easy", "Medium", "Hard"],
+    mixedDifficultySupported: card.mixedDifficultySupported === true,
     runtimeMode: typeof card.runtimeMode === "string" ? card.runtimeMode : undefined,
     lifecycleId: typeof card.lifecycleId === "string" ? card.lifecycleId : undefined,
     lifecycleStage:

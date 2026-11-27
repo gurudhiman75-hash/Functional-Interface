@@ -491,6 +491,13 @@ export async function generateProfiledQuantBatch(input: {
   }>;
   plan: QuantExamProfilePlan;
 }> {
+  let sourceBands = input.supportedDifficultiesByCp;
+  if (!sourceBands && input.request.packageId === "TRG-001" && input.selectedCpIds.length) {
+    const { listTrg001CpSupportedDifficulties } = await import(
+      "../quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/question-studio-runtime"
+    );
+    sourceBands = Object.fromEntries(input.selectedCpIds.map(cpId => [cpId, listTrg001CpSupportedDifficulties(cpId)]));
+  }
   const plan = buildQuantExamProfilePlan({
     exam: input.request.exam,
     examProfileId: input.examProfileId,
@@ -500,7 +507,7 @@ export async function generateProfiledQuantBatch(input: {
     count: input.count,
     seed: input.request.seed,
     selectedCpIds: input.selectedCpIds,
-    supportedDifficultiesByCp: input.supportedDifficultiesByCp,
+    supportedDifficultiesByCp: sourceBands,
   });
 
   const generatedQuestions: Array<Record<string, unknown>> = [];

@@ -66,7 +66,7 @@ export function canonicalEnqueueRequest(input: UniversalStudioComputeInput) {
     questionLanguageId: req.questionLanguageId, exam: req.exam, examProfile: req.examProfile,
     subject: req.subject, topic: req.topic, subtopic: req.subtopic, language: req.language,
     difficulty: req.difficulty, count: req.count, seed: req.seed, runtimeMode: req.runtimeMode,
-    patternId: req.patternId,
+    patternId: req.patternId, nativeGroupedReview: req.nativeGroupedReview === true || undefined,
   };
   return stable({
     request,

@@ -5,6 +5,7 @@ import {
   generateQuestionStudioQuestions,
   listQuestionStudioPackages,
 } from "./engine-registry";
+import { supportsExactNativeReplay } from "./persisted-native-review-format";
 import { generateProfiledQuantBatch } from "./quant-exam-profile";
 import type {
   QuestionStudioEngineId,
@@ -41,6 +42,9 @@ export function validateUniversalStudioComputeInput(input: UniversalStudioComput
   if (!Number.isInteger(input.count) || input.count < 1 || input.count > 50 ||
       input.request.count !== input.count) {
     fail("INVALID_UNIVERSAL_GENERATION_COUNT", "Question count must be between 1 and 50");
+  }
+  if (input.request.nativeGroupedReview !== undefined && typeof input.request.nativeGroupedReview !== "boolean") {
+    fail("INVALID_UNIVERSAL_GENERATION_REQUEST", "Invalid native grouped review selector");
   }
   const packageId = input.request.packageId;
   if (!packageId || typeof packageId !== "string") {
@@ -252,6 +256,7 @@ export async function executeUniversalStudioCompute(
   };
   const nativeSnapshots=await (await import("./persisted-native-review"))
     .prepareNativeReviewBatch(normalizedQuestions, ["hi", "pa"], async (question) => {
+      if (supportsExactNativeReplay(pkg.packageId)) return undefined;
       const ref = question.nativeCompanionRef as { key?: string; index?: number } | undefined;
       if (!ref || typeof ref.key !== "string" || typeof ref.index !== "number") return undefined;
       const [hi, pa] = await Promise.all((["hi", "pa"] as const).map(async (language) => {

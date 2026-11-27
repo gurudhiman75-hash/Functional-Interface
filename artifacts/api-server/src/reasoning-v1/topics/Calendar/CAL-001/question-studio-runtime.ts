@@ -285,6 +285,34 @@ function sourceFingerprint(pkg: CalendarSourcePackage): string {
   return pkg.mathematicalFingerprint;
 }
 
+export function replayCal001Question(qlId: string, questionId: string, language: Cal001QuestionStudioLanguage) {
+  const ql = CALENDAR_PERMANENT_QL_IDS.find(id => id === qlId);
+  const [id, prototype, sourceLanguage, seedText, extra] = questionId.split(":");
+  const seed = Number(seedText);
+  if (!ql || id !== ql || sourceLanguage !== "en" || !seedText || extra !== undefined ||
+      !Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) {
+    throw new Error("CAL-001 native replay identity mismatch");
+  }
+  const sourceId = getCalendarPermanentContract(ql).sourcePrototypeIds.find(id => id === prototype);
+  if (!sourceId) throw new Error("CAL-001 native replay prototype mismatch");
+  const english = buildSourcePackage(ql, sourceId, seed, "en-IN");
+  const question = language === "en" ? english : buildSourcePackage(ql, sourceId, seed, localeForLanguage(language));
+  if (isSourceGap(sourceId)) {
+    assertCalendarSourceGapIntegrity(question as LocalizedCalendarSourceGapQuestion);
+  } else {
+    assertCalendarPackageIntegrity(question as CalendarQuestionPackage);
+  }
+  if (sourceFingerprint(english) !== sourceFingerprint(question)) {
+    throw new Error("CAL-001 native replay mathematical fingerprint mismatch");
+  }
+  return {
+    stem: question.stem.trim(),
+    explanation: explanationLines(question).join("\n\n"),
+    options: sourceOptions(question).map(option => option.trim()),
+    correctIndex: sourceAnswerIndex(question),
+  };
+}
+
 function sourceFacts(pkg: CalendarSourcePackage): Record<string, unknown> {
   return pkg.facts;
 }

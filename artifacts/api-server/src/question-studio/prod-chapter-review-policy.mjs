@@ -117,6 +117,7 @@ export function validateProductionChapterReview(snapshot,manifest,scope,
      snapshot.count>MAX_CHAPTER_REVIEW_BATCH || r.count!==snapshot.count ||
      !ENGINES.has(r.engineId) || !PACKAGE_ID.test(r.packageId) ||
      !["en","hi","pa"].includes(r.language) ||
+     (r.nativeGroupedReview!==undefined && (r.nativeGroupedReview!==true || r.language!=="en")) ||
      !Array.isArray(snapshot.selectedCpIds) ||
      snapshot.selectedCpIds.length>snapshot.count ||
      snapshot.selectedCpIds.length>MAX_CHAPTER_REVIEW_BATCH ||

@@ -20,6 +20,7 @@ export type QuestionStudioPackageDefinition = {
   supportedLanguages: QuestionStudioLanguage[];
   supportedDifficulties?: QuestionStudioDifficulty[];
   difficultyFilterSupported?: boolean;
+  mixedDifficultySupported?: boolean;
   runtimeMode?: string;
   supportedRuntimeModes?: string[];
   dynamicCandidateCpIds?: string[];
@@ -52,6 +53,7 @@ export type QuestionStudioGenerationRequest = {
   topic?: string;
   subtopic?: string;
   language?: QuestionStudioLanguage;
+  nativeGroupedReview?: boolean;
   seed?: string;
   runtimeMode?: string;
   canonicalProblemId?: string;

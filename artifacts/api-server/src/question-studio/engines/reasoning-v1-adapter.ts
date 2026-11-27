@@ -422,17 +422,9 @@ function resolveInstance(
       const itemSeed = `${baseSeed}:${qlId}:${index}:attempt:${attempt}`;
       const numericSeed = hash(itemSeed);
       try {
-        const generated = generateOne(
-          qlId,
-          numericSeed,
-          language,
-          profile,
-          itemSeed,
-        );
-        if (
-          !requestedDifficulty ||
-          generated.instanceDifficulty.difficulty === requestedDifficulty
-        ) {
+        const english = generateOne(qlId, numericSeed, "en", profile, itemSeed);
+        if (!requestedDifficulty || english.instanceDifficulty.difficulty === requestedDifficulty) {
+          const generated = language === "en" ? english : generateOne(qlId, numericSeed, language, profile, itemSeed);
           return { qlId, generated, itemSeed, numericSeed, attempt };
         }
       } catch {
@@ -445,6 +437,25 @@ function resolveInstance(
       ? `OPS-001 could not produce a ${requestedDifficulty} instance for the requested QL/checkpoint scope without relabelling difficulty.`
       : "OPS-001 could not produce a valid deterministic instance for the requested scope.",
   );
+}
+
+export function replayOps001Question(
+  cpId: string, qlId: string, itemSeed: string, seed: number, language: OpsAuditedLanguage, exam: unknown,
+) {
+  const entry = OPS_QL_ENTRIES.find(candidate => candidate.qlId === qlId);
+  if (!entry || hash(itemSeed) !== seed) throw new Error("OPS-001 native replay identity mismatch");
+  const profile = resolveExamProfile(exam);
+  const english = generateOne(entry.qlId, seed, "en", profile, itemSeed);
+  const question = language === "en" ? english : generateOne(entry.qlId, seed, language, profile, itemSeed);
+  if (question.checkpointId !== cpId || english.proof.semanticFingerprint !== question.proof.semanticFingerprint) {
+    throw new Error("OPS-001 native replay failed checkpoint or semantic parity");
+  }
+  return {
+    stem: question.stem.trim(),
+    explanation: explanationText(question),
+    options: question.options.map(option => option.value.trim()),
+    correctIndex: question.correctIndex,
+  };
 }
 
 function explanationText(
@@ -494,6 +505,7 @@ export const OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
     supportedLanguages: ["en", "hi", "pa"],
     supportedDifficulties: ["Easy", "Medium", "Hard"],
     difficultyFilterSupported: true,
+    mixedDifficultySupported: true,
     runtimeMode: OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1,
     supportedRuntimeModes: [OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1],
     lifecycleId: lifecycle.lifecycleId,

@@ -57,7 +57,9 @@ const packages = listQuestionStudioPackages().map((pkg) => {
     cpIds: pkg.cpIds,
     cpLabels,
     supportedLanguages: pkg.supportedLanguages,
-    supportedDifficulties: pkg.supportedDifficulties ?? [],
+    supportedDifficulties: pkg.mixedDifficultySupported
+      ? ["Mixed", ...(pkg.supportedDifficulties ?? [])]
+      : pkg.supportedDifficulties ?? [],
     difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
     runtimeMode: pkg.runtimeMode,
     supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
