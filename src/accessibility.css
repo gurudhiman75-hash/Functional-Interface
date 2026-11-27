@@ -1,0 +1,41 @@
+/* Cross-app accessibility preferences that should apply before React renders. */
+
+/* Native page-level buttons that do not use the shared Button primitive still need
+   a dependable coarse-pointer target. Shared Button/asChild controls carry their
+   own 44px contract so links styled as buttons are covered too. */
+button {
+  min-block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+}
+
+/* Fixed account-recovery shortcut is an anchor rather than the shared Button. */
+a.fixed[href="/account-recovery"] {
+  min-block-size: 2.75rem;
+}
+
+/* The homepage daily-practice shelf uses the shared section-heading structure on
+   a dark acquisition surface. Keep its heading/copy contrast explicit rather than
+   inheriting the light-surface foreground tokens used by the other shelves. */
+[data-testid="home-daily-practice"] #home-daily-heading h2 {
+  color: #ffffff !important;
+}
+
+[data-testid="home-daily-practice"] #home-daily-heading p {
+  color: #dbeafe !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

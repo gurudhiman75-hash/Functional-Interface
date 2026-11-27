@@ -1,0 +1,78 @@
+/* Saved Results header only. */
+.et-result-motion .result-header { display:grid; grid-template-columns:minmax(0,1fr) 230px; grid-template-areas:"content score" "actions score"; gap:28px 32px; padding:32px; border:1px solid #deddf0; border-radius:24px; position:relative; isolation:isolate; overflow:hidden; background:#fff; box-shadow:0 10px 30px #252a4407; }
+.result-header-content{grid-area:content;min-width:0}
+.result-completed{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:99px;background:#e2f0eb;color:#2c6554;font-size:12px;font-weight:600}
+.result-completed svg{width:16px;height:16px}
+.result-header-content h1{margin-top:16px;font-size:28px;font-weight:600;line-height:1.35;letter-spacing:-.025em;color:#10152e;overflow-wrap:anywhere}
+.result-header-meta{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:10px;font-size:12px;color:#586078}
+.result-header-meta span+span::before{content:"·";margin-right:12px;color:#9399ac}
+.result-header-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.result-header-stats>div{min-width:0;padding:14px;border:1px solid #dcdfee;border-radius:14px;background:#ffffffbd}
+.result-header-stats dt{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#505972}
+.result-stat-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:30px;height:30px;border-radius:9px}
+.result-stat-icon svg{width:18px;height:18px}
+.result-stat-blue{background:#e3efff;color:#2563eb}.result-stat-yellow{background:#fff5d8;color:#b77910}.result-stat-purple{background:#eee7ff;color:#7c3aed}
+.result-header-stats dd{margin-top:8px;font-size:24px;line-height:1.3;font-weight:600;letter-spacing:-.02em;color:#12182e;overflow-wrap:anywhere}
+.result-header-stats dd span{font-size:16px;color:#626981;font-weight:500}
+.result-header-score{grid-area:score;display:flex;align-items:center;justify-content:center;border-left:1px solid #dcddef;padding-left:24px}
+.result-score-ring{width:200px;height:200px;flex-shrink:0;padding:11px;border-radius:50%}
+.result-score-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:#f8f8ff;text-align:center;padding:8px}
+.result-score-label{font-size:12px;color:#616982}
+.result-score-marks{font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1.4;color:#10152e;overflow-wrap:anywhere;max-width:100%}
+.result-score-marks span{font-size:20px;font-weight:500;color:#616982}
+.result-score-percent{font-size:24px;font-weight:600;color:#6657e8;line-height:1.4}
+.result-score-percentage-only{font-size:36px}
+.result-header-actions{grid-area:actions;display:flex;flex-wrap:wrap;gap:12px}
+.result-header-actions button{min-height:46px;padding:12px 20px;border-radius:12px;white-space:normal;height:auto;font-size:14px;font-weight:600}
+.result-header-actions .result-review-button{background:#5b4ce2;color:white;gap:10px}.result-header-actions .result-review-button:hover{background:#4c3fd0}
+.result-header-actions .result-retake-button{border-color:#b9b2ec;color:#5144c5;background:#ffffff9c}.result-header-actions .result-retake-button:hover{background:#f0edff}
+.result-header-actions .result-continue-button{color:#5a518d;gap:8px}
+@media(max-width:767px){
+ .et-result-motion .result-header{grid-template-columns:minmax(0,1fr);grid-template-areas:"score" "content" "actions";gap:24px;padding:24px 20px}
+ .result-header-score{border:0;padding:0}.result-score-ring{width:180px;height:180px}
+ .result-header-content{text-align:center}.result-header-content h1{font-size:24px}.result-header-meta{justify-content:center}
+ .result-header-stats{gap:8px;margin-top:20px;text-align:left}.result-header-stats>div{padding:12px 8px}
+ .result-header-stats dt{flex-direction:column;align-items:flex-start;gap:8px;line-height:1.5;min-height:74px}
+ .result-header-stats dd{font-size:20px}.result-header-stats dd span{font-size:13px}
+ .result-header-actions{flex-direction:column}.result-header-actions button{width:100%}
+}
+
+/* Decorative layers stay behind content and never intercept interaction. */
+.et-result-motion .result-header::before {
+ content:""; position:absolute; z-index:-1; pointer-events:none;
+ inset:0 0 0 52%;
+ background:radial-gradient(ellipse at 72% 48%,#e9e3ff9c,transparent 65%),radial-gradient(ellipse at 100% 90%,#e2efffbd,transparent 65%);
+}
+.et-result-motion .result-header::after {
+ content:""; position:absolute; z-index:-1; pointer-events:none;
+ right:-160px; bottom:-230px; width:470px; height:600px;
+ border:1px solid #c7c4f44d; border-radius:50%; transform:rotate(32deg);
+ box-shadow:0 0 0 18px #d5d0fa24,0 0 0 36px #d5d0fa24,0 0 0 54px #d5d0fa24,0 0 0 72px #d5d0fa1a;
+}
+.result-header-score { position:relative; border-left:0; }
+.result-header-score::before {
+ content:""; position:absolute; top:0; right:0; width:18px; height:18px;
+ border-radius:50%; background:#ffe49a;
+ box-shadow:-26px 26px 0 -5px #c4b5fd,16px 36px 0 -6px #ddd6fe;
+ pointer-events:none;
+}
+.result-score-inner { background:#fff; }
+@media(max-width:767px) {
+ .et-result-motion .result-header::before { inset:0 0 45%; }
+ .et-result-motion .result-header::after { top:-210px; bottom:auto; right:-300px; opacity:.55; }
+ .result-header-score::before { right:8px; }
+}
+
+/* Keep stat labels readable at intermediate widths and on narrow phones. */
+.result-header-stats dt { min-width:0; flex-direction:column; align-items:flex-start; line-height:1.5; min-height:74px; overflow-wrap:anywhere; }
+.result-header-stats dd { min-width:0; max-width:100%; }
+@media (min-width:768px) and (max-width:1023px) {
+ .et-result-motion .result-header { grid-template-columns:minmax(0,1fr); grid-template-areas:"score" "content" "actions"; }
+ .result-header-score { padding:0; }
+}
+@media (max-width:479px) {
+ .result-header-stats { grid-template-columns:minmax(0,1fr); gap:10px; }
+ .result-header-stats>div { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:12px; padding:12px; }
+ .result-header-stats dt { flex-direction:row; align-items:center; min-height:0; gap:10px; }
+ .result-header-stats dd { margin:0; font-size:20px; text-align:right; }
+}

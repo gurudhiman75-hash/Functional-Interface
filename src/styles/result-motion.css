@@ -1,0 +1,38 @@
+/* Presentation only, confined to the saved result screen. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes et-result-appear {
+    from { opacity: .88; }
+    to { opacity: 1; }
+  }
+  .et-result-motion > div > section {
+    animation: et-result-appear var(--et-motion-page) ease-out;
+  }
+  .et-result-motion .et-result-review-enter {
+    animation: et-result-appear var(--et-motion-feedback) ease-out;
+  }
+  .et-result-motion :is(button, a) {
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--et-motion-feedback);
+    transition-timing-function: ease-out;
+  }
+  .et-result-motion [role="progressbar"] > div {
+    transition: transform 320ms ease-out;
+  }
+}
+/* Keep targets still, including the shared button's existing hover lift. */
+.et-viewport .et-result-motion .et-button:hover,
+.et-viewport .et-result-motion .et-button:not(:disabled):not([aria-disabled="true"]):active {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .et-result-motion > div > section,
+  .et-result-motion .et-result-review-enter,
+  .et-result-motion :is(button, a),
+  .et-result-motion [role="progressbar"] > div {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Review rows provide feedback themselves; do not fade their section as well. */
+.et-result-motion > div > section:has(.et-result-review-enter) { animation: none; }

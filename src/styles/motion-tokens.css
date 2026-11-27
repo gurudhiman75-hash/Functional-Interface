@@ -1,0 +1,10 @@
+/* Shared timings for student presentation layers; no global animation rules. */
+:root {
+  --et-motion-feedback: 160ms;
+  --et-motion-page: 200ms;
+  --et-motion-exit: 120ms;
+  --et-motion-drawer: 220ms;
+  --et-motion-loader-delay: 200ms;
+  --et-motion-shimmer: 1800ms;
+  --et-motion-ease-out: cubic-bezier(.2,.7,.3,1);
+}
