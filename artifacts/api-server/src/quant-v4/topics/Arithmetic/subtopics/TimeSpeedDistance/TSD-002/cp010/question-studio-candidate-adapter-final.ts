@@ -431,7 +431,7 @@ export function previewTsdCp010StudioCandidate(request: TsdCp010StudioCandidateR
   if (!selected.length) throw new Error("No CP010 review-candidate combinations match the requested filters.");
   if (count > selected.length) throw new Error(`Requested ${count} questions but only ${selected.length} unique CP010 candidate combinations match the filters.`);
 
-  const questions = shuffled(selected, `${seed}:${language}`).slice(0, count).map((source, index) => {
+  const questions = shuffled(selected, `${seed}:en`).slice(0, count).map((source, index) => {
     const verification = verifyTsdCp010(source.input, source.solution);
     if (!verification.accepted) throw new Error(`${source.familyId}/${source.caseId}: independent verifier rejected Studio candidate`);
     const optionModel = optionsFor(source.solution, language, `${seed}:${source.familyId}:${source.caseId}:${index}`);

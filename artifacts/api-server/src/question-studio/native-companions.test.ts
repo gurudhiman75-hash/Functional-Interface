@@ -33,3 +33,41 @@ test("companion with another answer position, checkpoint or numbers is blocked",
 test("no companions means no snapshot", () => {
   assert.equal(prepareNativeSnapshotFromCompanions(en, ["hi", "pa"], {}), null);
 });
+
+import { languageNeutralId } from "./persisted-native-review";
+test("language tags inside question-language IDs are ignored", () => {
+  assert.equal(languageNeutralId("MEN-CP-009:MEN-002-QL-120:en-IN:qs:0"), languageNeutralId("MEN-CP-009:MEN-002-QL-120:hi-IN:qs:0"));
+  assert.equal(languageNeutralId("IOP-001-EN-IOP-QL-004-07b:Q1:en"), languageNeutralId("IOP-001-EN-IOP-QL-004-07b:Q1:hi"));
+  assert.notEqual(languageNeutralId("MEN-QL-120:en-IN"), languageNeutralId("MEN-QL-121:hi-IN"));
+});
+
+import { alignLocalizedOptions } from "./persisted-native-review";
+test("identical options in another order are put in English order; text options are never reordered", () => {
+  const src = { options: ["1/3", "2/5", "3/5", "1/2"], correctIndex: 1 };
+  const loc = { stem: "x", explanation: "y", options: ["3/5", "1/2", "2/5", "1/3"], correctIndex: 2 };
+  const out = alignLocalizedOptions(src, loc);
+  assert.deepEqual(out.options, src.options);
+  assert.equal(out.correctIndex, 1);
+  const words = { stem: "x", explanation: "y", options: ["क", "ख", "ग", "घ"], correctIndex: 3 };
+  assert.equal(alignLocalizedOptions(src, words), words);
+  const wrong = { ...loc, correctIndex: 0 };
+  assert.equal(alignLocalizedOptions(src, wrong), wrong);
+});
+
+import { numbersCompatible } from "./persisted-native-review";
+test("numbers: English numbers must all be present, extra translated labels are fine", () => {
+  assert.equal(numbersCompatible("Match List I with List II. 75.84%, 846", "सूची-1 को सूची-2 से मिलाइए। 75.84%, 846"), true);
+  assert.equal(numbersCompatible("120 metres, 3/4", "140 मीटर, 3/4"), false);
+  assert.equal(numbersCompatible("120 and 3", "੧੨੦ ਅਤੇ ੩"), true);
+});
+
+test("options with translated units are matched by their unique numbers", () => {
+  const src = { options: ["35 km", "36 km", "37 km", "38 km"], correctIndex: 1 };
+  const loc = { stem: "x", explanation: "y", options: ["36 किमी", "38 किमी", "37 किमी", "35 किमी"], correctIndex: 0 };
+  const out = alignLocalizedOptions(src, loc);
+  assert.deepEqual(out.options, ["35 किमी", "36 किमी", "37 किमी", "38 किमी"]);
+  assert.equal(out.correctIndex, 1);
+  const dup = { options: ["5 km", "5 m", "6 km", "7 km"], correctIndex: 0 };
+  const same = { stem: "x", explanation: "y", options: ["6 किमी", "5 मी", "5 किमी", "7 किमी"], correctIndex: 2 };
+  assert.equal(alignLocalizedOptions(dup, same), same);
+});

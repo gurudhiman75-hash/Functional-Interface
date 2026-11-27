@@ -168,7 +168,7 @@ export const knowledgeV1Whi001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     );
     if (!candidates.length) throw new Error(`WHI-001 selectors produced no ${difficulty} questions`);
     if (count > candidates.length) throw new Error(`WHI-001 cannot fill ${count} questions from ${candidates.length} candidates without repeats`);
-    const selected = deterministicShuffle(candidates, `${seed}:${language}:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
+    const selected = deterministicShuffle(candidates, `${seed}:en:${difficulty}:${questionId ?? "ALL"}`).slice(0, count);
     const questions = selected.map((q) => ({
       ...lifecycle,
       id: q.questionId,

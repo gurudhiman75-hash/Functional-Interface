@@ -316,7 +316,7 @@ function allCompatible(language: TsdCp009QuestionStudioLanguage, seed: string): 
           const guide = render(family.explanationGuide, bindings);
           const answer = answerText(reviewCase.solution, language);
           const baseOptions = optionTexts(reviewCase.solution, language);
-          const options = shuffle(baseOptions, `${seed}:${language}:${family.familyId}:${reviewCase.familyId}`);
+          const options = shuffle(baseOptions, `${seed}:en:${family.familyId}:${reviewCase.familyId}`);
           const correctIndex = options.indexOf(answer);
           if (correctIndex < 0 || new Set(options).size !== 4) continue;
           const caseId = reviewCase.familyId.replace("-", "");
@@ -352,7 +352,7 @@ function allCompatible(language: TsdCp009QuestionStudioLanguage, seed: string): 
       }
     }
   }
-  return shuffle(out, `${seed}:${language}:all`) as readonly CompatibleQuestion[];
+  return shuffle(out, `${seed}:en:all`) as readonly CompatibleQuestion[];
 }
 
 const CAPACITY_BY_LANGUAGE = Object.freeze(Object.fromEntries(TSD_CP009_QUESTION_STUDIO_LANGUAGES.map((language) => [language, allCompatible(language, "cp009-capacity").length])) as Record<TsdCp009QuestionStudioLanguage, number>);
