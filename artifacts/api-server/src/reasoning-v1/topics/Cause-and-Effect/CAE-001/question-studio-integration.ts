@@ -140,14 +140,17 @@ function generateOne(input: {
   const questionProfile = questionProfileFor(input.qlId, input.banking);
   for (let offset = 0; offset < 256; offset += 1) {
     const seed = (input.baseSeed + offset) >>> 0;
-    const generated = generateReviewedCaeQuestion({
+    // Difficulty is decided on the English instance so Hindi/Punjabi follow the same seed.
+    if (input.targetDifficulty) {
+      const english = generateReviewedCaeQuestion({ qlId: input.qlId, locale: "en-IN" as CaeLocale, seed, questionProfile });
+      if (english.difficulty !== input.targetDifficulty) continue;
+    }
+    return generateReviewedCaeQuestion({
       qlId: input.qlId,
       locale: input.locale,
       seed,
       questionProfile,
     });
-    if (input.targetDifficulty && generated.difficulty !== input.targetDifficulty) continue;
-    return generated;
   }
   throw new Error(
     input.qlId +

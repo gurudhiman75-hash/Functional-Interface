@@ -127,8 +127,10 @@ function resolveInstance(
     for (let attempt = 0; attempt < attemptLimit; attempt += 1) {
       const itemSeed = `${baseSeed}:${qlId}:${index}:attempt:${attempt}`;
       const numericSeed = hash(itemSeed);
-      const generated = generateLocalized(qlId, numericSeed, language);
-      if (!requestedDifficulty || generated.difficulty === requestedDifficulty) {
+      // Difficulty is decided on the English instance so Hindi/Punjabi follow the same attempt.
+      const english = generateLocalized(qlId, numericSeed, "en");
+      if (!requestedDifficulty || english.difficulty === requestedDifficulty) {
+        const generated = language === "en" ? english : generateLocalized(qlId, numericSeed, language);
         return { qlId, generated, itemSeed, numericSeed, attempt };
       }
     }

@@ -370,7 +370,7 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
   const questionPackages: any[] = [];
   for (let index = 0; index < count; index += 1) {
     const qlId = order[index % order.length]!;
-    const seed = `${batchSeed}:${language}:${qlId}:${index}`;
+    const seed = `${batchSeed}:en:${qlId}:${index}`;
     const preview = questionStudioPreview(qlId, seed, index, count, language);
     questions.push(preview);
     questionPackages.push(Object.freeze({
