@@ -61,7 +61,11 @@ export async function prepareNativeReviewBatch(
     while(index<questions.length){
       const next=index++;
       try{result[next]=await prepareNativeReviewSnapshot(questions[next]!,languages);}
-      catch{result[next]=null;}
+      catch(error){
+        // Never fail the run, but leave a trace: a missing Hindi/Punjabi snapshot used to be silent.
+        console.warn("[native-review] snapshot not prepared",{packageId:string(questions[next]?.packageId),cpId:string(questions[next]?.canonicalProblemId),reason:error instanceof Error?error.message:String(error)});
+        result[next]=null;
+      }
     }
   }));
   return result;
