@@ -313,6 +313,13 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
   },
 ];
 
+
+/** True when a CP simply has no active question language for the requested difficulty/language. */
+function isCpUnavailableError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return /No active .* QLs? match|is not active for|no active question language/i.test(message);
+}
+
 function normalizeDifficulty(value: any): QuantV4Difficulty | undefined {
   if (typeof value === "string") {
     const lower = value.toLowerCase();
@@ -1115,19 +1122,35 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
         pkg.cpIds,
         `${batchSeed}:${pkg.packageId}:cp-order`,
       );
-      const canonicalProblemId =
-        explicitCp ?? cpOrder[packageUsage % cpOrder.length]!;
-      const seed = `${batchSeed}:${pkg.packageId}:${canonicalProblemId}:${packageUsage}:${i}`;
-      const diversityKey = `${pkg.packageId}::${canonicalProblemId}`;
-      const diversityOrdinal = diversityUsageByPackageCp.get(diversityKey) ?? 0;
-      diversityUsageByPackageCp.set(diversityKey, diversityOrdinal + 1);
-      const questionPackage = await pkg.run(canonicalProblemId, {
-        language,
-        seed,
-        questionLanguageId: request.questionLanguageId,
-        difficulty: difficultyBand,
-        diversityOrdinal,
-      });
+      let questionPackage: any;
+      let seed = "";
+      let lastUnavailable: unknown;
+      const attempts = explicitCp ? 1 : cpOrder.length;
+      for (let attempt = 0; attempt < attempts; attempt++) {
+        const canonicalProblemId =
+          explicitCp ?? cpOrder[(packageUsage + attempt) % cpOrder.length]!;
+        seed = `${batchSeed}:${pkg.packageId}:${canonicalProblemId}:${packageUsage}:${i}`;
+        const diversityKey = `${pkg.packageId}::${canonicalProblemId}`;
+        const diversityOrdinal = diversityUsageByPackageCp.get(diversityKey) ?? 0;
+        try {
+          questionPackage = await pkg.run(canonicalProblemId, {
+            language,
+            seed,
+            questionLanguageId: request.questionLanguageId,
+            difficulty: difficultyBand,
+            diversityOrdinal,
+          });
+        } catch (error) {
+          if (!explicitCp && isCpUnavailableError(error)) {
+            lastUnavailable = error;
+            continue;
+          }
+          throw error;
+        }
+        diversityUsageByPackageCp.set(diversityKey, diversityOrdinal + 1);
+        break;
+      }
+      if (!questionPackage) throw lastUnavailable ?? new Error("No question could be generated for this chapter.");
 
       results.push(
         buildQuestionStudioResult(pkg, questionPackage, {
@@ -1172,27 +1195,45 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
     if (i > 0 && i % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
-    const currentCanonicalProblemId = cpOrder[i % cpOrder.length]!;
-    const seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
-    const carriedOrdinalRaw = Number(
-      request.auditDiversityOrdinalByCanonicalProblemId?.[currentCanonicalProblemId] ?? 0,
-    );
-    const carriedOrdinal = Number.isFinite(carriedOrdinalRaw)
-      ? Math.max(0, Math.floor(carriedOrdinalRaw))
-      : 0;
-    const diversityOrdinal =
-      carriedOrdinal + (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0);
-    diversityUsageByCp.set(
-      currentCanonicalProblemId,
-      (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0) + 1,
-    );
-    const questionPackage = await pkg.run(currentCanonicalProblemId, {
-      language,
-      seed,
-      questionLanguageId: request.questionLanguageId,
-      difficulty: difficultyBand,
-      diversityOrdinal,
-    });
+    let questionPackage: any;
+    let seed = "";
+    let lastUnavailable: unknown;
+    // A chapter mix must not fail because one CP has no question at this difficulty:
+    // try the next CP in the order, and only fail when none of them can produce one.
+    const attempts = explicitCanonicalProblemId ? 1 : cpOrder.length;
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      const currentCanonicalProblemId = cpOrder[(i + attempt) % cpOrder.length]!;
+      seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
+      const carriedOrdinalRaw = Number(
+        request.auditDiversityOrdinalByCanonicalProblemId?.[currentCanonicalProblemId] ?? 0,
+      );
+      const carriedOrdinal = Number.isFinite(carriedOrdinalRaw)
+        ? Math.max(0, Math.floor(carriedOrdinalRaw))
+        : 0;
+      const diversityOrdinal =
+        carriedOrdinal + (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0);
+      try {
+        questionPackage = await pkg.run(currentCanonicalProblemId, {
+          language,
+          seed,
+          questionLanguageId: request.questionLanguageId,
+          difficulty: difficultyBand,
+          diversityOrdinal,
+        });
+      } catch (error) {
+        if (!explicitCanonicalProblemId && isCpUnavailableError(error)) {
+          lastUnavailable = error;
+          continue;
+        }
+        throw error;
+      }
+      diversityUsageByCp.set(
+        currentCanonicalProblemId,
+        (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0) + 1,
+      );
+      break;
+    }
+    if (!questionPackage) throw lastUnavailable ?? new Error("No question could be generated for this chapter.");
     results.push(
       buildQuestionStudioResult(pkg, questionPackage, {
         questionIndex: i + 1,

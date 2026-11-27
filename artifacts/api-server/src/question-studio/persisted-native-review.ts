@@ -24,7 +24,10 @@ export async function prepareNativeReviewSnapshot(
      source.correctIndex>=source.options.length)return null;
   try {
     assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en"));
-  }catch{return null;}
+  }catch(error){
+    console.warn("[native-review] English source parity failed; no Hindi/Punjabi saved",{packageId,cpId:string(payload.canonicalProblemId||payload.selectedCpId||payload.cpId),reason:error instanceof Error?error.message:String(error)});
+    return null;
+  }
   const variants=await Promise.all(active.map(async (language):Promise<PersistedNativeVariant>=>{
     try{
       const localized=await nativeLocalizedQuestion(payload,language);
@@ -61,7 +64,11 @@ export async function prepareNativeReviewBatch(
     while(index<questions.length){
       const next=index++;
       try{result[next]=await prepareNativeReviewSnapshot(questions[next]!,languages);}
-      catch{result[next]=null;}
+      catch(error){
+        // Never fail the run, but leave a trace: a missing Hindi/Punjabi snapshot used to be silent.
+        console.warn("[native-review] snapshot not prepared",{packageId:string(questions[next]?.packageId),cpId:string(questions[next]?.canonicalProblemId),reason:error instanceof Error?error.message:String(error)});
+        result[next]=null;
+      }
     }
   }));
   return result;

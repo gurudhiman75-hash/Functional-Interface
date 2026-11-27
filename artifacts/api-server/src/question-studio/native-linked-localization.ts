@@ -5,6 +5,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "./e
 import type { QuestionStudioGenerationRequest } from "./engine-types";
 import { runAvg001QuestionStudioPipeline, type Avg001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
 import { generateInt001ExistingLocalizedQuestion } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-adapter-v1";
+import { runTmw001QuestionStudioPipeline } from "../quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/question-studio-adapter";
 import { runMal001QuestionStudioPipeline, MAL_001_QUESTION_STUDIO_CP_IDS, type Mal001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
 export type NativeLocale = "en" | "hi" | "pa";
@@ -137,6 +138,27 @@ export async function nativeLocalizedQuestion(
       correctIndex:Number(pkg.correctIndex),
     };
   }
+  // TMW-001 persists the final per-question seed ("<batch>:mixed:<n>"). The
+  // generic batch path appends ":<CP>:0" again and regenerates a different
+  // question, so every Hindi/Punjabi snapshot was dropped. Replay the released
+  // single-question pipeline with the exact saved seed instead.
+  if (packageId === "TMW-001") {
+    const difficulty=string(payload.difficulty);
+    const pkg:any=runTmw001QuestionStudioPipeline({
+      seed, language:language as never,
+      ...(difficulty ? {difficulty:difficulty as never} : {}),
+    } as never);
+    if (pkg.canonicalProblemId!==cpId || pkg.questionLanguageId!==qlId) {
+      throw new Error("NATIVE_LOCALIZATION_REGENERATED_IDENTITY_DRIFT");
+    }
+    const lines:string[]=Array.isArray(pkg.explanation?.lines) ? pkg.explanation.lines.map((l:unknown)=>String(l ?? "")) : [];
+    return {
+      stem:string(pkg.stem),
+      explanation:lines.join("\n\n"),
+      options:[...pkg.options].map((o:unknown)=>String(o).trim()),
+      correctIndex:Number(pkg.correctIndex),
+    };
+  }
   // Native chapter engines already accept a canonical CP, permanent QL and
   // deterministic seed through the central registry. Reuse that contract for
   // every registered chapter with an authored locale; never invent a fallback.
@@ -147,16 +169,23 @@ export async function nativeLocalizedQuestion(
   if (!pkg.cpIds.includes(cpId) && !(pkg.dynamicCandidateCpIds ?? []).includes(cpId)) {
     throw new Error("NATIVE_LOCALIZATION_CP_NOT_REGISTERED");
   }
+  // Saved seeds are the final per-question seed "<batch>:<cp|ql|mixed>:<index>".
+  // Engines append that suffix themselves, so replaying the saved seed as-is
+  // builds a different question. Strip the suffix and re-run the batch up to
+  // that index, then take the question at the index.
+  const suffix=seed.match(/^(.*):([^:]+):(\d+)$/);
+  const batchSeed=suffix?suffix[1]!:seed;
+  const itemIndex=suffix?Math.min(Number(suffix[3]),999):0;
   const request: QuestionStudioGenerationRequest = {
     engineId:pkg.engineId, packageId, canonicalProblemId:cpId,
-    questionLanguageId:qlId, seed, language, count:1,
+    questionLanguageId:qlId, seed:batchSeed, language, count:itemIndex+1,
     ...(string(payload.exam)?{exam:string(payload.exam)}:{}),
     ...(string(payload.runtimeMode)?{runtimeMode:string(payload.runtimeMode)}:{}),
     ...(string(payload.difficulty)?{difficulty:string(payload.difficulty)}:{}),
   };
   const result=await generateQuestionStudioQuestions(request);
-  if (result.questions.length!==1) throw new Error("NATIVE_LOCALIZATION_NOT_SINGLE_QUESTION");
-  const question=record(result.questions[0]);
+  if (result.questions.length!==itemIndex+1) throw new Error("NATIVE_LOCALIZATION_NOT_SINGLE_QUESTION");
+  const question=record(result.questions[itemIndex]);
   const generatedCp=string(question.canonicalProblemId||question.selectedCpId||question.cpId);
   const generatedQl=string(question.questionLanguageId||question.qlId);
   const generatedSeed=string(question.seed);
