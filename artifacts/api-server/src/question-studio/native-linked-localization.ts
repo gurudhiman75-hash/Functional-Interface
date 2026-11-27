@@ -5,6 +5,7 @@ import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "./e
 import type { QuestionStudioGenerationRequest } from "./engine-types";
 import { runAvg001QuestionStudioPipeline, type Avg001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
 import { generateInt001ExistingLocalizedQuestion } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-question-studio-admin-adapter-v1";
+import { runTmw001QuestionStudioPipeline } from "../quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/question-studio-adapter";
 import { runMal001QuestionStudioPipeline, MAL_001_QUESTION_STUDIO_CP_IDS, type Mal001QuestionStudioCpId } from "../quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
 export type NativeLocale = "en" | "hi" | "pa";
@@ -134,6 +135,27 @@ export async function nativeLocalizedQuestion(
       stem:string(pkg.stem),
       explanation:lines.join("\n\n"),
       options:[...pkg.options].map(option=>String(option).trim()),
+      correctIndex:Number(pkg.correctIndex),
+    };
+  }
+  // TMW-001 persists the final per-question seed ("<batch>:mixed:<n>"). The
+  // generic batch path appends ":<CP>:0" again and regenerates a different
+  // question, so every Hindi/Punjabi snapshot was dropped. Replay the released
+  // single-question pipeline with the exact saved seed instead.
+  if (packageId === "TMW-001") {
+    const difficulty=string(payload.difficulty);
+    const pkg:any=runTmw001QuestionStudioPipeline({
+      seed, language:language as never,
+      ...(difficulty ? {difficulty:difficulty as never} : {}),
+    } as never);
+    if (pkg.canonicalProblemId!==cpId || pkg.questionLanguageId!==qlId) {
+      throw new Error("NATIVE_LOCALIZATION_REGENERATED_IDENTITY_DRIFT");
+    }
+    const lines:string[]=Array.isArray(pkg.explanation?.lines) ? pkg.explanation.lines.map((l:unknown)=>String(l ?? "")) : [];
+    return {
+      stem:string(pkg.stem),
+      explanation:lines.join("\n\n"),
+      options:[...pkg.options].map((o:unknown)=>String(o).trim()),
       correctIndex:Number(pkg.correctIndex),
     };
   }
