@@ -169,16 +169,23 @@ export async function nativeLocalizedQuestion(
   if (!pkg.cpIds.includes(cpId) && !(pkg.dynamicCandidateCpIds ?? []).includes(cpId)) {
     throw new Error("NATIVE_LOCALIZATION_CP_NOT_REGISTERED");
   }
+  // Saved seeds are the final per-question seed "<batch>:<cp|ql|mixed>:<index>".
+  // Engines append that suffix themselves, so replaying the saved seed as-is
+  // builds a different question. Strip the suffix and re-run the batch up to
+  // that index, then take the question at the index.
+  const suffix=seed.match(/^(.*):([^:]+):(\d+)$/);
+  const batchSeed=suffix?suffix[1]!:seed;
+  const itemIndex=suffix?Math.min(Number(suffix[3]),999):0;
   const request: QuestionStudioGenerationRequest = {
     engineId:pkg.engineId, packageId, canonicalProblemId:cpId,
-    questionLanguageId:qlId, seed, language, count:1,
+    questionLanguageId:qlId, seed:batchSeed, language, count:itemIndex+1,
     ...(string(payload.exam)?{exam:string(payload.exam)}:{}),
     ...(string(payload.runtimeMode)?{runtimeMode:string(payload.runtimeMode)}:{}),
     ...(string(payload.difficulty)?{difficulty:string(payload.difficulty)}:{}),
   };
   const result=await generateQuestionStudioQuestions(request);
-  if (result.questions.length!==1) throw new Error("NATIVE_LOCALIZATION_NOT_SINGLE_QUESTION");
-  const question=record(result.questions[0]);
+  if (result.questions.length!==itemIndex+1) throw new Error("NATIVE_LOCALIZATION_NOT_SINGLE_QUESTION");
+  const question=record(result.questions[itemIndex]);
   const generatedCp=string(question.canonicalProblemId||question.selectedCpId||question.cpId);
   const generatedQl=string(question.questionLanguageId||question.qlId);
   const generatedSeed=string(question.seed);
