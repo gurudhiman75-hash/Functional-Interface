@@ -464,7 +464,8 @@ export function generateTrg002V4QuestionStudioBatch(request: Trg002V4QuestionStu
   const questionPackages: AnyRecord[] = [];
   for (let index = 0; index < count; index += 1) {
     const qlId = order[index % order.length]!;
-    const seed = `${batchSeed}:${language}:${qlId}:${index}`;
+    // Same seed for every language so Hindi/Punjabi match the English question.
+    const seed = `${batchSeed}:en:${qlId}:${index}`;
     const preview = questionStudioPreview(qlId, seed, language, index, count);
     questions.push(preview);
     questionPackages.push({

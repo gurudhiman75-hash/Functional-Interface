@@ -70,12 +70,32 @@ const DIGITS: Record<string,string> = {};
 "੦੧੨੩੪੫੬੭੮੯".split("").forEach((d,i)=>{DIGITS[d]=String(i);});
 const numberList=(value:string)=>(value.replace(/[०-९੦-੯]/g,d=>DIGITS[d]??d).replace(/(\d),(?=\d{3}\b)/g,"$1")
   .match(/\d+(?:\.\d+)?/g)??[]);
-/** Every number in the English stem must appear in the localized stem. Extra
- * numbers are allowed (translated labels such as "सूची-1" for "List I"). */
+/** Data numbers in the English stem (two or more digits, or decimals, ordinals
+ * such as "1st" and patterns like "1-2-1-2" excluded) must all appear in the
+ * localized stem. Single digits and labels are often words or translated. */
 export const numbersCompatible=(english:string,localized:string)=>{
+  const cleaned=english.replace(/\b\d+(?:st|nd|rd|th)\b/gi," ").replace(/\d(?:-\d)+/g," ");
   const pool=numberList(localized);
-  for(const token of numberList(english)){const at=pool.indexOf(token);if(at<0)return false;pool.splice(at,1);}
+  for(const token of numberList(cleaned).filter(t=>t.length>=2||t.includes("."))){
+    const at=pool.indexOf(token);if(at<0)return false;pool.splice(at,1);
+  }
   return true;
+};
+/** Option by option: every number in an English option must be in the same
+ * localized option. Word-only options have nothing to compare. */
+export const optionNumbersCompatible=(english:string[],localized:string[])=>
+  english.length===localized.length&&english.every((option,index)=>{
+    const pool=numberList(localized[index]??"");
+    return numberList(option).every(token=>{const at=pool.indexOf(token);if(at<0)return false;pool.splice(at,1);return true;});
+  });
+/** IDs like "CP:QL:<descriptive name>:254:25ebc62b:hi-IN" carry a language-specific
+ * name in the middle. Treat them as the same question when the checkpoint and
+ * question-language segments and the trailing numeric/hash segments agree. */
+export const sameQuestionId=(a:string,b:string)=>{
+  if(languageNeutralId(a)===languageNeutralId(b))return true;
+  const pa=a.split(":"),pb=b.split(":");
+  const tail=(parts:string[])=>parts.filter(seg=>/^\d+$/.test(seg)||/^[0-9a-f]{6,}$/i.test(seg)).join(":");
+  return pa.length>=4&&pb.length>=4&&pa[0]===pb[0]&&pa[1]===pb[1]&&tail(pa).length>=6&&tail(pa)===tail(pb);
 };
 const idOf=(q:Record<string,unknown>,keys:string[])=>keys.map(k=>string(q[k])).find(Boolean)??"";
 /** Some chapters put the language into the question-language ID
@@ -108,8 +128,8 @@ export function prepareNativeSnapshotFromCompanions(
     try{
       const cpA=idOf(payload,["canonicalProblemId","selectedCpId","cpId"]),cpB=idOf(companion,["canonicalProblemId","selectedCpId","cpId"]);
       const qlA=idOf(payload,["questionLanguageId","qlId"]),qlB=idOf(companion,["questionLanguageId","qlId"]);
-      if(cpA&&cpB&&languageNeutralId(cpA)!==languageNeutralId(cpB))throw new Error("checkpoint differs");
-      if(qlA&&qlB&&languageNeutralId(qlA)!==languageNeutralId(qlB))throw new Error("question language differs");
+      if(cpA&&cpB&&!sameQuestionId(cpA,cpB))throw new Error("checkpoint differs");
+      if(qlA&&qlB&&!sameQuestionId(qlA,qlB))throw new Error("question language differs");
       if(string(companion.language)&&string(companion.language)!==language)throw new Error("wrong language");
       const localized={
         stem:string(companion.text)||string(companion.stem),
@@ -119,7 +139,7 @@ export function prepareNativeSnapshotFromCompanions(
       };
       const aligned=alignLocalizedOptions(source,localized);
       assertNativeLocalizedAnswerParity(source,aligned);
-      if(!numbersCompatible(source.stem,aligned.stem))throw new Error("numbers differ");
+      if(!numbersCompatible(source.stem,aligned.stem)||!optionNumbersCompatible(source.options,aligned.options))throw new Error("numbers differ");
       return {language,status:"verified",...aligned};
     }catch(error){lastError=error;}
     }
