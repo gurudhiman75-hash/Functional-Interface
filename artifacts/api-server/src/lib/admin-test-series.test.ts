@@ -5,6 +5,7 @@ import {
   TestSeriesError,
   normalizeTestSeriesInput,
   seriesReadiness,
+  testSeriesItemKind,
 } from "./admin-test-series";
 
 const examVersionId = "11111111-1111-4111-8111-111111111111";
@@ -114,4 +115,17 @@ test("marks a released composition ready", () => {
   });
   assert.equal(readiness.ready, true);
   assert.deepEqual(readiness.blockers, []);
+});
+
+test("series item kind is kept when valid and dropped when unknown", () => {
+  const input = validInput();
+  input.items = [
+    { testId: firstTestId, isRequired: true, configuration: { kind: "PYQ", note: "keep" } },
+    { testId: secondTestId, isRequired: true, configuration: { kind: "weekly" } },
+  ] as typeof input.items;
+  const normalized = normalizeTestSeriesInput(input);
+  assert.deepEqual(normalized.items[0].configuration, { note: "keep", kind: "pyq" });
+  assert.deepEqual(normalized.items[1].configuration, {});
+  assert.equal(testSeriesItemKind({ kind: "sectional" }), "sectional");
+  assert.equal(testSeriesItemKind({}), null);
 });

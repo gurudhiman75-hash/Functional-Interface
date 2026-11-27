@@ -40,6 +40,23 @@ export class TestSeriesError extends Error {
   }
 }
 
+export const TEST_SERIES_ITEM_KINDS = ["full-length", "sectional", "topic-wise", "pyq"] as const;
+export type TestSeriesItemKind = (typeof TEST_SERIES_ITEM_KINDS)[number];
+
+/** The admin-set test type of a series item, or null when not set. */
+export function testSeriesItemKind(value: unknown): TestSeriesItemKind | null {
+  const raw = asString(asRecord(value).kind).trim().toLowerCase();
+  return (TEST_SERIES_ITEM_KINDS as readonly string[]).includes(raw)
+    ? (raw as TestSeriesItemKind)
+    : null;
+}
+
+function withNormalizedItemKind(configuration: Record<string, unknown>) {
+  const { kind: _ignored, ...rest } = configuration;
+  const kind = testSeriesItemKind(configuration);
+  return kind ? { ...rest, kind } : rest;
+}
+
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -228,7 +245,7 @@ export function normalizeTestSeriesInput(value: unknown): NormalizedTestSeriesIn
       unlockAt: isoDate(item.unlockAt, "TEST_SERIES_UNLOCK_INVALID", `Unlock time for item ${index + 1}`),
       minimumScore: score(item.minimumScore, "TEST_SERIES_MEMBER_SCORE_INVALID", `Minimum score for item ${index + 1}`),
       isRequired: item.isRequired !== false,
-      configuration: asRecord(item.configuration),
+      configuration: withNormalizedItemKind(asRecord(item.configuration)),
     };
   });
 
