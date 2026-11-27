@@ -26,6 +26,7 @@ export type TsdCp009QuestionStudioReviewRequest = Readonly<{
   language?: TsdCp009QuestionStudioLanguage;
   qlId?: TsdCp009QuestionStudioQlId;
   familyId?: string;
+  canonicalItemId?: string;
   difficulty?: TsdCp009QuestionStudioDifficulty;
   seed?: string;
   count?: number;
@@ -301,7 +302,7 @@ function serializableInput(input: TsdCp009ExecutableInput): Readonly<Record<stri
   return Object.freeze(JSON.parse(JSON.stringify(input, (_key, value) => typeof value === "bigint" ? value.toString() : value)) as Record<string, unknown>);
 }
 
-function allCompatible(language: TsdCp009QuestionStudioLanguage, seed: string): readonly CompatibleQuestion[] {
+function allCompatible(language: TsdCp009QuestionStudioLanguage, seed: string, englishOptionOrder: boolean): readonly CompatibleQuestion[] {
   const out: CompatibleQuestion[] = [];
   for (const ql of qls(language)) {
     const cases = TSD_CP009_LOCALIZED_REVIEW_CASES.filter((entry) => entry.qlId === ql.qlId && entry.input.authorityKey === ql.authorityKey);
@@ -316,7 +317,13 @@ function allCompatible(language: TsdCp009QuestionStudioLanguage, seed: string): 
           const guide = render(family.explanationGuide, bindings);
           const answer = answerText(reviewCase.solution, language);
           const baseOptions = optionTexts(reviewCase.solution, language);
-          const options = shuffle(baseOptions, `${seed}:en:${family.familyId}:${reviewCase.familyId}`);
+          const optionSeed = `${seed}:en:${family.familyId}:${reviewCase.familyId}`;
+          const englishOptions = englishOptionOrder && language !== "en"
+            ? optionTexts(reviewCase.solution, "en")
+            : baseOptions;
+          const ordered = shuffle(englishOptions, optionSeed);
+          const options = englishOptions === baseOptions ? ordered
+            : Object.freeze(ordered.map(option => baseOptions[englishOptions.indexOf(option)]!));
           const correctIndex = options.indexOf(answer);
           if (correctIndex < 0 || new Set(options).size !== 4) continue;
           const caseId = reviewCase.familyId.replace("-", "");
@@ -392,7 +399,8 @@ export function previewTsdCp009QuestionStudioReview(request: TsdCp009QuestionStu
   const language = request.language ?? "en";
   const count = Math.max(1, Math.floor(request.count ?? 5));
   const seed = request.seed ?? "cp009-question-studio-review";
-  const compatible = allCompatible(language, seed).filter((question) =>
+  const compatible = allCompatible(language, seed, Boolean(request.canonicalItemId)).filter((question) =>
+    (!request.canonicalItemId || question.canonicalItemId === request.canonicalItemId) &&
     (!request.qlId || question.qlId === request.qlId) &&
     (!request.familyId || question.familyId === request.familyId) &&
     (!request.difficulty || question.difficultyBand === request.difficulty));

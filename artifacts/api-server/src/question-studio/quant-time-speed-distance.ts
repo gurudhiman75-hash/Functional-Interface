@@ -383,6 +383,69 @@ function checkpointForTsd002(
   return checkpoint as Tsd002RegisteredCpId;
 }
 
+export function replayTsd002Question(
+  payload: Record<string, unknown>, language: QuestionStudioLanguage,
+): QuestionStudioGeneratedQuestion {
+  const cp = TSD_002_REGISTERED_CP_IDS.find(id => id === payload.canonicalProblemId);
+  const context = payload.generationContext as Record<string, unknown> | undefined;
+  const parameters = payload.parameters as Record<string, unknown> | undefined;
+  const ql = payload.questionLanguageId ?? payload.qlId;
+  if (!cp || typeof ql !== "string" || typeof payload.questionId !== "string" ||
+      typeof payload.canonicalItemId !== "string") {
+    throw new Error("TSD-002 review source is missing an exact item identity");
+  }
+  const difficulty = normalizeDifficulty(payload.difficulty);
+  const preview = (seed: string, locale: QuestionStudioLanguage) => {
+    const batch = cp === "TSD-CP-009" && locale !== "en"
+      ? previewTsdCp009QuestionStudioReview({
+          language: locale, seed, count: 1, canonicalItemId: String(payload.canonicalItemId),
+        })
+      : previewTsd002Checkpoint(cp, { language: locale, difficulty }, seed);
+    const raw = Array.isArray(batch.questions) ? batch.questions[0] as Record<string, unknown> : undefined;
+    return raw ? withReviewLifecycle(raw, cp, "TSD-002") : undefined;
+  };
+  const exactSeed = typeof payload.seed === "string" ? payload.seed
+    : cp === "TSD-CP-007" && typeof parameters?.seed === "string" ? parameters.seed
+    : undefined;
+  const assignmentSeed = context?.assignmentSeed;
+  const matchesSource = (item: QuestionStudioGeneratedQuestion | undefined) =>
+    item?.questionId === payload.questionId && item?.canonicalItemId === payload.canonicalItemId && item?.qlId === ql &&
+    item?.text === (payload.text ?? payload.stem) && item?.explanation === payload.explanation &&
+    item?.correctIndex === (payload.correctIndex ?? payload.correct) &&
+    JSON.stringify(item?.options) === JSON.stringify(payload.options);
+
+  let sourceSeed = exactSeed;
+  let english = sourceSeed ? preview(sourceSeed, "en") : undefined;
+  if (!sourceSeed && typeof assignmentSeed === "string") {
+    const checkpointScope = context?.checkpointId;
+    const start = checkpointScope === "MIXED" ? TSD_002_REGISTERED_CP_IDS.indexOf(cp) : 0;
+    const stride = checkpointScope === "MIXED" ? TSD_002_REGISTERED_CP_IDS.length : 1;
+    if (checkpointScope !== "MIXED" && checkpointScope !== cp) {
+      throw new Error("TSD-002 saved generation scope does not identify this checkpoint");
+    }
+    // Historical payloads saved the assignment seed rather than the item seed.
+    // Match the original attempt within the generator's original search bound.
+    for (let attempt = start; attempt < 50 * 24; attempt += stride) {
+      const candidateSeed = `${assignmentSeed}:${cp}:${attempt}`;
+      const candidate = preview(candidateSeed, "en");
+      if (!matchesSource(candidate)) continue;
+      english = candidate;
+      sourceSeed = candidateSeed;
+      break;
+    }
+  }
+  if (!sourceSeed || !english || !matchesSource(english)) {
+    throw new Error("TSD-002 saved English source could not be replayed exactly");
+  }
+  if (language === "en") return english;
+  const variant = preview(sourceSeed, language);
+  if (!variant || variant.canonicalItemId !== english.canonicalItemId ||
+      variant.qlId !== english.qlId || variant.correctIndex !== english.correctIndex) {
+    throw new Error("TSD-002 localized item or answer position differs from its English source");
+  }
+  return variant;
+}
+
 async function generateTsd002Batch(
   request: QuestionStudioGenerationRequest,
 ): Promise<QuestionStudioGenerationResult> {
@@ -416,7 +479,7 @@ async function generateTsd002Batch(
     ].join("|");
     if (fingerprints.has(fingerprint)) continue;
     fingerprints.add(fingerprint);
-    questions.push(normalized);
+    questions.push({ ...normalized, seed: itemSeed });
   }
 
   if (questions.length !== count) {

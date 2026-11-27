@@ -37,8 +37,19 @@ export function hasRegisteredNativeLocales(item: QuestionStudioItem, supportedLa
     sourceLanguage(item) === 'en';
 }
 export function hasVerifiedNativeLocaleEngine(item: QuestionStudioItem, supportedLanguages: readonly string[]): boolean {
+  const payload = item.payload;
+  const hasAuditSource = payload?.packageId === 'TSD-AUDIT-REVIEW' &&
+    typeof payload.questionId === 'string' && /^tsd-audit-\d+-en$/.test(payload.questionId);
+  const context = payload?.generationContext as Record<string, unknown> | undefined;
+  const parameters = payload?.parameters as Record<string, unknown> | undefined;
+  const hasRegisteredTsdSource = payload?.packageId === 'TSD-002' && (
+    payload.nativeSourceIdentityAvailable === true ||
+    (typeof payload.canonicalItemId === 'string' &&
+      (typeof context?.assignmentSeed === 'string' ||
+        (payload.canonicalProblemId === 'TSD-CP-007' && typeof parameters?.seed === 'string')))
+  );
   return hasRegisteredNativeLocales(item, supportedLanguages) &&
-    typeof item.payload?.seed === 'string' && Boolean(item.payload.seed) &&
+    (hasAuditSource || hasRegisteredTsdSource || (typeof payload?.seed === 'string' && Boolean(payload.seed))) &&
     Boolean(item.payload?.questionLanguageId || item.payload?.qlId) &&
     Boolean(item.payload?.canonicalProblemId || item.payload?.selectedCpId || item.payload?.cpId);
 }
@@ -430,7 +441,7 @@ export function NativeLocaleReview({ item, supportedLanguages }: { item: Questio
             <Languages className="h-4 w-4" /> Native language versions
           </div>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            {snapshot?.saved ? 'Pre-generated and saved native versions' : !snapshot && drafts.every(d=>d.status==='approved') && drafts.length===2 ? 'Saved approved language versions' : 'Verified native previews'} · same CP, QL and seed · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
+            {snapshot?.saved ? 'Pre-generated and saved native versions' : !snapshot && drafts.every(d=>d.status==='approved') && drafts.length===2 ? 'Saved approved language versions' : 'Verified native previews'} · same source question · {EDITORIAL_ENABLED ? 'edit and approve each language separately; nothing is published automatically' : 'read-only generated previews; no language approval recorded'}
           </p>
         </div>
         {snapshot && <Badge variant="outline" className="text-[10px]">

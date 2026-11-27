@@ -87,6 +87,14 @@ export async function nativeLocalizedQuestion(
   if (packageId === "CAL-001" && cpId === qlId && string(payload.questionId)) {
     return replayCal001Question(qlId, string(payload.questionId), language);
   }
+  if (packageId === "TSD-AUDIT-REVIEW") {
+    const { replayTsdAuditReviewQuestion } = await import("./quant-tsd-audit-review");
+    return nativeSourceQuestion(replayTsdAuditReviewQuestion(string(payload.questionId), cpId, qlId, language));
+  }
+  if (packageId === "TSD-002") {
+    const { replayTsd002Question } = await import("./quant-time-speed-distance");
+    return nativeSourceQuestion(replayTsd002Question(payload, language));
+  }
   if (!seed) throw new Error("NATIVE_LOCALIZATION_SOURCE_IDENTITY_MISSING");
   if (packageId === "TRG-001") {
     const question = generateApprovedTrg001QuestionStudioQuestion(qlId, seed, language);
