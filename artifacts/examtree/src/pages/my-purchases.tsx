@@ -247,7 +247,6 @@ export default function MyPurchasesPage() {
     queryFn: getCommercePurchases,
     staleTime: 0,
     retry: 1,
-    staleTime: 30_000,
   });
 
   const data = purchasesQuery.data;
