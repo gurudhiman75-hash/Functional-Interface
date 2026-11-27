@@ -208,27 +208,27 @@ test("grouped review batches preserve the generated English identity across all 
   }
 });
 
-test("CAE-001 checkpoints support grouped Mixed while unsupported explicit difficulty stays actionable", async () => {
+test("CAE-001 generates scoped Medium questions with linked languages in both exam profiles", async () => {
   const { executeUniversalStudioCompute } = await import("./universal-executor");
   const { readPersistedNativeSnapshot } = await import("./persisted-native-review-format");
-  const request = {
-    packageId: "CAE-001", engineId: "reasoning-v1", count: 2,
-    language: "en", nativeGroupedReview: true, seed: "cae-scoped-difficulty",
-  } as const;
   const selectedCpIds = ["CAE-CP-001", "CAE-CP-002"];
-  const batch = await executeUniversalStudioCompute({
-    request: { ...request, difficulty: "Mixed" }, count: 2, selectedCpIds,
-  });
-  assert.deepEqual(batch.questions.map(q => q.cpId), selectedCpIds);
-  for (const question of batch.questions) {
-    assert.deepEqual(readPersistedNativeSnapshot(question)?.variants.map(v => v.status), ["verified", "verified"]);
+  for (const [exam, optionCount] of [["SSC CGL", 4], ["IBPS PO", 5]] as const) {
+    const count = 12;
+    const batch = await executeUniversalStudioCompute({
+      request: { packageId: "CAE-001", engineId: "reasoning-v1", count,
+        language: "en", nativeGroupedReview: true, seed: "cae-scoped-difficulty",
+        difficulty: "Medium", exam },
+      count,
+      selectedCpIds,
+    });
+    assert.deepEqual(batch.questions.map(q => q.cpId), selectedCpIds.flatMap(cp => Array(6).fill(cp)));
+    for (const question of batch.questions) {
+      assert.equal(question.difficulty, "Medium");
+      assert.equal((question.options as unknown[]).length, optionCount);
+      assert.deepEqual(readPersistedNativeSnapshot(question)?.variants.map(v => v.status), ["verified", "verified"]);
+    }
   }
-  await assert.rejects(
-    executeUniversalStudioCompute({ request: { ...request, difficulty: "Medium" }, count: 2, selectedCpIds }),
-    { code: "QUESTION_STUDIO_CHECKPOINT_DIFFICULTY_UNAVAILABLE", statusCode: 422 },
-  );
 });
-
 
 test("scoped Mixed batches respect Trigonometry difficulty and replay audited OPS templates", async () => {
   const { executeUniversalStudioCompute } = await import("./universal-executor");
