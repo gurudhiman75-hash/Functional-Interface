@@ -24,7 +24,10 @@ export async function prepareNativeReviewSnapshot(
      source.correctIndex>=source.options.length)return null;
   try {
     assertNativeEnglishSourceParity(source,await nativeLocalizedQuestion(payload,"en"));
-  }catch{return null;}
+  }catch(error){
+    console.warn("[native-review] English source parity failed; no Hindi/Punjabi saved",{packageId,cpId:string(payload.canonicalProblemId||payload.selectedCpId||payload.cpId),reason:error instanceof Error?error.message:String(error)});
+    return null;
+  }
   const variants=await Promise.all(active.map(async (language):Promise<PersistedNativeVariant>=>{
     try{
       const localized=await nativeLocalizedQuestion(payload,language);
