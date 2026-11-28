@@ -68,3 +68,9 @@
 | Industrial node | औद्योगिक केंद्र | ਉਦਯੋਗਿਕ ਕੇਂਦਰ |
 | Dedicated freight corridor | समर्पित माल ढुलाई गलियारा | ਸਮਰਪਿਤ ਮਾਲ-ਢੁਆਈ ਗਲਿਆਰਾ |
 | Export-oriented manufacturing | निर्यात-उन्मुख विनिर्माण | ਨਿਰਯਾਤ ਲਈ ਨਿਰਮਾਣ |
+| Particulate matter | कणीय पदार्थ | ਕਣੀ ਪਦਾਰਥ |
+| Industrial effluent | औद्योगिक बहिःस्राव | ਉਦਯੋਗਿਕ ਗੰਦਾ ਪਾਣੀ |
+| Thermal pollution | तापीय प्रदूषण | ਤਾਪੀ ਪ੍ਰਦੂਸ਼ਣ |
+| Waste segregation | अपशिष्ट की छँटाई | ਰਹਿੰਦ-ਖੂੰਹਦ ਦੀ ਛਾਂਟੀ |
+| Cleaner production | स्वच्छतर उत्पादन | ਵਧੇਰੇ ਸਾਫ਼ ਉਤਪਾਦਨ |
+| Industrial symbiosis | औद्योगिक सहजीविता | ਉਦਯੋਗਿਕ ਸਹਿਜੀਵਤਾ |
