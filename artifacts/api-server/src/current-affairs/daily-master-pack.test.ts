@@ -56,7 +56,8 @@ assert.match(markdown, /Economy & Banking/);
 assert.match(markdown, /Punjab/);
 assert.match(markdown, /Reserve Bank of India/);
 assert.match(markdown, /Exam relevance/);
-assert.match(markdown, /Draft only/);
+assert.match(markdown, /Prepared by Examtree/);
+assert.doesNotMatch(markdown, /draft|canonical|editorial|Question Bank/i);
 
 const hindiEvents: DailyMasterPackEvent[] = [
   {

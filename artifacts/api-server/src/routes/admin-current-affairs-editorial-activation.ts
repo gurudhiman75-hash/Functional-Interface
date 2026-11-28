@@ -322,6 +322,29 @@ router.get("/editorial/headlines/:candidateId/news-preview", requireAdminPermiss
   }
 });
 
+router.post("/editorial/headlines/auto-select", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = req.adminSession?.user.id;
+    if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
+    const targetDate = text(req.body?.date, 10) || previousIndiaDate(new Date());
+    const { loadCurrentAffairsHeadlineReview, setCurrentAffairsHeadlineSelection } = await import("../current-affairs/headline-review-runtime");
+    const { autoPickHeadlines } = await import("../current-affairs/headline-autopick-policy");
+    const review = await loadCurrentAffairsHeadlineReview(targetDate, 1500);
+    const picks = autoPickHeadlines(review.items);
+    for (const pick of picks) {
+      await setCurrentAffairsHeadlineSelection({
+        candidateId: pick.candidateId,
+        selected: true,
+        reason: "Admin used auto-pick for high-relevance, verifiable headlines.",
+        actorUserId,
+      });
+    }
+    res.json({ targetDate, pickedCount: picks.length, selectedCount: review.counts.selected + picks.length });
+  } catch (error) {
+    sendError(res, error, "Unable to auto-pick Current Affairs headlines");
+  }
+});
+
 router.post("/editorial/headlines/:candidateId/selection", requireAdminPermission("content.questions.update"), async (req, res) => {
   try {
     const actorUserId = req.adminSession?.user.id;

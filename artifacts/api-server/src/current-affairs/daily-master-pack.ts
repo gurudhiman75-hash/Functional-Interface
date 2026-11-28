@@ -199,7 +199,7 @@ const LANGUAGE_COPY = {
     locale: "en-IN",
     title: "Examtree Daily Current Affairs",
     count: (events: number, sections: number) => `${events} verified, authoring-ready, exam-relevant developments · ${sections} sections`,
-    intro: "Canonical draft generated from Examtree's verified Current Affairs event graph. This text is the shared source for web and text distribution; the English pack also drives the validated PDF renderer. Editorial approval remains separate.",
+    intro: "Exam-focused current affairs with key facts and sources for each development.",
     why: "Why in News",
     facts: "Key Facts",
     remember: "Remember",
@@ -207,13 +207,13 @@ const LANGUAGE_COPY = {
     evidence: "Evidence",
     primary: "Primary",
     supporting: "Supporting",
-    footer: "Draft only. Publication and Question Bank promotion require separate editorial authority.",
+    footer: "Prepared by Examtree. Check the linked sources for full details.",
   },
   hi: {
     locale: "hi-IN",
     title: "Examtree दैनिक करेंट अफेयर्स",
     count: (events: number, sections: number) => `${events} सत्यापित, परीक्षा-प्रासंगिक घटनाक्रम · ${sections} खंड`,
-    intro: "यह कैनोनिकल ड्राफ्ट Examtree के सत्यापित Current Affairs event graph और स्वीकृत हिंदी localization records से बनाया गया है। अंग्रेज़ी, हिंदी और पंजाबी master packs में event-ID parity अनिवार्य है। संपादकीय स्वीकृति अलग चरण है।",
+    intro: "परीक्षा पर केंद्रित करेंट अफेयर्स, हर घटनाक्रम के मुख्य तथ्यों और स्रोतों के साथ।",
     why: "समाचार में क्यों",
     facts: "मुख्य तथ्य",
     remember: "याद रखें",
@@ -221,13 +221,13 @@ const LANGUAGE_COPY = {
     evidence: "साक्ष्य",
     primary: "प्राथमिक",
     supporting: "सहायक",
-    footer: "केवल ड्राफ्ट। प्रकाशन और Question Bank promotion के लिए अलग संपादकीय अनुमति आवश्यक है।",
+    footer: "Examtree द्वारा तैयार। पूरी जानकारी के लिए दिए गए स्रोत देखें।",
   },
   pa: {
     locale: "pa-IN",
     title: "Examtree ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
     count: (events: number, sections: number) => `${events} ਪ੍ਰਮਾਣਿਤ, ਪ੍ਰੀਖਿਆ-ਸੰਬੰਧਿਤ ਘਟਨਾਵਾਂ · ${sections} ਭਾਗ`,
-    intro: "ਇਹ ਕੈਨੋਨਿਕਲ ਡਰਾਫਟ Examtree ਦੇ ਪ੍ਰਮਾਣਿਤ Current Affairs event graph ਅਤੇ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਪੰਜਾਬੀ localization records ਤੋਂ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਅੰਗਰੇਜ਼ੀ, ਹਿੰਦੀ ਅਤੇ ਪੰਜਾਬੀ master packs ਵਿੱਚ event-ID parity ਲਾਜ਼ਮੀ ਹੈ। ਸੰਪਾਦਕੀ ਮਨਜ਼ੂਰੀ ਵੱਖਰਾ ਪੜਾਅ ਹੈ।",
+    intro: "ਪ੍ਰੀਖਿਆ-ਕੇਂਦਰਿਤ ਕਰੰਟ ਅਫੇਅਰਜ਼, ਹਰ ਘਟਨਾ ਦੇ ਮੁੱਖ ਤੱਥਾਂ ਅਤੇ ਸਰੋਤਾਂ ਸਮੇਤ।",
     why: "ਖ਼ਬਰਾਂ ਵਿੱਚ ਕਿਉਂ",
     facts: "ਮੁੱਖ ਤੱਥ",
     remember: "ਯਾਦ ਰੱਖੋ",
@@ -235,7 +235,7 @@ const LANGUAGE_COPY = {
     evidence: "ਸਬੂਤ",
     primary: "ਮੁੱਖ ਸਰੋਤ",
     supporting: "ਸਹਾਇਕ",
-    footer: "ਕੇਵਲ ਡਰਾਫਟ। ਪ੍ਰਕਾਸ਼ਨ ਅਤੇ Question Bank promotion ਲਈ ਵੱਖਰੀ ਸੰਪਾਦਕੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ।",
+    footer: "Examtree ਵੱਲੋਂ ਤਿਆਰ। ਪੂਰੀ ਜਾਣਕਾਰੀ ਲਈ ਦਿੱਤੇ ਸਰੋਤ ਵੇਖੋ।",
   },
 } satisfies Record<DailyMasterPackLanguage, {
   locale: string;
@@ -502,12 +502,12 @@ function resourceTitle(contentDate: string, language: DailyMasterPackLanguage) {
 
 function resourceSummary(payload: DailyMasterPackPayload) {
   if (payload.language === "hi") {
-    return `${payload.eventCount} सत्यापित परीक्षा-प्रासंगिक Current Affairs घटनाक्रम ${payload.categoryCount} खंडों में। अंग्रेज़ी master pack के साथ event-ID parity वाला कैनोनिकल ड्राफ्ट।`;
+    return `${payload.eventCount} सत्यापित परीक्षा-प्रासंगिक Current Affairs घटनाक्रम ${payload.categoryCount} खंडों में।`;
   }
   if (payload.language === "pa") {
-    return `${payload.eventCount} ਪ੍ਰਮਾਣਿਤ ਪ੍ਰੀਖਿਆ-ਸੰਬੰਧਿਤ Current Affairs ਘਟਨਾਵਾਂ ${payload.categoryCount} ਭਾਗਾਂ ਵਿੱਚ। ਅੰਗਰੇਜ਼ੀ master pack ਨਾਲ event-ID parity ਵਾਲਾ ਕੈਨੋਨਿਕਲ ਡਰਾਫਟ।`;
+    return `${payload.eventCount} ਪ੍ਰਮਾਣਿਤ ਪ੍ਰੀਖਿਆ-ਸੰਬੰਧਿਤ Current Affairs ਘਟਨਾਵਾਂ ${payload.categoryCount} ਭਾਗਾਂ ਵਿੱਚ।`;
   }
-  return `${payload.eventCount} verified exam-relevant Current Affairs developments across ${payload.categoryCount} sections. Canonical draft for text and PDF distribution.`;
+  return `${payload.eventCount} verified exam-relevant Current Affairs developments across ${payload.categoryCount} sections.`;
 }
 
 export async function materializeDailyMasterPack(

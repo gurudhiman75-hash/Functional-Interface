@@ -313,9 +313,9 @@ function publicCode(contentDate: string, language: DailyMasterPackLanguage) {
 }
 
 function resourceSummary(payload: DailyMasterPackPayload) {
-  if (payload.language === "hi") return `${payload.eventCount} चयनित, सत्यापित Current Affairs घटनाक्रम ${payload.categoryCount} खंडों में।`;
-  if (payload.language === "pa") return `${payload.eventCount} ਚੁਣੀਆਂ ਹੋਈਆਂ, ਪ੍ਰਮਾਣਿਤ Current Affairs ਘਟਨਾਵਾਂ ${payload.categoryCount} ਭਾਗਾਂ ਵਿੱਚ।`;
-  return `${payload.eventCount} admin-selected, verified Current Affairs developments across ${payload.categoryCount} sections.`;
+  if (payload.language === "hi") return `${payload.eventCount} सत्यापित Current Affairs घटनाक्रम ${payload.categoryCount} खंडों में।`;
+  if (payload.language === "pa") return `${payload.eventCount} ਪ੍ਰਮਾਣਿਤ Current Affairs ਘਟਨਾਵਾਂ ${payload.categoryCount} ਭਾਗਾਂ ਵਿੱਚ।`;
+  return `${payload.eventCount} verified Current Affairs developments across ${payload.categoryCount} sections.`;
 }
 
 async function existingPacks(contentDate: string) {

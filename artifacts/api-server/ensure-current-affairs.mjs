@@ -41,6 +41,8 @@ const migrationFiles = [
   "20260903_current_affairs_selected_processing_runs.sql",
   "20260905_current_affairs_selected_processing_localization_method.sql",
   "20260926_current_affairs_coverage_discovery.sql",
+  "20261128_current_affairs_hindu_headline_feed.sql",
+  "20261129_current_affairs_master_pack_publication.sql",
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
