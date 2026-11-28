@@ -22,7 +22,7 @@ import {
   generateLp007BatchStabilizedV4_2,
   generateLp008BatchStabilizedV4_2,
 } from "./lp-001-008-stabilized-english-v4-2.ts";
-import { LP_001_008_LOCALIZED_GENERATORS_V4 } from "./lp-001-008-localization-v4.ts";
+import { LP_001_008_CLUES_HEADING_V5, LP_001_008_LOCALIZED_GENERATORS_V5 } from "./lp-001-008-localization-v5.ts";
 import {
   LP_001_008_MULTILINGUAL_QUESTION_STUDIO_V1,
   normalizeLp001008QuestionStudioLanguage,
@@ -64,14 +64,14 @@ const ENGLISH_001_008: Record<string, (seed?: string, count?: number) => any[]> 
 };
 
 const CONFIGS: Record<PackageId, Config> = {
-  "LP-001": { packageId: "LP-001", reviewPackage: LP_001_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-001"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-001"] },
-  "LP-002": { packageId: "LP-002", reviewPackage: LP_002_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-002"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-002"] },
-  "LP-003": { packageId: "LP-003", reviewPackage: LP_003_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-003"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-003"] },
-  "LP-004": { packageId: "LP-004", reviewPackage: LP_004_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-004"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-004"] },
-  "LP-005": { packageId: "LP-005", reviewPackage: LP_005_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-005"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-005"] },
-  "LP-006": { packageId: "LP-006", reviewPackage: LP_006_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-006"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-006"] },
-  "LP-007": { packageId: "LP-007", reviewPackage: LP_007_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-007"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-007"] },
-  "LP-008": { packageId: "LP-008", reviewPackage: LP_008_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-008"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V4["LP-008"] },
+  "LP-001": { packageId: "LP-001", reviewPackage: LP_001_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-001"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-001"] },
+  "LP-002": { packageId: "LP-002", reviewPackage: LP_002_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-002"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-002"] },
+  "LP-003": { packageId: "LP-003", reviewPackage: LP_003_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-003"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-003"] },
+  "LP-004": { packageId: "LP-004", reviewPackage: LP_004_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-004"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-004"] },
+  "LP-005": { packageId: "LP-005", reviewPackage: LP_005_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-005"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-005"] },
+  "LP-006": { packageId: "LP-006", reviewPackage: LP_006_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-006"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-006"] },
+  "LP-007": { packageId: "LP-007", reviewPackage: LP_007_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-007"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-007"] },
+  "LP-008": { packageId: "LP-008", reviewPackage: LP_008_REVIEW_PACKAGE, englishGenerator: ENGLISH_001_008["LP-008"]!, localizedGenerator: LP_001_008_LOCALIZED_GENERATORS_V5["LP-008"] },
   "LP-009": { packageId: "LP-009", reviewPackage: LP_009_REVIEW_PACKAGE, englishGenerator: generateLp009Batch, localizedGenerator: generateLp009LocalizedBatchV3 as any },
   "LP-010": { packageId: "LP-010", reviewPackage: LP_010_REVIEW_PACKAGE, englishGenerator: generateLp010Batch, localizedGenerator: generateLp010LocalizedBatchV6 as any },
 };
@@ -137,24 +137,26 @@ function localizationFreezeStatus(packageId: PackageId): string {
 }
 
 function localizationAuthorityId(packageId: PackageId, language: Language): string {
-  if (is001008(packageId)) return language === "en" ? "LP_001_008_ENGLISH_FREEZE_V1" : "LP_001_008_HI_PA_LOCALIZATION_FREEZE_V4";
+  if (is001008(packageId)) return language === "en" ? "LP_001_008_ENGLISH_FREEZE_V1" : "LP_001_008_HI_PA_LOCALIZATION_REVIEW_V5";
   if (packageId === "LP-009") return language === "en" ? "LP_009_ENGLISH_FREEZE_V1" : "LP_009_HI_PA_LOCALIZATION_FREEZE_V3";
   return language === "en" ? "LP_010_ENGLISH_FREEZE_V1" : "LP_010_HI_PA_LOCALIZATION_FREEZE_V6";
 }
 
-function frozenSourceStatus(packageId: PackageId): string {
-  if (is001008(packageId)) return "FROZEN_LOCALIZATION_V4";
+function frozenSourceStatus(packageId: PackageId, language: Language): string {
+  // HI/PA for LP-001..008 now render through the V5 scenario-context layer (frozen V4 + native context line).
+  if (is001008(packageId)) return language === "en" ? "FROZEN_LOCALIZATION_V4" : "FROZEN_LOCALIZATION_V4_PLUS_V5_CONTEXT_CANDIDATE";
   if (packageId === "LP-009") return "FROZEN_LOCALIZATION_V3";
   return "FROZEN_LOCALIZATION_V6";
 }
 
-function standaloneText(packageId: PackageId, caselet: any, child: any): string {
+function standaloneText(packageId: PackageId, caselet: any, child: any, language: Language): string {
   if (!is001008(packageId)) return child.stem;
   const source = caselet.englishCaselet ?? caselet;
   const clues: readonly string[] = caselet.learnerFacingClues
     ?? source.learnerFacingClues
     ?? (source.clues ?? []).map((clue: any) => clue.text);
-  return `${caselet.scenario}\n\nClues:\n${clues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
+  const heading = LP_001_008_CLUES_HEADING_V5[language as keyof typeof LP_001_008_CLUES_HEADING_V5] ?? LP_001_008_CLUES_HEADING_V5.en;
+  return `${caselet.scenario}\n\n${heading}\n${clues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
 }
 
 function logicPayload(packageId: PackageId, caselet: any): Record<string, unknown> {
@@ -229,7 +231,7 @@ export async function generateLogicPuzzleQuestionStudioBatch(request: LogicPuzzl
   const freeze = localizationFreezeStatus(packageId);
   const pkg = config.reviewPackage;
   const questions = caselets.flatMap((caselet: any, caseletIndex: number) => caselet.children.map((child: any, childIndex: number) => ({
-    text: standaloneText(packageId, caselet, child),
+    text: standaloneText(packageId, caselet, child, language),
     options: child.options,
     correct: child.correctIndex,
     correctIndex: child.correctIndex,
@@ -259,7 +261,7 @@ export async function generateLogicPuzzleQuestionStudioBatch(request: LogicPuzzl
     testEligible: false,
     mockTestEligible: false,
     publiclyPublishable: false,
-    traceability: { checkpointId: pkg.checkpointId, qlId: child.qlId, caseletId: caselet.caseletId, sourceStatus: frozenSourceStatus(packageId) },
+    traceability: { checkpointId: pkg.checkpointId, qlId: child.qlId, caseletId: caselet.caseletId, sourceStatus: frozenSourceStatus(packageId, language) },
     metadata: { packageId, checkpointId: pkg.checkpointId, qlId: child.qlId, caseletId: caselet.caseletId, language, localizationAuthorityId: localizationAuthorityId(packageId, language) },
     logic: logicPayload(packageId, caselet),
   })));
