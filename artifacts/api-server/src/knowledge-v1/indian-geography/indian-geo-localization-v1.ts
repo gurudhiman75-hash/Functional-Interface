@@ -1,3 +1,4 @@
+import { localizeIndianGeoNativeV1 } from "./native/indian-geo-native-v1";
 import { localizeGeoSoi001ExactCp001PartA } from "./soils/geo-soi-001-localization-cp001-part-a-v1";
 import { localizeGeoSoi001ExactCp001PartB } from "./soils/geo-soi-001-localization-cp001-part-b-v1";
 import { localizeGeoSoi001ExactCp001PartC } from "./soils/geo-soi-001-localization-cp001-part-c-v1";
@@ -1723,6 +1724,10 @@ export function localizeIndianGeoQuestionV1(
       explanation: question.explanation,
     });
   }
+
+  // Per-question native translations take precedence over every generated path.
+  const native = localizeIndianGeoNativeV1(question, language);
+  if (native) return native;
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
