@@ -31,7 +31,7 @@ export function nativeSourceHash(source:NativeReviewQuestion):string {
     source.stem,source.explanation,source.options,source.correctIndex,
   ])).digest("hex");
 }
-const EXACT_NATIVE_REPLAY_PACKAGES = new Set(["TRG-001", "DIR-001", "CAE-001", "CAL-001", "OPS-001"]);
+const EXACT_NATIVE_REPLAY_PACKAGES = new Set(["TRG-001", "DIR-001", "CAE-001", "CAL-001", "OPS-001", "TSD-AUDIT-REVIEW", "TSD-002"]);
 
 export function supportsExactNativeReplay(packageId: unknown): boolean {
   return EXACT_NATIVE_REPLAY_PACKAGES.has(text(packageId));
@@ -39,7 +39,13 @@ export function supportsExactNativeReplay(packageId: unknown): boolean {
 
 export function hasNativeReplaySeed(payload: Record<string, unknown>): boolean {
   if (payload.provenance === "CONTROLLED_NOVEL") return false;
-  return Boolean(text(payload.seed)) || (
+  const context = payload.generationContext as Record<string, unknown> | undefined;
+  const parameters = payload.parameters as Record<string, unknown> | undefined;
+  const tsd002Identity = payload.packageId === "TSD-002" && text(payload.canonicalItemId) &&
+    (text(context?.assignmentSeed) || (payload.canonicalProblemId === "TSD-CP-007" && text(parameters?.seed)));
+  return Boolean(tsd002Identity) ||
+    (payload.packageId === "TSD-AUDIT-REVIEW" && /^tsd-audit-\d+-en$/.test(text(payload.questionId))) ||
+    Boolean(text(payload.seed)) || (
     ["DIR-001", "CAE-001", "OPS-001"].includes(text(payload.packageId)) &&
     typeof payload.numericSeed === "number" && Number.isInteger(payload.numericSeed) &&
     payload.numericSeed >= 0 && payload.numericSeed <= 0xffffffff
@@ -52,6 +58,8 @@ export function nativeIdentityHash(payload:Record<string,unknown>):string {
     text(payload.canonicalProblemId||payload.selectedCpId||payload.cpId),
     text(payload.questionLanguageId||payload.qlId),
     text(payload.seed),text(payload.difficulty),text(payload.language),
+    ...(payload.packageId === "TSD-AUDIT-REVIEW" || payload.packageId === "TSD-002"
+      ? [text(payload.questionId)] : []),
   ])).digest("hex");
 }
 export function readPersistedNativeSnapshot(payload:Record<string,unknown>):PersistedNativeSnapshot|null {

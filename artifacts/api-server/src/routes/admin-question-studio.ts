@@ -470,6 +470,13 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
               'selectedCpId', v.payload -> 'selectedCpId',
               'engineId', v.payload -> 'engineId',
               'questionLanguageId', v.payload -> 'questionLanguageId',
+              'questionId', v.payload -> 'questionId',
+              'nativeSourceIdentityAvailable', CASE WHEN v.payload ->> 'packageId' = 'TSD-002' THEN
+                v.payload ->> 'canonicalItemId' IS NOT NULL AND (
+                  v.payload #>> '{generationContext,assignmentSeed}' IS NOT NULL OR
+                  (v.payload ->> 'canonicalProblemId' = 'TSD-CP-007' AND v.payload #>> '{parameters,seed}' IS NOT NULL)
+                )
+              END,
               'topic', v.payload -> 'topic',
               'subtopic', v.payload -> 'subtopic',
               'language', v.payload -> 'language',

@@ -103,98 +103,150 @@ function attachOptions(
     };
   throw new Error(`No option authority for ${cp}`);
 }
-const rows: QuestionStudioGeneratedQuestion[] =
-  buildTsdIntegratedReviewCorpus().map((original, index) => {
-    const source = record(original.source),
-      raw = { ...source, ...original, ...record(original.presentation) },
-      group = String(original.reviewGroup ?? "");
-    const supplemental: Record<string, string> = {
-      twoWalker: "011",
-      signedCycle: "012",
-      slowdown: "012",
-      headstarts: "010",
-    };
-    const cp = original.checkpoint
-      ? `TSD-CP-${String(original.checkpoint).replace(/^CP/, "")}`
-      : group === "motionExtensions"
-        ? "TSD-SOURCE-EXTENSIONS"
-        : `TSD-CP-${supplemental[group] ?? group.match(/^cp(\d{3})/)?.[1]}`;
-    const row = attachOptions(raw, cp, index);
-    const language = String(row.language ?? row.locale ?? "en").split("-")[0],
-      options = Array.isArray(row.options) ? row.options.map(String) : [],
-      correctIndex = Number(row.correctIndex ?? row.correct ?? -1),
-      stem = String(row.stem ?? row.text ?? ""),
-      explanation = flatten(row.explanation);
-    const qlId = String(
-        row.qlId ?? row.permanentQlId ?? source.permanentQlId ?? "",
-      ),
-      band = String(
-        row.difficultyBand ?? row.difficulty ?? "Medium",
-      ).toLowerCase(),
-      difficulty =
-        row.advancedSourceOnly === true
-          ? "Hard"
-          : band === "easy"
-            ? "Easy"
-            : band === "hard"
-              ? "Hard"
-              : "Medium";
-    if (
-      cp.includes("undefined") ||
-      !["en", "hi", "pa"].includes(language) ||
-      !stem ||
-      !explanation ||
-      options.length !== 4 ||
-      new Set(options).size !== 4 ||
-      !Number.isInteger(correctIndex) ||
-      correctIndex < 0 ||
-      correctIndex > 3
-    )
-      throw new Error(`Invalid integrated TSD row ${index}/${cp}/${language}`);
-    return {
-      questionId: `tsd-audit-${index}-${language}`,
-      text: stem,
-      stem,
-      options,
-      correct: correctIndex,
-      correctIndex,
-      answer: options[correctIndex],
-      answerText: options[correctIndex],
-      explanation,
-      difficulty,
-      difficultyLabel: difficulty,
-      language,
-      packageId: TSD_AUDIT_REVIEW_PACKAGE_ID,
-      patternId: TSD_AUDIT_REVIEW_PACKAGE_ID,
-      canonicalProblemId: cp,
-      qlId: qlId || undefined,
-      questionLanguageId: qlId || undefined,
-      familyId: row.familyId,
-      section: "Quant",
-      topic: "Arithmetic",
-      subtopic: "Time, Speed & Distance",
-      generationBackend: "quant-v4",
-      ...lifecycle,
-      lifecycleStage: "REVIEW_ONLY",
-      reviewOnly: true,
-      productOwnerApprovalRecorded: false,
-      reviewStatus: "AUDITED_REVIEW_PENDING_USER_LIVE_VERIFICATION",
-      questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
-      routeMounted: true,
-      productionSelectorVisible: true,
-      persistenceAllowed: false,
-      publicReleaseAuthorized: false,
-      advancedSourceOnly: row.advancedSourceOnly === true,
-      sourceObservation: row.sourceObservation,
-      metadata: {
-        reviewGroup: original.reviewGroup ?? original.authoritySource,
-        sourcePackageId: row.packageId,
-        liveVerificationOwner: "PRODUCT_OWNER",
-        liveVerificationStatus: "DEFERRED_BY_USER",
-        sourceApprovalUnchanged: true,
-      },
-    };
+const corpus = buildTsdIntegratedReviewCorpus();
+function sourceOf(original: Record<string, unknown>) {
+  return { ...record(original.source), ...original, ...record(original.presentation) };
+}
+
+function renderAuditRow(original: Record<string, unknown>, index: number, optionIndex = index): QuestionStudioGeneratedQuestion {
+  const source = record(original.source),
+    raw = sourceOf(original),
+    group = String(original.reviewGroup ?? "");
+  const supplemental: Record<string, string> = {
+    twoWalker: "011",
+    signedCycle: "012",
+    slowdown: "012",
+    headstarts: "010",
+  };
+  const cp = original.checkpoint
+    ? `TSD-CP-${String(original.checkpoint).replace(/^CP/, "")}`
+    : group === "motionExtensions"
+      ? "TSD-SOURCE-EXTENSIONS"
+      : `TSD-CP-${supplemental[group] ?? group.match(/^cp(\d{3})/)?.[1]}`;
+  const row = attachOptions(raw, cp, optionIndex);
+  const language = String(row.language ?? row.locale ?? "en").split("-")[0],
+    options = Array.isArray(row.options) ? row.options.map(String) : [],
+    correctIndex = Number(row.correctIndex ?? row.correct ?? -1),
+    stem = String(row.stem ?? row.text ?? ""),
+    explanation = flatten(row.explanation);
+  const qlId = String(
+      row.qlId ?? row.permanentQlId ?? source.permanentQlId ?? "",
+    ),
+    band = String(
+      row.difficultyBand ?? row.difficulty ?? "Medium",
+    ).toLowerCase(),
+    difficulty =
+      row.advancedSourceOnly === true
+        ? "Hard"
+        : band === "easy"
+          ? "Easy"
+          : band === "hard"
+            ? "Hard"
+            : "Medium";
+  if (
+    cp.includes("undefined") ||
+    !["en", "hi", "pa"].includes(language) ||
+    !stem ||
+    !explanation ||
+    options.length !== 4 ||
+    new Set(options).size !== 4 ||
+    !Number.isInteger(correctIndex) ||
+    correctIndex < 0 ||
+    correctIndex > 3
+  )
+    throw new Error(`Invalid integrated TSD row ${index}/${cp}/${language}`);
+  return {
+    questionId: `tsd-audit-${index}-${language}`,
+    text: stem,
+    stem,
+    options,
+    correct: correctIndex,
+    correctIndex,
+    answer: options[correctIndex],
+    answerText: options[correctIndex],
+    explanation,
+    difficulty,
+    difficultyLabel: difficulty,
+    language,
+    packageId: TSD_AUDIT_REVIEW_PACKAGE_ID,
+    patternId: TSD_AUDIT_REVIEW_PACKAGE_ID,
+    canonicalProblemId: cp,
+    qlId: qlId || undefined,
+    questionLanguageId: qlId || undefined,
+    familyId: row.familyId,
+    section: "Quant",
+    topic: "Arithmetic",
+    subtopic: "Time, Speed & Distance",
+    generationBackend: "quant-v4",
+    ...lifecycle,
+    lifecycleStage: "REVIEW_ONLY",
+    reviewOnly: true,
+    productOwnerApprovalRecorded: false,
+    reviewStatus: "AUDITED_REVIEW_PENDING_USER_LIVE_VERIFICATION",
+    questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY",
+    routeMounted: true,
+    productionSelectorVisible: true,
+    persistenceAllowed: false,
+    publicReleaseAuthorized: false,
+    advancedSourceOnly: row.advancedSourceOnly === true,
+    sourceObservation: row.sourceObservation,
+    metadata: {
+      reviewGroup: original.reviewGroup ?? original.authoritySource,
+      sourcePackageId: row.packageId,
+      liveVerificationOwner: "PRODUCT_OWNER",
+      liveVerificationStatus: "DEFERRED_BY_USER",
+      sourceApprovalUnchanged: true,
+    },
+  };
+}
+
+const rows = corpus.map((original, index) => renderAuditRow(original, index));
+
+function exactAuditKey(original: Record<string, unknown>, row: QuestionStudioGeneratedQuestion): string | null {
+  const source = sourceOf(original);
+  const isCp004 = row.canonicalProblemId === "TSD-CP-004";
+  const identity = isCp004
+    ? source.input
+    : source.canonicalItemId ?? source.caseId ?? source.mathematicalFingerprint ?? source.seed ?? source.input;
+  if (!identity) return null;
+  return JSON.stringify([
+    row.canonicalProblemId, row.qlId,
+    isCp004 ? "cp004" : original.reviewGroup ?? original.checkpoint, row.familyId, identity,
+  ], (_key, value) => {
+    if (typeof value === "bigint") return value.toString();
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b)));
+    }
+    return value;
   });
+}
+
+const localeGroups = new Map<string, number[]>();
+for (const [index, row] of rows.entries()) {
+  const key = exactAuditKey(corpus[index]!, row);
+  if (!key) continue;
+  const group = localeGroups.get(key);
+  if (group) group.push(index);
+  else localeGroups.set(key, [index]);
+}
+
+export function replayTsdAuditReviewQuestion(
+  questionId: string, cp: string, ql: string, language: "en" | "hi" | "pa",
+): QuestionStudioGeneratedQuestion {
+  const index = Number(/^tsd-audit-(\d+)-en$/.exec(questionId)?.[1]);
+  const english = rows[index];
+  if (!english || english.questionId !== questionId || english.canonicalProblemId !== cp || english.qlId !== ql) {
+    throw new Error("TSD audit source item does not match the saved checkpoint and question language");
+  }
+  if (language === "en") return english;
+  const key = exactAuditKey(corpus[index]!, english);
+  const candidates = (key ? localeGroups.get(key) ?? [] : []).filter(i => rows[i]?.language === language);
+  if (candidates.length !== 1) throw new Error("TSD audit source has no uniquely identified native counterpart");
+
+  const variant = renderAuditRow(corpus[candidates[0]!]!, candidates[0]!, index);
+  if (variant.correctIndex !== english.correctIndex) throw new Error("TSD audit native answer position differs");
+  return variant;
+}
 const cpIds = [
   ...new Set(rows.map((r) => String(r.canonicalProblemId))),
 ].sort();

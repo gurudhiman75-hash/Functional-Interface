@@ -253,3 +253,38 @@ test("scoped Mixed batches respect Trigonometry difficulty and replay audited OP
     }
   }
 });
+
+test("TSD audited review recovers exact stored catalog IDs without a random seed", async () => {
+  const { getTsdIntegratedReviewRowsForAudit } = await import("./quant-tsd-audit-review");
+  const { prepareNativeReviewSnapshot } = await import("./persisted-native-review");
+  const rows = getTsdIntegratedReviewRowsForAudit();
+  for (const id of ["tsd-audit-2138-en", "tsd-audit-1068-en", "tsd-audit-1705-en"]) {
+    const source = rows.find(q => q.questionId === id)!;
+    assert.equal(source.seed, undefined);
+    const snapshot = await prepareNativeReviewSnapshot(source);
+    assert.deepEqual(snapshot?.variants.map(v => v.status), ["verified", "verified"], id);
+    await assert.rejects(nativeLocalizedQuestion({ ...source, canonicalProblemId: "TSD-CP-003" }, "hi"));
+  }
+});
+
+test("TSD-002 links new and historical saved CP009 questions in English option order", async () => {
+  const { generateTsdEngineBatch } = await import("./quant-time-speed-distance");
+  const { prepareNativeReviewSnapshot } = await import("./persisted-native-review");
+  const batch = await generateTsdEngineBatch({
+    packageId: "TSD-002", language: "en", count: 4, difficulty: "Medium",
+    seed: "native-tsd-registered", canonicalProblemId: "TSD-CP-009",
+  });
+  for (const question of batch!.questions) {
+    const historical = { ...question, seed: undefined, generationContext: {
+      assignmentSeed: "native-tsd-registered", checkpointId: "TSD-CP-009",
+    } };
+    for (const source of [question, historical]) {
+      const snapshot = await prepareNativeReviewSnapshot(source);
+      assert.deepEqual(snapshot?.variants.map(v => v.status), ["verified", "verified"], String(source.questionId));
+      for (const variant of snapshot!.variants) {
+        assert.equal(variant.status, "verified");
+        assert.equal(variant.correctIndex, source.correctIndex);
+      }
+    }
+  }
+});
