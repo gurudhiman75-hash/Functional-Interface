@@ -53,3 +53,10 @@
 | Heavy electrical engineering | भारी विद्युत अभियांत्रिकी | ਭਾਰੀ ਬਿਜਲਈ ਇੰਜੀਨੀਅਰਿੰਗ |
 | Shipbuilding | जहाज़ निर्माण | ਸਮੁੰਦਰੀ ਜਹਾਜ਼ ਬਣਾਉਣਾ |
 | Locomotive | रेल इंजन | ਰੇਲ ਇੰਜਣ |
+| Oil refinery | तेल शोधनशाला | ਤੇਲ ਰਿਫ਼ਾਇਨਰੀ |
+| Hydrocarbon feedstock | हाइड्रोकार्बन कच्चा माल | ਹਾਈਡ੍ਰੋਕਾਰਬਨ ਕੱਚਾ ਮਾਲ |
+| Nitrogenous fertilizer | नाइट्रोजनयुक्त उर्वरक | ਨਾਈਟ੍ਰੋਜਨ ਵਾਲੀ ਖਾਦ |
+| Phosphatic fertilizer | फ़ॉस्फ़ेटयुक्त उर्वरक | ਫ਼ਾਸਫ਼ੇਟ ਵਾਲੀ ਖਾਦ |
+| Rock phosphate | शैल फ़ॉस्फ़ेट | ਚੱਟਾਨੀ ਫ਼ਾਸਫ਼ੇਟ |
+| Sulphuric acid | सल्फ़्यूरिक अम्ल | ਸਲਫ਼ਿਊਰਿਕ ਤੇਜ਼ਾਬ |
+| Pharmaceutical industry | औषधि उद्योग | ਦਵਾਈ ਉਦਯੋਗ |

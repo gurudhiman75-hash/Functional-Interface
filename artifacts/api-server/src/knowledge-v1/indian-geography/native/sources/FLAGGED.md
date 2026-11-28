@@ -8,3 +8,5 @@
 | GEO-IND-001-CP006-Q012, Q030, Q050 | A stem asks for a metal or metal industry, but some distractors name nonmetals, non-mineral products, or ores. This makes the intended answer easier to infer without knowing the industrial geography. |
 | GEO-IND-001-CP006-Q038 | The distractor “cement quarrying” treats cement as a quarried material. Plants quarry raw materials such as limestone. The translation preserves the wording. |
 | GEO-IND-001-CP007-Q024 | The stem does not name the two cities. Several distractors refer to “both” without a clear antecedent, while the intended answer identifies Chennai and Pune explicitly. |
+| GEO-IND-001-CP008-Q034 | The stem asks which pair identifies Sindri, but no option names Sindri. The keyed option and explanation describe general gas supply to nitrogenous-fertilizer plants. |
+| GEO-IND-001-CP008-Q040 | The stem asks about Namrup, while every option and the explanation refer to Sindri. The keyed pair identifies Sindri in Jharkhand. |
