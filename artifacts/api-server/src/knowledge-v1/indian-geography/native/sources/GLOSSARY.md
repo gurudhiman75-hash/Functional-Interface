@@ -74,3 +74,9 @@
 | Waste segregation | अपशिष्ट की छँटाई | ਰਹਿੰਦ-ਖੂੰਹਦ ਦੀ ਛਾਂਟੀ |
 | Cleaner production | स्वच्छतर उत्पादन | ਵਧੇਰੇ ਸਾਫ਼ ਉਤਪਾਦਨ |
 | Industrial symbiosis | औद्योगिक सहजीविता | ਉਦਯੋਗਿਕ ਸਹਿਜੀਵਤਾ |
+| Crude oil | कच्चा तेल | ਕੱਚਾ ਤੇਲ |
+| Petroleum refining | पेट्रोलियम शोधन | ਪੈਟਰੋਲੀਅਮ ਦੀ ਸੋਧਾਈ |
+| Semiconductor | अर्धचालक | ਅਰਧ-ਚਾਲਕ |
+| Paper pulp | लुगदी | ਲੁਗਦੀ |
+| Natural rubber | प्राकृतिक रबर | ਕੁਦਰਤੀ ਰਬੜ |
+| Synthetic rubber | संश्लेषित रबर | ਬਣਾਵਟੀ ਰਬੜ |

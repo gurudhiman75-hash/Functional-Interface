@@ -14,3 +14,4 @@
 | GEO-IND-001-CP009-Q016, Q026, Q030, Q036, Q042, Q045, Q046 | The stems refer to “this region” without naming the region in the item. They depend on checkpoint context that may be absent when Studio delivers questions individually. |
 | GEO-IND-001-CP010-Q009, Q017, Q021, Q023 | The items say “the corridor” or “this corridor” with no named referent in the stem. The relevant corridor is clear only from other items in the checkpoint. |
 | GEO-IND-001-CP011-Q046 | The distractor “steel ore” treats steel as an ore. Steel is a manufactured alloy. The translation preserves the wording. |
+| GEO-IND-001-CP013-Q042 | Three distractors refer to places without identifying them in the stem. The keyed option alone names Noida, Chennai and Hyderabad together. |
