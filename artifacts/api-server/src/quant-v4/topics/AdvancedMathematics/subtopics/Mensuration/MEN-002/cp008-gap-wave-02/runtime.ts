@@ -134,8 +134,12 @@ function dimension(value: bigint) {
   return `$${value}\\text{ cm}$`;
 }
 
+function areaCoefficientBody(value: bigint) {
+  return `${value}\\pi\\text{ cm}^{2}`;
+}
+
 function areaCoefficient(value: bigint) {
-  return `$${value}\\pi\\text{ cm}^{2}$`;
+  return `$${areaCoefficientBody(value)}$`;
 }
 
 function volumeCoefficient(value: bigint) {
@@ -332,7 +336,7 @@ function cylinderRadiusFromAreaDifferenceDraft(prototypeId: MenCp008Wave02Protot
     stem: stemVariant(rng, [
       `For a closed cylinder, the total surface area is greater than the curved surface area by ${areaCoefficient(differenceCoefficient)}. Find the radius.`,
       `The difference between the TSA and CSA of a cylinder is ${areaCoefficient(differenceCoefficient)}. What is its radius?`,
-      `A cylinder has $TSA-CSA=${areaCoefficient(differenceCoefficient)}$. Determine the radius.`,
+      `A cylinder has $TSA-CSA=${areaCoefficientBody(differenceCoefficient)}$. Determine the radius.`,
       `Find the radius of a closed cylinder when its total surface area minus its curved surface area is ${areaCoefficient(differenceCoefficient)}.`,
     ]),
     answer,
@@ -362,7 +366,7 @@ function cylinderVolumeFromBothAreasDraft(prototypeId: MenCp008Wave02PrototypeId
       `A cylinder has curved surface area ${areaCoefficient(csaCoefficient)} and total surface area ${areaCoefficient(tsaCoefficient)}. Find its volume.`,
       `The CSA and TSA of a closed cylinder are ${areaCoefficient(csaCoefficient)} and ${areaCoefficient(tsaCoefficient)} respectively. Calculate the exact volume.`,
       `Find the volume of a cylinder whose curved and total surface areas are ${areaCoefficient(csaCoefficient)} and ${areaCoefficient(tsaCoefficient)}.`,
-      `A closed cylindrical solid has $CSA=${areaCoefficient(csaCoefficient)}$ and $TSA=${areaCoefficient(tsaCoefficient)}$. What is its volume?`,
+      `A closed cylindrical solid has $CSA=${areaCoefficientBody(csaCoefficient)}$ and $TSA=${areaCoefficientBody(tsaCoefficient)}$. What is its volume?`,
     ]),
     answer,
     wrongAnswers: [
@@ -581,7 +585,7 @@ function coneHeightFromBothAreasDraft(prototypeId: MenCp008Wave02PrototypeId, se
       `A cone has curved surface area ${areaCoefficient(csaCoefficient)} and total surface area ${areaCoefficient(tsaCoefficient)}. Find its perpendicular height.`,
       `The CSA and TSA of a cone are ${areaCoefficient(csaCoefficient)} and ${areaCoefficient(tsaCoefficient)}. Calculate its height.`,
       `Find the vertical height of a cone whose curved and total surface areas are ${areaCoefficient(csaCoefficient)} and ${areaCoefficient(tsaCoefficient)}.`,
-      `A right cone has $CSA=${areaCoefficient(csaCoefficient)}$ and $TSA=${areaCoefficient(tsaCoefficient)}$. What is its perpendicular height?`,
+      `A right cone has $CSA=${areaCoefficientBody(csaCoefficient)}$ and $TSA=${areaCoefficientBody(tsaCoefficient)}$. What is its perpendicular height?`,
     ]),
     answer,
     wrongAnswers: [

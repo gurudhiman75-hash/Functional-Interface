@@ -10,7 +10,7 @@ const ALL = { ...MENSURATION_NATIVE_STEM_TEMPLATES_V1, ...MENSURATION_NATIVE_STE
 
 // Flip to true once every Mensuration pattern has native templates: any stem that falls back to the
 // old word-swapping path then fails the test.
-const REQUIRE_FULL_COVERAGE = false;
+const REQUIRE_FULL_COVERAGE = true;
 const GURMUKHI = new RegExp("[\\u0A00-\\u0A7F]");
 const DEVANAGARI = new RegExp("[\\u0900-\\u0963\\u0966-\\u097F]");
 
@@ -53,7 +53,7 @@ for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS as Array<{ patternId:
       for (const slot of slots) assert.ok(q.stem.includes(localizeMensurationSlotWordsV1(slot, language)), `${pattern.patternId}/${seed}/${language}: lost "${slot}" in "${q.stem}"`);
       assert.deepEqual(latinWords(q.stem), [], `${pattern.patternId}/${seed}/${language}: Latin words in "${q.stem}"`);
       assert.ok(language === "hi" ? !GURMUKHI.test(q.stem) : !DEVANAGARI.test(q.stem), `${pattern.patternId}/${language}: wrong script`);
-      assert.ok(!/\{\d+\}/.test(q.stem), `${pattern.patternId}/${language}: unfilled slot`);
+      assert.ok(!/\{\d+\}/.test(q.stem.replace(/\$[^$]*\$/g, " ")), `${pattern.patternId}/${language}: unfilled slot`);
       checked += 1;
     }
   }

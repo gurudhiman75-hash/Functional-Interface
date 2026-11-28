@@ -20,8 +20,9 @@ const prefixes = flag("--prefix", "MEN-").split(",");
 const seen = new Map<string, { slots: number; count: number; skeleton: string }>();
 for (const pattern of MENSURATION_QUESTION_STUDIO_PATTERNS as Array<{ patternId: string }>) {
   if (!prefixes.some((prefix) => pattern.patternId.startsWith(prefix))) continue;
-  for (let i = 0; i < seedCount; i += 1) {
-    const q = generateMensurationLocalizedQuestionV1({ patternId: pattern.patternId, seed: `s${i}`, language: "en" });
+  const seeds = [...Array.from({ length: seedCount }, (_, i) => `s${i}`), ...["a", "b", "c", "d", "e", "f", "g", "h"]];
+  for (const seed of seeds) {
+    const q = generateMensurationLocalizedQuestionV1({ patternId: pattern.patternId, seed, language: "en" });
     const skeleton = mensurationStemSkeletonV1(q.stem);
     const key = `${pattern.patternId}|${skeleton}`;
     const row = seen.get(key);
