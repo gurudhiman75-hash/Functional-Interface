@@ -32,5 +32,5 @@ for (const [packageId, corpus] of Object.entries(CORPORA)) {
   assert.equal(audit.mixedScriptCount, 0);
 }
 
-assert.ok(covered >= 528, `expected at least 528 native GEO questions, found ${covered}`);
+assert.ok(covered >= 582, `expected at least 582 native GEO questions, found ${covered}`);
 console.log(`indian geography native HI/PA: ${covered} questions verified`);

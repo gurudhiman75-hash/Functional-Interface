@@ -12,3 +12,4 @@
 | GEO-IND-001-CP008-Q040 | The stem asks about Namrup, while every option and the explanation refer to Sindri. The keyed pair identifies Sindri in Jharkhand. |
 | GEO-IND-001-CP009-Q023 | The stem asks about Bengaluru–Tamil Nadu, but all four options concern Gujarat. The explanation describes Gujarat's textile and petrochemical industries. |
 | GEO-IND-001-CP009-Q016, Q026, Q030, Q036, Q042, Q045, Q046 | The stems refer to “this region” without naming the region in the item. They depend on checkpoint context that may be absent when Studio delivers questions individually. |
+| GEO-IND-001-CP010-Q009, Q017, Q021, Q023 | The items say “the corridor” or “this corridor” with no named referent in the stem. The relevant corridor is clear only from other items in the checkpoint. |

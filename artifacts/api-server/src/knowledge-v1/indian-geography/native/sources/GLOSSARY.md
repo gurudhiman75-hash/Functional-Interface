@@ -64,3 +64,7 @@
 | Industrial belt | औद्योगिक पट्टी | ਉਦਯੋਗਿਕ ਪੱਟੀ |
 | Hinterland | पृष्ठप्रदेश | ਪਿਛਲਾ ਇਲਾਕਾ |
 | Mineral-based industry | खनिज आधारित उद्योग | ਖਣਿਜ-ਆਧਾਰਿਤ ਉਦਯੋਗ |
+| Industrial corridor | औद्योगिक गलियारा | ਉਦਯੋਗਿਕ ਗਲਿਆਰਾ |
+| Industrial node | औद्योगिक केंद्र | ਉਦਯੋਗਿਕ ਕੇਂਦਰ |
+| Dedicated freight corridor | समर्पित माल ढुलाई गलियारा | ਸਮਰਪਿਤ ਮਾਲ-ਢੁਆਈ ਗਲਿਆਰਾ |
+| Export-oriented manufacturing | निर्यात-उन्मुख विनिर्माण | ਨਿਰਯਾਤ ਲਈ ਨਿਰਮਾਣ |
