@@ -1,4 +1,10 @@
 import { MENSURATION_NATIVE_STEM_TEMPLATES_V1 } from "./mensuration-native-stem-templates-v1";
+import { MENSURATION_NATIVE_STEM_TEMPLATES_MEN002_V1 } from "./mensuration-native-stem-templates-men002-v1";
+
+const ALL_TEMPLATES: Readonly<Record<string, readonly [string, string]>> = {
+  ...MENSURATION_NATIVE_STEM_TEMPLATES_V1,
+  ...MENSURATION_NATIVE_STEM_TEMPLATES_MEN002_V1,
+};
 
 export type MensurationNativeStemLanguage = "hi" | "pa";
 
@@ -46,16 +52,27 @@ export function extractMensurationStemSlotsV1(stem: string): string[] {
   return [...stem.matchAll(SLOT_PATTERN)].map((match) => match[0]);
 }
 
+/** English stem with every number/math token replaced by {1}, {2}, ... in order. */
+export function mensurationStemSkeletonV1(stem: string): string {
+  let index = 0;
+  return stem.replace(SLOT_PATTERN, () => `{${(index += 1)}}`);
+}
+
+/**
+ * Template lookup order:
+ *   1. `${patternId}|${skeleton}`  exact English wording (use when wordings of one pattern mean different things)
+ *   2. `${patternId}#${slotCount}` one template for every wording of that pattern with that many numbers
+ */
+export function mensurationNativeTemplateKeysV1(patternId: string, englishStem: string) {
+  const skeleton = mensurationStemSkeletonV1(englishStem);
+  const slotCount = extractMensurationStemSlotsV1(englishStem).length;
+  return [`${patternId}|${skeleton}`, mensurationNativeStemKeyV1(patternId, slotCount)];
+}
+
 export function mensurationNativeStemKeyV1(patternId: string, slotCount: number) {
   return `${patternId}#${slotCount}`;
 }
 
-export function hasMensurationNativeStemV1(patternId: string, slotCount: number) {
-  return Object.prototype.hasOwnProperty.call(
-    MENSURATION_NATIVE_STEM_TEMPLATES_V1,
-    mensurationNativeStemKeyV1(patternId, slotCount),
-  );
-}
 
 /** Returns the native stem, or null when this pattern/shape has no reviewed template yet. */
 export function renderMensurationNativeStemV1(
@@ -64,8 +81,9 @@ export function renderMensurationNativeStemV1(
   language: MensurationNativeStemLanguage,
 ): string | null {
   const slots = extractMensurationStemSlotsV1(englishStem);
-  const key = mensurationNativeStemKeyV1(patternId, slots.length);
-  const entry = MENSURATION_NATIVE_STEM_TEMPLATES_V1[key];
+  const entry = mensurationNativeTemplateKeysV1(patternId, englishStem)
+    .map((key) => ALL_TEMPLATES[key])
+    .find((candidate) => candidate !== undefined);
   if (!entry) return null;
   const template = language === "hi" ? entry[0] : entry[1];
   let missing = false;
