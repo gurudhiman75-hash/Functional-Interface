@@ -173,6 +173,40 @@ router.post("/production/master-pack-approval/revoke", requireAdminPermission("c
   }
 });
 
+router.get("/production/master-pack-publication", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const { loadDailyMasterPackPublication } = await import("../current-affairs/daily-master-pack-publication-runtime");
+    res.json(await loadDailyMasterPackPublication(requestedDate(req.query.date)));
+  } catch (error) {
+    sendError(res, error, "Unable to load Daily Master Pack publication state");
+  }
+});
+
+router.post("/production/master-pack-publication/publish", requireAdminPermission("content.questions.publish"), async (req, res) => {
+  try {
+    const { publishDailyMasterPack } = await import("../current-affairs/daily-master-pack-publication-runtime");
+    res.status(201).json(await publishDailyMasterPack({
+      contentDate: requestedDate(req.body?.date),
+      actorUserId: adminActor(req),
+    }));
+  } catch (error) {
+    sendError(res, error, "Unable to publish Daily Master Pack");
+  }
+});
+
+router.post("/production/master-pack-publication/withdraw", requireAdminPermission("content.questions.publish"), async (req, res) => {
+  try {
+    const { withdrawDailyMasterPack } = await import("../current-affairs/daily-master-pack-publication-runtime");
+    res.json(await withdrawDailyMasterPack({
+      contentDate: requestedDate(req.body?.date),
+      actorUserId: adminActor(req),
+      reason: String(req.body?.reason ?? ""),
+    }));
+  } catch (error) {
+    sendError(res, error, "Unable to withdraw Daily Master Pack");
+  }
+});
+
 router.get("/production/master-pack", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);

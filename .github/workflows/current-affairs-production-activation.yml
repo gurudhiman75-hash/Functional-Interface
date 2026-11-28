@@ -78,6 +78,8 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack-approval-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/open-news-discovery.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/headline-autopick-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack-publication-policy.test.ts
 
       - name: Verify ordered production schema bootstrap
         shell: bash
@@ -181,7 +183,7 @@ jobs:
           grep -Fq 'DAILY_MASTER_PACK_LANGUAGES = ["en", "hi", "pa"]' "$master"
           grep -Fq 'localized_event_parity_incomplete' "$master"
           grep -Fq 'evaluateLocalizedMasterPackParity' "$master"
-          grep -Fq 'Draft only. Publication and Question Bank promotion require separate editorial authority.' "$master"
+          grep -Fq 'Prepared by Examtree. Check the linked sources for full details.' "$master"
           grep -Fq 'assertDailyMasterPackPdfFontCoverage' "$pdf"
           grep -Fq 'GlobalFonts.registerFromPath' "$pdf"
           grep -Fq 'cmapSubtables' "$pdf"
@@ -234,7 +236,7 @@ jobs:
           grep -Fq '/admin/current-affairs/production/master-pack-approval/revoke' "$client"
           grep -Fq 'Approve & lock EN/HI/PA' "$card"
           grep -Fq 'Return to review' "$card"
-          grep -Fq 'learner publication remains disabled' "$card"
+          grep -Fq 'learner publication is a separate step' "$card"
 
       - name: Verify production route, audit entity, and admin action
         shell: bash

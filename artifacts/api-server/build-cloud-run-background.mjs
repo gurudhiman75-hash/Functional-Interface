@@ -13,7 +13,10 @@ globalThis.require = createRequire(import.meta.url);
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 await build({
-  entryPoints: [path.join(root, "src/cloud-run-background.ts")],
+  entryPoints: [
+    path.join(root, "src/cloud-run-background.ts"),
+    path.join(root, "src/current-affairs-job.ts"),
+  ],
   outdir: path.join(root, "dist"),
   // esbuild-plugin-pino appends its own transport/worker entry points.
   // A constant name makes all of those entries collide with our worker.
@@ -35,6 +38,6 @@ await build({
   ],
   plugins: [esbuildPluginPino({ transports: ["pino-pretty"] })],
   banner: {
-    js: "import { createRequire as __require } from 'node:module'; globalThis.require = __require(import.meta.url);",
+    js: "import { createRequire as __examtreeCreateRequire } from 'node:module'; globalThis.require = __examtreeCreateRequire(import.meta.url);",
   },
 });
