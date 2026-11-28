@@ -1,9 +1,28 @@
-import { getQuantV4EntityResolver } from "./entity-context-map";
-import { EntityReference } from "./entity-types";
+import type { EntityReference } from "./entity-types";
+import business from "./entity-libraries/business-library.json";
+import education from "./entity-libraries/education-library.json";
+import financialConcept from "./entity-libraries/financial-concept-library.json";
+import group from "./entity-libraries/group-library.json";
+import percentageLabel from "./entity-libraries/percentage-label-library.json";
+import subject from "./entity-libraries/subject-library.json";
+import unit from "./entity-libraries/unit-library.json";
 
 type QuantV4Language = "en" | "hi" | "pa";
 
-const LABEL_ENTITY_REFS: Record<string, EntityReference> = {
+// Ship the same entity records with the generator so label lookup works from
+// bundled API and worker builds regardless of their working directory.
+const LABEL_ENTITIES = {
+  business,
+  education,
+  "financial-concept": financialConcept,
+  group,
+  "percentage-label": percentageLabel,
+  subject,
+  unit,
+};
+type LabelEntityReference = EntityReference & { categoryId: keyof typeof LABEL_ENTITIES };
+
+const LABEL_ENTITY_REFS: Readonly<Partial<Record<string, LabelEntityReference>>> = {
   "a": { categoryId: "percentage-label", entityId: "a" },
   "accounts": { categoryId: "percentage-label", entityId: "accounts" },
   "active users": { categoryId: "percentage-label", entityId: "active_users" },
@@ -213,12 +232,12 @@ export function localizePercentageLabel(label: string, language: QuantV4Language
   if (!normalizedLabel) {
     throw new MissingLabelLocalizationError(label, language, "empty-label");
   }
-  const reference = LABEL_ENTITY_REFS[normalizedLabel];
+  const reference = Object.hasOwn(LABEL_ENTITY_REFS, normalizedLabel) ? LABEL_ENTITY_REFS[normalizedLabel] : undefined;
   if (!reference) {
     throw new MissingLabelLocalizationError(label, language, "missing-localization");
   }
-  const localized = getQuantV4EntityResolver().resolveEntity(reference.categoryId, reference.entityId, language);
-  if (localized.startsWith("[[MISSING_ENTITY:")) {
+  const localized = LABEL_ENTITIES[reference.categoryId].find(entity => entity.id === reference.entityId)?.[language];
+  if (!localized) {
     throw new MissingLabelLocalizationError(label, language, "missing-localization");
   }
   return localized;
