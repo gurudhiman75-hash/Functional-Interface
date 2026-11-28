@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { fileURLToPath } from "url";
 import { EntityCategory } from "./entity-types";
 import { EntityLibrary } from "./entity-library";
 import { EntityResolver } from "./entity-resolver";
@@ -75,10 +76,22 @@ let sharedLibrary: EntityLibrary | undefined;
 let sharedResolver: EntityResolver | undefined;
 let sharedPicker: EntityPicker | undefined;
 
+function moduleRelativeEntityLibraryPath(): string[] {
+  try {
+    const url = (import.meta as { url?: string }).url;
+    return url ? [path.join(path.dirname(fileURLToPath(url)), "entity-libraries")] : [];
+  } catch {
+    return [];
+  }
+}
+
 function entityLibraryPath() {
   const candidates = [
     path.join(process.cwd(), "src/quant-v4/common/entity-libraries"),
     path.join(process.cwd(), "artifacts/api-server/src/quant-v4/common/entity-libraries"),
+    // Source runs started from any other folder (scripts, sweeps). Bundled builds have no
+    // module URL here and keep using the cwd candidates above.
+    ...moduleRelativeEntityLibraryPath(),
   ];
   return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0]!;
 }

@@ -1,3 +1,4 @@
+import { normalizeQuestionStudioBatch } from "./output-normalizer.ts";
 import {
   generateQuestion as generateQuantQuestionStudioQuestion,
   listQuantV4Packages,
@@ -575,6 +576,10 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 }
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
+  return normalizeQuestionStudioBatch(await generateQuestionUnnormalized(request));
+}
+
+async function generateQuestionUnnormalized(request: SharedQuestionStudioGenerationRequest = {}) {
   if (isNumCp012QuestionStudioRequest(request)) {
     return generateNumCp012QuestionStudioBatch(request);
   }

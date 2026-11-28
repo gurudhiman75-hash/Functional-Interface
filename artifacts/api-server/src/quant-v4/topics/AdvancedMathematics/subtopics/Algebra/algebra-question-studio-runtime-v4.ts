@@ -184,6 +184,11 @@ function dataSufficiencyText(value: string, language: AlgebraStudioLanguage): st
   return tuple[language === "en" ? 0 : language === "hi" ? 1 : 2];
 }
 
+const COMPARISON_ANSWER_KEYS = new Set([
+  "X_GREATER_THAN_Y", "X_LESS_THAN_Y", "X_GREATER_THAN_OR_EQUAL_TO_Y", "X_LESS_THAN_OR_EQUAL_TO_Y",
+  "X_EQUAL_TO_Y", "RELATION_CANNOT_BE_ESTABLISHED", "CANNOT_BE_DETERMINED",
+]);
+
 function comparisonText(value: string, language: AlgebraStudioLanguage): string {
   const map: Record<string, string> = {
     X_GREATER_THAN_Y: "x > y",
@@ -273,7 +278,7 @@ function numericCandidates(value: any): string[] {
   const parts = rationalParts(value);
   if (!parts) return [];
   const [n, d] = parts;
-  const reciprocal = n === 0n ? "1" : `${d}/${n}`;
+  const reciprocal = n === 0n ? "1" : (n === 1n || n === -1n) ? String(n * d) : n < 0n ? `-${d}/${-n}` : `${d}/${n}`;
   return [
     rationalNegate(value),
     rationalShift(value, 1n),
@@ -447,7 +452,12 @@ function extremaCandidates(answer: any, correct: string, language: AlgebraStudio
 }
 
 function distractorCandidates(answer: any, correct: string, language: AlgebraStudioLanguage): string[] {
-  if (typeof answer === "string") return relationOptions(language);
+  if (typeof answer === "string") {
+    if (COMPARISON_ANSWER_KEYS.has(answer)) return relationOptions(language);
+    const match = answer.trim().match(/^(-?\d+)(?:\/(\d+))?$/);
+    if (match) return numericCandidates({ numerator: match[1], denominator: match[2] ?? "1" });
+    return [];
+  }
   const kind = String(answer?.kind ?? "");
   if (["RATIONAL", "UNIQUE_VALUE", "PARAMETER_VALUE", "EXCLUDED_VALUE"].includes(kind)) return numericCandidates(answer.value);
   if (kind === "POLYNOMIAL" || kind === "FACTORIZATION") return polynomialCandidates(correct);
@@ -488,7 +498,7 @@ function misconceptionIdFor(answer: any, correct: string, wrong: string, languag
     const parts = rationalParts(value);
     if (parts) {
       const [n, d] = parts;
-      const reciprocal = n === 0n ? "1" : `${d}/${n}`;
+      const reciprocal = n === 0n ? "1" : (n === 1n || n === -1n) ? String(n * d) : n < 0n ? `-${d}/${-n}` : `${d}/${n}`;
       if (wrong === reciprocal) return "RECIPROCAL_USED";
       const plusTwo = d === 1n ? String(n + 2n) : `${n + 2n * d}/${d}`;
       if (wrong === plusTwo) return "OFF_BY_TWO_HIGH";

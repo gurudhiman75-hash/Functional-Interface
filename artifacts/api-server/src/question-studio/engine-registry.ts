@@ -1,3 +1,4 @@
+import { normalizeQuestionStudioBatch } from "./output-normalizer";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioEngineId,
@@ -194,7 +195,7 @@ export async function generateQuestionStudioQuestions(
   QuestionStudioGenerationResult & { engineId: QuestionStudioEngineId }
 > {
   const adapter = resolveQuestionStudioEngine(request);
-  const result = await adapter.generate(request);
+  const result = normalizeQuestionStudioBatch(await adapter.generate(request));
   return {
     ...result,
     engineId: adapter.engineId,

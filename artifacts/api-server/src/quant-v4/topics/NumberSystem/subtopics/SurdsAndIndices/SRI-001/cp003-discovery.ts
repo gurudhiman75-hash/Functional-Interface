@@ -35,6 +35,15 @@ function powerAnswer(text: string, value: Rational): SriCandidateAnswer {
   return { text, canonicalKey: `R:${rationalKey(value)}` };
 }
 
+/** Power-form distractors so a power-form answer is not the only option written as a power. */
+function exponentDistractors(base: number, exponent: number, wrongExponents: readonly [number, string][], correctKey: string): SriDistractor[] {
+  return powerDistractors(wrongExponents.filter(([e]) => e !== exponent).map(([e, misconceptionId]) => ({
+    text: e >= 0 ? `${base}^${e}` : `1/${base}^${-e}`,
+    value: evaluateExactRationalPower(rational(base), rationalExponent(e)),
+    misconceptionId,
+  })), correctKey);
+}
+
 function powerDistractors(items: readonly { text: string; value: Rational; misconceptionId: string }[], correctKey: string): SriDistractor[] {
   const seen = new Set<string>([correctKey]);
   const output: SriDistractor[] = [];
@@ -117,7 +126,12 @@ export function generateSriCp003Candidate(candidateId: string, seed: string): Sr
       const answer = powerAnswer(net >= 0 ? `${commonBase}^${net}` : `1/${commonBase}^${-net}`, solver);
       return finish(candidateId, seed, { commonBase, visible1, visible2, numeratorExponent: m + n, denominatorExponent: n },
         `Simplify ${visible1}^${m + n} ÷ ${visible2}^${n}.`, answer, verifier,
-        rationalDistractors(solver),
+        exponentDistractors(commonBase, net, [
+          [topExponent + bottomExponent, "ADD_INSTEAD_OF_SUBTRACT"],
+          [(m + n) - n, "IGNORE_BASE_TRANSFORMATION_POWER"],
+          [net + 1, "OFF_BY_ONE_AFTER_HARMONISATION"],
+          [net - 1, "OFF_BY_ONE_LOW"],
+        ], answer.canonicalKey),
         "Convert both bases to the same prime base and subtract the denominator exponent contribution.",
         [`Net exponent of ${commonBase} = ${k1}×${m + n} - ${k2}×${n} = ${net}`, `Value = ${formatRational(solver)}`]);
     }
@@ -132,7 +146,12 @@ export function generateSriCp003Candidate(candidateId: string, seed: string): Sr
       const answer = powerAnswer(`${commonBase}^${netExponent}`, solver);
       return finish(candidateId, seed, { commonBase, reciprocalBase: `1/${reciprocalBase}`, reciprocalExponent: -exponent, positivePower },
         `Simplify (1/${reciprocalBase})^(-${exponent}) × ${commonBase}^${positivePower}.`, answer, verifier,
-        rationalDistractors(solver),
+        exponentDistractors(commonBase, netExponent, [
+          [positivePower - k1 * exponent, "KEEP_NEGATIVE_EXPONENT"],
+          [exponent + positivePower, "IGNORE_BASE_TRANSFORMATION_POWER"],
+          [netExponent + 1, "OFF_BY_ONE_AFTER_HARMONISATION"],
+          [netExponent - 1, "OFF_BY_ONE_LOW"],
+        ], answer.canonicalKey),
         "Reverse the reciprocal under the negative exponent, then express everything with the common base.",
         [`(1/${reciprocalBase})^(-${exponent}) = ${reciprocalBase}^${exponent} = ${commonBase}^${k1 * exponent}`, `Add ${positivePower}: net exponent = ${netExponent}`]);
     }
@@ -142,7 +161,7 @@ export function generateSriCp003Candidate(candidateId: string, seed: string): Sr
       const verifier = multiplyRational(powRationalInteger(rational(visible1), exponent), powRationalInteger(rational(visible2), exponent));
       const solver = powRationalInteger(rational(combinedBase), exponent);
       const commonExponent = (k1 + k2) * exponent;
-      const answer = powerAnswer(`${combinedBase}^${exponent} (= ${commonBase}^${commonExponent})`, solver);
+      const answer = powerAnswer(`${combinedBase}^${exponent}`, solver);
       const stem = sriPick(`${seed}:stem-surface`, [
         `Simplify ${visible1}^${exponent} × ${visible2}^${exponent}.`,
         `Write ${visible1}^${exponent} × ${visible2}^${exponent} as one power.`,
@@ -150,7 +169,11 @@ export function generateSriCp003Candidate(candidateId: string, seed: string): Sr
         `Which single power is equal to ${visible1}^${exponent} × ${visible2}^${exponent}?`,
       ]);
       return finish(candidateId, seed, { commonBase, visible1, visible2, exponent }, stem, answer, verifier,
-        rationalDistractors(solver),
+        powerDistractors([
+          { text: `${visible1 + visible2}^${exponent}`, value: powRationalInteger(rational(visible1 + visible2), exponent), misconceptionId: "ADD_BASES_ON_PRODUCT" },
+          { text: `${combinedBase}^${2 * exponent}`, value: powRationalInteger(rational(combinedBase), 2 * exponent), misconceptionId: "ADD_EQUAL_EXPONENTS" },
+          { text: `${combinedBase}^${exponent + 1}`, value: powRationalInteger(rational(combinedBase), exponent + 1), misconceptionId: "OFF_BY_ONE_EXPONENT" },
+        ], answer.canonicalKey),
         "Equal exponents allow the bases to be multiplied; the composite result can also be harmonised to the prime base.",
         [`(${visible1}×${visible2})^${exponent} = ${combinedBase}^${exponent}`, `Since ${combinedBase} = ${commonBase}^${k1 + k2}, this is ${commonBase}^${commonExponent}.`]);
     }

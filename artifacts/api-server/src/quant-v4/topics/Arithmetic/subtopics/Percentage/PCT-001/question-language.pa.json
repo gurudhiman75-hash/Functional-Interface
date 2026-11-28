@@ -38,7 +38,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-901": {
-        "template": "ਕਿਸੇ ਕਿਤਾਬ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ। ਦੁਕानदार {percentageRate}% ਦੀ ਛੂਟ ਦਿੰਦਾ ਹੈ। ਛੂਟ ਦੀ ਰਕਮ ਕੀ ਹੈ?",
+        "template": "ਕਿਸੇ ਕਿਤਾਬ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ। ਦੁਕਾਨਦਾਰ {percentageRate}% ਦੀ ਛੂਟ ਦਿੰਦਾ ਹੈ। ਛੂਟ ਦੀ ਰਕਮ ਕੀ ਹੈ?",
         "difficulty": "Easy"
       },
       "PCT-QL-1001": {
@@ -282,7 +282,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-1004": {
-        "template": "ਇੱਕ ਦੁਕानदार ਨੇ Rs. {value} ਦੀ ਛੂਟ Rs. {baseValue} ਦੀ ਦਰਜ ਕੀਮਤ 'ਤੇ ਦਿੱਤੀ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "template": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ Rs. {value} ਦੀ ਛੂਟ Rs. {baseValue} ਦੀ ਦਰਜ ਕੀਮਤ 'ਤੇ ਦਿੱਤੀ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-1104": {
@@ -422,7 +422,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-509": {
-        "template": "ਇੱਕ ਦੁਕानदार ਨੇ {value} ਵਸਤੂਆਂ ਵੇਚੀਆਂ, ਜੋ ਉਸਦੇ ਕੁੱਲ ਸਟਾਕ ਦਾ {percentageRate}% ਸਨ। ਉਸਦਾ ਕੁੱਲ ਸਟਾਕ ਕਿੰਨਾ ਸੀ?",
+        "template": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ {value} ਵਸਤੂਆਂ ਵੇਚੀਆਂ, ਜੋ ਉਸਦੇ ਕੁੱਲ ਸਟਾਕ ਦਾ {percentageRate}% ਸਨ। ਉਸਦਾ ਕੁੱਲ ਸਟਾਕ ਕਿੰਨਾ ਸੀ?",
         "difficulty": "Easy"
       },
       "PCT-QL-609": {

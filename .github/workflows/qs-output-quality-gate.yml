@@ -1,0 +1,36 @@
+name: Question Studio output quality gate
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/api-server/src/quant-v4/**
+      - artifacts/api-server/src/reasoning-v1/**
+      - artifacts/api-server/src/knowledge-v1/**
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/language-v1/**
+      - artifacts/api-server/src/punjabi-v1/**
+      - .github/workflows/qs-output-quality-gate.yml
+  workflow_dispatch:
+concurrency:
+  group: qs-output-quality-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  output-quality-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Gate rule unit tests
+        run: pnpm --dir artifacts/api-server exec tsx src/question-studio/output-quality-gate.test.ts
+      - name: Sweep every package in EN/HI/PA against the known-defect baseline
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: pnpm --dir artifacts/api-server exec tsx src/question-studio/output-quality-gate-sweep.ts
