@@ -39,6 +39,7 @@ import {
   repairMensurationLearnerMathSurface,
 } from "./mensuration-localization-editorial-v1";
 import { buildMensurationSimpleExplanationV1 } from "./mensuration-localization-simple-solution-v1";
+import { renderMensurationNativeStemV1 } from "./native/mensuration-native-stem-v1";
 
 export type MensurationLocalizedQuestionV1 = Omit<
   MensurationQuestionStudioQuestionV2,
@@ -182,7 +183,9 @@ function localizeQuestion(
     ...option,
     text: options[index]!,
   }));
-  const stem = translateStem(source.stem, language);
+  const stem =
+    renderMensurationNativeStemV1(canonical.patternId, source.stem, language) ??
+    translateStem(source.stem, language);
   const answer = options[source.correctIndex]!;
   const explanation = {
     steps: localizedExplanationSteps(source, answer, language),
