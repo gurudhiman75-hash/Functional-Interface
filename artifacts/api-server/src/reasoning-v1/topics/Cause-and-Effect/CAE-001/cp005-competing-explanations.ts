@@ -118,7 +118,7 @@ export const CP005_COMPETING_SCENARIOS: readonly Scenario[] = Object.freeze([
     id: "rail-section-delay",
     difficulty: "HARD",
     observation: l("Several trains lost time while passing the same rail section.", "एक ही रेल खंड से गुजरते समय कई ट्रेनों को देरी हुई।", "ਇੱਕੋ ਰੇਲ ਖੰਡ ਤੋਂ ਲੰਘਦਿਆਂ ਕਈ ਰੇਲਾਂ ਨੂੰ ਦੇਰੀ ਹੋਈ।"),
-    evidence: l("The speed restriction appeared only where track water level had risen after prolonged rain; signalling tests were normal.", "गति प्रतिबंध केवल वहीं लगा जहाँ लंबे समय की बारिश के बाद पटरी पर पानी बढ़ा था; सਿਗ्नल परीक्षण सामान्य थे।", "ਗਤੀ ਪਾਬੰਦੀ ਸਿਰਫ਼ ਉੱਥੇ ਲੱਗੀ ਜਿੱਥੇ ਲੰਬੇ ਮੀਂਹ ਤੋਂ ਬਾਅਦ ਪਟੜੀ ਉੱਤੇ ਪਾਣੀ ਵਧਿਆ ਸੀ; ਸਿਗਨਲ ਜਾਂਚ ਆਮ ਸੀ।"),
+    evidence: l("The speed restriction appeared only where track water level had risen after prolonged rain; signalling tests were normal.", "गति प्रतिबंध केवल वहीं लगा जहाँ लंबे समय की बारिश के बाद पटरी पर पानी बढ़ा था; सिग्नल परीक्षण सामान्य थे।", "ਗਤੀ ਪਾਬੰਦੀ ਸਿਰਫ਼ ਉੱਥੇ ਲੱਗੀ ਜਿੱਥੇ ਲੰਬੇ ਮੀਂਹ ਤੋਂ ਬਾਅਦ ਪਟੜੀ ਉੱਤੇ ਪਾਣੀ ਵਧਿਆ ਸੀ; ਸਿਗਨਲ ਜਾਂਚ ਆਮ ਸੀ।"),
     explanation: l("Waterlogging caused by prolonged rain best explains the location-specific speed restriction while signalling remained normal.", "लंबी बारिश से हुआ जलभराव स्थान-विशिष्ट गति प्रतिबंध को सबसे अच्छी तरह समझाता है, जबकि सिग्नल सामान्य थे।", "ਲੰਬੇ ਮੀਂਹ ਨਾਲ ਹੋਇਆ ਪਾਣੀ ਭਰਾਅ ਥਾਂ-ਵਿਸ਼ੇਸ਼ ਗਤੀ ਪਾਬੰਦੀ ਨੂੰ ਸਭ ਤੋਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਉਂਦਾ ਹੈ, ਜਦਕਿ ਸਿਗਨਲ ਆਮ ਸਨ।"),
     candidates: [
       c("rail-waterlogging", "Prolonged rain caused water to collect on that track section.", "लंबी बारिश से उस पटरी खंड पर पानी जमा हो गया।", "ਲੰਬੇ ਮੀਂਹ ਕਾਰਨ ਉਸ ਪਟੜੀ ਖੰਡ ਉੱਤੇ ਪਾਣੀ ਇਕੱਠਾ ਹੋ ਗਿਆ।", true, "CLOSE"),

@@ -209,10 +209,17 @@ function assertionSentence(
   const subject = expressionNominal(prompt, assertion.subject, locale);
   const reference = expressionNominal(prompt, assertion.reference, locale);
   if (assertion.relation.kind === "SAME_PERSON") {
+    // Native identity form: "उसका पिता ही आपकी माता का एकमात्र पुत्र है।"
+    const sameCopula =
+      assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "SPEAKER"
+        ? localeText(locale, "हूँ", "ਹਾਂ")
+        : assertion.subject.kind === "ANCHOR" && assertion.subject.anchor === "LISTENER"
+          ? localeText(locale, "हैं", "ਹੋ")
+          : localeText(locale, "है", "ਹੈ");
     return localeText(
       locale,
-      `${subject} और ${reference} एक ही व्यक्ति हैं।`,
-      `${subject} ਅਤੇ ${reference} ਇੱਕੋ ਵਿਅਕਤੀ ਹਨ।`,
+      `${subject} ही ${reference} ${sameCopula}।`,
+      `${subject} ਹੀ ${reference} ${sameCopula}।`,
     );
   }
   const role = assertion.relation.relationId;
@@ -266,6 +273,9 @@ function localizedStem(
   const quote = clues.join(" ");
   const question = questionText(prompt, locale);
   const form: BlrCp002QuestionForm = prompt.questionForm ?? "HOW_RELATED";
+  // When a listener exists the quote addresses them ("your mother"), so name them as in English.
+  const saidHi = listener ? `ने ${listener} से कहा` : "ने कहा";
+  const saidPa = listener ? `ਨੇ ${listener} ਨੂੰ ਕਿਹਾ` : "ਨੇ ਕਿਹਾ";
 
   if (prompt.presentation === "CONVERSATION") {
     return {
@@ -281,8 +291,8 @@ function localizedStem(
     return {
       stem: localeText(
         locale,
-        `एक व्यक्ति का चित्र देखते हुए, ${speaker} ने कहा, “${quote}” ${question}`,
-        `ਇੱਕ ਵਿਅਕਤੀ ਦਾ ਚਿੱਤਰ ਵੇਖਦੇ ਹੋਏ, ${speaker} ਨੇ ਕਿਹਾ, “${quote}” ${question}`,
+        `एक व्यक्ति का चित्र देखते हुए, ${speaker} ${saidHi}, “${quote}” ${question}`,
+        `ਇੱਕ ਵਿਅਕਤੀ ਦਾ ਚਿੱਤਰ ਵੇਖਦੇ ਹੋਏ, ${speaker} ${saidPa}, “${quote}” ${question}`,
       ),
       normalizedClues: clues,
     };
@@ -291,8 +301,8 @@ function localizedStem(
     return {
       stem: localeText(
         locale,
-        `एक व्यक्ति की तस्वीर की ओर इशारा करते हुए, ${speaker} ने कहा, “${quote}” ${question}`,
-        `ਇੱਕ ਵਿਅਕਤੀ ਦੀ ਤਸਵੀਰ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ਨੇ ਕਿਹਾ, “${quote}” ${question}`,
+        `एक व्यक्ति की तस्वीर की ओर इशारा करते हुए, ${speaker} ${saidHi}, “${quote}” ${question}`,
+        `ਇੱਕ ਵਿਅਕਤੀ ਦੀ ਤਸਵੀਰ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ${saidPa}, “${quote}” ${question}`,
       ),
       normalizedClues: clues,
     };
@@ -301,8 +311,8 @@ function localizedStem(
     return {
       stem: localeText(
         locale,
-        `एक व्यक्ति की ओर इशारा करते हुए, ${speaker} ने कहा, “${quote}” ${question}`,
-        `ਇੱਕ ਵਿਅਕਤੀ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ਨੇ ਕਿਹਾ, “${quote}” ${question}`,
+        `एक व्यक्ति की ओर इशारा करते हुए, ${speaker} ${saidHi}, “${quote}” ${question}`,
+        `ਇੱਕ ਵਿਅਕਤੀ ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ${saidPa}, “${quote}” ${question}`,
       ),
       normalizedClues: clues,
     };
@@ -311,8 +321,8 @@ function localizedStem(
     return {
       stem: localeText(
         locale,
-        `मंच पर ${pointed} की ओर इशारा करते हुए, ${speaker} ने कहा, “${quote}” ${question}`,
-        `ਮੰਚ ਉੱਤੇ ${pointed} ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ਨੇ ਕਿਹਾ, “${quote}” ${question}`,
+        `मंच पर ${pointed} की ओर इशारा करते हुए, ${speaker} ${saidHi}, “${quote}” ${question}`,
+        `ਮੰਚ ਉੱਤੇ ${pointed} ਵੱਲ ਇਸ਼ਾਰਾ ਕਰਦੇ ਹੋਏ, ${speaker} ${saidPa}, “${quote}” ${question}`,
       ),
       normalizedClues: clues,
     };
@@ -320,8 +330,8 @@ function localizedStem(
   return {
     stem: localeText(
       locale,
-      `${pointed} का परिचय देते हुए, ${speaker} ने कहा, “${quote}” ${question}`,
-      `${pointed} ਦੀ ਜਾਣ-ਪਛਾਣ ਕਰਵਾਉਂਦੇ ਹੋਏ, ${speaker} ਨੇ ਕਿਹਾ, “${quote}” ${question}`,
+      `${pointed} का परिचय देते हुए, ${speaker} ${saidHi}, “${quote}” ${question}`,
+      `${pointed} ਦੀ ਜਾਣ-ਪਛਾਣ ਕਰਵਾਉਂਦੇ ਹੋਏ, ${speaker} ${saidPa}, “${quote}” ${question}`,
     ),
     normalizedClues: clues,
   };

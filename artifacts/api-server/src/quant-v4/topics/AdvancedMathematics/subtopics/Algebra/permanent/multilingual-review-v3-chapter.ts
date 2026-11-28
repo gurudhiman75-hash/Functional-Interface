@@ -194,11 +194,15 @@ function localizeCp009Target(english: any, locale: AlgReviewLocale) {
 
   const a = formatRational(equation.a);
   const b = formatRational(equation.b);
-  const cTerm = formatRational(equation.c);
   const parameterValue = String(raw.answerText ?? "");
+  // Take the equation exactly as the English stem prints it (with k unsolved).
+  // Rebuilding it from the solved coefficients printed the answer into the stem.
+  const printed = String(english.question ?? "").match(/([^,;:?]*?k\b[^,;:?]*?= 0)/u)?.[1]
+    ?.replace(/^.*?(?=-?\d*x²)/u, "").trim();
+  if (!printed) throw new Error(`ALG-CP009-CAND-005: equation with k not found in English stem: ${english.question}`);
   const question = locale === "hi-IN"
-    ? `k के किस मान पर ${a}x² + ${b}x + ${cTerm} = 0 के समान मूल होंगे?`
-    : `k ਦੇ ਕਿਹੜੇ ਮਾਨ ਲਈ ${a}x² + ${b}x + ${cTerm} = 0 ਦੇ ਬਰਾਬਰ ਮੂਲ ਹੋਣਗੇ?`;
+    ? `k के किस मान पर समीकरण ${printed} के मूल बराबर होंगे?`
+    : `k ਦੇ ਕਿਸ ਮੁੱਲ ਲਈ ਸਮੀਕਰਨ ${printed} ਦੇ ਮੂਲ ਬਰਾਬਰ ਹੋਣਗੇ?`;
 
   const explanation = locale === "hi-IN"
     ? [

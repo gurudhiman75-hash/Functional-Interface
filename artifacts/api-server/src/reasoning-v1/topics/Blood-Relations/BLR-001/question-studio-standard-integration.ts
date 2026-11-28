@@ -249,14 +249,31 @@ function explanationText(source: Record<string, any>) {
   ].filter(Boolean).map(String).join("\n\n");
 }
 
+const SOLVER_TRACE_LINE = /^[A-Z][A-Z_]+\s*=|->/m;
+const normalizeForOverlap = (value: string) => value.replace(/[\s“”"'’,.;:।?]+/gu, " ").trim();
+
+/**
+ * The shared prompt is shown above the stem only when it adds information.
+ * Prompts that are solver traces (`LISTENER = …`, `mother -> …`) or that
+ * restate facts the stem already contains are dropped.
+ */
+export function learnerFacingPrompt(prompt: string, stem: string): string {
+  if (!prompt) return "";
+  if (SOLVER_TRACE_LINE.test(prompt)) return "";
+  const normalizedStem = normalizeForOverlap(stem);
+  const lines = prompt.split(/\n+|(?<=[.।])\s+/u).map(normalizeForOverlap).filter(Boolean);
+  if (lines.length > 0 && lines.every((line) => normalizedStem.includes(line))) return "";
+  return prompt;
+}
+
 function toStandardQuestion(
   spec: PackageSpec,
   language: Blr001StandardLanguage,
   source: Record<string, any>,
 ) {
   const releaseEligibleAfterApproval = spec.releaseEligibleAfterApproval;
-  const prompt = String(source.sharedPrompt ?? "").trim();
   const learnerStem = String(source.stem ?? "").trim();
+  const prompt = learnerFacingPrompt(String(source.sharedPrompt ?? "").trim(), learnerStem);
   const text = prompt ? `${prompt}\n\n${learnerStem}` : learnerStem;
   const authority = sourceAuthority(spec, language, source);
   const questionBankStatus = "NOT_STORED";
