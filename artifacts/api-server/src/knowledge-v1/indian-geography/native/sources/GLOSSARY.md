@@ -80,3 +80,23 @@
 | Paper pulp | लुगदी | ਲੁਗਦੀ |
 | Natural rubber | प्राकृतिक रबर | ਕੁਦਰਤੀ ਰਬੜ |
 | Synthetic rubber | संश्लेषित रबर | ਬਣਾਵਟੀ ਰਬੜ |
+
+## GEO-AGR-001
+
+| English | Hindi | Punjabi |
+| --- | --- | --- |
+| Kharif | खरीफ़ | ਸਾਉਣੀ |
+| Rabi | रबी | ਹਾੜ੍ਹੀ |
+| Zaid | ज़ायद | ਜ਼ਾਇਦ |
+| Crop calendar | फसल चक्र | ਫ਼ਸਲੀ ਚੱਕਰ |
+| Paddy and rice as a standing crop | धान | ਝੋਨਾ |
+| Primitive subsistence farming | आदिम निर्वाह कृषि | ਮੁੱਢਲੀ ਗੁਜ਼ਾਰਾ ਖੇਤੀ |
+| Intensive subsistence farming | गहन निर्वाह कृषि | ਸੰਘਣੀ ਗੁਜ਼ਾਰਾ ਖੇਤੀ |
+| Shifting cultivation | स्थानांतरी कृषि | ਥਾਂ ਬਦਲਵੀਂ ਖੇਤੀ |
+| Plantation farming | बागान कृषि | ਬਾਗ਼ਾਨੀ ਖੇਤੀ |
+| Commercial farming | वाणिज्यिक कृषि | ਵਪਾਰਕ ਖੇਤੀ |
+| Alluvial soil | जलोढ़ मिट्टी | ਜਲੋੜ ਮਿੱਟੀ |
+| Rain-fed | वर्षा पर निर्भर | ਵਰਖਾ 'ਤੇ ਨਿਰਭਰ |
+| Millet | मोटा अनाज | ਮੋਟਾ ਅਨਾਜ |
+| Pulse crop | दलहनी फसल | ਦਾਲ ਦੀ ਫ਼ਸਲ |
+| Nitrogen fixation | नाइट्रोजन स्थिरीकरण | ਨਾਈਟ੍ਰੋਜਨ ਸਥਿਰੀਕਰਨ |

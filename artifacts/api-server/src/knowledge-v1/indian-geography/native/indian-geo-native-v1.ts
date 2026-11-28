@@ -1,7 +1,8 @@
+import { GEO_AGR_001_NATIVE_HI_PA_V1 } from "./geo-agr-001-native-hi-pa-v1";
 import { GEO_IND_001_NATIVE_HI_PA_V1 } from "./geo-ind-001-native-hi-pa-v1";
 import { indianGeoNativeSourceHashV1, type IndianGeoNativeRecordsV1 } from "./native-record-v1";
 
-const RECORDS: readonly IndianGeoNativeRecordsV1[] = [GEO_IND_001_NATIVE_HI_PA_V1];
+const RECORDS: readonly IndianGeoNativeRecordsV1[] = [GEO_IND_001_NATIVE_HI_PA_V1, GEO_AGR_001_NATIVE_HI_PA_V1];
 const BY_ID: ReadonlyMap<string, IndianGeoNativeRecordsV1[string]> = new Map(
   RECORDS.flatMap((records) => Object.entries(records)),
 );

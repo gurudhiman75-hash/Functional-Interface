@@ -1,10 +1,14 @@
 import assert from "node:assert/strict";
+import { GEO_AGR_001_QUESTION_STUDIO_CORPUS_V1 } from "../../../question-studio/engines/knowledge-v1-geo-agr-001-adapter-v1";
 import { GEO_IND_001_QUESTION_STUDIO_CORPUS_V1 } from "../../../question-studio/engines/knowledge-v1-geo-ind-001-adapter-v1";
 import { auditIndianGeoLocalizationV1, localizeIndianGeoQuestionV1 } from "../indian-geo-localization-v1";
 import { hasIndianGeoNativeRecordV1 } from "./indian-geo-native-v1";
 import { indianGeoNativeResidueCountV1 } from "./native-record-v1";
 
-const CORPORA = { "GEO-IND-001": GEO_IND_001_QUESTION_STUDIO_CORPUS_V1 } as const;
+const CORPORA = {
+  "GEO-IND-001": GEO_IND_001_QUESTION_STUDIO_CORPUS_V1,
+  "GEO-AGR-001": GEO_AGR_001_QUESTION_STUDIO_CORPUS_V1,
+} as const;
 
 const OTHER_SCRIPT = { hi: /[਀-੿]/u, pa: /[ऀ-ॣ०-ॿ]/u } as const;
 const NATIVE_SCRIPT = { hi: /[ऀ-ॿ]/u, pa: /[਀-੿]/u } as const;
@@ -33,7 +37,7 @@ for (const [packageId, corpus] of Object.entries(CORPORA)) {
   assert.equal(audit.mixedScriptCount, 0);
 }
 
-assert.ok(covered >= 690, `expected at least 690 native GEO questions, found ${covered}`);
+assert.ok(covered >= 852, `expected at least 852 native GEO questions, found ${covered}`);
 
 const missing = {
   ...GEO_IND_001_QUESTION_STUDIO_CORPUS_V1[0]!,
