@@ -39,3 +39,10 @@
 | Blast-furnace slag | वात्या भट्टी का धातुमल | ਬਲਾਸਟ ਫਰਨੇਸ ਦੀ ਸਲੈਗ |
 | Rail siding | रेलवे साइडिंग | ਰੇਲਵੇ ਸਾਈਡਿੰਗ |
 | Grinding unit | पिसाई इकाई | ਪਿਸਾਈ ਇਕਾਈ |
+| Alumina | ऐलुमिना | ਐਲੂਮੀਨਾ |
+| Smelting | प्रगलन | ਗਲਾਈ |
+| Electrolysis | विद्युत अपघटन | ਬਿਜਲਈ ਅਪਘਟਨ |
+| Non-ferrous metallurgy | अलौह धातुकर्म | ਅਲੋਹ ਧਾਤਕਾਰੀ |
+| Corrosion resistance | संक्षारण प्रतिरोध | ਖੋਰ ਦਾ ਟਾਕਰਾ |
+| Primary aluminium | प्राथमिक ऐलुमिनियम | ਮੁੱਢਲਾ ਐਲੂਮੀਨੀਅਮ |
+| Secondary aluminium | द्वितीयक ऐलुमिनियम | ਦੁਜੈਲਾ ਐਲੂਮੀਨੀਅਮ |
