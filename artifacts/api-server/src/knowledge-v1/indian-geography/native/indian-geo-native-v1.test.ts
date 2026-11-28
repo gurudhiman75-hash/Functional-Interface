@@ -2,13 +2,14 @@ import assert from "node:assert/strict";
 import { GEO_IND_001_QUESTION_STUDIO_CORPUS_V1 } from "../../../question-studio/engines/knowledge-v1-geo-ind-001-adapter-v1";
 import { auditIndianGeoLocalizationV1, localizeIndianGeoQuestionV1 } from "../indian-geo-localization-v1";
 import { hasIndianGeoNativeRecordV1 } from "./indian-geo-native-v1";
+import { indianGeoNativeResidueCountV1 } from "./native-record-v1";
 
 const CORPORA = { "GEO-IND-001": GEO_IND_001_QUESTION_STUDIO_CORPUS_V1 } as const;
 
 const OTHER_SCRIPT = { hi: /[਀-੿]/u, pa: /[ऀ-ॣ०-ॿ]/u } as const;
 const NATIVE_SCRIPT = { hi: /[ऀ-ॿ]/u, pa: /[਀-੿]/u } as const;
-// English words left in a translation. Acronyms (SAIL, RINL), Roman numerals and single letters are fine.
-const ENGLISH_WORD = /\b(?![IVX]+\b)[A-Za-z]*[a-z][A-Za-z]{2,}\b/;
+assert.equal(indianGeoNativeResidueCountV1("SAIL (RINL) I II III A B"), 0);
+assert.equal(indianGeoNativeResidueCountV1("UPi सिंधुtry ਉਦਯੋਗA"), 3);
 
 let covered = 0;
 for (const [packageId, corpus] of Object.entries(CORPORA)) {
@@ -22,7 +23,7 @@ for (const [packageId, corpus] of Object.entries(CORPORA)) {
       const where = `${question.questionId}:${language}`;
       assert.ok(NATIVE_SCRIPT[language].test(localized.stem), `${where} stem has no native script`);
       assert.ok(!OTHER_SCRIPT[language].test(all), `${where} contains the other Indic script`);
-      assert.ok(!ENGLISH_WORD.test(all), `${where} contains an English word: ${all.match(ENGLISH_WORD)?.[0]}`);
+      assert.equal(indianGeoNativeResidueCountV1(all), 0, `${where} contains Latin residue`);
       assert.equal(new Set(localized.options).size, localized.options.length, `${where} duplicate options`);
       assert.equal(localized.canonicalAnswer, localized.options[question.correctIndex], `${where} answer`);
     }
@@ -33,4 +34,15 @@ for (const [packageId, corpus] of Object.entries(CORPORA)) {
 }
 
 assert.ok(covered >= 690, `expected at least 690 native GEO questions, found ${covered}`);
+
+const missing = {
+  ...GEO_IND_001_QUESTION_STUDIO_CORPUS_V1[0]!,
+  questionId: "GEO-IND-001-CP013-Q999",
+};
+for (const language of ["hi", "pa"] as const) {
+  const error = { message: `GEO-IND-001 ${missing.questionId}: no native ${language} translation` };
+  assert.throws(() => localizeIndianGeoQuestionV1(missing, language, "GEO-IND-001"), error);
+  assert.throws(() => localizeIndianGeoQuestionV1(missing, language), error);
+}
+assert.equal(localizeIndianGeoQuestionV1(missing, "en", "GEO-IND-001").stem, missing.stem);
 console.log(`indian geography native HI/PA: ${covered} questions verified`);

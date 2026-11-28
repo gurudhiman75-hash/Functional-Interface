@@ -23,3 +23,15 @@ export function indianGeoNativeSourceHashV1(stem: string, options: readonly stri
   }
   return hash.toString(16).padStart(8, "0");
 }
+
+// Isolated acronyms, Roman numerals and single Latin labels are allowed.
+const WORD_TOKEN = /[\p{L}\p{M}\p{Nd}]+/gu;
+const LATIN_WORD = /(?=[A-Za-z]*[a-z])[A-Za-z]{3,}/;
+const LATIN = /\p{Script=Latin}/u;
+const INDIC = /[\p{Script=Devanagari}\p{Script=Gurmukhi}]/u;
+
+export function indianGeoNativeResidueCountV1(text: string): number {
+  return (text.match(WORD_TOKEN) ?? []).filter(
+    (word) => LATIN_WORD.test(word) || (LATIN.test(word) && INDIC.test(word)),
+  ).length;
+}
