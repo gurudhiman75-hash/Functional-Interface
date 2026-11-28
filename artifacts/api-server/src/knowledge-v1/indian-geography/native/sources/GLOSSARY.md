@@ -60,3 +60,7 @@
 | Rock phosphate | शैल फ़ॉस्फ़ेट | ਚੱਟਾਨੀ ਫ਼ਾਸਫ਼ੇਟ |
 | Sulphuric acid | सल्फ़्यूरिक अम्ल | ਸਲਫ਼ਿਊਰਿਕ ਤੇਜ਼ਾਬ |
 | Pharmaceutical industry | औषधि उद्योग | ਦਵਾਈ ਉਦਯੋਗ |
+| Industrial region | औद्योगिक क्षेत्र | ਉਦਯੋਗਿਕ ਖੇਤਰ |
+| Industrial belt | औद्योगिक पट्टी | ਉਦਯੋਗਿਕ ਪੱਟੀ |
+| Hinterland | पृष्ठप्रदेश | ਪਿਛਲਾ ਇਲਾਕਾ |
+| Mineral-based industry | खनिज आधारित उद्योग | ਖਣਿਜ-ਆਧਾਰਿਤ ਉਦਯੋਗ |

@@ -10,3 +10,5 @@
 | GEO-IND-001-CP007-Q024 | The stem does not name the two cities. Several distractors refer to “both” without a clear antecedent, while the intended answer identifies Chennai and Pune explicitly. |
 | GEO-IND-001-CP008-Q034 | The stem asks which pair identifies Sindri, but no option names Sindri. The keyed option and explanation describe general gas supply to nitrogenous-fertilizer plants. |
 | GEO-IND-001-CP008-Q040 | The stem asks about Namrup, while every option and the explanation refer to Sindri. The keyed pair identifies Sindri in Jharkhand. |
+| GEO-IND-001-CP009-Q023 | The stem asks about Bengaluru–Tamil Nadu, but all four options concern Gujarat. The explanation describes Gujarat's textile and petrochemical industries. |
+| GEO-IND-001-CP009-Q016, Q026, Q030, Q036, Q042, Q045, Q046 | The stems refer to “this region” without naming the region in the item. They depend on checkpoint context that may be absent when Studio delivers questions individually. |
