@@ -54,7 +54,9 @@ for (const packageId of Object.keys(LP_001_008_PACKAGE_QL_IDS) as Array<keyof ty
       assert.equal(question.mockTestEligible, false);
       assert.equal(question.publiclyPublishable, false);
       assert.match(question.questionLanguageId, new RegExp(`-${language.toUpperCase()}$`, "u"));
-      assert.match(question.text, /Clues:\n/u, `${packageId}/${language}: standalone Question Studio text must include clues`);
+      const cluesHeading = { en: /Clues:\n/u, hi: /संकेत:\n/u, pa: /ਸੰਕੇਤ:\n/u }[language];
+      assert.match(question.text, cluesHeading, `${packageId}/${language}: standalone Question Studio text must include the localized clues heading`);
+      if (language !== "en") assert.doesNotMatch(question.text, /Clues:/u, `${packageId}/${language}: English clues heading leaked into localized text`);
       assert.ok(question.packageExplanation.lines.some((line) => line.includes("|---")), `${packageId}/${language}: progressive/final table missing`);
     }
   }
