@@ -7,3 +7,4 @@
 | GEO-IND-001-CP005-Q024, Q036 | Both stems ask which comparison is correct without first naming the two places. Only the intended answer explicitly identifies the states, so the comparison distractors lack clear referents. |
 | GEO-IND-001-CP006-Q012, Q030, Q050 | A stem asks for a metal or metal industry, but some distractors name nonmetals, non-mineral products, or ores. This makes the intended answer easier to infer without knowing the industrial geography. |
 | GEO-IND-001-CP006-Q038 | The distractor “cement quarrying” treats cement as a quarried material. Plants quarry raw materials such as limestone. The translation preserves the wording. |
+| GEO-IND-001-CP007-Q024 | The stem does not name the two cities. Several distractors refer to “both” without a clear antecedent, while the intended answer identifies Chennai and Pune explicitly. |

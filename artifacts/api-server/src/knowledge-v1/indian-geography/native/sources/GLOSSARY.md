@@ -46,3 +46,10 @@
 | Corrosion resistance | संक्षारण प्रतिरोध | ਖੋਰ ਦਾ ਟਾਕਰਾ |
 | Primary aluminium | प्राथमिक ऐलुमिनियम | ਮੁੱਢਲਾ ਐਲੂਮੀਨੀਅਮ |
 | Secondary aluminium | द्वितीयक ऐलुमिनियम | ਦੁਜੈਲਾ ਐਲੂਮੀਨੀਅਮ |
+| Engineering industry | अभियांत्रिकी उद्योग | ਇੰਜੀਨੀਅਰਿੰਗ ਉਦਯੋਗ |
+| Capital goods | पूँजीगत वस्तुएँ | ਪੂੰਜੀਗਤ ਵਸਤਾਂ |
+| Machine tools | मशीन औज़ार | ਮਸ਼ੀਨੀ ਔਜ਼ਾਰ |
+| Aerospace | वायु-अंतरिक्ष | ਹਵਾਈ ਤੇ ਪੁਲਾੜ ਉਦਯੋਗ |
+| Heavy electrical engineering | भारी विद्युत अभियांत्रिकी | ਭਾਰੀ ਬਿਜਲਈ ਇੰਜੀਨੀਅਰਿੰਗ |
+| Shipbuilding | जहाज़ निर्माण | ਸਮੁੰਦਰੀ ਜਹਾਜ਼ ਬਣਾਉਣਾ |
+| Locomotive | रेल इंजन | ਰੇਲ ਇੰਜਣ |
